@@ -1,7 +1,8 @@
 {
   "registry_key": "reverie_dreams:dark_cuisine",
-  "values": [
-    "reverie_dreams:food/dark_cuisine",
-    "reverie_dreams:food/dark_cuisine"
-  ]
+  "properties": {
+    "values": [
+      "reverie_dreams:food/dark_cuisine"
+    ]
+  }
 }

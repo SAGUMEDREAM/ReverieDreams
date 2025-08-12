@@ -17,7 +17,7 @@ public class DanmakuTrajectories {
     public static final DanmakuTrajectory RING = register(Touhou.id("ring"), new RingTrajectory());
 
     public static DanmakuTrajectory register(Identifier key, DanmakuTrajectory value) {
-        return RegistryManager.register(RegistryManager.DANMAKU_TRAJECTORY, key, value, true);
+        return RegistryManager.registerFinal(RegistryManager.DANMAKU_TRAJECTORY, key, value);
     }
 
     public static void bootstrap(StandaloneRegistry<DanmakuTrajectory> registry) {

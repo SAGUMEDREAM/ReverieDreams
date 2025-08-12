@@ -1,5 +1,6 @@
 package cc.thonly.mystias_izakaya.item;
 
+import cc.thonly.mystias_izakaya.item.base.DrinkItem;
 import cc.thonly.mystias_izakaya.item.base.FoodItem;
 import cc.thonly.mystias_izakaya.item.base.IngredientItem;
 import cc.thonly.reverie_dreams.item.BasicItem;
@@ -14,6 +15,7 @@ import java.util.List;
 public class MIItems {
     public static final List<Item> INGREDIENTS = new LinkedList<>();
     public static final List<Item> FOOD_ITEMS = new LinkedList<>();
+    public static final List<Item> DRINK_ITEMS = new LinkedList<>();
     public static final Item MYSTIA_ICON = registerItem(new BasicItem("mystia_icon", new Item.Settings()));
 
     // 食材
@@ -233,6 +235,22 @@ public class MIItems {
     public static final Item YUNSHAN_COTTON_CANDY = registerFoodItem(new FoodItem("food/yunshan_cotton_candy", 0, 0f, new Item.Settings()));
     public static final Item ZHAJI = registerFoodItem(new FoodItem("food/zhaji", 0, 0f, new Item.Settings()));
 
+    // 酒水
+    public static final Item GREEN_TEA = registerDrinkItem(new DrinkItem("drink/green_tea", new Item.Settings()));
+    public static final Item FRUITY_HIGH_BALL = registerDrinkItem(new DrinkItem("drink/fruity_high_ball", new Item.Settings()));
+    public static final Item FRUITY_SOUR = registerDrinkItem(new DrinkItem("drink/fruity_sour", new Item.Settings()));
+    public static final Item QI = registerDrinkItem(new DrinkItem("drink/qi", new Item.Settings()));
+    public static final Item BEER = registerDrinkItem(new DrinkItem("drink/beer", new Item.Settings()));
+    public static final Item SUN_MOON_STAR = registerDrinkItem(new DrinkItem("drink/sun_moon_star", new Item.Settings()));
+    public static final Item PLUM_WINE = registerDrinkItem(new DrinkItem("drink/plum_wine", new Item.Settings()));
+    public static final Item TENGU_DANCE = registerDrinkItem(new DrinkItem("drink/tengu_dance", new Item.Settings()));
+    public static final Item SCARLET_DEVIL = registerDrinkItem(new DrinkItem("drink/scarlet_devil", new Item.Settings()));
+    public static final Item GODS_WHEAT = registerDrinkItem(new DrinkItem("drink/gods_wheat", new Item.Settings()));
+    public static final Item OTTER_FESTIVAL = registerDrinkItem(new DrinkItem("drink/otter_festival", new Item.Settings()));
+    public static final Item DAWN = registerDrinkItem(new DrinkItem("drink/dawn", new Item.Settings()));
+    public static final Item SPARROW_SAKE = registerDrinkItem(new DrinkItem("drink/sparrow_sake", new Item.Settings()));
+    public static final Item SCARLET_DEVIL_MANSION_BLACK_TEA = registerDrinkItem(new DrinkItem("drink/scarlet_devil_mansion_black_tea", new Item.Settings()));
+
     public static void registerItems() {
 
     }
@@ -246,6 +264,12 @@ public class MIItems {
     public static Item registerFoodItem(IdentifierGetter item) {
         Item tItem = registerItem(item);
         FOOD_ITEMS.add(tItem);
+        return tItem;
+    }
+
+    public static Item registerDrinkItem(IdentifierGetter item) {
+        Item tItem = registerItem(item);
+        DRINK_ITEMS.add(tItem);
         return tItem;
     }
 

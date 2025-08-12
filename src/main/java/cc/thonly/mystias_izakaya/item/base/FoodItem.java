@@ -1,6 +1,7 @@
 package cc.thonly.mystias_izakaya.item.base;
 
 import cc.thonly.mystias_izakaya.component.FoodProperty;
+import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerItem;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -12,6 +13,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -24,15 +26,31 @@ public class FoodItem extends BasicPolymerItem {
     }
 
     public FoodItem(String path, List<FoodProperty> foodProperties, Settings settings) {
-        super(path, settings, Items.APPLE);
+        super(
+                path,
+                settings.component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()),
+                Items.APPLE
+        );
     }
 
     public FoodItem(String path, List<FoodProperty> foodProperties, Integer nutrition, Float saturation, Settings settings) {
-        this(path, settings.food(new FoodComponent.Builder().nutrition(nutrition + 2).saturationModifier(saturation + 2).build()));
+        this(
+                path,
+                settings.food(new FoodComponent.Builder()
+                                .nutrition(nutrition + 2)
+                                .saturationModifier(saturation + 2)
+                                .build()
+                        )
+                        .component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()));
     }
 
     public FoodItem(String path, Integer nutrition, Float saturation, Settings settings) {
-        this(path, settings.food(new FoodComponent.Builder().nutrition(nutrition + 2).saturationModifier(saturation + 2).build()));
+        this(path, settings
+                .food(new FoodComponent.Builder()
+                        .nutrition(nutrition + 2)
+                        .saturationModifier(saturation + 2)
+                        .build()
+                ));
     }
 
     public static final Map<ItemStack, List<FoodProperty>> CACHED_ITEM2FOOD = new WeakHashMap<>();

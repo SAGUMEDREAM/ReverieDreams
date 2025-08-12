@@ -35,7 +35,7 @@ public class DanmakuTypes {
     }
 
     public static DanmakuType register(Identifier key, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        return RegistryManager.register(RegistryManager.DANMAKU_TYPE, key, new DanmakuType(key, damage, scale, speed, tile, infinite), true);
+        return RegistryManager.registerFinal(RegistryManager.DANMAKU_TYPE, key, new DanmakuType(key, damage, scale, speed, tile, infinite));
     }
 
     public static ItemStack withColor(DanmakuType type, ItemColor color) {

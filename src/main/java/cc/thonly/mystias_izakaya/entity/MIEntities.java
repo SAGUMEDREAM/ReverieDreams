@@ -1,6 +1,7 @@
 package cc.thonly.mystias_izakaya.entity;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
+import cc.thonly.mystias_izakaya.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerSpawnEggItem;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
@@ -35,6 +36,13 @@ public class MIEntities {
                             .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
                             .add(EntityAttributes.SCALE, 1.5f)
                             .build());
+    public static final EntityType<TavernVillager> TAVERN_VILLAGER =
+            ModEntities.registerEntityWithSpawnEgg("tavern_villager",
+                    EntityType.Builder.<TavernVillager>create(TavernVillager::new, SpawnGroup.MISC)
+                            .dimensions(0.6f, 1.95f).eyeHeight(1.62f).maxTrackingRange(10)
+                            .build(ModEntities.of("tavern_villager")),
+                    () -> TavernVillager.createLivingAttributes().build()
+            );
 
     public static void init() {
         BiomeModifications.addSpawn(

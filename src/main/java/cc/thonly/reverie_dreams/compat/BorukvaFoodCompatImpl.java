@@ -51,7 +51,7 @@ public class BorukvaFoodCompatImpl {
             Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.stream();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
-                Set<Item> tags = property.getTags();
+                Set<Item> tags = property.getItems();
                 if (property.equals(FoodProperties.SWEET)) {
                     tags.add(ModItems.GRAPE);
                 }

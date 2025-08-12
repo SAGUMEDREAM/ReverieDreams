@@ -43,7 +43,7 @@ public class FarmersdelightCompatImpl {
             Stream<? extends Map.Entry<Identifier, FoodProperty>> stream = registry.stream();
             stream.forEach((Consumer<Map.Entry<Identifier, FoodProperty>>) mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
-                Set<Item> tags = property.getTags();
+                Set<Item> tags = property.getItems();
                 if (property.equals(FoodProperties.VEGETARIAN)) {
                     tags.add(ModItems.CABBAGE.get());
                     tags.add(ModItems.CABBAGE_LEAF.get());

@@ -2,8 +2,9 @@ package cc.thonly.mystias_izakaya.registry;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.component.CraftingConflict;
+import cc.thonly.mystias_izakaya.component.DrinkProperty;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.mystias_izakaya.api.FoodPropertyCallback;
+import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,10 @@ public class MIRegistryManager extends RegistryManager {
             .codec(FoodProperty.CODEC)
             .reloadable(FoodProperties::reload)
             .build(FoodProperties::bootstrap);
+    public static final StandaloneRegistry<DrinkProperty> DRINK_PROPERTY = ofEntry(DrinkProperty.class, MystiasIzakaya.id("drink_property"))
+            .codec(DrinkProperty.CODEC)
+            .reloadable(DrinkProperties::reload)
+            .build(DrinkProperties::bootstrap);
     public static final StandaloneRegistry<CraftingConflict> CRAFTING_CONFLICT = ofEntry(CraftingConflict.class, MystiasIzakaya.id("crafting_conflict"))
             .codec(CraftingConflict.CODEC)
             .reloadable(CraftingConflict::reload)
@@ -23,7 +28,7 @@ public class MIRegistryManager extends RegistryManager {
 
     public static void bootstrap() {
         FOOD_PROPERTY.apply();
-        FoodPropertyCallback.EVENT.register((world, user, property) -> {
+        FoodPropertyLoaderCallback.EVENT.register((world, user, property) -> {
             if (property.is(FoodProperties.COOL)) {
                 user.setOnFire(false);
                 user.setFireTicks(0);

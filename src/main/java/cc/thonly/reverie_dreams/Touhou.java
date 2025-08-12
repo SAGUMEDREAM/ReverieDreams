@@ -57,6 +57,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
@@ -231,6 +232,16 @@ public class Touhou implements ModInitializer {
                     }
                 }
 
+            }
+            return true;
+        });
+
+        ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
+            MinecraftServer server = target.getServer();
+            if (server != null && target.getWorld() instanceof ServerWorld serverWorld && target.getType() == ModEntities.GHOST_ENTITY_TYPE && stack.getItem() == ModItems.ROKANKEN) {
+                DamageSources damageSources = attacker.getDamageSources();
+                target.lastDamageTaken = 0;
+                target.damage(serverWorld, damageSources.magic(), Integer.MAX_VALUE);
             }
             return true;
         });

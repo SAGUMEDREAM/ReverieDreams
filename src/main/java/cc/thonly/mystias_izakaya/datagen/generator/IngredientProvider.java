@@ -4,10 +4,9 @@ import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.reverie_dreams.datagen.generator.DataGeneratorUtil;
 import com.google.common.hash.HashCode;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,13 +24,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
+@SuppressWarnings("rawTypes")
 public abstract class IngredientProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<RegistryWrapper.WrapperLookup> future;
@@ -47,15 +44,14 @@ public abstract class IngredientProvider implements DataProvider {
     public Factory createFactory(FoodProperty property) {
         Identifier id = property.getId();
         if (this.identifier2BuilderListMap.containsKey(id)) {
-            Factory factory = this.identifier2BuilderListMap.get(id);
-            return factory;
+            return this.identifier2BuilderListMap.get(id);
         }
         Factory factory = new Factory(id, property);
         this.identifier2BuilderListMap.put(id, factory);
         return factory;
     }
 
-    public Factory createFactory(FoodProperty property, Item ...items) {
+    public Factory createFactory(FoodProperty property, Item... items) {
         Factory factory = createFactory(property);
         factory.getList().addAll(Arrays.stream(items).toList());
         return factory;
@@ -77,22 +73,21 @@ public abstract class IngredientProvider implements DataProvider {
             for (var entry : this.identifier2BuilderListMap.entrySet()) {
                 Identifier identifier = entry.getKey();
                 Factory factory = entry.getValue();
-                List<Item> list = factory.getList();
-                List<String> itemIds = list.stream().filter(item -> item != Items.AIR).map((item) -> Registries.ITEM.getId(item).toString()).toList();
+                factory.getProperty().setId(identifier);
                 Path generatePath = DataGeneratorUtil.getData(path, MystiasIzakaya.MOD_ID, "food_property", null);
 
-                JsonArray array = new JsonArray();
-                itemIds.forEach(array::add);
-                JsonObject element = new JsonObject();
-                element.addProperty("registry_key", identifier.toString());
-                element.add("values", array);
+                DataResult<JsonElement> result = FoodProperty.CODEC.encodeStart(JsonOps.INSTANCE, factory.getProperty());
+                Optional<JsonElement> optional = result.result();
 
-                Path output = generatePath.resolve(identifier.getPath() + ".json");
-                String jsonString = this.gson.toJson(element);
-                byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                Files.createDirectories(output.getParent());
+                if (optional.isPresent()) {
+                    JsonElement element = optional.get();
+                    Path output = generatePath.resolve(identifier.getPath() + ".json");
+                    String jsonString = this.gson.toJson(element);
+                    byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
+                    Files.createDirectories(output.getParent());
 
-                writer.write(output, bytes, HashCode.fromBytes(bytes));
+                    writer.write(output, bytes, HashCode.fromBytes(bytes));
+                }
             }
         } catch (Exception err) {
             log.error("Error: ", err);
@@ -101,7 +96,7 @@ public abstract class IngredientProvider implements DataProvider {
 
     @Setter
     @Getter
-    protected static class Factory {
+    public static class Factory {
         private final Identifier id;
         private final FoodProperty property;
         private final List<Item> list = new LinkedList<>();
@@ -123,6 +118,7 @@ public abstract class IngredientProvider implements DataProvider {
         }
 
         public void build() {
+            this.property.getItems().addAll(this.list);
             this.done = true;
         }
 

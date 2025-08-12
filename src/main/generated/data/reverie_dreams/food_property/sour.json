@@ -1,13 +1,11 @@
 {
   "registry_key": "reverie_dreams:sour",
-  "values": [
-    "reverie_dreams:ingredient/lemon",
-    "reverie_dreams:food/gloomy_fruit_pie",
-    "reverie_dreams:food/refreshing_pudding",
-    "reverie_dreams:food/burnt_pudding",
-    "reverie_dreams:ingredient/lemon",
-    "reverie_dreams:food/gloomy_fruit_pie",
-    "reverie_dreams:food/refreshing_pudding",
-    "reverie_dreams:food/burnt_pudding"
-  ]
+  "properties": {
+    "values": [
+      "reverie_dreams:ingredient/lemon",
+      "reverie_dreams:food/burnt_pudding",
+      "reverie_dreams:food/gloomy_fruit_pie",
+      "reverie_dreams:food/refreshing_pudding"
+    ]
+  }
 }

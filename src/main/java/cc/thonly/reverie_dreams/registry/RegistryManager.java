@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.registry;
 
+import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -41,8 +43,7 @@ public class RegistryManager {
     public static final StandaloneRegistry<JavaScriptElement> JAVASCRIPT_ELEMENT = ofEntry(JavaScriptElement.class, Touhou.id("javascript_element"))
             .codec(JavaScriptElement.CODEC)
             .reloadable(JavaScriptManager::reload)
-            .build(JavaScriptManager::bootstrap)
-            ;
+            .build(JavaScriptManager::bootstrap);
     public static final StandaloneRegistry<RoleSkin> ROLE_SKIN = ofEntry(RoleSkin.class, Touhou.id("role_skin"))
             .codec(RoleSkin.CODEC)
             .build(RoleSkins::bootstrap, MobSkins::bootstrap);
@@ -77,12 +78,14 @@ public class RegistryManager {
         return registry.add(key, value);
     }
 
-    public static <T extends RegistrableObject<T>> T register(StandaloneRegistry<T> registry, Identifier key, T value, boolean staticValue) {
+    public static <T extends RegistrableObject<T>> T registerFinal(StandaloneRegistry<T> registry, Identifier key, Supplier<T> builder) {
+        return registerFinal(registry, key, builder.get());
+    }
+
+    public static <T extends RegistrableObject<T>> T registerFinal(StandaloneRegistry<T> registry, Identifier key, T value) {
         T added = registry.add(key, value);
-        if (staticValue) {
-            Map<Identifier, T> staticIdToEntry = registry.getStaticIdToEntry();
-            staticIdToEntry.put(key, value);
-        }
+        Map<Identifier, T> fir = registry.getFinalIdToEntry();
+        fir.put(key, value);
         return added;
     }
 

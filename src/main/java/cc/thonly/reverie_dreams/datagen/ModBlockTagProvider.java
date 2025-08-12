@@ -104,6 +104,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         pickaxeMineables.add(ModBlocks.ICE_SCALES.block(), ModBlocks.ICE_SCALES.slab(), ModBlocks.ICE_SCALES.stair());
 
         minTools.add(Blocks.BEDROCK);
+        minTools.add(Blocks.BARRIER);
         empty.add(Blocks.BEDROCK);
+        empty.add(Blocks.BARRIER);
     }
 }

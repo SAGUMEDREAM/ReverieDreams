@@ -72,9 +72,17 @@ public class NPCDanmakuItemGoal<T extends NPCEntityImpl> extends Goal {
     }
 
     @Override
+    public void stop() {
+        super.stop();
+        this.actor.setAttacking(false);
+        this.actor.clearActiveItem();
+    }
+
+    @Override
     public void tick() {
         LivingEntity target = this.actor.getTarget();
         if (target == null || !target.isAlive()) {
+            this.stop();
             return;
         }
         float[] pitchYaw = MobDanmakuShooter.getPitchYaw(this.actor, target);

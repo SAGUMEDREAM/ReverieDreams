@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.mystias_izakaya.datagen.MICraftingConflictProvider;
+import cc.thonly.mystias_izakaya.datagen.MIDrinkProvider;
 import cc.thonly.mystias_izakaya.datagen.MIIngredientProvider;
 import cc.thonly.reverie_dreams.datagen.*;
 import cc.thonly.reverie_dreams.world.PlacedFeaturesInit;
@@ -30,6 +31,7 @@ public class TouhouDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModRegistryDataGenerator::new);
 
         pack.addProvider(MIIngredientProvider::new);
+        pack.addProvider(MIDrinkProvider::new);
         pack.addProvider(MICraftingConflictProvider::new);
     }
 

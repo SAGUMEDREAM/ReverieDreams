@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -34,7 +35,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
     private final Map<Integer, T> rawToEntry;
     private final Map<Identifier, T> idToEntry;
     private final Map<Identifier, Reference<T>> idToReference;
-    private final Map<Identifier, T> staticIdToEntry = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, T> finalIdToEntry = new Object2ObjectOpenHashMap<>();
     private Map<Integer, T> baseRawToEntry = new Object2ObjectLinkedOpenHashMap<>();
     private Map<Identifier, T> baseIdToEntry = new Object2ObjectLinkedOpenHashMap<>();
     private DefaultValueGetter<T> defaultEntryGetter;
@@ -87,6 +88,22 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
         }));
     }
 
+    public void verify() {
+        this.stream().forEach(x -> {
+            Identifier key = x.getKey();
+            T value = x.getValue();
+            if (key == null) {
+                log.error("Can't verify key {} in registry {}", x, this.key);
+            }
+            if (value == null) {
+                log.error("Can't verify value {} -> {} in registry {}", key, null, this.key);
+            }
+            if (key != null && value != null) {
+                log.debug("Verified key value {} -> {} in registry {}", key, value, this.key);
+            }
+        });
+    }
+
     public StandaloneRegistry<T> codec(Codec<T> tCodec) {
         this.entryCodec = tCodec;
         this.entriesCodec = createCodec(this.key, tCodec);
@@ -102,7 +119,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
         this.idToEntry.put(key, value);
         value.setId(key);
         if (!value.isDirect()) {
-            this.staticIdToEntry.put(key, value);
+            this.finalIdToEntry.put(key, value);
         }
         return value;
     }
@@ -124,7 +141,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
         this.idToEntry.put(key, value);
         value.setId(key);
         if (!value.isDirect()) {
-            this.staticIdToEntry.put(key, value);
+            this.finalIdToEntry.put(key, value);
         }
         return value;
     }
@@ -138,7 +155,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
         this.idToEntry.put(key, value);
         value.setId(key);
         if (!value.isDirect()) {
-            this.staticIdToEntry.put(key, value);
+            this.finalIdToEntry.put(key, value);
         }
         return value;
     }
@@ -156,7 +173,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
         }
         value.setId(key);
         if (!value.isDirect()) {
-            this.staticIdToEntry.put(key, value);
+            this.finalIdToEntry.put(key, value);
         }
         return value;
     }
@@ -263,6 +280,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
         if (this.isFrozen()) {
             this.idToEntry.putAll(this.baseIdToEntry);
             this.rawToEntry.putAll(this.baseRawToEntry);
+            this.finalIdToEntry.forEach(this::add);
         }
     }
 
@@ -387,7 +405,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
 
     public StandaloneRegistry<T> apply() {
         if (!this.isFrozen) {
-            this.builders.forEach(builder->builder.bootstrap(this));
+            this.builders.forEach(builder -> builder.bootstrap(this));
             this.baseRawToEntry = new Object2ObjectLinkedOpenHashMap<>(this.rawToEntry);
             this.baseIdToEntry = new Object2ObjectLinkedOpenHashMap<>(this.idToEntry);
             this.isFrozen = true;

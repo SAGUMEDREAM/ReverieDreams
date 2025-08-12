@@ -1,5 +1,18 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.3.0+1.21.7
+* Fixed Nue Trident cannot enchant Mending and Durability
+* Now Danmaku Item can enchant Mending and Durability
+* Now Rokanken can instantly kill Ghost
+* Now Rokanken + right click can see the undead within 16 blocks
+* Wearing silver equipment now prevents ghosts from spawning around you and preventing you from being attacked by ghosts.
+* Added some Touhou Mystia's Izakaya drinks (unfinished)
+* Added Tavern Villager (Using **BARREL** right villager to update it)
+* Initially add beverage tags
+* Remake food tag code and json structure
+## 0.2.9+1.21.7
+* Fixed an issue with PolyMc crashing due to abnormal resource pack files
+* Fixed an issue with Dream Manager save files being incorrectly saved
 ## 0.2.8+1.21.7
 * Updated **en_us** and **zh_tw**
 * Updated Lib FactoryTools version

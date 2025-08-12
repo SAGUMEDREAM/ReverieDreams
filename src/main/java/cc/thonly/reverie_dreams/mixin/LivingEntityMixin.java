@@ -120,7 +120,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     public void setMaxHealth(EntityType<? extends LivingEntity> entityType, World world, CallbackInfo ci) {
         EntityAttributeInstance maxHealthAttributeInstance = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
         if (maxHealthAttributeInstance != null) {
-            maxHealthAttributeInstance.setBaseValue(this.getMaxHealth() + this.maxHealthModifier);
+            maxHealthAttributeInstance.setBaseValue(Math.abs(this.getMaxHealth() + this.maxHealthModifier));
         }
         if (world instanceof ServerWorld) {
             this.kanjuWorld = (ServerWorld) world;
@@ -286,7 +286,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                 EntityAttributeInstance maxHealthAttributeInstance = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
                 if (maxHealthAttributeInstance != null) {
                     if (this.getMaxHealth() > 20) {
-                        maxHealthAttributeInstance.setBaseValue(this.getMaxHealth() - 2);
+                        maxHealthAttributeInstance.setBaseValue(Math.abs(this.getMaxHealth() - 2));
                     }
                 }
             }

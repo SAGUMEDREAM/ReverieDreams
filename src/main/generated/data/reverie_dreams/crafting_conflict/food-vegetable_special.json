@@ -1,8 +1,8 @@
 {
   "item": "reverie_dreams:food/vegetable_special",
   "values": [
-    "reverie_dreams:fiery",
     "reverie_dreams:meat",
-    "reverie_dreams:aquatic_products"
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:fiery"
   ]
 }

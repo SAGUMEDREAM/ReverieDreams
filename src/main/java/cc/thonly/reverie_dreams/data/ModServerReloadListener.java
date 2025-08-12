@@ -25,6 +25,7 @@ public class ModServerReloadListener implements SimpleSynchronousResourceReloadL
                 registry.getReloadableBuilders().forEach(boot -> boot.reload(manager));
                 RegistryManagerReloadCallback.EVENT.invoker().onLoad(registry);
             }
+            registry.verify();
         }
         this.onLoad(manager);
     }

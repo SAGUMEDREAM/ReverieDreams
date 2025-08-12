@@ -7,10 +7,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 
 @FunctionalInterface
-public interface FoodPropertyCallback {
-    Event<FoodPropertyCallback> EVENT = EventFactory.createArrayBacked(FoodPropertyCallback.class,
+public interface FoodPropertyLoaderCallback {
+    Event<FoodPropertyLoaderCallback> EVENT = EventFactory.createArrayBacked(FoodPropertyLoaderCallback.class,
             (listeners) -> (world, user, property) -> {
-                for (FoodPropertyCallback callback : listeners) {
+                for (FoodPropertyLoaderCallback callback : listeners) {
                     callback.onUse(world, user, property);
                 }
             }

@@ -28,13 +28,19 @@ public class ModTags {
         public static final TagKey<Item> FUMO = of("fumo");
         public static final TagKey<Item> ORB_BLOCK = of("orb");
         public static final TagKey<Item> ARMOR = of("armor");
+        public static final TagKey<Item> SILVER_ARMOR = of("silver_armor");
         public static final TagKey<Item> SILVER_TOOL_MATERIALS = of("silver_tool_materials");
+        public static final TagKey<Item> MAGIC_ICE_ARMOR = of("magic_ice_armor");
         public static final TagKey<Item> MAGIC_ICE_TOOL_MATERIALS = of("magic_ice_tool_materials");
+        public static final TagKey<Item> MAID_ARMOR = of("maid_armor");
         public static final TagKey<Item> POWER_BLOCK = of("power_block");
         public static final TagKey<Item> POINT_BLOCK = of("point_block");
         public static final TagKey<Item> SILVER_BLOCK = of("silver_block");
         public static final TagKey<Item> PEACH = of("peach");
         public static final TagKey<Item> VAISRAVANAS_PAGODA = of("vaisravanas_pagoda_materials");
+        public static final TagKey<Item> INGREDIENT_ITEM = of("ingredient_item");
+        public static final TagKey<Item> FOOD_ITEM = of("food_item");
+        public static final TagKey<Item> DRINK_ITEM = of("drink_item");
 
         private static TagKey<Item> of(String id) {
             return TagKey.of(RegistryKeys.ITEM, Touhou.id(id));

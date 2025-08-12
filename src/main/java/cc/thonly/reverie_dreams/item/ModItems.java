@@ -19,6 +19,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.component.type.LoreComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -32,6 +33,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
@@ -40,11 +42,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class ModItems {
     private static final List<Item> ICON_LIST = new ArrayList<>();
     private static final List<Item> ITEM_LIST = new ArrayList<>();
     private static final List<Item> DISC_LIST = new ArrayList<>();
+
+    public static final ItemStack NOT_COMPLETED = ((Supplier<ItemStack>) () -> {
+        ItemStack itemStack = new ItemStack(Items.BARRIER);
+        itemStack.set(DataComponentTypes.ITEM_NAME, Text.literal("§cThis page is not completed"));
+        return itemStack;
+    }).get();
 
     // 调试
     public static final Item BATTLE_STICK = registerSimpleItem(new BattleStickItem("battle_stick", new Item.Settings()));

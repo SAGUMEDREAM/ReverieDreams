@@ -278,6 +278,9 @@ public class ModModelProvider extends FabricModelProvider {
         for (Item item : MIItems.FOOD_ITEMS) {
             itemModelGenerator.register(item, Models.GENERATED);
         }
+        for (Item item : MIItems.DRINK_ITEMS) {
+            itemModelGenerator.register(item, Models.GENERATED);
+        }
     }
 
     public void generateHolder(ItemModelGenerator itemModelGenerator) {

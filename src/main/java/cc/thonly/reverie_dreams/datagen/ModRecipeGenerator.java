@@ -83,18 +83,18 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .input('X', ModBlocks.POWER_BLOCK)
                 .input('#', ModItems.UPGRADED_HEALTH_FRAGMENT)
                 .criterion("has_health_fragment", conditionsFromItem(ModItems.UPGRADED_HEALTH_FRAGMENT))
-                .offerTo(exporter, getRecipeName(ModItems.UPGRADED_HEALTH) + "_copy");
+                .offerTo(exporter, getRecipeName(ModItems.UPGRADED_HEALTH_FRAGMENT) + "_copy");
 
         // 残机
         offerIngotToBlockRecipe(exporter, ModItems.BOMB_FRAGMENT, ModItems.BOMB);
-        createShaped(RecipeCategory.MISC, ModItems.BOMB, 2)
+        createShaped(RecipeCategory.MISC, ModItems.BOMB_FRAGMENT, 2)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
                 .input('X', ModBlocks.POINT_BLOCK)
                 .input('#', ModItems.BOMB_FRAGMENT)
                 .criterion("has_bomb_fragment", conditionsFromItem(ModItems.BOMB_FRAGMENT))
-                .offerTo(exporter, getRecipeName(ModItems.BOMB) + "_copy");
+                .offerTo(exporter, getRecipeName(ModItems.BOMB_FRAGMENT) + "_copy");
 
         // 空白角色卡
         createShaped(RecipeCategory.MISC, ModItems.ROLE_CARD)

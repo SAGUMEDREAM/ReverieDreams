@@ -273,9 +273,12 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
 
         if (itemStack.getItem() instanceof CrossbowItem) {
             ChargedProjectilesComponent chargedProjectilesComponent = itemStack.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
-            for (ItemStack projStack : chargedProjectilesComponent.getProjectiles()) {
-                ProjectileEntity projectile = this.createArrowProjectile(projStack, 3.15f, itemStack);
-                shoot(target, projStack, projectile);
+            if (chargedProjectilesComponent != null) {
+                for (ItemStack projStack : chargedProjectilesComponent.getProjectiles()) {
+                    ProjectileEntity projectile = this.createArrowProjectile(projStack, 3.15f, itemStack);
+                    shoot(target, projStack, projectile);
+                    shoot(target, projStack, projectile);
+                }
             }
 //            shoot(this,3.15f);
             //CrossBowItem L86 玩家射箭的箭矢速度

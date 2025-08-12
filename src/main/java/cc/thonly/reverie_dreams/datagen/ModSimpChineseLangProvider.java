@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.datagen;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.entity.MIEntities;
 import cc.thonly.mystias_izakaya.item.MIItems;
+import cc.thonly.mystias_izakaya.registry.DrinkProperties;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
@@ -135,6 +136,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("item_group.ingredients_item_group", "Gensokyo: Reverie of Lost Dreams - 食材");
         translationBuilder.add("item_group.seed_item_group", "Gensokyo: Reverie of Lost Dreams - 种子");
         translationBuilder.add("item_group.food_item_group", "Gensokyo: Reverie of Lost Dreams - 食物");
+        translationBuilder.add("item_group.drink_item_group", "Gensokyo: Reverie of Lost Dreams - 饮品");
 
         translationBuilder.add(MIBlocks.COOKING_POT, "煮锅");
         translationBuilder.add(MIBlocks.CUTTING_BOARD, "料理台");
@@ -371,12 +373,28 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(MIItems.TWO_HEAVENS_ONE_STYLE, "二天一流");
         translationBuilder.add(MIItems.UDUMBARA_CAKE, "幻昙花糕");
         translationBuilder.add(MIItems.UNCONSCIOUS_MONSTER_MOUSSE, "无意识怪物慕斯");
-        translationBuilder.add(MIItems.VEGETABLE_SPECIAL, "蔬菜特餐");
+        translationBuilder.add(MIItems.VEGETABLE_SPECIAL, "蔬菜特辑");
         translationBuilder.add(MIItems.WARM_RICE_BALL, "温热饭团");
         translationBuilder.add(MIItems.WHITE_PEACH_EIGHT_BRIDGE, "白桃八桥");
         translationBuilder.add(MIItems.YUNSHAN_COTTON_CANDY, "云山棉花糖");
         translationBuilder.add(MIItems.ZHAJI, "炸脊");
 
+        translationBuilder.add(MIItems.GREEN_TEA, "绿茶");
+        translationBuilder.add(MIItems.FRUITY_HIGH_BALL, "果味High Ball");
+        translationBuilder.add(MIItems.FRUITY_SOUR, "果味Sour");
+        translationBuilder.add(MIItems.QI, "淇");
+        translationBuilder.add(MIItems.BEER, "超ZUN啤酒");
+        translationBuilder.add(MIItems.SUN_MOON_STAR, "日月星");
+        translationBuilder.add(MIItems.PLUM_WINE, "梅酒");
+        translationBuilder.add(MIItems.TENGU_DANCE, "天狗踊");
+        translationBuilder.add(MIItems.SCARLET_DEVIL, "猩红恶魔");
+        translationBuilder.add(MIItems.GODS_WHEAT, "神之麦");
+        translationBuilder.add(MIItems.OTTER_FESTIVAL, "水獭祭");
+        translationBuilder.add(MIItems.DAWN, "水獭祭");
+        translationBuilder.add(MIItems.SPARROW_SAKE, "雀酒");
+        translationBuilder.add(MIItems.SCARLET_DEVIL_MANSION_BLACK_TEA, "红魔馆红茶");
+
+        translationBuilder.add(FoodProperties.UNDEFINED.translateKey(), "未定义");
         translationBuilder.add(FoodProperties.MEAT.translateKey(), "肉类");
         translationBuilder.add(FoodProperties.AQUATIC_PRODUCTS.translateKey(), "水产");
         translationBuilder.add(FoodProperties.VEGETARIAN.translateKey(), "素食");
@@ -423,6 +441,29 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(FoodProperties.SIGNATURE.translateKey(), "招牌");
         translationBuilder.add(FoodProperties.CURSE.translateKey(), "诅咒");
 
+        translationBuilder.add(DrinkProperties.UNDEFINED.translateKey(), "未定义");
+        translationBuilder.add(DrinkProperties.ALCOHOL_FREE.translateKey(), "无酒精");
+        translationBuilder.add(DrinkProperties.LOW_ALCOHOL.translateKey(), "低酒精");
+        translationBuilder.add(DrinkProperties.MID_ALCOHOL.translateKey(), "中酒精");
+        translationBuilder.add(DrinkProperties.HIGH_ALCOHOL.translateKey(), "高酒精");
+        translationBuilder.add(DrinkProperties.CAN_ADD_ICE.translateKey(), "可加冰");
+        translationBuilder.add(DrinkProperties.CAN_HEATED.translateKey(), "可加热");
+        translationBuilder.add(DrinkProperties.COCKTAIL.translateKey(), "鸡尾酒");
+        translationBuilder.add(DrinkProperties.WESTERN_WINE.translateKey(), "西洋酒");
+        translationBuilder.add(DrinkProperties.FRUIT.translateKey(), "水果味");
+        translationBuilder.add(DrinkProperties.SWEET.translateKey(), "甘");
+        translationBuilder.add(DrinkProperties.BITTER.translateKey(), "苦");
+        translationBuilder.add(DrinkProperties.SOJU.translateKey(), "烧酒");
+        translationBuilder.add(DrinkProperties.SAKE.translateKey(), "清酒");
+        translationBuilder.add(DrinkProperties.PUNGENT.translateKey(), "辛");
+        translationBuilder.add(DrinkProperties.BUBBLE.translateKey(), "气泡");
+        translationBuilder.add(DrinkProperties.BEER.translateKey(), "啤酒");
+        translationBuilder.add(DrinkProperties.DIRECT_DRINKING.translateKey(), "直饮");
+        translationBuilder.add(DrinkProperties.LIQUEUR.translateKey(), "利口酒");
+        translationBuilder.add(DrinkProperties.REFRESHING.translateKey(), "提神");
+        translationBuilder.add(DrinkProperties.CLASSICAL.translateKey(), "古典");
+        translationBuilder.add(DrinkProperties.MODERN.translateKey(), "现代");
+
         // 植物
         translationBuilder.add(MIBlocks.UDUMBARA_FLOWER, "幻昙华花");
         translationBuilder.add(MIBlocks.TREMELLA, "银耳丛");
@@ -457,7 +498,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add(ModEntities.MUSHROOM_MONSTER_ENTITY_TYPE, "蘑菇", "蘑菇刷怪蛋");
 
         builder.add(MIEntities.WILD_PIG_ENTITY_TYPE, "野猪", "野猪刷怪蛋");
-
+        builder.add(MIEntities.TAVERN_VILLAGER, "酒馆老板", "酒馆老板刷怪蛋");
 
     }
 

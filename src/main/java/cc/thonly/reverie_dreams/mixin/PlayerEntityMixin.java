@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.mixin;
 
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.GhostEntity;
+import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.interfaces.IPlayerEntity;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
@@ -66,6 +67,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
         World world = this.getWorld();
         if (server == null) return;
         if (world instanceof ServerWorld serverWorld) {
+            if (GhostStatusEffectTargetGoal.hasSilverArmor(this)) {
+                this.nonSleepingTime = 0;
+                return;
+            }
             if (this.nonSleepingTime < MAX_NON_SLEEPING_TIME) {
                 this.nonSleepingTime++;
             } else {

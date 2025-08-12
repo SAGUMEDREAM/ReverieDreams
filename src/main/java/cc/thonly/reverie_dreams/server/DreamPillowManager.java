@@ -43,7 +43,7 @@ public class DreamPillowManager {
 
     public DreamPillowManager(MinecraftServer server) {
         this.server = server;
-        this.savedPath = server.getSavePath(WorldSavePath.ROOT).resolve("/data/dream_pillow");
+        this.savedPath = server.getSavePath(WorldSavePath.ROOT).resolve("data/dream_pillow.json");
         this.data = new Object2ObjectOpenHashMap<>();
         INSTANCE = this;
     }
@@ -62,6 +62,11 @@ public class DreamPillowManager {
     }
 
     public void load() {
+        try {
+            Files.createDirectories(this.savedPath.getParent());
+        } catch (Exception err) {
+            log.error("Can't create dir", err);
+        }
         if (Files.exists(this.savedPath)) {
             try (BufferedReader reader = Files.newBufferedReader(this.savedPath, StandardCharsets.UTF_8)) {
                 JsonElement json = GSON.fromJson(reader, JsonElement.class);
@@ -77,7 +82,6 @@ public class DreamPillowManager {
                             }
                         }
                     }
-
                 }
             } catch (IOException ioException) {
                 log.error("Can't load dream pillow data", ioException);
@@ -91,7 +95,7 @@ public class DreamPillowManager {
             List<WorldEntry> values = this.data.values().stream().toList();
             DataResult<JsonElement> result = CODEC.encodeStart(JsonOps.INSTANCE, values);
             Optional<JsonElement> optional = result.result();
-            if (optional.isPresent()){
+            if (optional.isPresent()) {
                 JsonElement element = optional.get();
                 String json = GSON.toJson(element);
                 try (BufferedWriter writer = Files.newBufferedWriter(this.savedPath, StandardCharsets.UTF_8)) {

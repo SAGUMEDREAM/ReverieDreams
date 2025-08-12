@@ -11,7 +11,6 @@ import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import cc.thonly.reverie_dreams.entity.skin.MobSkins;
 import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerSpawnEggItem;
-import cc.thonly.reverie_dreams.item.weapon.TreasureHuntingRod;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -31,7 +30,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -175,7 +173,7 @@ public class ModEntities {
     public static void registerEntities() {
     }
 
-    private static RegistryKey<EntityType<?>> of(String name) {
+    public static RegistryKey<EntityType<?>> of(String name) {
         return RegistryKey.of(RegistryKeys.ENTITY_TYPE, Touhou.id(name));
     }
 

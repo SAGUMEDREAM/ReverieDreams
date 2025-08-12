@@ -4,6 +4,7 @@ import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.block.PolymerCropCreator;
+import cc.thonly.reverie_dreams.item.ModItems;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -16,12 +17,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class MIItemGroups {
     public static final RegistryKey<ItemGroup> KITCHENWARE_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("kitchenware_item_group"));
     public static final RegistryKey<ItemGroup> INGREDIENT_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("ingredients_item_group"));
     public static final RegistryKey<ItemGroup> SEEDS_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("seeds_item_group"));
     public static final RegistryKey<ItemGroup> FOOD_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("food_item_group"));
+    public static final RegistryKey<ItemGroup> DRINK_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("drink_item_group"));
     public static final ItemGroup KITCHENWARE_ITEM_GROUP = PolymerItemGroupUtils.builder()
             .icon(() -> new ItemStack(MIItems.MYSTIA_ICON))
             .displayName(Text.translatable("item_group.kitchenware_item_group"))
@@ -38,12 +41,17 @@ public class MIItemGroups {
             .icon(MIItemGroups::getFoodItemIcon)
             .displayName(Text.translatable("item_group.food_item_group"))
             .build();
+    public static final ItemGroup DRINK_ITEM_GROUP = PolymerItemGroupUtils.builder()
+            .icon(() -> new ItemStack(MIItems.GREEN_TEA))
+            .displayName(Text.translatable("item_group.drink_item_group"))
+            .build();
 
     static {
         PolymerItemGroupUtils.registerPolymerItemGroup(KITCHENWARE_ITEM_GROUP_KEY, KITCHENWARE_ITEM_GROUP);
         PolymerItemGroupUtils.registerPolymerItemGroup(INGREDIENT_ITEM_GROUP_KEY, INGREDIENT_ITEM_GROUP);
         PolymerItemGroupUtils.registerPolymerItemGroup(SEEDS_ITEM_GROUP_KEY, SEEDS_ITEM_GROUP);
         PolymerItemGroupUtils.registerPolymerItemGroup(FOOD_ITEM_GROUP_KEY, FOOD_ITEM_GROUP);
+        PolymerItemGroupUtils.registerPolymerItemGroup(DRINK_ITEM_GROUP_KEY, DRINK_ITEM_GROUP);
     }
 
     public static void registerItemGroups() {
@@ -96,6 +104,12 @@ public class MIItemGroups {
             for (Item item : MIItems.FOOD_ITEMS) {
                 itemGroup.add(item);
             }
+        });
+        ItemGroupEvents.modifyEntriesEvent(DRINK_ITEM_GROUP_KEY).register(itemGroup -> {
+            for (Item item : MIItems.DRINK_ITEMS) {
+                itemGroup.add(item);
+            }
+            itemGroup.add(ModItems.NOT_COMPLETED);
         });
     }
 

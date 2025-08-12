@@ -29,6 +29,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("Convert2MethodRef")
 @Slf4j
 public class FoodProperties {
+    public static final FoodProperty UNDEFINED = register("undefined", () -> new FoodProperty());
     public static final FoodProperty MEAT = register("meat", () -> new FoodProperty());
     public static final FoodProperty AQUATIC_PRODUCTS = register("aquatic_products", () -> new FoodProperty());
     public static final FoodProperty VEGETARIAN = register("vegetarian", () -> new FoodProperty());
@@ -77,9 +78,7 @@ public class FoodProperties {
 
     @SuppressWarnings("unchecked")
     private static <T extends FoodProperty> T register(String name, Supplier<T> factory) {
-        T t = factory.get();
-        FoodProperty entry = RegistryManager.register(MIRegistryManager.FOOD_PROPERTY, MystiasIzakaya.id(name), t);
-        return (T) entry;
+        return (T) RegistryManager.registerFinal(MIRegistryManager.FOOD_PROPERTY, MystiasIzakaya.id(name), factory.get());
     }
 
     public static void bootstrap(StandaloneRegistry<FoodProperty> registry) {
@@ -88,20 +87,20 @@ public class FoodProperties {
 
     public static void reload(ResourceManager manager) {
         Set<Map.Entry<Identifier, FoodProperty>> entries = MIRegistryManager.FOOD_PROPERTY.entrySet();
-        entries.forEach((es) -> es.getValue().getTags().clear());
+        entries.forEach((es) -> es.getValue().getItems().clear());
 
         Map<Identifier, Resource> resources = manager.findResources("food_property", id ->
                 id.getNamespace().equals(MystiasIzakaya.MOD_ID) && id.getPath().endsWith(".json")
         );
 
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier rgyId = Identifier.of(id.getNamespace(), id.getPath().replace("food_property/", "").replace(".json", ""));
+            Identifier resourceId = entry.getKey();
+            Identifier key = Identifier.of(resourceId.getNamespace(), resourceId.getPath().replace("food_property/", "").replace(".json", ""));
             Resource resource = entry.getValue();
-            FoodProperty property = MIRegistryManager.FOOD_PROPERTY.get(rgyId);
+            FoodProperty property = MIRegistryManager.FOOD_PROPERTY.get(key);
 
             if (property == null) {
-                MystiasIzakaya.LOGGER.warn("Unknown FoodProperty id: {}", id);
+                MystiasIzakaya.LOGGER.warn("Unknown FoodProperty id: {}", resourceId);
                 continue;
             }
 
@@ -109,22 +108,23 @@ public class FoodProperties {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
-                DataResult<List<Item>> result = FoodProperty.TAG_CODEC.parse(input);
+                DataResult<FoodProperty> result = FoodProperty.CODEC.parse(input);
 
-                result.resultOrPartial(error -> MystiasIzakaya.LOGGER.warn("Failed to parse tags for {}: {}", id, error))
-                        .ifPresent(items -> {
-                            property.getTags().addAll(items);
+                result.resultOrPartial(error -> MystiasIzakaya.LOGGER.warn("Failed to parse tags for {}: {}", resourceId, error))
+                        .ifPresent(data -> {
+                            property.getItems().addAll(data.getItems());
                         });
 
             } catch (IOException e) {
-                MystiasIzakaya.LOGGER.error("Failed to load food_property {}: {}", id, e.getMessage(), e);
+                MystiasIzakaya.LOGGER.error("Failed to load food_property {}: {}", resourceId, e.getMessage(), e);
             }
         }
+
         Map<Item, Set<FoodProperty>> itemIngredientCached = IngredientItem.ITEM_INGREDIENT_CACHED;
         itemIngredientCached.clear();
         for (Map.Entry<Identifier, FoodProperty> entry : MIRegistryManager.FOOD_PROPERTY.entrySet()) {
             FoodProperty property = entry.getValue();
-            Set<Item> tags = property.getTags();
+            Set<Item> tags = property.getItems();
             for (Item item : tags) {
                 itemIngredientCached
                         .computeIfAbsent(item, k -> new HashSet<>())

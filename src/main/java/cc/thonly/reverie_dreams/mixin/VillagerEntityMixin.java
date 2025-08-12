@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.item.FumoLicenseItem;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -19,6 +20,9 @@ public class VillagerEntityMixin {
         World world = player.getWorld();
         ItemStack itemStack = player.getStackInHand(hand);
         if (!world.isClient() && itemStack.getItem() instanceof FumoLicenseItem) {
+            cir.setReturnValue(ActionResult.PASS);
+        }
+        if (!world.isClient() && itemStack.getItem() == Items.BARREL) {
             cir.setReturnValue(ActionResult.PASS);
         }
     }

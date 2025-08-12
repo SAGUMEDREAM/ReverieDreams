@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
+import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCFollowOwnerGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.StatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
@@ -92,8 +93,8 @@ public class GhostEntity extends NPCEntityImpl {
         this.goalSelector.add(10, new LookAtEntityGoal(this, NPCEntityImpl.class, 8.0f));
         this.goalSelector.add(10, new LookAroundGoal(this));
 
-        this.targetSelector.add(2, new StatusEffectTargetGoal<>(this, PlayerEntity.class, true, ModStatusEffects.MENTAL_DISORDER));
-        this.targetSelector.add(2, new StatusEffectTargetGoal<>(this, MobEntity.class, true, ModStatusEffects.MENTAL_DISORDER));
+        this.targetSelector.add(2, new GhostStatusEffectTargetGoal<>(this, PlayerEntity.class, true, ModStatusEffects.MENTAL_DISORDER));
+        this.targetSelector.add(2, new GhostStatusEffectTargetGoal<>(this, MobEntity.class, true, ModStatusEffects.MENTAL_DISORDER));
     }
 
     @Override
