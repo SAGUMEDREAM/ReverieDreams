@@ -32,6 +32,8 @@ public class NPCRoleEntityImpl extends NPCEntityImpl implements Leashable {
 
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new SitGoal(this));
+        this.goalSelector.add(1, new NPCEatFoodDispalyGoal(this,1,15,1));
+        this.goalSelector.add(2, new EatGoal(this));
 //        this.goalSelector.add(2, new WakeUpGoal(this));
         this.goalSelector.add(3, new SleepAtNightGoal(this, 1.0));
 

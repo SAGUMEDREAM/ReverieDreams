@@ -41,6 +41,8 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.decoration.ArmorStandEntity;
@@ -104,16 +106,16 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
     // 背包
     protected NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
     // 回血
-    protected int healthTick = 0;
+    protected int healthTick = 20;
     protected int maxHealthTick = 20 * 8;
     // 攻击tick
     protected int updateAttackTick = 0;
     protected int maxUpdateAttackTick = 20 * 2 + 1;
     // 饥饿
-    protected float nutrition = 20;
-    protected float saturation = 20;
-    protected int exhaustionLevel = 0;
-    protected float hungerTick = 0f;
+    protected int nutrition = 20;
+    protected int saturation = 20;//饱食
+    protected float exhaustionLevel = 0;//消耗
+    protected int hungerTick = 20;
     // 工作
     protected BlockPos workingPos = new BlockPos(0, 0, 0);
     protected int workTick = 0;
@@ -211,7 +213,7 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
 
         this.seatUUID = view.getString("SeatUUID", "null");
 
-        this.nutrition = view.getFloat("FoodNutrition", 20.0f);
+        this.nutrition = view.getInt("FoodNutrition", 20);
         this.saturation = view.getInt("FoodSaturation", 20);
 
         this.exhaustionLevel = view.getInt("FoodExhaustionLevel", 0);
@@ -456,7 +458,7 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
                     float saturationValue = foodComponent.saturation();
                     if ((this.nutrition < 20 || this.saturation < 20) || foodComponent.canAlwaysEat()) {
                         this.nutrition += nutritionValue;
-                        this.saturation += saturationValue;
+                        this.saturation += (int) saturationValue;
                         isEmitedEat = true;
                     }
                 }
@@ -618,17 +620,66 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
     }
 
     protected void updateHealth() {
+        if (this.getWorld().isClient)return;
         if (this.getHealth() < this.getMaxHealth()) {
-            this.healthTick++;
+            this.healthTick--;
         } else {
-            this.healthTick = 0;
+//            this.healthTick = 10;
         }
-        if (this.getHealth() < this.getMaxHealth() && this.healthTick > this.maxHealthTick && this.saturation > 0f) {
-            this.setHealth(getHealth() + 1);
-            this.healthTick = 0;
-            this.reduceHunger(1f);
+        if (this.consumeHunger() && this.getHealth() < this.getMaxHealth() && this.healthTick <= 0) {
+
+            if (this.nutrition == 20 && this.saturation > 1) {
+
+                this.setHealth(getHealth() + Math.min(1,saturation/6));
+                this.healthTick = 10;
+                this.exhaustionLevel += 6;
+            } else if (nutrition >= 18) {
+                this.setHealth(getHealth() + 1);
+                this.healthTick = 80;
+                this.exhaustionLevel += 6;
+            } else if (nutrition == 0 && this.getHealth() > this.getMaxHealth() / 2) {
+                this.damage((ServerWorld) this.getWorld(),this.getDamageSources().starve(),1);
+                this.healthTick = 80;
+            }
         }
     }
+
+    private void updateHunger() {
+        if (this.consumeHunger()) {
+            nutrition = Math.clamp(this.nutrition, 0, 20);
+            saturation = Math.clamp(this.saturation, 0, this.nutrition);
+            if (exhaustionLevel >= 4) {
+                if (this.saturation > 0) {
+                    this.saturation--;
+                    this.exhaustionLevel = 0;
+                } else if (this.nutrition > 0) {
+                    this.nutrition--;
+                    this.exhaustionLevel = 0;
+                }
+            }
+        }
+    }
+
+    private void updateHungerConsumption() {
+        this.hungerTick--;
+        if (hungerTick <= 0) {
+            hungerTick = 20;
+            int hungerEffectLevel = 0;
+            StatusEffectInstance hungerEff = this.getStatusEffect(StatusEffects.HUNGER);
+            if (hungerEff != null) {
+                hungerEffectLevel = hungerEff.getAmplifier();
+               // System.out.println("饥饿消耗 "+ hungerEffectLevel);
+            }
+            this.exhaustionLevel += (float) (hungerEffectLevel * 0.1);
+            if (this.getNavigation().isFollowingPath()) {
+                this.exhaustionLevel += 0.015F;//无法检测具体行为 按0.015计算 略微提高消耗
+               // System.out.println("寻路增加消耗");
+            }
+        }
+
+
+    }
+
 
     protected void updateAttackType() {
         if (this.getWorld() == null || this.getWorld().isClient) {
@@ -745,6 +796,8 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
     public void tick() {
         World world = this.getWorld();
         this.updateHealth();
+        this.updateHunger();
+        this.updateHungerConsumption();
         this.updateWorking();
         this.updateName();
         this.fixPitchYaw();
@@ -755,24 +808,6 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
         }
         this.prevPos = this.getPos();
 
-        this.exhaustionLevel = 0;
-        if (this.consumeHunger()) {
-            if (this.hasStatusEffect(StatusEffects.HUNGER)) {
-                this.exhaustionLevel += 2;
-            }
-        }
-        this.hungerTick += 0.1f * this.exhaustionLevel;
-        if (this.hungerTick > 20) {
-            this.hungerTick = 0;
-            this.reduceHunger(0.5f);
-        }
-
-        if (this.nutrition > 20f) {
-            this.nutrition = 20f;
-        }
-        if (this.saturation > 20f) {
-            this.saturation = 20f;
-        }
 
 //        if (this.sleepingPos != null) {
 //            if (!this.isSleeping()) {
