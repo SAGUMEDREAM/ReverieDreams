@@ -2,13 +2,9 @@ package cc.thonly.mystias_izakaya.block;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
-import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
-import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
-import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
@@ -44,13 +40,11 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
@@ -62,7 +56,7 @@ import java.util.Map;
 @Setter
 @Getter
 public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, IdentifierGetter {
-    public static final Map<BlockState, Model> STATE_TO_MODEL = new HashMap<>();
+    public static final Map<Long, Model> POS_TO_MODEL = new HashMap<>();
     public static final MapCodec<ItemStackDisplay> CODEC = ItemStackDisplay.createCodec(ItemStackDisplay::new);
     private Identifier identifier;
 
@@ -137,6 +131,7 @@ public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, I
                     stack.decrementUnlessCreative(1, player);
                     isdBlockEntity.setItem(itemStackRecipeWrapper);
                     isdBlockEntity.setYaw(player.getYaw());
+                    isdBlockEntity.markDirty();
                 } else {
                     ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
                     isdBlockEntity.setItem(ItemStackRecipeWrapper.empty());
@@ -186,7 +181,7 @@ public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, I
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
         var model = new Model(world, this, initialBlockState, pos);
-        STATE_TO_MODEL.put(initialBlockState, model);
+        POS_TO_MODEL.put(pos.asLong(), model);
         return model;
     }
 
@@ -216,19 +211,22 @@ public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, I
         }
 
         public void updateItem(BlockState blockState) {
-            BlockEntity blockEntity = this.serverWorld.getBlockEntity(this.blockPos);
-            if (this.blockEntity == null && blockEntity instanceof ItemStackDisplayBlockEntity itemStackDisplayBlockEntity) {
-                this.blockEntity = itemStackDisplayBlockEntity;
-            }
+            boolean chunkLoaded = this.serverWorld.isPosLoaded(this.blockPos.getX(), this.blockPos.getY());
+            if (chunkLoaded) {
+                BlockEntity blockEntity = this.serverWorld.getBlockEntity(this.blockPos);
+                if (this.blockEntity == null && blockEntity instanceof ItemStackDisplayBlockEntity itemStackDisplayBlockEntity) {
+                    this.blockEntity = itemStackDisplayBlockEntity;
+                }
 
-            ItemStackRecipeWrapper item;
-            if (this.blockEntity != null && !ItemStack.areEqual(this.blockEntity.getItem().getItemStack(), this.item.getItem())) {
-                removeElement(this.item);
-                item = this.blockEntity.getItem();
-                this.item.setItem(item.getItemStack().copy());
-                this.item.setOffset(new Vec3d(0, -0.22, 0));
-                this.item.setRotation((float) 0, (float) this.blockEntity.getYaw() + 180);
-                addElement(this.item);
+                ItemStackRecipeWrapper item;
+                if (this.blockEntity != null && !ItemStack.areEqual(this.blockEntity.getItem().getItemStack(), this.item.getItem())) {
+                    removeElement(this.item);
+                    item = this.blockEntity.getItem();
+                    this.item.setItem(item.getItemStack().copy());
+                    this.item.setOffset(new Vec3d(0, -0.22, 0));
+                    this.item.setRotation((float) 0, (float) this.blockEntity.getYaw() + 180);
+                    addElement(this.item);
+                }
             }
         }
 

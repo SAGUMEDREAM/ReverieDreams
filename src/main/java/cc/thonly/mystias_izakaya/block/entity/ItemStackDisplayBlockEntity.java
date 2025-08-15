@@ -17,13 +17,13 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vectorwing.farmersdelight.common.item.component.ItemStackWrapper;
 
 import java.util.Optional;
 
 @Setter
 @Getter
 public class ItemStackDisplayBlockEntity extends BlockEntity {
-    private static final Gson GSON = new Gson();
     private ItemStackRecipeWrapper item = ItemStackRecipeWrapper.empty();
     private double yaw = 0.0;
     private int tick = 0;
@@ -34,7 +34,7 @@ public class ItemStackDisplayBlockEntity extends BlockEntity {
 
     public static void tick(World world, BlockPos pos, BlockState state, ItemStackDisplayBlockEntity blockEntity) {
         if (blockEntity.tick > 5) {
-            var model = ItemStackDisplay.STATE_TO_MODEL.get(state);
+            var model = ItemStackDisplay.POS_TO_MODEL.get(pos.asLong());
             if (model != null) {
                 model.updateItem(state);
             }
@@ -46,15 +46,8 @@ public class ItemStackDisplayBlockEntity extends BlockEntity {
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-        Optional<String> pOutputOptional = view.getOptionalString("Item");
-        if (pOutputOptional.isPresent()) {
-            String preOutputJson = pOutputOptional.get();
-            JsonElement json = JsonParser.parseString(preOutputJson);
-            Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-            DataResult<ItemStackRecipeWrapper> parse = ItemStackRecipeWrapper.CODEC.parse(input);
-            Optional<ItemStackRecipeWrapper> result = parse.result();
-            result.ifPresent(wrapper -> this.item = wrapper);
-        }
+        Optional<ItemStackRecipeWrapper> itemOptional = view.read("Item", ItemStackRecipeWrapper.CODEC);
+        itemOptional.ifPresent(wrapper -> this.item = wrapper);
         this.yaw = view.getDouble("Yaw", 0);
     }
 
@@ -64,8 +57,7 @@ public class ItemStackDisplayBlockEntity extends BlockEntity {
         DataResult<JsonElement> dataResult = ItemStackRecipeWrapper.CODEC.encodeStart(JsonOps.INSTANCE, this.item);
         Optional<JsonElement> result = dataResult.result();
         if (result.isPresent()) {
-            JsonElement element = result.get();
-            view.putString("Item", GSON.toJson(element));
+            view.put("Item", ItemStackRecipeWrapper.CODEC, this.item);
         }
         view.putDouble("Yaw", this.yaw);
     }
