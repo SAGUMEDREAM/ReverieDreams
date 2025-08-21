@@ -22,9 +22,9 @@ import xyz.nucleoid.packettweaker.PacketContext;
 @Getter
 @ToString
 public class BasicPolymerBlock extends Block implements PolymerBlock, PolymerTexturedBlock, IdentifierGetter {
-    Identifier identifier;
-    BlockState polymerBlockState;
-    Item item;
+    private Identifier identifier;
+    private BlockState polymerBlockState;
+    private Item item;
 
     public BasicPolymerBlock(String path, BlockModelType blockModelType, Settings settings) {
         this(Touhou.id(path), blockModelType, settings);

@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "minecraft:end_stone"
+    "Name": "reverie_dreams:moon_stone"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -144,7 +144,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "minecraft:end_stone",
+          "Name": "reverie_dreams:moon_stone",
           "Properties": {
             "slices": "255"
           }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "reverie_dreams:block/dream_stone_brick"
+  }
+}

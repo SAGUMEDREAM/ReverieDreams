@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.recipe;
 
+import cc.thonly.reverie_dreams.item.ModItems;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -21,6 +22,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 @SuppressWarnings("MethodDoesntCallSuperMethod")
 @Getter
@@ -62,8 +64,11 @@ public class ItemStackRecipeWrapper {
     public static final Codec<List<ItemStack>> LIST_CODEC = ItemStackRecipeWrapper.FLEXIBLE_ITEMSTACK_CODEC.listOf();
 
     public static final Codec<ItemStackRecipeWrapper> CODEC =
-            FLEXIBLE_ITEMSTACK_CODEC.xmap(ItemStackRecipeWrapper::new, ItemStackRecipeWrapper::getItemStack);
+            FLEXIBLE_ITEMSTACK_CODEC
+                    .xmap(ItemStackRecipeWrapper::new, ItemStackRecipeWrapper::getItemStack)
+                    .orElse(ItemStackRecipeWrapper.of(createErrorItem()));
     public static final ItemStackRecipeWrapper EMPTY = new ItemStackRecipeWrapper(ItemStack.EMPTY);
+    public static final ItemStackRecipeWrapper ERROR = new ItemStackRecipeWrapper(createErrorItem());
 
     private final ItemStack itemStack;
 
@@ -82,6 +87,10 @@ public class ItemStackRecipeWrapper {
         return EMPTY;
     }
 
+    public static ItemStackRecipeWrapper error() {
+        return ERROR;
+    }
+
     public static ItemStackRecipeWrapper of(ItemStack itemStack) {
         return new ItemStackRecipeWrapper(itemStack);
     }
@@ -96,6 +105,16 @@ public class ItemStackRecipeWrapper {
 
     public static ItemStackRecipeWrapper of(Item item, int amount, ComponentChanges components) {
         return of(new ItemStack(Registries.ITEM.getEntry(item), amount, components));
+    }
+
+    public static ItemStack createErrorItem() {
+        ItemStack stack = Items.WHITE_DYE.getDefaultStack();
+        stack.set(DataComponentTypes.ITEM_MODEL, Registries.ITEM.getId(Items.BARRIER));
+        stack.set(DataComponentTypes.ITEM_NAME, Text.literal("§cError Item"));
+        stack.set(DataComponentTypes.LORE, new LoreComponent(
+                new ArrayList<>(List.of(Text.literal("§cThis item failed to be serialized")))
+        ));
+        return stack;
     }
 
     public ItemStackRecipeWrapper copy() {

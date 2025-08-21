@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import autovalue.shaded.kotlin.collections.builders.MapBuilder;
-import cc.thonly.mystias_izakaya.block.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.block.ModBlocks;
@@ -288,6 +286,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
 
     private void generateDecorativeBlock() {
         ModBlocks.ICE_SCALES.offerRecipe(this, ModItems.ICE_SCALES);
+        ModBlocks.DREAM_STONE_BRICK.offerRecipe(this, ModBlocks.DREAM_STONE_BRICK.block().asItem());
+        ModBlocks.MOON_STONE_BRICK.offerRecipe(this, ModBlocks.MOON_STONE_BRICK.block().asItem());
     }
 
     private void generateMusicBlock() {
@@ -442,9 +442,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
         offerBlasting(List.of(ModBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, ModItems.ICE_SCALES, 0.7F, 70, "silver_ingot");
         // 魔法冰
         createShaped(RecipeCategory.DECORATIONS, ModBlocks.MAGIC_ICE_BLOCK)
-                .pattern("XXX")
-                .pattern("XXX")
-                .pattern("XXX")
+                .pattern("XX")
+                .pattern("XX")
                 .input('X', Items.ICE)
                 .criterion("has_ice", conditionsFromItem(Items.ICE))
                 .offerTo(exporter, getRecipeName(ModBlocks.MAGIC_ICE_BLOCK));

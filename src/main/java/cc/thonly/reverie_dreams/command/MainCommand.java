@@ -16,15 +16,19 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.argument.IdentifierArgumentType;
+import net.minecraft.command.suggestion.SuggestionProviders;
 import net.minecraft.dialog.type.Dialog;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -80,7 +84,11 @@ public class MainCommand implements CommandInit.CommandRegistration {
                                                                                 CommandManager.argument("file", StringArgumentType.string())
                                                                                         .suggests(new DialogFiles.FilesSuggestionProvider())
                                                                                         .executes(this::playVideo)
-
+                                                                                        .then(
+                                                                                                CommandManager.argument("sound", IdentifierArgumentType.identifier())
+                                                                                                        .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
+                                                                                                        .executes(this::playVideo)
+                                                                                        )
                                                                         )
                                                         )
 
@@ -118,8 +126,17 @@ public class MainCommand implements CommandInit.CommandRegistration {
         try {
             ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "target");
             String file = StringArgumentType.getString(context, "file");
+            Identifier soundEventId = null;
+            SoundEvent soundEvent = null;
+            try {
+                soundEventId = IdentifierArgumentType.getIdentifier(context, "sound");
+            } catch (Exception ignored) {
+            }
+            if (soundEventId != null) {
+                soundEvent = SoundEvent.of(soundEventId);
+            }
             context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.reload"), false);
-            DialogPlayer.play(player, file, null);
+            DialogPlayer.play(player, file, soundEvent);
             context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.load.done"), false);
         } catch (Exception err) {
             log.error("Can't play video", err);

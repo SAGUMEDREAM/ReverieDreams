@@ -1,7 +1,7 @@
 {
   "item": "reverie_dreams:food/eggs_benedict",
   "values": [
-    "reverie_dreams:fruity",
-    "reverie_dreams:sweet"
+    "reverie_dreams:sweet",
+    "reverie_dreams:fruity"
   ]
 }

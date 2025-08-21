@@ -33,7 +33,8 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
     private final Function<WoodCreator, Void> woodCreatorLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
             if (block instanceof DoorBlock) {
-                this.doorDrops(block);
+                LootTable.Builder builder = this.doorDrops(block);
+                this.addDrop(block, builder);
                 return;
             }
             if (block instanceof LeavesBlock) {
@@ -41,7 +42,8 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
                 return;
             }
             if (block instanceof SlabBlock) {
-                this.slabDrops(block);
+                LootTable.Builder builder = this.slabDrops(block);
+                this.addDrop(block, builder);
                 return;
             }
             this.addDrop(block);
@@ -51,7 +53,8 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
     private final Function<DecorativeBlockCreator, Void> decorativeBlockCreatorLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
             if (block instanceof SlabBlock) {
-                this.slabDrops(block);
+                LootTable.Builder builder = this.slabDrops(block);
+                this.addDrop(block, builder);
                 return;
             }
             this.addDrop(block);
@@ -114,6 +117,10 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.SILVER_BLOCK);
 
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.ICE_SCALES);
+        this.decorativeBlockCreatorLootFunction.apply(ModBlocks.DREAM_STONE);
+        this.decorativeBlockCreatorLootFunction.apply(ModBlocks.DREAM_STONE_BRICK);
+        this.decorativeBlockCreatorLootFunction.apply(ModBlocks.MOON_STONE);
+        this.decorativeBlockCreatorLootFunction.apply(ModBlocks.MOON_STONE_BRICK);
 
         for (Fumo fumo : Fumos.getView()) {
             addDrop(fumo.block());

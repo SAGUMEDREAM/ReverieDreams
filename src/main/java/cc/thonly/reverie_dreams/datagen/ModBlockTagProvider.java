@@ -102,6 +102,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         ores.add(ModBlocks.ORB_ORE, ModBlocks.DEEPSLATE_ORB_ORE);
 
         pickaxeMineables.add(ModBlocks.ICE_SCALES.block(), ModBlocks.ICE_SCALES.slab(), ModBlocks.ICE_SCALES.stair());
+        pickaxeMineables.add(ModBlocks.DREAM_STONE.block(), ModBlocks.DREAM_STONE.slab(), ModBlocks.DREAM_STONE.stair());
+        pickaxeMineables.add(ModBlocks.DREAM_STONE_BRICK.block(), ModBlocks.DREAM_STONE_BRICK.slab(), ModBlocks.DREAM_STONE_BRICK.stair());
+        pickaxeMineables.add(ModBlocks.MOON_STONE.block(), ModBlocks.MOON_STONE.slab(), ModBlocks.MOON_STONE.stair());
+        pickaxeMineables.add(ModBlocks.MOON_STONE_BRICK.block(), ModBlocks.MOON_STONE_BRICK.slab(), ModBlocks.MOON_STONE_BRICK.stair());
 
         minTools.add(Blocks.BEDROCK);
         minTools.add(Blocks.BARRIER);

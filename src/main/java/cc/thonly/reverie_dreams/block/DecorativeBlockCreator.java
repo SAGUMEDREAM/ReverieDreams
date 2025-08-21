@@ -15,6 +15,7 @@ import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -31,6 +32,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
     public static final List<Item> BLOCK_ITEMS = new ArrayList<>();
     @Getter
     private BlockFamily blockFamily;
+    private Block base;
     private Block block;
     private Block stair;
     private Block slab;
@@ -43,6 +45,14 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
 
     private DecorativeBlockCreator(String name) {
         this(Touhou.id(name));
+    }
+
+    public void base(Block base) {
+        this.base = base;
+    }
+
+    public Block base() {
+        return this.base;
     }
 
     public Block block() {
@@ -73,16 +83,21 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
 
     public void offerRecipe(RecipeGenerator generator, Item material) {
         Identifier id = Registries.ITEM.getId(material);
-        generator.createShaped(RecipeCategory.DECORATIONS, this.block())
-                .pattern("XX")
-                .pattern("XX")
-                .input('X', material)
-                .criterion("has_" + id.getPath(), generator.conditionsFromItem(material))
-                .offerTo(generator.exporter, RecipeGenerator.getRecipeName(this.block()));
+        ItemConvertible start = this.base() == null ? material : this.base();
+        if (start != this.block()) {
+            generator.createShaped(RecipeCategory.DECORATIONS, this.block())
+                    .pattern("XX")
+                    .pattern("XX")
+                    .input('X', start)
+                    .criterion("has_" + id.getPath(), generator.conditionsFromItem(start))
+                    .offerTo(generator.exporter, RecipeGenerator.getRecipeName(this.block()));
+        }
         generator.offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, this.slab(), material);
+        generator.offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, this.slab(), this.block(), 2);
         generator.createStairsRecipe(this.stair(), Ingredient.ofItem(material))
                 .criterion("has_"+ id.getPath(), generator.conditionsFromItem(material))
                 .offerTo(generator.exporter, RecipeGenerator.getRecipeName(this.stair()));
+        generator.offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, this.stair(), this.block());
         generator.offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, this.wall(), material);
     }
 

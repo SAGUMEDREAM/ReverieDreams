@@ -12,7 +12,6 @@ import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import cc.thonly.reverie_dreams.world.ModSaplingGenerator;
 import eu.pb4.polymer.blocks.api.BlockModelType;
 import lombok.Getter;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
@@ -23,9 +22,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 public class ModBlocks {
@@ -36,10 +33,18 @@ public class ModBlocks {
     public static final Block MUSIC_BLOCK = registerBlock(new MusicBlock("music_block", AbstractBlock.Settings.copy(Blocks.NOTE_BLOCK)));
 
     public static final WoodCreator SPIRITUAL = WoodCreator.create("spiritual", ModSaplingGenerator.SPIRITUAL_TREE).build();
-    public static final Block MAGIC_ICE_BLOCK = registerCopyBlock(new MagicIceBlock("magic_ice", Blocks.ICE, AbstractBlock.Settings.copy(Blocks.BLUE_ICE)));
+    public static final Block MAGIC_ICE_BLOCK = registerBlock(new MagicIceBlock("magic_ice", AbstractBlock.Settings.copy(Blocks.BLUE_ICE)));
     public static final Block POINT_BLOCK = registerBlock(new BasicPolymerBlock("point_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.STONE)));
     public static final Block POWER_BLOCK = registerBlock(new BasicPolymerBlock("power_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.STONE)));
     public static final DecorativeBlockCreator ICE_SCALES = DecorativeBlockCreator.create("ice_scales_block").build();
+    public static final DecorativeBlockCreator DREAM_STONE = DecorativeBlockCreator.create("dream_stone").build();
+    public static final DecorativeBlockCreator DREAM_STONE_BRICK = DecorativeBlockCreator.create("dream_stone_brick").build();
+    public static final DecorativeBlockCreator MOON_STONE = DecorativeBlockCreator.create("moon_stone").build();
+    public static final DecorativeBlockCreator MOON_STONE_BRICK = DecorativeBlockCreator.create("moon_stone_brick").build();
+    static {
+        DREAM_STONE_BRICK.base(DREAM_STONE.block());
+        MOON_STONE_BRICK.base(MOON_STONE.block());
+    }
     public static final Block SILVER_ORE = registerBlock(new BasicPolymerBlock("silver_ore", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.IRON_ORE)));
     public static final Block DEEPSLATE_SILVER_ORE = registerBlock(new BasicPolymerBlock("deepslate_silver_ore", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.DEEPSLATE_IRON_ORE)));
     public static final Block SILVER_BLOCK = registerBlock(new BasicPolymerBlock("silver_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));

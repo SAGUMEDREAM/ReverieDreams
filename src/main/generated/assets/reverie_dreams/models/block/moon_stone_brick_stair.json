@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "reverie_dreams:block/moon_stone_brick",
+    "side": "reverie_dreams:block/moon_stone_brick",
+    "top": "reverie_dreams:block/moon_stone_brick"
+  }
+}

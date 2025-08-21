@@ -1,5 +1,21 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.3.3+1.21.7
+* Fixed doors and slabs not LootTable json 
+* Fixed command `/touhou video play` throws error
+* Fixed Door Block and Slab Block not drop
+* Optimize `Crop Block` size
+* Cancel `Food Display Block` collision
+* `Magic Broom` will no longer delays destroying its model when it is destroyed
+* Added `Moonstone Block` and its walls, slabs, and stairs
+* Added `Moonstone Brick Block` and its walls, slabs, and stairs
+* Added `Moonstone Block` and its walls, slabs, and stairs
+* Added `Moonstone Brick Block` and its walls, slabs, and stairs
+* Added Moon Rabbit
+
+## 0.3.2+1.21.7
+* Fixed missing dependencies and unable to start
+
 ## 0.3.1+1.21.7
 * Fixed the issue where items could not be placed on the Food Display Block.
 * Fixed the issue where some items could not accept enchantments

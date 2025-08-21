@@ -545,6 +545,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add(ModEntities.FUMO_SELLER_VILLAGER, "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
         builder.add(ModEntities.KILLER_BEE_ENTITY_TYPE, "杀人蜂", "杀人蜂刷怪蛋");
         builder.add(ModEntities.GHOST_ENTITY_TYPE, "幽灵", "幽灵刷怪蛋");
+        builder.add(ModEntities.MOON_RABBIT, "月兔", "月兔刷怪蛋");
         builder.add(ModEntities.YOUSEI_ENTITY_TYPE, "妖精", "妖精刷怪蛋");
         builder.add(ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, "向日葵妖精", "向日葵妖精刷怪蛋");
         builder.add(ModEntities.GOBLIN_ENTITY_TYPE, "哥布林", "哥布林刷怪蛋");
@@ -1013,6 +1014,24 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModBlocks.ICE_SCALES.stair(), "冰鳞砖楼梯");
         translationBuilder.add(ModBlocks.ICE_SCALES.slab(), "冰鳞砖台阶");
         translationBuilder.add(ModBlocks.ICE_SCALES.wall(), "冰鳞砖墙");
+
+        translationBuilder.add(ModBlocks.DREAM_STONE.block(), "梦境石");
+        translationBuilder.add(ModBlocks.DREAM_STONE.stair(), "梦境石楼梯");
+        translationBuilder.add(ModBlocks.DREAM_STONE.slab(), "梦境石台阶");
+        translationBuilder.add(ModBlocks.DREAM_STONE.wall(), "梦境石砖墙");
+        translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.block(), "梦境砖块");
+        translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.stair(), "梦境砖楼梯");
+        translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.slab(), "梦境砖台阶");
+        translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.wall(), "梦境砖砖墙");
+
+        translationBuilder.add(ModBlocks.MOON_STONE.block(), "月石");
+        translationBuilder.add(ModBlocks.MOON_STONE.stair(), "月石楼梯");
+        translationBuilder.add(ModBlocks.MOON_STONE.slab(), "月石台阶");
+        translationBuilder.add(ModBlocks.MOON_STONE.wall(), "月石墙");
+        translationBuilder.add(ModBlocks.MOON_STONE_BRICK.block(), "月石砖块");
+        translationBuilder.add(ModBlocks.MOON_STONE_BRICK.stair(), "月石砖楼梯");
+        translationBuilder.add(ModBlocks.MOON_STONE_BRICK.slab(), "月石砖台阶");
+        translationBuilder.add(ModBlocks.MOON_STONE_BRICK.wall(), "月石砖墙");
 
         translationBuilder.add(MIBlocks.LEMON.log(), "柠檬原木");
         translationBuilder.add(MIBlocks.LEMON.wood(), "柠檬树皮");

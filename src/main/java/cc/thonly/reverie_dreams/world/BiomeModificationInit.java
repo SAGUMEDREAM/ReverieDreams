@@ -1,16 +1,21 @@
 package cc.thonly.reverie_dreams.world;
 
+import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
+import cc.thonly.reverie_dreams.world.gen.ModBiomeSources;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 
 import java.util.Random;
@@ -157,6 +162,38 @@ public class BiomeModificationInit {
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                 IceElementalEntity::canSpawn
         );
+        // 月兔
+        BiomeModifications.addSpawn(
+                BiomeSelectors.includeByKey(ModBiomeSources.THE_MOON),
+                SpawnGroup.MONSTER,
+                ModEntities.MOON_RABBIT, 20, 1, 3
+        );
+        BiomeModifications.create(Identifier.of("reverie_dreams", "moon_spawns"))
+                .add(ModificationPhase.ADDITIONS,
+                        BiomeSelectors.includeByKey(ModBiomeSources.THE_MOON),
+                        ctx -> ctx.getSpawnSettings().addSpawn(
+                                SpawnGroup.MONSTER,
+                                new SpawnSettings.SpawnEntry(ModEntities.MOON_RABBIT, 1, 2),
+                                10
+                        )
+                );
+
+//        SpawnRestriction.register(
+//                ModEntities.MOON_RABBIT,
+//                SpawnLocationTypes.ON_GROUND,
+//                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+//                (entity, world, reason, pos, random) -> {
+//                    return world.getBlockState(pos.up()).isAir();
+//                }
+//        );
+//        SpawnRestriction.register(
+//                ModEntities.MOON_RABBIT,
+//                SpawnLocationTypes.ON_GROUND,
+//                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+//                (entity, world, reason, pos, random) ->
+//                        world.getBlockState(pos.down()).isOf(ModBlocks.MOON_STONE.block()) &&
+//                                world.getBlockState(pos).isAir()
+//        );
     }
 
     public static boolean canSpawn(EntityType<?> type, ServerWorld world, SpawnReason reason, BlockPos pos, Random random) {

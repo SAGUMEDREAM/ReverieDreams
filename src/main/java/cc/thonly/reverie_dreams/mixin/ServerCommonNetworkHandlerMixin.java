@@ -24,6 +24,7 @@ import net.minecraft.server.network.ServerCommonNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
@@ -125,8 +126,11 @@ public abstract class ServerCommonNetworkHandlerMixin {
                         ServerPlayerEntity player = dialogPlayer.getPlayer();
                         if (player.getUuidAsString().equals(uid)) {
                             dialogPlayer.remove();
-                            StopSoundS2CPacket stopSoundS2CPacket = new StopSoundS2CPacket(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey().getValue(), SoundCategory.PLAYERS);
-                            player.networkHandler.sendPacket(stopSoundS2CPacket);
+                            SoundEvent soundEvent = dialogPlayer.getSoundEvent();
+                            if (soundEvent != null) {
+                                StopSoundS2CPacket stopSoundS2CPacket = new StopSoundS2CPacket(soundEvent.id(), SoundCategory.PLAYERS);
+                                player.networkHandler.sendPacket(stopSoundS2CPacket);
+                            }
                         }
                     }
                 }

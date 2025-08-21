@@ -35,7 +35,6 @@ import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class ModEntities {
-
     public static final Map<EntityType<?>, Item> SPAWN_EGG_BIND = new Object2ObjectOpenHashMap<>();
     public static final List<Item> SPAWN_EGG_ITEM_LIST = new ArrayList<>();
 
@@ -49,7 +48,6 @@ public class ModEntities {
         return List.copyOf(SPAWN_EGG_ITEM_LIST);
     }
 
-
     public static final EntityType<DanmakuEntity> DANMAKU_ENTITY_TYPE =
             registerEntity("danmaku_bullet",
                     EntityType.Builder.<DanmakuEntity>create(DanmakuEntity::new, SpawnGroup.MISC)
@@ -61,7 +59,7 @@ public class ModEntities {
     public static final EntityType<SpellCardEntity> SPELL_CARD_ENTITY_TYPE =
             registerEntity("spell_card",
                     EntityType.Builder.<SpellCardEntity>create(SpellCardEntity::new, SpawnGroup.MISC)
-                            .build(of("danmaku_bullet")));
+                            .build(of("spell_card")));
     public static final EntityType<OreEspEntity> ORE_ESP_ENTITY_TYPE =
             registerEntity("ore_esp_entity",
                     EntityType.Builder.<OreEspEntity>create(OreEspEntity::new, SpawnGroup.MISC)
@@ -84,6 +82,21 @@ public class ModEntities {
                             .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
                             .add(EntityAttributes.SCALE, 1.5f)
                             .build());
+    public static final EntityType<MoonRabbitEntity> MOON_RABBIT =
+            registerEntityWithSpawnEgg("moon_rabbit",
+                    EntityType.Builder.<MoonRabbitEntity>create(MoonRabbitEntity::new, SpawnGroup.MONSTER)
+                            .build(of("moon_rabbit")),
+                    () -> LivingEntity.createLivingAttributes()
+                            .add(EntityAttributes.MAX_HEALTH, 18.0)
+                            .add(EntityAttributes.MOVEMENT_SPEED, 0.08)
+                            .add(EntityAttributes.ATTACK_DAMAGE, 3)
+                            .add(EntityAttributes.SCALE, 1.2f)
+                            .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.1)
+                            .add(EntityAttributes.FOLLOW_RANGE, 8.0)
+                            .add(EntityAttributes.TEMPT_RANGE, 10.0)
+                            .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 3)
+                            .build()
+            );
     public static final EntityType<GhostEntity> GHOST_ENTITY_TYPE =
             registerEntityWithSpawnEgg("ghost",
                     EntityType.Builder.<GhostEntity>create(GhostEntity::new, SpawnGroup.MONSTER)
@@ -106,7 +119,7 @@ public class ModEntities {
                     .add(EntityAttributes.FLYING_SPEED, 0.8f)
                     .add(EntityAttributes.MOVEMENT_SPEED, 0.15f)
                     .add(EntityAttributes.ATTACK_DAMAGE, 0.5)
-                    .add(EntityAttributes.SCALE, 0.6f)
+                    .add(EntityAttributes.SCALE, 1.8f)
                     .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.1)
                     .add(EntityAttributes.FOLLOW_RANGE, 16.0)
                     .add(EntityAttributes.TEMPT_RANGE, 10.0)

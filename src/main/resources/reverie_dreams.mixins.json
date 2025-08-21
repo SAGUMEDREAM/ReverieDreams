@@ -24,6 +24,7 @@
     "accessor.LivingEntityAccessor",
     "accessor.PigEntityAccessor",
     "accessor.PlayerEntityAccessor",
+    "accessor.RabbitEntityAccessor",
     "accessor.ResourceAccessor",
     "accessor.VillagerEntityAccessor",
     "accessor.WoodTypeAccessor",

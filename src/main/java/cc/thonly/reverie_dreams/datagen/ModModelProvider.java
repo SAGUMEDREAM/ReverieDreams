@@ -53,6 +53,10 @@ public class ModModelProvider extends FabricModelProvider {
 
         this.registerWoodCreator(blockStateModelGenerator, ModBlocks.SPIRITUAL);
         this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.ICE_SCALES);
+        this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.DREAM_STONE);
+        this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.DREAM_STONE_BRICK);
+        this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.MOON_STONE);
+        this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.MOON_STONE_BRICK);
         this.registerWoodCreator(blockStateModelGenerator, MIBlocks.LEMON);
         blockStateModelGenerator.registerCubeAllModelTexturePool(MIBlocks.LEMON_FRUIT_LEAVES);
         this.registerWoodCreator(blockStateModelGenerator, MIBlocks.GINKGO);

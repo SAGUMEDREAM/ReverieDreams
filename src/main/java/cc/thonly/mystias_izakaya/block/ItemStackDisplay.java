@@ -2,6 +2,7 @@ package cc.thonly.mystias_izakaya.block;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
+import cc.thonly.reverie_dreams.block.crop.TransparentFlatTripWire;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
@@ -60,7 +61,7 @@ import java.util.Optional;
 
 @Setter
 @Getter
-public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, IdentifierGetter {
+public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, IdentifierGetter, TransparentFlatTripWire {
     public static final Map<Long, Model> POS_TO_MODEL = new HashMap<>();
     public static final MapCodec<ItemStackDisplay> CODEC = ItemStackDisplay.createCodec(ItemStackDisplay::new);
     private Identifier identifier;
@@ -142,11 +143,6 @@ public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, I
             }
         }
         return super.onBreak(world, pos, state, player);
-    }
-
-    @Override
-    public BlockState getPolymerBlockState(BlockState blockState, PacketContext packetContext) {
-        return Blocks.BARRIER.getDefaultState();
     }
 
     @Override

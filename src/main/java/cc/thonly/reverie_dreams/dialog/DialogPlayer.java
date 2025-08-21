@@ -105,12 +105,12 @@ public class DialogPlayer {
 
     public synchronized void start() {
         this.iterator = this.source.listIterator();
-        this.player.getWorld().playSound(null, this.player.getBlockPos(), this.soundEvent, SoundCategory.PLAYERS);
         if (this.soundEvent != null) {
-            DelayedTask.createFromSecond(Touhou.getServer(), 0.75f, () -> {
-                this.paused = false;
-            });
+            this.player.getWorld().playSound(null, this.player.getBlockPos(), this.soundEvent, SoundCategory.PLAYERS);
         }
+        DelayedTask.createFromSecond(Touhou.getServer(), 0.75f, () -> {
+            this.paused = false;
+        });
     }
 
     public synchronized void parse(String fileId) {

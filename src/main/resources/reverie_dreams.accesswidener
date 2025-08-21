@@ -33,3 +33,6 @@ accessible field net/minecraft/component/type/DyedColorComponent rgb I
 mutable field net/minecraft/component/type/DyedColorComponent rgb I
 accessible field net/minecraft/data/recipe/RecipeGenerator exporter Lnet/minecraft/data/recipe/RecipeExporter;
 accessible class net/minecraft/registry/RegistryLoader$Loader
+accessible method net/minecraft/entity/passive/RabbitEntity setVariant (Lnet/minecraft/entity/passive/RabbitEntity$Variant;)V
+accessible class net/minecraft/entity/passive/RabbitEntity$FleeGoal
+accessible class net/minecraft/entity/passive/RabbitEntity$EatCarrotCropGoal
