@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin;
 
-import cc.thonly.minecraft.impl.ItemPostHitCallback;
+import cc.thonly.minecraft.api.ItemPostHitCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;

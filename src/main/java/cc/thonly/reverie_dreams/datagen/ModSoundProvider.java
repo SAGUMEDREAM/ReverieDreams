@@ -22,6 +22,7 @@ public class ModSoundProvider extends SoundProvider {
         this.addWithRecords(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS, null);
         this.addWithRecords(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE, null);
         this.addWithRecords(JukeboxSongInit.COOKIE, null);
+        this.addWithRecords(JukeboxSongInit.BAD_APPLE, null);
         for (var soundEvent : SoundEventInit.SOUND_EVENTS) {
             this.addWithSoundEvent(soundEvent, null);
         }

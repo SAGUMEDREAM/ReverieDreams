@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/bullet",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 16724365
+      "minecraft:dyed_color": 16724365,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:d46b0840-cca9-4f90-b2aa-acce07fef668"
+      }
     }
   },
   "dye": {
     "id": "minecraft:pink_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

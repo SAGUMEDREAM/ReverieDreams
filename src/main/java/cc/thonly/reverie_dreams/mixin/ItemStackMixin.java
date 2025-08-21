@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.mixin;
 
 import cc.thonly.mystias_izakaya.entity.villager.TavernVillager;
+import cc.thonly.mystias_izakaya.item.base.DrinkItem;
+import cc.thonly.mystias_izakaya.item.base.FoodItem;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.server.ItemDescriptionManager;
 import net.fabricmc.fabric.api.item.v1.FabricItemStack;
-import net.minecraft.component.ComponentHolder;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,6 +24,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -44,6 +45,10 @@ public abstract class ItemStackMixin<T> implements IItemStack,
     public abstract boolean isEmpty();
 
     @Shadow public abstract void decrementUnlessCreative(int amount, @Nullable LivingEntity entity);
+
+    @Shadow public abstract ComponentMap getComponents();
+
+    @Shadow @Final public MergedComponentMap components;
 
     @Inject(method = "useOnEntity", at = @At("HEAD"), cancellable = true)
     public void useOnVillager(PlayerEntity user, LivingEntity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
@@ -91,7 +96,12 @@ public abstract class ItemStackMixin<T> implements IItemStack,
     @Unique
     @Override
     public boolean isFood() {
-        ComponentMap components = this.getComponents();
-        return components.get(DataComponentTypes.FOOD) != null;
+        Item item = this.getItem();
+        if (item instanceof FoodItem || item instanceof DrinkItem) {
+            return true;
+        }
+//        System.out.println(item);
+//        this.components.forEach(component -> System.out.println(component.type()));
+        return this.components.contains(DataComponentTypes.FOOD);
     }
 }

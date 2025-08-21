@@ -48,7 +48,7 @@ public class ModDataComponentTypes {
             ComponentType.<Identifier>builder()
                     .codec(Identifier.CODEC)
                     .build());
-    public static final ComponentType<Integer> MAX_DISTANCE = registerComponent("max_disatance",
+    public static final ComponentType<Integer> MAX_DISTANCE = registerComponent("max_distance",
             ComponentType.<Integer>builder()
                     .codec(Codec.INT)
                     .build());

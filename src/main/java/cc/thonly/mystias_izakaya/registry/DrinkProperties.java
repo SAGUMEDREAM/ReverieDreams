@@ -99,12 +99,21 @@ public class DrinkProperties {
             DrinkProperty property = entry.getValue();
             Set<Item> tags = property.getItems();
             for (Item item : tags) {
-                itemDrinkPropertyCached
-                        .computeIfAbsent(item, k -> new HashSet<>())
+                itemDrinkPropertyCached.computeIfAbsent(item, k -> new HashSet<>())
                         .add(property);
             }
         }
         log.info("Ingredients TAG loading completed");
+
+        Map<Item, Integer> priceCalculationTable = DrinkItem.PRICE_CALCULATION_TABLE;
+        priceCalculationTable.clear();
+        for (Map.Entry<Item, Set<DrinkProperty>> entry : itemDrinkPropertyCached.entrySet()) {
+            int cost = 8;
+            Item item = entry.getKey();
+            Set<DrinkProperty> drinkProperties = entry.getValue();
+            cost += drinkProperties.size() * 2;
+            priceCalculationTable.put(item, cost);
+        }
     }
 
     public static void bootstrap(StandaloneRegistry<DrinkProperty> registry) {

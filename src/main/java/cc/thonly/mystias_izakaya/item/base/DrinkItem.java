@@ -4,6 +4,7 @@ import cc.thonly.mystias_izakaya.component.DrinkProperty;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerItem;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.PotionContentsComponent;
@@ -28,6 +29,7 @@ import java.util.function.Consumer;
 
 public class DrinkItem extends BasicPolymerItem {
     public static final Map<Item, Set<DrinkProperty>> ITEM_DRINK_CACHED = new HashMap<>();
+    public static final Map<Item, Integer> PRICE_CALCULATION_TABLE = new Object2ObjectOpenHashMap<>();
 
     public DrinkItem(String path, Settings settings) {
         super(path, settings.maxCount(16)
@@ -51,7 +53,7 @@ public class DrinkItem extends BasicPolymerItem {
             }
             if (user instanceof ServerPlayerEntity player) {
                 HungerManager hungerManager = player.getHungerManager();
-                hungerManager.add(1, 1);
+                hungerManager.add(1, allProperties.size() % 3);
             }
         }
         return super.finishUsing(stack, world, user);
@@ -65,7 +67,7 @@ public class DrinkItem extends BasicPolymerItem {
             textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
         }
         for (DrinkProperty property : allProperties) {
-            textConsumer.accept(Text.empty().append("·").append(Text.translatable(property.translateKey())));
+            textConsumer.accept(Text.empty().append("§b+").append(Text.translatable(property.translateKey())));
         }
     }
 }

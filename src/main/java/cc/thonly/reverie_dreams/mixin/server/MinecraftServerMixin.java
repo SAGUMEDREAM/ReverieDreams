@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
-import cc.thonly.minecraft.impl.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
@@ -20,11 +19,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.net.Proxy;
-import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.BooleanSupplier;
 
 @Slf4j

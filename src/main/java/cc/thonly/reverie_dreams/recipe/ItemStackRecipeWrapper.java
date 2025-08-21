@@ -11,15 +11,16 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.ToString;
 import net.minecraft.component.ComponentChanges;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @SuppressWarnings("MethodDoesntCallSuperMethod")
 @Getter
@@ -29,9 +30,12 @@ public class ItemStackRecipeWrapper {
     public static final Codec<Item> ITEM_CODEC_ALLOWING_AIR = Codec.STRING.xmap(
             id -> {
                 Identifier identifier = Identifier.tryParse(id);
+                if (identifier == null) {
+                    return Items.AIR;
+                }
                 Item item = Registries.ITEM.get(identifier);
                 if (item == null) {
-                    throw new IllegalArgumentException("Unknown item id: " + id);
+                    return Items.AIR;
                 }
                 return item;
             },
@@ -46,6 +50,12 @@ public class ItemStackRecipeWrapper {
             ).apply(instance, (item, count, components) -> {
                 ItemStack stack = new ItemStack(item, count);
                 stack.components.setChanges(components);
+//                if (stack.isEmpty()) {
+//                    stack = Items.WHITE_DYE.getDefaultStack();
+//                    stack.set(DataComponentTypes.ITEM_MODEL, Registries.ITEM.getId(Items.BARRIER));
+//                    stack.set(DataComponentTypes.ITEM_NAME, Text.literal("§cError Item"));
+//                    stack.set(DataComponentTypes.LORE, new LoreComponent(new ArrayList<>(List.of(Text.literal("§cThis item failed to be serialized")))));
+//                }
                 return stack;
             }))
     );

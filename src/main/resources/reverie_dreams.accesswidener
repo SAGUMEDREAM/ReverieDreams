@@ -32,3 +32,4 @@ accessible field net/minecraft/item/Item components Lnet/minecraft/component/Com
 accessible field net/minecraft/component/type/DyedColorComponent rgb I
 mutable field net/minecraft/component/type/DyedColorComponent rgb I
 accessible field net/minecraft/data/recipe/RecipeGenerator exporter Lnet/minecraft/data/recipe/RecipeExporter;
+accessible class net/minecraft/registry/RegistryLoader$Loader

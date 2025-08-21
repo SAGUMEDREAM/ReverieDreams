@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:font/block.png",
+      "chars":[
+        "\u999a"
+      ],
+      "height": 16,
+      "ascent": 12
+    }
+  ]
+}

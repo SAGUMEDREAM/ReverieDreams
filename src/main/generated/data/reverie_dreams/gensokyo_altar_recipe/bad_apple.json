@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:golden_apple",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:black_dye",
+      "count": 2
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 11
+    },
+    {
+      "id": "minecraft:black_dye",
+      "count": 2
+    },
+    {
+      "id": "minecraft:redstone",
+      "count": 6
+    },
+    {
+      "id": "minecraft:redstone",
+      "count": 6
+    },
+    {
+      "id": "minecraft:black_dye",
+      "count": 2
+    },
+    {
+      "id": "reverie_dreams:point",
+      "count": 8
+    },
+    {
+      "id": "minecraft:black_dye",
+      "count": 2
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:bad_apple",
+    "count": 1
+  }
+}

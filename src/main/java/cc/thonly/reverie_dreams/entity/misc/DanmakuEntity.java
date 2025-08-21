@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -278,13 +280,42 @@ public class DanmakuEntity extends PersistentProjectileEntity implements Polymer
 
         if (entity instanceof PlayerEntity player) {
             if (player.isBlocking()) {
+                boolean isInAttackRange = false;
                 ItemStack activeItem = player.getActiveItem();
-                if (activeItem != null) {
-                    activeItem.damage(1, player);
+                if (!activeItem.isEmpty()) {
+                    BlocksAttacksComponent blocksAttacksComponent = activeItem.get(DataComponentTypes.BLOCKS_ATTACKS);
+                    if (blocksAttacksComponent != null) {
+                        List<BlocksAttacksComponent.DamageReduction> damageReductions = blocksAttacksComponent.damageReductions();
+                        for (BlocksAttacksComponent.DamageReduction damageReduction : damageReductions) {
+                            float blockingAngle = damageReduction.horizontalBlockingAngle();
+
+                            // ① 使用 EyePos，避免高度误差
+                            Vec3d toProjectile = this.getPos().subtract(player.getEyePos()).normalize();
+
+                            // ② 只取水平向量，忽略 Y
+                            Vec3d playerLook = player.getRotationVec(1.0F);
+                            Vec3d look2D = new Vec3d(playerLook.x, 0, playerLook.z).normalize();
+                            Vec3d toProj2D = new Vec3d(toProjectile.x, 0, toProjectile.z).normalize();
+
+                            // ③ 点积求角度，clamp 防止 NaN
+                            double dot = MathHelper.clamp(look2D.dotProduct(toProj2D), -1.0, 1.0);
+                            double angle = Math.toDegrees(Math.acos(dot));
+
+                            // ④ 给一个小容错（比如 +5°）
+                            if (angle <= (blockingAngle / 2.0F) + 5.0F) {
+                                isInAttackRange = true;
+                                break; // 找到一个满足条件的就可以退出循环了
+                            }
+                        }
+                    }
+                    if (isInAttackRange) {
+                        activeItem.damage(1, player);
+                        this.discard(); // 拦截并移除投射物
+                        return;
+                    }
                 }
-                this.discard();
-                return;
             }
+
         }
 
         this.setPosition(entityHitResult.getPos());

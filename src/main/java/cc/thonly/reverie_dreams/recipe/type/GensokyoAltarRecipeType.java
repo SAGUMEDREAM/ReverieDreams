@@ -73,14 +73,14 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
     public void registerDynamicRecipe() {
         this.add(Touhou.id("role_archive"), new GensokyoAltarRecipe(ItemStackRecipeWrapper.of(ModItems.ROLE_ARCHIVE), List.of(
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 4)
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
+                ItemStackRecipeWrapper.of(Items.DIAMOND, 2)
         ), ItemStackRecipeWrapper.of(ModItems.ROLE_ARCHIVE)));
         this.add(Touhou.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackRecipeWrapper.of(ModItems.SPELL_CARD_TEMPLATE), List.of(
                 ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
@@ -109,13 +109,13 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
             );
         };
 
-        if (coreWrapper.getItem() instanceof RoleFollowerArchiveItem && isAllMatch.test(4)) {
+        if (coreWrapper.getItem() instanceof RoleFollowerArchiveItem && isAllMatch.test(2)) {
             ItemStack itemStack = coreWrapper.copy().getItemStack();
             itemStack.set(ModDataComponentTypes.ROLE_CAN_RESPAWN, true);
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,
-                    Collections.nCopies(8, ItemStackRecipeWrapper.of(Items.DIAMOND, 4)),
+                    Collections.nCopies(8, ItemStackRecipeWrapper.of(Items.DIAMOND, 2)),
                     ItemStackRecipeWrapper.of(itemStack)
             ));
         }

@@ -27,7 +27,7 @@ public interface YoumuSwordUsing {
             var center = user.getBlockPos();
 
             var entities = serverWorld.getEntitiesByClass(
-                    net.minecraft.entity.LivingEntity.class,
+                    LivingEntity.class,
                     new Box(
                             center.getX() - 16, center.getY() - 16, center.getZ() - 16,
                             center.getX() + 16, center.getY() + 16, center.getZ() + 16

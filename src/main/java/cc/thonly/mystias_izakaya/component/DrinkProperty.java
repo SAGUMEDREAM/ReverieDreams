@@ -58,6 +58,10 @@ public class DrinkProperty implements RegistrableObject<DrinkProperty> {
 
     }
 
+    public Boolean is(DrinkProperty property) {
+        return this == property || this.getId().equals(property.getId()) || this.hashCode() == property.hashCode();
+    }
+
     public Text getTooltip() {
         return Text.translatable(this.id.toTranslationKey("drink_property"));
     }

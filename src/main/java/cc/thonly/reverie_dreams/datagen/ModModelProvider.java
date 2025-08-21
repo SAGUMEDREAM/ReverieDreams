@@ -154,6 +154,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.CURSED_DECOY_DOLl);
         itemModelGenerator.register(ModItems.VAISRAVANAS_PAGODA, Models.GENERATED);
         itemModelGenerator.register(ModItems.DREAM_PILLOW);
+        itemModelGenerator.register(ModItems.TENGU_CAMERA);
+        itemModelGenerator.register(ModItems.BAD_APPLE, Models.GENERATED);
 
         // 武器
         itemModelGenerator.register(ModItems.HAKUREI_CANE, Models.HANDHELD);
@@ -222,6 +224,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.YV_FLOWER_CLOCK_AND_DREAMS, Models.GENERATED);
         itemModelGenerator.register(ModItems.GLOWING_NEEDLES_LITTLE_PEOPLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.COOKIE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.BADAPPLE, Models.GENERATED);
 
         // 测试物品
 //        itemModelGenerator.registerWithDyeableOverlay(ModItems.TEST_COLOR_DANMAKU_ITEM);

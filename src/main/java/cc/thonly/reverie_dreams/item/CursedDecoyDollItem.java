@@ -21,7 +21,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class CursedDecoyDollItem extends BasicPolymerItem {
     public CursedDecoyDollItem(String path, Item.Settings settings) {
@@ -41,6 +40,8 @@ public class CursedDecoyDollItem extends BasicPolymerItem {
         if (!world.isClient && world instanceof ServerWorld serverWorld && player instanceof ServerPlayerEntity serverPlayer) {
             ItemStack stackInHand = serverPlayer.getStackInHand(hand);
             ArmorStandEntity armorStandEntity = new ArmorStandEntity(serverWorld, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+            armorStandEntity.setYaw(player.getYaw());
+            armorStandEntity.setPitch(player.getPitch());
             serverWorld.spawnEntity(armorStandEntity);
             List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, new Box(blockPos).expand(24), livingEntity -> true);
             for (LivingEntity livingEntity : list) {

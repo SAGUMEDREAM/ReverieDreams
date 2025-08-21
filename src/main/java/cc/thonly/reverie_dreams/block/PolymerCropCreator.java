@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.base.BasicCropBlock;
+import cc.thonly.reverie_dreams.block.crop.TransparentFlatTripWire;
 import cc.thonly.reverie_dreams.block.crop.TransparentPlant;
 import cc.thonly.reverie_dreams.block.crop.TransparentPlantWatterlogged;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerBlockItem;
@@ -73,7 +74,7 @@ public final class PolymerCropCreator {
      */
     public PolymerCropCreator.Instance build() {
         BasicCropBlock basicCropBlock = this.factory.newInstance(this.identifier);
-        basicCropBlock.setPolymerBlockState(this.inWater ? TransparentPlantWatterlogged.TRANSPARENT_WATTERLOGGED : TransparentPlant.TRANSPARENT);
+        basicCropBlock.setPolymerBlockState(this.inWater ? TransparentPlantWatterlogged.TRANSPARENT_WATTERLOGGED : TransparentFlatTripWire.TRANSPARENT_FLAT_TRIPIWIRE);
 
         BasicCropBlock cropBlock = Registry.register(Registries.BLOCK, this.identifier, basicCropBlock);
 
@@ -102,7 +103,7 @@ public final class PolymerCropCreator {
 
         cropBlock.setSeed(seedItem);
         cropBlock.setModelProvider(this.provider);
-        cropBlock.setPolymerBlockState(this.inWater ? TransparentPlantWatterlogged.TRANSPARENT_WATTERLOGGED : TransparentPlant.TRANSPARENT);
+        cropBlock.setPolymerBlockState(this.inWater ? TransparentPlantWatterlogged.TRANSPARENT_WATTERLOGGED : TransparentFlatTripWire.TRANSPARENT_FLAT_TRIPIWIRE);
 
         Instance instance = Instance.createInstance(this.identifier)
                 .setCropBlock(cropBlock)

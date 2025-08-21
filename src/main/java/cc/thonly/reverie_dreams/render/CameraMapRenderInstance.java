@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.render;
 
 import eu.pb4.mapcanvas.api.core.DrawableCanvas;
 import eu.pb4.mapcanvas.api.core.PlayerCanvas;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -16,7 +17,7 @@ public class CameraMapRenderInstance {
         this.playerCanvas.addPlayer(this.player);
     }
 
-    public ItemStack export() {
+    public ItemStack make() {
         return this.playerCanvas.asStack();
     }
 }

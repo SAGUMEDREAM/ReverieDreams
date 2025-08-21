@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.base.NPCEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.jukebox.JukeboxSong;
@@ -22,6 +23,10 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.StatType;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextContent;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Identifier;
 
 import java.io.IOException;
@@ -30,6 +35,7 @@ import java.util.Map;
 
 @CanIgnoreReturnValue
 @Getter
+@Slf4j
 public class TranslationExporter implements TranslationCreatorImpl {
     public static final Map<EntityType<?>, Item> MAPPER = ModEntities.SPAWN_EGG_BIND;
     private final RegistryWrapper.WrapperLookup wrapperLookup;
@@ -57,6 +63,19 @@ public class TranslationExporter implements TranslationCreatorImpl {
 
     public TranslationExporter add(RegistryKey<ItemGroup> registryKey, String value) {
         this.translationBuilder.add(registryKey, value);
+        return this;
+    }
+
+    public TranslationExporter add(ItemGroup itemGroup, String value) {
+        Text text = itemGroup.getDisplayName();
+        TextContent content = text.getContent();
+        if (content instanceof TranslatableTextContent translatableTextContent) {
+            this.translationBuilder.add(translatableTextContent.getKey(), value);
+        } else {
+            TextContent.Type<?> type = content.getType();
+            String string = type.asString();
+            log.error("Can't get translatable text content in item group {}", string);
+        }
         return this;
     }
 
@@ -104,7 +123,7 @@ public class TranslationExporter implements TranslationCreatorImpl {
         this.add(entityType, name);
         Item item = MAPPER.get(entityType);
         if (item != null) {
-            this.add(item ,spawnEggName);
+            this.add(item, spawnEggName);
         }
         return this;
     }

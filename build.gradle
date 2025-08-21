@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
+//    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = project.mod_version
@@ -83,8 +84,10 @@ dependencies {
     modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
     modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
 
+    modImplementation files('libs/dynamic-registries-modifier-1.0.0.jar')
+
     modImplementation files('libs/resourceconfigapi-fabric-1.21.7-3.7.3.jar')
-    modImplementation files('libs/eiv-fabric-2.5.5-bpv+1.21.7.jar')
+    modImplementation files('libs/eiv-fabric-2.5.3+1.21.8.jar')
 
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')
@@ -94,6 +97,7 @@ dependencies {
     modCompileOnly files('libs/farmers-delight-polymer-patch-3.2.3.0+1.21.6.jar')
     modCompileOnly files('libs/Fishing-101-1.7.1_experimental.jar')
     modCompileOnly files('libs/go-fish-1.8.0+1.21.6.jar')
+    modCompileOnly files('libs/brewery-0.12.0+1.21.6.jar')
 
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 
@@ -107,12 +111,53 @@ dependencies {
     modCompileOnly 'maven.modrinth:polydex:1.6.0+1.21.6'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
+    implementation include('com.squareup.okhttp3:okhttp:4.12.0')
     implementation include('com.mohistmc:dynamicenum:0.3')
     implementation include('org.reflections:reflections:0.10.2')
 
     compileOnly 'com.google.auto.value:auto-value:1.10.4'
     annotationProcessor 'com.google.auto.value:auto-value:1.10.4'
+
 }
+
+def includeDependencyJar = { File targetJar ->
+    def tempDir = new File(buildDir, "tmp/include_jars")
+    tempDir.deleteDir()
+    tempDir.mkdirs()
+
+    copy {
+        from zipTree(targetJar)
+        into tempDir
+    }
+
+    def metaDir = new File(tempDir, "META-INF/jars")
+    metaDir.mkdirs()
+    copy {
+        from file("libs/dynamic-registries-modifier-1.0.0.jar")
+        into metaDir
+    }
+
+    ant.jar(destfile: targetJar) {
+        fileset(dir: tempDir, includes: "**/*")
+    }
+
+    tempDir.deleteDir()
+}
+
+tasks.remapJar {
+    doLast {
+        def jarFile = archiveFile.get().asFile
+        includeDependencyJar(jarFile)
+    }
+}
+
+//tasks.remapSourcesJar {
+//    doLast {
+//        def sourcesJarFile = archiveFile.get().asFile
+//        includeDependencyJar(sourcesJarFile)
+//    }
+//}
+
 
 processResources {
     inputs.property "version", project.version

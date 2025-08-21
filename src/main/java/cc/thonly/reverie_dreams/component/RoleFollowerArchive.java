@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
@@ -28,7 +29,6 @@ import java.util.Optional;
 
 @Getter
 public class RoleFollowerArchive {
-    public static final Gson GSON = new Gson();
     public static final Codec<RoleFollowerArchive> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("entity_type_id").forGetter(RoleFollowerArchive::getEntityTypeId),
             Codec.STRING.fieldOf("name").forGetter(RoleFollowerArchive::getNameJson),

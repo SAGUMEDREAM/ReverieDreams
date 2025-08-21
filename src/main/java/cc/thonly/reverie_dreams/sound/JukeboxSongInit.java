@@ -21,6 +21,7 @@ public class JukeboxSongInit {
     public static final JukeBoxEntry YV_FLOWER_CLOCK_AND_DREAMS = registerJukeBoxEntry("yv_flower_clock_and_dreams", 357, 6);
     public static final JukeBoxEntry GLOWING_NEEDLES_LITTLE_PEOPLE = registerJukeBoxEntry("glowing_needles_little_people", 242, 6);
     public static final JukeBoxEntry COOKIE = registerJukeBoxEntry("cookie", 72, 6);
+    public static final JukeBoxEntry BAD_APPLE = registerJukeBoxEntry("badapple", 219,6);
 
     private static JukeBoxEntry registerJukeBoxEntry(String id, int length, int output) {
         RegistryKey<JukeboxSong> jukeboxSongRegistryKey = createJukeBoxSongRegistryKey(id);

@@ -3,10 +3,12 @@ package cc.thonly.reverie_dreams.item;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerSpawnEggItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +18,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 public class RoleCard implements RegistrableObject<RoleCard> {
     public static final Codec<RoleCard> CODEC = Codec.unit(RoleCard::new);
@@ -46,6 +49,13 @@ public class RoleCard implements RegistrableObject<RoleCard> {
         this.of(roles);
     }
 
+    @Nullable
+    public static RoleCard findRoleCard(NPCRole role) {
+        Stream<RoleCard> stream = RegistryManager.ROLE_CARD.values().stream().filter(card -> card.entries.contains(role));
+        return stream.findFirst()
+                .orElse(null);
+    }
+
     public RoleCard of(List<NPCRole> roles) {
         for (NPCRole role : roles) {
             if (!this.entries.contains(role)) {
@@ -65,6 +75,10 @@ public class RoleCard implements RegistrableObject<RoleCard> {
         itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color.intValue()));
         itemStack.set(ModDataComponentTypes.ROLE_CARD_ID, this.getId());
         return itemStack.copy();
+    }
+
+    public Stream<NPCRole> stream() {
+        return this.entries.stream();
     }
 
     public Optional<NPCRole> random() {

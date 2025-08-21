@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:shield",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:feather",
+      "count": 3
+    },
+    {
+      "id": "minecraft:feather",
+      "count": 5
+    },
+    {
+      "id": "minecraft:feather",
+      "count": 2
+    },
+    {
+      "id": "reverie_dreams:silver_ingot",
+      "count": 7
+    },
+    {
+      "id": "reverie_dreams:silver_ingot",
+      "count": 7
+    },
+    {
+      "id": "minecraft:diamond",
+      "count": 3
+    },
+    {
+      "id": "minecraft:iron_ingot",
+      "count": 6
+    },
+    {
+      "id": "minecraft:bone",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:tengu_shield",
+    "count": 1
+  }
+}

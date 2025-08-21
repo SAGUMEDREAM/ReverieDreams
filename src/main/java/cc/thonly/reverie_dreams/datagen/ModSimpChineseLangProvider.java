@@ -2,9 +2,11 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.entity.MIEntities;
+import cc.thonly.mystias_izakaya.item.MIItemGroups;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.registry.DrinkProperties;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
+import cc.thonly.reverie_dreams.EndLoaderInit;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.fumo.Fumos;
@@ -16,10 +18,12 @@ import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
+import cc.thonly.reverie_dreams.item.ModItemGroups;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.RoleCards;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
+import cc.thonly.reverie_dreams.world.GameRulesInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
@@ -36,13 +40,21 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        translationBuilder.add("item_group.touhou_block_and_item", "Gensokyo: Reverie of Lost Dreams - 物品/方块");
-        translationBuilder.add("item_group.touhou.bullet", "Gensokyo: Reverie of Lost Dreams - 子弹");
-        translationBuilder.add("item_group.touhou.template", "Gensokyo: Reverie of Lost Dreams - 弹幕模板");
-        translationBuilder.add("item_group.touhou.fumo", "Gensokyo: Reverie of Lost Dreams - Fumo");
-        translationBuilder.add("item_group.touhou.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 刷怪蛋");
-        translationBuilder.add("item_group.touhou.role_card", "Gensokyo: Reverie of Lost Dreams - 角色卡");
-        translationBuilder.add("item_group.touhou.role.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 角色刷怪蛋");
+        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        builder.add(ModItemGroups.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 物品/方块");
+        builder.add(ModItemGroups.ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕");
+        builder.add(ModItemGroups.TEMPLATE_ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕模板");
+        builder.add(ModItemGroups.ITEM_GROUP_FUMO, "Gensokyo: Reverie of Lost Dreams | Fumo");
+        builder.add(ModItemGroups.ITEM_GROUP_ROLE_CARD, "Gensokyo: Reverie of Lost Dreams | 角色卡");
+        builder.add(EndLoaderInit.ITEM_GROUP_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 刷怪蛋");
+        builder.add(EndLoaderInit.ITEM_GROUP_NPC_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 角色刷怪蛋");
+//        translationBuilder.add("item_group.touhou_block_and_item", "Gensokyo: Reverie of Lost Dreams - 物品/方块");
+//        translationBuilder.add("item_group.touhou.bullet", "Gensokyo: Reverie of Lost Dreams - 子弹");
+//        translationBuilder.add("item_group.touhou.template", "Gensokyo: Reverie of Lost Dreams - 弹幕模板");
+//        translationBuilder.add("item_group.touhou.fumo", "Gensokyo: Reverie of Lost Dreams - Fumo");
+//        translationBuilder.add("item_group.touhou.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 刷怪蛋");
+//        translationBuilder.add("item_group.touhou.role_card", "Gensokyo: Reverie of Lost Dreams - 角色卡");
+//        translationBuilder.add("item_group.touhou.role.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 角色刷怪蛋");
         translationBuilder.add("item.tooltip.use", "§b[右键使用]");
         translationBuilder.add("item.tooltip.use.villager", "§b[右键村民使用]");
         translationBuilder.add("item.tooltip.color", "颜色：");
@@ -58,6 +70,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("message.gensokyo_altar.miss_recipe", "§c未知合成仪式");
         translationBuilder.add("message.treasure_hunting_rod.find", "离目标还有 %s 格，偏移：X=%s, Y=%s, Z=%s，目标：");
         translationBuilder.add("message.treasure_hunting_rod.not_found", "未在附近找到矿物。");
+        translationBuilder.add(GameRulesInit.DO_GHOST.getTranslationKey(), "禁止幽灵生成");
 
         this.generateItemTranslations(wrapperLookup, translationBuilder);
         this.generateBlockTranslations(wrapperLookup, translationBuilder);
@@ -67,6 +80,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         this.generateRoleTranslations(wrapperLookup, translationBuilder);
         this.generateRoleCardTranslations(wrapperLookup, translationBuilder);
         this.generateEffectTranslations(wrapperLookup, translationBuilder);
+        this.generateDialogTranslations(wrapperLookup, translationBuilder);
         this.generateTestTranslations(wrapperLookup, translationBuilder);
 
         translationBuilder.add("gui.npc.info", "§d");
@@ -122,6 +136,12 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add("command.touhou.about.author", "Author: 稀神灵梦");
         builder.add("command.touhou.about.line10", "");
         builder.add("command.touhou.about.line11", "");
+
+        builder.add("command.touhou.video.reload", "视频重载完成");
+        builder.add("command.touhou.video.load", "视频加载中...");
+        builder.add("command.touhou.video.load.done", "视频加载完成");
+
+
     }
 
     public void generateTestTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
@@ -129,20 +149,26 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateMITranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
+        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
         translationBuilder.add("item.tooltip.food_properties", "属性：");
-        translationBuilder.add("item_group.kitchenware_item_group", "Gensokyo: Reverie of Lost Dreams - 厨具");
-        translationBuilder.add("item_group.ingredients_item_group", "Gensokyo: Reverie of Lost Dreams - 食材");
-        translationBuilder.add("item_group.seed_item_group", "Gensokyo: Reverie of Lost Dreams - 种子");
-        translationBuilder.add("item_group.food_item_group", "Gensokyo: Reverie of Lost Dreams - 食物");
-        translationBuilder.add("item_group.drink_item_group", "Gensokyo: Reverie of Lost Dreams - 饮品");
+        builder.add(MIItemGroups.KITCHENWARE_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 厨具");
+        builder.add(MIItemGroups.INGREDIENT_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食材");
+        builder.add(MIItemGroups.SEEDS_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 种子");
+        builder.add(MIItemGroups.FOOD_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食物");
+        builder.add(MIItemGroups.DRINK_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 饮品");
+//        translationBuilder.add("item_group.kitchenware_item_group", "Gensokyo: Reverie of Lost Dreams - 厨具");
+//        translationBuilder.add("item_group.ingredients_item_group", "Gensokyo: Reverie of Lost Dreams - 食材");
+//        translationBuilder.add("item_group.seed_item_group", "Gensokyo: Reverie of Lost Dreams - 种子");
+//        translationBuilder.add("item_group.food_item_group", "Gensokyo: Reverie of Lost Dreams - 食物");
+//        translationBuilder.add("item_group.drink_item_group", "Gensokyo: Reverie of Lost Dreams - 饮品");
 
         translationBuilder.add(MIBlocks.COOKING_POT, "煮锅");
         translationBuilder.add(MIBlocks.CUTTING_BOARD, "料理台");
         translationBuilder.add(MIBlocks.FRYING_PAN, "油锅");
         translationBuilder.add(MIBlocks.GRILL, "烧烤架");
-        translationBuilder.add(MIBlocks.STEAMER, "夜雀⦁蒸锅");
+        translationBuilder.add(MIBlocks.STEAMER, "蒸锅");
         translationBuilder.add(MIBlocks.MYSTIA_COOKING_POT, "夜雀⦁煮锅");
         translationBuilder.add(MIBlocks.MYSTIA_CUTTING_BOARD, "夜雀⦁料理台");
         translationBuilder.add(MIBlocks.MYSTIA_FRYING_PAN, "夜雀⦁油锅");
@@ -393,6 +419,38 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(MIItems.DAWN, "水獭祭");
         translationBuilder.add(MIItems.SPARROW_SAKE, "雀酒");
         translationBuilder.add(MIItems.SCARLET_DEVIL_MANSION_BLACK_TEA, "红魔馆红茶");
+        translationBuilder.add(MIItems.AFFGADO, "阿芙加朵");
+        translationBuilder.add(MIItems.RED_MIST, "红雾");
+        translationBuilder.add(MIItems.NEGRONI, "尼格罗尼");
+        translationBuilder.add(MIItems.GODFATHER, "教父");
+        translationBuilder.add(MIItems.BLESSING_WIND, "风祝");
+        translationBuilder.add(MIItems.WINTER_BREW, "冬酿");
+        translationBuilder.add(MIItems.FOURTEENTH_NIGHT, "十四夜");
+        translationBuilder.add(MIItems.FIRE_RAT_FUR, "火鼠裘");
+        translationBuilder.add(MIItems.GYOKURO_TEA, "玉露茶");
+        translationBuilder.add(MIItems.MOON_ROCKET, "月面火箭");
+        translationBuilder.add(MIItems.MILK, "牛奶");
+        translationBuilder.add(MIItems.RED_GRAPEFRUIT_JUICE, "红柚果汁");
+        translationBuilder.add(MIItems.SODA, "波子汽水");
+        translationBuilder.add(MIItems.ICEBERG_MAPLE_FROZEN_LEMON, "冰山毛玉冻柠");
+        translationBuilder.add(MIItems.BIG_POPSICLE, "“大冰棍儿！”");
+        translationBuilder.add(MIItems.DAIGINJO, "大吟酿");
+        translationBuilder.add(MIItems.COFFEE, "咖啡");
+        translationBuilder.add(MIItems.FAIRY_RAIN, "妖精雨露");
+        translationBuilder.add(MIItems.PALEO_CREAMY_SMOOTHIE, "古法奶油冰沙");
+        translationBuilder.add(MIItems.ORDINARY_FITNESS_TEA, "普通健身茶");
+        translationBuilder.add(MIItems.DEMON_SLAYER, "鬼杀");
+        translationBuilder.add(MIItems.QI_HEALTH, "气保健");
+        translationBuilder.add(MIItems.KOMEIJI_ICE_CREAM, "古明地冰激凌");
+        translationBuilder.add(MIItems.MANGO_POMELO_SAGO, "杨枝甘露");
+        translationBuilder.add(MIItems.QILIN, "麒麟");
+        translationBuilder.add(MIItems.HEAVEN_AND_EARTH_ARE_USELESS, "天地无用");
+        translationBuilder.add(MIItems.DRUNK_ACTOR, "伶人醉");
+        translationBuilder.add(MIItems.DAUGHTER_OF_THE_SEA, "海的女儿");
+        translationBuilder.add(MIItems.DEMONIC_COFFEE, "魔界咖啡");
+        translationBuilder.add(MIItems.MOJITO_BURST_BALL, "莫吉托爆浆球");
+        translationBuilder.add(MIItems.SPACE_BEER, "太空啤酒");
+        translationBuilder.add(MIItems.SATELLITE_ICED_COFFEE, "卫星冰咖啡");
 
         translationBuilder.add(FoodProperties.UNDEFINED.translateKey(), "未定义");
         translationBuilder.add(FoodProperties.MEAT.translateKey(), "肉类");
@@ -673,6 +731,90 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
     }
 
+    public void generateDialogTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
+        translationBuilder.add("dialog.message.select", "请选择一个角色");
+
+        translationBuilder.add("dialog.title.main", "东方入门手册");
+        translationBuilder.add("dialog.title.altar", "祭坛摆放");
+        translationBuilder.add("dialog.title.danmaku", "弹幕合成");
+        translationBuilder.add("dialog.title.upgrade_danmaku", "升级弹幕");
+        translationBuilder.add("dialog.title.fumo", "Fumo 指南");
+        translationBuilder.add("dialog.title.role", "角色养成");
+        translationBuilder.add("dialog.title.mystia.main", "夜雀食堂");
+        translationBuilder.add("dialog.title.cn.issue", "QQ开发/反馈群");
+        translationBuilder.add("dialog.title.other_mod_list", "其他配套Mod列表");
+        translationBuilder.add("dialog.title.open_recipe_manager", "打开配方管理器");
+
+        translationBuilder.add("dialog.text.empty", "空");
+        translationBuilder.add("dialog.text.exit", "退出");
+        translationBuilder.add("dialog.text.random", "随机");
+        translationBuilder.add("dialog.text.back", "返回");
+
+        translationBuilder.add("dialog.main.welcome", "欢迎游玩Gensokyo: Reverie of Lost Dreams，本屏幕将介绍模组的游玩指南");
+        translationBuilder.add("dialog.main.description.0", "当前版本为 %s");
+
+        translationBuilder.add("dialog.altar.material", "材料");
+        translationBuilder.add("dialog.altar.ways", "摆放方式");
+
+        translationBuilder.add("dialog.danmaku.description.0", "弹幕工作台是一个用于合成弹幕物品的工作方块，里面共有5个槽位可以摆放物品合成位。");
+        translationBuilder.add("dialog.danmaku.description.1", "摆放示例：");
+
+        translationBuilder.add("dialog.upgrade_danmaku.description.0","%s可升级提升弹幕的战斗力");
+        translationBuilder.add("dialog.upgrade_danmaku.description.1","目前有效强化道具有：");
+
+        translationBuilder.add("dialog.fumo.description.0", "Fumo 是《东方 Project》角色为原型的毛绒玩偶，绝大多数 Fumo 可在生存模式内通过较为昂贵的交易获得，且放置后会立刻转向玩家当前所在位置，一共有16个方向可以转向放置，右键 Fumo 方块可以发出 Fumo 声音。");
+        translationBuilder.add("dialog.fumo.description.1", "Fumo 商人每天的交易内容都会变化");
+        translationBuilder.add("dialog.fumo.description.2", "商人创建方式：使用%s对村民右键转化为Fumo商人");
+
+        translationBuilder.add("dialog.role.description.0", "角色（Role）是本 Mod 中的随从类实体，类似 Touhou Little Maid，拥有背包，战斗，工作模式，睡眠和饥饿等模块，可以使用蛋糕驯服");
+        translationBuilder.add("dialog.role.description.1", "一般生存模式下可通过角色卡召唤，角色卡可通过幻想乡祭坛合成");
+        translationBuilder.add("dialog.role.description.2", "角色死亡后会掉落物品%s，可在在祭坛摆放一圈钻石*2重新复活角色");
+
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.0",
+                "夜雀食堂 —— 原作《东方夜雀食堂 - Touhou Mystia's Izakaya》"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.1",
+                "这是本 Mod 的一个模块，添加了原作中的所有食材、食物、酒水及烹饪配方，并对原版掉落物进行了调整。"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.2",
+                "农作物种子主要通过打开世界中的战利品宝箱获得，海产品则可通过相应的钓鱼或采集方式获取。"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.3",
+                "烹饪系统可识别 Farmer's Delight Refabricated、Borukva Food 以及 Borukva Food Exotic 中的食材，并支持相应的 TAG 和可替代配方。"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.4",
+                "厨具主要分为煮锅、料理台、油锅、烧烤架和蒸锅五种及其升级版。烹饪配方可通过夜雀食堂维基查询，食材搭配不当可能产生黑暗物质哦。"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.5",
+                ""
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.6",
+                "酒水获取指南"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.7",
+                "普通酒水可通过与 %s 交易获得。饮用后会获得不同的效果，每天可交易的酒水及其加成可能会变化，但绿茶、果味 High Ball 和果味 SOUR 始终会出现在交易列表中。"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.description.8",
+                "手持%s对村民右键即可将村民升级为%s。"
+        );
+        translationBuilder.add(
+                "dialog.touhou_mystia.wiki",
+                "打开夜雀食堂维基"
+        );
+
+        translationBuilder.add("dialog.other_mod_list.description.0", "本页面列举了对本 Mod 游玩有帮助的辅助性 Mod");
+
+    }
+
     public void generateItemTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         // 调试
         translationBuilder.add(ModItems.BATTLE_STICK, "战斗调试棒");
@@ -712,6 +854,9 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModItems.CURSED_DECOY_DOLl, "被诅咒的诱饵人偶");
         translationBuilder.add(ModItems.VAISRAVANAS_PAGODA, "毘沙门天的宝塔");
         translationBuilder.add(ModItems.DREAM_PILLOW, "梦境枕头");
+        translationBuilder.add(ModItems.TENGU_SHIELD, "天狗手盾");
+        translationBuilder.add(ModItems.TENGU_CAMERA, "天狗相机");
+        translationBuilder.add(ModItems.BAD_APPLE, "Bad Apple!!");
 
         // 武器
         translationBuilder.add(ModItems.HAKUREI_CANE, "博丽御币");
@@ -791,6 +936,8 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.generateSoundEventSubtitle(SoundEventInit.UP, "升级");
         builder.generateSoundEventSubtitle(SoundEventInit.FIRE, "弹幕发射");
         builder.generateSoundEventSubtitle(SoundEventInit.BAGUA, "魔炮");
+        builder.generateSoundEventSubtitle(SoundEventInit.PHOTO, "拍照");
+        builder.generateSoundEventSubtitle(SoundEventInit.TICK_WAVE, "波");
 
         this.generateDiscTranslations(wrapperLookup, translationBuilder);
         this.generateDanmakuType(wrapperLookup, translationBuilder);
@@ -819,6 +966,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.generateJukeBox(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS.getJukeboxSongRegistryKey(), "Yonder-Voice - 花時計と夢");
         builder.generateJukeBox(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongRegistryKey(), "Inchlings of the Shining Needle ~ Little Princess : 「Miracle Remix」");
         builder.generateJukeBox(JukeboxSongInit.COOKIE.getJukeboxSongRegistryKey(), "温馨的神社（迫真）");
+        builder.generateJukeBox(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey(), "Bad Apple");
     }
 
     public void generateBlockTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {

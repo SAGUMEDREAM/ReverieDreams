@@ -1,4 +1,10 @@
 {
+  "photo": {
+    "subtitle": "sound.reverie_dreams.photo",
+    "sounds": [
+      "reverie_dreams:photo"
+    ]
+  },
   "fumo/0": {
     "subtitle": "sound.reverie_dreams.fumo/0",
     "sounds": [
@@ -25,10 +31,24 @@
       "reverie_dreams:fumo/3"
     ]
   },
+  "tick_wave": {
+    "subtitle": "sound.reverie_dreams.tick_wave",
+    "sounds": [
+      "reverie_dreams:tick_wave"
+    ]
+  },
   "fumo/2": {
     "subtitle": "sound.reverie_dreams.fumo/2",
     "sounds": [
       "reverie_dreams:fumo/2"
+    ]
+  },
+  "badapple": {
+    "subtitle": "sound.reverie_dreams.badapple",
+    "sounds": [
+      {
+        "name": "reverie_dreams:records/badapple"
+      }
     ]
   },
   "fumo/1": {

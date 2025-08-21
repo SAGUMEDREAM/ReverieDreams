@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/star",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 7434609
+      "minecraft:dyed_color": 7434609,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:37afc660-44c9-47d4-98d3-d1a30f402345"
+      }
     }
   },
   "dye": {
     "id": "minecraft:light_gray_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

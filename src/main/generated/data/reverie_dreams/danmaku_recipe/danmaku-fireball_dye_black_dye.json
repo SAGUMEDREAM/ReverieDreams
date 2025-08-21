@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/fireball",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 2500134
+      "minecraft:dyed_color": 2500134,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:13e595bf-1c35-409e-a09b-b24117179e2e"
+      }
     }
   },
   "dye": {
     "id": "minecraft:black_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

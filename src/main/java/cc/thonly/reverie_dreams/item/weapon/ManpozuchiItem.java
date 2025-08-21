@@ -13,7 +13,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.registry.tag.BlockTags;
@@ -29,6 +31,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.function.Predicate;
 
@@ -44,6 +47,11 @@ public class ManpozuchiItem extends BasicPolymerPickaxeItem {
 
     public ManpozuchiItem(String path, float attackDamage, float attackSpeed, Settings settings) {
         super(path, MATERIAL, attackDamage + 3.5f, attackSpeed - 2.5f, settings);
+    }
+
+    @Override
+    public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
+        return Items.MACE;
     }
 
     @Override

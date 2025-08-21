@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/rice",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 16724273
+      "minecraft:dyed_color": 16724273,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:c2a0902f-b31b-42f4-9c3c-248fcc1750df"
+      }
     }
   },
   "dye": {
     "id": "minecraft:red_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

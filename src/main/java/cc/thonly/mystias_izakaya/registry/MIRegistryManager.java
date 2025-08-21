@@ -1,6 +1,7 @@
 package cc.thonly.mystias_izakaya.registry;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
+import cc.thonly.mystias_izakaya.api.DrinkPropertyLoaderCallback;
 import cc.thonly.mystias_izakaya.component.CraftingConflict;
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
@@ -8,8 +9,10 @@ import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.server.world.ServerWorld;
 
 @Slf4j
 public class MIRegistryManager extends RegistryManager {
@@ -29,6 +32,9 @@ public class MIRegistryManager extends RegistryManager {
     public static void bootstrap() {
         FOOD_PROPERTY.apply();
         FoodPropertyLoaderCallback.EVENT.register((world, user, property) -> {
+            if (world.isClient) {
+                return;
+            }
             if (property.is(FoodProperties.COOL)) {
                 user.setOnFire(false);
                 user.setFireTicks(0);
@@ -79,6 +85,34 @@ public class MIRegistryManager extends RegistryManager {
             if (property.is(FoodProperties.DARK_CUISINE)) {
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 15 * 20));
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 10 * 20));
+            }
+        });
+        DrinkPropertyLoaderCallback.EVENT.register((world, user, property) -> {
+            if (world.isClient) {
+                return;
+            }
+            if (property.is(DrinkProperties.LOW_ALCOHOL)) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 3 * 20));
+            }
+            if (property.is(DrinkProperties.MID_ALCOHOL)) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 9 * 20));
+            }
+            if (property.is(DrinkProperties.HIGH_ALCOHOL)) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 27 * 20));
+            }
+            if (property.is(DrinkProperties.CAN_ADD_ICE)) {
+                user.setOnFire(false);
+                user.setFrozenTicks(20);
+            }
+            if (property.is(DrinkProperties.SWEET)) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 10 * 20));
+            }
+            if (property.is(DrinkProperties.REFRESHING)) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 20 * 20));
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 20));
+            }
+            if (property.is(DrinkProperties.BITTER)) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20));
             }
         });
     }

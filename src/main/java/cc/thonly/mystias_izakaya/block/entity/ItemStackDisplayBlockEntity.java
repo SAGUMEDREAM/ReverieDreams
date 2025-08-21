@@ -32,6 +32,16 @@ public class ItemStackDisplayBlockEntity extends BlockEntity {
         super(MIBlockEntities.ITEM_DISPLAY_BLOCK_ENTITY, pos, state);
     }
 
+    public void update() {
+        var model = ItemStackDisplay.POS_TO_MODEL.get(this.getPos().asLong());
+        if (!(this.getCachedState().getBlock() instanceof ItemStackDisplay)) {
+            return;
+        }
+        if (model != null) {
+            model.updateItem(this.getCachedState());
+        }
+    }
+
     public static void tick(World world, BlockPos pos, BlockState state, ItemStackDisplayBlockEntity blockEntity) {
         if (blockEntity.tick > 5) {
             var model = ItemStackDisplay.POS_TO_MODEL.get(pos.asLong());

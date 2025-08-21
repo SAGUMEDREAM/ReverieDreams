@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import cc.thonly.reverie_dreams.dialog.DialogInit;
 import eu.pb4.sgui.api.elements.BookElementBuilder;
 import eu.pb4.sgui.api.gui.BookGui;
 import net.minecraft.component.DataComponentTypes;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -53,8 +55,7 @@ public class TouhouHelperItem extends BasicPolymerItem {
             ItemStack itemStack = user.getStackInHand(hand);
             user.useBook(itemStack, hand);
             user.incrementStat(Stats.USED.getOrCreateStat(this));
-            HelperGui helperGui = new HelperGui(player);
-            helperGui.open();
+            user.openDialog(RegistryEntry.of(DialogInit.MAIN_HELP));
             return ActionResult.SUCCESS_SERVER;
         }
         return ActionResult.SUCCESS;
@@ -88,7 +89,7 @@ public class TouhouHelperItem extends BasicPolymerItem {
             BookElementBuilder builder = new BookElementBuilder();
             // 1
             builder.addPage(
-                    Text.empty().append("欢迎游玩东方Project模组，本书将介绍模组的游玩指南"),
+                    Text.empty().append("欢迎游玩Gensokyo: Reverie of Lost Dreams，本书将介绍模组的游玩指南"),
                     Text.empty(),
                     Text.empty().append("导航目录："),
                     Text.empty().append("> [祭坛摆放]").setStyle(Style.EMPTY.withClickEvent(new ClickEvent.ChangePage(3))),

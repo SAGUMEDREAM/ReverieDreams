@@ -11,6 +11,9 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.UseCooldownComponent;
+import net.minecraft.item.ItemStack;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -52,6 +55,8 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
                 result.resultOrPartial(error -> log.error("Failed to load danmaku recipe {}, {}", id, error))
                         .ifPresent(recipe -> {
                             this.add(registryKey, recipe);
+                            ItemStack itemStack = recipe.getOutput().getItemStack();
+                            itemStack.set(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))));
                         });
             } catch (IOException e) {
                 log.error("Failed to load danmaku recipe {}, {}, {}", id, e.getMessage(), e);

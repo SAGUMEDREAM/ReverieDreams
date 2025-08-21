@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams;
 
-import cc.thonly.minecraft.impl.ItemPostHitCallback;
+import cc.thonly.minecraft.api.ItemPostHitCallback;
 import cc.thonly.reverie_dreams.armor.ModArmorMaterials;
 import cc.thonly.reverie_dreams.block.BlockModels;
 import cc.thonly.reverie_dreams.block.ModBlocks;
@@ -10,10 +10,13 @@ import cc.thonly.reverie_dreams.compat.ModCompats;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
+import cc.thonly.reverie_dreams.danmaku.script.DanmakuScript;
 import cc.thonly.reverie_dreams.data.ModLootModifies;
 import cc.thonly.reverie_dreams.data.ModServerResourceManager;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.datafixer.DataFixerContentManager;
+import cc.thonly.reverie_dreams.dialog.DialogFiles;
+import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
@@ -33,11 +36,9 @@ import cc.thonly.reverie_dreams.server.*;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
-import cc.thonly.reverie_dreams.util.ImageToTextScanner;
-import cc.thonly.reverie_dreams.util.ItemStackCheckUtils;
-import cc.thonly.reverie_dreams.util.ModrinthAPI;
-import cc.thonly.reverie_dreams.util.NetworkingUtils;
+import cc.thonly.reverie_dreams.util.*;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
+import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import cc.thonly.reverie_dreams.world.gen.WorldGenerationInit;
 import eu.midnightdust.lib.config.MidnightConfig;
@@ -57,7 +58,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
@@ -72,6 +72,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -118,13 +119,13 @@ public class Touhou implements ModInitializer {
             LOGGER.warn("=====================================================");
         }
         if (hasForgeApi()) {
-            LOGGER.warn("Cars cannot be placed on bicycles");
+            LOGGER.warn("No? Dude, are you serious?");
         }
         if (hasOptifine()) {
-            LOGGER.warn("It must be Optifine’s error!");
+            LOGGER.warn("Are you kidding me? Install Optifine?!");
         }
         if (isHasConnector()) {
-            LOGGER.warn("It cannot connect...");
+            LOGGER.warn("(Neo)Forge not supported");
         }
         LOGGER.info("Loaded " + MOD_NAME);
 
@@ -148,6 +149,7 @@ public class Touhou implements ModInitializer {
         BiomeModificationInit.init();
         GameRulesInit.init();
         DataFixerContentManager.bootstrap();
+        DialogInit.bootstrap();
 
         // 初始化其他注册内容
         CommandInit.init();
@@ -187,9 +189,20 @@ public class Touhou implements ModInitializer {
         });
 
         CompletableFuture.runAsync(() -> {
-            boolean reachable = NetworkingUtils.isReachable("textures.minecraft.net", 5000);
+            boolean reachable = NetUtil.isReachable("textures.minecraft.net", 10000);
             if (!reachable) {
                 LOGGER.error("Unable to connect to the Minecraft network, unexpected behavior may occur");
+            }
+        });
+
+        CompletableFuture.runAsync(() -> {
+            boolean contain = DialogFiles.contain("badapple.json");
+            if (!contain) {
+                try {
+                    NetUtil.downloadFile("https://www.otomads.top/reverie_dreams/badapple.json", DialogFiles.PATH.resolve("badapple.json").toFile());
+                } catch (Exception err) {
+                    LOGGER.error("Can't download badapple.json", err);
+                }
             }
         });
 
@@ -260,6 +273,18 @@ public class Touhou implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
             @Override
             public void onServerStarted(MinecraftServer server) {
+                DanmakuScript.RUNTIME_INSTANCES.clear();
+            }
+        });
+        ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
+            @Override
+            public void onServerStarted(MinecraftServer server) {
+                DialogPlayer.reload();
+            }
+        });
+        ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
+            @Override
+            public void onServerStarted(MinecraftServer server) {
                 IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
                 DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
                 dreamPillowManager.init();
@@ -284,12 +309,19 @@ public class Touhou implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(DelayedTask::tick);
         ServerTickEvents.END_SERVER_TICK.register(ParticleTickerManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerInputManager::tick);
+        ServerTickEvents.END_SERVER_TICK.register(DanmakuScript::tick);
+        ServerTickEvents.END_SERVER_TICK.register(DialogPlayer::tick);
 
         ModCompats.init();
 
         PolymerResourcePackUtils.addModAssets(MOD_ID);
         PolymerResourcePackUtils.markAsRequired();
-        ResourcePackExtras.forDefault().addBridgedModelsFolder(id("block"), id("item"), id("entity"));
+        ResourcePackExtras.forDefault().addBridgedModelsFolder(
+                id("block"),
+                id("item"),
+                id("entity"),
+                id("font")
+        );
     }
 
     public static String getSystemLanguage() {

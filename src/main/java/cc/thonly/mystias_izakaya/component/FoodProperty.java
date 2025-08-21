@@ -75,8 +75,13 @@ public class FoodProperty implements RegistrableObject<FoodProperty> {
 //    }
 
 
-    public static String getDisplayPrefix(Item item, FoodProperty foodProperty) {
-        List<FoodProperty> all = FoodProperty.getIngredientProperties(item);
+    public static String getDisplayPrefix(ItemStack itemStack, FoodProperty foodProperty) {
+        List<FoodProperty> all = FoodProperty.getIngredientProperties(itemStack.getItem());
+        for (CraftingConflict conflict : MIRegistryManager.CRAFTING_CONFLICT.values()) {
+            if (conflict.test(itemStack)) {
+                return "§c-";
+            }
+        }
         for (FoodProperty other : all) {
 //            if (other != foodProperty && other.isConflict(foodProperty)) {
 //                return "§c-";

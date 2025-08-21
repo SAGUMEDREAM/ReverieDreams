@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ItemStackNbtMixin",
-    "NamedAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

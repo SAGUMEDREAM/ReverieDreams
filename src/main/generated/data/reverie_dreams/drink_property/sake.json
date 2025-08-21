@@ -1,6 +1,14 @@
 {
   "registry_key": "reverie_dreams:sake",
   "properties": {
-    "values": []
+    "values": [
+      "reverie_dreams:drink/otter_festival",
+      "reverie_dreams:drink/big_popsicle",
+      "reverie_dreams:drink/qi",
+      "reverie_dreams:drink/sparrow_sake",
+      "reverie_dreams:drink/fourteenth_night",
+      "reverie_dreams:drink/sun_moon_star",
+      "reverie_dreams:drink/tengu_dance"
+    ]
   }
 }

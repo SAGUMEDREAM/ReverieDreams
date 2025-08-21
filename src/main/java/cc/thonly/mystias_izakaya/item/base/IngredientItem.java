@@ -35,7 +35,7 @@ public class IngredientItem extends BasicPolymerItem {
             textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
         }
         for (FoodProperty foodProperty : foodProperties) {
-            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(this, foodProperty)).append(foodProperty.getTooltip()));
+            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
         }
     }
 

@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/arrowhead",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 16724273
+      "minecraft:dyed_color": 16724273,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:64648b58-3df3-45cf-be9c-cca7748b30e3"
+      }
     }
   },
   "dye": {
     "id": "minecraft:red_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

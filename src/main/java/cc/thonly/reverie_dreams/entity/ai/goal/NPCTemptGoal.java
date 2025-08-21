@@ -91,9 +91,11 @@ public class NPCTemptGoal extends Goal {
 
     @Override
     public void start() {
-        this.lastPlayerX = this.closestPlayer.getX();
-        this.lastPlayerY = this.closestPlayer.getY();
-        this.lastPlayerZ = this.closestPlayer.getZ();
+        if (this.closestPlayer != null) {
+            this.lastPlayerX = this.closestPlayer.getX();
+            this.lastPlayerY = this.closestPlayer.getY();
+            this.lastPlayerZ = this.closestPlayer.getZ();
+        }
         this.active = true;
     }
 

@@ -93,7 +93,7 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
         if (initial && !this.getWorld().isClient) {
             MinecraftServer server = this.getServer();
             assert server != null;
-            var modifyData = this.getModifyVillagerData(server);
+            VillagerData modifyData = this.getModifyVillagerData(server);
 
             DataTracker.SerializedEntry<VillagerData> entry = DataTracker.SerializedEntry.of(
                     VillagerEntityAccessor.VILLAGER_DATA(),

@@ -45,6 +45,9 @@ public class ModLootModifies {
     public static final RegistryKey<LootTable> VILLAGE_SAVANNA_HOUSE_CHEST = LootTables.VILLAGE_SAVANNA_HOUSE_CHEST;
     public static final RegistryKey<LootTable> PILLAGER_OUTPOST_CHEST = LootTables.PILLAGER_OUTPOST_CHEST;
     public static final RegistryKey<LootTable> SIMPLE_DUNGEON_CHEST = LootTables.PILLAGER_OUTPOST_CHEST;
+    public static final RegistryKey<LootTable> SHIPWRECK_TREASURE_CHEST = LootTables.SHIPWRECK_TREASURE_CHEST;
+    public static final RegistryKey<LootTable> SHIPWRECK_SUPPLY_CHEST = LootTables.SHIPWRECK_SUPPLY_CHEST;
+    public static final RegistryKey<LootTable> DESERT_PYRAMID_CHEST = LootTables.DESERT_PYRAMID_CHEST;
     public static final List<RegistryKey<LootTable>> COMMON_CHESTS = new ArrayList<>(
             List.of(
                     VILLAGE_WEAPONSMITH_CHEST,
@@ -54,7 +57,10 @@ public class ModLootModifies {
                     VILLAGE_PLAINS_CHEST,
                     VILLAGE_SAVANNA_HOUSE_CHEST,
                     PILLAGER_OUTPOST_CHEST,
-                    SIMPLE_DUNGEON_CHEST
+                    SIMPLE_DUNGEON_CHEST,
+                    SHIPWRECK_SUPPLY_CHEST,
+                    SHIPWRECK_TREASURE_CHEST,
+                    DESERT_PYRAMID_CHEST
             )
     );
 

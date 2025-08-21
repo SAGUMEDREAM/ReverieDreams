@@ -1,11 +1,23 @@
 package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.dialog.DialogFiles;
+import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
+import cc.thonly.reverie_dreams.dialog.DialogInit;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.mojang.brigadier.suggestion.Suggestions;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.dialog.type.Dialog;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -15,12 +27,23 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class MainCommand implements CommandInit.CommandRegistration {
+
+    public static class DialogSuggestionProvider implements SuggestionProvider<ServerCommandSource> {
+        @Override
+        public CompletableFuture<Suggestions> getSuggestions(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) throws CommandSyntaxException {
+            for (String string : DialogInit.ARGS_DIALOG.keySet()) {
+                builder.suggest(string);
+            }
+            return builder.buildFuture();
+        }
+    }
+
     @Override
     public void register(CommandDispatcher<ServerCommandSource> dispatcher,
                          CommandRegistryAccess access,
@@ -38,6 +61,37 @@ public class MainCommand implements CommandInit.CommandRegistration {
                                         .executes(this::recipe)
                         )
                         .then(
+                                CommandManager.literal("dialog")
+                                        .then(
+                                                CommandManager
+                                                        .argument("value", StringArgumentType.string())
+                                                        .suggests(new DialogSuggestionProvider())
+                                                        .executes(this::dialog)
+                                        )
+                        )
+                        .then(
+                                CommandManager.literal("video")
+                                        .requires(source -> source.hasPermissionLevel(2))
+                                        .then(
+                                                CommandManager.literal("play")
+                                                        .then(
+                                                                CommandManager.argument("target", EntityArgumentType.entity())
+                                                                        .then(
+                                                                                CommandManager.argument("file", StringArgumentType.string())
+                                                                                        .suggests(new DialogFiles.FilesSuggestionProvider())
+                                                                                        .executes(this::playVideo)
+
+                                                                        )
+                                                        )
+
+                                        )
+                                        .then(
+                                                CommandManager
+                                                        .literal("reload")
+                                                        .executes(this::reloadVideo)
+                                        )
+                        )
+                        .then(
                                 CommandManager.literal("about")
                                         .executes(this::about)
                         )
@@ -51,7 +105,26 @@ public class MainCommand implements CommandInit.CommandRegistration {
     private int run(CommandContext<ServerCommandSource> context) {
         MutableText text = Text.translatable("command.touhou.suggest_help");
         context.getSource().sendFeedback(() -> text.setStyle(Style.EMPTY.withColor(Formatting.YELLOW)), false);
-        return 0;
+        return 1;
+    }
+
+    private int reloadVideo(CommandContext<ServerCommandSource> context) {
+        DialogFiles.reload();
+        context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.reload"), false);
+        return 1;
+    }
+
+    private int playVideo(CommandContext<ServerCommandSource> context) {
+        try {
+            ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "target");
+            String file = StringArgumentType.getString(context, "file");
+            context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.reload"), false);
+            DialogPlayer.play(player, file, null);
+            context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.load.done"), false);
+        } catch (Exception err) {
+            log.error("Can't play video", err);
+        }
+        return 1;
     }
 
     private int help(CommandContext<ServerCommandSource> context) {
@@ -66,7 +139,21 @@ public class MainCommand implements CommandInit.CommandRegistration {
         for (String key : keys) {
             context.getSource().sendFeedback(() -> Text.translatable(key).setStyle(Style.EMPTY.withColor(Formatting.WHITE)), false);
         }
-        return 0;
+        return 1;
+    }
+
+    private int dialog(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        if (!source.isExecutedByPlayer()) {
+            return 0;
+        }
+        ServerPlayerEntity player = source.getPlayer();
+        String value = StringArgumentType.getString(context, "value");
+        Dialog dialog = DialogInit.ARGS_DIALOG.get(value);
+        if (player != null && dialog != null) {
+            player.openDialog(RegistryEntry.of(dialog));
+        }
+        return 1;
     }
 
     private int about(CommandContext<ServerCommandSource> context) {
@@ -76,7 +163,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         BufferedImage iconBuffer = instance.loadImageFromJar(path);
         List<Text> iconText = instance.renderImageToText(iconBuffer, 16, 16);
 
-        String[] infoKeys = new String[] {
+        String[] infoKeys = new String[]{
                 "command.touhou.about.line1",
                 "command.touhou.about.line2",
                 "command.touhou.about.line3",
@@ -109,7 +196,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
             context.getSource().sendFeedback(() -> Text.empty().append(left).append(Text.literal("  ")).append(right), false);
         }
 
-        return 0;
+        return 1;
     }
 
     private int recipe(CommandContext<ServerCommandSource> context) {
@@ -118,6 +205,6 @@ public class MainCommand implements CommandInit.CommandRegistration {
         if (player != null) {
             RecipeTypeCategoryGui.create(player);
         }
-        return 0;
+        return 1;
     }
 }

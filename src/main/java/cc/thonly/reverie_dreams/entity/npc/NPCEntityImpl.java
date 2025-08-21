@@ -4,6 +4,7 @@ import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.item.base.FoodItem;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
+import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCCrossbowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCDanmakuItemGoal;
@@ -69,6 +70,8 @@ import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerChunkLoadingManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -91,7 +94,6 @@ import java.util.function.Predicate;
 @Getter
 @Setter
 public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob, NPCSettings {
-    protected static final Item TAME_FOOD_ITEM = Items.CAKE;
     // 皮肤
     protected Property skin;
     // 实体信息
@@ -370,7 +372,8 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if (!getWorld().isClient() && this instanceof NPCRoleEntityImpl impl) {
+        var world = this.getWorld();
+        if (!world.isClient() && world instanceof ServerWorld serverWorld && this instanceof NPCRoleEntityImpl impl) {
             if (stack.getItem() == ModItems.UPGRADED_HEALTH) {
                 AttributeContainer attributes = this.getAttributes();
                 EntityAttributeInstance max_health = attributes.getCustomInstance(EntityAttributes.MAX_HEALTH);
@@ -381,7 +384,7 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
                     setHealth(health + 2);
                 }
                 player.swingHand(hand);
-                getWorld().playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEventInit.UP, player.getSoundCategory(), 1.0f, 1.0f);
+                world.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEventInit.UP, player.getSoundCategory(), 1.0f, 1.0f);
                 stack.decrementUnlessCreative(1, player);
                 return ActionResult.SUCCESS_SERVER;
             }
@@ -433,53 +436,30 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
                 player.swingHand(hand);
                 return ActionResult.SUCCESS_SERVER;
             }
-            if ((((IItemStack) (Object) stack).isFood() || stack.getItem() == TAME_FOOD_ITEM) && this.canFeed()) {
-                ComponentMap components = stack.getComponents();
+            if ((((IItemStack) (Object) stack).isFood() || stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) && this.canFeed()) {
                 UseRemainderComponent useRemainderComponent = stack.get(DataComponentTypes.USE_REMAINDER);
-                FoodComponent foodComponent = components.get(DataComponentTypes.FOOD);
-                ConsumableComponent consumableComponent = components.get(DataComponentTypes.CONSUMABLE);
-                if (this.npcOwner.isEmpty() && stack.getItem() == TAME_FOOD_ITEM) {
+                ConsumableComponent consumableComponent = stack.get(DataComponentTypes.CONSUMABLE);
+                if (this.npcOwner.isEmpty() && stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) {
                     Random random = new Random();
                     float chance = random.nextFloat();
-                    World world = this.getWorld();
                     if (chance <= 0.4) {
                         this.setOwner(player);
                         this.setTamed(true, true);
-                        if (world instanceof ServerWorld) {
-                            ((ServerWorld) world).spawnParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
-                        }
+                        serverWorld.spawnParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
                     }
                     this.setHealth(this.getHealth() + 5);
                     stack.decrementUnlessCreative(1, player);
                 }
-                boolean isEmitedEat = false;
-                if (foodComponent != null) {
-                    int nutritionValue = foodComponent.nutrition();
-                    float saturationValue = foodComponent.saturation();
-                    if ((this.nutrition < 20 || this.saturation < 20) || foodComponent.canAlwaysEat()) {
-                        this.nutrition += nutritionValue;
-                        this.saturation += (int) saturationValue;
-                        isEmitedEat = true;
-                    }
-                }
                 if (consumableComponent != null) {
-                    for (ConsumeEffect onConsumeEffect : consumableComponent.onConsumeEffects()) {
-                        if (onConsumeEffect instanceof ApplyEffectsConsumeEffect applyEffectsConsumeEffect) {
-                            List<StatusEffectInstance> effects = applyEffectsConsumeEffect.effects();
-                            for (StatusEffectInstance effect : effects) {
-                                this.addStatusEffect(effect);
-                            }
-                        }
-                    }
-                }
-                if (isEmitedEat) {
+                    RegistryEntry<SoundEvent> sound = consumableComponent.sound();
                     this.playSound(SoundEvents.ENTITY_GENERIC_EAT.value(), 1.0f, 1.0f);
-                    stack.decrementUnlessCreative(1, player);
-                    if (useRemainderComponent != null && !player.isInCreativeMode()) {
-                        ItemStack itemStack = useRemainderComponent.convert(stack, stack.getCount(), player.isInCreativeMode(), player::giveOrDropStack);
-                        player.setStackInHand(hand, itemStack);
-                    }
                 }
+                if (useRemainderComponent != null && !player.isInCreativeMode()) {
+                    ItemStack itemStack = useRemainderComponent.convert(stack, stack.getCount(), player.isInCreativeMode(), player::giveOrDropStack);
+                    player.setStackInHand(hand, itemStack);
+                }
+                stack.finishUsing(serverWorld, this);
+                stack.decrementUnlessCreative(1, player);
                 player.swingHand(hand);
                 return ActionResult.SUCCESS_SERVER;
             }
@@ -554,11 +534,14 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
                 if (tracker != null) {
                     Set<PlayerAssociatedNetworkHandler> listeners = ((EntityTrackerAccessor) tracker).getListeners();
                     for (var handler : listeners) {
-                        EntityTrackerEntry entry = ((EntityTrackerAccessor) tracker).getEntry();
-                        entry.sendPackets(handler.getPlayer(), packets -> {
-                            entry.syncEntityData();
-                            entry.sendSyncPacket(EntityPositionSyncS2CPacket.create(this));
-                        });
+                        ServerPlayerEntity player = handler.getPlayer();
+                        if (!player.isDisconnected() && player.isAlive()) {
+                            EntityTrackerEntry entry = ((EntityTrackerAccessor) tracker).getEntry();
+                            entry.sendPackets(handler.getPlayer(), packets -> {
+                                entry.syncEntityData();
+                                entry.sendSyncPacket(EntityPositionSyncS2CPacket.create(this));
+                            });
+                        }
                     }
                 }
             }
@@ -620,17 +603,16 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
     }
 
     protected void updateHealth() {
-        if (this.getWorld().isClient)return;
+        if (this.getWorld().isClient) return;
         if (this.getHealth() < this.getMaxHealth()) {
             this.healthTick--;
         } else {
 //            this.healthTick = 10;
         }
         if (this.consumeHunger() && this.getHealth() < this.getMaxHealth() && this.healthTick <= 0) {
-
+            if (this.isDead()) return;
             if (this.nutrition == 20 && this.saturation > 1) {
-
-                this.setHealth(getHealth() + Math.min(1,saturation/6));
+                this.setHealth(getHealth() + Math.min(1, saturation / 6));
                 this.healthTick = 10;
                 this.exhaustionLevel += 6;
             } else if (nutrition >= 18) {
@@ -638,7 +620,7 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
                 this.healthTick = 80;
                 this.exhaustionLevel += 6;
             } else if (nutrition == 0 && this.getHealth() > this.getMaxHealth() / 2) {
-                this.damage((ServerWorld) this.getWorld(),this.getDamageSources().starve(),1);
+                this.damage((ServerWorld) this.getWorld(), this.getDamageSources().starve(), 1);
                 this.healthTick = 80;
             }
         }
@@ -668,12 +650,12 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
             StatusEffectInstance hungerEff = this.getStatusEffect(StatusEffects.HUNGER);
             if (hungerEff != null) {
                 hungerEffectLevel = hungerEff.getAmplifier();
-               // System.out.println("饥饿消耗 "+ hungerEffectLevel);
+                // System.out.println("饥饿消耗 "+ hungerEffectLevel);
             }
             this.exhaustionLevel += (float) (hungerEffectLevel * 0.1);
             if (this.getNavigation().isFollowingPath()) {
                 this.exhaustionLevel += 0.015F;//无法检测具体行为 按0.015计算 略微提高消耗
-               // System.out.println("寻路增加消耗");
+                // System.out.println("寻路增加消耗");
             }
         }
 

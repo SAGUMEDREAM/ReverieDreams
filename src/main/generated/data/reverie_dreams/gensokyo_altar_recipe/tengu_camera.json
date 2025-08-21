@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:iron_block",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:glowstone_dust",
+      "count": 8
+    },
+    {
+      "id": "minecraft:stone_button",
+      "count": 2
+    },
+    {
+      "id": "minecraft:glowstone_dust",
+      "count": 8
+    },
+    {
+      "id": "reverie_dreams:silver_ingot",
+      "count": 6
+    },
+    {
+      "id": "minecraft:iron_ingot",
+      "count": 6
+    },
+    {
+      "id": "minecraft:redstone",
+      "count": 23
+    },
+    {
+      "id": "minecraft:iron_ingot",
+      "count": 6
+    },
+    {
+      "id": "minecraft:redstone",
+      "count": 13
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:tengu_camera",
+    "count": 1
+  }
+}

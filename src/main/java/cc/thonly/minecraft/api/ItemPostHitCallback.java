@@ -1,4 +1,4 @@
-package cc.thonly.minecraft.impl;
+package cc.thonly.minecraft.api;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

@@ -41,6 +41,14 @@ public class ModTags {
         public static final TagKey<Item> INGREDIENT_ITEM = of("ingredient_item");
         public static final TagKey<Item> FOOD_ITEM = of("food_item");
         public static final TagKey<Item> DRINK_ITEM = of("drink_item");
+        public static final TagKey<Item> ROLE_TAME_FOOD = of("role_tame_food");
+        public static final TagKey<Item> DLC0 = of("touhou_mystia_dlc/0");
+        public static final TagKey<Item> DLC1 = of("touhou_mystia_dlc/1");
+        public static final TagKey<Item> DLC2 = of("touhou_mystia_dlc/2");
+        public static final TagKey<Item> DLC3 = of("touhou_mystia_dlc/3");
+        public static final TagKey<Item> DLC4 = of("touhou_mystia_dlc/4");
+        public static final TagKey<Item> DLC5 = of("touhou_mystia_dlc/5");
+        public static final TagKey<Item> DLC6 = of("touhou_mystia_dlc/6");
 
         private static TagKey<Item> of(String id) {
             return TagKey.of(RegistryKeys.ITEM, Touhou.id(id));

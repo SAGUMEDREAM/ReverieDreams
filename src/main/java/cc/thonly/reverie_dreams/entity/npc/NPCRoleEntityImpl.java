@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCCleanMonsterGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCCloseToCropGoal;
@@ -37,7 +38,7 @@ public class NPCRoleEntityImpl extends NPCEntityImpl implements Leashable {
 //        this.goalSelector.add(2, new WakeUpGoal(this));
         this.goalSelector.add(3, new SleepAtNightGoal(this, 1.0));
 
-        this.goalSelector.add(4, new NPCTemptGoal(this, 1.2, stack -> stack.isOf(TAME_FOOD_ITEM), false));
+        this.goalSelector.add(4, new NPCTemptGoal(this, 1.2, stack -> stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD), false));
         //        this.goalSelector.add(4, this.bowAttackGoal);
         //        this.goalSelector.add(4, this.meleeAttackGoal);
 

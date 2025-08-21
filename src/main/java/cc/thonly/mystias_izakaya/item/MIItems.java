@@ -250,6 +250,38 @@ public class MIItems {
     public static final Item DAWN = registerDrinkItem(new DrinkItem("drink/dawn", new Item.Settings()));
     public static final Item SPARROW_SAKE = registerDrinkItem(new DrinkItem("drink/sparrow_sake", new Item.Settings()));
     public static final Item SCARLET_DEVIL_MANSION_BLACK_TEA = registerDrinkItem(new DrinkItem("drink/scarlet_devil_mansion_black_tea", new Item.Settings()));
+    public static final Item AFFGADO = registerDrinkItem(new DrinkItem("drink/affgado", new Item.Settings()));
+    public static final Item RED_MIST = registerDrinkItem(new DrinkItem("drink/red_mist", new Item.Settings()));
+    public static final Item NEGRONI = registerDrinkItem(new DrinkItem("drink/negroni", new Item.Settings()));
+    public static final Item GODFATHER = registerDrinkItem(new DrinkItem("drink/godfather", new Item.Settings()));
+    public static final Item BLESSING_WIND = registerDrinkItem(new DrinkItem("drink/blessing_wind", new Item.Settings()));
+    public static final Item WINTER_BREW = registerDrinkItem(new DrinkItem("drink/winter_brew", new Item.Settings()));
+    public static final Item FOURTEENTH_NIGHT = registerDrinkItem(new DrinkItem("drink/fourteenth_night", new Item.Settings()));
+    public static final Item FIRE_RAT_FUR = registerDrinkItem(new DrinkItem("drink/fire_rat_fur", new Item.Settings()));
+    public static final Item GYOKURO_TEA = registerDrinkItem(new DrinkItem("drink/gyokuro_tea", new Item.Settings()));
+    public static final Item MOON_ROCKET = registerDrinkItem(new DrinkItem("drink/moon_rocket", new Item.Settings()));
+    public static final Item MILK = registerDrinkItem(new DrinkItem("drink/milk", new Item.Settings()));
+    public static final Item RED_GRAPEFRUIT_JUICE = registerDrinkItem(new DrinkItem("drink/red_grapefruit_juice", new Item.Settings()));
+    public static final Item SODA = registerDrinkItem(new DrinkItem("drink/soda", new Item.Settings()));
+    public static final Item ICEBERG_MAPLE_FROZEN_LEMON = registerDrinkItem(new DrinkItem("drink/iceberg_maple_frozen_lemon", new Item.Settings()));
+    public static final Item BIG_POPSICLE = registerDrinkItem(new DrinkItem("drink/big_popsicle", new Item.Settings()));
+    public static final Item DAIGINJO = registerDrinkItem(new DrinkItem("drink/daiginjo", new Item.Settings()));
+    public static final Item COFFEE = registerDrinkItem(new DrinkItem("drink/coffee", new Item.Settings()));
+    public static final Item FAIRY_RAIN = registerDrinkItem(new DrinkItem("drink/fairy_rain", new Item.Settings()));
+    public static final Item PALEO_CREAMY_SMOOTHIE = registerDrinkItem(new DrinkItem("drink/paleo_creamy_smoothie", new Item.Settings()));
+    public static final Item ORDINARY_FITNESS_TEA = registerDrinkItem(new DrinkItem("drink/ordinary_fitness_tea", new Item.Settings()));
+    public static final Item DEMON_SLAYER = registerDrinkItem(new DrinkItem("drink/demon_slayer", new Item.Settings()));
+    public static final Item QI_HEALTH = registerDrinkItem(new DrinkItem("drink/qi_health", new Item.Settings()));
+    public static final Item KOMEIJI_ICE_CREAM = registerDrinkItem(new DrinkItem("drink/komeiji_ice_cream", new Item.Settings()));
+    public static final Item MANGO_POMELO_SAGO = registerDrinkItem(new DrinkItem("drink/mango_pomelo_sago", new Item.Settings()));
+    public static final Item QILIN = registerDrinkItem(new DrinkItem("drink/qilin", new Item.Settings()));
+    public static final Item HEAVEN_AND_EARTH_ARE_USELESS = registerDrinkItem(new DrinkItem("drink/heaven_and_earth_are_useless", new Item.Settings()));
+    public static final Item DRUNK_ACTOR = registerDrinkItem(new DrinkItem("drink/drunk_actor", new Item.Settings()));
+    public static final Item DAUGHTER_OF_THE_SEA = registerDrinkItem(new DrinkItem("drink/daughter_of_the_sea", new Item.Settings()));
+    public static final Item DEMONIC_COFFEE = registerDrinkItem(new DrinkItem("drink/demonic_coffee", new Item.Settings()));
+    public static final Item MOJITO_BURST_BALL = registerDrinkItem(new DrinkItem("drink/mojito_burst_ball", new Item.Settings()));
+    public static final Item SPACE_BEER = registerDrinkItem(new DrinkItem("drink/space_beer", new Item.Settings()));
+    public static final Item SATELLITE_ICED_COFFEE = registerDrinkItem(new DrinkItem("drink/satellite_iced_coffee", new Item.Settings()));
 
     public static void registerItems() {
 

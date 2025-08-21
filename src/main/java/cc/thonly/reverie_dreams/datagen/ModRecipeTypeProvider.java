@@ -378,13 +378,13 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 this.ofItem(kanjuKusuri)
         ));
         this.gensokyoAltarRecipe.register(ModItems.CURSED_DECOY_DOLl, new GensokyoAltarRecipe(
-                this.ofItem(Items.ARMOR_STAND),
-                List.of(
-                        this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6),
-                        this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6),
-                        this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6)
-                ),
-                this.ofItem(ModItems.CURSED_DECOY_DOLl)
+                        this.ofItem(Items.ARMOR_STAND),
+                        List.of(
+                                this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6),
+                                this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6),
+                                this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6)
+                        ),
+                        this.ofItem(ModItems.CURSED_DECOY_DOLl)
                 )
         );
         this.gensokyoAltarRecipe.register(ModItems.VAISRAVANAS_PAGODA, new GensokyoAltarRecipe(
@@ -395,6 +395,33 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                         this.ofItem(Items.STONE, 15), this.ofItem(Items.IRON_INGOT, 20), this.ofItem(Items.STONE, 15)
                 ),
                 this.ofItem(ModItems.VAISRAVANAS_PAGODA)
+        ));
+        this.gensokyoAltarRecipe.register(ModItems.TENGU_SHIELD, new GensokyoAltarRecipe(
+                this.ofItem(Items.SHIELD, 1),
+                List.of(
+                        this.ofItem(Items.FEATHER, 3), this.ofItem(Items.FEATHER, 5), this.ofItem(Items.FEATHER, 2),
+                        this.ofItem(ModItems.SILVER_INGOT, 7), this.ofItem(ModItems.SILVER_INGOT, 7),
+                        this.ofItem(Items.DIAMOND, 3), this.ofItem(Items.IRON_INGOT, 6), this.ofItem(Items.BONE, 3)
+                ),
+                this.ofItem(ModItems.TENGU_SHIELD)
+        ));
+        this.gensokyoAltarRecipe.register(ModItems.TENGU_CAMERA, new GensokyoAltarRecipe(
+                this.ofItem(Items.IRON_BLOCK, 1),
+                List.of(
+                        this.ofItem(Items.GLOWSTONE_DUST, 8), this.ofItem(Items.STONE_BUTTON, 2), this.ofItem(Items.GLOWSTONE_DUST, 8),
+                        this.ofItem(ModItems.SILVER_INGOT, 6), this.ofItem(Items.IRON_INGOT, 6),
+                        this.ofItem(Items.REDSTONE, 23), this.ofItem(Items.IRON_INGOT, 6), this.ofItem(Items.REDSTONE, 13)
+                ),
+                this.ofItem(ModItems.TENGU_CAMERA)
+        ));
+        this.gensokyoAltarRecipe.register(ModItems.BAD_APPLE, new GensokyoAltarRecipe(
+                this.ofItem(Items.GOLDEN_APPLE, 1),
+                List.of(
+                        this.ofItem(Items.BLACK_DYE, 2), this.ofItem(ModItems.POWER, 11), this.ofItem(Items.BLACK_DYE, 2),
+                        this.ofItem(Items.REDSTONE, 6), this.ofItem(Items.REDSTONE, 6),
+                        this.ofItem(Items.BLACK_DYE, 2), this.ofItem(ModItems.POINT, 8), this.ofItem(Items.BLACK_DYE, 2)
+                ),
+                this.ofItem(ModItems.BAD_APPLE)
         ));
     }
 
@@ -1394,7 +1421,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                     Identifier dyeId = Registries.ITEM.getId(dye);
                     Identifier registryKey = Identifier.of(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
                     DanmakuRecipe recipe = new DanmakuRecipe(
-                            new ItemStackRecipeWrapper(new ItemStack(dye, 1)),
+                            new ItemStackRecipeWrapper(new ItemStack(dye, 4)),
                             new ItemStackRecipeWrapper(new ItemStack(Items.FIREWORK_STAR, 1)),
                             new ItemStackRecipeWrapper(new ItemStack(ModItems.POWER, 35)),
                             new ItemStackRecipeWrapper(new ItemStack(ModItems.POINT, 35)),

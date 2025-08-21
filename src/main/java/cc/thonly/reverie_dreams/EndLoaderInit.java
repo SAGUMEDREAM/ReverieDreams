@@ -16,7 +16,7 @@ import net.minecraft.text.Text;
 
 import java.util.Collection;
 
-public class TouhouEndLoaderInit implements ModInitializer {
+public class EndLoaderInit implements ModInitializer {
     public static final RegistryKey<ItemGroup> ROLE_SPAWN_EGG_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_role_spawn_egg"));
     public static final RegistryKey<ItemGroup> SPAWN_EGG_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_spawn_egg"));
     
@@ -25,7 +25,7 @@ public class TouhouEndLoaderInit implements ModInitializer {
             .displayName(Text.translatable("item_group.touhou.spawn_egg"))
             .build();
     public static final ItemGroup ITEM_GROUP_NPC_SPAWN_EGG = PolymerItemGroupUtils.builder()
-            .icon(() -> new ItemStack(ModItems.ROLE_ICON))
+            .icon(() -> new ItemStack(ModItems.SPAWN_EGG))
             .displayName(Text.translatable("item_group.touhou.role.spawn_egg"))
             .build();
 

@@ -35,9 +35,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
 import net.minecraft.item.consume.ConsumeEffect;
+import net.minecraft.potion.Potion;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -52,6 +56,7 @@ import xyz.nucleoid.packettweaker.PacketContext;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Setter
 @Getter
@@ -73,72 +78,53 @@ public class ItemStackDisplay extends BlockWithEntity implements FactoryBlock, I
         this.identifier = identifier;
     }
 
-
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         ItemStack stack = player.getMainHandStack();
-        if (stack == null) {
-            stack = player.getOffHandStack();
-        }
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
+        if (stack != null && !world.isClient && world instanceof ServerWorld serverWorld) {
             if (player.isSneaking()) {
-                boolean isFood = ((IItemStack) (Object) stack).isFood();
+                if (!(serverWorld.getBlockEntity(pos) instanceof ItemStackDisplayBlockEntity isdBlockEntity)) {
+                    return ActionResult.PASS;
+                }
+                boolean isFood = ((IItemStack) (Object) isdBlockEntity.getItem().getItemStack()).isFood();
                 if (isFood) {
-                    ComponentMap components = stack.getComponents();
-                    UseRemainderComponent useRemainderComponent = stack.get(DataComponentTypes.USE_REMAINDER);
-                    FoodComponent foodComponent = components.get(DataComponentTypes.FOOD);
-                    ConsumableComponent consumableComponent = components.get(DataComponentTypes.CONSUMABLE);
-                    boolean isEmitedEat = false;
-                    if (foodComponent != null) {
-                        int nutritionValue = foodComponent.nutrition();
-                        float saturationValue = foodComponent.saturation();
-                        HungerManager hungerManager = player.getHungerManager();
-                        if ((hungerManager.getFoodLevel() < 20 || hungerManager.getSaturationLevel() < 20) || foodComponent.canAlwaysEat()) {
-                            hungerManager.add(nutritionValue, saturationValue);
-                            isEmitedEat = true;
-                        }
-                    }
+                    ItemStack contentStack = isdBlockEntity.getItem().getItemStack();
+                    ConsumableComponent consumableComponent = contentStack.get(DataComponentTypes.CONSUMABLE);
+                    UseRemainderComponent useRemainderComponent = contentStack.get(DataComponentTypes.USE_REMAINDER);
+                    contentStack.finishUsing(serverWorld, player);
                     if (consumableComponent != null) {
-                        for (ConsumeEffect onConsumeEffect : consumableComponent.onConsumeEffects()) {
-                            if (onConsumeEffect instanceof ApplyEffectsConsumeEffect applyEffectsConsumeEffect) {
-                                List<StatusEffectInstance> effects = applyEffectsConsumeEffect.effects();
-                                for (StatusEffectInstance effect : effects) {
-                                    player.addStatusEffect(effect);
-                                }
-                            }
-                        }
+                        RegistryEntry<SoundEvent> sound = consumableComponent.sound();
+                        world.playSound(null, player.getBlockPos(), sound.value(), SoundCategory.BLOCKS, 1.0f, 1.0f);
                     }
-                    if (isEmitedEat) {
-                        player.playSound(SoundEvents.ENTITY_GENERIC_EAT.value(), 1.0f, 1.0f);
-                        stack.decrementUnlessCreative(1, player);
-                        if (useRemainderComponent != null && !player.isInCreativeMode()) {
-                            ItemStack itemStack = useRemainderComponent.convert(stack, stack.getCount(), player.isInCreativeMode(), player::giveOrDropStack);
-                            if (serverWorld.getBlockEntity(pos) instanceof ItemStackDisplayBlockEntity isdBlockEntity) {
-                                isdBlockEntity.setItem(ItemStackRecipeWrapper.of(itemStack));
-                                serverWorld.updateListeners(pos, state, state, Block.NOTIFY_ALL);
-                                isdBlockEntity.markDirty();
-                            }
-                        }
-                        return ActionResult.SUCCESS_SERVER;
+                    contentStack.decrementUnlessCreative(1, player);
+                    if (useRemainderComponent != null && !player.isInCreativeMode()) {
+                        ItemStack itemStack = useRemainderComponent.convert(contentStack, contentStack.getCount(), player.isInCreativeMode(), player::giveOrDropStack);
+                        isdBlockEntity.setItem(ItemStackRecipeWrapper.of(itemStack));
                     }
-                }
-            }
-            if (serverWorld.getBlockEntity(pos) instanceof ItemStackDisplayBlockEntity isdBlockEntity) {
-                ItemStackRecipeWrapper item = isdBlockEntity.getItem();
-                if (!stack.isEmpty() && item.isEmpty()) {
-                    ItemStackRecipeWrapper itemStackRecipeWrapper = ItemStackRecipeWrapper.of(stack.copy());
-                    itemStackRecipeWrapper.getItemStack().setCount(1);
-                    stack.decrementUnlessCreative(1, player);
-                    isdBlockEntity.setItem(itemStackRecipeWrapper);
-                    isdBlockEntity.setYaw(player.getYaw());
+                    isdBlockEntity.update();
+                    serverWorld.updateListeners(pos, state, state, Block.NOTIFY_ALL);
                     isdBlockEntity.markDirty();
-                } else {
-                    ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
-                    isdBlockEntity.setItem(ItemStackRecipeWrapper.empty());
-                    serverWorld.spawnEntity(itemEntity);
+                    return ActionResult.SUCCESS_SERVER;
                 }
-                serverWorld.updateListeners(pos, state, state, Block.NOTIFY_ALL);
-                isdBlockEntity.markDirty();
+            } else {
+                if (serverWorld.getBlockEntity(pos) instanceof ItemStackDisplayBlockEntity isdBlockEntity) {
+                    ItemStackRecipeWrapper item = isdBlockEntity.getItem();
+                    if (!stack.isEmpty() && item.isEmpty()) {
+                        ItemStackRecipeWrapper itemStackRecipeWrapper = ItemStackRecipeWrapper.of(stack.copy());
+                        itemStackRecipeWrapper.getItemStack().setCount(1);
+                        stack.decrementUnlessCreative(1, player);
+                        isdBlockEntity.setItem(itemStackRecipeWrapper);
+                        isdBlockEntity.setYaw(player.getYaw());
+                        isdBlockEntity.update();
+                        isdBlockEntity.markDirty();
+                    } else {
+                        ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
+                        isdBlockEntity.setItem(ItemStackRecipeWrapper.empty());
+                        serverWorld.spawnEntity(itemEntity);
+                    }
+                    serverWorld.updateListeners(pos, state, state, Block.NOTIFY_ALL);
+                    isdBlockEntity.markDirty();
+                }
             }
             return ActionResult.SUCCESS_SERVER;
         }

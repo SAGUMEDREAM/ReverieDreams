@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/kunai",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 15082670
+      "minecraft:dyed_color": 15082670,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:ef193025-266f-48fd-8862-e516745b9d90"
+      }
     }
   },
   "dye": {
     "id": "minecraft:magenta_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

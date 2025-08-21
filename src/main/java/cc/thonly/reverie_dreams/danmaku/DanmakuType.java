@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.component.type.UseCooldownComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -22,9 +23,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Setter
 @Getter
@@ -76,6 +75,7 @@ public class DanmakuType implements RegistrableObject<DanmakuType> {
             Item dyeItem = itemLongEntry.getKey();
             ItemStack stack = defaultStack.copy();
             stack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(itemLongEntry.getValue().intValue()));
+            stack.set(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))));
             pairList.add(new Pair<>(dyeItem, stack));
         }
         return pairList;
@@ -96,6 +96,7 @@ public class DanmakuType implements RegistrableObject<DanmakuType> {
                 .component(ModDataComponentTypes.Danmaku.TILE, this.tile)
                 .component(ModDataComponentTypes.Danmaku.INFINITE, this.infinite)
                 .component(ModDataComponentTypes.Danmaku.DAMAGE_TYPE, Touhou.id("generic").toString())
+                .component(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))))
                 .maxDamage(120)
                 .repairable(ModTags.ItemTypeTag.POWER_BLOCK);
     }

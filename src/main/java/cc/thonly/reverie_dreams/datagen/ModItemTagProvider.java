@@ -76,6 +76,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         addAll.accept(ItemTags.HOES, BasicPolymerHoeItem.ITEMS);
         addAll.accept(ItemTags.TRIDENT_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, allTool);
+        addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(ModItems.TENGU_SHIELD));
+        addAll.accept(ConventionalItemTags.SHIELD_TOOLS, List.of(ModItems.TENGU_SHIELD));
 
         // === 盔甲类 Tag ===
         addAll.accept(ItemTags.HEAD_ARMOR, BasicPolymerArmorItem.HEAD_ITEMS);
@@ -106,6 +108,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModTags.ItemTypeTag.INGREDIENT_ITEM).add(MIItems.INGREDIENTS);
         valueLookupBuilder(ModTags.ItemTypeTag.FOOD_ITEM).add(MIItems.FOOD_ITEMS);
         valueLookupBuilder(ModTags.ItemTypeTag.DRINK_ITEM).add(MIItems.DRINK_ITEMS);
+
+        valueLookupBuilder(ModTags.ItemTypeTag.ROLE_TAME_FOOD)
+                .add(Items.CAKE);
 
         // === 兼容物品 ===
         valueLookupBuilder(ConventionalItemTags.FOODS).add(MIItems.FOOD_ITEMS);

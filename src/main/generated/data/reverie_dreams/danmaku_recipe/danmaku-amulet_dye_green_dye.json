@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/amulet",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 3473204
+      "minecraft:dyed_color": 3473204,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:0b006b4c-9eb3-47e7-9a25-51cbf45d76f4"
+      }
     }
   },
   "dye": {
     "id": "minecraft:green_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

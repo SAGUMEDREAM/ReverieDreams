@@ -2,17 +2,10 @@ package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.EntityTypeTags;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 public class Hakuroken extends BasicPolymerSwordItem implements YoumuSwordUsing{

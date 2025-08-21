@@ -53,6 +53,9 @@ public class RegistryManager {
     public static final StandaloneRegistry<RoleCard> ROLE_CARD = ofEntry(RoleCard.class, Touhou.id("role_card"))
             .codec(RoleCard.CODEC)
             .build(RoleCards::bootstrap);
+    public static final StandaloneRegistry<NPCRoleInteractionEvent> ROLE_INTERACTION_EVENT = ofEntry(NPCRoleInteractionEvent.class, Touhou.id("interaction_event"))
+            .codec(NPCRoleInteractionEvent.CODEC)
+            .build(NPCRoleInteractionEvents::bootstrap);
     public static final StandaloneRegistry<NPCState> NPC_STATE = ofEntry(NPCState.class, Touhou.id("npc_state"))
             .codec(NPCState.CODEC)
             .build(NPCStates::bootstrap);

@@ -10,12 +10,16 @@
     "id": "reverie_dreams:danmaku/bubble",
     "count": 1,
     "components": {
-      "minecraft:dyed_color": 16749605
+      "minecraft:dyed_color": 16749605,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:9d9b8707-1f2f-414d-83bd-0d0aa62ebb4d"
+      }
     }
   },
   "dye": {
     "id": "minecraft:orange_dye",
-    "count": 1
+    "count": 4
   },
   "core": {
     "id": "minecraft:firework_star",

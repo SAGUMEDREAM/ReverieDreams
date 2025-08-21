@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -20,13 +21,13 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class MIItemGroups {
-    public static final RegistryKey<ItemGroup> KITCHENWARE_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("kitchenware_item_group"));
-    public static final RegistryKey<ItemGroup> INGREDIENT_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("ingredients_item_group"));
-    public static final RegistryKey<ItemGroup> SEEDS_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("seeds_item_group"));
-    public static final RegistryKey<ItemGroup> FOOD_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("food_item_group"));
-    public static final RegistryKey<ItemGroup> DRINK_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), MystiasIzakaya.id("drink_item_group"));
+    public static final RegistryKey<ItemGroup> KITCHENWARE_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("kitchenware_item_group"));
+    public static final RegistryKey<ItemGroup> INGREDIENT_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("ingredients_item_group"));
+    public static final RegistryKey<ItemGroup> SEEDS_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("seeds_item_group"));
+    public static final RegistryKey<ItemGroup> FOOD_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("food_item_group"));
+    public static final RegistryKey<ItemGroup> DRINK_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("drink_item_group"));
     public static final ItemGroup KITCHENWARE_ITEM_GROUP = PolymerItemGroupUtils.builder()
-            .icon(() -> new ItemStack(MIItems.MYSTIA_ICON))
+            .icon(() -> new ItemStack(MIBlocks.COOKING_POT))
             .displayName(Text.translatable("item_group.kitchenware_item_group"))
             .build();
     public static final ItemGroup INGREDIENT_ITEM_GROUP = PolymerItemGroupUtils.builder()
@@ -106,10 +107,11 @@ public class MIItemGroups {
             }
         });
         ItemGroupEvents.modifyEntriesEvent(DRINK_ITEM_GROUP_KEY).register(itemGroup -> {
+            itemGroup.add(Items.BARREL);
             for (Item item : MIItems.DRINK_ITEMS) {
                 itemGroup.add(item);
             }
-            itemGroup.add(ModItems.NOT_COMPLETED);
+//            itemGroup.add(ModItems.NOT_COMPLETED);
         });
     }
 

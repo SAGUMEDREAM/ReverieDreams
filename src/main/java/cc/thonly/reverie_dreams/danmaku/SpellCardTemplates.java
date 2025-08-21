@@ -17,27 +17,28 @@ public class SpellCardTemplates {
     private static final Map<Identifier, DanmakuTrajectory> TEMPLATES = new Object2ObjectLinkedOpenHashMap<>();
     private static final Map<Identifier, ItemStack> TEMPLATE_ITEM_STACKS = new Object2ObjectLinkedOpenHashMap<>();
     static {
-        var simple = registerTemplate(DanmakuTrajectories.SINGLE);
-        var triple = registerTemplate(DanmakuTrajectories.TRIPLE);
-        var bullet = registerTemplate(DanmakuTrajectories.BULLET);
-        var star = registerTemplate(DanmakuTrajectories.STAR);
-        var heart = registerTemplate(DanmakuTrajectories.HEART);
-        var x = registerTemplate(DanmakuTrajectories.X);
-        var round = registerTemplate(DanmakuTrajectories.ROUND);
-        var ring = registerTemplate(DanmakuTrajectories.RING);
+        var simple = registerTemplateItem(DanmakuTrajectories.SINGLE);
+        var triple = registerTemplateItem(DanmakuTrajectories.TRIPLE);
+        var bullet = registerTemplateItem(DanmakuTrajectories.BULLET);
+        var star = registerTemplateItem(DanmakuTrajectories.STAR);
+        var heart = registerTemplateItem(DanmakuTrajectories.HEART);
+        var x = registerTemplateItem(DanmakuTrajectories.X);
+        var round = registerTemplateItem(DanmakuTrajectories.ROUND);
+        var ring = registerTemplateItem(DanmakuTrajectories.RING);
+
     }
 
     public static void init() {
 
     }
 
-    public static DanmakuTrajectory registerTemplate(DanmakuTrajectory entry) {
+    public static DanmakuTrajectory registerTemplateItem(DanmakuTrajectory entry) {
         Identifier id = entry.getId();
         assert id != null;
-        return registerTemplate(id, entry);
+        return registerTemplateItem(id, entry);
     }
 
-    public static DanmakuTrajectory registerTemplate(Identifier key, DanmakuTrajectory value) {
+    public static DanmakuTrajectory registerTemplateItem(Identifier key, DanmakuTrajectory value) {
         assert key != null;
         TEMPLATES.put(key, value);
         TEMPLATE_ITEM_STACKS.put(key, createItemStack(key));

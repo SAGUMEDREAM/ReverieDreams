@@ -46,7 +46,7 @@ public abstract class ItemMixin implements ToggleableFeature, ItemConvertible, F
             textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
         }
         for (FoodProperty foodProperty : foodProperties) {
-            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(item, foodProperty)).append(foodProperty.getTooltip()));
+            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
         }
     }
 }

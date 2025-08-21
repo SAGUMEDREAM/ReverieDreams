@@ -1,5 +1,18 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.3.1+1.21.7
+* Fixed the issue where items could not be placed on the Food Display Block.
+* Fixed the issue where some items could not accept enchantments
+* Added item Bad Apple
+* Added all drinks from Touhou Mystia's Izakaya
+* Added Tengu Camera item
+* Added Tengu Hand Shield item
+* Adjusted the order and icons of the Creative Tab of this mod
+* Touhou Assistant now uses Dialog and Translation keys
+* The Role Card item no longer randomly generates characters, but now uses the Dialog creation selection menu to create characters. Of course, it retains the random button
+* Update translation files zh_tw and en_us
+* Each Danmaku item now has its own cooldown
+
 ## 0.3.0+1.21.7
 * Fixed Nue Trident cannot enchant Mending and Durability
 * Now Danmaku Item can enchant Mending and Durability
