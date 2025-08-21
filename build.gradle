@@ -120,23 +120,52 @@ dependencies {
 
 }
 
-def includeDependencyJar = { File targetJar ->
+def includeDependencyJar = { File targetJar, List<String> list ->
+
     def tempDir = new File(buildDir, "tmp/include_jars")
     tempDir.deleteDir()
     tempDir.mkdirs()
 
+    // 解压目标 mod jar
     copy {
         from zipTree(targetJar)
         into tempDir
     }
 
+    // 创建 META-INF/jars 目录
     def metaDir = new File(tempDir, "META-INF/jars")
     metaDir.mkdirs()
-    copy {
-        from file("libs/dynamic-registries-modifier-1.0.0.jar")
-        into metaDir
+
+    // 复制依赖 jar
+    list.each { fil ->
+        copy {
+            from file(fil)
+            into metaDir
+        }
     }
 
+    // 修改 fabric.mod.json
+    def jsonFile = new File(tempDir, "fabric.mod.json")
+    if (jsonFile.exists()) {
+        def json = new groovy.json.JsonSlurper().parseText(jsonFile.text)
+        if (!json.containsKey("jars")) {
+            json.jars = []
+        }
+
+        list.each { fil ->
+            def jarName = "META-INF/jars/${new File(fil).name}"
+            // 避免重复写入
+            if (!json.jars.any { it.file == jarName }) {
+                json.jars << [file: jarName]
+            }
+        }
+
+        jsonFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
+    } else {
+        throw new GradleException("fabric.mod.json not found in ${targetJar}")
+    }
+
+    // 重新打包 mod jar
     ant.jar(destfile: targetJar) {
         fileset(dir: tempDir, includes: "**/*")
     }
@@ -147,7 +176,10 @@ def includeDependencyJar = { File targetJar ->
 tasks.remapJar {
     doLast {
         def jarFile = archiveFile.get().asFile
-        includeDependencyJar(jarFile)
+        // 这里传入你的依赖 jar 列表
+        includeDependencyJar(jarFile, [
+                "libs/dynamic-registries-modifier-1.0.0.jar"
+        ])
     }
 }
 
