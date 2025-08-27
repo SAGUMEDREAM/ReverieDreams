@@ -2,20 +2,20 @@
   "registry_key": "reverie_dreams:can_heated",
   "properties": {
     "values": [
-      "reverie_dreams:drink/winter_brew",
-      "reverie_dreams:drink/moon_rocket",
-      "reverie_dreams:drink/demonic_coffee",
-      "reverie_dreams:drink/coffee",
-      "reverie_dreams:drink/fire_rat_fur",
       "reverie_dreams:drink/plum_wine",
-      "reverie_dreams:drink/tengu_dance",
-      "reverie_dreams:drink/scarlet_devil_mansion_black_tea",
-      "reverie_dreams:drink/red_mist",
-      "reverie_dreams:drink/gods_wheat",
-      "reverie_dreams:drink/fourteenth_night",
       "reverie_dreams:drink/otter_festival",
+      "reverie_dreams:drink/moon_rocket",
+      "reverie_dreams:drink/tengu_dance",
+      "reverie_dreams:drink/fire_rat_fur",
+      "reverie_dreams:drink/red_mist",
+      "reverie_dreams:drink/winter_brew",
+      "reverie_dreams:drink/fourteenth_night",
+      "reverie_dreams:drink/gods_wheat",
+      "reverie_dreams:drink/gyokuro_tea",
+      "reverie_dreams:drink/scarlet_devil_mansion_black_tea",
       "reverie_dreams:drink/sparrow_sake",
-      "reverie_dreams:drink/gyokuro_tea"
+      "reverie_dreams:drink/demonic_coffee",
+      "reverie_dreams:drink/coffee"
     ]
   }
 }

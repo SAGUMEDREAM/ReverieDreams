@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity.villager;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.mixin.accessor.VillagerEntityAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -15,15 +16,20 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
+import net.minecraft.potion.Potions;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -45,6 +51,7 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
     public static final int MAX_LEVEL = 5;
     public static final int[] EXPS = {50, 100, 150, 200, 250};
     private static final Gson GSON = new Gson();
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.DOORS_TO_CLOSE);
     protected final Set<SellerGui> sessions = new HashSet<>();
     protected VillagerData prev;
     protected SellInfo sellInfo = new SellInfo(new Object2ObjectOpenHashMap<>());
@@ -53,6 +60,30 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
 
     public AbstractSeller(EntityType<? extends WanderingTraderEntity> entityType, World world) {
         super(entityType, world);
+        this.getNavigation().setCanOpenDoors(true);
+        this.getNavigation().setCanSwim(true);
+    }
+
+    @Override
+    protected void initGoals() {
+        this.goalSelector.add(0, new SwimGoal(this));
+//        this.goalSelector.add(0, new HoldInHandsGoal<WanderingTraderEntity>(this, PotionContentsComponent.createStack(Items.POTION, Potions.INVISIBILITY), SoundEvents.ENTITY_WANDERING_TRADER_DISAPPEARED, wanderingTrader -> this.getWorld().isNight() && !wanderingTrader.isInvisible()));
+//        this.goalSelector.add(0, new HoldInHandsGoal<WanderingTraderEntity>(this, new ItemStack(Items.MILK_BUCKET), SoundEvents.ENTITY_WANDERING_TRADER_REAPPEARED, wanderingTrader -> this.getWorld().isDay() && wanderingTrader.isInvisible()));
+        this.goalSelector.add(1, new StopFollowingCustomerGoal(this));
+        this.goalSelector.add(1, new FleeEntityGoal<ZombieEntity>(this, ZombieEntity.class, 8.0f, 0.5, 0.5));
+        this.goalSelector.add(1, new FleeEntityGoal<EvokerEntity>(this, EvokerEntity.class, 12.0f, 0.5, 0.5));
+        this.goalSelector.add(1, new FleeEntityGoal<VindicatorEntity>(this, VindicatorEntity.class, 8.0f, 0.5, 0.5));
+        this.goalSelector.add(1, new FleeEntityGoal<VexEntity>(this, VexEntity.class, 8.0f, 0.5, 0.5));
+        this.goalSelector.add(1, new FleeEntityGoal<PillagerEntity>(this, PillagerEntity.class, 15.0f, 0.5, 0.5));
+        this.goalSelector.add(1, new FleeEntityGoal<IllusionerEntity>(this, IllusionerEntity.class, 12.0f, 0.5, 0.5));
+        this.goalSelector.add(1, new FleeEntityGoal<ZoglinEntity>(this, ZoglinEntity.class, 10.0f, 0.5, 0.5));
+        this.goalSelector.add(1, new EscapeDangerGoal(this, 0.5));
+        this.goalSelector.add(1, new LookAtCustomerGoal(this));
+        this.goalSelector.add(2, new WanderToTargetGoal(this, 2.0, 0.35));
+        this.goalSelector.add(4, new GoToWalkTargetGoal(this, 0.35));
+        this.goalSelector.add(8, new WanderAroundFarGoal(this, 0.35));
+        this.goalSelector.add(9, new StopAndLookAtEntityGoal(this, PlayerEntity.class, 3.0f, 1.0f));
+        this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0f));
     }
 
     @Override

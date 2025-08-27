@@ -115,6 +115,31 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.ORB_ORE, orbDropFunction);
         addDrop(ModBlocks.DEEPSLATE_ORB_ORE, orbDropFunction);
         addDrop(ModBlocks.SILVER_BLOCK);
+        Function<Block, LootTable.Builder> dreamCrystlDropFunction = (Block block) -> {
+            LootTable.Builder builder = new LootTable.Builder();
+
+            List<Item> itemList = List.of(
+                    ModItems.DREAM_CRYSTAL_FRAGMENT,
+                    ModItems.DREAM_CRYSTAL_FRAGMENT
+            );
+
+            for (Item item : itemList) {
+                LootPool.Builder pool = LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.25f))
+                        .with(ItemEntry.builder(item));
+                builder.pool(pool);
+            }
+
+            LootPool.Builder fallbackPool = LootPool.builder()
+                    .rolls(ConstantLootNumberProvider.create(1))
+                    .with(ItemEntry.builder(ModItems.DREAM_CRYSTAL_FRAGMENT).weight(1))
+                    ;
+            builder.pool(fallbackPool);
+
+            return builder;
+        };
+        addDrop(ModBlocks.DREAM_CRYSTAL_ORE, dreamCrystlDropFunction);
 
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.ICE_SCALES);
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.DREAM_STONE);

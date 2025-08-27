@@ -4,6 +4,7 @@ import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -98,8 +99,14 @@ public class FoodProperty implements RegistrableObject<FoodProperty> {
         return Text.translatable(this.id.toTranslationKey("food_property"));
     }
 
+    @Override
     public String translateKey() {
         return this.id.toTranslationKey("food_property");
+    }
+
+    @Override
+    public StandaloneRegistry<FoodProperty> getRegistryRef() {
+        return MIRegistryManager.FOOD_PROPERTY;
     }
 
     public static List<FoodProperty> getAllProperties(ItemStack itemStack) {

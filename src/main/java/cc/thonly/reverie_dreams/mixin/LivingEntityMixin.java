@@ -22,6 +22,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.particle.ParticleTypes;
@@ -278,11 +279,30 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     public void damage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        boolean bl1 = this.deathInElixir(world, source, amount, cir);
-        boolean bl2 = this.deathInKanju(world, source, amount, cir);
-        if (!bl1 && !bl2) {
+        MinecraftServer server = this.getServer();
+        if (server == null) {
+            return;
+        }
+        boolean isPlayer = ((LivingEntity) (Object) this) instanceof PlayerEntity;
+        boolean deathInElixir = this.deathInElixir(world, source, amount, cir);
+        boolean deathInKanju = this.deathInKanju(world, source, amount, cir);
+        if (!deathInElixir && !deathInKanju) {
             this.deathByDanmakuEntity(world, source, amount, cir);
             if ((this.getHealth() - amount <= 0f)) {
+                IWorld iWorld = (IWorld) world;
+                RegistryKey<World> dreamWorldKey = iWorld.getDreamWorld();
+                ServerWorld dreamWorld = server.getWorld(dreamWorldKey);
+                if (this.getWorld().equals(dreamWorld) && isPlayer) {
+                    this.setHealth(this.getMaxHealth());
+                    this.teleport(
+                            server.getOverworld(),
+                            server.getOverworld().getSpawnPos().getX() + 0.5,
+                            server.getOverworld().getSpawnPos().getY() + 1.5,
+                            server.getOverworld().getSpawnPos().getZ() + 0.5,
+                            EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true
+                    );
+                    return;
+                }
                 EntityAttributeInstance maxHealthAttributeInstance = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
                 if (maxHealthAttributeInstance != null) {
                     if (this.getMaxHealth() > 20) {

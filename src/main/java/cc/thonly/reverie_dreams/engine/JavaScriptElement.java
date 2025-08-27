@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.engine;
 
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,11 @@ public class JavaScriptElement implements RegistrableObject<JavaScriptElement> {
 
     public JavaScriptElement(String src) {
         this.src = src;
+    }
+
+    @Override
+    public StandaloneRegistry<JavaScriptElement> getRegistryRef() {
+        return RegistryManager.JAVASCRIPT_ELEMENT;
     }
 
     @Override

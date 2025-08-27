@@ -7,6 +7,8 @@ import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.BasicDanmakuTypeItem;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
 import cc.thonly.reverie_dreams.registry.ItemColor;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -99,6 +101,11 @@ public class DanmakuType implements RegistrableObject<DanmakuType> {
                 .component(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))))
                 .maxDamage(120)
                 .repairable(ModTags.ItemTypeTag.POWER_BLOCK);
+    }
+
+    @Override
+    public StandaloneRegistry<DanmakuType> getRegistryRef() {
+        return RegistryManager.DANMAKU_TYPE;
     }
 
     @Override

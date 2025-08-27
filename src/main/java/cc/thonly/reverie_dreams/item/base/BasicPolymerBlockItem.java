@@ -32,7 +32,6 @@ import xyz.nucleoid.packettweaker.PacketContext;
 @Setter
 @Getter
 public class BasicPolymerBlockItem extends PolymerBlockItem implements PolymerItem, PolymerClientDecoded, PolymerKeepModel, IdentifierGetter {
-
     final Identifier identifier;
     final Block block;
     final Item vanillaItem;
@@ -47,6 +46,7 @@ public class BasicPolymerBlockItem extends PolymerBlockItem implements PolymerIt
         this.block = block;
         this.vanillaItem = vanillaItem;
     }
+
     public ActionResult useOnBlock(ItemUsageContext context) {
         ActionResult x = super.useOnBlock(context);
         if (x == ActionResult.SUCCESS) {
@@ -74,25 +74,19 @@ public class BasicPolymerBlockItem extends PolymerBlockItem implements PolymerIt
 //    public ActionResult useOnBlock(ItemUsageContext context) {
 //        World world = context.getWorld();
 //        if (!world.isClient()) {
-//            PlayerEntity player = context.getPlayer();
+//            PlayerEntity entity = context.getPlayer();
 //            Hand hand = context.getHand();
-//            if (player != null) {
+//            if (entity != null) {
 //                ItemPlacementContext itemPlacementContext = new ItemPlacementContext(context);
 //                SoundEvent placeSound = this.getPlaceSound(this.block.getPlacementState(itemPlacementContext));
 //                if (itemPlacementContext.canPlace()) {
-//                    player.swingHand(hand);
+//                    entity.swingHand(hand);
 //                    world.playSound(null, context.getBlockPos(), placeSound, SoundCategory.BLOCKS);
 //                }
 //            }
 //        }
 //        return super.useOnBlock(context);
 //    }
-
-    @Deprecated(since = "别用, 用了奇异搞笑了")
-    public Item tryGetPolymerItem() {
-        Item item = this.block.asItem();
-        return item == null || item == Items.AIR ? Items.BARRIER : this.block.asItem();
-    }
 
     @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {

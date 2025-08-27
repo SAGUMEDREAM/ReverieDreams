@@ -144,6 +144,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         ProvidedTagBuilder<Item, Item> pigFoods = valueLookupBuilder(ItemTags.PIG_FOOD);
         pigFoods.add(MIItems.WHITE_RADISH);
 
+        ProvidedTagBuilder<Item, Item> rabbitFoods = valueLookupBuilder(ItemTags.RABBIT_FOOD);
+        rabbitFoods.add(MIItems.WHITE_RADISH);
+
         // === 模组兼容扩展 ===
         this.configureCompat(wrapperLookup);
     }

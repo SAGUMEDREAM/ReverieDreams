@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dream_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reverie_dreams:dream_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "reverie_dreams:dream_stone_stair"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dream_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "reverie_dreams:dream_stone_stair"
+    ]
+  }
+}

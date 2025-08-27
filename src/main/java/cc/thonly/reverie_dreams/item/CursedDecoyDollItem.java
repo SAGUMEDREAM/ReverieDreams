@@ -39,7 +39,7 @@ public class CursedDecoyDollItem extends BasicPolymerItem {
         BlockPos blockPos = context.getBlockPos().up();
         if (!world.isClient && world instanceof ServerWorld serverWorld && player instanceof ServerPlayerEntity serverPlayer) {
             ItemStack stackInHand = serverPlayer.getStackInHand(hand);
-            ArmorStandEntity armorStandEntity = new ArmorStandEntity(serverWorld, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+            ArmorStandEntity armorStandEntity = new ArmorStandEntity(serverWorld, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
             armorStandEntity.setYaw(player.getYaw());
             armorStandEntity.setPitch(player.getPitch());
             serverWorld.spawnEntity(armorStandEntity);

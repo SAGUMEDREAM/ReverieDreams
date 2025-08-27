@@ -19,7 +19,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.component.type.LoreComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -80,6 +79,7 @@ public class ModItems {
     public static final Item PURPLE_ORB = registerItem(new BasicItem("purple_orb", new Item.Settings()));
     public static final Item YIN_YANG_ORB = registerItem(new BasicItem("yin-yang_orb", new Item.Settings()));
     public static final Item SPEED_FEATHER = registerItem(new BasicItem("speed_feather", new Item.Settings().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
+    public static final Item DREAM_CRYSTAL_FRAGMENT = registerItem(new BasicItem("dream_crystal_fragment", new Item.Settings().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
 
     // 道具
     public static final Item TOUHOU_HELPER = registerItem(new TouhouHelperItem("touhou_helper", new Item.Settings()));

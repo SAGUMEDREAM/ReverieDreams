@@ -17,32 +17,32 @@ public abstract class EntityMixin{
     @Shadow public abstract void emitGameEvent(RegistryEntry<GameEvent> event, @Nullable Entity entity);
 
 //    @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
-//    public void interact(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+//    public void interact(PlayerEntity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 //        Entity entity;
 //        if (this.isAlive() && (entity = (Entity) (Object)this) instanceof Leashable) {
 //            Leashable leashable = (Leashable)((Object)entity);
 //            System.out.println(0);
-//            if (leashable.getLeashHolder() == player) {
+//            if (leashable.getLeashHolder() == entity) {
 //                System.out.println(1);
 //                if (!this.getWorld().isClient()) {
 //                    System.out.println(2);
-//                    if (player.isInCreativeMode()) {
+//                    if (entity.isInCreativeMode()) {
 //                        System.out.println(3);
 //                        leashable.detachLeashWithoutDrop();
 //                    } else {
 //                        System.out.println(4);
 //                        leashable.detachLeash();
 //                    }
-//                    this.emitGameEvent(GameEvent.ENTITY_INTERACT, player);
+//                    this.emitGameEvent(GameEvent.ENTITY_INTERACT, entity);
 //                }
 //                cir.setReturnValue(ActionResult.SUCCESS.noIncrementStat());
 //            }
-//            ItemStack itemStack = player.getStackInHand(hand);
+//            ItemStack itemStack = entity.getStackInHand(hand);
 //            if (itemStack.isOf(ItemTypeTag.LEAD) && leashable.canLeashAttachTo()) {
 //                System.out.println(5);
 //                if (!this.getWorld().isClient()) {
 //                    System.out.println(6);
-//                    leashable.attachLeash(player, true);
+//                    leashable.attachLeash(entity, true);
 //                }
 //                itemStack.decrement(1);
 //                cir.setReturnValue(ActionResult.SUCCESS);

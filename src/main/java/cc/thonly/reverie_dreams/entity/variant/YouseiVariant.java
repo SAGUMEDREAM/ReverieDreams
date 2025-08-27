@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.entity.PolymerVariant;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -24,6 +26,11 @@ public class YouseiVariant implements RegistrableObject<YouseiVariant>, PolymerV
         this.id = id;
         this.number = NEXT++;
         this.property = property;
+    }
+
+    @Override
+    public StandaloneRegistry<YouseiVariant> getRegistryRef() {
+        return RegistryManager.YOUSEI_VARIANT;
     }
 
     @Override

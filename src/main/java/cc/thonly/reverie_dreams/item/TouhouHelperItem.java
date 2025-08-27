@@ -45,17 +45,13 @@ public class TouhouHelperItem extends BasicPolymerItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-    }
-
-    @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient() && user instanceof ServerPlayerEntity player) {
             ItemStack itemStack = user.getStackInHand(hand);
             user.useBook(itemStack, hand);
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             user.openDialog(RegistryEntry.of(DialogInit.MAIN_HELP));
+            world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS);
             return ActionResult.SUCCESS_SERVER;
         }
         return ActionResult.SUCCESS;

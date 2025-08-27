@@ -51,16 +51,35 @@ public class BorukvaFoodCompatImpl {
             Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.stream();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
-                Set<Item> tags = property.getItems();
+                Set<Item> items = property.getItems();
                 if (property.equals(FoodProperties.SWEET)) {
-                    tags.add(ModItems.GRAPE);
+                    items.add(ModItems.GRAPE);
                 }
                 if (property.equals(FoodProperties.FRUITY)) {
-                    tags.add(ModItems.LEMON);
-                    tags.add(ModItems.AVOCADO);
-                    tags.add(ModItems.GRAPE);
-                    tags.add(ModItems.BLACKCURRANTS);
-                    tags.add(ModItems.GOOSEBERRY);
+                    items.add(ModItems.LEMON);
+                    items.add(ModItems.AVOCADO);
+                    items.add(ModItems.GRAPE);
+                    items.add(ModItems.BLACKCURRANTS);
+                    items.add(ModItems.GOOSEBERRY);
+                }
+                if (property.equals(FoodProperties.FILLING)) {
+                    items.add(ModItems.CORN);
+                }
+                if (property.equals(FoodProperties.VEGETARIAN)) {
+                    items.add(ModItems.ONION);
+                    items.add(ModItems.ENDER_INFECTED_ONION);
+                    items.add(ModItems.TOMATO);
+                    items.add(ModItems.CABBAGE);
+                    items.add(ModItems.CORN);
+                    items.add(ModItems.CUCUMBER);
+                    items.add(ModItems.LETTUCE);
+                }
+                if (property.equals(FoodProperties.UMAMI)) {
+                    items.add(ModItems.ONION);
+                    items.add(ModItems.ENDER_INFECTED_ONION);
+                }
+                if (property.equals(FoodProperties.FIERY)) {
+                    items.add(ModItems.CHILLI_PEPPER);
                 }
             });
         });

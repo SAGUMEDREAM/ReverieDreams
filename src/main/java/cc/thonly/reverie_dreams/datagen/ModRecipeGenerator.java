@@ -286,7 +286,9 @@ public class ModRecipeGenerator extends RecipeGenerator {
 
     private void generateDecorativeBlock() {
         ModBlocks.ICE_SCALES.offerRecipe(this, ModItems.ICE_SCALES);
+        ModBlocks.DREAM_STONE.offerRecipe(this, ModBlocks.DREAM_STONE.block().asItem());
         ModBlocks.DREAM_STONE_BRICK.offerRecipe(this, ModBlocks.DREAM_STONE_BRICK.block().asItem());
+        ModBlocks.MOON_STONE.offerRecipe(this, ModBlocks.MOON_STONE.block().asItem());
         ModBlocks.MOON_STONE_BRICK.offerRecipe(this, ModBlocks.MOON_STONE_BRICK.block().asItem());
     }
 

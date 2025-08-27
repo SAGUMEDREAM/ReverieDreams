@@ -88,7 +88,7 @@ public class ModEntities {
                             .build(of("moon_rabbit")),
                     () -> LivingEntity.createLivingAttributes()
                             .add(EntityAttributes.MAX_HEALTH, 18.0)
-                            .add(EntityAttributes.MOVEMENT_SPEED, 0.08)
+                            .add(EntityAttributes.MOVEMENT_SPEED, 0.12)
                             .add(EntityAttributes.ATTACK_DAMAGE, 3)
                             .add(EntityAttributes.SCALE, 1.2f)
                             .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.1)

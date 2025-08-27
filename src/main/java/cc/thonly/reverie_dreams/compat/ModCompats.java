@@ -13,6 +13,8 @@ public class ModCompats {
         load("borukva-food", BorukvaFoodCompatImpl::bootstrap);
         load("borukva-food-exotic", BorukvaFoodExoticCompatImpl::bootstrap);
         load("farmersdelight", FarmersdelightCompatImpl::bootstrap);
+        load("moredelight", MoreDelightCompatImpl::bootstrap);
+        load("oceansdelight-port", OceansdelightCompatImpl::bootstrap);
         load("go-fish", GoFishingCompatImpl::bootstrap);
         load("fishing101", Fishing101CompatImpl::bootstrap);
     }

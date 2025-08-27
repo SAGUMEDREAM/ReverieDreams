@@ -1,0 +1,11 @@
+{
+  "type": "reverie_dreams:the_moon",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "reverie_dreams:dream"
+    },
+    "settings": "reverie_dreams:moon"
+  }
+}

@@ -7,8 +7,12 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import cc.thonly.reverie_dreams.util.NetUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Blocks;
 import net.minecraft.dialog.AfterAction;
 import net.minecraft.dialog.DialogActionButtonData;
@@ -51,8 +55,8 @@ public class DialogInit {
     );
     private static final Dialog TEMPLATE = new MultiActionDialog(
             new DialogCommonData(
-                    Text.literal("祭坛摆放"),
-                    Optional.of(Text.literal("主页")),
+                    Text.literal("标题"),
+                    Optional.empty(),
                     true, false,
                     AfterAction.CLOSE,
                     new ArrayList<>(List.of(
@@ -77,6 +81,7 @@ public class DialogInit {
     public static final Identifier GET_FUMO_HELP_ID = Touhou.id("get_fumo_help");
     public static final Identifier ROLE_HELP_ID = Touhou.id("role_help");
     public static final Identifier TOUHOU_MYSTIA_HELP_ID = Touhou.id("touhou_mystia_help");
+    public static final Identifier REGISTRIES_ID = Touhou.id("registries");
     public static final Identifier OTHER_MOD_LIST_ID = Touhou.id("other_mod_list");
     public static final MultiActionDialog MAIN_HELP;
     public static final MultiActionDialog ALTAR_HELP;
@@ -85,7 +90,81 @@ public class DialogInit {
     public static final MultiActionDialog GET_FUMO_HELP;
     public static final MultiActionDialog ROLE_HELP;
     public static final MultiActionDialog TOUHOU_MYSTIA_HELP;
+    public static MultiActionDialog REGISTRIES;
     public static final MultiActionDialog OTHER_MOD_LIST;
+
+    public static void initRegistriesDialog() {
+        record SubInfo(String argId, Identifier registryKey, MultiActionDialog dialog) {
+        }
+        List<SubInfo> list = new ArrayList<>();
+        for (Map.Entry<Identifier, StandaloneRegistry<?>> mapEntry : RegistryManager.REGISTRIES.entrySet()) {
+            Identifier key = mapEntry.getKey();
+            StandaloneRegistry<?> registry = mapEntry.getValue();
+            MutableText text = Text.empty();
+            var page = new MultiActionDialog(
+                    new DialogCommonData(
+                            Text.empty().append(Text.translatable("dialog.title.registries")).append(Text.literal(": %s".formatted(registry.getKey()))),
+                            Optional.empty(),
+                            true, false,
+                            AfterAction.CLOSE,
+                            new ArrayList<>(),
+                            new ArrayList<>()
+                    ),
+                    new ArrayList<>(List.of()),
+                    Optional.empty(),
+                    1
+            );
+            for (Map.Entry<Identifier, ?> id2ValueMapEntry : registry.entrySet()) {
+                Identifier entryKey = id2ValueMapEntry.getKey();
+                RegistrableObject<?> entryValue = (RegistrableObject<?>) id2ValueMapEntry.getValue();
+                text.append(entryKey.toString());
+                text.append(" → ");
+                text.append(Text.translatable(entryValue.translateKey()));
+                text.append("\n");
+            }
+            page.common().body().add(new PlainMessageDialogBody(text, 800));
+            page.actions().add(new DialogActionButtonData(
+                    new DialogButtonData(Text.empty().append(Text.translatable("dialog.text.back")), 200),
+                    Optional.of(new SimpleDialogAction(showPage("REGISTRIES")))
+            ));
+            list.add(new SubInfo("registry/" + key.toString(), key, page));
+        }
+        REGISTRIES = new MultiActionDialog(
+                new DialogCommonData(
+                        Text.translatable("dialog.title.registries"),
+                        Optional.empty(),
+                        true, false,
+                        AfterAction.CLOSE,
+                        new ArrayList<>(List.of(
+                        )),
+                        new ArrayList<>(List.of(
+                        ))
+                ),
+                new ArrayList<>(List.of()),
+                Optional.empty(),
+                1
+        );
+        for (SubInfo subInfo : list) {
+            String argId = subInfo.argId();
+            Identifier registryKey = subInfo.registryKey;
+            MultiActionDialog dialog = subInfo.dialog();
+            REGISTRIES.actions().add(
+                    new DialogActionButtonData(
+                            new DialogButtonData(
+                                    Text.literal(registryKey.toString()),
+                                    300
+                            ),
+                            Optional.of(new SimpleDialogAction(showPage(argId)))
+                    )
+            );
+            ARGS_DIALOG.put(argId, dialog);
+        }
+        REGISTRIES.actions().add(new DialogActionButtonData(
+                new DialogButtonData(Text.empty().append(Text.translatable("dialog.text.back")), 200),
+                Optional.of(new SimpleDialogAction(showPage("MAIN")))
+        ));
+        ARGS_DIALOG.put("REGISTRIES", REGISTRIES);
+    }
 
     public static List<ItemStack> getUpgradeItemList() {
         List<ItemStack> list = new ArrayList<>();
@@ -422,6 +501,10 @@ public class DialogInit {
                 Optional.of(new SimpleDialogAction(showPage("TOUHOU_MYSTIA")))
         ));
         list.add(new DialogActionButtonData(
+                new DialogButtonData(Text.empty().append(Text.translatable("dialog.title.registries")), 200),
+                Optional.of(new SimpleDialogAction(showPage("REGISTRIES")))
+        ));
+        list.add(new DialogActionButtonData(
                 new DialogButtonData(Text.empty().append(Text.translatable("dialog.title.other_mod_list")), 200),
                 Optional.of(new SimpleDialogAction(showPage("OTHER_MOD_LIST")))
         ));
@@ -480,7 +563,7 @@ public class DialogInit {
 //                result.append(" ");
                 list.add(new DialogActionButtonData(
                         new DialogButtonData(result, 30),
-                        Optional.empty()
+                        Optional.of(new SimpleDialogAction(showPage("ALTAR")))
                 ));
             }
         }
@@ -488,7 +571,7 @@ public class DialogInit {
     }
 
     public static ClickEvent.RunCommand showPage(String name) {
-        return new ClickEvent.RunCommand("touhou dialog %s".formatted(name));
+        return new ClickEvent.RunCommand("touhou dialog \"%s\"".formatted(name));
     }
 
     public static DialogActionButtonData getActionMain() {
@@ -508,7 +591,6 @@ public class DialogInit {
         builder.register(ROLE_HELP_ID, ROLE_HELP);
         builder.register(TOUHOU_MYSTIA_HELP_ID, TOUHOU_MYSTIA_HELP);
         builder.register(OTHER_MOD_LIST_ID, OTHER_MOD_LIST);
-        DynamicRegistryManagerCallback.add(builder);
     }
 
     static {

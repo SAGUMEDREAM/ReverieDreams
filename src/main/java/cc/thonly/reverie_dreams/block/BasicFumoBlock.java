@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
@@ -99,10 +100,10 @@ public class BasicFumoBlock extends HorizontalFacingBlock implements FactoryBloc
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
         if (!world.isClient) {
             world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 0.5f, 1);
         }
+        super.onPlaced(world, pos, state, placer, itemStack);
     }
 
     @Override
@@ -126,17 +127,41 @@ public class BasicFumoBlock extends HorizontalFacingBlock implements FactoryBloc
     }
 
     public static final class Model extends ElementHolder {
+        private final Block block;
         private final ItemDisplayElement main;
 
         public Model(BlockState state, Vec3d offsets) {
+            this.block = state.getBlock();
             this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
-            this.main.setDisplaySize(1f, 1f);
-            this.main.setOffset(offsets);
-            this.main.setScale(new Vector3f(1f));
+            this.main.setDisplaySize(this.getDisplaySizeWidth(), this.getDisplaySizeHeight());
+            this.main.setOffset(this.modifyOffset(offsets));
+            this.main.setScale(this.getScale());
             this.main.setItemDisplayContext(ItemDisplayContext.NONE);
             var yaw = state.get(FACING_16).getYaw();
             this.main.setYaw(yaw);
             this.addElement(this.main);
+        }
+
+        public Vec3d modifyOffset(Vec3d offsets) {
+            if (this.block == Fumos.TAN_CIRNO.block()) {
+                return offsets.add(new Vec3d(0, 0.5, 0));
+            }
+            return offsets;
+        }
+
+        public Vector3f getScale() {
+            if (this.block == Fumos.TAN_CIRNO.block()) {
+                return new Vector3f(2f);
+            }
+            return new Vector3f(1f);
+        }
+
+        public float getDisplaySizeWidth() {
+            return 1f;
+        }
+
+        public float getDisplaySizeHeight() {
+            return 1f;
         }
     }
 }

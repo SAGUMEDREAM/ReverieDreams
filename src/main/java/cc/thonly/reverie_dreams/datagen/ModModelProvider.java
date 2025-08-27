@@ -68,6 +68,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.POINT_BLOCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.POWER_BLOCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_ORE);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_CRYSTAL_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_BLOCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEEPSLATE_SILVER_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.ORB_ORE);
@@ -144,6 +145,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.PURPLE_ORB, Models.GENERATED);
         itemModelGenerator.register(ModItems.YIN_YANG_ORB, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEED_FEATHER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DREAM_CRYSTAL_FRAGMENT, Models.GENERATED);
 
         // 道具
         itemModelGenerator.register(ModItems.TOUHOU_HELPER, Models.GENERATED);

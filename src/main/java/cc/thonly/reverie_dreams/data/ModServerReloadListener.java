@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
+import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
@@ -28,6 +29,7 @@ public class ModServerReloadListener implements SimpleSynchronousResourceReloadL
             registry.verify();
         }
         this.onLoad(manager);
+        DialogInit.initRegistriesDialog();
     }
 
     public void onLoad(ResourceManager manager) {

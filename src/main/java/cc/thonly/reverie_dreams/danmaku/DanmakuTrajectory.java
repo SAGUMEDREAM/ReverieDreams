@@ -3,6 +3,8 @@ package cc.thonly.reverie_dreams.danmaku;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import eu.pb4.polymer.core.api.utils.PolymerObject;
 import lombok.Getter;
@@ -69,6 +71,11 @@ public class DanmakuTrajectory implements PolymerObject, RegistrableObject<Danma
         );
         world.spawnEntity(danmakuEntity);
         return danmakuEntity;
+    }
+
+    @Override
+    public StandaloneRegistry<DanmakuTrajectory> getRegistryRef() {
+        return RegistryManager.DANMAKU_TRAJECTORY;
     }
 
     @Override

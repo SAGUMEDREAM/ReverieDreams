@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.util.bedrock;
 
+import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -15,7 +17,9 @@ import org.geysermc.geyser.api.event.lifecycle.GeyserDefineCustomItemsEvent;
 import org.geysermc.geyser.api.item.custom.NonVanillaCustomItemData;
 
 import java.nio.file.Path;
+import java.util.Map;
 
+@Deprecated
 public class GeyserEntry implements EventRegistrar {
     public static Path PACKS_FOLDER;
     public static Path GEYSER_PACK;
@@ -32,23 +36,27 @@ public class GeyserEntry implements EventRegistrar {
 
     @Subscribe
     public void onGeyserDefineCustomItemsEvent(GeyserDefineCustomItemsEvent event) {
-        for (Item item: ModItems.getItemView()) {
+        for (Map.Entry<RegistryKey<Item>, Item> mapEntry : Registries.ITEM.getEntrySet()) {
+            RegistryKey<Item> key = mapEntry.getKey();
+            if (!key.getValue().getNamespace().equals(Touhou.MOD_ID)) continue;
+            Item item = mapEntry.getValue();
             if(item instanceof IdentifierGetter) {
                 int id = Registries.ITEM.getRawId(item);
                 Identifier identifier = ((IdentifierGetter) item).getIdentifier();
-                NonVanillaCustomItemData customItemData = NonVanillaCustomItemData.builder()
+                NonVanillaCustomItemData.Builder customItemData = NonVanillaCustomItemData.builder()
                         .displayName(Text.translatable(item.getTranslationKey()).getString())
                         .name(Text.translatable(item.getTranslationKey()).getString())
                         .javaId(id)
-                        .stackSize(1)
+                        .stackSize(item.getMaxCount())
                         .identifier(identifier.toString())
                         .translationString(item.getTranslationKey())
                         .allowOffhand(true)
                         .displayHandheld(true)
                         .icon(identifier.toString())
                         .creativeCategory(3)
-                        .build();
-                event.register(customItemData);
+                        ;
+
+                event.register(customItemData.build());
             }
         }
     }

@@ -78,10 +78,10 @@ public class PlayerInputManager {
             if (packet instanceof ClientCommandC2SPacket cCC2SPacket) {
                 ClientCommandC2SPacket.Mode mode = cCC2SPacket.getMode();
 //                if (mode.equals(ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY)) {
-//                    SNEAKS.add(player);
+//                    SNEAKS.add(entity);
 //                }
 //                if (mode.equals(ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY)) {
-//                    SNEAKS.remove(player);
+//                    SNEAKS.remove(entity);
 //                }
                 if (player.isSneaking()) {
                     SNEAKS.add(player);
@@ -106,7 +106,7 @@ public class PlayerInputManager {
             case InputKey.LEFT -> inputManager.LEFTS.contains(player);
             case InputKey.RIGHT -> inputManager.RIGHTS.contains(player);
             case InputKey.JUMP -> inputManager.JUMPS.contains(player);
-//            case InputKey.SNEAK -> inputManager.SNEAKS.contains(player);
+//            case InputKey.SNEAK -> inputManager.SNEAKS.contains(entity);
             case InputKey.SPRINT -> inputManager.SPRINTS.contains(player);
             default -> false;
         };

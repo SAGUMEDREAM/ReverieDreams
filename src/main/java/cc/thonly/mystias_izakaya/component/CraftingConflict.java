@@ -96,6 +96,11 @@ public class CraftingConflict implements RegistrableObject<CraftingConflict> {
     }
 
     @Override
+    public StandaloneRegistry<CraftingConflict> getRegistryRef() {
+        return MIRegistryManager.CRAFTING_CONFLICT;
+    }
+
+    @Override
     public Codec<CraftingConflict> getCodec() {
         return CODEC;
     }

@@ -3,8 +3,9 @@ package cc.thonly.reverie_dreams.item.armor;
 import cc.thonly.reverie_dreams.armor.EarphoneArmorMaterial;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerArmorItem;
 import cc.thonly.reverie_dreams.server.ParticleTickerManager;
-import cc.thonly.reverie_dreams.util.Vec3d2Player;
+import cc.thonly.reverie_dreams.util.Vec3d2Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.EquipmentType;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EarphoneItem extends BasicPolymerArmorItem {
-    public static final List<Vec3d2Player> VEC_3_DS = new ArrayList<>();
+    public static final List<Vec3d2Entity> VEC_3_DS = new ArrayList<>();
 
     public EarphoneItem(String path, Item.Settings settings) {
         super(path, EarphoneArmorMaterial.INSTANCE, EquipmentType.HELMET, settings);
@@ -26,19 +27,27 @@ public class EarphoneItem extends BasicPolymerArmorItem {
     public static synchronized void onUseTick(World world, LivingEntity user, ItemStack stack) {
         if (!world.isClient() && world instanceof ServerWorld sWorld && user instanceof ServerPlayerEntity player) {
             if (!VEC_3_DS.isEmpty()) {
-                for (Vec3d2Player vec3d2Player : VEC_3_DS) {
-                    if (vec3d2Player.player() == user) {
+                for (Vec3d2Entity vec3D2Entity : VEC_3_DS) {
+                    if (vec3D2Entity.entity() == user) {
                         continue;
                     }
-                    double x1 = vec3d2Player.vec3d().x;
-                    double y1 = vec3d2Player.vec3d().y;
-                    double z1 = vec3d2Player.vec3d().z;
+                    if (player.isSpectator()) {
+                        continue;
+                    }
+                    if (vec3D2Entity.entity() instanceof PlayerEntity playerEntity) {
+                        if (playerEntity.isSpectator()) {
+                            continue;
+                        }
+                    }
+                    double x1 = vec3D2Entity.vec3d().x;
+                    double y1 = vec3D2Entity.vec3d().y;
+                    double z1 = vec3D2Entity.vec3d().z;
                     double x2 = user.getX();
                     double y2 = user.getY();
                     double z2 = user.getZ();
                     double distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2) + Math.pow((z2 - z1), 2));
                     if (distance < 32) {
-                        ParticleTickerManager.joinQueue(sWorld, ParticleTypes.SONIC_BOOM, 10, vec3d2Player.vec3d(), user.getPos(), 1.0f);
+                        ParticleTickerManager.joinQueue(sWorld, ParticleTypes.SONIC_BOOM, 10, vec3D2Entity.vec3d(), user.getPos(), 1.0f);
                     }
                 }
             }

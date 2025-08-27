@@ -1,0 +1,15 @@
+{
+  "type": "reverie_dreams:crater",
+  "config": {
+    "depth": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 15,
+      "min_inclusive": 12
+    },
+    "radius": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 5,
+      "min_inclusive": 3
+    }
+  }
+}

@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.world;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
-import cc.thonly.reverie_dreams.world.gen.ModBiomeSources;
+import cc.thonly.reverie_dreams.world.gen.BiomeInit;
+import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -78,6 +78,11 @@ public class BiomeModificationInit {
                 SpawnGroup.MONSTER,
                 ModEntities.YOUSEI_ENTITY_TYPE, 10, 1, 2
         );
+        BiomeModifications.addSpawn(
+                BiomeSelectors.includeByKey(BiomeInit.DREAM),
+                SpawnGroup.MONSTER,
+                ModEntities.YOUSEI_ENTITY_TYPE, 10, 1, 2
+        );
         SpawnRestriction.register(
                 ModEntities.YOUSEI_ENTITY_TYPE,
                 SpawnLocationTypes.ON_GROUND,
@@ -92,6 +97,11 @@ public class BiomeModificationInit {
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_PLAINS),
                 SpawnGroup.MONSTER,
                 ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, 3, 1, 3
+        );
+        BiomeModifications.addSpawn(
+                BiomeSelectors.includeByKey(BiomeInit.DREAM),
+                SpawnGroup.MONSTER,
+                ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, 3, 1, 2
         );
         SpawnRestriction.register(
                 ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE,
@@ -164,17 +174,17 @@ public class BiomeModificationInit {
         );
         // 月兔
         BiomeModifications.addSpawn(
-                BiomeSelectors.includeByKey(ModBiomeSources.THE_MOON),
+                BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                 SpawnGroup.MONSTER,
-                ModEntities.MOON_RABBIT, 20, 1, 3
+                ModEntities.MOON_RABBIT, 10, 1, 1
         );
         BiomeModifications.create(Identifier.of("reverie_dreams", "moon_spawns"))
                 .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.includeByKey(ModBiomeSources.THE_MOON),
+                        BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                         ctx -> ctx.getSpawnSettings().addSpawn(
                                 SpawnGroup.MONSTER,
-                                new SpawnSettings.SpawnEntry(ModEntities.MOON_RABBIT, 1, 2),
-                                10
+                                new SpawnSettings.SpawnEntry(ModEntities.MOON_RABBIT, 1, 1),
+                                5
                         )
                 );
 

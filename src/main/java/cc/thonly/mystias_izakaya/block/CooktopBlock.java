@@ -25,7 +25,7 @@
 //import net.minecraft.block.entity.BlockEntityTicker;
 //import net.minecraft.block.entity.BlockEntityType;
 //import net.minecraft.entity.ItemEntity;
-//import net.minecraft.entity.player.PlayerEntity;
+//import net.minecraft.entity.entity.PlayerEntity;
 //import net.minecraft.inventory.SimpleInventory;
 //import net.minecraft.item.ItemPlacementContext;
 //import net.minecraft.item.ItemStack;
@@ -80,9 +80,9 @@
 //    }
 //
 //    @Override
-//    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+//    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity entity, BlockHitResult hit) {
 //        if (!world.isClient()) {
-//            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+//            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entity;
 //            BlockEntity blockEntity = world.getBlockEntity(pos);
 //            if (blockEntity instanceof CooktopBlockEntity cooktopBlockEntity) {
 //                if (serverPlayer.isSneaking()) {
@@ -95,11 +95,11 @@
 //            serverPlayer.swingHand(Hand.MAIN_HAND);
 //            return ActionResult.SUCCESS_SERVER;
 //        }
-//        return super.onUse(state, world, pos, player, hit);
+//        return super.onUse(state, world, pos, entity, hit);
 //    }
 //
 //    @Override
-//    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+//    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity entity) {
 //        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
 //            BlockEntity blockEntity = world.getBlockEntity(pos);
 //            if (blockEntity instanceof CooktopBlockEntity cooktopBlockEntity) {
@@ -114,7 +114,7 @@
 //                }
 //            }
 //        }
-//        return super.onBreak(world, pos, state, player);
+//        return super.onBreak(world, pos, state, entity);
 //    }
 //
 //    @Override

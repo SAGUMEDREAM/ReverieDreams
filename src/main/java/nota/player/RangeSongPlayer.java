@@ -19,7 +19,7 @@ public abstract class RangeSongPlayer extends SongPlayer {
 	}
 
 	/**
-	 * Sets distance in blocks where would be player able to hear sound.
+	 * Sets distance in blocks where would be entity able to hear sound.
 	 *
 	 * @param distance (Default 16 blocks)
 	 */

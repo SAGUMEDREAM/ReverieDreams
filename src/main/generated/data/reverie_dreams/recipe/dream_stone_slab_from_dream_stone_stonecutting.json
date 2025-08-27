@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "reverie_dreams:dream_stone",
+  "result": {
+    "count": 2,
+    "id": "reverie_dreams:dream_stone_slab"
+  }
+}

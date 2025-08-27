@@ -1,0 +1,17 @@
+{
+  "type": "reverie_dreams:dream_world",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "reverie_dreams:dream",
+      "features": true,
+      "lakes": true,
+      "layers": [
+        {
+          "block": "minecraft:barrier",
+          "height": 4
+        }
+      ]
+    }
+  }
+}

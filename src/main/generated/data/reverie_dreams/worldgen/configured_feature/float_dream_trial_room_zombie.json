@@ -1,0 +1,6 @@
+{
+  "type": "reverie_dreams:dream_trial_room",
+  "config": {
+    "entity_type_id": "minecraft:zombie"
+  }
+}

@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,12 +35,12 @@ public class NPCWorkMode implements RegistrableObject<NPCWorkMode> {
         this.itemDisplay = itemDisplay;
     }
 
-    public String translationId() {
+    public String translateKey() {
         return "gui.npc.work.mode." + this.type;
     }
 
     public MutableText translationKey() {
-        return Text.translatable(translationId());
+        return Text.translatable(this.translateKey());
     }
 
     public NPCWorkMode getNext() {
@@ -54,6 +55,11 @@ public class NPCWorkMode implements RegistrableObject<NPCWorkMode> {
         Map<Integer, NPCState> baseRawToEntry = RegistryManager.NPC_STATE.getBaseRawToEntry();
         int maxKey = Collections.max(baseRawToEntry.keySet());
         return npcWorkMode == null ? NPCWorkModes.fromInt(maxKey) : npcWorkMode;
+    }
+
+    @Override
+    public StandaloneRegistry<NPCWorkMode> getRegistryRef() {
+        return RegistryManager.NPC_WORK_MODE;
     }
 
     @Override

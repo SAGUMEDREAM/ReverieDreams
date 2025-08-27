@@ -14,7 +14,7 @@ import cc.thonly.reverie_dreams.item.BasicBlockItem;
 import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import cc.thonly.reverie_dreams.block.PolymerCropCreator;
-import cc.thonly.reverie_dreams.world.ModSaplingGenerator;
+import cc.thonly.reverie_dreams.world.SaplingGeneratorInit;
 import eu.pb4.polymer.blocks.api.BlockModelType;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.block.*;
@@ -66,13 +66,13 @@ public class MIBlocks {
     //    public static final Block COOKTOP = registerBlock(new CooktopBlock("cooktop", AbstractBlock.Settings.create().nonOpaque().mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).luminance(CooktopBlock::getLuminance)));
     public static final Block BLACK_SALT_BLOCK = registerBlock(new BasicPolymerBlock("black_salt_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.SAND)));
 
-    public static final WoodCreator LEMON = WoodCreator.create("lemon", ModSaplingGenerator.LEMON_TREE).build();
+    public static final WoodCreator LEMON = WoodCreator.create("lemon", SaplingGeneratorInit.LEMON_TREE).build();
     public static final Block LEMON_FRUIT_LEAVES = registerBlock(new BasicFruitLeavesBlock("lemon_fruit_leaves", MIItems.LEMON, LEMON.leaves(), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)));
 
-    public static final WoodCreator GINKGO = WoodCreator.create("ginkgo", ModSaplingGenerator.GINKGO_TREE).build();
+    public static final WoodCreator GINKGO = WoodCreator.create("ginkgo", SaplingGeneratorInit.GINKGO_TREE).build();
     public static final Block GINKGO_FRUIT_LEAVES = registerBlock(new BasicFruitLeavesBlock("ginkgo_fruit_leaves", MIItems.GINKGO, GINKGO.leaves(), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)));
 
-    public static final WoodCreator PEACH = WoodCreator.create("peach", ModSaplingGenerator.PEACH_TREE).build();
+    public static final WoodCreator PEACH = WoodCreator.create("peach", SaplingGeneratorInit.PEACH_TREE).build();
     public static final Block PEACH_FRUIT_LEAVES = registerBlock(new BasicFruitLeavesBlock("peach_fruit_leaves", MIItems.PEACH, PEACH.leaves(), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)));
 
     public static final Block UDUMBARA_FLOWER = registerBlock(new BasicPlantBlock("udumbara_flower", createPlantSettings()));

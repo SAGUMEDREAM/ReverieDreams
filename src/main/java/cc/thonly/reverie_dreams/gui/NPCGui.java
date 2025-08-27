@@ -110,7 +110,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setItemName(Text.of("模式开关"))
                             .setLore(List.of
                                     (
-                                            this.npcEntity.getNpcState().translationKey(),
+                                            this.npcEntity.getNpcState().getTranslateText(),
                                             this.npcEntity.getNpcState() == NPCStates.WORKING ? Text.translatable("gui.npc.mode.work.originpos")
                                                     .append(" : (" + workingPos.getX() + " " + workingPos.getY() + " " + workingPos.getZ() + ")") : Text.of("")
 
@@ -132,7 +132,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setItemName(Text.translatable("gui.npc.work.mode"))
                             .setLore(List.of
                                     (
-                                            this.npcEntity.getNpcState().translationKey()
+                                            this.npcEntity.getNpcState().getTranslateText()
                                     )
                             ).setCallback((index, type, action) -> {
                                 this.npcEntity.setWorkMode(type.isRight ? this.npcEntity.getWorkMode().getPrevious() : this.npcEntity.getWorkMode().getNext());
@@ -206,7 +206,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
         BlockPos workingPos = this.npcEntity.getWorkingPos();
         this.npcMode.setLore(List.of
                 (
-                        this.npcEntity.getNpcState().translationKey(),
+                        this.npcEntity.getNpcState().getTranslateText(),
                         this.npcEntity.getNpcState() == NPCStates.WORKING ? Text.translatable("gui.npc.mode.work.originpos").append(" : (" + workingPos.getX() + " " + workingPos.getY() + " " + workingPos.getZ() + ")") : Text.of("")
                 )
         );

@@ -3,6 +3,8 @@ package cc.thonly.reverie_dreams.fumo;
 import cc.thonly.reverie_dreams.block.BasicFumoBlock;
 import cc.thonly.reverie_dreams.item.BasicBlockItem;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import com.mojang.serialization.Codec;
@@ -91,6 +93,11 @@ public class Fumo implements RegistrableObject<Fumo> {
         pair.setLeft(left);
         pair.setRight(right);
         return pair;
+    }
+
+    @Override
+    public StandaloneRegistry<Fumo> getRegistryRef() {
+        return RegistryManager.FUMO;
     }
 
     @Override

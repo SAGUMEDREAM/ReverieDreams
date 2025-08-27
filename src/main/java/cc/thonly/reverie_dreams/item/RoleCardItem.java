@@ -87,12 +87,12 @@ public class RoleCardItem extends BasicPolymerItem {
 //                Optional<NPCRole> roleWrapper = roleCard.random();
 //                if (roleWrapper.isPresent()) {
 //                    NPCRole role = roleWrapper.get();
-//                    itemStack.decrementUnlessCreative(1, player);
+//                    itemStack.decrementUnlessCreative(1, entity);
 //                    EntityType<NPCEntity> entityType = role.get();
 //                    entityType.spawn(serverWorld, context.getBlockPos().up(), SpawnReason.SPAWN_ITEM_USE);
 //
-//                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, player.getSoundCategory(), 2.0f, 1.0f);
-//                    player.swingHand(hand);
+//                    world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SOUND, entity.getSoundCategory(), 2.0f, 1.0f);
+//                    entity.swingHand(hand);
 //                    return ActionResult.SUCCESS_SERVER;
 //                }
             }

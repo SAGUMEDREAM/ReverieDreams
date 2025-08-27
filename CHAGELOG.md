@@ -1,5 +1,14 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.3.4+1.21.7
+* Fixed use `Cursed Decoy Doll` item offset
+* Fixed `Kosuzu Fumo` rendering too large in inventory
+* Fixed `Big Cirno` Size is correct
+* Fixed Earphone pairing working when player is in spectator mode
+* Fixed `Moonstone` and `Dreamstone` missing their slab and stair recipes
+* Shortened the duration of the negative effect of food attribute `BIZARRE`
+* 
+
 ## 0.3.3+1.21.7
 * Fixed doors and slabs not LootTable json 
 * Fixed command `/touhou video play` throws error
@@ -7,10 +16,10 @@
 * Optimize `Crop Block` size
 * Cancel `Food Display Block` collision
 * `Magic Broom` will no longer delays destroying its model when it is destroyed
-* Added `Moonstone Block` and its walls, slabs, and stairs
-* Added `Moonstone Brick Block` and its walls, slabs, and stairs
-* Added `Moonstone Block` and its walls, slabs, and stairs
-* Added `Moonstone Brick Block` and its walls, slabs, and stairs
+* Added `Moonstone` block and its walls, slabs, and stairs
+* Added `Moonstone Brick` block and its walls, slabs, and stairs
+* Added `Dreamstone` block and its walls, slabs, and stairs
+* Added `Dream Brick` block and its walls, slabs, and stairs
 * Added Moon Rabbit
 
 ## 0.3.2+1.21.7

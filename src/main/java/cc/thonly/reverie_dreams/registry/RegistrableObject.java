@@ -28,6 +28,25 @@ public interface RegistrableObject<T extends RegistrableObject<T>> {
 
     public Identifier getId();
 
+    public StandaloneRegistry<T> getRegistryRef();
+
+    @SuppressWarnings("unchecked")
+    default StandaloneRegistry.Reference<T> gerReference() {
+        T value = (T) this;
+        Identifier id = this.getRegistryRef().getId(value);
+        return StandaloneRegistry.Reference.of(id, value);
+    }
+
+    default String translateKey() {
+        if (this.getRegistryRef() == null) {
+            return "null";
+        }
+        if (this.getId() == null) {
+            return this.getRegistryRef().getKey().getPath() + ".null";
+        }
+        return this.getId().toTranslationKey(this.getRegistryRef().getKey().getPath());
+    }
+
     public Codec<T> getCodec();
 
     public default Boolean isDirect() {

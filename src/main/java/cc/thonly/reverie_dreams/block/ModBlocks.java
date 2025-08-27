@@ -9,7 +9,7 @@ import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerHangingSignItem;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerSignItem;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
-import cc.thonly.reverie_dreams.world.ModSaplingGenerator;
+import cc.thonly.reverie_dreams.world.SaplingGeneratorInit;
 import eu.pb4.polymer.blocks.api.BlockModelType;
 import lombok.Getter;
 import net.minecraft.block.*;
@@ -32,7 +32,7 @@ public class ModBlocks {
     public static final Block GENSOKYO_ALTAR = registerBlock(new GensokyoAltarBlock("gensokyo_altar", AbstractBlock.Settings.copy(Blocks.ENCHANTING_TABLE).luminance((state) -> 7)));
     public static final Block MUSIC_BLOCK = registerBlock(new MusicBlock("music_block", AbstractBlock.Settings.copy(Blocks.NOTE_BLOCK)));
 
-    public static final WoodCreator SPIRITUAL = WoodCreator.create("spiritual", ModSaplingGenerator.SPIRITUAL_TREE).build();
+    public static final WoodCreator SPIRITUAL = WoodCreator.create("spiritual", SaplingGeneratorInit.SPIRITUAL_TREE).build();
     public static final Block MAGIC_ICE_BLOCK = registerBlock(new MagicIceBlock("magic_ice", AbstractBlock.Settings.copy(Blocks.BLUE_ICE)));
     public static final Block POINT_BLOCK = registerBlock(new BasicPolymerBlock("point_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.STONE)));
     public static final Block POWER_BLOCK = registerBlock(new BasicPolymerBlock("power_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.STONE)));
@@ -58,6 +58,8 @@ public class ModBlocks {
 
     public static final Block DREAM_RED_BLOCK = registerBlock(new BasicPolymerBlock("dream_world_red_line_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.BEDROCK)));
     public static final Block DREAM_BLUE_BLOCK = registerBlock(new BasicPolymerBlock("dream_world_blue_line_block", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.BEDROCK)));
+    public static final Block DREAM_CRYSTAL_ORE = registerBlock(new BasicPolymerBlock("dream_crystal_ore", BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.IRON_ORE)));
+
     public static final Block MARISA_HAT_BLOCK = registerBlock(new MarisaHatBlock("marisa_hat", new Vec3d(0, 0, 0), AbstractBlock.Settings.copy(Blocks.WHITE_WOOL)), new Item.Settings().maxCount(1).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD).swappable(false).build()));
 
     public static void registerBlocks() {

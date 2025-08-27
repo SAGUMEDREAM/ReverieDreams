@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.block.ModBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
@@ -24,7 +25,6 @@ public class DreamGridFeature extends Feature<DreamGridFeatureConfig> {
             if (y % 16 == 0) {
                 BlockPos pos = origin.withY(y);
                 Block colorBlock = (y / 16 % 2 == 0) ? ModBlocks.DREAM_RED_BLOCK : ModBlocks.DREAM_BLUE_BLOCK;
-//                Block colorBlock = Registries.BLOCK.get(config.blockId());
                 for (int i = 0; i < 16; i++) {
                     world.setBlockState(pos.west(i), colorBlock.getDefaultState(), Block.FORCE_STATE);
                 }
@@ -33,6 +33,7 @@ public class DreamGridFeature extends Feature<DreamGridFeatureConfig> {
                 }
             }
         }
+
         return true;
     }
 

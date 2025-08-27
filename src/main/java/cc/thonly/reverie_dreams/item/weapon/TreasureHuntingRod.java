@@ -103,7 +103,7 @@ public class TreasureHuntingRod extends BasicPolymerSwordItem {
                             "message.treasure_hunting_rod.find", roundedDistance, dx, dy, dz
                     ).append(" ").append(Text.translatable(closestOreBlock.getTranslationKey()));
 
-//                    player.sendMessage(message, false);
+//                    entity.sendMessage(message, false);
                     OreEspEntity oreEspEntity = ModEntities.ORE_ESP_ENTITY_TYPE.create(world, SpawnReason.EVENT);
                     if (oreEspEntity != null) {
                         oreEspEntity.setBlockState(world.getBlockState(closestOrePos));

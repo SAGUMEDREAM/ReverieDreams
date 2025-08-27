@@ -18,8 +18,8 @@
 //    public static final String[] GRID = new String[]{
 //            "X","X","I","X","X"
 //    };
-//    public CooktopBlockGui(ServerPlayerEntity player, CooktopBlockEntity blockEntity) {
-//        super(ScreenHandlerType.HOPPER, player, false);
+//    public CooktopBlockGui(ServerPlayerEntity entity, CooktopBlockEntity blockEntity) {
+//        super(ScreenHandlerType.HOPPER, entity, false);
 //        this.blockEntity = blockEntity;
 //        this.init();
 //    }

@@ -2,6 +2,7 @@ package cc.thonly.mystias_izakaya.entity;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.entity.villager.TavernVillager;
+import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.base.BasicPolymerSpawnEggItem;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
@@ -17,11 +18,15 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PigVariant;
+import net.minecraft.entity.spawn.SpawnConditionSelectors;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.ModelAndTexture;
 
 @SuppressWarnings("unchecked")
 public class MIEntities {
@@ -45,6 +50,11 @@ public class MIEntities {
             );
 
     public static void init() {
+        DynamicRegistryManagerCallback.Builder<PigVariant> pigVariantBuilder = DynamicRegistryManagerCallback.createBuilder(RegistryKeys.PIG_VARIANT);
+        pigVariantBuilder.register(MystiasIzakaya.id("wild_pig"), new PigVariant(
+                new ModelAndTexture<>(PigVariant.Model.NORMAL, MystiasIzakaya.id("entity/pig/wild_pig")),
+                SpawnConditionSelectors.EMPTY
+        ));
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST),
                 SpawnGroup.MONSTER,

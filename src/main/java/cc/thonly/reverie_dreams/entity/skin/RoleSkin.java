@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.entity.skin;
 
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -42,6 +44,11 @@ public class RoleSkin implements RegistrableObject<RoleSkin> {
 
     private static Property texture(String value, String signature) {
         return new Property("textures", value, signature);
+    }
+
+    @Override
+    public StandaloneRegistry<RoleSkin> getRegistryRef() {
+        return RegistryManager.ROLE_SKIN;
     }
 
     @Override

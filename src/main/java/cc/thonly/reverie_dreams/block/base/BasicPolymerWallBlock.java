@@ -30,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Setter

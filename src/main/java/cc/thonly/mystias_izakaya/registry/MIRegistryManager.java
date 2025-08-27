@@ -44,7 +44,7 @@ public class MIRegistryManager extends RegistryManager {
                 user.setFireTicks(2 * 20);
             }
             if (property.is(FoodProperties.BIZARRE)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 15 * 20, 1));
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 2 * 20, 1));
             }
             if (property.is(FoodProperties.GOURMET)) {
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 25 * 20, 1));

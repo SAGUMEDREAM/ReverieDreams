@@ -1,0 +1,11 @@
+{
+  "type": "reverie_dreams:floating_sphere",
+  "config": {
+    "block_id": "reverie_dreams:dream_stone",
+    "horizontal_range": 32,
+    "max_radius": 7,
+    "max_y": 120,
+    "min_radius": 2,
+    "min_y": 25
+  }
+}

@@ -21,6 +21,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -38,7 +39,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
     private final Map<Identifier, T> finalIdToEntry = new Object2ObjectOpenHashMap<>();
     private Map<Integer, T> baseRawToEntry = new Object2ObjectLinkedOpenHashMap<>();
     private Map<Identifier, T> baseIdToEntry = new Object2ObjectLinkedOpenHashMap<>();
-    private DefaultValueGetter<T> defaultEntryGetter;
+    private Supplier<T> defaultEntryGetter;
     private T defaultEntry;
     private final List<BootstrapBuilder<T>> builders = new LinkedList<>();
     private final List<ReloadableBootstrap<T>> reloadableBuilders = new LinkedList<>();
@@ -226,12 +227,12 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
 
     public T getOrThrow(Integer rawId) {
         return Optional.ofNullable(this.get(rawId))
-                .orElseThrow(() -> new NoSuchElementException("No found for raw ID: " + rawId));
+                .orElseThrow(() -> new NoSuchElementException("No found for raw ID to value: " + rawId));
     }
 
     public T getOrThrow(Identifier key) {
         return Optional.ofNullable(this.get(key))
-                .orElseThrow(() -> new NoSuchElementException("No found for Identifier: " + key));
+                .orElseThrow(() -> new NoSuchElementException("No found for id to value: " + key));
     }
 
     public Set<Map.Entry<Integer, T>> rawEntrySet() {
@@ -301,7 +302,7 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
         return this;
     }
 
-    public StandaloneRegistry<T> defaultEntry(DefaultValueGetter<T> getter) {
+    public StandaloneRegistry<T> defaultEntry(Supplier<T> getter) {
         this.defaultEntryGetter = getter;
         return this;
     }
@@ -445,11 +446,5 @@ public final class StandaloneRegistry<T extends RegistrableObject<T>> implements
     @FunctionalInterface
     public interface ReloadableBootstrap<T extends RegistrableObject<T>> {
         void reload(ResourceManager manager);
-    }
-
-    @FunctionalInterface
-    public interface DefaultValueGetter<T extends RegistrableObject<T>> {
-        @NotNull
-        T get();
     }
 }

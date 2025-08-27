@@ -32,7 +32,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Returns true if a Player is currently receiving a song
 	 *
-	 * @param player player entity
+	 * @param player entity entity
 	 * @return is receiving a song
 	 */
 	public static boolean isReceivingSong(PlayerEntity player) {
@@ -42,7 +42,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Returns true if a Player with specified UUID is currently receiving a song
 	 *
-	 * @param playerUuid player's uuid
+	 * @param playerUuid entity's uuid
 	 * @return is receiving a song
 	 */
 	public static boolean isReceivingSong(UUID playerUuid) {
@@ -53,7 +53,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Stops the song for a Player
 	 *
-	 * @param player player entity
+	 * @param player entity entity
 	 */
 	public static void stopPlaying(PlayerEntity player) {
 		stopPlaying(player.getUuid());
@@ -62,7 +62,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Stops the song for a Player
 	 *
-	 * @param playerUuid player's uuid
+	 * @param playerUuid entity's uuid
 	 */
 	public static void stopPlaying(UUID playerUuid) {
 		ArrayList<SongPlayer> songs = instance.playingSongs.get(playerUuid);
@@ -77,7 +77,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Sets the volume for a given Player
 	 *
-	 * @param player player entity
+	 * @param player entity entity
 	 * @param volume volume
 	 */
 	public static void setPlayerVolume(PlayerEntity player, byte volume) {
@@ -87,7 +87,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Sets the volume for a given Player
 	 *
-	 * @param playerUuid player's uuid
+	 * @param playerUuid entity's uuid
 	 * @param volume volume
 	 */
 	public static void setPlayerVolume(UUID playerUuid, byte volume) {
@@ -97,7 +97,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Gets the volume for a given Player
 	 *
-	 * @param player player entity
+	 * @param player entity entity
 	 * @return volume (byte)
 	 */
 	public static byte getPlayerVolume(PlayerEntity player) {
@@ -107,7 +107,7 @@ public class Nota implements ModInitializer {
 	/**
 	 * Gets the volume for a given Player
 	 *
-	 * @param playerUuid player's uuid
+	 * @param playerUuid entity's uuid
 	 * @return volume (byte)
 	 */
 	public static byte getPlayerVolume(UUID playerUuid) {

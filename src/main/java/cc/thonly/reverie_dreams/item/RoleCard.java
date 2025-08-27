@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -108,6 +109,11 @@ public class RoleCard implements RegistrableObject<RoleCard> {
 
     public RecipeBuilder createRecipeBuilder() {
         return new RecipeBuilder(this);
+    }
+
+    @Override
+    public StandaloneRegistry<RoleCard> getRegistryRef() {
+        return RegistryManager.ROLE_CARD;
     }
 
     @Override

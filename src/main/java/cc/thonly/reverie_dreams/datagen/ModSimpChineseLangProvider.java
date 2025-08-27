@@ -93,19 +93,19 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("gui.npc.info.armor", "§d护甲值: %s");
 
         translationBuilder.add("gui.npc.mode.null", "§b当前模式为: §c序列化错误");
-        translationBuilder.add(NPCStates.FOLLOW.translationId(), "§b当前模式为: §a跟随");
-        translationBuilder.add(NPCStates.NORMAL.translationId(), "§b当前模式为: §a正常");
-        translationBuilder.add(NPCStates.NO_WALK.translationId(), "§b当前模式为: §a禁止移动");
-        translationBuilder.add(NPCStates.SNAKING.translationId(), "§b当前模式为: §a潜行");
-        translationBuilder.add(NPCStates.SEATED.translationId(), "§b当前模式为: §a坐下");
-        translationBuilder.add(NPCStates.WORKING.translationId(), "§b当前模式为: §a工作中");
+        translationBuilder.add(NPCStates.FOLLOW.translateKey(), "§b当前模式为: §a跟随");
+        translationBuilder.add(NPCStates.NORMAL.translateKey(), "§b当前模式为: §a正常");
+        translationBuilder.add(NPCStates.NO_WALK.translateKey(), "§b当前模式为: §a禁止移动");
+        translationBuilder.add(NPCStates.SNAKING.translateKey(), "§b当前模式为: §a潜行");
+        translationBuilder.add(NPCStates.SEATED.translateKey(), "§b当前模式为: §a坐下");
+        translationBuilder.add(NPCStates.WORKING.translateKey(), "§b当前模式为: §a工作中");
         translationBuilder.add("gui.npc.mode.work.originpos", "工作原点位置");
 
         translationBuilder.add("gui.npc.work.mode", "工作模式切换");
-        translationBuilder.add(NPCWorkModes.COMBAT.translationId(), "§b当前模式为: §a清理怪物");
-        translationBuilder.add(NPCWorkModes.FARM.translationId(), "§b当前模式为: §b种植作物");
-        translationBuilder.add(NPCWorkModes.BREED.translationId(), "§b当前模式为: §c繁殖动物");
-        translationBuilder.add(NPCWorkModes.SMELT.translationId(), "§b当前模式为: §d烧炼矿物");
+        translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§b当前模式为: §a清理怪物");
+        translationBuilder.add(NPCWorkModes.FARM.translateKey(), "§b当前模式为: §b种植作物");
+        translationBuilder.add(NPCWorkModes.BREED.translateKey(), "§b当前模式为: §c繁殖动物");
+        translationBuilder.add(NPCWorkModes.SMELT.translateKey(), "§b当前模式为: §d烧炼矿物");
 //        translationBuilder.add("gui.npc.woke.mode.disable", "工作原点位置");
 
         translationBuilder.add("item.reverie_dreams.music.no_files", "§c未找到任何可用的音乐文件！");
@@ -743,6 +743,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("dialog.title.role", "角色养成");
         translationBuilder.add("dialog.title.mystia.main", "夜雀食堂");
         translationBuilder.add("dialog.title.cn.issue", "QQ开发/反馈群");
+        translationBuilder.add("dialog.title.registries", "注册表预览");
         translationBuilder.add("dialog.title.other_mod_list", "其他配套Mod列表");
         translationBuilder.add("dialog.title.open_recipe_manager", "打开配方管理器");
 
@@ -839,6 +840,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModItems.PURPLE_ORB, "紫宝玉");
         translationBuilder.add(ModItems.YIN_YANG_ORB, "阴阳玉");
         translationBuilder.add(ModItems.SPEED_FEATHER, "速度羽毛");
+        translationBuilder.add(ModItems.DREAM_CRYSTAL_FRAGMENT, "梦境水晶碎片");
 
         // 道具
         translationBuilder.add(ModItems.TOUHOU_HELPER, "东方模组入门");
@@ -994,6 +996,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
         translationBuilder.add(ModBlocks.DREAM_RED_BLOCK, "网格方块");
         translationBuilder.add(ModBlocks.DREAM_BLUE_BLOCK, "网格方块");
+        translationBuilder.add(ModBlocks.DREAM_CRYSTAL_ORE, "梦境水晶矿");
 
         translationBuilder.add(ModBlocks.SPIRITUAL.log(), "绳文杉原木");
         translationBuilder.add(ModBlocks.SPIRITUAL.wood(), "绳文杉树皮");
@@ -1022,7 +1025,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.block(), "梦境砖块");
         translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.stair(), "梦境砖楼梯");
         translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.slab(), "梦境砖台阶");
-        translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.wall(), "梦境砖砖墙");
+        translationBuilder.add(ModBlocks.DREAM_STONE_BRICK.wall(), "梦境砖墙");
 
         translationBuilder.add(ModBlocks.MOON_STONE.block(), "月石");
         translationBuilder.add(ModBlocks.MOON_STONE.stair(), "月石楼梯");
@@ -1130,7 +1133,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(Fumos.SEIJA.block(), "鬼人正邪Fumo");
         translationBuilder.add(Fumos.SHION.block(), "依神紫苑Fumo");
         translationBuilder.add(Fumos.SHOU.block(), "寅丸星Fumo");
-        translationBuilder.add(Fumos.SMART_CIRNO.block(), "小琪露诺Fumo");
+        translationBuilder.add(Fumos.SMART_CIRNO.block(), "聪明琪露诺Fumo");
         translationBuilder.add(Fumos.SUIKA.block(), "伊吹萃香Fumo");
         translationBuilder.add(Fumos.SUWAKO.block(), "洩矢诹访子Fumo");
         translationBuilder.add(Fumos.TAN_CIRNO.block(), "大琪露诺Fumo");

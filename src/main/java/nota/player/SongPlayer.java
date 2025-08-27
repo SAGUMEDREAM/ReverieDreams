@@ -159,7 +159,7 @@ public abstract class SongPlayer {
 	/**
 	 * Gets unique id of this SongPlayer
 	 *
-	 * @return song player's unique id
+	 * @return song entity's unique id
 	 */
 	public Identifier getId() {
 		return this.id;
@@ -186,7 +186,7 @@ public abstract class SongPlayer {
 	/**
 	 * Adds a Player to the list of Players listening to this SongPlayer
 	 *
-	 * @param player player entity
+	 * @param player entity entity
 	 */
 	public void addPlayer(PlayerEntity player) {
 		addPlayer(player.getUuid());
@@ -195,7 +195,7 @@ public abstract class SongPlayer {
 	/**
 	 * Adds a Player to the list of Players listening to this SongPlayer
 	 *
-	 * @param playerUuid player's uuid
+	 * @param playerUuid entity's uuid
 	 */
 	public void addPlayer(UUID playerUuid) {
 		if(!this.playerList.containsKey(playerUuid)) {
@@ -230,7 +230,7 @@ public abstract class SongPlayer {
 	}
 
 	/**
-	 * Plays the Song for the specific player
+	 * Plays the Song for the specific entity
 	 *
 	 * @param player to play this SongPlayer for
 	 * @param tick   to play at
@@ -249,7 +249,7 @@ public abstract class SongPlayer {
 	/**
 	 * Returns whether the SongPlayer is actively playing
 	 *
-	 * @return if this player is playing
+	 * @return if this entity is playing
 	 */
 	public boolean isPlaying() {
 		return this.playing;
@@ -258,7 +258,7 @@ public abstract class SongPlayer {
 	/**
 	 * Sets whether the SongPlayer is playing
 	 *
-	 * @param playing if this player should play
+	 * @param playing if this entity should play
 	 */
 	public void setPlaying(boolean playing) {
 		this.playing = playing;
@@ -283,7 +283,7 @@ public abstract class SongPlayer {
 	}
 
 	/**
-	 * Removes a player from this SongPlayer
+	 * Removes a entity from this SongPlayer
 	 *
 	 * @param player to remove
 	 */
@@ -292,9 +292,9 @@ public abstract class SongPlayer {
 	}
 
 	/**
-	 * Removes a player from this SongPlayer
+	 * Removes a entity from this SongPlayer
 	 *
-	 * @param playerUuid of player to remove
+	 * @param playerUuid of entity to remove
 	 */
 	public void removePlayer(UUID playerUuid) {
 		playerList.remove(playerUuid);

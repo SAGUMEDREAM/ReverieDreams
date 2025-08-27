@@ -4,6 +4,7 @@ import cc.thonly.mystias_izakaya.api.DrinkPropertyLoaderCallback;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -66,6 +67,12 @@ public class DrinkProperty implements RegistrableObject<DrinkProperty> {
         return Text.translatable(this.id.toTranslationKey("drink_property"));
     }
 
+    @Override
+    public StandaloneRegistry<DrinkProperty> getRegistryRef() {
+        return MIRegistryManager.DRINK_PROPERTY;
+    }
+
+    @Override
     public String translateKey() {
         return this.id.toTranslationKey("drink_property");
     }

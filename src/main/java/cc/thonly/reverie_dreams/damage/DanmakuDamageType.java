@@ -1,6 +1,9 @@
 package cc.thonly.reverie_dreams.damage;
 
+import cc.thonly.mystias_izakaya.component.CraftingConflict;
 import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,6 +54,11 @@ public class DanmakuDamageType implements RegistrableObject<DanmakuDamageType> {
         if (this.registryKey == null) return null;
         Registry<DamageType> registry = registryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE);
         return registry.get(this.registryKey);
+    }
+
+    @Override
+    public StandaloneRegistry<DanmakuDamageType> getRegistryRef() {
+        return RegistryManager.DANMAKU_DAMAGE_TYPE;
     }
 
     @Override
