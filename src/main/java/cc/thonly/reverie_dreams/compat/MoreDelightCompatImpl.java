@@ -8,7 +8,7 @@ import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import com.axperty.moredelight.registry.ItemRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -29,8 +29,8 @@ public class MoreDelightCompatImpl {
             if (!simpleRegistry.equals(MIRegistryManager.FOOD_PROPERTY)) {
                 return;
             }
-            StandaloneRegistry<FoodProperty> registry = (StandaloneRegistry<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.stream();
+            IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
+            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> items = property.getItems();

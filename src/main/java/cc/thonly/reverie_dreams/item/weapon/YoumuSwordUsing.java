@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;

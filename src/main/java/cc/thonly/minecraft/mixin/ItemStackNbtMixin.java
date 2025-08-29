@@ -1,7 +1,6 @@
 package cc.thonly.minecraft.mixin;
 
 import cc.thonly.minecraft.item.ItemStackNbtImpl;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;

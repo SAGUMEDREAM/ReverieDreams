@@ -1,10 +1,8 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.block.base.BasicCropBlock;
-import cc.thonly.reverie_dreams.block.crop.TransparentFlatTripWire;
-import cc.thonly.reverie_dreams.block.crop.TransparentPlant;
-import cc.thonly.reverie_dreams.block.crop.TransparentPlantWatterlogged;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerBlockItem;
+import cc.thonly.mystias_izakaya.block.MIBlocks;
+import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
+import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AccessLevel;
@@ -15,9 +13,10 @@ import lombok.experimental.Accessors;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
@@ -33,7 +32,10 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 @Accessors(chain = true)
 @Setter
@@ -73,24 +75,21 @@ public final class PolymerCropCreator {
      * 构建并注册作物 block 与 item
      */
     public PolymerCropCreator.Instance build() {
-        BasicCropBlock basicCropBlock = this.factory.newInstance(this.identifier);
-        basicCropBlock.setPolymerBlockState(this.inWater ? TransparentPlantWatterlogged.TRANSPARENT_WATTERLOGGED : TransparentFlatTripWire.TRANSPARENT_FLAT_TRIPIWIRE);
-
-        BasicCropBlock cropBlock = Registry.register(Registries.BLOCK, this.identifier, basicCropBlock);
+        AbstractCropBlock basicCropBlock = this.factory.newInstance(AbstractBlock.Settings.create().registryKey(MIBlocks.keyOf(this.identifier)));
+        MIBlocks.registerSimpleBlock(basicCropBlock);
+        Registry.register(Registries.BLOCK, this.identifier, basicCropBlock);
 
         Item seedItem;
         Identifier seedId = Identifier.of(this.identifier.getNamespace(), this.identifier.getPath() + "_seeds");
-        seedItem = Registry.register(
-                Registries.ITEM,
+        seedItem = ModItems.registerSimpleItem(
                 seedId,
-                new BasicPolymerBlockItem(
-                        seedId,
-                        cropBlock,
-                        new Item.Settings()
+                (settings) -> new BlockItem(
+                        basicCropBlock,
+                        settings
                                 .registryKey(RegistryKey.of(RegistryKeys.ITEM, seedId))
-                                .useItemPrefixedTranslationKey(),
-                        Items.WHEAT_SEEDS
-                )
+                                .useItemPrefixedTranslationKey()
+                ),
+                new Item.Settings()
         );
 
         CompostingChanceRegistry.INSTANCE.add(seedItem, getSeedCompostingLevel());
@@ -101,12 +100,11 @@ public final class PolymerCropCreator {
             CompostingChanceRegistry.INSTANCE.add(gain, getCropCompostingLevel());
         }
 
-        cropBlock.setSeed(seedItem);
-        cropBlock.setModelProvider(this.provider);
-        cropBlock.setPolymerBlockState(this.inWater ? TransparentPlantWatterlogged.TRANSPARENT_WATTERLOGGED : TransparentFlatTripWire.TRANSPARENT_FLAT_TRIPIWIRE);
+        basicCropBlock.setSeed(seedItem);
+        basicCropBlock.setModelProvider(this.provider);
 
         Instance instance = Instance.createInstance(this.identifier)
-                .setCropBlock(cropBlock)
+                .setCropBlock(basicCropBlock)
                 .setSeed(seedItem)
                 .setProduct(this.gain)
                 .setProvider(this.provider)
@@ -137,7 +135,7 @@ public final class PolymerCropCreator {
     }
 
     public interface BasicBlockFactory {
-        BasicCropBlock newInstance(Identifier identifier);
+        AbstractCropBlock newInstance(AbstractBlock.Settings settings);
     }
 
     @Accessors(chain = true)
@@ -149,7 +147,7 @@ public final class PolymerCropCreator {
         private final Set<Item> items = new HashSet<>();
         private Item seed;
         private Item product;
-        private BasicCropBlock cropBlock;
+        private AbstractCropBlock cropBlock;
         private CropAgeModelProvider provider;
         private ModelType modelType;
         private boolean inWater = false;

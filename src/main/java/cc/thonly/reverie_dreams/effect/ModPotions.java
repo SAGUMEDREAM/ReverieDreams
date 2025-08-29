@@ -1,11 +1,7 @@
 package cc.thonly.reverie_dreams.effect;
 
 import cc.thonly.reverie_dreams.Touhou;
-import com.opryshok.block.cooking.Pot;
-import eu.pb4.polymer.core.api.other.PolymerPotion;
 import eu.pb4.polymer.core.api.other.SimplePolymerPotion;
-import eu.pb4.polymer.core.api.utils.PolymerSyncUtils;
-import eu.pb4.polymer.core.api.utils.PolymerUtils;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.minecraft.component.type.PotionContentsComponent;

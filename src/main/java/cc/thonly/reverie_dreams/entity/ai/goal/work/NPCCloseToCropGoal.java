@@ -5,16 +5,12 @@ import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 public class NPCCloseToCropGoal extends Goal {
 

@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.util;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkMode;
 import net.minecraft.entity.Entity;

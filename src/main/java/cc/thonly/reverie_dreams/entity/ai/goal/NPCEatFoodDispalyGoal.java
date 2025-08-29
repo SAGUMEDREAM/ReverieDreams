@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -37,7 +37,7 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
 
     private boolean isFoodDisplay(WorldView world, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof ItemStackDisplayBlockEntity isdBlockEntity) {
-            ItemStackRecipeWrapper item = isdBlockEntity.getItem();
+            ItemStackWrapper item = isdBlockEntity.getItem();
             return ((IItemStack) (Object) item.getItemStack()).isFood();
         }
         return false;
@@ -69,7 +69,7 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
         if (castToServerWorld(world).getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
             if (isFoodDisplay(world, this.targetPos)) {
                 ItemStackDisplayBlockEntity displayBlockEntity = (ItemStackDisplayBlockEntity) world.getBlockEntity(targetPos);
-                ItemStackRecipeWrapper item = displayBlockEntity.getItem();
+                ItemStackWrapper item = displayBlockEntity.getItem();
                 ComponentMap components = item.getItemStack().getComponents();
                 FoodComponent foodComponent = components.get(DataComponentTypes.FOOD);
                 if (foodComponent != null) {
@@ -79,7 +79,7 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
                     maid.setNutrition(maid.getNutrition() + nutritionValue);
                     maid.setSaturation(maid.getSaturation() + saturationValue);
                     //displayBlockEntity.setItem(new ItemStackRecipeWrapper(new ItemStack(Blocks.AIR)));
-                    displayBlockEntity.setItem(ItemStackRecipeWrapper.empty());
+                    displayBlockEntity.setItem(ItemStackWrapper.empty());
                     world.playSound(
                             null,
                             maid.getX(),

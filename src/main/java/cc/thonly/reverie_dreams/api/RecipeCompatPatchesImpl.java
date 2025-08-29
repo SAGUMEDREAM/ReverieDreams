@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.api;
 
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeItemTag;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -86,11 +86,11 @@ public class RecipeCompatPatchesImpl {
                             field.setAccessible(true);
                             Object fieldValue = field.get(value);
 
-                            if (fieldValue instanceof ItemStackRecipeWrapper wrapper && wrapper.getItem().equals(compatEntry.targetItem)) {
+                            if (fieldValue instanceof ItemStackWrapper wrapper && wrapper.getItem().equals(compatEntry.targetItem)) {
                                 if (wrapper.getItem().equals(compatEntry.compatItem)) {
                                     continue;
                                 }
-                                field.set(object, new ItemStackRecipeWrapper(new ItemStack(compatEntry.targetItem, wrapper.getCount())));
+                                field.set(object, new ItemStackWrapper(new ItemStack(compatEntry.targetItem, wrapper.getCount())));
                                 changed = true;
                             }
                             if (fieldValue instanceof List<?> list) {
@@ -98,21 +98,21 @@ public class RecipeCompatPatchesImpl {
                                     continue;
                                 }
                                 Object first = list.getFirst();
-                                if (!(first instanceof ItemStackRecipeWrapper)) {
+                                if (!(first instanceof ItemStackWrapper)) {
                                     continue;
                                 }
 
-                                List<ItemStackRecipeWrapper> wrappers = new ArrayList<>();
+                                List<ItemStackWrapper> wrappers = new ArrayList<>();
                                 boolean listChanged = false;
 
-                                for (ItemStackRecipeWrapper wrapper : (List<ItemStackRecipeWrapper>) list) {
+                                for (ItemStackWrapper wrapper : (List<ItemStackWrapper>) list) {
                                     if (compatEntry.targetItem.equals(compatEntry.compatItem)) {
                                         wrappers.add(wrapper);
                                         continue;
                                     }
 
                                     if (wrapper.getItem().equals(compatEntry.targetItem)) {
-                                        wrappers.add(ItemStackRecipeWrapper.of(new ItemStack(compatEntry.compatItem, wrapper.getCount())));
+                                        wrappers.add(ItemStackWrapper.of(new ItemStack(compatEntry.compatItem, wrapper.getCount())));
                                         listChanged = true;
                                     } else {
                                         wrappers.add(wrapper);

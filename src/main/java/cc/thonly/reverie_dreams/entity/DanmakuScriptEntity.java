@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -12,7 +12,7 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 @ApiStatus.Experimental
 public class DanmakuScriptEntity extends PersistentProjectileEntity implements PolymerEntity {
-    private ItemStackRecipeWrapper itemStackWrapper;
+    private ItemStackWrapper itemStackWrapper;
 
     public DanmakuScriptEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);

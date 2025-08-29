@@ -2,23 +2,18 @@ package cc.thonly.reverie_dreams.mixin;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
-import cc.thonly.reverie_dreams.entity.base.NPCEntity;
+import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
-import cc.thonly.reverie_dreams.item.RoleCard;
-import cc.thonly.reverie_dreams.item.RoleCardItem;
-import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
+import cc.thonly.reverie_dreams.item.prop.RoleCard;
+import cc.thonly.reverie_dreams.item.prop.RoleCardItem;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.common.CustomClickActionC2SPacket;
-import net.minecraft.network.packet.s2c.common.ShowDialogS2CPacket;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerCommonNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -81,7 +76,7 @@ public abstract class ServerCommonNetworkHandlerMixin {
                             ItemStack itemStack = usingData.getItemStack();
                             NPCRole role = roleWrapper.get();
                             itemStack.decrementUnlessCreative(1, player);
-                            EntityType<NPCEntity> entityType = role.get();
+                            EntityType<AbstractNPCEntity> entityType = role.get();
                             entityType.spawn(world, usingData.getBlockPos(), SpawnReason.SPAWN_ITEM_USE);
 
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BUCKET_FILL, player.getSoundCategory(), 2.0f, 1.0f);
@@ -101,7 +96,7 @@ public abstract class ServerCommonNetworkHandlerMixin {
                     ServerWorld world = usingData.getWorld();
                     ItemStack itemStack = usingData.getItemStack();
                     itemStack.decrementUnlessCreative(1, player);
-                    EntityType<NPCEntity> entityType = role.get();
+                    EntityType<AbstractNPCEntity> entityType = role.get();
                     entityType.spawn(world, usingData.getBlockPos(), SpawnReason.SPAWN_ITEM_USE);
 
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BUCKET_FILL, player.getSoundCategory(), 2.0f, 1.0f);

@@ -1,14 +1,12 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
 import cc.thonly.reverie_dreams.entity.skin.RoleSkins;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -18,9 +16,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
-import java.util.EnumSet;
 
 public class EatGoal extends Goal {
     private final NPCEntityImpl maid;

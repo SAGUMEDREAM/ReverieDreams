@@ -4,7 +4,7 @@ import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import draylar.gofish.registry.GoFishItems;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -21,8 +21,8 @@ public class GoFishingCompatImpl {
             if (!simpleRegistry.equals(MIRegistryManager.FOOD_PROPERTY)) {
                 return;
             }
-            StandaloneRegistry<FoodProperty> registry = (StandaloneRegistry<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.stream();
+            IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
+            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> tags = property.getItems();
@@ -43,7 +43,20 @@ public class GoFishingCompatImpl {
                             GoFishItems.RAINY_BASS,
                             GoFishItems.THUNDERING_BASS,
                             GoFishItems.CLOUDY_CRAB,
-                            GoFishItems.BLIZZARD_BASS
+                            GoFishItems.BLIZZARD_BASS,
+                            GoFishItems.MATRIX_FISH,
+                            GoFishItems.CHARFISH,
+                            GoFishItems.GILDED_BLACKSTONE_CARP,
+                            GoFishItems.SMOKEY_SALMON,
+                            GoFishItems.SOUL_SALMON,
+                            GoFishItems.MAGMA_COD,
+                            GoFishItems.BASALT_BASS,
+                            GoFishItems.OBSIDIAN_HALIBUT,
+                            GoFishItems.ENDFISH,
+                            GoFishItems.CHORUS_COD,
+                            GoFishItems.DRAGONFISH,
+                            GoFishItems.OMEGA_FLOATER,
+                            GoFishItems.PORTAL_PUFFER
                     ));
                 }
             });

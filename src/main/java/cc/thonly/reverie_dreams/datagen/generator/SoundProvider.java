@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.datagen.generator;
 
-import cc.thonly.reverie_dreams.sound.JukeBoxEntry;
 import cc.thonly.reverie_dreams.datagen.entry.SoundEventBuilder;
+import cc.thonly.reverie_dreams.sound.JukeBoxEntry;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

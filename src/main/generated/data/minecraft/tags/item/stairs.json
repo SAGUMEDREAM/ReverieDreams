@@ -1,13 +1,13 @@
 {
   "values": [
-    "reverie_dreams:ginkgo_stair",
-    "reverie_dreams:spiritual_stair",
-    "reverie_dreams:dream_stone_stair",
-    "reverie_dreams:moon_stone_stair",
-    "reverie_dreams:lemon_stair",
-    "reverie_dreams:ice_scales_block_stair",
-    "reverie_dreams:moon_stone_brick_stair",
-    "reverie_dreams:peach_stair",
-    "reverie_dreams:dream_stone_brick_stair"
+    "reverie_dreams:spiritual_stairs",
+    "reverie_dreams:ice_scales_block_stairs",
+    "reverie_dreams:peach_stairs",
+    "reverie_dreams:dream_stone_stairs",
+    "reverie_dreams:lemon_stairs",
+    "reverie_dreams:moon_stone_stairs",
+    "reverie_dreams:dream_stone_brick_stairs",
+    "reverie_dreams:ginkgo_stairs",
+    "reverie_dreams:moon_stone_brick_stairs"
   ]
 }

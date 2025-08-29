@@ -3,12 +3,11 @@ package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.MobDanmakuShooter;
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.item.BasicDanmakuTypeItem;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerDanmakuItem;
+import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
+import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
-import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.TameableEntity;
@@ -58,7 +57,7 @@ public class NPCDanmakuItemGoal<T extends NPCEntityImpl> extends Goal {
     }
 
     private boolean isHoldingDanmaku() {
-        return this.actor.getMainHandStack().getItem() instanceof BasicDanmakuTypeItem;
+        return this.actor.getMainHandStack().getItem() instanceof DanmakuItem;
     }
 
     @Override
@@ -107,7 +106,7 @@ public class NPCDanmakuItemGoal<T extends NPCEntityImpl> extends Goal {
                 ItemStack itemStack = this.actor.getMainHandStack();
                 Boolean isInfinite = itemStack.getOrDefault(ModDataComponentTypes.Danmaku.INFINITE, false);
                 Item item = itemStack.getItem();
-                if (!(item instanceof BasicPolymerDanmakuItem polymerDanmakuItem)) return;
+                if (!(item instanceof AbstractDanmakuItem polymerDanmakuItem)) return;
                 for (int i = 0; i < itemStack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, 3); i++) {
                     polymerDanmakuItem.shoot(serverWorld, this.actor, Hand.MAIN_HAND);
                 }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin;
 
-import cc.thonly.reverie_dreams.item.FumoLicenseItem;
+import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

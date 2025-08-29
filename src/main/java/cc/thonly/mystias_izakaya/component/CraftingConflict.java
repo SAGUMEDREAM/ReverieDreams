@@ -2,8 +2,8 @@ package cc.thonly.mystias_izakaya.component;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.registry.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -30,7 +30,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @ToString
-public class CraftingConflict implements RegistrableObject<CraftingConflict> {
+public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBinding<CraftingConflict>, BuiltinObject {
     public static final Codec<CraftingConflict> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("item").forGetter((entry) -> Registries.ITEM.getId(entry.item)),
             Codec.list(Identifier.CODEC).fieldOf("values").forGetter((entry) -> {
@@ -48,6 +48,9 @@ public class CraftingConflict implements RegistrableObject<CraftingConflict> {
     @Getter
     private final Item item;
     private final Set<FoodProperty> foodProperties = new ObjectOpenHashSet<>();
+    @Setter
+    @Getter
+    private IntrinsicalRegister<CraftingConflict> owner;
 
     private CraftingConflict() {
         this.item = Items.AIR;
@@ -96,18 +99,11 @@ public class CraftingConflict implements RegistrableObject<CraftingConflict> {
     }
 
     @Override
-    public StandaloneRegistry<CraftingConflict> getRegistryRef() {
-        return MIRegistryManager.CRAFTING_CONFLICT;
-    }
-
-    @Override
     public Codec<CraftingConflict> getCodec() {
         return CODEC;
     }
 
     public static void reload(ResourceManager manager) {
-        MIRegistryManager.CRAFTING_CONFLICT.reset();
-
         Map<Identifier, Resource> resources = manager.findResources("crafting_conflict", id ->
                 id.getNamespace().equals(MystiasIzakaya.MOD_ID) && id.getPath().endsWith(".json")
         );
@@ -132,7 +128,7 @@ public class CraftingConflict implements RegistrableObject<CraftingConflict> {
         }
     }
 
-    public static void bootstrap(StandaloneRegistry<CraftingConflict> registry) {
+    public static void bootstrap(IntrinsicalRegister<CraftingConflict> registry) {
 
     }
 }

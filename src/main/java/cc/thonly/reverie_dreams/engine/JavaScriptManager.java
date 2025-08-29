@@ -1,12 +1,10 @@
 package cc.thonly.reverie_dreams.engine;
 
-import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.entity.Entity;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -28,7 +26,7 @@ import java.util.function.Supplier;
 @Slf4j
 public class JavaScriptManager {
     private static final String DIRNAME = "javascript_src";
-    private static final StandaloneRegistry<JavaScriptElement> REGISTRY = RegistryManager.JAVASCRIPT_ELEMENT;
+    private static final IntrinsicalRegister<JavaScriptElement> REGISTRY = RegistryManager.JAVASCRIPT_ELEMENT;
     private static final JavaScriptManager INSTANCE = new JavaScriptManager();
     private static final Supplier<ScriptEngine> ENGINE = () -> new ScriptEngineManager().getEngineByName("JavaScript");
 
@@ -74,15 +72,14 @@ public class JavaScriptManager {
     }
 
     public static void reload(ResourceManager manager) {
-        REGISTRY.reset();
         Map<Identifier, Resource> resources = manager.findResources(DIRNAME, id ->
                 id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".js")
         );
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
             Identifier fileId = entry.getKey();
             Resource resource = entry.getValue();
-            Identifier key = Identifier.of(fileId.getNamespace(), fileId.getPath().replace(DIRNAME+"/", "").replace(".json", ""));
-            try (InputStream inputStream = resource.getInputStream()){
+            Identifier key = Identifier.of(fileId.getNamespace(), fileId.getPath().replace(DIRNAME + "/", "").replace(".json", ""));
+            try (InputStream inputStream = resource.getInputStream()) {
                 String src = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
                 RegistryManager.register(REGISTRY, key, new JavaScriptElement(src));
             } catch (Exception e) {
@@ -91,7 +88,7 @@ public class JavaScriptManager {
         }
     }
 
-    public static void bootstrap(StandaloneRegistry<JavaScriptElement> registry) {
+    public static void bootstrap(IntrinsicalRegister<JavaScriptElement> registry) {
 
     }
 }

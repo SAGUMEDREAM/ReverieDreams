@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Tameable;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;

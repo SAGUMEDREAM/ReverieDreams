@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.recipe;
 
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
@@ -29,9 +28,9 @@ public abstract class BaseRecipeType<R extends BaseRecipe> implements PolymerObj
 
     public abstract void bootstrap();
 
-    public abstract List<R> getMatches(List<ItemStackRecipeWrapper> wrappers);
+    public abstract List<R> getMatches(List<ItemStackWrapper> wrappers);
 
-    public abstract Boolean isMatch(ItemStackRecipeWrapper input, ItemStackRecipeWrapper recipe);
+    public abstract Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe);
 
     public abstract Codec<R> getCodec();
 

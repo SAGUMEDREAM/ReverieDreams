@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "reverie_dreams:block/mystia_cutting_board"
-    }
+    "": [
+      {
+        "model": "reverie_dreams:block/mystia_cutting_board"
+      },
+      {
+        "model": "reverie_dreams:block/mystia_cutting_board",
+        "y": 90
+      },
+      {
+        "model": "reverie_dreams:block/mystia_cutting_board",
+        "y": 180
+      },
+      {
+        "model": "reverie_dreams:block/mystia_cutting_board",
+        "y": 270
+      }
+    ]
   }
 }

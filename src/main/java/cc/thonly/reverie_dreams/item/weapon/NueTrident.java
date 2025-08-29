@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerMiningToolItem;
+import cc.thonly.reverie_dreams.item.base.MiningToolItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
@@ -18,7 +18,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ProjectileItem;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
@@ -35,11 +38,11 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class NueTrident extends BasicPolymerMiningToolItem implements ProjectileItem {
+public class NueTrident extends MiningToolItem implements ProjectileItem {
     public static final ToolMaterial NUE_TRIDENT = new ToolMaterial(ModTags.BlockTypeTag.MIN_TOOL, 450, 4.5f, 5.5f, 1, ItemTags.NETHERITE_TOOL_MATERIALS);
 
-    public NueTrident(String path, float attackDamage, float attackSpeed, Item.Settings settings) {
-        super(path, NUE_TRIDENT, attackDamage + 3.5f, attackSpeed - 2.8f, settings.attributeModifiers(createAttributeModifiers()).component(DataComponentTypes.TOOL, createToolComponent()).enchantable(1).component(DataComponentTypes.WEAPON, new WeaponComponent(1)).enchantable(1));
+    public NueTrident(float attackDamage, float attackSpeed, Item.Settings settings) {
+        super(NUE_TRIDENT, attackDamage, attackSpeed, settings.attributeModifiers(createAttributeModifiers()).component(DataComponentTypes.TOOL, createToolComponent()).enchantable(1).component(DataComponentTypes.WEAPON, new WeaponComponent(1)).enchantable(1));
     }
 
     @Override
@@ -71,10 +74,9 @@ public class NueTrident extends BasicPolymerMiningToolItem implements Projectile
 
     @Override
     public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if (!(user instanceof PlayerEntity)) {
+        if (!(user instanceof PlayerEntity playerEntity)) {
             return false;
         }
-        PlayerEntity playerEntity = (PlayerEntity)user;
         int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (i < 10) {
             return false;
@@ -88,8 +90,7 @@ public class NueTrident extends BasicPolymerMiningToolItem implements Projectile
         }
         RegistryEntry<SoundEvent> registryEntry = EnchantmentHelper.getEffect(stack, EnchantmentEffectComponentTypes.TRIDENT_SOUND).orElse(SoundEvents.ITEM_TRIDENT_THROW);
         playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-        if (world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld)world;
+        if (world instanceof ServerWorld serverWorld) {
             stack.damage(1, playerEntity);
             if (f == 0.0f) {
                 ItemStack itemStack = stack.splitUnlessCreative(1, playerEntity);

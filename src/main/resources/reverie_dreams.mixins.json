@@ -5,6 +5,7 @@
   "mixins": [
     "BedBlockMixin",
     "CropBlockMixin",
+    "DataGenMixin",
     "DynamicRegistriesImplMixin",
     "EntityMixin",
     "ExampleMixin",

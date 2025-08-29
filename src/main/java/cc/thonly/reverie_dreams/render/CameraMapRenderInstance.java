@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.render;
 
 import eu.pb4.mapcanvas.api.core.DrawableCanvas;
 import eu.pb4.mapcanvas.api.core.PlayerCanvas;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 

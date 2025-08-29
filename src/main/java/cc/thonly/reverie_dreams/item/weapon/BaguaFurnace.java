@@ -3,14 +3,13 @@ package cc.thonly.reverie_dreams.item.weapon;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -18,9 +17,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class BaguaFurnace extends BasicPolymerItem {
-    public BaguaFurnace(String path, Settings settings) {
-        super(path, settings.maxCount(1).maxDamage(200).repairable(Items.NETHERITE_INGOT), Items.TRIAL_KEY);
+public class BaguaFurnace extends Item {
+    public BaguaFurnace(Settings settings) {
+        super(settings);
     }
 
     @Override

@@ -6,8 +6,8 @@ import cc.thonly.reverie_dreams.compat.page.GensokyoAltarPage;
 import cc.thonly.reverie_dreams.compat.page.KitchenPage;
 import cc.thonly.reverie_dreams.compat.page.StrengthTablePage;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.StrengthTableRecipeType;
@@ -36,7 +36,7 @@ public class PolydexCompatImpl {
 
     private static <T extends BaseRecipe> void registerEntries(Map<Identifier, T> view) {
         view.forEach((key, recipe) -> {
-            ItemStackRecipeWrapper wrapper = RecipeManager.getOutputReflective(recipe);
+            ItemStackWrapper wrapper = RecipeManager.getOutputReflective(recipe);
             if (wrapper != null) {
                 PolydexEntry.registerEntryCreator(wrapper.getItem(), (PolydexEntry::of));
             }

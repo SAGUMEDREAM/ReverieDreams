@@ -9,7 +9,6 @@ import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCCrossbowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCDanmakuItemGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
-import cc.thonly.reverie_dreams.entity.base.NPCEntity;
 import cc.thonly.reverie_dreams.entity.skin.MobSkins;
 import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
 import cc.thonly.reverie_dreams.gui.NPCGui;
@@ -26,7 +25,6 @@ import eu.pb4.polymer.core.mixin.entity.EntityTrackerAccessor;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.*;
@@ -42,8 +40,6 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.decoration.ArmorStandEntity;
@@ -53,13 +49,10 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.*;
-import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
-import net.minecraft.item.consume.ConsumeEffect;
 import net.minecraft.network.packet.s2c.play.EntityPositionSyncS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.potion.Potion;
@@ -70,7 +63,6 @@ import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerChunkLoadingManager;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
@@ -93,7 +85,7 @@ import java.util.function.Predicate;
 
 @Getter
 @Setter
-public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob, NPCSettings {
+public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedAttackMob, NPCSettings {
     // 皮肤
     protected Property skin;
     // 实体信息
@@ -204,8 +196,8 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
 
         this.sit = view.getBoolean("IsSit", false);
 
-        this.npcState = NPCStates.get(Identifier.of(view.getString("NPCStateId", NPCState.DEFAULT_ID)));
-        this.workMode = NPCWorkModes.get(Identifier.of(view.getString("NPCWorkStateId", NPCWorkMode.DEFAULT_ID)));
+        this.npcState = NPCStates.get(Identifier.of(view.getString("NPCStateId", NPCState.DEFAULT_ID.toString())));
+        this.workMode = NPCWorkModes.get(Identifier.of(view.getString("NPCWorkStateId", NPCWorkMode.DEFAULT_ID.toString())));
         this.npcOwner = view.getString("NpcOwner", "");
 
         NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
@@ -233,8 +225,8 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
         super.writeCustomData(view);
         view.putBoolean("IsSit", this.sit);
         view.putString("NpcOwner", this.npcOwner);
-        view.putString("NPCStateId", this.npcState.getId().toString());
-        view.putString("NPCWorkStateId", this.workMode.getId().toString());
+        view.putString("NPCStateId", Optional.ofNullable(RegistryManager.NPC_STATE.getId(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
+        view.putString("NPCWorkStateId", Optional.ofNullable(RegistryManager.NPC_WORK_MODE.getId(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
         view.putFloat("FoodNutrition", this.nutrition);
         view.putFloat("FoodSaturation", this.saturation);
         view.putFloat("FoodExhaustionLevel", this.exhaustionLevel);
@@ -703,17 +695,17 @@ public abstract class NPCEntityImpl extends NPCEntity implements RangedAttackMob
 
     public NPCState getNextState() {
         if (this.isSleeping()) return this.npcState;
-        Integer rawId = RegistryManager.NPC_STATE.getRawId(this.npcState);
+        int rawId = RegistryManager.NPC_STATE.getRawId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId + 1);
         return next != null ? next : NPCStates.fromInt(0);
     }
 
     public NPCState getPreviousState() {
         if (this.isSleeping()) return this.npcState;
-        Integer rawId = RegistryManager.NPC_STATE.getRawId(this.npcState);
+        int rawId = RegistryManager.NPC_STATE.getRawId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId - 1);
-        Map<Integer, NPCState> baseRawToEntry = RegistryManager.NPC_STATE.getBaseRawToEntry();
-        int maxKey = Collections.max(baseRawToEntry.keySet());
+        Map<Integer, RegistryEntry.Reference<NPCState>> rawToEntry = RegistryManager.NPC_STATE.getIdToEntryMap();
+        int maxKey = Collections.max(rawToEntry.keySet());
         return next != null ? next : NPCStates.fromInt(maxKey);
     }
 

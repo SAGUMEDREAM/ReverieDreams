@@ -2,19 +2,19 @@
   "registry_key": "reverie_dreams:ocean_flavor",
   "properties": {
     "values": [
-      "reverie_dreams:food/the_mars",
-      "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie",
-      "reverie_dreams:food/superme_seafood_noodles",
-      "reverie_dreams:ingredient/supreme_tuna",
-      "reverie_dreams:food/sea_urchin_shingen_pancake",
-      "minecraft:pufferfish",
       "reverie_dreams:food/steamed_egg_with_sea_urchin",
+      "reverie_dreams:food/sea_urchin_shingen_pancake",
+      "reverie_dreams:ingredient/supreme_tuna",
+      "reverie_dreams:food/oedo_boat_festival",
+      "minecraft:pufferfish",
       "reverie_dreams:food/baked_crab_with_cream",
+      "reverie_dreams:food/the_mars",
       "reverie_dreams:ingredient/sea_urchin",
       "reverie_dreams:ingredient/octopus",
-      "reverie_dreams:food/oedo_boat_festival",
+      "reverie_dreams:food/failing_sakura_snow",
       "reverie_dreams:food/fish_leaps_over_dragon_gate",
-      "reverie_dreams:food/failing_sakura_snow"
+      "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie",
+      "reverie_dreams:food/superme_seafood_noodles"
     ]
   }
 }

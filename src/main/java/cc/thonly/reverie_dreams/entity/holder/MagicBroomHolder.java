@@ -4,7 +4,6 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

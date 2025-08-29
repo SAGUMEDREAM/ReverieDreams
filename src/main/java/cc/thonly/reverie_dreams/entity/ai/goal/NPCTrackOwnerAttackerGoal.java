@@ -2,17 +2,14 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Tameable;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.passive.TameableEntity;
 
 import java.util.EnumSet;
-import java.util.Objects;
 
 public class NPCTrackOwnerAttackerGoal extends TrackTargetGoal {
     private final TameableEntity tameable;

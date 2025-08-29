@@ -2,11 +2,9 @@ package cc.thonly.mystias_izakaya.registry;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
-import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.item.base.DrinkItem;
-import cc.thonly.mystias_izakaya.item.base.IngredientItem;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -26,6 +24,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("Convert2MethodRef")
 @Slf4j
@@ -55,11 +54,18 @@ public class DrinkProperties {
 
     @SuppressWarnings("unchecked")
     private static <T extends DrinkProperty> T register(String name, Supplier<T> factory) {
-        return (T) RegistryManager.registerFinal(MIRegistryManager.DRINK_PROPERTY, MystiasIzakaya.id(name), factory.get());
+        T property = factory.get();
+        property.setId(MystiasIzakaya.id(name));
+        return (T) RegistryManager.registerForBuiltin(MIRegistryManager.DRINK_PROPERTY, MystiasIzakaya.id(name), property);
     }
 
     public static void reload(ResourceManager manager) {
-        Set<Map.Entry<Identifier, DrinkProperty>> entries = MIRegistryManager.DRINK_PROPERTY.entrySet();
+        Map<Identifier, DrinkProperty> map = MIRegistryManager.DRINK_PROPERTY.getEntrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().getValue(),
+                        Map.Entry::getValue
+                ));
+        Set<Map.Entry<Identifier, DrinkProperty>> entries = map.entrySet();
         entries.forEach((es) -> es.getValue().getItems().clear());
 
         Map<Identifier, Resource> resources = manager.findResources("drink_property", id ->
@@ -95,7 +101,7 @@ public class DrinkProperties {
 
         Map<Item, Set<DrinkProperty>> itemDrinkPropertyCached = DrinkItem.ITEM_DRINK_CACHED;
         itemDrinkPropertyCached.clear();
-        for (Map.Entry<Identifier, DrinkProperty> entry : MIRegistryManager.DRINK_PROPERTY.entrySet()) {
+        for (Map.Entry<Identifier, DrinkProperty> entry : entries) {
             DrinkProperty property = entry.getValue();
             Set<Item> tags = property.getItems();
             for (Item item : tags) {
@@ -116,7 +122,7 @@ public class DrinkProperties {
         }
     }
 
-    public static void bootstrap(StandaloneRegistry<DrinkProperty> registry) {
+    public static void bootstrap(IntrinsicalRegister<DrinkProperty> registry) {
 
     }
 }

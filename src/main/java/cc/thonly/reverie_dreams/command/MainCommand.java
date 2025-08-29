@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
+import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
-import cc.thonly.reverie_dreams.dialog.DialogInit;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -31,7 +31,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

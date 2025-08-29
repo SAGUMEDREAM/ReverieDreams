@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "reverie_dreams:block/steamer"
-    }
+    "": [
+      {
+        "model": "reverie_dreams:block/steamer"
+      },
+      {
+        "model": "reverie_dreams:block/steamer",
+        "y": 90
+      },
+      {
+        "model": "reverie_dreams:block/steamer",
+        "y": 180
+      },
+      {
+        "model": "reverie_dreams:block/steamer",
+        "y": 270
+      }
+    ]
   }
 }

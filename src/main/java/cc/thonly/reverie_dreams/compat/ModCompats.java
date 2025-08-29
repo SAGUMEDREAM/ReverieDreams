@@ -15,6 +15,7 @@ public class ModCompats {
         load("farmersdelight", FarmersdelightCompatImpl::bootstrap);
         load("moredelight", MoreDelightCompatImpl::bootstrap);
         load("oceansdelight-port", OceansdelightCompatImpl::bootstrap);
+        load("spanishdelight", SpanishDelightCompatImpl::bootstrap);
         load("go-fish", GoFishingCompatImpl::bootstrap);
         load("fishing101", Fishing101CompatImpl::bootstrap);
     }

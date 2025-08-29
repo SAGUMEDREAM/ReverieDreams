@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.recipe.entry;
 
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -16,32 +18,32 @@ import java.util.List;
 public class GensokyoAltarRecipe extends BaseRecipe {
     public static final Codec<GensokyoAltarRecipe> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    ItemStackRecipeWrapper.CODEC.fieldOf("core").forGetter(GensokyoAltarRecipe::getCore),
-                    ItemStackRecipeWrapper.CODEC.listOf().fieldOf("slots").forGetter(GensokyoAltarRecipe::getSlots),
-                    ItemStackRecipeWrapper.CODEC.fieldOf("output").forGetter(GensokyoAltarRecipe::getOutput)
+                    ItemStackWrapper.CODEC.fieldOf("core").forGetter(GensokyoAltarRecipe::getCore),
+                    ItemStackWrapper.CODEC.listOf().fieldOf("slots").forGetter(GensokyoAltarRecipe::getSlots),
+                    ItemStackWrapper.CODEC.fieldOf("output").forGetter(GensokyoAltarRecipe::getOutput)
             ).apply(instance, GensokyoAltarRecipe::new)
     );
-    private final ItemStackRecipeWrapper core;
-    private final List<ItemStackRecipeWrapper> slots;
-    private final ItemStackRecipeWrapper output;
+    private final ItemStackWrapper core;
+    private final List<ItemStackWrapper> slots;
+    private final ItemStackWrapper output;
 
-    public GensokyoAltarRecipe(ItemStackRecipeWrapper core,
-                               List<ItemStackRecipeWrapper> slots,
-                               ItemStackRecipeWrapper output) {
+    public GensokyoAltarRecipe(ItemStackWrapper core,
+                               List<ItemStackWrapper> slots,
+                               ItemStackWrapper output) {
         this.core = core;
         this.slots = new LinkedList<>(slots);
         while (this.slots.size() < 8) {
-            this.slots.add(ItemStackRecipeWrapper.empty());
+            this.slots.add(ItemStackWrapper.empty());
         }
         this.output = output;
     }
 
-    public List<ItemStackRecipeWrapper> getSlots() {
+    public List<ItemStackWrapper> getSlots() {
         return Collections.unmodifiableList(this.slots);
     }
 
-    public ItemStackRecipeWrapper getOutput() {
-        return new ItemStackRecipeWrapper(this.output.getItemStack().copy());
+    public ItemStackWrapper getOutput() {
+        return new ItemStackWrapper(this.output.getItemStack().copy());
     }
 
 }

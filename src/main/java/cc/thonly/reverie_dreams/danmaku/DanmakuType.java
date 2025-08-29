@@ -4,11 +4,9 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.item.BasicDanmakuTypeItem;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.ItemColor;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -29,7 +27,7 @@ import java.util.*;
 
 @Setter
 @Getter
-public class DanmakuType implements RegistrableObject<DanmakuType> {
+public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, BuiltinObject {
     public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
@@ -49,6 +47,7 @@ public class DanmakuType implements RegistrableObject<DanmakuType> {
     private final boolean infinite;
     private Item item;
     private DanmakuEntity.OnHitFactory hitFactory;
+    private IntrinsicalRegister<DanmakuType> owner;
 
     public DanmakuType(Identifier id, float damage, float scale, float speed, boolean tile, boolean infinite) {
         this.id = id;
@@ -61,13 +60,13 @@ public class DanmakuType implements RegistrableObject<DanmakuType> {
     }
 
     public void buildItem() {
-        var item = new BasicDanmakuTypeItem(this.getRegistryKey(), this.createItemSettings()
+        DanmakuItem item = new DanmakuItem(this.createItemSettings()
                 .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(14606046))
                 .maxDamage(120)
         );
         item.type(this);
         this.item = item;
-        Registry.register(Registries.ITEM, Identifier.of(this.id.getNamespace(), "danmaku/" + this.id.getPath()), this.item);
+        Registry.register(Registries.ITEM, this.getIdentifier(), this.item);
     }
 
     public List<Pair<Item, ItemStack>> getColorPairs() {
@@ -83,13 +82,13 @@ public class DanmakuType implements RegistrableObject<DanmakuType> {
         return pairList;
     }
 
-    public Identifier getRegistryKey() {
+    public Identifier getIdentifier() {
         return Identifier.of(this.id.getNamespace(), "danmaku/" + this.id.getPath());
     }
 
     public Item.Settings createItemSettings() {
         return new Item.Settings()
-                .registryKey(RegistryKey.of(RegistryKeys.ITEM, this.getRegistryKey()))
+                .registryKey(RegistryKey.of(RegistryKeys.ITEM, this.getIdentifier()))
                 .component(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString())
                 .component(ModDataComponentTypes.Danmaku.DAMAGE, this.damage)
                 .component(ModDataComponentTypes.Danmaku.SPEED, this.speed)
@@ -101,11 +100,6 @@ public class DanmakuType implements RegistrableObject<DanmakuType> {
                 .component(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))))
                 .maxDamage(120)
                 .repairable(ModTags.ItemTypeTag.POWER_BLOCK);
-    }
-
-    @Override
-    public StandaloneRegistry<DanmakuType> getRegistryRef() {
-        return RegistryManager.DANMAKU_TYPE;
     }
 
     @Override

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.entity.holder.MagicBroomHolder;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
@@ -27,8 +27,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -247,7 +245,7 @@ public class MagicBroomEntity extends PathAwareEntity implements PolymerEntity, 
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
         if (this.summonItem != null && !this.summonItem.isEmpty()) {
-            String json = ItemStackRecipeWrapper.toJson(ItemStackRecipeWrapper.of(this.summonItem));
+            String json = ItemStackWrapper.toJson(ItemStackWrapper.of(this.summonItem));
             boolean isNull = json == null;
             if (!isNull) {
                 boolean isEmpty = json.isEmpty();
@@ -263,7 +261,7 @@ public class MagicBroomEntity extends PathAwareEntity implements PolymerEntity, 
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         DynamicRegistryManager registryManager = this.getRegistryManager();
-        Optional<ItemStackRecipeWrapper> summonedItemOptional = ItemStackRecipeWrapper.toWrapper(view.getString("SummonedItem", ""));
+        Optional<ItemStackWrapper> summonedItemOptional = ItemStackWrapper.toWrapper(view.getString("SummonedItem", ""));
         summonedItemOptional.ifPresent(itemStack -> this.summonItem = itemStack.getItemStack());
 
 

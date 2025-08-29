@@ -1,7 +1,10 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.*;
+import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.NPCState;
+import cc.thonly.reverie_dreams.entity.npc.NPCStates;
+import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;

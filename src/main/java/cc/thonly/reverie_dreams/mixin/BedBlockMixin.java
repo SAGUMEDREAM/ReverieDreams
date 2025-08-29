@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.mixin;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
 import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
-import cc.thonly.reverie_dreams.item.DreamPillowItem;
+import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
 import cc.thonly.reverie_dreams.server.DreamPillowManager;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockEntityProvider;

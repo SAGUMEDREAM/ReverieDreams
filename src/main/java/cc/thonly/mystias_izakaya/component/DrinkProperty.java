@@ -3,8 +3,8 @@ package cc.thonly.mystias_izakaya.component;
 import cc.thonly.mystias_izakaya.api.DrinkPropertyLoaderCallback;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -24,7 +24,7 @@ import java.util.*;
 @Setter
 @Getter
 @ToString
-public class DrinkProperty implements RegistrableObject<DrinkProperty> {
+public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<DrinkProperty>, BuiltinObject, Translatable {
     public static final Codec<DrinkProperty> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("registry_key").forGetter(DrinkProperty::getId),
             ITEMS_CODEC.fieldOf("properties").forGetter(DrinkProperty::getItemList)
@@ -33,6 +33,7 @@ public class DrinkProperty implements RegistrableObject<DrinkProperty> {
     private Identifier id;
     private final StatusEffectInstance effectInstance;
     private Set<Item> items = new ObjectOpenHashSet<>();
+    private IntrinsicalRegister<DrinkProperty> owner;
 
     public DrinkProperty() {
         this(new StatusEffectInstance(new StatusEffectInstance(ModStatusEffects.EMPTY, 1)));
@@ -65,11 +66,6 @@ public class DrinkProperty implements RegistrableObject<DrinkProperty> {
 
     public Text getTooltip() {
         return Text.translatable(this.id.toTranslationKey("drink_property"));
-    }
-
-    @Override
-    public StandaloneRegistry<DrinkProperty> getRegistryRef() {
-        return MIRegistryManager.DRINK_PROPERTY;
     }
 
     @Override
@@ -138,8 +134,4 @@ public class DrinkProperty implements RegistrableObject<DrinkProperty> {
         return CODEC;
     }
 
-    @Override
-    public Boolean isDirect() {
-        return true;
-    }
 }

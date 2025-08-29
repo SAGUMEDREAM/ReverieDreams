@@ -1,10 +1,9 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
-import cc.thonly.reverie_dreams.block.base.BasicCropBlock;
+import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.compat.BorukvaFoodCompatImpl;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.entity.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.interfaces.IMatureBlock;
 import net.minecraft.block.Block;
@@ -101,7 +100,7 @@ public class NPCFarmGoal extends Goal {
     public static boolean isMature(IMatureBlock crop, BlockState cropsState) {
         if (crop instanceof CropBlock cropBlock) {
             return cropBlock.isMature(cropsState);
-        } else if (crop instanceof BasicCropBlock basicCropBlock) {
+        } else if (crop instanceof AbstractCropBlock basicCropBlock) {
             return basicCropBlock.isMature(cropsState);
         }
         return false;

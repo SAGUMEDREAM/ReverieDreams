@@ -7,6 +7,7 @@ accessible field net/minecraft/registry/SimpleRegistry rawIdToEntry Lit/unimi/ds
 accessible field net/minecraft/registry/SimpleRegistry entryToRawId Lit/unimi/dsi/fastutil/objects/Reference2IntMap;
 accessible field net/minecraft/registry/SimpleRegistry keyToEntryInfo Ljava/util/Map;
 accessible field net/minecraft/registry/SimpleRegistry tags Ljava/util/Map;
+accessible field net/minecraft/registry/entry/RegistryEntry$Reference value Ljava/lang/Object;
 accessible field net/minecraft/registry/entry/RegistryEntryList$Named entries Ljava/util/List;
 accessible class net/minecraft/registry/RegistryLoader$RegistryLoadable
 accessible class net/minecraft/registry/RegistryLoader$Loader

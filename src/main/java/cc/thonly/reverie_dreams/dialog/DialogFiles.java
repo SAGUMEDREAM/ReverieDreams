@@ -14,12 +14,18 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.server.command.ServerCommandSource;
 
-import java.io.*;
-import java.nio.charset.*;
-import java.nio.file.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class DialogFiles {

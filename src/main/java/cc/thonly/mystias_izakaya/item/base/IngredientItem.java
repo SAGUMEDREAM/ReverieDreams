@@ -1,7 +1,6 @@
 package cc.thonly.mystias_izakaya.item.base;
 
 import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerItem;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
@@ -16,15 +15,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class IngredientItem extends BasicPolymerItem {
+public class IngredientItem extends Item {
     public static final Map<Item, Set<FoodProperty>> ITEM_INGREDIENT_CACHED = new HashMap<>();
 
-    public IngredientItem(String path, Settings settings) {
-        super(path, settings, Items.APPLE);
+    public IngredientItem(Settings settings) {
+        super(settings.food(new FoodComponent.Builder().nutrition(2).saturationModifier(1).build()));
     }
 
-    public IngredientItem(String path, Integer nutrition, Float saturation, Settings settings) {
-        this(path, settings.food(new FoodComponent.Builder().nutrition(nutrition + 2).saturationModifier(saturation + 1).build()));
+    public IngredientItem(Integer nutrition, Float saturation, Settings settings) {
+        super(settings.food(new FoodComponent.Builder().nutrition(nutrition + 2).saturationModifier(saturation + 1).build()));
     }
 
     @Override

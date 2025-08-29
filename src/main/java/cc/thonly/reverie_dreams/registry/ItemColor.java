@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public record ItemColor(Item item, Long color) {
-    public static final Key2ValueRegistry<Item, ItemColor> REGISTRY_KEY = Key2ValueRegistryManager.ITEM_COLOR;
+    public static final Key2ValueRegister<Item, ItemColor> REGISTRY_KEY = Key2ValueRegistryManager.ITEM_COLOR;
     public static final ItemColor WHITE = registerItemColor(Items.WHITE_DYE, 16777215L);
     public static final ItemColor ORANGE = registerItemColor(Items.ORANGE_DYE, 16749605L);
     public static final ItemColor MAGENTA = registerItemColor(Items.MAGENTA_DYE, 15082670L);

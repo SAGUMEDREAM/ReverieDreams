@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.recipe.entry;
 
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.*;
@@ -13,16 +13,16 @@ import lombok.*;
 public class StrengthTableRecipe extends BaseRecipe {
     public static final Codec<StrengthTableRecipe> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    ItemStackRecipeWrapper.CODEC.fieldOf("main_item").forGetter(StrengthTableRecipe::getMainItem),
-                    ItemStackRecipeWrapper.CODEC.fieldOf("off_item").forGetter(StrengthTableRecipe::getOffItem),
-                    ItemStackRecipeWrapper.CODEC.fieldOf("output").forGetter(StrengthTableRecipe::getOutput)
+                    ItemStackWrapper.CODEC.fieldOf("main_item").forGetter(StrengthTableRecipe::getMainItem),
+                    ItemStackWrapper.CODEC.fieldOf("off_item").forGetter(StrengthTableRecipe::getOffItem),
+                    ItemStackWrapper.CODEC.fieldOf("output").forGetter(StrengthTableRecipe::getOutput)
             ).apply(instance, StrengthTableRecipe::new)
     );
-    private final ItemStackRecipeWrapper mainItem;
-    private final ItemStackRecipeWrapper offItem;
-    private final ItemStackRecipeWrapper output;
+    private final ItemStackWrapper mainItem;
+    private final ItemStackWrapper offItem;
+    private final ItemStackWrapper output;
 
-    public ItemStackRecipeWrapper getOutput() {
-        return new ItemStackRecipeWrapper(this.output.getItemStack().copy());
+    public ItemStackWrapper getOutput() {
+        return new ItemStackWrapper(this.output.getItemStack().copy());
     }
 }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.gui.recipe;
 
-import cc.thonly.reverie_dreams.gui.recipe.display.DisplayView;
 import cc.thonly.reverie_dreams.gui.BasePageGui;
+import cc.thonly.reverie_dreams.gui.recipe.display.DisplayView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

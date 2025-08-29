@@ -4,14 +4,9 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Slf4j
 public class ItemStackCheckUtils {

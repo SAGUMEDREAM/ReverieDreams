@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.datagen.generator;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,51 +46,51 @@ public abstract class RecipeTypeProvider implements DataProvider {
         this.future = future;
     }
 
-    public ItemStackRecipeWrapper ofEmpty() {
-        return ItemStackRecipeWrapper.empty();
+    public ItemStackWrapper ofEmpty() {
+        return ItemStackWrapper.empty();
     }
 
-    public ItemStackRecipeWrapper ofItem(ItemStack item) {
-        return ItemStackRecipeWrapper.of(item);
+    public ItemStackWrapper ofItem(ItemStack item) {
+        return ItemStackWrapper.of(item);
     }
 
-    public ItemStackRecipeWrapper ofItem(Item item) {
-        return ItemStackRecipeWrapper.of(item);
+    public ItemStackWrapper ofItem(Item item) {
+        return ItemStackWrapper.of(item);
     }
 
-    public ItemStackRecipeWrapper ofItem(Block block) {
-        return ItemStackRecipeWrapper.of(block.asItem());
+    public ItemStackWrapper ofItem(Block block) {
+        return ItemStackWrapper.of(block.asItem());
     }
 
-    public ItemStackRecipeWrapper ofItem(Block block, int amount) {
-        return ItemStackRecipeWrapper.of(block.asItem(), amount);
+    public ItemStackWrapper ofItem(Block block, int amount) {
+        return ItemStackWrapper.of(block.asItem(), amount);
     }
 
-    public ItemStackRecipeWrapper ofItem(Item item, int amount) {
-        return ItemStackRecipeWrapper.of(item, amount);
+    public ItemStackWrapper ofItem(Item item, int amount) {
+        return ItemStackWrapper.of(item, amount);
     }
 
-    public ItemStackRecipeWrapper ofItem(Item item, int amount, ComponentChanges components) {
-        return ItemStackRecipeWrapper.of(item, amount, components);
+    public ItemStackWrapper ofItem(Item item, int amount, ComponentChanges components) {
+        return ItemStackWrapper.of(item, amount, components);
     }
 
-    public List<ItemStackRecipeWrapper> ofList(Item... items) {
-        LinkedList<ItemStackRecipeWrapper> wrappers = new LinkedList<>();
+    public List<ItemStackWrapper> ofList(Item... items) {
+        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
         for (Item item : items) {
             wrappers.add(this.ofItem(item));
         }
         return wrappers;
     }
 
-    public List<ItemStackRecipeWrapper> ofList(ItemStack... items) {
-        LinkedList<ItemStackRecipeWrapper> wrappers = new LinkedList<>();
+    public List<ItemStackWrapper> ofList(ItemStack... items) {
+        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
         for (ItemStack stack : items) {
             wrappers.add(this.ofItem(stack));
         }
         return wrappers;
     }
 
-    public List<ItemStackRecipeWrapper> ofList(ItemStackRecipeWrapper... stackRecipeWrappers) {
+    public List<ItemStackWrapper> ofList(ItemStackWrapper... stackRecipeWrappers) {
         return new LinkedList<>(Arrays.asList(stackRecipeWrappers));
     }
 

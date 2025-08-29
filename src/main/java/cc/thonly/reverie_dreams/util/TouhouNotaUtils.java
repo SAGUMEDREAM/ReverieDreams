@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.util;
 
 import cc.thonly.reverie_dreams.block.MusicBlock;
-import cc.thonly.reverie_dreams.item.MusicalInstrumentItem;
+import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.block.BlockState;

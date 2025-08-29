@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.danmaku;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.danmaku.trajectory.*;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import net.minecraft.util.Identifier;
 
 public class DanmakuTrajectories {
@@ -17,10 +17,10 @@ public class DanmakuTrajectories {
     public static final DanmakuTrajectory RING = register(Touhou.id("ring"), new RingTrajectory());
 
     public static DanmakuTrajectory register(Identifier key, DanmakuTrajectory value) {
-        return RegistryManager.registerFinal(RegistryManager.DANMAKU_TRAJECTORY, key, value);
+        return RegistryManager.registerForBuiltin(RegistryManager.DANMAKU_TRAJECTORY, key, value);
     }
 
-    public static void bootstrap(StandaloneRegistry<DanmakuTrajectory> registry) {
+    public static void bootstrap(IntrinsicalRegister<DanmakuTrajectory> registry) {
 
     }
 }

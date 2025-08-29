@@ -1,18 +1,18 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class Hakuroken extends BasicPolymerSwordItem implements YoumuSwordUsing{
+public class Hakuroken extends SwordItem implements YoumuSwordUsing{
     public static final ToolMaterial HAKUROKEN = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1250, 8.0f, 5.5f, 10, ModTags.ItemTypeTag.SILVER_BLOCK);
 
-    public Hakuroken(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, HAKUROKEN, attackDamage + 1f, attackSpeed - 2.4f, settings);
+    public Hakuroken(float attackDamage, float attackSpeed, Settings settings) {
+        super(HAKUROKEN, attackDamage, attackSpeed, settings);
     }
 
     @Override

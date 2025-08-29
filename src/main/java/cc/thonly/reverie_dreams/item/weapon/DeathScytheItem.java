@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
@@ -9,11 +9,11 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 
-public class DeathScytheItem extends BasicPolymerSwordItem {
+public class DeathScytheItem extends SwordItem {
     public static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
 
-    public DeathScytheItem(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, TOOL_MATERIAL, attackDamage + 1, attackSpeed - 2.8f, settings);
+    public DeathScytheItem(float attackDamage, float attackSpeed, Settings settings) {
+        super(TOOL_MATERIAL, attackDamage, attackSpeed, settings);
     }
 
     @Override

@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "reverie_dreams:block/mystia_cooking_pot"
-    }
+    "": [
+      {
+        "model": "reverie_dreams:block/mystia_cooking_pot"
+      },
+      {
+        "model": "reverie_dreams:block/mystia_cooking_pot",
+        "y": 90
+      },
+      {
+        "model": "reverie_dreams:block/mystia_cooking_pot",
+        "y": 180
+      },
+      {
+        "model": "reverie_dreams:block/mystia_cooking_pot",
+        "y": 270
+      }
+    ]
   }
 }

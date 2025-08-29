@@ -2,14 +2,15 @@ package cc.thonly.reverie_dreams.item;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
+import cc.thonly.reverie_dreams.item.prop.RoleCard;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class RoleCards {
-    private static final StandaloneRegistry<RoleCard> REGISTRY_KEY = RegistryManager.ROLE_CARD;
+    private static final IntrinsicalRegister<RoleCard> REGISTER = RegistryManager.ROLE_CARD;
     public static final RoleCard PROTAGONIST_GROUP = register(new RoleCard(Touhou.id("protagonist_group"),
             16727357L,
             List.of(NPCRoles.REIMU,
@@ -196,10 +197,10 @@ public class RoleCards {
     }
 
     public static RoleCard register(Identifier key, RoleCard roleCard) {
-        return RegistryManager.register(REGISTRY_KEY, key, roleCard);
+        return RegistryManager.register(REGISTER, key, roleCard);
     }
 
-    public static void bootstrap(StandaloneRegistry<RoleCard> registry) {
+    public static void bootstrap(IntrinsicalRegister<RoleCard> registry) {
 
     }
 }

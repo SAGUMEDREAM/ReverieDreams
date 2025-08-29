@@ -1,11 +1,9 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.block.base.BasicPolymerBlockWithEntity;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
 import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import com.mojang.serialization.MapCodec;
-import eu.pb4.polymer.blocks.api.BlockModelType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -28,11 +26,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class MusicBlock extends BasicPolymerBlockWithEntity {
+public class MusicBlock extends BlockWithEntity {
     public static final BooleanProperty POWERED = Properties.POWERED;
 
-    public MusicBlock(String path, Settings settings) {
-        super(path, BlockModelType.FULL_BLOCK, settings);
+    public MusicBlock(Settings settings) {
+        super( settings);
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
     }
 
@@ -109,7 +107,7 @@ public class MusicBlock extends BasicPolymerBlockWithEntity {
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec((settings) -> new MusicBlock(this.getIdentifier().toString(), settings));
+        return createCodec(MusicBlock::new);
     }
 
     @Override

@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
 public class NPCWorkModes {
-    public static final StandaloneRegistry<NPCWorkMode> REGISTRY = RegistryManager.NPC_WORK_MODE;
+    public static final IntrinsicalRegister<NPCWorkMode> REGISTRY = RegistryManager.NPC_WORK_MODE;
     public static final NPCWorkMode COMBAT = register(Touhou.id("combat"), new NPCWorkMode("combat", Items.IRON_SWORD));
     public static final NPCWorkMode FARM = register(Touhou.id("farm"), new NPCWorkMode("farm", Items.WHEAT_SEEDS));
     public static final NPCWorkMode BREED = register(Touhou.id("breed"), new NPCWorkMode("breed", Items.WHEAT));
@@ -22,10 +22,10 @@ public class NPCWorkModes {
     }
 
     public static NPCWorkMode get(Identifier id) {
-        return REGISTRY.getOrDefault(id, COMBAT);
+        return REGISTRY.get(id);
     }
 
-    public static void bootstrap(StandaloneRegistry<NPCWorkMode> registry) {
+    public static void bootstrap(IntrinsicalRegister<NPCWorkMode> registry) {
 
     }
 

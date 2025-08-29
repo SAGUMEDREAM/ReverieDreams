@@ -2,11 +2,11 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.entity.MIEntities;
-import cc.thonly.mystias_izakaya.item.MIItemGroups;
+import cc.thonly.mystias_izakaya.item.MICreativeTabs;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.registry.DrinkProperties;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
-import cc.thonly.reverie_dreams.EndLoaderInit;
+import cc.thonly.reverie_dreams.LateLoaderInit;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.fumo.Fumos;
@@ -18,7 +18,7 @@ import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.item.ModItemGroups;
+import cc.thonly.reverie_dreams.item.ModCreativeTabs;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.RoleCards;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
@@ -41,13 +41,13 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
-        builder.add(ModItemGroups.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 物品/方块");
-        builder.add(ModItemGroups.ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕");
-        builder.add(ModItemGroups.TEMPLATE_ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕模板");
-        builder.add(ModItemGroups.ITEM_GROUP_FUMO, "Gensokyo: Reverie of Lost Dreams | Fumo");
-        builder.add(ModItemGroups.ITEM_GROUP_ROLE_CARD, "Gensokyo: Reverie of Lost Dreams | 角色卡");
-        builder.add(EndLoaderInit.ITEM_GROUP_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 刷怪蛋");
-        builder.add(EndLoaderInit.ITEM_GROUP_NPC_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 角色刷怪蛋");
+        builder.add(ModCreativeTabs.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 物品/方块");
+        builder.add(ModCreativeTabs.ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕");
+        builder.add(ModCreativeTabs.TEMPLATE_ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕模板");
+        builder.add(ModCreativeTabs.ITEM_GROUP_FUMO, "Gensokyo: Reverie of Lost Dreams | Fumo");
+        builder.add(ModCreativeTabs.ITEM_GROUP_ROLE_CARD, "Gensokyo: Reverie of Lost Dreams | 角色卡");
+        builder.add(LateLoaderInit.ITEM_GROUP_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 刷怪蛋");
+        builder.add(LateLoaderInit.ITEM_GROUP_NPC_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 角色刷怪蛋");
 //        translationBuilder.add("item_group.touhou_block_and_item", "Gensokyo: Reverie of Lost Dreams - 物品/方块");
 //        translationBuilder.add("item_group.touhou.bullet", "Gensokyo: Reverie of Lost Dreams - 子弹");
 //        translationBuilder.add("item_group.touhou.template", "Gensokyo: Reverie of Lost Dreams - 弹幕模板");
@@ -153,11 +153,11 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
         translationBuilder.add("item.tooltip.food_properties", "属性：");
-        builder.add(MIItemGroups.KITCHENWARE_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 厨具");
-        builder.add(MIItemGroups.INGREDIENT_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食材");
-        builder.add(MIItemGroups.SEEDS_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 种子");
-        builder.add(MIItemGroups.FOOD_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食物");
-        builder.add(MIItemGroups.DRINK_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 饮品");
+        builder.add(MICreativeTabs.KITCHENWARE_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 厨具");
+        builder.add(MICreativeTabs.INGREDIENT_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食材");
+        builder.add(MICreativeTabs.SEEDS_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 种子");
+        builder.add(MICreativeTabs.FOOD_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食物");
+        builder.add(MICreativeTabs.DRINK_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 饮品");
 //        translationBuilder.add("item_group.kitchenware_item_group", "Gensokyo: Reverie of Lost Dreams - 厨具");
 //        translationBuilder.add("item_group.ingredients_item_group", "Gensokyo: Reverie of Lost Dreams - 食材");
 //        translationBuilder.add("item_group.seed_item_group", "Gensokyo: Reverie of Lost Dreams - 种子");
@@ -1045,7 +1045,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(MIBlocks.LEMON.fence(), "柠檬栅栏");
         translationBuilder.add(MIBlocks.LEMON.fenceGate(), "柠檬栅栏门");
         translationBuilder.add(MIBlocks.LEMON.button(), "柠檬按钮");
-        translationBuilder.add(MIBlocks.LEMON.strippedLog(), "去皮柠檬");
+        translationBuilder.add(MIBlocks.LEMON.strippedLog(), "去皮柠檬木");
         translationBuilder.add(MIBlocks.LEMON.strippedWood(), "去皮柠檬树皮");
         translationBuilder.add(MIBlocks.LEMON.leaves(), "柠檬树叶");
         translationBuilder.add(MIBlocks.LEMON.sapling(), "柠檬树苗");
@@ -1061,7 +1061,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(MIBlocks.GINKGO.fence(), "白果栅栏");
         translationBuilder.add(MIBlocks.GINKGO.fenceGate(), "白果栅栏门");
         translationBuilder.add(MIBlocks.GINKGO.button(), "白果按钮");
-        translationBuilder.add(MIBlocks.GINKGO.strippedLog(), "去皮白果");
+        translationBuilder.add(MIBlocks.GINKGO.strippedLog(), "去皮白果木");
         translationBuilder.add(MIBlocks.GINKGO.strippedWood(), "去皮白果树皮");
         translationBuilder.add(MIBlocks.GINKGO.leaves(), "白果树叶");
         translationBuilder.add(MIBlocks.GINKGO.sapling(), "白果树苗");

@@ -1,21 +1,16 @@
 package cc.thonly.mystias_izakaya.block.crop;
 
-import cc.thonly.reverie_dreams.block.base.BasicCropBlock;
+import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.util.CropAgeUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.Identifier;
 
-public class TomatoCrop extends BasicCropBlock {
+public class TomatoCrop extends AbstractCropBlock {
     public static final MapCodec<TomatoCrop> CODEC = TomatoCrop.createCodec(TomatoCrop::new);
 
-    protected TomatoCrop(Settings settings) {
+    public TomatoCrop(Settings settings) {
         super(settings);
-    }
-
-    public TomatoCrop(Identifier identifier, Settings settings) {
-        super(identifier, settings);
     }
 
     @Override

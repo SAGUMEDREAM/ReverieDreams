@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.entity.player.ItemCooldownManager;
@@ -17,11 +17,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class HoraiDamaNoEdaItem extends BasicPolymerSwordItem {
+public class HoraiDamaNoEdaItem extends SwordItem {
     public static final ToolMaterial HORAI_DAMA_NO_EDA = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 300, 4.5f, 3.5f, 5, ModTags.ItemTypeTag.ORB_BLOCK);
 
-    public HoraiDamaNoEdaItem(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, HORAI_DAMA_NO_EDA, attackDamage + 1f, attackSpeed - 2.4f, settings);
+    public HoraiDamaNoEdaItem(float attackDamage, float attackSpeed, Settings settings) {
+        super(HORAI_DAMA_NO_EDA, attackDamage + 1f, attackSpeed - 2.4f, settings);
     }
 
     @Override

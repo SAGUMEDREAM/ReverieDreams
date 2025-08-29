@@ -1,12 +1,12 @@
 package cc.thonly.mystias_izakaya.block.entity;
 
-import cc.thonly.mystias_izakaya.block.AbstractKitchenwareBlock;
+import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.block.KitchenBlockType;
 import cc.thonly.mystias_izakaya.block.MIBlockEntities;
 import cc.thonly.mystias_izakaya.gui.recipe.block.KitchenBlockGui;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.util.PlayerUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -48,14 +48,14 @@ import java.util.function.Supplier;
 @Getter
 @ToString
 public class KitchenwareBlockEntity extends BlockEntity implements SidedInventory {
-    public static final Supplier<ItemStackRecipeWrapper> DEFAULT_WRAPPER_FACTORY = ItemStackRecipeWrapper::empty;
+    public static final Supplier<ItemStackWrapper> DEFAULT_WRAPPER_FACTORY = ItemStackWrapper::empty;
     public static final Gson GSON = new Gson();
     public static final Map<UUID, Set<KitchenBlockGui<?>>> SESSIONS = new Object2ObjectOpenHashMap<>();
     public static final int OUTPUT_SLOT = 5;
     private SimpleInventory inventory = new SimpleInventory(6);
     private KitchenRecipeType.KitchenType recipeType;
     private Identifier recipeId;
-    private ItemStackRecipeWrapper preOutput = DEFAULT_WRAPPER_FACTORY.get();
+    private ItemStackWrapper preOutput = DEFAULT_WRAPPER_FACTORY.get();
     private Double tickLeft = 0.0;
     private DoubleUnaryOperator bonusOperator;
     private UUID uuid = UUID.randomUUID();
@@ -162,10 +162,10 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
 //    }
 
     public void setOutput(ItemStack itemStack, Double time) {
-        this.setOutput(ItemStackRecipeWrapper.of(itemStack), time);
+        this.setOutput(ItemStackWrapper.of(itemStack), time);
     }
 
-    public void setOutput(ItemStackRecipeWrapper recipeWrapper, Double time) {
+    public void setOutput(ItemStackWrapper recipeWrapper, Double time) {
         this.setPreOutput(recipeWrapper);
         this.setTickLeft(time);
 //        if (!this.hasFuel()) {
@@ -267,7 +267,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
         Inventories.writeData(view, this.inventory.heldStacks);
         view.putDouble("TickLeft", this.tickLeft);
         view.putInt("WorkingState", this.workingState.getId());
-        DataResult<JsonElement> dataResult = ItemStackRecipeWrapper.CODEC.encodeStart(JsonOps.INSTANCE, this.preOutput);
+        DataResult<JsonElement> dataResult = ItemStackWrapper.CODEC.encodeStart(JsonOps.INSTANCE, this.preOutput);
         Optional<JsonElement> result = dataResult.result();
         if (result.isPresent()) {
             JsonElement element = result.get();
@@ -288,8 +288,8 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
             String preOutputJson = pOutputOptional.get();
             JsonElement json = JsonParser.parseString(preOutputJson);
             Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-            DataResult<ItemStackRecipeWrapper> parse = ItemStackRecipeWrapper.CODEC.parse(input);
-            Optional<ItemStackRecipeWrapper> result = parse.result();
+            DataResult<ItemStackWrapper> parse = ItemStackWrapper.CODEC.parse(input);
+            Optional<ItemStackWrapper> result = parse.result();
             result.ifPresent(wrapper -> this.preOutput = wrapper);
         }
     }

@@ -1,6 +1,6 @@
 package cc.thonly.mystias_izakaya.gui.recipe.block;
 
-import cc.thonly.mystias_izakaya.block.AbstractKitchenwareBlock;
+import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.block.entity.KitchenwareBlockEntity;
 import cc.thonly.mystias_izakaya.component.CraftingConflict;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
@@ -15,7 +15,7 @@ import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -114,18 +114,18 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         }
     }
 
-    private ItemStackRecipeWrapper buildFoodTags(KitchenRecipe recipe, ItemStackRecipeWrapper output, List<ItemStackRecipeWrapper> inputs) {
+    private ItemStackWrapper buildFoodTags(KitchenRecipe recipe, ItemStackWrapper output, List<ItemStackWrapper> inputs) {
         ItemStack base = output.getItemStack().copy();
         List<String> baseTags = base.getOrDefault(MIDataComponentTypes.FOOD_PROPERTIES, new ArrayList<>());
 
         HashSet<String> propertyIds = new HashSet<>(baseTags);
-        List<ItemStackRecipeWrapper> ingredients = recipe.getIngredients();
+        List<ItemStackWrapper> ingredients = recipe.getIngredients();
         List<Item> ingredientItems = ingredients
                 .stream()
                 .filter(wrapper -> !wrapper.isEmpty())
-                .map(ItemStackRecipeWrapper::getItem)
+                .map(ItemStackWrapper::getItem)
                 .toList();
-        for (ItemStackRecipeWrapper input : inputs) {
+        for (ItemStackWrapper input : inputs) {
             ItemStack itemStack = input.getItemStack();
             Item item = itemStack.getItem();
             if (ingredientItems.contains(item)) {
@@ -136,17 +136,17 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         }
         List<String> tagList = new ArrayList<>(propertyIds);
         base.set(MIDataComponentTypes.FOOD_PROPERTIES, tagList);
-        return new ItemStackRecipeWrapper(base.copy());
+        return new ItemStackWrapper(base.copy());
     }
 
-    private ItemStackRecipeWrapper buildAllFoodTags(ItemStackRecipeWrapper output, List<ItemStackRecipeWrapper> inputs) {
+    private ItemStackWrapper buildAllFoodTags(ItemStackWrapper output, List<ItemStackWrapper> inputs) {
         ItemStack itemStack = output.getItemStack().copy();
         List<String> outputTags = itemStack.get(MIDataComponentTypes.FOOD_PROPERTIES);
         if (outputTags == null) {
             outputTags = new ArrayList<>();
         }
         HashSet<String> propertyIds = new HashSet<>(outputTags);
-        for (ItemStackRecipeWrapper wrapper : inputs) {
+        for (ItemStackWrapper wrapper : inputs) {
             ItemStack wrapperItemStack = wrapper.getItemStack();
             if (wrapperItemStack.isEmpty()) {
                 continue;
@@ -156,10 +156,10 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         }
         List<String> tagList = new ArrayList<>(propertyIds);
         itemStack.set(MIDataComponentTypes.FOOD_PROPERTIES, tagList);
-        return new ItemStackRecipeWrapper(itemStack.copy());
+        return new ItemStackWrapper(itemStack.copy());
     }
 
-    private void handleCrafting(ItemStack output, List<ItemStackRecipeWrapper> inputs, KitchenRecipe recipe) {
+    private void handleCrafting(ItemStack output, List<ItemStackWrapper> inputs, KitchenRecipe recipe) {
         this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
         SimpleInventory inventory = this.blockEntity.getInventory();
         for (int i = 0; i < 5; i++) {
@@ -173,7 +173,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 stack.decrement(1);
             }
         }
-        this.blockEntity.setOutput(new ItemStackRecipeWrapper(output.copy()), recipe.getCostTime() * 20.0 + 20 * 0.25 * inputs.size());
+        this.blockEntity.setOutput(new ItemStackWrapper(output.copy()), recipe.getCostTime() * 20.0 + 20 * 0.25 * inputs.size());
         Set<KitchenBlockGui<?>> session = KitchenwareBlockEntity.SESSIONS.computeIfAbsent(this.blockEntity.getUuid(), (map) -> new WeakHashSet<>());
         for (KitchenBlockGui<?> gui : session) {
             if (gui.isOpen()) {
@@ -207,9 +207,9 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
         KitchenRecipeType kitchenRecipeType = getRecipeTypeInstance();
         SimpleInventory inventory = this.blockEntity.getInventory();
-        List<ItemStackRecipeWrapper> inputs = new ArrayList<>();
+        List<ItemStackWrapper> inputs = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            inputs.add(new ItemStackRecipeWrapper(inventory.getStack(i).copy()));
+            inputs.add(new ItemStackWrapper(inventory.getStack(i).copy()));
         }
 
         List<KitchenRecipe> matches = kitchenRecipeType.getMatches(this.recipeType, inputs);
@@ -228,7 +228,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             if (i >= pageRecipes.size()) break;
 
             KitchenRecipe recipe = pageRecipes.get(i);
-            ItemStack outputShow = this.buildFoodTags(recipe, new ItemStackRecipeWrapper(recipe.getOutput().getItemStack().copy()), inputs).getItemStack();
+            ItemStack outputShow = this.buildFoodTags(recipe, new ItemStackWrapper(recipe.getOutput().getItemStack().copy()), inputs).getItemStack();
             AtomicReference<ItemStack> output = new AtomicReference<>(outputShow);
 
             GuiElementBuilder builder = entry.getValue();

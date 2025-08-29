@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.util.bedrock;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.item.Item;

@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -70,16 +70,16 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
     }
 
     @Override
-    public List<DanmakuRecipe> getMatches(List<ItemStackRecipeWrapper> wrappers) {
+    public List<DanmakuRecipe> getMatches(List<ItemStackWrapper> wrappers) {
         if (wrappers.size() < 5) {
             return List.of();
         }
 
-        ItemStackRecipeWrapper dyeSlot = wrappers.get(0);
-        ItemStackRecipeWrapper coreSlot = wrappers.get(1);
-        ItemStackRecipeWrapper powerSlot = wrappers.get(2);
-        ItemStackRecipeWrapper pointSlot = wrappers.get(3);
-        ItemStackRecipeWrapper materialSlot = wrappers.get(4);
+        ItemStackWrapper dyeSlot = wrappers.get(0);
+        ItemStackWrapper coreSlot = wrappers.get(1);
+        ItemStackWrapper powerSlot = wrappers.get(2);
+        ItemStackWrapper pointSlot = wrappers.get(3);
+        ItemStackWrapper materialSlot = wrappers.get(4);
 
         List<DanmakuRecipe> matches = new ArrayList<>();
         for (DanmakuRecipe recipe : stream().toList()) {
@@ -107,7 +107,7 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
     }
 
     @Override
-    public Boolean isMatch(ItemStackRecipeWrapper input, ItemStackRecipeWrapper recipe) {
+    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
         return false;
     }
 

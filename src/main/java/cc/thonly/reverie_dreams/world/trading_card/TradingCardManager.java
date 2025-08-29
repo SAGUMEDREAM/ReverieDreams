@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.trading_card;
 
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -40,15 +40,15 @@ public class TradingCardManager {
     public static class Entry {
         public static Codec<Entry> EMPTY = Codec.unit(Entry::new);
         public static Codec<Entry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                ItemStackRecipeWrapper.CODEC.listOf().fieldOf("list").forGetter(Entry::getList)
+                ItemStackWrapper.CODEC.listOf().fieldOf("list").forGetter(Entry::getList)
         ).apply(instance, Entry::new));
-        private List<ItemStackRecipeWrapper> list = new ObjectArrayList<>();
+        private List<ItemStackWrapper> list = new ObjectArrayList<>();
 
         public Entry() {
 
         }
 
-        public Entry(List<ItemStackRecipeWrapper> list) {
+        public Entry(List<ItemStackWrapper> list) {
             this.list = new ObjectArrayList<>(list);
         }
 
@@ -56,7 +56,7 @@ public class TradingCardManager {
 
         }
 
-        public Stream<ItemStackRecipeWrapper> stream() {
+        public Stream<ItemStackWrapper> stream() {
             return this.list.stream();
         }
 

@@ -1,10 +1,8 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.block.base.BasicPolymerBlockWithEntity;
 import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.recipe.block.DanmakuCraftingTableGui;
 import com.mojang.serialization.MapCodec;
-import eu.pb4.polymer.blocks.api.BlockModelType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -18,17 +16,11 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
 
-public class DanmakuCraftingTableBlock extends BasicPolymerBlockWithEntity {
+public class DanmakuCraftingTableBlock extends BlockWithEntity {
 
-    public DanmakuCraftingTableBlock(String path, Settings settings) {
-        super(path, BlockModelType.FULL_BLOCK, settings);
-    }
-
-    @Override
-    public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return state;
+    public DanmakuCraftingTableBlock(Settings settings) {
+        super(settings);
     }
 
     @Override
@@ -58,7 +50,7 @@ public class DanmakuCraftingTableBlock extends BasicPolymerBlockWithEntity {
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec((settings) -> new DanmakuCraftingTableBlock(this.getIdentifier().toString(), settings));
+        return createCodec(DanmakuCraftingTableBlock::new);
     }
 
     @Nullable

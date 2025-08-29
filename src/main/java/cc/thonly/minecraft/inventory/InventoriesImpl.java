@@ -70,7 +70,6 @@ public class InventoriesImpl {
             result.get();
         } catch (Exception e) {
             log.error("Error", e);
-//            System.out.println(stacks);
         }
         return "[]";
     }

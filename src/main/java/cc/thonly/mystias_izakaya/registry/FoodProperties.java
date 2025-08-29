@@ -3,8 +3,8 @@ package cc.thonly.mystias_izakaya.registry;
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.item.base.IngredientItem;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -21,10 +21,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("Convert2MethodRef")
 @Slf4j
@@ -78,15 +78,22 @@ public class FoodProperties {
 
     @SuppressWarnings("unchecked")
     private static <T extends FoodProperty> T register(String name, Supplier<T> factory) {
-        return (T) RegistryManager.registerFinal(MIRegistryManager.FOOD_PROPERTY, MystiasIzakaya.id(name), factory.get());
+        T property = factory.get();
+        property.setId(MystiasIzakaya.id(name));
+        return (T) RegistryManager.registerForBuiltin(MIRegistryManager.FOOD_PROPERTY, MystiasIzakaya.id(name), property);
     }
 
-    public static void bootstrap(StandaloneRegistry<FoodProperty> registry) {
+    public static void bootstrap(IntrinsicalRegister<FoodProperty> registry) {
 
     }
 
     public static void reload(ResourceManager manager) {
-        Set<Map.Entry<Identifier, FoodProperty>> entries = MIRegistryManager.FOOD_PROPERTY.entrySet();
+        Map<Identifier, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.getEntrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().getValue(),
+                        Map.Entry::getValue
+                ));
+        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
         entries.forEach((es) -> es.getValue().getItems().clear());
 
         Map<Identifier, Resource> resources = manager.findResources("food_property", id ->
@@ -122,7 +129,7 @@ public class FoodProperties {
 
         Map<Item, Set<FoodProperty>> itemIngredientCached = IngredientItem.ITEM_INGREDIENT_CACHED;
         itemIngredientCached.clear();
-        for (Map.Entry<Identifier, FoodProperty> entry : MIRegistryManager.FOOD_PROPERTY.entrySet()) {
+        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
             FoodProperty property = entry.getValue();
             Set<Item> tags = property.getItems();
             for (Item item : tags) {

@@ -22,7 +22,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -39,25 +38,9 @@ public class YouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFa
     public YouseiEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType,
                 world,
-                YouseiVariants.isEmpty() ? YouseiVariants.REGISTRY_KEY.getDefaultEntry().getProperty() : YouseiVariants.random().getProperty()
+                YouseiVariants.isEmpty() ? ((YouseiVariant) (YouseiVariants.REGISTRY.getDefaultEntry().isPresent() ? YouseiVariants.REGISTRY.getDefaultEntry().get() : YouseiVariants.BLUE)).getProperty() : YouseiVariants.random().getProperty()
         );
         this.variant = YouseiVariants.getFromProperty(this.getSkin());
-    }
-
-    @Override
-    public void onCreated(Entity entity) {
-        super.onCreated(entity);
-        var x = new ItemDisplayElement();
-        var holder = new WingHolder(this);
-        x.setItem(new ItemStack(ModEntityHolders.YOUSEI_WINGS));
-        x.setInvisible(true);
-        x.setTeleportDuration(3);
-        x.setScale(new Vector3f(1.2f));
-        holder.setElement(x);
-        holder.addElement(x);
-        EntityAttachment.ofTicking(holder, entity);
-        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        ELEMENTS.put(entity, x);
     }
 
     @Override
@@ -108,7 +91,7 @@ public class YouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFa
         super.readCustomData(view);
         String youseiVariantId = view.getString("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
         Identifier variantId = Identifier.of(youseiVariantId);
-        this.variant = RegistryManager.YOUSEI_VARIANT.getOrDefault(variantId);
+        this.variant = RegistryManager.YOUSEI_VARIANT.get(variantId);
     }
 
     @Override
@@ -129,9 +112,10 @@ public class YouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFa
 
     @Override
     public void setVariantData(Identifier id) {
-        this.variant = RegistryManager.YOUSEI_VARIANT.getOrDefault(id);
-        this.skin = this.variant.getProperty();
-        this.sendRefreshPacket();
+        this.variant = RegistryManager.YOUSEI_VARIANT.get(id);
+        if (this.variant != null) {
+            this.skin = this.variant.getProperty();
+        }
     }
 
     @Override

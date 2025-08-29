@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.skin;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.entity.npc.AbstractSkinBootstrap;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class RoleSkins extends AbstractSkinBootstrap {
@@ -543,7 +543,7 @@ public class RoleSkins extends AbstractSkinBootstrap {
             "XfLsi8axDieMfN84wFDTnp5SdH7DNNWocKFVkCBU0KoijXsggWEZtgegLs4U8peuNz5GYtVtfgtq1/naZ13d+TUCGBI9CegYvvEau3seR/U1x+/Bk9m95Fs9WSr6ILFbk4DnqfVW6gifBFyeN3x80kfQYDPYun462bY3RPOzss2vPRnMI9c4rhvKXeaoCDBpAA4qpYcCbgy20dZq5BoGrxuFzI+3/KmDV1iRnQFfuVgVYjYWCe+DRxpvd5IXiKvtben+K4yRs3OC3WtJiWii6CU5Qnl/5qM0etuRdk8EkYtln7niTMH+DH3eRRx+C7zWxEYJIapyw0ig1nu2nyav8V3NSgWLFJUz5f8yVKNyvSGtBhSWssaxKHcp7c6iQsRKWS1+v5OyjIH2P4U47lnrrbOW2OE+eevscuNdMJ/UfY60sV9pb7TkB6+w05/jG4RXQCieeKN8rRVpZxELbo3oNymQ5VwRXcaHjY62uv6vKWeSnMeq1NyzXXZioNyiCkaiKqy/xDq2nlG40NfXWnrspOIZ6gMW6YHbn84lr0x/jbZYoB+WKBQqKjDW1U4BiDG5Yyed4dngQh1HO+rAufXBzrgYDwCUaE7jF3OYjHQzXg2KVJ0w3ek8zoNveijZf+fy0X2xsMEKHxaNDlobphjjwhlVUgTL1WF4u4hkTv2wTnA="
     ));
 
-    public static void bootstrap(StandaloneRegistry<RoleSkin> registry) {
+    public static void bootstrap(IntrinsicalRegister<RoleSkin> registry) {
 
     }
 }

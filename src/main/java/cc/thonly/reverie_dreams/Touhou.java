@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.minecraft.api.ItemPostHitCallback;
+import cc.thonly.polymer.ResourcePackGenerator;
 import cc.thonly.reverie_dreams.armor.ModArmorMaterials;
-import cc.thonly.reverie_dreams.block.BlockModels;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
 import cc.thonly.reverie_dreams.command.CommandInit;
@@ -23,12 +23,11 @@ import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
-import cc.thonly.reverie_dreams.item.ModItemGroups;
+import cc.thonly.reverie_dreams.item.ModCreativeTabs;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.networking.CSVersionPayload;
 import cc.thonly.reverie_dreams.networking.CustomBytePayload;
 import cc.thonly.reverie_dreams.networking.HelloPayload;
-import cc.thonly.reverie_dreams.networking.RegistrySyncPayload;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.Key2ValueRegistryManager;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
@@ -42,7 +41,6 @@ import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import cc.thonly.reverie_dreams.world.gen.WorldGenerationInit;
 import eu.midnightdust.lib.config.MidnightConfig;
-import eu.pb4.polymer.core.api.item.PolymerItemUtils;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import lombok.Getter;
@@ -59,7 +57,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
@@ -74,10 +71,8 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Predicate;
 
 @Setter
 @Getter
@@ -92,6 +87,7 @@ public class Touhou implements ModInitializer {
             .map(container -> container.getMetadata().getVersion().getFriendlyString())
             .orElse("unknown");
     public static final EnvType ENV_TYPE = FabricLoader.getInstance().getEnvironmentType();
+    public static boolean IS_DATAGEN = false;
     private static final boolean DEV_ENV = FabricLoader.getInstance().isDevelopmentEnvironment();
     private static final boolean DEV_MODE = VERSION.contains("-dev.") || DEV_ENV;
     private static final boolean HAS_BUKKIT_API = isModLoaded("arclight") || isModLoaded("cardboard") || isModLoaded("banner");
@@ -112,6 +108,13 @@ public class Touhou implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        List<String> args = Arrays.stream(FabricLoader.getInstance().getLaunchArguments(true)).toList();
+        for (String arg : args) {
+            if (arg.contains("--output") || arg.contains("--input") || arg.contains("--mod") || arg.contains("--all")) {
+                Touhou.IS_DATAGEN = true;
+                break;
+            }
+        }
         CardboardWarning.checkAndAnnounce();
         MidnightConfig.init(MOD_ID, ReverieDreamsConfiguration.class);
         if (isDevMode()) {
@@ -141,9 +144,8 @@ public class Touhou implements ModInitializer {
         ModBlockStateTemplates.bootstrap();
         ModBlockEntities.registerBlockEntities();
         ModBlocks.registerBlocks();
-        BlockModels.registerModels();
         ModItems.registerItems();
-        ModItemGroups.registerItemGroups();
+        ModCreativeTabs.registerItemGroups();
         ModEntityHolders.registerHolders();
         ModEntities.registerEntities();
         ModStatusEffects.init();
@@ -215,9 +217,6 @@ public class Touhou implements ModInitializer {
             if (player != null) {
                 playersWithMod.add(player);
             }
-        });
-        PayloadTypeRegistry.playC2S().register(RegistrySyncPayload.PACKET_ID, RegistrySyncPayload.codec);
-        ServerPlayNetworking.registerGlobalReceiver(RegistrySyncPayload.PACKET_ID, (payload, context) -> {
         });
         ServerPlayConnectionEvents.DISCONNECT.register((playNetworkHandler, server) -> {
             playersWithMod.remove(playNetworkHandler.player);
@@ -316,15 +315,6 @@ public class Touhou implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(DialogPlayer::tick);
 
         ModCompats.init();
-
-        PolymerResourcePackUtils.addModAssets(MOD_ID);
-        PolymerResourcePackUtils.markAsRequired();
-        ResourcePackExtras.forDefault().addBridgedModelsFolder(
-                id("block"),
-                id("item"),
-                id("entity"),
-                id("font")
-        );
     }
 
     public static String getSystemLanguage() {

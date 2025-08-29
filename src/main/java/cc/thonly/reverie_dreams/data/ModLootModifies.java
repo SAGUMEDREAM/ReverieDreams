@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
 import cc.thonly.reverie_dreams.entity.HairballEntity;
 import cc.thonly.reverie_dreams.entity.Yousei;
 import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.block.Blocks;
@@ -84,7 +85,7 @@ public class ModLootModifies {
                 LootPool.Builder discPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(0.4f));
-                for (var item : ModItems.getDiscItemView()) {
+                for (var item : AlbumItem.ITEMS) {
                     discPool.with(ItemEntry.builder(item).weight(8));
                 }
                 tableBuilder.pool(discPool);

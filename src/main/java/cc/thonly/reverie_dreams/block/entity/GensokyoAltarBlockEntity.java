@@ -1,13 +1,11 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
+import cc.thonly.polymer.block.GensokyoAltarImpl;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
@@ -24,16 +22,18 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
 
     public static void tick(World world, BlockPos pos, BlockState state, GensokyoAltarBlockEntity blockEntity) {
         if (blockEntity.tick > 5) {
-            GensokyoAltarBlock.AltarModel altarModel = GensokyoAltarBlock.STATE_TO_MODEL.get(state);
+            GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.STATE_TO_MODEL.get(state);
             if (altarModel != null) {
                 altarModel.update();
             }
             blockEntity.tick = 0;
         }
-        GensokyoAltarBlock.AltarModel altarModel = GensokyoAltarBlock.STATE_TO_MODEL.get(state);
-        altarModel.angle += 2f;
-        if (altarModel.angle >= 360) {
-            altarModel.angle = 0;
+        GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.STATE_TO_MODEL.get(state);
+        if (altarModel != null) {
+            altarModel.angle += 2f;
+            if (altarModel.angle >= 360) {
+                altarModel.angle = 0;
+            }
         }
         blockEntity.tick++;
     }

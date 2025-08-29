@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
 import cc.thonly.reverie_dreams.entity.FriendlyFaction;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.tracker.DisplayTrackedData;
@@ -30,7 +30,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -175,7 +174,7 @@ public class DanmakuEntity extends PersistentProjectileEntity implements Polymer
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
         if (!this.itemStack.isEmpty()) {
-            view.put("Item", ItemStackRecipeWrapper.FLEXIBLE_ITEMSTACK_CODEC, this.itemStack.copy());
+            view.put("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC, this.itemStack.copy());
         }
         view.putBoolean("IsTile", this.tile);
         Identifier danmakuDamageTypeId = RegistryManager.DANMAKU_DAMAGE_TYPE.getId(this.danmakuDamageType);
@@ -188,7 +187,7 @@ public class DanmakuEntity extends PersistentProjectileEntity implements Polymer
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        this.itemStack = view.read("Item", ItemStackRecipeWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
+        this.itemStack = view.read("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
         this.tile = view.getBoolean("IsTile", true);
         this.danmakuDamageType = RegistryManager.DANMAKU_DAMAGE_TYPE.get(Identifier.of(view.getString("DamageType", Touhou.id("generic").toString())));
 

@@ -3,8 +3,8 @@ package cc.thonly.mystias_izakaya.component;
 import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -20,11 +20,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
 @ToString
-public class FoodProperty implements RegistrableObject<FoodProperty> {
+public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodProperty>, BuiltinObject, Translatable {
     public static final Codec<FoodProperty> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("registry_key").forGetter(FoodProperty::getId),
             ITEMS_CODEC.fieldOf("properties").forGetter(FoodProperty::getItemList)
@@ -33,6 +34,8 @@ public class FoodProperty implements RegistrableObject<FoodProperty> {
     private Identifier id;
     private final StatusEffectInstance effectInstance;
     private Set<Item> items = new ObjectOpenHashSet<>();
+
+    private IntrinsicalRegister<FoodProperty> owner;
 
     public FoodProperty() {
         this.effectInstance = new StatusEffectInstance(new StatusEffectInstance(ModStatusEffects.EMPTY, 1));
@@ -104,11 +107,6 @@ public class FoodProperty implements RegistrableObject<FoodProperty> {
         return this.id.toTranslationKey("food_property");
     }
 
-    @Override
-    public StandaloneRegistry<FoodProperty> getRegistryRef() {
-        return MIRegistryManager.FOOD_PROPERTY;
-    }
-
     public static List<FoodProperty> getAllProperties(ItemStack itemStack) {
         Set<FoodProperty> set = new HashSet<>();
         set.addAll(getIngredientProperties(itemStack.getItem()));
@@ -125,8 +123,13 @@ public class FoodProperty implements RegistrableObject<FoodProperty> {
      * @return 包含该 Item 的所有 FoodProperty 列表
      */
     public static List<FoodProperty> getIngredientProperties(Item item) {
+        Map<Identifier, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.getEntrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().getValue(),
+                        Map.Entry::getValue
+                ));
         List<FoodProperty> list = new ArrayList<>();
-        Set<Map.Entry<Identifier, FoodProperty>> entries = MIRegistryManager.FOOD_PROPERTY.entrySet();
+        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
         for (Map.Entry<Identifier, FoodProperty> entry : entries) {
             FoodProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
@@ -157,9 +160,14 @@ public class FoodProperty implements RegistrableObject<FoodProperty> {
      * @return 包含该物品的所有 FoodProperty 列表
      */
     public static List<FoodProperty> getFromItemStack(ItemStack itemStack) {
+        Map<Identifier, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.getEntrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().getValue(),
+                        Map.Entry::getValue
+                ));
         List<FoodProperty> list = new ArrayList<>();
         Item item = itemStack.getItem();
-        Set<Map.Entry<Identifier, FoodProperty>> entries = MIRegistryManager.FOOD_PROPERTY.entrySet();
+        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
         for (Map.Entry<Identifier, FoodProperty> entry : entries) {
             FoodProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
@@ -197,8 +205,4 @@ public class FoodProperty implements RegistrableObject<FoodProperty> {
         return CODEC;
     }
 
-    @Override
-    public Boolean isDirect() {
-        return true;
-    }
 }

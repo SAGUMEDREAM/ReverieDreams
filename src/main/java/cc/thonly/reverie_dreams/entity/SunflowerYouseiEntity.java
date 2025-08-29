@@ -45,22 +45,6 @@ public class SunflowerYouseiEntity extends NPCEntityImpl implements Leashable, F
     }
 
     @Override
-    public void onCreated(Entity entity) {
-        super.onCreated(entity);
-        var x = new ItemDisplayElement();
-        var holder = new WingHolder(this);
-        x.setItem(new ItemStack(ModEntityHolders.YOUSEI_WINGS));
-        x.setInvisible(true);
-        x.setTeleportDuration(3);
-        x.setScale(new Vector3f(1.2f));
-        holder.setElement(x);
-        holder.addElement(x);
-        EntityAttachment.ofTicking(holder, entity);
-        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        ELEMENTS.put(entity, x);
-    }
-
-    @Override
     protected void initGoals() {
         super.initGoals();
 

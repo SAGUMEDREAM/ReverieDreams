@@ -4,7 +4,7 @@ import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.*;
-import cc.thonly.reverie_dreams.block.base.BasicCropBlock;
+import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
@@ -12,8 +12,9 @@ import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.item.RoleCard;
+import cc.thonly.reverie_dreams.item.prop.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.state.SixteenDirection;
 import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
 import cc.thonly.reverie_dreams.util.CropAgeUtil;
 import cc.thonly.reverie_dreams.block.PolymerCropCreator;
@@ -23,15 +24,28 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.model.json.ModelVariant;
+import net.minecraft.client.render.model.json.ModelVariantOperator;
+import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.Pool;
+import net.minecraft.util.collection.Weighted;
+import net.minecraft.util.math.AxisRotation;
+import net.minecraft.util.math.Direction;
+import sun.misc.Unsafe;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.*;
+
+import static net.minecraft.client.data.BlockStateModelGenerator.modelWithYRotation;
 
 @Slf4j
 public class ModModelProvider extends FabricModelProvider {
@@ -83,14 +97,9 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_RED_BLOCK);
         blockStateModelGenerator.registerSimpleState(ModBlocks.MARISA_HAT_BLOCK);
 
-        blockStateModelGenerator.registerCubeAllModelTexturePool(BlockModels.EMPTY_TRANSPARENT_TRIPWIRE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(BlockModels.EMPTY_TRIPWIRE_FLAT);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(BlockModels.EMPTY_TRANSPARENT_PLANT_WATERLOGGED);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(BlockModels.EMPTY_TRANSPARENT_PLANT);
-
-
         for (Fumo instance : Fumos.getView()) {
             blockStateModelGenerator.registerSimpleState(instance.block());
+//            blockStateModelGenerator.registerSimpleState(instance.block());
         }
 
         this.generateCropBlockModel(blockStateModelGenerator);
@@ -104,7 +113,7 @@ public class ModModelProvider extends FabricModelProvider {
             try {
                 PolymerCropCreator.Instance instance = view.getValue();
                 id = instance.getIdentifier();
-                BasicCropBlock cropBlock = instance.getCropBlock();
+                AbstractCropBlock cropBlock = instance.getCropBlock();
                 PolymerCropCreator.ModelType modelType = instance.getModelType();
                 IntProperty ageProperty = cropBlock.getAgeProperty();
                 CropAgeModelProvider provider = instance.getProvider();
@@ -249,30 +258,29 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     public void generateMIBlock(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSimpleState(MIBlocks.COOKING_POT);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.CUTTING_BOARD);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.FRYING_PAN);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.GRILL);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.STEAMER);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.MYSTIA_COOKING_POT);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.MYSTIA_CUTTING_BOARD);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.MYSTIA_FRYING_PAN);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.MYSTIA_GRILL);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.MYSTIA_STEAMER);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.SUPER_COOKING_POT);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.SUPER_CUTTING_BOARD);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.SUPER_FRYING_PAN);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.SUPER_GRILL);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.SUPER_STEAMER);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.EXTREME_COOKING_POT);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.EXTREME_CUTTING_BOARD);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.EXTREME_FRYING_PAN);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.EXTREME_GRILL);
-        blockStateModelGenerator.registerSimpleState(MIBlocks.EXTREME_STEAMER);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.COOKING_POT);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.CUTTING_BOARD);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.FRYING_PAN);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.GRILL);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.STEAMER);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.MYSTIA_COOKING_POT);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.MYSTIA_CUTTING_BOARD);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.MYSTIA_FRYING_PAN);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.MYSTIA_GRILL);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.MYSTIA_STEAMER);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.SUPER_COOKING_POT);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.SUPER_CUTTING_BOARD);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.SUPER_FRYING_PAN);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.SUPER_GRILL);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.SUPER_STEAMER);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_COOKING_POT);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_CUTTING_BOARD);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_FRYING_PAN);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_GRILL);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_STEAMER);
 
         blockStateModelGenerator.registerSimpleState(MIBlocks.ITEM_DISPLAY);
 
-//        blockStateModelGenerator.registerCooker(MIBlocks.COOKTOP, TexturedModel.ORIENTABLE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(MIBlocks.BLACK_SALT_BLOCK);
 
         blockStateModelGenerator.registerTintableCross(MIBlocks.UDUMBARA_FLOWER, BlockStateModelGenerator.CrossType.NOT_TINTED);
@@ -297,9 +305,20 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     public void generateGuiItemModels(ItemModelGenerator itemModelGenerator) {
-        for (Item item : ModGuiItems.getGuiItemView()) {
+        for (Item item : ModGuiItems.getGuiItemList()) {
             this.registerGuiItem(itemModelGenerator, item);
         }
+    }
+
+    public final void registerRotatable(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        Identifier id = Registries.BLOCK.getId(block);
+        Identifier modelId = Identifier.of(id.getNamespace(), "block/" + id.getPath());
+
+        ModelVariant modelVariant = new ModelVariant(modelId);
+
+        blockStateModelGenerator.blockStateCollector.accept(
+                VariantsBlockModelDefinitionCreator.of(block, modelWithYRotation(modelVariant))
+        );
     }
 
     private void registerGuiItem(ItemModelGenerator itemModelGenerator, Item item) {

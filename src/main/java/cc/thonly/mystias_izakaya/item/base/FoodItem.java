@@ -2,11 +2,11 @@ package cc.thonly.mystias_izakaya.item.base;
 
 import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerItem;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.HungerManager;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
@@ -19,23 +19,18 @@ import net.minecraft.world.World;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class FoodItem extends BasicPolymerItem {
+public class FoodItem extends Item {
 
-    public FoodItem(String path, Settings settings) {
-        super(path, settings, Items.APPLE);
+    public FoodItem(Settings settings) {
+        this(0, 0f, settings);
     }
 
-    public FoodItem(String path, List<FoodProperty> foodProperties, Settings settings) {
-        super(
-                path,
-                settings.component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()),
-                Items.APPLE
-        );
+    public FoodItem(List<FoodProperty> foodProperties, Settings settings) {
+        super(settings.component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()));
     }
 
-    public FoodItem(String path, List<FoodProperty> foodProperties, Integer nutrition, Float saturation, Settings settings) {
+    public FoodItem(List<FoodProperty> foodProperties, Integer nutrition, Float saturation, Settings settings) {
         this(
-                path,
                 settings.food(new FoodComponent.Builder()
                                 .nutrition(nutrition + 2)
                                 .saturationModifier(saturation + 2)
@@ -44,8 +39,8 @@ public class FoodItem extends BasicPolymerItem {
                         .component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()));
     }
 
-    public FoodItem(String path, Integer nutrition, Float saturation, Settings settings) {
-        this(path, settings
+    public FoodItem(Integer nutrition, Float saturation, Settings settings) {
+        super(settings
                 .food(new FoodComponent.Builder()
                         .nutrition(nutrition + 2)
                         .saturationModifier(saturation + 2)

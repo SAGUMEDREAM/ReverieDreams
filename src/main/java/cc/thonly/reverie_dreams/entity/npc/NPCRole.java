@@ -1,12 +1,9 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.entity.base.NPCEntity;
 import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSpawnEggItem;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
@@ -32,17 +29,19 @@ import java.util.List;
 @Slf4j
 @Setter
 @Getter
-public class NPCRole implements RegistrableObject<NPCRole> {
+public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, BuiltinObject {
     public static final Codec<NPCRole> CODEC = Codec.unit(NPCRole::new);
     public static final List<Item> NPC_SPAWN_EGG_ITEM_LIST = new LinkedList<>();
 
     private Identifier id;
     private Property property;
     // 构建后属性
-    private EntityType<NPCEntity> entityType;
+    private EntityType<AbstractNPCEntity> entityType;
     private Item spawnEgg;
     private Class<? extends NPCEntityImpl> clazz;
     private boolean hasBuilt = false;
+
+    private IntrinsicalRegister<NPCRole> owner;;
 
     private NPCRole() {
     }
@@ -69,7 +68,7 @@ public class NPCRole implements RegistrableObject<NPCRole> {
         return this.entityType == null;
     }
 
-    public EntityType<NPCEntity> get() {
+    public EntityType<AbstractNPCEntity> get() {
         return this.entityType;
     }
 
@@ -82,8 +81,8 @@ public class NPCRole implements RegistrableObject<NPCRole> {
             return this;
         }
         try {
-            EntityType<NPCEntity> entityType = registerEntity(this.id,
-                    EntityType.Builder.<NPCEntity>create(
+            EntityType<AbstractNPCEntity> entityType = registerEntity(this.id,
+                    EntityType.Builder.<AbstractNPCEntity>create(
                                     (type, world) -> {
                                         try {
                                             return this.clazz.getConstructor(EntityType.class, World.class, Property.class)
@@ -97,7 +96,7 @@ public class NPCRole implements RegistrableObject<NPCRole> {
                             .build(of(this.id)));
             FabricDefaultAttributeRegistry.register(entityType, NPCEntityImpl.createAttributes());
             Identifier spawnEggId = Identifier.of(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
-            Item spawnEgg = registerNPCSpawnEggItem(new BasicPolymerSpawnEggItem(spawnEggId, entityType, new Item.Settings().modelId(Touhou.id("spawn_egg"))));
+            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, entityType, new Item.Settings().modelId(Touhou.id("spawn_egg"))));
             this.entityType = entityType;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;
@@ -105,11 +104,6 @@ public class NPCRole implements RegistrableObject<NPCRole> {
             log.error("Can't register role entity type {}", this.id.toString());
         }
         return this;
-    }
-
-    @Override
-    public StandaloneRegistry<NPCRole> getRegistryRef() {
-        return RegistryManager.NPC_ROLE;
     }
 
     @Override

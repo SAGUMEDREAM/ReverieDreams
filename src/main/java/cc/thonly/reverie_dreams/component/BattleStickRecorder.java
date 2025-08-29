@@ -19,4 +19,8 @@ public class BattleStickRecorder {
     public String target_0 = "";
     @NotNull
     public String target_1 = "";
+
+    public static BattleStickRecorder empty() {
+        return new BattleStickRecorder("", "");
+    }
 }

@@ -1,12 +1,11 @@
 package cc.thonly.reverie_dreams.effect;
 
-import eu.pb4.polymer.core.api.other.PolymerStatusEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.server.world.ServerWorld;
 
-public class BackOfLifeEffect extends StatusEffect implements PolymerStatusEffect {
+public class BackOfLifeEffect extends StatusEffect {
 
     protected BackOfLifeEffect() {
         super(StatusEffectCategory.BENEFICIAL, 16262179);

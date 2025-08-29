@@ -1,15 +1,15 @@
 package cc.thonly.reverie_dreams.fumo;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Collection;
 
 public class Fumos {
-    public static final StandaloneRegistry<Fumo> REGISTRY_KEY = RegistryManager.FUMO;
+    public static final IntrinsicalRegister<Fumo> REGISTRY_KEY = RegistryManager.FUMO;
     public static final Fumo ALICE = register(new Fumo(Touhou.id("alice"), new Vec3d(0, 0, 0)));
     public static final Fumo AYA = register(new Fumo(Touhou.id("aya"), new Vec3d(0, 0, 0)));
     public static final Fumo BLUE_REIMU = register(new Fumo(Touhou.id("blue_reimu"), new Vec3d(0, 0, 0)));
@@ -86,7 +86,7 @@ public class Fumos {
         return REGISTRY_KEY.values();
     }
 
-    public static void bootstrap(StandaloneRegistry<Fumo> registry) {
+    public static void bootstrap(IntrinsicalRegister<Fumo> registry) {
 
     }
 }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerPickaxeItem;
+import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -13,9 +13,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.registry.tag.BlockTags;
@@ -31,11 +29,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.function.Predicate;
 
-public class ManpozuchiItem extends BasicPolymerPickaxeItem {
+public class ManpozuchiItem extends PickaxeItem {
     private static final int ATTACK_DAMAGE_MODIFIER_VALUE = 5;
     private static final float ATTACK_SPEED_MODIFIER_VALUE = -3.4f;
     public static final float MINING_SPEED_MULTIPLIER = 1.5f;
@@ -45,13 +42,8 @@ public class ManpozuchiItem extends BasicPolymerPickaxeItem {
 
     public static final ToolMaterial MATERIAL = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 59, 2.0F, 0.0F, 15, ItemTags.GOLD_TOOL_MATERIALS);
 
-    public ManpozuchiItem(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, MATERIAL, attackDamage + 3.5f, attackSpeed - 2.5f, settings);
-    }
-
-    @Override
-    public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
-        return Items.MACE;
+    public ManpozuchiItem(float attackDamage, float attackSpeed, Settings settings) {
+        super(MATERIAL, attackDamage, attackSpeed, settings);
     }
 
     @Override
@@ -125,7 +117,7 @@ public class ManpozuchiItem extends BasicPolymerPickaxeItem {
             ServerWorld serverWorld = (ServerWorld)attacker.getWorld();
             attacker.setVelocity(attacker.getVelocity().withAxis(Direction.Axis.Y, 0.009999999776482582));
 
-            ServerPlayerEntity serverPlayerEntity;
+            ServerPlayerEntity serverPlayerEntity = null;
             if (attacker instanceof ServerPlayerEntity) {
                 serverPlayerEntity = (ServerPlayerEntity)attacker;
                 serverPlayerEntity.currentExplosionImpactPos = this.getCurrentExplosionImpactPos(serverPlayerEntity);
@@ -140,9 +132,9 @@ public class ManpozuchiItem extends BasicPolymerPickaxeItem {
                 }
 
                 SoundEvent soundEvent = attacker.fallDistance > 5.0 ? SoundEvents.ITEM_MACE_SMASH_GROUND_HEAVY : SoundEvents.ITEM_MACE_SMASH_GROUND;
-                serverWorld.playSound((Entity)null, attacker.getX(), attacker.getY(), attacker.getZ(), soundEvent, attacker.getSoundCategory(), 1.0F, 1.0F);
+                serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), soundEvent, attacker.getSoundCategory(), 1.0F, 1.0F);
             } else {
-                serverWorld.playSound((Entity)null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.ITEM_MACE_SMASH_AIR, attacker.getSoundCategory(), 1.0F, 1.0F);
+                serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.ITEM_MACE_SMASH_AIR, attacker.getSoundCategory(), 1.0F, 1.0F);
             }
 
             knockbackNearbyEntities(serverWorld, attacker, target);

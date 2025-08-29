@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
-import cc.thonly.reverie_dreams.entity.PolymerVariant;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.entity.SimpleVariant;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -12,12 +11,13 @@ import net.minecraft.util.Identifier;
 
 @Setter
 @Getter
-public class YouseiVariant implements RegistrableObject<YouseiVariant>, PolymerVariant {
+public class YouseiVariant implements CodecStep<YouseiVariant>, OwnerBinding<YouseiVariant>, BuiltinObject, SimpleVariant, Translatable {
     public static Codec<YouseiVariant> CODEC = Codec.unit(YouseiVariant::new);
     private static int NEXT = 0;
     private Identifier id;
     private int number;
     private Property property;
+    private IntrinsicalRegister<YouseiVariant> owner;
 
     private YouseiVariant() {
     }
@@ -28,10 +28,7 @@ public class YouseiVariant implements RegistrableObject<YouseiVariant>, PolymerV
         this.property = property;
     }
 
-    @Override
-    public StandaloneRegistry<YouseiVariant> getRegistryRef() {
-        return RegistryManager.YOUSEI_VARIANT;
-    }
+
 
     @Override
     public Codec<YouseiVariant> getCodec() {

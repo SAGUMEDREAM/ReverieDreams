@@ -1,15 +1,13 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.block.base.*;
-import cc.thonly.reverie_dreams.util.IdentifierGetter;
-import eu.pb4.polymer.blocks.api.BlockModelType;
 import lombok.Getter;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -50,24 +48,52 @@ public class WoodCreator extends AbstractBlockCreator {
     }
 
     public WoodCreator build() {
-        this.log = new BasicPillarBlock(suffix("log"), AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
-        this.wood = new BasicPillarBlock(suffix("wood"), AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
-        this.strippedLog = new BasicPillarBlock(prefix(suffix("log"), "stripped"), AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
-        this.strippedWood = new BasicPillarBlock(prefix(suffix("wood"), "stripped"), AbstractBlock.Settings.copy(Blocks.OAK_WOOD).nonOpaque());
-        this.leaves = new BasicLeavesBlock(suffix("leaves"), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES));
-        this.sapling = new BasicPolymerSaplingBlock(suffix("sapling"), this.saplingGenerator, AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
-        this.planks = new BasicPolymerBlock(suffix("planks"), BlockModelType.FULL_BLOCK, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
-        this.stair = new BasicPolymerStairsBlock(suffix("stair"), this.planks.getDefaultState(), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS));
-        this.slab = new BasicPolymerSlabBlock(suffix("slab"), this.planks.getDefaultState(), AbstractBlock.Settings.copy(Blocks.OAK_SLAB));
-        this.door = new BasicPolymerDoorBlock(suffix("door"), AbstractBlock.Settings.copy(Blocks.OAK_DOOR));
-        this.trapdoor = new BasicPolymerTrapdoorBlock(suffix("trapdoor"), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR));
-        this.fence = new BasicPolymerFenceBlock(suffix("fence"), AbstractBlock.Settings.copy(Blocks.OAK_FENCE));
-        this.fenceGate = new BasicPolymerFenceGateBlock(suffix("fence_gate"), WoodType.OAK, AbstractBlock.Settings.copy(Blocks.OAK_FENCE_GATE));
-        this.button = new BasicPolymerButtonBlock(suffix("button"), BlockSetType.OAK, 30, AbstractBlock.Settings.copy(Blocks.OAK_BUTTON));
+        this.log = ModBlocks.registerSimpleBlock(suffix("log"),
+                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
+
+        this.wood = ModBlocks.registerSimpleBlock(suffix("wood"),
+                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
+
+        this.strippedLog = ModBlocks.registerSimpleBlock(prefix(suffix("log"), "stripped"),
+                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
+
+        this.strippedWood = ModBlocks.registerSimpleBlock(prefix(suffix("wood"), "stripped"),
+                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_WOOD).nonOpaque());
+
+        this.leaves = ModBlocks.registerSimpleBlock(suffix("leaves"),
+                (settings) -> new TintedParticleLeavesBlock(0.01f, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES));
+
+        this.sapling = ModBlocks.registerSimpleBlock(suffix("sapling"),
+                (settings) -> new SaplingBlock(this.saplingGenerator, settings), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
+
+        this.planks = ModBlocks.registerSimpleBlock(suffix("planks"),
+                Block::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+
+        this.stair = ModBlocks.registerSimpleBlock(suffix("stairs"),
+                (settings) -> new StairsBlock(this.planks.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS));
+
+        this.slab = ModBlocks.registerSimpleBlock(suffix("slab"),
+                SlabBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB));
+
+        this.door = ModBlocks.registerSimpleBlock(suffix("door"),
+                (settings) -> new DoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_DOOR));
+
+        this.trapdoor = ModBlocks.registerSimpleBlock(suffix("trapdoor"),
+                (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR));
+
+        this.fence = ModBlocks.registerSimpleBlock(suffix("fence"),
+                FenceBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_FENCE));
+
+        this.fenceGate = ModBlocks.registerSimpleBlock(suffix("fence_gate"),
+                (settings) -> new FenceGateBlock(WoodType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_FENCE_GATE));
+
+        this.button = ModBlocks.registerSimpleBlock(suffix("button"),
+                (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), AbstractBlock.Settings.copy(Blocks.OAK_BUTTON));
+
+        Registries.ITEM.addAlias(suffix("stair"), suffix("stairs"));
+
         this.stream().forEach((block) -> {
-            IdentifierGetter blockImpl = (IdentifierGetter) block;
-            Block rb = this.register(blockImpl);
-            BLOCK_ITEMS.add(rb.asItem());
+            BLOCK_ITEMS.add(block.asItem());
         });
         StrippableBlockRegistry.register(this.log, this.strippedLog);
 

@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.mixin.accessor.GenerationShapeConfigAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;

@@ -1,8 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
 import net.fabricmc.fabric.impl.registry.sync.DynamicRegistriesImpl;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;

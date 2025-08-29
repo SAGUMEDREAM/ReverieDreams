@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.WindChargeEntity;
@@ -12,11 +12,11 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class SwordOfHisou extends BasicPolymerSwordItem {
+public class SwordOfHisou extends SwordItem {
     public static final ToolMaterial HISOU = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1561, 8.0f, 4.5f, 10, ModTags.ItemTypeTag.PEACH);
 
-    public SwordOfHisou(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, HISOU, attackDamage + 1, attackSpeed - 2.4f, settings);
+    public SwordOfHisou(float attackDamage, float attackSpeed, Settings settings) {
+        super(HISOU, attackDamage + 1, attackSpeed - 2.4f, settings);
     }
 
     @Override

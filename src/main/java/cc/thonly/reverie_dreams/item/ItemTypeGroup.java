@@ -1,0 +1,59 @@
+package cc.thonly.reverie_dreams.item;
+
+import cc.thonly.reverie_dreams.item.base.PickaxeItem;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
+import lombok.Getter;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ShovelItem;
+
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.stream.Stream;
+
+@Getter
+public enum ItemTypeGroup {
+    SWORD(),
+    PICKAXES(),
+    AXES(),
+    SHOVELS(),
+    HOES(),
+    ;
+    private final Set<Item> entries = new LinkedHashSet<>();
+
+    ItemTypeGroup() {
+    }
+
+    public static void join(Item item) {
+        if (item instanceof SwordItem) {
+            SWORD.add(item);
+        }
+        if (item instanceof PickaxeItem) {
+            PICKAXES.add(item);
+        }
+        if (item instanceof AxeItem) {
+            AXES.add(item);
+        }
+        if (item instanceof ShovelItem) {
+            SHOVELS.add(item);
+        }
+        if (item instanceof HoeItem) {
+            HOES.add(item);
+        }
+    }
+
+
+    public void add(Item item) {
+        this.entries.add(item);
+    }
+
+    public Stream<Item> stream() {
+        return this.entries.stream();
+    }
+
+    public Collection<Item> items() {
+        return Set.copyOf(this.entries);
+    }
+}

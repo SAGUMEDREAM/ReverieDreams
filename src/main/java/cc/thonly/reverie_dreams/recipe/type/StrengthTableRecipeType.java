@@ -4,12 +4,12 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
-import cc.thonly.reverie_dreams.item.BasicDanmakuTypeItem;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.item.SpellCardTemplateItem;
+import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
+import cc.thonly.reverie_dreams.item.prop.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -122,7 +122,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                         outputStack.set(componentType, object);
                     }
                     value = builderByCounter;
-                    StrengthTableRecipe strengthTableRecipe = new StrengthTableRecipe(ItemStackRecipeWrapper.of(mainItem), ItemStackRecipeWrapper.of(offItem), ItemStackRecipeWrapper.of(outputStack));
+                    StrengthTableRecipe strengthTableRecipe = new StrengthTableRecipe(ItemStackWrapper.of(mainItem), ItemStackWrapper.of(offItem), ItemStackWrapper.of(outputStack));
                     strengthTableRecipe.setVirtual(true);
                     this.dynamicBuilder.put(Identifier.of(builderByCounter.toLowerCase()), strengthTableRecipe);
                 } catch (Exception e) {
@@ -138,18 +138,18 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     }
 
     @Override
-    public List<StrengthTableRecipe> getMatches(List<ItemStackRecipeWrapper> wrappers) {
+    public List<StrengthTableRecipe> getMatches(List<ItemStackWrapper> wrappers) {
         if (wrappers.size() < 2) {
             return List.of();
         }
         List<StrengthTableRecipe> recipe = new ArrayList<>();
-        ItemStackRecipeWrapper main = wrappers.get(0);
-        ItemStackRecipeWrapper off = wrappers.get(1);
-        ItemStackRecipeWrapper output = this.tryGetOutput(main, off);
+        ItemStackWrapper main = wrappers.get(0);
+        ItemStackWrapper off = wrappers.get(1);
+        ItemStackWrapper output = this.tryGetOutput(main, off);
         if (output != null) {
-            ItemStackRecipeWrapper mainClone = main.clone();
-            ItemStackRecipeWrapper offClone = off.clone();
-            ItemStackRecipeWrapper outputClone = output.clone();
+            ItemStackWrapper mainClone = main.clone();
+            ItemStackWrapper offClone = off.clone();
+            ItemStackWrapper outputClone = output.clone();
             mainClone.getItemStack().setCount(1);
             offClone.getItemStack().setCount(1);
             recipe.add(new StrengthTableRecipe(mainClone, offClone, outputClone));
@@ -157,12 +157,12 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         return recipe;
     }
 
-    public ItemStackRecipeWrapper tryGetOutput(ItemStackRecipeWrapper main, ItemStackRecipeWrapper off) {
+    public ItemStackWrapper tryGetOutput(ItemStackWrapper main, ItemStackWrapper off) {
         ItemStack mainStack = main.getItemStack().copy();
         ItemStack offStack = off.getItemStack().copy();
         Item mainItem = mainStack.getItem();
         Item offItem = offStack.getItem();
-        boolean isDanmakuItem = mainItem instanceof BasicDanmakuTypeItem;
+        boolean isDanmakuItem = mainItem instanceof DanmakuItem;
         boolean isSpellCardTemplate = offItem instanceof SpellCardTemplateItem;
         boolean isSpeedItem = offItem == ModItems.SPEED_FEATHER;
         boolean isSlime = offItem == Items.SLIME_BLOCK;
@@ -171,7 +171,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             String templateId = offStack.get(ModDataComponentTypes.Danmaku.TEMPLATE);
             if (templateId != null) {
                 mainStack.set(ModDataComponentTypes.Danmaku.TEMPLATE, templateId);
-                return new ItemStackRecipeWrapper(mainStack);
+                return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isSpeedItem) {
@@ -179,7 +179,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             float sum = speed + 0.25f;
             if (sum <= MAX_SPEED) {
                 mainStack.set(ModDataComponentTypes.Danmaku.SPEED, sum);
-                return new ItemStackRecipeWrapper(mainStack);
+                return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isSlime) {
@@ -187,7 +187,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             int sum = count + 1;
             if (sum < MAX_COUNT) {
                 mainStack.set(ModDataComponentTypes.Danmaku.COUNT, sum);
-                return new ItemStackRecipeWrapper(mainStack);
+                return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isIronSword) {
@@ -195,14 +195,14 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             float sum = damage + 0.25f;
             if (sum < MAX_DAMAGE) {
                 mainStack.set(ModDataComponentTypes.Danmaku.DAMAGE, sum);
-                return new ItemStackRecipeWrapper(mainStack);
+                return new ItemStackWrapper(mainStack);
             }
         }
         return null;
     }
 
     @Override
-    public Boolean isMatch(ItemStackRecipeWrapper input, ItemStackRecipeWrapper recipe) {
+    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
         return false;
     }
 

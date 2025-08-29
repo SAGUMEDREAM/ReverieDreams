@@ -4,7 +4,7 @@ import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.entity.villager.TavernVillager;
 import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSpawnEggItem;
+import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -25,7 +25,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.ModelAndTexture;
 
 @SuppressWarnings("unchecked")
@@ -78,7 +77,7 @@ public class MIEntities {
     private static <T extends Entity> EntityType<T> registerEntityWithSpawnEgg(String path, EntityType<T> entityType, ModEntities.CreateAttributesFunction createAttributesFunction) {
         EntityType<T> entityTypeRef = Registry.register(Registries.ENTITY_TYPE, MystiasIzakaya.id(path), entityType);
         FabricDefaultAttributeRegistry.register((EntityType<? extends MobEntity>) entityTypeRef, createAttributesFunction.apply());
-        Item item = registerSpawnEggItem(new BasicPolymerSpawnEggItem(path + "_spawn_egg", (EntityType<? extends MobEntity>) entityTypeRef, new Item.Settings().modelId(MystiasIzakaya.id("spawn_egg"))));
+        Item item = registerSpawnEggItem(new SpawnEggItem(path + "_spawn_egg", (EntityType<? extends MobEntity>) entityTypeRef, new Item.Settings().modelId(MystiasIzakaya.id("spawn_egg"))));
         PolymerEntityUtils.registerType(entityTypeRef);
         ModEntities.SPAWN_EGG_ITEM_LIST.add(item);
         ModEntities.SPAWN_EGG_BIND.put(entityTypeRef, item);

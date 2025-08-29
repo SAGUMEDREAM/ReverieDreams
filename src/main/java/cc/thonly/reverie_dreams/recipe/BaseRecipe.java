@@ -11,5 +11,5 @@ public abstract class BaseRecipe implements PolymerObject {
     private Identifier id;
     private Integer rawId;
     private boolean isVirtual;
-    public abstract ItemStackRecipeWrapper getOutput();
+    public abstract ItemStackWrapper getOutput();
 }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.component;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.item.MusicalInstrumentItem;
+import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import com.mojang.serialization.Codec;
 import eu.pb4.polymer.core.api.other.PolymerComponent;
 import net.minecraft.block.enums.NoteBlockInstrument;

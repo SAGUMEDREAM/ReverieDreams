@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.danmaku;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.ItemColor;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,7 +35,7 @@ public class DanmakuTypes {
     }
 
     public static DanmakuType register(Identifier key, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        return RegistryManager.registerFinal(RegistryManager.DANMAKU_TYPE, key, new DanmakuType(key, damage, scale, speed, tile, infinite));
+        return RegistryManager.registerForBuiltin(RegistryManager.DANMAKU_TYPE, key, new DanmakuType(key, damage, scale, speed, tile, infinite));
     }
 
     public static ItemStack withColor(DanmakuType type, ItemColor color) {
@@ -74,7 +74,7 @@ public class DanmakuTypes {
         return builder.build();
     }
 
-    public static void bootstrap(StandaloneRegistry<DanmakuType> registry) {
+    public static void bootstrap(IntrinsicalRegister<DanmakuType> registry) {
 
     }
 

@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
-import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.mixin.accessor.VillagerEntityAccessor;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -16,7 +15,6 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.goal.*;
@@ -27,9 +25,7 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
-import net.minecraft.potion.Potions;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -39,7 +35,8 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.village.*;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.VillagerData;
 import net.minecraft.world.World;
 import xyz.nucleoid.packettweaker.PacketContext;
 
@@ -94,7 +91,7 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
         }
     }
 
-    public void trade(ItemStackRecipeWrapper wrapper) {
+    public void trade(ItemStackWrapper wrapper) {
         World world = this.getWorld();
         Random random = new Random();
         this.exp += random.nextInt(9, 25);
@@ -277,7 +274,7 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
         @Override
         public boolean onTrade(TradeOffer offer) {
             TradeOffer copied = offer.copy();
-            this.self.trade(ItemStackRecipeWrapper.of(copied.copySellItem()));
+            this.self.trade(ItemStackWrapper.of(copied.copySellItem()));
             this.self.trade(copied);
             return super.onTrade(offer);
         }

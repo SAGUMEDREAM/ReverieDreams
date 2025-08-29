@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.registry;
 
-import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
@@ -18,101 +17,108 @@ import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
 import cc.thonly.reverie_dreams.entity.skin.RoleSkins;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
-import cc.thonly.reverie_dreams.item.RoleCard;
+import cc.thonly.reverie_dreams.item.prop.RoleCard;
 import cc.thonly.reverie_dreams.item.RoleCards;
+import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntryInfo;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
-import java.util.function.Supplier;
 
 @Slf4j
 @SuppressWarnings("unchecked")
 public class RegistryManager {
-    public static final Map<Identifier, StandaloneRegistry<?>> REGISTRIES = new Object2ObjectLinkedOpenHashMap<>();
-    public static final StandaloneRegistry<DanmakuType> DANMAKU_TYPE = ofEntry(DanmakuType.class, Touhou.id("danmaku_type"))
+    public static final Map<RegistryKey<? extends Registry<?>>, IntrinsicalRegister<?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
+    public static final IntrinsicalRegister<DanmakuType> DANMAKU_TYPE = RegistryManager.<DanmakuType>ofEntry(Touhou.id("danmaku_type"))
             .codec(DanmakuType.CODEC)
-            .build(DanmakuTypes::bootstrap);
-    public static final StandaloneRegistry<DanmakuTrajectory> DANMAKU_TRAJECTORY = ofEntry(DanmakuTrajectory.class, Touhou.id("danmaku_trajectory"))
+            .builder(DanmakuTypes::bootstrap);
+
+    public static final IntrinsicalRegister<DanmakuTrajectory> DANMAKU_TRAJECTORY = RegistryManager.<DanmakuTrajectory>ofEntry(Touhou.id("danmaku_trajectory"))
             .codec(DanmakuTrajectory.CODEC)
-            .build(DanmakuTrajectories::bootstrap);
-    public static final StandaloneRegistry<DanmakuDamageType> DANMAKU_DAMAGE_TYPE = ofEntry(DanmakuDamageType.class, Touhou.id("danmaku_damage_type"))
+            .builder(DanmakuTrajectories::bootstrap);
+
+    public static final IntrinsicalRegister<DanmakuDamageType> DANMAKU_DAMAGE_TYPE = RegistryManager.<DanmakuDamageType>ofEntry(Touhou.id("danmaku_damage_type"))
             .codec(DanmakuDamageType.CODEC)
-            .build(DanmakuDamageTypes::bootstrap);
-    public static final StandaloneRegistry<JavaScriptElement> JAVASCRIPT_ELEMENT = ofEntry(JavaScriptElement.class, Touhou.id("javascript_element"))
+            .defaultId(DanmakuDamageType.DEFAULT_ID)
+            .builder(DanmakuDamageTypes::bootstrap);
+
+    public static final IntrinsicalRegister<JavaScriptElement> JAVASCRIPT_ELEMENT = RegistryManager.<JavaScriptElement>ofEntry(Touhou.id("javascript_element"))
             .codec(JavaScriptElement.CODEC)
-            .reloadable(JavaScriptManager::reload)
-            .build(JavaScriptManager::bootstrap);
-    public static final StandaloneRegistry<RoleSkin> ROLE_SKIN = ofEntry(RoleSkin.class, Touhou.id("role_skin"))
-            .codec(RoleSkin.CODEC)
-            .build(RoleSkins::bootstrap, MobSkins::bootstrap);
-    public static final StandaloneRegistry<NPCRole> NPC_ROLE = ofEntry(NPCRole.class, Touhou.id("npc_role"))
+            .reloadBuilder(JavaScriptManager::reload)
+            .builder(JavaScriptManager::bootstrap);
+
+    public static final IntrinsicalRegister<RoleSkin> ROLE_SKIN = RegistryManager.<RoleSkin>ofEntry(Touhou.id("role_skin"))
+            .codec(RoleSkin.UNIT_CODEC)
+            .builder(RoleSkins::bootstrap, MobSkins::bootstrap);
+
+    public static final IntrinsicalRegister<NPCRole> NPC_ROLE = RegistryManager.<NPCRole>ofEntry(Touhou.id("npc_role"))
             .codec(NPCRole.CODEC)
-            .build(NPCRoles::bootstrap);
-    public static final StandaloneRegistry<RoleCard> ROLE_CARD = ofEntry(RoleCard.class, Touhou.id("role_card"))
+            .builder(NPCRoles::bootstrap);
+
+    public static final IntrinsicalRegister<RoleCard> ROLE_CARD = RegistryManager.<RoleCard>ofEntry(Touhou.id("role_card"))
             .codec(RoleCard.CODEC)
-            .build(RoleCards::bootstrap);
-    public static final StandaloneRegistry<NPCRoleInteractionEvent> ROLE_INTERACTION_EVENT = ofEntry(NPCRoleInteractionEvent.class, Touhou.id("interaction_event"))
+            .builder(RoleCards::bootstrap);
+
+    public static final IntrinsicalRegister<NPCRoleInteractionEvent> ROLE_INTERACTION_EVENT = RegistryManager.<NPCRoleInteractionEvent>ofEntry(Touhou.id("interaction_event"))
             .codec(NPCRoleInteractionEvent.CODEC)
-            .build(NPCRoleInteractionEvents::bootstrap);
-    public static final StandaloneRegistry<NPCState> NPC_STATE = ofEntry(NPCState.class, Touhou.id("npc_state"))
+            .builder(NPCRoleInteractionEvents::bootstrap);
+
+    public static final IntrinsicalRegister<NPCState> NPC_STATE = RegistryManager.<NPCState>ofEntry(Touhou.id("npc_state"))
             .codec(NPCState.CODEC)
-            .build(NPCStates::bootstrap);
-    public static final StandaloneRegistry<NPCWorkMode> NPC_WORK_MODE = ofEntry(NPCWorkMode.class, Touhou.id("npc_work_mode"))
+            .defaultId(NPCState.DEFAULT_ID)
+            .builder(NPCStates::bootstrap);
+
+    public static final IntrinsicalRegister<NPCWorkMode> NPC_WORK_MODE = RegistryManager.<NPCWorkMode>ofEntry(Touhou.id("npc_work_mode"))
             .codec(NPCWorkMode.CODEC)
-            .build(NPCWorkModes::bootstrap);
-    public static final StandaloneRegistry<Fumo> FUMO = ofEntry(Fumo.class, Touhou.id("fumo"))
+            .defaultId(NPCWorkMode.DEFAULT_ID)
+            .builder(NPCWorkModes::bootstrap);
+
+    public static final IntrinsicalRegister<Fumo> FUMO = RegistryManager.<Fumo>ofEntry(Touhou.id("fumo"))
             .codec(Fumo.CODEC)
-            .build(Fumos::bootstrap);
-    public static final StandaloneRegistry<YouseiVariant> YOUSEI_VARIANT = ofEntry(YouseiVariant.class, Touhou.id("yousei_variant"))
+            .builder(Fumos::bootstrap);
+
+    public static final IntrinsicalRegister<YouseiVariant> YOUSEI_VARIANT = RegistryManager.<YouseiVariant>ofEntry(Touhou.id("yousei_variant"))
             .codec(YouseiVariant.CODEC)
-            .defaultEntry(() -> YouseiVariants.BLUE)
-            .build(YouseiVariants::bootstrap);
+            .defaultId(Touhou.id("blue"))
+            .builder(YouseiVariants::bootstrap);
 
     public static void bootstrap() {
-        for (var entry : REGISTRIES.entrySet()) {
-            StandaloneRegistry<?> standaloneRegistry = entry.getValue();
-            standaloneRegistry.apply();
+        for (var entry : ROOT.entrySet()) {
+            IntrinsicalRegister<?> registry = entry.getValue();
+            registry.build();
         }
     }
 
-    public static <T extends RegistrableObject<T>> T register(StandaloneRegistry<T> registry, Identifier key, T value) {
-        return registry.add(key, value);
+    public static <T> T registerForBuiltin(IntrinsicalRegister<T> registry, Identifier key, T value) {
+        register(registry, key, value);
+        registry.setBuiltin(key, value);
+        return value;
     }
 
-    public static <T extends RegistrableObject<T>> T registerFinal(StandaloneRegistry<T> registry, Identifier key, Supplier<T> builder) {
-        return registerFinal(registry, key, builder.get());
+    public static <T> T register(IntrinsicalRegister<T> registry, Identifier key, T value) {
+        registry.add(RegistryKey.of(registry.getKey(), key), value, RegistryEntryInfo.DEFAULT);
+        return value;
     }
 
-    public static <T extends RegistrableObject<T>> T registerFinal(StandaloneRegistry<T> registry, Identifier key, T value) {
-        T added = registry.add(key, value);
-        Map<Identifier, T> fir = registry.getFinalIdToEntry();
-        fir.put(key, value);
-        return added;
+    public static <T> T set(IntrinsicalRegister<T> registry, Identifier key, T value) {
+        registry.set(RegistryKey.of(registry.getKey(), key), value, RegistryEntryInfo.DEFAULT);
+        return value;
     }
 
-    public static <T extends RegistrableObject<T>> Map<Identifier, T> registerAll(StandaloneRegistry<T> registry, Map<Identifier, T> idToEntry) {
-        return registry.add(idToEntry);
+    public static <T> IntrinsicalRegister<T> ofEntry(Identifier identifier) {
+        return ofEntry(RegistryKey.ofRegistry(identifier));
     }
 
-    public static <T extends RegistrableObject<T>> T set(StandaloneRegistry<T> registry, Identifier key, T value) {
-        return registry.set(key, value);
-    }
-
-    public static <T extends RegistrableObject<T>> StandaloneRegistry<T> ofEntry(Class<T> type, Identifier key) {
-        StandaloneRegistry<?> rawEntry = REGISTRIES.get(key);
-        if (rawEntry != null) {
-            return (StandaloneRegistry<T>) rawEntry;
-        } else {
-            StandaloneRegistry<T> newEntry = new StandaloneRegistry<>(key);
-            REGISTRIES.put(key, newEntry);
-            return newEntry;
+    public static <T> IntrinsicalRegister<T> ofEntry(RegistryKey<? extends Registry<T>> key) {
+        if (ROOT.containsKey(key)) {
+            return (IntrinsicalRegister<T>) ROOT.get(key);
         }
+        IntrinsicalRegister<T> intrinsicalRegister = new IntrinsicalRegister<>(key);
+        ROOT.put(key, intrinsicalRegister);
+        return intrinsicalRegister;
     }
-
-    public static <T extends RegistrableObject<T>> StandaloneRegistry<T> getRegistry(Class<T> type, Identifier key) {
-        return (StandaloneRegistry<T>) REGISTRIES.get(key);
-    }
-
 }

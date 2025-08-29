@@ -6,31 +6,39 @@ import cc.thonly.mystias_izakaya.component.CraftingConflict;
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
+import cc.thonly.reverie_dreams.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import com.mojang.serialization.Codec;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.server.world.ServerWorld;
+
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 @Slf4j
+@SuppressWarnings("unchecked")
 public class MIRegistryManager extends RegistryManager {
-    public static final StandaloneRegistry<FoodProperty> FOOD_PROPERTY = ofEntry(FoodProperty.class, MystiasIzakaya.id("food_property"))
+    public static final IntrinsicalRegister<FoodProperty> FOOD_PROPERTY = MIRegistryManager.<FoodProperty>ofEntry(MystiasIzakaya.id("food_property"))
             .codec(FoodProperty.CODEC)
-            .reloadable(FoodProperties::reload)
-            .build(FoodProperties::bootstrap);
-    public static final StandaloneRegistry<DrinkProperty> DRINK_PROPERTY = ofEntry(DrinkProperty.class, MystiasIzakaya.id("drink_property"))
+            .reloadBuilder(FoodProperties::reload)
+            .builder(FoodProperties::bootstrap);
+    public static final IntrinsicalRegister<DrinkProperty> DRINK_PROPERTY = MIRegistryManager.<DrinkProperty>ofEntry(MystiasIzakaya.id("drink_property"))
             .codec(DrinkProperty.CODEC)
-            .reloadable(DrinkProperties::reload)
-            .build(DrinkProperties::bootstrap);
-    public static final StandaloneRegistry<CraftingConflict> CRAFTING_CONFLICT = ofEntry(CraftingConflict.class, MystiasIzakaya.id("crafting_conflict"))
+            .reloadBuilder(DrinkProperties::reload)
+            .builder(DrinkProperties::bootstrap);
+    public static final IntrinsicalRegister<CraftingConflict> CRAFTING_CONFLICT = MIRegistryManager.<CraftingConflict>ofEntry(MystiasIzakaya.id("crafting_conflict"))
             .codec(CraftingConflict.CODEC)
-            .reloadable(CraftingConflict::reload)
-            .build(CraftingConflict::bootstrap);
+            .reloadBuilder(CraftingConflict::reload)
+            .builder(CraftingConflict::bootstrap);
 
     public static void bootstrap() {
-        FOOD_PROPERTY.apply();
+        FOOD_PROPERTY.build();
+        DRINK_PROPERTY.build();
+        CRAFTING_CONFLICT.build();
+
         FoodPropertyLoaderCallback.EVENT.register((world, user, property) -> {
             if (world.isClient) {
                 return;

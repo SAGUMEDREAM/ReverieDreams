@@ -1,27 +1,27 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+@Setter
 @Getter
-public class NPCState implements RegistrableObject<NPCState> {
-    public static final String DEFAULT_ID = Touhou.id("normal").toString();
+public class NPCState implements CodecStep<NPCState>, OwnerBinding<NPCState>, BuiltinObject, Translatable {
+    public static final Identifier DEFAULT_ID = Touhou.id("normal");
     public static final Codec<NPCState> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Codec.STRING.optionalFieldOf("value", DEFAULT_ID).forGetter(NPCState::getType)
+                    Codec.STRING.optionalFieldOf("value", DEFAULT_ID.toString()).forGetter(NPCState::getType)
             ).apply(instance, NPCState::new)
     );
 
-    private Identifier id;
     private final String type;
+    private IntrinsicalRegister<NPCState> owner;
 
     private NPCState() {
         this.type = "null";
@@ -41,13 +41,8 @@ public class NPCState implements RegistrableObject<NPCState> {
     }
 
     @Override
-    public StandaloneRegistry<NPCState> getRegistryRef() {
+    public IntrinsicalRegister<NPCState> getOwner() {
         return RegistryManager.NPC_STATE;
-    }
-
-    @Override
-    public void setId(Identifier id) {
-        this.id = id;
     }
 
     @Override

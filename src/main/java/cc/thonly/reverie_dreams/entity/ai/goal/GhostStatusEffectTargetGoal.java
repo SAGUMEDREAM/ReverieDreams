@@ -4,19 +4,11 @@ import cc.thonly.reverie_dreams.data.ModTags;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Box;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
 
 public class GhostStatusEffectTargetGoal<T extends LivingEntity> extends StatusEffectTargetGoal<T> {
     private static final int DEFAULT_RECIPROCAL_CHANCE = 10;

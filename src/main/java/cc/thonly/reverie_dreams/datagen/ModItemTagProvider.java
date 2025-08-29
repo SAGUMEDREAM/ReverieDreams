@@ -1,16 +1,18 @@
 package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.item.MIItems;
+import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.base.*;
 import cc.thonly.reverie_dreams.block.PolymerCropCreator;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -27,20 +29,10 @@ import net.minecraft.util.Identifier;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
-    public static final Set<Item> FENCES = new HashSet<>();
-    public static final Set<Item> FENCE_GATES = new HashSet<>();
-    public static final Set<Item> WALLS = new HashSet<>();
-    public static final Set<Item> STAIRS = new HashSet<>();
-    public static final Set<Item> SLABS = new HashSet<>();
-    public static final Set<Item> BUTTONS = new HashSet<>();
-    public static final Set<Item> PRESSURE_PLATES = new HashSet<>();
-    public static final Set<Item> TRAPDOORS = new HashSet<>();
-    public static final Set<Item> DOORS = new HashSet<>();
 
     public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
@@ -51,7 +43,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         // === 基础工具方法 ===
         BiConsumer<TagKey<Item>, Collection<? extends Item>> addAll = (tag, items) -> valueLookupBuilder(tag).add(items.toArray(Item[]::new));
         Supplier<List<Item>> allDanmakuItemGetter = () -> {
-            StandaloneRegistry<DanmakuType> registry = RegistryManager.DANMAKU_TYPE;
+            IntrinsicalRegister<DanmakuType> registry = RegistryManager.DANMAKU_TYPE;
             Stream<Item> itemStream = registry.values().stream().map(DanmakuType::getItem);
             return itemStream.toList();
         };
@@ -66,25 +58,25 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         // === 通用 Tag ===
         valueLookupBuilder(ModTags.ItemTypeTag.EMPTY).add(Items.BEDROCK).add(Items.BARRIER);
         addAll.accept(ModTags.ItemTypeTag.FUMO, Fumos.getView().stream().map(Fumo::item).toList());
-        addAll.accept(ItemTags.CREEPER_DROP_MUSIC_DISCS, ModItems.getDiscItemView());
+        addAll.accept(ItemTags.CREEPER_DROP_MUSIC_DISCS, AlbumItem.ITEMS);
 
         // === 工具类 Tag ===
-        addAll.accept(ItemTags.SWORDS, BasicPolymerSwordItem.ITEMS);
-        addAll.accept(ItemTags.PICKAXES, BasicPolymerPickaxeItem.ITEMS);
-        addAll.accept(ItemTags.AXES, BasicPolymerAxeItem.ITEMS);
-        addAll.accept(ItemTags.SHOVELS, BasicPolymerShovelItem.ITEMS);
-        addAll.accept(ItemTags.HOES, BasicPolymerHoeItem.ITEMS);
+        addAll.accept(ItemTags.SWORDS, ItemTypeGroup.SWORD.items());
+        addAll.accept(ItemTags.PICKAXES, ItemTypeGroup.PICKAXES.items());
+        addAll.accept(ItemTags.AXES, ItemTypeGroup.AXES.items());
+        addAll.accept(ItemTags.SHOVELS, ItemTypeGroup.SHOVELS.items());
+        addAll.accept(ItemTags.HOES, ItemTypeGroup.HOES.items());
         addAll.accept(ItemTags.TRIDENT_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(ModItems.TENGU_SHIELD));
         addAll.accept(ConventionalItemTags.SHIELD_TOOLS, List.of(ModItems.TENGU_SHIELD));
 
         // === 盔甲类 Tag ===
-        addAll.accept(ItemTags.HEAD_ARMOR, BasicPolymerArmorItem.HEAD_ITEMS);
-        addAll.accept(ItemTags.CHEST_ARMOR, BasicPolymerArmorItem.CHEST_ITEMS);
-        addAll.accept(ItemTags.LEG_ARMOR, BasicPolymerArmorItem.LEG_ITEMS);
-        addAll.accept(ItemTags.FOOT_ARMOR, BasicPolymerArmorItem.FEET_ITEMS);
-        addAll.accept(ModTags.ItemTypeTag.ARMOR, BasicPolymerArmorItem.ITEMS);
+        addAll.accept(ItemTags.HEAD_ARMOR, ArmorItem.HEAD_ITEMS);
+        addAll.accept(ItemTags.CHEST_ARMOR, ArmorItem.CHEST_ITEMS);
+        addAll.accept(ItemTags.LEG_ARMOR, ArmorItem.LEG_ITEMS);
+        addAll.accept(ItemTags.FOOT_ARMOR, ArmorItem.FEET_ITEMS);
+        addAll.accept(ModTags.ItemTypeTag.ARMOR, ArmorItem.ITEMS);
 
         // === 工具材料 ===
         valueLookupBuilder(ModTags.ItemTypeTag.SILVER_ARMOR).add(ModItems.SILVER_HELMET, ModItems.SILVER_CHESTPLATE, ModItems.SILVER_LEGGINGS, ModItems.SILVER_BOOTS);
@@ -118,14 +110,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         // === 方块物品分类 ===
         Map<TagKey<Item>, Collection<? extends ItemConvertible>> blockItemGroups = Map.of(
-                ItemTags.FENCES, FENCES,
-                ItemTags.FENCE_GATES, FENCE_GATES,
-                ItemTags.WALLS, WALLS,
-                ItemTags.STAIRS, STAIRS,
-                ItemTags.SLABS, SLABS,
-                ItemTags.BUTTONS, BUTTONS,
-                ItemTags.TRAPDOORS, TRAPDOORS,
-                ItemTags.DOORS, DOORS
+                ItemTags.FENCES, BlockTypeGroup.FENCE.items(),
+                ItemTags.FENCE_GATES, BlockTypeGroup.FENCE_GATE.items(),
+                ItemTags.WALLS, BlockTypeGroup.WALL.items(),
+                ItemTags.STAIRS, BlockTypeGroup.STAIR.items(),
+                ItemTags.SLABS, BlockTypeGroup.SLAB.items(),
+                ItemTags.BUTTONS, BlockTypeGroup.BUTTON.items(),
+                ItemTags.TRAPDOORS, BlockTypeGroup.TRAPDOOR.items(),
+                ItemTags.DOORS, BlockTypeGroup.DOOR.items()
         );
         blockItemGroups.forEach((tag, list) -> {
             ProvidedTagBuilder<Item, Item> builder = valueLookupBuilder(tag);

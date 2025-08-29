@@ -1,60 +1,60 @@
 {
-	"schemaVersion": 1,
-	"id": "reverie_dreams",
-	"version": "${version}",
-	"name": "Gensokyo: Reverie of Lost Dreams",
-	"description": "a server-only mod for the Touhou Project",
-	"authors": [
-		"稀神灵梦"
-	],
-	"contact": {
-		"homepage": "",
-		"sources": "https://github.com/SAGUMEDREAM/ReverieDreams/"
-	},
-	"license": "GPL-3.0-or-later",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"nota.Nota",
-			"cc.thonly.reverie_dreams.Touhou",
-			"cc.thonly.mystias_izakaya.MystiasIzakaya",
-			"cc.thonly.reverie_dreams.debug.DebugExportInit",
-          "cc.thonly.reverie_dreams.EndLoaderInit"
-		],
-		"client": [
-			"cc.thonly.reverie_dreams.TouhouClient"
-		],
-		"preLaunch": [
-			"cc.thonly.reverie_dreams.TouhouEarly"
-		],
-		"fabric-datagen": [
-			"cc.thonly.reverie_dreams.TouhouDataGenerator"
-		],
-		"modmenu": [
-			"cc.thonly.reverie_dreams.ModMenuInit"
-		]
-	},
-	"mixins": [
-		"minecraft.mixins.json",
-		"reverie_dreams.mixins.json",
-		"mystias_izakaya.mixins.json"
-	],
-	"depends": {
-		"fabricloader": "*",
-		"minecraft": ">=1.21.7 <=1.21.8",
-		"java": ">=21",
-		"fabric-api": "*",
-		"polymer-core": "*",
-		"polymer-networking": "*",
-		"polymer-virtual-entity": "*",
-		"polymer-resource-pack": "*",
-		"midnightlib": "*",
-		"resourceconfigapi": "*"
-	},
-	"suggests": {
-		"eiv": "*",
-		"polydex": "*",
-		"polydex2eiv": "*"
-	},
-	"accessWidener": "reverie_dreams.accesswidener"
+  "schemaVersion": 1,
+  "id": "reverie_dreams",
+  "version": "${version}",
+  "name": "Gensokyo: Reverie of Lost Dreams",
+  "description": "a server-only mod for the Touhou Project",
+  "authors": [
+    "稀神灵梦"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "https://github.com/SAGUMEDREAM/ReverieDreams/"
+  },
+  "license": "GPL-3.0-or-later",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "nota.Nota",
+      "cc.thonly.reverie_dreams.Touhou",
+      "cc.thonly.mystias_izakaya.MystiasIzakaya",
+      "cc.thonly.reverie_dreams.debug.DebugExportInit",
+      "cc.thonly.reverie_dreams.LateLoaderInit"
+    ],
+    "client": [
+      "cc.thonly.reverie_dreams.TouhouClient"
+    ],
+    "preLaunch": [
+      "cc.thonly.reverie_dreams.TouhouEarly"
+    ],
+    "fabric-datagen": [
+      "cc.thonly.reverie_dreams.TouhouDataGenerator"
+    ],
+    "modmenu": [
+      "cc.thonly.reverie_dreams.ModMenuInit"
+    ]
+  },
+  "mixins": [
+    "minecraft.mixins.json",
+    "reverie_dreams.mixins.json",
+    "mystias_izakaya.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": ">=1.21.7 <=1.21.8",
+    "java": ">=21",
+    "fabric-api": "*",
+    "polymer-core": "*",
+    "polymer-networking": "*",
+    "polymer-virtual-entity": "*",
+    "polymer-resource-pack": "*",
+    "midnightlib": "*",
+    "resourceconfigapi": "*"
+  },
+  "suggests": {
+    "eiv": "*",
+    "polydex": "*",
+    "polydex2eiv": "*"
+  },
+  "accessWidener": "reverie_dreams.accesswidener"
 }

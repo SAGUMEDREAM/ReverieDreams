@@ -22,9 +22,9 @@ import java.util.Map;
 @Slf4j
 public class RecipeManager {
     public static final Map<Identifier, BaseRecipeType<?>> RECIPE_TYPES = new Object2ObjectOpenHashMap<>();
-    public static final BaseRecipeType<DanmakuRecipe> DANMAKU_TYPE = register(Touhou.id("danmaku"), new DanmakuRecipeType());
-    public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = register(Touhou.id("gensokyo_altar"), new GensokyoAltarRecipeType());
-    public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = register(Touhou.id("strength_table"), new StrengthTableRecipeType());
+    public static final BaseRecipeType<DanmakuRecipe> DANMAKU_TYPE = registerRecipeType(Touhou.id("danmaku"), new DanmakuRecipeType());
+    public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(Touhou.id("gensokyo_altar"), new GensokyoAltarRecipeType());
+    public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(Touhou.id("strength_table"), new StrengthTableRecipeType());
 
     public static void bootstrap() {
 
@@ -35,7 +35,7 @@ public class RecipeManager {
             Map<Identifier, ?> registryView = recipeTypeEntry.getValue().getRegistryView();
             for (Map.Entry<Identifier, ?> recipeEntry : registryView.entrySet()) {
                 Object recipeObj = recipeEntry.getValue();
-                ItemStackRecipeWrapper wrapper = getOutputReflective(recipeObj);
+                ItemStackWrapper wrapper = getOutputReflective(recipeObj);
                 if (wrapper != null && wrapper.getItem() == item) {
                     return (BaseRecipe) recipeObj;
                 }
@@ -44,12 +44,12 @@ public class RecipeManager {
         return null;
     }
 
-    public static ItemStackRecipeWrapper getOutputReflective(Object recipeObj) {
+    public static ItemStackWrapper getOutputReflective(Object recipeObj) {
         try {
             Method method = recipeObj.getClass().getMethod("getOutput");
             Object result = method.invoke(recipeObj);
 
-            if (result instanceof ItemStackRecipeWrapper wrapper) {
+            if (result instanceof ItemStackWrapper wrapper) {
                 return wrapper;
             }
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class RecipeManager {
         });
     }
 
-    public static<R extends BaseRecipe> BaseRecipeType<R> register(Identifier id, BaseRecipeType<R> recipeType) {
+    public static<R extends BaseRecipe> BaseRecipeType<R> registerRecipeType(Identifier id, BaseRecipeType<R> recipeType) {
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();
         assert id == recipeType.getId();

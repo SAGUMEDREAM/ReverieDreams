@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.mystias_izakaya.block.AbstractKitchenwareBlock;
+import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.DecorativeBlockCreator;
 import cc.thonly.reverie_dreams.block.WoodCreator;

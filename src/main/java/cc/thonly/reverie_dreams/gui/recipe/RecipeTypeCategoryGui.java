@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.gui.recipe;
 
+import cc.thonly.reverie_dreams.gui.BasePageGui;
 import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.gui.BasePageGui;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;

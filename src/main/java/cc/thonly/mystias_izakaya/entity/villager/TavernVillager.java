@@ -3,9 +3,8 @@ package cc.thonly.mystias_izakaya.entity.villager;
 import cc.thonly.mystias_izakaya.entity.MIEntities;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.item.base.DrinkItem;
-import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.villager.AbstractSeller;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
@@ -61,7 +60,7 @@ public class TavernVillager extends AbstractSeller {
             int emeraldAmount = pair.getRight();
 
             ItemStack sellItem = new ItemStack(item, 6);
-            ItemStackRecipeWrapper wrapper = ItemStackRecipeWrapper.of(sellItem);
+            ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
 
             TradedItem first = new TradedItem(Items.EMERALD, emeraldAmount);
             TradedItem second = new TradedItem(Items.GLASS_BOTTLE, 1);
@@ -89,7 +88,7 @@ public class TavernVillager extends AbstractSeller {
 
         for (Item item : selectedDrinks) {
             ItemStack sellItem = new ItemStack(item, 6);
-            ItemStackRecipeWrapper wrapper = ItemStackRecipeWrapper.of(sellItem);
+            ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
 
             int emeraldAmount = DrinkItem.PRICE_CALCULATION_TABLE.getOrDefault(item,8) + random.nextInt(2);
             TradedItem first = new TradedItem(Items.EMERALD, emeraldAmount);

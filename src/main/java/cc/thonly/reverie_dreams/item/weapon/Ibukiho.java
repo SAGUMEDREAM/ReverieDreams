@@ -1,9 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
-import net.minecraft.component.type.ConsumableComponent;
-import net.minecraft.component.type.FoodComponent;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -12,29 +10,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class Ibukiho extends BasicPolymerSwordItem {
+public class Ibukiho extends SwordItem {
     public static final ToolMaterial IBUKIHO = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.WART_BLOCKS);
 
-    public Ibukiho(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, IBUKIHO,
-                attackDamage + 1,
-                attackSpeed - 2.4f,
+    public Ibukiho(float attackDamage, float attackSpeed, Settings settings) {
+        super(IBUKIHO,
+                attackDamage,
+                attackSpeed,
                 settings
-                        .useCooldown(130f)
-                        .fireproof()
-                        .food(new FoodComponent.Builder()
-                                        .alwaysEdible()
-                                        .saturationModifier(-4f)
-                                        .build(),
-                                ConsumableComponent.builder()
-                                        .consumeSeconds(3f)
-                                        .finishSound(SoundEvents.ENTITY_GENERIC_DRINK)
-                                        .build()
-                        )
         );
     }
 

@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.danmaku;
 
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.item.Item;
@@ -25,7 +26,6 @@ public class SpellCardTemplates {
         var x = registerTemplateItem(DanmakuTrajectories.X);
         var round = registerTemplateItem(DanmakuTrajectories.ROUND);
         var ring = registerTemplateItem(DanmakuTrajectories.RING);
-
     }
 
     public static void init() {
@@ -33,16 +33,16 @@ public class SpellCardTemplates {
     }
 
     public static DanmakuTrajectory registerTemplateItem(DanmakuTrajectory entry) {
-        Identifier id = entry.getId();
+        Identifier id = RegistryManager.DANMAKU_TRAJECTORY.getId(entry);
         assert id != null;
         return registerTemplateItem(id, entry);
     }
 
-    public static DanmakuTrajectory registerTemplateItem(Identifier key, DanmakuTrajectory value) {
+    public static DanmakuTrajectory registerTemplateItem(Identifier key, DanmakuTrajectory entry) {
         assert key != null;
-        TEMPLATES.put(key, value);
+        TEMPLATES.put(key, entry);
         TEMPLATE_ITEM_STACKS.put(key, createItemStack(key));
-        return value;
+        return entry;
     }
 
     public static ItemStack createItemStack(Identifier key) {

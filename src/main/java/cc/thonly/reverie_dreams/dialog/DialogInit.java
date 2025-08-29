@@ -7,12 +7,12 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.NetUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Blocks;
 import net.minecraft.dialog.AfterAction;
 import net.minecraft.dialog.DialogActionButtonData;
@@ -97,9 +97,9 @@ public class DialogInit {
         record SubInfo(String argId, Identifier registryKey, MultiActionDialog dialog) {
         }
         List<SubInfo> list = new ArrayList<>();
-        for (Map.Entry<Identifier, StandaloneRegistry<?>> mapEntry : RegistryManager.REGISTRIES.entrySet()) {
-            Identifier key = mapEntry.getKey();
-            StandaloneRegistry<?> registry = mapEntry.getValue();
+        for (Map.Entry<RegistryKey<? extends Registry<?>>, IntrinsicalRegister<?>> mapEntry : RegistryManager.ROOT.entrySet()) {
+            Identifier key = mapEntry.getKey().getValue();
+            IntrinsicalRegister<?> registry = mapEntry.getValue();
             MutableText text = Text.empty();
             var page = new MultiActionDialog(
                     new DialogCommonData(
@@ -116,11 +116,19 @@ public class DialogInit {
             );
             for (Map.Entry<Identifier, ?> id2ValueMapEntry : registry.entrySet()) {
                 Identifier entryKey = id2ValueMapEntry.getKey();
-                RegistrableObject<?> entryValue = (RegistrableObject<?>) id2ValueMapEntry.getValue();
-                text.append(entryKey.toString());
-                text.append(" → ");
-                text.append(Text.translatable(entryValue.translateKey()));
-                text.append("\n");
+                Object entryValue = id2ValueMapEntry.getValue();
+                if (entryValue instanceof Translatable translatable) {
+                    text.append(entryKey.toString());
+                    text.append(" → ");
+                    text.append(Text.translatable(translatable.translateKey()));
+                    text.append("\n");
+                } else if (entryValue instanceof OwnerBinding<?> owner) {
+                    IntrinsicalRegister<?> registryRef = owner.getOwner();
+                    text.append(entryKey.toString());
+                    text.append(" → ");
+                    text.append(Text.translatable(registryRef.getKey().getValue().getPath() + ".null"));
+                    text.append("\n");
+                }
             }
             page.common().body().add(new PlainMessageDialogBody(text, 800));
             page.actions().add(new DialogActionButtonData(

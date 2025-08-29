@@ -1,10 +1,9 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerDanmakuItem;
+import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.FireworkRocketItem;
 import net.minecraft.item.ItemStack;
@@ -26,7 +25,7 @@ public class RangedAttackUtil {
     }
 
     public static boolean isDanmakuInHand(NPCEntityImpl maid) {
-        return maid.getInventory().getMainHand().getItem() instanceof BasicPolymerDanmakuItem;
+        return maid.getInventory().getMainHand().getItem() instanceof AbstractDanmakuItem;
     }
 
     public static boolean loadProjectiles(ItemStack crossbow, ItemStack ammo, LivingEntity user) {

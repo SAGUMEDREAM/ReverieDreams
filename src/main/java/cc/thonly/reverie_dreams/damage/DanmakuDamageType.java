@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.damage;
 
-import cc.thonly.mystias_izakaya.component.CraftingConflict;
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,15 +18,13 @@ import net.minecraft.util.Identifier;
 
 @Setter
 @Getter
-public class DanmakuDamageType implements RegistrableObject<DanmakuDamageType> {
+public class DanmakuDamageType implements CodecStep<DanmakuDamageType>, OwnerBinding<DanmakuDamageType>, BuiltinObject {
     public static final Codec<DanmakuDamageType> CODEC = RegistryKey.createCodec(RegistryKeys.DAMAGE_TYPE)
             .xmap(DanmakuDamageType::new, DanmakuDamageType::getRegistryKey);
+    public static final Identifier DEFAULT_ID = Touhou.id("generic");
     private Identifier id;
     private final RegistryKey<DamageType> registryKey;
-
-    public DanmakuDamageType() {
-        this.registryKey = null;
-    }
+    private IntrinsicalRegister<DanmakuDamageType> owner;
 
     public DanmakuDamageType(RegistryKey<DamageType> registryKey) {
         this.registryKey = registryKey;
@@ -54,11 +51,6 @@ public class DanmakuDamageType implements RegistrableObject<DanmakuDamageType> {
         if (this.registryKey == null) return null;
         Registry<DamageType> registry = registryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE);
         return registry.get(this.registryKey);
-    }
-
-    @Override
-    public StandaloneRegistry<DanmakuDamageType> getRegistryRef() {
-        return RegistryManager.DANMAKU_DAMAGE_TYPE;
     }
 
     @Override

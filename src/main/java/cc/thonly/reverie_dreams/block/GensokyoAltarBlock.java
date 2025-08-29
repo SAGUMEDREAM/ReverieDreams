@@ -1,24 +1,16 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.block.entity.BasicPolymerFactoryBlockWithEntity;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
 import cc.thonly.reverie_dreams.gui.recipe.block.GensokyoAltarGui;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
 import com.mojang.serialization.MapCodec;
-import eu.pb4.factorytools.api.virtualentity.BlockModel;
-import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
-import eu.pb4.polymer.virtualentity.api.ElementHolder;
-import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
-import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
-import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -35,19 +27,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
-public class GensokyoAltarBlock extends BasicPolymerFactoryBlockWithEntity {
-    public static final Map<BlockState, AltarModel> STATE_TO_MODEL = new HashMap<>();
+public class GensokyoAltarBlock extends BlockWithEntity {
     public static final int[][] OFFSETS = {
             {0, -4}, {-3, -3}, {3, -3},
             {-4, 0}, {4, 0},
@@ -55,8 +41,8 @@ public class GensokyoAltarBlock extends BasicPolymerFactoryBlockWithEntity {
     };
 
 
-    public GensokyoAltarBlock(String path, Settings settings) {
-        super(path, settings);
+    public GensokyoAltarBlock(Settings settings) {
+        super(settings);
     }
 
     @Override
@@ -113,15 +99,15 @@ public class GensokyoAltarBlock extends BasicPolymerFactoryBlockWithEntity {
 
     protected GensokyoAltarRecipe tryCraft(SimpleInventory inventory, BlockPos pos) {
         List<GensokyoAltarRecipe> matches = GensokyoAltarRecipeType.getInstance().getMatches(List.of(
-                new ItemStackRecipeWrapper(inventory.getStack(0)),
-                new ItemStackRecipeWrapper(inventory.getStack(1)),
-                new ItemStackRecipeWrapper(inventory.getStack(2)),
-                new ItemStackRecipeWrapper(inventory.getStack(3)),
-                new ItemStackRecipeWrapper(inventory.getStack(4)),
-                new ItemStackRecipeWrapper(inventory.getStack(5)),
-                new ItemStackRecipeWrapper(inventory.getStack(6)),
-                new ItemStackRecipeWrapper(inventory.getStack(7)),
-                new ItemStackRecipeWrapper(inventory.getStack(8))
+                new ItemStackWrapper(inventory.getStack(0)),
+                new ItemStackWrapper(inventory.getStack(1)),
+                new ItemStackWrapper(inventory.getStack(2)),
+                new ItemStackWrapper(inventory.getStack(3)),
+                new ItemStackWrapper(inventory.getStack(4)),
+                new ItemStackWrapper(inventory.getStack(5)),
+                new ItemStackWrapper(inventory.getStack(6)),
+                new ItemStackWrapper(inventory.getStack(7)),
+                new ItemStackWrapper(inventory.getStack(8))
         ));
         if (matches.isEmpty()) {
             return null;
@@ -153,104 +139,14 @@ public class GensokyoAltarBlock extends BasicPolymerFactoryBlockWithEntity {
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState state) {
-        AltarModel altarModel = new AltarModel(world, pos, state);
-        STATE_TO_MODEL.put(state, altarModel);
-        return altarModel;
-    }
-
-    public static class AltarModel extends BlockModel {
-        protected ItemDisplayElement main;
-        public final ItemDisplayElement[] itemStackDisplay = new ItemDisplayElement[9];
-        BlockState state;
-        BlockPos pos;
-        ServerWorld world;
-        GensokyoAltarBlockEntity blockEntity;
-        SimpleInventory inventory;
-
-        public AltarModel(ServerWorld world, BlockPos pos, BlockState state) {
-            init(state);
-            this.world = world;
-            this.pos = pos;
-            this.state = state;
-        }
-
-        public GensokyoAltarBlockEntity getBlockEntityFromWorld() {
-            if (this.world == null) return null;
-            return (GensokyoAltarBlockEntity) this.world.getBlockEntity(this.pos);
-        }
-
-        public float angle = 0;
-
-        public void update() {
-            this.blockEntity = this.getBlockEntityFromWorld();
-            if (this.blockEntity == null) return;
-            this.inventory = this.blockEntity.getInventory();
-
-            for (int i = 0; i < this.itemStackDisplay.length; i++) {
-                ItemStack stack = this.inventory.getStack(i);
-                ItemDisplayElement element = this.itemStackDisplay[i];
-
-                if (stack.isEmpty()) {
-                    if (element != null) {
-                        this.removeElement(element);
-                        this.itemStackDisplay[i] = null;
-                    }
-                    continue;
-                }
-
-                if (element == null || !ItemStack.areEqual(stack, element.getItem())) {
-                    if (element != null) {
-                        this.removeElement(element);
-                    }
-
-                    ItemDisplayElement newElement = ItemDisplayElementUtil.createSimple(stack);
-                    int[] offset = OFFSETS[i];
-                    newElement.setScale(new Vector3f(i != 8 ? 0.6f : 0.5f));
-                    newElement.setDisplaySize(0.5f, 0.5f);
-                    newElement.setOffset(new Vec3d(offset[0], i != 8 ? 3 : 0.5, offset[1]));
-
-                    this.addElement(newElement);
-                    this.itemStackDisplay[i] = newElement;
-                }
-            }
-        }
-
-        public void init(BlockState state) {
-            main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
-            main.setScale(new Vector3f(2f));
-            addElement(main);
-        }
-
-        protected void updateItem(BlockState state) {
-            this.removeElement(main);
-            init(state);
-        }
-
-        @Override
-        public void notifyUpdate(HolderAttachment.UpdateType updateType) {
-            if (updateType == BlockBoundAttachment.BLOCK_STATE_UPDATE) {
-                updateItem(this.blockState());
-                this.update();
-            }
-            super.notifyUpdate(updateType);
-        }
-    }
-
-    @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec((settings) -> new GensokyoAltarBlock(this.getIdentifier().toString(), settings));
+        return createCodec(GensokyoAltarBlock::new);
     }
 
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new GensokyoAltarBlockEntity(pos, state);
-    }
-
-    @Override
-    public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return Blocks.ENCHANTING_TABLE.getDefaultState();
     }
 
 }

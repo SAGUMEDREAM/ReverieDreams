@@ -1,7 +1,5 @@
 package cc.thonly.minecraft.item;
 
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import de.crafty.eiv.common.patches.ItemStackPatches;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;

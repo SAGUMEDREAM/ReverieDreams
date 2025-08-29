@@ -3,11 +3,11 @@ package cc.thonly.reverie_dreams.recipe.type;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.item.RoleFollowerArchiveItem;
-import cc.thonly.reverie_dreams.item.SpellCardTemplateItem;
+import cc.thonly.reverie_dreams.item.prop.RoleFollowerArchiveItem;
+import cc.thonly.reverie_dreams.item.prop.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -15,7 +15,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.resource.Resource;
@@ -72,26 +71,26 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
     public void registerDynamicRecipe() {
-        this.add(Touhou.id("role_archive"), new GensokyoAltarRecipe(ItemStackRecipeWrapper.of(ModItems.ROLE_ARCHIVE), List.of(
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2)
-        ), ItemStackRecipeWrapper.of(ModItems.ROLE_ARCHIVE)));
-        this.add(Touhou.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackRecipeWrapper.of(ModItems.SPELL_CARD_TEMPLATE), List.of(
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2),
-                ItemStackRecipeWrapper.of(Items.DIAMOND, 2)
-        ), ItemStackRecipeWrapper.of(ModItems.SPELL_CARD_TEMPLATE, 2)));
+        this.add(Touhou.id("role_archive"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.ROLE_ARCHIVE), List.of(
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2)
+        ), ItemStackWrapper.of(ModItems.ROLE_ARCHIVE)));
+        this.add(Touhou.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.SPELL_CARD_TEMPLATE), List.of(
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2),
+                ItemStackWrapper.of(Items.DIAMOND, 2)
+        ), ItemStackWrapper.of(ModItems.SPELL_CARD_TEMPLATE, 2)));
     }
 
     @Override
@@ -99,9 +98,9 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
     }
 
-    public List<GensokyoAltarRecipe> getModifierRecipe(List<ItemStackRecipeWrapper> wrappers) {
+    public List<GensokyoAltarRecipe> getModifierRecipe(List<ItemStackWrapper> wrappers) {
         List<GensokyoAltarRecipe> matches = new ArrayList<>();
-        ItemStackRecipeWrapper coreWrapper = wrappers.get(8);
+        ItemStackWrapper coreWrapper = wrappers.get(8);
 
         Predicate<Integer> isAllMatch = (amount) -> {
             return IntStream.range(0, 8).allMatch(i ->
@@ -115,8 +114,8 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,
-                    Collections.nCopies(8, ItemStackRecipeWrapper.of(Items.DIAMOND, 2)),
-                    ItemStackRecipeWrapper.of(itemStack)
+                    Collections.nCopies(8, ItemStackWrapper.of(Items.DIAMOND, 2)),
+                    ItemStackWrapper.of(itemStack)
             ));
         }
 
@@ -126,8 +125,8 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,
-                    Collections.nCopies(8, ItemStackRecipeWrapper.of(Items.DIAMOND, 2)),
-                    ItemStackRecipeWrapper.of(itemStack)
+                    Collections.nCopies(8, ItemStackWrapper.of(Items.DIAMOND, 2)),
+                    ItemStackWrapper.of(itemStack)
             ));
         }
 
@@ -136,22 +135,22 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
 
     @Override
-    public List<GensokyoAltarRecipe> getMatches(List<ItemStackRecipeWrapper> wrappers) {
+    public List<GensokyoAltarRecipe> getMatches(List<ItemStackWrapper> wrappers) {
         if (wrappers.size() < 8) return List.of();
         List<GensokyoAltarRecipe> matches = this.getModifierRecipe(wrappers);
 
         if (matches.isEmpty()) {
             for (GensokyoAltarRecipe recipe : stream().toList()) {
-                List<ItemStackRecipeWrapper> slots = recipe.getSlots();
-                ItemStackRecipeWrapper slot0 = slots.get(0);
-                ItemStackRecipeWrapper slot1 = slots.get(1);
-                ItemStackRecipeWrapper slot2 = slots.get(2);
-                ItemStackRecipeWrapper slot3 = slots.get(3);
-                ItemStackRecipeWrapper slot4 = slots.get(4);
-                ItemStackRecipeWrapper slot5 = slots.get(5);
-                ItemStackRecipeWrapper slot6 = slots.get(6);
-                ItemStackRecipeWrapper slot7 = slots.get(7);
-                ItemStackRecipeWrapper slot8 = recipe.getCore();
+                List<ItemStackWrapper> slots = recipe.getSlots();
+                ItemStackWrapper slot0 = slots.get(0);
+                ItemStackWrapper slot1 = slots.get(1);
+                ItemStackWrapper slot2 = slots.get(2);
+                ItemStackWrapper slot3 = slots.get(3);
+                ItemStackWrapper slot4 = slots.get(4);
+                ItemStackWrapper slot5 = slots.get(5);
+                ItemStackWrapper slot6 = slots.get(6);
+                ItemStackWrapper slot7 = slots.get(7);
+                ItemStackWrapper slot8 = recipe.getCore();
                 if (
                         wrappers.get(0).test(slot0.getItemStack()) &&
                                 wrappers.get(1).test(slot1.getItemStack()) &&
@@ -172,7 +171,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
     @Override
-    public Boolean isMatch(ItemStackRecipeWrapper input, ItemStackRecipeWrapper recipe) {
+    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
         return false;
     }
 

@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.util;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.IntProperty;

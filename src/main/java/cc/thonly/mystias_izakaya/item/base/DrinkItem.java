@@ -1,13 +1,10 @@
 package cc.thonly.mystias_izakaya.item.base;
 
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
-import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponents;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.HungerManager;
@@ -27,21 +24,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class DrinkItem extends BasicPolymerItem {
+public class DrinkItem extends Item {
     public static final Map<Item, Set<DrinkProperty>> ITEM_DRINK_CACHED = new HashMap<>();
     public static final Map<Item, Integer> PRICE_CALCULATION_TABLE = new Object2ObjectOpenHashMap<>();
 
-    public DrinkItem(String path, Settings settings) {
-        super(path, settings.maxCount(16)
+    public DrinkItem(Settings settings) {
+        super(settings.maxCount(16)
                 .component(DataComponentTypes.CONSUMABLE, ConsumableComponents.DRINK)
-                .useRemainder(Items.GLASS_BOTTLE), Items.POTION);
+                .useRemainder(Items.GLASS_BOTTLE));
     }
 
-    public DrinkItem(String path, List<DrinkProperty> drinkProperties, Settings settings) {
-        super(path, settings.maxCount(16)
+    public DrinkItem(List<DrinkProperty> drinkProperties, Settings settings) {
+        super(settings.maxCount(16)
                 .component(DataComponentTypes.CONSUMABLE, ConsumableComponents.DRINK)
                 .component(MIDataComponentTypes.DRINK_PROPERTIES, drinkProperties.stream().map(DrinkProperty::getId).map(Identifier::toString).toList())
-                .useRemainder(Items.GLASS_BOTTLE), Items.POTION);
+                .useRemainder(Items.GLASS_BOTTLE));
     }
 
     @Override

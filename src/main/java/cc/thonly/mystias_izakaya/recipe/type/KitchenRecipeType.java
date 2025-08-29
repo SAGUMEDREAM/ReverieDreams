@@ -4,7 +4,7 @@ import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -88,12 +88,12 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
 
     }
 
-    public List<KitchenRecipe> getMatches(KitchenType type, List<ItemStackRecipeWrapper> inputs) {
+    public List<KitchenRecipe> getMatches(KitchenType type, List<ItemStackWrapper> inputs) {
         List<KitchenRecipe> matches = new ArrayList<>();
         Map<Identifier, KitchenRecipe> registryView = this.getRecipeView(type);
 
         for (KitchenRecipe recipe : registryView.values()) {
-            List<ItemStackRecipeWrapper> ingredients = recipe.getIngredients();
+            List<ItemStackWrapper> ingredients = recipe.getIngredients();
 
             boolean allMatched = ingredients.stream().allMatch(ingredient ->
                     inputs.stream().anyMatch(input ->
@@ -110,12 +110,12 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     }
 
     @Override
-    public List<KitchenRecipe> getMatches(List<ItemStackRecipeWrapper> list) {
+    public List<KitchenRecipe> getMatches(List<ItemStackWrapper> list) {
         return List.of();
     }
 
     @Override
-    public Boolean isMatch(ItemStackRecipeWrapper input, ItemStackRecipeWrapper recipe) {
+    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
         return false;
     }
 

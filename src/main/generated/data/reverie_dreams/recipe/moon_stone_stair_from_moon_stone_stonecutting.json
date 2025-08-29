@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "reverie_dreams:moon_stone",
-  "result": {
-    "count": 1,
-    "id": "reverie_dreams:moon_stone_stair"
-  }
-}

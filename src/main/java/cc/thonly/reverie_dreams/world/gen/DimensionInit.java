@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.Touhou;
 import net.minecraft.block.Blocks;
-import net.minecraft.registry.*;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.source.FixedBiomeSource;
 import net.minecraft.world.dimension.DimensionOptions;
@@ -14,7 +14,6 @@ import net.minecraft.world.gen.chunk.FlatChunkGeneratorLayer;
 import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Optional;
 
 public class DimensionInit {

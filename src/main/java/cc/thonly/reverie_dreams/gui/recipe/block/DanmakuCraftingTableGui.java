@@ -5,9 +5,9 @@ import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import lombok.Getter;
@@ -98,7 +98,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
         this.tick++;
 
         if (this.tick > 2) {
-            List<ItemStackRecipeWrapper> slots = getInputs();
+            List<ItemStackWrapper> slots = getInputs();
 //            System.out.println(slots);
             List<DanmakuRecipe> recipeEntries = RecipeManager.DANMAKU_TYPE.getMatches(slots);
 //            System.out.println(recipeEntries);
@@ -107,7 +107,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
             for (int slot : this.cSlots) {
                 if (resultIndex < recipeEntries.size()) {
                     DanmakuRecipe recipeEntry = recipeEntries.get(resultIndex++);
-                    ItemStackRecipeWrapper resultSlot = recipeEntry.getOutput();
+                    ItemStackWrapper resultSlot = recipeEntry.getOutput();
                     ItemStack resultItemStack = resultSlot.getItemStack().copy();
                     GuiElementBuilder elementBuilder = new GuiElementBuilder()
                             .setItem(resultItemStack.getItem())
@@ -130,7 +130,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     private void handleCrafting(int index, DanmakuRecipe recipeEntry) {
         SimpleInventory inventory = blockEntity.getInventory();
         // 移除配方中所需的物品
-        for (ItemStackRecipeWrapper countRecipeSlot : List.of(recipeEntry.getDye(), recipeEntry.getCore(), recipeEntry.getPower(), recipeEntry.getPoint(), recipeEntry.getMaterial())) {
+        for (ItemStackWrapper countRecipeSlot : List.of(recipeEntry.getDye(), recipeEntry.getCore(), recipeEntry.getPower(), recipeEntry.getPoint(), recipeEntry.getMaterial())) {
             if (countRecipeSlot.getItem() != Items.AIR) {
                 Item item = countRecipeSlot.getItem();
                 int count = countRecipeSlot.getCount();
@@ -139,17 +139,17 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
         }
 
         // 获取合成结果并给予玩家
-        ItemStackRecipeWrapper resultSlot = recipeEntry.getOutput();
+        ItemStackWrapper resultSlot = recipeEntry.getOutput();
         ItemStack resultItemStack = resultSlot.getItemStack().copy();
 
         this.player.giveItemStack(resultItemStack);
     }
 
-    private List<ItemStackRecipeWrapper> getInputs() {
-        List<ItemStackRecipeWrapper> countRecipeSlotList = new LinkedList<>();
+    private List<ItemStackWrapper> getInputs() {
+        List<ItemStackWrapper> countRecipeSlotList = new LinkedList<>();
         for (int i = 0; i < 5; i++) {
             ItemStack itemStack = this.blockEntity.getInventory().getStack(i);
-            countRecipeSlotList.add(new ItemStackRecipeWrapper(itemStack));
+            countRecipeSlotList.add(new ItemStackWrapper(itemStack));
         }
         return countRecipeSlotList;
     }

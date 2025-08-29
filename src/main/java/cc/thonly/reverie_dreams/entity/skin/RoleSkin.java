@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.entity.skin;
 
-import cc.thonly.reverie_dreams.registry.RegistrableObject;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -10,8 +9,8 @@ import lombok.Setter;
 import net.minecraft.util.Identifier;
 
 
-public class RoleSkin implements RegistrableObject<RoleSkin> {
-    public static final Codec<RoleSkin> NULL_CODEC = Codec.unit(RoleSkin::new);
+public class RoleSkin implements CodecStep<RoleSkin>, OwnerBinding<RoleSkin>, BuiltinObject {
+    public static final Codec<RoleSkin> UNIT_CODEC = Codec.unit(RoleSkin::new);
     public static final Codec<RoleSkin> CODEC = null;
     @Setter
     @Getter
@@ -19,6 +18,9 @@ public class RoleSkin implements RegistrableObject<RoleSkin> {
     private String value;
     private String signature;
     private Property instance;
+    @Getter
+    @Setter
+    private IntrinsicalRegister<RoleSkin> owner;
 
     private RoleSkin() {
     }
@@ -47,12 +49,7 @@ public class RoleSkin implements RegistrableObject<RoleSkin> {
     }
 
     @Override
-    public StandaloneRegistry<RoleSkin> getRegistryRef() {
-        return RegistryManager.ROLE_SKIN;
-    }
-
-    @Override
     public Codec<RoleSkin> getCodec() {
-        return NULL_CODEC;
+        return UNIT_CODEC;
     }
 }

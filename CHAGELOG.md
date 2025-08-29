@@ -6,8 +6,14 @@
 * Fixed `Big Cirno` Size is correct
 * Fixed Earphone pairing working when player is in spectator mode
 * Fixed `Moonstone` and `Dreamstone` missing their slab and stair recipes
+* Fixed Danmaku Item ignoring cooldown on entities
+* Added compatibility with `moredelight`
+* Added compatibility with `oceansdelight-port`
+* Added compatibility with `spanishdelight`
+* Added compatibility with `gofish`
 * Shortened the duration of the negative effect of food attribute `BIZARRE`
-* 
+* Better compatibility with Polymer and visual effects that match the original
+* The Mod code engineering architecture rewrite
 
 ## 0.3.3+1.21.7
 * Fixed doors and slabs not LootTable json 

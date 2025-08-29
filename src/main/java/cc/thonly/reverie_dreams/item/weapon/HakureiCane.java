@@ -4,13 +4,12 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.ItemColor;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -19,11 +18,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class HakureiCane extends BasicPolymerSwordItem {
+public class HakureiCane extends SwordItem {
     public static final ToolMaterial HAKUREI_CANE = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 250, 4.0f, 3.5f, 5, ItemTags.IRON_TOOL_MATERIALS);
 
-    public HakureiCane(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, HAKUREI_CANE, attackDamage + 1f, attackSpeed - 2.4f, settings);
+    public HakureiCane(float attackDamage, float attackSpeed, Settings settings) {
+        super(HAKUREI_CANE, attackDamage, attackSpeed, settings);
     }
 
     @Override

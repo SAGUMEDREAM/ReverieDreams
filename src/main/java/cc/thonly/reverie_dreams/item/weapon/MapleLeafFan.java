@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -21,12 +21,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class MapleLeafFan extends BasicPolymerSwordItem {
+public class MapleLeafFan extends SwordItem {
     public static final ToolMaterial MAPLE_LEAF_FAN = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 250, 4.0f, 2.5f, 5, ItemTags.GOLD_TOOL_MATERIALS);
     public static float POWER = 1.5f;
 
-    public MapleLeafFan(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, MAPLE_LEAF_FAN, attackDamage + 1f, attackSpeed - 2.4f, settings.useCooldown(0.5f));
+    public MapleLeafFan(float attackDamage, float attackSpeed, Settings settings) {
+        super(MAPLE_LEAF_FAN, attackDamage + 1f, attackSpeed - 2.4f, settings.useCooldown(0.5f));
     }
 
     @Override

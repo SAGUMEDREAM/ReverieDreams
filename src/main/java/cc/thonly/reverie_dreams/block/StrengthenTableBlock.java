@@ -1,10 +1,8 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.block.base.BasicPolymerBlockWithEntity;
 import cc.thonly.reverie_dreams.block.entity.StrengthenTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.recipe.block.StrengthTableGui;
 import com.mojang.serialization.MapCodec;
-import eu.pb4.polymer.blocks.api.BlockModelType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -18,16 +16,11 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
 
-public class StrengthenTableBlock extends BasicPolymerBlockWithEntity {
-    public StrengthenTableBlock(String path, Settings settings) {
-        super(path, BlockModelType.FULL_BLOCK, settings);
-    }
+public class StrengthenTableBlock extends BlockWithEntity {
 
-    @Override
-    public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return state;
+    protected StrengthenTableBlock(Settings settings) {
+        super(settings);
     }
 
     @Override
@@ -58,7 +51,7 @@ public class StrengthenTableBlock extends BasicPolymerBlockWithEntity {
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec((settings) -> new StrengthenTableBlock(this.getIdentifier().toString(), settings));
+        return createCodec(StrengthenTableBlock::new);
     }
 
     @Nullable

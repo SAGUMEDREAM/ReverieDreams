@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.world.World;
 
 public class WakeUpGoal extends Goal {

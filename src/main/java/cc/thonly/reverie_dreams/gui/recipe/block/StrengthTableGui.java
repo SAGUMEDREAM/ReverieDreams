@@ -4,9 +4,9 @@ import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.entity.StrengthenTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;
 import lombok.Getter;
@@ -51,15 +51,15 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
 //        this.inputText = this.getInput();
         ItemStack mainStack = this.blockEntity.getInventory().getStack(0).copy();
         ItemStack offStack = this.blockEntity.getInventory().getStack(1).copy();
-        ItemStackRecipeWrapper mainSlot = new ItemStackRecipeWrapper(mainStack);
-        ItemStackRecipeWrapper offSlot = new ItemStackRecipeWrapper(offStack);
+        ItemStackWrapper mainSlot = new ItemStackWrapper(mainStack);
+        ItemStackWrapper offSlot = new ItemStackWrapper(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
         if (entries.isEmpty()) {
             return;
         }
         StrengthTableRecipe entry = entries.getFirst();
         if (entry != null) {
-            ItemStackRecipeWrapper outputItemWrapper = entry.getOutput();
+            ItemStackWrapper outputItemWrapper = entry.getOutput();
             this.output = new GuiElementBuilder()
                     .setCallback((index, type, action) -> click());
             IGuiElementBuilderAccessor outputAccessor = (IGuiElementBuilderAccessor) this.output;
@@ -74,17 +74,17 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
         if (this.blockEntity == null) return;
         ItemStack mainStack = this.blockEntity.getInventory().getStack(0);
         ItemStack offStack = this.blockEntity.getInventory().getStack(1);
-        ItemStackRecipeWrapper mainSlot = new ItemStackRecipeWrapper(mainStack);
-        ItemStackRecipeWrapper offSlot = new ItemStackRecipeWrapper(offStack);
+        ItemStackWrapper mainSlot = new ItemStackWrapper(mainStack);
+        ItemStackWrapper offSlot = new ItemStackWrapper(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
         if (entries.isEmpty()) {
             return;
         }
         StrengthTableRecipe entry = entries.getFirst();
         if (entry != null) {
-            ItemStackRecipeWrapper mainItem = entry.getMainItem();
-            ItemStackRecipeWrapper offItem = entry.getOffItem();
-            ItemStackRecipeWrapper resultItem = entry.getOutput();
+            ItemStackWrapper mainItem = entry.getMainItem();
+            ItemStackWrapper offItem = entry.getOffItem();
+            ItemStackWrapper resultItem = entry.getOutput();
 
             this.blockEntity.getInventory().removeStack(0, mainItem.getCount());
             this.blockEntity.getInventory().removeStack(1, offItem.getCount());

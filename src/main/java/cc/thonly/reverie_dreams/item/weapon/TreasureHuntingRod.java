@@ -3,14 +3,11 @@ package cc.thonly.reverie_dreams.item.weapon;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSwordItem;
-import eu.pb4.polymer.core.api.entity.PolymerEntity;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.decoration.DisplayEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -28,12 +25,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreasureHuntingRod extends BasicPolymerSwordItem {
+public class TreasureHuntingRod extends SwordItem {
     public static final List<TagKey<Block>> ORE_BLOCK_TAGS = new ArrayList<>();
     public static final ToolMaterial MATERIAL = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 300, 4.0f, 4.5f, 5, ItemTags.DIAMOND_TOOL_MATERIALS);
 
@@ -49,8 +45,8 @@ public class TreasureHuntingRod extends BasicPolymerSwordItem {
         ORE_BLOCK_TAGS.add(ConventionalBlockTags.ORES);
     }
 
-    public TreasureHuntingRod(String path, float attackDamage, float attackSpeed, Settings settings) {
-        super(path, MATERIAL, attackDamage + 2.0f, attackSpeed - 2.8f, settings);
+    public TreasureHuntingRod(float attackDamage, float attackSpeed, Settings settings) {
+        super(MATERIAL, attackDamage, attackSpeed, settings);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.gui.recipe.display;
 
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
+import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;

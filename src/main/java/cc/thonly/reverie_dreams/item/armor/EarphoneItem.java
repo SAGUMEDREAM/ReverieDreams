@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.armor;
 
 import cc.thonly.reverie_dreams.armor.EarphoneArmorMaterial;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerArmorItem;
+import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.server.ParticleTickerManager;
 import cc.thonly.reverie_dreams.util.Vec3d2Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,11 +17,11 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarphoneItem extends BasicPolymerArmorItem {
+public class EarphoneItem extends ArmorItem {
     public static final List<Vec3d2Entity> VEC_3_DS = new ArrayList<>();
 
-    public EarphoneItem(String path, Item.Settings settings) {
-        super(path, EarphoneArmorMaterial.INSTANCE, EquipmentType.HELMET, settings);
+    public EarphoneItem(Item.Settings settings) {
+        super(EarphoneArmorMaterial.INSTANCE, EquipmentType.HELMET, settings);
     }
 
     public static synchronized void onUseTick(World world, LivingEntity user, ItemStack stack) {

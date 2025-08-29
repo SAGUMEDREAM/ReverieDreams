@@ -4,7 +4,7 @@ import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import net.macck209.fishing101.registries.ItemRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -21,8 +21,8 @@ public class Fishing101CompatImpl {
             if (!simpleRegistry.equals(MIRegistryManager.FOOD_PROPERTY)) {
                 return;
             }
-            StandaloneRegistry<FoodProperty> registry = (StandaloneRegistry<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.stream();
+            IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
+            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> tags = property.getItems();

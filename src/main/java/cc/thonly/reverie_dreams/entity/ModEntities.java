@@ -10,7 +10,7 @@ import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import cc.thonly.reverie_dreams.entity.skin.MobSkins;
 import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
-import cc.thonly.reverie_dreams.item.base.BasicPolymerSpawnEggItem;
+import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -199,7 +199,7 @@ public class ModEntities {
     public static <T extends Entity> EntityType<T> registerEntityWithSpawnEgg(String path, EntityType<T> entityType, CreateAttributesFunction createAttributesFunction) {
         EntityType<T> entityTypeRef = Registry.register(Registries.ENTITY_TYPE, Touhou.id(path), entityType);
         FabricDefaultAttributeRegistry.register((EntityType<? extends MobEntity>) entityTypeRef, createAttributesFunction.apply());
-        Item item = registerSpawnEggItem(new BasicPolymerSpawnEggItem(path + "_spawn_egg", (EntityType<? extends MobEntity>) entityTypeRef, new Item.Settings().modelId(Touhou.id("spawn_egg"))));
+        Item item = registerSpawnEggItem(new SpawnEggItem(path + "_spawn_egg", (EntityType<? extends MobEntity>) entityTypeRef, new Item.Settings().modelId(Touhou.id("spawn_egg"))));
         PolymerEntityUtils.registerType(entityTypeRef);
         SPAWN_EGG_ITEM_LIST.add(item);
         SPAWN_EGG_BIND.put(entityTypeRef, item);

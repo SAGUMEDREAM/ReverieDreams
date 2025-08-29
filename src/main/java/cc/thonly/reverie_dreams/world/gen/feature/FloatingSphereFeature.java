@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Block;

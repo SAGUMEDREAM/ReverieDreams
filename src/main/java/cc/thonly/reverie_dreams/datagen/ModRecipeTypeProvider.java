@@ -16,7 +16,7 @@ import cc.thonly.reverie_dreams.item.RoleCards;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackRecipeWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.item.Item;
@@ -52,97 +52,97 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
     public void generateRoleCard() {
         RoleCards.PROTAGONIST_GROUP
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.REDSTONE_BLOCK, 2), ItemStackRecipeWrapper.of(Items.OBSIDIAN, 5))
+                .itemStack(ItemStackWrapper.of(Items.REDSTONE_BLOCK, 2), ItemStackWrapper.of(Items.OBSIDIAN, 5))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.KOUMAKYOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.SOUL_SAND, 12), ItemStackRecipeWrapper.of(Items.NETHERRACK, 12))
+                .itemStack(ItemStackWrapper.of(Items.SOUL_SAND, 12), ItemStackWrapper.of(Items.NETHERRACK, 12))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.YOUYOUMU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.CHERRY_LEAVES, 26), ItemStackRecipeWrapper.of(Items.IRON_SWORD, 1))
+                .itemStack(ItemStackWrapper.of(Items.CHERRY_LEAVES, 26), ItemStackWrapper.of(Items.IRON_SWORD, 1))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.EIYASHOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.BAMBOO, 50), ItemStackRecipeWrapper.of(Items.END_STONE, 24))
+                .itemStack(ItemStackWrapper.of(Items.BAMBOO, 50), ItemStackWrapper.of(Items.END_STONE, 24))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.KAEIZUKA
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.DANDELION, 30), ItemStackRecipeWrapper.of(Items.ALLIUM, 30))
+                .itemStack(ItemStackWrapper.of(Items.DANDELION, 30), ItemStackWrapper.of(Items.ALLIUM, 30))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.FUUJINROKU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.LEAF_LITTER, 40), ItemStackRecipeWrapper.of(Items.STONE, 40))
+                .itemStack(ItemStackWrapper.of(Items.LEAF_LITTER, 40), ItemStackWrapper.of(Items.STONE, 40))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.CHIREIDEN
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.ROSE_BUSH, 40), ItemStackRecipeWrapper.of(Items.NETHERRACK, 45))
+                .itemStack(ItemStackWrapper.of(Items.ROSE_BUSH, 40), ItemStackWrapper.of(Items.NETHERRACK, 45))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.SEIRENSEN
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.GOLD_INGOT, 28), ItemStackRecipeWrapper.of(Items.BIRCH_BOAT, 1))
+                .itemStack(ItemStackWrapper.of(Items.GOLD_INGOT, 28), ItemStackWrapper.of(Items.BIRCH_BOAT, 1))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.SHINREIBYOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.SOUL_SAND, 38), ItemStackRecipeWrapper.of(Items.ROTTEN_FLESH, 18))
+                .itemStack(ItemStackWrapper.of(Items.SOUL_SAND, 38), ItemStackWrapper.of(Items.ROTTEN_FLESH, 18))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.KISHINJOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.BLAZE_ROD, 26), ItemStackRecipeWrapper.of(Items.NETHER_BRICKS, 30))
+                .itemStack(ItemStackWrapper.of(Items.BLAZE_ROD, 26), ItemStackWrapper.of(Items.NETHER_BRICKS, 30))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.KANJUDEN
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.END_STONE, 32), ItemStackRecipeWrapper.of(Items.NETHERRACK, 32))
+                .itemStack(ItemStackWrapper.of(Items.END_STONE, 32), ItemStackWrapper.of(Items.NETHERRACK, 32))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.TENKUUSHOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.GRASS_BLOCK, 29), ItemStackRecipeWrapper.of(Items.LEAF_LITTER, 43))
+                .itemStack(ItemStackWrapper.of(Items.GRASS_BLOCK, 29), ItemStackWrapper.of(Items.LEAF_LITTER, 43))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.KIKEIJUU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.DIRT, 44), ItemStackRecipeWrapper.of(Items.BLAZE_POWDER, 30))
+                .itemStack(ItemStackWrapper.of(Items.DIRT, 44), ItemStackWrapper.of(Items.BLAZE_POWDER, 30))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.KOURYUUDOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.GOLD_INGOT, 31), ItemStackRecipeWrapper.of(Items.DIAMOND, 23))
+                .itemStack(ItemStackWrapper.of(Items.GOLD_INGOT, 31), ItemStackWrapper.of(Items.DIAMOND, 23))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.JUUOUEN
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.LEATHER, 26), ItemStackRecipeWrapper.of(Items.PORKCHOP, 20))
+                .itemStack(ItemStackWrapper.of(Items.LEATHER, 26), ItemStackWrapper.of(Items.PORKCHOP, 20))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.KINJOUKYOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.STONE, 31), ItemStackRecipeWrapper.of(Items.GOLD_INGOT, 38))
+                .itemStack(ItemStackWrapper.of(Items.STONE, 31), ItemStackWrapper.of(Items.GOLD_INGOT, 38))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.SANGETSUSEI
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.END_STONE, 28), ItemStackRecipeWrapper.of(Items.GLOWSTONE, 26))
+                .itemStack(ItemStackWrapper.of(Items.END_STONE, 28), ItemStackWrapper.of(Items.GLOWSTONE, 26))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.HIFUU
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.BOOK, 19), ItemStackRecipeWrapper.of(Items.ENDER_EYE, 20))
+                .itemStack(ItemStackWrapper.of(Items.BOOK, 19), ItemStackWrapper.of(Items.ENDER_EYE, 20))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
         RoleCards.TASOGARE_FURONTIA
                 .createRecipeBuilder()
-                .itemStack(ItemStackRecipeWrapper.of(Items.GLASS_BOTTLE, 20), ItemStackRecipeWrapper.of(MIItems.PEACH, 15))
+                .itemStack(ItemStackWrapper.of(Items.GLASS_BOTTLE, 20), ItemStackWrapper.of(MIItems.PEACH, 15))
                 .build()
                 .apply(this.gensokyoAltarRecipe);
 
@@ -1408,12 +1408,11 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
     }
 
     public void generateDanmakuRecipe() {
-        Stream<Map.Entry<Identifier, DanmakuType>> stream = RegistryManager.DANMAKU_TYPE.stream();
-        stream.forEach(entry -> {
-            Identifier key = entry.getKey();
-            DanmakuType type = entry.getValue();
-            if (!DanmakuTypes.UNLIST.contains(type)) {
-                for (Pair<Item, ItemStack> pair : type.getColorPairs()) {
+        Stream<DanmakuType> stream = RegistryManager.DANMAKU_TYPE.stream();
+        stream.forEach(value -> {
+            Identifier key = RegistryManager.DANMAKU_TYPE.getId(value);
+            if (!DanmakuTypes.UNLIST.contains(value)) {
+                for (Pair<Item, ItemStack> pair : value.getColorPairs()) {
                     Item dye = pair.getLeft();
                     ItemStack stack = pair.getRight();
                     Item item = stack.getItem();
@@ -1421,12 +1420,12 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                     Identifier dyeId = Registries.ITEM.getId(dye);
                     Identifier registryKey = Identifier.of(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
                     DanmakuRecipe recipe = new DanmakuRecipe(
-                            new ItemStackRecipeWrapper(new ItemStack(dye, 4)),
-                            new ItemStackRecipeWrapper(new ItemStack(Items.FIREWORK_STAR, 1)),
-                            new ItemStackRecipeWrapper(new ItemStack(ModItems.POWER, 35)),
-                            new ItemStackRecipeWrapper(new ItemStack(ModItems.POINT, 35)),
-                            new ItemStackRecipeWrapper(ItemStack.EMPTY),
-                            new ItemStackRecipeWrapper(stack)
+                            new ItemStackWrapper(new ItemStack(dye, 4)),
+                            new ItemStackWrapper(new ItemStack(Items.FIREWORK_STAR, 1)),
+                            new ItemStackWrapper(new ItemStack(ModItems.POWER, 35)),
+                            new ItemStackWrapper(new ItemStack(ModItems.POINT, 35)),
+                            new ItemStackWrapper(ItemStack.EMPTY),
+                            new ItemStackWrapper(stack)
                     );
                     this.danmakuRegistry.register(registryKey, recipe);
                 }

@@ -3,8 +3,9 @@ package cc.thonly.reverie_dreams.datagen;
 import autovalue.shaded.com.google.errorprone.annotations.CanIgnoreReturnValue;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.entity.base.NPCEntity;
+import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -23,7 +24,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.StatType;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextContent;
 import net.minecraft.text.TranslatableTextContent;
@@ -129,7 +129,7 @@ public class TranslationExporter implements TranslationCreatorImpl {
     }
 
     public TranslationExporter generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        this.translationBuilder.add(trajectory.getId().toTranslationKey(), value);
+        this.translationBuilder.add(RegistryManager.DANMAKU_TRAJECTORY.getId(trajectory).toTranslationKey(), value);
         return this;
     }
 
@@ -162,7 +162,7 @@ public class TranslationExporter implements TranslationCreatorImpl {
     }
 
     public TranslationExporter addRoleEntity(NPCRole role, String value, String spawnEggValue) {
-        EntityType<NPCEntity> entityType = role.getEntityType();
+        EntityType<AbstractNPCEntity> entityType = role.getEntityType();
         Item egg = role.getEgg();
         String item_value = value + spawnEggValue;
         this.add(entityType, value);

@@ -2,12 +2,12 @@ package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.entity.skin.RoleSkins;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.StandaloneRegistry;
 import net.minecraft.util.Identifier;
 
 public class NPCRoles extends AbstractSkinBootstrap {
-    private static final StandaloneRegistry<NPCRole> REGISTRY_KEY = RegistryManager.NPC_ROLE;
+    private static final IntrinsicalRegister<NPCRole> REGISTER = RegistryManager.NPC_ROLE;
 
     // 主角组
     public static final NPCRole REIMU = registerRole(new NPCRole(Touhou.id("reimu"), RoleSkins.REIMU));
@@ -145,7 +145,7 @@ public class NPCRoles extends AbstractSkinBootstrap {
 
     // ...
 
-    public static void bootstrap(StandaloneRegistry<NPCRole> registry) {
+    public static void bootstrap(IntrinsicalRegister<NPCRole> registry) {
 
     }
 
@@ -158,7 +158,7 @@ public class NPCRoles extends AbstractSkinBootstrap {
     }
 
     public static NPCRole registerRole(Identifier id, NPCRole role) {
-        NPCRole entry = RegistryManager.register(REGISTRY_KEY, id, role);
+        NPCRole entry = RegistryManager.register(REGISTER, id, role);
         return entry.build();
     }
 }
