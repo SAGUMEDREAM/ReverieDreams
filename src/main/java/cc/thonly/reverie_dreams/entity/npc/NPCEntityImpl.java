@@ -15,13 +15,13 @@ import cc.thonly.reverie_dreams.gui.NPCGui;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.util.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import com.mojang.authlib.properties.Property;
-import eu.pb4.polymer.core.mixin.block.packet.ServerChunkLoadingManagerAccessor;
-import eu.pb4.polymer.core.mixin.entity.EntityTrackerAccessor;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.advancement.criterion.Criteria;
@@ -522,13 +522,13 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
         super.tickMovement();
         if (this.freshTick >= 1) {
             if (this.getWorld() instanceof ServerWorld serverWorld) {
-                ServerChunkLoadingManager.EntityTracker tracker = ((ServerChunkLoadingManagerAccessor) serverWorld.getChunkManager().chunkLoadingManager).polymer$getEntityTrackers().get(this.getId());
+                ServerChunkLoadingManager.EntityTracker tracker = ((ServerChunkLoadingManagerAccessor) serverWorld.getChunkManager().chunkLoadingManager).getEntityTrackerMap().get(this.getId());
                 if (tracker != null) {
-                    Set<PlayerAssociatedNetworkHandler> listeners = ((EntityTrackerAccessor) tracker).getListeners();
+                    Set<PlayerAssociatedNetworkHandler> listeners = ((EntityTrackerAccessor) tracker).getListenerSet();
                     for (var handler : listeners) {
                         ServerPlayerEntity player = handler.getPlayer();
                         if (!player.isDisconnected() && player.isAlive()) {
-                            EntityTrackerEntry entry = ((EntityTrackerAccessor) tracker).getEntry();
+                            EntityTrackerEntry entry = ((EntityTrackerAccessor) tracker).getTrackEntry();
                             entry.sendPackets(handler.getPlayer(), packets -> {
                                 entry.syncEntityData();
                                 entry.sendSyncPacket(EntityPositionSyncS2CPacket.create(this));

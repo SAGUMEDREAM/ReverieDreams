@@ -29,7 +29,7 @@ public class WoodCreator extends AbstractBlockCreator {
     private Block leaves;
     private Block sapling;
     private Block planks;
-    private Block stair;
+    private Block stairs;
     private Block slab;
     private Block door;
     private Block trapdoor;
@@ -69,7 +69,7 @@ public class WoodCreator extends AbstractBlockCreator {
         this.planks = ModBlocks.registerSimpleBlock(suffix("planks"),
                 Block::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
 
-        this.stair = ModBlocks.registerSimpleBlock(suffix("stairs"),
+        this.stairs = ModBlocks.registerSimpleBlock(suffix("stairs"),
                 (settings) -> new StairsBlock(this.planks.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS));
 
         this.slab = ModBlocks.registerSimpleBlock(suffix("slab"),
@@ -99,7 +99,7 @@ public class WoodCreator extends AbstractBlockCreator {
 
         this.blockFamily = BlockFamilies.register(this.planks())
                 .slab(this.slab())
-                .stairs(this.stair())
+                .stairs(this.stairs())
                 .fence(this.fence())
                 .fenceGate(this.fenceGate())
                 .button(this.button())
@@ -138,8 +138,8 @@ public class WoodCreator extends AbstractBlockCreator {
         return this.planks;
     }
 
-    public Block stair() {
-        return this.stair;
+    public Block stairs() {
+        return this.stairs;
     }
 
     public Block slab() {
@@ -175,7 +175,7 @@ public class WoodCreator extends AbstractBlockCreator {
                 leaves,
                 sapling,
                 planks,
-                stair,
+                stairs,
                 slab,
                 door,
                 trapdoor,

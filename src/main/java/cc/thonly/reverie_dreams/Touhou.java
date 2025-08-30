@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.minecraft.api.ItemPostHitCallback;
-import cc.thonly.polymer.ResourcePackGenerator;
 import cc.thonly.reverie_dreams.armor.ModArmorMaterials;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
@@ -23,7 +22,6 @@ import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
-import cc.thonly.reverie_dreams.item.ModCreativeTabs;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.networking.CSVersionPayload;
 import cc.thonly.reverie_dreams.networking.CustomBytePayload;
@@ -41,8 +39,6 @@ import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import cc.thonly.reverie_dreams.world.gen.WorldGenerationInit;
 import eu.midnightdust.lib.config.MidnightConfig;
-import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
-import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.api.EnvType;
@@ -145,7 +141,6 @@ public class Touhou implements ModInitializer {
         ModBlockEntities.registerBlockEntities();
         ModBlocks.registerBlocks();
         ModItems.registerItems();
-        ModCreativeTabs.registerItemGroups();
         ModEntityHolders.registerHolders();
         ModEntities.registerEntities();
         ModStatusEffects.init();

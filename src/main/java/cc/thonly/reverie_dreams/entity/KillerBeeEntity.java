@@ -16,7 +16,7 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.Set;
 
-public class KillerBeeEntity extends BeeEntity implements PolymerEntity {
+public class KillerBeeEntity extends BeeEntity {
     public KillerBeeEntity(EntityType<? extends BeeEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -49,11 +49,6 @@ public class KillerBeeEntity extends BeeEntity implements PolymerEntity {
     public void tick() {
         super.tick();
         this.setHasStung(false);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        return EntityType.BEE;
     }
 
 }

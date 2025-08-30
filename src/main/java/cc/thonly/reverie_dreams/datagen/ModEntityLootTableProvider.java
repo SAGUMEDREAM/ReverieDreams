@@ -31,7 +31,7 @@ public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
                                 .with(ItemEntry.builder(MIItems.WILD_BOAR_MEAT))
                         )
         );
-        this.register(ModEntities.MOON_RABBIT,
+        this.register(ModEntities.MOON_RABBIT_ENTITY_TYPE,
                 new LootTable.Builder()
                         .pool(new LootPool.Builder()
                                 .rolls(ConstantLootNumberProvider.create(1.0f))

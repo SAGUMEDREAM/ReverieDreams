@@ -29,7 +29,7 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
 
-public class WildPigEntity extends PigEntity implements PolymerEntity {
+public class WildPigEntity extends PigEntity {
     public static final RegistryKey<PigVariant> VARIANT = RegistryKey.of(RegistryKeys.PIG_VARIANT, MystiasIzakaya.id("wild_pig"));
     public WildPigEntity(EntityType<? extends PigEntity> entityType, World world) {
         super(entityType, world);
@@ -54,32 +54,10 @@ public class WildPigEntity extends PigEntity implements PolymerEntity {
         this.targetSelector.add(3, new RevengeGoal(this).setGroupRevenge());
     }
 
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        return EntityType.PIG;
-    }
-
     @Nullable
     public WildPigEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        return (WildPigEntity) MIEntities.WILD_PIG_ENTITY_TYPE.create(serverWorld, SpawnReason.BREEDING);
+        return MIEntities.WILD_PIG_ENTITY_TYPE.create(serverWorld, SpawnReason.BREEDING);
     }
 
-    @Override
-    public void modifyRawTrackedData(List<DataTracker.SerializedEntry<?>> data, ServerPlayerEntity player, boolean initial) {
-        PolymerEntity.super.modifyRawTrackedData(data, player, initial);
-        if (initial && !this.getWorld().isClient) {
-            MinecraftServer server = this.getServer();
-            assert server != null;
-            DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-            Registry<PigVariant> registry = registryManager.getOrThrow(RegistryKeys.PIG_VARIANT);
-            RegistryEntry<PigVariant> pigVariant = registry.getEntry(registry.get(VARIANT));
 
-            DataTracker.SerializedEntry<RegistryEntry<PigVariant>> entry = DataTracker.SerializedEntry.of(
-                    PigEntityAccessor.VARIANT(),
-                    pigVariant);
-
-            data.add(entry);
-
-        }
-    }
 }

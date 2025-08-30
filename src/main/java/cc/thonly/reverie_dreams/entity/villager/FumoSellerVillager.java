@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import java.util.*;
 
 
-public class FumoSellerVillager extends AbstractSeller {
+public class FumoSellerVillager extends AbstractSellerEntity {
 
     public FumoSellerVillager(EntityType<? extends WanderingTraderEntity> entityType, World world) {
         super(entityType, world);

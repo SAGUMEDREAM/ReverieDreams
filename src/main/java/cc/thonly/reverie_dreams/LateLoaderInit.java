@@ -3,24 +3,16 @@ package cc.thonly.reverie_dreams;
 import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.polymer.PolymerStatusEffectHelper;
 import cc.thonly.polymer.ResourcePackGenerator;
+import cc.thonly.reverie_dreams.block.WoodCreator;
+import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.entity.npc.NPCRole;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -32,34 +24,28 @@ public class LateLoaderInit implements ModInitializer {
     public static final List<Runnable> LATE_INIT = new ArrayList<>();
     public static final String POLYMER_MOD_ID = "reverie_dreams_polymerify";
 
-    public static final RegistryKey<ItemGroup> ROLE_SPAWN_EGG_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_role_spawn_egg"));
-    public static final RegistryKey<ItemGroup> SPAWN_EGG_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_spawn_egg"));
-    
-    public static final ItemGroup ITEM_GROUP_SPAWN_EGG = PolymerItemGroupUtils.builder()
-            .icon(() -> new ItemStack(ModItems.SPAWN_EGG))
-            .displayName(Text.translatable("item_group.touhou.spawn_egg"))
-            .build();
-    public static final ItemGroup ITEM_GROUP_NPC_SPAWN_EGG = PolymerItemGroupUtils.builder()
-            .icon(() -> new ItemStack(ModItems.SPAWN_EGG))
-            .displayName(Text.translatable("item_group.touhou.role.spawn_egg"))
-            .build();
-
     @Override
     public void onInitialize() {
-        PolymerItemGroupUtils.registerPolymerItemGroup(SPAWN_EGG_ITEM_GROUP_KEY, ITEM_GROUP_SPAWN_EGG);
-        PolymerItemGroupUtils.registerPolymerItemGroup(ROLE_SPAWN_EGG_ITEM_GROUP_KEY, ITEM_GROUP_NPC_SPAWN_EGG);
-        ItemGroupEvents.modifyEntriesEvent(SPAWN_EGG_ITEM_GROUP_KEY).register(itemGroup -> {
-            for (Item item : ModEntities.getSpawnEggItemView()) {
-                itemGroup.add(item);
-            }
-        });
-        ItemGroupEvents.modifyEntriesEvent(ROLE_SPAWN_EGG_ITEM_GROUP_KEY).register(itemGroup -> {
-            Collection<NPCRole> roles = RegistryManager.NPC_ROLE.values();
-            for (NPCRole role : roles) {
-                Item egg = role.getEgg();
-                itemGroup.add(egg.getDefaultStack());
-            }
-        });
+        for (WoodCreator instance : WoodCreator.INSTANCES) {
+            FlammableBlockRegistry.getDefaultInstance().add(instance.log(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.strippedLog(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.wood(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.strippedWood(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.planks(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.stairs(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.slab(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.fence(), 5, 20);
+            FlammableBlockRegistry.getDefaultInstance().add(instance.fenceGate(), 5, 20);
+            FuelRegistryEvents.BUILD.register((builder, context) -> {
+                builder.add(instance.fence(), 300);
+                builder.add(instance.fenceGate(), 300);
+            });
+        }
+        CreativeTabs.registerItemGroups();
+        this.polymerify();
+    }
+
+    public void polymerify() {
         for (RegistryEntry<StatusEffect> registryEntry : ModStatusEffects.REVERIE_DREAMS_EFFECTS) {
             PolymerStatusEffectHelper.registerOverlay(registryEntry);
         }

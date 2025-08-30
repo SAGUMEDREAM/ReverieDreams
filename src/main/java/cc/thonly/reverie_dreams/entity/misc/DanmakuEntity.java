@@ -59,8 +59,8 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-public class DanmakuEntity extends PersistentProjectileEntity implements PolymerEntity {
-    private static final TrackedData<Float> ROLL = DataTracker.registerData(DanmakuEntity.class, TrackedDataHandlerRegistry.FLOAT);
+public class DanmakuEntity extends PersistentProjectileEntity {
+    public static final TrackedData<Float> ROLL = DataTracker.registerData(DanmakuEntity.class, TrackedDataHandlerRegistry.FLOAT);
     public static final int MAX_FLIGHT_TICK = 20 * 20;
     protected Item danmakuItem;
     protected ItemStack itemStack = Items.SNOWBALL.getDefaultStack();
@@ -134,43 +134,6 @@ public class DanmakuEntity extends PersistentProjectileEntity implements Polymer
     }
 
     @Override
-    public void modifyRawTrackedData(List<DataTracker.SerializedEntry<?>> data, ServerPlayerEntity player, boolean initial) {
-        PolymerEntity.super.modifyRawTrackedData(data, player, initial);
-        setTileProjectileData(data, initial);
-    }
-
-    public void setTileProjectileData(List<DataTracker.SerializedEntry<?>> data, boolean initial) {
-        if (initial && !this.getWorld().isClient) {
-            var sendBase = true;
-            for (int i = 0; i < data.size(); i++) {
-                var roll = data.get(i);
-                if (roll.id() == ROLL.id() && roll.handler() == ROLL.dataType()) {
-                    data.set(i, DataTracker.SerializedEntry.of(DisplayTrackedData.LEFT_ROTATION, new Quaternionf().rotateY(MathHelper.HALF_PI).rotateZ((float) roll.value())));
-                    sendBase = false;
-                    break;
-                }
-            }
-
-            data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.TELEPORTATION_DURATION, 3));
-            data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.INTERPOLATION_DURATION, 0));
-            data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.SCALE, new Vector3f(this.getScale() * 0.85f)));
-            if (this.tile) {
-                data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.BILLBOARD, (byte) DisplayEntity.BillboardMode.CENTER.ordinal()));
-            } else {
-                data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.TRANSLATION, new Vector3f(0, -0.1f, 0)));
-                data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.INTERPOLATION_DURATION, 2));
-                data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.TELEPORTATION_DURATION, 4));
-                if (sendBase) {
-                    data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.LEFT_ROTATION, new Quaternionf().rotateX(MathHelper.HALF_PI)));
-                }
-            }
-
-            data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.Item.ITEM, this.itemStack));
-            data.add(DataTracker.SerializedEntry.of(DisplayTrackedData.Item.ITEM_DISPLAY, ItemDisplayContext.GUI.getIndex()));
-        }
-    }
-
-    @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
         if (!this.itemStack.isEmpty()) {
@@ -193,11 +156,6 @@ public class DanmakuEntity extends PersistentProjectileEntity implements Polymer
 
         this.flyAge = view.getInt("FlyAge",0);
 
-    }
-
-    @Override
-    public void onEntityTrackerTick(Set<PlayerAssociatedNetworkHandler> listeners) {
-        PolymerEntity.super.onEntityTrackerTick(listeners);
     }
 
     @Override
@@ -425,12 +383,6 @@ public class DanmakuEntity extends PersistentProjectileEntity implements Polymer
         } catch (Exception e) {
             return false;
         }
-    }
-
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext packetContext) {
-        return EntityType.ITEM_DISPLAY;
     }
 
     @Override

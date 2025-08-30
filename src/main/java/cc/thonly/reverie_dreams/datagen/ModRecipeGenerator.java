@@ -159,7 +159,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
         Block strippedLog = creator.strippedLog();
         Block strippedWood = creator.strippedWood();
         Block planks = creator.planks();
-        Block stair = creator.stair();
+        Block stair = creator.stairs();
         Block slab = creator.slab();
         Block door = creator.door();
 //        Block trapdoor = creator.trapdoor();

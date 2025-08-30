@@ -47,8 +47,7 @@ import java.util.WeakHashMap;
 @Setter
 @Getter
 @ToString
-public class MagicBroomEntity extends PathAwareEntity implements PolymerEntity, JumpingMount {
-    public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
+public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     public ItemStack summonItem = Items.AIR.getDefaultStack();
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
@@ -56,7 +55,6 @@ public class MagicBroomEntity extends PathAwareEntity implements PolymerEntity, 
 
     public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
-        this.onCreate(this);
     }
 
     public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world, int x, int y, int z, ItemStack summonItem) {
@@ -79,26 +77,6 @@ public class MagicBroomEntity extends PathAwareEntity implements PolymerEntity, 
     protected void initGoals() {
         super.initGoals();
         this.goalSelector.add(0, new SwimGoal(this));
-    }
-
-    public void onCreate(Entity entity) {
-        this.setNoGravity(true);
-        var x = new ItemDisplayElement();
-        var holder = new MagicBroomHolder(this);
-        var stack = new ItemStack(ModEntityHolders.MAGIC_BROOM_DISPLAY);
-        if (this.summonItem.hasGlint()) {
-            stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
-        }
-        x.setItem(stack);
-        x.setItemDisplayContext(ItemDisplayContext.HEAD);
-        x.setInvisible(true);
-        x.setTeleportDuration(3);
-        x.setScale(new Vector3f(1.2f));
-        holder.setElement(x);
-        holder.addElement(x);
-        EntityAttachment.ofTicking(holder, entity);
-        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        ELEMENTS.put(entity, x);
     }
 
     @Override
@@ -267,11 +245,6 @@ public class MagicBroomEntity extends PathAwareEntity implements PolymerEntity, 
 
         this.ownerUUID = view.getString("OwnerUUID", "null");
 
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        return EntityType.PIG;
     }
 
     @Override

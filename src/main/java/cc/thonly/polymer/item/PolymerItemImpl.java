@@ -1,6 +1,7 @@
 package cc.thonly.polymer.item;
 
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
+import cc.thonly.reverie_dreams.item.prop.TenguShieldItem;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
 import eu.pb4.polymer.core.api.utils.PolymerKeepModel;
@@ -26,6 +27,9 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
     public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
         if (this.item instanceof IDanmakuItem) {
             return Items.BLAZE_ROD;
+        }
+        if (this.item instanceof TenguShieldItem) {
+            return Items.TRIAL_KEY;
         }
         return this.item instanceof ShieldItem ? Items.SHIELD : Items.TRIAL_KEY;
     }

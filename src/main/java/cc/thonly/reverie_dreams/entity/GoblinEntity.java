@@ -88,7 +88,7 @@ public class GoblinEntity extends NPCEntityImpl {
         ItemStack itemStack = new ItemStack(item);
 //        itemStack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         if (itemStack.isDamaged()) {
-            itemStack.damage(itemStack.getMaxDamage() - 50, (LivingEntity) this, Hand.MAIN_HAND);
+            itemStack.damage(itemStack.getMaxDamage() - 50, this, Hand.MAIN_HAND);
         }
         return itemStack;
     }
@@ -101,7 +101,7 @@ public class GoblinEntity extends NPCEntityImpl {
         Item item = OFFHAND_POOL.get(random.nextInt(OFFHAND_POOL.size()));
         ItemStack itemStack = new ItemStack(item);
         if (itemStack.isDamaged()) {
-            itemStack.damage(itemStack.getMaxDamage() - 50, (LivingEntity) this, Hand.OFF_HAND);
+            itemStack.damage(itemStack.getMaxDamage() - 50, this, Hand.OFF_HAND);
         }
         return itemStack;
     }

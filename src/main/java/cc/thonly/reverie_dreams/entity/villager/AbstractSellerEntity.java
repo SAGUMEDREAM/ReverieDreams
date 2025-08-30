@@ -44,7 +44,7 @@ import java.util.*;
 
 @Slf4j
 @Getter
-public abstract class AbstractSeller extends WanderingTraderEntity implements PolymerEntity {
+public abstract class AbstractSellerEntity extends WanderingTraderEntity {
     public static final int MAX_LEVEL = 5;
     public static final int[] EXPS = {50, 100, 150, 200, 250};
     private static final Gson GSON = new Gson();
@@ -55,7 +55,7 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
     protected int level = 0;
     protected int exp = 0;
 
-    public AbstractSeller(EntityType<? extends WanderingTraderEntity> entityType, World world) {
+    public AbstractSellerEntity(EntityType<? extends WanderingTraderEntity> entityType, World world) {
         super(entityType, world);
         this.getNavigation().setCanOpenDoors(true);
         this.getNavigation().setCanSwim(true);
@@ -111,23 +111,6 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
         if (this.level >= MAX_LEVEL) {
             this.level = MAX_LEVEL;
             this.exp = Math.min(this.exp, EXPS[MAX_LEVEL - 1]);
-        }
-    }
-
-
-    @Override
-    public void modifyRawTrackedData(List<DataTracker.SerializedEntry<?>> data, ServerPlayerEntity player, boolean initial) {
-        PolymerEntity.super.modifyRawTrackedData(data, player, initial);
-        if (initial && !this.getWorld().isClient) {
-            MinecraftServer server = this.getServer();
-            assert server != null;
-            VillagerData modifyData = this.getModifyVillagerData(server);
-
-            DataTracker.SerializedEntry<VillagerData> entry = DataTracker.SerializedEntry.of(
-                    VillagerEntityAccessor.VILLAGER_DATA(),
-                    modifyData);
-
-            data.add(entry);
         }
     }
 
@@ -244,16 +227,11 @@ public abstract class AbstractSeller extends WanderingTraderEntity implements Po
         return mostSigBits + leastSigBits + day;
     }
 
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        return EntityType.VILLAGER;
-    }
-
     @Getter
     public static class SellerGui extends MerchantGui {
-        private final AbstractSeller self;
+        private final AbstractSellerEntity self;
 
-        public SellerGui(ServerPlayerEntity player, AbstractSeller self) {
+        public SellerGui(ServerPlayerEntity player, AbstractSellerEntity self) {
             super(player, false);
             this.self = self;
             this.init();

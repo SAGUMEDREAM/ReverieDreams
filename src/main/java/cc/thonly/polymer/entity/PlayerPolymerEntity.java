@@ -14,6 +14,7 @@ import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
@@ -35,26 +36,27 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
-public interface PlayerPolymerEntity extends PolymerEntity {
+public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity {
     WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
-    default void onCreated(Entity entity) {
-        var x = new ItemDisplayElement();
-        var holder = new ElementHolder();
-        x.setInvisible(true);
-        x.setTeleportDuration(3);
-        x.setScale(new Vector3f(0.5f));
-        holder.addElement(x);
-        EntityAttachment.of(holder, entity);
-        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        ELEMENTS.put(entity, x);
+    default void onCreated() {
+//        var entity = this.getEntity();
+//        var x = new ItemDisplayElement();
+//        var holder = new ElementHolder();
+//        x.setInvisible(true);
+//        x.setTeleportDuration(3);
+//        x.setScale(new Vector3f(0.5f));
+//        holder.addElement(x);
+//        EntityAttachment.of(holder, entity);
+//        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
+//        ELEMENTS.put(entity, x);
     }
 
     @Override
     default void onEntityPacketSent(Consumer<Packet<?>> consumer, Packet<?> packet) {
         PolymerEntity.super.onEntityPacketSent(consumer, packet);
         if (packet instanceof EntitySetHeadYawS2CPacket headYawS2CPacket) {
-            var ent = (Entity) this;
+            var ent = this.getEntity();
             consumer.accept(new EntityS2CPacket.Rotate(ent.getId(), MathHelper.packDegrees(headYawS2CPacket.getHeadYaw()), (byte) (ent.getPitch() * 256.0F / 360.0F), ent.isOnGround()));
         }
     }
@@ -67,7 +69,7 @@ public interface PlayerPolymerEntity extends PolymerEntity {
     @Override
     default void onBeforeSpawnPacket(ServerPlayerEntity player, Consumer<Packet<?>> packetConsumer) {
         PlayerListS2CPacket packet = PolymerEntityUtils.createMutablePlayerListPacket(EnumSet.of(PlayerListS2CPacket.Action.ADD_PLAYER));
-        GameProfile profile = new GameProfile(((Entity) this).getUuid(), "");
+        GameProfile profile = new GameProfile(this.getEntity().getUuid(), "");
         profile.getProperties().put("textures", this.getSkin());
         List<PlayerListS2CPacket.Entry> entries = packet.getEntries();
         entries.add(new PlayerListS2CPacket.Entry(profile.getId(), profile, false, Integer.MAX_VALUE, GameMode.ADVENTURE, Text.empty(), true, 0, null));
@@ -75,7 +77,7 @@ public interface PlayerPolymerEntity extends PolymerEntity {
     }
 
     default void sendRefreshPacket() {
-        var e = (Entity) this;
+        var e = this.getEntity();
        PolymerEntityUtils.refreshEntity(e);
     }
 
@@ -91,15 +93,14 @@ public interface PlayerPolymerEntity extends PolymerEntity {
         ));
     }
 
-
     default void onTrackingStopped(ServerPlayerEntity player) {
-        player.networkHandler.sendPacket(new PlayerRemoveS2CPacket(List.of(((Entity) this).getUuid())));
+        player.networkHandler.sendPacket(new PlayerRemoveS2CPacket(List.of((this.getEntity().getUuid()))));
     }
 
     @Override
     default void onEntityTrackerTick(Set<PlayerAssociatedNetworkHandler> listeners) {
         PolymerEntity.super.onEntityTrackerTick(listeners);
-        var e = (Entity) this;
+        var e = this.getEntity();
 
     }
 
@@ -108,6 +109,7 @@ public interface PlayerPolymerEntity extends PolymerEntity {
         return EntityType.PLAYER;
     }
 
+    LivingEntity getEntity();
 
     Property getSkin();
 }

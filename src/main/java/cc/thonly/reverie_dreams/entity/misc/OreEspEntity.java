@@ -6,7 +6,7 @@ import net.minecraft.entity.decoration.DisplayEntity;
 import net.minecraft.world.World;
 import xyz.nucleoid.packettweaker.PacketContext;
 
-public class OreEspEntity extends DisplayEntity.BlockDisplayEntity implements PolymerEntity {
+public class OreEspEntity extends DisplayEntity.BlockDisplayEntity {
     public int lifetime = 100;
 
     public OreEspEntity(EntityType<?> entityType, World world ) {
@@ -23,8 +23,4 @@ public class OreEspEntity extends DisplayEntity.BlockDisplayEntity implements Po
         }
     }
 
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext packetContext) {
-        return EntityType.BLOCK_DISPLAY;
-    }
 }

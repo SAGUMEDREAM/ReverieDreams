@@ -1,8 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
-import cc.thonly.reverie_dreams.mixin.accessor.RabbitEntityAccessor;
-import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -16,17 +14,13 @@ import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
 
-import java.util.List;
-
-public class MoonRabbitEntity extends RabbitEntity implements PolymerEntity {
+public class MoonRabbitEntity extends RabbitEntity {
     public MoonRabbitEntity(EntityType<? extends RabbitEntity> entityType, World world) {
         super(entityType, world);
         this.setVariant(Variant.WHITE);
@@ -40,7 +34,7 @@ public class MoonRabbitEntity extends RabbitEntity implements PolymerEntity {
     }
 
     public MoonRabbitEntity(World world) {
-        this(ModEntities.MOON_RABBIT, world);
+        this(ModEntities.MOON_RABBIT_ENTITY_TYPE, world);
     }
 
     @Override
@@ -75,13 +69,7 @@ public class MoonRabbitEntity extends RabbitEntity implements PolymerEntity {
         super.initDataTracker(builder);
     }
 
-    @Override
-    public void modifyRawTrackedData(List<DataTracker.SerializedEntry<?>> data, ServerPlayerEntity player, boolean initial) {
-        PolymerEntity.super.modifyRawTrackedData(data, player, initial);
-        if (initial && !this.getWorld().isClient) {
-            data.add(DataTracker.SerializedEntry.of(RabbitEntityAccessor.getVariant(), Variant.WHITE.getIndex()));
-        }
-    }
+
 
     @Override
     public Variant getVariant() {
@@ -90,32 +78,7 @@ public class MoonRabbitEntity extends RabbitEntity implements PolymerEntity {
 
     @Override
     public @Nullable RabbitEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        RabbitEntity rabbitEntity = ModEntities.MOON_RABBIT.create(serverWorld, SpawnReason.BREEDING);
-//        if (rabbitEntity != null) {
-//            Variant variant = getVariantFromPos(serverWorld, this.getBlockPos());
-//            if (this.random.nextInt(20) != 0) {
-//                label22:
-//                {
-//                    if (passiveEntity instanceof RabbitEntity) {
-//                        RabbitEntity rabbitEntity2 = (RabbitEntity) passiveEntity;
-//                        if (this.random.nextBoolean()) {
-//                            variant = rabbitEntity2.getVariant();
-//                            break label22;
-//                        }
-//                    }
-//
-//                    variant = this.getVariant();
-//                }
-//            }
-//
-//            rabbitEntity.setVariant(variant);
-//        }
-
-        return rabbitEntity;
+        return ModEntities.MOON_RABBIT_ENTITY_TYPE.create(serverWorld, SpawnReason.BREEDING);
     }
 
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        return EntityType.RABBIT;
-    }
 }

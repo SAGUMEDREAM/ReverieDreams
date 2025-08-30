@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.polymer.entity.PlayerPolymerEntity;
+import com.mojang.authlib.properties.Property;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -15,5 +16,7 @@ public abstract class AbstractNPCEntity extends TameableEntity {
 
     @Override
     public abstract @Nullable LivingEntity getOwner();
+
+    public abstract Property getSkin();
 
 }

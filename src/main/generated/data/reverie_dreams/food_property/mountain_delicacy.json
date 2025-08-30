@@ -2,21 +2,21 @@
   "registry_key": "reverie_dreams:mountain_delicacy",
   "properties": {
     "values": [
-      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
-      "reverie_dreams:food/reversing_the_world",
-      "reverie_dreams:food/green_bamboo_welcomes_spring",
-      "reverie_dreams:food/one_hit_kill",
-      "reverie_dreams:ingredient/truffle",
-      "reverie_dreams:food/shiraga_sadamatsu",
-      "reverie_dreams:food/strength_soup",
-      "reverie_dreams:food/beef_hot_pot",
       "reverie_dreams:food/beef_wellington",
       "reverie_dreams:food/grand_banquet",
+      "reverie_dreams:food/one_hit_kill",
       "reverie_dreams:food/all_meat_feast",
+      "reverie_dreams:food/shiraga_sadamatsu",
+      "reverie_dreams:food/reversing_the_world",
+      "reverie_dreams:ingredient/truffle",
+      "reverie_dreams:food/bamboo_tube_steamed_pork",
       "reverie_dreams:food/two_heavens_one_style",
+      "reverie_dreams:food/beef_hot_pot",
+      "reverie_dreams:food/strength_soup",
+      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
+      "reverie_dreams:food/green_bamboo_welcomes_spring",
       "reverie_dreams:ingredient/black_pork",
-      "reverie_dreams:food/game_soup",
-      "reverie_dreams:food/bamboo_tube_steamed_pork"
+      "reverie_dreams:food/game_soup"
     ]
   }
 }

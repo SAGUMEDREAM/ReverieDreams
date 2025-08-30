@@ -1,5 +1,6 @@
 package cc.thonly.polymer.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.entity.SunflowerYouseiEntity;
 import cc.thonly.reverie_dreams.entity.YouseiEntity;
@@ -8,28 +9,33 @@ import com.mojang.authlib.properties.Property;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import org.joml.Vector3f;
 
 public record YouseiImpl(YouseiEntity source) implements PlayerPolymerEntity {
     public YouseiImpl {
-        this.onCreated(source);
+        PolymerEntityHelper.NEXT.add(this);
     }
+
     @Override
-    public void onCreated(Entity entity) {
-        PlayerPolymerEntity.super.onCreated(entity);
+    public void onCreated() {
         var x = new ItemDisplayElement();
-        var holder = new WingHolder(source);
+        var holder = new WingHolder(this.source);
         x.setItem(new ItemStack(ModEntityHolders.YOUSEI_WINGS));
         x.setInvisible(true);
         x.setTeleportDuration(3);
         x.setScale(new Vector3f(1.2f));
         holder.setElement(x);
         holder.addElement(x);
-        EntityAttachment.ofTicking(holder, entity);
-        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        ELEMENTS.put(entity, x);
+        EntityAttachment.ofTicking(holder, this.source);
+        VirtualEntityUtils.addVirtualPassenger(this.source, x.getEntityId());
+        ELEMENTS.put(this.source, x);
+    }
+
+    @Override
+    public LivingEntity getEntity() {
+        return this.source;
     }
 
     @Override

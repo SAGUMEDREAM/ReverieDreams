@@ -56,10 +56,6 @@ public class ModEntities {
             registerEntity("knife",
                     EntityType.Builder.<KnifeEntity>create(KnifeEntity::new, SpawnGroup.MISC)
                             .build(of("knife")));
-    public static final EntityType<SpellCardEntity> SPELL_CARD_ENTITY_TYPE =
-            registerEntity("spell_card",
-                    EntityType.Builder.<SpellCardEntity>create(SpellCardEntity::new, SpawnGroup.MISC)
-                            .build(of("spell_card")));
     public static final EntityType<OreEspEntity> ORE_ESP_ENTITY_TYPE =
             registerEntity("ore_esp_entity",
                     EntityType.Builder.<OreEspEntity>create(OreEspEntity::new, SpawnGroup.MISC)
@@ -82,7 +78,7 @@ public class ModEntities {
                             .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
                             .add(EntityAttributes.SCALE, 1.5f)
                             .build());
-    public static final EntityType<MoonRabbitEntity> MOON_RABBIT =
+    public static final EntityType<MoonRabbitEntity> MOON_RABBIT_ENTITY_TYPE =
             registerEntityWithSpawnEgg("moon_rabbit",
                     EntityType.Builder.<MoonRabbitEntity>create(MoonRabbitEntity::new, SpawnGroup.MONSTER)
                             .build(of("moon_rabbit")),

@@ -66,7 +66,6 @@ public class ModBlocks {
 
     public static void registerBlocks() {
 
-//        SPIRITUAL_BLOCKS.put(BlockTypeTag.STRIPPED_OAK_LOG, ModBlocks.SPIRITUAL_OAK_LOG);
     }
     public static Block registerSimpleBlock(Block block) {
         PolymerBlockHelper.registerOverlay(block);

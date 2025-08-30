@@ -3,7 +3,7 @@ package cc.thonly.mystias_izakaya.entity.villager;
 import cc.thonly.mystias_izakaya.entity.MIEntities;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.item.base.DrinkItem;
-import cc.thonly.reverie_dreams.entity.villager.AbstractSeller;
+import cc.thonly.reverie_dreams.entity.villager.AbstractSellerEntity;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 import java.util.*;
 
-public class TavernVillager extends AbstractSeller {
+public class TavernVillager extends AbstractSellerEntity {
 
     public TavernVillager(EntityType<? extends WanderingTraderEntity> entityType, World world) {
         super(entityType, world);

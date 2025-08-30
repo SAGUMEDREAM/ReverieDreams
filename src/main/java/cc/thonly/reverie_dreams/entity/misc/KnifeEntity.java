@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Setter
 @Getter
 @ToString
+@SuppressWarnings("unchecked")
 public class KnifeEntity extends DanmakuEntity {
 
     public KnifeEntity(@Nullable Entity livingEntity, ServerWorld world, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {

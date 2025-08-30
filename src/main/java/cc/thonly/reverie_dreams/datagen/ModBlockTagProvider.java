@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
+import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.block.ModBlocks;
@@ -45,6 +46,13 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         ProvidedTagBuilder<Block, Block> shovelMineables = valueLookupBuilder(BlockTags.SHOVEL_MINEABLE);
         ProvidedTagBuilder<Block, Block> ores = valueLookupBuilder(ConventionalBlockTags.ORES);
 
+        ProvidedTagBuilder<Block, Block> logs = valueLookupBuilder(BlockTags.LOGS);
+        ProvidedTagBuilder<Block, Block> planks = valueLookupBuilder(BlockTags.PLANKS);
+        for (WoodCreator instance : WoodCreator.INSTANCES) {
+            logs.add(instance.log());
+            planks.add(instance.planks());
+        }
+
         for (Fumo instance : Fumos.getView()) {
             fumo.add(instance.block());
         }
@@ -57,12 +65,15 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 BlockTags.SLABS, BlockTypeGroup.SLAB.blocks(),
                 BlockTags.BUTTONS, BlockTypeGroup.BUTTON.blocks(),
                 BlockTags.TRAPDOORS, BlockTypeGroup.TRAPDOOR.blocks(),
-                BlockTags.DOORS, BlockTypeGroup.DOOR.blocks()
+                BlockTags.DOORS, BlockTypeGroup.DOOR.blocks(),
+                BlockTags.LEAVES, BlockTypeGroup.LEAVES.blocks()
         );
         blockItemGroups.forEach((tag, list) -> {
             ProvidedTagBuilder<Block, Block> builder = valueLookupBuilder(tag);
-            for (BlockItem blockItem : list.stream().filter(item -> item instanceof BlockItem blockItem).map(item -> (BlockItem) item).toList()) {
-                builder.add(blockItem.getBlock());
+            for (ItemConvertible itemConvertible : list) {
+                if (itemConvertible instanceof Block block) {
+                    builder.add(block);
+                }
             }
         });
 

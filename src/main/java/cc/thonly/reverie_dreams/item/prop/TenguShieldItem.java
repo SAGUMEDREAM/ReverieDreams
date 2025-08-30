@@ -18,7 +18,7 @@ import java.util.Optional;
 @Setter
 @Getter
 @ToString
-public class TenguShieldItem extends ShieldItem  {
+public class TenguShieldItem extends ShieldItem {
     public TenguShieldItem(Settings settings) {
         super(settings);
     }

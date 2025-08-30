@@ -176,14 +176,14 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                 SpawnGroup.MONSTER,
-                ModEntities.MOON_RABBIT, 10, 1, 1
+                ModEntities.MOON_RABBIT_ENTITY_TYPE, 10, 1, 1
         );
         BiomeModifications.create(Identifier.of("reverie_dreams", "moon_spawns"))
                 .add(ModificationPhase.ADDITIONS,
                         BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                         ctx -> ctx.getSpawnSettings().addSpawn(
                                 SpawnGroup.MONSTER,
-                                new SpawnSettings.SpawnEntry(ModEntities.MOON_RABBIT, 1, 1),
+                                new SpawnSettings.SpawnEntry(ModEntities.MOON_RABBIT_ENTITY_TYPE, 1, 1),
                                 5
                         )
                 );

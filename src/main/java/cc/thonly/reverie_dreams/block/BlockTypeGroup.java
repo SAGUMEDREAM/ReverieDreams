@@ -58,6 +58,9 @@ public enum BlockTypeGroup {
         if (block instanceof DoorBlock) {
             DOOR.add(block);
         }
+        if (block instanceof LeavesBlock) {
+            LEAVES.add(block);
+        }
         BLOCK.add(block);
     }
 

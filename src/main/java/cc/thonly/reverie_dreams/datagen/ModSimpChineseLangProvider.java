@@ -2,11 +2,10 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.entity.MIEntities;
-import cc.thonly.mystias_izakaya.item.MICreativeTabs;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.registry.DrinkProperties;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
-import cc.thonly.reverie_dreams.LateLoaderInit;
+import cc.thonly.reverie_dreams.creative_tab.content.*;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.fumo.Fumos;
@@ -18,7 +17,6 @@ import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.item.ModCreativeTabs;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.RoleCards;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
@@ -41,13 +39,13 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
-        builder.add(ModCreativeTabs.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 物品/方块");
-        builder.add(ModCreativeTabs.ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕");
-        builder.add(ModCreativeTabs.TEMPLATE_ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕模板");
-        builder.add(ModCreativeTabs.ITEM_GROUP_FUMO, "Gensokyo: Reverie of Lost Dreams | Fumo");
-        builder.add(ModCreativeTabs.ITEM_GROUP_ROLE_CARD, "Gensokyo: Reverie of Lost Dreams | 角色卡");
-        builder.add(LateLoaderInit.ITEM_GROUP_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 刷怪蛋");
-        builder.add(LateLoaderInit.ITEM_GROUP_NPC_SPAWN_EGG, "Gensokyo: Reverie of Lost Dreams | 角色刷怪蛋");
+        builder.add(ItemBlockCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 物品/方块");
+        builder.add(DanmakuCreativeTab.ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕");
+        builder.add(TemplateCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 弹幕模板");
+        builder.add(FumoCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | Fumo");
+        builder.add(RoleCardCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 角色卡");
+        builder.add(SpawnEggCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 刷怪蛋");
+        builder.add(NPCSpawnEggCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 角色刷怪蛋");
 //        translationBuilder.add("item_group.touhou_block_and_item", "Gensokyo: Reverie of Lost Dreams - 物品/方块");
 //        translationBuilder.add("item_group.touhou.bullet", "Gensokyo: Reverie of Lost Dreams - 子弹");
 //        translationBuilder.add("item_group.touhou.template", "Gensokyo: Reverie of Lost Dreams - 弹幕模板");
@@ -153,11 +151,11 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
         translationBuilder.add("item.tooltip.food_properties", "属性：");
-        builder.add(MICreativeTabs.KITCHENWARE_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 厨具");
-        builder.add(MICreativeTabs.INGREDIENT_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食材");
-        builder.add(MICreativeTabs.SEEDS_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 种子");
-        builder.add(MICreativeTabs.FOOD_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食物");
-        builder.add(MICreativeTabs.DRINK_ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 饮品");
+        builder.add(KitchenwareCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 厨具");
+        builder.add(IngredientCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食材");
+        builder.add(SeedCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 种子");
+        builder.add(FoodCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食物");
+        builder.add(DrinkCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 饮品");
 //        translationBuilder.add("item_group.kitchenware_item_group", "Gensokyo: Reverie of Lost Dreams - 厨具");
 //        translationBuilder.add("item_group.ingredients_item_group", "Gensokyo: Reverie of Lost Dreams - 食材");
 //        translationBuilder.add("item_group.seed_item_group", "Gensokyo: Reverie of Lost Dreams - 种子");
@@ -545,7 +543,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add(ModEntities.FUMO_SELLER_VILLAGER, "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
         builder.add(ModEntities.KILLER_BEE_ENTITY_TYPE, "杀人蜂", "杀人蜂刷怪蛋");
         builder.add(ModEntities.GHOST_ENTITY_TYPE, "幽灵", "幽灵刷怪蛋");
-        builder.add(ModEntities.MOON_RABBIT, "月兔", "月兔刷怪蛋");
+        builder.add(ModEntities.MOON_RABBIT_ENTITY_TYPE, "月兔", "月兔刷怪蛋");
         builder.add(ModEntities.YOUSEI_ENTITY_TYPE, "妖精", "妖精刷怪蛋");
         builder.add(ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, "向日葵妖精", "向日葵妖精刷怪蛋");
         builder.add(ModEntities.GOBLIN_ENTITY_TYPE, "哥布林", "哥布林刷怪蛋");
@@ -1000,7 +998,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
         translationBuilder.add(ModBlocks.SPIRITUAL.log(), "绳文杉原木");
         translationBuilder.add(ModBlocks.SPIRITUAL.wood(), "绳文杉树皮");
-        translationBuilder.add(ModBlocks.SPIRITUAL.stair(), "绳文杉楼梯");
+        translationBuilder.add(ModBlocks.SPIRITUAL.stairs(), "绳文杉楼梯");
         translationBuilder.add(ModBlocks.SPIRITUAL.slab(), "绳文杉台阶");
         translationBuilder.add(ModBlocks.SPIRITUAL.door(), "绳文杉门");
         translationBuilder.add(ModBlocks.SPIRITUAL.trapdoor(), "绳文杉活版门");
@@ -1038,7 +1036,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
         translationBuilder.add(MIBlocks.LEMON.log(), "柠檬原木");
         translationBuilder.add(MIBlocks.LEMON.wood(), "柠檬树皮");
-        translationBuilder.add(MIBlocks.LEMON.stair(), "柠檬楼梯");
+        translationBuilder.add(MIBlocks.LEMON.stairs(), "柠檬楼梯");
         translationBuilder.add(MIBlocks.LEMON.slab(), "柠檬台阶");
         translationBuilder.add(MIBlocks.LEMON.door(), "柠檬门");
         translationBuilder.add(MIBlocks.LEMON.trapdoor(), "柠檬活版门");
@@ -1054,7 +1052,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
         translationBuilder.add(MIBlocks.GINKGO.log(), "白果原木");
         translationBuilder.add(MIBlocks.GINKGO.wood(), "白果树皮");
-        translationBuilder.add(MIBlocks.GINKGO.stair(), "白果楼梯");
+        translationBuilder.add(MIBlocks.GINKGO.stairs(), "白果楼梯");
         translationBuilder.add(MIBlocks.GINKGO.slab(), "白果台阶");
         translationBuilder.add(MIBlocks.GINKGO.door(), "白果门");
         translationBuilder.add(MIBlocks.GINKGO.trapdoor(), "白果活版门");
@@ -1070,7 +1068,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
         translationBuilder.add(MIBlocks.PEACH.log(), "桃木原木");
         translationBuilder.add(MIBlocks.PEACH.wood(), "桃木树皮");
-        translationBuilder.add(MIBlocks.PEACH.stair(), "桃木楼梯");
+        translationBuilder.add(MIBlocks.PEACH.stairs(), "桃木楼梯");
         translationBuilder.add(MIBlocks.PEACH.slab(), "桃木台阶");
         translationBuilder.add(MIBlocks.PEACH.door(), "桃木门");
         translationBuilder.add(MIBlocks.PEACH.trapdoor(), "桃木活版门");
