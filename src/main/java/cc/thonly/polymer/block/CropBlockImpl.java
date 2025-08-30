@@ -2,7 +2,7 @@ package cc.thonly.polymer.block;
 
 import cc.thonly.polymer.block.model.TransparentFlatTripWire;
 import cc.thonly.polymer.block.model.TransparentPlantWatterlogged;
-import cc.thonly.reverie_dreams.block.PolymerCropCreator;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
 import eu.pb4.factorytools.api.block.FactoryBlock;
@@ -73,10 +73,10 @@ public class CropBlockImpl implements PolymerTexturedBlock, FactoryBlock {
             this.blockState = blockState;
             this.maxAge = maxAge;
             Block block = blockState.getBlock();
-            Optional<PolymerCropCreator.Instance> instanceOptional = PolymerCropCreator.getInstance(block);
+            Optional<CropBlockCreator.Instance> instanceOptional = CropBlockCreator.getInstance(block);
             boolean isPresent = instanceOptional.isPresent();
             if (isPresent && block instanceof AbstractCropBlock cropBlock) {
-                PolymerCropCreator.Instance instance = instanceOptional.get();
+                CropBlockCreator.Instance instance = instanceOptional.get();
                 this.block = (AbstractCropBlock) blockState.getBlock();
                 this.models = MODELS.computeIfAbsent(cropBlock, (x) -> new ItemStack[this.maxAge]);
                 Identifier identifier = instance.getIdentifier();

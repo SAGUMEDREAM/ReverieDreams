@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.block.PolymerCropCreator;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
@@ -160,8 +160,8 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
         }
         addDrop(MIBlocks.ITEM_DISPLAY);
 
-        for (Map.Entry<Identifier, PolymerCropCreator.Instance> view : PolymerCropCreator.getViews()) {
-            PolymerCropCreator.Instance instance = view.getValue();
+        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+            CropBlockCreator.Instance instance = view.getValue();
             instance.generateLoot(this);
         }
 

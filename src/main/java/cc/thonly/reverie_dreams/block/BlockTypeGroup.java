@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
+import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import lombok.Getter;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
 @Getter
 public enum BlockTypeGroup {
     BLOCK(),
+    PLANT(),
     SAPLING(),
     FENCE(),
     FENCE_GATE(),
@@ -26,7 +28,11 @@ public enum BlockTypeGroup {
     DOOR(),
     FRUIT_LEAVES(),
     PICKAXE_MINEABLE(),
-    AXE(),
+    AXE_MINEABLE(),
+    SHOVEL_MINEABLE(),
+    HOE_MINEABLE(),
+    SWORD_MINEABLE(),
+    KITCHENWARE(),
     ;
     private final Set<Block> entries = new LinkedHashSet<>();
 
@@ -60,6 +66,12 @@ public enum BlockTypeGroup {
         }
         if (block instanceof LeavesBlock) {
             LEAVES.add(block);
+        }
+        if (block instanceof AbstractKitchenwareBlock) {
+            KITCHENWARE.add(block);
+        }
+        if (block instanceof PlantBlock) {
+            PLANT.add(block);
         }
         BLOCK.add(block);
     }

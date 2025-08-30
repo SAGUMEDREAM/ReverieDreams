@@ -40,8 +40,8 @@ import java.util.Set;
 @Accessors(chain = true)
 @Setter
 @Getter
-public final class PolymerCropCreator {
-    private static final Map<Identifier, PolymerCropCreator.Instance> INSTANCES = new Object2ObjectOpenHashMap<>();
+public final class CropBlockCreator {
+    private static final Map<Identifier, CropBlockCreator.Instance> INSTANCES = new Object2ObjectOpenHashMap<>();
     private final Identifier identifier;
     private Integer maxAge;
     private float seedCompostingLevel = 0.3f;
@@ -53,20 +53,20 @@ public final class PolymerCropCreator {
     private boolean selfSeed = false;
     private ModelType modelType = ModelType.CROSS;
     @Setter(value = AccessLevel.PRIVATE)
-    private PolymerCropCreator.Instance instance;
+    private CropBlockCreator.Instance instance;
 
-    private PolymerCropCreator(Identifier identifier) {
+    private CropBlockCreator(Identifier identifier) {
         this.identifier = identifier;
     }
 
-    public static PolymerCropCreator createCreator(Identifier identifier) {
-        return new PolymerCropCreator(identifier);
+    public static CropBlockCreator createCreator(Identifier identifier) {
+        return new CropBlockCreator(identifier);
     }
 
     /**
      * 设置此作物的掉落物既是种子。
      */
-    public PolymerCropCreator self() {
+    public CropBlockCreator self() {
         this.selfSeed = true;
         return this;
     }
@@ -74,8 +74,8 @@ public final class PolymerCropCreator {
     /**
      * 构建并注册作物 block 与 item
      */
-    public PolymerCropCreator.Instance build() {
-        AbstractCropBlock basicCropBlock = this.factory.newInstance(AbstractBlock.Settings.create().registryKey(MIBlocks.keyOf(this.identifier)));
+    public CropBlockCreator.Instance build() {
+        AbstractCropBlock basicCropBlock = this.factory.newInstance(AbstractBlock.Settings.create().registryKey(ModBlocks.keyOf(this.identifier)));
         MIBlocks.registerSimpleBlock(basicCropBlock);
         Registry.register(Registries.BLOCK, this.identifier, basicCropBlock);
 

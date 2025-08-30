@@ -3,8 +3,8 @@ package cc.thonly.mystias_izakaya.loot;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.data.ModLootModifies;
-import cc.thonly.reverie_dreams.block.PolymerCropCreator;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
@@ -45,7 +45,7 @@ public class MILootModifies {
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(0.05f));
 
-                for (PolymerCropCreator.Instance instance : MIBlocks.GRASS_DROPS) {
+                for (CropBlockCreator.Instance instance : MIBlocks.GRASS_DROPS) {
                     poolBuilder = poolBuilder.with(ItemEntry.builder(instance.getSeed()).weight(10));
                 }
 
@@ -92,11 +92,11 @@ public class MILootModifies {
         });
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             if (ModLootModifies.COMMON_CHESTS.contains(key)) {
-                List<PolymerCropCreator.Instance> chestDrops = MIBlocks.CHEST_DROPS;
+                List<CropBlockCreator.Instance> chestDrops = MIBlocks.CHEST_DROPS;
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(1, 2))
                         .conditionally(RandomChanceLootCondition.builder(0.24f));
-                for (PolymerCropCreator.Instance instance : chestDrops) {
+                for (CropBlockCreator.Instance instance : chestDrops) {
                     Item seed = instance.getSeed();
                     poolBuilder.with(ItemEntry.builder(seed).weight(8));
                 }

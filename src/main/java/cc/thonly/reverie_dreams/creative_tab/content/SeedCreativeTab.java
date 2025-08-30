@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
-import cc.thonly.reverie_dreams.block.PolymerCropCreator;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -26,8 +26,8 @@ public class SeedCreativeTab implements ItemGroupContent {
 
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(SeedCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            for (Map.Entry<Identifier, PolymerCropCreator.Instance> view : PolymerCropCreator.getViews()) {
-                PolymerCropCreator.Instance instance = view.getValue();
+            for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+                CropBlockCreator.Instance instance = view.getValue();
                 Item seed = instance.getSeed();
                 itemGroup.add(seed);
             }
@@ -41,8 +41,8 @@ public class SeedCreativeTab implements ItemGroupContent {
     }
 
     public static ItemStack getSeedItemIcon() {
-        for (Map.Entry<Identifier, PolymerCropCreator.Instance> view : PolymerCropCreator.getViews()) {
-            PolymerCropCreator.Instance instance = view.getValue();
+        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+            CropBlockCreator.Instance instance = view.getValue();
             return new ItemStack(instance.getSeed());
         }
         return new ItemStack(Items.WHEAT_SEEDS);

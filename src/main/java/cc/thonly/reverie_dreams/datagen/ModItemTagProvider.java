@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
+import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
@@ -10,7 +12,6 @@ import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.base.*;
-import cc.thonly.reverie_dreams.block.PolymerCropCreator;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -86,6 +87,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModTags.ItemTypeTag.MAID_ARMOR).add(ModItems.MAID_HAIRBAND, ModItems.MAID_UPPER_SKIRT, ModItems.MAID_LOWER_SKIRT, ModItems.MAID_SHOE);
 
         // === 自定义方块 ===
+        valueLookupBuilder(ItemTags.PLANKS).add(WoodCreator.INSTANCES.stream().map(ins->ins.planks().asItem()));
         valueLookupBuilder(ModTags.ItemTypeTag.ORB_BLOCK).add(
                 ModBlocks.RED_ORB_BLOCK.asItem(),
                 ModBlocks.YELLOW_ORB_BLOCK.asItem(),
@@ -117,7 +119,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 ItemTags.SLABS, BlockTypeGroup.SLAB.items(),
                 ItemTags.BUTTONS, BlockTypeGroup.BUTTON.items(),
                 ItemTags.TRAPDOORS, BlockTypeGroup.TRAPDOOR.items(),
-                ItemTags.DOORS, BlockTypeGroup.DOOR.items()
+                ItemTags.DOORS, BlockTypeGroup.DOOR.items(),
+                ItemTags.LEAVES, BlockTypeGroup.LEAVES.items()
         );
         blockItemGroups.forEach((tag, list) -> {
             ProvidedTagBuilder<Item, Item> builder = valueLookupBuilder(tag);
@@ -127,7 +130,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         // === 种子 ===
         ProvidedTagBuilder<Item, Item> seeds = valueLookupBuilder(ConventionalItemTags.SEEDS);
         ProvidedTagBuilder<Item, Item> villagerPlantableSeeds = valueLookupBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS);
-        for (var entry : PolymerCropCreator.getViews()) {
+        for (var entry : CropBlockCreator.getViews()) {
             Item seed = entry.getValue().getSeed();
             villagerPlantableSeeds.add(seed);
             seeds.add(seed);

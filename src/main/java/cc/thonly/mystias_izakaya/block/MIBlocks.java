@@ -3,12 +3,12 @@ package cc.thonly.mystias_izakaya.block;
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
 import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
-import cc.thonly.reverie_dreams.block.PolymerCropCreator;
 import cc.thonly.reverie_dreams.world.SaplingGeneratorInit;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.block.*;
@@ -153,12 +153,12 @@ public class MIBlocks extends ModBlocks {
             "tremella",
             (settings) -> new FlowerBlock(StatusEffects.REGENERATION, 3f, settings), createPlantSettings());
 
-    public static final PolymerCropCreator.Instance CHILL = PolymerCropCreator
+    public static final CropBlockCreator.Instance CHILL = CropBlockCreator
             .createCreator(MystiasIzakaya.id("chill"))
             .setFactory(ChillCrop::new)
             .setMaxAge(7)
             .setGain(MIItems.CHILI)
-            .setModelType(PolymerCropCreator.ModelType.CROSS)
+            .setModelType(CropBlockCreator.ModelType.CROSS)
             .setProvider(
                     CropAgeModelProvider.create(7)
                             .setKey(2, 3).setValue(1)
@@ -170,12 +170,12 @@ public class MIBlocks extends ModBlocks {
             )
             .build();
 
-    public static final PolymerCropCreator.Instance CUCUMBER = PolymerCropCreator
+    public static final CropBlockCreator.Instance CUCUMBER = CropBlockCreator
             .createCreator(MystiasIzakaya.id("cucumber"))
             .setFactory(CucumberCrop::new)
             .setMaxAge(7)
             .setGain(MIItems.CUCUMBER)
-            .setModelType(PolymerCropCreator.ModelType.CROSS)
+            .setModelType(CropBlockCreator.ModelType.CROSS)
             .setProvider(
                     CropAgeModelProvider.create(7)
                             .setKey(2).setValue(1)
@@ -187,12 +187,12 @@ public class MIBlocks extends ModBlocks {
             )
             .build();
 
-    public static final PolymerCropCreator.Instance GRAPE = PolymerCropCreator
+    public static final CropBlockCreator.Instance GRAPE = CropBlockCreator
             .createCreator(MystiasIzakaya.id("grape"))
             .setFactory(GrapeCrop::new)
             .setMaxAge(7)
             .setGain(MIItems.GRAPE)
-            .setModelType(PolymerCropCreator.ModelType.CROP)
+            .setModelType(CropBlockCreator.ModelType.CROP)
             .setProvider(
                     CropAgeModelProvider.create(7)
                             .setKey(2).setValue(1)
@@ -205,12 +205,12 @@ public class MIBlocks extends ModBlocks {
             )
             .build();
 
-    public static final PolymerCropCreator.Instance ONION = PolymerCropCreator
+    public static final CropBlockCreator.Instance ONION = CropBlockCreator
             .createCreator(MystiasIzakaya.id("onion"))
             .setFactory(OnionCrop::new)
             .setMaxAge(7)
             .setGain(MIItems.ONION)
-            .setModelType(PolymerCropCreator.ModelType.CROP)
+            .setModelType(CropBlockCreator.ModelType.CROP)
             .setProvider(
                     CropAgeModelProvider.create(7)
                             .setKey(1).setValue(1)
@@ -223,12 +223,12 @@ public class MIBlocks extends ModBlocks {
             )
             .build();
 
-    public static final PolymerCropCreator.Instance RED_BEANS = PolymerCropCreator
+    public static final CropBlockCreator.Instance RED_BEANS = CropBlockCreator
             .createCreator(MystiasIzakaya.id("red_beans"))
             .setFactory(RedBeansCrop::new)
             .setMaxAge(6)
             .setGain(MIItems.RED_BEANS)
-            .setModelType(PolymerCropCreator.ModelType.CROSS)
+            .setModelType(CropBlockCreator.ModelType.CROSS)
             .setProvider(
                     CropAgeModelProvider.create(6)
                             .setKey(1).setValue(1)
@@ -240,12 +240,12 @@ public class MIBlocks extends ModBlocks {
             )
             .build();
 
-    public static final PolymerCropCreator.Instance TOMATO = PolymerCropCreator
+    public static final CropBlockCreator.Instance TOMATO = CropBlockCreator
             .createCreator(MystiasIzakaya.id("tomato"))
             .setFactory(TomatoCrop::new)
             .setMaxAge(6)
             .setGain(MIItems.TOMATO)
-            .setModelType(PolymerCropCreator.ModelType.CROSS)
+            .setModelType(CropBlockCreator.ModelType.CROSS)
             .setProvider(
                     CropAgeModelProvider.create(6)
                             .setKey(2).setValue(1)
@@ -255,12 +255,12 @@ public class MIBlocks extends ModBlocks {
                             .build()
             )
             .build();
-    public static final PolymerCropCreator.Instance TOON = PolymerCropCreator
+    public static final CropBlockCreator.Instance TOON = CropBlockCreator
             .createCreator(MystiasIzakaya.id("toon"))
             .setFactory(ToonCrop::new)
             .setMaxAge(8)
             .setGain(MIItems.TOON)
-            .setModelType(PolymerCropCreator.ModelType.CROSS)
+            .setModelType(CropBlockCreator.ModelType.CROSS)
             .setProvider(
                     CropAgeModelProvider.create(8)
                             .setKey(2, 3).setValue(1)
@@ -270,12 +270,12 @@ public class MIBlocks extends ModBlocks {
                             .build()
             )
             .build();
-    public static final PolymerCropCreator.Instance WHITE_RADISH = PolymerCropCreator
+    public static final CropBlockCreator.Instance WHITE_RADISH = CropBlockCreator
             .createCreator(MystiasIzakaya.id("white_radish"))
             .setFactory(WhiteRadishCrop::new)
             .setMaxAge(8)
             .setGain(MIItems.WHITE_RADISH)
-            .setModelType(PolymerCropCreator.ModelType.CROP)
+            .setModelType(CropBlockCreator.ModelType.CROP)
             .setProvider(
                     CropAgeModelProvider.create(8)
                             .setKey(2, 3).setValue(1)
@@ -285,12 +285,12 @@ public class MIBlocks extends ModBlocks {
                             .build()
             )
             .build();
-    public static final PolymerCropCreator.Instance SWEET_POTATO = PolymerCropCreator
+    public static final CropBlockCreator.Instance SWEET_POTATO = CropBlockCreator
             .createCreator(MystiasIzakaya.id("sweet_potato"))
             .setFactory(SweetPotatoCrop::new)
             .setMaxAge(6)
             .setGain(MIItems.SWEET_POTATO)
-            .setModelType(PolymerCropCreator.ModelType.CROP)
+            .setModelType(CropBlockCreator.ModelType.CROP)
             .setProvider(
                     CropAgeModelProvider.create(6)
                             .setKey(2).setValue(1)
@@ -300,12 +300,12 @@ public class MIBlocks extends ModBlocks {
                             .build()
             )
             .build();
-    public static final PolymerCropCreator.Instance BROCCOLI = PolymerCropCreator
+    public static final CropBlockCreator.Instance BROCCOLI = CropBlockCreator
             .createCreator(MystiasIzakaya.id("broccoli"))
             .setFactory(BroccoliCrop::new)
             .setMaxAge(6)
             .setGain(MIItems.BROCCOLI)
-            .setModelType(PolymerCropCreator.ModelType.CROSS)
+            .setModelType(CropBlockCreator.ModelType.CROSS)
             .setProvider(
                     CropAgeModelProvider.create(6)
                             .setKey(2).setValue(1)
@@ -316,12 +316,12 @@ public class MIBlocks extends ModBlocks {
                             .build()
             )
             .build();
-    public static final PolymerCropCreator.Instance SOY_BEANS = PolymerCropCreator
+    public static final CropBlockCreator.Instance SOY_BEANS = CropBlockCreator
             .createCreator(MystiasIzakaya.id("soy_beans"))
             .setFactory(RedBeansCrop::new)
             .setMaxAge(6)
             .self()
-            .setModelType(PolymerCropCreator.ModelType.CROSS)
+            .setModelType(CropBlockCreator.ModelType.CROSS)
             .setProvider(
                     CropAgeModelProvider.create(6)
                             .setKey(1).setValue(1)
@@ -334,8 +334,8 @@ public class MIBlocks extends ModBlocks {
             .build();
 
 
-    public static final List<PolymerCropCreator.Instance> GRASS_DROPS = new ArrayList<>(List.of(TOMATO, RED_BEANS, ONION, CUCUMBER, CHILL, BROCCOLI, SOY_BEANS));
-    public static final List<PolymerCropCreator.Instance> CHEST_DROPS = new ArrayList<>(List.of(SWEET_POTATO, WHITE_RADISH, TOON, RED_BEANS, GRAPE));
+    public static final List<CropBlockCreator.Instance> GRASS_DROPS = new ArrayList<>(List.of(TOMATO, RED_BEANS, ONION, CUCUMBER, CHILL, BROCCOLI, SOY_BEANS));
+    public static final List<CropBlockCreator.Instance> CHEST_DROPS = new ArrayList<>(List.of(SWEET_POTATO, WHITE_RADISH, TOON, RED_BEANS, GRAPE));
 
 //    public static final PolymerCropCreator.Instance TEST_CROP = PolymerCropCreator
 //            .createCreator(Touhou.id("test"))
@@ -359,7 +359,7 @@ public class MIBlocks extends ModBlocks {
         if (Touhou.isDevMode()) {
             DebugExportWriter output = DebugExportWriter.OUTPUT;
             output.write("== Crop Block Textures ==");
-            for (Map.Entry<Identifier, PolymerCropCreator.Instance> view : PolymerCropCreator.getViews()) {
+            for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
                 Set<String> strIds = new HashSet<>();
                 int[] array = view.getValue().getProvider().toArray();
                 for (int i : array) {
