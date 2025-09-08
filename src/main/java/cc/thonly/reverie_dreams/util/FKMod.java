@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.util;
 
-import cc.thonly.reverie_dreams.Touhou;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.Version;
@@ -33,7 +32,7 @@ public class FKMod {
                             Path.of("/"),
                             new V1ModMetadata(
                                     mod_id,
-                                    Version.parse(Touhou.VERSION),
+                                    Version.parse(ConstantInfo.VERSION),
                                     List.of(),
                                     ModEnvironment.UNIVERSAL,
                                     Map.of(),

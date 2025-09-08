@@ -10,6 +10,7 @@ public class ModArmorMaterials {
         register(EarphoneArmorMaterial.class);
         register(KoishiHatArmorMaterial.class);
         register(MaidArmorMaterial.class);
+        register(DreamArmorMaterial.class);
     }
 
     public static boolean register(Class<?> clazz) {

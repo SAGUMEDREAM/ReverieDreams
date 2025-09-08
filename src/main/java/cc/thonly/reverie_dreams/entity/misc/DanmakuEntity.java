@@ -8,8 +8,6 @@ import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import eu.pb4.polymer.core.api.entity.PolymerEntity;
-import eu.pb4.polymer.virtualentity.api.tracker.DisplayTrackedData;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,18 +21,14 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.decoration.DisplayEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.storage.ReadView;
@@ -47,13 +41,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Set;
 
 
 @Setter
@@ -154,7 +144,7 @@ public class DanmakuEntity extends PersistentProjectileEntity {
         this.tile = view.getBoolean("IsTile", true);
         this.danmakuDamageType = RegistryManager.DANMAKU_DAMAGE_TYPE.get(Identifier.of(view.getString("DamageType", Touhou.id("generic").toString())));
 
-        this.flyAge = view.getInt("FlyAge",0);
+        this.flyAge = view.getInt("FlyAge", 0);
 
     }
 
@@ -279,9 +269,9 @@ public class DanmakuEntity extends PersistentProjectileEntity {
         this.setSilent(false);
         this.setSilent(true);
 
-        if (entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
+        if (entityHitResult.getEntity() != null) {
             this.setDamage(this.getDamage());
-            entityHitParticles(livingEntity, this.getDamage() * this.getVelocity().length());
+            this.entityHitParticles(entityHitResult.getEntity(), this.getDamage() * this.getVelocity().length());
         }
 
         this.hitDamage(entityHitResult, this.getWorld());
@@ -311,7 +301,7 @@ public class DanmakuEntity extends PersistentProjectileEntity {
         }
     }
 
-    protected void entityHitParticles(LivingEntity livingEntity, double damage) {
+    protected void entityHitParticles(Entity livingEntity, double damage) {
         if (livingEntity.getWorld() instanceof ServerWorld world) {
             Vec3d pos = livingEntity.getPos();
             int particleCount = (int) damage * 4;

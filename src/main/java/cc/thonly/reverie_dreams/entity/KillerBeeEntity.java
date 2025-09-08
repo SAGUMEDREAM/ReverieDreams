@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.entity;
 
-import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.Goal;
@@ -12,7 +11,6 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.Set;
 

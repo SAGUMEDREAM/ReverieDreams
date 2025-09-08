@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.interfaces;
 
-import net.minecraft.block.BlockState;
-
 import java.util.Optional;
 
 public interface IMatureBlock {

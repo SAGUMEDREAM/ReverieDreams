@@ -1,25 +1,22 @@
 package cc.thonly.reverie_dreams.registry;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
+import cc.thonly.reverie_dreams.damage.DanmakuDamageTypes;
+import cc.thonly.reverie_dreams.danmaku.*;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
 import cc.thonly.reverie_dreams.entity.npc.*;
-import cc.thonly.reverie_dreams.fumo.Fumo;
-import cc.thonly.reverie_dreams.fumo.Fumos;
-import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
-import cc.thonly.reverie_dreams.damage.DanmakuDamageTypes;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectories;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.skin.MobSkins;
 import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
 import cc.thonly.reverie_dreams.entity.skin.RoleSkins;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
-import cc.thonly.reverie_dreams.item.prop.RoleCard;
+import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.RoleCards;
-import com.mojang.serialization.Codec;
+import cc.thonly.reverie_dreams.item.builder.RoleCard;
+import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.registry.Registry;
@@ -33,9 +30,16 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class RegistryManager {
     public static final Map<RegistryKey<? extends Registry<?>>, IntrinsicalRegister<?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
+    public static final IntrinsicalRegister<BaseRecipeType<?>> RECIPE_TYPE = RegistryManager.<BaseRecipeType<?>>ofEntry(Touhou.id("recipe_type"))
+            ;
+
     public static final IntrinsicalRegister<DanmakuType> DANMAKU_TYPE = RegistryManager.<DanmakuType>ofEntry(Touhou.id("danmaku_type"))
             .codec(DanmakuType.CODEC)
             .builder(DanmakuTypes::bootstrap);
+
+    public static final IntrinsicalRegister<DanmakuShape> DANMAKU_SHAPE = RegistryManager.<DanmakuShape>ofEntry(Touhou.id("danmaku_shape"))
+            .codec(DanmakuShape.CODEC)
+            .builder(DanmakuShapes::bootstrap);
 
     public static final IntrinsicalRegister<DanmakuTrajectory> DANMAKU_TRAJECTORY = RegistryManager.<DanmakuTrajectory>ofEntry(Touhou.id("danmaku_trajectory"))
             .codec(DanmakuTrajectory.CODEC)

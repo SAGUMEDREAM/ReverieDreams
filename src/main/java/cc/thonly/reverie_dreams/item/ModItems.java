@@ -6,15 +6,22 @@ import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.item.base.*;
+import cc.thonly.reverie_dreams.item.builder.RoleCard;
+import cc.thonly.reverie_dreams.item.material.DreamMaterial;
 import cc.thonly.reverie_dreams.item.material.MagicIceMaterial;
 import cc.thonly.reverie_dreams.item.material.SilverMaterial;
 import cc.thonly.reverie_dreams.item.prop.*;
 import cc.thonly.reverie_dreams.item.prop.debug.BattleStickItem;
 import cc.thonly.reverie_dreams.item.prop.debug.OwnerStickItem;
+import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;
+import cc.thonly.reverie_dreams.item.template.RoleCardItem;
+import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
+import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.item.weapon.*;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
@@ -118,7 +125,7 @@ public class ModItems {
     public static final Item LEVATIN = registerItem("levatin", (settings) -> new Levatin(1f, -2.4f, settings), new Item.Settings());
     public static final Item ROKANKEN = registerItem("rokanken", (settings) -> new Rokanken(2f, 0.5f - 2.4f, settings), new Item.Settings());
     public static final Item HAKUROKEN = registerItem("hakuroken", (settings) -> new Hakuroken(2f, 1f - 2.4f, settings), new Item.Settings());
-    public static final Item PAPILIO_PATTERN_FAN = registerItem("papilio_pattern_fan", (settings) -> new PapilioPatternFan(1f, 1f - 2.4f, settings), new Item.Settings());
+    public static final Item PAPILIO_PATTERN_FAN = registerItem("papilio_pattern_fan", (settings) -> new PapilioPatternFan(1f - 4f, 1f - 2.4f, settings), new Item.Settings());
     public static final Item HORAI_DAMA_NO_EDA = registerItem("horai-dama_no_eda", (settings) -> new HoraiDamaNoEdaItem(0, 0, settings), new Item.Settings());
     public static final Item MAPLE_LEAF_FAN = registerItem("maple_leaf_fan", (settings) -> new MapleLeafFan(1f, -2.4f, settings), new Item.Settings());
     public static final Item IBUKIHO = registerItem("ibukiho", (settings) -> new Ibukiho(1f, -2.4f, settings), new Item.Settings()
@@ -187,7 +194,19 @@ public class ModItems {
     public static final Item MAGIC_ICE_LEGGINGS = registerItem("magic_ice_leggings", (settings) -> new ArmorItem(MagicIceArmorMaterial.INSTANCE, EquipmentType.LEGGINGS, settings), new Item.Settings().maxDamage(EquipmentType.LEGGINGS.getMaxDamage(MagicIceArmorMaterial.BASE_DURABILITY)));
     public static final Item MAGIC_ICE_BOOTS = registerItem("magic_ice_boots", (settings) -> new ArmorItem(MagicIceArmorMaterial.INSTANCE, EquipmentType.BOOTS, settings), new Item.Settings().maxDamage(EquipmentType.BOOTS.getMaxDamage(MagicIceArmorMaterial.BASE_DURABILITY)));
 
+    // 梦境装备
+    public static final Item DREAM_SWORD = registerItem("dream_sword", (settings) -> new SwordItem(DreamMaterial.INSTANCE, 3.0f, -2.4f, settings), new Item.Settings());
+    public static final Item DREAM_AXE = registerItem("dream_axe", (settings) -> new AxeItem(DreamMaterial.INSTANCE, 6.0f, -2.8f, settings), new Item.Settings());
+    public static final Item DREAM_PICKAXE = registerItem("dream_pickaxe", (settings) -> new PickaxeItem(DreamMaterial.INSTANCE, 1.0f, -2.8f, settings), new Item.Settings());
+    public static final Item DREAM_SHOVEL = registerItem("dream_shovel", (settings) -> new ShovelItem(DreamMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Settings());
+    public static final Item DREAM_HOE = registerItem("dream_hoe", (settings) -> new HoeItem(DreamMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Settings());
+    public static final Item DREAM_HELMET = registerItem("dream_helmet", (settings) -> new DreamArmorItem(EquipmentType.HELMET, settings), new Item.Settings().maxDamage(EquipmentType.HELMET.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
+    public static final Item DREAM_CHESTPLATE = registerItem("dream_chestplate", (settings) -> new DreamArmorItem( EquipmentType.CHESTPLATE, settings), new Item.Settings().maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
+    public static final Item DREAM_LEGGINGS = registerItem("dream_leggings", (settings) -> new DreamArmorItem(EquipmentType.LEGGINGS, settings), new Item.Settings().maxDamage(EquipmentType.LEGGINGS.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
+    public static final Item DREAM_BOOTS = registerItem("dream_boots", (settings) -> new DreamArmorItem(EquipmentType.BOOTS, settings), new Item.Settings().maxDamage(EquipmentType.BOOTS.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
+
     // 模板
+    public static final Item DANMAKU_SHAPE_CREATOR = registerItem("danmaku_recipe_creator", DanmakuShapeCreatorItem::new, new Item.Settings());
     public static final Item SPELL_CARD_TEMPLATE = registerItem("spell_card_template", SpellCardTemplateItem::new, new Item.Settings());
     public static final Item ROLE_CARD = registerItem("role_card", RoleCardItem::new, new Item.Settings().maxCount(1)
             .component(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT.with(DataComponentTypes.DYED_COLOR, true))
@@ -199,10 +218,10 @@ public class ModItems {
     public static final Item HR02_08 = registerAlbum("hr02_08", AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.HR02_08.getJukeboxSongRegistryKey()));
     public static final Item HR03_01 = registerAlbum("hr03_01", AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.HR03_01.getJukeboxSongRegistryKey()));
     public static final Item MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS = registerAlbum("melodic-taste-nightmare-before-crossroads", AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS.getJukeboxSongRegistryKey()));
-    public static final Item YV_FLOWER_CLOCK_AND_DREAMS = registerAlbum("yv_flower_clock_and_dreams", AlbumItem::new,new Item.Settings().jukeboxPlayable(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS.getJukeboxSongRegistryKey()));
-    public static final Item GLOWING_NEEDLES_LITTLE_PEOPLE = registerAlbum("glowing_needles_little_people", AlbumItem::new,new Item.Settings().jukeboxPlayable(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongRegistryKey()));
-    public static final Item COOKIE = registerAlbum("cookie", AlbumItem::new,new Item.Settings().jukeboxPlayable(JukeboxSongInit.COOKIE.getJukeboxSongRegistryKey()));
-    public static final Item BADAPPLE = registerAlbum("bad-apple",AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey()));
+    public static final Item YV_FLOWER_CLOCK_AND_DREAMS = registerAlbum("yv_flower_clock_and_dreams", AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS.getJukeboxSongRegistryKey()));
+    public static final Item GLOWING_NEEDLES_LITTLE_PEOPLE = registerAlbum("glowing_needles_little_people", AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongRegistryKey()));
+    public static final Item COOKIE = registerAlbum("cookie", AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.COOKIE.getJukeboxSongRegistryKey()));
+    public static final Item BADAPPLE = registerAlbum("bad-apple", AlbumItem::new, new Item.Settings().jukeboxPlayable(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey()));
 
     static {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.OPERATOR).register(itemGroup -> {

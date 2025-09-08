@@ -1,6 +1,6 @@
 package cc.thonly.polymer.block;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
 import eu.pb4.polymer.blocks.api.BlockModelType;
@@ -25,7 +25,7 @@ import java.util.Set;
 public record RealSingleStatePolymerBlock(BlockState state) implements PolymerTexturedBlock {
 
     public static RealSingleStatePolymerBlock of(Block block, BlockModelType type) {
-        if (Touhou.IS_DATAGEN) {
+        if (ConstantInfo.IS_DATAGEN) {
             return new RealSingleStatePolymerBlock(block.getDefaultState());
         }
 

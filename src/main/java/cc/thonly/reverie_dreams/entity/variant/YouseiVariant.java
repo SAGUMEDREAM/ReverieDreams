@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.entity.SimpleVariant;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;

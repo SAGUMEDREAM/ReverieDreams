@@ -2,6 +2,7 @@ package cc.thonly.polymer.block;
 
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
 import eu.pb4.factorytools.api.block.FactoryBlock;
@@ -14,7 +15,6 @@ import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.resourcepack.extras.api.format.blockstate.BlockStateAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.blockstate.StateModelVariant;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -41,7 +41,7 @@ public record StatePolymerBlock(Map<BlockState, BlockState> map, FactoryBlock fa
     }
 
     public static StatePolymerBlock of(Block block, BlockModelType type, FactoryBlock fallback, Predicate<BlockState> canUseBlock) {
-        if (Touhou.IS_DATAGEN) {
+        if (ConstantInfo.IS_DATAGEN) {
             return new StatePolymerBlock(new HashMap<>(), fallback);
         }
 

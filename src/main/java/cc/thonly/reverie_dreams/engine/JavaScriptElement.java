@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.engine;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import lombok.Getter;

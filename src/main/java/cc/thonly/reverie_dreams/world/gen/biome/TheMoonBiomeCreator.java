@@ -15,7 +15,7 @@ public class TheMoonBiomeCreator {
         builder2.creatureSpawnProbability(0.07F);
         return new Biome.Builder()
                 .precipitation(false)
-                .temperature(-0.5F)
+                .temperature(2.0f)
                 .downfall(0.5F)
                 .effects(new BiomeEffects.Builder()
                         .waterColor(0)

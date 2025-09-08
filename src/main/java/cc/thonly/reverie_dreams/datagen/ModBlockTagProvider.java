@@ -2,11 +2,11 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
+import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
+import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
-import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.data.ModTags;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -15,17 +15,13 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.tag.ProvidedTagBuilder;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Getter(AccessLevel.PRIVATE)

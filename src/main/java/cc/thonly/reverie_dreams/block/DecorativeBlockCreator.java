@@ -77,7 +77,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
         Identifier id = Registries.ITEM.getId(material);
         ItemConvertible start = this.base() == null ? material : this.base();
         if (start != this.block()) {
-            generator.createShaped(RecipeCategory.DECORATIONS, this.block())
+            generator.createShaped(RecipeCategory.DECORATIONS, this.block(), 2)
                     .pattern("XX")
                     .pattern("XX")
                     .input('X', start)

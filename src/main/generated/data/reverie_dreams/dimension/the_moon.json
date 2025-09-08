@@ -4,7 +4,7 @@
     "type": "minecraft:noise",
     "biome_source": {
       "type": "minecraft:fixed",
-      "biome": "reverie_dreams:dream"
+      "biome": "reverie_dreams:the_moon"
     },
     "settings": "reverie_dreams:moon"
   }

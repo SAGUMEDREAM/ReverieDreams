@@ -3,9 +3,11 @@ package cc.thonly.reverie_dreams.danmaku;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -27,7 +29,7 @@ import java.util.*;
 
 @Setter
 @Getter
-public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, BuiltinObject {
+public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, Translatable, BuiltinObject {
     public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
@@ -57,6 +59,46 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.tile = tile;
         this.infinite = infinite;
         this.buildItem();
+    }
+
+    @Override
+    public String translateKey() {
+        return this.item.getTranslationKey();
+    }
+
+    public DanmakuShape toShape() {
+        for (Map.Entry<Identifier, DanmakuShape> mapEntry : RegistryManager.DANMAKU_SHAPE.entrySet()) {
+            DanmakuShape shape = mapEntry.getValue();
+            if (shape.getType() == this) {
+                return shape;
+            }
+        }
+        return new DanmakuShape(this);
+    }
+
+    public void buildShapeRecipe(RecipeTypeProvider.Factory<DanmakuShapeDrawRecipe> factory, List<List<Boolean>> shape) {
+        factory.register(this.id, new DanmakuShapeDrawRecipe(shape, ItemStackWrapper.of(this.toShape().getItemStack().copy())));
+    }
+
+    public void buildShapeRecipe(RecipeTypeProvider.Factory<DanmakuShapeDrawRecipe> factory, String[] shape) {
+        List<List<Boolean>> list = new ArrayList<>();
+
+        for (String line : shape) {
+            ArrayList<Boolean> row = new ArrayList<>();
+            for (int i = 0; i < line.length(); i++) {
+                char c = line.charAt(i);
+                if (c == 'T') {
+                    row.add(true);
+                } else if (c == 'F') {
+                    row.add(false);
+                } else {
+                    throw new IllegalArgumentException("Invalid character in shape string: " + c);
+                }
+            }
+            list.add(row);
+        }
+
+        this.buildShapeRecipe(factory, list);
     }
 
     public void buildItem() {

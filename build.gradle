@@ -7,7 +7,21 @@ plugins {
 //    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-version = project.mod_version
+enum RemapJarType {
+    STABLE(""),
+    BETA("beta"),
+    ALPHA("alpha"),
+    ;
+    public final String name;
+
+    RemapJarType(String name) {
+        this.name = name
+    }
+}
+
+def remapJarType = RemapJarType.BETA
+
+version = project.mod_version + "+" + project.minecraft_version + (remapJarType == RemapJarType.STABLE ? "" : "+" + remapJarType.name);
 group = project.maven_group
 
 base {
@@ -210,6 +224,7 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
     it.options.release = 21
+    options.compilerArgs << "-Xlint:-deprecation"
 }
 
 java {

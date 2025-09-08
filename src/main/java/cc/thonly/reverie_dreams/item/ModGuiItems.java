@@ -20,8 +20,14 @@ public class ModGuiItems {
     public static final Item PREV = registerItem("sgui/elements/prev", GuiSlotItem::new);
     public static final Item BACK = registerItem("sgui/elements/back_slot", GuiSlotItem::new);
     public static final Item EMPTY_SLOT = registerItem("sgui/elements/empty_slot", GuiSlotItem::new);
+    public static final Item ENABLE = registerItem("sgui/elements/enable", GuiSlotItem::new);
+    public static final Item DISABLE = registerItem("sgui/elements/disable", GuiSlotItem::new);
+    public static final Item DONE = registerItem("sgui/elements/done", GuiSlotItem::new);
+    public static final Item CLOSE = registerItem("sgui/elements/close", GuiSlotItem::new);
     public static final Item PROGRESS_TO_RESULT = registerItem("sgui/elements/progress_to_result", GuiSlotItem::new);
     public static final Item PROGRESS_TO_RESULT_REVERSE = registerItem("sgui/elements/progress_to_result_reverse", GuiSlotItem::new);
+    public static final Item PROGRESS_TO_RESULT_UP = registerItem("sgui/elements/progress_to_result_up", GuiSlotItem::new);
+    public static final Item PROGRESS_TO_RESULT_DOWN = registerItem("sgui/elements/progress_to_result_down", GuiSlotItem::new);
 
     public static void init() {
 

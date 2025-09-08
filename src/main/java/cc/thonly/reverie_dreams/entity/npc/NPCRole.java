@@ -29,7 +29,7 @@ import java.util.List;
 @Slf4j
 @Setter
 @Getter
-public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, BuiltinObject {
+public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, BuiltinObject, Translatable {
     public static final Codec<NPCRole> CODEC = Codec.unit(NPCRole::new);
     public static final List<Item> NPC_SPAWN_EGG_ITEM_LIST = new LinkedList<>();
 
@@ -74,6 +74,11 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
 
     public Item getEgg() {
         return this.spawnEgg;
+    }
+
+    @Override
+    public String translateKey() {
+        return this.entityType.getTranslationKey();
     }
 
     public NPCRole build() {

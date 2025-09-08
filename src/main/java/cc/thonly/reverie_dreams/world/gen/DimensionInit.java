@@ -45,7 +45,7 @@ public class DimensionInit {
                 dimensionTypeLookup.getOrThrow(DimensionTypeInit.THE_MOON),
                 new NoiseChunkGenerator(
                         new FixedBiomeSource(
-                                biomeLookup.getOrThrow(BiomeInit.DREAM)
+                                biomeLookup.getOrThrow(BiomeInit.THE_MOON)
                         ),
                         chunkGeneratorSettingsLookup.getOrThrow(ChunkGeneratorSettingsInit.MOON)
                 )

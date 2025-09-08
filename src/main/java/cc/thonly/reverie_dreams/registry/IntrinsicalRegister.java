@@ -7,7 +7,10 @@ import com.mojang.serialization.Lifecycle;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.registry.*;
+import net.minecraft.registry.MutableRegistry;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryInfo;
 import net.minecraft.registry.entry.RegistryEntryList;
@@ -87,7 +90,11 @@ public class IntrinsicalRegister<T> implements MutableRegistry<T> {
     }
 
     public IntrinsicalRegister<T> build() {
+        if (this.frozen) {
+            return this;
+        }
         this.builders.forEach(step -> step.bootstrap(this));
+        this.freeze();
         return this;
     }
 

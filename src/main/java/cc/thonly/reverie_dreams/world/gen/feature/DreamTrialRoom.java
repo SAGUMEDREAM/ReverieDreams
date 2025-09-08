@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
 import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.datagen.ModChestLootTableProvider;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
@@ -24,7 +26,6 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
         Random random = context.getRandom();
         DreamTrialRoomConfig config = context.getConfig();
 
-        // 房间原点
         int originX = context.getOrigin().getX();
         int originY = context.getOrigin().getY();
         int originZ = context.getOrigin().getZ();
@@ -33,7 +34,6 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
         int sizeY = 16;
         int sizeZ = 16;
 
-        // 立方体房间
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 for (int z = 0; z < sizeZ; z++) {
@@ -62,21 +62,31 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
         }
 
         // 放置刷怪笼在中心
-        BlockPos spawnerPos = new BlockPos(
-                originX + sizeX / 2,
-                originY + 1,
-                originZ + sizeZ / 2
-        );
+        for (int i = 0; i < 2; i++) {
+            int i1 = random.nextBetween(1, 2 + i);
+            BlockPos spawnerPos = new BlockPos(
+                    i1 + originX + sizeX / 2,
+                    originY + 1,
+                    i1 + originZ + sizeZ / 2
+            );
 
-        world.setBlockState(spawnerPos,
-                Blocks.SPAWNER.getDefaultState(),
-                Block.FORCE_STATE
-        );
+            world.setBlockState(spawnerPos,
+                    Blocks.SPAWNER.getDefaultState(),
+                    Block.FORCE_STATE
+            );
 
-        // 设置刷怪类型
-        if (world.getBlockEntity(spawnerPos) instanceof MobSpawnerBlockEntity spawner) {
-            EntityType<?> entityType = Registries.ENTITY_TYPE.get(config.entityTypeId());
-            spawner.getLogic().setEntityId(entityType, null, random, spawnerPos);
+            if (world.getBlockEntity(spawnerPos) instanceof MobSpawnerBlockEntity spawner) {
+                EntityType<?> entityType = Registries.ENTITY_TYPE.get(config.entityTypeId());
+                spawner.getLogic().setEntityId(entityType, null, random, spawnerPos);
+            }
+        }
+
+        BlockPos boxPos = new BlockPos(originX + sizeX / 2 + random.nextBetween(1, 2), originY + 1, originZ + sizeZ / 2 + random.nextBetween(1, 2));
+        world.setBlockState(boxPos,
+                Blocks.CHEST.getDefaultState(),
+                Block.FORCE_STATE);
+        if (world.getBlockEntity(boxPos) instanceof ChestBlockEntity chestBlockEntity) {
+            chestBlockEntity.setLootTable(ModChestLootTableProvider.DREAM_CHEST);
         }
 
         return true;

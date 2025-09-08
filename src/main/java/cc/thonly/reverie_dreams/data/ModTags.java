@@ -32,6 +32,8 @@ public class ModTags {
         public static final TagKey<Item> SILVER_TOOL_MATERIALS = of("silver_tool_materials");
         public static final TagKey<Item> MAGIC_ICE_ARMOR = of("magic_ice_armor");
         public static final TagKey<Item> MAGIC_ICE_TOOL_MATERIALS = of("magic_ice_tool_materials");
+        public static final TagKey<Item> DREAM_ARMOR = of("dream_ice_armor");
+        public static final TagKey<Item> DREAM_TOOL_MATERIALS = of("dream_tool_materials");
         public static final TagKey<Item> MAID_ARMOR = of("maid_armor");
         public static final TagKey<Item> POWER_BLOCK = of("power_block");
         public static final TagKey<Item> POINT_BLOCK = of("point_block");

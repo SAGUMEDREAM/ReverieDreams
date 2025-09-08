@@ -44,9 +44,9 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
         return this.item instanceof BlockItem;
     }
 
-    @Override
-    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {
-        out.set(DataComponentTypes.TOOLTIP_DISPLAY, out.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT));
-    }
+//    @Override
+//    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {
+//        out.set(DataComponentTypes.TOOLTIP_DISPLAY, out.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT));
+//    }
 
 }

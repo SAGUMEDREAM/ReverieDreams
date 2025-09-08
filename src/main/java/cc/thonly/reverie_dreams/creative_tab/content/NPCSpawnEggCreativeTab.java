@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

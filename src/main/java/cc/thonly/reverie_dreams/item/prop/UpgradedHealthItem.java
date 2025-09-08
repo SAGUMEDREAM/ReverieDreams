@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,10 @@ public class UpgradedHealthItem extends Item {
             ILivingEntity modifier = (ILivingEntity) user;
             float value = modifier.getMaxHealthModifier();
             modifier.setMaxHealthModifier(value + 2);
+            EntityAttributeInstance maxHealthAttributeInstance = user.getAttributeInstance(EntityAttributes.MAX_HEALTH);
+            if (maxHealthAttributeInstance != null) {
+                maxHealthAttributeInstance.setBaseValue(user.getMaxHealth() + 2);
+            }
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             itemStack.decrementUnlessCreative(1, user);
             return ActionResult.SUCCESS_SERVER;

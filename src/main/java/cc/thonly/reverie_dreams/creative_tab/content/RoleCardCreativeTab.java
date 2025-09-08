@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -20,6 +19,7 @@ public class RoleCardCreativeTab implements ItemGroupContent {
 
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(RoleCardCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
+            itemGroup.add(ModItems.ROLE_CARD);
             RegistryManager.ROLE_CARD.values().forEach(instance -> itemGroup.add(instance.itemStack()));
         });
         ItemGroupContent.registerGroup(RoleCardCreativeTab.ITEM_GROUP_KEY, RoleCardCreativeTab.ITEM_GROUP);

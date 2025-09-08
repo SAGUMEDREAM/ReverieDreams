@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.debug;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import net.fabricmc.api.ModInitializer;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class DebugExportInit implements ModInitializer {
     @Override
     public void onInitialize() {
-        if (Touhou.isDevMode()) {
+        if (ConstantInfo.isDevMode()) {
             List<String> filenames = List.of(DebugExportWriter.RDDE);
             for (String filename : filenames) {
                 DebugExportWriter instance = DebugExportWriter.getInstance(filename);

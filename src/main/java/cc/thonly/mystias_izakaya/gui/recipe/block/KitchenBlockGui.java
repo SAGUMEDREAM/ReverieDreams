@@ -1,7 +1,7 @@
 package cc.thonly.mystias_izakaya.gui.recipe.block;
 
-import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.block.entity.KitchenwareBlockEntity;
+import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.component.CraftingConflict;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;

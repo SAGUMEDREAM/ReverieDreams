@@ -1,5 +1,6 @@
 package cc.thonly.polymer;
 
+import cc.thonly.mystias_izakaya.block.ItemStackDisplay;
 import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.polymer.block.*;
 import cc.thonly.reverie_dreams.LateLoaderInit;
@@ -44,6 +45,7 @@ public class PolymerBlockHelper {
         LateLoaderInit.LATE_INIT.add(() -> BlockStateModelManager.addBlock(id, block));
 
         return switch (block) {
+            case ItemStackDisplay ignored -> new ItemStackDisplayImpl();
             case AbstractCropBlock ignored -> new CropBlockImpl(ignored);
             case FruitLeavesBlock ignored -> new FruitLeavesImpl(ignored);
             case BaseFumoBlock ignored -> new FumoImpl(ignored);

@@ -13,10 +13,11 @@ import cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider;
 import cc.thonly.reverie_dreams.effect.ModPotions;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.RoleCards;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
+import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.item.Item;
@@ -28,13 +29,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 public class ModRecipeTypeProvider extends RecipeTypeProvider {
-    public final Factory<GensokyoAltarRecipe> gensokyoAltarRecipe = this.getOrCreateFactory(RecipeManager.GENSOKYO_ALTAR, GensokyoAltarRecipe.class);
-    public final Factory<DanmakuRecipe> danmakuRegistry = this.getOrCreateFactory(RecipeManager.DANMAKU_TYPE, DanmakuRecipe.class);
+    public final Factory<GensokyoAltarRecipe> gensokyoAltarRecipeFactory = this.getOrCreateFactory(RecipeManager.GENSOKYO_ALTAR, GensokyoAltarRecipe.class);
+    public final Factory<DanmakuRecipe> danmakuRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_TYPE, DanmakuRecipe.class);
+    public final Factory<DanmakuShapeDrawRecipe> danmakuShapeDrawRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_SHAPE_DRAW_TYPE, DanmakuShapeDrawRecipe.class);
     public final Factory<KitchenRecipe> kitchenRecipeFactory = this.getOrCreateFactory(MiRecipeManager.KITCHEN_RECIPE, KitchenRecipe.class);
 
     public ModRecipeTypeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
@@ -43,113 +44,199 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
 
     @Override
     public void configured() {
-        this.generateGensokyoAltar();
-        this.generateRoleCard();
+        this.generateGensokyoAltarRecipe();
+        this.generateRoleCardRecipe();
         this.generateDanmakuRecipe();
+        this.generateShapeDraw();
         this.generateKitchenRecipe();
     }
 
-    public void generateRoleCard() {
+    @SuppressWarnings("SpellCheckingInspection")
+    public void generateShapeDraw() {
+        DanmakuTypes.AMULET.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFFFFF",
+                "FFTTFF",
+                "FFTTFF",
+                "FFTTFF",
+                "FFTTFF",
+                "FFFFFF"
+        });
+        DanmakuTypes.ARROWHEAD.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFFFFF",
+                "FFTTFF",
+                "FTTTTF",
+                "FTTTTF",
+                "FTFFTF",
+                "FFFFFF"
+        });
+        DanmakuTypes.BALL.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFFFFF",
+                "FFFFFF",
+                "FFTTFF",
+                "FFTTFF",
+                "FFFFFF",
+                "FFFFFF"
+        });
+        DanmakuTypes.BUBBLE.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFFFFF",
+                "FTTTTF",
+                "FTTTTF",
+                "FTTTTF",
+                "FTTTTF",
+                "FFFFFF"
+        });
+        DanmakuTypes.BULLET.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFFFFF",
+                "FFTTFF",
+                "FTTTTF",
+                "FTTTTF",
+                "FTTTTF",
+                "FFFFFF"
+        });
+        DanmakuTypes.FIREBALL.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFTTFF",
+                "FTFFTF",
+                "TFTTFT",
+                "TFTTFT",
+                "FTFFTF",
+                "FFTTFF"
+        });
+        DanmakuTypes.FIREBALL_GLOWY.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFTTFF",
+                "FTTTTF",
+                "TTTTTT",
+                "TTTTTT",
+                "FTTTTF",
+                "FFTTFF"
+        });
+        DanmakuTypes.KUNAI.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFTTFF",
+                "FTTTTF",
+                "FFTTFF",
+                "FFTTFF",
+                "FTFFTF",
+                "FFFFFF"
+        });
+        DanmakuTypes.RICE.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFTTFF",
+                "FTTTTF",
+                "FTTTTF",
+                "FTTTTF",
+                "FTTTTF",
+                "FFTTFF"
+        });
+        DanmakuTypes.STAR.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFFFFF",
+                "FFTTFF",
+                "TTTTTT",
+                "FFTTFF",
+                "FTFFTF",
+                "FFFFFF"
+        });
+
+    }
+
+    public void generateRoleCardRecipe() {
         RoleCards.PROTAGONIST_GROUP
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.REDSTONE_BLOCK, 2), ItemStackWrapper.of(Items.OBSIDIAN, 5))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KOUMAKYOU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.SOUL_SAND, 12), ItemStackWrapper.of(Items.NETHERRACK, 12))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.YOUYOUMU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.CHERRY_LEAVES, 26), ItemStackWrapper.of(Items.IRON_SWORD, 1))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.EIYASHOU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.BAMBOO, 50), ItemStackWrapper.of(Items.END_STONE, 24))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KAEIZUKA
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.DANDELION, 30), ItemStackWrapper.of(Items.ALLIUM, 30))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.FUUJINROKU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.LEAF_LITTER, 40), ItemStackWrapper.of(Items.STONE, 40))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.CHIREIDEN
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.ROSE_BUSH, 40), ItemStackWrapper.of(Items.NETHERRACK, 45))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.SEIRENSEN
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.GOLD_INGOT, 28), ItemStackWrapper.of(Items.BIRCH_BOAT, 1))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.SHINREIBYOU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.SOUL_SAND, 38), ItemStackWrapper.of(Items.ROTTEN_FLESH, 18))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KISHINJOU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.BLAZE_ROD, 26), ItemStackWrapper.of(Items.NETHER_BRICKS, 30))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KANJUDEN
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.END_STONE, 32), ItemStackWrapper.of(Items.NETHERRACK, 32))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.TENKUUSHOU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.GRASS_BLOCK, 29), ItemStackWrapper.of(Items.LEAF_LITTER, 43))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KIKEIJUU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.DIRT, 44), ItemStackWrapper.of(Items.BLAZE_POWDER, 30))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KOURYUUDOU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.GOLD_INGOT, 31), ItemStackWrapper.of(Items.DIAMOND, 23))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.JUUOUEN
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.LEATHER, 26), ItemStackWrapper.of(Items.PORKCHOP, 20))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KINJOUKYOU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.STONE, 31), ItemStackWrapper.of(Items.GOLD_INGOT, 38))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.SANGETSUSEI
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.END_STONE, 28), ItemStackWrapper.of(Items.GLOWSTONE, 26))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.HIFUU
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.BOOK, 19), ItemStackWrapper.of(Items.ENDER_EYE, 20))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.TASOGARE_FURONTIA
                 .createRecipeBuilder()
                 .itemStack(ItemStackWrapper.of(Items.GLASS_BOTTLE, 20), ItemStackWrapper.of(MIItems.PEACH, 15))
                 .build()
-                .apply(this.gensokyoAltarRecipe);
+                .apply(this.gensokyoAltarRecipeFactory);
 
     }
 
-    public void generateGensokyoAltar() {
-        this.gensokyoAltarRecipe.register(ModItems.HORAI_DAMA_NO_EDA,
+    public void generateGensokyoAltarRecipe() {
+        this.gensokyoAltarRecipeFactory.register(ModItems.HORAI_DAMA_NO_EDA,
                 new GensokyoAltarRecipe(
                         this.ofItem(Items.DIAMOND_BLOCK),
                         List.of(
@@ -160,7 +247,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                         this.ofItem(ModItems.HORAI_DAMA_NO_EDA)
                 )
         );
-        this.gensokyoAltarRecipe.register(ModItems.CROSSING_CHISEL, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.CROSSING_CHISEL, new GensokyoAltarRecipe(
                 this.ofItem(Items.GOLDEN_HOE),
                 List.of(
                         this.ofItem(Items.ENDER_PEARL, 2), this.ofItem(Items.GOLD_BLOCK), this.ofItem(Items.ENDER_PEARL, 4),
@@ -169,7 +256,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.CROSSING_CHISEL)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.GAP_BALL, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.GAP_BALL, new GensokyoAltarRecipe(
                 this.ofItem(Items.COMPASS),
                 List.of(
                         this.ofItem(Items.PURPLE_DYE, 2), this.ofItem(Items.ENDER_PEARL, 6), this.ofItem(Items.REDSTONE_BLOCK, 1),
@@ -178,7 +265,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.GAP_BALL)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.BAGUA_FURNACE, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.BAGUA_FURNACE, new GensokyoAltarRecipe(
                 this.ofItem(Items.COMPASS),
                 List.of(
                         this.ofItem(Items.REDSTONE_BLOCK, 8), this.ofItem(Items.IRON_INGOT, 12), this.ofItem(Items.COAL_BLOCK),
@@ -187,7 +274,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.BAGUA_FURNACE)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.TIME_STOP_CLOCK, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.TIME_STOP_CLOCK, new GensokyoAltarRecipe(
                 this.ofItem(Items.CLOCK),
                 List.of(
                         this.ofItem(Items.PURPLE_DYE, 4), this.ofItem(Items.REDSTONE_BLOCK, 2), this.ofItem(Items.PURPLE_DYE, 4),
@@ -196,7 +283,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.TIME_STOP_CLOCK)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.MAPLE_LEAF_FAN, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.MAPLE_LEAF_FAN, new GensokyoAltarRecipe(
                 this.ofItem(Items.OAK_LEAVES, 48),
                 List.of(
                         this.ofItem(Items.WIND_CHARGE, 16), this.ofItem(Items.GOLD_INGOT, 9), this.ofItem(Items.WIND_CHARGE, 16),
@@ -205,7 +292,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.MAPLE_LEAF_FAN)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.EARPHONE, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.EARPHONE, new GensokyoAltarRecipe(
                 this.ofItem(Items.IRON_HELMET),
                 List.of(
                         this.ofItem(Items.AMETHYST_SHARD, 5), this.ofItem(Items.GOLD_INGOT, 6), this.ofItem(Items.AMETHYST_SHARD, 5),
@@ -214,7 +301,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.EARPHONE)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.KOISHI_HAT, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.KOISHI_HAT, new GensokyoAltarRecipe(
                 this.ofItem(Items.IRON_HELMET),
                 List.of(
                         this.ofItem(Items.BLACK_DYE, 2), this.ofItem(Items.IRON_INGOT, 1), this.ofItem(Items.BLACK_DYE, 2),
@@ -223,7 +310,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.KOISHI_HAT)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.HAKUREI_CANE, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.HAKUREI_CANE, new GensokyoAltarRecipe(
                 this.ofItem(Items.WOODEN_SWORD),
                 List.of(
                         this.ofEmpty(), this.ofItem(Items.PAPER, 6), this.ofItem(Items.PAPER, 6),
@@ -232,7 +319,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.HAKUREI_CANE)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.WIND_BLESSING_CANE, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.WIND_BLESSING_CANE, new GensokyoAltarRecipe(
                 this.ofItem(Items.WOODEN_SWORD),
                 List.of(
                         this.ofEmpty(), this.ofItem(Items.PAPER, 5), this.ofItem(Items.PAPER, 7),
@@ -241,7 +328,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.WIND_BLESSING_CANE)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.MAGIC_BROOM, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.MAGIC_BROOM, new GensokyoAltarRecipe(
                 this.ofItem(Items.REDSTONE_BLOCK, 3),
                 List.of(
                         this.ofItem(Items.HAY_BLOCK, 2), this.ofItem(Items.LEAD), this.ofItem(Items.SADDLE),
@@ -250,7 +337,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.MAGIC_BROOM)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.KNIFE, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.KNIFE, new GensokyoAltarRecipe(
                 this.ofItem(ModBlocks.SILVER_BLOCK, 2),
                 List.of(
                         this.ofItem(ModItems.SILVER_SWORD), this.ofEmpty(), this.ofItem(ModItems.SILVER_INGOT, 3),
@@ -259,7 +346,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.KNIFE)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.ROKANKEN, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.ROKANKEN, new GensokyoAltarRecipe(
                 this.ofItem(Items.IRON_SWORD),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 7), this.ofItem(Items.SOUL_SAND, 8), this.ofItem(ModItems.SILVER_INGOT, 12),
@@ -268,7 +355,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.ROKANKEN)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.HAKUROKEN, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.HAKUROKEN, new GensokyoAltarRecipe(
                 this.ofItem(Items.IRON_SWORD),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 8), this.ofItem(Items.SOUL_SAND, 9), this.ofItem(ModItems.SILVER_INGOT, 12),
@@ -277,7 +364,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.HAKUROKEN)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.PAPILIO_PATTERN_FAN, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.PAPILIO_PATTERN_FAN, new GensokyoAltarRecipe(
                 this.ofItem(Items.IRON_INGOT, 1),
                 List.of(
                         this.ofEmpty(), this.ofItem(Items.BLUE_WOOL, 3), this.ofItem(Items.PURPLE_WOOL, 3),
@@ -286,7 +373,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.PAPILIO_PATTERN_FAN)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.GUNGNIR, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.GUNGNIR, new GensokyoAltarRecipe(
                 this.ofItem(Items.DIAMOND_AXE),
                 List.of(
                         this.ofItem(Items.DIAMOND, 2), this.ofItem(Items.IRON_INGOT, 5), this.ofItem(Items.REDSTONE_BLOCK, 2),
@@ -295,7 +382,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.GUNGNIR)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.LEVATIN, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.LEVATIN, new GensokyoAltarRecipe(
                 this.ofItem(Items.NETHERITE_HOE),
                 List.of(
                         this.ofEmpty(), this.ofItem(Items.GOLD_INGOT, 5), this.ofItem(Items.NETHERITE_INGOT, 1),
@@ -304,7 +391,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.LEVATIN)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.IBUKIHO, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.IBUKIHO, new GensokyoAltarRecipe(
                 this.ofItem(Items.HONEY_BOTTLE),
                 List.of(
                         this.ofItem(Items.GOLD_INGOT, 8), this.ofItem(Items.GOLD_INGOT, 5), this.ofItem(Items.SUGAR, 1),
@@ -313,7 +400,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.IBUKIHO)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.SWORD_OF_HISOU, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.SWORD_OF_HISOU, new GensokyoAltarRecipe(
                 this.ofItem(Items.GOLDEN_SWORD),
                 List.of(
                         this.ofItem(Items.GOLD_INGOT, 7), this.ofItem(Items.DIAMOND, 5), this.ofItem(Items.COPPER_INGOT, 2),
@@ -322,7 +409,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.SWORD_OF_HISOU)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.MANPOZUCHI, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.MANPOZUCHI, new GensokyoAltarRecipe(
                 this.ofItem(Items.MACE),
                 List.of(
                         this.ofItem(Items.GOLD_INGOT, 2), this.ofItem(Items.END_ROD, 1), this.ofItem(Items.IRON_INGOT, 2),
@@ -331,7 +418,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.MANPOZUCHI)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.NUE_TRIDENT, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.NUE_TRIDENT, new GensokyoAltarRecipe(
                 this.ofItem(Items.TRIDENT),
                 List.of(
                         this.ofEmpty(), this.ofEmpty(), this.ofItem(Items.COMPASS),
@@ -340,7 +427,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.NUE_TRIDENT)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.TREASURE_HUNTING_ROD, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.TREASURE_HUNTING_ROD, new GensokyoAltarRecipe(
                 this.ofItem(Items.DIAMOND_PICKAXE),
                 List.of(
                         this.ofItem(Items.IRON_INGOT, 5), this.ofItem(Items.IRON_INGOT, 6), this.ofItem(Items.RABBIT_FOOT, 9),
@@ -349,7 +436,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.TREASURE_HUNTING_ROD)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.TRUMPET_GUN, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.TRUMPET_GUN, new GensokyoAltarRecipe(
                 this.ofItem(Items.CROSSBOW),
                 List.of(
                         this.ofItem(ModBlocks.POWER_BLOCK, 5), this.ofItem(Items.FERMENTED_SPIDER_EYE, 2), this.ofItem(Items.RABBIT_FOOT, 5),
@@ -358,7 +445,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.TRUMPET_GUN)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.DEATH_SCYTHE, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.DEATH_SCYTHE, new GensokyoAltarRecipe(
                 this.ofItem(Items.NETHERITE_HOE),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 32), this.ofItem(Items.SOUL_SAND, 16), this.ofItem(Items.SOUL_SAND, 8),
@@ -368,7 +455,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 this.ofItem(ModItems.DEATH_SCYTHE)
         ));
         ItemStack kanjuKusuri = ModPotions.createStack(ModPotions.KANJU_KUSURI_POTION);
-        this.gensokyoAltarRecipe.register(Touhou.id("kanju_kusuri"), new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(Touhou.id("kanju_kusuri"), new GensokyoAltarRecipe(
                 this.ofItem(Items.GLASS_BOTTLE),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 20), this.ofItem(Items.SAND, 20), this.ofItem(Items.NETHER_WART, 5),
@@ -377,7 +464,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(kanjuKusuri)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.CURSED_DECOY_DOLl, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.CURSED_DECOY_DOLl, new GensokyoAltarRecipe(
                         this.ofItem(Items.ARMOR_STAND),
                         List.of(
                                 this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6),
@@ -387,7 +474,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                         this.ofItem(ModItems.CURSED_DECOY_DOLl)
                 )
         );
-        this.gensokyoAltarRecipe.register(ModItems.VAISRAVANAS_PAGODA, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.VAISRAVANAS_PAGODA, new GensokyoAltarRecipe(
                 this.ofItem(ModBlocks.POWER_BLOCK, 10),
                 List.of(
                         this.ofItem(Items.STONE, 15), this.ofItem(Items.GOLD_INGOT, 20), this.ofItem(Items.STONE, 15),
@@ -396,7 +483,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.VAISRAVANAS_PAGODA)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.TENGU_SHIELD, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.TENGU_SHIELD, new GensokyoAltarRecipe(
                 this.ofItem(Items.SHIELD, 1),
                 List.of(
                         this.ofItem(Items.FEATHER, 3), this.ofItem(Items.FEATHER, 5), this.ofItem(Items.FEATHER, 2),
@@ -405,7 +492,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.TENGU_SHIELD)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.TENGU_CAMERA, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.TENGU_CAMERA, new GensokyoAltarRecipe(
                 this.ofItem(Items.IRON_BLOCK, 1),
                 List.of(
                         this.ofItem(Items.GLOWSTONE_DUST, 8), this.ofItem(Items.STONE_BUTTON, 2), this.ofItem(Items.GLOWSTONE_DUST, 8),
@@ -414,7 +501,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.TENGU_CAMERA)
         ));
-        this.gensokyoAltarRecipe.register(ModItems.BAD_APPLE, new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ModItems.BAD_APPLE, new GensokyoAltarRecipe(
                 this.ofItem(Items.GOLDEN_APPLE, 1),
                 List.of(
                         this.ofItem(Items.BLACK_DYE, 2), this.ofItem(ModItems.POWER, 11), this.ofItem(Items.BLACK_DYE, 2),
@@ -1424,10 +1511,10 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                             new ItemStackWrapper(new ItemStack(Items.FIREWORK_STAR, 1)),
                             new ItemStackWrapper(new ItemStack(ModItems.POWER, 35)),
                             new ItemStackWrapper(new ItemStack(ModItems.POINT, 35)),
-                            new ItemStackWrapper(ItemStack.EMPTY),
+                            new ItemStackWrapper(value.toShape().getItemStack()),
                             new ItemStackWrapper(stack)
                     );
-                    this.danmakuRegistry.register(registryKey, recipe);
+                    this.danmakuRecipeFactory.register(registryKey, recipe);
                 }
             }
         });

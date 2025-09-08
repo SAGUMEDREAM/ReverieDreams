@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat;
 import cc.thonly.polydex2eiv.api.ItemViewServerModifier;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
-import cc.thonly.reverie_dreams.item.prop.RoleCard;
+import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

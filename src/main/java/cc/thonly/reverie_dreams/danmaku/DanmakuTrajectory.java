@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.danmaku;
 
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
-import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,6 @@ import lombok.Setter;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

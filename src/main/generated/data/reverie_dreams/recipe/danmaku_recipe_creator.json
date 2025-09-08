@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:writable_book",
+    "R": "reverie_dreams:power"
+  },
+  "pattern": [
+    "RRR",
+    "R#R",
+    "RRR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:danmaku_recipe_creator"
+  }
+}

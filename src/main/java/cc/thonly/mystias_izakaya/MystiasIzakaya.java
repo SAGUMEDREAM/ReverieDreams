@@ -1,7 +1,7 @@
 package cc.thonly.mystias_izakaya;
 
-import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.block.MIBlockEntities;
+import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;
 import cc.thonly.mystias_izakaya.datafixer.MIDataFixer;
 import cc.thonly.mystias_izakaya.entity.MIEntities;

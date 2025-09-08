@@ -29,7 +29,8 @@
       "reverie_dreams:floating_dream_stone_placed",
       "reverie_dreams:floating_dream_crystal_placed",
       "reverie_dreams:floating_dream_trial_room_zombie_placed",
-      "reverie_dreams:floating_dream_trial_room_skeleton_placed"
+      "reverie_dreams:floating_dream_trial_room_skeleton_placed",
+      "reverie_dreams:dream_floating_island_placed"
     ]
   ],
   "has_precipitation": false,
@@ -44,5 +45,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": -0.5
+  "temperature": 2.0
 }

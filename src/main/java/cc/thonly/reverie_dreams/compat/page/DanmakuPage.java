@@ -63,11 +63,11 @@ public class DanmakuPage implements PolydexPage {
     @Override
     public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayerEntity serverPlayerEntity, PageBuilder layout) {
         String[][] views = {
-                {"X", "X", "A", "X", "X", "X", "X", "X", "X"},
-                {"X", "X", "S", "X", "X", "X", "X", "X", "X"},
-                {"X", "X", "D", "X", "T", "X", "O", "X", "X"},
-                {"X", "X", "F", "X", "X", "X", "X", "X", "X"},
-                {"X", "X", "G", "X", "X", "X", "X", "X", "X"},
+                {"A", "X", "S", "X", "D", "X", "F", "X", "G"},
+                {"X", "X", "X", "X", "T", "X", "X", "X", "X"},
+                {"X", "X", "X", "X", "O", "X", "X", "X", "X"},
+                {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
+                {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
         };
         for (int row = 0; row < views.length; row++) {
             for (int col = 0; col < views[row].length; col++) {
@@ -90,7 +90,7 @@ public class DanmakuPage implements PolydexPage {
         } else if (s.equals("G")) {
             return this.value.getMaterial().getItemStack().copy();
         } else if (s.equals("T")) {
-            return ModGuiItems.PROGRESS_TO_RESULT.getDefaultStack();
+            return ModGuiItems.PROGRESS_TO_RESULT_DOWN.getDefaultStack();
         } else if (s.equals("O")) {
             return this.value.getOutput().getItemStack().copy();
         }

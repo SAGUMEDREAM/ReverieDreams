@@ -8,7 +8,6 @@ import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.effect.ModPotions;
 import cc.thonly.reverie_dreams.item.ModItems;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

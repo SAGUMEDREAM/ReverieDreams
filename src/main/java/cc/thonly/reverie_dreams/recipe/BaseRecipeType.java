@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 @Slf4j
 @ToString
-public abstract class BaseRecipeType<R extends BaseRecipe> implements PolymerObject {
+public abstract class BaseRecipeType<R extends BaseRecipe> {
     protected final Map<Identifier, R> registries = new Object2ObjectLinkedOpenHashMap<>();
     private int nextRawId = 0;
 

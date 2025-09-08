@@ -1,16 +1,10 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.mixin.accessor.DynamicRegistriesImplAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.fabricmc.fabric.impl.registry.sync.DynamicRegistriesImpl;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryLoader;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.dimension.DimensionOptions;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {

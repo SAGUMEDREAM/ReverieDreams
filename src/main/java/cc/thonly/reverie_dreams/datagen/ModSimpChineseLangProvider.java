@@ -5,17 +5,17 @@ import cc.thonly.mystias_izakaya.entity.MIEntities;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.registry.DrinkProperties;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
-import cc.thonly.reverie_dreams.creative_tab.content.*;
-import cc.thonly.reverie_dreams.entity.npc.NPCStates;
-import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
-import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.creative_tab.content.*;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectories;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.effect.ModPotions;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
+import cc.thonly.reverie_dreams.entity.npc.NPCStates;
+import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
+import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.RoleCards;
@@ -53,14 +53,19 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 //        translationBuilder.add("item_group.touhou.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 刷怪蛋");
 //        translationBuilder.add("item_group.touhou.role_card", "Gensokyo: Reverie of Lost Dreams - 角色卡");
 //        translationBuilder.add("item_group.touhou.role.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 角色刷怪蛋");
+        translationBuilder.add("item.action.click.left", "§b左键查看");
+        translationBuilder.add("item.action.click.right", "§b右键查看");
         translationBuilder.add("item.tooltip.use", "§b[右键使用]");
         translationBuilder.add("item.tooltip.use.villager", "§b[右键村民使用]");
+        translationBuilder.add("item.tooltip.shape", "形状：");
         translationBuilder.add("item.tooltip.color", "颜色：");
         translationBuilder.add("item.tooltip.damage", "伤害：");
         translationBuilder.add("item.tooltip.speed", "速度：");
         translationBuilder.add("item.tooltip.count", "数量：");
         translationBuilder.add("item.tooltip.base_type", "弹幕轨迹：");
+        translationBuilder.add("item.tooltip.recipe.no_compat", "当前不兼容该配方显示，请使用 §b/touhou recipe §r查询");
         translationBuilder.add(RecipeTypeCategoryManager.DANMAKU_TABLE_ICON.toTranslationKey(), "弹幕工作台");
+        translationBuilder.add(RecipeTypeCategoryManager.DANMAKU_SHAPE_ICON.toTranslationKey(), "弹幕创作模板");
         translationBuilder.add(RecipeTypeCategoryManager.GENSOKYO_ALTAR_ICON.toTranslationKey(), "幻想乡祭坛");
         translationBuilder.add(RecipeTypeCategoryManager.STRENGTH_TABLE_ICON.toTranslationKey(), "强化台");
         translationBuilder.add(RecipeTypeCategoryManager.KITCHEN_ICON.toTranslationKey(), "夜雀食堂");
@@ -68,6 +73,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("message.gensokyo_altar.miss_recipe", "§c未知合成仪式");
         translationBuilder.add("message.treasure_hunting_rod.find", "离目标还有 %s 格，偏移：X=%s, Y=%s, Z=%s，目标：");
         translationBuilder.add("message.treasure_hunting_rod.not_found", "未在附近找到矿物。");
+        translationBuilder.add("message.reverie_dreams.update", "检测到模组更新，最新版本 %s");
         translationBuilder.add(GameRulesInit.DO_GHOST.getTranslationKey(), "禁止幽灵生成");
 
         this.generateItemTranslations(wrapperLookup, translationBuilder);
@@ -908,8 +914,17 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModItems.MAID_UPPER_SKIRT, "女仆上衣");
         translationBuilder.add(ModItems.MAID_LOWER_SKIRT, "女仆裙");
         translationBuilder.add(ModItems.MAID_SHOE, "女仆鞋子");
+        translationBuilder.add(ModItems.DANMAKU_SHAPE_CREATOR, "弹幕创作模板");
         translationBuilder.add(ModItems.SPELL_CARD_TEMPLATE, "符卡模板");
-
+        translationBuilder.add(ModItems.DREAM_SWORD, "梦境水晶剑");
+        translationBuilder.add(ModItems.DREAM_AXE, "梦境水晶斧");
+        translationBuilder.add(ModItems.DREAM_PICKAXE, "梦境水晶稿");
+        translationBuilder.add(ModItems.DREAM_SHOVEL, "梦境水晶锹");
+        translationBuilder.add(ModItems.DREAM_HOE, "梦境水晶锄");
+        translationBuilder.add(ModItems.DREAM_HELMET, "梦境水晶头盔");
+        translationBuilder.add(ModItems.DREAM_CHESTPLATE, "梦境水晶胸甲");
+        translationBuilder.add(ModItems.DREAM_LEGGINGS, "梦境水晶护腿");
+        translationBuilder.add(ModItems.DREAM_BOOTS, "梦境水晶靴子");
 
         // 角色卡
         translationBuilder.add(ModItems.ROLE_CARD, "空白角色卡");

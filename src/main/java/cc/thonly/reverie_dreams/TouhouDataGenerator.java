@@ -4,7 +4,6 @@ import cc.thonly.mystias_izakaya.datagen.MICraftingConflictProvider;
 import cc.thonly.mystias_izakaya.datagen.MIDrinkProvider;
 import cc.thonly.mystias_izakaya.datagen.MIIngredientProvider;
 import cc.thonly.reverie_dreams.datagen.*;
-import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
 import cc.thonly.reverie_dreams.world.gen.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -27,6 +26,7 @@ public class TouhouDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModBlockLootTableProvider::new);
+        pack.addProvider(ModChestLootTableProvider::new);
         pack.addProvider(ModEntityLootTableProvider::new);
         pack.addProvider(ModEquipmentAssetProvider::new);
         pack.addProvider(ModJukeboxProvider::new);

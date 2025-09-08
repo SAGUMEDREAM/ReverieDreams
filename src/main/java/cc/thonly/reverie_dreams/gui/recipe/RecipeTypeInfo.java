@@ -9,5 +9,5 @@ import lombok.Getter;
 public class RecipeTypeInfo {
     private final String name;
     private final BaseRecipeType<?> recipeType;
-    private final GuiStackGetter getter;
+    private final GuiStackBuilder getter;
 }

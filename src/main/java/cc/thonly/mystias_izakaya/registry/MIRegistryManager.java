@@ -2,21 +2,15 @@ package cc.thonly.mystias_izakaya.registry;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.api.DrinkPropertyLoaderCallback;
+import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
 import cc.thonly.mystias_izakaya.component.CraftingConflict;
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
 import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
-import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import com.mojang.serialization.Codec;
-import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-
-import java.util.Map;
-import java.util.function.BiConsumer;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -35,9 +29,10 @@ public class MIRegistryManager extends RegistryManager {
             .builder(CraftingConflict::bootstrap);
 
     public static void bootstrap() {
-        FOOD_PROPERTY.build();
-        DRINK_PROPERTY.build();
-        CRAFTING_CONFLICT.build();
+        for (var entry : ROOT.entrySet()) {
+            IntrinsicalRegister<?> registry = entry.getValue();
+            registry.build();
+        }
 
         FoodPropertyLoaderCallback.EVENT.register((world, user, property) -> {
             if (world.isClient) {

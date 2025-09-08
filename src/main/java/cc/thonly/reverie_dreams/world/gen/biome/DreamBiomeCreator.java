@@ -15,7 +15,7 @@ public class DreamBiomeCreator {
         builder2.creatureSpawnProbability(0.07F);
         return new Biome.Builder()
                 .precipitation(false)
-                .temperature(-0.5F)
+                .temperature(2.0f)
                 .downfall(0.5F)
                 .effects(new BiomeEffects.Builder()
                         .waterColor(15545147)
@@ -38,6 +38,7 @@ public class DreamBiomeCreator {
         lookupBackedBuilder.feature(GenerationStep.Feature.RAW_GENERATION, PlacedFeaturesInit.FLOATING_DREAM_CRYSTAL_KEY);
         lookupBackedBuilder.feature(GenerationStep.Feature.RAW_GENERATION, PlacedFeaturesInit.FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY);
         lookupBackedBuilder.feature(GenerationStep.Feature.RAW_GENERATION, PlacedFeaturesInit.FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY);
+        lookupBackedBuilder.feature(GenerationStep.Feature.RAW_GENERATION, PlacedFeaturesInit.DREAM_FLOATING_ISLAND_KEY);
 
         return createDream(lookupBackedBuilder);
     }

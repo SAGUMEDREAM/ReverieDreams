@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -176,7 +177,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
     private int about(CommandContext<ServerCommandSource> context) {
         Class<?> clazz = Touhou.class;
         ImageToTextScanner instance = ImageToTextScanner.createInstance(clazz);
-        String path = ImageToTextScanner.ofNamespace(Touhou.MOD_ID, "icon.png");
+        String path = ImageToTextScanner.ofNamespace(Touhou.MOD_ID, "icon_about.png");
         BufferedImage iconBuffer = instance.loadImageFromJar(path);
         List<Text> iconText = instance.renderImageToText(iconBuffer, 16, 16);
 
@@ -197,7 +198,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         List<Text> rightTexts = new ArrayList<>();
         for (String key : infoKeys) {
             if (key.equals("command.touhou.about.version")) {
-                rightTexts.add(Text.translatable(key, Touhou.VERSION));
+                rightTexts.add(Text.translatable(key, ConstantInfo.VERSION));
             } else {
                 rightTexts.add(Text.translatable(key));
             }

@@ -3,7 +3,10 @@ package cc.thonly.reverie_dreams.datagen;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.block.*;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
+import cc.thonly.reverie_dreams.block.DecorativeBlockCreator;
+import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
@@ -12,11 +15,10 @@ import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.item.prop.RoleCard;
+import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
 import cc.thonly.reverie_dreams.util.CropAgeUtil;
-import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -31,7 +33,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Identifier;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import static net.minecraft.client.data.BlockStateModelGenerator.modelWithYRotation;
 
@@ -197,22 +201,32 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SILVER_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SILVER_SHOVEL, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SILVER_HOE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_HELMET, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_CHESTPLATE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_LEGGINGS, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_BOOTS, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.SILVER_HELMET, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SILVER_CHESTPLATE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SILVER_LEGGINGS, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SILVER_BOOTS, Models.GENERATED);
         itemModelGenerator.register(ModItems.ICE_SCALES, Models.GENERATED);
         itemModelGenerator.register(ModItems.MAGIC_ICE_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.MAGIC_ICE_AXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.MAGIC_ICE_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.MAGIC_ICE_SHOVEL, Models.HANDHELD);
         itemModelGenerator.register(ModItems.MAGIC_ICE_HOE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_HELMET, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_CHESTPLATE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_LEGGINGS, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_BOOTS, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.MAGIC_ICE_HELMET, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MAGIC_ICE_CHESTPLATE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MAGIC_ICE_LEGGINGS, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MAGIC_ICE_BOOTS, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DREAM_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.DREAM_AXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.DREAM_PICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.DREAM_SHOVEL, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.DREAM_HOE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.DREAM_HELMET, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DREAM_CHESTPLATE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DREAM_LEGGINGS, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DREAM_BOOTS, Models.GENERATED);
 
         // 符卡
+        itemModelGenerator.register(ModItems.DANMAKU_SHAPE_CREATOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPELL_CARD_TEMPLATE, Models.GENERATED);
 
         // 角色卡

@@ -1,5 +1,11 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.3.6+1.21.7
+* Fixed Goblin display name
+
+## 0.3.5+1.21.7
+* Fixed Moon biome bug
+
 ## 0.3.4+1.21.7
 * Fixed use `Cursed Decoy Doll` item offset
 * Fixed `Kosuzu Fumo` rendering too large in inventory
@@ -11,9 +17,30 @@
 * Added compatibility with `oceansdelight-port`
 * Added compatibility with `spanishdelight`
 * Added compatibility with `gofish`
+* Added some content to the dream world (unfinished)
 * Shortened the duration of the negative effect of food attribute `BIZARRE`
 * Better compatibility with Polymer and visual effects that match the original
-* The Mod code engineering architecture rewrite
+* Now Mod and Polymer code are semi-separated
+* The Mod code project architecture rewrite
+### Hotfix.1
+* Fixed missing Polymer-Patch for Danmaku Item and GUI Slot
+* Fixed Magic Broom not rendering
+* Fixed Item Display missing rendering
+* Fixed the abnormal attack power and speed of SwordOfHisou
+### Public
+* Fixed There is fall damage after dying in a dream
+* Fixed the abnormal attack power and speed of Maple Leaf Fan
+* Fixed the abnormal add Max Health in using Upgraded Health Item
+* Fixed the issue of Role displaying empty name
+* Fixed the mistake in Armor Item
+* Fixed the wrong icon for `/touhou about`
+* Reworked Danmaku Crafting Table GUI
+* Added Danmaku Creator Template Item
+* Added dream spawn room
+* Added Dream Armor and Tool, its purpose is to have a chance to recover blood when taking damage
+* ORDINARY SMALL CAKE and SCARLET DEVILS CAKE can now be used to tame roles
+* Reduced crafting cost of BOMB and UPGRADED HEALTH
+
 
 ## 0.3.3+1.21.7
 * Fixed doors and slabs not LootTable json 

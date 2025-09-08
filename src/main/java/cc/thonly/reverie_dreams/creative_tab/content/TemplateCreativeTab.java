@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.danmaku.DanmakuShape;
+import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
 import cc.thonly.reverie_dreams.item.ModItems;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -29,6 +31,12 @@ public class TemplateCreativeTab implements ItemGroupContent {
             for (Map.Entry<Identifier, ItemStack> view : views) {
                 ItemStack stack = view.getValue();
                 itemGroup.add(stack.copy());
+            }
+            for (DanmakuShape shape : RegistryManager.DANMAKU_SHAPE) {
+                if (DanmakuTypes.UNLIST.contains(shape.getType())) {
+                    continue;
+                }
+                itemGroup.add(shape.getItemStack());
             }
         });
         ItemGroupContent.registerGroup(TemplateCreativeTab.ITEM_GROUP_KEY, TemplateCreativeTab.ITEM_GROUP);

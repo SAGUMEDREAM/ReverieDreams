@@ -1,10 +1,8 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.decoration.DisplayEntity;
 import net.minecraft.world.World;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 public class OreEspEntity extends DisplayEntity.BlockDisplayEntity {
     public int lifetime = 100;

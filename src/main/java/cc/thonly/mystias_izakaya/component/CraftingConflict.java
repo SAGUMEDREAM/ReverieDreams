@@ -2,8 +2,10 @@ package cc.thonly.mystias_izakaya.component;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
-import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;

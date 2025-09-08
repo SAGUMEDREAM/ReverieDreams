@@ -1,23 +1,22 @@
 package cc.thonly.mystias_izakaya.block;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
+import cc.thonly.mystias_izakaya.block.crop.*;
+import cc.thonly.mystias_izakaya.block.kitchenware.*;
 import cc.thonly.mystias_izakaya.item.MIItems;
-import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
 import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.world.SaplingGeneratorInit;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.sound.BlockSoundGroup;
-
-import cc.thonly.mystias_izakaya.block.crop.*;
-import cc.thonly.mystias_izakaya.block.kitchenware.*;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
@@ -356,7 +355,7 @@ public class MIBlocks extends ModBlocks {
     }
 
     public static void registerBlocks() {
-        if (Touhou.isDevMode()) {
+        if (ConstantInfo.isDevMode()) {
             DebugExportWriter output = DebugExportWriter.OUTPUT;
             output.write("== Crop Block Textures ==");
             for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {

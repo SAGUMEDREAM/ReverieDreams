@@ -2,7 +2,6 @@ package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
-import cc.thonly.reverie_dreams.entity.SunflowerYouseiEntity;
 import cc.thonly.reverie_dreams.entity.YouseiEntity;
 import cc.thonly.reverie_dreams.entity.holder.WingHolder;
 import com.mojang.authlib.properties.Property;

@@ -26,7 +26,7 @@ public class MapleLeafFan extends SwordItem {
     public static float POWER = 1.5f;
 
     public MapleLeafFan(float attackDamage, float attackSpeed, Settings settings) {
-        super(MAPLE_LEAF_FAN, attackDamage + 1f, attackSpeed - 2.4f, settings.useCooldown(0.5f));
+        super(MAPLE_LEAF_FAN, attackDamage, attackSpeed, settings.useCooldown(0.5f));
     }
 
     @Override

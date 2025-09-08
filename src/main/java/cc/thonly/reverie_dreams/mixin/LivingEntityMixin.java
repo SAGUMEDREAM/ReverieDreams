@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.mixin;
 
+import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
 import cc.thonly.reverie_dreams.interfaces.IWorld;
+import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
@@ -22,6 +24,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.particle.ParticleTypes;
@@ -38,6 +41,7 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +54,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @SuppressWarnings("AddedMixinMembersNamePattern")
 @Mixin(LivingEntity.class)
@@ -89,6 +95,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Shadow
     public float headYaw;
+
     @Unique
     public double manpozuchiUsingState = 1;
     @Unique
@@ -292,6 +299,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                 ServerWorld dreamWorld = server.getWorld(dreamWorldKey);
                 if (this.getWorld().equals(dreamWorld) && isPlayer) {
                     this.setHealth(this.getMaxHealth());
+                    this.fallDistance = 0;
                     this.teleport(
                             server.getOverworld(),
                             server.getOverworld().getSpawnPos().getX() + 0.5,
@@ -307,6 +315,23 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                         maxHealthAttributeInstance.setBaseValue(Math.abs(this.getMaxHealth() - 2));
                     }
                 }
+            }
+        }
+    }
+
+    @Inject(method = "damage", at = @At("RETURN"), cancellable = true)
+    public void damageAfter(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        List<ItemStack> armorStacks = List.of(
+                this.getEquippedStack(EquipmentSlot.HEAD),
+                this.getEquippedStack(EquipmentSlot.CHEST),
+                this.getEquippedStack(EquipmentSlot.LEGS),
+                this.getEquippedStack(EquipmentSlot.FEET)
+        );
+        Stream<Item> itemStream = armorStacks.stream().filter(stack -> stack.isIn(ModTags.ItemTypeTag.DREAM_ARMOR)).map(ItemStack::getItem).filter(item -> item instanceof DreamArmorItem);
+        if (!itemStream.toList().isEmpty()) {
+            Random random = Random.create();
+            if (random.nextBetween(0, 100) < 39) {
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 5 * 20));
             }
         }
     }
@@ -402,10 +427,6 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Override
     public void setMaxHealthModifier(float value) {
         this.maxHealthModifier = value;
-        EntityAttributeInstance maxHealthAttributeInstance = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
-        if (maxHealthAttributeInstance != null) {
-            maxHealthAttributeInstance.setBaseValue(this.getMaxHealth() + this.maxHealthModifier);
-        }
     }
 
     @Override

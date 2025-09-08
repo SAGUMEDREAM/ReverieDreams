@@ -1,8 +1,8 @@
 package cc.thonly.mystias_izakaya.block.entity;
 
-import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.block.KitchenBlockType;
 import cc.thonly.mystias_izakaya.block.MIBlockEntities;
+import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.mystias_izakaya.gui.recipe.block.KitchenBlockGui;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;

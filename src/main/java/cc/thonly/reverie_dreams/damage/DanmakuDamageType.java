@@ -1,8 +1,10 @@
 package cc.thonly.reverie_dreams.damage;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
-import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;

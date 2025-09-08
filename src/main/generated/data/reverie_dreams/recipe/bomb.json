@@ -5,12 +5,10 @@
     "X": "reverie_dreams:bomb_fragment"
   },
   "pattern": [
-    "XXX",
-    "XXX",
-    "XXX"
+    "X"
   ],
   "result": {
-    "count": 1,
+    "count": 4,
     "id": "reverie_dreams:bomb"
   }
 }

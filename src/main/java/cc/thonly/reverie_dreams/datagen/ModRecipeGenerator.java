@@ -16,16 +16,22 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.resource.featuretoggle.FeatureSet;
+import net.minecraft.util.Identifier;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ModRecipeGenerator extends RecipeGenerator {
     public static ImmutableList<ItemConvertible> SILVER = ImmutableList.of(ModBlocks.SILVER_ORE.asItem(), ModBlocks.DEEPSLATE_SILVER_ORE.asItem(), ModItems.RAW_SILVER);
+    public static ImmutableList<ItemConvertible> DREAM = ImmutableList.of(ModBlocks.DREAM_CRYSTAL_ORE.asItem());
 
     protected ModRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
         super(registries, exporter);
@@ -73,7 +79,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .offerTo(exporter, getRecipeName(ModItems.DREAM_PILLOW));
 
         // Bomb
-        offerIngotToBlockRecipe(exporter, ModItems.UPGRADED_HEALTH_FRAGMENT, ModItems.UPGRADED_HEALTH);
+        offer1To4Recipe(exporter, ModItems.UPGRADED_HEALTH_FRAGMENT, ModItems.UPGRADED_HEALTH);
         createShaped(RecipeCategory.MISC, ModItems.UPGRADED_HEALTH, 2)
                 .pattern("XXX")
                 .pattern("X#X")
@@ -84,7 +90,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .offerTo(exporter, getRecipeName(ModItems.UPGRADED_HEALTH_FRAGMENT) + "_copy");
 
         // 残机
-        offerIngotToBlockRecipe(exporter, ModItems.BOMB_FRAGMENT, ModItems.BOMB);
+        offer1To4Recipe(exporter, ModItems.BOMB_FRAGMENT, ModItems.BOMB);
         createShaped(RecipeCategory.MISC, ModItems.BOMB_FRAGMENT, 2)
                 .pattern("XXX")
                 .pattern("X#X")
@@ -93,6 +99,16 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .input('#', ModItems.BOMB_FRAGMENT)
                 .criterion("has_bomb_fragment", conditionsFromItem(ModItems.BOMB_FRAGMENT))
                 .offerTo(exporter, getRecipeName(ModItems.BOMB_FRAGMENT) + "_copy");
+
+        // 弹幕创作模板
+        createShaped(RecipeCategory.MISC, ModItems.DANMAKU_SHAPE_CREATOR)
+                .pattern("RRR")
+                .pattern("R#R")
+                .pattern("RRR")
+                .input('R', ModItems.POWER)
+                .input('#', Items.WRITABLE_BOOK)
+                .criterion("has_power", conditionsFromItem(ModItems.POWER))
+                .offerTo(exporter, getRecipeName(ModItems.DANMAKU_SHAPE_CREATOR));
 
         // 空白角色卡
         createShaped(RecipeCategory.MISC, ModItems.ROLE_CARD)
@@ -146,6 +162,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
         this.generateSilver();
         this.generateMaid();
         this.generateMagicIce();
+        this.generateDream();
         this.generateMusicBlock();
         this.generateIngredient();
         this.generateMIPlant2Ingredient();
@@ -162,7 +179,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
         Block stair = creator.stairs();
         Block slab = creator.slab();
         Block door = creator.door();
-//        Block trapdoor = creator.trapdoor();
+        Block trapdoor = creator.trapdoor();
         Block fence = creator.fence();
         Block fenceGate = creator.fenceGate();
         Block button = creator.button();
@@ -214,10 +231,10 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .criterion("has_planks", conditionsFromItem(planks))
                 .offerTo(exporter);
 
-//        // 木板 -> 活板门
-//        createTrapdoorRecipe(trapdoor, Ingredient.ofItem(planks))
-//                .criterion("has_planks", conditionsFromItem(planks))
-//                .offerTo(exporter);
+        // 木板 -> 活板门
+        createTrapdoorRecipe(trapdoor, Ingredient.ofItem(planks))
+                .criterion("has_planks", conditionsFromItem(planks))
+                .offerTo(exporter);
 
         // 木板 -> 门
         createDoorRecipe(door, Ingredient.ofItem(planks))
@@ -410,9 +427,6 @@ public class ModRecipeGenerator extends RecipeGenerator {
         // 烧银矿
         offerSmelting(SILVER, RecipeCategory.MISC, ModItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
         offerBlasting(SILVER, RecipeCategory.MISC, ModItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
-        offerSmelting(SILVER, RecipeCategory.MISC, ModBlocks.SILVER_ORE, 0.7F, 250, "silver_ingot");
-        offerBlasting(SILVER, RecipeCategory.MISC, ModBlocks.SILVER_ORE, 0.7F, 250, "silver_ingot");
-
 
     }
 
@@ -462,6 +476,26 @@ public class ModRecipeGenerator extends RecipeGenerator {
         offerChestplateRecipe(exporter, ModItems.MAGIC_ICE_CHESTPLATE, ModBlocks.MAGIC_ICE_BLOCK.asItem());
         offerLeggingsRecipe(exporter, ModItems.MAGIC_ICE_LEGGINGS, ModBlocks.MAGIC_ICE_BLOCK.asItem());
         offerBootsRecipe(exporter, ModItems.MAGIC_ICE_BOOTS, ModBlocks.MAGIC_ICE_BLOCK.asItem());
+
+    }
+
+    private void generateDream() {
+        // 梦境水晶武器/工具
+        offerSwordRecipe(exporter, ModItems.DREAM_SWORD, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerPickaxeRecipe(exporter, ModItems.DREAM_PICKAXE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerAxeRecipe(exporter, ModItems.DREAM_AXE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerShovelRecipe(exporter, ModItems.DREAM_SHOVEL, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerHoeRecipe(exporter, ModItems.DREAM_HOE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+
+        // 梦境水晶盔甲
+        offerHelmetRecipe(exporter, ModItems.DREAM_HELMET, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerChestplateRecipe(exporter, ModItems.DREAM_CHESTPLATE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerLeggingsRecipe(exporter, ModItems.DREAM_LEGGINGS, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerBootsRecipe(exporter, ModItems.DREAM_BOOTS, ModItems.DREAM_CRYSTAL_FRAGMENT);
+
+        // 烧梦境水晶矿
+        offerSmelting(DREAM, RecipeCategory.MISC, ModItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
+        offerBlasting(DREAM, RecipeCategory.MISC, ModItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
 
     }
 
@@ -677,6 +711,25 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .input('X', ingot)
                 .criterion("has_ingot", conditionsFromItem(ingot))
                 .offerTo(exporter, getRecipeName(result));
+    }
+
+    private void offer4To1Recipe(RecipeExporter exporter, Item input, Item export) {
+        Identifier id = Registries.ITEM.getId(input);
+        createShaped(RecipeCategory.BUILDING_BLOCKS, export)
+                .pattern("XX")
+                .pattern("XX")
+                .input('X', input)
+                .criterion("has_" + id.getPath(), conditionsFromItem(input))
+                .offerTo(exporter, getRecipeName(export));
+    }
+
+    private void offer1To4Recipe(RecipeExporter exporter, Item input, Item export) {
+        Identifier id = Registries.ITEM.getId(input);
+        createShaped(RecipeCategory.BUILDING_BLOCKS, export, 4)
+                .pattern("X")
+                .input('X', input)
+                .criterion("has_" + id.getPath(), conditionsFromItem(input))
+                .offerTo(exporter, getRecipeName(export));
     }
 
     private void offerIngotToBlockRecipe(RecipeExporter exporter, Item ingot, Item block) {

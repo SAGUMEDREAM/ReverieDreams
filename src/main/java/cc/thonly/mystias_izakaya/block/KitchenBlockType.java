@@ -1,10 +1,6 @@
 package cc.thonly.mystias_izakaya.block;
 
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 

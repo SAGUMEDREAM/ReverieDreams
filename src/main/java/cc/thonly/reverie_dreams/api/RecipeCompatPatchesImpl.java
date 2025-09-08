@@ -75,7 +75,6 @@ public class RecipeCompatPatchesImpl {
                 Map<Identifier, R> registryView = this.baseRecipeType.getRegistryView();
                 for (Map.Entry<Identifier, R> view : registryView.entrySet()) {
                     R value = view.getValue();
-//                    System.out.println(Arrays.stream(declaredFields).toList());
 
                     Object object = cloneWithLombokBuilder(value);
                     if (object instanceof BaseRecipe baseRecipe) {

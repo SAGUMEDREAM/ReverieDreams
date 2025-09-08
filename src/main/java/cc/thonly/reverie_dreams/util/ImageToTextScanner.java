@@ -18,6 +18,7 @@ public class ImageToTextScanner {
     private static final Map<Class<?>, ImageToTextScanner> INSTANCES = new Object2ObjectOpenHashMap<>();
     public static final LoaderFactory DEFAULT_FACTORY = (instance) -> {
         instance.loadImageFromJar(ofNamespace(Touhou.MOD_ID, "icon.png"));
+        instance.loadImageFromJar(ofNamespace(Touhou.MOD_ID, "icon_about.png"));
     };
 
     private final Map<Integer, List<Text>> caches = new HashMap<>();

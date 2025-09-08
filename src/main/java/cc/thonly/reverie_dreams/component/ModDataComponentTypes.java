@@ -1,9 +1,12 @@
 package cc.thonly.reverie_dreams.component;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.component.tooltip.ModTooltips;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;
 import eu.pb4.polymer.core.api.other.PolymerComponent;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
@@ -13,6 +16,7 @@ import net.minecraft.util.Unit;
 
 import java.util.List;
 
+@Slf4j
 public class ModDataComponentTypes {
     public static class Danmaku {
         public static final ComponentType<String> TEMPLATE = registerComponent("template",
@@ -33,11 +37,22 @@ public class ModDataComponentTypes {
                 ComponentType.<Boolean>builder().codec(Codec.BOOL).build());
         public static final ComponentType<Boolean> INFINITE = registerComponent("infinite",
                 ComponentType.<Boolean>builder().codec(Codec.BOOL).build());
-
+        public static final ComponentType<ItemStackWrapper> SHAPE = registerComponent("shape",
+                ComponentType.<ItemStackWrapper>builder().codec(ItemStackWrapper.CODEC).build());
         public static void init() {
 
         }
     }
+
+    public static final ComponentType<Identifier> REGISTRY_KEY = registerComponent("registry_key",
+            ComponentType.<Identifier>builder()
+                    .codec(RegistryKeyComponent.CODEC)
+                    .build());
+
+    public static final ComponentType<OverTooltipAppender> OVER_TOOLTIP_APPENDER = registerComponent("over_tooltip_appender",
+            ComponentType.<OverTooltipAppender>builder()
+                    .codec(OverTooltipAppender.CODEC)
+                    .build());
 
     public static final ComponentType<Unit> SILVER_ITEM = registerComponent("silver_item",
             ComponentType.<Unit>builder()
@@ -79,11 +94,14 @@ public class ModDataComponentTypes {
                     .build()
     );
 
-    static {
-        Danmaku.init();
-    }
-
     public static void init() {
+        ModTooltips.bootstrap();
+        try {
+            Class.forName(Danmaku.class.getName(), true, Danmaku.class.getClassLoader());
+        } catch (Exception err) {
+            log.error("Can't initialize danmaku component", err);
+        }
+
     }
 
     public static <T> ComponentType<T> registerComponent(String path, ComponentType<T> componentType) {

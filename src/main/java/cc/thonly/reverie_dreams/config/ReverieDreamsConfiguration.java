@@ -19,6 +19,10 @@ public class ReverieDreamsConfiguration extends MidnightConfig {
     @Entry
     public static Integer SOCK_5_PROXY_PORT = -1;
 
+    @Comment(name = "Check Update")
+    @Entry
+    public static boolean CHECK_UPDATE = true;
+
 //    @Comment(name = "Polymer Patch")
 //    @Entry
     public static boolean POLYMER_PATCH = true;

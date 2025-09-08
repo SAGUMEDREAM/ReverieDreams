@@ -25,5 +25,6 @@ public class ModEquipmentAssetProvider extends EquipmentAssetProvider {
         consumer.accept(SilverArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("silver")));
         consumer.accept(MagicIceArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("magic_ice")));
         consumer.accept(MaidArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("maid")));
+        consumer.accept(DreamArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("dream")));
     }
 }

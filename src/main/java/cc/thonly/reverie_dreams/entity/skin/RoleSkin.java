@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.entity.skin;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
@@ -9,7 +8,7 @@ import lombok.Setter;
 import net.minecraft.util.Identifier;
 
 
-public class RoleSkin implements CodecStep<RoleSkin>, OwnerBinding<RoleSkin>, BuiltinObject {
+public class RoleSkin implements CodecStep<RoleSkin>, OwnerBinding<RoleSkin>, BuiltinObject, Translatable {
     public static final Codec<RoleSkin> UNIT_CODEC = Codec.unit(RoleSkin::new);
     public static final Codec<RoleSkin> CODEC = null;
     @Setter
@@ -30,6 +29,12 @@ public class RoleSkin implements CodecStep<RoleSkin>, OwnerBinding<RoleSkin>, Bu
         this.value = value;
         this.signature = signature;
         this.valid();
+    }
+
+    @Override
+    public String translateKey() {
+        Property property = this.get();
+        return property.name() + "|" + this.id;
     }
 
     public Property get() {

@@ -25,6 +25,7 @@ public class PlacedFeaturesInit {
     public static final RegistryKey<PlacedFeature> FLOATING_DREAM_CRYSTAL_KEY = getOrCreateRegistryKey("floating_dream_crystal_placed");
     public static final RegistryKey<PlacedFeature> FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY = getOrCreateRegistryKey("floating_dream_trial_room_zombie_placed");
     public static final RegistryKey<PlacedFeature> FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY = getOrCreateRegistryKey("floating_dream_trial_room_skeleton_placed");
+    public static final RegistryKey<PlacedFeature> DREAM_FLOATING_ISLAND_KEY = getOrCreateRegistryKey("dream_floating_island_placed");
 
     public static final RegistryKey<PlacedFeature> SPIRITUAL_TREE_KEY = getOrCreateRegistryKey("spiritual_tree_placed");
     public static final RegistryKey<PlacedFeature> LEMON_TREE_KEY = getOrCreateRegistryKey("lemon_tree_placed");
@@ -142,7 +143,7 @@ public class PlacedFeaturesInit {
                 List.of(
                         RarityFilterPlacementModifier.of(11),
                         SquarePlacementModifier.of(),
-                        HeightRangePlacementModifier.uniform(YOffset.fixed(80), YOffset.fixed(120)),
+                        HeightRangePlacementModifier.uniform(YOffset.fixed(10), YOffset.fixed(120)),
                         BiomePlacementModifier.of()
                 )
         ));
@@ -160,7 +161,7 @@ public class PlacedFeaturesInit {
         context.register(FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY, new PlacedFeature(
                 registryLookup.getOrThrow(ConfigurationFeatureInit.FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY),
                 List.of(
-                        RarityFilterPlacementModifier.of(86),
+                        RarityFilterPlacementModifier.of(110),
                         SquarePlacementModifier.of(),
                         HeightRangePlacementModifier.uniform(YOffset.fixed(50), YOffset.fixed(200)),
                         BiomePlacementModifier.of()
@@ -170,9 +171,18 @@ public class PlacedFeaturesInit {
         context.register(FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY, new PlacedFeature(
                 registryLookup.getOrThrow(ConfigurationFeatureInit.FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY),
                 List.of(
-                        RarityFilterPlacementModifier.of(86),
+                        RarityFilterPlacementModifier.of(110),
                         SquarePlacementModifier.of(),
                         HeightRangePlacementModifier.uniform(YOffset.fixed(50), YOffset.fixed(200)),
+                        BiomePlacementModifier.of()
+                )
+        ));
+
+        context.register(DREAM_FLOATING_ISLAND_KEY, new PlacedFeature(
+                registryLookup.getOrThrow(ConfigurationFeatureInit.DREAM_FLOATING_ISLAND_KEY),
+                List.of(
+                        RarityFilterPlacementModifier.of(150),
+                        HeightRangePlacementModifier.uniform(YOffset.fixed(40), YOffset.fixed(180)),
                         BiomePlacementModifier.of()
                 )
         ));

@@ -7,9 +7,6 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.datafixers.util.Pair;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
-import eu.pb4.polymer.virtualentity.api.ElementHolder;
-import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
-import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -27,7 +24,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameMode;
-import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.EnumSet;
@@ -38,19 +34,6 @@ import java.util.function.Consumer;
 
 public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity {
     WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
-
-    default void onCreated() {
-//        var entity = this.getEntity();
-//        var x = new ItemDisplayElement();
-//        var holder = new ElementHolder();
-//        x.setInvisible(true);
-//        x.setTeleportDuration(3);
-//        x.setScale(new Vector3f(0.5f));
-//        holder.addElement(x);
-//        EntityAttachment.of(holder, entity);
-//        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-//        ELEMENTS.put(entity, x);
-    }
 
     @Override
     default void onEntityPacketSent(Consumer<Packet<?>> consumer, Packet<?> packet) {
@@ -69,10 +52,20 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
     @Override
     default void onBeforeSpawnPacket(ServerPlayerEntity player, Consumer<Packet<?>> packetConsumer) {
         PlayerListS2CPacket packet = PolymerEntityUtils.createMutablePlayerListPacket(EnumSet.of(PlayerListS2CPacket.Action.ADD_PLAYER));
-        GameProfile profile = new GameProfile(this.getEntity().getUuid(), "");
+        GameProfile profile = new GameProfile(this.getEntity().getUuid(), "hidden");
         profile.getProperties().put("textures", this.getSkin());
         List<PlayerListS2CPacket.Entry> entries = packet.getEntries();
-        entries.add(new PlayerListS2CPacket.Entry(profile.getId(), profile, false, Integer.MAX_VALUE, GameMode.ADVENTURE, Text.empty(), true, 0, null));
+        entries.add(new PlayerListS2CPacket.Entry(
+                profile.getId(),
+                profile,
+                false,
+                Integer.MAX_VALUE,
+                GameMode.ADVENTURE,
+                Text.empty(),
+                true,
+                0,
+                null)
+        );
         packetConsumer.accept(packet);
     }
 

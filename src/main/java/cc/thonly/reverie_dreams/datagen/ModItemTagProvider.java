@@ -3,15 +3,16 @@ package cc.thonly.reverie_dreams.datagen;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
+import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.fumo.Fumos;
-import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.item.base.*;
+import cc.thonly.reverie_dreams.item.base.AlbumItem;
+import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -27,7 +28,10 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -85,6 +89,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModTags.ItemTypeTag.MAGIC_ICE_ARMOR).add(ModItems.MAGIC_ICE_HELMET, ModItems.MAGIC_ICE_CHESTPLATE, ModItems.MAGIC_ICE_LEGGINGS, ModItems.MAGIC_ICE_BOOTS);
         valueLookupBuilder(ModTags.ItemTypeTag.MAGIC_ICE_TOOL_MATERIALS).add(ModItems.ICE_SCALES);
         valueLookupBuilder(ModTags.ItemTypeTag.MAID_ARMOR).add(ModItems.MAID_HAIRBAND, ModItems.MAID_UPPER_SKIRT, ModItems.MAID_LOWER_SKIRT, ModItems.MAID_SHOE);
+        valueLookupBuilder(ModTags.ItemTypeTag.DREAM_ARMOR).add(ModItems.DREAM_HELMET).add(ModItems.DREAM_CHESTPLATE).add(ModItems.DREAM_LEGGINGS).add(ModItems.DREAM_BOOTS);
+        valueLookupBuilder(ModTags.ItemTypeTag.DREAM_TOOL_MATERIALS).add(ModItems.DREAM_CRYSTAL_FRAGMENT);
 
         // === 自定义方块 ===
         valueLookupBuilder(ItemTags.PLANKS).add(WoodCreator.INSTANCES.stream().map(ins->ins.planks().asItem()));
@@ -104,7 +110,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModTags.ItemTypeTag.DRINK_ITEM).add(MIItems.DRINK_ITEMS);
 
         valueLookupBuilder(ModTags.ItemTypeTag.ROLE_TAME_FOOD)
-                .add(Items.CAKE);
+                .add(Items.CAKE)
+                .add(MIItems.ORDINARY_SMALL_CAKE)
+                .add(MIItems.SCARLET_DEVILS_CAKE);
 
         // === 兼容物品 ===
         valueLookupBuilder(ConventionalItemTags.FOODS).add(MIItems.FOOD_ITEMS);

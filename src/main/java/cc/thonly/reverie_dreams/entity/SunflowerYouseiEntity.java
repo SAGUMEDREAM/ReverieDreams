@@ -5,18 +5,13 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
-import cc.thonly.reverie_dreams.entity.holder.WingHolder;
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.util.ModelUtil;
 import com.mojang.authlib.properties.Property;
 import de.tomalbrc.bil.core.model.Model;
-import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
-import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
-import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Leashable;
@@ -30,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import org.joml.Vector3f;
 
 @Getter
 public class SunflowerYouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFaction, Yousei {

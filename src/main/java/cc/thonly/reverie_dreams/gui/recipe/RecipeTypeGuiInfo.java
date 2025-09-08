@@ -20,7 +20,7 @@ public class RecipeTypeGuiInfo<T extends BasePageGui> {
     private final Class<T> clazz;
     private final Class<? extends DisplayView> viewClazz;
     private final RecipeTypeGetter registryGetter;
-    private final GuiStackGetter getter;
+    private final GuiStackBuilder getter;
 
     public T create(ServerPlayerEntity player, GuiOpeningPrevCallback callback) {
         T result = null;

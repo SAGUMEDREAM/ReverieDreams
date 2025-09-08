@@ -14,9 +14,11 @@ import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
+import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuRecipeType;
+import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.StrengthTableRecipeType;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
@@ -41,6 +43,7 @@ public class RecipeTypeCategoryManager {
     public static final List<RecipeTypeGuiInfo<? extends BasePageGui>> CATEGORY_ENTRIES = new LinkedList<>();
 
     public static final Identifier DANMAKU_TABLE_ICON = Touhou.id("recipe/danmaku_table");
+    public static final Identifier DANMAKU_SHAPE_ICON = Touhou.id("recipe/danmaku_shape");
     public static final Identifier GENSOKYO_ALTAR_ICON = Touhou.id("recipe/gensokyo_altar");
     public static final Identifier STRENGTH_TABLE_ICON = Touhou.id("recipe/strength_table");
     public static final Identifier KITCHEN_ICON = Touhou.id("recipe/kitchen");
@@ -100,6 +103,25 @@ public class RecipeTypeCategoryManager {
                                 gui.close();
                                 gui.getPlayer().playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
                                 SimpleGui view = new DanmakuTableDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
+                                view.open();
+                            });
+                    IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
+                    accessor.setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                    gui.setSlot(gui.getGridSlot(slotIndex), icon);
+                })
+        ));
+        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(ModItems.DANMAKU_SHAPE_CREATOR), DANMAKU_SHAPE_ICON, BasePageGui.class,
+                DanmakuShapeDisplayView.class,
+                DanmakuShapeDrawRecipeType::getInstance,
+                ((gui, slotIndex) -> {
+                    RecipeEntryWrapper<DanmakuShapeDrawRecipe> key2ValueEntry = (RecipeEntryWrapper<DanmakuShapeDrawRecipe>) gui.getEntries().get(slotIndex + gui.getPage() * BasePageGui.PER_PAGE_SIZE);
+                    GuiElementBuilder icon = new GuiElementBuilder()
+                            .setItem(key2ValueEntry.getValue().getOutput().getItem())
+                            .setItemName(key2ValueEntry.getValue().getOutput().getItemStack().getName())
+                            .setCallback((slot, click, action) -> {
+                                gui.close();
+                                gui.getPlayer().playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                                SimpleGui view = new DanmakuShapeDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                 view.open();
                             });
                     IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;

@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
-import cc.thonly.reverie_dreams.mixin.accessor.VillagerEntityAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
@@ -9,7 +8,6 @@ import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
-import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.sgui.api.gui.MerchantGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
@@ -19,7 +17,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
@@ -38,7 +35,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.VillagerData;
 import net.minecraft.world.World;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.*;
 

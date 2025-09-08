@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.gui;
 
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.gui.recipe.GuiStackGetter;
+import cc.thonly.reverie_dreams.gui.recipe.GuiStackBuilder;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeInfo;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
@@ -150,7 +150,7 @@ public class BasePageGui extends SimpleGui {
             int recipeIndex = start + i;
 
             if (recipeIndex < this.maxSize) {
-                GuiStackGetter stackGetter = this.recipeTypeInfo.getGetter();
+                GuiStackBuilder stackGetter = this.recipeTypeInfo.getGetter();
                 stackGetter.apply(this, slotIndex);
             } else {
                 this.setSlot(getGridSlot(slotIndex), new GuiElementBuilder().setItem(Items.AIR));

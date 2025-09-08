@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.networking;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
@@ -17,7 +18,7 @@ public record CSVersionPayload(String version) implements CustomPayload {
     }
 
     public void write(RegistryByteBuf buf) {
-        buf.writeString(Touhou.VERSION);
+        buf.writeString(ConstantInfo.VERSION);
     }
 
     @Override

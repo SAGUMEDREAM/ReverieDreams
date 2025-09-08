@@ -89,8 +89,8 @@ public abstract class ItemStackMixin<T> implements IItemStack,
         List<MutableText> texts = ItemDescriptionManager.get(item);
         try {
             if (!texts.isEmpty()) {
-                List<Text> returnValue = cir.getReturnValue();
-                returnValue.addAll(texts);
+                List<Text> textList = cir.getReturnValue();
+                textList.addAll(texts);
             }
         } catch (Exception ignored) {
         }

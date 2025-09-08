@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.fumo;
 
 import cc.thonly.reverie_dreams.block.BaseFumoBlock;
 import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import lombok.AccessLevel;

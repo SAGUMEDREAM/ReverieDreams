@@ -4,12 +4,15 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RecipeInjectCallback;
+import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
+import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.StrengthTableRecipeType;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.item.Item;
@@ -23,6 +26,7 @@ import java.util.Map;
 public class RecipeManager {
     public static final Map<Identifier, BaseRecipeType<?>> RECIPE_TYPES = new Object2ObjectOpenHashMap<>();
     public static final BaseRecipeType<DanmakuRecipe> DANMAKU_TYPE = registerRecipeType(Touhou.id("danmaku"), new DanmakuRecipeType());
+    public static final BaseRecipeType<DanmakuShapeDrawRecipe> DANMAKU_SHAPE_DRAW_TYPE = registerRecipeType(Touhou.id("danmaku_shape_draw"), new DanmakuShapeDrawRecipeType());
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(Touhou.id("gensokyo_altar"), new GensokyoAltarRecipeType());
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(Touhou.id("strength_table"), new StrengthTableRecipeType());
 
@@ -77,6 +81,7 @@ public class RecipeManager {
     }
 
     public static<R extends BaseRecipe> BaseRecipeType<R> registerRecipeType(Identifier id, BaseRecipeType<R> recipeType) {
+        RegistryManager.register(RegistryManager.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();
         assert id == recipeType.getId();

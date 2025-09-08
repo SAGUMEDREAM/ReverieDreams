@@ -86,14 +86,12 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
         Float damage = stack.getOrDefault(ModDataComponentTypes.Danmaku.DAMAGE, null);
         Float scale = stack.getOrDefault(ModDataComponentTypes.Danmaku.SCALE, null);
         Float speed = stack.getOrDefault(ModDataComponentTypes.Danmaku.SPEED, null);
         Integer count = stack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, DEFAULT_COUNT);
         String templateType = stack.getOrDefault(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString());
 
-        textConsumer.accept(Text.empty());
         textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.damage")).append(String.valueOf(damage)));
         textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.speed")).append(String.valueOf(speed)));
         textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.count")).append(String.valueOf(count)));

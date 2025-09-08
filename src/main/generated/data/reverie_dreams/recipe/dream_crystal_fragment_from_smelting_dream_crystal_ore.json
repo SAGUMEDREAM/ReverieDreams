@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 250,
+  "experience": 0.7,
+  "group": "dream_ingot",
+  "ingredient": "reverie_dreams:dream_crystal_ore",
+  "result": {
+    "id": "reverie_dreams:dream_crystal_fragment"
+  }
+}

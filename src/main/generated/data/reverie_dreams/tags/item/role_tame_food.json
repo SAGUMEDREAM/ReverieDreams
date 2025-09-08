@@ -1,5 +1,7 @@
 {
   "values": [
-    "minecraft:cake"
+    "minecraft:cake",
+    "reverie_dreams:food/ordinary_small_cake",
+    "reverie_dreams:food/scarlet_devils_cake"
   ]
 }

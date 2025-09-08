@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.engine;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
@@ -63,7 +64,7 @@ public class JavaScriptManager {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             return classPath.replace('.', '/');
         } else {
-            return Touhou.MAPPING_RESOLVER.mapClassName("intermediary", classPath.replace('.', '/'));
+            return ConstantInfo.MAPPING_RESOLVER.mapClassName("intermediary", classPath.replace('.', '/'));
         }
     }
 

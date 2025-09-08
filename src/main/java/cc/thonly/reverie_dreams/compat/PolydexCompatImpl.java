@@ -1,14 +1,13 @@
 package cc.thonly.reverie_dreams.compat;
 
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.compat.page.DanmakuPage;
-import cc.thonly.reverie_dreams.compat.page.GensokyoAltarPage;
-import cc.thonly.reverie_dreams.compat.page.KitchenPage;
-import cc.thonly.reverie_dreams.compat.page.StrengthTablePage;
+import cc.thonly.reverie_dreams.compat.page.*;
+import cc.thonly.reverie_dreams.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuRecipeType;
+import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.StrengthTableRecipeType;
 import eu.pb4.polydex.api.v1.recipe.PolydexEntry;
@@ -27,24 +26,9 @@ public class PolydexCompatImpl {
         PolydexPage.register(PolydexCompatImpl::createPages);
     }
 
-    public static void registerEntries() {
-        registerEntries(DanmakuRecipeType.getInstance().getRegistryView());
-        registerEntries(GensokyoAltarRecipeType.getInstance().getRegistryView());
-        registerEntries(StrengthTableRecipeType.getInstance().getRegistryView());
-        registerEntries(KitchenRecipeType.getInstance().getRegistryView());
-    }
-
-    private static <T extends BaseRecipe> void registerEntries(Map<Identifier, T> view) {
-        view.forEach((key, recipe) -> {
-            ItemStackWrapper wrapper = RecipeManager.getOutputReflective(recipe);
-            if (wrapper != null) {
-                PolydexEntry.registerEntryCreator(wrapper.getItem(), (PolydexEntry::of));
-            }
-        });
-    }
-
     private static void createPages(MinecraftServer minecraftServer, Consumer<PolydexPage> pageConsumer) {
         createRecipeView(DanmakuRecipeType.getInstance().getRegistryView(), DanmakuPage::new, pageConsumer);
+        createRecipeView(DanmakuShapeDrawRecipeType.getInstance().getRegistryView(), DanmakuShapePage::new, pageConsumer);
         createRecipeView(GensokyoAltarRecipeType.getInstance().getRegistryView(), GensokyoAltarPage::new, pageConsumer);
         createRecipeView(StrengthTableRecipeType.getInstance().getRegistryView(), StrengthTablePage::new, pageConsumer);
         createRecipeView(KitchenRecipeType.getInstance().getRegistryView(), KitchenPage::new, pageConsumer);

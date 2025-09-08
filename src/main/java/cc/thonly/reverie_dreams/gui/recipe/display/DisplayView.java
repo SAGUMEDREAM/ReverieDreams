@@ -11,7 +11,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-@SuppressWarnings("unchecked")
 public interface DisplayView {
     default void init() {
 

@@ -2,7 +2,6 @@ package cc.thonly.mystias_izakaya.datagen.generator;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
-import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.reverie_dreams.datagen.generator.DataGeneratorUtil;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;

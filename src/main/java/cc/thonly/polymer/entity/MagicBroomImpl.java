@@ -1,5 +1,6 @@
 package cc.thonly.polymer.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.entity.holder.MagicBroomHolder;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
@@ -21,6 +22,7 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
     public MagicBroomImpl {
+        PolymerEntityHelper.NEXT.add(this);
     }
     @Override
     public void onCreated() {

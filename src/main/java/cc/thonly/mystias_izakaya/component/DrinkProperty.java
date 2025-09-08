@@ -3,7 +3,6 @@ package cc.thonly.mystias_izakaya.component;
 import cc.thonly.mystias_izakaya.api.DrinkPropertyLoaderCallback;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

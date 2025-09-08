@@ -50,23 +50,17 @@ public class ItemStackWrapper {
             ).apply(instance, (item, count, components) -> {
                 ItemStack stack = new ItemStack(item, count);
                 stack.components.setChanges(components);
-//                if (stack.isEmpty()) {
-//                    stack = Items.WHITE_DYE.getDefaultStack();
-//                    stack.set(DataComponentTypes.ITEM_MODEL, Registries.ITEM.getId(Items.BARRIER));
-//                    stack.set(DataComponentTypes.ITEM_NAME, Text.literal("§cError Item"));
-//                    stack.set(DataComponentTypes.LORE, new LoreComponent(new ArrayList<>(List.of(Text.literal("§cThis item failed to be serialized")))));
-//                }
                 return stack;
             }))
     );
     public static final Codec<List<ItemStack>> LIST_CODEC = ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC.listOf();
 
+    public static final ItemStackWrapper EMPTY = new ItemStackWrapper(ItemStack.EMPTY);
+    public static final ItemStackWrapper ERROR = new ItemStackWrapper(createErrorItem());
     public static final Codec<ItemStackWrapper> CODEC =
             FLEXIBLE_ITEMSTACK_CODEC
                     .xmap(ItemStackWrapper::new, ItemStackWrapper::getItemStack)
-                    .orElse(ItemStackWrapper.of(createErrorItem()));
-    public static final ItemStackWrapper EMPTY = new ItemStackWrapper(ItemStack.EMPTY);
-    public static final ItemStackWrapper ERROR = new ItemStackWrapper(createErrorItem());
+                    .orElse(EMPTY);
 
     private final ItemStack itemStack;
 

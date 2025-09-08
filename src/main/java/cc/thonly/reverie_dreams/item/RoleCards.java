@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.item;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
-import cc.thonly.reverie_dreams.item.prop.RoleCard;
+import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.minecraft.util.Identifier;

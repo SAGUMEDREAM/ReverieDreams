@@ -45,7 +45,7 @@ public class BulletTrajectory extends DanmakuTrajectory {
                         yaw,
                         speed,
                         acceleration,
-                        0f,
+                        divergence,
                         offsetDist
                 );
             }

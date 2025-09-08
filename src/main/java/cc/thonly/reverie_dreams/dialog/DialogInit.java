@@ -12,6 +12,7 @@ import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.NetUtil;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.Blocks;
 import net.minecraft.dialog.AfterAction;
@@ -194,7 +195,7 @@ public class DialogInit {
                         new ArrayList<>(List.of(
                                 new PlainMessageDialogBody(Text.empty(), 200),
                                 new PlainMessageDialogBody(Text.empty().append(Text.translatable("dialog.main.welcome")), 200),
-                                new PlainMessageDialogBody(Text.empty().append(Text.translatable("dialog.main.description.0", Touhou.VERSION)), 200),
+                                new PlainMessageDialogBody(Text.empty().append(Text.translatable("dialog.main.description.0", ConstantInfo.VERSION)), 200),
                                 new PlainMessageDialogBody(Text.empty(), 200)
                         )),
                         new ArrayList<>(List.of(

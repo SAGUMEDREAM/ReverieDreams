@@ -11,6 +11,7 @@
     "ExampleMixin",
     "GuiElementBuilderMixin",
     "ItemMixin",
+    "ItemSettingsMixin",
     "ItemStackMixin",
     "LevelSummaryMixin",
     "LivingEntityMixin",

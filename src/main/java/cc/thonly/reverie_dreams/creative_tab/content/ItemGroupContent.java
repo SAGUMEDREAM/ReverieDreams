@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

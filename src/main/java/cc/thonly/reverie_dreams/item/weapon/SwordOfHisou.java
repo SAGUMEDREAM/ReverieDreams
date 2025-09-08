@@ -16,7 +16,7 @@ public class SwordOfHisou extends SwordItem {
     public static final ToolMaterial HISOU = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1561, 8.0f, 4.5f, 10, ModTags.ItemTypeTag.PEACH);
 
     public SwordOfHisou(float attackDamage, float attackSpeed, Settings settings) {
-        super(HISOU, attackDamage + 1, attackSpeed - 2.4f, settings);
+        super(HISOU, attackDamage, attackSpeed, settings);
     }
 
     @Override

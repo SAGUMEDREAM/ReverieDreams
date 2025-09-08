@@ -48,12 +48,13 @@ public class ConfigurationFeatureInit {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOATING_DREAM_CRYSTAL_KEY = getOrCreateRegistryKey("floating_dream_crystal");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY = getOrCreateRegistryKey("float_dream_trial_room_zombie");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY = getOrCreateRegistryKey("float_dream_trial_room_skeleton");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DREAM_FLOATING_ISLAND_KEY = getOrCreateRegistryKey("dream_floating_island");
 
     public static final Feature<CraterFeatureConfig> CRATER = register("crater", new CraterFeature(CraterFeatureConfig.CODEC));
     public static final Feature<DreamGridFeatureConfig> DREAM_GRID = register("dream_world_grid", new DreamGridFeature(DreamGridFeatureConfig.CODEC));
     public static final Feature<DreamTrialRoomConfig> DREAM_TRIAL_ROOM = register("dream_trial_room", new DreamTrialRoom(DreamTrialRoomConfig.CODEC));
     public static final Feature<FloatingSphereFeatureConfig> FLOATING_SPHERE = register("floating_sphere", new FloatingSphereFeature(FloatingSphereFeatureConfig.CODEC));
-
+    public static final Feature<DefaultFeatureConfig> DREAM_FLOATING_ISLAND = register("dream_floating_island", new FloatingIslandFeature(DefaultFeatureConfig.CODEC));
 
     public static void init() {
 
@@ -189,6 +190,10 @@ public class ConfigurationFeatureInit {
         ));
         context.register(FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY, new ConfiguredFeature<>(DREAM_TRIAL_ROOM,
                 new DreamTrialRoomConfig(Registries.ENTITY_TYPE.getId(EntityType.SKELETON))
+        ));
+
+        context.register(DREAM_FLOATING_ISLAND_KEY, new ConfiguredFeature<>(DREAM_FLOATING_ISLAND,
+                new DefaultFeatureConfig()
         ));
 
     }

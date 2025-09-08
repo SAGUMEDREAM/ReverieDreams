@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
-import cc.thonly.reverie_dreams.item.prop.SpellCardTemplateItem;
+import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
@@ -58,7 +58,6 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     @Override
     public void reload(ResourceManager manager) {
         this.dynamicBuilder.clear();
-        ;
         this.automaticRecipeIdCounter.clear();
         Map<Identifier, Resource> resources = manager.findResources((this.getTypeId() + "_recipe"), id -> {
             return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");

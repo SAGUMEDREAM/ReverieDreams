@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams;
 
+import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
-import cc.thonly.reverie_dreams.networking.CustomBytePayload;
-import cc.thonly.reverie_dreams.networking.CustomBytePayloadClient;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -26,8 +25,6 @@ public class TouhouClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClientPlayNetworking.registerGlobalReceiver(CustomBytePayload.PACKET_ID, CustomBytePayloadClient.Receiver::receiveClient);
-
         BlockTypeGroup.LEAVES.stream().forEach(this::registerBlockCutout);
         BlockTypeGroup.SAPLING.stream().forEach(this::registerBlockCutout);
         BlockTypeGroup.KITCHENWARE.stream().forEach(this::registerBlockCutout);
@@ -35,6 +32,8 @@ public class TouhouClient implements ClientModInitializer {
         for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             this.registerBlockCutout(view.getValue().getCropBlock());
         }
+        registerBlockCutout(MIBlocks.ITEM_DISPLAY);
+        registerBlockCutout(MIBlocks.GENSOKYO_ALTAR);
     }
 
     public void registerBlockCutout(Block block) {

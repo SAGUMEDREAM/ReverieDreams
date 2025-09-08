@@ -25,7 +25,7 @@
       "cc.thonly.reverie_dreams.TouhouClient"
     ],
     "preLaunch": [
-      "cc.thonly.reverie_dreams.TouhouEarly"
+      "cc.thonly.reverie_dreams.TouhouPreload"
     ],
     "fabric-datagen": [
       "cc.thonly.reverie_dreams.TouhouDataGenerator"
