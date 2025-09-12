@@ -8,10 +8,12 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ItemStack.class)
 public class ItemStackNbtMixin implements ItemStackNbtImpl {
 
+    @Unique
     @Override
     public NbtElement toNbt(RegistryWrapper.WrapperLookup registryAccess, NbtCompound prefix) {
         ItemStack pThis = (ItemStack) (Object) this;
@@ -22,6 +24,7 @@ public class ItemStackNbtMixin implements ItemStackNbtImpl {
         return ItemStack.CODEC.encode(pThis, ops, prefix).getOrThrow();
     }
 
+    @Unique
     @Override
     public NbtElement toNbt(RegistryWrapper.WrapperLookup registryAccess) {
         ItemStack pThis = (ItemStack) (Object) this;

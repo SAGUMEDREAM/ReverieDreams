@@ -83,20 +83,20 @@ public class RoleCardItem extends Item {
         return super.useOnBlock(context);
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        Optional<RoleCard> roleCardComponent = this.getRoleCardComponent(stack);
-        if (roleCardComponent.isEmpty()) {
-            textConsumer.accept(Text.translatable("item.disabled"));
-            return;
-        }
-        if (roleCardComponent.get().isEmpty()) {
-            textConsumer.accept(Text.translatable("item.disabled"));
-            return;
-        }
-        textConsumer.accept(Text.translatable("item.tooltip.use"));
-    }
+//    @Override
+//    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+//        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+//        Optional<RoleCard> roleCardComponent = this.getRoleCardComponent(stack);
+//        if (roleCardComponent.isEmpty()) {
+//            textConsumer.accept(Text.translatable("item.disabled"));
+//            return;
+//        }
+//        if (roleCardComponent.get().isEmpty()) {
+//            textConsumer.accept(Text.translatable("item.disabled"));
+//            return;
+//        }
+//        textConsumer.accept(Text.translatable("item.tooltip.use"));
+//    }
 
     public static Dialog getSelectMenu(String uuid, UsingData data) {
         MultiActionDialog dialog = new MultiActionDialog(

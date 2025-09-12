@@ -56,15 +56,15 @@ public class DrinkItem extends Item {
         return super.finishUsing(stack, world, user);
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        List<DrinkProperty> allProperties = DrinkProperty.getAllProperties(stack);
-        if (!allProperties.isEmpty()) {
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
-        }
-        for (DrinkProperty property : allProperties) {
-            textConsumer.accept(Text.empty().append("§b+").append(Text.translatable(property.translateKey())));
-        }
-    }
+//    @Override
+//    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+//        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+//        List<DrinkProperty> allProperties = DrinkProperty.getAllProperties(stack);
+//        if (!allProperties.isEmpty()) {
+//            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
+//        }
+//        for (DrinkProperty property : allProperties) {
+//            textConsumer.accept(Text.empty().append("§b+").append(Text.translatable(property.translateKey())));
+//        }
+//    }
 }

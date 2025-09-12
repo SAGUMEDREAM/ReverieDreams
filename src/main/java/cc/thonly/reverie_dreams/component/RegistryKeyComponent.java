@@ -10,5 +10,5 @@ import net.minecraft.util.Identifier;
 @Setter
 @Getter
 public class RegistryKeyComponent {
-    public static final Codec<Identifier> CODEC = Identifier.CODEC;
+    public static final Codec<Identifier> CODEC = Identifier.CODEC.optionalFieldOf("id", Identifier.of("minecraft:stone")).codec();
 }

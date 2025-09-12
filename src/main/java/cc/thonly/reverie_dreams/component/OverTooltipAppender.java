@@ -16,8 +16,8 @@ public class OverTooltipAppender implements TooltipAppender {
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        Identifier itemId = components.get(ModDataComponentTypes.REGISTRY_KEY);
-        Item item = Registries.ITEM.get(itemId);
+//        Identifier itemId = components.get(ModDataComponentTypes.REGISTRY_KEY);
+//        Item item = Registries.ITEM.get(itemId);
 
     }
 }

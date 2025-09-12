@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
 import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
+import lombok.Getter;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.Box;
 import java.util.EnumSet;
 import java.util.List;
 
+@Getter
 public class NPCCleanMonsterGoal extends TrackTargetGoal {
 
     public NPCCleanMonsterGoal(NPCEntityImpl maid) {
@@ -31,6 +33,7 @@ public class NPCCleanMonsterGoal extends TrackTargetGoal {
 
     TargetPredicate targetPredicate = TargetPredicate.createAttackable().setBaseMaxDistance(16).setPredicate((e,w)->{return  !e.hasCustomName();});
     LivingEntity targetEntity;
+
     @Override
     public boolean canStart() {
 //        System.out.println("invoke");

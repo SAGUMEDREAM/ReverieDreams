@@ -72,9 +72,9 @@ public class MusicBlock extends BlockWithEntity {
             SongPlayer selfPlayer = musicBlockEntity.getSelfPlayer();
             if (selfPlayer != null) {
                 selfPlayer.setPlaying(false);
-                Map<BlockPos, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(world);
+                Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(world);
                 if (blockPos2SongPlayer != null) {
-                    blockPos2SongPlayer.remove(pos);
+                    blockPos2SongPlayer.remove(pos.asLong());
                 }
             }
         }

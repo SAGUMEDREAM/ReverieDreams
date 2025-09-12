@@ -3,6 +3,7 @@
   "package": "cc.thonly.reverie_dreams.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AnimalEntityMixin",
     "BedBlockMixin",
     "CropBlockMixin",
     "DataGenMixin",
@@ -41,6 +42,7 @@
     "patches.DefaultRPBuilderMixin",
     "patches.PolymerBlockUtilsMixin",
     "patches.ResourcePackManagerMixin",
+    "registry.IndexedIterableMixin",
     "registry.RegistryLoaderEntryMixin",
     "registry.RegistryLoaderMixin",
     "registry.SaveLoadingMixin",

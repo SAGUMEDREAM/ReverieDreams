@@ -38,7 +38,7 @@ public final class TouhouNotaUtils {
     public static final String STR_PATH = "config/reverie_dreams/nota";
     public static final Path PATH = Paths.get(STR_PATH);
     public static final Map<String, SongPlayer> id2SongCache = new HashMap<>();
-    public static final Map<World, Map<BlockPos, SongPlayer>> blockMusicPlayCache = new HashMap<>();
+    public static final Map<World, Map<Long, SongPlayer>> blockMusicPlayCache = new HashMap<>();
 
     static {
         try {
@@ -70,11 +70,11 @@ public final class TouhouNotaUtils {
         }
 
         DelayedTask.create(server, 2, () -> {
-            Map<BlockPos, SongPlayer> blockPos2SongPlayer = blockMusicPlayCache.computeIfAbsent(world, k -> new HashMap<>());
-            SongPlayer songPlayer = blockPos2SongPlayer.get(pos);
+            Map<Long, SongPlayer> blockPos2SongPlayer = blockMusicPlayCache.computeIfAbsent(world, k -> new HashMap<>());
+            SongPlayer songPlayer = blockPos2SongPlayer.get(pos.asLong());
             if (songPlayer != null) {
                 songPlayer.setPlaying(false);
-                blockPos2SongPlayer.remove(pos);
+                blockPos2SongPlayer.remove(pos.asLong());
             }
 
             PositionSongPlayer psp = new PositionSongPlayer(song, world);
@@ -85,7 +85,7 @@ public final class TouhouNotaUtils {
                 psp.addPlayer(sPlayer);
             }
             psp.setPlaying(true);
-            blockPos2SongPlayer.put(pos, psp);
+            blockPos2SongPlayer.put(pos.asLong(), psp);
             AtomicInteger age = new AtomicInteger();
             DelayedTask.whenTick(server, () -> {
                 if (world.isChunkLoaded(pos)) {

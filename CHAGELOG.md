@@ -2,6 +2,9 @@
 
 ## 0.3.6+1.21.7
 * Fixed Goblin display name
+* Fixed network errors when opening the GUI of other Polymer mods
+* Added feedback for Danmaku Shape Edit apply
+* Added BREED Skill for Touhou Role Working Mode
 
 ## 0.3.5+1.21.7
 * Fixed Moon biome bug

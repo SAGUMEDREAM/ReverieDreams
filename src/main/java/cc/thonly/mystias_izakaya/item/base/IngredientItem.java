@@ -25,17 +25,17 @@ public class IngredientItem extends Item {
         super(settings.food(new FoodComponent.Builder().nutrition(nutrition + 2).saturationModifier(saturation + 1).build()));
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        List<FoodProperty> foodProperties = FoodProperty.getIngredientProperties(this);
-        if (!foodProperties.isEmpty()) {
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
-        }
-        for (FoodProperty foodProperty : foodProperties) {
-            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
-        }
-    }
+//    @Override
+//    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+//        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+//        List<FoodProperty> foodProperties = FoodProperty.getIngredientProperties(this);
+//        if (!foodProperties.isEmpty()) {
+//            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
+//        }
+//        for (FoodProperty foodProperty : foodProperties) {
+//            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
+//        }
+//    }
 
     public static boolean isIngredient(Item item) {
         return item instanceof IngredientItem || (!(item instanceof FoodItem) && !FoodProperty.getIngredientProperties(item).isEmpty());

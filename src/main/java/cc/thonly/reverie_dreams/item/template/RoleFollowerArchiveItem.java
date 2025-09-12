@@ -47,17 +47,17 @@ public class RoleFollowerArchiveItem extends Item {
         return ActionResult.SUCCESS;
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-//        RoleFollowerArchive archive = stack.get(ModDataComponentTypes.ROLE_FOLLOWER_ARCHIVE);
-//        if (archive != null) {
-//            String name = archive.getNameJson();
-//            MutableText main = Text.empty();
-//            Text mutableText = TextUtil.decode(name).orElse(Text.empty());
-//            main.append("Name: ");
-//            main.append(mutableText);
-//            textConsumer.accept(main);
-//        }
-    }
+//    @Override
+//    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+//        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+////        RoleFollowerArchive archive = stack.get(ModDataComponentTypes.ROLE_FOLLOWER_ARCHIVE);
+////        if (archive != null) {
+////            String name = archive.getNameJson();
+////            MutableText main = Text.empty();
+////            Text mutableText = TextUtil.decode(name).orElse(Text.empty());
+////            main.append("Name: ");
+////            main.append(mutableText);
+////            textConsumer.accept(main);
+////        }
+//    }
 }

@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.debug.DebugExportWriter;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
@@ -20,7 +21,11 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.command.suggestion.SuggestionProviders;
 import net.minecraft.dialog.type.Dialog;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -32,9 +37,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 @Slf4j
 public class MainCommand implements CommandInit.CommandRegistration {
@@ -104,6 +110,10 @@ public class MainCommand implements CommandInit.CommandRegistration {
                                 CommandManager.literal("about")
                                         .executes(this::about)
                         )
+//                        .then(
+//                                CommandManager.literal("export_registries")
+//                                        .executes(this::exportRegistries)
+//                        )
                         .then(
                                 CommandManager.literal("ui_relay_recipe")
                                         .executes((context) -> 0)
@@ -171,6 +181,34 @@ public class MainCommand implements CommandInit.CommandRegistration {
         if (player != null && dialog != null) {
             player.openDialog(RegistryEntry.of(dialog));
         }
+        return 1;
+    }
+
+    private int exportRegistries(CommandContext<ServerCommandSource> context) {
+        List<String> lines = new LinkedList<>();
+        ServerCommandSource source = context.getSource();
+        MinecraftServer server = source.getServer();
+        DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
+        Stream<DynamicRegistryManager.Entry<Object>> entryStream = (Stream<DynamicRegistryManager.Entry<Object>>) (Object) registryManager.streamAllRegistries();
+        List<DynamicRegistryManager.Entry<Object>> list = entryStream.toList();
+        for (DynamicRegistryManager.Entry<Object> entry : list) {
+            RegistryKey<? extends Registry<Object>> key = entry.key();
+            Registry<Object> registry = entry.value();
+
+            lines.add("===== Registry: " + key.getValue() + " =====");
+            registry.forEach(obj -> {
+                int rawId = registry.getRawId(obj);
+                Identifier id = registry.getId(obj);
+                if (rawId == 97) {
+                    lines.add("!!! Found 97 in " + key.getValue() + " = " + id);
+                }
+            });
+        }
+        DebugExportWriter output = DebugExportWriter.OUTPUT;
+        for (String line : lines) {
+            output.write(line);
+        }
+        output.export();
         return 1;
     }
 

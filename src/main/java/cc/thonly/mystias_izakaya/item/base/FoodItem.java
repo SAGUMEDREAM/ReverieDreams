@@ -70,20 +70,20 @@ public class FoodItem extends Item {
     }
 
 
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        List<FoodProperty> foodProperties = FoodProperty.getFromItemStackComponent(stack);
-        List<FoodProperty> foodIngredientProperties = FoodProperty.getIngredientProperties(this);
-        Set<FoodProperty> foodPropertyList = new HashSet<>();
-        foodPropertyList.addAll(foodProperties);
-        foodPropertyList.addAll(foodIngredientProperties);
-        if (!foodPropertyList.isEmpty()) {
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
-        }
-        for (FoodProperty foodProperty : foodPropertyList) {
-            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
-        }
-
-    }
+//    @Override
+//    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+//        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+//        List<FoodProperty> foodProperties = FoodProperty.getFromItemStackComponent(stack);
+//        List<FoodProperty> foodIngredientProperties = FoodProperty.getIngredientProperties(this);
+//        Set<FoodProperty> foodPropertyList = new HashSet<>();
+//        foodPropertyList.addAll(foodProperties);
+//        foodPropertyList.addAll(foodIngredientProperties);
+//        if (!foodPropertyList.isEmpty()) {
+//            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
+//        }
+//        for (FoodProperty foodProperty : foodPropertyList) {
+//            textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
+//        }
+//
+//    }
 }

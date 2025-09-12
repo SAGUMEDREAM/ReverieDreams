@@ -134,11 +134,13 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
         var danmakuShapeDrawType = DanmakuShapeDrawRecipeType.getInstance();
         List<DanmakuShapeDrawRecipe> matches = danmakuShapeDrawType.getMatches(this.getShape(), Unit.INSTANCE);
         if (matches.isEmpty()) {
+            this.player.sendMessage(Text.translatable("item.action.click.shape_recipe.fail"), false);
             return;
         }
         DanmakuShapeDrawRecipe first = matches.getFirst();
         ItemStackWrapper output = first.getOutput();
         ItemStack itemStack = output.clone().getItemStack();
+        this.player.sendMessage(Text.translatable("item.action.click.shape_recipe.success"), false);
         this.player.playSoundToPlayer(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
         this.player.setStackInHand(this.hand, itemStack);
     }

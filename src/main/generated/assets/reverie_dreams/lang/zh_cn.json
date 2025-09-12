@@ -465,6 +465,8 @@
   "gui.npc.work.mode.smelt": "§b当前模式为: §d烧炼矿物",
   "item.action.click.left": "§b左键查看",
   "item.action.click.right": "§b右键查看",
+  "item.action.click.shape_recipe.fail": "§c无效配方",
+  "item.action.click.shape_recipe.success": "§a成功",
   "item.minecraft.lingering_potion.effect.back_of_life": "滞留型还生药",
   "item.minecraft.lingering_potion.effect.elixir_of_life": "滞留型蓬莱之药",
   "item.minecraft.lingering_potion.effect.kanju_kusuri": "滞留型绀珠药",

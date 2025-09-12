@@ -44,15 +44,15 @@ public class ModDataComponentTypes {
         }
     }
 
-    public static final ComponentType<Identifier> REGISTRY_KEY = registerComponent("registry_key",
-            ComponentType.<Identifier>builder()
-                    .codec(RegistryKeyComponent.CODEC)
-                    .build());
+//    public static final ComponentType<Identifier> REGISTRY_KEY = registerComponent("registry_key",
+//            ComponentType.<Identifier>builder()
+//                    .codec(RegistryKeyComponent.CODEC)
+//                    .build());
 
-    public static final ComponentType<OverTooltipAppender> OVER_TOOLTIP_APPENDER = registerComponent("over_tooltip_appender",
-            ComponentType.<OverTooltipAppender>builder()
-                    .codec(OverTooltipAppender.CODEC)
-                    .build());
+//    public static final ComponentType<OverTooltipAppender> OVER_TOOLTIP_APPENDER = registerComponent("over_tooltip_appender",
+//            ComponentType.<OverTooltipAppender>builder()
+//                    .codec(OverTooltipAppender.CODEC)
+//                    .build());
 
     public static final ComponentType<Unit> SILVER_ITEM = registerComponent("silver_item",
             ComponentType.<Unit>builder()

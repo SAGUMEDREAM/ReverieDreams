@@ -55,6 +55,8 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 //        translationBuilder.add("item_group.touhou.role.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 角色刷怪蛋");
         translationBuilder.add("item.action.click.left", "§b左键查看");
         translationBuilder.add("item.action.click.right", "§b右键查看");
+        translationBuilder.add("item.action.click.shape_recipe.success", "§a成功");
+        translationBuilder.add("item.action.click.shape_recipe.fail", "§c无效配方");
         translationBuilder.add("item.tooltip.use", "§b[右键使用]");
         translationBuilder.add("item.tooltip.use.villager", "§b[右键村民使用]");
         translationBuilder.add("item.tooltip.shape", "形状：");

@@ -33,13 +33,13 @@ public class DanmakuShapeCreatorItem extends Item {
         return ActionResult.SUCCESS;
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.Danmaku.SHAPE, ItemStackWrapper.of(Items.AIR));
-        ItemStack itemStack = itemStackWrapper.getItemStack();
-        textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.shape")).append(itemStack.getName()));
-    }
+//    @Override
+//    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+//        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+//        ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.Danmaku.SHAPE, ItemStackWrapper.of(Items.AIR));
+//        ItemStack itemStack = itemStackWrapper.getItemStack();
+//        textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.shape")).append(itemStack.getName()));
+//    }
 
     @Override
     public boolean hasGlint(ItemStack stack) {

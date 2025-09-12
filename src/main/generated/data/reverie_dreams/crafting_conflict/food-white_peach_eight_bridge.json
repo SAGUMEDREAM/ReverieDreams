@@ -1,9 +1,9 @@
 {
   "item": "reverie_dreams:food/white_peach_eight_bridge",
   "values": [
-    "reverie_dreams:aquatic_products",
+    "reverie_dreams:meat",
     "reverie_dreams:umami",
-    "reverie_dreams:salty",
-    "reverie_dreams:meat"
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:salty"
   ]
 }

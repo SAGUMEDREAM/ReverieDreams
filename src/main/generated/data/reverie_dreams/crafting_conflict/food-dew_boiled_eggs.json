@@ -2,7 +2,7 @@
   "item": "reverie_dreams:food/dew_boiled_eggs",
   "values": [
     "reverie_dreams:greasy",
-    "reverie_dreams:aquatic_products",
-    "reverie_dreams:meat"
+    "reverie_dreams:meat",
+    "reverie_dreams:aquatic_products"
   ]
 }

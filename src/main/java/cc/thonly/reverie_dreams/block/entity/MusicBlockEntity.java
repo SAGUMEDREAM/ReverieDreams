@@ -26,9 +26,9 @@ public class MusicBlockEntity extends BlockEntity {
 
     @Nullable
     public SongPlayer getSelfPlayer() {
-        Map<BlockPos, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(this.world);
+        Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(this.world);
         if (blockPos2SongPlayer == null) return null;
-        return blockPos2SongPlayer.get(this.pos);
+        return blockPos2SongPlayer.get(this.pos.asLong());
     }
 
     public static synchronized void tick(World world, BlockPos pos, BlockState state, MusicBlockEntity blockEntity) {
@@ -36,8 +36,8 @@ public class MusicBlockEntity extends BlockEntity {
 
         boolean hasRedstone = world.isReceivingRedstonePower(pos);
 
-        Map<BlockPos, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.computeIfAbsent(world, w -> new HashMap<>());
-        SongPlayer songPlayer = blockPos2SongPlayer.get(pos);
+        Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.computeIfAbsent(world, w -> new HashMap<>());
+        SongPlayer songPlayer = blockPos2SongPlayer.get(pos.asLong());
 
         if (hasRedstone && blockEntity.isFirst && blockEntity.select != null) {
             blockEntity.isFirst = false;

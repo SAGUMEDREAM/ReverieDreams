@@ -35,7 +35,7 @@ public class DebugExportWriter {
         return this;
     }
 
-    protected boolean export() {
+    public boolean export() {
         try {
             Path path = Path.of("./" + this.filename);
             Files.createDirectories(path.getParent() != null ? path.getParent() : Path.of("."));
