@@ -20,7 +20,7 @@
       "minecraft:dyed_color": 2067967,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:68681010-27c4-4d58-aef3-0e49abe968c0"
+        "cooldown_group": "minecraft:6a1f5189-9efb-41d4-80b0-8756163ea56b"
       }
     }
   },
@@ -29,8 +29,8 @@
     "count": 4
   },
   "core": {
-    "id": "minecraft:firework_star",
-    "count": 1
+    "id": "reverie_dreams:danmaku_core",
+    "count": 4
   },
   "power": {
     "id": "reverie_dreams:power",

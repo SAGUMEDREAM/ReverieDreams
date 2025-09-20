@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
+import cc.thonly.reverie_dreams.entity.GoblinEntity;
 import cc.thonly.reverie_dreams.entity.HairballEntity;
 import cc.thonly.reverie_dreams.entity.Yousei;
 import cc.thonly.reverie_dreams.item.ModItems;
@@ -15,6 +16,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.StrayEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -137,6 +139,32 @@ public class ModLootModifies {
     private static void modifyDrops(LivingEntity entity, DamageSource damageSource) {
         dropPointPower(entity, damageSource);
         dropIceScales(entity, damageSource);
+        dropCoins(entity, damageSource);
+    }
+
+    private static void dropCoins(LivingEntity entity, DamageSource damageSource) {
+        Identifier entityId = Registries.ENTITY_TYPE.getId(entity.getType());
+        World world = entity.getWorld();
+        if (!(world instanceof ServerWorld serverWorld)) {
+            return;
+        }
+        if (entity instanceof Yousei || entity instanceof GoblinEntity) {
+            Random random = Random.create();
+            List<Item> itemPool = List.of(
+                    ModItems.COPPER_COIN,
+                    ModItems.SILVER_COIN,
+                    ModItems.SILVER_COIN,
+                    ModItems.GOLD_COIN,
+                    ModItems.COPPER_COIN,
+                    ModItems.COPPER_COIN,
+                    ModItems.COPPER_COIN
+            );
+            int dropChance = 45;
+            int maxDropCount = 3;
+            if (random.nextInt(100) < dropChance) {
+                entity.dropStack(serverWorld, new ItemStack(itemPool.get(random.nextBetween(0, itemPool.size())), random.nextInt(maxDropCount + 1) + 1));
+            }
+        }
     }
 
     private static void dropPointPower(LivingEntity entity, DamageSource damageSource) {

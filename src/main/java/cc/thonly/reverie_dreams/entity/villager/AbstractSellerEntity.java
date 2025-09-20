@@ -91,7 +91,7 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
         World world = this.getWorld();
         Random random = new Random();
         this.exp += random.nextInt(9, 25);
-        world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS);
+        this.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP);
         this.sellInfo.sell(this.getVillagerSeed(), wrapper);
         this.tryLevelUp();
     }
@@ -101,7 +101,7 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
             this.exp -= EXPS[this.level];
             this.level++;
 
-            this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS);
+            this.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP);
         }
 
         if (this.level >= MAX_LEVEL) {
@@ -158,7 +158,7 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
             VillagerEntity villager = new VillagerEntity(EntityType.VILLAGER, this.getWorld());
             villager.setVillagerData(this.prev);
             villager.setPos(this.getX(), this.getY(), this.getZ());
-            world.playSound(null, this.getBlockPos(), SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS);
+            this.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN);
             this.discard();
             world.spawnEntity(villager);
             return true;

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:chest",
+    "X": "reverie_dreams:spiritual_planks",
+    "Y": "reverie_dreams:spiritual_slab"
+  },
+  "pattern": [
+    "YYY",
+    "X#X",
+    "YYY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:cash_box"
+  }
+}

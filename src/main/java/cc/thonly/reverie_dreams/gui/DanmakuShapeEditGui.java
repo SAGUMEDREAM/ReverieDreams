@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.gui;
 
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.mixin.accessor.GuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
@@ -118,6 +119,50 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                             }));
                 }
                 counter++;
+            }
+        }
+        this.readData();
+    }
+
+    private void readData() {
+        DanmakuShapeDrawRecipeType recipeType = DanmakuShapeDrawRecipeType.getInstance();
+        ItemStack source = this.source;
+        ItemStackWrapper itemStackWrapper = source.get(ModDataComponentTypes.Danmaku.SHAPE);
+        if (itemStackWrapper == null) {
+            return;
+        }
+
+        List<List<List<Boolean>>> shapesByOutput = recipeType.getShapesByOutput(itemStackWrapper);
+        if (shapesByOutput.isEmpty()) return;
+
+        List<List<Boolean>> shapeToShow = shapesByOutput.getFirst();
+
+        int counter2 = 0;
+        for (int gy = 0; gy < grid.length; gy++) {
+            for (int gx = 0; gx < grid[gy].length; gx++) {
+                if (grid[gy][gx] != 'X') {
+                    continue;
+                }
+
+                int shapeY = counter2 / 6;
+                int shapeX = counter2 % 6;
+
+                if (shapeY < shapeToShow.size() && shapeX < shapeToShow.get(shapeY).size()) {
+                    boolean state = shapeToShow.get(shapeY).get(shapeX);
+                    shape.get(shapeY).set(shapeX, state);
+
+                    // 更新 GUI
+                    GuiElementBuilder builder = INDEX_TO_BUILDER.get(counter2);
+                    if (builder != null) {
+                        GuiElementBuilder updated = new GuiElementBuilder(getItemForState(state))
+                                .setCallback(((GuiElementBuilderAccessor) builder).getCallback());
+                        // 注意 setSlot 用 GUI 坐标 (gy*9 + gx)，而 INDEX_TO_BUILDER 用 counter2
+                        setSlot(gy * 9 + gx, updated);
+                        INDEX_TO_BUILDER.put(counter2, updated);
+                    }
+                }
+
+                counter2++;
             }
         }
     }

@@ -1,0 +1,73 @@
+package cc.thonly.polymer.block;
+
+import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
+import cc.thonly.polymer.block.model.TransparentFlatTripWire;
+import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.virtualentity.BlockModel;
+import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
+import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
+import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
+import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+public class HorizontalFacingImpl implements FactoryBlock, PolymerTexturedBlock {
+    private final Block block;
+
+    public HorizontalFacingImpl(Block block) {
+        this.block = block;
+    }
+
+    @Override
+    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
+        return new Model(world, pos, initialBlockState);
+    }
+
+    @Override
+    public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
+        return Blocks.BARRIER.getDefaultState();
+    }
+
+    public class Model extends BlockModel {
+        private ItemDisplayElement main;
+
+        public Model(ServerWorld world, BlockPos pos, BlockState state) {
+            init(state);
+        }
+
+        public void init(BlockState state) {
+            this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
+            Direction facing = state.get(AbstractKitchenwareBlock.FACING);
+            float yaw = switch (facing) {
+                case NORTH -> 180f;
+                case EAST -> -90f;
+                case SOUTH -> 0f;
+                case WEST -> 90f;
+                default -> 0f;
+            } + 180f;
+            this.main.setYaw(yaw);
+            addElement(this.main);
+        }
+
+        private void updateItem(BlockState state) {
+            this.removeElement(this.main);
+            init(state);
+        }
+
+        @Override
+        public void notifyUpdate(HolderAttachment.UpdateType updateType) {
+            if (updateType == BlockBoundAttachment.BLOCK_STATE_UPDATE) {
+                updateItem(this.blockState());
+            }
+            super.notifyUpdate(updateType);
+        }
+    }
+}

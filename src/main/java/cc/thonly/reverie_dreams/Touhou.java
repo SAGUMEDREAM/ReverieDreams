@@ -279,7 +279,8 @@ public class Touhou implements ModInitializer {
         });
 
         CompletableFuture.runAsync(() -> {
-            boolean reachable = NetUtil.isReachable("textures.minecraft.net", 10000);
+            String testUrl = "https://textures.minecraft.net/texture/7fd9ba42a7c81eeea22f1524271ae85a8e045ce0af5a6ae16c6406ae917e68b5";
+            boolean reachable = NetUtil.isUrlAccessible(testUrl);
             if (!reachable) {
                 LOGGER.error("Unable to connect to the Minecraft network, unexpected behavior may occur");
             }

@@ -31,13 +31,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 @Setter
 @Getter
 @ToString
 public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
-    public ItemStack summonItem = Items.AIR.getDefaultStack();
+    public ItemStackWrapper itemWrapper = ItemStackWrapper.of(Items.AIR.getDefaultStack());
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
     public String ownerUUID = "";
@@ -46,14 +44,14 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
         super(entityType, world);
     }
 
-    public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world, int x, int y, int z, ItemStack summonItem) {
+    public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world, int x, int y, int z, ItemStackWrapper wrapper) {
         this(entityType, world);
         this.setPosition(x, y, z);
-        this.summonItem = summonItem;
+        this.itemWrapper = wrapper;
     }
 
-    public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world, int x, int y, int z, ItemStack summonItem, String ownerUUID) {
-        this(entityType, world, x, y, z, summonItem);
+    public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world, int x, int y, int z, ItemStackWrapper wrapper, String ownerUUID) {
+        this(entityType, world, x, y, z, wrapper);
         this.ownerUUID = ownerUUID;
     }
 
@@ -76,7 +74,7 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
             if (!this.hasStatusEffect(StatusEffects.INVISIBILITY)) {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
             }
-            if (!this.summonItem.isEmpty() && this.summonItem.isDamageable() && this.summonItem.getDamage() >= this.summonItem.getMaxDamage()) {
+            if (!this.itemWrapper.isEmpty() && this.itemWrapper.getItemStack().isDamageable() && this.itemWrapper.getItemStack().getDamage() >= this.itemWrapper.getItemStack().getMaxDamage()) {
                 this.damage(world, this.getDamageSources().magic(), Integer.MAX_VALUE);
             }
         }
@@ -86,8 +84,8 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     public boolean damage(ServerWorld world, DamageSource source, float amount) {
         Entity attacker = source.getAttacker();
         if (attacker != null && attacker.isSneaking() && this.ownerUUID.intern().equalsIgnoreCase(attacker.getUuid().toString())) {
-            if (!this.summonItem.isEmpty()) {
-                ItemStack copiedStack = this.summonItem.copy();
+            if (!this.itemWrapper.isEmpty()) {
+                ItemStack copiedStack = this.itemWrapper.getItemStack().copy();
                 ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
                 world.spawnEntity(itemEntity);
                 this.discard();
@@ -131,10 +129,10 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
         this.bodyYaw = this.headYaw = this.getYaw();
         this.lastBodyYaw = this.headYaw;
 
-        if (!this.summonItem.isEmpty() && !controllingPlayer.isInCreativeMode() && this.summonItem.isDamageable()) {
+        if (!this.itemWrapper.isEmpty() && !controllingPlayer.isInCreativeMode() && this.itemWrapper.getItemStack().isDamageable()) {
             this.damageTick++;
             if (this.damageTick > this.maxDamageTick) {
-                this.summonItem.damage(1, this, EquipmentSlot.MAINHAND);
+                this.itemWrapper.getItemStack().damage(1, this, EquipmentSlot.MAINHAND);
                 this.damageTick = 0;
             }
         }
@@ -176,10 +174,10 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     public void onDeath(DamageSource damageSource) {
         super.onDeath(damageSource);
         World world = this.getWorld();
-        if (this.summonItem.isEmpty()) {
+        if (this.itemWrapper.isEmpty()) {
             return;
         }
-        ItemStack copiedStack = this.summonItem.copy();
+        ItemStack copiedStack = this.itemWrapper.getItemStack().copy();
         ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
         world.spawnEntity(itemEntity);
     }
@@ -211,16 +209,7 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        if (this.summonItem != null && !this.summonItem.isEmpty()) {
-            String json = ItemStackWrapper.toJson(ItemStackWrapper.of(this.summonItem));
-            boolean isNull = json == null;
-            if (!isNull) {
-                boolean isEmpty = json.isEmpty();
-                if(!isEmpty) {
-                    view.putString("SummonedItem", json);
-                }
-            }
-        }
+        view.put("SummonedItem", ItemStackWrapper.CODEC, this.itemWrapper);
         view.putString("OwnerUUID", this.ownerUUID);
     }
 
@@ -228,9 +217,7 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         DynamicRegistryManager registryManager = this.getRegistryManager();
-        Optional<ItemStackWrapper> summonedItemOptional = ItemStackWrapper.toWrapper(view.getString("SummonedItem", ""));
-        summonedItemOptional.ifPresent(itemStack -> this.summonItem = itemStack.getItemStack());
-
+        this.itemWrapper = view.read("SummonedItem", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
 
         this.ownerUUID = view.getString("OwnerUUID", "null");
 

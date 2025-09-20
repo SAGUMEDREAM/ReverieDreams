@@ -1,5 +1,30 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.3.7+1.21.7
+* Added Danmaku Core to replace Firework star in recipe
+* Added Silver Chest Block
+* Added Cash Box Block
+* Added Anti Collision Barrel Block
+* Added the ability to allow Roles to open silver boxes and take out items
+* Added the ability to allow Roles to open door
+* Added `Chest Classification` Skill for Working Mode
+* Added `Smelt` Skill for Working Mode
+* Added `Sheep Shears` Skill for Working Mode
+* Added `Playing Music` Skill for Working Mode
+* Added new content to `zh_tw` translation file
+* Added Textures for Owner Debug Stick and Battle Debug Stick
+* Added Random speed in picking fruits
+* Added random message in empty stack interact role
+* Fixed Music Block not playing music after re-entering the chunk or world
+* Fixed Missing translationKey in NPC GUI work mode button
+* Fixed incorrect orientation of kitchen utensils and hoppers
+* Fixed Food Dash drop model too large
+* Fixed Youmu using the wrong STEVE model
+* Fixed Mistake set value in `ON_UPGRADED_HEALTH`
+* Modify Bagua Furnace laser to cylindrical model
+* Optimized the logic of feeding food and potions to Role
+* The Role backpack page now requires empty hand + right click to open
+
 ## 0.3.6+1.21.7
 * Fixed Goblin display name
 * Fixed network errors when opening the GUI of other Polymer mods

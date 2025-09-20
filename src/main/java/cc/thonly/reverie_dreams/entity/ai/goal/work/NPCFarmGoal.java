@@ -81,8 +81,6 @@ public class NPCFarmGoal extends Goal {
         if (isCrop(targetPos, getServerWorld(maid)) || isFarmLandTop(targetPos, getServerWorld(maid))) {
             this.maid.getLookControl().lookAt(targetPos.toCenterPos().offset(Direction.DOWN, 0.5));
             if (workTimer % 8 == 0) {
-//            System.out.println("tryStartWork "+targetPos);
-
                 this.maid.swingHand(Hand.MAIN_HAND);
                 harvest(targetPos);
                 planting(targetPos);

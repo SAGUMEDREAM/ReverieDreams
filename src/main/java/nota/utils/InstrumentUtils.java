@@ -141,42 +141,26 @@ public class InstrumentUtils {
 	 * @return Instrument enum (for the current server version)
 	 */
 	public static NoteBlockInstrument getBukkitInstrument(byte instrument) {
-		switch(instrument) {
-			case 0:
-				return NoteBlockInstrument.HARP;
-			case 1:
-				return NoteBlockInstrument.BASS;
-			case 2:
-				return NoteBlockInstrument.BASEDRUM;
-			case 3:
-				return NoteBlockInstrument.SNARE;
-			case 4:
-				return NoteBlockInstrument.HAT;
-			case 5:
-				return NoteBlockInstrument.GUITAR;
-			case 6:
-				return NoteBlockInstrument.FLUTE;
-			case 7:
-				return NoteBlockInstrument.BELL;
-			case 8:
-				return NoteBlockInstrument.CHIME;
-			case 9:
-				return NoteBlockInstrument.XYLOPHONE;
-			case 10:
-				return NoteBlockInstrument.IRON_XYLOPHONE;
-			case 11:
-				return NoteBlockInstrument.COW_BELL;
-			case 12:
-				return NoteBlockInstrument.DIDGERIDOO;
-			case 13:
-				return NoteBlockInstrument.BIT;
-			case 14:
-				return NoteBlockInstrument.BANJO;
-			case 15:
-				return NoteBlockInstrument.PLING;
-		}
-		return NoteBlockInstrument.HARP;
-	}
+        return switch (instrument) {
+            case 0 -> NoteBlockInstrument.HARP;
+            case 1 -> NoteBlockInstrument.BASS;
+            case 2 -> NoteBlockInstrument.BASEDRUM;
+            case 3 -> NoteBlockInstrument.SNARE;
+            case 4 -> NoteBlockInstrument.HAT;
+            case 5 -> NoteBlockInstrument.GUITAR;
+            case 6 -> NoteBlockInstrument.FLUTE;
+            case 7 -> NoteBlockInstrument.BELL;
+            case 8 -> NoteBlockInstrument.CHIME;
+            case 9 -> NoteBlockInstrument.XYLOPHONE;
+            case 10 -> NoteBlockInstrument.IRON_XYLOPHONE;
+            case 11 -> NoteBlockInstrument.COW_BELL;
+            case 12 -> NoteBlockInstrument.DIDGERIDOO;
+            case 13 -> NoteBlockInstrument.BIT;
+            case 14 -> NoteBlockInstrument.BANJO;
+            case 15 -> NoteBlockInstrument.PLING;
+            default -> NoteBlockInstrument.HARP;
+        };
+    }
 
 	/**
 	 * If true, the byte given represents a custom instrument

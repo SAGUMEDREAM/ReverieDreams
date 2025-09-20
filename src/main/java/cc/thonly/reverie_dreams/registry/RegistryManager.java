@@ -7,9 +7,7 @@ import cc.thonly.reverie_dreams.danmaku.*;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
 import cc.thonly.reverie_dreams.entity.npc.*;
-import cc.thonly.reverie_dreams.entity.skin.MobSkins;
-import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
-import cc.thonly.reverie_dreams.entity.skin.RoleSkins;
+import cc.thonly.reverie_dreams.entity.skin.*;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.fumo.Fumo;
@@ -55,9 +53,14 @@ public class RegistryManager {
             .reloadBuilder(JavaScriptManager::reload)
             .builder(JavaScriptManager::bootstrap);
 
-    public static final IntrinsicalRegister<RoleSkin> ROLE_SKIN = RegistryManager.<RoleSkin>ofEntry(Touhou.id("role_skin"))
-            .codec(RoleSkin.UNIT_CODEC)
+    public static final IntrinsicalRegister<NPCSkin> ROLE_SKIN = RegistryManager.<NPCSkin>ofEntry(Touhou.id("role_skin"))
+            .codec(NPCSkin.UNIT_CODEC)
             .builder(RoleSkins::bootstrap, MobSkins::bootstrap);
+
+    public static final IntrinsicalRegister<NPCSkinConfig> SKIN_CONFIG = RegistryManager.<NPCSkinConfig>ofEntry(Touhou.id("skin_config"))
+            .codec(NPCSkinConfig.CODEC)
+            .reloadBuilder(NPCSkinConfigs::reload)
+            .builder(NPCSkinConfigs::bootstrap);
 
     public static final IntrinsicalRegister<NPCRole> NPC_ROLE = RegistryManager.<NPCRole>ofEntry(Touhou.id("npc_role"))
             .codec(NPCRole.CODEC)

@@ -262,8 +262,8 @@ public class DialogInit {
                                         true, true, 16, 16
                                 ),
                                 new ItemDialogBody(
-                                        new ItemStack(Items.FIREWORK_STAR, 1),
-                                        Optional.of(new PlainMessageDialogBody(Text.empty().append(Text.translatable(Items.FIREWORK_STAR.getTranslationKey())).append(Text.literal("")), 200)),
+                                        new ItemStack(ModItems.DANMAKU_CORE, 4),
+                                        Optional.of(new PlainMessageDialogBody(Text.empty().append(Text.translatable(ModItems.DANMAKU_CORE.getTranslationKey())).append(Text.literal("")), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemDialogBody(
@@ -341,6 +341,9 @@ public class DialogInit {
                                 new PlainMessageDialogBody(Text.translatable("dialog.role.description.0"), 200),
                                 new PlainMessageDialogBody(Text.translatable("dialog.role.description.1"), 200),
                                 new PlainMessageDialogBody(Text.translatable("dialog.role.description.2", Text.translatable(ModItems.ROLE_ARCHIVE.getTranslationKey())), 200),
+                                new PlainMessageDialogBody(Text.translatable("dialog.role.description.3"), 200),
+                                new PlainMessageDialogBody(Text.translatable("dialog.role.description.4"), 200),
+                                new PlainMessageDialogBody(Text.translatable("dialog.role.description.5"), 200),
                                 new ItemDialogBody(
                                         new ItemStack(ModItems.ROLE_CARD, 1),
                                         Optional.of(new PlainMessageDialogBody(Text.empty().append(Text.translatable(ModItems.ROLE_CARD.getTranslationKey())), 200)),

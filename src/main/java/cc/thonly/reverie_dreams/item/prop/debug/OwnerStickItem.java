@@ -26,4 +26,9 @@ public class OwnerStickItem extends Item {
         }
         return ActionResult.SUCCESS_SERVER;
     }
+
+    @Override
+    public boolean hasGlint(ItemStack stack) {
+        return true;
+    }
 }

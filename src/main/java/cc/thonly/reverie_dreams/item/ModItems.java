@@ -81,6 +81,8 @@ public class ModItems {
     // 材料
     public static final Item POINT = registerItem("point", Item::new, new Item.Settings());
     public static final Item POWER = registerItem("power", Item::new, new Item.Settings());
+    public static final Item DANMAKU_CORE = registerItem("danmaku_core", Item::new, new Item.Settings()
+            .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true));
     public static final Item UPGRADED_HEALTH_FRAGMENT = registerItem("upgraded_health_fragment", Item::new, new Item.Settings());
     public static final Item BOMB_FRAGMENT = registerItem("bomb_fragment", Item::new, new Item.Settings());
     public static final Item RED_ORB = registerItem("red_orb", Item::new, new Item.Settings());
@@ -115,6 +117,9 @@ public class ModItems {
     public static final Item TENGU_SHIELD = registerItem("tengu_shield", TenguShieldItem::new, TenguShieldItem.createItemSettings());
     public static final Item TENGU_CAMERA = registerItem("tengu_camera", TenguCameraItem::new, new Item.Settings().maxCount(1).maxDamage(250).repairable(ItemTags.REPAIRS_IRON_ARMOR));
     public static final Item BAD_APPLE = registerItem("bad_apple", BadAppleItem::new, new Item.Settings().food(FoodComponents.GOLDEN_APPLE).maxCount(16).rarity(Rarity.EPIC));
+    public static final Item COPPER_COIN = registerItem("copper_coin", Item::new, new Item.Settings().maxCount(96));
+    public static final Item SILVER_COIN = registerItem("silver_coin", Item::new, new Item.Settings().maxCount(96));
+    public static final Item GOLD_COIN = registerItem("gold_coin", Item::new, new Item.Settings().maxCount(96));
 
     // 武器
     public static final Item HAKUREI_CANE = registerItem("hakurei_cane", (settings) -> new HakureiCane(1f, -2.4f, settings), new Item.Settings());
@@ -146,12 +151,17 @@ public class ModItems {
     public static final Item TRUMPET_GUN = registerItem("trumpet_gun", TrumpetGun::new, new Item.Settings().maxCount(1).maxDamage(150).repairable(Items.GOLD_BLOCK));
     public static final Item TREASURE_HUNTING_ROD = registerItem("treasure_hunting_rod", (settings) -> new TreasureHuntingRod(2f, -2.8f, settings), new Item.Settings());
     public static final Item DEATH_SCYTHE = registerItem("death_scythe", (settings) -> new DeathScytheItem(1f, -2.8f, settings), new Item.Settings());
-    public static final Item VIOLIN = registerItem("violin", MusicalInstrumentItem::new, new Item.Settings().maxCount(1)
+    public static final Item VIOLIN = registerItem("violin", MusicalInstrumentItem::new, new Item.Settings()
+            .maxCount(1)
             .equipmentSlot((livingEntity, stack) -> EquipmentSlot.HEAD)
             .component(ModDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.FLUTE));
     public static final Item KEYBOARD = registerItem("keyboard", MusicalInstrumentItem::new, new Item.Settings()
+            .maxCount(1)
+            .equipmentSlot((livingEntity, stack) -> EquipmentSlot.HEAD)
             .component(ModDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.PLING));
     public static final Item TRUMPET = registerItem("trumpet", MusicalInstrumentItem::new, new Item.Settings()
+            .maxCount(1)
+            .equipmentSlot((livingEntity, stack) -> EquipmentSlot.HEAD)
             .component(ModDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.DIDGERIDOO));
 
     // 银装备

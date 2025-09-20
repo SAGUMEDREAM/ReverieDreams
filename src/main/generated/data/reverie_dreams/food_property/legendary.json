@@ -2,28 +2,28 @@
   "registry_key": "reverie_dreams:legendary",
   "properties": {
     "values": [
-      "reverie_dreams:food/taketorihime",
-      "reverie_dreams:ingredient/black_pork",
-      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
-      "reverie_dreams:food/udumbara_cake",
       "reverie_dreams:food/horai-dama_no_eda",
-      "reverie_dreams:ingredient/udumbara",
+      "reverie_dreams:ingredient/sea_urchin",
       "reverie_dreams:food/the_source_of_life",
       "reverie_dreams:food/beef_wellington",
-      "reverie_dreams:food/pseudo_jiritama",
-      "reverie_dreams:ingredient/truffle",
-      "reverie_dreams:ingredient/twin_lotus",
-      "reverie_dreams:food/pirate_bacon",
       "reverie_dreams:food/lotus_fish_rice_bowl",
-      "reverie_dreams:food/the_beauty_of_han_palace",
-      "reverie_dreams:food/the_mars",
-      "reverie_dreams:food/phoenix",
-      "reverie_dreams:food/colorful_jade_fried_buns",
+      "reverie_dreams:ingredient/black_pork",
       "reverie_dreams:food/oedo_boat_festival",
+      "reverie_dreams:food/phoenix",
+      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
+      "reverie_dreams:ingredient/truffle",
+      "reverie_dreams:food/the_beauty_of_han_palace",
+      "reverie_dreams:food/taketorihime",
       "reverie_dreams:ingredient/supreme_tuna",
-      "reverie_dreams:ingredient/sea_urchin",
+      "reverie_dreams:ingredient/twin_lotus",
+      "reverie_dreams:food/longyin_peach",
+      "reverie_dreams:ingredient/udumbara",
+      "reverie_dreams:food/colorful_jade_fried_buns",
+      "reverie_dreams:food/the_mars",
+      "reverie_dreams:food/pirate_bacon",
       "reverie_dreams:ingredient/wagyu_beef",
-      "reverie_dreams:food/longyin_peach"
+      "reverie_dreams:food/pseudo_jiritama",
+      "reverie_dreams:food/udumbara_cake"
     ]
   }
 }

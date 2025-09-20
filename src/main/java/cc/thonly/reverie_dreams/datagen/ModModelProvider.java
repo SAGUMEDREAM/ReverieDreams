@@ -27,6 +27,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.model.json.ModelVariant;
+import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -76,6 +77,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_CRYSTAL_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_BLOCK);
+        this.registerChest(blockStateModelGenerator, ModBlocks.SILVER_CHEST_BLOCK.chestBlock(), ModBlocks.SILVER_BLOCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEEPSLATE_SILVER_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.ORB_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEEPSLATE_ORB_ORE);
@@ -88,10 +90,12 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_BLUE_BLOCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_RED_BLOCK);
         blockStateModelGenerator.registerSimpleState(ModBlocks.MARISA_HAT_BLOCK);
+        this.registerRotatable(blockStateModelGenerator, ModBlocks.CASH_BOX_BLOCK);
+        blockStateModelGenerator.registerSimpleState(ModBlocks.ANTI_COLLISION_BARREL);
+        blockStateModelGenerator.registerSimpleState(ModBlocks.WHEEL_CHAIR);
 
         for (Fumo instance : Fumos.getView()) {
             blockStateModelGenerator.registerSimpleState(instance.block());
-//            blockStateModelGenerator.registerSimpleState(instance.block());
         }
 
         this.generateCropBlockModel(blockStateModelGenerator);
@@ -137,6 +141,7 @@ public class ModModelProvider extends FabricModelProvider {
         // 材料
         itemModelGenerator.register(ModItems.POINT, Models.GENERATED);
         itemModelGenerator.register(ModItems.POWER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DANMAKU_CORE, Models.GENERATED);
         itemModelGenerator.register(ModItems.UPGRADED_HEALTH_FRAGMENT, Models.GENERATED);
         itemModelGenerator.register(ModItems.BOMB_FRAGMENT, Models.GENERATED);
         itemModelGenerator.register(ModItems.RED_ORB, Models.GENERATED);
@@ -163,6 +168,9 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DREAM_PILLOW);
         itemModelGenerator.register(ModItems.TENGU_CAMERA);
         itemModelGenerator.register(ModItems.BAD_APPLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COPPER_COIN, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SILVER_COIN, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLD_COIN, Models.GENERATED);
 
         // 武器
         itemModelGenerator.register(ModItems.HAKUREI_CANE, Models.HANDHELD);
@@ -170,7 +178,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.WIND_BLESSING_CANE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.MAGIC_BROOM);
         itemModelGenerator.register(ModItems.KNIFE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GUNGNIR, Models.HANDHELD);
+//        itemModelGenerator.register(ModItems.GUNGNIR, Models.HANDHELD);
         itemModelGenerator.register(ModItems.LEVATIN, Models.HANDHELD);
         itemModelGenerator.register(ModItems.ROKANKEN, Models.HANDHELD);
         itemModelGenerator.register(ModItems.HAKUROKEN, Models.HANDHELD);
@@ -310,6 +318,18 @@ public class ModModelProvider extends FabricModelProvider {
         for (Item item : ModGuiItems.getGuiItemList()) {
             this.registerGuiItem(itemModelGenerator, item);
         }
+    }
+
+    public final void registerChest(BlockStateModelGenerator blockStateModelGenerator, Block block, Block topBottom) {
+        TextureMap textureMap = new TextureMap()
+                .put(TextureKey.FRONT, TextureMap.getSubId(block, "_front"))
+                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.TOP, TextureMap.getId(topBottom))
+                .put(TextureKey.BOTTOM, TextureMap.getId(topBottom));
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotatable(
+                block,
+                textureMap
+        );
     }
 
     public final void registerRotatable(BlockStateModelGenerator blockStateModelGenerator, Block block) {

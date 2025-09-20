@@ -77,6 +77,9 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
 
         addDrop(ModBlocks.MAGIC_ICE_BLOCK);
         addDrop(ModBlocks.MARISA_HAT_BLOCK);
+        addDrop(ModBlocks.ANTI_COLLISION_BARREL);
+        addDrop(ModBlocks.CASH_BOX_BLOCK);
+        addDrop(ModBlocks.WHEEL_CHAIR);
 
         addDrop(ModBlocks.POINT_BLOCK);
         addDrop(ModBlocks.POWER_BLOCK);
@@ -115,6 +118,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.ORB_ORE, orbDropFunction);
         addDrop(ModBlocks.DEEPSLATE_ORB_ORE, orbDropFunction);
         addDrop(ModBlocks.SILVER_BLOCK);
+        addDrop(ModBlocks.SILVER_CHEST_BLOCK.chestBlock());
         Function<Block, LootTable.Builder> dreamCrystlDropFunction = (Block block) -> {
             LootTable.Builder builder = new LootTable.Builder();
 

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "reverie_dreams:block/cash_box"
+      },
+      {
+        "model": "reverie_dreams:block/cash_box",
+        "y": 90
+      },
+      {
+        "model": "reverie_dreams:block/cash_box",
+        "y": 180
+      },
+      {
+        "model": "reverie_dreams:block/cash_box",
+        "y": 270
+      }
+    ]
+  }
+}

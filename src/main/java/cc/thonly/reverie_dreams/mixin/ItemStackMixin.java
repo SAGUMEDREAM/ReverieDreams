@@ -86,7 +86,7 @@ public abstract class ItemStackMixin<T> implements IItemStack,
             return;
         }
         Item item = this.getItem();
-        List<MutableText> texts = ItemDescriptionManager.get(item);
+        List<MutableText> texts = ItemDescriptionManager.getDescription(item);
         try {
             if (!texts.isEmpty()) {
                 List<Text> textList = cir.getReturnValue();
@@ -100,11 +100,18 @@ public abstract class ItemStackMixin<T> implements IItemStack,
     @Override
     public boolean isFood() {
         Item item = this.getItem();
-        if (item instanceof FoodItem || item instanceof DrinkItem) {
+        if (item instanceof FoodItem) {
             return true;
         }
 //        System.out.println(item);
 //        this.components.forEach(component -> System.out.println(component.type()));
         return this.components.contains(DataComponentTypes.FOOD);
+    }
+
+    @Unique
+    @Override
+    public boolean isDrink() {
+        Item item = this.getItem();
+        return item instanceof DrinkItem;
     }
 }

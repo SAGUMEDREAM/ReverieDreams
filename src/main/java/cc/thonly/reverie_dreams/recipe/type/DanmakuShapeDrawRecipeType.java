@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
@@ -11,6 +12,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.item.ItemStack;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -108,6 +110,24 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
         }
 
         return matches;
+    }
+
+    public List<List<List<Boolean>>> getShapesByOutput(ItemStackWrapper output) {
+        List<List<List<Boolean>>> results = new ArrayList<>();
+
+        for (DanmakuShapeDrawRecipe recipe : stream().toList()) {
+            ItemStackWrapper outputWrapper = recipe.getOutput();
+            ItemStack itemStack = outputWrapper.getItemStack();
+            ItemStackWrapper itemStackWrapper = itemStack.get(ModDataComponentTypes.Danmaku.SHAPE);
+            if (itemStackWrapper == null) {
+                continue;
+            }
+            if (itemStackWrapper.equals(output)) {
+                results.add(recipe.getShape());
+            }
+        }
+
+        return results;
     }
 
 

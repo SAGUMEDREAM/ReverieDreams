@@ -16,10 +16,10 @@ import net.minecraft.util.Identifier;
 
 import java.util.Map;
 
-public class SeedCreativeTab implements ItemGroupContent {
+public class SeedCreativeTab implements ItemGroupContentHelper {
 
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("seeds_item_group"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(SeedCreativeTab::getSeedItemIcon)
             .displayName(Text.translatable("item_group.seed_item_group"))
             .build();
@@ -36,7 +36,7 @@ public class SeedCreativeTab implements ItemGroupContent {
             WoodCreator.INSTANCES.forEach((instance) -> itemGroup.add(instance.sapling()));
 
         });
-        ItemGroupContent.registerGroup(SeedCreativeTab.ITEM_GROUP_KEY, SeedCreativeTab.ITEM_GROUP);
+        ItemGroupContentHelper.registerGroup(SeedCreativeTab.ITEM_GROUP_KEY, SeedCreativeTab.ITEM_GROUP);
 
     }
 

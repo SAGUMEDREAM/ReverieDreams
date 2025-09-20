@@ -17,10 +17,14 @@ public class NetUtil {
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new Gson();
 
-    public static boolean isReachable(String ipAddress, int timeout) {
-        try {
-            InetAddress address = InetAddress.getByName(ipAddress);
-            return address.isReachable(timeout);
+    public static boolean isUrlAccessible(String url) {
+        Request request = new Request.Builder()
+                .url(url)
+                .head()
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response.isSuccessful();
         } catch (Exception e) {
             return false;
         }

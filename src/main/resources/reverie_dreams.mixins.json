@@ -10,6 +10,7 @@
     "DynamicRegistriesImplMixin",
     "EntityMixin",
     "ExampleMixin",
+    "ExperienceOrbEntityMixin",
     "GuiElementBuilderMixin",
     "ItemMixin",
     "ItemSettingsMixin",
@@ -24,6 +25,7 @@
     "accessor.EntityAccessor",
     "accessor.EntityTrackerAccessor",
     "accessor.GenerationShapeConfigAccessor",
+    "accessor.GuiElementBuilderAccessor",
     "accessor.IAbstractBlockSettingsAccessor",
     "accessor.IComponentMapBuilderAccessor",
     "accessor.ItemEntityAccessor",
@@ -52,6 +54,7 @@
     "server.ReloadableRegistriesMixin",
     "server.ServerPlayerEntityMixin",
     "server.ServerPlayNetworkHandlerMixin",
+    "server.ServerRecipeManagerMixin",
     "server.ServerWorldMixin"
   ],
   "injectors": {

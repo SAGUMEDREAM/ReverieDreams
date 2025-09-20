@@ -27,6 +27,7 @@ public class PolymerEntityHelper {
         registerOverlay(ModEntities.FIRE_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
         registerOverlay(ModEntities.ICE_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
         registerOverlay(ModEntities.BROOM_ENTITY_TYPE, MagicBroomImpl::new);
+        registerOverlay(ModEntities.WHEEL_CHAIR_ENTITY, WheelChairImpl::new);
         registerOverlay(ModEntities.MOON_RABBIT_ENTITY_TYPE, MoonRabbitImpl::new);
         registerOverlay(ModEntities.KILLER_BEE_ENTITY_TYPE, KillerBeeImpl::new);
         registerOverlay(ModEntities.ORE_ESP_ENTITY_TYPE, OreEspImpl::new);

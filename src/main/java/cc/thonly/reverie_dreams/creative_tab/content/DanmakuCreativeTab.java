@@ -13,9 +13,9 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-public class DanmakuCreativeTab implements ItemGroupContent {
+public class DanmakuCreativeTab implements ItemGroupContentHelper {
     public static final RegistryKey<ItemGroup> BULLET_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_bullet"));
-    public static final ItemGroup ITEM_GROUP_BULLET = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP_BULLET = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.DANMAKU))
             .displayName(Text.translatable("item_group.touhou.bullet"))
             .build();

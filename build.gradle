@@ -4,6 +4,7 @@ import groovy.json.JsonSlurper
 plugins {
     id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
+    id "com.modrinth.minotaur" version "2.+"
 //    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 

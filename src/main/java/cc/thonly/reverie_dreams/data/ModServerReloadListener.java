@@ -3,9 +3,11 @@ package cc.thonly.reverie_dreams.data;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
+import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.server.ItemTagManager;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -28,6 +30,8 @@ public class ModServerReloadListener implements SimpleSynchronousResourceReloadL
             registry.verify();
         }
         this.onLoad(manager);
+        CookingInputRecipeManager.getInstance().clearItems();
+        ItemTagManager.getInstance().clearTags();
         DialogInit.initRegistriesDialog();
     }
 

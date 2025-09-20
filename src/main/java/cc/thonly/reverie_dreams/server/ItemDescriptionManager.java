@@ -21,7 +21,12 @@ public class ItemDescriptionManager {
         registry.addAll(Arrays.asList(texts));
     }
 
-    public static List<MutableText> get(Item item) {
+    public static void register(Item item, List<MutableText> texts) {
+        List<MutableText> registry = REGISTRIES.computeIfAbsent(item, i -> new ArrayList<>());
+        registry.addAll(texts);
+    }
+
+    public static List<MutableText> getDescription(Item item) {
         return REGISTRIES.getOrDefault(item, new ArrayList<>());
     }
 }

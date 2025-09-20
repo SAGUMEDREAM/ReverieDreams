@@ -99,9 +99,43 @@ public class NPCInventoryImpl extends SimpleInventory {
         this.setStack(FEET, stack.copy());
     }
 
+    public boolean isArmorSlot(int slot) {
+        return HEAD == slot || CHEST == slot || LEGS == slot || FEET == slot;
+    }
+
     @Override
     public boolean canInsert(ItemStack stack) {
         return super.canInsert(stack);
+    }
+
+    public int insertStack(ItemStack stack) {
+        if (stack.isEmpty()) return 0;
+        int remaining = stack.getCount();
+        int inserted = 0;
+
+        for (int i = 0; i < this.heldStacks.size(); i++) {
+            if (this.isArmorSlot(i)) {
+                continue;
+            }
+            ItemStack slot = this.heldStacks.get(i);
+            if (slot.isEmpty()) {
+                int toInsert = Math.min(remaining, stack.getMaxCount());
+                this.heldStacks.set(i, stack.copy());
+                this.heldStacks.get(i).setCount(toInsert);
+                inserted += toInsert;
+                remaining -= toInsert;
+            } else if (ItemStack.areItemsAndComponentsEqual(slot, stack) && slot.getCount() < slot.getMaxCount()) {
+                int space = slot.getMaxCount() - slot.getCount();
+                int toInsert = Math.min(remaining, space);
+                slot.increment(toInsert);
+                inserted += toInsert;
+                remaining -= toInsert;
+            }
+            if (remaining <= 0) break;
+        }
+
+        stack.decrement(inserted);
+        return inserted;
     }
 
     @Nonnull

@@ -7,9 +7,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 
 public class PolymerStatusEffectHelper {
     public static void registerOverlay(RegistryEntry<StatusEffect> registryEntry) {
-        if (!ReverieDreamsConfiguration.POLYMER_PATCH) {
-            return;
-        }
         PolymerStatusEffect.registerOverlay(registryEntry.value());
     }
 }

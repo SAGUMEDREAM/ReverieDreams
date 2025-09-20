@@ -1501,18 +1501,18 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
             if (!DanmakuTypes.UNLIST.contains(value)) {
                 for (Pair<Item, ItemStack> pair : value.getColorPairs()) {
                     Item dye = pair.getLeft();
-                    ItemStack stack = pair.getRight();
-                    Item item = stack.getItem();
+                    ItemStack result = pair.getRight();
+                    Item item = result.getItem();
                     Identifier itemId = Registries.ITEM.getId(item);
                     Identifier dyeId = Registries.ITEM.getId(dye);
                     Identifier registryKey = Identifier.of(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
                     DanmakuRecipe recipe = new DanmakuRecipe(
                             new ItemStackWrapper(new ItemStack(dye, 4)),
-                            new ItemStackWrapper(new ItemStack(Items.FIREWORK_STAR, 1)),
+                            new ItemStackWrapper(new ItemStack(ModItems.DANMAKU_CORE, 4)),
                             new ItemStackWrapper(new ItemStack(ModItems.POWER, 35)),
                             new ItemStackWrapper(new ItemStack(ModItems.POINT, 35)),
                             new ItemStackWrapper(value.toShape().getItemStack()),
-                            new ItemStackWrapper(stack)
+                            new ItemStackWrapper(result)
                     );
                     this.danmakuRecipeFactory.register(registryKey, recipe);
                 }

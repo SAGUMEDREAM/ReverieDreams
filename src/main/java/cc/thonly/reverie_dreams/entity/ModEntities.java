@@ -4,10 +4,7 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.entity.elemental.FireElementalEntity;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.entity.elemental.WaterElementalEntity;
-import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.entity.misc.KnifeEntity;
-import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
-import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
+import cc.thonly.reverie_dreams.entity.misc.*;
 import cc.thonly.reverie_dreams.entity.skin.MobSkins;
 import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
@@ -168,6 +165,10 @@ public class ModEntities {
             EntityType.Builder.<MagicBroomEntity>create(MagicBroomEntity::new, SpawnGroup.MISC)
                     .build(of("broom")),
             MagicBroomEntity::createAttributes);
+    public static final EntityType<WheelchairEntity> WHEEL_CHAIR_ENTITY = registerEntityWithSpawnEgg("wheel_chair",
+            EntityType.Builder.<WheelchairEntity>create(WheelchairEntity::new, SpawnGroup.MISC)
+                    .build(of("wheel_chair")),
+            WheelchairEntity::createAttributes);
     public static final EntityType<HairballEntity> HAIRBALL_ENTITY_TYPE = registerEntityWithSpawnEgg("hairball",
             EntityType.Builder.<HairballEntity>create(HairballEntity::new, SpawnGroup.MONSTER)
                     .build(of("hairball")),

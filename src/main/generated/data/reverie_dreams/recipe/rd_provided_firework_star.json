@@ -6,9 +6,9 @@
     "X": "minecraft:sand"
   },
   "pattern": [
-    " # ",
+    "###",
     "#X#",
-    " # "
+    "###"
   ],
   "result": {
     "count": 1,

@@ -4,6 +4,8 @@ import net.minecraft.component.ComponentType;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 @SuppressWarnings("unchecked")
 public interface IItemStack {
     public static <T> void modifyComponentSafe(@NotNull ItemStack stack, ComponentType<T> key, Object value) {
@@ -17,5 +19,7 @@ public interface IItemStack {
         return stack;
     }
 
+
     public boolean isFood();
+    public boolean isDrink();
 }

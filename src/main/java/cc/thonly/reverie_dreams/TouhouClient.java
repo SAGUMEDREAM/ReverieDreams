@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
+import cc.thonly.reverie_dreams.block.ModBlocks;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -29,6 +30,8 @@ public class TouhouClient implements ClientModInitializer {
         BlockTypeGroup.SAPLING.stream().forEach(this::registerBlockCutout);
         BlockTypeGroup.KITCHENWARE.stream().forEach(this::registerBlockCutout);
         BlockTypeGroup.PLANT.stream().forEach(this::registerBlockCutout);
+        registerBlockCutout(ModBlocks.MARISA_HAT_BLOCK);
+        registerBlockCutout(ModBlocks.CASH_BOX_BLOCK);
         for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             this.registerBlockCutout(view.getValue().getCropBlock());
         }

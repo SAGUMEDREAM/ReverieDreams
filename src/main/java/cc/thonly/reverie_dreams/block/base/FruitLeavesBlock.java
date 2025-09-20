@@ -66,12 +66,13 @@ public class FruitLeavesBlock extends LeavesBlock implements Fertilizable {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         ItemStack main = player.getStackInHand(Hand.MAIN_HAND);
         ItemStack off = player.getStackInHand(Hand.OFF_HAND);
-        boolean growItem = main.getItem() == Items.BONE_MEAL || off.getItem() == Items.BONE_MEAL;
+        boolean isGrowItem = main.getItem() == Items.BONE_MEAL || off.getItem() == Items.BONE_MEAL;
 
-        if (!world.isClient() && world instanceof ServerWorld serverWorld && growItem) {
+        if (!world.isClient() && world instanceof ServerWorld serverWorld && isGrowItem) {
             return ActionResult.PASS;
         }
-        if (growItem) {
+        if (isGrowItem) {
+            ParticleUtil.spawnParticlesAround(world, pos, 3, ParticleTypes.HAPPY_VILLAGER);
             return ActionResult.PASS;
         }
 
@@ -82,7 +83,7 @@ public class FruitLeavesBlock extends LeavesBlock implements Fertilizable {
                 world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
                 ItemEntity drop = new ItemEntity(serverWorld, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this.output, random.nextBetween(1, 3)));
                 drop.setPickupDelay(10);
-                drop.setVelocity(0, 0.2, 0);
+                drop.setVelocity(random.nextBoolean() ? random.nextFloat() : -random.nextFloat(), 0.2, random.nextBoolean() ? random.nextFloat() : -random.nextFloat());
                 world.spawnEntity(drop);
                 world.setBlockState(pos, state.with(AGE_PROPERTY, 1));
                 return ActionResult.SUCCESS_SERVER;

@@ -17,7 +17,7 @@ public class EntityTargetUtil {
         return true;
     }
 
-    public static boolean isThisWorkMode(NPCEntityImpl maid, NPCWorkMode mode) {
-        return maid.isTamed() && maid.getNpcState() == NPCStates.WORKING && maid.getWorkMode() == mode;
+    public static boolean isThisWorkMode(NPCEntityImpl roleEntity, NPCWorkMode mode) {
+        return roleEntity.isTamed() && roleEntity.getNpcState() == NPCStates.WORKING && roleEntity.getWorkMode() == mode;
     }
 }

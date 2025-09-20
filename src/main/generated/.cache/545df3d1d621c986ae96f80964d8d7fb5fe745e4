@@ -1,6 +1,8 @@
 // 1.21.7	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Block Loot Tables
+ee9650285dcbdc7c341019630bf487d3f406246b data/reverie_dreams/loot_table/blocks/anti_collision_barrel.json
 7a2447ded52a047621f168e9b35dd45360f1c3c7 data/reverie_dreams/loot_table/blocks/black_salt_block.json
 05894f7238a45ffdd2878d86139e542d3ce06f2d data/reverie_dreams/loot_table/blocks/broccoli.json
+9c7156b0470b91588e7eda2dacc70f1bb9e8f479 data/reverie_dreams/loot_table/blocks/cash_box.json
 4600fc9324ce883c1178ed984dadd90afdc7a6c5 data/reverie_dreams/loot_table/blocks/chill.json
 2f87c95f752092aee7eb635dbb951a248fd755b8 data/reverie_dreams/loot_table/blocks/cooking_pot.json
 a010e06ed6ef491c37f00f15d5f9831ffb7f80e5 data/reverie_dreams/loot_table/blocks/cucumber.json
@@ -148,6 +150,7 @@ e62ea50ae0e70c246c588214b11d87071f7684fe data/reverie_dreams/loot_table/blocks/p
 ade00837a00244b04f2aa7952d69c067c347eb4d data/reverie_dreams/loot_table/blocks/power_block.json
 aac755c9b12924e1943cb62d4eda73da925df98a data/reverie_dreams/loot_table/blocks/red_beans.json
 4700d57c8e360d86c86eea6be9581c325f196bc4 data/reverie_dreams/loot_table/blocks/silver_block.json
+ca1b3377dce80e5369a70f28c2c5a5d044470a13 data/reverie_dreams/loot_table/blocks/silver_chest.json
 eff9584d25b8c52459974da3c170e88f60fa4dbd data/reverie_dreams/loot_table/blocks/silver_ore.json
 5a23d8df40dd231461eb985a5b5b23c05b839f6f data/reverie_dreams/loot_table/blocks/soy_beans.json
 646958868fdc14626d90957fbf370fb30164201e data/reverie_dreams/loot_table/blocks/spiritual_button.json
@@ -181,4 +184,5 @@ c2a8ddf90cf0cd0b8e04c8ba127b4fb88828f6ef data/reverie_dreams/loot_table/blocks/s
 1bff264ccafbd5014249d38a62a694cd803f9ab1 data/reverie_dreams/loot_table/blocks/toon.json
 1f700435a5cc54605a4f782e6be91c8bf40e3c16 data/reverie_dreams/loot_table/blocks/tremella.json
 0b697acd61bdc3681bc5a25da227c4b74eb441ec data/reverie_dreams/loot_table/blocks/udumbara_flower.json
+de4a053be4bb0c7e03d05deafc0fadc169b327ca data/reverie_dreams/loot_table/blocks/wheel_chair.json
 de68dafe65307f20c74eb4a5a053c692b1b69f1c data/reverie_dreams/loot_table/blocks/white_radish.json

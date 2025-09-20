@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@SuppressWarnings("unchecked")
 @Getter
 public abstract class AbstractBlockCreator {
     public static final Map<Class<? extends Class<AbstractBlockCreator>>, List<AbstractBlockCreator>> INSTANCES = new Object2ObjectOpenHashMap<>();
     private final String name;
     private final Identifier id;
 
-    @SuppressWarnings("unchecked")
     public AbstractBlockCreator(String name, Identifier id) {
         this.name = name;
         this.id = id;

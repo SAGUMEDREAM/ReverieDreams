@@ -52,7 +52,7 @@ public class MusicBlockEntity extends BlockEntity {
 
         if (!hasRedstone && songPlayer != null && songPlayer.isPlaying()) {
             songPlayer.setPlaying(false);
-            blockPos2SongPlayer.remove(pos);
+            blockPos2SongPlayer.remove(pos.asLong());
         }
     }
 

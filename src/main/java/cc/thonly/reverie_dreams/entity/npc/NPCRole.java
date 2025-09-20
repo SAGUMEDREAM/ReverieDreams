@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
+import cc.thonly.reverie_dreams.entity.skin.NPCSkin;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
@@ -50,7 +50,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
         this(id, property, NPCRoleEntityImpl.class);
     }
 
-    public NPCRole(Identifier id, RoleSkin skin) {
+    public NPCRole(Identifier id, NPCSkin skin) {
         this(id, skin.get(), NPCRoleEntityImpl.class);
     }
 

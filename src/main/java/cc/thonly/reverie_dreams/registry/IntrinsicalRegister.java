@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,6 +49,7 @@ public class IntrinsicalRegister<T> implements MutableRegistry<T> {
     @Getter
     private Codec<T> codec;
     @Nullable
+    @Getter
     private IntrinsicalRegister<T> parent;
 
     public IntrinsicalRegister(RegistryKey<? extends Registry<T>> key) {
@@ -74,7 +76,22 @@ public class IntrinsicalRegister<T> implements MutableRegistry<T> {
     }
 
     public void verify() {
-
+        AtomicInteger next = new AtomicInteger();
+        this.keyToEntry.forEach((registryKey, reference) -> {
+            if (registryKey == null)  {
+                log.error("Can't verify registry key, rawId: {}", next.get());
+                return;
+            }
+            if (reference == null) {
+                log.error("Can't verify registry entry reference, registryKey: {}", registryKey);
+                return;
+            }
+            if (reference.value() == null) {
+                log.error("Can't verify registry entry value, registryKey: {}", registryKey);
+                return;
+            }
+            next.getAndIncrement();
+        });
     }
 
     public IntrinsicalRegister<T> shadow() {
@@ -155,6 +172,9 @@ public class IntrinsicalRegister<T> implements MutableRegistry<T> {
     }
 
     public void setBuiltin(Identifier id, T value) {
+        if (this.builtins.containsKey(id) || this.builtins.containsValue(value)) {
+            return;
+        }
         this.builtins.put(id, value);
     }
 

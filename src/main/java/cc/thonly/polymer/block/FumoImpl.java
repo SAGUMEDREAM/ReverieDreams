@@ -29,6 +29,7 @@ public class FumoImpl implements PolymerTexturedBlock, FactoryBlock {
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
         return Blocks.BARRIER.getDefaultState();
     }
+
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
         return new Model(initialBlockState, this.fumoBlock.getOffsets());

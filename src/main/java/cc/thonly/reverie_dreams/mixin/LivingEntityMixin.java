@@ -367,9 +367,9 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             this.setHealth(this.getMaxHealth());
             SoundEvent hurtSound = getHurtSound(source);
             SoundEvent deathSound = getDeathSound();
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), hurtSound, this.getSoundCategory(), 1.0f, 1.0f);
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), deathSound, this.getSoundCategory(), 1.0f, 1.0f);
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TOTEM_USE, this.getSoundCategory(), 1.0f, 1.0f);
+            this.playSound(hurtSound, 1.0f, 1.0f);
+            this.playSound(deathSound, 1.0f, 1.0f);
+            this.playSound(SoundEvents.ITEM_TOTEM_USE, 1.0f, 1.0f);
             for (var player : world.getPlayers()) {
                 world.spawnParticles(player, ParticleTypes.TOTEM_OF_UNDYING, true, false, this.getX(), this.getY(), this.getZ(), 250, 1.5, 2, 1.5, 0.5);
             }

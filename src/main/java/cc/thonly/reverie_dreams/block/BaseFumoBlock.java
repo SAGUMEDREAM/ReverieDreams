@@ -58,6 +58,7 @@ public class BaseFumoBlock extends HorizontalFacingBlock {
         return this.getDefaultState().with(FACING_16, direction);
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING_16);
     }

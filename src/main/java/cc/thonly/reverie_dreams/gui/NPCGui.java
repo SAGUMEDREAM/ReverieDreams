@@ -42,6 +42,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
     private GuiElementBuilder npcFood;
     private GuiElementBuilder npcHealth;
     private GuiElementBuilder npcArmor;
+    private GuiElementBuilder npcXp;
 
     public NPCGui(ServerPlayerEntity player, NPCEntityImpl npcEntity) {
         super(ScreenHandlerType.GENERIC_9X6, player, false);
@@ -107,7 +108,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     BlockPos workingPos = this.npcEntity.getWorkingPos();
                     this.npcMode = new GuiElementBuilder()
                             .setItem(Items.DIAMOND)
-                            .setItemName(Text.of("模式开关"))
+                            .setItemName(Text.translatable("gui.npc.work.button"))
                             .setLore(List.of
                                     (
                                             this.npcEntity.getNpcState().getTranslateText(),
@@ -117,14 +118,14 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                                     )
                             )
                             .setCallback((index, type, action) -> {
-                                this.npcEntity.setNpcState(type.isRight?this.npcEntity.getPreviousState():this.npcEntity.getNextState());
+                                this.npcEntity.setNpcState(type.isRight ? this.npcEntity.getPreviousState() : this.npcEntity.getNextState());
                                 this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
                             })
                     ;
                     this.builder2index.put(this.npcMode, slotIndex);
                     this.setSlot(slotIndex, this.npcMode);
                 }
-                //工作模式
+                // 工作模式
                 if (posChar.equalsIgnoreCase("Y")) {
                     NPCWorkMode currentWorkMode = this.npcEntity.getWorkMode();
                     this.npcWorkMode = new GuiElementBuilder()
@@ -141,7 +142,25 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.builder2index.put(this.npcWorkMode, slotIndex);
                     this.setSlot(slotIndex, this.npcWorkMode);
                 }
-
+                if (posChar.equalsIgnoreCase("U")) {
+                    this.npcXp = new GuiElementBuilder()
+                            .setItem(Items.EXPERIENCE_BOTTLE)
+                            .setItemName(Text.translatable("gui.npc.info.xp", this.npcEntity.getStoredExperience()))
+                            .setLore(List.of(
+                                    Text.translatable("gui.npc.info.xp.button")
+                            ))
+                            .setCallback((index, type, action) -> {
+                                int experienceAmount = this.npcEntity.getStoredExperience();
+                                if (experienceAmount >0) {
+                                    this.player.playSoundToPlayer(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                                }
+                                this.player.addExperience(experienceAmount);
+                                this.npcEntity.setStoredExperience(0);
+                                this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            });
+                    this.builder2index.put(this.npcXp, slotIndex);
+                    this.setSlot(slotIndex, this.npcXp);
+                }
 
                 if (posChar.equalsIgnoreCase("I")) {
                     this.setSlotRedirect(
@@ -217,6 +236,8 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                         this.npcEntity.getWorkMode().translationKey()
                 )
         );
+
+        this.npcXp.setItemName(Text.translatable("gui.npc.info.xp", this.npcEntity.getStoredExperience()));
 
 //        System.out.println( this.npcEntity.getNpcState().getId());
         this.builder2index.forEach((builder, index) -> {

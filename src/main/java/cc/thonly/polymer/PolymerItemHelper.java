@@ -7,9 +7,6 @@ import net.minecraft.item.Item;
 
 public class PolymerItemHelper {
     public static void registerOverlay(Item item) {
-        if (!ReverieDreamsConfiguration.POLYMER_PATCH) {
-            return;
-        }
         PolymerItem.registerOverlay(item, requestItemOverlay(item));
     }
 

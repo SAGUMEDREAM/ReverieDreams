@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.minecraft.util.Identifier;
 
-public class NPCRoles extends AbstractSkinBootstrap {
+public class NPCRoles extends AbstractSkins {
     private static final IntrinsicalRegister<NPCRole> REGISTER = RegistryManager.NPC_ROLE;
 
     // 主角组

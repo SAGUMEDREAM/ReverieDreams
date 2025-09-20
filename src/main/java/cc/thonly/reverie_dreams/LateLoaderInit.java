@@ -4,7 +4,10 @@ import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.polymer.PolymerItemHelper;
 import cc.thonly.polymer.PolymerStatusEffectHelper;
 import cc.thonly.polymer.ResourcePackGenerator;
+import cc.thonly.reverie_dreams.block.AbstractBlockCreator;
+import cc.thonly.reverie_dreams.block.ChestBlockCreator;
 import cc.thonly.reverie_dreams.block.WoodCreator;
+import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
@@ -47,10 +50,11 @@ public class LateLoaderInit implements ModInitializer {
                 builder.add(instance.fenceGate(), 300);
             });
         }
-        CreativeTabs.registerItemGroups();
-        if (ReverieDreamsConfiguration.POLYMER_PATCH) {
-            this.polymerify();
+        for (ChestBlockCreator chestBlockCreator : ChestBlockCreator.INSTANCES.get(ChestBlockCreator.class).stream().map((ab)->(ChestBlockCreator)ab).toList()) {
+            ModBlockEntities.CUSTOM_CHEST_BLOCK_ENTITY.addSupportedBlock(chestBlockCreator.chestBlock());
         }
+        CreativeTabs.registerItemGroups();
+        this.polymerify();
     }
 
     public void polymerify() {
@@ -75,6 +79,7 @@ public class LateLoaderInit implements ModInitializer {
                 }
             }
         });
+
         LATE_INIT.clear();
         PolymerResourcePackUtils.addModAssets(Touhou.MOD_ID);
         PolymerResourcePackUtils.addModAssets(POLYMER_MOD_ID);

@@ -11,6 +11,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.ToString;
 import net.minecraft.component.ComponentChanges;
+import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.Item;
@@ -21,6 +22,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 @SuppressWarnings("MethodDoesntCallSuperMethod")
 @Getter
@@ -111,6 +113,24 @@ public class ItemStackWrapper {
 
     public ItemStackWrapper copy() {
         return this.clone();
+    }
+
+    public <T> T get(ComponentType<T> type) {
+        return this.itemStack.get(type);
+    }
+
+    public <T> T getOrCreate(ComponentType<T> type, Supplier<T> supplier) {
+        T val = this.get(type);
+        if (val == null) {
+            T newVal = supplier.get();
+            this.itemStack.set(type, newVal);
+            val = newVal;
+        }
+        return val;
+    }
+
+    public <T> T getOrDefault(ComponentType<T> type, T value) {
+        return this.itemStack.getOrDefault(type, value);
     }
 
     @Override

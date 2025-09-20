@@ -9,10 +9,10 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
-public class KitchenwareCreativeTab implements ItemGroupContent {
+public class KitchenwareCreativeTab implements ItemGroupContentHelper {
 
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("kitchenware_item_group"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(MIBlocks.COOKING_POT))
             .displayName(Text.translatable("item_group.kitchenware_item_group"))
             .build();
@@ -45,7 +45,7 @@ public class KitchenwareCreativeTab implements ItemGroupContent {
 
             itemGroup.add(MIBlocks.ITEM_DISPLAY);
         });
-        ItemGroupContent.registerGroup(KitchenwareCreativeTab.ITEM_GROUP_KEY, KitchenwareCreativeTab.ITEM_GROUP);
+        ItemGroupContentHelper.registerGroup(KitchenwareCreativeTab.ITEM_GROUP_KEY, KitchenwareCreativeTab.ITEM_GROUP);
 
     }
 }

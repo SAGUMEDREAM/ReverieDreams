@@ -30,7 +30,7 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
         var x = new ItemDisplayElement();
         var holder = new MagicBroomHolder(this.magicBroomEntity);
         var stack = new ItemStack(ModEntityHolders.MAGIC_BROOM_DISPLAY);
-        if (this.magicBroomEntity.summonItem.hasGlint()) {
+        if (this.magicBroomEntity.itemWrapper.getItemStack().hasGlint()) {
             stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
         }
         x.setItem(stack);

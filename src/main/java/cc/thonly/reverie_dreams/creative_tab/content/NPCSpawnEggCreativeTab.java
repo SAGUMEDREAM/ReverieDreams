@@ -14,9 +14,9 @@ import net.minecraft.text.Text;
 
 import java.util.Collection;
 
-public class NPCSpawnEggCreativeTab implements ItemGroupContent {
+public class NPCSpawnEggCreativeTab implements ItemGroupContentHelper {
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_role_spawn_egg"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.SPAWN_EGG))
             .displayName(Text.translatable("item_group.touhou.role.spawn_egg"))
             .build();
@@ -29,6 +29,6 @@ public class NPCSpawnEggCreativeTab implements ItemGroupContent {
                 itemGroup.add(egg.getDefaultStack());
             }
         });
-        ItemGroupContent.registerGroup(NPCSpawnEggCreativeTab.ITEM_GROUP_KEY, NPCSpawnEggCreativeTab.ITEM_GROUP);
+        ItemGroupContentHelper.registerGroup(NPCSpawnEggCreativeTab.ITEM_GROUP_KEY, NPCSpawnEggCreativeTab.ITEM_GROUP);
     }
 }

@@ -105,7 +105,7 @@ public class DialogPlayer {
     public synchronized void start() {
         this.iterator = this.source.listIterator();
         if (this.soundEvent != null) {
-            this.player.getWorld().playSound(null, this.player.getBlockPos(), this.soundEvent, SoundCategory.PLAYERS);
+            this.player.playSound(this.soundEvent);
         }
         DelayedTask.createFromSecond(Touhou.getServer(), 0.75f, () -> {
             this.paused = false;

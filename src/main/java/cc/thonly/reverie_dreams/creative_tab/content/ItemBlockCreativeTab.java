@@ -18,9 +18,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
-public class ItemBlockCreativeTab implements ItemGroupContent {
+public class ItemBlockCreativeTab implements ItemGroupContentHelper {
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.HAKUREI_CANE))
             .displayName(Text.translatable("item_group.touhou_block_and_item"))
             .build();
@@ -53,6 +53,6 @@ public class ItemBlockCreativeTab implements ItemGroupContent {
             }
             FruitLeavesBlock.FRUIT_LEAVES_BLOCKS.forEach(itemGroup::add);
         });
-        ItemGroupContent.registerGroup(ItemBlockCreativeTab.ITEM_GROUP_KEY, ItemBlockCreativeTab.ITEM_GROUP);
+        ItemGroupContentHelper.registerGroup(ItemBlockCreativeTab.ITEM_GROUP_KEY, ItemBlockCreativeTab.ITEM_GROUP);
     }
 }

@@ -50,7 +50,6 @@ public abstract class JukeboxProvider implements DataProvider {
 
     public abstract void configured();
 
-    @SuppressWarnings("deprecation")
     public void export(DataWriter writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);

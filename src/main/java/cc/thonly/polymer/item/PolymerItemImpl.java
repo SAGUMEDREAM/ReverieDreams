@@ -26,7 +26,7 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
     @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
         if (this.item instanceof IDanmakuItem) {
-            return Items.BLAZE_ROD;
+            return Items.TORCH;
         }
         if (this.item instanceof TenguShieldItem) {
             return Items.TRIAL_KEY;

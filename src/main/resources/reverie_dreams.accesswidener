@@ -11,6 +11,7 @@ accessible field net/minecraft/registry/entry/RegistryEntry$Reference value Ljav
 accessible field net/minecraft/registry/entry/RegistryEntryList$Named entries Ljava/util/List;
 accessible class net/minecraft/registry/RegistryLoader$RegistryLoadable
 accessible class net/minecraft/registry/RegistryLoader$Loader
+accessible field net/minecraft/recipe/Ingredient entries Lnet/minecraft/registry/entry/RegistryEntryList;
 accessible field net/minecraft/entity/LivingEntity lastDamageTaken F
 accessible method net/minecraft/entity/passive/AnimalEntity playEatSound ()V
 accessible class net/minecraft/village/raid/Raid$Member

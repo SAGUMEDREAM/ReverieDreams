@@ -81,7 +81,7 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.includeByKey(BiomeInit.DREAM),
                 SpawnGroup.MONSTER,
-                ModEntities.YOUSEI_ENTITY_TYPE, 10, 1, 2
+                ModEntities.YOUSEI_ENTITY_TYPE, 2, 1, 2
         );
         SpawnRestriction.register(
                 ModEntities.YOUSEI_ENTITY_TYPE,
@@ -101,7 +101,7 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.includeByKey(BiomeInit.DREAM),
                 SpawnGroup.MONSTER,
-                ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, 3, 1, 2
+                ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, 1, 1, 1
         );
         SpawnRestriction.register(
                 ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE,

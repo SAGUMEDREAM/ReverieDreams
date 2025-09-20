@@ -6,24 +6,28 @@ import cc.thonly.polymer.block.*;
 import cc.thonly.reverie_dreams.LateLoaderInit;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.BaseFumoBlock;
+import cc.thonly.reverie_dreams.block.CashBoxBlock;
 import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
+import cc.thonly.reverie_dreams.block.ModelBlock;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
 import eu.pb4.factorytools.api.block.model.SignModel;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
 import eu.pb4.polymer.blocks.api.BlockModelType;
 import eu.pb4.polymer.common.api.PolymerCommonUtils;
 import eu.pb4.polymer.core.api.block.PolymerBlock;
 import eu.pb4.polymer.virtualentity.api.BlockWithElementHolder;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
+@Slf4j
 public class PolymerBlockHelper {
     public static void registerOverlay(Block block) {
-        if (!ReverieDreamsConfiguration.POLYMER_PATCH) {
+        if (ConstantInfo.IS_DATAGEN) {
             return;
         }
         Identifier id = Registries.BLOCK.getId(block);
@@ -42,15 +46,23 @@ public class PolymerBlockHelper {
         Identifier id = Registries.BLOCK.getId(block);
         BlockState defaultState = block.getDefaultState();
 
-        LateLoaderInit.LATE_INIT.add(() -> BlockStateModelManager.addBlock(id, block));
+        LateLoaderInit.LATE_INIT.add(() -> {
+            try {
+                BlockStateModelManager.addBlock(id, block);
+            } catch (Exception err) {
+                log.error("Can't add block state model {}", id, err);
+            }
+        });
 
         return switch (block) {
             case ItemStackDisplay ignored -> new ItemStackDisplayImpl();
             case AbstractCropBlock ignored -> new CropBlockImpl(ignored);
             case FruitLeavesBlock ignored -> new FruitLeavesImpl(ignored);
+            case ModelBlock ignored -> new ModelFactoryImpl(ignored);
             case BaseFumoBlock ignored -> new FumoImpl(ignored);
             case GensokyoAltarBlock ignored -> new GensokyoAltarImpl();
-            case AbstractKitchenwareBlock ignored -> new KitchenwareImpl(ignored);
+            case CashBoxBlock ignored -> new HorizontalFacingImpl(ignored);
+            case AbstractKitchenwareBlock ignored -> new AbstractKitchenwareImpl(ignored);
             case RedstoneLampBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
             case StairsBlock ignored -> StateCopyFactoryBlock.STAIR;
             case SlabBlock ignored -> SlabFactoryBlock.INSTANCE;

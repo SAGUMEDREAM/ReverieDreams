@@ -39,7 +39,6 @@ public class ModRecipeGenerator extends RecipeGenerator {
 
     @Override
     public void generate() {
-
         // 入门书
         createShaped(RecipeCategory.MISC, ModItems.TOUHOU_HELPER)
                 .pattern("XXX")
@@ -131,6 +130,40 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .criterion("has_diamond", conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter, getRecipeName(ModBlocks.MARISA_HAT_BLOCK));
 
+        // 塞钱箱
+        createShaped(RecipeCategory.MISC, ModBlocks.CASH_BOX_BLOCK)
+                .pattern("YYY")
+                .pattern("X#X")
+                .pattern("YYY")
+                .input('X', ModBlocks.SPIRITUAL.planks())
+                .input('Y', ModBlocks.SPIRITUAL.slab())
+                .input('#', Items.CHEST)
+                .criterion("has_wool", conditionsFromItem(Items.CHEST))
+                .offerTo(exporter, getRecipeName(ModBlocks.CASH_BOX_BLOCK));
+
+        // 防撞桶
+        createShaped(RecipeCategory.MISC, ModBlocks.ANTI_COLLISION_BARREL)
+                .pattern("YXY")
+                .pattern("Z#Z")
+                .pattern("YXY")
+                .input('X', Items.YELLOW_WOOL)
+                .input('Y', Items.RED_WOOL)
+                .input('Z', Items.WHITE_WOOL)
+                .input('#', Items.IRON_BLOCK)
+                .criterion("has_iron_block", conditionsFromItem(Items.IRON_BLOCK))
+                .offerTo(exporter, getRecipeName(ModBlocks.ANTI_COLLISION_BARREL));
+        // 轮椅
+        createShaped(RecipeCategory.MISC, ModBlocks.WHEEL_CHAIR)
+                .pattern("Z  ")
+                .pattern("X# ")
+                .pattern("YYY")
+                .input('#', Items.IRON_INGOT)
+                .input('X', Items.IRON_BLOCK)
+                .input('Y', Items.RESIN_BRICK)
+                .input('Z', Items.BLACK_WOOL)
+                .criterion("has_iron", conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, getRecipeName(ModBlocks.WHEEL_CHAIR));
+
         // Fumo销售许可
         createShaped(RecipeCategory.MISC, ModItems.FUMO_LICENSE)
                 .pattern("YXY")
@@ -144,13 +177,23 @@ public class ModRecipeGenerator extends RecipeGenerator {
 
         // 烟火之星
         createShaped(RecipeCategory.MISC, Items.FIREWORK_STAR)
-                .pattern(" # ")
+                .pattern("###")
                 .pattern("#X#")
-                .pattern(" # ")
+                .pattern("###")
                 .input('#', Items.GUNPOWDER)
                 .input('X', Items.SAND)
                 .criterion("has_sand", conditionsFromItem(Items.GUNPOWDER))
                 .offerTo(exporter, "rd_provided_" + getRecipeName(Items.FIREWORK_STAR));
+
+        // 弹幕核心
+        createShaped(RecipeCategory.MISC, ModItems.DANMAKU_CORE)
+                .pattern("XXX")
+                .pattern("X#X")
+                .pattern("XXX")
+                .input('#', Items.FIREWORK_STAR)
+                .input('X', Items.IRON_NUGGET)
+                .criterion("has_sand", conditionsFromItem(Items.FIREWORK_STAR))
+                .offerTo(exporter, getRecipeName(ModItems.DANMAKU_CORE));
 
         this.generateWoodCreator(ModBlocks.SPIRITUAL);
         this.generateWoodCreator(MIBlocks.LEMON);
@@ -423,6 +466,15 @@ public class ModRecipeGenerator extends RecipeGenerator {
         offerBlockToIngotRecipe(exporter, ModItems.SILVER_INGOT, ModItems.SILVER_NUGGET);
         offerIngotToBlockRecipe(exporter, ModItems.SILVER_INGOT, ModBlocks.SILVER_BLOCK.asItem());
         offerBlockToIngotRecipe(exporter, ModBlocks.SILVER_BLOCK.asItem(), ModItems.SILVER_INGOT);
+
+        createShaped(RecipeCategory.DECORATIONS, ModBlocks.SILVER_CHEST_BLOCK.chestBlock())
+                .pattern("XXX")
+                .pattern("X#X")
+                .pattern("XXX")
+                .input('X', ModItems.SILVER_INGOT)
+                .input('#', Items.CHEST)
+                .criterion("has_silver", conditionsFromItem(ModItems.SILVER_INGOT))
+                .offerTo(exporter, getRecipeName(ModBlocks.SILVER_CHEST_BLOCK.chestBlock()));
 
         // 烧银矿
         offerSmelting(SILVER, RecipeCategory.MISC, ModItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");

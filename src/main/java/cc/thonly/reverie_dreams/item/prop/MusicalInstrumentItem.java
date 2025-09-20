@@ -1,11 +1,15 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,6 +20,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -66,37 +71,67 @@ public class MusicalInstrumentItem extends Item {
         super(settings);
     }
 
-    @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult useByEntity(World world, LivingEntity user, Hand hand) {
         boolean isSneaking = user.isSneaking();
-        if (!world.isClient()) {
-            ServerPlayerEntity player = (ServerPlayerEntity) user;
-            ItemStack itemStack = player.getStackInHand(hand);
-            List<String> fileNames = TouhouNotaUtils.getFileNames();
-            if (fileNames.isEmpty()) {
+        ItemStack itemStack = user.getStackInHand(hand);
+        List<String> fileNames = TouhouNotaUtils.getFileNames();
+        if (fileNames.isEmpty()) {
+            if (user instanceof ServerPlayerEntity player) {
                 player.sendMessage(Text.translatable("item.reverie_dreams.music.no_files"), false);
-                return ActionResult.FAIL;
             }
+            return ActionResult.FAIL;
+        }
 
-            String playingMusic = itemStack.getOrDefault(ModDataComponentTypes.PLAYING_MUSIC, null);
-            NoteBlockInstrument noteBlockInstrument = itemStack.getOrDefault(ModDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.PLING);
+        String playingMusic = itemStack.getOrDefault(ModDataComponentTypes.PLAYING_MUSIC, null);
+        NoteBlockInstrument noteBlockInstrument = itemStack.getOrDefault(ModDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.PLING);
 
-            if (isSneaking) {
-                int index = playingMusic == null ? -1 : fileNames.indexOf(playingMusic);
-                index = (index + 1) % fileNames.size();
-                String next = fileNames.get(index);
-                itemStack.set(ModDataComponentTypes.PLAYING_MUSIC, next);
+        if (isSneaking) {
+            int index = playingMusic == null ? -1 : fileNames.indexOf(playingMusic);
+            index = (index + 1) % fileNames.size();
+            String next = fileNames.get(index);
+            itemStack.set(ModDataComponentTypes.PLAYING_MUSIC, next);
+            if (user instanceof ServerPlayerEntity player) {
                 player.sendMessage(Text.translatable("item.reverie_dreams.music.switch_music", next), false);
-            } else {
-                if (playingMusic == null) {
+            }
+        } else {
+            if (playingMusic == null) {
+                if (user instanceof ServerPlayerEntity player) {
                     player.sendMessage(Text.translatable("item.reverie_dreams.music.no_music_selected"), false);
-                } else {
+                }
+           } else {
+                TouhouNotaUtils.play(user, playingMusic, noteBlockInstrument);
+                if (user instanceof ServerPlayerEntity player && Touhou.getServer() != null) {
                     player.sendMessage(Text.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.asString()), false);
-                    TouhouNotaUtils.play(player, playingMusic, noteBlockInstrument);
+                    Touhou.getServer().executeSync(()-> {
+                        Box box = player.getBoundingBox().expand(TouhouNotaUtils.MAX_DISTANCE);
+                        List<NPCRoleEntityImpl> entities = world.getEntitiesByClass(
+                                NPCRoleEntityImpl.class,
+                                box,
+                                e -> e.isAlive() && e.isOwner(player) && e.getWorkMode() == NPCWorkModes.PLAYING_MUSIC
+                        );
+                        for (NPCRoleEntityImpl e : entities) {
+                            ItemStack mainHandStack = e.getMainHandStack();
+                            ItemStack offHandStack = e.getOffHandStack();
+                            if (mainHandStack.getItem() instanceof MusicalInstrumentItem) {
+                                mainHandStack.set(ModDataComponentTypes.PLAYING_MUSIC, playingMusic);
+                                this.useByEntity(world, e, Hand.MAIN_HAND);
+                            } else if (offHandStack.getItem() instanceof MusicalInstrumentItem) {
+                                offHandStack.set(ModDataComponentTypes.PLAYING_MUSIC, playingMusic);
+                                this.useByEntity(world, e, Hand.OFF_HAND);
+                            }
+                        }
+                    });
                 }
             }
-            player.swingHand(hand);
-            return ActionResult.SUCCESS_SERVER;
+        }
+        user.swingHand(hand);
+        return ActionResult.SUCCESS_SERVER;
+    }
+
+    @Override
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
+        if (!world.isClient) {
+            return this.useByEntity(world, user , hand);
         }
         return super.use(world, user, hand);
     }

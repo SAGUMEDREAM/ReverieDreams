@@ -1,5 +1,6 @@
 package nota.model.playmode;
 
+import cc.thonly.reverie_dreams.Touhou;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +24,11 @@ public class MonoMode extends ChannelMode {
 		else {
 			pitch = NoteUtils.getPitchInOctave(note);
 		}
-		player.playSoundToPlayer(InstrumentUtils.getInstrument(note.getInstrument()), SoundCategory.RECORDS, volume, pitch);
+		if (Touhou.getServer() == null) {
+			return;
+		}
+		Touhou.getServer().executeSync(()-> {
+			player.playSoundToPlayer(InstrumentUtils.getInstrument(note.getInstrument()), SoundCategory.RECORDS, volume, pitch);
+		});
 	}
 }

@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +30,7 @@ public class MagicBroom extends SwordItem {
         BlockPos blockPos = context.getBlockPos();
         Hand hand = context.getHand();
         if (!world.isClient() && player != null) {
-            MagicBroomEntity entity = new MagicBroomEntity(ModEntities.BROOM_ENTITY_TYPE, world, blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), itemStack.copy(), player.getUuid().toString().intern());
+            MagicBroomEntity entity = new MagicBroomEntity(ModEntities.BROOM_ENTITY_TYPE, world, blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), ItemStackWrapper.of(itemStack.copy()), player.getUuid().toString().intern());
             world.spawnEntity(entity);
             itemStack.decrementUnlessCreative(1, player);
             player.swingHand(hand);

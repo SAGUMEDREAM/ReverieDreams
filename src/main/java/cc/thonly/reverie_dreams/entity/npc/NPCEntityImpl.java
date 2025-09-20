@@ -1,24 +1,18 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.mystias_izakaya.item.base.FoodItem;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
-import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCCrossbowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCDanmakuItemGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
 import cc.thonly.reverie_dreams.entity.skin.MobSkins;
-import cc.thonly.reverie_dreams.entity.skin.RoleSkin;
-import cc.thonly.reverie_dreams.gui.NPCGui;
-import cc.thonly.reverie_dreams.interfaces.IItemStack;
+import cc.thonly.reverie_dreams.entity.skin.NPCSkin;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.util.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import com.mojang.authlib.properties.Property;
@@ -54,8 +48,6 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.*;
 import net.minecraft.network.packet.s2c.play.EntityPositionSyncS2CPacket;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.potion.Potion;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.EntityTrackerEntry;
@@ -63,7 +55,6 @@ import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerChunkLoadingManager;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -110,6 +101,8 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
     protected int saturation = 20;//饱食
     protected float exhaustionLevel = 0;//消耗
     protected int hungerTick = 20;
+    // 经验
+    protected int storedExperience = 0;
     // 工作
     protected BlockPos workingPos = new BlockPos(0, 0, 0);
     protected int workTick = 0;
@@ -152,7 +145,7 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
         this.updateAttackType();
     }
 
-    public NPCEntityImpl(EntityType<? extends TameableEntity> entityType, World world, RoleSkin skin) {
+    public NPCEntityImpl(EntityType<? extends TameableEntity> entityType, World world, NPCSkin skin) {
         this(entityType, world, skin.get());
     }
 
@@ -216,6 +209,7 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
                 .map(BlockPos::fromLong)
                 .orElseGet(() -> BlockPos.fromLong(new BlockPos(0, 0, 0).asLong()));
 
+        this.storedExperience = view.getInt("ExperienceAmount", 0);
 
         this.updateAttackType();
     }
@@ -238,6 +232,8 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
         if (!this.seatUUID.isEmpty() && !this.seatUUID.equals("null")) {
             view.putString("SeatUUID", this.seatUUID);
         }
+
+        view.putInt("ExperienceAmount", this.storedExperience);
     }
 
     @Override
@@ -249,6 +245,10 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
     @Override
     protected void initGoals() {
         super.initGoals();
+    }
+
+    public void addExperience(int xp) {
+        this.storedExperience += xp;
     }
 
     @Override
@@ -316,6 +316,10 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
     public void onDeath(DamageSource damageSource) {
         super.onDeath(damageSource);
         World world = this.getWorld();
+        if (this.storedExperience > 0) {
+            ExperienceOrbEntity orbEntity = new ExperienceOrbEntity(world, this.getPos(), this.getVelocity(), this.storedExperience);
+            world.spawnEntity(orbEntity);
+        }
         KeepInventoryTypes keepInventoryType = this.getKeepInventoryType();
         if (keepInventoryType == KeepInventoryTypes.ARCHIVED) {
             ItemStack archive = this.toArchive();
@@ -365,109 +369,8 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         var world = this.getWorld();
-        if (!world.isClient() && world instanceof ServerWorld serverWorld && this instanceof NPCRoleEntityImpl impl) {
-            if (stack.getItem() == ModItems.UPGRADED_HEALTH) {
-                AttributeContainer attributes = this.getAttributes();
-                EntityAttributeInstance max_health = attributes.getCustomInstance(EntityAttributes.MAX_HEALTH);
-                float health = this.getMaxHealth() + 2;
-                float maxHealth = this.getMaxHealth() + 2;
-                if (max_health != null) {
-                    max_health.setBaseValue(maxHealth);
-                    setHealth(health + 2);
-                }
-                player.swingHand(hand);
-                world.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEventInit.UP, player.getSoundCategory(), 1.0f, 1.0f);
-                stack.decrementUnlessCreative(1, player);
-                return ActionResult.SUCCESS_SERVER;
-            }
-            if (stack.getItem() == Items.POTION && this.canFeed()) {
-                PotionContentsComponent potionContentsComponent = stack.get(DataComponentTypes.POTION_CONTENTS);
-                UseRemainderComponent useRemainderComponent = stack.get(DataComponentTypes.USE_REMAINDER);
-                boolean use = false;
-                if (stack.getItem() instanceof FoodItem food) {
-                    Set<FoodProperty> foodProperties = new HashSet<>(FoodProperty.getFromItemStack(stack));
-                    Set<FoodProperty> foodPropertiesFromComponent = new HashSet<>(FoodProperty.getFromItemStackComponent(stack));
+        if (!world.isClient() && world instanceof ServerWorld serverWorld && player instanceof ServerPlayerEntity serverPlayerEntity) {
 
-                    Set<FoodProperty> allProperties = new HashSet<>(foodProperties);
-                    allProperties.addAll(foodPropertiesFromComponent);
-
-                    for (FoodProperty foodProperty : allProperties) {
-                        foodProperty.use((ServerWorld) this.getWorld(), this);
-                    }
-
-                    allProperties.forEach((property) -> this.nutrition++);
-
-                    use = true;
-                }
-                if (potionContentsComponent != null) {
-                    Optional<RegistryEntry<Potion>> potionOpt = potionContentsComponent.potion();
-                    boolean present = potionOpt.isPresent();
-                    if (present) {
-                        Potion potion = potionOpt.get().value();
-                        for (StatusEffectInstance instance : potion.getEffects()) {
-                            StatusEffectInstance effectInstance = new StatusEffectInstance(instance);
-                            this.addStatusEffect(effectInstance);
-                        }
-                        use = true;
-                    }
-                    List<StatusEffectInstance> statusEffectInstances = potionContentsComponent.customEffects();
-                    for (var instance : statusEffectInstances) {
-                        StatusEffectInstance effectInstance = new StatusEffectInstance(instance);
-                        this.addStatusEffect(effectInstance);
-                        use = true;
-                    }
-                }
-                if (use) {
-                    this.playSound(SoundEvents.ENTITY_GENERIC_DRINK.value(), 1.0f, 1.0f);
-                    stack.decrementUnlessCreative(1, player);
-                    if (useRemainderComponent != null && !player.isInCreativeMode()) {
-                        ItemStack itemStack = useRemainderComponent.convert(stack, stack.getCount(), player.isInCreativeMode(), player::giveOrDropStack);
-                        player.setStackInHand(hand, itemStack);
-                    }
-                }
-                player.swingHand(hand);
-                return ActionResult.SUCCESS_SERVER;
-            }
-            if ((((IItemStack) (Object) stack).isFood() || stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) && this.canFeed()) {
-                UseRemainderComponent useRemainderComponent = stack.get(DataComponentTypes.USE_REMAINDER);
-                ConsumableComponent consumableComponent = stack.get(DataComponentTypes.CONSUMABLE);
-                if (this.npcOwner.isEmpty() && stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) {
-                    Random random = new Random();
-                    float chance = random.nextFloat();
-                    if (chance <= 0.4) {
-                        this.setOwner(player);
-                        this.setTamed(true, true);
-                        serverWorld.spawnParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
-                    }
-                    this.setHealth(this.getHealth() + 5);
-                    stack.decrementUnlessCreative(1, player);
-                }
-                if (consumableComponent != null) {
-                    RegistryEntry<SoundEvent> sound = consumableComponent.sound();
-                    this.playSound(SoundEvents.ENTITY_GENERIC_EAT.value(), 1.0f, 1.0f);
-                }
-                if (useRemainderComponent != null && !player.isInCreativeMode()) {
-                    ItemStack itemStack = useRemainderComponent.convert(stack, stack.getCount(), player.isInCreativeMode(), player::giveOrDropStack);
-                    player.setStackInHand(hand, itemStack);
-                }
-                stack.finishUsing(serverWorld, this);
-                stack.decrementUnlessCreative(1, player);
-                player.swingHand(hand);
-                return ActionResult.SUCCESS_SERVER;
-            }
-            if (stack.getItem() != ModItems.OWNER_STICK && (((this.isOwner(player) || (player.isCreative())) && this.isTamed())) && !this.getWorld().isClient()) {
-                if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-                    if (serverPlayerEntity.isSneaking()) {
-                        this.setTarget(null);
-                        this.setAttacker(null);
-                    } else {
-                        NPCGui npcGui = new NPCGui(serverPlayerEntity, this);
-                        npcGui.open();
-                    }
-
-                }
-                return ActionResult.SUCCESS_SERVER;
-            }
         }
 
         return super.interactMob(player, hand);
@@ -782,17 +685,6 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
         }
         this.prevPos = this.getPos();
 
-
-//        if (this.sleepingPos != null) {
-//            if (!this.isSleeping()) {
-//                this.sleep(this.sleepingPos);
-//            }
-//        } else {
-//            if (this.isSleeping()) {
-//                this.wakeUp();
-//            }
-//        }
-
         if (this.npcState == NPCStates.SNAKING) {
             this.getNavigation().stop();
             if (this.getPose() != EntityPose.CROUCHING) {
@@ -992,6 +884,14 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
                 .add(EntityAttributes.TEMPT_RANGE, 10.0)
                 .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 3)
                 .build();
+    }
+
+    public boolean isOwner(Entity player) {
+        return this.getOwner() == player;
+    }
+
+    public boolean isAllowOpenInventory(ServerPlayerEntity player) {
+        return ((this.isOwner(player) || (player.isCreative())) && this.isTamed());
     }
     //return entity.getUuid().toString().equalsIgnoreCase(this.npcOwner);
 

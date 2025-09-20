@@ -21,7 +21,8 @@ public class ModBlockEntities {
             registerBlockEntity("gensokyo_altar", GensokyoAltarBlockEntity::new, ModBlocks.GENSOKYO_ALTAR);
     public static final BlockEntityType<MusicBlockEntity> MUSIC_BLOCK_ENTITY =
             registerBlockEntity("music_block", MusicBlockEntity::new, ModBlocks.MUSIC_BLOCK);
-
+    public static final BlockEntityType<CustomChestBlockEntity> CUSTOM_CHEST_BLOCK_ENTITY =
+            registerBlockEntity("custom_chest_block", CustomChestBlockEntity::new, ModBlocks.CASH_BOX_BLOCK);
 
     public static void registerBlockEntities() {
 
@@ -33,7 +34,8 @@ public class ModBlockEntities {
             Block... blocks
     ) {
         Identifier id = Touhou.id(name);
-        BlockEntityType<T> entityType = Registry.register(Registries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
+        BlockEntityType<T> entityType = FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build();
+        Registry.register(Registries.BLOCK_ENTITY_TYPE, id, entityType);
         PolymerBlockUtils.registerBlockEntity(entityType);
         return entityType;
     }

@@ -10,10 +10,10 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
-public class IngredientCreativeTab implements ItemGroupContent {
+public class IngredientCreativeTab implements ItemGroupContentHelper {
 
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("ingredients_item_group"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(MIItems.BLACK_PORK))
             .displayName(Text.translatable("item_group.ingredients_item_group"))
             .build();
@@ -24,7 +24,7 @@ public class IngredientCreativeTab implements ItemGroupContent {
                 itemGroup.add(item);
             }
         });
-        ItemGroupContent.registerGroup(IngredientCreativeTab.ITEM_GROUP_KEY, IngredientCreativeTab.ITEM_GROUP);
+        ItemGroupContentHelper.registerGroup(IngredientCreativeTab.ITEM_GROUP_KEY, IngredientCreativeTab.ITEM_GROUP);
 
     }
 }

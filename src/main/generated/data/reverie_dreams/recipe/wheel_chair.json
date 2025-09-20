@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:iron_ingot",
+    "X": "minecraft:iron_block",
+    "Y": "minecraft:resin_brick",
+    "Z": "minecraft:black_wool"
+  },
+  "pattern": [
+    "Z  ",
+    "X# ",
+    "YYY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:wheel_chair"
+  }
+}

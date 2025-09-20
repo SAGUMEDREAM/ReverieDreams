@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "reverie_dreams:block/anti_collision_barrel"
+  }
+}

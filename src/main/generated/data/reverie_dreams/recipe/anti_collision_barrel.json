@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:iron_block",
+    "X": "minecraft:yellow_wool",
+    "Y": "minecraft:red_wool",
+    "Z": "minecraft:white_wool"
+  },
+  "pattern": [
+    "YXY",
+    "Z#Z",
+    "YXY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:anti_collision_barrel"
+  }
+}

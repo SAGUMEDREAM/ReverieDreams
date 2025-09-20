@@ -128,7 +128,11 @@ public class DreamPillowManager {
         }
 
         public boolean contains(BlockPos pos) {
-            return this.signLocations.contains(pos) || this.signLocations.stream().filter(Objects::nonNull).map(BlockPos::asLong).collect(Collectors.toSet()).contains(pos.asLong());
+            if (pos == null) {
+                return false;
+            }
+            Set<Long> collect = this.signLocations.stream().filter(Objects::nonNull).map(BlockPos::asLong).collect(Collectors.toSet());
+            return this.signLocations.contains(pos) || (!collect.isEmpty() && collect.contains(pos.asLong()));
         }
 
         public void remove(BlockPos pos) {

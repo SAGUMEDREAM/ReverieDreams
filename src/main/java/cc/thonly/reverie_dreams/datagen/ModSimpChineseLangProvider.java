@@ -98,6 +98,9 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("gui.npc.info.health", "§d生命值: %s/%s");
         translationBuilder.add("gui.npc.info.armor", "§d护甲值: %s");
 
+        translationBuilder.add("gui.npc.info.xp", "§a经验存储：%s");
+        translationBuilder.add("gui.npc.info.xp.button", "§f点击取出");
+
         translationBuilder.add("gui.npc.mode.null", "§b当前模式为: §c序列化错误");
         translationBuilder.add(NPCStates.FOLLOW.translateKey(), "§b当前模式为: §a跟随");
         translationBuilder.add(NPCStates.NORMAL.translateKey(), "§b当前模式为: §a正常");
@@ -107,17 +110,33 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(NPCStates.WORKING.translateKey(), "§b当前模式为: §a工作中");
         translationBuilder.add("gui.npc.mode.work.originpos", "工作原点位置");
 
+        translationBuilder.add("gui.npc.work.button", "模式开关");
         translationBuilder.add("gui.npc.work.mode", "工作模式切换");
         translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§b当前模式为: §a清理怪物");
         translationBuilder.add(NPCWorkModes.FARM.translateKey(), "§b当前模式为: §b种植作物");
         translationBuilder.add(NPCWorkModes.BREED.translateKey(), "§b当前模式为: §c繁殖动物");
         translationBuilder.add(NPCWorkModes.SMELT.translateKey(), "§b当前模式为: §d烧炼矿物");
+        translationBuilder.add(NPCWorkModes.CHEST_CLASSIFICATION.translateKey(), "§b当前模式为: §e箱子分类");
+        translationBuilder.add(NPCWorkModes.SHEEP_SHEARING.translateKey(), "§b当前模式为: §f剪羊毛");
+        translationBuilder.add(NPCWorkModes.PLAYING_MUSIC.translateKey(), "§b当前模式为: §6演奏音乐");
 //        translationBuilder.add("gui.npc.woke.mode.disable", "工作原点位置");
 
         translationBuilder.add("item.reverie_dreams.music.no_files", "§c未找到任何可用的音乐文件！");
         translationBuilder.add("item.reverie_dreams.music.switch_music", "§a切换音乐为：§f%s");
         translationBuilder.add("item.reverie_dreams.music.no_music_selected", "§e未选择任何音乐，潜行右键选择。");
         translationBuilder.add("item.reverie_dreams.music.playing_music", "§b播放音乐：§f%s §7[乐器: %s]");
+
+        translationBuilder.add("npc.event.send_message.0", "哎呀~你终于来了呀！都等得不耐烦了！");
+        translationBuilder.add("npc.event.send_message.1", "呜哇！你来找我做什么呢？不会又是给我带任务吧？");
+        translationBuilder.add("npc.event.send_message.2", "嘿嘿，今天又能见到你了，真是太开心了！");
+        translationBuilder.add("npc.event.send_message.3", "嘻嘻~你是不是又做了什么坏事？我知道了！");
+        translationBuilder.add("npc.event.send_message.4", "哎呀，今天好像有点困困的呢……不过看到你心情马上变好了！");
+        translationBuilder.add("npc.event.send_message.5", "咦？你来找我有什么事？不会是要和我一起冒险吧？");
+        translationBuilder.add("npc.event.send_message.6", "呵呵~你又来了，今天是想让我给你做点什么吗？");
+        translationBuilder.add("npc.event.send_message.7", "嘿嘿，和你在一起真的是最开心的事情啦！");
+        translationBuilder.add("npc.event.send_message.8", "呀呀！不小心又摔了一跤，不过有你在，心情一下子就好了！");
+        translationBuilder.add("npc.event.send_message.9", "哼哼~又来找我了，是不是已经迫不及待想要我帮忙了呢？");
+
 
         this.generateCommandTranslations(wrapperLookup, translationBuilder);
         this.generateMITranslations(wrapperLookup, translationBuilder);
@@ -559,6 +578,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add(ModEntities.FIRE_ELEMENTAL_ENTITY_TYPE, "火元素", "火元素刷怪蛋");
         builder.add(ModEntities.ICE_ELEMENTAL_ENTITY_TYPE, "冰元素", "冰元素刷怪蛋");
         builder.add(ModEntities.BROOM_ENTITY_TYPE, "魔法扫帚", "魔法扫帚刷怪蛋");
+        builder.add(ModEntities.WHEEL_CHAIR_ENTITY, "轮椅", "轮椅刷怪蛋");
         builder.add(ModEntities.HAIRBALL_ENTITY_TYPE, "毛玉", "毛玉刷怪蛋");
         builder.add(ModEntities.MUSHROOM_MONSTER_ENTITY_TYPE, "蘑菇", "蘑菇刷怪蛋");
 
@@ -777,6 +797,9 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("dialog.role.description.0", "角色（Role）是本 Mod 中的随从类实体，类似 Touhou Little Maid，拥有背包，战斗，工作模式，睡眠和饥饿等模块，可以使用蛋糕驯服");
         translationBuilder.add("dialog.role.description.1", "一般生存模式下可通过角色卡召唤，角色卡可通过幻想乡祭坛合成");
         translationBuilder.add("dialog.role.description.2", "角色死亡后会掉落物品%s，可在在祭坛摆放一圈钻石*2重新复活角色");
+        translationBuilder.add("dialog.role.description.3", "鼠标右键: 触发对话交互");
+        translationBuilder.add("dialog.role.description.4", "潜行 + 鼠标左键 + 空手: 停止攻击目标");
+        translationBuilder.add("dialog.role.description.5", "潜行 + 鼠标右键: 打开背包");
 
         translationBuilder.add(
                 "dialog.touhou_mystia.description.0",
@@ -837,6 +860,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         // 材料
         translationBuilder.add(ModItems.POINT, "Point");
         translationBuilder.add(ModItems.POWER, "Power");
+        translationBuilder.add(ModItems.DANMAKU_CORE, "弹幕核心");
         translationBuilder.add(ModItems.UPGRADED_HEALTH_FRAGMENT, "残机碎片");
         translationBuilder.add(ModItems.BOMB_FRAGMENT, "Bomb碎片");
         translationBuilder.add(ModItems.RED_ORB, "红宝玉");
@@ -866,6 +890,9 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModItems.TENGU_SHIELD, "天狗手盾");
         translationBuilder.add(ModItems.TENGU_CAMERA, "天狗相机");
         translationBuilder.add(ModItems.BAD_APPLE, "Bad Apple!!");
+        translationBuilder.add(ModItems.COPPER_COIN, "铜币");
+        translationBuilder.add(ModItems.SILVER_COIN, "银币");
+        translationBuilder.add(ModItems.GOLD_COIN, "金币");
 
         // 武器
         translationBuilder.add(ModItems.HAKUREI_CANE, "博丽御币");
@@ -999,6 +1026,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModBlocks.SILVER_ORE, "银矿石");
         translationBuilder.add(ModBlocks.DEEPSLATE_SILVER_ORE, "深层银矿石");
         translationBuilder.add(ModBlocks.SILVER_BLOCK, "银块");
+        translationBuilder.add(ModBlocks.SILVER_CHEST_BLOCK.chestBlock(), "银箱子");
         translationBuilder.add(ModBlocks.ORB_ORE, "宝玉矿石");
         translationBuilder.add(ModBlocks.DEEPSLATE_ORB_ORE, "深层宝玉矿石");
         translationBuilder.add(ModBlocks.RED_ORB_BLOCK, "红宝玉块");
@@ -1008,6 +1036,9 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModBlocks.PURPLE_ORB_BLOCK, "紫宝玉块");
 
         translationBuilder.add(ModBlocks.MARISA_HAT_BLOCK, "魔理沙的帽子");
+        translationBuilder.add(ModBlocks.CASH_BOX_BLOCK, "塞钱箱");
+        translationBuilder.add(ModBlocks.ANTI_COLLISION_BARREL, "防撞桶");
+        translationBuilder.add(ModBlocks.WHEEL_CHAIR, "轮椅");
 
         translationBuilder.add(ModBlocks.DREAM_RED_BLOCK, "网格方块");
         translationBuilder.add(ModBlocks.DREAM_BLUE_BLOCK, "网格方块");

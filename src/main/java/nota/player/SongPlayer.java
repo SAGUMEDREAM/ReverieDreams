@@ -174,6 +174,13 @@ public abstract class SongPlayer {
 	}
 
 	/**
+	*
+	* **/
+	public boolean hasPlayer(PlayerEntity player) {
+		return this.playerList.containsKey(player.getUuid());
+	}
+
+	/**
 	 * Gets list of current Player UUIDs listening to this SongPlayer
 	 *
 	 * @return list of Player UUIDs

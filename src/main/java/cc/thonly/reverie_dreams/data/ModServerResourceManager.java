@@ -6,6 +6,7 @@ import net.minecraft.resource.ResourceType;
 
 public class ModServerResourceManager {
     public static void init() {
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ModServerReloadListener());
+        ResourceManagerHelper helper = ResourceManagerHelper.get(ResourceType.SERVER_DATA);
+        helper.registerReloadListener(new ModServerReloadListener());
     }
 }

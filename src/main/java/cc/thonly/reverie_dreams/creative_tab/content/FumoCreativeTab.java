@@ -11,9 +11,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
-public class FumoCreativeTab implements ItemGroupContent {
+public class FumoCreativeTab implements ItemGroupContentHelper {
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_fumo"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.FUMO_ICON))
             .displayName(Text.translatable("item_group.touhou.fumo"))
             .build();
@@ -25,6 +25,6 @@ public class FumoCreativeTab implements ItemGroupContent {
                 itemGroup.add(fumo.item());
             }
         });
-        ItemGroupContent.registerGroup(FumoCreativeTab.ITEM_GROUP_KEY, FumoCreativeTab.ITEM_GROUP);
+        ItemGroupContentHelper.registerGroup(FumoCreativeTab.ITEM_GROUP_KEY, FumoCreativeTab.ITEM_GROUP);
     }
 }

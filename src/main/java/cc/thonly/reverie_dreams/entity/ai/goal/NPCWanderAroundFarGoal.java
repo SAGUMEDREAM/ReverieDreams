@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
+import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -8,15 +10,26 @@ import org.jetbrains.annotations.Nullable;
 
 public class NPCWanderAroundFarGoal extends WanderAroundGoal {
     public static final float CHANCE = 0.001f;
+    private final NPCEntityImpl npcRole;
     protected final float probability;
 
-    public NPCWanderAroundFarGoal(PathAwareEntity pathAwareEntity, double d) {
+
+    public NPCWanderAroundFarGoal(NPCEntityImpl pathAwareEntity, double d) {
         this(pathAwareEntity, d, CHANCE);
     }
 
-    public NPCWanderAroundFarGoal(PathAwareEntity mob, double speed, float probability) {
+    public NPCWanderAroundFarGoal(NPCEntityImpl mob, double speed, float probability) {
         super(mob, speed);
+        this.npcRole = mob;
         this.probability = probability;
+    }
+
+    @Override
+    public void start() {
+        if (this.npcRole.getWorkMode() == NPCWorkModes.PLAYING_MUSIC) {
+            return;
+        }
+        super.start();
     }
 
     @Override

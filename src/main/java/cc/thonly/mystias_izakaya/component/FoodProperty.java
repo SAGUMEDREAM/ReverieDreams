@@ -61,34 +61,12 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
 
     }
 
-//    public static List<FoodProperty> getConflictingProperties(Item item) {
-//        List<FoodProperty> properties = FoodProperty.getIngredientProperties(item);
-//        List<FoodProperty> conflicts = new ArrayList<>();
-//        for (int i = 0; i < properties.size(); i++) {
-//            FoodProperty a = properties.get(i);
-//            for (int j = i + 1; j < properties.size(); j++) {
-//                FoodProperty b = properties.get(j);
-//                if (a.isConflict(b)) {
-//                    conflicts.add(a);
-//                    conflicts.add(b);
-//                }
-//            }
-//        }
-//        return conflicts;
-//    }
-
-
     public static String getDisplayPrefix(ItemStack itemStack, FoodProperty foodProperty) {
         List<FoodProperty> all = FoodProperty.getIngredientProperties(itemStack.getItem());
         for (CraftingConflict conflict : MIRegistryManager.CRAFTING_CONFLICT.values()) {
             if (conflict.test(itemStack)) {
                 return "§c-";
             }
-        }
-        for (FoodProperty other : all) {
-//            if (other != foodProperty && other.isConflict(foodProperty)) {
-//                return "§c-";
-//            }
         }
         return "§b+";
     }

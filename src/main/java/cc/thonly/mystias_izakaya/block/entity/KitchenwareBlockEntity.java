@@ -305,12 +305,12 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return dir == Direction.DOWN;
+        return true;
     }
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return true;
+        return dir == Direction.DOWN;
     }
 
     @Override

@@ -74,9 +74,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         });
 
         pickaxeMineables.add(ModBlocks.SILVER_BLOCK, ModBlocks.SILVER_ORE, ModBlocks.DEEPSLATE_SILVER_ORE);
+        pickaxeMineables.add(ModBlocks.SILVER_CHEST_BLOCK.chestBlock());
         pickaxeMineables.add(ModBlocks.ORB_ORE, ModBlocks.DEEPSLATE_ORB_ORE);
         pickaxeMineables.add(ModBlocks.DREAM_CRYSTAL_ORE);
         pickaxeMineables.add(ModBlocks.GENSOKYO_ALTAR);
+        pickaxeMineables.add(ModBlocks.ANTI_COLLISION_BARREL);
+        pickaxeMineables.add(ModBlocks.WHEEL_CHAIR);
 //        pickaxeMineables.add(MIBlocks.COOKTOP);
         ModBlocks.SPIRITUAL.stream().forEach(axeMineables::add);
         MIBlocks.LEMON.stream().forEach(axeMineables::add);
@@ -85,6 +88,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         ModBlocks.SPIRITUAL.stream().forEach(axeMineables::add);
         axeMineables.add(ModBlocks.DANMAKU_CRAFTING_TABLE);
         axeMineables.add(ModBlocks.MUSIC_BLOCK);
+        axeMineables.add(ModBlocks.CASH_BOX_BLOCK);
         hoeMineables.add(ModBlocks.POWER_BLOCK);
         hoeMineables.add(ModBlocks.POINT_BLOCK);
         sliver.add(ModBlocks.SILVER_BLOCK, ModBlocks.SILVER_ORE, ModBlocks.DEEPSLATE_SILVER_ORE);

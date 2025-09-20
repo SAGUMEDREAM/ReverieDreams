@@ -40,7 +40,6 @@ public class AbstractBlockMixin {
                     if (TouhouClient.SERVER_SIDE_BLOCKS.contains(state.getBlock())) {
                         cir.setReturnValue(ActionResult.FAIL);
                     }
-
                 }
             }
 

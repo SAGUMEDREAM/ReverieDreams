@@ -11,10 +11,10 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
-public class DrinkCreativeTab implements ItemGroupContent {
+public class DrinkCreativeTab implements ItemGroupContentHelper {
 
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("drink_item_group"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContent.builder()
+    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(MIItems.GREEN_TEA))
             .displayName(Text.translatable("item_group.drink_item_group"))
             .build();
@@ -26,7 +26,7 @@ public class DrinkCreativeTab implements ItemGroupContent {
                 itemGroup.add(item);
             }
         });
-        ItemGroupContent.registerGroup(DrinkCreativeTab.ITEM_GROUP_KEY, DrinkCreativeTab.ITEM_GROUP);
+        ItemGroupContentHelper.registerGroup(DrinkCreativeTab.ITEM_GROUP_KEY, DrinkCreativeTab.ITEM_GROUP);
 
     }
 }
