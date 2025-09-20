@@ -15,6 +15,9 @@
 * Added Textures for Owner Debug Stick and Battle Debug Stick
 * Added Random speed in picking fruits
 * Added random message in empty stack interact role
+* Add 3 currency placeholders
+* Now Gungnir can be thrown
+* Fixed an issue where the Minecraft server network could not be detected normally.
 * Fixed Music Block not playing music after re-entering the chunk or world
 * Fixed Missing translationKey in NPC GUI work mode button
 * Fixed incorrect orientation of kitchen utensils and hoppers
