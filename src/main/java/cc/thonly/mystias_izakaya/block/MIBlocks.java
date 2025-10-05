@@ -175,7 +175,7 @@ public class MIBlocks extends ModBlocks {
 
     public static final Block UDUMBARA_FLOWER = registerSimpleBlock(
             "udumbara_flower",
-            (settings) -> new FlowerBlock(StatusEffects.REGENERATION, 3f, settings), createPlantSettings());
+            (settings) -> new FertilizableFlower(StatusEffects.REGENERATION, 3f, settings), createPlantSettings());
     public static final Block TREMELLA = registerSimpleBlock(
             "tremella",
             (settings) -> new FlowerBlock(StatusEffects.REGENERATION, 3f, settings), createPlantSettings());
