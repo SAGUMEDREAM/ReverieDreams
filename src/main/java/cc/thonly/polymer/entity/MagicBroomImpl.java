@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.entity.holder.MagicBroomHolder;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
@@ -13,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
@@ -50,4 +52,14 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
         return EntityType.PIG;
     }
 
+    public void onTrackingStopped(ServerPlayerEntity player) {
+        ItemDisplayElement element = ELEMENTS.get(this.magicBroomEntity);
+        if (element != null) {
+            ElementHolder holder = element.getHolder();
+            if (holder != null) {
+                holder.destroy();
+            }
+        }
+        ELEMENTS.remove(this.magicBroomEntity);
+    }
 }

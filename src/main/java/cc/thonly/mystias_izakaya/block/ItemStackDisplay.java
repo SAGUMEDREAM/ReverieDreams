@@ -80,9 +80,11 @@ public class ItemStackDisplay extends BlockWithEntity {
                         ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
                         isdBlockEntity.setItem(ItemStackWrapper.empty());
                         serverWorld.spawnEntity(itemEntity);
+                        isdBlockEntity.update();
                     }
                     serverWorld.updateListeners(pos, state, state, Block.NOTIFY_ALL);
                     isdBlockEntity.markDirty();
+                    isdBlockEntity.update();
                 }
             }
             return ActionResult.SUCCESS_SERVER;

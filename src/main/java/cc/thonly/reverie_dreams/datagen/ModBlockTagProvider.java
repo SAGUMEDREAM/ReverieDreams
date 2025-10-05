@@ -18,6 +18,7 @@ import net.minecraft.data.tag.ProvidedTagBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.PointOfInterestTypeTags;
 import net.minecraft.registry.tag.TagKey;
 
 import java.util.Collection;
@@ -41,6 +42,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         ProvidedTagBuilder<Block, Block> pickaxeMineables = valueLookupBuilder(BlockTags.PICKAXE_MINEABLE);
         ProvidedTagBuilder<Block, Block> shovelMineables = valueLookupBuilder(BlockTags.SHOVEL_MINEABLE);
         ProvidedTagBuilder<Block, Block> ores = valueLookupBuilder(ConventionalBlockTags.ORES);
+        ProvidedTagBuilder<Block, Block> villagerJobSites = valueLookupBuilder(ConventionalBlockTags.VILLAGER_JOB_SITES);
+//        ProvidedTagBuilder<Block, Block> villagerJobSites = valueLookupBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
 
         ProvidedTagBuilder<Block, Block> logs = valueLookupBuilder(BlockTags.LOGS);
         ProvidedTagBuilder<Block, Block> planks = valueLookupBuilder(BlockTags.PLANKS);
@@ -72,6 +75,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 }
             }
         });
+        villagerJobSites.add(
+                ModBlocks.WOODEN_BOX.chestBlock(),
+                ModBlocks.CASH_BOX_BLOCK
+        );
 
         pickaxeMineables.add(ModBlocks.SILVER_BLOCK, ModBlocks.SILVER_ORE, ModBlocks.DEEPSLATE_SILVER_ORE);
         pickaxeMineables.add(ModBlocks.SILVER_CHEST_BLOCK.chestBlock());

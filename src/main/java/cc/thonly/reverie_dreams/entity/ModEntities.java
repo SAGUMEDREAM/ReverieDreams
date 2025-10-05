@@ -49,6 +49,11 @@ public class ModEntities {
             registerEntity("danmaku_bullet",
                     EntityType.Builder.<DanmakuEntity>create(DanmakuEntity::new, SpawnGroup.MISC)
                             .build(of("danmaku_bullet")));
+    public static final EntityType<BaguaFurnaceEntity> BAGUA_FURNACE_ENTITY =
+            registerEntity("bagua_furnace",
+                    EntityType.Builder.<BaguaFurnaceEntity>create(BaguaFurnaceEntity::new, SpawnGroup.MISC)
+                            .build(of("bagua_furnace"))
+                    );
     public static final EntityType<KnifeEntity> KNIFE_ENTITY_TYPE =
             registerEntity("knife",
                     EntityType.Builder.<KnifeEntity>create(KnifeEntity::new, SpawnGroup.MISC)

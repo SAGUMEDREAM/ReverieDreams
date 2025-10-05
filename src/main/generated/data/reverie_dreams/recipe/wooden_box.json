@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:chest",
+    "X": "minecraft:oak_slab",
+    "Y": "minecraft:oak_planks",
+    "Z": "minecraft:stick"
+  },
+  "pattern": [
+    "YZY",
+    "X#X",
+    "YZY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:wooden_box"
+  }
+}

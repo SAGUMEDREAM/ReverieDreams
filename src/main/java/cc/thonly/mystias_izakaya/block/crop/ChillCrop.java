@@ -1,7 +1,7 @@
 package cc.thonly.mystias_izakaya.block.crop;
 
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
-import cc.thonly.reverie_dreams.util.CropAgeUtil;
+import cc.thonly.reverie_dreams.util.block.CropAgeUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.state.property.IntProperty;

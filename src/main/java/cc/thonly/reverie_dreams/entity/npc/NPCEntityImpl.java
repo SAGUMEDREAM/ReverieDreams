@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.polymer.entity.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
@@ -13,9 +14,10 @@ import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.util.ItemUtils;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import com.mojang.authlib.properties.Property;
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.advancement.criterion.Criteria;
@@ -110,6 +112,8 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
     protected int bedWakeCd = 0;
     protected Vec3d prevPos;
     protected int freshTick = 0;
+    // 其他
+    protected boolean autoPick = false;
     public static final HashSet<Item> ARROW_ITEMS = new HashSet<>();
 
     static {
@@ -196,6 +200,8 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
         NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
         Inventories.readData(view, inventory.heldStacks);
 
+        view.getBoolean("AutoPick", false);
+
         this.inventory = inventory;
 
         this.seatUUID = view.getString("SeatUUID", "null");
@@ -228,6 +234,8 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
         Inventories.writeData(view, this.inventory.heldStacks);
 
         view.putLong("WorkingPos", this.workingPos.asLong());
+
+        view.putBoolean("AutoPick", this.autoPick);
 
         if (!this.seatUUID.isEmpty() && !this.seatUUID.equals("null")) {
             view.putString("SeatUUID", this.seatUUID);
@@ -453,6 +461,24 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         super.onTrackedDataSet(data);
+    }
+
+    @Override
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
+        super.onStartedTrackingBy(player);
+        PolymerEntity polymerEntity = PolymerEntity.get(this);
+        if (polymerEntity instanceof PlayerPolymerEntity playerPolymerEntity) {
+            playerPolymerEntity.onCreated();
+        }
+    }
+
+    @Override
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+        super.onStoppedTrackingBy(player);
+        PolymerEntity polymerEntity = PolymerEntity.get(this);
+        if (polymerEntity instanceof PlayerPolymerEntity playerPolymerEntity) {
+            playerPolymerEntity.onTrackingStopped(player);
+        }
     }
 
     @Override

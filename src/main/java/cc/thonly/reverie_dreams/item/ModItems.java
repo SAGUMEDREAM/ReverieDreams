@@ -34,6 +34,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
+import net.minecraft.item.consume.UseAction;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -41,6 +42,7 @@ import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -94,6 +96,9 @@ public class ModItems {
     public static final Item SPEED_FEATHER = registerItem("speed_feather", Item::new, new Item.Settings()
             .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true));
     public static final Item DREAM_CRYSTAL_FRAGMENT = registerItem("dream_crystal_fragment", Item::new, new Item.Settings().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true));
+    public static final Item COPPER_COIN = registerItem("copper_coin", Item::new, new Item.Settings().maxCount(96));
+    public static final Item SILVER_COIN = registerItem("silver_coin", Item::new, new Item.Settings().maxCount(96));
+    public static final Item GOLD_COIN = registerItem("gold_coin", Item::new, new Item.Settings().maxCount(96));
 
     // 道具
     public static final Item TOUHOU_HELPER = registerItem("touhou_helper", TouhouHelperItem::new, new Item.Settings()
@@ -117,13 +122,11 @@ public class ModItems {
     public static final Item TENGU_SHIELD = registerItem("tengu_shield", TenguShieldItem::new, TenguShieldItem.createItemSettings());
     public static final Item TENGU_CAMERA = registerItem("tengu_camera", TenguCameraItem::new, new Item.Settings().maxCount(1).maxDamage(250).repairable(ItemTags.REPAIRS_IRON_ARMOR));
     public static final Item BAD_APPLE = registerItem("bad_apple", BadAppleItem::new, new Item.Settings().food(FoodComponents.GOLDEN_APPLE).maxCount(16).rarity(Rarity.EPIC));
-    public static final Item COPPER_COIN = registerItem("copper_coin", Item::new, new Item.Settings().maxCount(96));
-    public static final Item SILVER_COIN = registerItem("silver_coin", Item::new, new Item.Settings().maxCount(96));
-    public static final Item GOLD_COIN = registerItem("gold_coin", Item::new, new Item.Settings().maxCount(96));
+    public static final Item EXORCISM_PAPER = registerItem("exorcism_paper", ExorcismPaperItem::new, new Item.Settings().maxCount(16));
 
     // 武器
     public static final Item HAKUREI_CANE = registerItem("hakurei_cane", (settings) -> new HakureiCane(1f, -2.4f, settings), new Item.Settings());
-    public static final Item BAGUA_FURNACE = registerItem("bagua_furnace", BaguaFurnace::new, new Item.Settings().maxCount(1).maxDamage(200).repairable(Items.NETHERITE_INGOT));
+    public static final Item BAGUA_FURNACE = registerItem("bagua_furnace", BaguaFurnace::new, new Item.Settings().maxCount(1).maxDamage(200).component(DataComponentTypes.CONSUMABLE, new ConsumableComponent(5, UseAction.BLOCK, RegistryEntry.of(SoundEvents.ITEM_FIRECHARGE_USE), false, new ArrayList<>())).repairable(Items.NETHERITE_INGOT));
     public static final Item WIND_BLESSING_CANE = registerItem("wind_blessing_cane", (settings) -> new WindBlessingCane(1f, -2.4f, settings), new Item.Settings());
     public static final Item MAGIC_BROOM = registerItem("magic_broom", (settings) -> new MagicBroom(1f, -2.4f, settings), new Item.Settings());
     public static final Item GUNGNIR = registerItem("gungnir", (settings) -> new Gungnir(1f, -2.4f, settings), new Item.Settings());
@@ -211,7 +214,7 @@ public class ModItems {
     public static final Item DREAM_SHOVEL = registerItem("dream_shovel", (settings) -> new ShovelItem(DreamMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Settings());
     public static final Item DREAM_HOE = registerItem("dream_hoe", (settings) -> new HoeItem(DreamMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Settings());
     public static final Item DREAM_HELMET = registerItem("dream_helmet", (settings) -> new DreamArmorItem(EquipmentType.HELMET, settings), new Item.Settings().maxDamage(EquipmentType.HELMET.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
-    public static final Item DREAM_CHESTPLATE = registerItem("dream_chestplate", (settings) -> new DreamArmorItem( EquipmentType.CHESTPLATE, settings), new Item.Settings().maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
+    public static final Item DREAM_CHESTPLATE = registerItem("dream_chestplate", (settings) -> new DreamArmorItem(EquipmentType.CHESTPLATE, settings), new Item.Settings().maxDamage( EquipmentType.CHESTPLATE.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
     public static final Item DREAM_LEGGINGS = registerItem("dream_leggings", (settings) -> new DreamArmorItem(EquipmentType.LEGGINGS, settings), new Item.Settings().maxDamage(EquipmentType.LEGGINGS.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
     public static final Item DREAM_BOOTS = registerItem("dream_boots", (settings) -> new DreamArmorItem(EquipmentType.BOOTS, settings), new Item.Settings().maxDamage(EquipmentType.BOOTS.getMaxDamage(DreamArmorMaterial.BASE_DURABILITY)));
 

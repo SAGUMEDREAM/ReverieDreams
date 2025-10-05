@@ -35,6 +35,12 @@ public class KitchenBlockType {
         registerRecipeType(MIBlocks.EXTREME_GRILL, KitchenRecipeType.KitchenType.GRILL);
         registerRecipeType(MIBlocks.EXTREME_STEAMER, KitchenRecipeType.KitchenType.STREAMER);
 
+        registerRecipeType(MIBlocks.NUKE_COOKING_POT, KitchenRecipeType.KitchenType.COOKING_POT);
+        registerRecipeType(MIBlocks.NUKE_CUTTING_BOARD, KitchenRecipeType.KitchenType.CUTTING_BOARD);
+        registerRecipeType(MIBlocks.NUKE_FRYING_PAN, KitchenRecipeType.KitchenType.FRYING_PAN);
+        registerRecipeType(MIBlocks.NUKE_GRILL, KitchenRecipeType.KitchenType.GRILL);
+        registerRecipeType(MIBlocks.NUKE_STEAMER, KitchenRecipeType.KitchenType.STREAMER);
+
 
     }
 

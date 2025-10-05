@@ -31,7 +31,7 @@ public record SunflowerYouseiImpl(SunflowerYouseiEntity source) implements Playe
         holder.addElement(x);
         EntityAttachment.ofTicking(holder, entity);
         VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        ELEMENTS.put(entity, x);
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(entity, x);
     }
 
     @Override

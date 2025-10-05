@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.item.armor;
 import cc.thonly.reverie_dreams.armor.EarphoneArmorMaterial;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.server.ParticleTickerManager;
-import cc.thonly.reverie_dreams.util.Vec3d2Entity;
+import cc.thonly.reverie_dreams.util.math.Vec3d2Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

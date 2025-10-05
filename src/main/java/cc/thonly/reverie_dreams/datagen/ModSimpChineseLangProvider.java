@@ -15,6 +15,7 @@ import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
+import cc.thonly.reverie_dreams.entity.villager.ModVillagerProfessions;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.item.ModItems;
@@ -24,13 +25,15 @@ import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.village.VillagerProfession;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class ModSimpChineseLangProvider extends FabricLanguageProvider implements TranslationCreatorImpl {
+public class ModSimpChineseLangProvider extends FabricLanguageProvider implements TranslationExporterBuilderImpl {
 
     public ModSimpChineseLangProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, "zh_cn", registryLookup);
@@ -38,7 +41,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
         builder.add(ItemBlockCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 物品/方块");
         builder.add(DanmakuCreativeTab.ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕");
         builder.add(TemplateCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 弹幕模板");
@@ -57,6 +60,10 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("item.action.click.right", "§b右键查看");
         translationBuilder.add("item.action.click.shape_recipe.success", "§a成功");
         translationBuilder.add("item.action.click.shape_recipe.fail", "§c无效配方");
+        translationBuilder.add("item.action.click.cashbox.success", "§f你受到了神社的祝福，信仰值+%s");
+        translationBuilder.add("item.action.click.cashbox.fails.coin", "§f缺少钱币物品");
+        translationBuilder.add("item.action.click.cashbox.fails.used", "§c你今天已经被祝福过了哦");
+        translationBuilder.add("item.action.click.cashbox.fails.full", "§c你的信仰值已超过了%s哦");
         translationBuilder.add("item.tooltip.use", "§b[右键使用]");
         translationBuilder.add("item.tooltip.use.villager", "§b[右键村民使用]");
         translationBuilder.add("item.tooltip.shape", "形状：");
@@ -100,6 +107,8 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
 
         translationBuilder.add("gui.npc.info.xp", "§a经验存储：%s");
         translationBuilder.add("gui.npc.info.xp.button", "§f点击取出");
+
+        translationBuilder.add("gui.npc.info.auto-pick", "§b自动寻路拾取");
 
         translationBuilder.add("gui.npc.mode.null", "§b当前模式为: §c序列化错误");
         translationBuilder.add(NPCStates.FOLLOW.translateKey(), "§b当前模式为: §a跟随");
@@ -174,7 +183,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateMITranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
         translationBuilder.add("item.tooltip.food_properties", "属性：");
@@ -209,7 +218,13 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(MIBlocks.EXTREME_FRYING_PAN, "极⦁油锅");
         translationBuilder.add(MIBlocks.EXTREME_GRILL, "极⦁烧烤架");
         translationBuilder.add(MIBlocks.EXTREME_STEAMER, "极⦁蒸锅");
-        translationBuilder.add(MIBlocks.ITEM_DISPLAY, "展示盘");
+        translationBuilder.add(MIBlocks.NUKE_COOKING_POT, "核能⦁煮锅");
+        translationBuilder.add(MIBlocks.NUKE_CUTTING_BOARD, "核能⦁料理台");
+        translationBuilder.add(MIBlocks.NUKE_FRYING_PAN, "核能⦁油锅");
+        translationBuilder.add(MIBlocks.NUKE_GRILL, "核能⦁烧烤架");
+        translationBuilder.add(MIBlocks.NUKE_STEAMER, "核能⦁蒸锅");
+
+        translationBuilder.add(MIBlocks.ITEM_DISPLAY, "食物盘");
 //        translationBuilder.add(MIBlocks.COOKTOP, "能量灶");
         translationBuilder.add(MIBlocks.BLACK_SALT_BLOCK, "黑盐块");
 
@@ -566,7 +581,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateEntityTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
         builder.add(ModEntities.FUMO_SELLER_VILLAGER, "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
         builder.add(ModEntities.KILLER_BEE_ENTITY_TYPE, "杀人蜂", "杀人蜂刷怪蛋");
         builder.add(ModEntities.GHOST_ENTITY_TYPE, "幽灵", "幽灵刷怪蛋");
@@ -585,6 +600,13 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add(MIEntities.WILD_PIG_ENTITY_TYPE, "野猪", "野猪刷怪蛋");
         builder.add(MIEntities.TAVERN_VILLAGER, "酒馆老板", "酒馆老板刷怪蛋");
 
+        var registry = wrapperLookup.getOrThrow(RegistryKeys.VILLAGER_PROFESSION);
+        VillagerProfession hawkers = registry.getOrThrow(ModVillagerProfessions.HAWKERS).value();
+        VillagerProfession priest = registry.getOrThrow(ModVillagerProfessions.PRIEST).value();
+        VillagerProfession moneyShopClerk = registry.getOrThrow(ModVillagerProfessions.MONEY_SHOP_CLERK).value();
+        builder.add(hawkers.id(), "小贩");
+        builder.add(priest.id(), "神主");
+        builder.add(moneyShopClerk.id(), "钱庄伙计");
     }
 
     public void generateRoleCardTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
@@ -610,7 +632,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateRoleTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
         // 主角组
         builder.addRoleEntity(NPCRoles.REIMU, "博丽灵梦", "刷怪蛋");
         builder.addRoleEntity(NPCRoles.CYAN_REIMU, "青灵梦", "刷怪蛋");
@@ -745,7 +767,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateEffectTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
         builder.add(ModStatusEffects.ELIXIR_OF_LIFE.value(), "不死");
         builder.add(ModStatusEffects.MENTAL_DISORDER.value(), "精神错乱");
         builder.add(ModStatusEffects.BACK_OF_LIFE.value(), "返生");
@@ -787,8 +809,8 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("dialog.danmaku.description.0", "弹幕工作台是一个用于合成弹幕物品的工作方块，里面共有5个槽位可以摆放物品合成位。");
         translationBuilder.add("dialog.danmaku.description.1", "摆放示例：");
 
-        translationBuilder.add("dialog.upgrade_danmaku.description.0","%s可升级提升弹幕的战斗力");
-        translationBuilder.add("dialog.upgrade_danmaku.description.1","目前有效强化道具有：");
+        translationBuilder.add("dialog.upgrade_danmaku.description.0", "%s可升级提升弹幕的战斗力");
+        translationBuilder.add("dialog.upgrade_danmaku.description.1", "目前有效强化道具有：");
 
         translationBuilder.add("dialog.fumo.description.0", "Fumo 是《东方 Project》角色为原型的毛绒玩偶，绝大多数 Fumo 可在生存模式内通过较为昂贵的交易获得，且放置后会立刻转向玩家当前所在位置，一共有16个方向可以转向放置，右键 Fumo 方块可以发出 Fumo 声音。");
         translationBuilder.add("dialog.fumo.description.1", "Fumo 商人每天的交易内容都会变化");
@@ -890,6 +912,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModItems.TENGU_SHIELD, "天狗手盾");
         translationBuilder.add(ModItems.TENGU_CAMERA, "天狗相机");
         translationBuilder.add(ModItems.BAD_APPLE, "Bad Apple!!");
+        translationBuilder.add(ModItems.EXORCISM_PAPER, "驱魔符纸");
         translationBuilder.add(ModItems.COPPER_COIN, "铜币");
         translationBuilder.add(ModItems.SILVER_COIN, "银币");
         translationBuilder.add(ModItems.GOLD_COIN, "金币");
@@ -970,7 +993,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateSoundTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
 
         for (var sound : SoundEventInit.FUMO_SOUNDS) {
             builder.generateSoundEventSubtitle(sound, "fumo");
@@ -989,7 +1012,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateDanmakuType(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
 
         builder.generateDanmakuType(DanmakuTrajectories.SINGLE, "线性");
         builder.generateDanmakuType(DanmakuTrajectories.TRIPLE, "三线");
@@ -1002,7 +1025,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     }
 
     public void generateDiscTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationCreatorImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
 
         builder.generateJukeBox(JukeboxSongInit.HR01_01.getJukeboxSongRegistryKey(), "蓬莱人形　～ Dolls in Pseudo Paradise. - 蓬莱伝説");
         builder.generateJukeBox(JukeboxSongInit.HR02_08.getJukeboxSongRegistryKey(), "莲台野夜行 - 过去的花 ～ Fairy of Flower");
@@ -1039,6 +1062,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModBlocks.CASH_BOX_BLOCK, "塞钱箱");
         translationBuilder.add(ModBlocks.ANTI_COLLISION_BARREL, "防撞桶");
         translationBuilder.add(ModBlocks.WHEEL_CHAIR, "轮椅");
+        translationBuilder.add(ModBlocks.WOODEN_BOX.chestBlock(), "木板箱");
 
         translationBuilder.add(ModBlocks.DREAM_RED_BLOCK, "网格方块");
         translationBuilder.add(ModBlocks.DREAM_BLUE_BLOCK, "网格方块");

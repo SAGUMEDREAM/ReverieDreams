@@ -1,5 +1,27 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.4.0+1.21.7
+* Fixed PlayerPolymerEntity causing memory leak
+* Fixed outdated Dialog
+
+## 0.3.9+1.21.7
+* Updated zh_tw and en_us translation files
+
+## 0.3.8+1.21.7
+* Enhanced BaguaFurnace functionality
+* Enhanced model shape Silver Chest
+* Enhanced texture for danmaku shape recipe gui slot
+* Enhanced texture for silver coin
+* Changed Tavern Villager's currency to copper coins
+* Added the `Auto Pick Item` for Role
+* Added Nuke Kitchenware
+* Added Wooden Box Block
+* Added Villager Professions: `hawkers` and `priest`
+* Fixed Array Index out of bounds
+* Fixed Big Cirno Fumo texture offset error
+* Fixed Dream Armor material error
+* Fixed even with Ghost spawning disabled, the debuff is still applied.
+
 ## 0.3.7+1.21.7
 * Added Danmaku Core to replace Firework star in recipe
 * Added Silver Chest Block

@@ -10,6 +10,7 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,12 +27,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWire {
+    public static final Map<ServerWorld, Map<Long, Model>> MAPPING = new Object2ObjectOpenHashMap<>();
     public static final Map<Long, Model> POS_TO_MODEL = new HashMap<>();
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
         var model = new Model(world, initialBlockState.getBlock(), initialBlockState, pos);
-        POS_TO_MODEL.put(pos.asLong(), model);
+        Map<Long, Model> longModelMap = MAPPING.computeIfAbsent(world, w -> new HashMap<>());
+        longModelMap.put(pos.asLong(), model);
         return model;
     }
 
@@ -61,10 +64,6 @@ public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWi
         }
 
         public void updateItem(BlockState blockState) {
-            boolean chunkLoaded = this.serverWorld.isPosLoaded(this.blockPos.getX(), this.blockPos.getY());
-            if (!chunkLoaded) {
-                return;
-            }
             BlockEntity blockEntity = this.serverWorld.getBlockEntity(this.blockPos);
             if (this.blockEntity == null && blockEntity instanceof ItemStackDisplayBlockEntity itemStackDisplayBlockEntity) {
                 this.blockEntity = itemStackDisplayBlockEntity;

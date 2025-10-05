@@ -3,15 +3,15 @@
   "properties": {
     "values": [
       "reverie_dreams:drink/sun_moon_star",
-      "reverie_dreams:drink/otter_festival",
-      "reverie_dreams:drink/gods_wheat",
-      "reverie_dreams:drink/drunk_actor",
-      "reverie_dreams:drink/dawn",
-      "reverie_dreams:drink/qi_health",
-      "reverie_dreams:drink/daiginjo",
       "reverie_dreams:drink/tengu_dance",
       "reverie_dreams:drink/milk",
-      "reverie_dreams:drink/iceberg_maple_frozen_lemon"
+      "reverie_dreams:drink/drunk_actor",
+      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
+      "reverie_dreams:drink/otter_festival",
+      "reverie_dreams:drink/daiginjo",
+      "reverie_dreams:drink/qi_health",
+      "reverie_dreams:drink/gods_wheat",
+      "reverie_dreams:drink/dawn"
     ]
   }
 }

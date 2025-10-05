@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.entity.holder.WheelChairHolder;
 import cc.thonly.reverie_dreams.entity.misc.WheelchairEntity;
 import cc.thonly.reverie_dreams.item.ModItems;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
@@ -16,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
@@ -28,6 +30,7 @@ public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements Polym
     public WheelChairImpl {
         PolymerEntityHelper.NEXT.add(this);
     }
+
     @Override
     public void onCreated() {
         this.wheelchairEntity.setNoGravity(true);
@@ -50,4 +53,14 @@ public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements Polym
         return EntityType.PIG;
     }
 
+    public void onTrackingStopped(ServerPlayerEntity player) {
+        ItemDisplayElement element = ELEMENTS.get(this.wheelchairEntity);
+        if (element != null) {
+            ElementHolder holder = element.getHolder();
+            if (holder != null) {
+                holder.destroy();
+            }
+        }
+        ELEMENTS.remove(this.wheelchairEntity);
+    }
 }

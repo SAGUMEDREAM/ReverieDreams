@@ -27,7 +27,7 @@ public interface DreamArmorMaterial {
             SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             0.0F,
             0.0F,
-            ModTags.ItemTypeTag.SILVER_TOOL_MATERIALS,
+            ModTags.ItemTypeTag.DREAM_TOOL_MATERIALS,
             REGISTRY_KEY
     );
 }

@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.minecraft.api.ItemPostHitCallback;
+import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.armor.ModArmorMaterials;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
@@ -20,6 +21,8 @@ import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
+import cc.thonly.reverie_dreams.entity.villager.ModPointOfInterestTypes;
+import cc.thonly.reverie_dreams.entity.villager.ModVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
@@ -30,11 +33,17 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.Key2ValueRegistryManager;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.server.*;
+import cc.thonly.reverie_dreams.server.player.PlayerComponent;
+import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
+import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.*;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
+import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
+import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
+import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import cc.thonly.reverie_dreams.world.gen.WorldGenerationInit;
@@ -104,6 +113,8 @@ public class Touhou implements ModInitializer {
         ModStatusEffects.init();
         ModTags.loadTags();
         WorldGenerationInit.registerWorldGeneration();
+        ModPointOfInterestTypes.registers();
+        ModVillagerProfessions.registers();
         BiomeModificationInit.init();
         GameRulesInit.init();
         DataFixerContentManager.bootstrap();
@@ -121,6 +132,7 @@ public class Touhou implements ModInitializer {
 
         ImageToTextScanner.bootstrap();
         ItemDescriptionManager.bootstrap();
+        PlayerDataComponentManager.registers();
 
         this.loadCompletableEvent();
         this.registerNetworkingEvent();
@@ -183,7 +195,26 @@ public class Touhou implements ModInitializer {
         });
     }
 
+    @SuppressWarnings("rawtypes")
     private void registerServerEvents() {
+        ServerPlayConnectionEvents.JOIN.register((handler, packetSender, server) -> {
+            ServerPlayerEntity player = handler.getPlayer();
+            PlayerDataComponentManager componentManager = PlayerDataComponentManager.getInstance();
+            for (Map.Entry<Class<PlayerComponent<? extends PlayerComponent>>, PlayerComponentInitializer<?>> mapEntry : PlayerDataComponentManager.getComponents()) {
+                Class<PlayerComponent<? extends PlayerComponent>> key = mapEntry.getKey();
+                componentManager.getOrCreatePlayerComponent(player, key);
+            }
+        });
+        ServerPlayConnectionEvents.DISCONNECT.register((serverPlayNetworkHandler, server) -> {
+            PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
+            playerDataComponentManager.saveAll();
+        });
+        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, success) -> {
+            if (success) {
+                PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
+                playerDataComponentManager.onLoad(server);
+            }
+        });
         ServerPlayConnectionEvents.JOIN.register((handler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = handler.getPlayer();
             if (!ReverieDreamsConfiguration.CHECK_UPDATE) {
@@ -243,9 +274,16 @@ public class Touhou implements ModInitializer {
                 IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
                 DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
                 dreamPillowManager.save();
+
+                PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
+                playerDataComponentManager.saveAll();
             }
         });
+//        ServerTickEvents.END_SERVER_TICK.register(server -> {
+//            System.out.println(PolymerEntityHelper.ELEMENTS.size());
+//        });
         ServerTickEvents.END_SERVER_TICK.register(DelayedTask::tick);
+        ServerTickEvents.END_SERVER_TICK.register(PlayerDataComponentManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(ParticleTickerManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerInputManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(DanmakuScript::tick);

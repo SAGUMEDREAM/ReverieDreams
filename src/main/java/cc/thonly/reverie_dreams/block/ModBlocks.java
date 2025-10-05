@@ -51,9 +51,9 @@ public class ModBlocks {
     public static final Block DEEPSLATE_SILVER_ORE = registerBlock("deepslate_silver_ore", Block::new, AbstractBlock.Settings.copy(Blocks.DEEPSLATE_IRON_ORE));
     public static final Block SILVER_BLOCK = registerBlock("silver_block", Block::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
     public static final ChestBlockCreator SILVER_CHEST_BLOCK = ChestBlockCreator.create(
-                    "silver_chest",
-                    AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)
-            ).build();
+            "silver_chest",
+            AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)
+    ).build();
     public static final Block ORB_ORE = registerBlock("orb_ore", Block::new, AbstractBlock.Settings.copy(Blocks.DEEPSLATE_IRON_ORE));
     public static final Block DEEPSLATE_ORB_ORE = registerBlock("deepslate_orb_ore", Block::new, AbstractBlock.Settings.copy(Blocks.DEEPSLATE_IRON_ORE));
     public static final Block RED_ORB_BLOCK = registerBlock("red_orb_block", Block::new, AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK));
@@ -70,7 +70,10 @@ public class ModBlocks {
     public static final Block CASH_BOX_BLOCK = registerBlock("cash_box", CashBoxBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
     public static final Block ANTI_COLLISION_BARREL = registerBlock("anti_collision_barrel", ModelBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
     public static final Block WHEEL_CHAIR = registerBlock("wheel_chair", WheelChairBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
-
+    public static final ChestBlockCreator WOODEN_BOX = ChestBlockCreator.create(
+            "wooden_box",
+            AbstractBlock.Settings.copy(Blocks.CHEST)
+    ).build();
     public static void registerBlocks() {
 
     }

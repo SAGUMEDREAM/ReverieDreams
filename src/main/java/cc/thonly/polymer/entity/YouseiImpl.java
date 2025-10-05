@@ -29,7 +29,7 @@ public record YouseiImpl(YouseiEntity source) implements PlayerPolymerEntity {
         holder.addElement(x);
         EntityAttachment.ofTicking(holder, this.source);
         VirtualEntityUtils.addVirtualPassenger(this.source, x.getEntityId());
-        ELEMENTS.put(this.source, x);
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(this.source, x);
     }
 
     @Override

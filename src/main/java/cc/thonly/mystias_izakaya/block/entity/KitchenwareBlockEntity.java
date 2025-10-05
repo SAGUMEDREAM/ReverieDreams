@@ -7,7 +7,7 @@ import cc.thonly.mystias_izakaya.gui.recipe.block.KitchenBlockGui;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.util.PlayerUtils;
+import cc.thonly.reverie_dreams.util.entity.PlayerUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -240,7 +240,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
             }
             blockEntity.preOutput = DEFAULT_WRAPPER_FACTORY.get();
 
-            List<ServerPlayerEntity> nearbyPlayers = PlayerUtils.getNearbyPlayers(serverWorld, blockEntity.pos, 16);
+            List<ServerPlayerEntity> nearbyPlayers = PlayerUtil.getNearbyPlayers(serverWorld, blockEntity.pos, 16);
             for (ServerPlayerEntity player : nearbyPlayers) {
                 player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(), 1.0f, 1.0f);
             }

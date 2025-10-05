@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
-import cc.thonly.reverie_dreams.util.Vec3d2Entity;
+import cc.thonly.reverie_dreams.util.math.Vec3d2Entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;

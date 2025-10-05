@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block.base;
 
 import cc.thonly.reverie_dreams.compat.BorukvaFoodCompatImpl;
 import cc.thonly.reverie_dreams.interfaces.IMatureBlock;
-import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
+import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
 package cc.thonly.polymer.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.PlayerEntityAccessor;
 import com.mojang.authlib.GameProfile;
@@ -7,8 +8,8 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.datafixers.util.Pair;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -29,11 +30,9 @@ import xyz.nucleoid.packettweaker.PacketContext;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
 public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity {
-    WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
     @Override
     default void onEntityPacketSent(Consumer<Packet<?>> consumer, Packet<?> packet) {
@@ -87,6 +86,15 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
     }
 
     default void onTrackingStopped(ServerPlayerEntity player) {
+        var e = this.getEntity();
+        ItemDisplayElement element = PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.get(e);
+        if (element != null) {
+            ElementHolder holder = element.getHolder();
+            if (holder != null) {
+                holder.destroy();
+            }
+        }
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.remove(e);
         player.networkHandler.sendPacket(new PlayerRemoveS2CPacket(List.of((this.getEntity().getUuid()))));
     }
 

@@ -1,7 +1,10 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
+import cc.thonly.polymer.entity.MagicBroomImpl;
+import cc.thonly.polymer.entity.WheelChairImpl;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -77,6 +80,25 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
             if (!this.itemWrapper.isEmpty() && this.itemWrapper.getItemStack().isDamageable() && this.itemWrapper.getItemStack().getDamage() >= this.itemWrapper.getItemStack().getMaxDamage()) {
                 this.damage(world, this.getDamageSources().magic(), Integer.MAX_VALUE);
             }
+        }
+    }
+
+    @Override
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
+        super.onStartedTrackingBy(player);
+        PolymerEntity polymerEntity = PolymerEntity.get(this);
+        if (polymerEntity instanceof MagicBroomImpl impl) {
+            impl.onTrackingStopped(player);
+            impl.onCreated();
+        }
+    }
+
+    @Override
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+        super.onStoppedTrackingBy(player);
+        PolymerEntity polymerEntity = PolymerEntity.get(this);
+        if (polymerEntity instanceof MagicBroomImpl impl) {
+            impl.onTrackingStopped(player);
         }
     }
 

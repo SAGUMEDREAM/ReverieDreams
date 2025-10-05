@@ -1,7 +1,9 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
+import cc.thonly.polymer.entity.WheelChairImpl;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -74,6 +76,25 @@ public class WheelchairEntity extends PathAwareEntity implements JumpingMount {
         }
         if (!this.hasStatusEffect(StatusEffects.INVISIBILITY)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+        }
+    }
+
+    @Override
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
+        super.onStartedTrackingBy(player);
+        PolymerEntity polymerEntity = PolymerEntity.get(this);
+        if (polymerEntity instanceof WheelChairImpl impl) {
+            impl.onTrackingStopped(player);
+            impl.onCreated();
+        }
+    }
+
+    @Override
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+        super.onStoppedTrackingBy(player);
+        PolymerEntity polymerEntity = PolymerEntity.get(this);
+        if (polymerEntity instanceof WheelChairImpl impl) {
+            impl.onTrackingStopped(player);
         }
     }
 

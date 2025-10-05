@@ -510,6 +510,15 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 ),
                 this.ofItem(ModItems.BAD_APPLE)
         ));
+        this.gensokyoAltarRecipeFactory.register(ModItems.EXORCISM_PAPER, new GensokyoAltarRecipe(
+                this.ofItem(Items.PAPER, 6),
+                List.of(
+                        this.ofItem(Items.BONE, 12), this.ofItem(Items.ROTTEN_FLESH, 12), this.ofItem(Items.RED_DYE, 3),
+                        this.ofItem(Items.PAPER, 6), this.ofItem(Items.PAPER, 8),
+                        this.ofItem(Items.PAPER, 6), this.ofItem(Items.PAPER, 8), this.ofItem(Items.REDSTONE, 7)
+                ),
+                this.ofItem(ModItems.EXORCISM_PAPER, 4)
+        ));
     }
 
     public void generateKitchenRecipe() {

@@ -1,7 +1,7 @@
 {
   "item": "reverie_dreams:food/udumbara_cake",
   "values": [
-    "reverie_dreams:meat",
-    "reverie_dreams:aquatic_products"
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:meat"
   ]
 }

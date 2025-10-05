@@ -24,6 +24,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.StatType;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextContent;
 import net.minecraft.text.TranslatableTextContent;
@@ -36,7 +37,7 @@ import java.util.Map;
 @CanIgnoreReturnValue
 @Getter
 @Slf4j
-public class TranslationExporter implements TranslationCreatorImpl {
+public class TranslationExporter implements TranslationExporterBuilderImpl {
     public static final Map<EntityType<?>, Item> MAPPER = ModEntities.SPAWN_EGG_BIND;
     private final RegistryWrapper.WrapperLookup wrapperLookup;
     private final FabricLanguageProvider.TranslationBuilder translationBuilder;
@@ -124,6 +125,17 @@ public class TranslationExporter implements TranslationCreatorImpl {
         Item item = MAPPER.get(entityType);
         if (item != null) {
             this.add(item, spawnEggName);
+        }
+        return this;
+    }
+
+    public TranslationExporter add(Text mutableText, String value) {
+        TextContent content = mutableText.getContent();
+        if (content instanceof TranslatableTextContent translatableText) {
+            String key = translatableText.getKey();
+            this.add(key, value);
+        } else {
+            log.error("Can't parse Translatable Text Content {}", mutableText);
         }
         return this;
     }

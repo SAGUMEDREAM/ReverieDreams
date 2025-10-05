@@ -1,5 +1,8 @@
 package cc.thonly.polymer.block;
 
+import cc.thonly.polymer.block.model.TransparentFlatTripWire;
+import cc.thonly.polymer.block.model.TransparentPlant;
+import cc.thonly.polymer.block.model.TransparentTripWire;
 import cc.thonly.reverie_dreams.block.BaseFumoBlock;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import eu.pb4.factorytools.api.block.FactoryBlock;
@@ -27,7 +30,7 @@ public class FumoImpl implements PolymerTexturedBlock, FactoryBlock {
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        return Blocks.BARRIER.getDefaultState();
+        return TransparentTripWire.TRANSPARENT_TRIPWIRE;
     }
 
     @Override

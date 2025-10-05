@@ -75,7 +75,7 @@ public class IntrinsicalRegister<T> implements MutableRegistry<T> {
         this.parent = parent;
     }
 
-    public void verify() {
+    public void validate() {
         AtomicInteger next = new AtomicInteger();
         this.keyToEntry.forEach((registryKey, reference) -> {
             if (registryKey == null)  {

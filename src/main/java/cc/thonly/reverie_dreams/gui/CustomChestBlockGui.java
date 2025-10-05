@@ -3,9 +3,12 @@ package cc.thonly.reverie_dreams.gui;
 import cc.thonly.reverie_dreams.block.CashBoxBlock;
 import cc.thonly.reverie_dreams.block.CustomChestBlock;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
+import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.util.PredicateSlot;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -15,8 +18,16 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
+    private static final List<Item> ITEMS = new ArrayList<>(List.of(
+            ModItems.COPPER_COIN,
+            ModItems.SILVER_COIN,
+            ModItems.GOLD_COIN
+    ));
     private final Block block;
     private final CustomChestBlockEntity chestBlockEntity;
     private final BlockPos blockPos;
@@ -42,7 +53,7 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     @Override
     public void init() {
         for (int i = 0; i < this.chestBlockEntity.size(); i++) {
-            this.setSlotRedirect(i, new Slot(this.chestBlockEntity.getInventory(), i, 0, 0));
+            this.setSlotRedirect(i, new PredicateSlot(this.chestBlockEntity.getInventory(), i, 0, 0, (stack) -> ITEMS.contains(stack.getItem())));
         }
     }
 

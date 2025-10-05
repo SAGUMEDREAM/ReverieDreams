@@ -164,6 +164,18 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .criterion("has_iron", conditionsFromItem(Items.IRON_INGOT))
                 .offerTo(exporter, getRecipeName(ModBlocks.WHEEL_CHAIR));
 
+        // 木板箱
+        createShaped(RecipeCategory.MISC, ModBlocks.WOODEN_BOX.chestBlock())
+                .pattern("YZY")
+                .pattern("X#X")
+                .pattern("YZY")
+                .input('#', Items.CHEST)
+                .input('X', Items.OAK_SLAB)
+                .input('Y', Items.OAK_PLANKS)
+                .input('Z', Items.STICK)
+                .criterion("has_stick", conditionsFromItem(Items.STICK))
+                .offerTo(exporter, getRecipeName(ModBlocks.WOODEN_BOX.chestBlock()));
+
         // Fumo销售许可
         createShaped(RecipeCategory.MISC, ModItems.FUMO_LICENSE)
                 .pattern("YXY")
@@ -653,6 +665,15 @@ public class ModRecipeGenerator extends RecipeGenerator {
         extremeUpgrade.put(MIBlocks.GRILL, MIBlocks.EXTREME_GRILL);
         extremeUpgrade.put(MIBlocks.STEAMER, MIBlocks.EXTREME_STEAMER);
         this.offerUpgradeRecipes(extremeUpgrade, Items.DIAMOND);
+
+        Map<Block, Block> nukeUpgrade = new Object2ObjectOpenHashMap<>();
+        nukeUpgrade.put(MIBlocks.COOKING_POT, MIBlocks.NUKE_COOKING_POT);
+        nukeUpgrade.put(MIBlocks.CUTTING_BOARD, MIBlocks.NUKE_CUTTING_BOARD);
+        nukeUpgrade.put(MIBlocks.FRYING_PAN, MIBlocks.NUKE_FRYING_PAN);
+        nukeUpgrade.put(MIBlocks.GRILL, MIBlocks.NUKE_GRILL);
+        nukeUpgrade.put(MIBlocks.STEAMER, MIBlocks.NUKE_STEAMER);
+        this.offerUpgradeRecipes(nukeUpgrade, Items.NETHER_BRICKS);
+
 
     }
 

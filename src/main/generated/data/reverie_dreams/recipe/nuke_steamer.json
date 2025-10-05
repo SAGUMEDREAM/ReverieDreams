@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "reverie_dreams:steamer",
+    "Y": "minecraft:nether_bricks"
+  },
+  "pattern": [
+    "YYY",
+    "YXY",
+    "YYY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:nuke_steamer"
+  }
+}

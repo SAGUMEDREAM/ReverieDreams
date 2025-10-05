@@ -1,9 +1,6 @@
 package cc.thonly.reverie_dreams;
 
-import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.polymer.PolymerItemHelper;
-import cc.thonly.polymer.PolymerStatusEffectHelper;
-import cc.thonly.polymer.ResourcePackGenerator;
+import cc.thonly.polymer.*;
 import cc.thonly.reverie_dreams.block.AbstractBlockCreator;
 import cc.thonly.reverie_dreams.block.ChestBlockCreator;
 import cc.thonly.reverie_dreams.block.WoodCreator;
@@ -13,8 +10,11 @@ import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
+import cc.thonly.reverie_dreams.entity.villager.ModVillagerProfessions;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
+import eu.pb4.polymer.core.api.entity.PolymerVillagerProfession;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import net.fabricmc.api.ModInitializer;
@@ -22,8 +22,11 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.VillagerProfession;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +71,7 @@ public class LateLoaderInit implements ModInitializer {
             PolymerItemHelper.registerOverlay(danmakuType.getItem());
         }
         PolymerEntityHelper.bootstrap();
+        PolymerVillagerProfessionHelper.bootstrap();
 
         LATE_INIT.forEach(new Consumer<Runnable>() {
             @Override

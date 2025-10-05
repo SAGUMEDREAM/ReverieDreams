@@ -23,7 +23,8 @@ public class MIBlockEntities {
                             MIBlocks.COOKING_POT, MIBlocks.CUTTING_BOARD, MIBlocks.FRYING_PAN, MIBlocks.GRILL, MIBlocks.STEAMER,
                             MIBlocks.MYSTIA_COOKING_POT, MIBlocks.MYSTIA_CUTTING_BOARD, MIBlocks.MYSTIA_FRYING_PAN, MIBlocks.MYSTIA_GRILL, MIBlocks.MYSTIA_STEAMER,
                             MIBlocks.SUPER_COOKING_POT, MIBlocks.SUPER_CUTTING_BOARD, MIBlocks.SUPER_FRYING_PAN, MIBlocks.SUPER_GRILL, MIBlocks.SUPER_STEAMER,
-                            MIBlocks.EXTREME_COOKING_POT, MIBlocks.EXTREME_CUTTING_BOARD, MIBlocks.EXTREME_FRYING_PAN, MIBlocks.EXTREME_GRILL, MIBlocks.EXTREME_STEAMER
+                            MIBlocks.EXTREME_COOKING_POT, MIBlocks.EXTREME_CUTTING_BOARD, MIBlocks.EXTREME_FRYING_PAN, MIBlocks.EXTREME_GRILL, MIBlocks.EXTREME_STEAMER,
+                            MIBlocks.NUKE_COOKING_POT, MIBlocks.NUKE_CUTTING_BOARD, MIBlocks.NUKE_FRYING_PAN, MIBlocks.NUKE_GRILL, MIBlocks.NUKE_STEAMER
                     ).toArray(new Block[0])
             );
     public static final BlockEntityType<ItemStackDisplayBlockEntity> ITEM_DISPLAY_BLOCK_ENTITY =

@@ -30,6 +30,7 @@ public class ChestBlockCreator extends AbstractBlockCreator {
         return Stream.of(this.chestBlock());
     }
 
+    @Override
     public ChestBlockCreator build() {
         Block block = ModBlocks.registerBlock(this.getName(), CustomChestBlock::new, this.settings.nonOpaque());
         this.chestBlock = (CustomChestBlock) block;

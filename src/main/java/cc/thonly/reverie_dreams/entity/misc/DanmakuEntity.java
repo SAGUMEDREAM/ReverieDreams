@@ -93,7 +93,7 @@ public class DanmakuEntity extends PersistentProjectileEntity {
         if (livingEntity != null) {
             this.setVelocity(livingEntity, pitch, yaw, 0.0F, speed, divergence);
         } else {
-            this.setVelocity(pitch, yaw, 0.0F, speed, divergence);
+            this.setVelocity(this, pitch, yaw, 0.0F, speed, divergence);
         }
         this.setYaw(yaw);
         this.setPitch(pitch);
@@ -207,6 +207,9 @@ public class DanmakuEntity extends PersistentProjectileEntity {
     }
 
     protected boolean canDamage(Entity entity, Entity owner) {
+        if (entity instanceof BypassHitEntity) {
+            return false;
+        }
         if (owner == entity) {
             return false;
         }

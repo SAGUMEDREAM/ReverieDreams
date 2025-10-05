@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.server.DreamPillowManager;
+import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
 import com.mojang.datafixers.DataFixer;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.registry.DynamicRegistryManager;
@@ -35,6 +36,7 @@ public class MinecraftServerMixin implements IDreamPillowManager {
         DynamicRegistryManager.Immutable registryManager = minecraftServer.getRegistryManager();
         Touhou.setServer(minecraftServer);
         Touhou.setDynamicRegistryManager(registryManager);
+        PlayerDataComponentManager.getInstance().onLoad(minecraftServer);
         this.dreamPillowManager = new DreamPillowManager(minecraftServer);
         Nota.getAPI().server = minecraftServer;
     }

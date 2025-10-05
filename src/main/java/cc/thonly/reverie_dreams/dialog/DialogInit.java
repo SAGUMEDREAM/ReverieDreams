@@ -11,7 +11,7 @@ import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.registry.Translatable;
-import cc.thonly.reverie_dreams.util.NetUtil;
+import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.Blocks;
@@ -277,8 +277,8 @@ public class DialogInit {
                                         true, true, 16, 16
                                 ),
                                 new ItemDialogBody(
-                                        new ItemStack(Items.BARRIER),
-                                        Optional.of(new PlainMessageDialogBody(Text.translatable("dialog.text.empty"), 200)),
+                                        new ItemStack(ModItems.DANMAKU_SHAPE_CREATOR),
+                                        Optional.of(new PlainMessageDialogBody(Text.empty().append(Text.translatable(ModItems.DANMAKU_SHAPE_CREATOR.getTranslationKey())).append(Text.literal("")), 200)),
                                         true, true, 16, 16
                                 )
 

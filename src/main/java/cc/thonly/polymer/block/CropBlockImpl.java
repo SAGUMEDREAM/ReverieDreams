@@ -4,7 +4,7 @@ import cc.thonly.polymer.block.model.TransparentFlatTripWire;
 import cc.thonly.polymer.block.model.TransparentPlantWatterlogged;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
-import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
+import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;

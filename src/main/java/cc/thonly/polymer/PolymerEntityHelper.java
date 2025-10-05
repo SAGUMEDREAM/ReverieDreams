@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.entity.npc.NPCRole;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,6 +18,7 @@ import java.util.function.Function;
 public class PolymerEntityHelper {
     public static final List<PolymerHolderEntity> NEXT = new LinkedList<>();
     public static final Map<EntityType<? extends Entity>, Function<? extends Entity, PolymerEntity>> ENTITY_TYPE_FUNCTION_MAP = new HashMap<>();
+    public static final WeakHashMap<Entity, ItemDisplayElement> POLYMER_PLAYER_ELEMENTS = new WeakHashMap<>();
 
     public static void bootstrap() {
         registerOverlay(ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, SunflowerYouseiImpl::new);
@@ -31,6 +33,7 @@ public class PolymerEntityHelper {
         registerOverlay(ModEntities.MOON_RABBIT_ENTITY_TYPE, MoonRabbitImpl::new);
         registerOverlay(ModEntities.KILLER_BEE_ENTITY_TYPE, KillerBeeImpl::new);
         registerOverlay(ModEntities.ORE_ESP_ENTITY_TYPE, OreEspImpl::new);
+        registerOverlay(ModEntities.BAGUA_FURNACE_ENTITY, BaguaFurnaceImpl::new);
         registerOverlay(ModEntities.DANMAKU_ENTITY_TYPE, DanmakuImpl::new);
         registerOverlay(ModEntities.KNIFE_ENTITY_TYPE, DanmakuImpl::new);
         registerOverlay(ModEntities.FUMO_SELLER_VILLAGER, VillagerImpl::new);

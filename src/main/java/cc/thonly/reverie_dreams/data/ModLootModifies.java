@@ -162,7 +162,7 @@ public class ModLootModifies {
             int dropChance = 45;
             int maxDropCount = 3;
             if (random.nextInt(100) < dropChance) {
-                entity.dropStack(serverWorld, new ItemStack(itemPool.get(random.nextBetween(0, itemPool.size())), random.nextInt(maxDropCount + 1) + 1));
+                entity.dropStack(serverWorld, new ItemStack(itemPool.get(random.nextBetween(0, itemPool.size() - 1)), random.nextInt(maxDropCount + 1) + 1));
             }
         }
     }
@@ -191,7 +191,7 @@ public class ModLootModifies {
             int maxDropCount = 3;
             if (random.nextInt(100) < dropChance) {
                 entity.dropStack(serverWorld, new ItemStack(ModItems.ICE_SCALES, random.nextInt(maxDropCount + 1) + 1));
-           }
+            }
         }
     }
 

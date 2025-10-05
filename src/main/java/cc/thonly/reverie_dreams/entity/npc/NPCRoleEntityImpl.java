@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
 import cc.thonly.reverie_dreams.interfaces.IExperienceOrbEntity;
-import cc.thonly.reverie_dreams.mixin.ExperienceOrbEntityMixin;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,13 +12,11 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Unique;
 
 import java.util.List;
 
@@ -69,6 +66,7 @@ public class NPCRoleEntityImpl extends NPCEntityImpl implements Leashable {
         this.goalSelector.add(1, new NPCSmeltGoal(this));
         this.goalSelector.add(1, new NPCChestClassificationGoal(this));
         this.goalSelector.add(1, new NPCFarmGoal(this));
+        this.goalSelector.add(1, new NPCAutoPickItemGoal(this));
         this.goalSelector.add(2, new NPCCloseToCropGoal(this, 1));
 
 

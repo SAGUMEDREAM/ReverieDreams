@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "front": "reverie_dreams:block/silver_chest",
-    "side": "reverie_dreams:block/silver_chest_side",
-    "top": "reverie_dreams:block/silver_block"
-  }
-}

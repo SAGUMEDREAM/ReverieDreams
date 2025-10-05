@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.screen.PlayerScreenHandler;
@@ -43,6 +44,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
     private GuiElementBuilder npcHealth;
     private GuiElementBuilder npcArmor;
     private GuiElementBuilder npcXp;
+    private GuiElementBuilder npcAutoPick;
 
     public NPCGui(ServerPlayerEntity player, NPCEntityImpl npcEntity) {
         super(ScreenHandlerType.GENERIC_9X6, player, false);
@@ -151,7 +153,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             ))
                             .setCallback((index, type, action) -> {
                                 int experienceAmount = this.npcEntity.getStoredExperience();
-                                if (experienceAmount >0) {
+                                if (experienceAmount > 0) {
                                     this.player.playSoundToPlayer(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1.0f, 1.0f);
                                 }
                                 this.player.addExperience(experienceAmount);
@@ -161,6 +163,18 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.builder2index.put(this.npcXp, slotIndex);
                     this.setSlot(slotIndex, this.npcXp);
                 }
+                if (posChar.equalsIgnoreCase("O")) {
+                    this.npcAutoPick = new GuiElementBuilder()
+                            .setItem(Items.NETHERITE_SCRAP)
+                            .setName(Text.translatable("gui.npc.info.auto-pick"))
+                            .setComponent(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, this.npcEntity.isAutoPick())
+                            .setCallback((index, type, action) -> {
+                                this.npcEntity.setAutoPick(!this.npcEntity.isAutoPick());
+                                this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            });
+                    this.builder2index.put(this.npcAutoPick, slotIndex);
+                    this.setSlot(slotIndex, this.npcAutoPick);
+                }
 
                 if (posChar.equalsIgnoreCase("I")) {
                     this.setSlotRedirect(
@@ -168,9 +182,6 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             new Slot(this.npcEntity.getInventory(), inventory_index, 0, 0)
                     );
                     inventory_index++;
-//                    System.out.println(inventory_index);
-//                    System.out.println(this.npcEntity.getInventory().size());
-//                    System.out.println(NPCInventoryImpl.FEET);
                 }
                 if (posChar.equalsIgnoreCase("/")) {
                     this.setSlotRedirect(
@@ -238,8 +249,10 @@ public class NPCGui extends SimpleGui implements GuiCommon {
         );
 
         this.npcXp.setItemName(Text.translatable("gui.npc.info.xp", this.npcEntity.getStoredExperience()));
-
-//        System.out.println( this.npcEntity.getNpcState().getId());
+        this.npcAutoPick.setItem(Items.NETHERITE_SCRAP);
+        this.npcAutoPick.setItemName(Text.translatable("gui.npc.info.auto-pick"));
+        this.npcAutoPick.setComponent(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, this.npcEntity.isAutoPick());
+        //        System.out.println( this.npcEntity.getNpcState().getId());
         this.builder2index.forEach((builder, index) -> {
             this.setSlot(index, builder);
         });

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
+import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AccessLevel;
 import lombok.Getter;

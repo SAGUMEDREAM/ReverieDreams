@@ -1112,5 +1112,20 @@
   "npc.event.send_message.6": "Hehe~ You’re back again. Do you want me to do something for you today?",
   "npc.event.send_message.7": "Ehehe, being with you really is the happiest thing ever!",
   "npc.event.send_message.8": "Ayaa! I tripped again… but with you here, my mood instantly got better!",
-  "npc.event.send_message.9": "Hmph~ You came to me again, huh? Are you that impatient for my help already?"
+  "npc.event.send_message.9": "Hmph~ You came to me again, huh? Are you that impatient for my help already?",
+  "block.reverie_dreams.nuke_cooking_pot": "Nuclear Cooking Pot",
+  "block.reverie_dreams.nuke_cutting_board": "Nuclear Cutting Board",
+  "block.reverie_dreams.nuke_frying_pan": "Nuclear Frying Pan",
+  "block.reverie_dreams.nuke_grill": "Nuclear Grill",
+  "block.reverie_dreams.nuke_steamer": "Nuclear Steamer",
+  "block.reverie_dreams.wooden_box": "Wooden Box",
+  "entity.reverie_dreams.villager.hawkers": "Hawker",
+  "entity.reverie_dreams.villager.money_shop_clerk": "Bank Clerk",
+  "entity.reverie_dreams.villager.priest": "Priest",
+  "gui.npc.info.auto-pick": "§bAuto Pathfinding Pickup",
+  "item.action.click.cashbox.fails.coin": "§fMissing coin item",
+  "item.action.click.cashbox.fails.full": "§cYour Faith value has already exceeded %s",
+  "item.action.click.cashbox.fails.used": "§cYou have already been blessed today",
+  "item.action.click.cashbox.success": "§fYou received the shrine's blessing, Faith +%s",
+  "item.reverie_dreams.exorcism_paper": "Exorcism Paper"
 }

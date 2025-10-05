@@ -87,6 +87,7 @@ public class NPCSheepShearGoal extends TrackTargetGoal {
                 return;
             }
             ServerWorld world = getServerWorld(this.targetEntity);
+            this.maid.swingHand(Hand.MAIN_HAND);
             this.targetEntity.sheared(world, SoundCategory.PLAYERS, itemStack);
             this.targetEntity.emitGameEvent(GameEvent.SHEAR, this.targetEntity);
             this.itemStack.damage(1, this.targetEntity, Hand.MAIN_HAND);

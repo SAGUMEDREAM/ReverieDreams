@@ -9,7 +9,7 @@ import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
-import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
+import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.world.SaplingGeneratorInit;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +27,7 @@ public class MIBlocks extends ModBlocks {
     public static final DoubleUnaryOperator MYSTIA = original -> original - original * 0.25;
     public static final DoubleUnaryOperator SUPER = original -> original + original * 0.05;
     public static final DoubleUnaryOperator EXTREME = original -> original + original * 0.1;
+    public static final DoubleUnaryOperator NUKE = original -> original + original * 0.5;
     // 普通
     public static final Block COOKING_POT = registerSimpleBlock("cooking_pot",
             (settings) -> new CookingPot((original) -> original, 0.0, settings),
@@ -117,6 +118,33 @@ public class MIBlocks extends ModBlocks {
             settings -> new Steamer(EXTREME, 0.0, settings),
             AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
     );
+    // 核能
+    public static final Block NUKE_COOKING_POT = registerSimpleBlock(
+            "nuke_cooking_pot",
+            settings -> new CookingPot(NUKE, 0.4, settings),
+            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+    );
+    public static final Block NUKE_CUTTING_BOARD = registerSimpleBlock(
+            "nuke_cutting_board",
+            settings -> new CuttingBoard(NUKE, 0.4, settings),
+            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)
+    );
+    public static final Block NUKE_FRYING_PAN = registerSimpleBlock(
+            "nuke_frying_pan",
+            settings -> new FryingPan(NUKE, 0.4, settings),
+            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+    );
+    public static final Block NUKE_GRILL = registerSimpleBlock(
+            "nuke_grill",
+            settings -> new Grill(NUKE, 0.4, settings),
+            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+    );
+    public static final Block NUKE_STEAMER = registerSimpleBlock(
+            "nuke_steamer",
+            settings -> new Steamer(NUKE, 0.4, settings),
+            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+    );
+
     public static final Block ITEM_DISPLAY = registerSimpleBlock(
             "display",
             ItemStackDisplay::new,

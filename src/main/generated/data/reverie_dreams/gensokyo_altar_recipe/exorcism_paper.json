@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:paper",
+    "count": 6
+  },
+  "slots": [
+    {
+      "id": "minecraft:bone",
+      "count": 12
+    },
+    {
+      "id": "minecraft:rotten_flesh",
+      "count": 12
+    },
+    {
+      "id": "minecraft:red_dye",
+      "count": 3
+    },
+    {
+      "id": "minecraft:paper",
+      "count": 6
+    },
+    {
+      "id": "minecraft:paper",
+      "count": 8
+    },
+    {
+      "id": "minecraft:paper",
+      "count": 6
+    },
+    {
+      "id": "minecraft:paper",
+      "count": 8
+    },
+    {
+      "id": "minecraft:redstone",
+      "count": 7
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:exorcism_paper",
+    "count": 4
+  }
+}

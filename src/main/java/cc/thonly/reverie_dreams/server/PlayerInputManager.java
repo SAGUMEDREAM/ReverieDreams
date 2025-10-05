@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.server;
 
 
-import cc.thonly.reverie_dreams.util.KVPairWrapper;
+import cc.thonly.reverie_dreams.util.PairWrapper;
 import lombok.Getter;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
@@ -15,7 +15,7 @@ import java.util.*;
 @Getter
 public class PlayerInputManager {
     private static PlayerInputManager INSTANCE = null;
-    public static Stack<KVPairWrapper<ServerPlayerEntity, Packet<?>>> TICK_PLAYER_QUEUE = new Stack<>();
+    public static Stack<PairWrapper<ServerPlayerEntity, Packet<?>>> TICK_PLAYER_QUEUE = new Stack<>();
     private final List<ServerPlayerEntity> FORWARDS = new ArrayList<>();
     private final List<ServerPlayerEntity> BACKWARDS = new ArrayList<>();
     private final List<ServerPlayerEntity> LEFTS = new ArrayList<>();
@@ -47,7 +47,7 @@ public class PlayerInputManager {
             playerEntities.clear();
         }
         while (!TICK_PLAYER_QUEUE.isEmpty()) {
-            KVPairWrapper<ServerPlayerEntity, Packet<?>> wrapper = TICK_PLAYER_QUEUE.pop();
+            PairWrapper<ServerPlayerEntity, Packet<?>> wrapper = TICK_PLAYER_QUEUE.pop();
             ServerPlayerEntity player = wrapper.getKey();
             Packet<?> packet = wrapper.getValue();
             if (packet instanceof PlayerInputC2SPacket inputC2SPacket) {

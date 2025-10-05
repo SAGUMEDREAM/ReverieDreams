@@ -7,15 +7,18 @@ import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Setter
@@ -23,14 +26,17 @@ import java.util.Optional;
 public class ItemStackDisplayBlockEntity extends BlockEntity {
     private ItemStackWrapper item = ItemStackWrapper.empty();
     private double yaw = 0.0;
-    private int tick = 0;
 
     public ItemStackDisplayBlockEntity(BlockPos pos, BlockState state) {
         super(MIBlockEntities.ITEM_DISPLAY_BLOCK_ENTITY, pos, state);
     }
 
     public void update() {
-        var model = ItemStackDisplayImpl.POS_TO_MODEL.get(this.getPos().asLong());
+        if (!(this.getWorld() instanceof ServerWorld serverWorld)) {
+            return;
+        }
+        Map<Long, ItemStackDisplayImpl.Model> longModelMap = ItemStackDisplayImpl.MAPPING.computeIfAbsent(serverWorld, w -> new Object2ObjectOpenHashMap<>());
+        var model = longModelMap.get(this.getPos().asLong());
         if (!(this.getCachedState().getBlock() instanceof ItemStackDisplay)) {
             return;
         }
@@ -40,14 +46,16 @@ public class ItemStackDisplayBlockEntity extends BlockEntity {
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, ItemStackDisplayBlockEntity blockEntity) {
-        if (blockEntity.tick > 5) {
-            var model = ItemStackDisplayImpl.POS_TO_MODEL.get(pos.asLong());
-            if (model != null) {
-                model.updateItem(state);
-            }
-            blockEntity.tick = 0;
+        if (!(world instanceof ServerWorld serverWorld)) {
+            return;
         }
-        blockEntity.tick++;
+
+        Map<Long, ItemStackDisplayImpl.Model> longModelMap = ItemStackDisplayImpl.MAPPING.computeIfAbsent(serverWorld, w -> new Object2ObjectOpenHashMap<>());
+        var model = longModelMap.get(pos.asLong());
+        if (model != null) {
+            model.updateItem(state);
+        }
+
     }
 
     @Override

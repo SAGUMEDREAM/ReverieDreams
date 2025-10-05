@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.util.AnimationHelper;
-import cc.thonly.reverie_dreams.util.ModelUtil;
+import cc.thonly.reverie_dreams.util.entity.AnimationHelper;
+import cc.thonly.reverie_dreams.util.entity.ModelUtil;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.api.AnimatedEntityHolder;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;

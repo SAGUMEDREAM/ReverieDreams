@@ -58,12 +58,12 @@ public class NPCRoleInteractionEvents {
     }
 
     public static final NPCRoleInteractionEvent MESSAGE = registerEvent("message", (world, player, stack, hand, entity) -> {
-        if (stack.isEmpty() && !player.isSneaking()) {
+        if (stack.isEmpty() && !player.isSneaking() && entity.isTamed()) {
             if (MESSAGES.isEmpty()) {
                 return NPCInteractResult.PASS;
             }
             Random random = Random.create();
-            NPCRoleMessage npcRoleMessage = MESSAGES.get(random.nextBetween(0, MESSAGES.size()));
+            NPCRoleMessage npcRoleMessage = MESSAGES.get(random.nextBetween(0, MESSAGES.size() - 1));
             MutableText message = npcRoleMessage.getMessage(world, player, stack, hand, entity);
             MutableText body = Text.empty();
             body.append(entity.getName());

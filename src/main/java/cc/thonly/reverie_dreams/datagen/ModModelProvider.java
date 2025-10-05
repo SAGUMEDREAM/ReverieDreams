@@ -17,8 +17,8 @@ import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.util.CropAgeModelProvider;
-import cc.thonly.reverie_dreams.util.CropAgeUtil;
+import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
+import cc.thonly.reverie_dreams.util.block.CropAgeUtil;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -27,7 +27,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.model.json.ModelVariant;
-import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -77,7 +76,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_CRYSTAL_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_BLOCK);
-        this.registerChest(blockStateModelGenerator, ModBlocks.SILVER_CHEST_BLOCK.chestBlock(), ModBlocks.SILVER_BLOCK);
+//        this.registerChest(blockStateModelGenerator, ModBlocks.SILVER_CHEST_BLOCK.chestBlock(), ModBlocks.SILVER_BLOCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEEPSLATE_SILVER_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.ORB_ORE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEEPSLATE_ORB_ORE);
@@ -93,6 +92,7 @@ public class ModModelProvider extends FabricModelProvider {
         this.registerRotatable(blockStateModelGenerator, ModBlocks.CASH_BOX_BLOCK);
         blockStateModelGenerator.registerSimpleState(ModBlocks.ANTI_COLLISION_BARREL);
         blockStateModelGenerator.registerSimpleState(ModBlocks.WHEEL_CHAIR);
+        blockStateModelGenerator.registerSimpleState(ModBlocks.WOODEN_BOX.chestBlock());
 
         for (Fumo instance : Fumos.getView()) {
             blockStateModelGenerator.registerSimpleState(instance.block());
@@ -168,6 +168,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DREAM_PILLOW);
         itemModelGenerator.register(ModItems.TENGU_CAMERA);
         itemModelGenerator.register(ModItems.BAD_APPLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.EXORCISM_PAPER, Models.GENERATED);
         itemModelGenerator.register(ModItems.COPPER_COIN, Models.GENERATED);
         itemModelGenerator.register(ModItems.SILVER_COIN, Models.GENERATED);
         itemModelGenerator.register(ModItems.GOLD_COIN, Models.GENERATED);
@@ -288,6 +289,11 @@ public class ModModelProvider extends FabricModelProvider {
         this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_FRYING_PAN);
         this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_GRILL);
         this.registerRotatable(blockStateModelGenerator, MIBlocks.EXTREME_STEAMER);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.NUKE_COOKING_POT);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.NUKE_CUTTING_BOARD);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.NUKE_FRYING_PAN);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.NUKE_GRILL);
+        this.registerRotatable(blockStateModelGenerator, MIBlocks.NUKE_STEAMER);
 
         blockStateModelGenerator.registerSimpleState(MIBlocks.ITEM_DISPLAY);
 

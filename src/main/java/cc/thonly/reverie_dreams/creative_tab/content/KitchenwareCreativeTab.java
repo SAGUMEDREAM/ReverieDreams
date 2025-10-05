@@ -43,6 +43,12 @@ public class KitchenwareCreativeTab implements ItemGroupContentHelper {
             itemGroup.add(MIBlocks.EXTREME_GRILL);
             itemGroup.add(MIBlocks.EXTREME_STEAMER);
 
+            itemGroup.add(MIBlocks.NUKE_COOKING_POT);
+            itemGroup.add(MIBlocks.NUKE_CUTTING_BOARD);
+            itemGroup.add(MIBlocks.NUKE_FRYING_PAN);
+            itemGroup.add(MIBlocks.NUKE_GRILL);
+            itemGroup.add(MIBlocks.NUKE_STEAMER);
+
             itemGroup.add(MIBlocks.ITEM_DISPLAY);
         });
         ItemGroupContentHelper.registerGroup(KitchenwareCreativeTab.ITEM_GROUP_KEY, KitchenwareCreativeTab.ITEM_GROUP);

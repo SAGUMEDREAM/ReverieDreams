@@ -1,4 +1,5 @@
 accessWidener v2 named
+accessible method net/minecraft/client/render/entity/model/EntityModelLayers    registerMain    (Ljava/lang/String;)Lnet/minecraft/client/render/entity/model/EntityModelLayer;
 accessible method net/minecraft/registry/entry/RegistryEntry$Reference setRegistryKey (Lnet/minecraft/registry/RegistryKey;)V
 accessible field net/minecraft/registry/SimpleRegistry keyToEntry Ljava/util/Map;
 accessible field net/minecraft/registry/SimpleRegistry idToEntry Ljava/util/Map;
@@ -12,16 +13,8 @@ accessible field net/minecraft/registry/entry/RegistryEntryList$Named entries Lj
 accessible class net/minecraft/registry/RegistryLoader$RegistryLoadable
 accessible class net/minecraft/registry/RegistryLoader$Loader
 accessible field net/minecraft/recipe/Ingredient entries Lnet/minecraft/registry/entry/RegistryEntryList;
-accessible field net/minecraft/entity/LivingEntity lastDamageTaken F
-accessible method net/minecraft/entity/passive/AnimalEntity playEatSound ()V
+accessible field net/minecraft/data/recipe/RecipeGenerator exporter Lnet/minecraft/data/recipe/RecipeExporter;
 accessible class net/minecraft/village/raid/Raid$Member
-accessible class net/minecraft/entity/mob/SpellcastingIllagerEntity$Spell
-accessible method net/minecraft/entity/decoration/ArmorStandEntity setMarker (Z)V
-accessible field net/minecraft/entity/LivingEntity SLEEPING_POSITION Lnet/minecraft/entity/data/TrackedData;
-accessible method net/minecraft/client/render/entity/model/EntityModelLayers    registerMain    (Ljava/lang/String;)Lnet/minecraft/client/render/entity/model/EntityModelLayer;
-accessible method net/minecraft/entity/passive/BeeEntity setHasStung (Z)V
-accessible field net/minecraft/item/ItemStack components Lnet/minecraft/component/MergedComponentMap;
-accessible method net/minecraft/entity/LivingEntity travelControlled (Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/Vec3d;)V
 accessible class net/minecraft/component/ComponentChanges$Type
 accessible method net/minecraft/component/ComponentChanges$Type removed ()Z
 accessible method net/minecraft/component/ComponentChanges$Type type ()Lnet/minecraft/component/ComponentType;
@@ -32,15 +25,24 @@ accessible class net/minecraft/server/world/ServerChunkLoadingManager$EntityTrac
 accessible method net/minecraft/server/network/EntityTrackerEntry syncEntityData ()V
 accessible method net/minecraft/server/network/EntityTrackerEntry sendSyncPacket (Lnet/minecraft/network/packet/Packet;)V
 accessible method net/minecraft/item/RangedWeaponItem load (Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)Ljava/util/List;
+accessible field net/minecraft/item/ItemStack components Lnet/minecraft/component/MergedComponentMap;
 accessible field net/minecraft/item/Item components Lnet/minecraft/component/ComponentMap;
 accessible field net/minecraft/component/type/DyedColorComponent rgb I
 mutable field net/minecraft/component/type/DyedColorComponent rgb I
-accessible field net/minecraft/data/recipe/RecipeGenerator exporter Lnet/minecraft/data/recipe/RecipeExporter;
+accessible field net/minecraft/entity/LivingEntity lastDamageTaken F
+accessible method net/minecraft/entity/passive/AnimalEntity playEatSound ()V
 accessible method net/minecraft/entity/passive/RabbitEntity setVariant (Lnet/minecraft/entity/passive/RabbitEntity$Variant;)V
 accessible class net/minecraft/entity/passive/RabbitEntity$FleeGoal
 accessible class net/minecraft/entity/passive/RabbitEntity$EatCarrotCropGoal
+accessible method net/minecraft/entity/LivingEntity travelControlled (Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/Vec3d;)V
+accessible method net/minecraft/entity/passive/BeeEntity setHasStung (Z)V
+accessible class net/minecraft/entity/mob/SpellcastingIllagerEntity$Spell
+accessible method net/minecraft/entity/decoration/ArmorStandEntity setMarker (Z)V
+accessible field net/minecraft/entity/LivingEntity SLEEPING_POSITION Lnet/minecraft/entity/data/TrackedData;
 accessible class net/minecraft/entity/passive/WanderingTraderEntity$WanderToTargetGoal
 accessible method net/minecraft/entity/passive/WanderingTraderEntity$WanderToTargetGoal <init> (Lnet/minecraft/entity/passive/WanderingTraderEntity;Lnet/minecraft/entity/passive/WanderingTraderEntity;DD)V
+accessible field net/minecraft/world/poi/PointOfInterestTypes POI_STATES_TO_TYPE Ljava/util/Map;
 accessible method net/minecraft/world/gen/densityfunction/DensityFunctions entryHolder (Lnet/minecraft/registry/RegistryEntryLookup;Lnet/minecraft/registry/RegistryKey;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
 accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applyBlendDensity (Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
 accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applySlides (Lnet/minecraft/world/gen/densityfunction/DensityFunction;IIIIDIID)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
+accessible method net/minecraft/village/TradeOffer <init> (Lnet/minecraft/village/TradedItem;Ljava/util/Optional;Lnet/minecraft/item/ItemStack;IIZIIFI)V

@@ -27,7 +27,7 @@ public class ModServerReloadListener implements SimpleSynchronousResourceReloadL
                 registry.reload(manager);
                 RegistryManagerReloadCallback.EVENT.invoker().onLoad(registry);
             }
-            registry.verify();
+            registry.validate();
         }
         this.onLoad(manager);
         CookingInputRecipeManager.getInstance().clearItems();

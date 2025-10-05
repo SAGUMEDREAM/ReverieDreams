@@ -26,7 +26,7 @@ public record RoleImpl(AbstractNPCEntity npcEntity) implements PlayerPolymerEnti
         holder.addElement(x);
         EntityAttachment.of(holder, entity);
         VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        ELEMENTS.put(entity, x);
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(entity, x);
     }
 
     @Override

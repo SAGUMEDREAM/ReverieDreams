@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.server.DelayedTask;
-import cc.thonly.reverie_dreams.util.ModelUtil;
+import cc.thonly.reverie_dreams.util.entity.ModelUtil;
 import com.mojang.authlib.properties.Property;
 import de.tomalbrc.bil.core.model.Model;
 import lombok.Getter;

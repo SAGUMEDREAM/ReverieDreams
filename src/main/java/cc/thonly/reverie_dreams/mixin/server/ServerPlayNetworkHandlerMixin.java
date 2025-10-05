@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
-import cc.thonly.reverie_dreams.util.KVPairWrapper;
+import cc.thonly.reverie_dreams.util.PairWrapper;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInputC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -20,12 +20,12 @@ public abstract class ServerPlayNetworkHandlerMixin {
     @Inject(method = "onPlayerInput", at = @At("TAIL"))
     public void onPlayerInput(PlayerInputC2SPacket packet, CallbackInfo ci) {
         ServerPlayerEntity player = this.getPlayer();
-        PlayerInputManager.TICK_PLAYER_QUEUE.add(new KVPairWrapper<>(player, packet));
+        PlayerInputManager.TICK_PLAYER_QUEUE.add(new PairWrapper<>(player, packet));
     }
 
     @Inject(method = "onClientCommand", at = @At("TAIL"))
     public void onClientCommand(ClientCommandC2SPacket packet, CallbackInfo ci) {
         ServerPlayerEntity player = this.getPlayer();
-        PlayerInputManager.TICK_PLAYER_QUEUE.add(new KVPairWrapper<>(player, packet));
+        PlayerInputManager.TICK_PLAYER_QUEUE.add(new PairWrapper<>(player, packet));
     }
 }
