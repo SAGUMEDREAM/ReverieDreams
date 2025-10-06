@@ -42,20 +42,20 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
-        builder.add(ItemBlockCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 物品/方块");
-        builder.add(DanmakuCreativeTab.ITEM_GROUP_BULLET, "Gensokyo: Reverie of Lost Dreams | 弹幕");
-        builder.add(TemplateCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 弹幕模板");
-        builder.add(FumoCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | Fumo");
-        builder.add(RoleCardCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 角色卡");
-        builder.add(SpawnEggCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 刷怪蛋");
-        builder.add(NPCSpawnEggCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 角色刷怪蛋");
-//        translationBuilder.add("item_group.touhou_block_and_item", "Gensokyo: Reverie of Lost Dreams - 物品/方块");
-//        translationBuilder.add("item_group.touhou.bullet", "Gensokyo: Reverie of Lost Dreams - 子弹");
-//        translationBuilder.add("item_group.touhou.template", "Gensokyo: Reverie of Lost Dreams - 弹幕模板");
-//        translationBuilder.add("item_group.touhou.fumo", "Gensokyo: Reverie of Lost Dreams - Fumo");
-//        translationBuilder.add("item_group.touhou.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 刷怪蛋");
-//        translationBuilder.add("item_group.touhou.role_card", "Gensokyo: Reverie of Lost Dreams - 角色卡");
-//        translationBuilder.add("item_group.touhou.role.spawn_egg", "Gensokyo: Reverie of Lost Dreams - 角色刷怪蛋");
+        builder.add(ItemBlockCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 物品/方块");
+        builder.add(DanmakuCreativeTab.ITEM_GROUP_BULLET, "梦隐的幻想乡 | 弹幕");
+        builder.add(TemplateCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 弹幕模板");
+        builder.add(FumoCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | Fumo");
+        builder.add(RoleCardCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 角色卡");
+        builder.add(SpawnEggCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 刷怪蛋");
+        builder.add(NPCSpawnEggCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 角色刷怪蛋");
+//        translationBuilder.add("item_group.touhou_block_and_item", "梦隐的幻想乡 - 物品/方块");
+//        translationBuilder.add("item_group.touhou.bullet", "梦隐的幻想乡 - 子弹");
+//        translationBuilder.add("item_group.touhou.template", "梦隐的幻想乡 - 弹幕模板");
+//        translationBuilder.add("item_group.touhou.fumo", "梦隐的幻想乡 - Fumo");
+//        translationBuilder.add("item_group.touhou.spawn_egg", "梦隐的幻想乡 - 刷怪蛋");
+//        translationBuilder.add("item_group.touhou.role_card", "梦隐的幻想乡 - 角色卡");
+//        translationBuilder.add("item_group.touhou.role.spawn_egg", "梦隐的幻想乡 - 角色刷怪蛋");
         translationBuilder.add("item.action.click.left", "§b左键查看");
         translationBuilder.add("item.action.click.right", "§b右键查看");
         translationBuilder.add("item.action.click.shape_recipe.success", "§a成功");
@@ -165,7 +165,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add("command.touhou.about.line4", "");
         builder.add("command.touhou.about.line5", "");
         builder.add("command.touhou.about.line6", "");
-        builder.add("command.touhou.about.title", "Gensokyo: Reverie of Lost Dreams");
+        builder.add("command.touhou.about.title", "梦隐的幻想乡");
         builder.add("command.touhou.about.version", "Version: %s");
         builder.add("command.touhou.about.author", "Author: 稀神灵梦");
         builder.add("command.touhou.about.line10", "");
@@ -187,16 +187,16 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
         translationBuilder.add("item.tooltip.food_properties", "属性：");
-        builder.add(KitchenwareCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 厨具");
-        builder.add(IngredientCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食材");
-        builder.add(SeedCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 种子");
-        builder.add(FoodCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 食物");
-        builder.add(DrinkCreativeTab.ITEM_GROUP, "Gensokyo: Reverie of Lost Dreams | 饮品");
-//        translationBuilder.add("item_group.kitchenware_item_group", "Gensokyo: Reverie of Lost Dreams - 厨具");
-//        translationBuilder.add("item_group.ingredients_item_group", "Gensokyo: Reverie of Lost Dreams - 食材");
-//        translationBuilder.add("item_group.seed_item_group", "Gensokyo: Reverie of Lost Dreams - 种子");
-//        translationBuilder.add("item_group.food_item_group", "Gensokyo: Reverie of Lost Dreams - 食物");
-//        translationBuilder.add("item_group.drink_item_group", "Gensokyo: Reverie of Lost Dreams - 饮品");
+        builder.add(KitchenwareCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 厨具");
+        builder.add(IngredientCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 食材");
+        builder.add(SeedCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 种子");
+        builder.add(FoodCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 食物");
+        builder.add(DrinkCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 饮品");
+//        translationBuilder.add("item_group.kitchenware_item_group", "梦隐的幻想乡 - 厨具");
+//        translationBuilder.add("item_group.ingredients_item_group", "梦隐的幻想乡 - 食材");
+//        translationBuilder.add("item_group.seed_item_group", "梦隐的幻想乡 - 种子");
+//        translationBuilder.add("item_group.food_item_group", "梦隐的幻想乡 - 食物");
+//        translationBuilder.add("item_group.drink_item_group", "梦隐的幻想乡 - 饮品");
 
         translationBuilder.add(MIBlocks.COOKING_POT, "煮锅");
         translationBuilder.add(MIBlocks.CUTTING_BOARD, "料理台");
@@ -800,7 +800,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add("dialog.text.random", "随机");
         translationBuilder.add("dialog.text.back", "返回");
 
-        translationBuilder.add("dialog.main.welcome", "欢迎游玩Gensokyo: Reverie of Lost Dreams，本屏幕将介绍模组的游玩指南");
+        translationBuilder.add("dialog.main.welcome", "欢迎游玩梦隐的幻想乡，本屏幕将介绍模组的游玩指南");
         translationBuilder.add("dialog.main.description.0", "当前版本为 %s");
 
         translationBuilder.add("dialog.altar.material", "材料");
@@ -874,7 +874,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModItems.OWNER_STICK, "主权调试棒");
 
         // 图标
-        translationBuilder.add(ModItems.ICON, "Gensokyo: Reverie of Lost Dreams");
+        translationBuilder.add(ModItems.ICON, "梦隐的幻想乡");
         translationBuilder.add(ModItems.FUMO_ICON, "毛绒玩偶图标");
         translationBuilder.add(ModItems.SPAWN_EGG, "刷怪蛋");
         translationBuilder.add(ModItems.DANMAKU, "弹幕");

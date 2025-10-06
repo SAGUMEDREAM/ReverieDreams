@@ -1,5 +1,9 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.4.2+1.21.7
+* Defined the simplified Chinese name of the module for the first time(首次定义了模组的简体中文的名字)
+* Added health recovery effect to dream armor
+
 ## 0.4.1+1.21.7
 * Fixed missing okio dependency crash
 * Fixed food tray not loading at a distance

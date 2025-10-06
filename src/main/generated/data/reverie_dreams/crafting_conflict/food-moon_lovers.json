@@ -1,8 +1,8 @@
 {
   "item": "reverie_dreams:food/moon_lovers",
   "values": [
+    "reverie_dreams:vegetarian",
     "reverie_dreams:aquatic_products",
-    "reverie_dreams:meat",
-    "reverie_dreams:vegetarian"
+    "reverie_dreams:meat"
   ]
 }

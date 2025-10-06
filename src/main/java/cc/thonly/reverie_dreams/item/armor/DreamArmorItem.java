@@ -12,7 +12,7 @@ import net.minecraft.item.equipment.EquipmentType;
 public class DreamArmorItem extends ArmorItem {
     public DreamArmorItem(EquipmentType type, Settings settings) {
         super(DreamArmorMaterial.INSTANCE, type, settings);
-//        ArmorAttributeManager.register(this::onAccept, this);
+        ArmorAttributeManager.register(this::onAccept, this);
     }
 
     void onAccept(LivingEntity entity, ItemStack itemStack) {
