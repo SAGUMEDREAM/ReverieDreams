@@ -283,6 +283,7 @@ public class Touhou implements ModInitializer {
 //            System.out.println(PolymerEntityHelper.ELEMENTS.size());
 //        });
         ServerTickEvents.END_SERVER_TICK.register(DelayedTask::tick);
+        ServerTickEvents.END_SERVER_TICK.register(ArmorAttributeManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerDataComponentManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(ParticleTickerManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerInputManager::tick);

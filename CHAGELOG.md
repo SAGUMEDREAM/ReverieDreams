@@ -1,5 +1,11 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.4.1+1.21.7
+* Fixed missing okio dependency crash
+* Fixed food tray not loading at a distance
+* Fixed Bagua Furnace abnormal consumption
+* Allows udumbara to be driven by bone meal
+
 ## 0.4.0+1.21.7
 * Fixed PlayerPolymerEntity causing memory leak
 * Fixed outdated Dialog

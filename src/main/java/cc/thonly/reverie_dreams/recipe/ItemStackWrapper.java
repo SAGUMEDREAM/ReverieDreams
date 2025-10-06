@@ -9,6 +9,7 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.component.ComponentType;
@@ -26,6 +27,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("MethodDoesntCallSuperMethod")
 @Getter
+@Setter
 @ToString
 public class ItemStackWrapper {
     public static final Gson GSON = new Gson();
