@@ -45,6 +45,9 @@ public class ArmorAttributeManager {
     public void onTick() {
         PlayerManager playerManager = this.server.getPlayerManager();
         for (ServerPlayerEntity player : playerManager.getPlayerList()) {
+            if (player.isDisconnected()) {
+                continue;
+            }
             ItemStack[] itemStacks = {
                     player.getEquippedStack(EquipmentSlot.HEAD),
                     player.getEquippedStack(EquipmentSlot.CHEST),
