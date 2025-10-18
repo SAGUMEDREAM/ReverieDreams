@@ -70,7 +70,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                     Function<Integer, Function<ItemStack, Boolean>> iffib = index -> {
                         return switch (index) {
                             case 0 -> itemStack -> itemStack.getItem() instanceof DyeItem;
-                            case 1 -> itemStack -> itemStack.getItem() == Items.FIREWORK_STAR;
+                            case 1 -> itemStack -> itemStack.getItem() == ModItems.DANMAKU_CORE;
                             case 2 -> itemStack -> itemStack.getItem() == ModItems.POWER;
                             case 3 -> itemStack -> itemStack.getItem() == ModItems.POINT;
                             case 4 -> itemStack -> itemStack.getItem() == ModItems.DANMAKU_SHAPE_CREATOR;

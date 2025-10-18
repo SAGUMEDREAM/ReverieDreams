@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.item.weapon.WindBlessingCane;
 import cc.thonly.reverie_dreams.server.player.FaithComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
+import cc.thonly.reverie_dreams.util.PredicateSlot;
 import com.mojang.serialization.MapCodec;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.block.Block;
@@ -17,10 +18,12 @@ import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -106,7 +109,7 @@ public class CashBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
                 player.sendMessage(Text.translatable("item.action.click.cashbox.fails.used"), true);
                 return ActionResult.SUCCESS_SERVER;
             } else {
-                SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer);
+                SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer, (inventory, index, x, y) -> new PredicateSlot(inventory, index, x, y, (stack) -> CustomChestBlockGui.COIN_ITEMS.contains(stack.getItem())));
                 chestGui.open();
                 return ActionResult.SUCCESS_SERVER;
             }

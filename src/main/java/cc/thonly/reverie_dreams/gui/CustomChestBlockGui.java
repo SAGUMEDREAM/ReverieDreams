@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.util.PredicateSlot;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.block.Block;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.screen.ScreenHandlerType;
@@ -20,10 +21,11 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 
 public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
-    private static final List<Item> ITEMS = new ArrayList<>(List.of(
+    public static final List<Item> COIN_ITEMS = new ArrayList<>(List.of(
             ModItems.COPPER_COIN,
             ModItems.SILVER_COIN,
             ModItems.GOLD_COIN
@@ -31,12 +33,14 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     private final Block block;
     private final CustomChestBlockEntity chestBlockEntity;
     private final BlockPos blockPos;
+    private final SlotFactory factory;
 
-    public CustomChestBlockGui(Block block, CustomChestBlockEntity chestBlockEntity, ServerPlayerEntity player) {
+    public CustomChestBlockGui(Block block, CustomChestBlockEntity chestBlockEntity, ServerPlayerEntity player, SlotFactory factory) {
         super(ScreenHandlerType.GENERIC_9X3, player, false);
         this.block = block;
         this.chestBlockEntity = chestBlockEntity;
         this.blockPos = chestBlockEntity.getPos();
+        this.factory = factory;
         this.setTitle(Text.translatable(block.getTranslationKey()));
         this.init();
     }
@@ -53,7 +57,7 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     @Override
     public void init() {
         for (int i = 0; i < this.chestBlockEntity.size(); i++) {
-            this.setSlotRedirect(i, new PredicateSlot(this.chestBlockEntity.getInventory(), i, 0, 0, (stack) -> ITEMS.contains(stack.getItem())));
+            this.setSlotRedirect(i, this.factory.get(this.chestBlockEntity.getInventory(), i, 0, 0));
         }
     }
 
@@ -69,4 +73,7 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
         this.chestBlockEntity.markDirty();
     }
 
+    public interface SlotFactory {
+        Slot get(Inventory inventory, int index, int x, int y);
+    }
 }

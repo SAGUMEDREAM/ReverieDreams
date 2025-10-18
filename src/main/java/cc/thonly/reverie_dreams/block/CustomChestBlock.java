@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -64,7 +65,7 @@ public class CustomChestBlock extends HorizontalFacingBlock implements BlockEnti
             if (!(world.getBlockEntity(pos) instanceof CustomChestBlockEntity chestBlockEntity)) {
                 return ActionResult.FAIL;
             }
-            SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer);
+            SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer, Slot::new);
             chestGui.open();
             return ActionResult.SUCCESS_SERVER;
         }
