@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "X": "reverie_dreams:bomb_fragment"
+    "X": "reverie_dreams:bomb"
   },
   "pattern": [
     "X"
   ],
   "result": {
     "count": 4,
-    "id": "reverie_dreams:bomb"
+    "id": "reverie_dreams:bomb_fragment"
   }
 }

@@ -81,6 +81,10 @@ public class DelayedTask {
         }
     }
 
+    public void stop() {
+        TASKS.remove(this);
+    }
+
     public synchronized boolean tick() {
         if (--this.ticksLeft <= 0) {
             this.action.run();

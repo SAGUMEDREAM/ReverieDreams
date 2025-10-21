@@ -13,9 +13,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class YouseiVariants {
     public static final IntrinsicalRegister<YouseiVariant> REGISTRY = RegistryManager.YOUSEI_VARIANT;
     public static final Identifier DEFAULT_ID = Touhou.id("blue");
-    public static final YouseiVariant BLUE = register(new YouseiVariant(Touhou.id("blue"), MobSkins.YOUSEI01.get()));
-    public static final YouseiVariant ORANGE = register(new YouseiVariant(Touhou.id("orange"), MobSkins.YOUSEI02.get()));
-    public static final YouseiVariant GREEN = register(new YouseiVariant(Touhou.id("green"), MobSkins.YOUSEI03.get()));
+    public static final YouseiVariant BLUE = register(new YouseiVariant(Touhou.id("blue"), MobSkins.YOUSEI01::get));
+    public static final YouseiVariant ORANGE = register(new YouseiVariant(Touhou.id("orange"), MobSkins.YOUSEI02::get));
+    public static final YouseiVariant GREEN = register(new YouseiVariant(Touhou.id("green"), MobSkins.YOUSEI03::get));
 
     public static YouseiVariant register(YouseiVariant variant) {
         return register(variant.getId(), variant);
@@ -46,7 +46,7 @@ public class YouseiVariants {
     }
 
     public static YouseiVariant getFromProperty(Property property) {
-        List<YouseiVariant> list = RegistryManager.YOUSEI_VARIANT.values().stream().filter(variant -> variant.getProperty().equals(property)).toList();
+        List<YouseiVariant> list = RegistryManager.YOUSEI_VARIANT.values().stream().filter(variant -> variant.getPropertySupplier().equals(property)).toList();
         return list.isEmpty() ? null : list.getFirst();
     }
 }

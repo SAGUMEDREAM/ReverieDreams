@@ -4,12 +4,12 @@
     "values": [
       "reverie_dreams:food/stinky_tofu",
       "reverie_dreams:ingredient/chili",
-      "reverie_dreams:food/mapo_tofu",
-      "reverie_dreams:food/screaming_oden",
-      "reverie_dreams:food/beef_hot_pot",
-      "reverie_dreams:food/mushroom_girls_dance_stew",
       "reverie_dreams:food/hula_soup",
-      "reverie_dreams:food/hell_thrill_warning"
+      "reverie_dreams:food/hell_thrill_warning",
+      "reverie_dreams:food/screaming_oden",
+      "reverie_dreams:food/mapo_tofu",
+      "reverie_dreams:food/mushroom_girls_dance_stew",
+      "reverie_dreams:food/beef_hot_pot"
     ]
   }
 }

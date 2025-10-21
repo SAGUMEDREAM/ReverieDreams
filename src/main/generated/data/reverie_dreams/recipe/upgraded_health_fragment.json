@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "X": "reverie_dreams:upgraded_health_fragment"
+    "X": "reverie_dreams:upgraded_health"
   },
   "pattern": [
     "X"
   ],
   "result": {
     "count": 4,
-    "id": "reverie_dreams:upgraded_health"
+    "id": "reverie_dreams:upgraded_health_fragment"
   }
 }

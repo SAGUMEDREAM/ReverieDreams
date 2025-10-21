@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Slf4j
 @Setter
@@ -34,7 +35,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     public static final List<Item> NPC_SPAWN_EGG_ITEM_LIST = new LinkedList<>();
 
     private Identifier id;
-    private Property property;
+    private Supplier<Property> property;
     // 构建后属性
     private EntityType<AbstractNPCEntity> entityType;
     private Item spawnEgg;
@@ -46,17 +47,18 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     private NPCRole() {
     }
 
-    public NPCRole(Identifier id, Property property) {
-        this(id, property, NPCRoleEntityImpl.class);
-    }
 
     public NPCRole(Identifier id, NPCSkin skin) {
-        this(id, skin.get(), NPCRoleEntityImpl.class);
+        this(id, skin::get, NPCRoleEntityImpl.class);
     }
 
-    public NPCRole(Identifier id, Property property, Class<NPCRoleEntityImpl> clazz) {
+    public NPCRole(Identifier id, Supplier<Property> propertySupplier) {
+        this(id, propertySupplier, NPCRoleEntityImpl.class);
+    }
+
+    public NPCRole(Identifier id, Supplier<Property> propertySupplier, Class<NPCRoleEntityImpl> clazz) {
         this.id = id;
-        this.property = property;
+        this.property = propertySupplier;
         this.clazz = clazz;
     }
 
@@ -90,7 +92,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
                     EntityType.Builder.<AbstractNPCEntity>create(
                                     (type, world) -> {
                                         try {
-                                            return this.clazz.getConstructor(EntityType.class, World.class, Property.class)
+                                            return this.clazz.getConstructor(EntityType.class, World.class, Supplier.class)
                                                     .newInstance(type, world, property);
                                         } catch (Exception e) {
                                             log.error("Failed to instantiate NPCEntityImpl for type {}, {}", id, e);

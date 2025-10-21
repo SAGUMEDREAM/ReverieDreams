@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
-import cc.thonly.reverie_dreams.server.DreamPillowManager;
+import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -32,18 +32,18 @@ public class DreamPillowItem extends Item {
         if (!world.isClient && world instanceof ServerWorld serverWorld && player instanceof ServerPlayerEntity) {
             boolean sneaking = player.isSneaking();
             ItemStack itemStack = player.getStackInHand(context.getHand());
-            MinecraftServer server = serverWorld.getServer();
-            if (sneaking) {
-                IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
-                DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
-                DreamPillowManager.WorldEntry worldEntry = dreamPillowManager.get(serverWorld);
-                BlockPos blockPos = context.getBlockPos();
-                Pair<Boolean, BlockPos> bedHead = getBedHead(serverWorld, blockPos);
-                if (!worldEntry.contains(bedHead.getRight()) && bedHead.getLeft()) {
-                    worldEntry.add(blockPos);
+            BlockPos blockPos = context.getBlockPos();
+            Pair<Boolean, BlockPos> bedHead = getBedHead(serverWorld, blockPos);
+            if (sneaking && bedHead.getLeft() && serverWorld.getBlockEntity(bedHead.getRight()) instanceof BedBlockEntity blockEntity) {
+                IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) blockEntity;
+                if (iBedBlockEntity.hasDreamPillow()) {
+                    return ActionResult.PASS;
+                } else {
+                    iBedBlockEntity.setHasDreamPillow(true);
                     itemStack.decrementUnlessCreative(1, player);
                     return ActionResult.SUCCESS_SERVER;
                 }
+
             }
             return ActionResult.FAIL;
         }

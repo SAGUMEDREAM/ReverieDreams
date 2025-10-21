@@ -19,6 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Getter
 @Setter
@@ -28,8 +29,8 @@ public class NPCRoleEntityImpl extends NPCEntityImpl implements Leashable {
         super(entityType, world);
     }
 
-    public NPCRoleEntityImpl(EntityType<? extends TameableEntity> entityType, World world, Property skin) {
-        super(entityType, world, skin);
+    public NPCRoleEntityImpl(EntityType<? extends TameableEntity> entityType, World world, Supplier<Property> skinSupplier) {
+        super(entityType, world, skinSupplier);
     }
 
     @Override

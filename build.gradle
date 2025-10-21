@@ -20,7 +20,7 @@ enum RemapJarType {
     }
 }
 
-def remapJarType = RemapJarType.BETA
+def remapJarType = RemapJarType.ALPHA
 
 version = project.mod_version + "+" + project.minecraft_version + (remapJarType == RemapJarType.STABLE ? "" : "+" + remapJarType.name);
 group = project.maven_group

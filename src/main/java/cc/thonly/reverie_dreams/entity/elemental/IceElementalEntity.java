@@ -29,7 +29,7 @@ public class IceElementalEntity extends NPCEntityImpl implements ElementalMob {
     public int aTick = 0;
 
     public IceElementalEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.ICE_ELEMENTAL.get());
+        super(entityType, world, MobSkins.ICE_ELEMENTAL::get);
     }
 
     @Override

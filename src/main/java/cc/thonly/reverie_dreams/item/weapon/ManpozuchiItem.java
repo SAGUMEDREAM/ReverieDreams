@@ -61,6 +61,9 @@ public class ManpozuchiItem extends PickaxeItem {
         World world = user.getWorld();
         if (!world.isClient() && isSneaking && user instanceof ServerPlayerEntity player) {
             ItemStack stackInHand = player.getStackInHand(hand);
+            if (stackInHand.getDamage() >= stackInHand.getMaxDamage()) {
+                return ActionResult.PASS;
+            }
             AttributeContainer attributes = entity.getAttributes();
             EntityAttributeInstance attributeInstance = attributes.getCustomInstance(EntityAttributes.SCALE);
             if (attributeInstance == null) {
@@ -89,6 +92,9 @@ public class ManpozuchiItem extends PickaxeItem {
         boolean isSneaking = user.isSneaking();
         if (!world.isClient() && isSneaking && user instanceof ServerPlayerEntity player) {
             ItemStack stackInHand = user.getStackInHand(hand);
+            if (stackInHand.getDamage() >= stackInHand.getMaxDamage()) {
+                return ActionResult.PASS;
+            }
             AttributeContainer attributes = player.getAttributes();
             EntityAttributeInstance attributeInstance = attributes.getCustomInstance(EntityAttributes.SCALE);
             if (attributeInstance == null) {
@@ -114,12 +120,12 @@ public class ManpozuchiItem extends PickaxeItem {
 
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (shouldDealAdditionalDamage(attacker)) {
-            ServerWorld serverWorld = (ServerWorld)attacker.getWorld();
+            ServerWorld serverWorld = (ServerWorld) attacker.getWorld();
             attacker.setVelocity(attacker.getVelocity().withAxis(Direction.Axis.Y, 0.009999999776482582));
 
             ServerPlayerEntity serverPlayerEntity = null;
             if (attacker instanceof ServerPlayerEntity) {
-                serverPlayerEntity = (ServerPlayerEntity)attacker;
+                serverPlayerEntity = (ServerPlayerEntity) attacker;
                 serverPlayerEntity.currentExplosionImpactPos = this.getCurrentExplosionImpactPos(serverPlayerEntity);
                 serverPlayerEntity.setIgnoreFallDamageFromCurrentExplosion(true);
                 serverPlayerEntity.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayerEntity));
@@ -127,7 +133,7 @@ public class ManpozuchiItem extends PickaxeItem {
 
             if (target.isOnGround()) {
                 if (attacker instanceof ServerPlayerEntity) {
-                    serverPlayerEntity = (ServerPlayerEntity)attacker;
+                    serverPlayerEntity = (ServerPlayerEntity) attacker;
                     serverPlayerEntity.setSpawnExtraParticlesOnFall(true);
                 }
 
@@ -173,10 +179,10 @@ public class ManpozuchiItem extends PickaxeItem {
 
                 World var14 = livingEntity.getWorld();
                 if (var14 instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld)var14;
-                    return (float)(g + (double)EnchantmentHelper.getSmashDamagePerFallenBlock(serverWorld, livingEntity.getWeaponStack(), target, damageSource, 0.0F) * f);
+                    ServerWorld serverWorld = (ServerWorld) var14;
+                    return (float) (g + (double) EnchantmentHelper.getSmashDamagePerFallenBlock(serverWorld, livingEntity.getWeaponStack(), target, damageSource, 0.0F) * f);
                 } else {
-                    return (float)g;
+                    return (float) g;
                 }
             }
         } else {
@@ -193,7 +199,7 @@ public class ManpozuchiItem extends PickaxeItem {
             if (d > 0.0) {
                 entity.addVelocity(vec3d2.x, 0.699999988079071, vec3d2.z);
                 if (entity instanceof ServerPlayerEntity) {
-                    ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)entity;
+                    ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
                     serverPlayerEntity.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayerEntity));
                 }
             }
@@ -207,7 +213,8 @@ public class ManpozuchiItem extends PickaxeItem {
             boolean bl2;
             boolean bl3;
             boolean var10000;
-            label64: {
+            label64:
+            {
                 bl = !entity.isSpectator();
                 bl2 = entity != attacker && entity != attacked;
                 bl3 = !attacker.isTeammate(entity);
@@ -224,7 +231,8 @@ public class ManpozuchiItem extends PickaxeItem {
             }
 
             boolean bl4;
-            label56: {
+            label56:
+            {
                 bl4 = !var10000;
                 if (entity instanceof ArmorStandEntity armorStandEntity) {
                     if (armorStandEntity.isMarker()) {
@@ -243,7 +251,7 @@ public class ManpozuchiItem extends PickaxeItem {
     }
 
     private static double getKnockback(Entity attacker, LivingEntity attacked, Vec3d distance) {
-        return (3.5 - distance.length()) * 0.699999988079071 * (double)(attacker.fallDistance > 5.0 ? 2 : 1) * (1.0 - attacked.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE));
+        return (3.5 - distance.length()) * 0.699999988079071 * (double) (attacker.fallDistance > 5.0 ? 2 : 1) * (1.0 - attacked.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE));
     }
 
     public static boolean shouldDealAdditionalDamage(LivingEntity attacker) {

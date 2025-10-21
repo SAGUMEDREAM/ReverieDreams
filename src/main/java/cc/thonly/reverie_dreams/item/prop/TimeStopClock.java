@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class TimeStopClock extends Item {
+    public static DelayedTask TASK = null;
+
     public TimeStopClock(Settings settings) {
         super(settings);
     }
@@ -22,6 +25,8 @@ public class TimeStopClock extends Item {
         MinecraftServer server = world.getServer();
         if (!world.isClient && server != null) {
             ItemStack itemStack = user.getStackInHand(hand);
+            ItemCooldownManager itemCooldownManager = user.getItemCooldownManager();
+            itemCooldownManager.set(itemStack, 20 * 10);
             ServerTickManager tickManager = server.getTickManager();
             boolean freeze = tickManager.isFrozen();
             if (!freeze) {
@@ -36,10 +41,14 @@ public class TimeStopClock extends Item {
                     itemStack.decrement(1);
                 }
             }
-            DelayedTask.create(server, 20 * 20, () -> {
+            if (TASK != null) {
+                TASK.stop();
+            }
+            TASK = DelayedTask.create(server, 20 * 20, () -> {
                 if (tickManager.isFrozen()) {
                     tickManager.setFrozen(false);
                 }
+                TASK = null;
             });
             return ActionResult.SUCCESS_SERVER;
         }

@@ -6,6 +6,9 @@ import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
+import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import com.mojang.brigadier.CommandDispatcher;
@@ -39,7 +42,6 @@ import net.minecraft.util.Identifier;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -60,65 +62,59 @@ public class MainCommand implements CommandInit.CommandRegistration {
                          CommandRegistryAccess access,
                          CommandManager.RegistrationEnvironment environment
     ) {
-        dispatcher.register(
-                CommandManager.literal("touhou")
-                        .executes(this::run)
-                        .then(
-                                CommandManager.literal("help")
-                                        .executes(this::help)
-                        )
-                        .then(
-                                CommandManager.literal("recipe")
-                                        .executes(this::recipe)
-                        )
-                        .then(
-                                CommandManager.literal("dialog")
-                                        .then(
-                                                CommandManager
-                                                        .argument("value", StringArgumentType.string())
-                                                        .suggests(new DialogSuggestionProvider())
-                                                        .executes(this::dialog)
-                                        )
-                        )
-                        .then(
-                                CommandManager.literal("video")
-                                        .requires(source -> source.hasPermissionLevel(2))
-                                        .then(
-                                                CommandManager.literal("play")
-                                                        .then(
-                                                                CommandManager.argument("target", EntityArgumentType.entity())
-                                                                        .then(
-                                                                                CommandManager.argument("file", StringArgumentType.string())
-                                                                                        .suggests(new DialogFiles.FilesSuggestionProvider())
-                                                                                        .executes(this::playVideo)
-                                                                                        .then(
-                                                                                                CommandManager.argument("sound", IdentifierArgumentType.identifier())
-                                                                                                        .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
-                                                                                                        .executes(this::playVideo)
-                                                                                        )
-                                                                        )
-                                                        )
+        var root = CommandManager.literal("touhou");
+        var help = CommandManager.literal("help")
+                .executes(this::help);
+        var recipe = CommandManager.literal("recipe")
+                .executes(this::recipe);
+        var registry = CommandManager.literal("registry")
+                .requires(source -> source.hasPermissionLevel(2))
+                .then(
+                        RegistryManager.getSuggestProvider(this::registry)
+                );
+        var dialog = CommandManager.literal("dialog")
+                .then(
+                        CommandManager
+                                .argument("value", StringArgumentType.string())
+                                .suggests(new DialogSuggestionProvider())
+                                .executes(this::dialog)
+                );
+        var video = CommandManager.literal("video")
+                .requires(source -> source.hasPermissionLevel(2))
+                .then(
+                        CommandManager.literal("play")
+                                .then(
+                                        CommandManager.argument("target", EntityArgumentType.entity())
+                                                .then(
+                                                        CommandManager.argument("file", StringArgumentType.string())
+                                                                .suggests(new DialogFiles.FilesSuggestionProvider())
+                                                                .executes(this::playVideo)
+                                                                .then(
+                                                                        CommandManager.argument("sound", IdentifierArgumentType.identifier())
+                                                                                .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
+                                                                                .executes(this::playVideo)
+                                                                )
+                                                )
+                                )
 
-                                        )
-                                        .then(
-                                                CommandManager
-                                                        .literal("reload")
-                                                        .executes(this::reloadVideo)
-                                        )
-                        )
-                        .then(
-                                CommandManager.literal("about")
-                                        .executes(this::about)
-                        )
-//                        .then(
-//                                CommandManager.literal("export_registries")
-//                                        .executes(this::exportRegistries)
-//                        )
-                        .then(
-                                CommandManager.literal("ui_relay_recipe")
-                                        .executes((context) -> 0)
-                        )
-        );
+                )
+                .then(
+                        CommandManager
+                                .literal("reload")
+                                .executes(this::reloadVideo)
+                );
+        var about = CommandManager.literal("about")
+                .executes(this::about);
+
+        root.executes(this::run);
+        root.then(help);
+        root.then(recipe);
+        root.then(registry);
+        root.then(dialog);
+        root.then(video);
+        root.then(about);
+
+        dispatcher.register(root);
     }
 
     private int run(CommandContext<ServerCommandSource> context) {
@@ -127,9 +123,52 @@ public class MainCommand implements CommandInit.CommandRegistration {
         return 1;
     }
 
+    private int registry(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+
+        Identifier registryKeyId = IdentifierArgumentType.getIdentifier(context, "registry_key");
+        Identifier id = IdentifierArgumentType.getIdentifier(context, "id");
+
+        if (registryKeyId == null || id == null) {
+            source.sendError(Text.literal("Invalid identifier format."));
+            return 0;
+        }
+
+        RegistryKey<Registry<Object>> registryKey = RegistryKey.ofRegistry(registryKeyId);
+        IntrinsicalRegister<?> registry = RegistryManager.ROOT.get(registryKey);
+        if (registry == null) {
+            source.sendError(Text.literal("Registry not found: ").append(Text.literal(registryKey.toString())));
+            return 0;
+        }
+
+        Object value = registry.get(id);
+        MutableText msg = Text.literal("")
+                .append(Text.literal("=== ").formatted(Formatting.GOLD))
+                .append(Text.literal(RegistryKey.of(registryKey, id).toString()).formatted(Formatting.YELLOW))
+                .append(Text.literal(" ===\n").formatted(Formatting.GOLD));
+
+        if (value == null) {
+            msg.append(Text.literal("No entry found for this ID.").formatted(Formatting.RED));
+            source.sendMessage(msg);
+            return 0;
+        }
+
+        if (value instanceof Translatable translatable) {
+            msg.append(Text.literal("Translation: ").formatted(Formatting.GRAY))
+                    .append(Text.translatable(translatable.translateKey()).formatted(Formatting.WHITE))
+                    .append(Text.literal("\n"));
+        }
+
+        msg.append(Text.literal("Object: ").formatted(Formatting.GRAY))
+                .append(Text.literal(value.toString()).formatted(Formatting.AQUA));
+
+        source.sendMessage(msg);
+        return 1;
+    }
+
     private int reloadVideo(CommandContext<ServerCommandSource> context) {
         DialogFiles.reload();
-        context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.reload"), false);
+        context.getSource().sendFeedback(() -> Text.translatable("command.touhou.video.reload"), false);
         return 1;
     }
 
@@ -146,9 +185,9 @@ public class MainCommand implements CommandInit.CommandRegistration {
             if (soundEventId != null) {
                 soundEvent = SoundEvent.of(soundEventId);
             }
-            context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.reload"), false);
+            context.getSource().sendFeedback(() -> Text.translatable("command.touhou.video.reload"), false);
             DialogPlayer.play(player, file, soundEvent);
-            context.getSource().sendFeedback(()-> Text.translatable("command.touhou.video.load.done"), false);
+            context.getSource().sendFeedback(() -> Text.translatable("command.touhou.video.load.done"), false);
         } catch (Exception err) {
             log.error("Can't play video", err);
         }

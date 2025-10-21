@@ -1,19 +1,13 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
-import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
-import cc.thonly.reverie_dreams.server.DreamPillowManager;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -49,17 +43,4 @@ public abstract class BedBlockMixin extends HorizontalFacingBlock implements Blo
         return true;
     }
 
-    @Inject(method = "onBreak", at = @At("HEAD"))
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            MinecraftServer server = serverWorld.getServer();
-            IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
-            DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
-            DreamPillowManager.WorldEntry worldEntry = dreamPillowManager.get(serverWorld);
-            Pair<Boolean, BlockPos> bedHead = DreamPillowItem.getBedHead(serverWorld, pos);
-            if (bedHead.getLeft()) {
-                worldEntry.remove(bedHead.getRight());
-            }
-        }
-    }
 }

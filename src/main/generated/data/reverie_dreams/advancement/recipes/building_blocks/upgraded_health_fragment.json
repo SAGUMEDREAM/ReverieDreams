@@ -3,15 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:upgraded_health"
+        "recipe": "reverie_dreams:upgraded_health_fragment"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_upgraded_health_fragment": {
+    "has_upgraded_health": {
       "conditions": {
         "items": [
           {
-            "items": "reverie_dreams:upgraded_health_fragment"
+            "items": "reverie_dreams:upgraded_health"
           }
         ]
       },
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_upgraded_health_fragment"
+      "has_upgraded_health"
     ]
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:upgraded_health"
+      "reverie_dreams:upgraded_health_fragment"
     ]
   }
 }

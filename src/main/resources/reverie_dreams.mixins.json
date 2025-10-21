@@ -30,6 +30,7 @@
     "accessor.VillagerEntityAccessor",
     "accessor.WanderingTraderEntityAccessor",
     "accessor.WoodTypeAccessor",
+    "block.BedBlockEntityMixin",
     "block.BedBlockMixin",
     "block.CropBlockMixin",
     "compat.PolymerCommonUtilsMixin",

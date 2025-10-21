@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.util.Identifier;
 
+import java.util.function.Supplier;
+
 @Setter
 @Getter
 public class YouseiVariant implements CodecStep<YouseiVariant>, OwnerBinding<YouseiVariant>, BuiltinObject, SimpleVariant, Translatable {
@@ -15,18 +17,17 @@ public class YouseiVariant implements CodecStep<YouseiVariant>, OwnerBinding<You
     private static int NEXT = 0;
     private Identifier id;
     private int number;
-    private Property property;
+    private Supplier<Property> propertySupplier;
     private IntrinsicalRegister<YouseiVariant> owner;
 
     private YouseiVariant() {
     }
 
-    public YouseiVariant(Identifier id, Property property) {
+    public YouseiVariant(Identifier id, Supplier<Property> propertySupplier) {
         this.id = id;
         this.number = NEXT++;
-        this.property = property;
+        this.propertySupplier = propertySupplier;
     }
-
 
 
     @Override
@@ -34,4 +35,13 @@ public class YouseiVariant implements CodecStep<YouseiVariant>, OwnerBinding<You
         return CODEC;
     }
 
+    @Override
+    public void setPropertySupplier(Supplier<Property> propertySupplier) {
+        this.propertySupplier = propertySupplier;
+    }
+
+    @Override
+    public void setProperty(Property property) {
+        this.propertySupplier = () -> property;
+    }
 }

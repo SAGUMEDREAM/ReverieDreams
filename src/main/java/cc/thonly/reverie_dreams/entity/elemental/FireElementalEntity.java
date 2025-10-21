@@ -24,7 +24,7 @@ public class FireElementalEntity extends NPCEntityImpl implements ElementalMob {
     public int aTick = 10;
 
     public FireElementalEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.FIRE_ELEMENTAL.get());
+        super(entityType, world, MobSkins.FIRE_ELEMENTAL::get);
     }
 
     @Override

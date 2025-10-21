@@ -1,9 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
-import cc.thonly.reverie_dreams.server.DreamPillowManager;
 import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
 import com.mojang.datafixers.DataFixer;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +24,7 @@ import java.util.function.BooleanSupplier;
 
 @Slf4j
 @Mixin(MinecraftServer.class)
-public class MinecraftServerMixin implements IDreamPillowManager {
-    @Unique
-    private DreamPillowManager dreamPillowManager;
-
+public class MinecraftServerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     public void init(Thread serverThread, LevelStorage.Session session, ResourcePackManager dataPackManager, SaveLoader saveLoader, Proxy proxy, DataFixer dataFixer, ApiServices apiServices, WorldGenerationProgressListenerFactory worldGenerationProgressListenerFactory, CallbackInfo ci) {
         MinecraftServer minecraftServer = (MinecraftServer) (Object) this;
@@ -37,7 +32,6 @@ public class MinecraftServerMixin implements IDreamPillowManager {
         Touhou.setServer(minecraftServer);
         Touhou.setDynamicRegistryManager(registryManager);
         PlayerDataComponentManager.getInstance().onLoad(minecraftServer);
-        this.dreamPillowManager = new DreamPillowManager(minecraftServer);
         Nota.getAPI().server = minecraftServer;
     }
 
@@ -46,17 +40,4 @@ public class MinecraftServerMixin implements IDreamPillowManager {
         EarphoneItem.VEC_3_DS.clear();
     }
 
-    @Unique
-    @Override
-    public DreamPillowManager getDreamPillowManager() {
-        return this.dreamPillowManager;
-    }
-
-    @Unique
-    @Override
-    public void setDreamPillowManager(DreamPillowManager manager) {
-        if (this.dreamPillowManager == null) {
-            this.dreamPillowManager = manager;
-        }
-    }
 }

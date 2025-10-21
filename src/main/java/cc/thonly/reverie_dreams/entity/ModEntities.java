@@ -124,7 +124,7 @@ public class ModEntities {
                     .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 3)
                     .build());
     public static final EntityType<SunflowerYouseiEntity> SUNFLOWER_YOUSEI_ENTITY_TYPE = registerEntityWithSpawnEgg("sunflower_yousei",
-            EntityType.Builder.<SunflowerYouseiEntity>create((type, world) -> new SunflowerYouseiEntity(type, world, MobSkins.SUNFLOWER_YOUSEI.get()), SpawnGroup.MONSTER)
+            EntityType.Builder.<SunflowerYouseiEntity>create((type, world) -> new SunflowerYouseiEntity(type, world, MobSkins.SUNFLOWER_YOUSEI::get), SpawnGroup.MONSTER)
                     .build(of("sunflower_yousei")),
             () -> LivingEntity.createLivingAttributes()
                     .add(EntityAttributes.MAX_HEALTH, 30.0)

@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.entity.skin;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.util.SkinFetcher;
 import com.google.gson.Gson;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
@@ -38,6 +39,7 @@ public class NPCSkin implements CodecStep<NPCSkin>, OwnerBinding<NPCSkin>, Built
             this.modelMetadata = modelMetadata;
         }
     }
+
     private static final Gson GSON = new Gson();
 
     public static final Codec<NPCSkin> UNIT_CODEC = Codec.unit(NPCSkin::new);
@@ -47,6 +49,7 @@ public class NPCSkin implements CodecStep<NPCSkin>, OwnerBinding<NPCSkin>, Built
     private Identifier id;
     private String value;
     private String signature;
+    @Setter
     private Property instance;
     @Setter
     @Getter
@@ -72,14 +75,23 @@ public class NPCSkin implements CodecStep<NPCSkin>, OwnerBinding<NPCSkin>, Built
     }
 
     public Property get() {
+//        Thread.dumpStack();
+        if (this.config == null) {
+            log.warn("Unable to get skin properties until data pack is loaded");
+            return MobSkins.DEFAULT.get();
+        }
         if (this.instance == null) {
-            this.instance = texture(this.value, this.signature);
+            Optional<Property> skinFromNPCSkin = SkinFetcher.getSkinFromNPCSkin(this.config);
+            if (skinFromNPCSkin.isPresent()) {
+                this.setInstance(skinFromNPCSkin.get());
+            } else {
+                this.setInstance(texture(this.value, this.signature));
+            }
         }
         return this.instance;
     }
 
     private void valid() {
-        Property property = this.get();
         try {
             Identifier fileId = Touhou.id("entity/player/%s".formatted(this.id.getPath()));
 

@@ -32,7 +32,6 @@ public class ModServerReloadListener implements SimpleSynchronousResourceReloadL
         this.onLoad(manager);
         CookingInputRecipeManager.getInstance().clearItems();
         ItemTagManager.getInstance().clearTags();
-        DialogInit.initRegistriesDialog();
     }
 
     public void onLoad(ResourceManager manager) {

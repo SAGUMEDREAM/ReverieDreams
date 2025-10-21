@@ -26,13 +26,15 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+import java.util.function.Supplier;
+
 @Getter
 public class SunflowerYouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFaction, Yousei {
     public static final Identifier ID = Touhou.id("yousei_wing");
     public static final Model MODEL = ModelUtil.loadModel(ID);
 
-    public SunflowerYouseiEntity(EntityType<? extends TameableEntity> entityType, World world, Property skin) {
-        super(entityType, world, skin);
+    public SunflowerYouseiEntity(EntityType<? extends TameableEntity> entityType, World world, Supplier<Property> skinSupplier) {
+        super(entityType, world, skinSupplier);
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(Items.SUNFLOWER.getDefaultStack());
         inventory.setMainHand(Items.SUNFLOWER.getDefaultStack());

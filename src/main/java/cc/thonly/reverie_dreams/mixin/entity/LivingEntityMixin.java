@@ -3,15 +3,15 @@ package cc.thonly.reverie_dreams.mixin.entity;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
+import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
 import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
 import cc.thonly.reverie_dreams.interfaces.IWorld;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
-import cc.thonly.reverie_dreams.server.DreamPillowManager;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
+import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -124,6 +124,9 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void setMaxHealth(EntityType<? extends LivingEntity> entityType, World world, CallbackInfo ci) {
+        if (this.maxHealthModifier < 0) {
+            this.maxHealthModifier = 0;
+        }
         EntityAttributeInstance maxHealthAttributeInstance = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
         if (maxHealthAttributeInstance != null) {
             maxHealthAttributeInstance.setBaseValue(Math.abs(this.getMaxHealth() + this.maxHealthModifier));
@@ -165,18 +168,24 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
         Optional<BlockPos> sleepingPosition = Optional.ofNullable(this.tempSleepPosition);
         sleepingPosition.ifPresent(pos -> {
-            IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
-            DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
             Pair<Boolean, BlockPos> bedHead = DreamPillowItem.getBedHead(serverWorld, pos);
-            if (bedHead.getLeft() && dreamPillowManager.get(serverWorld).contains(bedHead.getRight()) && this.getWorld() == server.getOverworld()) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20 * 5));
-                this.teleport(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
-                        EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
+            if (
+                    bedHead.getLeft() &&
+                            this.getWorld().getBlockEntity(bedHead.getRight()) instanceof BedBlockEntity bedBlockEntity &&
+                            this.getWorld() == server.getOverworld()
+            ) {
+                IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) bedBlockEntity;
+                if (iBedBlockEntity.hasDreamPillow()) {
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20 * 5));
+                    this.teleport(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
+                            EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
 
-                BlockPos targetPos = findSafeTeleportPos(dreamWorld, new BlockPos((int) this.getX(), (int) this.getY(), (int) this.getZ()));
-                this.teleport(dreamWorld, targetPos.getX() + 0.5, targetPos.getY() + 5, targetPos.getZ() + 0.5,
-                        EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
-                serverWorld.spawnParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
+                    BlockPos targetPos = findSafeTeleportPos(dreamWorld, new BlockPos((int) this.getX(), (int) this.getY(), (int) this.getZ()));
+                    this.teleport(dreamWorld, targetPos.getX() + 0.5, targetPos.getY() + 5, targetPos.getZ() + 0.5,
+                            EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
+                    serverWorld.spawnParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
+
+                }
             }
         });
     }
@@ -395,6 +404,9 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     public void onDeath(CallbackInfo ci) {
         if (this.maxHealthModifier >= 1) {
             this.maxHealthModifier--;
+        }
+        if (this.maxHealthModifier < 0) {
+            this.maxHealthModifier = 0;
         }
     }
 

@@ -10,7 +10,7 @@ import cc.thonly.reverie_dreams.compat.ModCompats;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
-import cc.thonly.reverie_dreams.danmaku.script.DanmakuScript;
+import cc.thonly.reverie_dreams.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.data.ModLootModifies;
 import cc.thonly.reverie_dreams.data.ModServerResourceManager;
 import cc.thonly.reverie_dreams.data.ModTags;
@@ -24,7 +24,6 @@ import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.entity.villager.ModPointOfInterestTypes;
 import cc.thonly.reverie_dreams.entity.villager.ModVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.interfaces.IDreamPillowManager;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.networking.CSVersionPayload;
@@ -243,7 +242,7 @@ public class Touhou implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
             @Override
             public void onServerStarted(MinecraftServer server) {
-                DanmakuScript.RUNTIME_INSTANCES.clear();
+
             }
         });
         ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
@@ -252,29 +251,9 @@ public class Touhou implements ModInitializer {
                 DialogPlayer.reload();
             }
         });
-        ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
-            @Override
-            public void onServerStarted(MinecraftServer server) {
-                IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
-                DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
-                dreamPillowManager.init();
-            }
-        });
-        ServerLifecycleEvents.SERVER_STOPPED.register(new ServerLifecycleEvents.ServerStopped() {
-            @Override
-            public void onServerStopped(MinecraftServer server) {
-                IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
-                DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
-                dreamPillowManager.save();
-            }
-        });
         ServerLifecycleEvents.AFTER_SAVE.register(new ServerLifecycleEvents.AfterSave() {
             @Override
             public void onAfterSave(MinecraftServer server, boolean flush, boolean force) {
-                IDreamPillowManager iDreamPillowManager = (IDreamPillowManager) server;
-                DreamPillowManager dreamPillowManager = iDreamPillowManager.getDreamPillowManager();
-                dreamPillowManager.save();
-
                 PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
                 playerDataComponentManager.saveAll();
             }
@@ -287,7 +266,7 @@ public class Touhou implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(PlayerDataComponentManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(ParticleTickerManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerInputManager::tick);
-        ServerTickEvents.END_SERVER_TICK.register(DanmakuScript::tick);
+        ServerTickEvents.END_SERVER_TICK.register(DanmakuScriptManager::onTick);
         ServerTickEvents.END_SERVER_TICK.register(DialogPlayer::tick);
     }
 

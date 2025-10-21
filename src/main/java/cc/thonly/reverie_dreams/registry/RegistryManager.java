@@ -15,14 +15,26 @@ import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.RoleCards;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.mojang.brigadier.suggestion.Suggestions;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntryInfo;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -126,5 +138,59 @@ public class RegistryManager {
         IntrinsicalRegister<T> intrinsicalRegister = new IntrinsicalRegister<>(key);
         ROOT.put(key, intrinsicalRegister);
         return intrinsicalRegister;
+    }
+
+    public static RequiredArgumentBuilder<ServerCommandSource, Identifier> getSuggestProvider(
+            Command<ServerCommandSource> command
+    ) {
+        return CommandManager
+                .argument("registry_key", IdentifierArgumentType.identifier())
+                .suggests((context, builder) -> {
+                    for (RegistryKey<? extends Registry<?>> registryKey : RegistryManager.ROOT.keySet()) {
+                        builder.suggest(registryKey.getValue().toString());
+                    }
+                    return builder.buildFuture();
+                })
+                .then(CommandManager.argument("id", IdentifierArgumentType.identifier())
+                        .suggests((context, builder) -> {
+                            Identifier identifier = IdentifierArgumentType.getIdentifier(context, "registry_key");
+                            if (identifier == null) {
+                                return builder.buildFuture();
+                            }
+
+                            RegistryKey<Registry<Object>> registryKey = RegistryKey.ofRegistry(identifier);
+
+                            if (!RegistryManager.ROOT.containsKey(registryKey)) {
+                                return builder.buildFuture();
+                            }
+
+                            IntrinsicalRegister<?> registry = RegistryManager.ROOT.get(registryKey);
+                            for (Identifier key : registry.keys()) {
+                                builder.suggest(key.toString());
+                            }
+
+                            return builder.buildFuture();
+                        })
+                        .executes(command)
+                );
+    }
+
+    public static <T> RequiredArgumentBuilder<ServerCommandSource, Identifier> getSuggestProvider(
+            Command<ServerCommandSource> command,
+            RegistryKey<Registry<T>> registryKey
+    ) {
+        return CommandManager
+                .argument("id", IdentifierArgumentType.identifier())
+                .suggests((context, builder) -> {
+                    IntrinsicalRegister<?> registry = ROOT.get(registryKey);
+                    if (registry == null) {
+                        return builder.buildFuture();
+                    }
+                    for (Identifier key : registry.keys()) {
+                        builder.suggest(key.toString());
+                    }
+                    return builder.buildFuture();
+                })
+                .executes(command);
     }
 }

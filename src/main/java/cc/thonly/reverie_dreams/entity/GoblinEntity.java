@@ -39,7 +39,7 @@ public class GoblinEntity extends NPCEntityImpl {
     }
 
     public GoblinEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.GOBLIN.get());
+        super(entityType, world, MobSkins.GOBLIN::get);
         this.inventory.setMainHand(this.getRandomPickaxe());
         this.inventory.setOffHand(this.getRandomOffHand());
         if (GOLDEN_ITEMS.isEmpty()) {

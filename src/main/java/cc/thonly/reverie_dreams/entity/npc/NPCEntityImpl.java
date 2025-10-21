@@ -75,12 +75,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 @Getter
 @Setter
 public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedAttackMob, NPCSettings {
     // 皮肤
-    protected Property skin;
+    protected Supplier<Property> skin;
     // 实体信息
     protected NPCState npcState = NPCStates.NORMAL;
     protected NPCState lastNpcState = NPCStates.NORMAL;
@@ -144,16 +145,16 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
 
     public NPCEntityImpl(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
-        this.skin = MobSkins.DEFAULT.get();
+        this.skin = MobSkins.DEFAULT::get;
         this.init();
         this.updateAttackType();
     }
 
-    public NPCEntityImpl(EntityType<? extends TameableEntity> entityType, World world, NPCSkin skin) {
-        this(entityType, world, skin.get());
+    public NPCEntityImpl(EntityType<? extends TameableEntity> entityType, World world, NPCSkin skinSupplier) {
+        this(entityType, world, skinSupplier::get);
     }
 
-    public NPCEntityImpl(EntityType<? extends TameableEntity> entityType, World world, Property skin) {
+    public NPCEntityImpl(EntityType<? extends TameableEntity> entityType, World world, Supplier<Property> skin) {
         super(entityType, world);
         this.skin = skin;
         this.init();
@@ -951,7 +952,7 @@ public abstract class NPCEntityImpl extends AbstractNPCEntity implements RangedA
 
     @Override
     public Property getSkin() {
-        return skin;
+        return skin.get();
     }
 
 }

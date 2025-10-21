@@ -23,7 +23,7 @@ public class WaterElementalEntity extends NPCEntityImpl implements ElementalMob 
     public int aTick = 0;
 
     public WaterElementalEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.WATER_ELEMENTAL.get());
+        super(entityType, world, MobSkins.WATER_ELEMENTAL::get);
     }
 
     @Override

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bomb_fragment": {
+    "has_bomb": {
       "conditions": {
         "items": [
           {
-            "items": "reverie_dreams:bomb_fragment"
+            "items": "reverie_dreams:bomb"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:bomb"
+        "recipe": "reverie_dreams:bomb_fragment"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_bomb_fragment"
+      "has_bomb"
     ]
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:bomb"
+      "reverie_dreams:bomb_fragment"
     ]
   }
 }

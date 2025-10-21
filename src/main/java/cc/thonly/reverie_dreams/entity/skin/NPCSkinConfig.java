@@ -20,6 +20,8 @@ public class NPCSkinConfig implements CodecStep<NPCSkinConfig>, OwnerBinding<NPC
             Identifier.CODEC.optionalFieldOf("elytra").forGetter(NPCSkinConfig::getElytraTexture)
     ).apply(x, NPCSkinConfig::new));
 
+    @Setter
+    private NPCSkin skin;
     private final ModelType type;
     private final Optional<Identifier> capeTexture;
     private final Optional<Identifier> elytraTexture;

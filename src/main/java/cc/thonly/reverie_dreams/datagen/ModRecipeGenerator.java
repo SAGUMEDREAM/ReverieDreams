@@ -77,8 +77,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .criterion("has_emerald", conditionsFromItem(Items.EMERALD))
                 .offerTo(exporter, getRecipeName(ModItems.DREAM_PILLOW));
 
-        // Bomb
-        offer1To4Recipe(exporter, ModItems.UPGRADED_HEALTH_FRAGMENT, ModItems.UPGRADED_HEALTH);
+        // 残机
+        offer1To4Recipe(exporter, ModItems.UPGRADED_HEALTH, ModItems.UPGRADED_HEALTH_FRAGMENT);
         createShaped(RecipeCategory.MISC, ModItems.UPGRADED_HEALTH, 2)
                 .pattern("XXX")
                 .pattern("X#X")
@@ -88,8 +88,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .criterion("has_health_fragment", conditionsFromItem(ModItems.UPGRADED_HEALTH_FRAGMENT))
                 .offerTo(exporter, getRecipeName(ModItems.UPGRADED_HEALTH_FRAGMENT) + "_copy");
 
-        // 残机
-        offer1To4Recipe(exporter, ModItems.BOMB_FRAGMENT, ModItems.BOMB);
+        // Bomb
+        offer1To4Recipe(exporter, ModItems.BOMB, ModItems.BOMB_FRAGMENT);
         createShaped(RecipeCategory.MISC, ModItems.BOMB_FRAGMENT, 2)
                 .pattern("XXX")
                 .pattern("X#X")

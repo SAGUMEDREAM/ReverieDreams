@@ -23,11 +23,11 @@ public class GhostEntity extends NPCEntityImpl {
     protected int survivalTime = 0;
 
     public GhostEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.GHOST.get());
+        super(entityType, world, MobSkins.GHOST::get);
     }
 
     public GhostEntity(World world) {
-        super(ModEntities.GHOST_ENTITY_TYPE, world, MobSkins.GHOST.get());
+        super(ModEntities.GHOST_ENTITY_TYPE, world, MobSkins.GHOST::get);
     }
 
     @Override

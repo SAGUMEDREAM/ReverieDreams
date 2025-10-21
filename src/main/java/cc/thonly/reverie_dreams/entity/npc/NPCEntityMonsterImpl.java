@@ -13,6 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.world.World;
 
+import java.util.function.Supplier;
+
 @Getter
 @Setter
 public class NPCEntityMonsterImpl extends NPCEntityImpl {
@@ -22,8 +24,8 @@ public class NPCEntityMonsterImpl extends NPCEntityImpl {
         super(entityType, world);
     }
 
-    public NPCEntityMonsterImpl(EntityType<? extends TameableEntity> entityType, World world, Property skin) {
-        super(entityType, world, skin);
+    public NPCEntityMonsterImpl(EntityType<? extends TameableEntity> entityType, World world, Supplier<Property> skinSupplier) {
+        super(entityType, world, skinSupplier);
     }
 
     @Override

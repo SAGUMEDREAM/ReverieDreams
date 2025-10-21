@@ -38,6 +38,7 @@ import net.minecraft.util.Identifier;
 import java.net.URI;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,89 +92,8 @@ public class DialogInit {
     public static final MultiActionDialog GET_FUMO_HELP;
     public static final MultiActionDialog ROLE_HELP;
     public static final MultiActionDialog TOUHOU_MYSTIA_HELP;
-    public static MultiActionDialog REGISTRIES;
     public static final MultiActionDialog OTHER_MOD_LIST;
 
-    public static void initRegistriesDialog() {
-        record SubInfo(String argId, Identifier registryKey, MultiActionDialog dialog) {
-        }
-        List<SubInfo> list = new ArrayList<>();
-        for (Map.Entry<RegistryKey<? extends Registry<?>>, IntrinsicalRegister<?>> mapEntry : RegistryManager.ROOT.entrySet()) {
-            Identifier key = mapEntry.getKey().getValue();
-            IntrinsicalRegister<?> registry = mapEntry.getValue();
-            MutableText text = Text.empty();
-            var page = new MultiActionDialog(
-                    new DialogCommonData(
-                            Text.empty().append(Text.translatable("dialog.title.registries")).append(Text.literal(": %s".formatted(registry.getKey()))),
-                            Optional.empty(),
-                            true, false,
-                            AfterAction.CLOSE,
-                            new ArrayList<>(),
-                            new ArrayList<>()
-                    ),
-                    new ArrayList<>(List.of()),
-                    Optional.empty(),
-                    1
-            );
-            for (Map.Entry<Identifier, ?> id2ValueMapEntry : registry.entrySet()) {
-                Identifier entryKey = id2ValueMapEntry.getKey();
-                Object entryValue = id2ValueMapEntry.getValue();
-                if (entryValue instanceof Translatable translatable) {
-                    text.append(entryKey.toString());
-                    text.append(" → ");
-                    text.append(Text.translatable(translatable.translateKey()));
-                    text.append("\n");
-                } else if (entryValue instanceof OwnerBinding<?> owner) {
-                    IntrinsicalRegister<?> registryRef = owner.getOwner();
-                    text.append(entryKey.toString());
-                    text.append(" → ");
-                    text.append(Text.translatable(registryRef.getKey().getValue().getPath() + ".null"));
-                    text.append("\n");
-                }
-            }
-            page.common().body().add(new PlainMessageDialogBody(text, 800));
-            page.actions().add(new DialogActionButtonData(
-                    new DialogButtonData(Text.empty().append(Text.translatable("dialog.text.back")), 200),
-                    Optional.of(new SimpleDialogAction(showPage("REGISTRIES")))
-            ));
-            list.add(new SubInfo("registry/" + key.toString(), key, page));
-        }
-        REGISTRIES = new MultiActionDialog(
-                new DialogCommonData(
-                        Text.translatable("dialog.title.registries"),
-                        Optional.empty(),
-                        true, false,
-                        AfterAction.CLOSE,
-                        new ArrayList<>(List.of(
-                        )),
-                        new ArrayList<>(List.of(
-                        ))
-                ),
-                new ArrayList<>(List.of()),
-                Optional.empty(),
-                1
-        );
-        for (SubInfo subInfo : list) {
-            String argId = subInfo.argId();
-            Identifier registryKey = subInfo.registryKey;
-            MultiActionDialog dialog = subInfo.dialog();
-            REGISTRIES.actions().add(
-                    new DialogActionButtonData(
-                            new DialogButtonData(
-                                    Text.literal(registryKey.toString()),
-                                    300
-                            ),
-                            Optional.of(new SimpleDialogAction(showPage(argId)))
-                    )
-            );
-            ARGS_DIALOG.put(argId, dialog);
-        }
-        REGISTRIES.actions().add(new DialogActionButtonData(
-                new DialogButtonData(Text.empty().append(Text.translatable("dialog.text.back")), 200),
-                Optional.of(new SimpleDialogAction(showPage("MAIN")))
-        ));
-        ARGS_DIALOG.put("REGISTRIES", REGISTRIES);
-    }
 
     public static List<ItemStack> getUpgradeItemList() {
         List<ItemStack> list = new ArrayList<>();
