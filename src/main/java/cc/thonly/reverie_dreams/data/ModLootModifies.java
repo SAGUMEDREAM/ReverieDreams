@@ -86,7 +86,7 @@ public class ModLootModifies {
                 // disc pool
                 LootPool.Builder discPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.4f));
+                        .conditionally(RandomChanceLootCondition.builder(0.2f));
                 for (var item : AlbumItem.ITEMS) {
                     discPool.with(ItemEntry.builder(item).weight(8));
                 }

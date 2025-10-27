@@ -5,7 +5,9 @@ import cc.thonly.reverie_dreams.entity.elemental.FireElementalEntity;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.entity.elemental.WaterElementalEntity;
 import cc.thonly.reverie_dreams.entity.misc.*;
-import cc.thonly.reverie_dreams.entity.skin.MobSkins;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
@@ -45,6 +47,12 @@ public class ModEntities {
         return List.copyOf(SPAWN_EGG_ITEM_LIST);
     }
 
+    public static final EntityType<NPCRoleEntity> NPC_ROLE_ENTITY =
+            registerEntity("base_character",
+                    EntityType.Builder.create(NPCRoleEntity::new, SpawnGroup.MISC)
+                            .build(of("base_character")),
+                    BaseNPCLikeEntity::createAttributes
+            );
     public static final EntityType<DanmakuEntity> DANMAKU_ENTITY_TYPE =
             registerEntity("danmaku_bullet",
                     EntityType.Builder.<DanmakuEntity>create(DanmakuEntity::new, SpawnGroup.MISC)
@@ -53,7 +61,7 @@ public class ModEntities {
             registerEntity("bagua_furnace",
                     EntityType.Builder.<BaguaFurnaceEntity>create(BaguaFurnaceEntity::new, SpawnGroup.MISC)
                             .build(of("bagua_furnace"))
-                    );
+            );
     public static final EntityType<KnifeEntity> KNIFE_ENTITY_TYPE =
             registerEntity("knife",
                     EntityType.Builder.<KnifeEntity>create(KnifeEntity::new, SpawnGroup.MISC)
@@ -124,7 +132,7 @@ public class ModEntities {
                     .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 3)
                     .build());
     public static final EntityType<SunflowerYouseiEntity> SUNFLOWER_YOUSEI_ENTITY_TYPE = registerEntityWithSpawnEgg("sunflower_yousei",
-            EntityType.Builder.<SunflowerYouseiEntity>create((type, world) -> new SunflowerYouseiEntity(type, world, MobSkins.SUNFLOWER_YOUSEI::get), SpawnGroup.MONSTER)
+            EntityType.Builder.<SunflowerYouseiEntity>create((type, world) -> new SunflowerYouseiEntity(type, world, MobSkinTypes.SUNFLOWER_YOUSEI), SpawnGroup.MONSTER)
                     .build(of("sunflower_yousei")),
             () -> LivingEntity.createLivingAttributes()
                     .add(EntityAttributes.MAX_HEALTH, 30.0)
@@ -196,6 +204,12 @@ public class ModEntities {
         EntityType<T> entityTypeRef = Registry.register(Registries.ENTITY_TYPE, Touhou.id(path), entityType);
         PolymerEntityUtils.registerType(entityTypeRef);
         return entityTypeRef;
+    }
+
+    public static <T extends Entity> EntityType<T> registerEntity(String path, EntityType<T> entityType, CreateAttributesFunction createAttributesFunction) {
+        registerEntity(path, entityType);
+        FabricDefaultAttributeRegistry.register((EntityType<? extends MobEntity>) entityType, createAttributesFunction.apply());
+        return entityType;
     }
 
     public static <T extends Entity> EntityType<T> registerEntityWithSpawnEgg(String path, EntityType<T> entityType, CreateAttributesFunction createAttributesFunction) {

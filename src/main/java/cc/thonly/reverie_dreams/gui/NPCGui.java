@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.gui;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
@@ -35,7 +35,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
     };
     private final Map<GuiElementBuilder, Integer> builder2index = new HashMap<>();
     private final ServerPlayerEntity player;
-    private final NPCEntityImpl npcEntity;
+    private final BaseNPCLikeEntity npcEntity;
 
     private GuiElementBuilder npcName;
     private GuiElementBuilder npcMode;
@@ -46,7 +46,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
     private GuiElementBuilder npcXp;
     private GuiElementBuilder npcAutoPick;
 
-    public NPCGui(ServerPlayerEntity player, NPCEntityImpl npcEntity) {
+    public NPCGui(ServerPlayerEntity player, BaseNPCLikeEntity npcEntity) {
         super(ScreenHandlerType.GENERIC_9X6, player, false);
         this.player = player;
         this.npcEntity = npcEntity;

@@ -28,6 +28,7 @@ public class BiomeModificationInit {
         addFlower();
         addTree();
         addEntity();
+        addStructure();
     }
 
     public static void addTree() {
@@ -57,7 +58,6 @@ public class BiomeModificationInit {
     }
 
     public static void addFlower() {
-        // 幻昙华花
         BiomeModifications.addFeature(
                 BiomeSelectors.includeByKey(BiomeKeys.SNOWY_PLAINS, BiomeKeys.FLOWER_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION,
@@ -204,6 +204,14 @@ public class BiomeModificationInit {
 //                        world.getBlockState(pos.down()).isOf(ModBlocks.MOON_STONE.block()) &&
 //                                world.getBlockState(pos).isAir()
 //        );
+    }
+
+    public static void addStructure() {
+//        BiomeModifications.addFeature(
+//                biome -> biome.getBiomeKey() == BiomeKeys.FOREST,
+//                GenerationStep.Feature.SURFACE_STRUCTURES,
+//
+//                );
     }
 
     public static boolean canSpawn(EntityType<?> type, ServerWorld world, SpawnReason reason, BlockPos pos, Random random) {

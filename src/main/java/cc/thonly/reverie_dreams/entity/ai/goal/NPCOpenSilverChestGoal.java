@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -19,12 +19,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class NPCOpenSilverChestGoal extends Goal {
-    private final NPCEntityImpl roleEntity;
+    private final BaseNPCLikeEntity roleEntity;
     @Nullable
     private OperationalTarget operationalTarget;
     private int tick = 0;
 
-    public NPCOpenSilverChestGoal(NPCEntityImpl roleEntity) {
+    public NPCOpenSilverChestGoal(BaseNPCLikeEntity roleEntity) {
         this.roleEntity = roleEntity;
         this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
     }

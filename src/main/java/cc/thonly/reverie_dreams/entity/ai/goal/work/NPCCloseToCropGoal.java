@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.TemptGoal;
@@ -14,7 +14,7 @@ import java.util.EnumSet;
 
 public class NPCCloseToCropGoal extends Goal {
 
-    protected final NPCEntityImpl maid;
+    protected final BaseNPCLikeEntity maid;
     private final double speed;
     private int cooldown;
     private int moveTime = 0;
@@ -31,7 +31,7 @@ public class NPCCloseToCropGoal extends Goal {
     private int currRange = 1;
     private int currCount = 0;
 
-    public NPCCloseToCropGoal(NPCEntityImpl maid, double speed) {
+    public NPCCloseToCropGoal(BaseNPCLikeEntity maid, double speed) {
         this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
         this.maid = maid;
         this.speed = speed;

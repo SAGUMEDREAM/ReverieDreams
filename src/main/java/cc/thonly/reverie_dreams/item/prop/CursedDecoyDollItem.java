@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.mob.MobEntity;
@@ -38,7 +38,7 @@ public class CursedDecoyDollItem extends Item {
             List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, new Box(blockPos).expand(24), livingEntity -> true);
             for (LivingEntity livingEntity : list) {
                 if (livingEntity instanceof PlayerEntity) continue;
-                if (livingEntity instanceof NPCRoleEntityImpl role) {
+                if (livingEntity instanceof NPCRoleEntity role) {
                     LivingEntity attacker = role.getAttacker();
                     LivingEntity target = role.getTarget();
                     if (attacker == player || target == player) {

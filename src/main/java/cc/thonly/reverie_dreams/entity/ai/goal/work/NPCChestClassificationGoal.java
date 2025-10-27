@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.server.ItemTagManager;
@@ -24,11 +24,11 @@ import java.util.List;
 
 public class NPCChestClassificationGoal extends Goal {
 
-    private final NPCEntityImpl roleEntity;
+    private final BaseNPCLikeEntity roleEntity;
     @Nullable
     private OperationalTarget currentTarget = null;
 
-    public NPCChestClassificationGoal(NPCEntityImpl roleEntity) {
+    public NPCChestClassificationGoal(BaseNPCLikeEntity roleEntity) {
         this.roleEntity = roleEntity;
         this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
     }

@@ -1,0 +1,38 @@
+package cc.thonly.reverie_dreams.datagen;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModDynamicRegistryProvider extends FabricDynamicRegistryProvider {
+    public ModDynamicRegistryProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture);
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    @Override
+    protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
+        entries.addAll(registries.getOrThrow(RegistryKeys.TRIM_MATERIAL));
+        entries.addAll(registries.getOrThrow(RegistryKeys.TRIM_PATTERN));
+        entries.addAll(registries.getOrThrow(RegistryKeys.ENCHANTMENT));
+
+        entries.addAll(registries.getOrThrow(RegistryKeys.CONFIGURED_FEATURE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.CONFIGURED_CARVER));
+        entries.addAll(registries.getOrThrow(RegistryKeys.PLACED_FEATURE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.CHUNK_GENERATOR_SETTINGS));
+        entries.addAll(registries.getOrThrow(RegistryKeys.BIOME));
+        entries.addAll(registries.getOrThrow(RegistryKeys.STRUCTURE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.STRUCTURE_SET));
+        entries.addAll(registries.getOrThrow(RegistryKeys.TEMPLATE_POOL));
+        entries.addAll(registries.getOrThrow(RegistryKeys.DIMENSION_TYPE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.DIMENSION));
+    }
+
+    @Override
+    public String getName() {
+        return "Dynamic Registry Provider";
+    }
+}

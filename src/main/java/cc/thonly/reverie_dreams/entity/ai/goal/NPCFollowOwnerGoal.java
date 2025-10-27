@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import net.minecraft.entity.LivingEntity;
@@ -64,7 +64,7 @@ public class NPCFollowOwnerGoal extends Goal {
         if (this.tameable.squaredDistanceTo(livingEntity) < (double) (this.minDistance * this.minDistance)) {
             return false;
         }
-        if (this.tameable instanceof NPCEntityImpl impl) {
+        if (this.tameable instanceof BaseNPCLikeEntity impl) {
             NPCState state = impl.getNpcState();
             if (state == NPCStates.NO_WALK || state == NPCStates.SEATED || state == NPCStates.WORKING) {
                 return false;

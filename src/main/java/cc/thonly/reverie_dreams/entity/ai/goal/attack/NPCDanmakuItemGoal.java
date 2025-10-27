@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.MobDanmakuShooter;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
@@ -22,7 +22,7 @@ import java.util.EnumSet;
 
 @Setter
 @Getter
-public class NPCDanmakuItemGoal<T extends NPCEntityImpl> extends Goal {
+public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
     private final T actor;
     private final double speed;
     private int attackInterval;

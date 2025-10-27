@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
 import cc.thonly.reverie_dreams.interfaces.IWorld;
-import cc.thonly.reverie_dreams.world.gen.WorldInit;
+import cc.thonly.reverie_dreams.world.dimension.WorldInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.SoundCategory;

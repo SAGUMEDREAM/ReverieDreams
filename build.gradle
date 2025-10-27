@@ -20,7 +20,7 @@ enum RemapJarType {
     }
 }
 
-def remapJarType = RemapJarType.ALPHA
+def remapJarType = RemapJarType.BETA
 
 version = project.mod_version + "+" + project.minecraft_version + (remapJarType == RemapJarType.STABLE ? "" : "+" + remapJarType.name);
 group = project.maven_group
@@ -111,6 +111,7 @@ dependencies {
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')
     modCompileOnly files('libs/borukva-food-0.1.14+1.21.7.jar')
     modCompileOnly files('libs/borukva-food-exotic-3.10.0+1.21.7.jar')
+    modCompileOnly files('libs/borukva-fish-0.1.9+1.21.8.jar')
     modCompileOnly files('libs/FarmersDelight-1.21.7-3.2.4+refabricated.jar')
     modCompileOnly files('libs/farmers-delight-polymer-patch-3.2.3.0+1.21.6.jar')
     modCompileOnly files('libs/moredelight-25.07.28a-1.21.7-fabric.jar')

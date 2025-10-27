@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.entity.skin.MobSkins;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GoblinEntity extends NPCEntityImpl {
+public class GoblinEntity extends BaseNPCLikeEntity {
     public static final Set<Item> GOLDEN_ITEMS = new HashSet<>();
     public static List<Item> PICKAXE_POOL = new ArrayList<>();
     public static List<Item> OFFHAND_POOL = new ArrayList<>();
@@ -39,7 +39,7 @@ public class GoblinEntity extends NPCEntityImpl {
     }
 
     public GoblinEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.GOBLIN::get);
+        super(entityType, world, MobSkinTypes.GOBLIN);
         this.inventory.setMainHand(this.getRandomPickaxe());
         this.inventory.setOffHand(this.getRandomOffHand());
         if (GOLDEN_ITEMS.isEmpty()) {
@@ -70,7 +70,7 @@ public class GoblinEntity extends NPCEntityImpl {
         this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
 
         this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 12.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, NPCEntityImpl.class, 8.0f));
+        this.goalSelector.add(10, new LookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f));
         this.goalSelector.add(10, new LookAroundGoal(this));
 
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));

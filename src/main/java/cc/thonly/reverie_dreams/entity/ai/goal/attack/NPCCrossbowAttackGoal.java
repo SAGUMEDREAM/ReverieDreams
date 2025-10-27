@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.entity.LivingEntity;
@@ -18,14 +18,14 @@ import java.util.EnumSet;
 public class NPCCrossbowAttackGoal extends Goal {
 	public static final UniformIntProvider COOLDOWN_RANGE = TimeHelper.betweenSeconds(1, 2);
 	private NPCCrossbowAttackGoal.Stage stage = NPCCrossbowAttackGoal.Stage.UNCHARGED;
-	private final NPCEntityImpl maid;
+	private final BaseNPCLikeEntity maid;
 	private final double speed;
 	private final float squaredRange;
 	private int seeingTargetTicker;
 	private int chargedTicksLeft;
 	private int cooldown;
 
-	public NPCCrossbowAttackGoal(NPCEntityImpl maid, double speed, float range) {
+	public NPCCrossbowAttackGoal(BaseNPCLikeEntity maid, double speed, float range) {
 		this.maid = maid;
 
 		this.speed = speed;

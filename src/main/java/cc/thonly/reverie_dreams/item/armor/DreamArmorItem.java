@@ -16,6 +16,6 @@ public class DreamArmorItem extends ArmorItem {
     }
 
     void onAccept(LivingEntity entity, ItemStack itemStack) {
-        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 1, 0, true, false, true));
+        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, true, false, true));
     }
 }

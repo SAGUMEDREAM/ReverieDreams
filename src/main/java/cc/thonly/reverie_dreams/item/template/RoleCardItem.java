@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.google.common.collect.BiMap;
@@ -119,7 +120,7 @@ public class RoleCardItem extends Item {
         for (Map.Entry<Identifier, NPCRole> entry : data.id2Role.entrySet()) {
             Identifier identifier = entry.getKey();
             NPCRole role = entry.getValue();
-            EntityType<AbstractNPCEntity> entityType = role.get();
+            EntityType<NPCRoleFastEntity> entityType = role.get();
             NbtCompound element = new NbtCompound();
             element.putString("session_id", uuid);
             element.putString("entity_id", identifier.toString());

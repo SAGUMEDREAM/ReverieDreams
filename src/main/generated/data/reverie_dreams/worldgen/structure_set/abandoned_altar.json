@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1947319134,
+    "separation": 25,
+    "spacing": 165
+  },
+  "structures": [
+    {
+      "structure": "reverie_dreams:abandoned_altar",
+      "weight": 1
+    }
+  ]
+}

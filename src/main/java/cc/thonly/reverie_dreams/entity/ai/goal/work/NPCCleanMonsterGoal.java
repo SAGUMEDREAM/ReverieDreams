@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
@@ -21,14 +21,14 @@ import java.util.List;
 @Getter
 public class NPCCleanMonsterGoal extends TrackTargetGoal {
 
-    public NPCCleanMonsterGoal(NPCEntityImpl maid) {
+    public NPCCleanMonsterGoal(BaseNPCLikeEntity maid) {
         super(maid, false);
         this.maid = maid;
         this.setControls(EnumSet.of(Goal.Control.TARGET));
     }
 
 
-    private final NPCEntityImpl maid;
+    private final BaseNPCLikeEntity maid;
 
 
     TargetPredicate targetPredicate = TargetPredicate.createAttackable().setBaseMaxDistance(16).setPredicate((e,w)->{return  !e.hasCustomName();});

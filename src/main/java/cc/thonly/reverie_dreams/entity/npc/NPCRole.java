@@ -1,11 +1,10 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.entity.skin.NPCSkin;
+import cc.thonly.reverie_dreams.entity.skin.SkinType;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
-import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import lombok.Getter;
@@ -21,11 +20,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Slf4j
 @Setter
@@ -35,11 +32,11 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     public static final List<Item> NPC_SPAWN_EGG_ITEM_LIST = new LinkedList<>();
 
     private Identifier id;
-    private Supplier<Property> property;
+    private SkinType skinType;
     // 构建后属性
-    private EntityType<AbstractNPCEntity> entityType;
+    private EntityType<NPCRoleFastEntity> entityType;
     private Item spawnEgg;
-    private Class<? extends NPCEntityImpl> clazz;
+//    private Class<? extends BaseNPCLikeEntity> clazz;
     private boolean hasBuilt = false;
 
     private IntrinsicalRegister<NPCRole> owner;;
@@ -47,19 +44,9 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     private NPCRole() {
     }
 
-
-    public NPCRole(Identifier id, NPCSkin skin) {
-        this(id, skin::get, NPCRoleEntityImpl.class);
-    }
-
-    public NPCRole(Identifier id, Supplier<Property> propertySupplier) {
-        this(id, propertySupplier, NPCRoleEntityImpl.class);
-    }
-
-    public NPCRole(Identifier id, Supplier<Property> propertySupplier, Class<NPCRoleEntityImpl> clazz) {
+    public NPCRole(Identifier id, SkinType skinType) {
         this.id = id;
-        this.property = propertySupplier;
-        this.clazz = clazz;
+        this.skinType = skinType;
     }
 
     public boolean isPresent() {
@@ -70,7 +57,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
         return this.entityType == null;
     }
 
-    public EntityType<AbstractNPCEntity> get() {
+    public EntityType<NPCRoleFastEntity> get() {
         return this.entityType;
     }
 
@@ -88,23 +75,16 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
             return this;
         }
         try {
-            EntityType<AbstractNPCEntity> entityType = registerEntity(this.id,
-                    EntityType.Builder.<AbstractNPCEntity>create(
-                                    (type, world) -> {
-                                        try {
-                                            return this.clazz.getConstructor(EntityType.class, World.class, Supplier.class)
-                                                    .newInstance(type, world, property);
-                                        } catch (Exception e) {
-                                            log.error("Failed to instantiate NPCEntityImpl for type {}, {}", id, e);
-                                            return null;
-                                        }
-                                    },
-                                    SpawnGroup.MISC)
-                            .build(of(this.id)));
-            FabricDefaultAttributeRegistry.register(entityType, NPCEntityImpl.createAttributes());
+            EntityType<NPCRoleFastEntity> build = EntityType.Builder.<NPCRoleFastEntity>create(
+                            (type, world) -> new NPCRoleFastEntity(type, world, this.skinType),
+                            SpawnGroup.MISC)
+//                    .disableSummon()
+                    .build(of(this.id));
+            EntityType<NPCRoleFastEntity> entityType = registerEntity(this.id, build);;
+            FabricDefaultAttributeRegistry.register(entityType, BaseNPCLikeEntity.createAttributes());
             Identifier spawnEggId = Identifier.of(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
-            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, entityType, new Item.Settings().modelId(Touhou.id("spawn_egg"))));
-            this.entityType = entityType;
+            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Settings().modelId(Touhou.id("spawn_egg"))));
+            this.entityType = build;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;
         } catch (Exception e) {

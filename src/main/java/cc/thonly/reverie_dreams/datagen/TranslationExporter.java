@@ -174,7 +174,7 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
     }
 
     public TranslationExporter addRoleEntity(NPCRole role, String value, String spawnEggValue) {
-        EntityType<AbstractNPCEntity> entityType = role.getEntityType();
+        EntityType<?> entityType = role.getEntityType();
         Item egg = role.getEgg();
         String item_value = value + spawnEggValue;
         this.add(entityType, value);

@@ -1,7 +1,7 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import com.mojang.authlib.properties.Property;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
@@ -10,7 +10,7 @@ import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.entity.LivingEntity;
 import org.joml.Vector3f;
 
-public record NPCImpl(NPCEntityImpl npcEntity) implements PlayerPolymerEntity {
+public record NPCImpl(BaseNPCLikeEntity npcEntity) implements PlayerPolymerEntity {
 
     public NPCImpl {
         PolymerEntityHelper.NEXT.add(this);

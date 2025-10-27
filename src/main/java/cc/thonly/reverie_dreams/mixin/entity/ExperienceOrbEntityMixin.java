@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.interfaces.IExperienceOrbEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -27,7 +27,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
     public abstract int getValue();
 
     @Unique
-    private NPCRoleEntityImpl npcTarget;
+    private NPCRoleEntity npcTarget;
 
     public ExperienceOrbEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -72,13 +72,13 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
     }
 
     @Unique
-    public void setNPCTarget(NPCRoleEntityImpl npc) {
+    public void setNPCTarget(NPCRoleEntity npc) {
         this.npcTarget = npc;
         this.target = null;
     }
 
     @Override
-    public NPCRoleEntityImpl getNPCTarget() {
+    public NPCRoleEntity getNPCTarget() {
         return this.npcTarget;
     }
 

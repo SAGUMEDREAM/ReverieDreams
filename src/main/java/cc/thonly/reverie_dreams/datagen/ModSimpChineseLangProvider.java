@@ -597,7 +597,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add(ModEntities.HAIRBALL_ENTITY_TYPE, "毛玉", "毛玉刷怪蛋");
         builder.add(ModEntities.MUSHROOM_MONSTER_ENTITY_TYPE, "蘑菇", "蘑菇刷怪蛋");
 
-        builder.add(MIEntities.WILD_PIG_ENTITY_TYPE, "野猪", "野猪刷怪蛋");
+        builder.add(MIEntities.WILD_PIG, "野猪", "野猪刷怪蛋");
         builder.add(MIEntities.TAVERN_VILLAGER, "酒馆老板", "酒馆老板刷怪蛋");
 
         var registry = wrapperLookup.getOrThrow(RegistryKeys.VILLAGER_PROFESSION);

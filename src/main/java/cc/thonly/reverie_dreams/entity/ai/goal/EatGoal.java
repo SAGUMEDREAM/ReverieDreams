@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.entity.skin.RoleSkins;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
@@ -18,11 +18,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class EatGoal extends Goal {
-    private final NPCEntityImpl maid;
+    private final BaseNPCLikeEntity maid;
     int slot = -1;
     int dealyTick = 0;
 
-    public EatGoal(NPCEntityImpl maid) {
+    public EatGoal(BaseNPCLikeEntity maid) {
 //        this.setControls(EnumSet.of(Goal.Control.MOVE));
         this.maid = maid;
     }
@@ -30,7 +30,7 @@ public class EatGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (RoleSkins.YUYUKO.get().equals(this.maid.getSkin())){
+        if (GensokyoSkinTypes.YUYUKO.get().equals(this.maid.getSkin())){
             return maid.getNutrition() < 20;
         }
         return (maid.getNutrition() < 20 && maid.getHealth() < 20) || maid.getNutrition() < 10;

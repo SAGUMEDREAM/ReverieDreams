@@ -1,5 +1,25 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+## 0.4.4+1.21.7
+* Fixed the issue where some items would not be damaged when their durability reached 0
+* Fixed Time Stop Clock multiplayer threading error
+* Added a cooldown to Time Stop Clock
+* Added linkage with `borukva-fish`
+* Added overworld structures `abandoned_altar`, `abandoned_torii`, `mini_bar`, `bamboo_forest_bbq_stall`, `bamboo_forest_hut`, `sakurazuka`, `outer_shrine`
+* Reduced Wild Pig spawns
+* Fixed the issue of negative health deduction when the player dies
+* Fixed an error where the modified value would become negative when using a Remaining Health, causing negative HP loss.
+* Fixed an error in the Bomb and Remaining Health recipes.
+* Merge Role Entity Types
+* Modified the texture of `danmaku_core`
+* Increases the satiety of food items
+* Provide custom character skin interface (experimental)
+* Modified the data storage method of Dream Pillow
+
+## 0.4.3+1.21.7
+* Fixed an issue where the Barrage Workbench couldn't place Barrage Cores;
+* Fixed an issue where the Silver Chest couldn't place items;
+
 ## 0.4.2+1.21.7
 * Defined the simplified Chinese name of the module for the first time(首次定义了模组的简体中文的名字)
 * Added health recovery effect to dream armor

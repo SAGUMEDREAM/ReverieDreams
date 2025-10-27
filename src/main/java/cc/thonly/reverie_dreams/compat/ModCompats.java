@@ -12,6 +12,7 @@ public class ModCompats {
         load("minecraft", VanillaCompat::bootstrap);
         load("borukva-food", BorukvaFoodCompatImpl::bootstrap);
         load("borukva-food-exotic", BorukvaFoodExoticCompatImpl::bootstrap);
+        load("borukva-fish", BorukvaFishCompatImpl::bootstrap);
         load("farmersdelight", FarmersdelightCompatImpl::bootstrap);
         load("moredelight", MoreDelightCompatImpl::bootstrap);
         load("oceansdelight-port", OceansdelightCompatImpl::bootstrap);

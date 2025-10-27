@@ -17,6 +17,8 @@ import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
+import cc.thonly.reverie_dreams.state.SixteenDirection;
 import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import cc.thonly.reverie_dreams.util.block.CropAgeUtil;
 import com.google.common.collect.ImmutableMap;
@@ -26,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.model.json.BlockModelDefinition;
 import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
@@ -94,8 +97,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleState(ModBlocks.WHEEL_CHAIR);
         blockStateModelGenerator.registerSimpleState(ModBlocks.WOODEN_BOX.chestBlock());
 
-        for (Fumo instance : Fumos.getView()) {
-            blockStateModelGenerator.registerSimpleState(instance.block());
+        for (Fumo fumoType : Fumos.getView()) {
+            this.registerFumo(blockStateModelGenerator, fumoType);
         }
 
         this.generateCropBlockModel(blockStateModelGenerator);
@@ -375,6 +378,32 @@ public class ModModelProvider extends FabricModelProvider {
                 .put(TextureKey.WEST, TextureMap.getSubId(block, "_side"));
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, BlockStateModelGenerator.createWeightedVariant(Models.CUBE.upload(block, textureMap, blockStateModelGenerator.modelCollector))));
 
+    }
+
+    private void registerFumo(BlockStateModelGenerator blockStateModelGenerator, Fumo fumoType) {
+        Block block = fumoType.block();
+        Identifier id = Registries.BLOCK.getId(block);
+//        blockStateModelGenerator.blockStateCollector.accept(new BlockModelDefinitionCreator() {
+//            @Override
+//            public Block getBlock() {
+//                return block;
+//            }
+//
+//            @Override
+//            public BlockModelDefinition createBlockModelDefinition() {
+//                return new BlockModelDefinition();
+//            }
+//        });
+//        VariantsBlockModelDefinitionCreator.Empty creator = VariantsBlockModelDefinitionCreator.of(block);
+//
+//        for (SixteenDirection sixteenDirection : SixteenDirection.values()) {
+//            float yaw = sixteenDirection.getYaw();
+//            creator.with(BlockStateVariantMap.models(ModBlockStateTemplates.FACING_16)
+//                    .register(sixteenDirection, ));
+//        }
+//        BlockStateModelGenerator.createSingletonBlockState(block, BlockStateModelGenerator.createWeightedVariant(ModelIds.getBlockModelId(block)));
+
+        blockStateModelGenerator.registerSimpleState(block);
     }
 
     private static Model item(String parent, TextureKey... requiredTextureKeys) {

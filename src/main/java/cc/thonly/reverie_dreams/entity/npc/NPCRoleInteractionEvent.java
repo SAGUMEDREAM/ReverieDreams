@@ -29,7 +29,7 @@ public class NPCRoleInteractionEvent implements CodecStep<NPCRoleInteractionEven
         this.callback = callback;
     }
 
-    public NPCInteractResult interact(ServerWorld world, ServerPlayerEntity player, ItemStack itemStack, Hand hand, NPCEntityImpl entity) {
+    public NPCInteractResult interact(ServerWorld world, ServerPlayerEntity player, ItemStack itemStack, Hand hand, BaseNPCLikeEntity entity) {
         return this.callback.onInteract(world, player, itemStack, hand, entity);
     }
 
@@ -39,6 +39,6 @@ public class NPCRoleInteractionEvent implements CodecStep<NPCRoleInteractionEven
     }
 
     public interface InteractionCallback {
-        NPCInteractResult onInteract(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, NPCEntityImpl entity);
+        NPCInteractResult onInteract(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, BaseNPCLikeEntity entity);
     }
 }

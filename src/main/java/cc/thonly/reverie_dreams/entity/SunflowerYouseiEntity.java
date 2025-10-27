@@ -5,7 +5,8 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.skin.SkinType;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.util.entity.ModelUtil;
@@ -29,12 +30,12 @@ import net.minecraft.world.World;
 import java.util.function.Supplier;
 
 @Getter
-public class SunflowerYouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFaction, Yousei {
+public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, Yousei {
     public static final Identifier ID = Touhou.id("yousei_wing");
     public static final Model MODEL = ModelUtil.loadModel(ID);
 
-    public SunflowerYouseiEntity(EntityType<? extends TameableEntity> entityType, World world, Supplier<Property> skinSupplier) {
-        super(entityType, world, skinSupplier);
+    public SunflowerYouseiEntity(EntityType<? extends TameableEntity> entityType, World world, SkinType skinType) {
+        super(entityType, world, skinType);
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(Items.SUNFLOWER.getDefaultStack());
         inventory.setMainHand(Items.SUNFLOWER.getDefaultStack());

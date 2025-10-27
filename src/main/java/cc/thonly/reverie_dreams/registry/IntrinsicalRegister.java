@@ -136,6 +136,14 @@ public class IntrinsicalRegister<T> implements MutableRegistry<T> {
         return this;
     }
 
+    public void clear() {
+        this.idToEntry.clear();
+        this.keyToEntry.clear();
+        this.rawIdToEntry.clear();
+        this.valueToEntry.clear();
+        this.keyToEntryInfo.clear();
+    }
+
     public void reload(ResourceManager manager) {
         this.idToEntry.clear();
         this.keyToEntry.clear();

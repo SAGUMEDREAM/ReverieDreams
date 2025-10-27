@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import net.minecraft.component.ComponentMap;
@@ -21,7 +21,7 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
 
     protected int timer;
 
-    public NPCEatFoodDispalyGoal(NPCEntityImpl maid, final double speed, final int range, final int maxYDifference) {
+    public NPCEatFoodDispalyGoal(BaseNPCLikeEntity maid, final double speed, final int range, final int maxYDifference) {
         super(maid, speed, range, maxYDifference);
     }
 
@@ -64,7 +64,7 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
     }
 
     protected void eatBerries() {
-        NPCEntityImpl maid = (NPCEntityImpl) this.mob;
+        BaseNPCLikeEntity maid = (BaseNPCLikeEntity) this.mob;
         World world = maid.getWorld();
         if (castToServerWorld(world).getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
             if (isFoodDisplay(world, this.targetPos)) {
@@ -98,7 +98,7 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
 
     @Override
     public boolean canStart() {
-        NPCEntityImpl maid = (NPCEntityImpl) this.mob;
+        BaseNPCLikeEntity maid = (BaseNPCLikeEntity) this.mob;
         return ((maid.getNutrition() < 20 && maid.getHealth() < 20) || maid.getNutrition() < 10) && super.canStart();
     }
 

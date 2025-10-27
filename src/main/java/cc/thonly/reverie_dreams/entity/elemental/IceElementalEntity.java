@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.elemental;
 
 import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.entity.skin.MobSkins;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,11 +25,11 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
-public class IceElementalEntity extends NPCEntityImpl implements ElementalMob {
+public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMob {
     public int aTick = 0;
 
     public IceElementalEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.ICE_ELEMENTAL::get);
+        super(entityType, world, MobSkinTypes.ICE_ELEMENTAL);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class IceElementalEntity extends NPCEntityImpl implements ElementalMob {
         this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
 
         this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 16.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, NPCEntityImpl.class, 8.0f));
+        this.goalSelector.add(10, new LookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f));
         this.goalSelector.add(10, new LookAroundGoal(this));
 
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, false));

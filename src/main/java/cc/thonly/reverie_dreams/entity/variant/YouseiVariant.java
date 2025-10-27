@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.entity.SimpleVariant;
+import cc.thonly.reverie_dreams.entity.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
@@ -17,16 +18,16 @@ public class YouseiVariant implements CodecStep<YouseiVariant>, OwnerBinding<You
     private static int NEXT = 0;
     private Identifier id;
     private int number;
-    private Supplier<Property> propertySupplier;
+    private SkinType skinType;
     private IntrinsicalRegister<YouseiVariant> owner;
 
     private YouseiVariant() {
     }
 
-    public YouseiVariant(Identifier id, Supplier<Property> propertySupplier) {
+    public YouseiVariant(Identifier id, SkinType skinType) {
         this.id = id;
         this.number = NEXT++;
-        this.propertySupplier = propertySupplier;
+        this.skinType = skinType;
     }
 
 
@@ -35,13 +36,5 @@ public class YouseiVariant implements CodecStep<YouseiVariant>, OwnerBinding<You
         return CODEC;
     }
 
-    @Override
-    public void setPropertySupplier(Supplier<Property> propertySupplier) {
-        this.propertySupplier = propertySupplier;
-    }
 
-    @Override
-    public void setProperty(Property property) {
-        this.propertySupplier = () -> property;
-    }
 }

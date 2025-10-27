@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
-import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
@@ -11,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
@@ -24,7 +22,7 @@ import java.util.List;
 
 @Getter
 public class NPCBreedGoal extends TrackTargetGoal {
-    private final NPCEntityImpl maid;
+    private final BaseNPCLikeEntity maid;
     private final TargetPredicate targetPredicate = TargetPredicate.createAttackable().setBaseMaxDistance(16).setPredicate((e, w) -> {
         return !e.hasCustomName();
     });
@@ -32,7 +30,7 @@ public class NPCBreedGoal extends TrackTargetGoal {
     private Runnable task;
     private AnimalEntity targetEntity;
 
-    public NPCBreedGoal(NPCEntityImpl maid) {
+    public NPCBreedGoal(BaseNPCLikeEntity maid) {
         super(maid, false);
         this.maid = maid;
         this.setControls(EnumSet.of(Goal.Control.TARGET));

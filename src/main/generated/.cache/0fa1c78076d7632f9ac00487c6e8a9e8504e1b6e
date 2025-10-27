@@ -1,20 +1,20 @@
 // 1.21.7	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Tags for minecraft:block
 ecf6c1c722c76b4fb1672f405184f98db06fd033 data/c/tags/block/ores.json
 bd2f10057ed30af4501fc53cbcd7d781bc98a7b8 data/c/tags/block/villager_job_sites.json
-3c45c56626dadff33634b65dcbd713b7d4555c28 data/minecraft/tags/block/buttons.json
+e94d993d347232df588ee6b41c28f65dbc4e93e0 data/minecraft/tags/block/buttons.json
 1771fc6d7a51750f7501e1e758f074a6dc764492 data/minecraft/tags/block/doors.json
-e5a271c78ddd06fb7495cedd0559d57204ebb5e2 data/minecraft/tags/block/fence_gates.json
-f15d0883c506ecbbb684069741cfa15d979187a2 data/minecraft/tags/block/fences.json
-39e256701087cc156350a5bc856d2ff3cf5afedc data/minecraft/tags/block/leaves.json
+139e8b4cb65ec6ca59559c9a32b6a2d7431f228a data/minecraft/tags/block/fence_gates.json
+bd2e8409bd8401d384ee5b6cfd4ccdaf8b6c3f30 data/minecraft/tags/block/fences.json
+277bdd8c025d261d08eef244a9adc5a7e3ba9b0d data/minecraft/tags/block/leaves.json
 3e7fbeb17cf87c3d8210ee68889f16336971ee7a data/minecraft/tags/block/logs.json
 9e928faa031c65fb53e1e1874f55ebb6d2c20d02 data/minecraft/tags/block/mineable/axe.json
 fd4a0bb6e745bbacab67217e9cd7fa72e1c59ed4 data/minecraft/tags/block/mineable/hoe.json
 9a2706790c044431048700c57f739df0a63bc0c0 data/minecraft/tags/block/mineable/pickaxe.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/mineable/shovel.json
 b733bdff051c7aaede9588a61b5fec4025bd2fed data/minecraft/tags/block/planks.json
-b0d245db5ce05fa181a3e2554838667c7a503075 data/minecraft/tags/block/slabs.json
-c447b50e6421c6e6b7a18cb43180bb1644ed61ea data/minecraft/tags/block/stairs.json
-ec0b5df11e38bfa9ffec26256e2bb961bd384393 data/minecraft/tags/block/trapdoors.json
+1c5be9194915ab65fd0ea03dd7571c50786cf4a3 data/minecraft/tags/block/slabs.json
+16de31c7947ba7e29c6977cde142ba9dce1fffed data/minecraft/tags/block/stairs.json
+b113a100d471a99f14d89da16d2ea245125abc08 data/minecraft/tags/block/trapdoors.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/walls.json
 fe2f5cc1edffa2ba059333a3a1bfe42ff5a9d742 data/reverie_dreams/tags/block/empty.json
 db675c739a12dd6fcca085b4b562ac33e25e0d8f data/reverie_dreams/tags/block/fumo.json

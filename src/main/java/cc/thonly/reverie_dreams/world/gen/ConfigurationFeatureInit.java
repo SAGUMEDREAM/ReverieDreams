@@ -28,6 +28,7 @@ import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import java.util.List;
 
 public class ConfigurationFeatureInit {
+    // 主世界
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPIRITUAL_TREE_KEY = getOrCreateRegistryKey("spiritual_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LEMON_TREE_KEY = getOrCreateRegistryKey("lemon_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GINKGO_TREE_KEY = getOrCreateRegistryKey("ginkgo_tree");
@@ -38,6 +39,7 @@ public class ConfigurationFeatureInit {
     public static final RegistryKey<ConfiguredFeature<?, ?>> UDUMBARA_FLOWER_KEY = getOrCreateRegistryKey("udumbara_flower");
     public static final RegistryKey<ConfiguredFeature<?, ?>> TREMELLA_KEY = getOrCreateRegistryKey("tremella_flower");
 
+    // 月球
     public static final RegistryKey<ConfiguredFeature<?, ?>> CRATER_KEY = getOrCreateRegistryKey("crater");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DREAM_WORLD_GRID = getOrCreateRegistryKey("dream_world_grid");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CRATER_MEGA_KEY = getOrCreateRegistryKey("crater_mega");
@@ -50,11 +52,15 @@ public class ConfigurationFeatureInit {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY = getOrCreateRegistryKey("float_dream_trial_room_skeleton");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DREAM_FLOATING_ISLAND_KEY = getOrCreateRegistryKey("dream_floating_island");
 
+    // 梦境世界
     public static final Feature<CraterFeatureConfig> CRATER = register("crater", new CraterFeature(CraterFeatureConfig.CODEC));
     public static final Feature<DreamGridFeatureConfig> DREAM_GRID = register("dream_world_grid", new DreamGridFeature(DreamGridFeatureConfig.CODEC));
     public static final Feature<DreamTrialRoomConfig> DREAM_TRIAL_ROOM = register("dream_trial_room", new DreamTrialRoom(DreamTrialRoomConfig.CODEC));
     public static final Feature<FloatingSphereFeatureConfig> FLOATING_SPHERE = register("floating_sphere", new FloatingSphereFeature(FloatingSphereFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> DREAM_FLOATING_ISLAND = register("dream_floating_island", new FloatingIslandFeature(DefaultFeatureConfig.CODEC));
+
+    // 主世界结构
+
 
     public static void init() {
 

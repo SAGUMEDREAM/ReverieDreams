@@ -11,7 +11,7 @@ import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
 import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
-import cc.thonly.reverie_dreams.world.SaplingGeneratorInit;
+import cc.thonly.reverie_dreams.world.sapling.SaplingGeneratorInit;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;

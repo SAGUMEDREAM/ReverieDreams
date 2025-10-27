@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +77,7 @@ public abstract class ServerCommonNetworkHandlerMixin {
                             ItemStack itemStack = usingData.getItemStack();
                             NPCRole role = roleWrapper.get();
                             itemStack.decrementUnlessCreative(1, player);
-                            EntityType<AbstractNPCEntity> entityType = role.get();
+                            EntityType<NPCRoleFastEntity> entityType = role.get();
                             entityType.spawn(world, usingData.getBlockPos(), SpawnReason.SPAWN_ITEM_USE);
 
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BUCKET_FILL, player.getSoundCategory(), 2.0f, 1.0f);
@@ -96,7 +97,7 @@ public abstract class ServerCommonNetworkHandlerMixin {
                     ServerWorld world = usingData.getWorld();
                     ItemStack itemStack = usingData.getItemStack();
                     itemStack.decrementUnlessCreative(1, player);
-                    EntityType<AbstractNPCEntity> entityType = role.get();
+                    EntityType<NPCRoleFastEntity> entityType = role.get();
                     entityType.spawn(world, usingData.getBlockPos(), SpawnReason.SPAWN_ITEM_USE);
 
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BUCKET_FILL, player.getSoundCategory(), 2.0f, 1.0f);

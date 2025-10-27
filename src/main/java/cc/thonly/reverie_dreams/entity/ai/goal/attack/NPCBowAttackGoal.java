@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import lombok.Getter;
 import lombok.Setter;
@@ -125,8 +125,8 @@ public class NPCBowAttackGoal<T extends TameableEntity> extends Goal {
             if (!bl && this.targetSeeingTicker < -60) {
                 (this.actor).clearActiveItem();
             } else if (bl && (i = (this.actor).getItemUseTime()) >= 20) {
-                NPCInventoryImpl inventory = ((NPCEntityImpl) this.actor).getInventory();
-                ItemStack arrowStack = RangedAttackUtil.getArrowStack(((NPCEntityImpl) this.actor));
+                NPCInventoryImpl inventory = ((BaseNPCLikeEntity) this.actor).getInventory();
+                ItemStack arrowStack = RangedAttackUtil.getArrowStack(((BaseNPCLikeEntity) this.actor));
                 if (arrowStack==null){
                     return;
                 }

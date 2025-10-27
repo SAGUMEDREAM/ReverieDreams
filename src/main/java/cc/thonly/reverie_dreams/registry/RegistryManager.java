@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
 import cc.thonly.reverie_dreams.damage.DanmakuDamageTypes;
 import cc.thonly.reverie_dreams.danmaku.*;
+import cc.thonly.reverie_dreams.data.CustomCharacterLoader;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
 import cc.thonly.reverie_dreams.entity.npc.*;
@@ -16,13 +17,7 @@ import cc.thonly.reverie_dreams.item.RoleCards;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.suggestion.SuggestionProvider;
-import com.mojang.brigadier.suggestion.Suggestions;
-import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.command.argument.IdentifierArgumentType;
@@ -34,7 +29,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -64,14 +58,15 @@ public class RegistryManager {
             .reloadBuilder(JavaScriptManager::reload)
             .builder(JavaScriptManager::bootstrap);
 
-    public static final IntrinsicalRegister<NPCSkin> ROLE_SKIN = RegistryManager.<NPCSkin>ofEntry(Touhou.id("role_skin"))
-            .codec(NPCSkin.UNIT_CODEC)
-            .builder(RoleSkins::bootstrap, MobSkins::bootstrap);
+    public static final IntrinsicalRegister<SkinType> SKIN_TYPE = RegistryManager.<SkinType>ofEntry(Touhou.id("skin_type"))
+            .codec(SkinType.UNIT_CODEC)
+            .reloadBuilder(SkinType::onReload)
+            .builder(GensokyoSkinTypes::bootstrap, MobSkinTypes::bootstrap);
 
-    public static final IntrinsicalRegister<NPCSkinConfig> SKIN_CONFIG = RegistryManager.<NPCSkinConfig>ofEntry(Touhou.id("skin_config"))
-            .codec(NPCSkinConfig.CODEC)
-            .reloadBuilder(NPCSkinConfigs::reload)
-            .builder(NPCSkinConfigs::bootstrap);
+    public static final IntrinsicalRegister<SkinConfig> SKIN_CONFIG = RegistryManager.<SkinConfig>ofEntry(Touhou.id("skin_config"))
+            .codec(SkinConfig.CODEC)
+            .reloadBuilder(SkinConfigs::reload)
+            .builder(SkinConfigs::bootstrap);
 
     public static final IntrinsicalRegister<NPCRole> NPC_ROLE = RegistryManager.<NPCRole>ofEntry(Touhou.id("npc_role"))
             .codec(NPCRole.CODEC)

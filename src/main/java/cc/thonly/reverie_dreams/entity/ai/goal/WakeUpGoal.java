@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.world.World;
 
 public class WakeUpGoal extends Goal {
-    private final NPCEntityImpl entity;
+    private final BaseNPCLikeEntity entity;
 
-    public WakeUpGoal(NPCEntityImpl entity) {
+    public WakeUpGoal(BaseNPCLikeEntity entity) {
         this.entity = entity;
     }
 

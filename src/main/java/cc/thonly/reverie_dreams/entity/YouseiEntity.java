@@ -3,12 +3,11 @@ package cc.thonly.reverie_dreams.entity;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.server.DelayedTask;
-import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.entity.EntityType;
@@ -18,7 +17,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -26,11 +24,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.function.Supplier;
+import java.util.Objects;
 
 @Setter
 @Getter
-public class YouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFaction, VariantData, Yousei {
+public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, Yousei {
     private YouseiVariant variant = null;
 
     public YouseiEntity(EntityType<? extends TameableEntity> entityType, World world) {
@@ -38,8 +36,8 @@ public class YouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFa
                 world,
                 (
                         YouseiVariants.isEmpty()
-                                ? (YouseiVariants.REGISTRY.getDefaultEntry().isPresent() ? YouseiVariants.REGISTRY.getDefaultEntry().get().value() : YouseiVariants.BLUE).getPropertySupplier()
-                                : YouseiVariants.random().getPropertySupplier()
+                                ? (YouseiVariants.REGISTRY.getDefaultEntry().isPresent() ? YouseiVariants.REGISTRY.getDefaultEntry().get().value().getSkinType() : YouseiVariants.BLUE.getSkinType())
+                                : Objects.requireNonNull(YouseiVariants.random()).getSkinType()
                 )
        );
         this.variant = YouseiVariants.getFromProperty(this.getSkin());
@@ -75,7 +73,7 @@ public class YouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFa
 
     @Override
     public void tick() {
-        this.skin = this.variant != null ? this.variant.getPropertySupplier() : YouseiVariants.BLUE.getPropertySupplier();
+        this.skinType = this.variant != null ? this.variant.getSkinType() : YouseiVariants.BLUE.getSkinType();
         super.tick();
     }
 
@@ -116,7 +114,7 @@ public class YouseiEntity extends NPCEntityImpl implements Leashable, FriendlyFa
     public void setVariantData(Identifier id) {
         this.variant = RegistryManager.YOUSEI_VARIANT.get(id);
         if (this.variant != null) {
-            this.skin = this.variant.getPropertySupplier();
+            this.skinType = this.variant.getSkinType();
         }
     }
 

@@ -13,7 +13,7 @@ public class DataFixerContentManager {
 
     }
 
-    public static <V> Pair<Identifier, Identifier> addFix(Registry<V> registry, Identifier old, Identifier newId) {
+    public static <V> Pair<Identifier, Identifier> addRedirect(Registry<V> registry, Identifier old, Identifier newId) {
         Map<Identifier, Identifier> entries = ENTRIES.computeIfAbsent(registry, (pair) -> new Object2ObjectOpenHashMap<>());
         entries.put(old, newId);
         return new Pair<>(old, newId);

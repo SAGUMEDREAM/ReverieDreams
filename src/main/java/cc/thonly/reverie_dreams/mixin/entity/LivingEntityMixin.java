@@ -211,31 +211,31 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickBefore(CallbackInfo ci) {
         LivingEntity livingEntity = (LivingEntity) (Object) this;
-        this.onEarphoneTick(livingEntity, ci);
-        this.onKoishiHeadTick(livingEntity, ci);
-        this.onDreamArmorTick(livingEntity, ci);
+//        this.onEarphoneTick(livingEntity, ci);
+//        this.onKoishiHeadTick(livingEntity, ci);
+//        this.onDreamArmorTick(livingEntity, ci);
     }
 
-    @Unique
-    public void onEarphoneTick(LivingEntity livingEntity, CallbackInfo ci) {
-        ItemStack stack = this.getEquippedStack(EquipmentSlot.HEAD);
-        if (!stack.isEmpty() && stack.getItem() instanceof EarphoneItem) {
-            EarphoneItem.onUseTick(this.getWorld(), livingEntity, stack);
-        }
-    }
-
-    @Unique
-    public void onKoishiHeadTick(LivingEntity livingEntity, CallbackInfo ci) {
-        ItemStack stack = this.getEquippedStack(EquipmentSlot.HEAD);
-        if (!stack.isEmpty() && stack.getItem() instanceof KoishiHatItem) {
-            KoishiHatItem.onUseTick(this.getWorld(), livingEntity, stack);
-        }
-    }
-
-    @Unique
-    public void onDreamArmorTick(LivingEntity livingEntity, CallbackInfo ci) {
-
-    }
+//    @Unique
+//    public void onEarphoneTick(LivingEntity livingEntity, CallbackInfo ci) {
+//        ItemStack stack = this.getEquippedStack(EquipmentSlot.HEAD);
+//        if (!stack.isEmpty() && stack.getItem() instanceof EarphoneItem) {
+//            EarphoneItem.onUseTick(this.getWorld(), livingEntity, stack);
+//        }
+//    }
+//
+//    @Unique
+//    public void onKoishiHeadTick(LivingEntity livingEntity, CallbackInfo ci) {
+//        ItemStack stack = this.getEquippedStack(EquipmentSlot.HEAD);
+//        if (!stack.isEmpty() && stack.getItem() instanceof KoishiHatItem) {
+//            KoishiHatItem.onUseTick(this.getWorld(), livingEntity, stack);
+//        }
+//    }
+//
+//    @Unique
+//    public void onDreamArmorTick(LivingEntity livingEntity, CallbackInfo ci) {
+//
+//    }
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
@@ -374,11 +374,20 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         if (this.kanjuWorld instanceof ServerWorld serverWorld && this.hasStatusEffect(ModStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
+//            System.out.println(1);
             this.teleport(serverWorld, this.kanjuBlockPos.getX(), this.kanjuBlockPos.getY(), this.kanjuBlockPos.getZ(), EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
             return true;
         }
         return false;
     }
+
+//    @Inject(method = "onDeath", at = {
+//            @At("HEAD"),
+//            @At("TAIL")
+//    })
+//    public void test(CallbackInfo ci){
+//        Thread.dumpStack();
+//    }
 
     @Unique
     public boolean deathInElixir(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -394,6 +403,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             for (var player : world.getPlayers()) {
                 world.spawnParticles(player, ParticleTypes.TOTEM_OF_UNDYING, true, false, this.getX(), this.getY(), this.getZ(), 250, 1.5, 2, 1.5, 0.5);
             }
+//            System.out.println("deathInElixir");
             cir.cancel();
             return true;
         }

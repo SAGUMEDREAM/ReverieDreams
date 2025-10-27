@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 
+@SuppressWarnings("deprecation")
 public class FloatingSphereFeature extends Feature<FloatingSphereFeatureConfig> {
     public FloatingSphereFeature(Codec<FloatingSphereFeatureConfig> codec) {
         super(codec);

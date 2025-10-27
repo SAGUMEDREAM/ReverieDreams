@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -30,7 +30,7 @@ public class Levatin extends SwordItem {
     }
 
     private void tryBreakEquipments(LivingEntity target) {
-        if (target instanceof PlayerEntity || target instanceof NPCRoleEntityImpl)
+        if (target instanceof PlayerEntity || target instanceof NPCRoleEntity)
             return;
 
         ServerWorld world = (ServerWorld) target.getWorld();

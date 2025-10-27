@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.entity.skin.MobSkins;
+import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.mojang.authlib.properties.Property;
@@ -13,9 +13,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class YouseiVariants {
     public static final IntrinsicalRegister<YouseiVariant> REGISTRY = RegistryManager.YOUSEI_VARIANT;
     public static final Identifier DEFAULT_ID = Touhou.id("blue");
-    public static final YouseiVariant BLUE = register(new YouseiVariant(Touhou.id("blue"), MobSkins.YOUSEI01::get));
-    public static final YouseiVariant ORANGE = register(new YouseiVariant(Touhou.id("orange"), MobSkins.YOUSEI02::get));
-    public static final YouseiVariant GREEN = register(new YouseiVariant(Touhou.id("green"), MobSkins.YOUSEI03::get));
+    public static final YouseiVariant BLUE = register(new YouseiVariant(Touhou.id("blue"), MobSkinTypes.YOUSEI01));
+    public static final YouseiVariant ORANGE = register(new YouseiVariant(Touhou.id("orange"), MobSkinTypes.YOUSEI02));
+    public static final YouseiVariant GREEN = register(new YouseiVariant(Touhou.id("green"), MobSkinTypes.YOUSEI03));
 
     public static YouseiVariant register(YouseiVariant variant) {
         return register(variant.getId(), variant);
@@ -46,7 +46,7 @@ public class YouseiVariants {
     }
 
     public static YouseiVariant getFromProperty(Property property) {
-        List<YouseiVariant> list = RegistryManager.YOUSEI_VARIANT.values().stream().filter(variant -> variant.getPropertySupplier().equals(property)).toList();
+        List<YouseiVariant> list = RegistryManager.YOUSEI_VARIANT.values().stream().filter(variant -> variant.getSkinType().get() == property).toList();
         return list.isEmpty() ? null : list.getFirst();
     }
 }

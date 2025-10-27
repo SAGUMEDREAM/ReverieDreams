@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -35,7 +35,7 @@ public abstract class BedBlockMixin extends HorizontalFacingBlock implements Blo
 
     @Unique
     public boolean wakeNpc(World world, BlockPos pos) {
-        List<NPCEntityImpl> list = world.getEntitiesByClass(NPCEntityImpl.class, new Box(pos), LivingEntity::isSleeping);
+        List<BaseNPCLikeEntity> list = world.getEntitiesByClass(BaseNPCLikeEntity.class, new Box(pos), LivingEntity::isSleeping);
         if (list.isEmpty()) {
             return false;
         }

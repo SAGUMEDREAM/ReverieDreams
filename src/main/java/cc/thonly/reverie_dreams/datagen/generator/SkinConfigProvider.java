@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.datagen.generator;
 
-import cc.thonly.reverie_dreams.entity.skin.NPCSkin;
-import cc.thonly.reverie_dreams.entity.skin.NPCSkinConfig;
+import cc.thonly.reverie_dreams.entity.skin.SkinType;
+import cc.thonly.reverie_dreams.entity.skin.SkinConfig;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,7 +28,7 @@ public abstract class SkinConfigProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<RegistryWrapper.WrapperLookup> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, NPCSkinConfig> configList = new Object2ObjectLinkedOpenHashMap<>();
+    private final Map<Identifier, SkinConfig> configList = new Object2ObjectLinkedOpenHashMap<>();
 
     public SkinConfigProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
         this.output = output;
@@ -37,11 +37,11 @@ public abstract class SkinConfigProvider implements DataProvider {
 
     public abstract void configured();
 
-    protected void addConfig(Identifier id, NPCSkinConfig config) {
+    protected void addConfig(Identifier id, SkinConfig config) {
         this.configList.put(id, config);
     }
 
-    protected void addConfig(NPCSkin skin, NPCSkinConfig config) {
+    protected void addConfig(SkinType skin, SkinConfig config) {
         this.configList.put(skin.getId(), config);
     }
 
@@ -56,10 +56,10 @@ public abstract class SkinConfigProvider implements DataProvider {
     public void export(DataWriter writer) {
         Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         try {
-            for (Map.Entry<Identifier, NPCSkinConfig> identifierNPCSkinConfigEntry : this.configList.entrySet()) {
+            for (Map.Entry<Identifier, SkinConfig> identifierNPCSkinConfigEntry : this.configList.entrySet()) {
                 Identifier key = identifierNPCSkinConfigEntry.getKey();
-                NPCSkinConfig config = identifierNPCSkinConfigEntry.getValue();
-                DataResult<JsonElement> result = NPCSkinConfig.CODEC.encodeStart(JsonOps.INSTANCE, config);
+                SkinConfig config = identifierNPCSkinConfigEntry.getValue();
+                DataResult<JsonElement> result = SkinConfig.CODEC.encodeStart(JsonOps.INSTANCE, config);
                 if (!result.isSuccess()) {
                     continue;
                 }

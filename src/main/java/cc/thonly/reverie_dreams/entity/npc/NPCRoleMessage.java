@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 public interface NPCRoleMessage {
     @NotNull
-    MutableText getMessage(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, NPCEntityImpl entity);
+    MutableText getMessage(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, BaseNPCLikeEntity entity);
 
     @Nullable
     default SoundEvent getSoundEvent() {

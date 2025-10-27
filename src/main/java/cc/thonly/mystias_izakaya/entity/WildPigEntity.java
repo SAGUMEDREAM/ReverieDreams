@@ -43,7 +43,7 @@ public class WildPigEntity extends PigEntity {
 
     @Nullable
     public WildPigEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        return MIEntities.WILD_PIG_ENTITY_TYPE.create(serverWorld, SpawnReason.BREEDING);
+        return MIEntities.WILD_PIG.create(serverWorld, SpawnReason.BREEDING);
     }
 
 

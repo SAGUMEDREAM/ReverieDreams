@@ -24,7 +24,7 @@ public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
 
     @Override
     public void generate() {
-        this.register(MIEntities.WILD_PIG_ENTITY_TYPE,
+        this.register(MIEntities.WILD_PIG,
                 new LootTable.Builder()
                         .pool(new LootPool.Builder()
                                 .rolls(UniformLootNumberProvider.create(1.0f, 3.0f))

@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.item.base;
 
 import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.registry.RegistryKey;

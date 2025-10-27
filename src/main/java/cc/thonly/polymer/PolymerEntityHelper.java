@@ -37,11 +37,12 @@ public class PolymerEntityHelper {
         registerOverlay(ModEntities.DANMAKU_ENTITY_TYPE, DanmakuImpl::new);
         registerOverlay(ModEntities.KNIFE_ENTITY_TYPE, DanmakuImpl::new);
         registerOverlay(ModEntities.FUMO_SELLER_VILLAGER, VillagerImpl::new);
-        registerOverlay(MIEntities.WILD_PIG_ENTITY_TYPE, WildPigImpl::new);
+        registerOverlay(ModEntities.NPC_ROLE_ENTITY, RoleImpl::new);
+        registerOverlay(MIEntities.WILD_PIG, WildPigImpl::new);
         registerOverlay(MIEntities.TAVERN_VILLAGER, VillagerImpl::new);
 
         for (NPCRole role : RegistryManager.NPC_ROLE) {
-            registerOverlay(role.getEntityType(), RoleImpl::new);
+            registerOverlay(role.getEntityType(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);
         }
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {

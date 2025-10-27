@@ -172,4 +172,5 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
 
         return list;
     }
+
 }

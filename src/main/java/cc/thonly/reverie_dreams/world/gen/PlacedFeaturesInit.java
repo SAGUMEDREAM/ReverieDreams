@@ -36,6 +36,8 @@ public class PlacedFeaturesInit {
     public static final RegistryKey<PlacedFeature> UDUMBARA_FLOWER_KEY = getOrCreateRegistryKey("udumbara_flower_placed");
     public static final RegistryKey<PlacedFeature> TREMELLA_KEY = getOrCreateRegistryKey("tremella_placed");
 
+    public static final RegistryKey<PlacedFeature> OUTER_SHRINE = getOrCreateRegistryKey("outer_shrine");
+
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var registryLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 

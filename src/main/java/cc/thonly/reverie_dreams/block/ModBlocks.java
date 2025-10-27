@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.polymer.PolymerBlockHelper;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.world.SaplingGeneratorInit;
+import cc.thonly.reverie_dreams.world.sapling.SaplingGeneratorInit;
 import lombok.Getter;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

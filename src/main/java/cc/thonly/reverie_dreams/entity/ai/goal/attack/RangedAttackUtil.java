@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
@@ -12,19 +12,19 @@ import net.minecraft.item.RangedWeaponItem;
 import java.util.List;
 
 public class RangedAttackUtil {
-    public static ItemStack getArrowStack(NPCEntityImpl maid) {
-        Integer slot = maid.getInventory().findSlot(stack -> NPCEntityImpl.ARROW_ITEMS.contains(stack.getItem()));
+    public static ItemStack getArrowStack(BaseNPCLikeEntity maid) {
+        Integer slot = maid.getInventory().findSlot(stack -> BaseNPCLikeEntity.ARROW_ITEMS.contains(stack.getItem()));
         if (slot == null) return null;
         return maid.getInventory().getStack(slot);
     }
 
-    public static ItemStack getCrossBowAmmoStack(NPCEntityImpl maid) {
-        Integer slot = maid.getInventory().findSlot(stack -> stack.getItem() instanceof FireworkRocketItem || NPCEntityImpl.ARROW_ITEMS.contains(stack.getItem()));
+    public static ItemStack getCrossBowAmmoStack(BaseNPCLikeEntity maid) {
+        Integer slot = maid.getInventory().findSlot(stack -> stack.getItem() instanceof FireworkRocketItem || BaseNPCLikeEntity.ARROW_ITEMS.contains(stack.getItem()));
         if (slot == null) return null;
         return maid.getInventory().getStack(slot);
     }
 
-    public static boolean isDanmakuInHand(NPCEntityImpl maid) {
+    public static boolean isDanmakuInHand(BaseNPCLikeEntity maid) {
         return maid.getInventory().getMainHand().getItem() instanceof AbstractDanmakuItem;
     }
 

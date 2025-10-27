@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCAttackWithOwnerGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.SleepAtNightGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.WakeUpGoal;
+import cc.thonly.reverie_dreams.entity.skin.SkinType;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,15 +18,15 @@ import java.util.function.Supplier;
 
 @Getter
 @Setter
-public class NPCEntityMonsterImpl extends NPCEntityImpl {
+public class NPCEntityMonsterImpl extends BaseNPCLikeEntity {
 
 
     public NPCEntityMonsterImpl(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public NPCEntityMonsterImpl(EntityType<? extends TameableEntity> entityType, World world, Supplier<Property> skinSupplier) {
-        super(entityType, world, skinSupplier);
+    public NPCEntityMonsterImpl(EntityType<? extends TameableEntity> entityType, World world, SkinType skinType) {
+        super(entityType, world, skinType);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class NPCEntityMonsterImpl extends NPCEntityImpl {
         this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
 
         this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, NPCEntityImpl.class, 8.0f));
+        this.goalSelector.add(10, new LookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f));
         this.goalSelector.add(10, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new TrackOwnerAttackerGoal(this));

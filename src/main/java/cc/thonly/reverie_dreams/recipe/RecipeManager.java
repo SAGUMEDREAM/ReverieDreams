@@ -80,7 +80,7 @@ public class RecipeManager {
         });
     }
 
-    public static<R extends BaseRecipe> BaseRecipeType<R> registerRecipeType(Identifier id, BaseRecipeType<R> recipeType) {
+    public static <R extends BaseRecipe, BR extends BaseRecipeType<R>> BR registerRecipeType(Identifier id, BR recipeType) {
         RegistryManager.register(RegistryManager.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();

@@ -1,14 +1,12 @@
 package cc.thonly.reverie_dreams.util;
 
 import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.entity.skin.NPCSkin;
-import cc.thonly.reverie_dreams.entity.skin.NPCSkinConfig;
+import cc.thonly.reverie_dreams.entity.skin.SkinConfig;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.properties.Property;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 
 import javax.imageio.ImageIO;
@@ -38,9 +36,9 @@ public class SkinFetcher {
         SCAN_LIST.addAll(Arrays.asList(classes));
     }
 
-    public static Optional<Property> getSkinFromNPCSkin(NPCSkinConfig config) {
+    public static Optional<Property> getSkinFromNPCSkin(SkinConfig config) {
 //        System.out.println(config.getSkin().getId());
-        boolean useSlim = config.getType() == NPCSkinConfig.ModelType.SLIM;
+        boolean useSlim = config.getType() == SkinConfig.ModelType.SLIM;
         Identifier id = RegistryManager.SKIN_CONFIG.getId(config);
         if (id == null) {
             return Optional.empty();
@@ -61,9 +59,16 @@ public class SkinFetcher {
                 Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
                 File skinFile = tempFile.toFile();
 
+                Property property = SkinFetcherCaches.from(in);
+                if (property != null) {
+                    return Optional.of(property);
+                }
                 SKIN_CACHE.put(assetPath, skinFile);
-
-                return getSkinFromFile(skinFile, useSlim);
+                Optional<Property> skinFromFile = getSkinFromFile(skinFile, useSlim);
+                if (skinFromFile.isPresent()) {
+                    SkinFetcherCaches.save();
+                }
+                return skinFromFile;
             } catch (IOException e) {
                 continue;
             }

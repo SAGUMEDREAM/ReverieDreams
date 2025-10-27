@@ -30,7 +30,7 @@ public class FumoImpl implements PolymerTexturedBlock, FactoryBlock {
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        return TransparentTripWire.TRANSPARENT_TRIPWIRE;
+        return TransparentFlatTripWire.TRANSPARENT_FLAT_TRIPIWIRE;
     }
 
     @Override

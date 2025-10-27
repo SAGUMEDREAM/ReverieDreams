@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.minecraft.api.ItemPostHitCallback;
-import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.armor.ModArmorMaterials;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
@@ -45,7 +44,7 @@ import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
-import cc.thonly.reverie_dreams.world.gen.WorldGenerationInit;
+import cc.thonly.reverie_dreams.world.WorldGenerationInit;
 import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.Getter;
 import lombok.Setter;

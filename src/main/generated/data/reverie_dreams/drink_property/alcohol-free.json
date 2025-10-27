@@ -2,23 +2,23 @@
   "registry_key": "reverie_dreams:alcohol-free",
   "properties": {
     "values": [
-      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
-      "reverie_dreams:drink/big_popsicle",
-      "reverie_dreams:drink/komeiji_ice_cream",
-      "reverie_dreams:drink/scarlet_devil_mansion_black_tea",
+      "reverie_dreams:drink/mango_pomelo_sago",
+      "reverie_dreams:drink/moon_rocket",
       "reverie_dreams:drink/red_grapefruit_juice",
       "reverie_dreams:drink/gyokuro_tea",
-      "reverie_dreams:drink/paleo_creamy_smoothie",
-      "reverie_dreams:drink/fairy_rain",
-      "reverie_dreams:drink/mango_pomelo_sago",
-      "reverie_dreams:drink/green_tea",
-      "reverie_dreams:drink/qi_health",
-      "reverie_dreams:drink/milk",
-      "reverie_dreams:drink/soda",
       "reverie_dreams:drink/affgado",
+      "reverie_dreams:drink/coffee",
+      "reverie_dreams:drink/big_popsicle",
       "reverie_dreams:drink/satellite_iced_coffee",
-      "reverie_dreams:drink/moon_rocket",
-      "reverie_dreams:drink/coffee"
+      "reverie_dreams:drink/soda",
+      "reverie_dreams:drink/milk",
+      "reverie_dreams:drink/qi_health",
+      "reverie_dreams:drink/scarlet_devil_mansion_black_tea",
+      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
+      "reverie_dreams:drink/fairy_rain",
+      "reverie_dreams:drink/green_tea",
+      "reverie_dreams:drink/komeiji_ice_cream",
+      "reverie_dreams:drink/paleo_creamy_smoothie"
     ]
   }
 }

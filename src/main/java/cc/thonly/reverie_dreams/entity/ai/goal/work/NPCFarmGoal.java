@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.entity.ai.goal.work;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.compat.BorukvaFoodCompatImpl;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.interfaces.IMatureBlock;
 import net.minecraft.block.Block;
@@ -35,12 +35,12 @@ public class NPCFarmGoal extends Goal {
     private int workTimer = 0;
 
 
-    private final NPCEntityImpl maid;
+    private final BaseNPCLikeEntity maid;
     private BlockPos targetPos;
     private static final Predicate<ItemStack> IS_SEED = stack -> !stack.isEmpty() && stack.isIn(ItemTags.VILLAGER_PLANTABLE_SEEDS) && stack.getItem() instanceof BlockItem;
 
 
-    public NPCFarmGoal(NPCEntityImpl maid) {
+    public NPCFarmGoal(BaseNPCLikeEntity maid) {
         this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
         this.maid = maid;
 
@@ -146,7 +146,7 @@ public class NPCFarmGoal extends Goal {
     }
 
 
-    public static BlockPos getNearTargetBlock(NPCEntityImpl maid, BlockPos origen, boolean random) {
+    public static BlockPos getNearTargetBlock(BaseNPCLikeEntity maid, BlockPos origen, boolean random) {
         List<BlockPos> targetFarmlands = new LinkedList<>();
         BlockPos.Mutable mutable = maid.getBlockPos().mutableCopy();
         for (int i = -1; i <= 1; i++) {
@@ -166,7 +166,7 @@ public class NPCFarmGoal extends Goal {
 
     }
 
-    public static boolean isMaidHasSeeds(NPCEntityImpl maid) {
+    public static boolean isMaidHasSeeds(BaseNPCLikeEntity maid) {
         return maid.getInventory().findHand(IS_SEED) != null;
     }
 

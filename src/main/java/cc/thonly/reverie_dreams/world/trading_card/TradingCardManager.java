@@ -15,9 +15,9 @@ import java.util.stream.Stream;
 
 @Getter
 public class TradingCardManager {
-    public static final Codec<Entry> CODEC = Codec.unit(Entry::new);
+    public static final Codec<Entries> CODEC = Codec.unit(Entries::new);
     private final ServerPlayerEntity player;
-    private final Entry entry;
+    private final Entries entries;
 
     private TradingCardManager() {
         this(null);
@@ -25,7 +25,7 @@ public class TradingCardManager {
 
     public TradingCardManager(ServerPlayerEntity player) {
         this.player = player;
-        this.entry = new Entry();
+        this.entries = new Entries();
     }
 
     public void read(ReadView view) {
@@ -37,18 +37,18 @@ public class TradingCardManager {
     }
 
     @Getter
-    public static class Entry {
-        public static Codec<Entry> EMPTY = Codec.unit(Entry::new);
-        public static Codec<Entry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                ItemStackWrapper.CODEC.listOf().fieldOf("list").forGetter(Entry::getList)
-        ).apply(instance, Entry::new));
+    public static class Entries {
+        public static Codec<Entries> EMPTY = Codec.unit(Entries::new);
+        public static Codec<Entries> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                ItemStackWrapper.CODEC.listOf().fieldOf("list").forGetter(Entries::getList)
+        ).apply(instance, Entries::new));
         private List<ItemStackWrapper> list = new ObjectArrayList<>();
 
-        public Entry() {
+        public Entries() {
 
         }
 
-        public Entry(List<ItemStackWrapper> list) {
+        public Entries(List<ItemStackWrapper> list) {
             this.list = new ObjectArrayList<>(list);
         }
 

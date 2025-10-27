@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Tameable;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -38,8 +38,8 @@ public class NPCTrackOwnerAttackerGoal extends TrackTargetGoal {
         }
         this.attacker = livingEntity.getAttacker();
         int i = livingEntity.getLastAttackedTime();
-        boolean isMaid = tameable instanceof NPCEntityImpl;
-        return i != this.lastAttackedTime && (isMaid && EntityTargetUtil.canAttack(attacker, (NPCEntityImpl) tameable)) && this.canTrack(this.attacker, TargetPredicate.DEFAULT) && this.tameable.canAttackWithOwner(this.attacker, livingEntity);
+        boolean isMaid = tameable instanceof BaseNPCLikeEntity;
+        return i != this.lastAttackedTime && (isMaid && EntityTargetUtil.canAttack(attacker, (BaseNPCLikeEntity) tameable)) && this.canTrack(this.attacker, TargetPredicate.DEFAULT) && this.tameable.canAttackWithOwner(this.attacker, livingEntity);
     }
 
     @Override

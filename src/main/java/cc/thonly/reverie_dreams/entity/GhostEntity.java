@@ -3,8 +3,8 @@ package cc.thonly.reverie_dreams.entity;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCFollowOwnerGoal;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-import cc.thonly.reverie_dreams.entity.skin.MobSkins;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -18,16 +18,16 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
 
-public class GhostEntity extends NPCEntityImpl {
+public class GhostEntity extends BaseNPCLikeEntity {
     protected int particleTick = 0;
     protected int survivalTime = 0;
 
     public GhostEntity(EntityType<? extends TameableEntity> entityType, World world) {
-        super(entityType, world, MobSkins.GHOST::get);
+        super(entityType, world, MobSkinTypes.GHOST);
     }
 
     public GhostEntity(World world) {
-        super(ModEntities.GHOST_ENTITY_TYPE, world, MobSkins.GHOST::get);
+        super(ModEntities.GHOST_ENTITY_TYPE, world, MobSkinTypes.GHOST);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class GhostEntity extends NPCEntityImpl {
         this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
 
         this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, NPCEntityImpl.class, 8.0f));
+        this.goalSelector.add(10, new LookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f));
         this.goalSelector.add(10, new LookAroundGoal(this));
 
         this.targetSelector.add(2, new GhostStatusEffectTargetGoal<>(this, PlayerEntity.class, true, ModStatusEffects.MENTAL_DISORDER));

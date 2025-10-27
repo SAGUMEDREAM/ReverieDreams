@@ -29,7 +29,7 @@ import net.minecraft.util.ModelAndTexture;
 
 @SuppressWarnings("unchecked")
 public class MIEntities {
-    public static final EntityType<WildPigEntity> WILD_PIG_ENTITY_TYPE =
+    public static final EntityType<WildPigEntity> WILD_PIG =
             registerEntityWithSpawnEgg("wild_pig",
                     EntityType.Builder.<WildPigEntity>create(WildPigEntity::new, SpawnGroup.MONSTER)
                             .build(of("wild_pig")),
@@ -57,10 +57,10 @@ public class MIEntities {
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST),
                 SpawnGroup.MONSTER,
-                MIEntities.WILD_PIG_ENTITY_TYPE,
-                10,
-                2,
-                4
+                MIEntities.WILD_PIG,
+                1,
+                1,
+                3
         );
     }
 

@@ -47,8 +47,6 @@ public class FoodItem extends Item {
                 ));
     }
 
-    public static final Map<ItemStack, List<FoodProperty>> CACHED_ITEM2FOOD = new WeakHashMap<>();
-
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (!world.isClient() && world instanceof ServerWorld serverWorld) {
@@ -63,7 +61,7 @@ public class FoodItem extends Item {
             }
             if (user instanceof ServerPlayerEntity player) {
                 HungerManager hungerManager = player.getHungerManager();
-                allProperties.forEach((property) -> hungerManager.add(1, 0));
+                allProperties.forEach((property) -> hungerManager.add(1, 2));
             }
         }
         return super.finishUsing(stack, world, user);

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.BedPart;
@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 public class SleepAtNightGoal extends Goal {
-    private final NPCEntityImpl entity;
+    private final BaseNPCLikeEntity entity;
     private final double speed;
     private BlockPos bedPos;
 
-    public SleepAtNightGoal(NPCEntityImpl entity, double speed) {
+    public SleepAtNightGoal(BaseNPCLikeEntity entity, double speed) {
         this.entity = entity;
         this.speed = speed;
     }

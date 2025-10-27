@@ -1,0 +1,877 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/all_meat_feast"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/arctic_sweet_shrimp_and_peach_salad"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/assorted_tempura"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/a_little_sweet_poison"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/baked_crab_with_cream"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/baked_sweet_potatoes"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/bamboo_shoots_fried_meat"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/bamboo_shoots_stewed_in_stone_pot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/bamboo_steamed_egg"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/bamboo_tube_roasted_drunken_shrimp"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/bamboo_tube_steamed_pork"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/bear_paw"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/beef_hot_pot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/beef_rice"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/beef_wellington"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/beetle_steamed_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/biscay_biscuits"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/boiled_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/braised_eel"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/braised_pork_with_peach"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/burnt_pudding"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/butter_steak"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/candied_chestnuts"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/candied_sweet_potato"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cats_playing_in_water"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cat_food"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cat_kululi"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cat_pizza"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cheese_egg"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cold_dish_carving"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cold_tofu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/colorful_jade_fried_buns"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cooking_tofu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/cream_stew"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/crisp_cyclone"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/dark_cuisine"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/deep_fried_cicada_shells"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/depressed_cheese_sticks"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/dew_boiled_eggs"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/dorayaki"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/dumpling"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/eel_egg_donburi"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/eggs_benedict"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/energy_string"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/failing_sakura_snow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fantasy_is_all_the_rage"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fish_leaps_over_dragon_gate"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/flowers_birds_wind_and_moon"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/flowing_water_noodles"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fried_hagfish"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fried_pork_cutlet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fried_pork_shreds"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fried_shrimp_tempura"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fried_tofu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fried_tomato_strips"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/fright_adventure"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/game_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/gensokyo_star_lotus_ship"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/giant_tamagoyaki"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/gloomy_fruit_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/glutinous_rice_balls"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/golden_crispy_fish_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/grand_banquet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/green_bamboo_welcomes_spring"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/green_fairy_mushroom"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/grilled_hagfish"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/grilled_pork_rice_balls"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/heart_porridge_gruel"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/hell_thrill_warning"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/holy_white_lotus_seed_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/honey_bbq_pork"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/horai-dama_no_eda"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/hot_waffles"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/hula_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/lion_head"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/longyin_peach"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/lotus_fish_rice_bowl"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/luohan_vegetarian"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/mad_hatter_tea_party"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/magma"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/maoyu_lava_tofu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/maoyu_tricolor_ice_cream"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/mapo_tofu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/milky_mushroom_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/mochi"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/molecular_egg"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moonlight_dumplings"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moonlight_over_lotus_pond"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moon_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moon_lovers"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/mushroom_girls_dance_stew"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/mushroom_meat_slices"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/nigiri_sushi"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/oedo_boat_festival"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/okonomiyaki"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/one_hit_kill"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/ordinary_small_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pan_fried_mushroom_meat_roll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pan_fried_salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/peach_blossom_glaze_roll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/peach_blossom_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/phoenix"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pickled_cucumbers"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pig_deer_butterfly"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pine_nut_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pirate_bacon"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/plum_tea_rice"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/poetry_and_ginkgo"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/poisonous_garden"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pork_and_trout_smoked"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pork_rice"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/potato_croquettes"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pseudo_jiritama"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/pumpkin_shrimp_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/rapunzel"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/real_seafood_miso_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/red_bean_daifuku"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/refreshing_pudding"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/reversing_the_world"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/rice_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/risotto"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/roasted_mushrooms"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/sakura_pudding"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/salmon_tempura"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/sashimi_platter"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/scarlet_devils_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/scones"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/screaming_oden"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/seafood_miso_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/sea_urchin_sashimi"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/sea_urchin_shingen_pancake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/secret_dried_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/secret_mushroom_casserole"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/seven_colored_yokan"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/shiraga_sadamatsu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/skinny_horse_dumpling"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/snow_white"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/steamed_egg_with_sea_urchin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/stinky_tofu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/strength_soup"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/superme_seafood_noodles"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/taichi_bagua_fish_maw"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/taketorihime"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/takoyaki"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/the_beauty_of_han_palace"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/the_dream"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/the_mars"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/the_source_of_life"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/tianshi_braised_chestnut_mushrooms"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/tofu_miso"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/tofu_pot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/tonkotsu_ramen"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/toon_pancakes"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/two_heavens_one_style"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/udumbara_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/unconscious_monster_mousse"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/vegetable_special"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/warm_rice_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/white_peach_eight_bridge"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/yunshan_cotton_candy"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/zhaji"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 4.0,
+        "min": 1.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/bamboo_shoots"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/black_pork"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/black_salt"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/broccoli"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/butter"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/capsaicin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/cheese"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/chestnut"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/chili"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/cicada_shell"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/crab"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/cream"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/cucumber"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/dew"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/ficus_microcarpa"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/flour"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/flowers"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/ginkgo"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/grape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/hagfish"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/lemon"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/lotus_nuts"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/moonflower"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/octopus"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/onion"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/peach"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/pine_nut"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/plum"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/puff_yo_fruit"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/red_beans"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/sea_urchin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/shrimp"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/sticky_rice"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/supreme_tuna"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/sweet_potato"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/tofu"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/tomato"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/toon"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/tremella"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/trout"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/truffle"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/tuna"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/twin_lotus"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/udumbara"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/venison"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/wagyu_beef"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/white_radish"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:ingredient/wild_boar_meat"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3.0,
+        "min": 1.0
+      }
+    }
+  ]
+}

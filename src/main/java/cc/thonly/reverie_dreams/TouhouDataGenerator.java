@@ -4,6 +4,8 @@ import cc.thonly.mystias_izakaya.datagen.MICraftingConflictProvider;
 import cc.thonly.mystias_izakaya.datagen.MIDrinkProvider;
 import cc.thonly.mystias_izakaya.datagen.MIIngredientProvider;
 import cc.thonly.reverie_dreams.datagen.*;
+import cc.thonly.reverie_dreams.world.dimension.DimensionInit;
+import cc.thonly.reverie_dreams.world.dimension.DimensionTypeInit;
 import cc.thonly.reverie_dreams.world.gen.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -33,7 +35,7 @@ public class TouhouDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModJukeboxProvider::new);
         pack.addProvider(ModSoundProvider::new);
         pack.addProvider(ModRecipeTypeProvider::new);
-        pack.addProvider(ModRegistryDataGenerator::new);
+        pack.addProvider(ModDynamicRegistryProvider::new);
         pack.addProvider(ModSkinConfigProvider::new);
 
         pack.addProvider(MIIngredientProvider::new);
@@ -49,6 +51,9 @@ public class TouhouDataGenerator implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, ChunkGeneratorSettingsInit::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.BIOME, BiomeInit::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE, ModStructures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, ModStructureSets::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, ModTemplatePools::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DIMENSION_TYPE, DimensionTypeInit::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DIMENSION, DimensionInit::bootstrap);
     }

@@ -1,8 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.item.base.DrinkItem;
-import cc.thonly.mystias_izakaya.item.base.FoodItem;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.gui.NPCGui;
@@ -13,22 +11,16 @@ import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ConsumableComponent;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.component.type.UseRemainderComponent;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -176,7 +168,7 @@ public class NPCRoleInteractionEvents {
 
     }
 
-    public static ActionResult emit(ServerWorld world, ServerPlayerEntity player, Hand hand, NPCRoleEntityImpl entity) {
+    public static ActionResult emit(ServerWorld world, ServerPlayerEntity player, Hand hand, NPCRoleEntity entity) {
         ItemStack itemStack = player.getStackInHand(hand);
         for (NPCRoleInteractionEvent event : RegistryManager.ROLE_INTERACTION_EVENT) {
             int i = 0;
@@ -202,7 +194,7 @@ public class NPCRoleInteractionEvents {
     public static NPCRoleMessage registerMessage(MutableText mutableText) {
         NPCRoleMessage npcRoleMessage = new NPCRoleMessage() {
             @Override
-            public @NotNull MutableText getMessage(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, NPCEntityImpl entity) {
+            public @NotNull MutableText getMessage(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, BaseNPCLikeEntity entity) {
                 return mutableText;
             }
 

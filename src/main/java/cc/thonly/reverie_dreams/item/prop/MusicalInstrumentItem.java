@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import com.mojang.serialization.Codec;
@@ -104,12 +104,12 @@ public class MusicalInstrumentItem extends Item {
                     player.sendMessage(Text.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.asString()), false);
                     Touhou.getServer().executeSync(()-> {
                         Box box = player.getBoundingBox().expand(TouhouNotaUtils.MAX_DISTANCE);
-                        List<NPCRoleEntityImpl> entities = world.getEntitiesByClass(
-                                NPCRoleEntityImpl.class,
+                        List<NPCRoleEntity> entities = world.getEntitiesByClass(
+                                NPCRoleEntity.class,
                                 box,
                                 e -> e.isAlive() && e.isOwner(player) && e.getWorkMode() == NPCWorkModes.PLAYING_MUSIC
                         );
-                        for (NPCRoleEntityImpl e : entities) {
+                        for (NPCRoleEntity e : entities) {
                             ItemStack mainHandStack = e.getMainHandStack();
                             ItemStack offHandStack = e.getOffHandStack();
                             if (mainHandStack.getItem() instanceof MusicalInstrumentItem) {

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
 import net.minecraft.block.entity.*;
@@ -19,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class NPCSmeltGoal extends Goal {
-    private final NPCEntityImpl roleEntity;
+    private final BaseNPCLikeEntity roleEntity;
     @Nullable
     private OperationalTarget operationalTarget;
 
-    public NPCSmeltGoal(NPCEntityImpl roleEntity) {
+    public NPCSmeltGoal(BaseNPCLikeEntity roleEntity) {
         this.roleEntity = roleEntity;
         this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
     }
