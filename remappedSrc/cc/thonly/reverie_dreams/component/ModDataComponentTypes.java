@@ -1,0 +1,111 @@
+package cc.thonly.reverie_dreams.component;
+
+import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.component.tooltip.ModTooltips;
+import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import com.mojang.serialization.Codec;
+import eu.pb4.polymer.core.api.other.PolymerComponent;
+import lombok.extern.slf4j.Slf4j;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import java.util.List;
+
+@Slf4j
+public class ModDataComponentTypes {
+    public static class Danmaku {
+        public static final DataComponentType<String> TEMPLATE = registerComponent("template",
+                DataComponentType.<String>builder().persistent(Codec.STRING).build());
+        public static final DataComponentType<Integer> COUNT = registerComponent("count",
+                DataComponentType.<Integer>builder().persistent(Codec.INT).build());
+        public static final DataComponentType<Float> DAMAGE = registerComponent("damage",
+                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
+        public static final DataComponentType<String> DAMAGE_TYPE = registerComponent("damage_type",
+                DataComponentType.<String>builder().persistent(Codec.STRING).build());
+        public static final DataComponentType<Float> SCALE = registerComponent("scale",
+                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
+        public static final DataComponentType<Float> SPEED = registerComponent("speed",
+                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
+        public static final DataComponentType<Float> ACCELERATION = registerComponent("acceleration",
+                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
+        public static final DataComponentType<Boolean> TILE = registerComponent("tile",
+                DataComponentType.<Boolean>builder().persistent(Codec.BOOL).build());
+        public static final DataComponentType<Boolean> INFINITE = registerComponent("infinite",
+                DataComponentType.<Boolean>builder().persistent(Codec.BOOL).build());
+        public static final DataComponentType<ItemStackWrapper> SHAPE = registerComponent("shape",
+                DataComponentType.<ItemStackWrapper>builder().persistent(ItemStackWrapper.CODEC).build());
+        public static void init() {
+
+        }
+    }
+
+//    public static final ComponentType<Identifier> REGISTRY_KEY = registerComponent("registry_key",
+//            ComponentType.<Identifier>builder()
+//                    .codec(RegistryKeyComponent.CODEC)
+//                    .build());
+
+//    public static final ComponentType<OverTooltipAppender> OVER_TOOLTIP_APPENDER = registerComponent("over_tooltip_appender",
+//            ComponentType.<OverTooltipAppender>builder()
+//                    .codec(OverTooltipAppender.CODEC)
+//                    .build());
+
+    public static final DataComponentType<Unit> SILVER_ITEM = registerComponent("silver_item",
+            DataComponentType.<Unit>builder()
+                    .persistent(Unit.CODEC)
+                    .build()
+    );
+    public static final DataComponentType<ResourceLocation> ROLE_CARD_ID = registerComponent("role_card_id",
+            DataComponentType.<ResourceLocation>builder()
+                    .persistent(ResourceLocation.CODEC)
+                    .build());
+    public static final DataComponentType<Integer> MAX_DISTANCE = registerComponent("max_distance",
+            DataComponentType.<Integer>builder()
+                    .persistent(Codec.INT)
+                    .build());
+    public static final DataComponentType<List<GapRecorder>> GAP_RECORDER = registerComponent("gap_recorder",
+            DataComponentType.<List<GapRecorder>>builder()
+                    .persistent(GapRecorder.LIST_CODEC)
+                    .build());
+    public static final DataComponentType<BattleStickRecorder> BATTLE_STICK_RECORDER = registerComponent("battle_stick_recorder",
+            DataComponentType.<BattleStickRecorder>builder()
+                    .persistent(BattleStickRecorder.CODEC)
+                    .build());
+    public static final DataComponentType<String> PLAYING_MUSIC = registerComponent("playing_music",
+            DataComponentType.<String>builder()
+                    .persistent(Codec.STRING)
+                    .build());
+    public static final DataComponentType<NoteBlockInstrument> NOTE_TYPE = registerComponent("note_type",
+            DataComponentType.<NoteBlockInstrument>builder()
+                    .persistent(MusicalInstrumentItem.NOTE_BLOCK_INSTRUMENT_CODEC)
+                    .build());
+    public static final DataComponentType<RoleFollowerArchive> ROLE_FOLLOWER_ARCHIVE = registerComponent("role_follower_archive",
+            DataComponentType.<RoleFollowerArchive>builder()
+                    .persistent(RoleFollowerArchive.CODEC)
+                    .build()
+    );
+    public static final DataComponentType<Boolean> ROLE_CAN_RESPAWN = registerComponent("role_can_respawn",
+            DataComponentType.<Boolean>builder()
+                    .persistent(Codec.BOOL)
+                    .build()
+    );
+
+    public static void init() {
+        ModTooltips.bootstrap();
+        try {
+            Class.forName(Danmaku.class.getName(), true, Danmaku.class.getClassLoader());
+        } catch (Exception err) {
+            log.error("Can't initialize danmaku component", err);
+        }
+
+    }
+
+    public static <T> DataComponentType<T> registerComponent(String path, DataComponentType<T> componentType) {
+        DataComponentType<T> value = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Touhou.id(path), componentType);
+        PolymerComponent.registerDataComponent(value);
+        return value;
+    }
+}

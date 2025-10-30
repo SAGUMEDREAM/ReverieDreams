@@ -1,0 +1,107 @@
+package cc.thonly.reverie_dreams.entity.villager;
+
+import cc.thonly.mystias_izakaya.component.FoodProperty;
+import cc.thonly.mystias_izakaya.item.MIItems;
+import cc.thonly.reverie_dreams.block.CropBlockCreator;
+import cc.thonly.reverie_dreams.item.ModItems;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
+import java.util.*;
+
+public class Hawkers {
+    public static void registers() {
+        Map<Integer, List<VillagerTrades.ItemListing>> hawkers = new HashMap<>();
+        hawkers.put(1, getHawkersLevelFactories1());
+        hawkers.put(2, getHawkersLevelFactories2());
+        hawkers.put(3, getHawkersLevelFactories3());
+        hawkers.put(4, getHawkersLevelFactories4());
+        hawkers.put(5, getHawkersLevelFactories2());
+        hawkers.forEach((level, list) -> {
+            TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.HAWKERS, level, factories -> {
+                factories.addAll(list);
+            });
+        });
+    }
+
+    private static List<VillagerTrades.ItemListing> getHawkersLevelFactories1() {
+        List<VillagerTrades.ItemListing> list = new ArrayList<>();
+        Item[] arr =new Item[] {
+                Items.WHEAT,
+                Items.POTATO,
+                Items.CARROT
+        };
+        for (Item item : arr) {
+            list.add(((entity, random) -> new MerchantOffer(
+                    new ItemCost(ModItems.COPPER_COIN, (int) (7 + (1.25 * random.nextIntBetweenInclusive(1, 3)))),
+                    Optional.empty(),
+                    new ItemStack(item, 2 + random.nextIntBetweenInclusive(1, 2)),
+                    7,
+                    3,
+                    0.2f
+            )));
+        }
+        return list;
+    }
+
+    private static List<VillagerTrades.ItemListing> getHawkersLevelFactories2() {
+        List<VillagerTrades.ItemListing> list = new ArrayList<>();
+        for (Item ingredient : MIItems.INGREDIENTS) {
+            list.add((entity, random) -> {
+                List<FoodProperty> ingredientProperties = FoodProperty.getIngredientProperties(ingredient);
+                int val0 = (int) (ingredientProperties.size() * 1.25 * random.nextIntBetweenInclusive(1, 2));
+                return new MerchantOffer(
+                        new ItemCost(ModItems.COPPER_COIN, 3 + val0),
+                        Optional.empty(),
+                        new ItemStack(ingredient, 2 + random.nextIntBetweenInclusive(1, 2)),
+                        11,
+                        5,
+                        0.2f
+                );
+            });
+        }
+        return list;
+    }
+
+    private static List<VillagerTrades.ItemListing> getHawkersLevelFactories3() {
+        Item[] arr = new Item[] {
+               Items.SALMON,
+               Items.COD,
+               Items.TROPICAL_FISH
+        };
+        List<VillagerTrades.ItemListing> list = new ArrayList<>();
+        for (Item item : arr) {
+            list.add(((entity, random) -> new MerchantOffer(
+                    new ItemCost(ModItems.COPPER_COIN, (int) (4 + (1.25 * random.nextIntBetweenInclusive(1, 2)))),
+                    Optional.empty(),
+                    new ItemStack(item, 2 + random.nextIntBetweenInclusive(1, 2)),
+                    7,
+                    5,
+                    0.2f
+            )));
+        }
+        return list;
+    }
+
+    private static List<VillagerTrades.ItemListing> getHawkersLevelFactories4() {
+        List<VillagerTrades.ItemListing> list = new ArrayList<>();
+        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+            CropBlockCreator.Instance instance = view.getValue();
+            Item seed = instance.getSeed();
+            list.add((entity, random) -> new MerchantOffer(
+                    new ItemCost(ModItems.COPPER_COIN, 7 + random.nextIntBetweenInclusive(0, 8)),
+                    Optional.empty(),
+                    new ItemStack(seed, 3 + random.nextIntBetweenInclusive(0, 3)),
+                    4,
+                    3,
+                    0.2f
+            ));
+        }
+        return list;
+    }
+}
