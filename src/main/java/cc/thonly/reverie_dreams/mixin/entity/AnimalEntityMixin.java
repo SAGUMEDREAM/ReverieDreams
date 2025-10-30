@@ -1,46 +1,46 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.interfaces.IAnimalEntity;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UseRemainderComponent;
-import net.minecraft.entity.EntityStatuses;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.UseRemainder;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(AnimalEntity.class)
-public abstract class AnimalEntityMixin extends PassiveEntity implements IAnimalEntity {
+@Mixin(Animal.class)
+public abstract class AnimalEntityMixin extends AgeableMob implements IAnimalEntity {
 
-    @Shadow private int loveTicks;
+    @Shadow private int inLove;
 
-    protected AnimalEntityMixin(EntityType<? extends PassiveEntity> entityType, World world) {
+    protected AnimalEntityMixin(EntityType<? extends AgeableMob> entityType, Level world) {
         super(entityType, world);
     }
 
     @Unique
     @Override
-    public void eatStackFood(LivingEntity livingEntity, Hand hand, ItemStack stack) {
+    public void eatStackFood(LivingEntity livingEntity, InteractionHand hand, ItemStack stack) {
         int i = stack.getCount();
-        UseRemainderComponent useRemainderComponent = stack.get(DataComponentTypes.USE_REMAINDER);
-        stack.decrement(1);
+        UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
+        stack.shrink(1);
         if (useRemainderComponent != null) {
-            ItemStack itemStack = useRemainderComponent.convert(stack, i, false, livingEntity::giveOrDropStack);
-            livingEntity.setStackInHand(hand, itemStack);
+            ItemStack itemStack = useRemainderComponent.convertIntoRemainder(stack, i, false, livingEntity::handleExtraItemsCreatedOnUse);
+            livingEntity.setItemInHand(hand, itemStack);
         }
     }
 
     @Unique
     @Override
     public void loveEntity(@Nullable LivingEntity entity) {
-        this.loveTicks = 600;
-        this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_BREEDING_PARTICLES);
+        this.inLove = 600;
+        this.level().broadcastEntityEvent(this, EntityEvent.IN_LOVE_HEARTS);
     }
 }

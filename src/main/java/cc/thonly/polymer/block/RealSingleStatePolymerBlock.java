@@ -9,14 +9,14 @@ import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.resourcepack.extras.api.format.blockstate.BlockStateAsset;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.nio.file.Files;
@@ -26,12 +26,12 @@ public record RealSingleStatePolymerBlock(BlockState state) implements PolymerTe
 
     public static RealSingleStatePolymerBlock of(Block block, BlockModelType type) {
         if (ConstantInfo.IS_DATAGEN) {
-            return new RealSingleStatePolymerBlock(block.getDefaultState());
+            return new RealSingleStatePolymerBlock(block.defaultBlockState());
         }
 
         try {
             BlockStateAsset decoded;
-            var id = Registries.BLOCK.getId(block);
+            var id = BuiltInRegistries.BLOCK.getKey(block);
 
             var path = FabricLoader.getInstance().getModContainer("reverie_dreams").get()
                     .findPath("assets/" + id.getNamespace() + "/blockstates/" + id.getPath() + ".json").get();
@@ -55,7 +55,7 @@ public record RealSingleStatePolymerBlock(BlockState state) implements PolymerTe
     }
 
     @Override
-    public boolean isIgnoringBlockInteractionPlaySoundExceptedEntity(BlockState state, ServerPlayerEntity player, Hand hand, ItemStack stack, ServerWorld world, BlockHitResult blockHitResult) {
+    public boolean isIgnoringBlockInteractionPlaySoundExceptedEntity(BlockState state, ServerPlayer player, InteractionHand hand, ItemStack stack, ServerLevel world, BlockHitResult blockHitResult) {
         return true;
     }
 }

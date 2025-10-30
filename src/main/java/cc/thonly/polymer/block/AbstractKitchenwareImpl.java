@@ -10,11 +10,10 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class AbstractKitchenwareImpl implements FactoryBlock, PolymerTexturedBlock, TransparentFlatTripWire {
@@ -24,20 +23,20 @@ public class AbstractKitchenwareImpl implements FactoryBlock, PolymerTexturedBlo
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         return new Model(world, pos, initialBlockState);
     }
 
     public class Model extends BlockModel {
         private ItemDisplayElement main;
 
-        public Model(ServerWorld world, BlockPos pos, BlockState state) {
+        public Model(ServerLevel world, BlockPos pos, BlockState state) {
             init(state);
         }
 
         public void init(BlockState state) {
             this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
-            Direction facing = state.get(AbstractKitchenwareBlock.FACING);
+            Direction facing = state.getValue(AbstractKitchenwareBlock.FACING);
             float yaw = switch (facing) {
                 case NORTH -> 180f;
                 case EAST -> -90f;

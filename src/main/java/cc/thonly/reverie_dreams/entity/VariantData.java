@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public interface VariantData {
-    void setVariantData(Identifier id);
-    Identifier getVariantData();
+    void setVariantData(ResourceLocation id);
+    ResourceLocation getVariantData();
 }

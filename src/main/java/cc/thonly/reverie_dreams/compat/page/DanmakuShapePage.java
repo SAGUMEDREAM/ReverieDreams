@@ -16,14 +16,13 @@ import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.elements.GuiElementInterface;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -31,39 +30,39 @@ import java.util.List;
 
 @Getter
 public class DanmakuShapePage implements PolydexPage {
-    public static final Identifier id = Touhou.id("recipe/danmaku_shape");
+    public static final ResourceLocation id = Touhou.id("recipe/danmaku_shape");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
-    private static final Text TEXTURE = Text.empty();
-    public static final ItemStack ICON = new GuiElementBuilder(ModItems.DANMAKU_SHAPE_CREATOR).setName(Text.translatable(id.toTranslationKey())).asStack();
-    public final Identifier key;
+    private static final Component TEXTURE = Component.empty();
+    public static final ItemStack ICON = new GuiElementBuilder(ModItems.DANMAKU_SHAPE_CREATOR).setName(Component.translatable(id.toLanguageKey())).asStack();
+    public final ResourceLocation key;
     public final DanmakuShapeDrawRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
     private final PolydexStack<?> output;
 
-    public DanmakuShapePage(Identifier key, DanmakuShapeDrawRecipe value) {
-        this.key = key.withPrefixedPath("recipe/");
+    public DanmakuShapePage(ResourceLocation key, DanmakuShapeDrawRecipe value) {
+        this.key = key.withPrefix("recipe/");
         this.value = value;
-        this.ingredients = List.of(PolydexIngredient.of(Ingredient.ofItem(ModGuiItems.ENABLE)));
+        this.ingredients = List.of(PolydexIngredient.of(Ingredient.of(ModGuiItems.ENABLE)));
         this.output = PolydexStack.of(this.value.getOutput().getItemStack());
     }
 
     @Override
-    public Identifier identifier() {
+    public ResourceLocation identifier() {
         return key;
     }
 
     @Override
-    public ItemStack typeIcon(ServerPlayerEntity serverPlayerEntity) {
+    public ItemStack typeIcon(ServerPlayer serverPlayerEntity) {
         return ICON;
     }
 
     @Override
-    public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayerEntity serverPlayerEntity) {
+    public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
         return this.value.getOutput().getItemStack();
     }
 
     @Override
-    public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayerEntity serverPlayerEntity, PageBuilder layout) {
+    public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity, PageBuilder layout) {
         Runnable runnable = ()-> {
             DanmakuShapeDisplayView view = new DanmakuShapeDisplayView(serverPlayerEntity, RecipeEntryWrapper.of(this.key, this.value), null);
             view.open();
@@ -89,7 +88,7 @@ public class DanmakuShapePage implements PolydexPage {
         if (s.equalsIgnoreCase("E")) {
             return new GuiElementBuilder(this.value.getOutput().getItemStack().copy())
                     .setCallback(callback)
-                    .setLore(List.of(Text.empty().append(Text.translatable("item.tooltip.recipe.no_compat"))));
+                    .setLore(List.of(Component.empty().append(Component.translatable("item.tooltip.recipe.no_compat"))));
         }
         return new GuiElementBuilder(Items.AIR);
     }

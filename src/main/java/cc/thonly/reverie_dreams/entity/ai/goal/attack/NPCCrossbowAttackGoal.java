@@ -1,22 +1,21 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TimeHelper;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
-
 import java.util.EnumSet;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ChargedProjectiles;
 
 public class NPCCrossbowAttackGoal extends Goal {
-	public static final UniformIntProvider COOLDOWN_RANGE = TimeHelper.betweenSeconds(1, 2);
+	public static final UniformInt COOLDOWN_RANGE = TimeUtil.rangeOfSeconds(1, 2);
 	private NPCCrossbowAttackGoal.Stage stage = NPCCrossbowAttackGoal.Stage.UNCHARGED;
 	private final BaseNPCLikeEntity maid;
 	private final double speed;
@@ -30,11 +29,11 @@ public class NPCCrossbowAttackGoal extends Goal {
 
 		this.speed = speed;
 		this.squaredRange = range * range;
-		this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
 	}
 
 	@Override
-	public boolean canStart() {
+	public boolean canUse() {
 		return this.hasAliveTarget() && this.isEntityHoldingCrossbow();
 	}
 
@@ -43,8 +42,8 @@ public class NPCCrossbowAttackGoal extends Goal {
 	}
 
 	@Override
-	public boolean shouldContinue() {
-		return this.hasAliveTarget() && (this.canStart() || !this.maid.getNavigation().isIdle()) && this.isEntityHoldingCrossbow();
+	public boolean canContinueToUse() {
+		return this.hasAliveTarget() && (this.canUse() || !this.maid.getNavigation().isDone()) && this.isEntityHoldingCrossbow();
 	}
 
 	private boolean hasAliveTarget() {
@@ -54,17 +53,17 @@ public class NPCCrossbowAttackGoal extends Goal {
 	@Override
 	public void stop() {
 		super.stop();
-		this.maid.setAttacking(false);
+		this.maid.setAggressive(false);
 		this.maid.setTarget(null);
 		this.seeingTargetTicker = 0;
 		if (this.maid.isUsingItem()) {
-			this.maid.clearActiveItem();
-			this.maid.getActiveItem().set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+			this.maid.stopUsingItem();
+			this.maid.getUseItem().set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 		}
 	}
 
 	@Override
-	public boolean shouldRunEveryTick() {
+	public boolean requiresUpdateEveryTick() {
 		return true;
 	}
 
@@ -72,7 +71,7 @@ public class NPCCrossbowAttackGoal extends Goal {
 	public void tick() {
 		LivingEntity livingEntity = this.maid.getTarget();
 		if (livingEntity != null) {
-			boolean bl = this.maid.getVisibilityCache().canSee(livingEntity);
+			boolean bl = this.maid.getSensing().hasLineOfSight(livingEntity);
 			boolean bl2 = this.seeingTargetTicker > 0;
 			if (bl != bl2) {
 				this.seeingTargetTicker = 0;
@@ -84,23 +83,23 @@ public class NPCCrossbowAttackGoal extends Goal {
 				this.seeingTargetTicker--;
 			}
 
-			double d = this.maid.squaredDistanceTo(livingEntity);
+			double d = this.maid.distanceToSqr(livingEntity);
 			boolean bl3 = (d > this.squaredRange || this.seeingTargetTicker < 5) && this.chargedTicksLeft == 0;
 			if (bl3) {
 				this.cooldown--;
 				if (this.cooldown <= 0) {
-					this.maid.getNavigation().startMovingTo(livingEntity, this.isUncharged() ? this.speed : this.speed * 0.5);
-					this.cooldown = COOLDOWN_RANGE.get(this.maid.getRandom());
+					this.maid.getNavigation().moveTo(livingEntity, this.isUncharged() ? this.speed : this.speed * 0.5);
+					this.cooldown = COOLDOWN_RANGE.sample(this.maid.getRandom());
 				}
 			} else {
 				this.cooldown = 0;
 				this.maid.getNavigation().stop();
 			}
 
-			this.maid.getLookControl().lookAt(livingEntity, 30.0F, 30.0F);
+			this.maid.getLookControl().setLookAt(livingEntity, 30.0F, 30.0F);
 			if (this.stage == NPCCrossbowAttackGoal.Stage.UNCHARGED) {
 				if (!bl3) {
-					this.maid.setCurrentHand(ProjectileUtil.getHandPossiblyHolding(this.maid, Items.CROSSBOW));
+					this.maid.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.maid, Items.CROSSBOW));
 					this.stage = NPCCrossbowAttackGoal.Stage.CHARGING;
 				}
 			} else if (this.stage == NPCCrossbowAttackGoal.Stage.CHARGING) {
@@ -108,8 +107,8 @@ public class NPCCrossbowAttackGoal extends Goal {
 					this.stage = NPCCrossbowAttackGoal.Stage.UNCHARGED;
 				}
 
-				int i = this.maid.getItemUseTime();
-				ItemStack itemStack = this.maid.getActiveItem();
+				int i = this.maid.getTicksUsingItem();
+				ItemStack itemStack = this.maid.getUseItem();
 
 
 //				Integer slot = inventory.findSlot(stack -> NPCEntityImpl.ARROW_ITEMS.contains(stack.getItem()));
@@ -117,8 +116,8 @@ public class NPCCrossbowAttackGoal extends Goal {
 //					ItemStack stack = inventory.getStack(slot);
 //					stack.decrement(1);
 //				}else return;
-				if (i >= CrossbowItem.getPullTime(itemStack, this.maid)) {
-					this.maid.stopUsingItem();
+				if (i >= CrossbowItem.getChargeDuration(itemStack, this.maid)) {
+					this.maid.releaseUsingItem();
 					if (chargeCrossBow()){
 						this.stage = NPCCrossbowAttackGoal.Stage.CHARGED;
 						this.chargedTicksLeft = 10 + this.maid.getRandom().nextInt(20);
@@ -130,7 +129,7 @@ public class NPCCrossbowAttackGoal extends Goal {
 					this.stage = NPCCrossbowAttackGoal.Stage.READY_TO_ATTACK;
 				}
 			} else if (this.stage == NPCCrossbowAttackGoal.Stage.READY_TO_ATTACK && bl) {
-				this.maid.shootAt(livingEntity, 1.0F);
+				this.maid.performRangedAttack(livingEntity, 1.0F);
 				this.stage = NPCCrossbowAttackGoal.Stage.UNCHARGED;
 			}
 		}
@@ -147,8 +146,8 @@ public class NPCCrossbowAttackGoal extends Goal {
 		READY_TO_ATTACK;
 	}
 	private boolean chargeCrossBow(){
-		Hand crossBowHand = ProjectileUtil.getHandPossiblyHolding(this.maid, Items.CROSSBOW);
-		ItemStack crossBow = maid.getStackInHand(crossBowHand);
+		InteractionHand crossBowHand = ProjectileUtil.getWeaponHoldingHand(this.maid, Items.CROSSBOW);
+		ItemStack crossBow = maid.getItemInHand(crossBowHand);
 		ItemStack arrowStack = RangedAttackUtil.getCrossBowAmmoStack(this.maid);
 		if (arrowStack!=null&&RangedAttackUtil.loadProjectiles(crossBow, arrowStack, maid)){
 //			arrowStack.decrement(1);

@@ -12,35 +12,48 @@ import eu.pb4.sgui.api.gui.MerchantGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.command.argument.EntityAnchorArgumentType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.passive.WanderingTraderEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShovelItem;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.VillagerData;
-import net.minecraft.world.World;
-
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.InteractGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.LookAtTradingPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.TradeWithPlayerGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.monster.Evoker;
+import net.minecraft.world.entity.monster.Illusioner;
+import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.monster.Zoglin;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import java.util.*;
 
 @Slf4j
 @Getter
-public abstract class AbstractSellerEntity extends WanderingTraderEntity {
+public abstract class AbstractSellerEntity extends WanderingTrader {
     public static final int MAX_LEVEL = 5;
     public static final int[] EXPS = {50, 100, 150, 200, 250};
     private static final Gson GSON = new Gson();
@@ -51,32 +64,32 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
     protected int level = 0;
     protected int exp = 0;
 
-    public AbstractSellerEntity(EntityType<? extends WanderingTraderEntity> entityType, World world) {
+    public AbstractSellerEntity(EntityType<? extends WanderingTrader> entityType, Level world) {
         super(entityType, world);
         this.getNavigation().setCanOpenDoors(true);
-        this.getNavigation().setCanSwim(true);
+        this.getNavigation().setCanFloat(true);
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
 //        this.goalSelector.add(0, new HoldInHandsGoal<WanderingTraderEntity>(this, PotionContentsComponent.createStack(Items.POTION, Potions.INVISIBILITY), SoundEvents.ENTITY_WANDERING_TRADER_DISAPPEARED, wanderingTrader -> this.getWorld().isNight() && !wanderingTrader.isInvisible()));
 //        this.goalSelector.add(0, new HoldInHandsGoal<WanderingTraderEntity>(this, new ItemStack(Items.MILK_BUCKET), SoundEvents.ENTITY_WANDERING_TRADER_REAPPEARED, wanderingTrader -> this.getWorld().isDay() && wanderingTrader.isInvisible()));
-        this.goalSelector.add(1, new StopFollowingCustomerGoal(this));
-        this.goalSelector.add(1, new FleeEntityGoal<ZombieEntity>(this, ZombieEntity.class, 8.0f, 0.5, 0.5));
-        this.goalSelector.add(1, new FleeEntityGoal<EvokerEntity>(this, EvokerEntity.class, 12.0f, 0.5, 0.5));
-        this.goalSelector.add(1, new FleeEntityGoal<VindicatorEntity>(this, VindicatorEntity.class, 8.0f, 0.5, 0.5));
-        this.goalSelector.add(1, new FleeEntityGoal<VexEntity>(this, VexEntity.class, 8.0f, 0.5, 0.5));
-        this.goalSelector.add(1, new FleeEntityGoal<PillagerEntity>(this, PillagerEntity.class, 15.0f, 0.5, 0.5));
-        this.goalSelector.add(1, new FleeEntityGoal<IllusionerEntity>(this, IllusionerEntity.class, 12.0f, 0.5, 0.5));
-        this.goalSelector.add(1, new FleeEntityGoal<ZoglinEntity>(this, ZoglinEntity.class, 10.0f, 0.5, 0.5));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 0.5));
-        this.goalSelector.add(1, new LookAtCustomerGoal(this));
-        this.goalSelector.add(2, new WanderToTargetGoal(this, 2.0, 0.35));
-        this.goalSelector.add(4, new GoToWalkTargetGoal(this, 0.35));
-        this.goalSelector.add(8, new WanderAroundFarGoal(this, 0.35));
-        this.goalSelector.add(9, new StopAndLookAtEntityGoal(this, PlayerEntity.class, 3.0f, 1.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0f));
+        this.goalSelector.addGoal(1, new TradeWithPlayerGoal(this));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<Zombie>(this, Zombie.class, 8.0f, 0.5, 0.5));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<Evoker>(this, Evoker.class, 12.0f, 0.5, 0.5));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<Vindicator>(this, Vindicator.class, 8.0f, 0.5, 0.5));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<Vex>(this, Vex.class, 8.0f, 0.5, 0.5));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<Pillager>(this, Pillager.class, 15.0f, 0.5, 0.5));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<Illusioner>(this, Illusioner.class, 12.0f, 0.5, 0.5));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<Zoglin>(this, Zoglin.class, 10.0f, 0.5, 0.5));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 0.5));
+        this.goalSelector.addGoal(1, new LookAtTradingPlayerGoal(this));
+        this.goalSelector.addGoal(2, new WanderToPositionGoal(this, 2.0, 0.35));
+        this.goalSelector.addGoal(4, new MoveTowardsRestrictionGoal(this, 0.35));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.35));
+        this.goalSelector.addGoal(9, new InteractGoal(this, Player.class, 3.0f, 1.0f));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0f));
     }
 
     @Override
@@ -88,10 +101,10 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
     }
 
     public void trade(ItemStackWrapper wrapper) {
-        World world = this.getWorld();
+        Level world = this.level();
         Random random = new Random();
         this.exp += random.nextInt(9, 25);
-        this.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP);
+        this.makeSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
         this.sellInfo.sell(this.getVillagerSeed(), wrapper);
         this.tryLevelUp();
     }
@@ -101,7 +114,7 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
             this.exp -= EXPS[this.level];
             this.level++;
 
-            this.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP);
+            this.makeSound(SoundEvents.PLAYER_LEVELUP);
         }
 
         if (this.level >= MAX_LEVEL) {
@@ -113,63 +126,63 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
     public abstract VillagerData getModifyVillagerData(MinecraftServer server);
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        World baseWorld = player.getWorld();
-        ItemStack stack = player.getStackInHand(hand);
-        if (!baseWorld.isClient() && baseWorld instanceof ServerWorld world) {
-            if (stack.getItem() instanceof ShovelItem && player.isSneaking() && this.canReset()) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        Level baseWorld = player.level();
+        ItemStack stack = player.getItemInHand(hand);
+        if (!baseWorld.isClientSide() && baseWorld instanceof ServerLevel world) {
+            if (stack.getItem() instanceof ShovelItem && player.isShiftKeyDown() && this.canReset()) {
                 boolean canceled = this.cancel();
-                if (canceled && !player.isInCreativeMode()) {
-                    stack.damage(1, player);
+                if (canceled && !player.hasInfiniteMaterials()) {
+                    stack.hurtWithoutBreaking(1, player);
                 }
-                player.swingHand(hand);
-                return ActionResult.SUCCESS_SERVER;
+                player.swing(hand);
+                return InteractionResult.SUCCESS_SERVER;
             }
             if (this.sessions.isEmpty()) {
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                ServerPlayer serverPlayer = (ServerPlayer) player;
 
-                this.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, player.getPos().add(0, 1, 0));
+                this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
                 this.getNavigation().stop();
 
                 SellerGui sellerGui = new SellerGui(serverPlayer, this);
                 sellerGui.open();
-                player.swingHand(hand);
-                return ActionResult.SUCCESS_SERVER;
+                player.swing(hand);
+                return InteractionResult.SUCCESS_SERVER;
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    public static DefaultAttributeContainer.Builder createLivingAttributes() {
-        return MobEntity.createMobAttributes();
+    public static AttributeSupplier.Builder createLivingAttributes() {
+        return Mob.createMobAttributes();
     }
 
     @Override
-    public void tickMovement() {
-        if (!this.getWorld().isClient() && !this.sessions.isEmpty()) {
+    public void aiStep() {
+        if (!this.level().isClientSide() && !this.sessions.isEmpty()) {
             return;
         }
-        super.tickMovement();
+        super.aiStep();
     }
 
     public boolean cancel() {
-        World world = this.getWorld();
+        Level world = this.level();
         if (this.prev != null) {
-            VillagerEntity villager = new VillagerEntity(EntityType.VILLAGER, this.getWorld());
+            Villager villager = new Villager(EntityType.VILLAGER, this.level());
             villager.setVillagerData(this.prev);
-            villager.setPos(this.getX(), this.getY(), this.getZ());
-            this.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN);
+            villager.setPosRaw(this.getX(), this.getY(), this.getZ());
+            this.makeSound(SoundEvents.BOOK_PAGE_TURN);
             this.discard();
-            world.spawnEntity(villager);
+            world.addFreshEntity(villager);
             return true;
         }
         return false;
     }
 
     @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        Optional<String> prevVillagerData = view.getOptionalString("PrevVillagerData");
+    protected void readAdditionalSaveData(ValueInput view) {
+        super.readAdditionalSaveData(view);
+        Optional<String> prevVillagerData = view.getString("PrevVillagerData");
         if (prevVillagerData.isPresent()) {
             String jsonString = prevVillagerData.get();
             JsonElement element = JsonParser.parseString(jsonString);
@@ -178,8 +191,8 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
             Optional<VillagerData> result = parse.result();
             result.ifPresent((data) -> this.prev = data);
         }
-        this.level = view.getInt("Level",0);
-        Optional<String> sellInfoData = view.getOptionalString("SellInfoData");
+        this.level = view.getIntOr("Level",0);
+        Optional<String> sellInfoData = view.getString("SellInfoData");
         if (sellInfoData.isPresent()) {
             String jsonString = sellInfoData.get();
             JsonElement element = JsonParser.parseString(jsonString);
@@ -191,8 +204,8 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
+    protected void addAdditionalSaveData(ValueOutput view) {
+        super.addAdditionalSaveData(view);
         if (this.prev != null) {
             DataResult<JsonElement> dataResult = VillagerData.CODEC.encodeStart(JsonOps.INSTANCE, this.prev);
             Optional<JsonElement> result = dataResult.result();
@@ -212,12 +225,12 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
         }
     }
 
-    public abstract List<TradeOffer> getVillagerOffers();
+    public abstract List<MerchantOffer> getVillagerOffers();
 
     public long getVillagerSeed() {
-        UUID uuid = this.getUuid();
-        World world = this.getWorld();
-        long day = world.getTimeOfDay() / 24000L;
+        UUID uuid = this.getUUID();
+        Level world = this.level();
+        long day = world.getDayTime() / 24000L;
         long mostSigBits = uuid.getMostSignificantBits();
         long leastSigBits = uuid.getLeastSignificantBits();
         return mostSigBits + leastSigBits + day;
@@ -227,7 +240,7 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
     public static class SellerGui extends MerchantGui {
         private final AbstractSellerEntity self;
 
-        public SellerGui(ServerPlayerEntity player, AbstractSellerEntity self) {
+        public SellerGui(ServerPlayer player, AbstractSellerEntity self) {
             super(player, false);
             this.self = self;
             this.init();
@@ -235,8 +248,8 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
 
         public void init() {
             this.setTitle(this.self.getName());
-            List<TradeOffer> villagerOffers = this.self.getVillagerOffers();
-            for (TradeOffer offer : villagerOffers) {
+            List<MerchantOffer> villagerOffers = this.self.getVillagerOffers();
+            for (MerchantOffer offer : villagerOffers) {
                 this.addTrade(offer);
             }
             if (villagerOffers.isEmpty()) {
@@ -246,10 +259,10 @@ public abstract class AbstractSellerEntity extends WanderingTraderEntity {
         }
 
         @Override
-        public boolean onTrade(TradeOffer offer) {
-            TradeOffer copied = offer.copy();
-            this.self.trade(ItemStackWrapper.of(copied.copySellItem()));
-            this.self.trade(copied);
+        public boolean onTrade(MerchantOffer offer) {
+            MerchantOffer copied = offer.copy();
+            this.self.trade(ItemStackWrapper.of(copied.assemble()));
+            this.self.notifyTrade(copied);
             return super.onTrade(offer);
         }
 

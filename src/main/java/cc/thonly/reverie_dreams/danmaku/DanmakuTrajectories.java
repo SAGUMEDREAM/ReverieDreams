@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.danmaku.trajectory.*;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public class DanmakuTrajectories {
     public static final DanmakuTrajectory SINGLE = register(Touhou.id("single"), new SingleTrajectory());
@@ -16,7 +16,7 @@ public class DanmakuTrajectories {
     public static final DanmakuTrajectory ROUND = register(Touhou.id("round"), new RoundTrajectory());
     public static final DanmakuTrajectory RING = register(Touhou.id("ring"), new RingTrajectory());
 
-    public static DanmakuTrajectory register(Identifier key, DanmakuTrajectory value) {
+    public static DanmakuTrajectory register(ResourceLocation key, DanmakuTrajectory value) {
         return RegistryManager.registerForBuiltin(RegistryManager.DANMAKU_TRAJECTORY, key, value);
     }
 

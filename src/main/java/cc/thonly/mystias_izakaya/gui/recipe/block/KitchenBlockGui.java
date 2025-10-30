@@ -19,23 +19,22 @@ import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import net.minecraft.block.Block;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UseRemainderComponent;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.UseRemainder;
+import net.minecraft.world.level.block.Block;
 
 public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements GuiCommon {
     public static final String[][] GRID = new String[][]{
@@ -63,8 +62,8 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     private int page = 0;
     private int maxPage = 0;
 
-    public KitchenBlockGui(Block block, KitchenwareBlockEntity blockEntity, ServerPlayerEntity player) {
-        super(ScreenHandlerType.GENERIC_9X6, player, false);
+    public KitchenBlockGui(Block block, KitchenwareBlockEntity blockEntity, ServerPlayer player) {
+        super(MenuType.GENERIC_9x6, player, false);
         this.block = block;
         this.blockEntity = blockEntity;
         this.recipeType = blockEntity.getRecipeType();
@@ -75,7 +74,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     public void init() {
         Set<KitchenBlockGui<?>> session = KitchenwareBlockEntity.SESSIONS.computeIfAbsent(this.blockEntity.getUuid(), (map) -> new WeakHashSet<>());
         session.add(this);
-        this.setTitle(Text.translatable(this.block.getTranslationKey()));
+        this.setTitle(Component.translatable(this.block.getDescriptionId()));
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
                 String posChar = GRID[row][col];
@@ -84,14 +83,14 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 switch (posChar) {
                     case "X" -> this.setSlot(index, new GuiElementBuilder(ModGuiItems.EMPTY_SLOT));
                     case "N" -> this.setSlot(index, new GuiElementBuilder(ModGuiItems.NEXT).setCallback((i, t, sat) -> {
-                        this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
                         if (this.page < this.maxPage) {
                             this.page++;
                             this.onTick();
                         }
                     }));
                     case "P" -> this.setSlot(index, new GuiElementBuilder(ModGuiItems.PREV).setCallback((i, t, sat) -> {
-                        this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
                         if (this.page > 0) {
                             this.page--;
                             this.onTick();
@@ -160,17 +159,17 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     }
 
     private void handleCrafting(ItemStack output, List<ItemStackWrapper> inputs, KitchenRecipe recipe) {
-        this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
-        SimpleInventory inventory = this.blockEntity.getInventory();
+        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        SimpleContainer inventory = this.blockEntity.getInventory();
         for (int i = 0; i < 5; i++) {
-            ItemStack stack = inventory.getStack(i);
+            ItemStack stack = inventory.getItem(i);
             if (!stack.isEmpty()) {
-                UseRemainderComponent useRemainderComponent = stack.get(DataComponentTypes.USE_REMAINDER);
+                UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
                 if (useRemainderComponent != null) {
                     ItemStack itemStack = useRemainderComponent.convertInto();
-                    this.blockEntity.throwItem((ServerWorld) blockEntity.getWorld(), itemStack);
+                    this.blockEntity.throwItem((ServerLevel) blockEntity.getLevel(), itemStack);
                 }
-                stack.decrement(1);
+                stack.shrink(1);
             }
         }
         this.blockEntity.setOutput(new ItemStackWrapper(output.copy()), recipe.getCostTime() * 20.0 + 20 * 0.25 * inputs.size());
@@ -188,7 +187,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     public void onTick() {
         super.onTick();
 
-        if (this.blockEntity == null || this.blockEntity.getWorld() == null) {
+        if (this.blockEntity == null || this.blockEntity.getLevel() == null) {
             this.close();
             return;
         }
@@ -199,17 +198,17 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             this.setSlot(index, guiElementBuilder);
         }
 
-        Block block = this.blockEntity.getWorld().getBlockState(this.blockEntity.getPos()).getBlock();
+        Block block = this.blockEntity.getLevel().getBlockState(this.blockEntity.getBlockPos()).getBlock();
         if (!(block instanceof AbstractKitchenwareBlock)) {
             this.close();
             return;
         }
 
         KitchenRecipeType kitchenRecipeType = getRecipeTypeInstance();
-        SimpleInventory inventory = this.blockEntity.getInventory();
+        SimpleContainer inventory = this.blockEntity.getInventory();
         List<ItemStackWrapper> inputs = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            inputs.add(new ItemStackWrapper(inventory.getStack(i).copy()));
+            inputs.add(new ItemStackWrapper(inventory.getItem(i).copy()));
         }
 
         List<KitchenRecipe> matches = kitchenRecipeType.getMatches(this.recipeType, inputs);
@@ -220,7 +219,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         // 清空旧显示
         for (GuiElementBuilder builder : this.displayed.values()) {
             IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) builder;
-            accessor.setItemStack(ModGuiItems.EMPTY_SLOT.getDefaultStack());
+            accessor.setItemStack(ModGuiItems.EMPTY_SLOT.getDefaultInstance());
         }
 
         int i = 0;
@@ -239,7 +238,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 ItemStack itemStack = output.get();
                 for (CraftingConflict conflict : MIRegistryManager.CRAFTING_CONFLICT.values()) {
                     if (conflict.test(itemStack)) {
-                        output.set(MIItems.DARK_CUISINE.getDefaultStack());
+                        output.set(MIItems.DARK_CUISINE.getDefaultInstance());
                     }
                 }
                 handleCrafting(output.get(), inputs, recipe);
@@ -262,7 +261,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
     @Override
     public void onClose() {
-        this.blockEntity.markDirty();
+        this.blockEntity.setChanged();
         super.onClose();
     }
 }

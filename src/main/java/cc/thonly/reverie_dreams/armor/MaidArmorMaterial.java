@@ -2,29 +2,28 @@ package cc.thonly.reverie_dreams.armor;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.data.ModTags;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.item.equipment.EquipmentAssetKeys;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.sound.SoundEvents;
-
 import java.util.Map;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 
 public interface MaidArmorMaterial {
     int BASE_DURABILITY = 20;
-    RegistryKey<EquipmentAsset> REGISTRY_KEY = RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Touhou.id("maid"));
+    ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, Touhou.id("maid"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
-                    EquipmentType.HELMET, 3,
-                    EquipmentType.CHESTPLATE, 6,
-                    EquipmentType.LEGGINGS, 5,
-                    EquipmentType.BOOTS, 2
+                    ArmorType.HELMET, 3,
+                    ArmorType.CHESTPLATE, 6,
+                    ArmorType.LEGGINGS, 5,
+                    ArmorType.BOOTS, 2
             ),
             5,
-            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
             0.0F,
             0.0F,
             ModTags.ItemTypeTag.SILVER_TOOL_MATERIALS,

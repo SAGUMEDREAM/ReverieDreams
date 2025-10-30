@@ -1,12 +1,11 @@
 package cc.thonly.reverie_dreams.server;
 
 import lombok.Getter;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
-
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.phys.Vec3;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,11 +13,11 @@ import java.util.List;
 public class ParticleTickerManager {
     private static final List<Entry> ENTRIES = new LinkedList<>();
 
-    public static synchronized void joinQueue(ServerWorld world, ParticleEffect particleEffect, int count, Vec3d from, Vec3d to, float durationSeconds) {
+    public static synchronized void joinQueue(ServerLevel world, ParticleOptions particleEffect, int count, Vec3 from, Vec3 to, float durationSeconds) {
         ENTRIES.add(new Entry(world.getServer(), world, from, to, durationSeconds * 20, Present.LINEAR, particleEffect, count));
     }
 
-    public static synchronized void joinQueue(ServerWorld world, ParticleEffect particleEffect, int count, Vec3d from, Vec3d to, Present present, float durationSeconds) {
+    public static synchronized void joinQueue(ServerLevel world, ParticleOptions particleEffect, int count, Vec3 from, Vec3 to, Present present, float durationSeconds) {
         ENTRIES.add(new Entry(world.getServer(), world, from, to, durationSeconds * 20, present, particleEffect, count));
     }
 
@@ -32,11 +31,11 @@ public class ParticleTickerManager {
             }
 
             if (entry.hasNext()) {
-                Vec3d pos = entry.next();
-                ParticleEffect particleType = entry.getParticleType();
-                PlayerManager playerManager = server.getPlayerManager();
-                ServerWorld world = entry.getWorld();
-                world.spawnParticles(particleType, pos.x,pos.y,pos.z,1,0,0,0,0.1);
+                Vec3 pos = entry.next();
+                ParticleOptions particleType = entry.getParticleType();
+                PlayerList playerManager = server.getPlayerList();
+                ServerLevel world = entry.getWorld();
+                world.sendParticles(particleType, pos.x,pos.y,pos.z,1,0,0,0,0.1);
 
             } else {
                 iterator.remove();
@@ -47,20 +46,20 @@ public class ParticleTickerManager {
     @Getter
     public static class Entry {
         private final MinecraftServer server;
-        private final ServerWorld world;
-        private final Vec3d start;
-        private final Vec3d end;
+        private final ServerLevel world;
+        private final Vec3 start;
+        private final Vec3 end;
         private final double maxStep;
         private final Present present;
-        private final ParticleEffect particleType;
+        private final ParticleOptions particleType;
         private final int count;
         private double currentStep = 0;
 
-        public Entry(MinecraftServer server, ServerWorld world, Vec3d start, Vec3d end, double maxStep, ParticleEffect particleType, int count) {
+        public Entry(MinecraftServer server, ServerLevel world, Vec3 start, Vec3 end, double maxStep, ParticleOptions particleType, int count) {
             this(server, world, start, end, maxStep, Present.LINEAR, particleType, count);
         }
 
-        public Entry(MinecraftServer server, ServerWorld world, Vec3d start, Vec3d end, double maxStep, Present present, ParticleEffect particleType, int count) {
+        public Entry(MinecraftServer server, ServerLevel world, Vec3 start, Vec3 end, double maxStep, Present present, ParticleOptions particleType, int count) {
             this.server = server;
             this.world = world;
             this.start = start;
@@ -79,7 +78,7 @@ public class ParticleTickerManager {
             return true;
         }
 
-        public Vec3d next() {
+        public Vec3 next() {
             double t = this.currentStep / this.maxStep;
             this.currentStep += 1;
             return this.present.instance.getVec(t, this.start, this.end);
@@ -173,8 +172,8 @@ public class ParticleTickerManager {
     }
 
     public record PathInstance(LinePath x, LinePath y, LinePath z) {
-        public Vec3d getVec(double t, Vec3d from, Vec3d to) {
-            return new Vec3d(
+        public Vec3 getVec(double t, Vec3 from, Vec3 to) {
+            return new Vec3(
                     x.get(t) * (to.x - from.x) + from.x,
                     y.get(t) * (to.y - from.y) + from.y,
                     z.get(t) * (to.z - from.z) + from.z

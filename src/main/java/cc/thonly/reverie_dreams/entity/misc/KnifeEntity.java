@@ -5,11 +5,11 @@ import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 @Setter
@@ -18,16 +18,16 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("unchecked")
 public class KnifeEntity extends DanmakuEntity {
 
-    public KnifeEntity(@Nullable Entity livingEntity, ServerWorld world, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
+    public KnifeEntity(@Nullable Entity livingEntity, ServerLevel world, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
         super(livingEntity, world, x, y, z, stack, pitch, yaw, speed, acceleration, divergence, offsetDist);
     }
 
-    public KnifeEntity(EntityType<KnifeEntity> knifeEntityEntityType, World world) {
+    public KnifeEntity(EntityType<KnifeEntity> knifeEntityEntityType, Level world) {
         super((EntityType<DanmakuEntity>) (Object) knifeEntityEntityType, world);
     }
 
     @Override
-    protected ItemStack getDefaultItemStack() {
-        return ModEntityHolders.KNIFE_DISPLAY.getDefaultStack();
+    protected ItemStack getDefaultPickupItem() {
+        return ModEntityHolders.KNIFE_DISPLAY.getDefaultInstance();
     }
 }

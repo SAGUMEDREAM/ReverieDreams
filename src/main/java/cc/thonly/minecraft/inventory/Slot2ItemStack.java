@@ -3,9 +3,8 @@ package cc.thonly.minecraft.inventory;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.ItemStack;
-
 import java.util.List;
+import net.minecraft.world.item.ItemStack;
 
 public record Slot2ItemStack(int index, ItemStack itemStack) {
     public static final Codec<Slot2ItemStack> CODEC = RecordCodecBuilder.create(instance -> instance.group(

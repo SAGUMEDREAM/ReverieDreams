@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
 
 public interface TranslationExporterBuilderImpl {
-    public static TranslationExporter createBuilder(RegistryWrapper.WrapperLookup wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
+    public static TranslationExporter createBuilder(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
         return new TranslationExporter(wrapperLookup, translationBuilder);
     }
 

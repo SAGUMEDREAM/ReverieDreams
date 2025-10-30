@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.inventory;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 @FunctionalInterface
 public interface SlotFilter {

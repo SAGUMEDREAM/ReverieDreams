@@ -1,88 +1,88 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class CrossingChisel extends Item {
     public static final Integer DEFAULT_VALUE = 16;
 
-    public CrossingChisel(Settings settings) {
+    public CrossingChisel(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        ItemStack stack = context.getStack();
-        World world = context.getWorld();
-        PlayerEntity player = context.getPlayer();
-        BlockPos origin = context.getBlockPos();
-        Direction direction = context.getSide();
+    public InteractionResult useOn(UseOnContext context) {
+        ItemStack stack = context.getItemInHand();
+        Level world = context.getLevel();
+        Player player = context.getPlayer();
+        BlockPos origin = context.getClickedPos();
+        Direction direction = context.getClickedFace();
         Integer maxDistance = stack.get(ModDataComponentTypes.MAX_DISTANCE);
         maxDistance = maxDistance != null ? maxDistance : DEFAULT_VALUE;
 
         if (player != null) {
             BlockPos targetPos = getTravelPos(world, origin, direction, maxDistance);
-            if (targetPos != null && isSafePos(world, targetPos.up())) {
-                if(!world.isClient()) {
-                    player.requestTeleport(
+            if (targetPos != null && isSafePos(world, targetPos.above())) {
+                if(!world.isClientSide()) {
+                    player.teleportTo(
                             targetPos.getX() + 0.5,
                             targetPos.getY(),
                             targetPos.getZ() + 0.5
                     );
 
-                    world.syncWorldEvent(2001, origin, 0);
-                    world.playSound(null, targetPos, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, player.getSoundCategory(), 1.0f, 1.0f);
-                    player.swingHand(context.getHand());
-                    if (stack.isDamageable() && !player.isInCreativeMode()) {
-                        stack.damage(1, player);
+                    world.levelEvent(2001, origin, 0);
+                    world.playSound(null, targetPos, SoundEvents.CHORUS_FRUIT_TELEPORT, player.getSoundSource(), 1.0f, 1.0f);
+                    player.swing(context.getHand());
+                    if (stack.isDamageableItem() && !player.hasInfiniteMaterials()) {
+                        stack.hurtWithoutBreaking(1, player);
                     }
-                    return ActionResult.SUCCESS_SERVER;
+                    return InteractionResult.SUCCESS_SERVER;
                 } else {
-                    return ActionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
             }
 
-            return ActionResult.FAIL;
+            return InteractionResult.FAIL;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
-    private static BlockPos getTravelPos(World world, BlockPos origin, Direction direction, Integer maxDistance) {
+    private static BlockPos getTravelPos(Level world, BlockPos origin, Direction direction, Integer maxDistance) {
         Direction travelDir = direction.getOpposite();
 
         for (int i = 0; i < maxDistance+1; i++) {
-            BlockPos current = origin.offset(travelDir, i);
+            BlockPos current = origin.relative(travelDir, i);
             BlockState state = world.getBlockState(current);
             Block block = state.getBlock();
 
-            if (block == Blocks.BEDROCK || block == Blocks.OBSIDIAN || state.getHardness(world, current) < 0) {
+            if (block == Blocks.BEDROCK || block == Blocks.OBSIDIAN || state.getDestroySpeed(world, current) < 0) {
                 continue;
             }
 
             if (isSafePos(world, current)) {
-                if (travelDir == Direction.DOWN && !isSafePos(world, current.down())) {
+                if (travelDir == Direction.DOWN && !isSafePos(world, current.below())) {
                     continue;
                 }
-                return travelDir == Direction.UP ? current : current.down();
+                return travelDir == Direction.UP ? current : current.below();
             }
         }
 
         return null;
     }
 
-    private static boolean isSafePos(World world, BlockPos pos) {
+    private static boolean isSafePos(Level world, BlockPos pos) {
         return world.getBlockState(pos).isAir();
     }
 

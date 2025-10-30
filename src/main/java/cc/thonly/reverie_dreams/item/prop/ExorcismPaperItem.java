@@ -1,39 +1,39 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.util.entity.EntityUtil;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.tag.EntityTypeTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ExorcismPaperItem extends Item {
     private static final int EFFECT_TICK = 20 * 60 * 2;
 
-    public ExorcismPaperItem(Settings settings) {
+    public ExorcismPaperItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        World world = user.getWorld();
-        DynamicRegistryManager registryManager = world.getRegistryManager();
-        if (!world.isClient) {
+    public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
+        Level world = user.level();
+        RegistryAccess registryManager = world.registryAccess();
+        if (!world.isClientSide) {
             if (entity != null && EntityUtil.isInTag(registryManager, entity, EntityTypeTags.UNDEAD)) {
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, EFFECT_TICK, 100));
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, EFFECT_TICK, 100));
-                stack.decrementUnlessCreative(1, user);
-                return ActionResult.SUCCESS_SERVER;
+                entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, EFFECT_TICK, 100));
+                entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, EFFECT_TICK, 100));
+                stack.consume(1, user);
+                return InteractionResult.SUCCESS_SERVER;
             } else {
-                return ActionResult.FAIL;
+                return InteractionResult.FAIL;
             }
         }
-        return super.useOnEntity(stack, user, entity, hand);
+        return super.interactLivingEntity(stack, user, entity, hand);
     }
 }

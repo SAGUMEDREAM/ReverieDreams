@@ -6,13 +6,13 @@ import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.Entity;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import javax.script.Invocable;
@@ -35,8 +35,8 @@ public class JavaScriptManager {
         return INSTANCE;
     }
 
-    public boolean run(@Nullable ServerPlayerEntity player,
-                       @Nullable World world,
+    public boolean run(@Nullable ServerPlayer player,
+                       @Nullable Level world,
                        @Nullable BlockPos blockPos,
                        @Nullable Entity target,
                        @Nullable Map<?, ?> args,
@@ -68,19 +68,19 @@ public class JavaScriptManager {
         }
     }
 
-    public Optional<JavaScriptElement> get(Identifier key) {
-        return Optional.ofNullable(REGISTRY.get(key));
+    public Optional<JavaScriptElement> get(ResourceLocation key) {
+        return Optional.ofNullable(REGISTRY.getValue(key));
     }
 
     public static void reload(ResourceManager manager) {
-        Map<Identifier, Resource> resources = manager.findResources(DIRNAME, id ->
+        Map<ResourceLocation, Resource> resources = manager.listResources(DIRNAME, id ->
                 id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".js")
         );
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier fileId = entry.getKey();
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation fileId = entry.getKey();
             Resource resource = entry.getValue();
-            Identifier key = Identifier.of(fileId.getNamespace(), fileId.getPath().replace(DIRNAME + "/", "").replace(".json", ""));
-            try (InputStream inputStream = resource.getInputStream()) {
+            ResourceLocation key = ResourceLocation.fromNamespaceAndPath(fileId.getNamespace(), fileId.getPath().replace(DIRNAME + "/", "").replace(".json", ""));
+            try (InputStream inputStream = resource.open()) {
                 String src = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
                 RegistryManager.register(REGISTRY, key, new JavaScriptElement(src));
             } catch (Exception e) {

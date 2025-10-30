@@ -13,8 +13,7 @@ import com.google.gson.stream.JsonReader;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -66,7 +65,7 @@ public class CustomCharacterLoader {
                         VirtualZipFS.FileEntry skinConfigFileEntry = virtualZipFS.get(skinConfigPath);
                         String baseName = skinConfigFileEntry.filename()
                                 .replaceFirst("\\.[^.]+$", "");
-                        Identifier id = Identifier.of(Touhou.MOD_ID, baseName);
+                        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, baseName);
                         JsonElement json = JsonParser.parseString(new String(skinConfigFileEntry.data(), StandardCharsets.UTF_8));
                         DataResult<SkinConfig> parse = SkinConfig.CODEC.parse(JsonOps.INSTANCE, json);
                         Optional<SkinConfig> result = parse.result();

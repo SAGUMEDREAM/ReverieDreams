@@ -2,24 +2,24 @@ package cc.thonly.reverie_dreams.world.gen.feature;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
-public class FloatingIslandFeature extends Feature<DefaultFeatureConfig> {
-    public FloatingIslandFeature(Codec<DefaultFeatureConfig> codec) {
+public class FloatingIslandFeature extends Feature<NoneFeatureConfiguration> {
+    public FloatingIslandFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean generate(FeatureContext<DefaultFeatureConfig> ctx) {
-        WorldAccess world = ctx.getWorld();
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
+        LevelAccessor world = ctx.level();
         // 顶面海拔：100~160
-        BlockPos topPlane = ctx.getOrigin().up(100 + world.getRandom().nextInt(60));
+        BlockPos topPlane = ctx.origin().above(100 + world.getRandom().nextInt(60));
 
         // 生成几个“半椭球”并叠加，顶面统一用同一平面（oy = 0 保证平顶）
         for (int i = 0; i < 5; i++) {
@@ -31,20 +31,20 @@ public class FloatingIslandFeature extends Feature<DefaultFeatureConfig> {
             int oz = world.getRandom().nextInt(6) - 3;
 
             // 顶面中心位置（同一个水平面）
-            BlockPos lobeTopCenter = topPlane.add(ox, 0, oz);
+            BlockPos lobeTopCenter = topPlane.offset(ox, 0, oz);
             generateHemisphereDownFlatTop(world, lobeTopCenter, rx, ry, rz);
             decorateTop(world, lobeTopCenter, rx, rz, world.getRandom());
         }
         return true;
     }
 
-    private void sprinkleGrass(WorldAccess world, BlockPos topCenter, int rx, int rz, Random random) {
+    private void sprinkleGrass(LevelAccessor world, BlockPos topCenter, int rx, int rz, RandomSource random) {
         for (int x = -rx; x <= rx; x++) {
             for (int z = -rz; z <= rz; z++) {
                 if (random.nextFloat() < 0.1f) { // 20% 概率额外放草
-                    BlockPos pos = topCenter.add(x, 0, z);
-                    if (world.getBlockState(pos).isOf(Blocks.GRASS_BLOCK) && world.isAir(pos.up())) {
-                        world.setBlockState(pos.up(), Blocks.TALL_GRASS.getDefaultState(), 3);
+                    BlockPos pos = topCenter.offset(x, 0, z);
+                    if (world.getBlockState(pos).is(Blocks.GRASS_BLOCK) && world.isEmptyBlock(pos.above())) {
+                        world.setBlock(pos.above(), Blocks.TALL_GRASS.defaultBlockState(), 3);
                     }
                 }
             }
@@ -52,29 +52,29 @@ public class FloatingIslandFeature extends Feature<DefaultFeatureConfig> {
     }
 
 
-    private void decorateTop(WorldAccess world, BlockPos topCenter, int rx, int rz, Random random) {
+    private void decorateTop(LevelAccessor world, BlockPos topCenter, int rx, int rz, RandomSource random) {
         int decorations = 5 + random.nextInt(8); // 每个岛 5~12 个装饰
         int saplingCount = 0; // 限制树苗数量
 
         for (int i = 0; i < decorations; i++) {
             int x = random.nextInt(rx * 2 + 1) - rx;
             int z = random.nextInt(rz * 2 + 1) - rz;
-            BlockPos pos = topCenter.add(x, 0, z);
-            if (!world.getBlockState(pos).isOf(Blocks.GRASS_BLOCK)) continue;
-            BlockPos above = pos.up();
-            if (!world.isAir(above)) continue;
+            BlockPos pos = topCenter.offset(x, 0, z);
+            if (!world.getBlockState(pos).is(Blocks.GRASS_BLOCK)) continue;
+            BlockPos above = pos.above();
+            if (!world.isEmptyBlock(above)) continue;
 
             int roll = random.nextInt(4);
             switch (roll) {
                 case 0 -> {
                 }
                 case 1 -> {
-                    world.setBlockState(above,
-                            random.nextBoolean() ? MIBlocks.UDUMBARA_FLOWER.getDefaultState() : Blocks.POPPY.getDefaultState(), 3);
+                    world.setBlock(above,
+                            random.nextBoolean() ? MIBlocks.UDUMBARA_FLOWER.defaultBlockState() : Blocks.POPPY.defaultBlockState(), 3);
                 }
                 case 2 -> {
                     if (saplingCount < 2) {
-                        world.setBlockState(above, Blocks.OAK_SAPLING.getDefaultState(), 3);
+                        world.setBlock(above, Blocks.OAK_SAPLING.defaultBlockState(), 3);
                         saplingCount++;
                     }
                 }
@@ -83,9 +83,9 @@ public class FloatingIslandFeature extends Feature<DefaultFeatureConfig> {
                     int size = random.nextBoolean() ? 2 : 3;
                     for (int dx = 0; dx < size; dx++) {
                         for (int dz = 0; dz < size; dz++) {
-                            BlockPos pondPos = pos.add(dx, 0, dz);
-                            if (world.getBlockState(pondPos).isOf(Blocks.GRASS_BLOCK)) {
-                                world.setBlockState(pondPos, Blocks.WATER.getDefaultState(), 3);
+                            BlockPos pondPos = pos.offset(dx, 0, dz);
+                            if (world.getBlockState(pondPos).is(Blocks.GRASS_BLOCK)) {
+                                world.setBlock(pondPos, Blocks.WATER.defaultBlockState(), 3);
                             }
                         }
                     }
@@ -101,7 +101,7 @@ public class FloatingIslandFeature extends Feature<DefaultFeatureConfig> {
      * 以 topCenter 为顶面中心（y=0），向“下方”生成半椭球。
      * 顶面整片为草；往下 2 层为泥土；更下为石头。
      */
-    private void generateHemisphereDownFlatTop(WorldAccess world, BlockPos topCenter, int rx, int ry, int rz) {
+    private void generateHemisphereDownFlatTop(LevelAccessor world, BlockPos topCenter, int rx, int ry, int rz) {
         // 遍历顶面投影的椭圆盘
         for (int x = -rx; x <= rx; x++) {
             for (int z = -rz; z <= rz; z++) {
@@ -117,15 +117,15 @@ public class FloatingIslandFeature extends Feature<DefaultFeatureConfig> {
 
                 // 从顶面 y=0 向下铺到 y = -maxDepth
                 for (int dy = 0; dy >= -maxDepth; dy--) {
-                    BlockPos pos = topCenter.add(x, dy, z);
+                    BlockPos pos = topCenter.offset(x, dy, z);
 
                     if (dy == 0) {
                         // 顶面：整片草；如果你想避免覆盖已有方块，可先判断 isAir
-                        world.setBlockState(pos, Blocks.GRASS_BLOCK.getDefaultState(), 3);
+                        world.setBlock(pos, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
                     } else if (dy >= -2) {
-                        world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 3);
+                        world.setBlock(pos, Blocks.DIRT.defaultBlockState(), 3);
                     } else {
-                        world.setBlockState(pos, Blocks.STONE.getDefaultState(), 3);
+                        world.setBlock(pos, Blocks.STONE.defaultBlockState(), 3);
                     }
                 }
             }

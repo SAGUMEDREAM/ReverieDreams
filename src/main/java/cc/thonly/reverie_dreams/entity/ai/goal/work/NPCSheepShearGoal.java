@@ -5,47 +5,47 @@ import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import lombok.Getter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShearsItem;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.List;
 
 @Getter
-public class NPCSheepShearGoal extends TrackTargetGoal {
+public class NPCSheepShearGoal extends TargetGoal {
     private final BaseNPCLikeEntity maid;
-    private final TargetPredicate targetPredicate = TargetPredicate.createAttackable().setBaseMaxDistance(16).setPredicate((e, w) -> {
+    private final TargetingConditions targetPredicate = TargetingConditions.forCombat().range(16).selector((e, w) -> {
         return !e.hasCustomName();
     });
     @Nullable
     private Runnable task;
-    private SheepEntity targetEntity;
+    private Sheep targetEntity;
     @Nullable
     private ItemStack itemStack;
 
     public NPCSheepShearGoal(BaseNPCLikeEntity maid) {
         super(maid, false);
         this.maid = maid;
-        this.setControls(EnumSet.of(Control.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
 
     @Override
-    public boolean canStart() {
-        if (!this.maid.isTamed() || this.maid.isSitting()) {
+    public boolean canUse() {
+        if (!this.maid.isTame() || this.maid.isOrderedToSit()) {
             return false;
         }
-        ItemStack stack = this.maid.getStackInHand(Hand.MAIN_HAND);
+        ItemStack stack = this.maid.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack == null) {
             return false;
         }
@@ -58,16 +58,16 @@ public class NPCSheepShearGoal extends TrackTargetGoal {
             return false;
         }
         BlockPos workPos = this.maid.getWorkingPos();
-        ServerWorld serverWorld = getServerWorld(this.maid);
+        ServerLevel serverWorld = getServerLevel(this.maid);
 
-        List<SheepEntity> targets = this.mob.getWorld().getEntitiesByClass(SheepEntity.class, new Box(workPos).expand(16, 8, 16), (e) -> {
+        List<Sheep> targets = this.mob.level().getEntitiesOfClass(Sheep.class, new AABB(workPos).inflate(16, 8, 16), (e) -> {
             boolean alive = e.isAlive();
-            if (e.isShearable()) {
+            if (e.readyForShearing()) {
                 return alive;
             }
             return false;
         });
-        this.targetEntity = serverWorld.getClosestEntity(targets, this.targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
+        this.targetEntity = serverWorld.getNearestEntity(targets, this.targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
         return this.targetEntity != null;
     }
 
@@ -83,24 +83,24 @@ public class NPCSheepShearGoal extends TrackTargetGoal {
             if (!(this.itemStack.getItem() instanceof ShearsItem)) {
                 return;
             }
-            ServerWorld world = getServerWorld(this.targetEntity);
-            this.maid.swingHand(Hand.MAIN_HAND);
-            this.targetEntity.sheared(world, SoundCategory.PLAYERS, itemStack);
-            this.targetEntity.emitGameEvent(GameEvent.SHEAR, this.targetEntity);
-            this.itemStack.damage(1, this.targetEntity, Hand.MAIN_HAND);
+            ServerLevel world = getServerLevel(this.targetEntity);
+            this.maid.swing(InteractionHand.MAIN_HAND);
+            this.targetEntity.shear(world, SoundSource.PLAYERS, itemStack);
+            this.targetEntity.gameEvent(GameEvent.SHEAR, this.targetEntity);
+            this.itemStack.hurtAndBreak(1, this.targetEntity, InteractionHand.MAIN_HAND);
         };
     }
 
     @Override
     public void tick() {
-        this.itemStack = this.maid.getStackInHand(Hand.MAIN_HAND);
+        this.itemStack = this.maid.getItemInHand(InteractionHand.MAIN_HAND);
         if (this.task == null) {
             return;
         }
         if (this.targetEntity != null && this.targetEntity.isAlive()) {
-            this.maid.getNavigation().startMovingTo(this.targetEntity, 1.0D);
+            this.maid.getNavigation().moveTo(this.targetEntity, 1.0D);
 
-            if (this.maid.squaredDistanceTo(this.targetEntity) <= 2.0D) {
+            if (this.maid.distanceToSqr(this.targetEntity) <= 2.0D) {
                 this.task.run();
                 this.task = null;
                 this.stop();

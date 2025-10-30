@@ -10,13 +10,12 @@ import com.sun.nio.sctp.IllegalUnbindException;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryOps;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.WorldSavePath;
-
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.level.storage.LevelResource;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -47,11 +46,11 @@ public class PlayerDataComponentManager {
     }
 
     public static void tick(MinecraftServer server) {
-        PlayerManager playerManager = server.getPlayerManager();
+        PlayerList playerManager = server.getPlayerList();
         PlayerDataComponentManager playerDataComponentManager = getInstance();
-        for (ServerPlayerEntity player : playerManager.getPlayerList()) {
+        for (ServerPlayer player : playerManager.getPlayers()) {
             try {
-                String uuid = player.getUuidAsString();
+                String uuid = player.getStringUUID();
                 List<ComponentEntry> componentEntries =
                         playerDataComponentManager.dataList.getOrDefault(uuid, Collections.emptyList());
 
@@ -81,8 +80,8 @@ public class PlayerDataComponentManager {
         return INSTANCE;
     }
 
-    public <T extends PlayerComponent> PlayerComponent<T> createComponent(ServerPlayerEntity player, Class<T> key) {
-        String uuid = player.getUuidAsString();
+    public <T extends PlayerComponent> PlayerComponent<T> createComponent(ServerPlayer player, Class<T> key) {
+        String uuid = player.getStringUUID();
         List<ComponentEntry> componentEntries = (List<ComponentEntry>) this.dataList.computeIfAbsent(uuid, uid -> new ArrayList<>());
         PlayerComponentInitializer initializer = getComponentType(key);
         PlayerComponent<T> playerComponent = initializer.createAndLoad(player);
@@ -90,12 +89,12 @@ public class PlayerDataComponentManager {
         return playerComponent;
     }
 
-    public <T extends PlayerComponent> boolean hasComponent(ServerPlayerEntity player, Class<T> key) {
+    public <T extends PlayerComponent> boolean hasComponent(ServerPlayer player, Class<T> key) {
         return this.getComponent(player, key) != null;
     }
 
-    public <T extends PlayerComponent> PlayerComponent<T> getComponent(ServerPlayerEntity player, Class<T> key) {
-        String uuid = player.getUuidAsString();
+    public <T extends PlayerComponent> PlayerComponent<T> getComponent(ServerPlayer player, Class<T> key) {
+        String uuid = player.getStringUUID();
         List<ComponentEntry> componentEntries = this.dataList.computeIfAbsent(uuid, uid -> new ArrayList<>());
         ComponentEntry result = null;
         for (ComponentEntry componentEntry : componentEntries) {
@@ -109,7 +108,7 @@ public class PlayerDataComponentManager {
                 .orElse(null);
     }
 
-    public <T extends PlayerComponent> PlayerComponent<T> getOrCreatePlayerComponent(ServerPlayerEntity player, Class<T> key) {
+    public <T extends PlayerComponent> PlayerComponent<T> getOrCreatePlayerComponent(ServerPlayer player, Class<T> key) {
         PlayerComponent component = this.getComponent(player, key);
         if (component == null) {
             component = createComponent(player, key);
@@ -125,8 +124,8 @@ public class PlayerDataComponentManager {
         return this.baseSavePath.resolve("./%s.json".formatted(uuid.toString()));
     }
 
-    public Path withPath(ServerPlayerEntity player) {
-        return this.baseSavePath.resolve("./%s.json".formatted(player.getUuidAsString()));
+    public Path withPath(ServerPlayer player) {
+        return this.baseSavePath.resolve("./%s.json".formatted(player.getStringUUID()));
     }
 
     public void saveAll() {
@@ -196,11 +195,11 @@ public class PlayerDataComponentManager {
     }
 
     public void onLoad(MinecraftServer server) {
-        DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-        RegistryOps<JsonElement> registryOps = registryManager.getOps(JsonOps.INSTANCE);
+        RegistryAccess.Frozen registryManager = server.registryAccess();
+        RegistryOps<JsonElement> registryOps = registryManager.createSerializationContext(JsonOps.INSTANCE);
         this.server = server;
         this.registryOps = registryOps;
-        this.baseSavePath = this.server.getSavePath(WorldSavePath.ROOT).resolve("./player-component-data/");
+        this.baseSavePath = this.server.getWorldPath(LevelResource.ROOT).resolve("./player-component-data/");
         this.dataList.clear();
         if (!Files.exists(this.baseSavePath)) {
             try {

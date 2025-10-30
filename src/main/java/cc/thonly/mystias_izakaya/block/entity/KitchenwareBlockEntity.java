@@ -18,26 +18,26 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -47,14 +47,14 @@ import java.util.function.Supplier;
 @Setter
 @Getter
 @ToString
-public class KitchenwareBlockEntity extends BlockEntity implements SidedInventory {
+public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContainer {
     public static final Supplier<ItemStackWrapper> DEFAULT_WRAPPER_FACTORY = ItemStackWrapper::empty;
     public static final Gson GSON = new Gson();
     public static final Map<UUID, Set<KitchenBlockGui<?>>> SESSIONS = new Object2ObjectOpenHashMap<>();
     public static final int OUTPUT_SLOT = 5;
-    private SimpleInventory inventory = new SimpleInventory(6);
+    private SimpleContainer inventory = new SimpleContainer(6);
     private KitchenRecipeType.KitchenType recipeType;
-    private Identifier recipeId;
+    private ResourceLocation recipeId;
     private ItemStackWrapper preOutput = DEFAULT_WRAPPER_FACTORY.get();
     private Double tickLeft = 0.0;
     private DoubleUnaryOperator bonusOperator;
@@ -71,24 +71,24 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
     }
 
 
-    public static void tick(World world, BlockPos blockPos, BlockState state, KitchenwareBlockEntity self) {
+    public static void tick(Level world, BlockPos blockPos, BlockState state, KitchenwareBlockEntity self) {
         KitchenwareBlockEntity blockEntity = self.get();
         if (blockEntity.recipeType == null) {
             return;
         }
-        if (world.isClient() || self.recipeType == null) return;
-        ServerWorld serverWorld = (ServerWorld) world;
-        BlockPos pos = self.getPos();
+        if (world.isClientSide() || self.recipeType == null) return;
+        ServerLevel serverWorld = (ServerLevel) world;
+        BlockPos pos = self.getBlockPos();
         if (self.preOutput != null && !self.preOutput.isEmpty()) {
             self.workingState = WorkingState.WORKING;
             self.tickLeft -= self.bonusOperator.applyAsDouble(1.0);
-            serverWorld.spawnParticles(ParticleTypes.SNOWFLAKE, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 1, 0, 0.5, 0, 0.1);
+            serverWorld.sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 1, 0, 0.5, 0, 0.1);
             if (self.tickLeft <= 0.0) {
                 self.tickLeft = 0.0;
                 self.workingState = WorkingState.NONE;
                 self.handleOutput();
             }
-            self.markDirty();
+            self.setChanged();
         } else {
             self.workingState = WorkingState.NONE;
         }
@@ -171,7 +171,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
 //        if (!this.hasFuel()) {
 //            this.useFuel();
 //        }
-        this.markDirty();
+        this.setChanged();
     }
 
 //    public void useFuel() {
@@ -191,16 +191,16 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
 
     public void handleOutput() {
         KitchenwareBlockEntity blockEntity = this;
-        if (this.world == null || this.world.isClient()) {
+        if (this.level == null || this.level.isClientSide()) {
             return;
         }
-        ServerWorld serverWorld = (ServerWorld) this.getWorld();
-        BlockPos blockPos = this.getPos();
+        ServerLevel serverWorld = (ServerLevel) this.getLevel();
+        BlockPos blockPos = this.getBlockPos();
 
         if (blockEntity.isWorking()) {
             blockEntity.tickLeft -= blockEntity.bonusOperator.applyAsDouble(1.0);
             if (serverWorld != null) {
-                serverWorld.spawnParticles(
+                serverWorld.sendParticles(
                         ParticleTypes.SNOWFLAKE,
                         blockPos.getX(),
                         blockPos.getY(),
@@ -212,20 +212,20 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
                         0.1
                 );
             }
-            blockEntity.markDirty();
+            blockEntity.setChanged();
         } else if (!blockEntity.isWorking() && !blockEntity.preOutput.getItemStack().isEmpty()) {
-            ItemStack prevStack = blockEntity.inventory.getStack(OUTPUT_SLOT);
+            ItemStack prevStack = blockEntity.inventory.getItem(OUTPUT_SLOT);
             if (!prevStack.isEmpty()) {
                 Item item = prevStack.getItem();
                 if (item != blockEntity.preOutput.getItemStack().getItem()) {
                     blockEntity.throwItem(serverWorld, prevStack);
                 }
-                if (!ItemStack.areItemsAndComponentsEqual(blockEntity.preOutput.getItemStack(), prevStack)) {
+                if (!ItemStack.isSameItemSameComponents(blockEntity.preOutput.getItemStack(), prevStack)) {
                     blockEntity.throwItem(serverWorld, prevStack);
                 }
             }
-            if (ItemStack.areItemsAndComponentsEqual(blockEntity.preOutput.getItemStack(), prevStack)) {
-                if (prevStack.getCount() < prevStack.getMaxCount()) {
+            if (ItemStack.isSameItemSameComponents(blockEntity.preOutput.getItemStack(), prevStack)) {
+                if (prevStack.getCount() < prevStack.getMaxStackSize()) {
                     prevStack.setCount(prevStack.getCount() + 1);
                 } else {
                     blockEntity.throwItem(serverWorld, prevStack);
@@ -233,27 +233,27 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
                 }
 
             } else {
-                blockEntity.inventory.setStack(OUTPUT_SLOT, blockEntity.preOutput.getItemStack().copy());
-                if (this.getWorld() != null && blockEntity.block.isWillBeFailure(this.getWorld())) {
-                    blockEntity.inventory.setStack(OUTPUT_SLOT, MIItems.DARK_CUISINE.getDefaultStack().copy());
+                blockEntity.inventory.setItem(OUTPUT_SLOT, blockEntity.preOutput.getItemStack().copy());
+                if (this.getLevel() != null && blockEntity.block.isWillBeFailure(this.getLevel())) {
+                    blockEntity.inventory.setItem(OUTPUT_SLOT, MIItems.DARK_CUISINE.getDefaultInstance().copy());
                 }
             }
             blockEntity.preOutput = DEFAULT_WRAPPER_FACTORY.get();
 
-            List<ServerPlayerEntity> nearbyPlayers = PlayerUtil.getNearbyPlayers(serverWorld, blockEntity.pos, 16);
-            for (ServerPlayerEntity player : nearbyPlayers) {
-                player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(), 1.0f, 1.0f);
+            List<ServerPlayer> nearbyPlayers = PlayerUtil.getNearbyPlayers(serverWorld, blockEntity.worldPosition, 16);
+            for (ServerPlayer player : nearbyPlayers) {
+                player.playSound(SoundEvents.NOTE_BLOCK_PLING.value(), 1.0f, 1.0f);
             }
 
-            blockEntity.markDirty();
+            blockEntity.setChanged();
         }
 
     }
 
-    public void throwItem(ServerWorld world, ItemStack prevItem) {
-        ItemEntity itemEntity = new ItemEntity(world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), prevItem.copy());
-        world.spawnEntity(itemEntity);
-        this.inventory.setStack(OUTPUT_SLOT, ItemStack.EMPTY);
+    public void throwItem(ServerLevel world, ItemStack prevItem) {
+        ItemEntity itemEntity = new ItemEntity(world, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), prevItem.copy());
+        world.addFreshEntity(itemEntity);
+        this.inventory.setItem(OUTPUT_SLOT, ItemStack.EMPTY);
     }
 
     public boolean isWorking() {
@@ -262,9 +262,9 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
 
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
-        Inventories.writeData(view, this.inventory.heldStacks);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
+        ContainerHelper.saveAllItems(view, this.inventory.items);
         view.putDouble("TickLeft", this.tickLeft);
         view.putInt("WorkingState", this.workingState.getId());
         DataResult<JsonElement> dataResult = ItemStackWrapper.CODEC.encodeStart(JsonOps.INSTANCE, this.preOutput);
@@ -276,14 +276,14 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
-        SimpleInventory inventory = new SimpleInventory(6);
-        Inventories.readData(view, inventory.heldStacks);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+        SimpleContainer inventory = new SimpleContainer(6);
+        ContainerHelper.loadAllItems(view, inventory.items);
         this.inventory = inventory;
-        this.tickLeft = view.getDouble("TickLeft", 0.0);
-        this.workingState = WorkingState.getFromInt(view.getInt("WorkingState", 0));
-        Optional<String> pOutputOptional = view.getOptionalString("PreOutput");
+        this.tickLeft = view.getDoubleOr("TickLeft", 0.0);
+        this.workingState = WorkingState.getFromInt(view.getIntOr("WorkingState", 0));
+        Optional<String> pOutputOptional = view.getString("PreOutput");
         if (pOutputOptional.isPresent()) {
             String preOutputJson = pOutputOptional.get();
             JsonElement json = JsonParser.parseString(preOutputJson);
@@ -299,23 +299,23 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
     }
 
     @Override
-    public int[] getAvailableSlots(Direction side) {
+    public int[] getSlotsForFace(Direction side) {
         return new int[] {OUTPUT_SLOT};
     }
 
     @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
         return true;
     }
 
     @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction dir) {
         return dir == Direction.DOWN;
     }
 
     @Override
-    public int size() {
-        return this.inventory.size();
+    public int getContainerSize() {
+        return this.inventory.getContainerSize();
     }
 
     @Override
@@ -324,33 +324,33 @@ public class KitchenwareBlockEntity extends BlockEntity implements SidedInventor
     }
 
     @Override
-    public ItemStack getStack(int slot) {
-        return this.inventory.getStack(slot);
+    public ItemStack getItem(int slot) {
+        return this.inventory.getItem(slot);
     }
 
     @Override
-    public ItemStack removeStack(int slot, int amount) {
-        return this.inventory.removeStack(slot, amount);
+    public ItemStack removeItem(int slot, int amount) {
+        return this.inventory.removeItem(slot, amount);
     }
 
     @Override
-    public ItemStack removeStack(int slot) {
-        return this.inventory.removeStack(slot);
+    public ItemStack removeItemNoUpdate(int slot) {
+        return this.inventory.removeItemNoUpdate(slot);
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
-        this.inventory.setStack(slot, stack);
+    public void setItem(int slot, ItemStack stack) {
+        this.inventory.setItem(slot, stack);
     }
 
     @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
+    public boolean stillValid(Player player) {
+        return this.inventory.stillValid(player);
     }
 
     @Override
-    public void clear() {
-        this.inventory.clear();
+    public void clearContent() {
+        this.inventory.clearContent();
     }
 
     @Getter

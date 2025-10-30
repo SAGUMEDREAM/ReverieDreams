@@ -6,20 +6,20 @@ import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.interfaces.IPlayerEntity;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,11 +27,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerEntity {
 
     @Shadow
-    public abstract boolean isInCreativeMode();
+    public abstract boolean hasInfiniteMaterials();
 
     @Unique
     private static final long MAX_NON_SLEEPING_TIME = (long) (2 * 10 * 60 * 20) / 2;
@@ -40,9 +40,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     @Unique
     private boolean sleep = false;
     @Unique
-    private static final RegistryEntry<StatusEffect> MENTAL_DISORDER = ModStatusEffects.MENTAL_DISORDER;
+    private static final Holder<MobEffect> MENTAL_DISORDER = ModStatusEffects.MENTAL_DISORDER;
 
-    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -50,8 +50,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     public void tick(CallbackInfo ci) {
         this.nonSleepingTick();
         if (this.isSleeping()) {
-            if (this.hasStatusEffect(MENTAL_DISORDER)) {
-                this.removeStatusEffect(MENTAL_DISORDER);
+            if (this.hasEffect(MENTAL_DISORDER)) {
+                this.removeEffect(MENTAL_DISORDER);
             }
             this.nonSleepingTime = 0;
             this.sleep = true;
@@ -62,15 +62,15 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
 
     @Unique
     public void nonSleepingTick() {
-        if (this.isInCreativeMode()) {
+        if (this.hasInfiniteMaterials()) {
             return;
         }
         MinecraftServer server = this.getServer();
-        World world = this.getWorld();
+        Level world = this.level();
         if (server == null) {
             return;
         }
-        if (world instanceof ServerWorld serverWorld) {
+        if (world instanceof ServerLevel serverWorld) {
             if (GhostStatusEffectTargetGoal.hasSilverArmor(this)) {
                 this.nonSleepingTime = 0;
                 return;
@@ -79,7 +79,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
                 this.nonSleepingTime++;
             } else if (serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST)){
                 this.trySpawnGhost();
-                this.addStatusEffect(new StatusEffectInstance(ModStatusEffects.MENTAL_DISORDER, 20 * 60 * 5));
+                this.addEffect(new MobEffectInstance(ModStatusEffects.MENTAL_DISORDER, 20 * 60 * 5));
                 DelayedTask.whenTick(server, () -> this.sleep, 20 * 60 * 2, this::trySpawnGhost, () -> {
 
                 });
@@ -92,46 +92,46 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     private void trySpawnGhost() {
         var server = this.getServer();
         if (server == null) return;
-        var world = this.getWorld();
-        if (!(world instanceof ServerWorld serverWorld)) return;
+        var world = this.level();
+        if (!(world instanceof ServerLevel serverWorld)) return;
         boolean value = serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST);
         if (!value) return;
-        if (world.equals(server.getOverworld())) {
-            BlockPos origin = this.getBlockPos();
+        if (world.equals(server.overworld())) {
+            BlockPos origin = this.blockPosition();
             BlockPos a = this.getRandomPos(origin);
             BlockPos b = this.getRandomPos(origin);
             GhostEntity aMob = new GhostEntity(world);
-            aMob.setPos(a.getX(), a.getY(), a.getZ());
+            aMob.setPosRaw(a.getX(), a.getY(), a.getZ());
             GhostEntity bMob = new GhostEntity(world);
-            bMob.setPos(b.getX(), b.getY(), b.getZ());
-            serverWorld.spawnEntity(aMob);
-            serverWorld.spawnEntity(bMob);
+            bMob.setPosRaw(b.getX(), b.getY(), b.getZ());
+            serverWorld.addFreshEntity(aMob);
+            serverWorld.addFreshEntity(bMob);
         }
     }
 
     @Unique
     private BlockPos getRandomPos(BlockPos origin) {
-        var world = this.getWorld();
-        Random random = world.getRandom();
+        var world = this.level();
+        RandomSource random = world.getRandom();
 
         int offsetX = random.nextInt(11) - 5; // 0~10 - 5 => -5~5
         int offsetZ = random.nextInt(11) - 5;
 
-        int surfaceY = world.getTopY(Heightmap.Type.WORLD_SURFACE, origin.getX() + offsetX, origin.getZ() + offsetZ);
+        int surfaceY = world.getHeight(Heightmap.Types.WORLD_SURFACE, origin.getX() + offsetX, origin.getZ() + offsetZ);
 
         return new BlockPos(origin.getX() + offsetX, surfaceY, origin.getZ() + offsetZ);
     }
 
-    @Inject(method = "writeCustomData", at = @At("TAIL"))
-    protected void writeCustomData(WriteView view, CallbackInfo ci) {
-        super.writeCustomData(view);
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    protected void writeCustomData(ValueOutput view, CallbackInfo ci) {
+        super.addAdditionalSaveData(view);
         view.putLong("NonSleepingTime", this.nonSleepingTime);
     }
 
-    @Inject(method = "readCustomData", at = @At("TAIL"))
-    protected void readCustomData(ReadView view, CallbackInfo ci) {
-        super.readCustomData(view);
-        this.nonSleepingTime = view.getLong("NonSleepingTime", 0L);
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    protected void readCustomData(ValueInput view, CallbackInfo ci) {
+        super.readAdditionalSaveData(view);
+        this.nonSleepingTime = view.getLongOr("NonSleepingTime", 0L);
     }
 
     @Unique

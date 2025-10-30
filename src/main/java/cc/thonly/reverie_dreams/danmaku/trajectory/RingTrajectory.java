@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.danmaku.trajectory;
 
 import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 public class RingTrajectory extends DanmakuTrajectory {
@@ -14,7 +14,7 @@ public class RingTrajectory extends DanmakuTrajectory {
     private static final boolean FACE_OUTWARD = true; // 是否朝外发射
 
     @Override
-    public void run(ServerWorld world, @Nullable LivingEntity livingEntity, ItemStack stack,
+    public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack,
                     Double x, Double y, Double z, float pitch, float yaw,
                     float speed, float acceleration, float divergence, float offsetDist,
                     IDanmakuItem pThis) {

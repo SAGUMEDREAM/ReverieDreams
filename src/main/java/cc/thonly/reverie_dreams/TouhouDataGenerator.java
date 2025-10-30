@@ -10,15 +10,15 @@ import cc.thonly.reverie_dreams.world.gen.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.dimension.DimensionOptions;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.dimension.LevelStem;
 
 public class TouhouDataGenerator implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        DynamicRegistries.register(RegistryKeys.DIMENSION, DimensionOptions.CODEC);
+        DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(ModSimpChineseLangProvider::new);
@@ -44,18 +44,18 @@ public class TouhouDataGenerator implements DataGeneratorEntrypoint {
     }
 
     @Override
-    public void buildRegistry(RegistryBuilder registryBuilder) {
+    public void buildRegistry(RegistrySetBuilder registryBuilder) {
         DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, ConfigurationCarverInit::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, ChunkGeneratorSettingsInit::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.BIOME, BiomeInit::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.STRUCTURE, ModStructures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, ModStructureSets::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, ModTemplatePools::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DIMENSION_TYPE, DimensionTypeInit::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DIMENSION, DimensionInit::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_CARVER, ConfigurationCarverInit::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);
+        registryBuilder.add(Registries.NOISE_SETTINGS, ChunkGeneratorSettingsInit::bootstrap);
+        registryBuilder.add(Registries.BIOME, BiomeInit::bootstrap);
+        registryBuilder.add(Registries.STRUCTURE, ModStructures::bootstrap);
+        registryBuilder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
+        registryBuilder.add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap);
+        registryBuilder.add(Registries.DIMENSION_TYPE, DimensionTypeInit::bootstrap);
+        registryBuilder.add(Registries.LEVEL_STEM, DimensionInit::bootstrap);
     }
 
 }

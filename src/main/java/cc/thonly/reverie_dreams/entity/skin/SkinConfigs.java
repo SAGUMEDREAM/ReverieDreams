@@ -8,10 +8,9 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,21 +31,21 @@ public class SkinConfigs {
             skin.setConfig(config);
             config.setSkin(skin);
         }
-        Map<Identifier, Resource> resources = manager.findResources("skin_config", id -> id.getPath().endsWith(".json"));
+        Map<ResourceLocation, Resource> resources = manager.listResources("skin_config", id -> id.getPath().endsWith(".json"));
 //        List<Runnable> tasks = new ArrayList<>();
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier resourceId = entry.getKey();
-            Identifier key = Identifier.of(resourceId.getNamespace(), resourceId.getPath()
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation resourceId = entry.getKey();
+            ResourceLocation key = ResourceLocation.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath()
                     .replace("skin_config/", "")
                     .replace(".json", "")
             );
             Resource resource = entry.getValue();
-            SkinType skin = RegistryManager.SKIN_TYPE.get(key);
+            SkinType skin = RegistryManager.SKIN_TYPE.getValue(key);
             if (skin == null) {
                 log.warn("Unknown skin id: {}", resourceId);
                 continue;
             }
-            try (InputStream stream = resource.getInputStream()) {
+            try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 

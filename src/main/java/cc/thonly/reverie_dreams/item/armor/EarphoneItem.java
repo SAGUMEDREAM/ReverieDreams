@@ -5,31 +5,30 @@ import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.server.ArmorAttributeManager;
 import cc.thonly.reverie_dreams.server.ParticleTickerManager;
 import cc.thonly.reverie_dreams.util.math.Vec3d2Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.level.Level;
 
 public class EarphoneItem extends ArmorItem {
     public static final List<Vec3d2Entity> VEC_3_DS = new ArrayList<>();
 
-    public EarphoneItem(Item.Settings settings) {
-        super(EarphoneArmorMaterial.INSTANCE, EquipmentType.HELMET, settings);
+    public EarphoneItem(Item.Properties settings) {
+        super(EarphoneArmorMaterial.INSTANCE, ArmorType.HELMET, settings);
         ArmorAttributeManager.register(this::onAccept, this);
 
     }
 
     private void onAccept(LivingEntity livingEntity, ItemStack itemStack) {
-        World world = livingEntity.getWorld();
-        if (!world.isClient() && world instanceof ServerWorld sWorld && livingEntity instanceof ServerPlayerEntity player) {
+        Level world = livingEntity.level();
+        if (!world.isClientSide() && world instanceof ServerLevel sWorld && livingEntity instanceof ServerPlayer player) {
             if (!VEC_3_DS.isEmpty()) {
                 for (Vec3d2Entity vec3D2Entity : VEC_3_DS) {
                     if (vec3D2Entity.entity() == livingEntity) {
@@ -38,7 +37,7 @@ public class EarphoneItem extends ArmorItem {
                     if (player.isSpectator()) {
                         continue;
                     }
-                    if (vec3D2Entity.entity() instanceof PlayerEntity playerEntity) {
+                    if (vec3D2Entity.entity() instanceof Player playerEntity) {
                         if (playerEntity.isSpectator()) {
                             continue;
                         }
@@ -51,7 +50,7 @@ public class EarphoneItem extends ArmorItem {
                     double z2 = livingEntity.getZ();
                     double distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2) + Math.pow((z2 - z1), 2));
                     if (distance < 32) {
-                        ParticleTickerManager.joinQueue(sWorld, ParticleTypes.SONIC_BOOM, 10, vec3D2Entity.vec3d(), livingEntity.getPos(), 1.0f);
+                        ParticleTickerManager.joinQueue(sWorld, ParticleTypes.SONIC_BOOM, 10, vec3D2Entity.vec3d(), livingEntity.position(), 1.0f);
                     }
                 }
             }

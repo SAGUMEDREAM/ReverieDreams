@@ -11,11 +11,10 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.item.Item;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.Item;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -88,30 +87,30 @@ public class FoodProperties {
     }
 
     public static void reload(ResourceManager manager) {
-        Map<Identifier, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.getEntrySet().stream()
+        Map<ResourceLocation, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().getValue(),
+                        entry -> entry.getKey().location(),
                         Map.Entry::getValue
                 ));
-        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
+        Set<Map.Entry<ResourceLocation, FoodProperty>> entries = map.entrySet();
         entries.forEach((es) -> es.getValue().getItems().clear());
 
-        Map<Identifier, Resource> resources = manager.findResources("food_property", id ->
+        Map<ResourceLocation, Resource> resources = manager.listResources("food_property", id ->
                 id.getNamespace().equals(MystiasIzakaya.MOD_ID) && id.getPath().endsWith(".json")
         );
 
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier resourceId = entry.getKey();
-            Identifier key = Identifier.of(resourceId.getNamespace(), resourceId.getPath().replace("food_property/", "").replace(".json", ""));
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation resourceId = entry.getKey();
+            ResourceLocation key = ResourceLocation.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath().replace("food_property/", "").replace(".json", ""));
             Resource resource = entry.getValue();
-            FoodProperty property = MIRegistryManager.FOOD_PROPERTY.get(key);
+            FoodProperty property = MIRegistryManager.FOOD_PROPERTY.getValue(key);
 
             if (property == null) {
                 MystiasIzakaya.LOGGER.warn("Unknown FoodProperty id: {}", resourceId);
                 continue;
             }
 
-            try (InputStream stream = resource.getInputStream()) {
+            try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
@@ -129,7 +128,7 @@ public class FoodProperties {
 
         Map<Item, Set<FoodProperty>> itemIngredientCached = IngredientItem.ITEM_INGREDIENT_CACHED;
         itemIngredientCached.clear();
-        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
+        for (Map.Entry<ResourceLocation, FoodProperty> entry : entries) {
             FoodProperty property = entry.getValue();
             Set<Item> tags = property.getItems();
             for (Item item : tags) {

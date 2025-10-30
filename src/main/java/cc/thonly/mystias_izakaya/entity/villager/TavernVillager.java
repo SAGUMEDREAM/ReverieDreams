@@ -6,67 +6,70 @@ import cc.thonly.mystias_izakaya.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.entity.villager.AbstractSellerEntity;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.passive.WanderingTraderEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Pair;
-import net.minecraft.village.*;
-import net.minecraft.world.World;
-
+import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.Level;
 import java.util.*;
 
 public class TavernVillager extends AbstractSellerEntity {
 
-    public TavernVillager(EntityType<? extends WanderingTraderEntity> entityType, World world) {
+    public TavernVillager(EntityType<? extends WanderingTrader> entityType, Level world) {
         super(entityType, world);
     }
 
-    public TavernVillager(World world) {
+    public TavernVillager(Level world) {
         super(MIEntities.TAVERN_VILLAGER, world);
     }
 
-    public TavernVillager(VillagerData prev, World world) {
+    public TavernVillager(VillagerData prev, Level world) {
         super(MIEntities.TAVERN_VILLAGER, world);
         this.prev = prev;
     }
 
-    public TavernVillager(VillagerEntity prevEntity, World world) {
+    public TavernVillager(Villager prevEntity, Level world) {
         super(MIEntities.TAVERN_VILLAGER, world);
         this.prev = prevEntity.getVillagerData();
     }
 
-    private static final List<Pair<Item, Integer>> ALWAYS_ITEMS = new ArrayList<>(List.of(
-            new Pair<>(MIItems.GREEN_TEA, 8),
-            new Pair<>(MIItems.FRUITY_HIGH_BALL, 8),
-            new Pair<>(MIItems.FRUITY_SOUR, 8),
-            new Pair<>(MIItems.QI, 8)
+    private static final List<Tuple<Item, Integer>> ALWAYS_ITEMS = new ArrayList<>(List.of(
+            new Tuple<>(MIItems.GREEN_TEA, 8),
+            new Tuple<>(MIItems.FRUITY_HIGH_BALL, 8),
+            new Tuple<>(MIItems.FRUITY_SOUR, 8),
+            new Tuple<>(MIItems.QI, 8)
     ));
 
     @Override
-    public List<TradeOffer> getVillagerOffers() {
+    public List<MerchantOffer> getVillagerOffers() {
         long seed = this.getVillagerSeed();
         Random random = new Random(seed);
 
-        List<TradeOffer> offers = new ArrayList<>();
+        List<MerchantOffer> offers = new ArrayList<>();
 
-        for (Pair<Item, Integer> pair : ALWAYS_ITEMS) {
-            Item item = pair.getLeft();
-            int amount = pair.getRight();
+        for (Tuple<Item, Integer> pair : ALWAYS_ITEMS) {
+            Item item = pair.getA();
+            int amount = pair.getB();
 
             ItemStack sellItem = new ItemStack(item, 6);
             ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
 
-            TradedItem first = new TradedItem(ModItems.COPPER_COIN, amount);
-            TradedItem second = new TradedItem(Items.GLASS_BOTTLE, 1);
+            ItemCost first = new ItemCost(ModItems.COPPER_COIN, amount);
+            ItemCost second = new ItemCost(Items.GLASS_BOTTLE, 1);
 
-            TradeOffer offer = new TradeOffer(
+            MerchantOffer offer = new MerchantOffer(
                     first,
                     Optional.of(second),
                     sellItem,
@@ -78,8 +81,8 @@ public class TavernVillager extends AbstractSellerEntity {
         }
 
         List<Item> allDrinks = new ArrayList<>(MIItems.DRINK_ITEMS);
-        for (Pair<Item, Integer> pair : ALWAYS_ITEMS) {
-            allDrinks.remove(pair.getLeft());
+        for (Tuple<Item, Integer> pair : ALWAYS_ITEMS) {
+            allDrinks.remove(pair.getA());
         }
 
         Collections.shuffle(allDrinks, random);
@@ -92,10 +95,10 @@ public class TavernVillager extends AbstractSellerEntity {
             ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
 
             int amount = DrinkItem.PRICE_CALCULATION_TABLE.getOrDefault(item,8) + random.nextInt(2);
-            TradedItem first = new TradedItem(ModItems.COPPER_COIN, amount);
-            TradedItem second = new TradedItem(Items.GLASS_BOTTLE, 1);
+            ItemCost first = new ItemCost(ModItems.COPPER_COIN, amount);
+            ItemCost second = new ItemCost(Items.GLASS_BOTTLE, 1);
 
-            TradeOffer offer = new TradeOffer(
+            MerchantOffer offer = new MerchantOffer(
                     first,
                     Optional.of(second),
                     sellItem,
@@ -112,9 +115,9 @@ public class TavernVillager extends AbstractSellerEntity {
 
     @Override
     public VillagerData getModifyVillagerData(MinecraftServer server) {
-        DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-        Registry<VillagerType> villagerTypeRegistry = registryManager.getOrThrow(RegistryKeys.VILLAGER_TYPE);
-        Registry<VillagerProfession> villagerProfessionRegistry = registryManager.getOrThrow(RegistryKeys.VILLAGER_PROFESSION);
+        RegistryAccess.Frozen registryManager = server.registryAccess();
+        Registry<VillagerType> villagerTypeRegistry = registryManager.lookupOrThrow(Registries.VILLAGER_TYPE);
+        Registry<VillagerProfession> villagerProfessionRegistry = registryManager.lookupOrThrow(Registries.VILLAGER_PROFESSION);
 
         return new VillagerData(
                 villagerTypeRegistry.getOrThrow(VillagerType.JUNGLE),

@@ -1,16 +1,16 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.entity.passive.PigVariant;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.animal.PigVariant;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(PigEntity.class)
+@Mixin(Pig.class)
 public interface PigEntityAccessor {
-    @Accessor("VARIANT")
-    public static TrackedData<RegistryEntry<PigVariant>> VARIANT() {
+    @Accessor("DATA_VARIANT_ID")
+    public static EntityDataAccessor<Holder<PigVariant>> VARIANT() {
         throw new UnsupportedOperationException();
     }
 }

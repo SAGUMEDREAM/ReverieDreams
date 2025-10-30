@@ -6,27 +6,26 @@ import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.interfaces.IMatureBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropBlock;
-import net.minecraft.block.FarmlandBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.event.GameEvent;
-
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 public class NPCFarmGoal extends Goal {
 
@@ -37,17 +36,17 @@ public class NPCFarmGoal extends Goal {
 
     private final BaseNPCLikeEntity maid;
     private BlockPos targetPos;
-    private static final Predicate<ItemStack> IS_SEED = stack -> !stack.isEmpty() && stack.isIn(ItemTags.VILLAGER_PLANTABLE_SEEDS) && stack.getItem() instanceof BlockItem;
+    private static final Predicate<ItemStack> IS_SEED = stack -> !stack.isEmpty() && stack.is(ItemTags.VILLAGER_PLANTABLE_SEEDS) && stack.getItem() instanceof BlockItem;
 
 
     public NPCFarmGoal(BaseNPCLikeEntity maid) {
-        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.maid = maid;
 
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (!EntityTargetUtil.isThisWorkMode(maid, NPCWorkModes.FARM)) {
             return false;
         }
@@ -74,14 +73,14 @@ public class NPCFarmGoal extends Goal {
     @Override
     public void tick() {
         workTimer++;
-        if (maid.getNavigation().isFollowingPath()) {
+        if (maid.getNavigation().isInProgress()) {
             maid.getNavigation().stop();
             workTimer = 0;
         }
-        if (isCrop(targetPos, getServerWorld(maid)) || isFarmLandTop(targetPos, getServerWorld(maid))) {
-            this.maid.getLookControl().lookAt(targetPos.toCenterPos().offset(Direction.DOWN, 0.5));
+        if (isCrop(targetPos, getServerLevel(maid)) || isFarmLandTop(targetPos, getServerLevel(maid))) {
+            this.maid.getLookControl().setLookAt(targetPos.getCenter().relative(Direction.DOWN, 0.5));
             if (workTimer % 8 == 0) {
-                this.maid.swingHand(Hand.MAIN_HAND);
+                this.maid.swing(InteractionHand.MAIN_HAND);
                 harvest(targetPos);
                 planting(targetPos);
             }
@@ -97,7 +96,7 @@ public class NPCFarmGoal extends Goal {
 
     public static boolean isMature(IMatureBlock crop, BlockState cropsState) {
         if (crop instanceof CropBlock cropBlock) {
-            return cropBlock.isMature(cropsState);
+            return cropBlock.isMaxAge(cropsState);
         } else if (crop instanceof AbstractCropBlock basicCropBlock) {
             return basicCropBlock.isMature(cropsState);
         }
@@ -105,55 +104,55 @@ public class NPCFarmGoal extends Goal {
     }
 
     public boolean harvest(BlockPos targetFarmLandTop) {
-        ServerWorld serverWorld = getServerWorld(maid);
+        ServerLevel serverWorld = getServerLevel(maid);
         BlockState cropsState = serverWorld.getBlockState(targetFarmLandTop);
         if (cropsState.getBlock() instanceof IMatureBlock crop && this.isMature(crop, cropsState)) {
             dropItem(targetFarmLandTop);
             //调用breakBlock无法吃到时运 自定义掉落并关闭break的掉落
-            serverWorld.breakBlock(targetFarmLandTop, false, maid);
-            maid.getNavigation().findPathTo(targetFarmLandTop, 10);
+            serverWorld.destroyBlock(targetFarmLandTop, false, maid);
+            maid.getNavigation().createPath(targetFarmLandTop, 10);
             return true;
         }
         return false;
     }
 
     public boolean planting(BlockPos targetFarmLandTop) {
-        if (!isFarmLandTop(targetFarmLandTop, getServerWorld(maid))) return false;
-        ServerWorld serverWorld = getServerWorld(maid);
+        if (!isFarmLandTop(targetFarmLandTop, getServerLevel(maid))) return false;
+        ServerLevel serverWorld = getServerLevel(maid);
         Integer seedSlot = maid.getInventory().findHand(IS_SEED);
         if (seedSlot == null) return false;
-        ItemStack seedStack = maid.getInventory().getStack(seedSlot);
-        BlockState statePlant = ((BlockItem) seedStack.getItem()).getBlock().getDefaultState();
-        serverWorld.setBlockState(targetFarmLandTop, statePlant);
-        serverWorld.emitGameEvent(GameEvent.BLOCK_PLACE, targetFarmLandTop, GameEvent.Emitter.of(maid, statePlant));
+        ItemStack seedStack = maid.getInventory().getItem(seedSlot);
+        BlockState statePlant = ((BlockItem) seedStack.getItem()).getBlock().defaultBlockState();
+        serverWorld.setBlockAndUpdate(targetFarmLandTop, statePlant);
+        serverWorld.gameEvent(GameEvent.BLOCK_PLACE, targetFarmLandTop, GameEvent.Context.of(maid, statePlant));
         serverWorld.playSound(
-                null, targetFarmLandTop.getX(), targetFarmLandTop.getY(), targetFarmLandTop.getZ(), SoundEvents.ITEM_CROP_PLANT, SoundCategory.BLOCKS, 1.0F, 1.0F
+                null, targetFarmLandTop.getX(), targetFarmLandTop.getY(), targetFarmLandTop.getZ(), SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1.0F, 1.0F
         );
-        seedStack.decrement(1);
+        seedStack.shrink(1);
         if (seedStack.isEmpty()) {
-            maid.getInventory().setStack(seedSlot, ItemStack.EMPTY);
+            maid.getInventory().setItem(seedSlot, ItemStack.EMPTY);
         }
         return true;
     }
 
     //掉落农作物
     public void dropItem(BlockPos cropPos) {
-        ServerWorld serverWorld = getServerWorld(maid);
+        ServerLevel serverWorld = getServerLevel(maid);
         BlockState cropState = serverWorld.getBlockState(cropPos);
         BlockEntity blockEntity = cropState.hasBlockEntity() ? serverWorld.getBlockEntity(cropPos) : null;
 
-        Block.dropStacks(cropState, serverWorld, cropPos, blockEntity, maid, maid.getMainHandStack());
+        Block.dropResources(cropState, serverWorld, cropPos, blockEntity, maid, maid.getMainHandItem());
     }
 
 
     public static BlockPos getNearTargetBlock(BaseNPCLikeEntity maid, BlockPos origen, boolean random) {
         List<BlockPos> targetFarmlands = new LinkedList<>();
-        BlockPos.Mutable mutable = maid.getBlockPos().mutableCopy();
+        BlockPos.MutableBlockPos mutable = maid.blockPosition().mutable();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 for (int k = -1; k <= 1; k++) {
                     mutable.set(origen.getX() + i, Math.round(origen.getY()) + j, origen.getZ() + k);
-                    if (NPCFarmGoal.isCrop(mutable, getServerWorld(maid)) || (isMaidHasSeeds(maid) && isFarmLandTop(mutable, getServerWorld(maid)))) {
+                    if (NPCFarmGoal.isCrop(mutable, getServerLevel(maid)) || (isMaidHasSeeds(maid) && isFarmLandTop(mutable, getServerLevel(maid)))) {
                         if (!random) return new BlockPos(mutable);
 //                        this.targetPositions.add(new BlockPos(mutable));
                         targetFarmlands.add(new BlockPos(mutable));
@@ -161,7 +160,7 @@ public class NPCFarmGoal extends Goal {
                 }
             }
         }
-        return targetFarmlands.isEmpty() ? null : (BlockPos) targetFarmlands.get(getServerWorld(maid).getRandom().nextInt(targetFarmlands.size()));
+        return targetFarmlands.isEmpty() ? null : (BlockPos) targetFarmlands.get(getServerLevel(maid).getRandom().nextInt(targetFarmlands.size()));
 
 
     }
@@ -171,7 +170,7 @@ public class NPCFarmGoal extends Goal {
     }
 
     //这个位置是否可以收割/种植
-    public static boolean isCrop(BlockPos pos, ServerWorld world) {
+    public static boolean isCrop(BlockPos pos, ServerLevel world) {
         BlockState blockState = world.getBlockState(pos);
         Block crop = blockState.getBlock();
         if (!(crop instanceof IMatureBlock iMatureBlock)) {
@@ -182,9 +181,9 @@ public class NPCFarmGoal extends Goal {
     }
 
     //这个方块下面是不是耕地
-    public static boolean isFarmLandTop(BlockPos b, ServerWorld world) {
-        Block block = world.getBlockState(b.down()).getBlock();
-        return world.getBlockState(b).isAir() && (block instanceof FarmlandBlock || (BorukvaFoodCompatImpl.hasBorukvaFood() && block == BorukvaFoodCompatImpl.BETTER_FARMLAND));
+    public static boolean isFarmLandTop(BlockPos b, ServerLevel world) {
+        Block block = world.getBlockState(b.below()).getBlock();
+        return world.getBlockState(b).isAir() && (block instanceof FarmBlock || (BorukvaFoodCompatImpl.hasBorukvaFood() && block == BorukvaFoodCompatImpl.BETTER_FARMLAND));
     }
 
 

@@ -13,12 +13,15 @@ import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.world.sapling.SaplingGeneratorInit;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.block.*;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import java.util.*;
 import java.util.function.DoubleUnaryOperator;
 
@@ -31,154 +34,154 @@ public class MIBlocks extends ModBlocks {
     // 普通
     public static final Block COOKING_POT = registerSimpleBlock("cooking_pot",
             (settings) -> new CookingPot((original) -> original, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     public static final Block CUTTING_BOARD = registerSimpleBlock("cutting_board",
             (settings) -> new CuttingBoard((original) -> original, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD)
     );
     public static final Block FRYING_PAN = registerSimpleBlock("frying_pan",
             (settings) -> new FryingPan((original) -> original, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block GRILL = registerSimpleBlock("grill",
             (settings) -> new Grill((original) -> original, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block STEAMER = registerSimpleBlock("steamer",
             (settings) -> new Steamer((original) -> original, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     // 夜雀
     public static final Block MYSTIA_COOKING_POT = registerSimpleBlock("mystia_cooking_pot",
             (settings) -> new CookingPot(MYSTIA, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     public static final Block MYSTIA_CUTTING_BOARD = registerSimpleBlock("mystia_cutting_board",
             (settings) -> new CuttingBoard(MYSTIA, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD)
     );
     public static final Block MYSTIA_FRYING_PAN = registerSimpleBlock("mystia_frying_pan",
             (settings) -> new FryingPan(MYSTIA, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block MYSTIA_GRILL = registerSimpleBlock("mystia_grill",
             (settings) -> new Grill(MYSTIA, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block MYSTIA_STEAMER = registerSimpleBlock("mystia_steamer",
             (settings) -> new Steamer(MYSTIA, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     // 超
     public static final Block SUPER_COOKING_POT = registerSimpleBlock("super_cooking_pot",
             (settings) -> new CookingPot(SUPER, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     public static final Block SUPER_CUTTING_BOARD = registerSimpleBlock("super_cutting_board",
             (settings) -> new CuttingBoard(SUPER, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD)
     );
     public static final Block SUPER_FRYING_PAN = registerSimpleBlock("super_frying_pan",
             (settings) -> new FryingPan(SUPER, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block SUPER_GRILL = registerSimpleBlock("super_grill",
             (settings) -> new Grill(SUPER, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block SUPER_STEAMER = registerSimpleBlock(
             "super_steamer",
             (settings) -> new Steamer(SUPER, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     // 极
     public static final Block EXTREME_COOKING_POT = registerSimpleBlock(
             "extreme_cooking_pot",
             settings -> new CookingPot(EXTREME, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     public static final Block EXTREME_CUTTING_BOARD = registerSimpleBlock(
             "extreme_cutting_board",
             settings -> new CuttingBoard(EXTREME, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD)
     );
     public static final Block EXTREME_FRYING_PAN = registerSimpleBlock(
             "extreme_frying_pan",
             settings -> new FryingPan(EXTREME, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block EXTREME_GRILL = registerSimpleBlock(
             "extreme_grill",
             settings -> new Grill(EXTREME, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block EXTREME_STEAMER = registerSimpleBlock(
             "extreme_steamer",
             settings -> new Steamer(EXTREME, 0.0, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     // 核能
     public static final Block NUKE_COOKING_POT = registerSimpleBlock(
             "nuke_cooking_pot",
             settings -> new CookingPot(NUKE, 0.4, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
     public static final Block NUKE_CUTTING_BOARD = registerSimpleBlock(
             "nuke_cutting_board",
             settings -> new CuttingBoard(NUKE, 0.4, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD)
     );
     public static final Block NUKE_FRYING_PAN = registerSimpleBlock(
             "nuke_frying_pan",
             settings -> new FryingPan(NUKE, 0.4, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block NUKE_GRILL = registerSimpleBlock(
             "nuke_grill",
             settings -> new Grill(NUKE, 0.4, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.METAL)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.METAL)
     );
     public static final Block NUKE_STEAMER = registerSimpleBlock(
             "nuke_steamer",
             settings -> new Steamer(NUKE, 0.4, settings),
-            AbstractBlock.Settings.create().strength(2.0f, 3.0f).sounds(BlockSoundGroup.STONE)
+            BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.STONE)
     );
 
     public static final Block ITEM_DISPLAY = registerSimpleBlock(
             "display",
             ItemStackDisplay::new,
-            AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).nonOpaque().sounds(BlockSoundGroup.GLASS)
+            BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).noOcclusion().sound(SoundType.GLASS)
     );
     public static final Block BLACK_SALT_BLOCK = registerSimpleBlock(
             "black_salt_block",
             Block::new,
-            AbstractBlock.Settings.copy(Blocks.SAND)
+            BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
     );
     public static final WoodCreator LEMON = WoodCreator.create(
             "lemon", SaplingGeneratorInit.LEMON_TREE).build();
     public static final Block LEMON_FRUIT_LEAVES = registerSimpleBlock(
             "lemon_fruit_leaves",
-            (settings) -> new FruitLeavesBlock(MIItems.LEMON, LEMON.leaves(), settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES));
+            (settings) -> new FruitLeavesBlock(MIItems.LEMON, LEMON.leaves(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
 
     public static final WoodCreator GINKGO = WoodCreator.create(
             "ginkgo", SaplingGeneratorInit.GINKGO_TREE).build();
     public static final Block GINKGO_FRUIT_LEAVES = registerSimpleBlock(
             "ginkgo_fruit_leaves",
-            (settings) -> new FruitLeavesBlock(MIItems.GINKGO, GINKGO.leaves(), settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES));
+            (settings) -> new FruitLeavesBlock(MIItems.GINKGO, GINKGO.leaves(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
 
     public static final WoodCreator PEACH = WoodCreator.create(
             "peach", SaplingGeneratorInit.PEACH_TREE).build();
     public static final Block PEACH_FRUIT_LEAVES = registerSimpleBlock(
             "peach_fruit_leaves",
-            (settings) -> new FruitLeavesBlock(MIItems.PEACH, PEACH.leaves(), settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES));
+            (settings) -> new FruitLeavesBlock(MIItems.PEACH, PEACH.leaves(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
 
     public static final Block UDUMBARA_FLOWER = registerSimpleBlock(
             "udumbara_flower",
-            (settings) -> new FertilizableFlower(StatusEffects.REGENERATION, 3f, settings), createPlantSettings());
+            (settings) -> new FertilizableFlower(MobEffects.REGENERATION, 3f, settings), createPlantSettings());
     public static final Block TREMELLA = registerSimpleBlock(
             "tremella",
-            (settings) -> new FlowerBlock(StatusEffects.REGENERATION, 3f, settings), createPlantSettings());
+            (settings) -> new FlowerBlock(MobEffects.REGENERATION, 3f, settings), createPlantSettings());
 
     public static final CropBlockCreator.Instance CHILL = CropBlockCreator
             .createCreator(MystiasIzakaya.id("chill"))
@@ -378,15 +381,15 @@ public class MIBlocks extends ModBlocks {
 //            )
 //            .build();
 
-    public static AbstractBlock.Settings createPlantSettings() {
-        return AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY);
+    public static BlockBehaviour.Properties createPlantSettings() {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
     }
 
     public static void registerBlocks() {
         if (ConstantInfo.isDevMode()) {
             DebugExportWriter output = DebugExportWriter.OUTPUT;
             output.write("== Crop Block Textures ==");
-            for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+            for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
                 Set<String> strIds = new HashSet<>();
                 int[] array = view.getValue().getProvider().toArray();
                 for (int i : array) {

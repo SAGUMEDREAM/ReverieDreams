@@ -25,22 +25,29 @@ import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
-import net.minecraft.client.render.model.json.BlockModelDefinition;
-import net.minecraft.client.render.model.json.ModelVariant;
-import net.minecraft.data.family.BlockFamily;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.BlockModelGenerators.BlockFamilyProvider;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.model.Variant;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static net.minecraft.client.data.BlockStateModelGenerator.modelWithYRotation;
+import static net.minecraft.client.data.models.BlockModelGenerators.createRotatedVariants;
 
 @Slf4j
 public class ModModelProvider extends FabricModelProvider {
@@ -54,11 +61,11 @@ public class ModModelProvider extends FabricModelProvider {
 //    private final BlockFamily SPIRITUAL_PLANKS =
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerCubeWithCustomTextures(ModBlocks.DANMAKU_CRAFTING_TABLE, Blocks.OAK_PLANKS, TextureMap::frontSideWithCustomBottom);
+    public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
+        blockStateModelGenerator.createCraftingTableLike(ModBlocks.DANMAKU_CRAFTING_TABLE, Blocks.OAK_PLANKS, TextureMapping::craftingTable);
         this.registerSmithingTable(blockStateModelGenerator, ModBlocks.STRENGTH_TABLE);
-        blockStateModelGenerator.registerSimpleState(ModBlocks.GENSOKYO_ALTAR);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.MUSIC_BLOCK);
+        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.GENSOKYO_ALTAR);
+        blockStateModelGenerator.family(ModBlocks.MUSIC_BLOCK);
 
         this.registerWoodCreator(blockStateModelGenerator, ModBlocks.SPIRITUAL);
         this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.ICE_SCALES);
@@ -67,35 +74,35 @@ public class ModModelProvider extends FabricModelProvider {
         this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.MOON_STONE);
         this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.MOON_STONE_BRICK);
         this.registerWoodCreator(blockStateModelGenerator, MIBlocks.LEMON);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MIBlocks.LEMON_FRUIT_LEAVES);
+        blockStateModelGenerator.family(MIBlocks.LEMON_FRUIT_LEAVES);
         this.registerWoodCreator(blockStateModelGenerator, MIBlocks.GINKGO);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MIBlocks.GINKGO_FRUIT_LEAVES);
+        blockStateModelGenerator.family(MIBlocks.GINKGO_FRUIT_LEAVES);
         this.registerWoodCreator(blockStateModelGenerator, MIBlocks.PEACH);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MIBlocks.PEACH_FRUIT_LEAVES);
+        blockStateModelGenerator.family(MIBlocks.PEACH_FRUIT_LEAVES);
 
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.MAGIC_ICE_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.POINT_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.POWER_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_ORE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_CRYSTAL_ORE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SILVER_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.MAGIC_ICE_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.POINT_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.POWER_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.SILVER_ORE);
+        blockStateModelGenerator.family(ModBlocks.DREAM_CRYSTAL_ORE);
+        blockStateModelGenerator.family(ModBlocks.SILVER_BLOCK);
 //        this.registerChest(blockStateModelGenerator, ModBlocks.SILVER_CHEST_BLOCK.chestBlock(), ModBlocks.SILVER_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEEPSLATE_SILVER_ORE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.ORB_ORE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEEPSLATE_ORB_ORE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.RED_ORB_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.YELLOW_ORB_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.BLUE_ORB_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.GREEN_ORB_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.PURPLE_ORB_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.DEEPSLATE_SILVER_ORE);
+        blockStateModelGenerator.family(ModBlocks.ORB_ORE);
+        blockStateModelGenerator.family(ModBlocks.DEEPSLATE_ORB_ORE);
+        blockStateModelGenerator.family(ModBlocks.RED_ORB_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.YELLOW_ORB_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.BLUE_ORB_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.GREEN_ORB_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.PURPLE_ORB_BLOCK);
 
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_BLUE_BLOCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DREAM_RED_BLOCK);
-        blockStateModelGenerator.registerSimpleState(ModBlocks.MARISA_HAT_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.DREAM_BLUE_BLOCK);
+        blockStateModelGenerator.family(ModBlocks.DREAM_RED_BLOCK);
+        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.MARISA_HAT_BLOCK);
         this.registerRotatable(blockStateModelGenerator, ModBlocks.CASH_BOX_BLOCK);
-        blockStateModelGenerator.registerSimpleState(ModBlocks.ANTI_COLLISION_BARREL);
-        blockStateModelGenerator.registerSimpleState(ModBlocks.WHEEL_CHAIR);
-        blockStateModelGenerator.registerSimpleState(ModBlocks.WOODEN_BOX.chestBlock());
+        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.ANTI_COLLISION_BARREL);
+        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.WHEEL_CHAIR);
+        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.WOODEN_BOX.chestBlock());
 
         for (Fumo fumoType : Fumos.getView()) {
             this.registerFumo(blockStateModelGenerator, fumoType);
@@ -105,22 +112,22 @@ public class ModModelProvider extends FabricModelProvider {
         this.generateMIBlock(blockStateModelGenerator);
     }
 
-    public void generateCropBlockModel(BlockStateModelGenerator blockStateModelGenerator) {
-        Set<Map.Entry<Identifier, CropBlockCreator.Instance>> views = CropBlockCreator.getViews();
-        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : views) {
-            Identifier id = null;
+    public void generateCropBlockModel(BlockModelGenerators blockStateModelGenerator) {
+        Set<Map.Entry<ResourceLocation, CropBlockCreator.Instance>> views = CropBlockCreator.getViews();
+        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : views) {
+            ResourceLocation id = null;
             try {
                 CropBlockCreator.Instance instance = view.getValue();
                 id = instance.getIdentifier();
                 AbstractCropBlock cropBlock = instance.getCropBlock();
                 CropBlockCreator.ModelType modelType = instance.getModelType();
-                IntProperty ageProperty = cropBlock.getAgeProperty();
+                IntegerProperty ageProperty = cropBlock.getAgeProperty();
                 CropAgeModelProvider provider = instance.getProvider();
 
                 if (modelType == CropBlockCreator.ModelType.CROSS) {
-                    blockStateModelGenerator.registerTintableCrossBlockStateWithStages(cropBlock, BlockStateModelGenerator.CrossType.NOT_TINTED, ageProperty, CropAgeUtil.toArray(ageProperty));
+                    blockStateModelGenerator.createCrossBlock(cropBlock, BlockModelGenerators.PlantType.NOT_TINTED, ageProperty, CropAgeUtil.toArray(ageProperty));
                 } else if (modelType == CropBlockCreator.ModelType.CROP) {
-                    blockStateModelGenerator.registerCrop(cropBlock, ageProperty, provider.toArray());
+                    blockStateModelGenerator.createCropBlock(cropBlock, ageProperty, provider.toArray());
                 }
             } catch (Exception e) {
                 log.error("Can't generate crop block model {}, cause by {}", id, e.getCause());
@@ -129,131 +136,131 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         // 调试
-        itemModelGenerator.register(ModItems.BATTLE_STICK, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.OWNER_STICK, Models.HANDHELD);
+        itemModelGenerator.generateFlatItem(ModItems.BATTLE_STICK, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.OWNER_STICK, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         // 图标
-        itemModelGenerator.register(ModItems.ICON, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FUMO_ICON, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ROLE_ICON, Models.GENERATED);
-        itemModelGenerator.registerWithDyeableOverlay(ModItems.SPAWN_EGG);
-        itemModelGenerator.register(ModItems.DANMAKU, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.ICON, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FUMO_ICON, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ROLE_ICON, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateTwoLayerDyedItem(ModItems.SPAWN_EGG);
+        itemModelGenerator.generateFlatItem(ModItems.DANMAKU, ModelTemplates.FLAT_ITEM);
 
         // 材料
-        itemModelGenerator.register(ModItems.POINT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.POWER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DANMAKU_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.UPGRADED_HEALTH_FRAGMENT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BOMB_FRAGMENT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.RED_ORB, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLUE_ORB, Models.GENERATED);
-        itemModelGenerator.register(ModItems.YELLOW_ORB, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GREEN_ORB, Models.GENERATED);
-        itemModelGenerator.register(ModItems.PURPLE_ORB, Models.GENERATED);
-        itemModelGenerator.register(ModItems.YIN_YANG_ORB, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEED_FEATHER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_CRYSTAL_FRAGMENT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.POINT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.POWER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DANMAKU_CORE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.UPGRADED_HEALTH_FRAGMENT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BOMB_FRAGMENT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.RED_ORB, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLUE_ORB, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.YELLOW_ORB, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GREEN_ORB, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PURPLE_ORB, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.YIN_YANG_ORB, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEED_FEATHER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_CRYSTAL_FRAGMENT, ModelTemplates.FLAT_ITEM);
 
         // 道具
-        itemModelGenerator.register(ModItems.TOUHOU_HELPER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.UPGRADED_HEALTH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BOMB, Models.GENERATED);
-        itemModelGenerator.register(ModItems.CROSSING_CHISEL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GAP_BALL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.TIME_STOP_CLOCK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.EARPHONE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.KOISHI_HAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FUMO_LICENSE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.CURSED_DECOY_DOLl);
-        itemModelGenerator.register(ModItems.VAISRAVANAS_PAGODA, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_PILLOW);
-        itemModelGenerator.register(ModItems.TENGU_CAMERA);
-        itemModelGenerator.register(ModItems.BAD_APPLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.EXORCISM_PAPER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COPPER_COIN, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SILVER_COIN, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLD_COIN, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.TOUHOU_HELPER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.UPGRADED_HEALTH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BOMB, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.CROSSING_CHISEL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GAP_BALL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.TIME_STOP_CLOCK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.EARPHONE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.KOISHI_HAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FUMO_LICENSE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.declareCustomModelItem(ModItems.CURSED_DECOY_DOLl);
+        itemModelGenerator.generateFlatItem(ModItems.VAISRAVANAS_PAGODA, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.declareCustomModelItem(ModItems.DREAM_PILLOW);
+        itemModelGenerator.declareCustomModelItem(ModItems.TENGU_CAMERA);
+        itemModelGenerator.generateFlatItem(ModItems.BAD_APPLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.EXORCISM_PAPER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COPPER_COIN, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_COIN, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLD_COIN, ModelTemplates.FLAT_ITEM);
 
         // 武器
-        itemModelGenerator.register(ModItems.HAKUREI_CANE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.BAGUA_FURNACE);
-        itemModelGenerator.register(ModItems.WIND_BLESSING_CANE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_BROOM);
-        itemModelGenerator.register(ModItems.KNIFE, Models.HANDHELD);
+        itemModelGenerator.generateFlatItem(ModItems.HAKUREI_CANE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.declareCustomModelItem(ModItems.BAGUA_FURNACE);
+        itemModelGenerator.generateFlatItem(ModItems.WIND_BLESSING_CANE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.declareCustomModelItem(ModItems.MAGIC_BROOM);
+        itemModelGenerator.generateFlatItem(ModItems.KNIFE, ModelTemplates.FLAT_HANDHELD_ITEM);
 //        itemModelGenerator.register(ModItems.GUNGNIR, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.LEVATIN, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ROKANKEN, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.HAKUROKEN, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.PAPILIO_PATTERN_FAN, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.HORAI_DAMA_NO_EDA, Models.GENERATED);
-        itemModelGenerator.register(ModItems.IBUKIHO, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SWORD_OF_HISOU, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAPLE_LEAF_FAN, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MANPOZUCHI);
+        itemModelGenerator.generateFlatItem(ModItems.LEVATIN, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ROKANKEN, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.HAKUROKEN, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PAPILIO_PATTERN_FAN, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.HORAI_DAMA_NO_EDA, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IBUKIHO, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SWORD_OF_HISOU, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAPLE_LEAF_FAN, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.declareCustomModelItem(ModItems.MANPOZUCHI);
 //        itemModelGenerator.register(ModItems.NUE_TRIDENT);
-        itemModelGenerator.register(ModItems.TRUMPET_GUN);
-        itemModelGenerator.register(ModItems.TREASURE_HUNTING_ROD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.VIOLIN);
-        itemModelGenerator.register(ModItems.KEYBOARD);
-        itemModelGenerator.register(ModItems.TRUMPET);
-        itemModelGenerator.register(ModItems.DEATH_SCYTHE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAID_HAIRBAND, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAID_UPPER_SKIRT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAID_LOWER_SKIRT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAID_SHOE, Models.GENERATED);
+        itemModelGenerator.declareCustomModelItem(ModItems.TRUMPET_GUN);
+        itemModelGenerator.generateFlatItem(ModItems.TREASURE_HUNTING_ROD, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.declareCustomModelItem(ModItems.VIOLIN);
+        itemModelGenerator.declareCustomModelItem(ModItems.KEYBOARD);
+        itemModelGenerator.declareCustomModelItem(ModItems.TRUMPET);
+        itemModelGenerator.generateFlatItem(ModItems.DEATH_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAID_HAIRBAND, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAID_UPPER_SKIRT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAID_LOWER_SKIRT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAID_SHOE, ModelTemplates.FLAT_ITEM);
 
         // 工具矿物类
-        itemModelGenerator.register(ModItems.RAW_SILVER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SILVER_INGOT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SILVER_NUGGET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SILVER_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_SHOVEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_HOE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SILVER_HELMET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SILVER_CHESTPLATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SILVER_LEGGINGS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SILVER_BOOTS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ICE_SCALES, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_SHOVEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_HOE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_HELMET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_CHESTPLATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_LEGGINGS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAGIC_ICE_BOOTS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DREAM_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DREAM_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DREAM_SHOVEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DREAM_HOE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DREAM_HELMET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_CHESTPLATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_LEGGINGS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_BOOTS, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.RAW_SILVER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_INGOT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_NUGGET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_HELMET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_LEGGINGS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SILVER_BOOTS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ICE_SCALES, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_HELMET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_LEGGINGS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGIC_ICE_BOOTS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_HELMET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_LEGGINGS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_BOOTS, ModelTemplates.FLAT_ITEM);
 
         // 符卡
-        itemModelGenerator.register(ModItems.DANMAKU_SHAPE_CREATOR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPELL_CARD_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.DANMAKU_SHAPE_CREATOR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPELL_CARD_TEMPLATE, ModelTemplates.FLAT_ITEM);
 
         // 角色卡
-        itemModelGenerator.registerDyeable(ModItems.ROLE_CARD, RoleCard.DEFAULT_COLOR.intValue());
-        itemModelGenerator.register(ModItems.ROLE_ARCHIVE, Models.GENERATED);
+        itemModelGenerator.generateDyedItem(ModItems.ROLE_CARD, RoleCard.DEFAULT_COLOR.intValue());
+        itemModelGenerator.generateFlatItem(ModItems.ROLE_ARCHIVE, ModelTemplates.FLAT_ITEM);
 
         // 唱片
-        itemModelGenerator.register(ModItems.HR01_01, Models.GENERATED);
-        itemModelGenerator.register(ModItems.HR02_08, Models.GENERATED);
-        itemModelGenerator.register(ModItems.HR03_01, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.YV_FLOWER_CLOCK_AND_DREAMS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GLOWING_NEEDLES_LITTLE_PEOPLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COOKIE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BADAPPLE, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.HR01_01, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.HR02_08, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.HR03_01, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.YV_FLOWER_CLOCK_AND_DREAMS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GLOWING_NEEDLES_LITTLE_PEOPLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COOKIE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BADAPPLE, ModelTemplates.FLAT_ITEM);
 
         // 测试物品
 //        itemModelGenerator.registerWithDyeableOverlay(ModItems.TEST_COLOR_DANMAKU_ITEM);
@@ -271,7 +278,7 @@ public class ModModelProvider extends FabricModelProvider {
         this.generateMIItem(itemModelGenerator);
     }
 
-    public void generateMIBlock(BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateMIBlock(BlockModelGenerators blockStateModelGenerator) {
         this.registerRotatable(blockStateModelGenerator, MIBlocks.COOKING_POT);
         this.registerRotatable(blockStateModelGenerator, MIBlocks.CUTTING_BOARD);
         this.registerRotatable(blockStateModelGenerator, MIBlocks.FRYING_PAN);
@@ -298,91 +305,91 @@ public class ModModelProvider extends FabricModelProvider {
         this.registerRotatable(blockStateModelGenerator, MIBlocks.NUKE_GRILL);
         this.registerRotatable(blockStateModelGenerator, MIBlocks.NUKE_STEAMER);
 
-        blockStateModelGenerator.registerSimpleState(MIBlocks.ITEM_DISPLAY);
+        blockStateModelGenerator.createNonTemplateModelBlock(MIBlocks.ITEM_DISPLAY);
 
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MIBlocks.BLACK_SALT_BLOCK);
+        blockStateModelGenerator.family(MIBlocks.BLACK_SALT_BLOCK);
 
-        blockStateModelGenerator.registerTintableCross(MIBlocks.UDUMBARA_FLOWER, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerTintableCross(MIBlocks.TREMELLA, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        blockStateModelGenerator.createCrossBlockWithDefaultItem(MIBlocks.UDUMBARA_FLOWER, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createCrossBlockWithDefaultItem(MIBlocks.TREMELLA, BlockModelGenerators.PlantType.NOT_TINTED);
     }
 
-    public void generateMIItem(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(MIItems.MYSTIA_ICON, Models.GENERATED);
+    public void generateMIItem(ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(MIItems.MYSTIA_ICON, ModelTemplates.FLAT_ITEM);
         for (Item item : MIItems.INGREDIENTS) {
-            itemModelGenerator.register(item, Models.GENERATED);
+            itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
         for (Item item : MIItems.FOOD_ITEMS) {
-            itemModelGenerator.register(item, Models.GENERATED);
+            itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
         for (Item item : MIItems.DRINK_ITEMS) {
-            itemModelGenerator.register(item, Models.GENERATED);
+            itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
     }
 
-    public void generateHolder(ItemModelGenerator itemModelGenerator) {
-        ModEntityHolders.HOLDERS.forEach(itemModelGenerator::register);
+    public void generateHolder(ItemModelGenerators itemModelGenerator) {
+        ModEntityHolders.HOLDERS.forEach(itemModelGenerator::declareCustomModelItem);
     }
 
-    public void generateGuiItemModels(ItemModelGenerator itemModelGenerator) {
+    public void generateGuiItemModels(ItemModelGenerators itemModelGenerator) {
         for (Item item : ModGuiItems.getGuiItemList()) {
             this.registerGuiItem(itemModelGenerator, item);
         }
     }
 
-    public final void registerChest(BlockStateModelGenerator blockStateModelGenerator, Block block, Block topBottom) {
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.FRONT, TextureMap.getSubId(block, "_front"))
-                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.TOP, TextureMap.getId(topBottom))
-                .put(TextureKey.BOTTOM, TextureMap.getId(topBottom));
-        blockStateModelGenerator.registerNorthDefaultHorizontalRotatable(
+    public final void registerChest(BlockModelGenerators blockStateModelGenerator, Block block, Block topBottom) {
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, "_front"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(topBottom))
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(topBottom));
+        blockStateModelGenerator.createPumpkinVariant(
                 block,
                 textureMap
         );
     }
 
-    public final void registerRotatable(BlockStateModelGenerator blockStateModelGenerator, Block block) {
-        Identifier id = Registries.BLOCK.getId(block);
-        Identifier modelId = Identifier.of(id.getNamespace(), "block/" + id.getPath());
+    public final void registerRotatable(BlockModelGenerators blockStateModelGenerator, Block block) {
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+        ResourceLocation modelId = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
 
-        ModelVariant modelVariant = new ModelVariant(modelId);
+        Variant modelVariant = new Variant(modelId);
 
-        blockStateModelGenerator.blockStateCollector.accept(
-                VariantsBlockModelDefinitionCreator.of(block, modelWithYRotation(modelVariant))
+        blockStateModelGenerator.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block, createRotatedVariants(modelVariant))
         );
     }
 
-    private void registerGuiItem(ItemModelGenerator itemModelGenerator, Item item) {
+    private void registerGuiItem(ItemModelGenerators itemModelGenerator, Item item) {
 //        Model guiSlotModel = item("custom_slot", TextureKey.LAYER0);
 //        itemModelGenerator.register(item, guiSlotModel);
     }
 
-    public void generateDanmakuItemModels(ItemModelGenerator itemModelGenerator) {
+    public void generateDanmakuItemModels(ItemModelGenerators itemModelGenerator) {
         for (Item item : RegistryManager.DANMAKU_TYPE.values()
                 .stream()
                 .filter(type -> !DanmakuTypes.UNLIST.contains(type))
                 .map(DanmakuType::getItem)
                 .toList()) {
-            itemModelGenerator.registerWithDyeableOverlay(item);
+            itemModelGenerator.generateTwoLayerDyedItem(item);
         }
     }
 
-    private void registerSmithingTable(BlockStateModelGenerator blockStateModelGenerator, Block block) {
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.PARTICLE, TextureMap.getSubId(block, "_front"))
-                .put(TextureKey.DOWN, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.UP, TextureMap.getSubId(block, "_top"))
-                .put(TextureKey.NORTH, TextureMap.getSubId(block, "_front"))
-                .put(TextureKey.SOUTH, TextureMap.getSubId(block, "_front"))
-                .put(TextureKey.EAST, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.WEST, TextureMap.getSubId(block, "_side"));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, BlockStateModelGenerator.createWeightedVariant(Models.CUBE.upload(block, textureMap, blockStateModelGenerator.modelCollector))));
+    private void registerSmithingTable(BlockModelGenerators blockStateModelGenerator, Block block) {
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(block, "_front"))
+                .put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, "_bottom"))
+                .put(TextureSlot.UP, TextureMapping.getBlockTexture(block, "_top"))
+                .put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, "_front"))
+                .put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, "_front"))
+                .put(TextureSlot.EAST, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, "_side"));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(ModelTemplates.CUBE.create(block, textureMap, blockStateModelGenerator.modelOutput))));
 
     }
 
-    private void registerFumo(BlockStateModelGenerator blockStateModelGenerator, Fumo fumoType) {
+    private void registerFumo(BlockModelGenerators blockStateModelGenerator, Fumo fumoType) {
         Block block = fumoType.block();
-        Identifier id = Registries.BLOCK.getId(block);
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
 //        blockStateModelGenerator.blockStateCollector.accept(new BlockModelDefinitionCreator() {
 //            @Override
 //            public Block getBlock() {
@@ -403,28 +410,28 @@ public class ModModelProvider extends FabricModelProvider {
 //        }
 //        BlockStateModelGenerator.createSingletonBlockState(block, BlockStateModelGenerator.createWeightedVariant(ModelIds.getBlockModelId(block)));
 
-        blockStateModelGenerator.registerSimpleState(block);
+        blockStateModelGenerator.createNonTemplateModelBlock(block);
     }
 
-    private static Model item(String parent, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Touhou.id("item/" + parent)), Optional.empty(), requiredTextureKeys);
+    private static ModelTemplate item(String parent, TextureSlot... requiredTextureKeys) {
+        return new ModelTemplate(Optional.of(Touhou.id("item/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
-    private void registerWoodCreator(BlockStateModelGenerator blockStateModelGenerator, WoodCreator creator) {
-        blockStateModelGenerator.createLogTexturePool(creator.log()).log(creator.log()).wood(creator.wood());
-        blockStateModelGenerator.createLogTexturePool(creator.strippedLog()).log(creator.strippedLog()).wood(creator.strippedWood());
-        blockStateModelGenerator.registerCubeAllModelTexturePool(creator.leaves());
-        blockStateModelGenerator.registerTintableCross(creator.sapling(), BlockStateModelGenerator.CrossType.NOT_TINTED);
+    private void registerWoodCreator(BlockModelGenerators blockStateModelGenerator, WoodCreator creator) {
+        blockStateModelGenerator.woodProvider(creator.log()).logWithHorizontal(creator.log()).wood(creator.wood());
+        blockStateModelGenerator.woodProvider(creator.strippedLog()).logWithHorizontal(creator.strippedLog()).wood(creator.strippedWood());
+        blockStateModelGenerator.family(creator.leaves());
+        blockStateModelGenerator.createCrossBlockWithDefaultItem(creator.sapling(), BlockModelGenerators.PlantType.NOT_TINTED);
         this.registerFamily(blockStateModelGenerator, creator.getBlockFamily());
     }
 
-    private void registerDecorativeBlockCreator(BlockStateModelGenerator blockStateModelGenerator, DecorativeBlockCreator creator) {
-        blockStateModelGenerator.registerCubeAllModelTexturePool(creator.block()).stairs(creator.stair()).slab(creator.slab()).wall(creator.wall());
+    private void registerDecorativeBlockCreator(BlockModelGenerators blockStateModelGenerator, DecorativeBlockCreator creator) {
+        blockStateModelGenerator.family(creator.block()).stairs(creator.stair()).slab(creator.slab()).wall(creator.wall());
     }
 
-    private void registerFamily(BlockStateModelGenerator generator, BlockFamily family) {
-        TexturedModel texturedModel = this.uniqueModels.getOrDefault(family.getBaseBlock(), TexturedModel.CUBE_ALL.get(family.getBaseBlock()));
-        generator.new BlockTexturePool(texturedModel.getTextures()).base(family.getBaseBlock(), texturedModel.getModel()).family(family);
+    private void registerFamily(BlockModelGenerators generator, BlockFamily family) {
+        TexturedModel texturedModel = this.uniqueModels.getOrDefault(family.getBaseBlock(), TexturedModel.CUBE.get(family.getBaseBlock()));
+        generator.new BlockFamilyProvider(texturedModel.getMapping()).fullBlock(family.getBaseBlock(), texturedModel.getTemplate()).generateFor(family);
     }
 
     @Override

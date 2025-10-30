@@ -1,14 +1,13 @@
 package cc.thonly.reverie_dreams.sound;
 
 import cc.thonly.reverie_dreams.Touhou;
-import net.minecraft.block.jukebox.JukeboxSong;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.sound.SoundEvent;
-
 import java.util.LinkedList;
 import java.util.List;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.JukeboxSong;
 
 import static cc.thonly.reverie_dreams.sound.SoundEventInit.registerReference;
 
@@ -24,15 +23,15 @@ public class JukeboxSongInit {
     public static final JukeBoxEntry BAD_APPLE = registerJukeBoxEntry("badapple", 219,6);
 
     private static JukeBoxEntry registerJukeBoxEntry(String id, int length, int output) {
-        RegistryKey<JukeboxSong> jukeboxSongRegistryKey = createJukeBoxSongRegistryKey(id);
-        RegistryEntry.Reference<SoundEvent> soundEventReference = registerReference(id);
+        ResourceKey<JukeboxSong> jukeboxSongRegistryKey = createJukeBoxSongRegistryKey(id);
+        Holder.Reference<SoundEvent> soundEventReference = registerReference(id);
         JukeBoxEntry entry = new JukeBoxEntry(id, jukeboxSongRegistryKey, soundEventReference, length, output);
         ENTRIES.add(entry);
         return entry;
     }
 
-    private static RegistryKey<JukeboxSong> createJukeBoxSongRegistryKey(String id) {
-        return RegistryKey.of(RegistryKeys.JUKEBOX_SONG, Touhou.id(id));
+    private static ResourceKey<JukeboxSong> createJukeBoxSongRegistryKey(String id) {
+        return ResourceKey.create(Registries.JUKEBOX_SONG, Touhou.id(id));
     }
 
     public static void init() {

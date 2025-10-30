@@ -2,35 +2,35 @@ package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.decoration.ArmorStandEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class ManpozuchiItem extends PickaxeItem {
     private static final int ATTACK_DAMAGE_MODIFIER_VALUE = 5;
@@ -42,32 +42,32 @@ public class ManpozuchiItem extends PickaxeItem {
 
     public static final ToolMaterial MATERIAL = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 59, 2.0F, 0.0F, 15, ItemTags.GOLD_TOOL_MATERIALS);
 
-    public ManpozuchiItem(float attackDamage, float attackSpeed, Settings settings) {
+    public ManpozuchiItem(float attackDamage, float attackSpeed, Properties settings) {
         super(MATERIAL, attackDamage, attackSpeed, settings);
     }
 
     @Override
-    public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity user) {
-        if (!world.isClient && user instanceof ServerPlayerEntity player) {
-            boolean b = super.canMine(stack, state, world, pos, user);
-            return b && !player.isInCreativeMode();
+    public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity user) {
+        if (!world.isClientSide && user instanceof ServerPlayer player) {
+            boolean b = super.canDestroyBlock(stack, state, world, pos, user);
+            return b && !player.hasInfiniteMaterials();
         }
-        return super.canMine(stack, state, world, pos, user);
+        return super.canDestroyBlock(stack, state, world, pos, user);
     }
 
     @Override
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        boolean isSneaking = user.isSneaking();
-        World world = user.getWorld();
-        if (!world.isClient() && isSneaking && user instanceof ServerPlayerEntity player) {
-            ItemStack stackInHand = player.getStackInHand(hand);
-            if (stackInHand.getDamage() >= stackInHand.getMaxDamage()) {
-                return ActionResult.PASS;
+    public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
+        boolean isSneaking = user.isShiftKeyDown();
+        Level world = user.level();
+        if (!world.isClientSide() && isSneaking && user instanceof ServerPlayer player) {
+            ItemStack stackInHand = player.getItemInHand(hand);
+            if (stackInHand.getDamageValue() >= stackInHand.getMaxDamage()) {
+                return InteractionResult.PASS;
             }
-            AttributeContainer attributes = entity.getAttributes();
-            EntityAttributeInstance attributeInstance = attributes.getCustomInstance(EntityAttributes.SCALE);
+            AttributeMap attributes = entity.getAttributes();
+            AttributeInstance attributeInstance = attributes.getInstance(Attributes.SCALE);
             if (attributeInstance == null) {
-                return ActionResult.PASS;
+                return InteractionResult.PASS;
             }
             ILivingEntity lePlayerImpl = (ILivingEntity) entity;
             double state = lePlayerImpl.getManpozuchiUsingState();
@@ -78,27 +78,27 @@ public class ManpozuchiItem extends PickaxeItem {
                 attributeInstance.setBaseValue(1.0);
                 lePlayerImpl.setManpozuchiUsingState(1.0);
             }
-            if (!user.isInCreativeMode()) {
-                stackInHand.damage(1, user);
+            if (!user.hasInfiniteMaterials()) {
+                stackInHand.hurtWithoutBreaking(1, user);
             }
-            user.swingHand(hand);
-            return ActionResult.SUCCESS_SERVER;
+            user.swing(hand);
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        boolean isSneaking = user.isSneaking();
-        if (!world.isClient() && isSneaking && user instanceof ServerPlayerEntity player) {
-            ItemStack stackInHand = user.getStackInHand(hand);
-            if (stackInHand.getDamage() >= stackInHand.getMaxDamage()) {
-                return ActionResult.PASS;
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        boolean isSneaking = user.isShiftKeyDown();
+        if (!world.isClientSide() && isSneaking && user instanceof ServerPlayer player) {
+            ItemStack stackInHand = user.getItemInHand(hand);
+            if (stackInHand.getDamageValue() >= stackInHand.getMaxDamage()) {
+                return InteractionResult.PASS;
             }
-            AttributeContainer attributes = player.getAttributes();
-            EntityAttributeInstance attributeInstance = attributes.getCustomInstance(EntityAttributes.SCALE);
+            AttributeMap attributes = player.getAttributes();
+            AttributeInstance attributeInstance = attributes.getInstance(Attributes.SCALE);
             if (attributeInstance == null) {
-                return ActionResult.PASS;
+                return InteractionResult.PASS;
             }
             ILivingEntity lePlayerImpl = (ILivingEntity) player;
             double state = lePlayerImpl.getManpozuchiUsingState();
@@ -109,38 +109,38 @@ public class ManpozuchiItem extends PickaxeItem {
                 attributeInstance.setBaseValue(1.0);
                 lePlayerImpl.setManpozuchiUsingState(1.0);
             }
-            if (!user.isInCreativeMode()) {
-                stackInHand.damage(1, user);
+            if (!user.hasInfiniteMaterials()) {
+                stackInHand.hurtWithoutBreaking(1, user);
             }
-            user.swingHand(hand);
-            return ActionResult.SUCCESS_SERVER;
+            user.swing(hand);
+            return InteractionResult.SUCCESS_SERVER;
         }
         return super.use(world, user, hand);
     }
 
-    public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (shouldDealAdditionalDamage(attacker)) {
-            ServerWorld serverWorld = (ServerWorld) attacker.getWorld();
-            attacker.setVelocity(attacker.getVelocity().withAxis(Direction.Axis.Y, 0.009999999776482582));
+            ServerLevel serverWorld = (ServerLevel) attacker.level();
+            attacker.setDeltaMovement(attacker.getDeltaMovement().with(Direction.Axis.Y, 0.009999999776482582));
 
-            ServerPlayerEntity serverPlayerEntity = null;
-            if (attacker instanceof ServerPlayerEntity) {
-                serverPlayerEntity = (ServerPlayerEntity) attacker;
-                serverPlayerEntity.currentExplosionImpactPos = this.getCurrentExplosionImpactPos(serverPlayerEntity);
-                serverPlayerEntity.setIgnoreFallDamageFromCurrentExplosion(true);
-                serverPlayerEntity.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayerEntity));
+            ServerPlayer serverPlayerEntity = null;
+            if (attacker instanceof ServerPlayer) {
+                serverPlayerEntity = (ServerPlayer) attacker;
+                serverPlayerEntity.currentImpulseImpactPos = this.getCurrentExplosionImpactPos(serverPlayerEntity);
+                serverPlayerEntity.setIgnoreFallDamageFromCurrentImpulse(true);
+                serverPlayerEntity.connection.send(new ClientboundSetEntityMotionPacket(serverPlayerEntity));
             }
 
-            if (target.isOnGround()) {
-                if (attacker instanceof ServerPlayerEntity) {
-                    serverPlayerEntity = (ServerPlayerEntity) attacker;
+            if (target.onGround()) {
+                if (attacker instanceof ServerPlayer) {
+                    serverPlayerEntity = (ServerPlayer) attacker;
                     serverPlayerEntity.setSpawnExtraParticlesOnFall(true);
                 }
 
-                SoundEvent soundEvent = attacker.fallDistance > 5.0 ? SoundEvents.ITEM_MACE_SMASH_GROUND_HEAVY : SoundEvents.ITEM_MACE_SMASH_GROUND;
-                serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), soundEvent, attacker.getSoundCategory(), 1.0F, 1.0F);
+                SoundEvent soundEvent = attacker.fallDistance > 5.0 ? SoundEvents.MACE_SMASH_GROUND_HEAVY : SoundEvents.MACE_SMASH_GROUND;
+                serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), soundEvent, attacker.getSoundSource(), 1.0F, 1.0F);
             } else {
-                serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.ITEM_MACE_SMASH_AIR, attacker.getSoundCategory(), 1.0F, 1.0F);
+                serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.MACE_SMASH_AIR, attacker.getSoundSource(), 1.0F, 1.0F);
             }
 
             knockbackNearbyEntities(serverWorld, attacker, target);
@@ -148,19 +148,19 @@ public class ManpozuchiItem extends PickaxeItem {
 
     }
 
-    private Vec3d getCurrentExplosionImpactPos(ServerPlayerEntity player) {
-        return player.shouldIgnoreFallDamageFromCurrentExplosion() && player.currentExplosionImpactPos != null && player.currentExplosionImpactPos.y <= player.getPos().y ? player.currentExplosionImpactPos : player.getPos();
+    private Vec3 getCurrentExplosionImpactPos(ServerPlayer player) {
+        return player.isIgnoringFallDamageFromCurrentImpulse() && player.currentImpulseImpactPos != null && player.currentImpulseImpactPos.y <= player.position().y ? player.currentImpulseImpactPos : player.position();
     }
 
-    public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (shouldDealAdditionalDamage(attacker)) {
-            attacker.onLanding();
+            attacker.resetFallDistance();
         }
 
     }
 
-    public float getBonusAttackDamage(Entity target, float baseAttackDamage, DamageSource damageSource) {
-        Entity var5 = damageSource.getSource();
+    public float getAttackDamageBonus(Entity target, float baseAttackDamage, DamageSource damageSource) {
+        Entity var5 = damageSource.getDirectEntity();
         if (var5 instanceof LivingEntity livingEntity) {
             if (!shouldDealAdditionalDamage(livingEntity)) {
                 return 0.0F;
@@ -177,10 +177,10 @@ public class ManpozuchiItem extends PickaxeItem {
                     g = 22.0 + f - 8.0;
                 }
 
-                World var14 = livingEntity.getWorld();
-                if (var14 instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) var14;
-                    return (float) (g + (double) EnchantmentHelper.getSmashDamagePerFallenBlock(serverWorld, livingEntity.getWeaponStack(), target, damageSource, 0.0F) * f);
+                Level var14 = livingEntity.level();
+                if (var14 instanceof ServerLevel) {
+                    ServerLevel serverWorld = (ServerLevel) var14;
+                    return (float) (g + (double) EnchantmentHelper.modifyFallBasedDamage(serverWorld, livingEntity.getWeaponItem(), target, damageSource, 0.0F) * f);
                 } else {
                     return (float) g;
                 }
@@ -190,17 +190,17 @@ public class ManpozuchiItem extends PickaxeItem {
         }
     }
 
-    private static void knockbackNearbyEntities(World world, Entity attacker, Entity attacked) {
-        world.syncWorldEvent(2013, attacked.getSteppingPos(), 750);
-        world.getEntitiesByClass(LivingEntity.class, attacked.getBoundingBox().expand(3.5), getKnockbackPredicate(attacker, attacked)).forEach((entity) -> {
-            Vec3d vec3d = entity.getPos().subtract(attacked.getPos());
+    private static void knockbackNearbyEntities(Level world, Entity attacker, Entity attacked) {
+        world.levelEvent(2013, attacked.getOnPos(), 750);
+        world.getEntitiesOfClass(LivingEntity.class, attacked.getBoundingBox().inflate(3.5), getKnockbackPredicate(attacker, attacked)).forEach((entity) -> {
+            Vec3 vec3d = entity.position().subtract(attacked.position());
             double d = getKnockback(attacker, entity, vec3d);
-            Vec3d vec3d2 = vec3d.normalize().multiply(d);
+            Vec3 vec3d2 = vec3d.normalize().scale(d);
             if (d > 0.0) {
-                entity.addVelocity(vec3d2.x, 0.699999988079071, vec3d2.z);
-                if (entity instanceof ServerPlayerEntity) {
-                    ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
-                    serverPlayerEntity.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayerEntity));
+                entity.push(vec3d2.x, 0.699999988079071, vec3d2.z);
+                if (entity instanceof ServerPlayer) {
+                    ServerPlayer serverPlayerEntity = (ServerPlayer) entity;
+                    serverPlayerEntity.connection.send(new ClientboundSetEntityMotionPacket(serverPlayerEntity));
                 }
             }
 
@@ -217,10 +217,10 @@ public class ManpozuchiItem extends PickaxeItem {
             {
                 bl = !entity.isSpectator();
                 bl2 = entity != attacker && entity != attacked;
-                bl3 = !attacker.isTeammate(entity);
-                if (entity instanceof TameableEntity tameableEntity) {
+                bl3 = !attacker.isAlliedTo(entity);
+                if (entity instanceof TamableAnimal tameableEntity) {
                     if (attacked instanceof LivingEntity livingEntity) {
-                        if (tameableEntity.isTamed() && tameableEntity.isOwner(livingEntity)) {
+                        if (tameableEntity.isTame() && tameableEntity.isOwnedBy(livingEntity)) {
                             var10000 = true;
                             break label64;
                         }
@@ -234,7 +234,7 @@ public class ManpozuchiItem extends PickaxeItem {
             label56:
             {
                 bl4 = !var10000;
-                if (entity instanceof ArmorStandEntity armorStandEntity) {
+                if (entity instanceof ArmorStand armorStandEntity) {
                     if (armorStandEntity.isMarker()) {
                         var10000 = false;
                         break label56;
@@ -245,21 +245,21 @@ public class ManpozuchiItem extends PickaxeItem {
             }
 
             boolean bl5 = var10000;
-            boolean bl6 = attacked.squaredDistanceTo(entity) <= Math.pow(3.5, 2.0);
+            boolean bl6 = attacked.distanceToSqr(entity) <= Math.pow(3.5, 2.0);
             return bl && bl2 && bl3 && bl4 && bl5 && bl6;
         };
     }
 
-    private static double getKnockback(Entity attacker, LivingEntity attacked, Vec3d distance) {
-        return (3.5 - distance.length()) * 0.699999988079071 * (double) (attacker.fallDistance > 5.0 ? 2 : 1) * (1.0 - attacked.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE));
+    private static double getKnockback(Entity attacker, LivingEntity attacked, Vec3 distance) {
+        return (3.5 - distance.length()) * 0.699999988079071 * (double) (attacker.fallDistance > 5.0 ? 2 : 1) * (1.0 - attacked.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
     }
 
     public static boolean shouldDealAdditionalDamage(LivingEntity attacker) {
-        return attacker.fallDistance > 1.5 && !attacker.isGliding();
+        return attacker.fallDistance > 1.5 && !attacker.isFallFlying();
     }
 
     @Nullable
     public DamageSource getDamageSource(LivingEntity user) {
-        return shouldDealAdditionalDamage(user) ? user.getDamageSources().maceSmash(user) : super.getDamageSource(user);
+        return shouldDealAdditionalDamage(user) ? user.damageSources().mace(user) : super.getDamageSource(user);
     }
 }

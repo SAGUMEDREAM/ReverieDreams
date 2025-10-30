@@ -1,54 +1,51 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class FumoLicenseItem extends Item {
-    public FumoLicenseItem(Settings settings) {
+    public FumoLicenseItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        World world = user.getWorld();
-        if (world.isClient()) return ActionResult.SUCCESS;
+    public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
+        Level world = user.level();
+        if (world.isClientSide()) return InteractionResult.SUCCESS;
 
-        if (entity instanceof VillagerEntity villager) {
-            BlockPos blockPos = entity.getBlockPos();
-            Vec3d pos = villager.getPos();
-            Text name = villager.getName();
+        if (entity instanceof Villager villager) {
+            BlockPos blockPos = entity.blockPosition();
+            Vec3 pos = villager.position();
+            Component name = villager.getName();
             boolean hasCN = villager.hasCustomName();
             villager.discard();
             FumoSellerVillager sellerVillager = new FumoSellerVillager(villager.getVillagerData(), world);
-            sellerVillager.setPos(pos.getX(), pos.getY(), pos.getZ());
+            sellerVillager.setPosRaw(pos.x(), pos.y(), pos.z());
             if (hasCN) {
                 sellerVillager.setCustomName(name);
             }
-            world.spawnEntity(sellerVillager);
-            world.playSound(null, blockPos, SoundEvents.BLOCK_ANVIL_FALL, SoundCategory.PLAYERS);
+            world.addFreshEntity(sellerVillager);
+            world.playSound(null, blockPos, SoundEvents.ANVIL_FALL, SoundSource.PLAYERS);
 
-            stack.decrementUnlessCreative(1, user);
-            user.swingHand(hand);
+            stack.consume(1, user);
+            user.swing(hand);
 
-            return ActionResult.SUCCESS_SERVER;
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
 //    @Override

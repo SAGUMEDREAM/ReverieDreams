@@ -2,45 +2,41 @@ package cc.thonly.mystias_izakaya.item.base;
 
 import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
 import java.util.*;
 import java.util.function.Consumer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.food.FoodData;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class FoodItem extends Item {
 
-    public FoodItem(Settings settings) {
+    public FoodItem(Properties settings) {
         this(0, 0f, settings);
     }
 
-    public FoodItem(List<FoodProperty> foodProperties, Settings settings) {
-        super(settings.component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()));
+    public FoodItem(List<FoodProperty> foodProperties, Properties settings) {
+        super(settings.component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(ResourceLocation::toString).toList()));
     }
 
-    public FoodItem(List<FoodProperty> foodProperties, Integer nutrition, Float saturation, Settings settings) {
+    public FoodItem(List<FoodProperty> foodProperties, Integer nutrition, Float saturation, Properties settings) {
         this(
-                settings.food(new FoodComponent.Builder()
+                settings.food(new FoodProperties.Builder()
                                 .nutrition(nutrition + 2)
                                 .saturationModifier(saturation + 2)
                                 .build()
                         )
-                        .component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()));
+                        .component(MIDataComponentTypes.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(ResourceLocation::toString).toList()));
     }
 
-    public FoodItem(Integer nutrition, Float saturation, Settings settings) {
+    public FoodItem(Integer nutrition, Float saturation, Properties settings) {
         super(settings
-                .food(new FoodComponent.Builder()
+                .food(new FoodProperties.Builder()
                         .nutrition(nutrition + 2)
                         .saturationModifier(saturation + 2)
                         .build()
@@ -48,8 +44,8 @@ public class FoodItem extends Item {
     }
 
     @Override
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             Set<FoodProperty> foodProperties = new HashSet<>(FoodProperty.getFromItemStack(stack));
             Set<FoodProperty> foodPropertiesFromComponent = new HashSet<>(FoodProperty.getFromItemStackComponent(stack));
 
@@ -59,12 +55,12 @@ public class FoodItem extends Item {
             for (FoodProperty foodProperty : allProperties) {
                 foodProperty.use(serverWorld, user);
             }
-            if (user instanceof ServerPlayerEntity player) {
-                HungerManager hungerManager = player.getHungerManager();
-                allProperties.forEach((property) -> hungerManager.add(1, 2));
+            if (user instanceof ServerPlayer player) {
+                FoodData hungerManager = player.getFoodData();
+                allProperties.forEach((property) -> hungerManager.eat(1, 2));
             }
         }
-        return super.finishUsing(stack, world, user);
+        return super.finishUsingItem(stack, world, user);
     }
 
 

@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.animal.Rabbit;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(RabbitEntity.class)
+@Mixin(Rabbit.class)
 public interface RabbitEntityAccessor {
-    @Accessor("VARIANT")
-    static TrackedData<Integer> getVariant() {
+    @Accessor("DATA_TYPE_ID")
+    static EntityDataAccessor<Integer> getVariant() {
         throw new UnsupportedOperationException();
     }
 }

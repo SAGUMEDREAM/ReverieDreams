@@ -2,20 +2,19 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.Goal.Control;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 public class NPCLookAtEntityGoal extends Goal {
     public static final float DEFAULT_CHANCE = 0.02F;
-    protected final MobEntity mob;
+    protected final Mob mob;
     @Nullable
     protected Entity target;
     protected final float range;
@@ -23,35 +22,35 @@ public class NPCLookAtEntityGoal extends Goal {
     protected final float chance;
     private final boolean lookForward;
     protected final Class<? extends LivingEntity> targetType;
-    protected final TargetPredicate targetPredicate;
+    protected final TargetingConditions targetPredicate;
 
-    public NPCLookAtEntityGoal(MobEntity mob, Class<? extends LivingEntity> targetType, float range) {
+    public NPCLookAtEntityGoal(Mob mob, Class<? extends LivingEntity> targetType, float range) {
         this(mob, targetType, range, 0.02F);
     }
 
-    public NPCLookAtEntityGoal(MobEntity mob, Class<? extends LivingEntity> targetType, float range, float chance) {
+    public NPCLookAtEntityGoal(Mob mob, Class<? extends LivingEntity> targetType, float range, float chance) {
         this(mob, targetType, range, chance, false);
     }
 
-    public NPCLookAtEntityGoal(MobEntity mob, Class<? extends LivingEntity> targetType, float range, float chance, boolean lookForward) {
+    public NPCLookAtEntityGoal(Mob mob, Class<? extends LivingEntity> targetType, float range, float chance, boolean lookForward) {
         this.mob = mob;
         this.targetType = targetType;
         this.range = range;
         this.chance = chance;
         this.lookForward = lookForward;
-        this.setControls(EnumSet.of(Control.LOOK));
-        if (targetType == PlayerEntity.class) {
-            Predicate<Entity> predicate = EntityPredicates.rides(mob);
-            this.targetPredicate = TargetPredicate.createNonAttackable().setBaseMaxDistance((double)range).setPredicate((entity, world) -> {
+        this.setFlags(EnumSet.of(Flag.LOOK));
+        if (targetType == Player.class) {
+            Predicate<Entity> predicate = EntitySelector.notRiding(mob);
+            this.targetPredicate = TargetingConditions.forNonCombat().range((double)range).selector((entity, world) -> {
                 return predicate.test(entity);
             });
         } else {
-            this.targetPredicate = TargetPredicate.createNonAttackable().setBaseMaxDistance((double)range);
+            this.targetPredicate = TargetingConditions.forNonCombat().range((double)range);
         }
 
     }
 
-    public boolean canStart() {
+    public boolean canUse() {
         if (this.mob.getRandom().nextFloat() >= this.chance) {
             return false;
         } else {
@@ -59,11 +58,11 @@ public class NPCLookAtEntityGoal extends Goal {
                 this.target = this.mob.getTarget();
             }
 
-            ServerWorld serverWorld = getServerWorld(this.mob);
-            if (this.targetType == PlayerEntity.class) {
-                this.target = serverWorld.getClosestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            ServerLevel serverWorld = getServerLevel(this.mob);
+            if (this.targetType == Player.class) {
+                this.target = serverWorld.getNearestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
             } else {
-                this.target = serverWorld.getClosestEntity(this.mob.getWorld().getEntitiesByClass(this.targetType, this.mob.getBoundingBox().expand((double)this.range, 3.0, (double)this.range), (livingEntity) -> {
+                this.target = serverWorld.getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.mob.getBoundingBox().inflate((double)this.range, 3.0, (double)this.range), (livingEntity) -> {
                     return true;
                 }), this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
             }
@@ -72,10 +71,10 @@ public class NPCLookAtEntityGoal extends Goal {
         }
     }
 
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         if (!this.target.isAlive()) {
             return false;
-        } else if (this.mob.squaredDistanceTo(this.target) > (double)(this.range * this.range)) {
+        } else if (this.mob.distanceToSqr(this.target) > (double)(this.range * this.range)) {
             return false;
         } else {
             return this.lookTime > 0;
@@ -83,7 +82,7 @@ public class NPCLookAtEntityGoal extends Goal {
     }
 
     public void start() {
-        this.lookTime = this.getTickCount(40 + this.mob.getRandom().nextInt(40));
+        this.lookTime = this.adjustedTickDelay(40 + this.mob.getRandom().nextInt(40));
     }
 
     public void stop() {
@@ -93,9 +92,9 @@ public class NPCLookAtEntityGoal extends Goal {
     public void tick() {
         if (this.target.isAlive()) {
             double d = this.lookForward ? this.mob.getEyeY() : this.target.getEyeY();
-            this.mob.getLookControl().lookAt(this.target.getX(), d, this.target.getZ());
+            this.mob.getLookControl().setLookAt(this.target.getX(), d, this.target.getZ());
             --this.lookTime;
-            this.target.setBodyYaw(this.target.getYaw());
+            this.target.setYBodyRot(this.target.getYRot());
         }
     }
 }

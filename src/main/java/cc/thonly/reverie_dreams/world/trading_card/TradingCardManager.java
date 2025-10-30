@@ -5,34 +5,33 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import java.util.List;
 import java.util.stream.Stream;
 
 @Getter
 public class TradingCardManager {
     public static final Codec<Entries> CODEC = Codec.unit(Entries::new);
-    private final ServerPlayerEntity player;
+    private final ServerPlayer player;
     private final Entries entries;
 
     private TradingCardManager() {
         this(null);
     }
 
-    public TradingCardManager(ServerPlayerEntity player) {
+    public TradingCardManager(ServerPlayer player) {
         this.player = player;
         this.entries = new Entries();
     }
 
-    public void read(ReadView view) {
+    public void read(ValueInput view) {
 
     }
 
-    public void write(WriteView view) {
+    public void write(ValueOutput view) {
 
     }
 

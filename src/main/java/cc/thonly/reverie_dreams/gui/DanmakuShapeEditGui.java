@@ -15,17 +15,14 @@ import eu.pb4.sgui.api.gui.SimpleGui;
 import eu.pb4.sgui.api.gui.SlotGuiInterface;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Unit;
-
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,11 +39,11 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
     };
     private final ItemStack source;
     private final List<List<Boolean>> shape = new ArrayList<>();
-    private final Hand hand;
+    private final InteractionHand hand;
     private final Map<Integer, GuiElementBuilder> INDEX_TO_BUILDER = new Object2ObjectLinkedOpenHashMap<>();
 
-    public DanmakuShapeEditGui(ServerPlayerEntity player, ItemStack source, Hand hand) {
-        super(ScreenHandlerType.GENERIC_9X6, player, false);
+    public DanmakuShapeEditGui(ServerPlayer player, ItemStack source, InteractionHand hand) {
+        super(MenuType.GENERIC_9x6, player, false);
         this.source = source;
         for (int i = 0; i < 6; i++) {
             ArrayList<Boolean> booleans = new ArrayList<>();
@@ -56,7 +53,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
             this.shape.add(booleans);
         }
         this.hand = hand;
-        this.setTitle(source.getName());
+        this.setTitle(source.getHoverName());
         this.init();
     }
 
@@ -68,7 +65,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
             for (int x = 0; x < grid[y].length; x++) {
                 char c = grid[y][x];
                 if (c == 'A') {
-                    this.setSlot(counter, ModGuiItems.EMPTY_SLOT.getDefaultStack());
+                    this.setSlot(counter, ModGuiItems.EMPTY_SLOT.getDefaultInstance());
                 }
                 if (c == 'X') {
                     final int shapeY = counter2 / 6;
@@ -78,7 +75,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                     GuiElementBuilder builder = new GuiElementBuilder(getItemForState(shape.get(shapeY).get(shapeX)))
                             .setCallback(new GuiElementInterface.ClickCallback() {
                                 @Override
-                                public void click(int i, ClickType clickType, SlotActionType slotActionType, SlotGuiInterface slotGuiInterface) {
+                                public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType, SlotGuiInterface slotGuiInterface) {
                                     boolean current = shape.get(shapeY).get(shapeX);
                                     boolean next = !current;
 
@@ -88,7 +85,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                                             .setCallback(this);
                                     setSlot(i, updated);
                                     INDEX_TO_BUILDER.put(finalCounter, updated);
-                                    player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                                    player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
                                 }
                             });
 
@@ -100,8 +97,8 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                     this.setSlot(counter, new GuiElementBuilder(ModGuiItems.DONE)
                             .setCallback(new GuiElementInterface.ItemClickCallback() {
                                 @Override
-                                public void click(int i, ClickType clickType, SlotActionType slotActionType) {
-                                    player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                                public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
+                                    player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
                                     DanmakuShapeEditGui.this.apply();
                                     DanmakuShapeEditGui.this.close();
                                 }
@@ -112,8 +109,8 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                     this.setSlot(counter, new GuiElementBuilder(ModGuiItems.CLOSE)
                             .setCallback(new GuiElementInterface.ItemClickCallback() {
                                 @Override
-                                public void click(int i, ClickType clickType, SlotActionType slotActionType) {
-                                    player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                                public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
+                                    player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
                                     DanmakuShapeEditGui.this.close();
                                 }
                             }));
@@ -169,9 +166,9 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
 
     private ItemStack getItemForState(boolean state) {
         if (state) {
-            return ModGuiItems.ENABLE.getDefaultStack();
+            return ModGuiItems.ENABLE.getDefaultInstance();
         } else {
-            return ModGuiItems.DISABLE.getDefaultStack();
+            return ModGuiItems.DISABLE.getDefaultInstance();
         }
     }
 
@@ -179,14 +176,14 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
         var danmakuShapeDrawType = DanmakuShapeDrawRecipeType.getInstance();
         List<DanmakuShapeDrawRecipe> matches = danmakuShapeDrawType.getMatches(this.getShape(), Unit.INSTANCE);
         if (matches.isEmpty()) {
-            this.player.sendMessage(Text.translatable("item.action.click.shape_recipe.fail"), false);
+            this.player.displayClientMessage(Component.translatable("item.action.click.shape_recipe.fail"), false);
             return;
         }
         DanmakuShapeDrawRecipe first = matches.getFirst();
         ItemStackWrapper output = first.getOutput();
         ItemStack itemStack = output.clone().getItemStack();
-        this.player.sendMessage(Text.translatable("item.action.click.shape_recipe.success"), false);
-        this.player.playSoundToPlayer(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
-        this.player.setStackInHand(this.hand, itemStack);
+        this.player.displayClientMessage(Component.translatable("item.action.click.shape_recipe.success"), false);
+        this.player.playNotifySound(SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.setItemInHand(this.hand, itemStack);
     }
 }

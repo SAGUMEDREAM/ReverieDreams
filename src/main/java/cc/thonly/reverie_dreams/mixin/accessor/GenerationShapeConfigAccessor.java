@@ -1,33 +1,33 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import net.minecraft.world.gen.chunk.GenerationShapeConfig;
+import net.minecraft.world.level.levelgen.NoiseSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(GenerationShapeConfig.class)
+@Mixin(NoiseSettings.class)
 public interface GenerationShapeConfigAccessor {
-    @Accessor("SURFACE")
-    static GenerationShapeConfig getSurface() {
+    @Accessor("OVERWORLD_NOISE_SETTINGS")
+    static NoiseSettings getSurface() {
         throw new UnsupportedOperationException();
     }
 
-    @Accessor("NETHER")
-    static GenerationShapeConfig getNether() {
+    @Accessor("NETHER_NOISE_SETTINGS")
+    static NoiseSettings getNether() {
         throw new UnsupportedOperationException();
     }
 
-    @Accessor("END")
-    static GenerationShapeConfig getEnd() {
+    @Accessor("END_NOISE_SETTINGS")
+    static NoiseSettings getEnd() {
         throw new UnsupportedOperationException();
     }
 
-    @Accessor("CAVES")
-    static GenerationShapeConfig getCaves() {
+    @Accessor("CAVES_NOISE_SETTINGS")
+    static NoiseSettings getCaves() {
         throw new UnsupportedOperationException();
     }
 
-    @Accessor("FLOATING_ISLANDS")
-    static GenerationShapeConfig getFloatingIslands() {
+    @Accessor("FLOATING_ISLANDS_NOISE_SETTINGS")
+    static NoiseSettings getFloatingIslands() {
         throw new UnsupportedOperationException();
     }
 }

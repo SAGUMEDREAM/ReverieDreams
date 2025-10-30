@@ -8,10 +8,10 @@ import com.mojang.serialization.Codec;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ public class TouhouClient implements ClientModInitializer {
         BlockTypeGroup.PLANT.stream().forEach(this::registerBlockCutout);
         registerBlockCutout(ModBlocks.MARISA_HAT_BLOCK);
         registerBlockCutout(ModBlocks.CASH_BOX_BLOCK);
-        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             this.registerBlockCutout(view.getValue().getCropBlock());
         }
         registerBlockCutout(MIBlocks.ITEM_DISPLAY);
@@ -40,11 +40,11 @@ public class TouhouClient implements ClientModInitializer {
     }
 
     public void registerBlockCutout(Block block) {
-        BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(block, ChunkSectionLayer.CUTOUT);
     }
 
-    public static Identifier id(String id) {
-        return Identifier.of(MOD_ID, id);
+    public static ResourceLocation id(String id) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, id);
     }
 
 }

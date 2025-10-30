@@ -5,35 +5,34 @@ import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import java.util.Map;
 
 public class SeedCreativeTab implements ItemGroupContentHelper {
 
-    public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, MystiasIzakaya.id("seeds_item_group"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
+    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, MystiasIzakaya.id("seeds_item_group"));
+    public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(SeedCreativeTab::getSeedItemIcon)
-            .displayName(Text.translatable("item_group.seed_item_group"))
+            .title(Component.translatable("item_group.seed_item_group"))
             .build();
 
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(SeedCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+            for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
                 CropBlockCreator.Instance instance = view.getValue();
                 Item seed = instance.getSeed();
-                itemGroup.add(seed);
+                itemGroup.accept(seed);
             }
-            itemGroup.add(MIBlocks.UDUMBARA_FLOWER);
-            itemGroup.add(MIBlocks.TREMELLA);
-            WoodCreator.INSTANCES.forEach((instance) -> itemGroup.add(instance.sapling()));
+            itemGroup.accept(MIBlocks.UDUMBARA_FLOWER);
+            itemGroup.accept(MIBlocks.TREMELLA);
+            WoodCreator.INSTANCES.forEach((instance) -> itemGroup.accept(instance.sapling()));
 
         });
         ItemGroupContentHelper.registerGroup(SeedCreativeTab.ITEM_GROUP_KEY, SeedCreativeTab.ITEM_GROUP);
@@ -41,7 +40,7 @@ public class SeedCreativeTab implements ItemGroupContentHelper {
     }
 
     public static ItemStack getSeedItemIcon() {
-        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             CropBlockCreator.Instance instance = view.getValue();
             return new ItemStack(instance.getSeed());
         }

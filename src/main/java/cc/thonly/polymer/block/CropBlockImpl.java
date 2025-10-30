@@ -15,14 +15,14 @@ import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.Waterloggable;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
@@ -39,26 +39,26 @@ public class CropBlockImpl implements PolymerTexturedBlock, FactoryBlock {
 
     @Override
     public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return Blocks.WHEAT.getDefaultState();
+        return Blocks.WHEAT.defaultBlockState();
     }
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        if (state.getBlock() instanceof Waterloggable) {
+        if (state.getBlock() instanceof SimpleWaterloggedBlock) {
             return TransparentPlantWatterlogged.TRANSPARENT_WATTERLOGGED;
         }
         return TransparentFlatTripWire.TRANSPARENT_FLAT_TRIPIWIRE;
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         return new Model(world, pos, initialBlockState, this.block.getMaxAge());
     }
 
     @Getter
     public static class Model extends BlockModel {
         private static final Map<AbstractCropBlock, ItemStack[]> MODELS = new Object2ObjectOpenHashMap<>();
-        private final ServerWorld world;
+        private final ServerLevel world;
         private final BlockPos blockPos;
         private final BlockState blockState;
         private final AbstractCropBlock block;
@@ -67,7 +67,7 @@ public class CropBlockImpl implements PolymerTexturedBlock, FactoryBlock {
         private boolean isNormal = false;
         public ItemDisplayElement main;
 
-        public Model(ServerWorld world, BlockPos blockPos, BlockState blockState, Integer maxAge) {
+        public Model(ServerLevel world, BlockPos blockPos, BlockState blockState, Integer maxAge) {
             this.world = world;
             this.blockPos = blockPos;
             this.blockState = blockState;
@@ -79,11 +79,11 @@ public class CropBlockImpl implements PolymerTexturedBlock, FactoryBlock {
                 CropBlockCreator.Instance instance = instanceOptional.get();
                 this.block = (AbstractCropBlock) blockState.getBlock();
                 this.models = MODELS.computeIfAbsent(cropBlock, (x) -> new ItemStack[this.maxAge]);
-                Identifier identifier = instance.getIdentifier();
+                ResourceLocation identifier = instance.getIdentifier();
                 String namespace = identifier.getNamespace();
                 String path = identifier.getPath();
                 for (int i = 0; i < this.maxAge; i++) {
-                    Identifier modelId = Identifier.of(namespace, "block/" + path + "_stage" + i);
+                    ResourceLocation modelId = ResourceLocation.fromNamespaceAndPath(namespace, "block/" + path + "_stage" + i);
                     this.models[i] = ItemDisplayElementUtil.getModel(modelId);
                 }
                 this.isNormal = true;
@@ -102,7 +102,7 @@ public class CropBlockImpl implements PolymerTexturedBlock, FactoryBlock {
         }
 
         protected void updateItem(BlockState state) {
-            int age = state.get(this.block.getAgeProperty());
+            int age = state.getValue(this.block.getAgeProperty());
             CropAgeModelProvider modelProvider = this.block.getModelProvider();
             this.main.setItem(modelProvider.get(this.models, age));
         }

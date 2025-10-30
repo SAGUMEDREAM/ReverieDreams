@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.mixin.client;
 
-import net.minecraft.client.render.model.BakedModelManager;
+import net.minecraft.client.resources.model.ModelManager;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(BakedModelManager.class)
+@Mixin(ModelManager.class)
 public class BakedModelManagerMixin {
 
 }

@@ -10,14 +10,13 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,38 +25,38 @@ import java.util.stream.Collectors;
 @ToString
 public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodProperty>, BuiltinObject, Translatable {
     public static final Codec<FoodProperty> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf("registry_key").forGetter(FoodProperty::getId),
+            ResourceLocation.CODEC.fieldOf("registry_key").forGetter(FoodProperty::getId),
             ITEMS_CODEC.fieldOf("properties").forGetter(FoodProperty::getItemList)
     ).apply(instance, FoodProperty::new));
 
-    private Identifier id;
-    private final StatusEffectInstance effectInstance;
+    private ResourceLocation id;
+    private final MobEffectInstance effectInstance;
     private Set<Item> items = new ObjectOpenHashSet<>();
 
     private IntrinsicalRegister<FoodProperty> owner;
 
     public FoodProperty() {
-        this.effectInstance = new StatusEffectInstance(new StatusEffectInstance(ModStatusEffects.EMPTY, 1));
+        this.effectInstance = new MobEffectInstance(new MobEffectInstance(ModStatusEffects.EMPTY, 1));
     }
 
-    public FoodProperty(StatusEffectInstance effectInstance) {
+    public FoodProperty(MobEffectInstance effectInstance) {
         this.effectInstance = effectInstance;
     }
 
-    public FoodProperty(Identifier id, List<Item> list) {
+    public FoodProperty(ResourceLocation id, List<Item> list) {
         this();
         this.id = id;
         this.items.addAll(list);
     }
 
-    public final void use(ServerWorld world, LivingEntity user) {
-        StatusEffectInstance effectInstance = new StatusEffectInstance(this.effectInstance);
-        user.addStatusEffect(effectInstance);
+    public final void use(ServerLevel world, LivingEntity user) {
+        MobEffectInstance effectInstance = new MobEffectInstance(this.effectInstance);
+        user.addEffect(effectInstance);
         FoodPropertyLoaderCallback.EVENT.invoker().onUse(world, user, this);
         this.onUse(world, user);
     }
 
-    public void onUse(ServerWorld world, LivingEntity user) {
+    public void onUse(ServerLevel world, LivingEntity user) {
 
     }
 
@@ -75,13 +74,13 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
         return this == property || this.getId().equals(property.getId()) || this.hashCode() == property.hashCode();
     }
 
-    public Text getTooltip() {
-        return Text.translatable(this.id.toTranslationKey("food_property"));
+    public Component getTooltip() {
+        return Component.translatable(this.id.toLanguageKey("food_property"));
     }
 
     @Override
     public String translateKey() {
-        return this.id.toTranslationKey("food_property");
+        return this.id.toLanguageKey("food_property");
     }
 
     public static List<FoodProperty> getAllProperties(ItemStack itemStack) {
@@ -100,14 +99,14 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
      * @return 包含该 Item 的所有 FoodProperty 列表
      */
     public static List<FoodProperty> getIngredientProperties(Item item) {
-        Map<Identifier, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.getEntrySet().stream()
+        Map<ResourceLocation, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().getValue(),
+                        entry -> entry.getKey().location(),
                         Map.Entry::getValue
                 ));
         List<FoodProperty> list = new ArrayList<>();
-        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
-        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
+        Set<Map.Entry<ResourceLocation, FoodProperty>> entries = map.entrySet();
+        for (Map.Entry<ResourceLocation, FoodProperty> entry : entries) {
             FoodProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
             if (tags.contains(item)) {
@@ -137,15 +136,15 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
      * @return 包含该物品的所有 FoodProperty 列表
      */
     public static List<FoodProperty> getFromItemStack(ItemStack itemStack) {
-        Map<Identifier, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.getEntrySet().stream()
+        Map<ResourceLocation, FoodProperty> map = MIRegistryManager.FOOD_PROPERTY.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().getValue(),
+                        entry -> entry.getKey().location(),
                         Map.Entry::getValue
                 ));
         List<FoodProperty> list = new ArrayList<>();
         Item item = itemStack.getItem();
-        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
-        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
+        Set<Map.Entry<ResourceLocation, FoodProperty>> entries = map.entrySet();
+        for (Map.Entry<ResourceLocation, FoodProperty> entry : entries) {
             FoodProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
             if (tags.contains(item)) {
@@ -164,8 +163,8 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
     public static List<FoodProperty> getFromStrings(List<String> ids) {
         List<FoodProperty> list = new ArrayList<>();
         for (String id : ids) {
-            Identifier identifier = Identifier.of(id);
-            FoodProperty foodProperty = MIRegistryManager.FOOD_PROPERTY.get(identifier);
+            ResourceLocation identifier = ResourceLocation.parse(id);
+            FoodProperty foodProperty = MIRegistryManager.FOOD_PROPERTY.getValue(identifier);
             if (foodProperty != null) {
                 list.add(foodProperty);
             }

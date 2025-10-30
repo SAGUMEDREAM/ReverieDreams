@@ -5,8 +5,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
@@ -17,7 +16,7 @@ import java.util.stream.Stream;
 @SuppressWarnings("unchecked")
 public class Key2ValueRegister<K, V> implements Serializable {
     @Getter
-    private final Identifier key;
+    private final ResourceLocation key;
     @Setter
     @Getter
     private ReloadableFactory reloadableFactory = null;
@@ -33,7 +32,7 @@ public class Key2ValueRegister<K, V> implements Serializable {
     @Getter(AccessLevel.PROTECTED)
     private final Map<V, K> entryToKey;
 
-    protected Key2ValueRegister(Identifier key, Class<K> klass, Class<V> vlass) {
+    protected Key2ValueRegister(ResourceLocation key, Class<K> klass, Class<V> vlass) {
         if (key == null) {
             throw new IllegalArgumentException("Registry require a key, but it is null");
         }
@@ -49,28 +48,28 @@ public class Key2ValueRegister<K, V> implements Serializable {
         Key2ValueRegistryManager.ROOT.put(key, this);
     }
 
-    public static <K, V> Key2ValueRegister<K, V> createRegister(Identifier id, Class<K> klass, Class<V> vlass) {
+    public static <K, V> Key2ValueRegister<K, V> createRegister(ResourceLocation id, Class<K> klass, Class<V> vlass) {
         return new Key2ValueRegister<>(id, klass, vlass);
     }
 
-    public static <K, V> Key2ValueRegister<K, V> of(Identifier id, Class<K> klass, Class<V> vlass) {
+    public static <K, V> Key2ValueRegister<K, V> of(ResourceLocation id, Class<K> klass, Class<V> vlass) {
         return (Key2ValueRegister<K, V>) Key2ValueRegistryManager.ROOT.computeIfAbsent(id, x -> new Key2ValueRegister<>(id, klass, vlass));
     }
 
     public static <K, V> Key2ValueRegister<K, V> of(Class<K> klass, Class<V> vlass) {
-        Set<Map.Entry<Identifier, Key2ValueRegister<?, ?>>> registries = Key2ValueRegistryManager.ROOT.entrySet();
-        for (Map.Entry<Identifier, Key2ValueRegister<?, ?>> entry : registries) {
+        Set<Map.Entry<ResourceLocation, Key2ValueRegister<?, ?>>> registries = Key2ValueRegistryManager.ROOT.entrySet();
+        for (Map.Entry<ResourceLocation, Key2ValueRegister<?, ?>> entry : registries) {
             Key2ValueRegister<?, ?> registry = entry.getValue();
             if (registry.klass == klass && registry.vlass == vlass) {
                 return (Key2ValueRegister<K, V>) registry;
             }
         }
-        return new Key2ValueRegister<>(Identifier.of(klass.getName().toLowerCase() + "_2_" + vlass.getName().toLowerCase()), klass, vlass);
+        return new Key2ValueRegister<>(ResourceLocation.parse(klass.getName().toLowerCase() + "_2_" + vlass.getName().toLowerCase()), klass, vlass);
     }
 
     public static <K, V> Key2ValueRegister<K, V> ofNullable(Class<K> klass, Class<V> vlass) {
-        Set<Map.Entry<Identifier, Key2ValueRegister<?, ?>>> registries = Key2ValueRegistryManager.ROOT.entrySet();
-        for (Map.Entry<Identifier, Key2ValueRegister<?, ?>> entry : registries) {
+        Set<Map.Entry<ResourceLocation, Key2ValueRegister<?, ?>>> registries = Key2ValueRegistryManager.ROOT.entrySet();
+        for (Map.Entry<ResourceLocation, Key2ValueRegister<?, ?>> entry : registries) {
             Key2ValueRegister<?, ?> registry = entry.getValue();
             if (registry.klass == klass && registry.vlass == vlass) {
                 return (Key2ValueRegister<K, V>) registry;

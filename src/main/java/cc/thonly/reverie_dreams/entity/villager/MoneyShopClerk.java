@@ -2,12 +2,9 @@ package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.item.ModItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
-import net.minecraft.village.TradedItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -24,8 +21,8 @@ public class MoneyShopClerk {
         // 等级 1：铜 <-> 银
         TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.MONEY_SHOP_CLERK, 1, factories -> {
             // 铜 → 银
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(ModItems.COPPER_COIN, COPPER_PER_SILVER),
+            factories.add((entity, random) -> new MerchantOffer(
+                    new ItemCost(ModItems.COPPER_COIN, COPPER_PER_SILVER),
                     Optional.empty(),
                     new ItemStack(ModItems.SILVER_COIN, 1),
                     16, // 最大交易次数
@@ -33,8 +30,8 @@ public class MoneyShopClerk {
                     PRICE_MULTIPLIER
             ));
             // 银 → 铜
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(ModItems.SILVER_COIN, 1),
+            factories.add((entity, random) -> new MerchantOffer(
+                    new ItemCost(ModItems.SILVER_COIN, 1),
                     Optional.empty(),
                     new ItemStack(ModItems.COPPER_COIN, COPPER_PER_SILVER),
                     16,
@@ -46,8 +43,8 @@ public class MoneyShopClerk {
         // 等级 2：银 <-> 金
         TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.MONEY_SHOP_CLERK, 2, factories -> {
             // 银 → 金
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(ModItems.SILVER_COIN, SILVER_PER_GOLD),
+            factories.add((entity, random) -> new MerchantOffer(
+                    new ItemCost(ModItems.SILVER_COIN, SILVER_PER_GOLD),
                     Optional.empty(),
                     new ItemStack(ModItems.GOLD_COIN, 1),
                     12,
@@ -55,8 +52,8 @@ public class MoneyShopClerk {
                     PRICE_MULTIPLIER
             ));
             // 金 → 银
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(ModItems.GOLD_COIN, 1),
+            factories.add((entity, random) -> new MerchantOffer(
+                    new ItemCost(ModItems.GOLD_COIN, 1),
                     Optional.empty(),
                     new ItemStack(ModItems.SILVER_COIN, SILVER_PER_GOLD),
                     12,

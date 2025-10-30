@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
 import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BedBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BedBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -21,14 +21,14 @@ public class BedBlockEntityMixin extends BlockEntity implements IBedBlockEntity 
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
-        this.hasDreamPillow = view.getBoolean("HasDreamPillow", false);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+        this.hasDreamPillow = view.getBooleanOr("HasDreamPillow", false);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
         view.putBoolean("HasDreamPillow", this.hasDreamPillow);
     }
 

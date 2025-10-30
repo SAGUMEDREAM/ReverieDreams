@@ -3,25 +3,24 @@ package cc.thonly.reverie_dreams.datagen;
 import cc.thonly.reverie_dreams.datagen.generator.PointOfInterestTypeProvider;
 import cc.thonly.reverie_dreams.entity.villager.ModPointOfInterestTypes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.data.tag.ProvidedTagBuilder;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.PointOfInterestTypeTags;
-import net.minecraft.world.poi.PointOfInterestType;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.tags.PoiTypeTags;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import java.util.concurrent.CompletableFuture;
 
 public class ModPointOfInterestTypeProvider extends PointOfInterestTypeProvider {
 
 
-    public ModPointOfInterestTypeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModPointOfInterestTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        RegistryWrapper.Impl<PointOfInterestType> registryWrapper = wrapperLookup.getOrThrow(RegistryKeys.POINT_OF_INTEREST_TYPE);
-        ProvidedTagBuilder<PointOfInterestType, PointOfInterestType> builder = valueLookupBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
+        HolderLookup.RegistryLookup<PoiType> registryWrapper = wrapperLookup.lookupOrThrow(Registries.POINT_OF_INTEREST_TYPE);
+        TagAppender<PoiType, PoiType> builder = valueLookupBuilder(PoiTypeTags.ACQUIRABLE_JOB_SITE);
         builder.add(registryWrapper.getOrThrow(ModPointOfInterestTypes.HAWKERS).value());
         builder.add(registryWrapper.getOrThrow(ModPointOfInterestTypes.PRIEST).value());
         builder.add(registryWrapper.getOrThrow(ModPointOfInterestTypes.MONEY_SHOP_CLERK).value());

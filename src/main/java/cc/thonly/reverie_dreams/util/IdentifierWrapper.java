@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.util;
 
 import lombok.Getter;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,7 +22,7 @@ public class IdentifierWrapper {
         return INSTANCES.computeIfAbsent(key, k -> new IdentifierWrapper(namespace, path));
     }
 
-    public static IdentifierWrapper of(Identifier id) {
+    public static IdentifierWrapper of(ResourceLocation id) {
         return of(id.getNamespace(), id.getPath());
     }
 
@@ -40,8 +39,8 @@ public class IdentifierWrapper {
         }
     }
 
-    public Identifier build() {
-        return Identifier.of(this.namespace, this.path);
+    public ResourceLocation build() {
+        return ResourceLocation.fromNamespaceAndPath(this.namespace, this.path);
     }
 
     @Override

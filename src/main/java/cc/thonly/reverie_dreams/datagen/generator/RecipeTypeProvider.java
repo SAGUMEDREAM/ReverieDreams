@@ -15,17 +15,16 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.Block;
-import net.minecraft.component.ComponentChanges;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataWriter;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,11 +36,11 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class RecipeTypeProvider implements DataProvider {
     public final FabricDataOutput output;
-    public final CompletableFuture<RegistryWrapper.WrapperLookup> future;
+    public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, Factory<?>> identifierFactoryMap = new Object2ObjectOpenHashMap<>();
+    private final Map<ResourceLocation, cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<?>> identifierFactoryMap = new Object2ObjectOpenHashMap<>();
 
-    public RecipeTypeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public RecipeTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
@@ -70,7 +69,7 @@ public abstract class RecipeTypeProvider implements DataProvider {
         return ItemStackWrapper.of(item, amount);
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount, ComponentChanges components) {
+    public ItemStackWrapper ofItem(Item item, int amount, DataComponentPatch components) {
         return ItemStackWrapper.of(item, amount, components);
     }
 
@@ -94,18 +93,18 @@ public abstract class RecipeTypeProvider implements DataProvider {
         return new LinkedList<>(Arrays.asList(stackRecipeWrappers));
     }
 
-    public synchronized <R extends BaseRecipe> Factory<R> getOrCreateFactory(BaseRecipeType<R> recipeType, Class<R> rClass) {
-        Identifier id = recipeType.getId();
+    public synchronized <R extends BaseRecipe> cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<R> getOrCreateFactory(BaseRecipeType<R> recipeType, Class<R> rClass) {
+        ResourceLocation id = recipeType.getId();
         if (this.identifierFactoryMap.containsKey(id)) {
-            return (Factory<R>) this.identifierFactoryMap.get(id);
+            return (cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<R>) this.identifierFactoryMap.get(id);
         }
-        Factory<R> factory = new Factory<>(recipeType, rClass);
+        cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<R> factory = new cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<>(recipeType, rClass);
         this.identifierFactoryMap.put(id, factory);
         return factory;
     }
 
     @Override
-    public CompletableFuture<?> run(DataWriter writer) {
+    public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
             this.export(writer);
@@ -114,18 +113,18 @@ public abstract class RecipeTypeProvider implements DataProvider {
 
     public abstract void configured();
 
-    public void export(DataWriter writer) {
+    public void export(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
-            for (Map.Entry<Identifier, Factory<?>> entry : identifierFactoryMap.entrySet()) {
-                Factory<?> factory = entry.getValue();
+            for (Map.Entry<ResourceLocation, cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<?>> entry : identifierFactoryMap.entrySet()) {
+                cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<?> factory = entry.getValue();
                 Codec codec = factory.getCodec();
                 BaseRecipeType<?> recipeType = factory.getRecipeType();
-                Map<Identifier, ?> registries = factory.getRegistries();
+                Map<ResourceLocation, ?> registries = factory.getRegistries();
                 Path generatePath = DataGeneratorUtil.getData(path, Touhou.MOD_ID, recipeType.getTypeId() + "_recipe", null);
 
-                for (Map.Entry<Identifier, ?> registryEntry : registries.entrySet()) {
-                    Identifier identifier = registryEntry.getKey();
+                for (Map.Entry<ResourceLocation, ?> registryEntry : registries.entrySet()) {
+                    ResourceLocation identifier = registryEntry.getKey();
                     Object value = registryEntry.getValue();
                     DataResult<JsonElement> result = codec.encodeStart(JsonOps.INSTANCE, value);
                     Optional<JsonElement> optional = result.result();
@@ -137,7 +136,7 @@ public abstract class RecipeTypeProvider implements DataProvider {
                         byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
                         Files.createDirectories(output.getParent());
 
-                        writer.write(output, bytes, HashCode.fromBytes(bytes));
+                        writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
                     }
                 }
             }
@@ -151,7 +150,7 @@ public abstract class RecipeTypeProvider implements DataProvider {
         protected final Class<R> rClass;
         protected final BaseRecipeType<R> recipeType;
         protected final Codec<R> codec;
-        protected final Map<Identifier, R> registries = new Object2ObjectOpenHashMap<>();
+        protected final Map<ResourceLocation, R> registries = new Object2ObjectOpenHashMap<>();
 
         protected Factory(BaseRecipeType<R> recipeType, Class<R> rClass) {
             this.recipeType = recipeType;
@@ -159,12 +158,12 @@ public abstract class RecipeTypeProvider implements DataProvider {
             this.rClass = rClass;
         }
 
-        public Factory<R> register(Item output, R recipe) {
-            return this.register(Registries.ITEM.getId(output), recipe);
+        public cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<R> register(Item output, R recipe) {
+            return this.register(BuiltInRegistries.ITEM.getKey(output), recipe);
         }
 
-        public Factory<R> register(Block output, R recipe) {
-            Identifier id = Registries.BLOCK.getId(output);
+        public cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<R> register(Block output, R recipe) {
+            ResourceLocation id = BuiltInRegistries.BLOCK.getKey(output);
             if (output.asItem() == Items.AIR) {
                 log.error("Found unknown BlockItem {} in {}", id, id + ".json");
                 return this;
@@ -172,8 +171,8 @@ public abstract class RecipeTypeProvider implements DataProvider {
             return this.register(id, recipe);
         }
 
-        public Factory<R> register(Identifier id, R recipe) {
-            Identifier identifier = Identifier.of(id.getNamespace(), id.getPath().replaceAll("/", "-"));
+        public cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<R> register(ResourceLocation id, R recipe) {
+            ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/", "-"));
             boolean contains = this.registries.containsKey(id);
             if (contains) {
                 log.error("Duplicate recipe id found {} in {}", id, id + ".json");
@@ -188,7 +187,7 @@ public abstract class RecipeTypeProvider implements DataProvider {
 
         @FunctionalInterface
         public interface RegistryEntriesFactory<R> {
-            void apply(Map<Identifier, R> registries);
+            void apply(Map<ResourceLocation, R> registries);
         }
     }
 

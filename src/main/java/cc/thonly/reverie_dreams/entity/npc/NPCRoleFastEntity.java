@@ -2,29 +2,28 @@ package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.skin.SkinType;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.text.Text;
-import net.minecraft.util.Arm;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.Nullable;
 
-public class NPCRoleFastEntity extends MobEntity {
-    private ReadView view;
+public class NPCRoleFastEntity extends Mob {
+    private ValueInput view;
     private SkinType skinType;
 
-    public NPCRoleFastEntity(EntityType<? extends MobEntity> entityType, World world) {
+    public NPCRoleFastEntity(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
     }
 
-    public NPCRoleFastEntity(EntityType<? extends MobEntity> entityType, World world, SkinType skinType) {
+    public NPCRoleFastEntity(EntityType<? extends Mob> entityType, Level world, SkinType skinType) {
         super(entityType, world);
         this.skinType = skinType;
     }
@@ -32,39 +31,39 @@ public class NPCRoleFastEntity extends MobEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!(this.getWorld() instanceof ServerWorld)) {
+        if (!(this.level() instanceof ServerLevel)) {
             return;
         }
-        BaseNPCLikeEntity baseNPCRole = ModEntities.NPC_ROLE_ENTITY.create(this.getWorld(), SpawnReason.MOB_SUMMONED);
+        BaseNPCLikeEntity baseNPCRole = ModEntities.NPC_ROLE_ENTITY.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
         if (baseNPCRole == null) {
             return;
         }
         if (this.view != null) {
-            baseNPCRole.readData(this.view);
+            baseNPCRole.load(this.view);
         }
-        baseNPCRole.setPosition(this.getPos());
-        baseNPCRole.setPitch(this.getPitch());
-        baseNPCRole.setYaw(this.getYaw());
-        baseNPCRole.setUuid(this.getUuid());
+        baseNPCRole.setPos(this.position());
+        baseNPCRole.setXRot(this.getXRot());
+        baseNPCRole.setYRot(this.getYRot());
+        baseNPCRole.setUUID(this.getUUID());
         baseNPCRole.setSkinType(this.skinType);
-        baseNPCRole.setCustomName(Text.translatable(this.getType().getTranslationKey()));
+        baseNPCRole.setCustomName(Component.translatable(this.getType().getDescriptionId()));
         this.discard();
-        this.getWorld().spawnEntity(baseNPCRole);
+        this.level().addFreshEntity(baseNPCRole);
     }
 
     @Override
-    public @Nullable EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        return super.initialize(world, difficulty, spawnReason, entityData);
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
-    public void readData(ReadView view) {
-        super.readData(view);
+    public void load(ValueInput view) {
+        super.load(view);
         this.view = view;
     }
 
     @Override
-    public Arm getMainArm() {
-        return Arm.RIGHT;
+    public HumanoidArm getMainArm() {
+        return HumanoidArm.RIGHT;
     }
 }

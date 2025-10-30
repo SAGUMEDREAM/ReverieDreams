@@ -19,26 +19,25 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.command.argument.IdentifierArgumentType;
-import net.minecraft.command.suggestion.SuggestionProviders;
-import net.minecraft.dialog.type.Dialog;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.synchronization.SuggestionProviders;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.server.dialog.Dialog;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -47,9 +46,9 @@ import java.util.stream.Stream;
 @Slf4j
 public class MainCommand implements CommandInit.CommandRegistration {
 
-    public static class DialogSuggestionProvider implements SuggestionProvider<ServerCommandSource> {
+    public static class DialogSuggestionProvider implements SuggestionProvider<CommandSourceStack> {
         @Override
-        public CompletableFuture<Suggestions> getSuggestions(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) throws CommandSyntaxException {
+        public CompletableFuture<Suggestions> getSuggestions(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) throws CommandSyntaxException {
             for (String string : DialogInit.ARGS_DIALOG.keySet()) {
                 builder.suggest(string);
             }
@@ -58,39 +57,39 @@ public class MainCommand implements CommandInit.CommandRegistration {
     }
 
     @Override
-    public void register(CommandDispatcher<ServerCommandSource> dispatcher,
-                         CommandRegistryAccess access,
-                         CommandManager.RegistrationEnvironment environment
+    public void register(CommandDispatcher<CommandSourceStack> dispatcher,
+                         CommandBuildContext access,
+                         Commands.CommandSelection environment
     ) {
-        var root = CommandManager.literal("touhou");
-        var help = CommandManager.literal("help")
+        var root = Commands.literal("touhou");
+        var help = Commands.literal("help")
                 .executes(this::help);
-        var recipe = CommandManager.literal("recipe")
+        var recipe = Commands.literal("recipe")
                 .executes(this::recipe);
-        var registry = CommandManager.literal("registry")
-                .requires(source -> source.hasPermissionLevel(2))
+        var registry = Commands.literal("registry")
+                .requires(source -> source.hasPermission(2))
                 .then(
                         RegistryManager.getSuggestProvider(this::registry)
                 );
-        var dialog = CommandManager.literal("dialog")
+        var dialog = Commands.literal("dialog")
                 .then(
-                        CommandManager
+                        Commands
                                 .argument("value", StringArgumentType.string())
                                 .suggests(new DialogSuggestionProvider())
                                 .executes(this::dialog)
                 );
-        var video = CommandManager.literal("video")
-                .requires(source -> source.hasPermissionLevel(2))
+        var video = Commands.literal("video")
+                .requires(source -> source.hasPermission(2))
                 .then(
-                        CommandManager.literal("play")
+                        Commands.literal("play")
                                 .then(
-                                        CommandManager.argument("target", EntityArgumentType.entity())
+                                        Commands.argument("target", EntityArgument.entity())
                                                 .then(
-                                                        CommandManager.argument("file", StringArgumentType.string())
+                                                        Commands.argument("file", StringArgumentType.string())
                                                                 .suggests(new DialogFiles.FilesSuggestionProvider())
                                                                 .executes(this::playVideo)
                                                                 .then(
-                                                                        CommandManager.argument("sound", IdentifierArgumentType.identifier())
+                                                                        Commands.argument("sound", ResourceLocationArgument.id())
                                                                                 .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
                                                                                 .executes(this::playVideo)
                                                                 )
@@ -99,11 +98,11 @@ public class MainCommand implements CommandInit.CommandRegistration {
 
                 )
                 .then(
-                        CommandManager
+                        Commands
                                 .literal("reload")
                                 .executes(this::reloadVideo)
                 );
-        var about = CommandManager.literal("about")
+        var about = Commands.literal("about")
                 .executes(this::about);
 
         root.executes(this::run);
@@ -117,84 +116,84 @@ public class MainCommand implements CommandInit.CommandRegistration {
         dispatcher.register(root);
     }
 
-    private int run(CommandContext<ServerCommandSource> context) {
-        MutableText text = Text.translatable("command.touhou.suggest_help");
-        context.getSource().sendFeedback(() -> text.setStyle(Style.EMPTY.withColor(Formatting.YELLOW)), false);
+    private int run(CommandContext<CommandSourceStack> context) {
+        MutableComponent text = Component.translatable("command.touhou.suggest_help");
+        context.getSource().sendSuccess(() -> text.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW)), false);
         return 1;
     }
 
-    private int registry(CommandContext<ServerCommandSource> context) {
-        ServerCommandSource source = context.getSource();
+    private int registry(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
 
-        Identifier registryKeyId = IdentifierArgumentType.getIdentifier(context, "registry_key");
-        Identifier id = IdentifierArgumentType.getIdentifier(context, "id");
+        ResourceLocation registryKeyId = ResourceLocationArgument.getId(context, "registry_key");
+        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
 
         if (registryKeyId == null || id == null) {
-            source.sendError(Text.literal("Invalid identifier format."));
+            source.sendFailure(Component.literal("Invalid identifier format."));
             return 0;
         }
 
-        RegistryKey<Registry<Object>> registryKey = RegistryKey.ofRegistry(registryKeyId);
+        ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
         IntrinsicalRegister<?> registry = RegistryManager.ROOT.get(registryKey);
         if (registry == null) {
-            source.sendError(Text.literal("Registry not found: ").append(Text.literal(registryKey.toString())));
+            source.sendFailure(Component.literal("Registry not found: ").append(Component.literal(registryKey.toString())));
             return 0;
         }
 
-        Object value = registry.get(id);
-        MutableText msg = Text.literal("")
-                .append(Text.literal("=== ").formatted(Formatting.GOLD))
-                .append(Text.literal(RegistryKey.of(registryKey, id).toString()).formatted(Formatting.YELLOW))
-                .append(Text.literal(" ===\n").formatted(Formatting.GOLD));
+        Object value = registry.getValue(id);
+        MutableComponent msg = Component.literal("")
+                .append(Component.literal("=== ").withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(ResourceKey.create(registryKey, id).toString()).withStyle(ChatFormatting.YELLOW))
+                .append(Component.literal(" ===\n").withStyle(ChatFormatting.GOLD));
 
         if (value == null) {
-            msg.append(Text.literal("No entry found for this ID.").formatted(Formatting.RED));
-            source.sendMessage(msg);
+            msg.append(Component.literal("No entry found for this ID.").withStyle(ChatFormatting.RED));
+            source.sendSystemMessage(msg);
             return 0;
         }
 
         if (value instanceof Translatable translatable) {
-            msg.append(Text.literal("Translation: ").formatted(Formatting.GRAY))
-                    .append(Text.translatable(translatable.translateKey()).formatted(Formatting.WHITE))
-                    .append(Text.literal("\n"));
+            msg.append(Component.literal("Translation: ").withStyle(ChatFormatting.GRAY))
+                    .append(Component.translatable(translatable.translateKey()).withStyle(ChatFormatting.WHITE))
+                    .append(Component.literal("\n"));
         }
 
-        msg.append(Text.literal("Object: ").formatted(Formatting.GRAY))
-                .append(Text.literal(value.toString()).formatted(Formatting.AQUA));
+        msg.append(Component.literal("Object: ").withStyle(ChatFormatting.GRAY))
+                .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
 
-        source.sendMessage(msg);
+        source.sendSystemMessage(msg);
         return 1;
     }
 
-    private int reloadVideo(CommandContext<ServerCommandSource> context) {
+    private int reloadVideo(CommandContext<CommandSourceStack> context) {
         DialogFiles.reload();
-        context.getSource().sendFeedback(() -> Text.translatable("command.touhou.video.reload"), false);
+        context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.reload"), false);
         return 1;
     }
 
-    private int playVideo(CommandContext<ServerCommandSource> context) {
+    private int playVideo(CommandContext<CommandSourceStack> context) {
         try {
-            ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "target");
+            ServerPlayer player = EntityArgument.getPlayer(context, "target");
             String file = StringArgumentType.getString(context, "file");
-            Identifier soundEventId = null;
+            ResourceLocation soundEventId = null;
             SoundEvent soundEvent = null;
             try {
-                soundEventId = IdentifierArgumentType.getIdentifier(context, "sound");
+                soundEventId = ResourceLocationArgument.getId(context, "sound");
             } catch (Exception ignored) {
             }
             if (soundEventId != null) {
-                soundEvent = SoundEvent.of(soundEventId);
+                soundEvent = SoundEvent.createVariableRangeEvent(soundEventId);
             }
-            context.getSource().sendFeedback(() -> Text.translatable("command.touhou.video.reload"), false);
+            context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.reload"), false);
             DialogPlayer.play(player, file, soundEvent);
-            context.getSource().sendFeedback(() -> Text.translatable("command.touhou.video.load.done"), false);
+            context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.load.done"), false);
         } catch (Exception err) {
             log.error("Can't play video", err);
         }
         return 1;
     }
 
-    private int help(CommandContext<ServerCommandSource> context) {
+    private int help(CommandContext<CommandSourceStack> context) {
         List<String> keys = List.of(
                 "command.touhou.help.title",
                 "command.touhou.help.help",
@@ -204,42 +203,42 @@ public class MainCommand implements CommandInit.CommandRegistration {
         );
 
         for (String key : keys) {
-            context.getSource().sendFeedback(() -> Text.translatable(key).setStyle(Style.EMPTY.withColor(Formatting.WHITE)), false);
+            context.getSource().sendSuccess(() -> Component.translatable(key).setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)), false);
         }
         return 1;
     }
 
-    private int dialog(CommandContext<ServerCommandSource> context) {
-        ServerCommandSource source = context.getSource();
-        if (!source.isExecutedByPlayer()) {
+    private int dialog(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
             return 0;
         }
-        ServerPlayerEntity player = source.getPlayer();
+        ServerPlayer player = source.getPlayer();
         String value = StringArgumentType.getString(context, "value");
         Dialog dialog = DialogInit.ARGS_DIALOG.get(value);
         if (player != null && dialog != null) {
-            player.openDialog(RegistryEntry.of(dialog));
+            player.openDialog(Holder.direct(dialog));
         }
         return 1;
     }
 
-    private int exportRegistries(CommandContext<ServerCommandSource> context) {
+    private int exportRegistries(CommandContext<CommandSourceStack> context) {
         List<String> lines = new LinkedList<>();
-        ServerCommandSource source = context.getSource();
+        CommandSourceStack source = context.getSource();
         MinecraftServer server = source.getServer();
-        DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-        Stream<DynamicRegistryManager.Entry<Object>> entryStream = (Stream<DynamicRegistryManager.Entry<Object>>) (Object) registryManager.streamAllRegistries();
-        List<DynamicRegistryManager.Entry<Object>> list = entryStream.toList();
-        for (DynamicRegistryManager.Entry<Object> entry : list) {
-            RegistryKey<? extends Registry<Object>> key = entry.key();
+        RegistryAccess.Frozen registryManager = server.registryAccess();
+        Stream<RegistryAccess.RegistryEntry<Object>> entryStream = (Stream<RegistryAccess.RegistryEntry<Object>>) (Object) registryManager.registries();
+        List<RegistryAccess.RegistryEntry<Object>> list = entryStream.toList();
+        for (RegistryAccess.RegistryEntry<Object> entry : list) {
+            ResourceKey<? extends Registry<Object>> key = entry.key();
             Registry<Object> registry = entry.value();
 
-            lines.add("===== Registry: " + key.getValue() + " =====");
+            lines.add("===== Registry: " + key.location() + " =====");
             registry.forEach(obj -> {
-                int rawId = registry.getRawId(obj);
-                Identifier id = registry.getId(obj);
+                int rawId = registry.getId(obj);
+                ResourceLocation id = registry.getKey(obj);
                 if (rawId == 97) {
-                    lines.add("!!! Found 97 in " + key.getValue() + " = " + id);
+                    lines.add("!!! Found 97 in " + key.location() + " = " + id);
                 }
             });
         }
@@ -251,12 +250,12 @@ public class MainCommand implements CommandInit.CommandRegistration {
         return 1;
     }
 
-    private int about(CommandContext<ServerCommandSource> context) {
+    private int about(CommandContext<CommandSourceStack> context) {
         Class<?> clazz = Touhou.class;
         ImageToTextScanner instance = ImageToTextScanner.createInstance(clazz);
         String path = ImageToTextScanner.ofNamespace(Touhou.MOD_ID, "icon_about.png");
         BufferedImage iconBuffer = instance.loadImageFromJar(path);
-        List<Text> iconText = instance.renderImageToText(iconBuffer, 16, 16);
+        List<Component> iconText = instance.renderImageToText(iconBuffer, 16, 16);
 
         String[] infoKeys = new String[]{
                 "command.touhou.about.line1",
@@ -272,31 +271,31 @@ public class MainCommand implements CommandInit.CommandRegistration {
                 "command.touhou.about.line11"
         };
 
-        List<Text> rightTexts = new ArrayList<>();
+        List<Component> rightTexts = new ArrayList<>();
         for (String key : infoKeys) {
             if (key.equals("command.touhou.about.version")) {
-                rightTexts.add(Text.translatable(key, ConstantInfo.VERSION));
+                rightTexts.add(Component.translatable(key, ConstantInfo.VERSION));
             } else {
-                rightTexts.add(Text.translatable(key));
+                rightTexts.add(Component.translatable(key));
             }
         }
 
         while (rightTexts.size() < iconText.size()) {
-            rightTexts.add(Text.literal(""));
+            rightTexts.add(Component.literal(""));
         }
 
         for (int i = 0; i < iconText.size(); i++) {
-            Text left = iconText.get(i);
-            Text right = rightTexts.get(i).copy().formatted(Formatting.WHITE);
-            context.getSource().sendFeedback(() -> Text.empty().append(left).append(Text.literal("  ")).append(right), false);
+            Component left = iconText.get(i);
+            Component right = rightTexts.get(i).copy().withStyle(ChatFormatting.WHITE);
+            context.getSource().sendSuccess(() -> Component.empty().append(left).append(Component.literal("  ")).append(right), false);
         }
 
         return 1;
     }
 
-    private int recipe(CommandContext<ServerCommandSource> context) {
-        ServerCommandSource source = context.getSource();
-        ServerPlayerEntity player = source.getPlayer();
+    private int recipe(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        ServerPlayer player = source.getPlayer();
         if (player != null) {
             RecipeTypeCategoryGui.create(player);
         }

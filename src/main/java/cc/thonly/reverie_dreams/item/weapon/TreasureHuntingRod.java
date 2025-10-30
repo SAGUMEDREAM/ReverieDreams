@@ -5,27 +5,26 @@ import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.ItemCooldownManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,21 +44,21 @@ public class TreasureHuntingRod extends SwordItem {
         ORE_BLOCK_TAGS.add(ConventionalBlockTags.ORES);
     }
 
-    public TreasureHuntingRod(float attackDamage, float attackSpeed, Settings settings) {
+    public TreasureHuntingRod(float attackDamage, float attackSpeed, Properties settings) {
         super(MATERIAL, attackDamage, attackSpeed, settings);
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (!world.isClient()) {
-            ServerPlayerEntity player = (ServerPlayerEntity) user;
-            ItemStack stack = player.getStackInHand(hand);
-            ItemCooldownManager cooldown = player.getItemCooldownManager();
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        if (!world.isClientSide()) {
+            ServerPlayer player = (ServerPlayer) user;
+            ItemStack stack = player.getItemInHand(hand);
+            ItemCooldowns cooldown = player.getCooldowns();
 
-            if (player.isSneaking()) {
-                player.swingHand(hand);
+            if (player.isShiftKeyDown()) {
+                player.swing(hand);
 
-                BlockPos origin = player.getBlockPos();
+                BlockPos origin = player.blockPosition();
                 int radius = 8;
 
                 // 记录最近矿物数据
@@ -67,11 +66,11 @@ public class TreasureHuntingRod extends SwordItem {
                 BlockPos closestOrePos = null;
                 Block closestOreBlock = null;
 
-                for (BlockPos pos : BlockPos.iterate(
-                        origin.add(-radius, -radius, -radius),
-                        origin.add(radius, radius, radius))) {
+                for (BlockPos pos : BlockPos.betweenClosed(
+                        origin.offset(-radius, -radius, -radius),
+                        origin.offset(radius, radius, radius))) {
 
-                    if (!world.isInBuildLimit(pos)) continue;
+                    if (!world.isInWorldBounds(pos)) continue;
 
                     BlockState state = world.getBlockState(pos);
                     if (isOre(state)) {
@@ -82,7 +81,7 @@ public class TreasureHuntingRod extends SwordItem {
 
                         if (distance < minDistance) {
                             minDistance = distance;
-                            closestOrePos = pos.toImmutable();
+                            closestOrePos = pos.immutable();
                             closestOreBlock = state.getBlock();
                         }
                     }
@@ -95,33 +94,33 @@ public class TreasureHuntingRod extends SwordItem {
                     int dz = closestOrePos.getZ() - origin.getZ();
                     int roundedDistance = (int) minDistance;
 
-                    MutableText message = Text.translatable(
+                    MutableComponent message = Component.translatable(
                             "message.treasure_hunting_rod.find", roundedDistance, dx, dy, dz
-                    ).append(" ").append(Text.translatable(closestOreBlock.getTranslationKey()));
+                    ).append(" ").append(Component.translatable(closestOreBlock.getDescriptionId()));
 
 //                    entity.sendMessage(message, false);
-                    OreEspEntity oreEspEntity = ModEntities.ORE_ESP_ENTITY_TYPE.create(world, SpawnReason.EVENT);
+                    OreEspEntity oreEspEntity = ModEntities.ORE_ESP_ENTITY_TYPE.create(world, EntitySpawnReason.EVENT);
                     if (oreEspEntity != null) {
                         oreEspEntity.setBlockState(world.getBlockState(closestOrePos));
-                        oreEspEntity.setPosition(new Vec3d(closestOrePos));
-                        oreEspEntity.setGlowing(true);
-                        world.spawnEntity(oreEspEntity);
+                        oreEspEntity.setPos(new Vec3(closestOrePos));
+                        oreEspEntity.setGlowingTag(true);
+                        world.addFreshEntity(oreEspEntity);
                     }
 
                     world.playSound(null, player.getX(), player.getEyeY(), player.getZ(),
-                            SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(),
-                            SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            SoundEvents.NOTE_BLOCK_PLING.value(),
+                            SoundSource.PLAYERS, 1.0f, 1.0f);
                 } else {
-                    player.sendMessage(Text.translatable("message.treasure_hunting_rod.not_found"), false);
+                    player.displayClientMessage(Component.translatable("message.treasure_hunting_rod.not_found"), false);
                 }
 
                 // 伤害和冷却
-                if (!player.isInCreativeMode()) {
-                    stack.damage(1, player);
+                if (!player.hasInfiniteMaterials()) {
+                    stack.hurtWithoutBreaking(1, player);
                 }
 
-                cooldown.set(stack, 35); // 设置冷却
-                return ActionResult.SUCCESS_SERVER;
+                cooldown.addCooldown(stack, 35); // 设置冷却
+                return InteractionResult.SUCCESS_SERVER;
             }
         }
 
@@ -131,7 +130,7 @@ public class TreasureHuntingRod extends SwordItem {
 
     public static boolean isOre(BlockState blockState) {
         for (TagKey<Block> tag : ORE_BLOCK_TAGS) {
-            if (blockState.isIn(tag)) {
+            if (blockState.is(tag)) {
                 return true;
             }
         }

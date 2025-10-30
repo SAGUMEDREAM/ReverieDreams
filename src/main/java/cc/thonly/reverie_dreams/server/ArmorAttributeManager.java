@@ -1,13 +1,12 @@
 package cc.thonly.reverie_dreams.server;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -43,16 +42,16 @@ public class ArmorAttributeManager {
     }
 
     public void onTick() {
-        PlayerManager playerManager = this.server.getPlayerManager();
-        for (ServerPlayerEntity player : playerManager.getPlayerList()) {
-            if (player.isDisconnected()) {
+        PlayerList playerManager = this.server.getPlayerList();
+        for (ServerPlayer player : playerManager.getPlayers()) {
+            if (player.hasDisconnected()) {
                 continue;
             }
             ItemStack[] itemStacks = {
-                    player.getEquippedStack(EquipmentSlot.HEAD),
-                    player.getEquippedStack(EquipmentSlot.CHEST),
-                    player.getEquippedStack(EquipmentSlot.LEGS),
-                    player.getEquippedStack(EquipmentSlot.FEET),
+                    player.getItemBySlot(EquipmentSlot.HEAD),
+                    player.getItemBySlot(EquipmentSlot.CHEST),
+                    player.getItemBySlot(EquipmentSlot.LEGS),
+                    player.getItemBySlot(EquipmentSlot.FEET),
             };
             for (ItemStack itemStack : itemStacks) {
                 for (Entry entry : this.entries) {

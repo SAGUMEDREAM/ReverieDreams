@@ -1,23 +1,23 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class NPCTemptGoal extends Goal {
-    private static final TargetPredicate TEMPTING_ENTITY_PREDICATE = TargetPredicate.createNonAttackable().ignoreVisibility();
-    private final TargetPredicate predicate;
-    protected final PathAwareEntity mob;
+    private static final TargetingConditions TEMPTING_ENTITY_PREDICATE = TargetingConditions.forNonCombat().ignoreLineOfSight();
+    private final TargetingConditions predicate;
+    protected final PathfinderMob mob;
     private final double speed;
     private double lastPlayerX;
     private double lastPlayerY;
@@ -25,30 +25,30 @@ public class NPCTemptGoal extends Goal {
     private double lastPlayerPitch;
     private double lastPlayerYaw;
     @Nullable
-    protected PlayerEntity closestPlayer;
+    protected Player closestPlayer;
     private int cooldown;
     private boolean active;
     private final Predicate<ItemStack> foodPredicate;
     private final boolean canBeScared;
 
-    public NPCTemptGoal(PathAwareEntity entity, double speed, Predicate<ItemStack> foodPredicate, boolean canBeScared) {
+    public NPCTemptGoal(PathfinderMob entity, double speed, Predicate<ItemStack> foodPredicate, boolean canBeScared) {
         this.mob = entity;
         this.speed = speed;
         this.foodPredicate = foodPredicate;
         this.canBeScared = canBeScared;
-        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
-        this.predicate = TEMPTING_ENTITY_PREDICATE.copy().setPredicate((entityx, world) -> this.isTemptedBy(entityx));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.predicate = TEMPTING_ENTITY_PREDICATE.copy().selector((entityx, world) -> this.isTemptedBy(entityx));
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (this.cooldown > 0) {
             --this.cooldown;
             return false;
         }
-        this.closestPlayer = NPCTemptGoal.getServerWorld(this.mob).getClosestPlayer(this.predicate.setBaseMaxDistance(this.mob.getAttributeValue(EntityAttributes.TEMPT_RANGE)), this.mob);
-        if (this.mob instanceof TameableEntity entitySelf) {
-            if(!entitySelf.isTamed()) {
+        this.closestPlayer = NPCTemptGoal.getServerLevel(this.mob).getNearestPlayer(this.predicate.range(this.mob.getAttributeValue(Attributes.TEMPT_RANGE)), this.mob);
+        if (this.mob instanceof TamableAnimal entitySelf) {
+            if(!entitySelf.isTame()) {
                 return this.closestPlayer != null;
             } else if (!(entitySelf.getOwner() == this.closestPlayer)) {
                 return false;
@@ -58,20 +58,20 @@ public class NPCTemptGoal extends Goal {
     }
 
     private boolean isTemptedBy(LivingEntity entity) {
-        return this.foodPredicate.test(entity.getMainHandStack()) || this.foodPredicate.test(entity.getOffHandStack());
+        return this.foodPredicate.test(entity.getMainHandItem()) || this.foodPredicate.test(entity.getOffhandItem());
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         if (this.closestPlayer == null) {
             return false;
         }
         if (this.canBeScared()) {
-            if (this.mob.squaredDistanceTo(this.closestPlayer) < 36.0) {
-                if (this.closestPlayer.squaredDistanceTo(this.lastPlayerX, this.lastPlayerY, this.lastPlayerZ) > 0.010000000000000002) {
+            if (this.mob.distanceToSqr(this.closestPlayer) < 36.0) {
+                if (this.closestPlayer.distanceToSqr(this.lastPlayerX, this.lastPlayerY, this.lastPlayerZ) > 0.010000000000000002) {
                     return false;
                 }
-                if (Math.abs((double) this.closestPlayer.getPitch() - this.lastPlayerPitch) > 5.0 || Math.abs((double) this.closestPlayer.getYaw() - this.lastPlayerYaw) > 5.0) {
+                if (Math.abs((double) this.closestPlayer.getXRot() - this.lastPlayerPitch) > 5.0 || Math.abs((double) this.closestPlayer.getYRot() - this.lastPlayerYaw) > 5.0) {
                     return false;
                 }
             } else {
@@ -79,10 +79,10 @@ public class NPCTemptGoal extends Goal {
                 this.lastPlayerY = this.closestPlayer.getY();
                 this.lastPlayerZ = this.closestPlayer.getZ();
             }
-            this.lastPlayerPitch = this.closestPlayer.getPitch();
-            this.lastPlayerYaw = this.closestPlayer.getYaw();
+            this.lastPlayerPitch = this.closestPlayer.getXRot();
+            this.lastPlayerYaw = this.closestPlayer.getYRot();
         }
-        return this.canStart();
+        return this.canUse();
     }
 
     protected boolean canBeScared() {
@@ -103,17 +103,17 @@ public class NPCTemptGoal extends Goal {
     public void stop() {
         this.closestPlayer = null;
         this.mob.getNavigation().stop();
-        this.cooldown = TemptGoal.toGoalTicks(100);
+        this.cooldown = TemptGoal.reducedTickDelay(100);
         this.active = false;
     }
 
     @Override
     public void tick() {
-        this.mob.getLookControl().lookAt(this.closestPlayer, this.mob.getMaxHeadRotation() + 20, this.mob.getMaxLookPitchChange());
-        if (this.mob.squaredDistanceTo(this.closestPlayer) < 6.25) {
+        this.mob.getLookControl().setLookAt(this.closestPlayer, this.mob.getMaxHeadYRot() + 20, this.mob.getMaxHeadXRot());
+        if (this.mob.distanceToSqr(this.closestPlayer) < 6.25) {
             this.mob.getNavigation().stop();
         } else {
-            this.mob.getNavigation().startMovingTo(this.closestPlayer, this.speed);
+            this.mob.getNavigation().moveTo(this.closestPlayer, this.speed);
         }
     }
 

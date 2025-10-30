@@ -14,10 +14,9 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,7 +29,7 @@ import java.util.Map;
 @Slf4j
 public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     private static KitchenRecipeType INSTANCE;
-    public final Map<KitchenType, Map<Identifier, KitchenRecipe>> kitchenRegistries = new Object2ObjectOpenHashMap<>();
+    public final Map<KitchenType, Map<ResourceLocation, KitchenRecipe>> kitchenRegistries = new Object2ObjectOpenHashMap<>();
 
     public KitchenRecipeType() {
         INSTANCE = this;
@@ -43,14 +42,14 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     @Override
     public void reload(ResourceManager manager) {
         this.kitchenRegistries.clear();
-        Map<Identifier, Resource> resources = manager.findResources((this.getTypeId() + "_recipe"), id -> {
+        Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
             return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
         });
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.of(id.getNamespace(), id.getPath().replaceFirst("^kitchen_recipe/", "").replaceAll("\\.json$", ""));
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation id = entry.getKey();
+            ResourceLocation registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^kitchen_recipe/", "").replaceAll("\\.json$", ""));
             Resource resource = entry.getValue();
-            try (InputStream stream = resource.getInputStream()) {
+            try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
@@ -67,19 +66,19 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     }
 
     @Override
-    public BaseRecipeType<KitchenRecipe> add(Identifier id, KitchenRecipe recipe) {
+    public BaseRecipeType<KitchenRecipe> add(ResourceLocation id, KitchenRecipe recipe) {
         super.add(id, recipe);
         this.register(recipe.getType(), id, recipe);;
         return this;
     }
 
-    public void register(KitchenType type, Identifier key, KitchenRecipe recipe) {
-        Map<Identifier, KitchenRecipe> registry = this.kitchenRegistries.computeIfAbsent(type, R -> new Object2ObjectOpenHashMap<>());
+    public void register(KitchenType type, ResourceLocation key, KitchenRecipe recipe) {
+        Map<ResourceLocation, KitchenRecipe> registry = this.kitchenRegistries.computeIfAbsent(type, R -> new Object2ObjectOpenHashMap<>());
         recipe.setId(key);
         registry.put(key, recipe);
     }
 
-    public Map<Identifier, KitchenRecipe> getRecipeView(KitchenType type) {
+    public Map<ResourceLocation, KitchenRecipe> getRecipeView(KitchenType type) {
         return Map.copyOf(this.kitchenRegistries.getOrDefault(type, new Object2ObjectOpenHashMap<>()));
     }
 
@@ -90,7 +89,7 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
 
     public List<KitchenRecipe> getMatches(KitchenType type, List<ItemStackWrapper> inputs) {
         List<KitchenRecipe> matches = new ArrayList<>();
-        Map<Identifier, KitchenRecipe> registryView = this.getRecipeView(type);
+        Map<ResourceLocation, KitchenRecipe> registryView = this.getRecipeView(type);
 
         for (KitchenRecipe recipe : registryView.values()) {
             List<ItemStackWrapper> ingredients = recipe.getIngredients();
@@ -130,7 +129,7 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return MystiasIzakaya.id(this.getTypeId());
     }
 
@@ -140,20 +139,20 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
         CUTTING_BOARD(MystiasIzakaya.id("cutting_board")),
         FRYING_PAN(MystiasIzakaya.id("frying_pan")),
         GRILL(MystiasIzakaya.id("grill")),
-        STREAMER(Identifier.of("streamer")),
+        STREAMER(ResourceLocation.parse("streamer")),
         ;
-        private static final Map<Identifier, KitchenType> SEARCH_CACHED = new Object2ObjectOpenHashMap<>();
-        private final Identifier id;
+        private static final Map<ResourceLocation, KitchenType> SEARCH_CACHED = new Object2ObjectOpenHashMap<>();
+        private final ResourceLocation id;
 
-        KitchenType(Identifier id) {
+        KitchenType(ResourceLocation id) {
             this.id = id;
         }
 
-        public Identifier toId() {
+        public ResourceLocation toId() {
             return this.id;
         }
 
-        public static KitchenType getFromId(Identifier recipeId) {
+        public static KitchenType getFromId(ResourceLocation recipeId) {
             if (SEARCH_CACHED.containsKey(recipeId)) {
                 SEARCH_CACHED.get(recipeId);
             }

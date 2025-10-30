@@ -4,16 +4,20 @@ import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
-import net.minecraft.block.entity.*;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlastFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.SmokerBlockEntity;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -25,15 +29,15 @@ public class NPCSmeltGoal extends Goal {
 
     public NPCSmeltGoal(BaseNPCLikeEntity roleEntity) {
         this.roleEntity = roleEntity;
-        this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     /** 找到实体身上所有可熔炼的物品 */
     private List<Integer> findAllInputSlots() {
         List<Integer> slots = new ArrayList<>();
-        SimpleInventory inventory = this.roleEntity.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            ItemStack stack = inventory.getStack(i);
+        SimpleContainer inventory = this.roleEntity.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
             if (!stack.isEmpty() && CookingInputRecipeManager.getInstance().contains(stack.getItem())) {
                 slots.add(i);
             }
@@ -44,22 +48,22 @@ public class NPCSmeltGoal extends Goal {
     /** 找到附近的熔炉 */
     private List<BlockPos> findFurnaceBlockPosList() {
         List<BlockPos> blockPosList = new ArrayList<>();
-        World world = this.roleEntity.getWorld();
+        Level world = this.roleEntity.level();
         BlockPos center = this.roleEntity.getWorkingPos();
         int r = 8;
 
-        BlockBox box = new BlockBox(
+        BoundingBox box = new BoundingBox(
                 center.getX() - r, center.getY() - r, center.getZ() - r,
                 center.getX() + r, center.getY() + r, center.getZ() + r
         );
-        BlockPos.Mutable pos = new BlockPos.Mutable();
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
-        for (int x = box.getMinX(); x <= box.getMaxX(); x++) {
-            for (int y = box.getMinY(); y <= box.getMaxY(); y++) {
-                for (int z = box.getMinZ(); z <= box.getMaxZ(); z++) {
+        for (int x = box.minX(); x <= box.maxX(); x++) {
+            for (int y = box.minY(); y <= box.maxY(); y++) {
+                for (int z = box.minZ(); z <= box.maxZ(); z++) {
                     pos.set(x, y, z);
                     if (world.getBlockEntity(pos) instanceof AbstractFurnaceBlockEntity) {
-                        blockPosList.add(pos.toImmutable());
+                        blockPosList.add(pos.immutable());
                     }
                 }
             }
@@ -68,7 +72,7 @@ public class NPCSmeltGoal extends Goal {
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (!EntityTargetUtil.isThisWorkMode(this.roleEntity, NPCWorkModes.SMELT)) {
             return false;
         }
@@ -89,19 +93,19 @@ public class NPCSmeltGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return this.operationalTarget != null &&
                 EntityTargetUtil.isThisWorkMode(this.roleEntity, NPCWorkModes.SMELT);
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    public boolean requiresUpdateEveryTick() {
         return true;
     }
 
     /** 选择一个熔炉目标 */
     private boolean trySetTarget() {
-        World world = this.roleEntity.getWorld();
+        Level world = this.roleEntity.level();
         List<BlockPos> furnaceList = this.findFurnaceBlockPosList();
         List<Integer> inputSlots = this.findAllInputSlots();
 
@@ -110,11 +114,11 @@ public class NPCSmeltGoal extends Goal {
             if (!(be instanceof AbstractFurnaceBlockEntity furnace)) continue;
 
             // ===== 输入槽 (slot 0) =====
-            ItemStack furnaceStack = furnace.getStack(0);
+            ItemStack furnaceStack = furnace.getItem(0);
             boolean isEmpty = furnaceStack.isEmpty();
 
             for (int invSlot : inputSlots) {
-                ItemStack npcStack = this.roleEntity.getInventory().getStack(invSlot);
+                ItemStack npcStack = this.roleEntity.getInventory().getItem(invSlot);
                 if (npcStack.isEmpty()) continue;
                 Item item = npcStack.getItem();
 
@@ -123,21 +127,21 @@ public class NPCSmeltGoal extends Goal {
                 if (isSmokerFurnace(furnace) && !CookingInputRecipeManager.getInstance().isSmoker(item)) continue;
                 if (isBlastFurnace(furnace) && !CookingInputRecipeManager.getInstance().isBlast(item)) continue;
 
-                if (isEmpty || (ItemStack.areItemsAndComponentsEqual(furnaceStack, npcStack) &&
-                        furnaceStack.getCount() < furnaceStack.getMaxCount())) {
+                if (isEmpty || (ItemStack.isSameItemSameComponents(furnaceStack, npcStack) &&
+                        furnaceStack.getCount() < furnaceStack.getMaxStackSize())) {
                     this.operationalTarget = new OperationalTarget(invSlot, blockPos, furnace, 0);
                     return true;
                 }
             }
 
             // ===== 燃料槽 (slot 1) =====
-            ItemStack fuelSlot = furnace.getStack(1);
-            for (int i = 0; i < this.roleEntity.getInventory().size(); i++) {
-                ItemStack npcStack = this.roleEntity.getInventory().getStack(i);
+            ItemStack fuelSlot = furnace.getItem(1);
+            for (int i = 0; i < this.roleEntity.getInventory().getContainerSize(); i++) {
+                ItemStack npcStack = this.roleEntity.getInventory().getItem(i);
                 if (npcStack.isEmpty()) continue;
                 if (CookingInputRecipeManager.isFuel(npcStack)) {
-                    if (fuelSlot.isEmpty() || (ItemStack.areItemsAndComponentsEqual(fuelSlot, npcStack) &&
-                            fuelSlot.getCount() < fuelSlot.getMaxCount())) {
+                    if (fuelSlot.isEmpty() || (ItemStack.isSameItemSameComponents(fuelSlot, npcStack) &&
+                            fuelSlot.getCount() < fuelSlot.getMaxStackSize())) {
                         this.operationalTarget = new OperationalTarget(i, blockPos, furnace, 1);
                         return true;
                     }
@@ -169,42 +173,42 @@ public class NPCSmeltGoal extends Goal {
         int npcSlot = this.operationalTarget.inventorySlot();
         int furnaceSlotIndex = this.operationalTarget.slotIndex();
 
-        ItemStack npcStack = this.roleEntity.getInventory().getStack(npcSlot);
+        ItemStack npcStack = this.roleEntity.getInventory().getItem(npcSlot);
         if (npcStack.isEmpty()) {
             this.operationalTarget = null;
             return;
         }
 
         if (!isReached(pos)) {
-            this.roleEntity.getNavigation().startMovingTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.0D);
-            this.roleEntity.getLookControl().lookAt(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+            this.roleEntity.getNavigation().moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.0D);
+            this.roleEntity.getLookControl().setLookAt(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             return;
         }
 
-        ItemStack furnaceSlot = furnace.getStack(furnaceSlotIndex);
+        ItemStack furnaceSlot = furnace.getItem(furnaceSlotIndex);
 
         if (furnaceSlot.isEmpty()) {
-            furnace.setStack(furnaceSlotIndex, npcStack.split(1));
-        } else if (ItemStack.areItemsAndComponentsEqual(furnaceSlot, npcStack)) {
-            int space = furnaceSlot.getMaxCount() - furnaceSlot.getCount();
+            furnace.setItem(furnaceSlotIndex, npcStack.split(1));
+        } else if (ItemStack.isSameItemSameComponents(furnaceSlot, npcStack)) {
+            int space = furnaceSlot.getMaxStackSize() - furnaceSlot.getCount();
             if (space > 0) {
                 int move = Math.min(npcStack.getCount(), space);
-                furnaceSlot.increment(move);
-                npcStack.decrement(move);
+                furnaceSlot.grow(move);
+                npcStack.shrink(move);
             }
         }
 
-        furnace.markDirty();
-        this.roleEntity.swingHand(Hand.MAIN_HAND);
+        furnace.setChanged();
+        this.roleEntity.swing(InteractionHand.MAIN_HAND);
 
         // 炉子已满 或者 NPC 没货了 -> 清空目标
-        if (npcStack.isEmpty() || furnaceSlot.getCount() >= furnaceSlot.getMaxCount()) {
+        if (npcStack.isEmpty() || furnaceSlot.getCount() >= furnaceSlot.getMaxStackSize()) {
             this.operationalTarget = null;
         }
     }
 
     private boolean isReached(BlockPos blockPos) {
-        double distSq = blockPos.getSquaredDistance(this.roleEntity.getPos());
+        double distSq = blockPos.distToCenterSqr(this.roleEntity.position());
         return distSq <= 9; // 半径 3 格
     }
 

@@ -1,13 +1,13 @@
 package nota.model;
 
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import nota.Nota;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
 /**
  * Version independent Spigot sounds.
@@ -71,56 +71,56 @@ public enum Sound {
 	private SoundEvent getSound(String name) {
 		switch(name) {
 			case "NOTE_PIANO", "BLOCK_NOTE_HARP", "BLOCK_NOTE_BLOCK_HARP" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_HARP);
+				return bullshit(SoundEvents.NOTE_BLOCK_HARP);
 			}
 			case "NOTE_BASS", "BLOCK_NOTE_BASS", "BLOCK_NOTE_BLOCK_BASS" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_BASS);
+				return bullshit(SoundEvents.NOTE_BLOCK_BASS);
 			}
 			case "NOTE_BASS_DRUM", "BLOCK_NOTE_BASEDRUM", "BLOCK_NOTE_BLOCK_BASEDRUM" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_BASEDRUM);
+				return bullshit(SoundEvents.NOTE_BLOCK_BASEDRUM);
 			}
 			case "NOTE_SNARE_DRUM", "BLOCK_NOTE_SNARE", "BLOCK_NOTE_BLOCK_SNARE" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_SNARE);
+				return bullshit(SoundEvents.NOTE_BLOCK_SNARE);
 			}
 			case "NOTE_STICKS", "BLOCK_NOTE_HAT", "BLOCK_NOTE_BLOCK_HAT" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_HAT);
+				return bullshit(SoundEvents.NOTE_BLOCK_HAT);
 			}
 			case "NOTE_BASS_GUITAR", "BLOCK_NOTE_GUITAR", "BLOCK_NOTE_BLOCK_GUITAR" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_GUITAR);
+				return bullshit(SoundEvents.NOTE_BLOCK_GUITAR);
 			}
 			case "NOTE_FLUTE", "BLOCK_NOTE_FLUTE", "BLOCK_NOTE_BLOCK_FLUTE" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_FLUTE);
+				return bullshit(SoundEvents.NOTE_BLOCK_FLUTE);
 			}
 			case "NOTE_BELL", "BLOCK_NOTE_BELL", "BLOCK_NOTE_BLOCK_BELL" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_BELL);
+				return bullshit(SoundEvents.NOTE_BLOCK_BELL);
 			}
 			case "NOTE_XYLOPHONE", "BLOCK_NOTE_XYLOPHONE", "BLOCK_NOTE_BLOCK_XYLOPHONE" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_XYLOPHONE);
+				return bullshit(SoundEvents.NOTE_BLOCK_XYLOPHONE);
 			}
 			case "NOTE_PLING", "BLOCK_NOTE_PLING", "BLOCK_NOTE_BLOCK_PLING" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_PLING);
+				return bullshit(SoundEvents.NOTE_BLOCK_PLING);
 			}
 			case "BLOCK_NOTE_BLOCK_IRON_XYLOPHONE" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE);
+				return bullshit(SoundEvents.NOTE_BLOCK_IRON_XYLOPHONE);
 			}
 			case "BLOCK_NOTE_BLOCK_COW_BELL" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL);
+				return bullshit(SoundEvents.NOTE_BLOCK_COW_BELL);
 			}
 			case "BLOCK_NOTE_BLOCK_DIDGERIDOO" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_DIDGERIDOO);
+				return bullshit(SoundEvents.NOTE_BLOCK_DIDGERIDOO);
 			}
 			case "BLOCK_NOTE_BLOCK_BIT" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_BIT);
+				return bullshit(SoundEvents.NOTE_BLOCK_BIT);
 			}
 			case "BLOCK_NOTE_BLOCK_BANJO" -> {
-				return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_BANJO);
+				return bullshit(SoundEvents.NOTE_BLOCK_BANJO);
 			}
 		}
-		return bullshit(SoundEvents.BLOCK_NOTE_BLOCK_BASS);
+		return bullshit(SoundEvents.NOTE_BLOCK_BASS);
 	}
 
-	private SoundEvent bullshit(RegistryEntry.Reference<SoundEvent> reference) {
-		return Nota.getAPI().getServer().getRegistryManager().getOrThrow(RegistryKeys.SOUND_EVENT).get(reference.registryKey());
+	private SoundEvent bullshit(Holder.Reference<SoundEvent> reference) {
+		return Nota.getAPI().getServer().registryAccess().lookupOrThrow(Registries.SOUND_EVENT).getValue(reference.key());
 	}
 
 	/**

@@ -5,8 +5,7 @@ import cc.thonly.reverie_dreams.entity.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.entity.skin.SkinConfig;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -18,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModSkinConfigProvider extends SkinConfigProvider {
 
-    public ModSkinConfigProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public ModSkinConfigProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

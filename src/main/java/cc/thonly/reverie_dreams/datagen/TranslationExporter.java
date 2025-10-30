@@ -9,27 +9,25 @@ import cc.thonly.reverie_dreams.registry.RegistryManager;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.block.Block;
-import net.minecraft.block.jukebox.JukeboxSong;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.stat.StatType;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
-import net.minecraft.text.TranslatableTextContent;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.stats.StatType;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.JukeboxSong;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Block;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
@@ -39,10 +37,10 @@ import java.util.Map;
 @Slf4j
 public class TranslationExporter implements TranslationExporterBuilderImpl {
     public static final Map<EntityType<?>, Item> MAPPER = ModEntities.SPAWN_EGG_BIND;
-    private final RegistryWrapper.WrapperLookup wrapperLookup;
+    private final HolderLookup.Provider wrapperLookup;
     private final FabricLanguageProvider.TranslationBuilder translationBuilder;
 
-    public TranslationExporter(RegistryWrapper.WrapperLookup wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
+    public TranslationExporter(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
         this.wrapperLookup = wrapperLookup;
         this.translationBuilder = translationBuilder;
     }
@@ -62,19 +60,19 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         return this;
     }
 
-    public TranslationExporter add(RegistryKey<ItemGroup> registryKey, String value) {
+    public TranslationExporter add(ResourceKey<CreativeModeTab> registryKey, String value) {
         this.translationBuilder.add(registryKey, value);
         return this;
     }
 
-    public TranslationExporter add(ItemGroup itemGroup, String value) {
-        Text text = itemGroup.getDisplayName();
-        TextContent content = text.getContent();
-        if (content instanceof TranslatableTextContent translatableTextContent) {
+    public TranslationExporter add(CreativeModeTab itemGroup, String value) {
+        Component text = itemGroup.getDisplayName();
+        ComponentContents content = text.getContents();
+        if (content instanceof TranslatableContents translatableTextContent) {
             this.translationBuilder.add(translatableTextContent.getKey(), value);
         } else {
-            TextContent.Type<?> type = content.getType();
-            String string = type.asString();
+            ComponentContents.Type<?> type = content.type();
+            String string = type.getSerializedName();
             log.error("Can't get translatable text content in item group {}", string);
         }
         return this;
@@ -85,12 +83,12 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         return this;
     }
 
-    public TranslationExporter addEnchantment(RegistryKey<Enchantment> enchantment, String value) {
+    public TranslationExporter addEnchantment(ResourceKey<Enchantment> enchantment, String value) {
         this.translationBuilder.addEnchantment(enchantment, value);
         return this;
     }
 
-    public TranslationExporter add(RegistryEntry<EntityAttribute> entityAttribute, String value) {
+    public TranslationExporter add(Holder<Attribute> entityAttribute, String value) {
         this.translationBuilder.add(entityAttribute, value);
         return this;
     }
@@ -100,12 +98,12 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         return this;
     }
 
-    public TranslationExporter add(StatusEffect statusEffect, String value) {
+    public TranslationExporter add(MobEffect statusEffect, String value) {
         this.translationBuilder.add(statusEffect, value);
         return this;
     }
 
-    public TranslationExporter add(Identifier identifier, String value) {
+    public TranslationExporter add(ResourceLocation identifier, String value) {
         this.translationBuilder.add(identifier, value);
         return this;
     }
@@ -129,9 +127,9 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         return this;
     }
 
-    public TranslationExporter add(Text mutableText, String value) {
-        TextContent content = mutableText.getContent();
-        if (content instanceof TranslatableTextContent translatableText) {
+    public TranslationExporter add(Component mutableText, String value) {
+        ComponentContents content = mutableText.getContents();
+        if (content instanceof TranslatableContents translatableText) {
             String key = translatableText.getKey();
             this.add(key, value);
         } else {
@@ -141,17 +139,17 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
     }
 
     public TranslationExporter generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        this.translationBuilder.add(RegistryManager.DANMAKU_TRAJECTORY.getId(trajectory).toTranslationKey(), value);
+        this.translationBuilder.add(RegistryManager.DANMAKU_TRAJECTORY.getKey(trajectory).toLanguageKey(), value);
         return this;
     }
 
-    public TranslationExporter generateJukeBox(RegistryKey<JukeboxSong> key, String value) {
+    public TranslationExporter generateJukeBox(ResourceKey<JukeboxSong> key, String value) {
         this.translationBuilder.add(this.getSoundEventSubtitle(key), value);
         this.translationBuilder.add(this.getJukeBoxSongDisc(key), value);
         return this;
     }
 
-    public TranslationExporter generateStatusEffect(RegistryEntry<StatusEffect> registryEntry, String value) {
+    public TranslationExporter generateStatusEffect(Holder<MobEffect> registryEntry, String value) {
         this.translationBuilder.add(getStatusEffect(registryEntry), value);
         return this;
     }
@@ -182,9 +180,9 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         return this;
     }
 
-    public String getStatusEffect(RegistryEntry<StatusEffect> registryEntry) {
+    public String getStatusEffect(Holder<MobEffect> registryEntry) {
         StringBuilder sb = new StringBuilder();
-        String idAsString = registryEntry.getIdAsString();
+        String idAsString = registryEntry.getRegisteredName();
         idAsString = idAsString.replaceAll(":", ".");
         idAsString = idAsString.replaceAll("/", ".");
         sb = sb.append("effect.");
@@ -194,7 +192,7 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
 
     public String getPotion(Potion registryEntry) {
         StringBuilder sb = new StringBuilder();
-        String idAsString = registryEntry.getBaseName();
+        String idAsString = registryEntry.name();
         idAsString = idAsString.replaceAll(":", ".");
         idAsString = idAsString.replaceAll("/", ".");
         sb = sb.append("item.minecraft.potion.effect.");
@@ -204,7 +202,7 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
 
     public String getSplashPotion(Potion registryEntry) {
         StringBuilder sb = new StringBuilder();
-        String idAsString = registryEntry.getBaseName();
+        String idAsString = registryEntry.name();
         idAsString = idAsString.replaceAll(":", ".");
         idAsString = idAsString.replaceAll("/", ".");
         sb = sb.append("item.minecraft.splash_potion.effect.");
@@ -214,7 +212,7 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
 
     public String getLingeringPotion(Potion registryEntry) {
         StringBuilder sb = new StringBuilder();
-        String idAsString = registryEntry.getBaseName();
+        String idAsString = registryEntry.name();
         idAsString = idAsString.replaceAll(":", ".");
         idAsString = idAsString.replaceAll("/", ".");
         sb = sb.append("item.minecraft.lingering_potion.effect.");
@@ -223,20 +221,20 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
     }
 
     public String getSoundEventSubtitle(SoundEvent soundEvent) {
-        Identifier id = soundEvent.id();
-        return id.toTranslationKey("sound");
+        ResourceLocation id = soundEvent.location();
+        return id.toLanguageKey("sound");
     }
 
-    public String getSoundEventSubtitle(RegistryKey<JukeboxSong> registryKey) {
-        Identifier id = registryKey.getValue();
-        return id.toTranslationKey("sound");
+    public String getSoundEventSubtitle(ResourceKey<JukeboxSong> registryKey) {
+        ResourceLocation id = registryKey.location();
+        return id.toLanguageKey("sound");
     }
 
-    public String getJukeBoxSongDisc(RegistryKey<JukeboxSong> registryKey) {
-        Identifier key = registryKey.getValue();
+    public String getJukeBoxSongDisc(ResourceKey<JukeboxSong> registryKey) {
+        ResourceLocation key = registryKey.location();
         String namespace = key.getNamespace();
         String path = key.getPath().replaceAll("/", ".");
-        return key.toTranslationKey("jukebox_song");
+        return key.toLanguageKey("jukebox_song");
     }
 
 }

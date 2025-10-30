@@ -10,9 +10,8 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,10 +21,10 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     /**
      * 预升级 1.21.9 所用代码
      **/
-    private static final Map<Identifier, MannequinInfo> INFO = new Object2ObjectLinkedOpenHashMap<>();
+    private static final Map<ResourceLocation, MannequinInfo> INFO = new Object2ObjectLinkedOpenHashMap<>();
 
-    private record MannequinInfo(Identifier texture, Optional<Identifier> capeTexture,
-                                 Optional<Identifier> elytraTexture, PlayerSkinType model) {
+    private record MannequinInfo(ResourceLocation texture, Optional<ResourceLocation> capeTexture,
+                                 Optional<ResourceLocation> elytraTexture, PlayerSkinType model) {
 
     }
 
@@ -46,7 +45,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
 
     @Setter
     @Getter
-    private Identifier id;
+    private ResourceLocation id;
     private String value;
     private String signature;
     @Setter
@@ -61,13 +60,13 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     private SkinType() {
     }
 
-    public SkinType(Identifier id) {
+    public SkinType(ResourceLocation id) {
         this.id = id;
         this.value = "null";
         this.signature = "null";
     }
 
-    public SkinType(Identifier id, String value, String signature) {
+    public SkinType(ResourceLocation id, String value, String signature) {
         this.id = id;
         this.value = value;
         this.signature = signature;
@@ -103,7 +102,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
 
     private void valid() {
         try {
-            Identifier fileId = Touhou.id("entity/player/%s".formatted(this.id.getPath()));
+            ResourceLocation fileId = Touhou.id("entity/player/%s".formatted(this.id.getPath()));
 
         } catch (Exception err) {
             log.error("Can't parse role code", err);
@@ -118,8 +117,8 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     public Codec<SkinType> getCodec() {
         if (CODEC == null) {
             CODEC = RecordCodecBuilder.create(x->x.group(
-                    Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-            ).apply(x, RegistryManager.SKIN_TYPE::get));
+                    ResourceLocation.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
+            ).apply(x, RegistryManager.SKIN_TYPE::getValue));
         }
         return CODEC;
     }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.registry;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 @SuppressWarnings("unchecked")
 public interface Translatable {
@@ -8,11 +8,11 @@ public interface Translatable {
         Object object = this;
         if (object instanceof OwnerBinding<?> ownerBindingImpl) {
             IntrinsicalRegister<Object> registryRef = (IntrinsicalRegister<Object>) ownerBindingImpl.<Object>getOwner();
-            Identifier id = registryRef.getId(object);
+            ResourceLocation id = registryRef.getKey(object);
             if (id == null) {
-                return registryRef.getKey().getValue().getPath() + ".null";
+                return registryRef.key().location().getPath() + ".null";
             }
-            return id.toTranslationKey(registryRef.getKey().getValue().getPath());
+            return id.toLanguageKey(registryRef.key().location().getPath());
         }
         return "null";
     }

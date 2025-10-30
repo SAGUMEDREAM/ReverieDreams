@@ -3,15 +3,6 @@ package cc.thonly.reverie_dreams.mixin.client;
 import com.google.gson.Gson;
 import com.mojang.serialization.JsonOps;
 import eu.pb4.polymer.core.api.item.PolymerItemUtils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.SetTradeOffersS2CPacket;
-import net.minecraft.predicate.component.ComponentMapPredicate;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOfferList;
-import net.minecraft.village.TradedItem;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,23 +10,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.Optional;
+import net.minecraft.network.protocol.game.ClientboundMerchantOffersPacket;
+import net.minecraft.world.item.trading.MerchantOffers;
 
-@Mixin(SetTradeOffersS2CPacket.class)
+@Mixin(ClientboundMerchantOffersPacket.class)
 public class SetTradeOffersS2CPacketMixin {
     @Mutable
     @Shadow
     @Final
-    private TradeOfferList offers;
+    private MerchantOffers offers;
 
-    @Shadow @Final private int syncId;
+    @Shadow @Final private int containerId;
 
-    @Shadow @Final private int levelProgress;
+    @Shadow @Final private int villagerLevel;
 
-    @Shadow @Final private int experience;
+    @Shadow @Final private int villagerXp;
 
-    @Shadow @Final private boolean leveled;
+    @Shadow @Final private boolean showProgress;
 
-    @Shadow @Final private boolean refreshable;
+    @Shadow @Final private boolean canRestock;
 
 //    @Unique private TradeOfferList polymerifyList;
 

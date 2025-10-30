@@ -1,15 +1,14 @@
 package cc.thonly.reverie_dreams.state;
 
-import net.minecraft.util.StringIdentifiable;
-
 import java.util.Locale;
+import net.minecraft.util.StringRepresentable;
 
-public enum EightDirection implements StringIdentifiable {
+public enum EightDirection implements StringRepresentable {
     NORTH, NORTHEAST, EAST, SOUTHEAST,
     SOUTH, SOUTHWEST, WEST, NORTHWEST;
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return this.name().toLowerCase(Locale.ROOT);
     }
 

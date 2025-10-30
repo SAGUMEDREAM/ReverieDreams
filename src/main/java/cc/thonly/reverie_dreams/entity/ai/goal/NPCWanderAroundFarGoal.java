@@ -2,12 +2,12 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
-import net.minecraft.entity.ai.FuzzyTargeting;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class NPCWanderAroundFarGoal extends WanderAroundGoal {
+public class NPCWanderAroundFarGoal extends RandomStrollGoal {
     public static final float CHANCE = 0.001f;
     private final BaseNPCLikeEntity npcRole;
     protected final float probability;
@@ -33,19 +33,19 @@ public class NPCWanderAroundFarGoal extends WanderAroundGoal {
 
     @Override
     @Nullable
-    protected Vec3d getWanderTarget() {
-        if (this.mob.isTouchingWater()) {
-            Vec3d vec3d = FuzzyTargeting.find(this.mob, 15, 7);
-            return vec3d == null ? super.getWanderTarget() : vec3d;
+    protected Vec3 getPosition() {
+        if (this.mob.isInWater()) {
+            Vec3 vec3d = LandRandomPos.getPos(this.mob, 15, 7);
+            return vec3d == null ? super.getPosition() : vec3d;
         }
         if (this.mob.getRandom().nextFloat() >= this.probability) {
-            return FuzzyTargeting.find(this.mob, 10, 7);
+            return LandRandomPos.getPos(this.mob, 10, 7);
         }
-        return super.getWanderTarget();
+        return super.getPosition();
     }
 
     @Override
-    public boolean canStart() {
-        return this.mob.getAttacker() == null && super.canStart();
+    public boolean canUse() {
+        return this.mob.getLastHurtByMob() == null && super.canUse();
     }
 }

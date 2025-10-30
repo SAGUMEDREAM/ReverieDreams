@@ -2,65 +2,72 @@ package cc.thonly.reverie_dreams.entity.elemental;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class WaterElementalEntity extends BaseNPCLikeEntity implements ElementalMob {
     public int aTick = 0;
 
-    public WaterElementalEntity(EntityType<? extends TameableEntity> entityType, World world) {
+    public WaterElementalEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world, MobSkinTypes.WATER_ELEMENTAL);
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new SitGoal(this));
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
 
-        this.goalSelector.add(7, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
 
-        this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 16.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f));
-        this.goalSelector.add(10, new LookAroundGoal(this));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 16.0f));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, BaseNPCLikeEntity.class, 8.0f));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, false));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, false));
-        this.targetSelector.add(3, new RevengeGoal(this).setGroupRevenge());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
     }
 
     @Override
     public void tick() {
         super.tick();
-        World world = this.getWorld();
-        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
+        Level world = this.level();
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             if (this.aTick > 10) {
-                BlockState blockState = serverWorld.getBlockState(this.getBlockPos());
+                BlockState blockState = serverWorld.getBlockState(this.blockPosition());
                 Block block = blockState.getBlock();
                 boolean bl1 = block.equals(Blocks.WATER);
                 boolean bl2 = block.equals(Blocks.LAVA) || block.equals(Blocks.FIRE);
                 if (bl1) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 3 * 20));
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 3 * 20));
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20));
+                    this.addEffect(new MobEffectInstance(MobEffects.SPEED, 3 * 20));
+                    this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 3 * 20));
+                    this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 3 * 20));
                 }
                 if (bl2) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 3 * 20));
+                    this.addEffect(new MobEffectInstance(MobEffects.WITHER, 3 * 20));
                 }
                 this.aTick = -1;
             }
@@ -69,25 +76,25 @@ public class WaterElementalEntity extends BaseNPCLikeEntity implements Elemental
     }
 
     @Override
-    public boolean tryAttack(ServerWorld world, Entity target) {
+    public boolean doHurtTarget(ServerLevel world, Entity target) {
         if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200), this);
-            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 15));
-            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20 * 15));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.WITHER, 200), this);
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20 * 15));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20 * 15));
         }
-        return super.tryAttack(world, target);
+        return super.doHurtTarget(world, target);
     }
 
-    public static DefaultAttributeContainer createAttributes() {
+    public static AttributeSupplier createAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 40.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.22)
-                .add(EntityAttributes.ATTACK_KNOCKBACK, 0.25)
-                .add(EntityAttributes.ATTACK_DAMAGE, 3.5)
-                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.1)
-                .add(EntityAttributes.FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.TEMPT_RANGE, 10.0)
-                .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 3)
+                .add(Attributes.MAX_HEALTH, 40.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.22)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.25)
+                .add(Attributes.ATTACK_DAMAGE, 3.5)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                .add(Attributes.FOLLOW_RANGE, 32.0)
+                .add(Attributes.TEMPT_RANGE, 10.0)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
                 .build();
     }
 

@@ -2,13 +2,13 @@ package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.interfaces.IExperienceOrbEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,11 +17,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin extends Entity implements IExperienceOrbEntity {
     @Shadow
     @Nullable
-    private PlayerEntity target;
+    private Player followingPlayer;
 
     @Shadow
     public abstract int getValue();
@@ -29,7 +29,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
     @Unique
     private NPCRoleEntity npcTarget;
 
-    public ExperienceOrbEntityMixin(EntityType<?> type, World world) {
+    public ExperienceOrbEntityMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
 
@@ -38,15 +38,15 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
         if (this.npcTarget == null) {
             return;
         }
-        Vec3d vec = new Vec3d(
+        Vec3 vec = new Vec3(
                 this.npcTarget.getX() - this.getX(),
-                this.npcTarget.getY() + this.npcTarget.getStandingEyeHeight() / 2.0 - this.getY(),
+                this.npcTarget.getY() + this.npcTarget.getEyeHeight() / 2.0 - this.getY(),
                 this.npcTarget.getZ() - this.getZ()
         );
-        double dist2 = vec.lengthSquared();
+        double dist2 = vec.lengthSqr();
         double speedFactor = 1.0 - Math.sqrt(dist2) / 8.0;
         if (speedFactor > 0) {
-            this.setVelocity(this.getVelocity().add(vec.normalize().multiply(speedFactor * speedFactor * 0.1)));
+            this.setDeltaMovement(this.getDeltaMovement().add(vec.normalize().scale(speedFactor * speedFactor * 0.1)));
         }
         ci.cancel();
     }
@@ -56,7 +56,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
         if (this.npcTarget == null) {
             return;
         }
-        if (this.npcTarget.isDead()) {
+        if (this.npcTarget.isDeadOrDying()) {
             return;
         }
         if (this.npcTarget.getHealth() <= 0) {
@@ -64,7 +64,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
         }
         double dist2 = this.npcTarget.distanceTo(this);
         if (dist2 < 1.2) {
-            this.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+            this.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
             this.npcTarget.addExperience(this.getValue());
             this.remove(RemovalReason.DISCARDED);
         }
@@ -74,7 +74,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
     @Unique
     public void setNPCTarget(NPCRoleEntity npc) {
         this.npcTarget = npc;
-        this.target = null;
+        this.followingPlayer = null;
     }
 
     @Override
@@ -82,7 +82,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
         return this.npcTarget;
     }
 
-    @Inject(method = "moveTowardsPlayer", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "followNearbyPlayer", at = @At("HEAD"), cancellable = true)
     public void moveToPlayerTickBefore(CallbackInfo ci) {
         this.moveTowardsTarget(ci);
     }

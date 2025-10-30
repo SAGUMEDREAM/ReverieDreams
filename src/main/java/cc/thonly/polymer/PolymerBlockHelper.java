@@ -8,7 +8,6 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
-import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import eu.pb4.factorytools.api.block.model.SignModel;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
@@ -17,31 +16,33 @@ import eu.pb4.polymer.common.api.PolymerCommonUtils;
 import eu.pb4.polymer.core.api.block.PolymerBlock;
 import eu.pb4.polymer.virtualentity.api.BlockWithElementHolder;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.block.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+
 @Slf4j
 public class PolymerBlockHelper {
     public static void registerOverlay(Block block) {
         if (ConstantInfo.IS_DATAGEN) {
             return;
         }
-        Identifier id = Registries.BLOCK.getId(block);
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
         PolymerBlock polymerBlock = requestBlockOverlay(block);
         PolymerBlock.registerOverlay(block, polymerBlock);
         if (polymerBlock instanceof BlockWithElementHolder blockWithElementHolder) {
             BlockWithElementHolder.registerOverlay(block, blockWithElementHolder);
         }
 
-        if (block instanceof AbstractSignBlock) {
+        if (block instanceof SignBlock) {
             LateLoaderInit.LATE_INIT.add(() -> SignModel.setModel(block, Touhou.id("block_sign/" + id.getPath())));
         }
     }
 
     public static PolymerBlock requestBlockOverlay(Block block) {
-        Identifier id = Registries.BLOCK.getId(block);
-        BlockState defaultState = block.getDefaultState();
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+        BlockState defaultState = block.defaultBlockState();
 
         LateLoaderInit.LATE_INIT.add(() -> {
             try {
@@ -62,31 +63,31 @@ public class PolymerBlockHelper {
             case CashBoxBlock ignored -> new HorizontalFacingImpl(ignored);
             case AbstractKitchenwareBlock ignored -> new AbstractKitchenwareImpl(ignored);
             case RedstoneLampBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
-            case StairsBlock ignored -> StateCopyFactoryBlock.STAIR;
+            case StairBlock ignored -> StateCopyFactoryBlock.STAIR;
             case SlabBlock ignored -> SlabFactoryBlock.INSTANCE;
             case FenceGateBlock ignored -> StateCopyFactoryBlock.FENCE_GATE;
             case FenceBlock ignored -> StateCopyFactoryBlock.FENCE;
             case WallBlock ignored -> StateCopyFactoryBlock.WALL;
             case LeavesBlock ignored -> RealSingleStatePolymerBlock.of(block, BlockModelType.TRANSPARENT_BLOCK);
-            case SignBlock ignored -> StateCopyFactoryBlock.SIGN;
             case WallSignBlock ignored -> StateCopyFactoryBlock.WALL_SIGN;
-            case HangingSignBlock ignored -> StateCopyFactoryBlock.HANGING_SIGN;
+            case CeilingHangingSignBlock ignored -> StateCopyFactoryBlock.HANGING_SIGN;
             case WallHangingSignBlock ignored -> StateCopyFactoryBlock.HANGING_WALL_SIGN;
+            case SignBlock ignored -> StateCopyFactoryBlock.SIGN;
             case DoorBlock ignored -> DoorPolymerBlock.INSTANCE;
-            case TrapdoorBlock ignored -> TrapdoorPolymerBlock.INSTANCE;
+            case TrapDoorBlock ignored -> TrapdoorPolymerBlock.INSTANCE;
             case ButtonBlock ignored -> StateCopyFactoryBlock.BUTTON;
             case PressurePlateBlock ignored -> StateCopyFactoryBlock.PRESSURE_PLATE;
-            case PlantBlock ignored -> BaseFactoryBlock.SAPLING;
+            case VegetationBlock ignored -> BaseFactoryBlock.SAPLING;
             case FlowerPotBlock ignored -> new PottedPlantPolymerBlock(id);
-            case PaneBlock ignored -> StateCopyFactoryBlock.PANE;
+            case IronBarsBlock ignored -> StateCopyFactoryBlock.PANE;
             case LanternBlock ignored -> StateCopyFactoryBlock.LANTERN;
-            case HorizontalFacingBlock ignored -> BaseFactoryBlock.BARRIER;
+            case HorizontalDirectionalBlock ignored -> BaseFactoryBlock.BARRIER;
             case CarpetBlock ignored -> StateCopyFactoryBlock.CARPET;
             case ChainBlock ignored -> StateCopyFactoryBlock.CHAIN;
-            case PillarBlock ignored -> BaseFactoryBlock.BARRIER;
-            case GrateBlock ignored -> BaseFactoryBlock.BARRIER;
+            case RotatedPillarBlock ignored -> BaseFactoryBlock.BARRIER;
+            case WaterloggedTransparentBlock ignored -> BaseFactoryBlock.BARRIER;
             default -> {
-                if (defaultState.isFullCube(PolymerCommonUtils.getFakeWorld(), BlockPos.ORIGIN)) {
+                if (defaultState.isCollisionShapeFullBlock(PolymerCommonUtils.getFakeWorld(), BlockPos.ZERO)) {
                     yield StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
                 } else {
                     yield BaseFactoryBlock.BARRIER;

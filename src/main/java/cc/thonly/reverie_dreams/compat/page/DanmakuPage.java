@@ -7,13 +7,13 @@ import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -21,47 +21,47 @@ import java.util.List;
 
 @Getter
 public class DanmakuPage implements PolydexPage {
-    public static final Identifier id = Touhou.id("recipe/danmaku_table");
+    public static final ResourceLocation id = Touhou.id("recipe/danmaku_table");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
-    private static final Text TEXTURE = Text.empty();
-    public static final ItemStack ICON = new GuiElementBuilder(ModBlocks.DANMAKU_CRAFTING_TABLE.asItem()).setName(Text.translatable(id.toTranslationKey())).asStack();
-    public final Identifier key;
+    private static final Component TEXTURE = Component.empty();
+    public static final ItemStack ICON = new GuiElementBuilder(ModBlocks.DANMAKU_CRAFTING_TABLE.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
+    public final ResourceLocation key;
     public final DanmakuRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
     private final PolydexStack<?> output;
 
-    public DanmakuPage(Identifier key, DanmakuRecipe value) {
-        this.key = key.withPrefixedPath("recipe/");
+    public DanmakuPage(ResourceLocation key, DanmakuRecipe value) {
+        this.key = key.withPrefix("recipe/");
         this.value = value;
         List<PolydexIngredient<?>> list = new ArrayList<>();
         for (var x : List.of(value.getDye(), value.getCore(), value.getPower(), value.getPoint(), value.getMaterial())) {
             if (x.getItem() == Items.AIR) {
-                list.add(PolydexIngredient.of(Ingredient.ofItem(Items.BARRIER), 1));
+                list.add(PolydexIngredient.of(Ingredient.of(Items.BARRIER), 1));
                 continue;
             }
-            list.add(PolydexIngredient.of(Ingredient.ofItem(x.getItem()), x.getCount()));
+            list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
         this.output = PolydexStack.of(this.value.getOutput().getItemStack());
     }
 
     @Override
-    public Identifier identifier() {
+    public ResourceLocation identifier() {
         return key;
     }
 
     @Override
-    public ItemStack typeIcon(ServerPlayerEntity serverPlayerEntity) {
+    public ItemStack typeIcon(ServerPlayer serverPlayerEntity) {
         return ICON;
     }
 
     @Override
-    public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayerEntity serverPlayerEntity) {
+    public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
         return this.value.getOutput().getItemStack();
     }
 
     @Override
-    public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayerEntity serverPlayerEntity, PageBuilder layout) {
+    public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity, PageBuilder layout) {
         String[][] views = {
                 {"A", "X", "S", "X", "D", "X", "F", "X", "G"},
                 {"X", "X", "X", "X", "T", "X", "X", "X", "X"},
@@ -78,7 +78,7 @@ public class DanmakuPage implements PolydexPage {
 
     private ItemStack getViewStack(String s) {
         if (s.equals("X")) {
-            return ModGuiItems.EMPTY_SLOT.getDefaultStack();
+            return ModGuiItems.EMPTY_SLOT.getDefaultInstance();
         } else if (s.equals("A")) {
             return this.value.getDye().getItemStack().copy();
         } else if (s.equals("S")) {
@@ -90,11 +90,11 @@ public class DanmakuPage implements PolydexPage {
         } else if (s.equals("G")) {
             return this.value.getMaterial().getItemStack().copy();
         } else if (s.equals("T")) {
-            return ModGuiItems.PROGRESS_TO_RESULT_DOWN.getDefaultStack();
+            return ModGuiItems.PROGRESS_TO_RESULT_DOWN.getDefaultInstance();
         } else if (s.equals("O")) {
             return this.value.getOutput().getItemStack().copy();
         }
-        return Items.AIR.getDefaultStack();
+        return Items.AIR.getDefaultInstance();
     }
 
     @Override

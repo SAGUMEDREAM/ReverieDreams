@@ -1,32 +1,31 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import net.minecraft.entity.ai.AboveGroundTargeting;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.util.math.Vec3d;
-
 import java.util.EnumSet;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.util.HoverRandomPos;
+import net.minecraft.world.phys.Vec3;
 
 public class SmartFlyGoal extends Goal {
-    private final PathAwareEntity mob;
+    private final PathfinderMob mob;
     private final double speed;
-    private Vec3d movingTarget;
+    private Vec3 movingTarget;
 
-    public SmartFlyGoal(PathAwareEntity mob, double speed) {
+    public SmartFlyGoal(PathfinderMob mob, double speed) {
         this.mob = mob;
         this.speed = speed;
-        this.setControls(EnumSet.of(Control.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
-    public boolean canStart() {
-        return this.mob.getTarget() == null && this.mob.isOnGround();
+    public boolean canUse() {
+        return this.mob.getTarget() == null && this.mob.onGround();
     }
 
     @Override
     public void start() {
-        Vec3d direction = this.mob.getRotationVec(0.0f);
-        Vec3d target = AboveGroundTargeting.find(
+        Vec3 direction = this.mob.getViewVector(0.0f);
+        Vec3 target = HoverRandomPos.getPos(
                 this.mob,
                 8,
                 7,
@@ -37,13 +36,13 @@ public class SmartFlyGoal extends Goal {
                 1
         );
         if (target != null) {
-            this.mob.getNavigation().startMovingTo(target.x, target.y, target.z, this.speed);
+            this.mob.getNavigation().moveTo(target.x, target.y, target.z, this.speed);
         }
         this.movingTarget = target;
     }
 
     @Override
-    public boolean shouldContinue() {
-        return !this.mob.getNavigation().isIdle();
+    public boolean canContinueToUse() {
+        return !this.mob.getNavigation().isDone();
     }
 }

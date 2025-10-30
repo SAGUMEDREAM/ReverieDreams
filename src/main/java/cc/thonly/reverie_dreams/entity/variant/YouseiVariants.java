@@ -5,14 +5,13 @@ import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.mojang.authlib.properties.Property;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import net.minecraft.resources.ResourceLocation;
 
 public class YouseiVariants {
     public static final IntrinsicalRegister<YouseiVariant> REGISTRY = RegistryManager.YOUSEI_VARIANT;
-    public static final Identifier DEFAULT_ID = Touhou.id("blue");
+    public static final ResourceLocation DEFAULT_ID = Touhou.id("blue");
     public static final YouseiVariant BLUE = register(new YouseiVariant(Touhou.id("blue"), MobSkinTypes.YOUSEI01));
     public static final YouseiVariant ORANGE = register(new YouseiVariant(Touhou.id("orange"), MobSkinTypes.YOUSEI02));
     public static final YouseiVariant GREEN = register(new YouseiVariant(Touhou.id("green"), MobSkinTypes.YOUSEI03));
@@ -25,7 +24,7 @@ public class YouseiVariants {
         return register(Touhou.id(name), variant);
     }
 
-    public static YouseiVariant register(Identifier identifier, YouseiVariant variant) {
+    public static YouseiVariant register(ResourceLocation identifier, YouseiVariant variant) {
         return RegistryManager.register(REGISTRY, identifier, variant);
     }
 

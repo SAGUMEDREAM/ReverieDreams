@@ -6,14 +6,14 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 
 @Setter
 @Getter
 public class NPCState implements CodecStep<NPCState>, OwnerBinding<NPCState>, BuiltinObject, Translatable {
-    public static final Identifier DEFAULT_ID = Touhou.id("normal");
+    public static final ResourceLocation DEFAULT_ID = Touhou.id("normal");
     public static final Codec<NPCState> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.STRING.optionalFieldOf("value", DEFAULT_ID.toString()).forGetter(NPCState::getType)
@@ -36,8 +36,8 @@ public class NPCState implements CodecStep<NPCState>, OwnerBinding<NPCState>, Bu
         return "gui.npc.mode." + this.type;
     }
 
-    public MutableText getTranslateText() {
-        return Text.translatable(translateKey());
+    public MutableComponent getTranslateText() {
+        return Component.translatable(translateKey());
     }
 
     @Override

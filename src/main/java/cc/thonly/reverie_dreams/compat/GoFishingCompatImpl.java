@@ -6,13 +6,12 @@ import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import draylar.gofish.registry.GoFishItems;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 @SuppressWarnings("unchecked")
 public class GoFishingCompatImpl {
@@ -22,7 +21,7 @@ public class GoFishingCompatImpl {
                 return;
             }
             IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
+            Stream<Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> tags = property.getItems();

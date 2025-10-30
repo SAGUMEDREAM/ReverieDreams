@@ -1,23 +1,23 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.data.ModTags;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 public class GhostStatusEffectTargetGoal<T extends LivingEntity> extends StatusEffectTargetGoal<T> {
     private static final int DEFAULT_RECIPROCAL_CHANCE = 10;
 
-    public GhostStatusEffectTargetGoal(MobEntity mob, Class<T> targetClass, boolean checkVisibility, @Nullable RegistryEntry<StatusEffect> requiredEffect) {
+    public GhostStatusEffectTargetGoal(Mob mob, Class<T> targetClass, boolean checkVisibility, @Nullable Holder<MobEffect> requiredEffect) {
         this(mob, targetClass, DEFAULT_RECIPROCAL_CHANCE, checkVisibility, false, null, requiredEffect);
     }
 
-    public GhostStatusEffectTargetGoal(MobEntity mob, Class<T> targetClass, int reciprocalChance, boolean checkVisibility, boolean checkCanNavigate, @Nullable TargetPredicate.EntityPredicate targetPredicate, @Nullable RegistryEntry<StatusEffect> requiredEffect) {
+    public GhostStatusEffectTargetGoal(Mob mob, Class<T> targetClass, int reciprocalChance, boolean checkVisibility, boolean checkCanNavigate, @Nullable TargetingConditions.Selector targetPredicate, @Nullable Holder<MobEffect> requiredEffect) {
         super(mob, targetClass, reciprocalChance, checkVisibility, checkCanNavigate, targetPredicate, requiredEffect);
     }
 
@@ -35,11 +35,11 @@ public class GhostStatusEffectTargetGoal<T extends LivingEntity> extends StatusE
     public static boolean hasSilverArmor(LivingEntity targetEntity) {
         if (!targetEntity.isAlive()) return false;
         final var tag = ModTags.ItemTypeTag.SILVER_ARMOR;
-        ItemStack head = targetEntity.getEquippedStack(EquipmentSlot.HEAD);
-        ItemStack chest = targetEntity.getEquippedStack(EquipmentSlot.CHEST);
-        ItemStack legs = targetEntity.getEquippedStack(EquipmentSlot.LEGS);
-        ItemStack feet = targetEntity.getEquippedStack(EquipmentSlot.FEET);
+        ItemStack head = targetEntity.getItemBySlot(EquipmentSlot.HEAD);
+        ItemStack chest = targetEntity.getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack legs = targetEntity.getItemBySlot(EquipmentSlot.LEGS);
+        ItemStack feet = targetEntity.getItemBySlot(EquipmentSlot.FEET);
 
-        return head.isIn(tag) || chest.isIn(tag) || legs.isIn(tag) || feet.isIn(tag);
+        return head.is(tag) || chest.is(tag) || legs.is(tag) || feet.is(tag);
     }
 }

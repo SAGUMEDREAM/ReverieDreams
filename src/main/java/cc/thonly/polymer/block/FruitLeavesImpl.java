@@ -11,13 +11,13 @@ import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
@@ -31,38 +31,38 @@ public class FruitLeavesImpl implements PolymerBlock, PolymerTexturedBlock, Fact
 
     @Override
     public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return Blocks.OAK_LEAVES.getDefaultState();
+        return Blocks.OAK_LEAVES.defaultBlockState();
     }
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        return Blocks.BARRIER.getDefaultState();
+        return Blocks.BARRIER.defaultBlockState();
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         return new Model(world, pos, initialBlockState);
     }
 
     @Getter
     public class Model extends BlockModel {
-        private final ServerWorld world;
+        private final ServerLevel world;
         private final BlockPos blockPos;
         private final BlockState state;
         private final Block empty;
         private ItemDisplayElement main;
-        private final Identifier defaultId;
-        private final Identifier modelId;
+        private final ResourceLocation defaultId;
+        private final ResourceLocation modelId;
 
-        public Model(ServerWorld world, BlockPos blockPos, BlockState state) {
+        public Model(ServerLevel world, BlockPos blockPos, BlockState state) {
             this.world = world;
             this.blockPos = blockPos;
             this.empty = FruitLeavesImpl.this.full.getEmptyLeavesBlock();
             this.state = state;
-            Identifier identifier = Registries.BLOCK.getId(FruitLeavesImpl.this.full);
-            Identifier emptyId = Registries.BLOCK.getId(this.empty);
-            this.defaultId = Identifier.of(emptyId.getNamespace(), "block/" + emptyId.getPath());
-            this.modelId = Identifier.of(identifier.getNamespace(), "block/" + identifier.getPath());
+            ResourceLocation identifier = BuiltInRegistries.BLOCK.getKey(FruitLeavesImpl.this.full);
+            ResourceLocation emptyId = BuiltInRegistries.BLOCK.getKey(this.empty);
+            this.defaultId = ResourceLocation.fromNamespaceAndPath(emptyId.getNamespace(), "block/" + emptyId.getPath());
+            this.modelId = ResourceLocation.fromNamespaceAndPath(identifier.getNamespace(), "block/" + identifier.getPath());
             this.init(state);
         }
 
@@ -88,7 +88,7 @@ public class FruitLeavesImpl implements PolymerBlock, PolymerTexturedBlock, Fact
         }
 
         public ItemDisplayElement getElement(BlockState state) {
-            int age = state.get(FruitLeavesBlock.AGE_PROPERTY);
+            int age = state.getValue(FruitLeavesBlock.AGE_PROPERTY);
             return age <= 2 ? new ItemDisplayElement(ItemDisplayElementUtil.getModel(this.defaultId)) : new ItemDisplayElement(ItemDisplayElementUtil.getModel(this.modelId));
         }
     }

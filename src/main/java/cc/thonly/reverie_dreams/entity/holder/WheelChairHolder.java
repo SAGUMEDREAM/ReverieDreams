@@ -4,7 +4,7 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -22,14 +22,14 @@ public class WheelChairHolder extends ElementHolder {
     protected void onTick() {
         super.onTick();
         if(this.element != null) {
-            if (this.entity.isDead()) {
+            if (this.entity.isDeadOrDying()) {
                 this.element.setScale(new Vector3f(0));
                 return;
             }
             Matrix4f transform = new Matrix4f()
                     .translate(0f, 0.3f, 0f)
                     .rotateY((float) Math.PI)
-                    .rotateY((float) Math.toRadians(-this.entity.getHeadYaw()))
+                    .rotateY((float) Math.toRadians(-this.entity.getYHeadRot()))
                     .scale(1f);
 
             this.element.setTransformation(transform);

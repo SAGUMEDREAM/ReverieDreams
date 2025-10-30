@@ -2,21 +2,21 @@ package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.level.Level;
 
 public class Ibukiho extends SwordItem {
     public static final ToolMaterial IBUKIHO = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.WART_BLOCKS);
 
-    public Ibukiho(float attackDamage, float attackSpeed, Settings settings) {
+    public Ibukiho(float attackDamage, float attackSpeed, Properties settings) {
         super(IBUKIHO,
                 attackDamage,
                 attackSpeed,
@@ -25,21 +25,21 @@ public class Ibukiho extends SwordItem {
     }
 
     @Override
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
         ItemStack copy = stack.copy();
-        Hand activeHand = user.getActiveHand();
-        if (copy.isDamageable() && user instanceof ServerPlayerEntity player && !player.isInCreativeMode()) {
-            copy.damage(10, user, EquipmentSlot.MAINHAND);
+        InteractionHand activeHand = user.getUsedItemHand();
+        if (copy.isDamageableItem() && user instanceof ServerPlayer player && !player.hasInfiniteMaterials()) {
+            copy.hurtAndBreak(10, user, EquipmentSlot.MAINHAND);
         }
-        user.setStackInHand(activeHand, copy);
-        StatusEffectInstance strength = new StatusEffectInstance(StatusEffects.STRENGTH, 60 * 20);
-        StatusEffectInstance speed = new StatusEffectInstance(StatusEffects.SPEED, 60 * 20);
-        StatusEffectInstance jumpBoost = new StatusEffectInstance(StatusEffects.JUMP_BOOST, 60 * 20);
-        StatusEffectInstance nausea = new StatusEffectInstance(StatusEffects.NAUSEA, 60 * 20);
-        user.addStatusEffect(strength);
-        user.addStatusEffect(speed);
-        user.addStatusEffect(jumpBoost);
-        user.addStatusEffect(nausea);
-        return super.finishUsing(stack, world, user);
+        user.setItemInHand(activeHand, copy);
+        MobEffectInstance strength = new MobEffectInstance(MobEffects.STRENGTH, 60 * 20);
+        MobEffectInstance speed = new MobEffectInstance(MobEffects.SPEED, 60 * 20);
+        MobEffectInstance jumpBoost = new MobEffectInstance(MobEffects.JUMP_BOOST, 60 * 20);
+        MobEffectInstance nausea = new MobEffectInstance(MobEffects.NAUSEA, 60 * 20);
+        user.addEffect(strength);
+        user.addEffect(speed);
+        user.addEffect(jumpBoost);
+        user.addEffect(nausea);
+        return super.finishUsingItem(stack, world, user);
     }
 }

@@ -3,27 +3,26 @@ package cc.thonly.reverie_dreams.server;
 
 import cc.thonly.reverie_dreams.util.PairWrapper;
 import lombok.Getter;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
-import net.minecraft.network.packet.c2s.play.PlayerInputC2SPacket;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
+import net.minecraft.network.protocol.game.ServerboundPlayerInputPacket;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.PlayerInput;
-
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Input;
 import java.util.*;
 
 @Getter
 public class PlayerInputManager {
     private static PlayerInputManager INSTANCE = null;
-    public static Stack<PairWrapper<ServerPlayerEntity, Packet<?>>> TICK_PLAYER_QUEUE = new Stack<>();
-    private final List<ServerPlayerEntity> FORWARDS = new ArrayList<>();
-    private final List<ServerPlayerEntity> BACKWARDS = new ArrayList<>();
-    private final List<ServerPlayerEntity> LEFTS = new ArrayList<>();
-    private final List<ServerPlayerEntity> RIGHTS = new ArrayList<>();
-    private final List<ServerPlayerEntity> JUMPS = new ArrayList<>();
-    private final List<ServerPlayerEntity> SNEAKS = new ArrayList<>();
-    private final List<ServerPlayerEntity> SPRINTS = new ArrayList<>();
-    private final List<List<ServerPlayerEntity>> LIST = List.of(
+    public static Stack<PairWrapper<ServerPlayer, Packet<?>>> TICK_PLAYER_QUEUE = new Stack<>();
+    private final List<ServerPlayer> FORWARDS = new ArrayList<>();
+    private final List<ServerPlayer> BACKWARDS = new ArrayList<>();
+    private final List<ServerPlayer> LEFTS = new ArrayList<>();
+    private final List<ServerPlayer> RIGHTS = new ArrayList<>();
+    private final List<ServerPlayer> JUMPS = new ArrayList<>();
+    private final List<ServerPlayer> SNEAKS = new ArrayList<>();
+    private final List<ServerPlayer> SPRINTS = new ArrayList<>();
+    private final List<List<ServerPlayer>> LIST = List.of(
             FORWARDS,
             BACKWARDS,
             LEFTS,
@@ -32,7 +31,7 @@ public class PlayerInputManager {
             SNEAKS,
             SPRINTS
     );
-    private final Map<ServerPlayerEntity, PlayerInput> currentInputs = new HashMap<>();
+    private final Map<ServerPlayer, Input> currentInputs = new HashMap<>();
 
     private PlayerInputManager() {
     }
@@ -43,15 +42,15 @@ public class PlayerInputManager {
     }
 
     public synchronized void tickServer(MinecraftServer server) {
-        for (List<ServerPlayerEntity> playerEntities : LIST) {
+        for (List<ServerPlayer> playerEntities : LIST) {
             playerEntities.clear();
         }
         while (!TICK_PLAYER_QUEUE.isEmpty()) {
-            PairWrapper<ServerPlayerEntity, Packet<?>> wrapper = TICK_PLAYER_QUEUE.pop();
-            ServerPlayerEntity player = wrapper.getKey();
+            PairWrapper<ServerPlayer, Packet<?>> wrapper = TICK_PLAYER_QUEUE.pop();
+            ServerPlayer player = wrapper.getKey();
             Packet<?> packet = wrapper.getValue();
-            if (packet instanceof PlayerInputC2SPacket inputC2SPacket) {
-                PlayerInput input = inputC2SPacket.input();
+            if (packet instanceof ServerboundPlayerInputPacket inputC2SPacket) {
+                Input input = inputC2SPacket.input();
                 currentInputs.put(player, input);
                 if (input.forward()) {
                     FORWARDS.add(player);
@@ -68,37 +67,37 @@ public class PlayerInputManager {
                 if (input.jump()) {
                     JUMPS.add(player);
                 }
-                if (input.sneak()) {
+                if (input.shift()) {
                     SNEAKS.add(player);
                 }
                 if (input.sprint()) {
                     SPRINTS.add(player);
                 }
             }
-            if (packet instanceof ClientCommandC2SPacket cCC2SPacket) {
-                ClientCommandC2SPacket.Mode mode = cCC2SPacket.getMode();
+            if (packet instanceof ServerboundPlayerCommandPacket cCC2SPacket) {
+                ServerboundPlayerCommandPacket.Action mode = cCC2SPacket.getAction();
 //                if (mode.equals(ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY)) {
 //                    SNEAKS.add(entity);
 //                }
 //                if (mode.equals(ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY)) {
 //                    SNEAKS.remove(entity);
 //                }
-                if (player.isSneaking()) {
+                if (player.isShiftKeyDown()) {
                     SNEAKS.add(player);
                 } else {
                     SNEAKS.remove(player);
                 }
-                if (mode.equals(ClientCommandC2SPacket.Mode.START_SPRINTING)) {
+                if (mode.equals(ServerboundPlayerCommandPacket.Action.START_SPRINTING)) {
                     SPRINTS.add(player);
                 }
-                if (mode.equals(ClientCommandC2SPacket.Mode.STOP_SPRINTING)) {
+                if (mode.equals(ServerboundPlayerCommandPacket.Action.STOP_SPRINTING)) {
                     SPRINTS.remove(player);
                 }
             }
         }
     }
 
-    public static synchronized boolean isKeyPressed(ServerPlayerEntity player, InputKey key) {
+    public static synchronized boolean isKeyPressed(ServerPlayer player, InputKey key) {
         PlayerInputManager inputManager = PlayerInputManager.getInstance();
         return switch (key) {
             case InputKey.FORWARD -> inputManager.FORWARDS.contains(player);
@@ -112,9 +111,9 @@ public class PlayerInputManager {
         };
     }
 
-    public static synchronized boolean isKeyDown(ServerPlayerEntity player, InputKey key) {
+    public static synchronized boolean isKeyDown(ServerPlayer player, InputKey key) {
         PlayerInputManager inputManager = PlayerInputManager.getInstance();
-        PlayerInput input = inputManager.currentInputs.get(player);
+        Input input = inputManager.currentInputs.get(player);
         if (input == null) return false;
 
         return switch (key) {
@@ -123,7 +122,7 @@ public class PlayerInputManager {
             case LEFT -> input.left();
             case RIGHT -> input.right();
             case JUMP -> input.jump();
-            case SNEAK -> input.sneak();
+            case SNEAK -> input.shift();
             case SPRINT -> input.sprint();
         };
     }

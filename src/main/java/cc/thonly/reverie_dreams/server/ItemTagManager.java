@@ -1,15 +1,14 @@
 package cc.thonly.reverie_dreams.server;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import net.minecraft.item.Item;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
-
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,20 +27,20 @@ public class ItemTagManager {
 
     public void load(MinecraftServer server) {
         this.clearTags();
-        DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-        Registry<Item> registry = registryManager.getOrThrow(RegistryKeys.ITEM);
-        Stream<RegistryEntryList.Named<Item>> namedStream = registry.streamTags();
-        for (RegistryEntryList.Named<Item> registryEntries : namedStream.toList()) {
-            TagKey<Item> tag = registryEntries.getTag();
+        RegistryAccess.Frozen registryManager = server.registryAccess();
+        Registry<Item> registry = registryManager.lookupOrThrow(Registries.ITEM);
+        Stream<HolderSet.Named<Item>> namedStream = registry.getTags();
+        for (HolderSet.Named<Item> registryEntries : namedStream.toList()) {
+            TagKey<Item> tag = registryEntries.key();
             Set<Item> items = SET_MAP.computeIfAbsent(tag, tagKey -> new LinkedHashSet<>());
-            List<RegistryEntry<Item>> entries = registryEntries.entries;
+            List<Holder<Item>> entries = registryEntries.contents;
             if (entries != null) {
-                for (RegistryEntry<Item> itemRegistryEntry : entries.stream().toList()) {
+                for (Holder<Item> itemRegistryEntry : entries.stream().toList()) {
                     Item item = itemRegistryEntry.value();
                     Set<TagKey<Item>> tagKeys = ITEM_2_TAG_KEY.computeIfAbsent(item, i -> new HashSet<>());
                     tagKeys.add(tag);
                 }
-                Set<Item> collect = entries.stream().map(RegistryEntry::value).collect(Collectors.toSet());
+                Set<Item> collect = entries.stream().map(Holder::value).collect(Collectors.toSet());
                 items.addAll(collect);
             }
         }

@@ -2,117 +2,117 @@ package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
-import net.minecraft.component.EnchantmentEffectComponentTypes;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ProjectileItem;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.consume.UseAction;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Position;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Position;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.ProjectileItem;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class Gungnir extends SwordItem implements ProjectileItem {
     public static final ToolMaterial GUNGNIR = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
 
-    public Gungnir(float attackDamage, float attackSpeed, Item.Settings settings) {
+    public Gungnir(float attackDamage, float attackSpeed, Item.Properties settings) {
         super(GUNGNIR, attackDamage, attackSpeed, settings);
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.BOW;
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+    public int getUseDuration(ItemStack stack, LivingEntity user) {
         return 72000;
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if (!(user instanceof PlayerEntity playerEntity)) {
+    public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
+        if (!(user instanceof Player playerEntity)) {
             return false;
         }
-        int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
+        int i = this.getUseDuration(stack, user) - remainingUseTicks;
         if (i < 10) {
             return false;
         }
         float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, playerEntity);
-        if (f > 0.0f && !playerEntity.isTouchingWaterOrRain()) {
+        if (f > 0.0f && !playerEntity.isInWaterOrRain()) {
             return false;
         }
-        if (stack.willBreakNextUse()) {
+        if (stack.nextDamageWillBreak()) {
             return false;
         }
-        RegistryEntry<SoundEvent> registryEntry = EnchantmentHelper.getEffect(stack, EnchantmentEffectComponentTypes.TRIDENT_SOUND).orElse(SoundEvents.ITEM_TRIDENT_THROW);
-        playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-        if (world instanceof ServerWorld serverWorld) {
-            stack.damage(1, playerEntity);
+        Holder<SoundEvent> registryEntry = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
+        playerEntity.awardStat(Stats.ITEM_USED.get(this));
+        if (world instanceof ServerLevel serverWorld) {
+            stack.hurtWithoutBreaking(1, playerEntity);
             if (f == 0.0f) {
-                ItemStack itemStack = stack.splitUnlessCreative(1, playerEntity);
-                TridentEntity tridentEntity = ProjectileEntity.spawnWithVelocity(TridentEntity::new, serverWorld, itemStack, playerEntity, 0.0f, 2.5f, 1.0f);
-                if (playerEntity.isInCreativeMode()) {
-                    tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
+                ItemStack itemStack = stack.consumeAndReturn(1, playerEntity);
+                ThrownTrident tridentEntity = Projectile.spawnProjectileFromRotation(ThrownTrident::new, serverWorld, itemStack, playerEntity, 0.0f, 2.5f, 1.0f);
+                if (playerEntity.hasInfiniteMaterials()) {
+                    tridentEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                 }
-                world.playSoundFromEntity(null, tridentEntity, registryEntry.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                world.playSound(null, tridentEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
                 return true;
             }
         }
         if (f > 0.0f) {
-            float g = playerEntity.getYaw();
-            float h = playerEntity.getPitch();
-            float j = -MathHelper.sin(g * ((float)Math.PI / 180)) * MathHelper.cos(h * ((float)Math.PI / 180));
-            float k = -MathHelper.sin(h * ((float)Math.PI / 180));
-            float l = MathHelper.cos(g * ((float)Math.PI / 180)) * MathHelper.cos(h * ((float)Math.PI / 180));
-            float m = MathHelper.sqrt(j * j + k * k + l * l);
-            playerEntity.addVelocity(j *= f / m, k *= f / m, l *= f / m);
-            playerEntity.useRiptide(20, 8.0f, stack);
-            if (playerEntity.isOnGround()) {
+            float g = playerEntity.getYRot();
+            float h = playerEntity.getXRot();
+            float j = -Mth.sin(g * ((float)Math.PI / 180)) * Mth.cos(h * ((float)Math.PI / 180));
+            float k = -Mth.sin(h * ((float)Math.PI / 180));
+            float l = Mth.cos(g * ((float)Math.PI / 180)) * Mth.cos(h * ((float)Math.PI / 180));
+            float m = Mth.sqrt(j * j + k * k + l * l);
+            playerEntity.push(j *= f / m, k *= f / m, l *= f / m);
+            playerEntity.startAutoSpinAttack(20, 8.0f, stack);
+            if (playerEntity.onGround()) {
                 float n = 1.1999999f;
-                playerEntity.move(MovementType.SELF, new Vec3d(0.0, 1.1999999284744263, 0.0));
+                playerEntity.move(MoverType.SELF, new Vec3(0.0, 1.1999999284744263, 0.0));
             }
-            world.playSoundFromEntity(null, playerEntity, registryEntry.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+            world.playSound(null, playerEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             return true;
         }
         return false;
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        if (itemStack.willBreakNextUse()) {
-            return ActionResult.FAIL;
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        ItemStack itemStack = user.getItemInHand(hand);
+        if (itemStack.nextDamageWillBreak()) {
+            return InteractionResult.FAIL;
         }
-        if (EnchantmentHelper.getTridentSpinAttackStrength(itemStack, user) > 0.0f && !user.isTouchingWaterOrRain()) {
-            return ActionResult.FAIL;
+        if (EnchantmentHelper.getTridentSpinAttackStrength(itemStack, user) > 0.0f && !user.isInWaterOrRain()) {
+            return InteractionResult.FAIL;
         }
-        user.setCurrentHand(hand);
-        return ActionResult.CONSUME;
+        user.startUsingItem(hand);
+        return InteractionResult.CONSUME;
     }
 
     @Override
-    public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-        TridentEntity tridentEntity = new TridentEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount(1));
-        tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
+    public Projectile asProjectile(Level world, Position pos, ItemStack stack, Direction direction) {
+        ThrownTrident tridentEntity = new ThrownTrident(world, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1));
+        tridentEntity.pickup = AbstractArrow.Pickup.ALLOWED;
         return tridentEntity;
     }
 }

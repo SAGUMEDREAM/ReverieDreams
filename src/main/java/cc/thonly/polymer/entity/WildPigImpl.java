@@ -3,15 +3,15 @@ package cc.thonly.polymer.entity;
 import cc.thonly.mystias_izakaya.entity.WildPigEntity;
 import cc.thonly.reverie_dreams.mixin.accessor.PigEntityAccessor;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.passive.PigVariant;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.PigVariant;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
@@ -24,16 +24,16 @@ public record WildPigImpl(WildPigEntity wildPig) implements PolymerEntity {
     }
 
     @Override
-    public void modifyRawTrackedData(List<DataTracker.SerializedEntry<?>> data, ServerPlayerEntity player, boolean initial) {
+    public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
         PolymerEntity.super.modifyRawTrackedData(data, player, initial);
-        if (initial && !this.wildPig.getWorld().isClient) {
+        if (initial && !this.wildPig.level().isClientSide) {
             MinecraftServer server = this.wildPig.getServer();
             assert server != null;
-            DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-            Registry<PigVariant> registry = registryManager.getOrThrow(RegistryKeys.PIG_VARIANT);
-            RegistryEntry<PigVariant> pigVariant = registry.getEntry(registry.get(WildPigEntity.VARIANT));
+            RegistryAccess.Frozen registryManager = server.registryAccess();
+            Registry<PigVariant> registry = registryManager.lookupOrThrow(Registries.PIG_VARIANT);
+            Holder<PigVariant> pigVariant = registry.wrapAsHolder(registry.getValue(WildPigEntity.VARIANT));
 
-            DataTracker.SerializedEntry<RegistryEntry<PigVariant>> entry = DataTracker.SerializedEntry.of(
+            SynchedEntityData.DataValue<Holder<PigVariant>> entry = SynchedEntityData.DataValue.create(
                     PigEntityAccessor.VARIANT(),
                     pigVariant);
 

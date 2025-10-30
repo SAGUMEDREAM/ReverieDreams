@@ -3,16 +3,15 @@ package cc.thonly.reverie_dreams.sound;
 import cc.thonly.reverie_dreams.Touhou;
 import eu.pb4.polymer.core.api.other.PolymerSoundEvent;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 
 public class SoundEventInit {
     public static final List<SoundEvent> SOUND_EVENTS = new LinkedList<>();
@@ -41,26 +40,26 @@ public class SoundEventInit {
     }
 
     public static SoundEvent registerSound(String id) {
-        Identifier identifier = Touhou.id(id);
-        SoundEvent soundEvent = Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
+        ResourceLocation identifier = Touhou.id(id);
+        SoundEvent soundEvent = Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
 //        SoundEvent soundEvent = SoundEvent.of(identifier);
         PolymerSoundEvent.registerOverlay(soundEvent);
         SOUND_EVENTS.add(soundEvent);
         return soundEvent;
     }
 
-    protected static RegistryEntry.Reference<SoundEvent> registerReference(String id) {
+    protected static Holder.Reference<SoundEvent> registerReference(String id) {
         return registerReference(Touhou.id(id));
     }
 
-    protected static RegistryEntry.Reference<SoundEvent> registerReference(Identifier id) {
+    protected static Holder.Reference<SoundEvent> registerReference(ResourceLocation id) {
         return registerReference(id, id);
     }
 
-    protected static RegistryEntry.Reference<SoundEvent> registerReference(Identifier id, Identifier soundId) {
-        SoundEvent soundEvent = SoundEvent.of(soundId);
-        RegistryEntry.Reference<SoundEvent> soundEventReference = Registry.registerReference(Registries.SOUND_EVENT, id, soundEvent);
-        RegistrySyncUtils.setServerEntry(Registries.SOUND_EVENT, soundEvent);
+    protected static Holder.Reference<SoundEvent> registerReference(ResourceLocation id, ResourceLocation soundId) {
+        SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(soundId);
+        Holder.Reference<SoundEvent> soundEventReference = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, soundEvent);
+        RegistrySyncUtils.setServerEntry(BuiltInRegistries.SOUND_EVENT, soundEvent);
         return soundEventReference;
     }
 

@@ -1,7 +1,7 @@
 package nota.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import nota.model.CustomInstrument;
 import nota.model.Layer;
 import nota.model.Note;
@@ -45,7 +45,7 @@ public class NBSDecoderPlus extends NBSDecoder {
             }
             CustomInstrument[] customInstruments = song.getCustomInstruments();
             for (int i = 0; i < customInstruments.length; i++) {
-                customInstruments[i].setSound(instrument.getSound().value());
+                customInstruments[i].setSound(instrument.getSoundEvent().value());
             }
             HashMap<Integer, Layer> layerHashMap = song.getLayerHashMap();
             for (var entry : layerHashMap.entrySet()) {

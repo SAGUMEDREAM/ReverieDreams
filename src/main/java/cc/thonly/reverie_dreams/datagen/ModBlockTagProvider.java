@@ -12,41 +12,39 @@ import lombok.Getter;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.tag.ProvidedTagBuilder;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.PointOfInterestTypeTags;
-import net.minecraft.registry.tag.TagKey;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Getter(AccessLevel.PRIVATE)
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        ProvidedTagBuilder<Block, Block> fumo = valueLookupBuilder(ModTags.BlockTypeTag.FUMO);
-        ProvidedTagBuilder<Block, Block> empty = valueLookupBuilder(ModTags.BlockTypeTag.EMPTY);
-        ProvidedTagBuilder<Block, Block> sliver = valueLookupBuilder(ModTags.BlockTypeTag.SILVER);
-        ProvidedTagBuilder<Block, Block> minTools = valueLookupBuilder(ModTags.BlockTypeTag.MIN_TOOL);
-        ProvidedTagBuilder<Block, Block> axeMineables = valueLookupBuilder(BlockTags.AXE_MINEABLE);
-        ProvidedTagBuilder<Block, Block> hoeMineables = valueLookupBuilder(BlockTags.HOE_MINEABLE);
-        ProvidedTagBuilder<Block, Block> pickaxeMineables = valueLookupBuilder(BlockTags.PICKAXE_MINEABLE);
-        ProvidedTagBuilder<Block, Block> shovelMineables = valueLookupBuilder(BlockTags.SHOVEL_MINEABLE);
-        ProvidedTagBuilder<Block, Block> ores = valueLookupBuilder(ConventionalBlockTags.ORES);
-        ProvidedTagBuilder<Block, Block> villagerJobSites = valueLookupBuilder(ConventionalBlockTags.VILLAGER_JOB_SITES);
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
+        TagAppender<Block, Block> fumo = valueLookupBuilder(ModTags.BlockTypeTag.FUMO);
+        TagAppender<Block, Block> empty = valueLookupBuilder(ModTags.BlockTypeTag.EMPTY);
+        TagAppender<Block, Block> sliver = valueLookupBuilder(ModTags.BlockTypeTag.SILVER);
+        TagAppender<Block, Block> minTools = valueLookupBuilder(ModTags.BlockTypeTag.MIN_TOOL);
+        TagAppender<Block, Block> axeMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE);
+        TagAppender<Block, Block> hoeMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE);
+        TagAppender<Block, Block> pickaxeMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE);
+        TagAppender<Block, Block> shovelMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_SHOVEL);
+        TagAppender<Block, Block> ores = valueLookupBuilder(ConventionalBlockTags.ORES);
+        TagAppender<Block, Block> villagerJobSites = valueLookupBuilder(ConventionalBlockTags.VILLAGER_JOB_SITES);
 //        ProvidedTagBuilder<Block, Block> villagerJobSites = valueLookupBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
 
-        ProvidedTagBuilder<Block, Block> logs = valueLookupBuilder(BlockTags.LOGS);
-        ProvidedTagBuilder<Block, Block> planks = valueLookupBuilder(BlockTags.PLANKS);
+        TagAppender<Block, Block> logs = valueLookupBuilder(BlockTags.LOGS);
+        TagAppender<Block, Block> planks = valueLookupBuilder(BlockTags.PLANKS);
         for (WoodCreator instance : WoodCreator.INSTANCES) {
             logs.add(instance.log());
             planks.add(instance.planks());
@@ -56,7 +54,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
             fumo.add(instance.block());
         }
 
-        Map<TagKey<Block>, Collection<? extends ItemConvertible>> blockItemGroups = Map.of(
+        Map<TagKey<Block>, Collection<? extends ItemLike>> blockItemGroups = Map.of(
                 BlockTags.FENCES, BlockTypeGroup.FENCE.blocks(),
                 BlockTags.FENCE_GATES, BlockTypeGroup.FENCE_GATE.blocks(),
                 BlockTags.WALLS, BlockTypeGroup.WALL.blocks(),
@@ -68,8 +66,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 BlockTags.LEAVES, BlockTypeGroup.LEAVES.blocks()
         );
         blockItemGroups.forEach((tag, list) -> {
-            ProvidedTagBuilder<Block, Block> builder = valueLookupBuilder(tag);
-            for (ItemConvertible itemConvertible : list) {
+            TagAppender<Block, Block> builder = valueLookupBuilder(tag);
+            for (ItemLike itemConvertible : list) {
                 if (itemConvertible instanceof Block block) {
                     builder.add(block);
                 }

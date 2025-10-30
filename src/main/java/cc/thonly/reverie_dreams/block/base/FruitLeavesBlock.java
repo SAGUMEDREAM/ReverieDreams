@@ -3,182 +3,187 @@ package cc.thonly.reverie_dreams.block.base;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
-import net.minecraft.block.*;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.EntityEffectParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.ParticleUtil;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class FruitLeavesBlock extends LeavesBlock implements Fertilizable {
-    public static final MapCodec<FruitLeavesBlock> CODEC = FruitLeavesBlock.createCodec(FruitLeavesBlock::new);
+public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
+    public static final MapCodec<FruitLeavesBlock> CODEC = FruitLeavesBlock.simpleCodec(FruitLeavesBlock::new);
     public static final List<FruitLeavesBlock> FRUIT_LEAVES_BLOCKS = new ArrayList<>();
     public static final int MAX_AGE = 3;
-    public static final IntProperty AGE_PROPERTY = IntProperty.of("fruit_age", 0, MAX_AGE);
+    public static final IntegerProperty AGE_PROPERTY = IntegerProperty.create("fruit_age", 0, MAX_AGE);
     private Item output;
     private Block emptyLeavesBlock;
 
-    public FruitLeavesBlock(Settings settings) {
-        super(0.01f, settings.nonOpaque());
-        this.setDefaultState(
-                this.getStateManager()
-                        .getDefaultState()
-                        .with(DISTANCE, 7)
-                        .with(AGE_PROPERTY, 0)
-                        .with(LeavesBlock.WATERLOGGED, false)
+    public FruitLeavesBlock(Properties settings) {
+        super(0.01f, settings.noOcclusion());
+        this.registerDefaultState(
+                this.getStateDefinition()
+                        .any()
+                        .setValue(DISTANCE, 7)
+                        .setValue(AGE_PROPERTY, 0)
+                        .setValue(LeavesBlock.WATERLOGGED, false)
         );
         BlockTypeGroup.FRUIT_LEAVES.add(this);
     }
 
-    public FruitLeavesBlock(Item output, Block emptyLeavesBlock, Settings settings) {
+    public FruitLeavesBlock(Item output, Block emptyLeavesBlock, Properties settings) {
         this(settings);
         this.emptyLeavesBlock = emptyLeavesBlock;
         this.output = output;
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        ItemStack main = player.getStackInHand(Hand.MAIN_HAND);
-        ItemStack off = player.getStackInHand(Hand.OFF_HAND);
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        ItemStack main = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack off = player.getItemInHand(InteractionHand.OFF_HAND);
         boolean isGrowItem = main.getItem() == Items.BONE_MEAL || off.getItem() == Items.BONE_MEAL;
 
-        if (!world.isClient() && world instanceof ServerWorld serverWorld && isGrowItem) {
-            return ActionResult.PASS;
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && isGrowItem) {
+            return InteractionResult.PASS;
         }
         if (isGrowItem) {
-            ParticleUtil.spawnParticlesAround(world, pos, 3, ParticleTypes.HAPPY_VILLAGER);
-            return ActionResult.PASS;
+            ParticleUtils.spawnParticleInBlock(world, pos, 3, ParticleTypes.HAPPY_VILLAGER);
+            return InteractionResult.PASS;
         }
 
-        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
-            Integer age = state.get(AGE_PROPERTY);
-            Random random = world.getRandom();
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
+            Integer age = state.getValue(AGE_PROPERTY);
+            RandomSource random = world.getRandom();
             if (age >= MAX_AGE) {
-                world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
-                ItemEntity drop = new ItemEntity(serverWorld, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this.output, random.nextBetween(1, 3)));
-                drop.setPickupDelay(10);
-                drop.setVelocity(random.nextBoolean() ? random.nextFloat() : -random.nextFloat(), 0.2, random.nextBoolean() ? random.nextFloat() : -random.nextFloat());
-                world.spawnEntity(drop);
-                world.setBlockState(pos, state.with(AGE_PROPERTY, 1));
-                return ActionResult.SUCCESS_SERVER;
+                world.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
+                ItemEntity drop = new ItemEntity(serverWorld, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this.output, random.nextIntBetweenInclusive(1, 3)));
+                drop.setPickUpDelay(10);
+                drop.setDeltaMovement(random.nextBoolean() ? random.nextFloat() : -random.nextFloat(), 0.2, random.nextBoolean() ? random.nextFloat() : -random.nextFloat());
+                world.addFreshEntity(drop);
+                world.setBlockAndUpdate(pos, state.setValue(AGE_PROPERTY, 1));
+                return InteractionResult.SUCCESS_SERVER;
             } else {
-                return ActionResult.PASS;
+                return InteractionResult.PASS;
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected BlockSoundGroup getSoundGroup(BlockState state) {
-        return BlockSoundGroup.GRASS;
+    protected SoundType getSoundType(BlockState state) {
+        return SoundType.GRASS;
     }
 
     @Override
-    public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
+    public boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluidState) {
         return false;
     }
 
     @Override
-    public boolean canFillWithFluid(@Nullable LivingEntity filler, BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
+    public boolean canPlaceLiquid(@Nullable LivingEntity filler, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
         return false;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(AGE_PROPERTY);
     }
 
     @Override
-    public MapCodec<? extends LeavesBlock> getCodec() {
+    public MapCodec<? extends LeavesBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected void spawnLeafParticle(World world, BlockPos pos, Random random) {
-        EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(ParticleTypes.TINTED_LEAVES, world.getBlockColor(pos));
-        ParticleUtil.spawnParticle(world, pos, random, entityEffectParticleEffect);
+    protected void spawnFallingLeavesParticle(Level world, BlockPos pos, RandomSource random) {
+        ColorParticleOption entityEffectParticleEffect = ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, world.getClientLeafTintColor(pos));
+        ParticleUtils.spawnParticleBelow(world, pos, random, entityEffectParticleEffect);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         float f;
         int i;
-        if (world.getBaseLightLevel(pos, 0) >= 9 && (i = this.getAge(state)) < MAX_AGE && random.nextInt((int) (25.0f / (f = getAvailableMoisture(this, world, pos))) + 1) == 0) {
-            world.setBlockState(pos, this.withAge(i + 1), Block.NOTIFY_LISTENERS);
+        if (world.getRawBrightness(pos, 0) >= 9 && (i = this.getAge(state)) < MAX_AGE && random.nextInt((int) (25.0f / (f = getAvailableMoisture(this, world, pos))) + 1) == 0) {
+            world.setBlock(pos, this.withAge(i + 1), Block.UPDATE_CLIENTS);
         }
     }
 
     public BlockState withAge(int age) {
-        return this.getDefaultState().with(AGE_PROPERTY, age);
+        return this.defaultBlockState().setValue(AGE_PROPERTY, age);
     }
 
     public int getAge(BlockState state) {
-        return state.get(AGE_PROPERTY);
+        return state.getValue(AGE_PROPERTY);
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    protected boolean hasRandomTicks(BlockState state) {
+    protected boolean isRandomlyTicking(BlockState state) {
         return true;
     }
 
     @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-        return state.get(AGE_PROPERTY) < MAX_AGE;
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+        return state.getValue(AGE_PROPERTY) < MAX_AGE;
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         float f;
-        int age = state.get(AGE_PROPERTY);
+        int age = state.getValue(AGE_PROPERTY);
 //        System.out.println(age);
         if (age < MAX_AGE) {
-            world.setBlockState(pos, state.with(AGE_PROPERTY, Math.min(age + 1, MAX_AGE)), Block.NOTIFY_ALL_AND_REDRAW);
+            world.setBlock(pos, state.setValue(AGE_PROPERTY, Math.min(age + 1, MAX_AGE)), Block.UPDATE_ALL_IMMEDIATE);
         }
     }
 
-    protected static float getAvailableMoisture(Block block, BlockView world, BlockPos pos) {
+    protected static float getAvailableMoisture(Block block, BlockGetter world, BlockPos pos) {
         boolean bl2;
         float f = 1.0f;
-        BlockPos blockPos = pos.down();
+        BlockPos blockPos = pos.below();
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
                 float g = 0.0f;
-                BlockState blockState = world.getBlockState(blockPos.add(i, 0, j));
-                if (blockState.isOf(Blocks.FARMLAND)) {
+                BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
+                if (blockState.is(Blocks.FARMLAND)) {
                     g = 1.0f;
-                    if (blockState.get(FarmlandBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(FarmBlock.MOISTURE) > 0) {
                         g = 3.0f;
                     }
                 }
@@ -192,13 +197,13 @@ public class FruitLeavesBlock extends LeavesBlock implements Fertilizable {
         BlockPos blockPos3 = pos.south();
         BlockPos blockPos4 = pos.west();
         BlockPos blockPos5 = pos.east();
-        boolean bl = world.getBlockState(blockPos4).isOf(block) || world.getBlockState(blockPos5).isOf(block);
-        boolean bl3 = bl2 = world.getBlockState(blockPos2).isOf(block) || world.getBlockState(blockPos3).isOf(block);
+        boolean bl = world.getBlockState(blockPos4).is(block) || world.getBlockState(blockPos5).is(block);
+        boolean bl3 = bl2 = world.getBlockState(blockPos2).is(block) || world.getBlockState(blockPos3).is(block);
         if (bl && bl2) {
             f /= 2.0f;
         } else {
             boolean bl32;
-            boolean bl4 = bl32 = world.getBlockState(blockPos4.north()).isOf(block) || world.getBlockState(blockPos5.north()).isOf(block) || world.getBlockState(blockPos5.south()).isOf(block) || world.getBlockState(blockPos4.south()).isOf(block);
+            boolean bl4 = bl32 = world.getBlockState(blockPos4.north()).is(block) || world.getBlockState(blockPos5.north()).is(block) || world.getBlockState(blockPos5.south()).is(block) || world.getBlockState(blockPos4.south()).is(block);
             if (bl32) {
                 f /= 2.0f;
             }

@@ -6,14 +6,13 @@ import cc.thonly.reverie_dreams.item.ModGuiItems;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import net.minecraft.block.BlockState;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class GensokyoAltarGui extends SimpleGui {
     public static final String[][] GRID = {
@@ -23,13 +22,13 @@ public class GensokyoAltarGui extends SimpleGui {
             {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
             {"X", "X", "I", "X", "I", "X", "I", "X", "X"},
     };
-    ServerPlayerEntity player;
+    ServerPlayer player;
     GensokyoAltarBlockEntity blockEntity;
     BlockState state;
     BlockPos pos;
 
-    public GensokyoAltarGui(ServerPlayerEntity player, BlockState state, World world, BlockPos pos) {
-        super(ScreenHandlerType.GENERIC_9X5, player, false);
+    public GensokyoAltarGui(ServerPlayer player, BlockState state, Level world, BlockPos pos) {
+        super(MenuType.GENERIC_9x5, player, false);
         this.player = player;
         this.state = state;
         this.blockEntity = (GensokyoAltarBlockEntity) world.getBlockEntity(pos);
@@ -38,7 +37,7 @@ public class GensokyoAltarGui extends SimpleGui {
     }
 
     public void init() {
-        this.setTitle(Text.translatable(ModBlocks.GENSOKYO_ALTAR.getTranslationKey()));
+        this.setTitle(Component.translatable(ModBlocks.GENSOKYO_ALTAR.getDescriptionId()));
         int invSlot = 0;
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
@@ -65,14 +64,14 @@ public class GensokyoAltarGui extends SimpleGui {
     public void onTick() {
         super.onTick();
         if (blockEntity == null) return;
-        if (blockEntity.getWorld() != null && blockEntity.getWorld().getBlockState(blockEntity.getPos()).getBlock() != ModBlocks.GENSOKYO_ALTAR) {
+        if (blockEntity.getLevel() != null && blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock() != ModBlocks.GENSOKYO_ALTAR) {
             this.close();
             return;
         }
     }
 
     @Override
-    public boolean onAnyClick(int index, ClickType type, SlotActionType action) {
+    public boolean onAnyClick(int index, ClickType type, net.minecraft.world.inventory.ClickType action) {
         return super.onAnyClick(index, type, action);
     }
 
@@ -85,6 +84,6 @@ public class GensokyoAltarGui extends SimpleGui {
     public void onClose() {
         super.onClose();
 
-        blockEntity.markDirty();
+        blockEntity.setChanged();
     }
 }

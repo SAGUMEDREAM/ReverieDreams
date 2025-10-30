@@ -1,28 +1,24 @@
 package cc.thonly.mystias_izakaya.item.base;
 
 import cc.thonly.mystias_izakaya.component.FoodProperty;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class IngredientItem extends Item {
     public static final Map<Item, Set<FoodProperty>> ITEM_INGREDIENT_CACHED = new HashMap<>();
 
-    public IngredientItem(Settings settings) {
-        super(settings.food(new FoodComponent.Builder().nutrition(2).saturationModifier(1).build()));
+    public IngredientItem(Properties settings) {
+        super(settings.food(new FoodProperties.Builder().nutrition(2).saturationModifier(1).build()));
     }
 
-    public IngredientItem(Integer nutrition, Float saturation, Settings settings) {
-        super(settings.food(new FoodComponent.Builder().nutrition(nutrition + 2).saturationModifier(saturation + 1).build()));
+    public IngredientItem(Integer nutrition, Float saturation, Properties settings) {
+        super(settings.food(new FoodProperties.Builder().nutrition(nutrition + 2).saturationModifier(saturation + 1).build()));
     }
 
 //    @Override

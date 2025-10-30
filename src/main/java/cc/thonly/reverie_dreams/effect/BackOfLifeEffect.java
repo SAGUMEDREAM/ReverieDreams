@@ -1,26 +1,26 @@
 package cc.thonly.reverie_dreams.effect;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 
-public class BackOfLifeEffect extends StatusEffect {
+public class BackOfLifeEffect extends MobEffect {
 
     protected BackOfLifeEffect() {
-        super(StatusEffectCategory.BENEFICIAL, 16262179);
+        super(MobEffectCategory.BENEFICIAL, 16262179);
     }
 
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 
     @Override
-    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        if(entity.isAlive() && entity.hasStatusEffect(ModStatusEffects.ELIXIR_OF_LIFE)) {
-             entity.removeStatusEffect(ModStatusEffects.ELIXIR_OF_LIFE);
+    public boolean applyEffectTick(ServerLevel world, LivingEntity entity, int amplifier) {
+        if(entity.isAlive() && entity.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE)) {
+             entity.removeEffect(ModStatusEffects.ELIXIR_OF_LIFE);
         }
-        return super.applyUpdateEffect(world, entity, amplifier);
+        return super.applyEffectTick(world, entity, amplifier);
     }
 }

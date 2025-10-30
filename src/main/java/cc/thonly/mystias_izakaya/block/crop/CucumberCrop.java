@@ -3,13 +3,13 @@ package cc.thonly.mystias_izakaya.block.crop;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.util.block.CropAgeUtil;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.state.property.IntProperty;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class CucumberCrop extends AbstractCropBlock {
-    public static final MapCodec<CucumberCrop> CODEC = CucumberCrop.createCodec(CucumberCrop::new);
+    public static final MapCodec<CucumberCrop> CODEC = CucumberCrop.simpleCodec(CucumberCrop::new);
 
-    public CucumberCrop(Settings settings) {
+    public CucumberCrop(Properties settings) {
         super(settings);
     }
 
@@ -19,12 +19,12 @@ public class CucumberCrop extends AbstractCropBlock {
     }
 
     @Override
-    public IntProperty getAgeProperty() {
+    public IntegerProperty getAgeProperty() {
         return CropAgeUtil.fromInt(7);
     }
 
     @Override
-    protected MapCodec<? extends PlantBlock> getCodec() {
+    protected MapCodec<? extends VegetationBlock> codec() {
         return CODEC;
     }
 }

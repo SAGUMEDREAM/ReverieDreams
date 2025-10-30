@@ -19,15 +19,14 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.component.ComponentType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -42,7 +41,7 @@ import java.util.Map;
 public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe> {
     private static StrengthTableRecipeType INSTANCE;
     private final Map<String, Integer> automaticRecipeIdCounter = new Object2ObjectOpenHashMap<>();
-    private final LinkedHashMap<Identifier, StrengthTableRecipe> dynamicBuilder = new LinkedHashMap<>();
+    private final LinkedHashMap<ResourceLocation, StrengthTableRecipe> dynamicBuilder = new LinkedHashMap<>();
     private static final float MAX_SPEED = 2.5f;
     private static final int MAX_COUNT = 3;
     private static final float MAX_DAMAGE = 5.5f;
@@ -59,14 +58,14 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     public void reload(ResourceManager manager) {
         this.dynamicBuilder.clear();
         this.automaticRecipeIdCounter.clear();
-        Map<Identifier, Resource> resources = manager.findResources((this.getTypeId() + "_recipe"), id -> {
+        Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
             return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
         });
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.of(id.getNamespace(), id.getPath().replaceFirst("^strength_table_recipe/", "").replaceAll("\\.json$", ""));
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation id = entry.getKey();
+            ResourceLocation registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^strength_table_recipe/", "").replaceAll("\\.json$", ""));
             Resource resource = entry.getValue();
-            try (InputStream stream = resource.getInputStream()) {
+            try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
@@ -82,15 +81,15 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         }
         List<Item> danmakuItemView = RegistryManager.DANMAKU_TYPE
                 .values().stream().map(DanmakuType::getItem).toList();
-        List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultStack).toList();
+        List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultInstance).toList();
         List<ItemStack> templateStackView = SpellCardTemplates.getRegistryItemStackView().values().stream().map(ItemStack::copy).toList();
 
         this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, ModDataComponentTypes.Danmaku.TEMPLATE);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(ModItems.SPEED_FEATHER.getDefaultStack()), ModDataComponentTypes.Danmaku.SPEED);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultStack()), ModDataComponentTypes.Danmaku.COUNT);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultStack()), ModDataComponentTypes.Danmaku.DAMAGE);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(ModItems.SPEED_FEATHER.getDefaultInstance()), ModDataComponentTypes.Danmaku.SPEED);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultInstance()), ModDataComponentTypes.Danmaku.COUNT);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultInstance()), ModDataComponentTypes.Danmaku.DAMAGE);
 
-        Map<Identifier, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
+        Map<ResourceLocation, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .collect(
                         LinkedHashMap::new,
@@ -101,7 +100,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     }
 
     @SuppressWarnings("rawtypes")
-    private void registerAutomaticDynamic(List<ItemStack> main, List<ItemStack> off, ComponentType componentType) {
+    private void registerAutomaticDynamic(List<ItemStack> main, List<ItemStack> off, DataComponentType componentType) {
         ItemStack[] mainItems = main.toArray(new ItemStack[0]);
         ItemStack[] offItems = off.toArray(new ItemStack[0]);
 
@@ -109,8 +108,8 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             for (ItemStack offItem : offItems) {
                 String value = null;
                 try {
-                    String mainItemIdStr = Registries.ITEM.getId(mainItem.getItem()).getPath();
-                    String offItemIdStr = Registries.ITEM.getId(offItem.getItem()).getPath();
+                    String mainItemIdStr = BuiltInRegistries.ITEM.getKey(mainItem.getItem()).getPath();
+                    String offItemIdStr = BuiltInRegistries.ITEM.getKey(offItem.getItem()).getPath();
                     String builder = mainItemIdStr + offItemIdStr;
                     Integer num = this.automaticRecipeIdCounter.computeIfAbsent(builder, (x) -> 0);
                     String builderByCounter = builder + "_" + num;
@@ -123,7 +122,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                     value = builderByCounter;
                     StrengthTableRecipe strengthTableRecipe = new StrengthTableRecipe(ItemStackWrapper.of(mainItem), ItemStackWrapper.of(offItem), ItemStackWrapper.of(outputStack));
                     strengthTableRecipe.setVirtual(true);
-                    this.dynamicBuilder.put(Identifier.of(builderByCounter.toLowerCase()), strengthTableRecipe);
+                    this.dynamicBuilder.put(ResourceLocation.parse(builderByCounter.toLowerCase()), strengthTableRecipe);
                 } catch (Exception e) {
                     log.error("Can't register dynamic recipe, id: {} , {}", value, e);
                 }
@@ -216,7 +215,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return Touhou.id(this.getTypeId());
     }
 }

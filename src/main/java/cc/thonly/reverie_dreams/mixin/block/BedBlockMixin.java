@@ -1,17 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import net.minecraft.block.BedBlock;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,27 +8,38 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 
 @Mixin(BedBlock.class)
-public abstract class BedBlockMixin extends HorizontalFacingBlock implements BlockEntityProvider {
-    protected BedBlockMixin(Settings settings) {
+public abstract class BedBlockMixin extends HorizontalDirectionalBlock implements EntityBlock {
+    protected BedBlockMixin(Properties settings) {
         super(settings);
     }
 
-    @Inject(method = "onUse", at = @At("HEAD"))
-    public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        if (state.get(BedBlock.OCCUPIED)) {
+    @Inject(method = "useWithoutItem", at = @At("HEAD"))
+    public void onUse(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
+        if (state.getValue(BedBlock.OCCUPIED)) {
             this.wakeNpc(world, pos);
         }
     }
 
     @Unique
-    public boolean wakeNpc(World world, BlockPos pos) {
-        List<BaseNPCLikeEntity> list = world.getEntitiesByClass(BaseNPCLikeEntity.class, new Box(pos), LivingEntity::isSleeping);
+    public boolean wakeNpc(Level world, BlockPos pos) {
+        List<BaseNPCLikeEntity> list = world.getEntitiesOfClass(BaseNPCLikeEntity.class, new AABB(pos), LivingEntity::isSleeping);
         if (list.isEmpty()) {
             return false;
         }
-        list.getFirst().wakeUp();
+        list.getFirst().stopSleeping();
         return true;
     }
 

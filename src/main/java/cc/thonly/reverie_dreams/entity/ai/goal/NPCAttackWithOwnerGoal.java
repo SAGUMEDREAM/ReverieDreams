@@ -1,42 +1,41 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.passive.TameableEntity;
-
 import java.util.EnumSet;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 
-public class NPCAttackWithOwnerGoal extends TrackTargetGoal {
-    private final TameableEntity tameable;
+public class NPCAttackWithOwnerGoal extends TargetGoal {
+    private final TamableAnimal tameable;
     private LivingEntity attacking;
     private int lastAttackTime;
 
-    public NPCAttackWithOwnerGoal(TameableEntity tameable) {
+    public NPCAttackWithOwnerGoal(TamableAnimal tameable) {
         super(tameable, false);
         this.tameable = tameable;
-        this.setControls(EnumSet.of(Goal.Control.TARGET));
+        this.setFlags(EnumSet.of(Goal.Flag.TARGET));
     }
 
     @Override
-    public boolean canStart() {
-        if (!this.tameable.isTamed() || this.tameable.isSitting()) {
+    public boolean canUse() {
+        if (!this.tameable.isTame() || this.tameable.isOrderedToSit()) {
             return false;
         }
         LivingEntity livingEntity = this.tameable.getOwner();
         if (livingEntity == null) {
             return false;
         }
-        if (livingEntity.getAttacking() instanceof TameableEntity livingTamable) {
+        if (livingEntity.getLastHurtMob() instanceof TamableAnimal livingTamable) {
             LivingEntity owner1 = livingTamable.getOwner();
             if (owner1 == livingEntity) {
                 return false;
             }
         }
-        this.attacking = livingEntity.getAttacking();
-        int i = livingEntity.getLastAttackTime();
-        return i != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT) && this.tameable.canAttackWithOwner(this.attacking, livingEntity);
+        this.attacking = livingEntity.getLastHurtMob();
+        int i = livingEntity.getLastHurtMobTimestamp();
+        return i != this.lastAttackTime && this.canAttack(this.attacking, TargetingConditions.DEFAULT) && this.tameable.wantsToAttack(this.attacking, livingEntity);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class NPCAttackWithOwnerGoal extends TrackTargetGoal {
         this.mob.setTarget(this.attacking);
         LivingEntity livingEntity = this.tameable.getOwner();
         if (livingEntity != null) {
-            this.lastAttackTime = livingEntity.getLastAttackTime();
+            this.lastAttackTime = livingEntity.getLastHurtMobTimestamp();
         }
         super.start();
     }

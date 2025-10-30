@@ -3,8 +3,8 @@ package cc.thonly.mystias_izakaya.api;
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 
 @FunctionalInterface
 public interface DrinkPropertyLoaderCallback {
@@ -16,5 +16,5 @@ public interface DrinkPropertyLoaderCallback {
             }
     );
 
-    void onUse(ServerWorld world, LivingEntity user, DrinkProperty property);
+    void onUse(ServerLevel world, LivingEntity user, DrinkProperty property);
 }

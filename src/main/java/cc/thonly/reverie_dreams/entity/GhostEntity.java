@@ -5,40 +5,45 @@ import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCFollowOwnerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class GhostEntity extends BaseNPCLikeEntity {
     protected int particleTick = 0;
     protected int survivalTime = 0;
 
-    public GhostEntity(EntityType<? extends TameableEntity> entityType, World world) {
+    public GhostEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world, MobSkinTypes.GHOST);
     }
 
-    public GhostEntity(World world) {
+    public GhostEntity(Level world) {
         super(ModEntities.GHOST_ENTITY_TYPE, world, MobSkinTypes.GHOST);
     }
 
     @Override
     public void tick() {
         super.tick();
-        World world = this.getWorld();
+        Level world = this.level();
         this.particleTick++;
-        if(!world.isClient()) {
+        if(!world.isClientSide()) {
             if (!this.hasCustomName()
-                    && !this.hasVehicle()
-                    && this.getPassengerList().isEmpty()
+                    && !this.isPassenger()
+                    && this.getPassengers().isEmpty()
                     && this.survivalTime > 600 * 20
             ) {
                 this.discard();
@@ -48,12 +53,12 @@ public class GhostEntity extends BaseNPCLikeEntity {
             }
 
             if (this.particleTick > 3) {
-                if (world instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(
+                if (world instanceof ServerLevel serverWorld) {
+                    serverWorld.sendParticles(
                             ParticleTypes.WHITE_ASH,
-                            this.getPos().x,
-                            this.getPos().y,
-                            this.getPos().z,
+                            this.position().x,
+                            this.position().y,
+                            this.position().z,
                             1,
                             0,
                             1,
@@ -63,10 +68,10 @@ public class GhostEntity extends BaseNPCLikeEntity {
                 }
                 this.particleTick = 0;
             }
-            if (world.isDay()) {
-                StatusEffectInstance currentEffect = this.getStatusEffect(StatusEffects.INVISIBILITY);
+            if (world.isBrightOutside()) {
+                MobEffectInstance currentEffect = this.getEffect(MobEffects.INVISIBILITY);
                 if (currentEffect == null || currentEffect.getDuration() <= 20) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 60, 0, false, false));
+                    this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 60, 0, false, false));
                 }
             }
         }
@@ -78,33 +83,33 @@ public class GhostEntity extends BaseNPCLikeEntity {
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new SitGoal(this));
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
 
-        this.goalSelector.add(6, new NPCFollowOwnerGoal(this, 1.0, 2.0f, 10.0f));
-        this.goalSelector.add(7, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.addGoal(6, new NPCFollowOwnerGoal(this, 1.0, 2.0f, 10.0f));
+        this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
 
-        this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f));
-        this.goalSelector.add(10, new LookAroundGoal(this));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, BaseNPCLikeEntity.class, 8.0f));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 
-        this.targetSelector.add(2, new GhostStatusEffectTargetGoal<>(this, PlayerEntity.class, true, ModStatusEffects.MENTAL_DISORDER));
-        this.targetSelector.add(2, new GhostStatusEffectTargetGoal<>(this, MobEntity.class, true, ModStatusEffects.MENTAL_DISORDER));
+        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Player.class, true, ModStatusEffects.MENTAL_DISORDER));
+        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Mob.class, true, ModStatusEffects.MENTAL_DISORDER));
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
+    protected void addAdditionalSaveData(ValueOutput view) {
+        super.addAdditionalSaveData(view);
         view.putInt("SurvivalTime", this.survivalTime);
     }
 
     @Override
-    public void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        this.survivalTime = view.getInt("SurvivalTime", 0);
+    public void readAdditionalSaveData(ValueInput view) {
+        super.readAdditionalSaveData(view);
+        this.survivalTime = view.getIntOr("SurvivalTime", 0);
     }
 
     @Override

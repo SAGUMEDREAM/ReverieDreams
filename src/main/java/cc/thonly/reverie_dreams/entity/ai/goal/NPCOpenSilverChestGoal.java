@@ -4,19 +4,19 @@ import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 
 public class NPCOpenSilverChestGoal extends Goal {
     private final BaseNPCLikeEntity roleEntity;
@@ -26,16 +26,16 @@ public class NPCOpenSilverChestGoal extends Goal {
 
     public NPCOpenSilverChestGoal(BaseNPCLikeEntity roleEntity) {
         this.roleEntity = roleEntity;
-        this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     private List<BlockPos> findSilverChestBlockPosList() {
         List<BlockPos> blockPosList = new LinkedList<>();
-        World world = this.roleEntity.getWorld();
+        Level world = this.roleEntity.level();
         BlockPos center = this.roleEntity.getWorkingPos();
         int r = 8;
 
-        BlockBox box = new BlockBox(
+        BoundingBox box = new BoundingBox(
                 center.getX() - r,
                 center.getY() - r,
                 center.getZ() - r,
@@ -43,17 +43,17 @@ public class NPCOpenSilverChestGoal extends Goal {
                 center.getY() + r,
                 center.getZ() + r
         );
-        BlockPos.Mutable pos = new BlockPos.Mutable();
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
-        for (int x = box.getMinX(); x <= box.getMaxX(); x++) {
-            for (int y = box.getMinY(); y <= box.getMaxY(); y++) {
-                for (int z = box.getMinZ(); z <= box.getMaxZ(); z++) {
+        for (int x = box.minX(); x <= box.maxX(); x++) {
+            for (int y = box.minY(); y <= box.maxY(); y++) {
+                for (int z = box.minZ(); z <= box.maxZ(); z++) {
                     pos.set(x, y, z);
                     if (!(world.getBlockState(pos).getBlock() == ModBlocks.SILVER_CHEST_BLOCK.getChestBlock())) {
                         continue;
                     }
                     if (world.getBlockEntity(pos) instanceof CustomChestBlockEntity customChestBlockEntity) {
-                        blockPosList.add(pos.toImmutable());
+                        blockPosList.add(pos.immutable());
                     }
                 }
             }
@@ -62,8 +62,8 @@ public class NPCOpenSilverChestGoal extends Goal {
     }
 
     @Override
-    public boolean canStart() {
-        if (!this.roleEntity.isTamed()) {
+    public boolean canUse() {
+        if (!this.roleEntity.isTame()) {
             return false;
         }
         if (this.operationalTarget != null) {
@@ -74,7 +74,7 @@ public class NPCOpenSilverChestGoal extends Goal {
     }
 
     private boolean trySetTarget() {
-        World world = this.roleEntity.getWorld();
+        Level world = this.roleEntity.level();
         List<BlockPos> silverChestBlockPosList = this.findSilverChestBlockPosList();
         for (BlockPos blockPos : silverChestBlockPosList) {
             BlockEntity blockEntity = world.getBlockEntity(blockPos);
@@ -84,13 +84,13 @@ public class NPCOpenSilverChestGoal extends Goal {
             if (customChestBlockEntity.isEmpty()) {
                 continue;
             }
-            for (int i = 0; i < customChestBlockEntity.getInventory().size(); i++) {
-                ItemStack itemStack = customChestBlockEntity.getStack(i);
+            for (int i = 0; i < customChestBlockEntity.getInventory().getContainerSize(); i++) {
+                ItemStack itemStack = customChestBlockEntity.getItem(i);
                 if (itemStack.isEmpty()) {
                     continue;
                 }
                 NPCInventoryImpl inventory = this.roleEntity.getInventory();
-                if (!inventory.canInsert(itemStack)) {
+                if (!inventory.canAddItem(itemStack)) {
                     continue;
                 }
                 this.operationalTarget = new OperationalTarget(i, itemStack, blockPos, customChestBlockEntity);
@@ -111,7 +111,7 @@ public class NPCOpenSilverChestGoal extends Goal {
         if (this.operationalTarget != null) {
             BlockPos blockPos = this.operationalTarget.blockPos;
             if (!this.isReached(blockPos)) {
-                this.roleEntity.getNavigation().startMovingTo(
+                this.roleEntity.getNavigation().moveTo(
                         blockPos.getX() + 0.5,
                         blockPos.getY() + 0.5,
                         blockPos.getZ() + 0.5,
@@ -126,14 +126,14 @@ public class NPCOpenSilverChestGoal extends Goal {
 
                 int inserted = inventory.insertStack(itemStack);
                 if (inserted > 0) {
-                    itemStack.decrement(inserted);
-                    customChestBlockEntity.markDirty();
-                    this.roleEntity.playSound(SoundEvents.BLOCK_CHEST_OPEN);
-                    this.roleEntity.swingHand(Hand.MAIN_HAND);
+                    itemStack.shrink(inserted);
+                    customChestBlockEntity.setChanged();
+                    this.roleEntity.makeSound(SoundEvents.CHEST_OPEN);
+                    this.roleEntity.swing(InteractionHand.MAIN_HAND);
                     double x = blockPos.getX() + 0.5;
                     double y = blockPos.getY() + 0.5;
                     double z = blockPos.getZ() + 0.5;
-                    this.roleEntity.getLookControl().lookAt(x, y, z);
+                    this.roleEntity.getLookControl().setLookAt(x, y, z);
                 }
 
                 if (itemStack.isEmpty()) {
@@ -146,17 +146,17 @@ public class NPCOpenSilverChestGoal extends Goal {
     }
 
     private boolean isReached(BlockPos blockPos) {
-        double distanceSq = blockPos.getSquaredDistance(this.roleEntity.getPos());
+        double distanceSq = blockPos.distToCenterSqr(this.roleEntity.position());
         return distanceSq <= 9; // 半径 3 格
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return this.operationalTarget != null;
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    public boolean requiresUpdateEveryTick() {
         return true;
     }
 

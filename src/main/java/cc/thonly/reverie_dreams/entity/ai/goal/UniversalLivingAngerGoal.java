@@ -1,15 +1,14 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.Angerable;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.GameRules;
-
 import java.util.List;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.phys.AABB;
 
 public class UniversalLivingAngerGoal<T extends LivingEntity>
         extends Goal {
@@ -24,28 +23,28 @@ public class UniversalLivingAngerGoal<T extends LivingEntity>
     }
 
     @Override
-    public boolean canStart() {
-        return net.minecraft.entity.ai.goal.UniversalAngerGoal.getServerWorld(this.mob).getGameRules().getBoolean(GameRules.UNIVERSAL_ANGER) && this.canStartUniversalAnger();
+    public boolean canUse() {
+        return net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal.getServerLevel(this.mob).getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER) && this.canStartUniversalAnger();
     }
 
     private boolean canStartUniversalAnger() {
-        return this.mob.getAttacker() != null && this.mob.getAttacker().getType() == EntityType.PLAYER && ((LivingEntity)this.mob).getLastAttackedTime() > this.lastAttackedTime;
+        return this.mob.getLastHurtByMob() != null && this.mob.getLastHurtByMob().getType() == EntityType.PLAYER && ((LivingEntity)this.mob).getLastHurtByMobTimestamp() > this.lastAttackedTime;
     }
 
     @Override
     public void start() {
-        this.lastAttackedTime = this.mob.getLastAttackedTime();
-        ((Angerable)this.mob).universallyAnger();
+        this.lastAttackedTime = this.mob.getLastHurtByMobTimestamp();
+        ((NeutralMob)this.mob).forgetCurrentTargetAndRefreshUniversalAnger();
         if (this.triggerOthers) {
-            this.getOthersInRange().stream().filter(entity -> entity != this.mob).map(entity -> (Angerable) entity).forEach(Angerable::universallyAnger);
+            this.getOthersInRange().stream().filter(entity -> entity != this.mob).map(entity -> (NeutralMob) entity).forEach(NeutralMob::forgetCurrentTargetAndRefreshUniversalAnger);
         }
         super.start();
     }
 
     private List<? extends LivingEntity> getOthersInRange() {
-        double d = this.mob.getAttributeValue(EntityAttributes.FOLLOW_RANGE);
-        Box box = Box.from(this.mob.getPos()).expand(d, 10.0, d);
-        return this.mob.getWorld().getEntitiesByClass(this.mob.getClass(), box, EntityPredicates.EXCEPT_SPECTATOR);
+        double d = this.mob.getAttributeValue(Attributes.FOLLOW_RANGE);
+        AABB box = AABB.unitCubeFromLowerCorner(this.mob.position()).inflate(d, 10.0, d);
+        return this.mob.level().getEntitiesOfClass(this.mob.getClass(), box, EntitySelector.NO_SPECTATORS);
     }
 }
 

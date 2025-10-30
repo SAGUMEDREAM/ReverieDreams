@@ -8,30 +8,37 @@ import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.HopperBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -43,18 +50,18 @@ import java.util.function.DoubleUnaryOperator;
 @Setter
 @Getter
 @ToString
-public class AbstractKitchenwareBlock extends BlockWithEntity {
+public class AbstractKitchenwareBlock extends BaseEntityBlock {
     public static final Set<AbstractKitchenwareBlock> KITCHENWARE_BLOCKS = new HashSet<>();
-    public static final MapCodec<AbstractKitchenwareBlock> CODEC = createCodec(AbstractKitchenwareBlock::new);
+    public static final MapCodec<AbstractKitchenwareBlock> CODEC = simpleCodec(AbstractKitchenwareBlock::new);
 
-    public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
-    private Vec3d offset = new Vec3d(0, 0, 0);
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+    private Vec3 offset = new Vec3(0, 0, 0);
     private Vector3f scale = new Vector3f(0, 0, 0);
     //    private final Boolean requiredEnergy;
     private final DoubleUnaryOperator bonusOperator;
     private final Double failureProbability;
 
-    public AbstractKitchenwareBlock(Settings settings) {
+    public AbstractKitchenwareBlock(Properties settings) {
         super(settings);
         this.bonusOperator = operand -> operand;
         this.failureProbability = 0.0;
@@ -62,39 +69,39 @@ public class AbstractKitchenwareBlock extends BlockWithEntity {
         KITCHENWARE_BLOCKS.add(this);
     }
 
-    public AbstractKitchenwareBlock(DoubleUnaryOperator bonusOperator, Double failureProbability, Vector3f scale, Vec3d offset, Settings settings) {
-        super(settings.noCollision());
+    public AbstractKitchenwareBlock(DoubleUnaryOperator bonusOperator, Double failureProbability, Vector3f scale, Vec3 offset, Properties settings) {
+        super(settings.noCollission());
         this.offset = offset;
         this.scale = scale;
         this.bonusOperator = bonusOperator;
         this.failureProbability = failureProbability;
 //        this.requiredEnergy = requiredEnergy;
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
         KITCHENWARE_BLOCKS.add(this);
     }
 
     @Override
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos belowPos = pos.down();
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos belowPos = pos.below();
         BlockState belowState = world.getBlockState(belowPos);
         boolean pass = false;
-        BlockState downBlockState = world.getBlockState(pos.down());
+        BlockState downBlockState = world.getBlockState(pos.below());
         Block upBlock = downBlockState.getBlock();
         if (upBlock instanceof HopperBlock|| upBlock instanceof FenceBlock || upBlock instanceof WallBlock || upBlock instanceof LeavesBlock) {
             pass = true;
         }
-        return pass || belowState.isSideSolidFullSquare(world, belowPos, Direction.UP);
+        return pass || belowState.isFaceSturdy(world, belowPos, Direction.UP);
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient() && world instanceof ServerWorld) {
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!world.isClientSide() && world instanceof ServerLevel) {
+            ServerPlayer serverPlayer = (ServerPlayer) player;
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof KitchenwareBlockEntity kitchenwareBlockEntity) {
                 if (kitchenwareBlockEntity.isWorking()) {
-                    serverPlayer.sendMessage(Text.translatable("block.feedback.working"), false);
-                    return ActionResult.SUCCESS_SERVER;
+                    serverPlayer.displayClientMessage(Component.translatable("block.feedback.working"), false);
+                    return InteractionResult.SUCCESS_SERVER;
                 }
                 UUID uuid = kitchenwareBlockEntity.getUuid();
                 Set<KitchenBlockGui<?>> kitchenBlockGuis = KitchenwareBlockEntity.SESSIONS.computeIfAbsent(uuid, (map) -> new HashSet<>());
@@ -102,71 +109,71 @@ public class AbstractKitchenwareBlock extends BlockWithEntity {
                 kitchenBlockGuis.add(simpleGui);
                 simpleGui.open();
 
-                return ActionResult.SUCCESS_SERVER;
+                return InteractionResult.SUCCESS_SERVER;
             }
-            return ActionResult.SUCCESS_SERVER;
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof KitchenwareBlockEntity kitchenwareBlockEntity) {
-                SimpleInventory inventory = kitchenwareBlockEntity.getInventory();
-                for (int i = 0; i < inventory.size(); i++) {
-                    ItemStack stack = inventory.getStack(i);
+                SimpleContainer inventory = kitchenwareBlockEntity.getInventory();
+                for (int i = 0; i < inventory.getContainerSize(); i++) {
+                    ItemStack stack = inventory.getItem(i);
                     if (stack.isEmpty()) {
                         continue;
                     }
                     ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), stack);
-                    serverWorld.spawnEntity(itemEntity);
+                    serverWorld.addFreshEntity(itemEntity);
                 }
             }
         }
-        return super.onBreak(world, pos, state, player);
+        return super.playerWillDestroy(world, pos, state, player);
     }
 
-    public boolean isWillBeFailure(World world) {
-        Random random = world.getRandom();
+    public boolean isWillBeFailure(Level world) {
+        RandomSource random = world.getRandom();
         double failureProbability = this.failureProbability;
         return random.nextDouble() < failureProbability;
     }
 
     @Override
-    protected MapCodec<? extends AbstractKitchenwareBlock> getCodec() {
+    protected MapCodec<? extends AbstractKitchenwareBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    protected BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
     @Override
-    public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-        Direction direction = ctx.getHorizontalPlayerFacing();
-        return this.getDefaultState().with(FACING, direction);
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        Direction direction = ctx.getHorizontalDirection();
+        return this.defaultBlockState().setValue(FACING, direction);
     }
 
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new KitchenwareBlockEntity(pos, state);
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, MIBlockEntities.KITCHENWARE_BLOCK_ENTITY, KitchenwareBlockEntity::tick);
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, MIBlockEntities.KITCHENWARE_BLOCK_ENTITY, KitchenwareBlockEntity::tick);
     }
 
 }

@@ -3,14 +3,13 @@ package cc.thonly.reverie_dreams.entity.ai.goal.work;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-
 import java.util.EnumSet;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.phys.Vec3;
 
 public class NPCCloseToCropGoal extends Goal {
 
@@ -32,13 +31,13 @@ public class NPCCloseToCropGoal extends Goal {
     private int currCount = 0;
 
     public NPCCloseToCropGoal(BaseNPCLikeEntity maid, double speed) {
-        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.maid = maid;
         this.speed = speed;
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
 //        if (this.cooldown > 0) {
 //            --this.cooldown;
 //            return false;
@@ -51,8 +50,8 @@ public class NPCCloseToCropGoal extends Goal {
 
 
     @Override
-    public boolean shouldContinue() {
-        return this.canStart();
+    public boolean canContinueToUse() {
+        return this.canUse();
     }
 
 
@@ -63,7 +62,7 @@ public class NPCCloseToCropGoal extends Goal {
     @Override
     public void stop() {
         this.maid.getNavigation().stop();
-        this.cooldown = TemptGoal.toGoalTicks(100);
+        this.cooldown = TemptGoal.reducedTickDelay(100);
     }
 
     @Override
@@ -79,8 +78,8 @@ public class NPCCloseToCropGoal extends Goal {
 
         if (goalPos ==null
                 ||moveTime>500
-                || goalPos.toCenterPos().squaredDistanceTo(Vec3d.of(this.maid.getWorkingPos()))>770
-                ||this.maid.squaredDistanceTo(Vec3d.of(goalPos)) < 2
+                || goalPos.getCenter().distanceToSqr(Vec3.atLowerCornerOf(this.maid.getWorkingPos()))>770
+                ||this.maid.distanceToSqr(Vec3.atLowerCornerOf(goalPos)) < 2
 
         ) {
 //            System.out.println("Goal "+ (goalPos ==null) +" Time:"+ moveTime );
@@ -88,9 +87,9 @@ public class NPCCloseToCropGoal extends Goal {
             goalPos = null;
             moveTime = 0;
         } else {
-            Vec3d look = goalPos.toCenterPos().offset(Direction.DOWN, 0.5);
-            this.maid.getLookControl().lookAt(look);
-            this.maid.getNavigation().startMovingTo(look.x,look.y,look.z,this.speed);
+            Vec3 look = goalPos.getCenter().relative(Direction.DOWN, 0.5);
+            this.maid.getLookControl().setLookAt(look);
+            this.maid.getNavigation().moveTo(look.x,look.y,look.z,this.speed);
         }
     }
 
@@ -130,12 +129,12 @@ public class NPCCloseToCropGoal extends Goal {
         int side =  c/sideLength;
         int sidePos = c%sideLength;
         Direction offDir = facList[side];
-        BlockPos offOrigin = origin.offset(facList[(side+2)%4],r).offset(facList[(side+3)%4],r);
-        BlockPos p = offOrigin.offset(offDir, sidePos);
+        BlockPos offOrigin = origin.relative(facList[(side+2)%4],r).relative(facList[(side+3)%4],r);
+        BlockPos p = offOrigin.relative(offDir, sidePos);
         return p;
     }
     protected boolean isTargetPos(BlockPos pos) {
-        ServerWorld world = getServerWorld(maid);
+        ServerLevel world = getServerLevel(maid);
         boolean b = (NPCFarmGoal.isCrop(pos, world)
                 ||  (hasSeeds&& NPCFarmGoal.isFarmLandTop(pos, world)));
 //        System.out.println(pos+"  aaaaa "+b +"  cr "+ NPCFarmGoal.isCrop(pos, world)

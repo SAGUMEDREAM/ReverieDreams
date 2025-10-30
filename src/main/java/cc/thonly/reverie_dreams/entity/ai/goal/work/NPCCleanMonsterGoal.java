@@ -6,38 +6,37 @@ import cc.thonly.reverie_dreams.entity.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import lombok.Getter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.phys.AABB;
 import java.util.EnumSet;
 import java.util.List;
 
 @Getter
-public class NPCCleanMonsterGoal extends TrackTargetGoal {
+public class NPCCleanMonsterGoal extends TargetGoal {
 
     public NPCCleanMonsterGoal(BaseNPCLikeEntity maid) {
         super(maid, false);
         this.maid = maid;
-        this.setControls(EnumSet.of(Goal.Control.TARGET));
+        this.setFlags(EnumSet.of(Goal.Flag.TARGET));
     }
 
 
     private final BaseNPCLikeEntity maid;
 
 
-    TargetPredicate targetPredicate = TargetPredicate.createAttackable().setBaseMaxDistance(16).setPredicate((e,w)->{return  !e.hasCustomName();});
+    TargetingConditions targetPredicate = TargetingConditions.forCombat().range(16).selector((e,w)->{return  !e.hasCustomName();});
     LivingEntity targetEntity;
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
 //        System.out.println("invoke");
-        if (!this.maid.isTamed() || this.maid.isSitting()) {
+        if (!this.maid.isTame() || this.maid.isOrderedToSit()) {
 //            System.out.println("ret1"+this.maid.isTamed());
             return false;
         }
@@ -49,15 +48,15 @@ public class NPCCleanMonsterGoal extends TrackTargetGoal {
             return false;
         }
         BlockPos workPos = maid.getWorkingPos();
-        ServerWorld serverWorld = getServerWorld(maid);
+        ServerLevel serverWorld = getServerLevel(maid);
 
         //serverWorld.getClosestEntity(HostileEntity.class,)
-        List<HostileEntity> targets = this.mob.getWorld().getEntitiesByClass(HostileEntity.class, new Box(workPos).expand(16, 8, 16), (e)->{
+        List<Monster> targets = this.mob.level().getEntitiesOfClass(Monster.class, new AABB(workPos).inflate(16, 8, 16), (e)->{
             return e.isAlive()&& EntityTargetUtil.canAttack(e,maid);
         });
 //        System.out.println(targets.size());
         //处于工作原点水平方向拓展16格内的所有怪物
-        targetEntity = serverWorld.getClosestEntity(targets, targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
+        targetEntity = serverWorld.getNearestEntity(targets, targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
         //挑选离女仆最近的怪物
         return targetEntity!=null;
     }

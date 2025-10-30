@@ -2,24 +2,23 @@ package cc.thonly.reverie_dreams.registry;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 public interface CodecStep<T> {
     Codec<List<Item>> ITEMS_CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Codec.list(Identifier.CODEC)
+                    Codec.list(ResourceLocation.CODEC)
                             .fieldOf("values")
                             .forGetter(items -> items.stream()
-                                    .map(Registries.ITEM::getId)
+                                    .map(BuiltInRegistries.ITEM::getKey)
                                     .collect(Collectors.toList()))
             ).apply(instance, identifiers ->
                     identifiers.stream()
-                            .map(Registries.ITEM::get)
+                            .map(BuiltInRegistries.ITEM::getValue)
                             .collect(Collectors.toList())
             )
     );

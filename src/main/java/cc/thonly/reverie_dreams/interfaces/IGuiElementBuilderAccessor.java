@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.interfaces;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public interface IGuiElementBuilderAccessor {
     default ItemStack setItemStack(ItemStack stack) {

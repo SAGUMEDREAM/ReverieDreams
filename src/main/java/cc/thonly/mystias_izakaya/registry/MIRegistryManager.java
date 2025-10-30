@@ -9,8 +9,8 @@ import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -35,87 +35,87 @@ public class MIRegistryManager extends RegistryManager {
         }
 
         FoodPropertyLoaderCallback.EVENT.register((world, user, property) -> {
-            if (world.isClient) {
+            if (world.isClientSide) {
                 return;
             }
             if (property.is(FoodProperties.COOL)) {
-                user.setOnFire(false);
-                user.setFireTicks(0);
+                user.setSharedFlagOnFire(false);
+                user.setRemainingFireTicks(0);
             }
             if (property.is(FoodProperties.SPICY)) {
-                user.setOnFire(true);
-                user.setFireTicks(2 * 20);
+                user.setSharedFlagOnFire(true);
+                user.setRemainingFireTicks(2 * 20);
             }
             if (property.is(FoodProperties.BIZARRE)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 2 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 2 * 20, 1));
             }
             if (property.is(FoodProperties.GOURMET)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 25 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 25 * 20, 1));
             }
             if (property.is(FoodProperties.MOUNTAIN_DELICACY)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.LUCK, 90 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.LUCK, 90 * 20, 1));
             }
             if (property.is(FoodProperties.PHOTOGENIC)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 60 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 60 * 20, 1));
             }
             if (property.is(FoodProperties.CURSE)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.BAD_OMEN, 120 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 120 * 20, 1));
             }
             if (property.is(FoodProperties.TOXIC)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 60 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20, 1));
             }
             if (property.is(FoodProperties.LARGE_PARTITION)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 1, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 1));
             }
             if (property.is(FoodProperties.SWEET)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 35 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 35 * 20));
             }
             if (property.is(FoodProperties.UNBELIEVABLE)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 35 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 35 * 20));
             }
             if (property.is(FoodProperties.LEGENDARY)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 35 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 35 * 20));
             }
             if (property.is(FoodProperties.FILLING)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 1, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 1));
             }
             if (property.is(FoodProperties.POWER_SURGE)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 45 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 45 * 20));
             }
             if (property.is(FoodProperties.OCEAN_FLAVOR)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 30 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 30 * 20));
             }
             if (property.is(FoodProperties.DARK_CUISINE)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 15 * 20));
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 10 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.POISON, 10 * 20));
             }
         });
         DrinkPropertyLoaderCallback.EVENT.register((world, user, property) -> {
-            if (world.isClient) {
+            if (world.isClientSide) {
                 return;
             }
             if (property.is(DrinkProperties.LOW_ALCOHOL)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 3 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 3 * 20));
             }
             if (property.is(DrinkProperties.MID_ALCOHOL)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 9 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 9 * 20));
             }
             if (property.is(DrinkProperties.HIGH_ALCOHOL)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 27 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 27 * 20));
             }
             if (property.is(DrinkProperties.CAN_ADD_ICE)) {
-                user.setOnFire(false);
-                user.setFrozenTicks(20);
+                user.setSharedFlagOnFire(false);
+                user.setTicksFrozen(20);
             }
             if (property.is(DrinkProperties.SWEET)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 10 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 10 * 20));
             }
             if (property.is(DrinkProperties.REFRESHING)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 20 * 20));
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 20 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 20 * 20));
             }
             if (property.is(DrinkProperties.BITTER)) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20));
+                user.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20));
             }
         });
     }

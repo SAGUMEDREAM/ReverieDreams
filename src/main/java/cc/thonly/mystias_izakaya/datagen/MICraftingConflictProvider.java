@@ -5,14 +5,13 @@ import cc.thonly.mystias_izakaya.datagen.generator.CraftingConflictProvider;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MICraftingConflictProvider extends CraftingConflictProvider {
 
-    public MICraftingConflictProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public MICraftingConflictProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

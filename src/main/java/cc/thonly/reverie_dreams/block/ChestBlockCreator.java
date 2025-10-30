@@ -3,21 +3,21 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
 import lombok.Getter;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.stream.Stream;
 
 @Getter
 public class ChestBlockCreator extends AbstractBlockCreator {
-    private final AbstractBlock.Settings settings;
+    private final BlockBehaviour.Properties settings;
     private CustomChestBlock chestBlock;
 
-    public ChestBlockCreator(String name, AbstractBlock.Settings settings) {
+    public ChestBlockCreator(String name, BlockBehaviour.Properties settings) {
         super(name, Touhou.id(name));
         this.settings = settings;
     }
 
-    public static ChestBlockCreator create(String name, AbstractBlock.Settings settings) {
+    public static ChestBlockCreator create(String name, BlockBehaviour.Properties settings) {
         return new ChestBlockCreator(name, settings);
     }
 
@@ -32,7 +32,7 @@ public class ChestBlockCreator extends AbstractBlockCreator {
 
     @Override
     public ChestBlockCreator build() {
-        Block block = ModBlocks.registerBlock(this.getName(), CustomChestBlock::new, this.settings.nonOpaque());
+        Block block = ModBlocks.registerBlock(this.getName(), CustomChestBlock::new, this.settings.noOcclusion());
         this.chestBlock = (CustomChestBlock) block;
         return this;
     }

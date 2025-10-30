@@ -7,9 +7,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.StringIdentifiable;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringRepresentable;
 import java.util.Optional;
 
 @Getter
@@ -17,19 +16,19 @@ import java.util.Optional;
 public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfig> {
     public static final Codec<SkinConfig> CODEC = RecordCodecBuilder.create(x -> x.group(
             ModelType.CODEC.fieldOf("type").forGetter(SkinConfig::getType),
-            Identifier.CODEC.optionalFieldOf("cape").forGetter(SkinConfig::getCapeTexture),
-            Identifier.CODEC.optionalFieldOf("elytra").forGetter(SkinConfig::getElytraTexture)
+            ResourceLocation.CODEC.optionalFieldOf("cape").forGetter(SkinConfig::getCapeTexture),
+            ResourceLocation.CODEC.optionalFieldOf("elytra").forGetter(SkinConfig::getElytraTexture)
     ).apply(x, SkinConfig::new));
 
     @Setter
     private SkinType skin;
     private final ModelType type;
-    private final Optional<Identifier> capeTexture;
-    private final Optional<Identifier> elytraTexture;
+    private final Optional<ResourceLocation> capeTexture;
+    private final Optional<ResourceLocation> elytraTexture;
     @Setter
     private IntrinsicalRegister<SkinConfig> owner;
 
-    public SkinConfig(ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
+    public SkinConfig(ModelType type, Optional<ResourceLocation> capeTexture, Optional<ResourceLocation> elytraTexture) {
         this.type = type;
         this.capeTexture = capeTexture;
         this.elytraTexture = elytraTexture;
@@ -40,10 +39,10 @@ public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfi
         return CODEC;
     }
 
-    public enum ModelType implements StringIdentifiable {
+    public enum ModelType implements StringRepresentable {
         SLIM("slim"),
         WIDE("wide");
-        public static final Codec<ModelType> CODEC = StringIdentifiable.createCodec(ModelType::values);
+        public static final Codec<ModelType> CODEC = StringRepresentable.fromEnum(ModelType::values);
         private final String name;
 
         ModelType(final String name) {
@@ -51,7 +50,7 @@ public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfi
         }
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
     }

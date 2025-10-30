@@ -4,12 +4,11 @@ import cc.thonly.mystias_izakaya.datagen.generator.DrinkProvider;
 import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.registry.DrinkProperties;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
 import java.util.concurrent.CompletableFuture;
 
 public class MIDrinkProvider extends DrinkProvider {
-    public MIDrinkProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public MIDrinkProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

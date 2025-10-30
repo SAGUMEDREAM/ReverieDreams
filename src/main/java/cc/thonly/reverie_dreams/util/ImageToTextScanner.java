@@ -2,13 +2,12 @@ package cc.thonly.reverie_dreams.util;
 
 import cc.thonly.reverie_dreams.Touhou;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Formatting;
-
 import javax.imageio.ImageIO;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.*;
@@ -21,7 +20,7 @@ public class ImageToTextScanner {
         instance.loadImageFromJar(ofNamespace(Touhou.MOD_ID, "icon_about.png"));
     };
 
-    private final Map<Integer, List<Text>> caches = new HashMap<>();
+    private final Map<Integer, List<Component>> caches = new HashMap<>();
     private final Class<?> clazz;
 
 
@@ -44,27 +43,27 @@ public class ImageToTextScanner {
         return "/assets/" + namespace + "/" + filename;
     }
 
-    public List<Text> renderImageToText(BufferedImage image, int width, int height) {
+    public List<Component> renderImageToText(BufferedImage image, int width, int height) {
         int key = Objects.hash(width, height, imageHash(image));
         if (this.caches.containsKey(key)) {
             return this.caches.get(key);
         }
 
-        List<Text> lines = new ArrayList<>();
+        List<Component> lines = new ArrayList<>();
         for (int y = 0; y < Math.min(height, image.getHeight()); y++) {
-            MutableText line = Text.literal("");
+            MutableComponent line = Component.literal("");
             for (int x = 0; x < Math.min(width, image.getWidth()); x++) {
                 int argb = image.getRGB(x, y);
                 int alpha = (argb >> 24) & 0xFF;
                 if (alpha < 128) {
-                    line.append(Text.literal(" ").setStyle(Style.EMPTY.withColor(Formatting.BLACK)));
+                    line.append(Component.literal(" ").setStyle(Style.EMPTY.withColor(ChatFormatting.BLACK)));
                     continue;
                 }
                 int red = (argb >> 16) & 0xFF;
                 int green = (argb >> 8) & 0xFF;
                 int blue = argb & 0xFF;
                 line.append(
-                        Text.literal("█").setStyle(
+                        Component.literal("█").setStyle(
                                 Style.EMPTY.withColor(TextColor.fromRgb((red << 16) | (green << 8) | blue))
                         )
                 );

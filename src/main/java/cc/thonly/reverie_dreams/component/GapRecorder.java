@@ -5,8 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.core.BlockPos;
 import java.util.List;
 
 @AllArgsConstructor

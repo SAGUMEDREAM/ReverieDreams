@@ -8,16 +8,15 @@ import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import java.util.EnumSet;
 
 @Setter
@@ -37,18 +36,18 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
         this.speed = speed;
         this.attackInterval = attackInterval;
         this.squaredRange = range * range;
-        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if ((this.actor).getTarget() == null) {
             return false;
         }
         if (this.actor.getTarget() == this.actor.getOwner()) {
             return false;
         }
-        if (this.actor.getTarget() instanceof TameableEntity tameableEntity) {
+        if (this.actor.getTarget() instanceof TamableAnimal tameableEntity) {
             if (tameableEntity.getOwner() == this.actor.getOwner()) {
                 return false;
             }
@@ -57,24 +56,24 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
     }
 
     private boolean isHoldingDanmaku() {
-        return this.actor.getMainHandStack().getItem() instanceof DanmakuItem;
+        return this.actor.getMainHandItem().getItem() instanceof DanmakuItem;
     }
 
     @Override
-    public boolean shouldContinue() {
-        return (this.canStart() || !this.actor.getNavigation().isIdle()) && this.isHoldingDanmaku();
+    public boolean canContinueToUse() {
+        return (this.canUse() || !this.actor.getNavigation().isDone()) && this.isHoldingDanmaku();
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    public boolean requiresUpdateEveryTick() {
         return true;
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.actor.setAttacking(false);
-        this.actor.clearActiveItem();
+        this.actor.setAggressive(false);
+        this.actor.stopUsingItem();
     }
 
     @Override
@@ -85,39 +84,39 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
             return;
         }
         float[] pitchYaw = MobDanmakuShooter.getPitchYaw(this.actor, target);
-        this.actor.getLookControl().lookAt(target);
-        this.actor.setPitch(pitchYaw[0]);
-        this.actor.setYaw(pitchYaw[1]);
+        this.actor.getLookControl().setLookAt(target);
+        this.actor.setXRot(pitchYaw[0]);
+        this.actor.setYRot(pitchYaw[1]);
 
-        if (!this.canStart()) return;
+        if (!this.canUse()) return;
 
-        double distanceSq = this.actor.squaredDistanceTo(target);
+        double distanceSq = this.actor.distanceToSqr(target);
         if (distanceSq > 64.0) {
-            if (this.actor.getNavigation().isIdle()) {
-                this.actor.getNavigation().startMovingTo(target, 1.5);
+            if (this.actor.getNavigation().isDone()) {
+                this.actor.getNavigation().moveTo(target, 1.5);
             }
         } else {
             this.actor.getNavigation().stop();
         }
 
         if (--this.updateCountdownTicks <= 0) {
-            World world = this.actor.getWorld();
-            if (world instanceof ServerWorld serverWorld) {
-                ItemStack itemStack = this.actor.getMainHandStack();
+            Level world = this.actor.level();
+            if (world instanceof ServerLevel serverWorld) {
+                ItemStack itemStack = this.actor.getMainHandItem();
                 Boolean isInfinite = itemStack.getOrDefault(ModDataComponentTypes.Danmaku.INFINITE, false);
                 Item item = itemStack.getItem();
                 if (!(item instanceof AbstractDanmakuItem polymerDanmakuItem)) return;
                 for (int i = 0; i < itemStack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, 3); i++) {
-                    polymerDanmakuItem.shoot(serverWorld, this.actor, Hand.MAIN_HAND);
+                    polymerDanmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
                 }
                 if (!isInfinite) {
-                    itemStack.damage(1, this.actor, Hand.MAIN_HAND);
-                    if (itemStack.isDamageable() && itemStack.getDamage() >= itemStack.getMaxDamage()) {
-                        itemStack.decrement(1);
+                    itemStack.hurtAndBreak(1, this.actor, InteractionHand.MAIN_HAND);
+                    if (itemStack.isDamageableItem() && itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
+                        itemStack.shrink(1);
                     }
                 }
 
-                world.playSound(null, this.actor.getX(), this.actor.getY(), this.actor.getZ(), SoundEventInit.FIRE, SoundCategory.NEUTRAL, 1f, 1.0f);
+                world.playSound(null, this.actor.getX(), this.actor.getY(), this.actor.getZ(), SoundEventInit.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
             }
             this.resetCooldown();
         }

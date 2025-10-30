@@ -1,6 +1,6 @@
 package nota.model;
 
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
 
 /**
  * Create custom instruments from a sound file

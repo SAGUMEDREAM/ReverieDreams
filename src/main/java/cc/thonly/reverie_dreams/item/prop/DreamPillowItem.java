@@ -1,70 +1,70 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
-import net.minecraft.block.BedBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.entity.BedBlockEntity;
-import net.minecraft.block.enums.BedPart;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BedBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 
 public class DreamPillowItem extends Item {
 
-    public DreamPillowItem(Settings settings) {
+    public DreamPillowItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        PlayerEntity player = context.getPlayer();
-        World world = context.getWorld();
-        if (!world.isClient && world instanceof ServerWorld serverWorld && player instanceof ServerPlayerEntity) {
-            boolean sneaking = player.isSneaking();
-            ItemStack itemStack = player.getStackInHand(context.getHand());
-            BlockPos blockPos = context.getBlockPos();
-            Pair<Boolean, BlockPos> bedHead = getBedHead(serverWorld, blockPos);
-            if (sneaking && bedHead.getLeft() && serverWorld.getBlockEntity(bedHead.getRight()) instanceof BedBlockEntity blockEntity) {
+    public InteractionResult useOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        Level world = context.getLevel();
+        if (!world.isClientSide && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer) {
+            boolean sneaking = player.isShiftKeyDown();
+            ItemStack itemStack = player.getItemInHand(context.getHand());
+            BlockPos blockPos = context.getClickedPos();
+            Tuple<Boolean, BlockPos> bedHead = getBedHead(serverWorld, blockPos);
+            if (sneaking && bedHead.getA() && serverWorld.getBlockEntity(bedHead.getB()) instanceof BedBlockEntity blockEntity) {
                 IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) blockEntity;
                 if (iBedBlockEntity.hasDreamPillow()) {
-                    return ActionResult.PASS;
+                    return InteractionResult.PASS;
                 } else {
                     iBedBlockEntity.setHasDreamPillow(true);
-                    itemStack.decrementUnlessCreative(1, player);
-                    return ActionResult.SUCCESS_SERVER;
+                    itemStack.consume(1, player);
+                    return InteractionResult.SUCCESS_SERVER;
                 }
 
             }
-            return ActionResult.FAIL;
+            return InteractionResult.FAIL;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    public static Pair<Boolean, BlockPos> getBedHead(ServerWorld serverWorld, BlockPos blockPos) {
+    public static Tuple<Boolean, BlockPos> getBedHead(ServerLevel serverWorld, BlockPos blockPos) {
         BlockState blockState = serverWorld.getBlockState(blockPos);
         if (blockState.getBlock() instanceof BedBlock) {
-            BedPart bedPart = blockState.get(BedBlock.PART);
-            Direction direction = blockState.get(HorizontalFacingBlock.FACING);
+            BedPart bedPart = blockState.getValue(BedBlock.PART);
+            Direction direction = blockState.getValue(HorizontalDirectionalBlock.FACING);
             BlockPos headPos;
 
             if (bedPart == BedPart.HEAD) {
                 headPos = blockPos;
             } else {
-                headPos = blockPos.offset(direction);
+                headPos = blockPos.relative(direction);
             }
-            return new Pair<>(true, headPos);
+            return new Tuple<>(true, headPos);
         }
-        return new Pair<>(false, null);
+        return new Tuple<>(false, null);
     }
 
 }

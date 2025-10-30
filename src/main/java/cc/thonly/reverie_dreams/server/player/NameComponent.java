@@ -5,29 +5,28 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextCodecs;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 
 @Setter
 @Getter
 public class NameComponent implements PlayerComponent<NameComponent> {
     public static final Codec<NameComponent> CODEC = RecordCodecBuilder.create(x -> x.group(
-            TextCodecs.CODEC.optionalFieldOf("Name", Text.literal("Player")).forGetter(NameComponent::getName),
+            ComponentSerialization.CODEC.optionalFieldOf("Name", Component.literal("Player")).forGetter(NameComponent::getName),
             Codec.STRING.optionalFieldOf("RealName", "Player").forGetter(NameComponent::getPlayerName)
     ).apply(x, NameComponent::new));
-    private Text name;
+    private Component name;
     @Nullable
     private String playerName;
-    private ServerPlayerEntity player;
+    private ServerPlayer player;
 
-    public NameComponent(Text name) {
+    public NameComponent(Component name) {
         this.name = name;
     }
 
-    public NameComponent(Text name, @Nullable String playerName) {
+    public NameComponent(Component name, @Nullable String playerName) {
         this(name);
         this.playerName = playerName;
     }
@@ -40,7 +39,7 @@ public class NameComponent implements PlayerComponent<NameComponent> {
     }
 
     @Override
-    public void setPlayer(ServerPlayerEntity player) {
+    public void setPlayer(ServerPlayer player) {
         this.player = player;
     }
 
@@ -52,8 +51,8 @@ public class NameComponent implements PlayerComponent<NameComponent> {
     public static class NameComponentInitializer implements PlayerComponentInitializer<NameComponent> {
 
         @Override
-        public PlayerComponent<NameComponent> create(ServerPlayerEntity player) {
-            return new NameComponent(Text.literal("Player"));
+        public PlayerComponent<NameComponent> create(ServerPlayer player) {
+            return new NameComponent(Component.literal("Player"));
         }
 
         @Override

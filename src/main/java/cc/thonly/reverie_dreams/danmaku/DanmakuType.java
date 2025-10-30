@@ -13,18 +13,17 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.component.type.UseCooldownComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.component.UseCooldown;
 import java.util.*;
 
 @Setter
@@ -32,7 +31,7 @@ import java.util.*;
 public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, Translatable, BuiltinObject {
     public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
+                    ResourceLocation.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
                     Codec.FLOAT.fieldOf("damage").forGetter(DanmakuType::getDamage),
                     Codec.FLOAT.fieldOf("scale").forGetter(DanmakuType::getScale),
                     Codec.FLOAT.fieldOf("speed").forGetter(DanmakuType::getSpeed),
@@ -41,7 +40,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
             ).apply(instance, DanmakuType::new)
     );
 
-    private Identifier id;
+    private ResourceLocation id;
     private final float damage;
     private final float scale;
     private final float speed;
@@ -51,7 +50,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private DanmakuEntity.OnHitFactory hitFactory;
     private IntrinsicalRegister<DanmakuType> owner;
 
-    public DanmakuType(Identifier id, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public DanmakuType(ResourceLocation id, float damage, float scale, float speed, boolean tile, boolean infinite) {
         this.id = id;
         this.damage = damage;
         this.scale = scale;
@@ -63,11 +62,11 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
 
     @Override
     public String translateKey() {
-        return this.item.getTranslationKey();
+        return this.item.getDescriptionId();
     }
 
     public DanmakuShape toShape() {
-        for (Map.Entry<Identifier, DanmakuShape> mapEntry : RegistryManager.DANMAKU_SHAPE.entrySet()) {
+        for (Map.Entry<ResourceKey<DanmakuShape>, DanmakuShape> mapEntry : RegistryManager.DANMAKU_SHAPE.entrySet()) {
             DanmakuShape shape = mapEntry.getValue();
             if (shape.getType() == this) {
                 return shape;
@@ -103,34 +102,34 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
 
     public void buildItem() {
         DanmakuItem item = new DanmakuItem(this.createItemSettings()
-                .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(14606046))
-                .maxDamage(120)
+                .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
+                .durability(120)
         );
         item.type(this);
         this.item = item;
-        Registry.register(Registries.ITEM, this.getIdentifier(), this.item);
+        Registry.register(BuiltInRegistries.ITEM, this.getIdentifier(), this.item);
     }
 
-    public List<Pair<Item, ItemStack>> getColorPairs() {
-        List<Pair<Item, ItemStack>> pairList = new LinkedList<>();
-        ItemStack defaultStack = this.item.getDefaultStack();
+    public List<Tuple<Item, ItemStack>> getColorPairs() {
+        List<Tuple<Item, ItemStack>> pairList = new LinkedList<>();
+        ItemStack defaultStack = this.item.getDefaultInstance();
         for (Map.Entry<Item, Long> itemLongEntry : ItemColor.getView().entrySet()) {
             Item dyeItem = itemLongEntry.getKey();
             ItemStack stack = defaultStack.copy();
-            stack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(itemLongEntry.getValue().intValue()));
-            stack.set(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))));
-            pairList.add(new Pair<>(dyeItem, stack));
+            stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
+            stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))));
+            pairList.add(new Tuple<>(dyeItem, stack));
         }
         return pairList;
     }
 
-    public Identifier getIdentifier() {
-        return Identifier.of(this.id.getNamespace(), "danmaku/" + this.id.getPath());
+    public ResourceLocation getIdentifier() {
+        return ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), "danmaku/" + this.id.getPath());
     }
 
-    public Item.Settings createItemSettings() {
-        return new Item.Settings()
-                .registryKey(RegistryKey.of(RegistryKeys.ITEM, this.getIdentifier()))
+    public Item.Properties createItemSettings() {
+        return new Item.Properties()
+                .setId(ResourceKey.create(Registries.ITEM, this.getIdentifier()))
                 .component(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString())
                 .component(ModDataComponentTypes.Danmaku.DAMAGE, this.damage)
                 .component(ModDataComponentTypes.Danmaku.SPEED, this.speed)
@@ -139,8 +138,8 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
                 .component(ModDataComponentTypes.Danmaku.TILE, this.tile)
                 .component(ModDataComponentTypes.Danmaku.INFINITE, this.infinite)
                 .component(ModDataComponentTypes.Danmaku.DAMAGE_TYPE, Touhou.id("generic").toString())
-                .component(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))))
-                .maxDamage(120)
+                .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))))
+                .durability(120)
                 .repairable(ModTags.ItemTypeTag.POWER_BLOCK);
     }
 

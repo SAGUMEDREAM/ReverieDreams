@@ -11,35 +11,35 @@ import cc.thonly.reverie_dreams.registry.RegistryManager;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.block.BlockState;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BlocksAttacksComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.BlocksAttacks;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
@@ -49,11 +49,11 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class DanmakuEntity extends PersistentProjectileEntity {
-    public static final TrackedData<Float> ROLL = DataTracker.registerData(DanmakuEntity.class, TrackedDataHandlerRegistry.FLOAT);
+public class DanmakuEntity extends AbstractArrow {
+    public static final EntityDataAccessor<Float> ROLL = SynchedEntityData.defineId(DanmakuEntity.class, EntityDataSerializers.FLOAT);
     public static final int MAX_FLIGHT_TICK = 20 * 20;
     protected Item danmakuItem;
-    protected ItemStack itemStack = Items.SNOWBALL.getDefaultStack();
+    protected ItemStack itemStack = Items.SNOWBALL.getDefaultInstance();
     protected Float scale;
     protected Boolean tile = false;
     protected DanmakuDamageType danmakuDamageType;
@@ -70,10 +70,10 @@ public class DanmakuEntity extends PersistentProjectileEntity {
     protected int fightTick = 0;
     protected int particleTick = 0;
 
-    public DanmakuEntity(@Nullable Entity livingEntity, ServerWorld world, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
+    public DanmakuEntity(@Nullable Entity livingEntity, ServerLevel world, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
         super(ModEntities.DANMAKU_ENTITY_TYPE,
                 x,
-                y + (livingEntity != null ? livingEntity.getStandingEyeHeight() : 0),
+                y + (livingEntity != null ? livingEntity.getEyeHeight() : 0),
                 z,
                 world,
                 stack.copy(),
@@ -84,32 +84,32 @@ public class DanmakuEntity extends PersistentProjectileEntity {
         double offsetZ = Math.cos(Math.toRadians(yaw)) * offsetDist;
 
         double newX = x + offsetX;
-        double newY = y + (livingEntity != null ? livingEntity.getStandingEyeHeight() : 0);
+        double newY = y + (livingEntity != null ? livingEntity.getEyeHeight() : 0);
         double newZ = z + offsetZ;
-        this.setPos(newX, newY, newZ);
+        this.setPosRaw(newX, newY, newZ);
         this.acceleration = acceleration;
 
         this.setOwner(livingEntity);
         if (livingEntity != null) {
-            this.setVelocity(livingEntity, pitch, yaw, 0.0F, speed, divergence);
+            this.shootFromRotation(livingEntity, pitch, yaw, 0.0F, speed, divergence);
         } else {
-            this.setVelocity(this, pitch, yaw, 0.0F, speed, divergence);
+            this.shootFromRotation(this, pitch, yaw, 0.0F, speed, divergence);
         }
-        this.setYaw(yaw);
-        this.setPitch(pitch);
-        this.pickupType = PickupPermission.CREATIVE_ONLY;
-        this.setDamage(stack.getOrDefault(ModDataComponentTypes.Danmaku.DAMAGE, 1.0f) * 1.5);
+        this.setYRot(yaw);
+        this.setXRot(pitch);
+        this.pickup = Pickup.CREATIVE_ONLY;
+        this.setBaseDamage(stack.getOrDefault(ModDataComponentTypes.Danmaku.DAMAGE, 1.0f) * 1.5);
         this.setScale(stack.getOrDefault(ModDataComponentTypes.Danmaku.SCALE, 1.0f) * 0.65F);
         String type = stack.getOrDefault(ModDataComponentTypes.Danmaku.DAMAGE_TYPE, Touhou.id("generic").toString());
         this.setTile(stack.getOrDefault(ModDataComponentTypes.Danmaku.TILE, false));
-        this.setDanmakuDamageType(RegistryManager.DANMAKU_DAMAGE_TYPE.get(Identifier.of(type)));
+        this.setDanmakuDamageType(RegistryManager.DANMAKU_DAMAGE_TYPE.getValue(ResourceLocation.parse(type)));
         this.setCustomPierceLevel((byte) 1);
         this.setItemStack(stack.copy());
         this.setDanmakuItem(stack.getItem());
         this.setNoGravity(true);
     }
 
-    public DanmakuEntity(EntityType<DanmakuEntity> danmakuEntityEntityType, World world) {
+    public DanmakuEntity(EntityType<DanmakuEntity> danmakuEntityEntityType, Level world) {
         super(danmakuEntityEntityType, world);
         this.setDanmakuItem(null);
         this.scale = 1f;
@@ -118,19 +118,19 @@ public class DanmakuEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(ROLL, 0f);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ROLL, 0f);
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
+    protected void addAdditionalSaveData(ValueOutput view) {
+        super.addAdditionalSaveData(view);
         if (!this.itemStack.isEmpty()) {
-            view.put("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC, this.itemStack.copy());
+            view.store("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC, this.itemStack.copy());
         }
         view.putBoolean("IsTile", this.tile);
-        Identifier danmakuDamageTypeId = RegistryManager.DANMAKU_DAMAGE_TYPE.getId(this.danmakuDamageType);
+        ResourceLocation danmakuDamageTypeId = RegistryManager.DANMAKU_DAMAGE_TYPE.getKey(this.danmakuDamageType);
         if (danmakuDamageTypeId != null) {
             view.putString("DamageType", danmakuDamageTypeId.toString());
         }
@@ -138,13 +138,13 @@ public class DanmakuEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
+    protected void readAdditionalSaveData(ValueInput view) {
+        super.readAdditionalSaveData(view);
         this.itemStack = view.read("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
-        this.tile = view.getBoolean("IsTile", true);
-        this.danmakuDamageType = RegistryManager.DANMAKU_DAMAGE_TYPE.get(Identifier.of(view.getString("DamageType", Touhou.id("generic").toString())));
+        this.tile = view.getBooleanOr("IsTile", true);
+        this.danmakuDamageType = RegistryManager.DANMAKU_DAMAGE_TYPE.getValue(ResourceLocation.parse(view.getStringOr("DamageType", Touhou.id("generic").toString())));
 
-        this.flyAge = view.getInt("FlyAge", 0);
+        this.flyAge = view.getIntOr("FlyAge", 0);
 
     }
 
@@ -154,18 +154,18 @@ public class DanmakuEntity extends PersistentProjectileEntity {
         this.fightTick++;
         this.particleTick++;
         if (!this.isInGround()) {
-            this.dataTracker.set(ROLL, (float) (this.dataTracker.get(ROLL) - MathHelper.RADIANS_PER_DEGREE * this.getVelocity().lengthSquared() * 15) % MathHelper.TAU);
+            this.entityData.set(ROLL, (float) (this.entityData.get(ROLL) - Mth.DEG_TO_RAD * this.getDeltaMovement().lengthSqr() * 15) % Mth.TWO_PI);
         }
-        this.setPitch(this.setupPitch);
-        this.setYaw(this.setupYaw);
+        this.setXRot(this.setupPitch);
+        this.setYRot(this.setupYaw);
         if (this.particleTick > 2) {
-            World world = this.getWorld();
-            if (!world.isClient() && world instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(
+            Level world = this.level();
+            if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
+                serverWorld.sendParticles(
                         ParticleTypes.SNOWFLAKE,
-                        this.getPos().x,
-                        this.getPos().y,
-                        this.getPos().z,
+                        this.position().x,
+                        this.position().y,
+                        this.position().z,
                         1,
                         0,
                         0,
@@ -176,7 +176,7 @@ public class DanmakuEntity extends PersistentProjectileEntity {
             this.particleTick = 0;
         }
 
-        if (this.isTouchingWater()) {
+        if (this.isInWater()) {
 //            this.setVelocity(this.getVelocity().multiply(0.8));
             this.fluidAge++;
             if (this.fluidAge > 80) {
@@ -190,19 +190,19 @@ public class DanmakuEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        this.setPosition(blockHitResult.getPos());
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        this.setPos(blockHitResult.getLocation());
         if (blockHitResult.getType() == HitResult.Type.BLOCK) {
-            BlockState block = this.getWorld().getBlockState(blockHitResult.getBlockPos());
-            blockHitParticles(this.getPos(), block, this.getWorld(), this.getDamage() * this.getVelocity().length());
-            SoundEvent soundEvent = block.getSoundGroup().getHitSound();
+            BlockState block = this.level().getBlockState(blockHitResult.getBlockPos());
+            blockHitParticles(this.position(), block, this.level(), this.getDamage() * this.getDeltaMovement().length());
+            SoundEvent soundEvent = block.getSoundType().getHitSound();
             setSilent(false);
             playSound(soundEvent, 0.2F, 1.0F);
             setSilent(true);
         }
-        this.setOnFire(true);
-        super.onBlockHit(blockHitResult);
-        this.setOnFire(false);
+        this.setSharedFlagOnFire(true);
+        super.onHitBlock(blockHitResult);
+        this.setSharedFlagOnFire(false);
         this.discard();
     }
 
@@ -221,34 +221,34 @@ public class DanmakuEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
+    protected void onHitEntity(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
         Entity owner = this.getOwner();
         if (!this.canDamage(entity, owner)) {
             return;
         }
 
-        if (entity instanceof PlayerEntity player) {
+        if (entity instanceof Player player) {
             if (player.isBlocking()) {
                 boolean isInAttackRange = false;
-                ItemStack activeItem = player.getActiveItem();
+                ItemStack activeItem = player.getUseItem();
                 if (!activeItem.isEmpty()) {
-                    BlocksAttacksComponent blocksAttacksComponent = activeItem.get(DataComponentTypes.BLOCKS_ATTACKS);
+                    BlocksAttacks blocksAttacksComponent = activeItem.get(DataComponents.BLOCKS_ATTACKS);
                     if (blocksAttacksComponent != null) {
-                        List<BlocksAttacksComponent.DamageReduction> damageReductions = blocksAttacksComponent.damageReductions();
-                        for (BlocksAttacksComponent.DamageReduction damageReduction : damageReductions) {
+                        List<BlocksAttacks.DamageReduction> damageReductions = blocksAttacksComponent.damageReductions();
+                        for (BlocksAttacks.DamageReduction damageReduction : damageReductions) {
                             float blockingAngle = damageReduction.horizontalBlockingAngle();
 
                             // ① 使用 EyePos，避免高度误差
-                            Vec3d toProjectile = this.getPos().subtract(player.getEyePos()).normalize();
+                            Vec3 toProjectile = this.position().subtract(player.getEyePosition()).normalize();
 
                             // ② 只取水平向量，忽略 Y
-                            Vec3d playerLook = player.getRotationVec(1.0F);
-                            Vec3d look2D = new Vec3d(playerLook.x, 0, playerLook.z).normalize();
-                            Vec3d toProj2D = new Vec3d(toProjectile.x, 0, toProjectile.z).normalize();
+                            Vec3 playerLook = player.getViewVector(1.0F);
+                            Vec3 look2D = new Vec3(playerLook.x, 0, playerLook.z).normalize();
+                            Vec3 toProj2D = new Vec3(toProjectile.x, 0, toProjectile.z).normalize();
 
                             // ③ 点积求角度，clamp 防止 NaN
-                            double dot = MathHelper.clamp(look2D.dotProduct(toProj2D), -1.0, 1.0);
+                            double dot = Mth.clamp(look2D.dot(toProj2D), -1.0, 1.0);
                             double angle = Math.toDegrees(Math.acos(dot));
 
                             // ④ 给一个小容错（比如 +5°）
@@ -259,7 +259,7 @@ public class DanmakuEntity extends PersistentProjectileEntity {
                         }
                     }
                     if (isInAttackRange) {
-                        activeItem.damage(1, player);
+                        activeItem.hurtWithoutBreaking(1, player);
                         this.discard(); // 拦截并移除投射物
                         return;
                     }
@@ -268,21 +268,21 @@ public class DanmakuEntity extends PersistentProjectileEntity {
 
         }
 
-        this.setPosition(entityHitResult.getPos());
+        this.setPos(entityHitResult.getLocation());
         this.setSilent(false);
         this.setSilent(true);
 
         if (entityHitResult.getEntity() != null) {
-            this.setDamage(this.getDamage());
-            this.entityHitParticles(entityHitResult.getEntity(), this.getDamage() * this.getVelocity().length());
+            this.setBaseDamage(this.getDamage());
+            this.entityHitParticles(entityHitResult.getEntity(), this.getDamage() * this.getDeltaMovement().length());
         }
 
-        this.hitDamage(entityHitResult, this.getWorld());
+        this.hitDamage(entityHitResult, this.level());
         this.discard();
     }
 
-    protected void hitDamage(EntityHitResult entityHitResult, World world) {
-        if (world instanceof ServerWorld serverWorld) {
+    protected void hitDamage(EntityHitResult entityHitResult, Level world) {
+        if (world instanceof ServerLevel serverWorld) {
             Entity target = entityHitResult.getEntity();
             Entity owner = this.getOwner();
 
@@ -290,34 +290,34 @@ public class DanmakuEntity extends PersistentProjectileEntity {
                 DamageSource damageSource;
 
                 if (owner instanceof LivingEntity attacker) {
-                    damageSource = world.getDamageSources().mobProjectile(this, attacker);
+                    damageSource = world.damageSources().mobProjectile(this, attacker);
                 } else {
-                    damageSource = this.danmakuDamageType.mapToSource(world.getDamageSources());
+                    damageSource = this.danmakuDamageType.mapToSource(world.damageSources());
                 }
 
                 float damageAmount = (float) this.getDamage();
-                livingTarget.damage(serverWorld, damageSource, damageAmount);
+                livingTarget.hurtServer(serverWorld, damageSource, damageAmount);
                 livingTarget.setInvulnerable(false);
-                livingTarget.lastDamageTaken = 0;
+                livingTarget.lastHurt = 0;
                 this.onHitEffect.damage(livingTarget, this.getDamage());
             }
         }
     }
 
     protected void entityHitParticles(Entity livingEntity, double damage) {
-        if (livingEntity.getWorld() instanceof ServerWorld world) {
-            Vec3d pos = livingEntity.getPos();
+        if (livingEntity.level() instanceof ServerLevel world) {
+            Vec3 pos = livingEntity.position();
             int particleCount = (int) damage * 4;
-            double radius = livingEntity.getWidth() / 2 + 0.5;
-            double heightOffset = livingEntity.getHeight();
+            double radius = livingEntity.getBbWidth() / 2 + 0.5;
+            double heightOffset = livingEntity.getBbHeight();
 
             for (int i = 0; i < particleCount; i++) {
                 double angle = (2 * Math.PI / particleCount) * i;
                 double xOffset = radius * Math.cos(angle);
                 double zOffset = radius * Math.sin(angle);
 
-                ItemStackParticleEffect itemStackParticleEffect = new ItemStackParticleEffect(ParticleTypes.ITEM, this.getDefaultItemStack());
-                world.spawnParticles(
+                ItemParticleOption itemStackParticleEffect = new ItemParticleOption(ParticleTypes.ITEM, this.getDefaultPickupItem());
+                world.sendParticles(
                         itemStackParticleEffect,
                         pos.x,
                         pos.y,
@@ -332,8 +332,8 @@ public class DanmakuEntity extends PersistentProjectileEntity {
         }
     }
 
-    protected void blockHitParticles(Vec3d pos, BlockState blockState, World worldTemp, double damage) {
-        if (worldTemp instanceof ServerWorld world) {
+    protected void blockHitParticles(Vec3 pos, BlockState blockState, Level worldTemp, double damage) {
+        if (worldTemp instanceof ServerLevel world) {
             int particleCount = (int) damage * 4;
             double radius = 1;
             double heightOffset = 1;
@@ -344,8 +344,8 @@ public class DanmakuEntity extends PersistentProjectileEntity {
                 double xOffset = radius * Math.cos(angle);
                 double zOffset = radius * Math.sin(angle);
 
-                BlockStateParticleEffect blockStateParticleEffect = new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState);
-                world.spawnParticles(
+                BlockParticleOption blockStateParticleEffect = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
+                world.sendParticles(
                         blockStateParticleEffect,
                         pos.x,
                         pos.y,
@@ -362,8 +362,8 @@ public class DanmakuEntity extends PersistentProjectileEntity {
 
 
     public void setCustomPierceLevel(byte level) {
-        if (!tryInvokeMethod(PersistentProjectileEntity.class, "setPierceLevel", byte.class, level)) {
-            tryInvokeMethod(PersistentProjectileEntity.class, "method_7451", byte.class, level);
+        if (!tryInvokeMethod(AbstractArrow.class, "setPierceLevel", byte.class, level)) {
+            tryInvokeMethod(AbstractArrow.class, "method_7451", byte.class, level);
         }
     }
 
@@ -379,9 +379,9 @@ public class DanmakuEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected ItemStack getDefaultItemStack() {
-        if (this.danmakuItem != null && !this.danmakuItem.getDefaultStack().isEmpty()) {
-            return this.danmakuItem.getDefaultStack();
+    protected ItemStack getDefaultPickupItem() {
+        if (this.danmakuItem != null && !this.danmakuItem.getDefaultInstance().isEmpty()) {
+            return this.danmakuItem.getDefaultInstance();
         } else {
             return new ItemStack(ModItems.ICON);
         }

@@ -11,12 +11,12 @@ import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -31,21 +31,21 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
     private IntrinsicalRegister<RoleCard> owner;
     @Setter
     @Getter
-    private Identifier id;
-    private Identifier itemId;
+    private ResourceLocation id;
+    private ResourceLocation itemId;
     private Long color = DEFAULT_COLOR;
     private final List<NPCRole> entries = new LinkedList<>();
 
     private RoleCard() {
     }
 
-    public RoleCard(Identifier id, Long color, List<NPCRole> roles) {
+    public RoleCard(ResourceLocation id, Long color, List<NPCRole> roles) {
         this.id = id;
         this.color = color;
         this.of(roles);
     }
 
-    public RoleCard(Identifier id, Long color, NPCRole... roles) {
+    public RoleCard(ResourceLocation id, Long color, NPCRole... roles) {
         this.id = id;
         this.color = color;
         this.of(roles);
@@ -73,8 +73,8 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
 
     public ItemStack itemStack() {
         ItemStack itemStack = new ItemStack(ModItems.ROLE_CARD, 1);
-        itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(this.translationKey()));
-        itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color.intValue()));
+        itemStack.set(DataComponents.ITEM_NAME, Component.translatable(this.translationKey()));
+        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color.intValue()));
         itemStack.set(ModDataComponentTypes.ROLE_CARD_ID, this.getId());
         return itemStack.copy();
     }
@@ -90,7 +90,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
     }
 
     public RoleCard build() {
-        this.itemId = Identifier.of(this.id.getNamespace(), this.id.getPath() + "_role_card");
+        this.itemId = ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_role_card");
         for (NPCRole entry : this.entries) {
             Item egg = entry.getEgg();
             if (egg instanceof SpawnEggItem eggItem) {
@@ -101,7 +101,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
     }
 
     public String translationKey() {
-        return this.itemId.toTranslationKey();
+        return this.itemId.toLanguageKey();
     }
 
     public boolean isEmpty() {
@@ -173,7 +173,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
             }
 
             this.result = new GensokyoAltarRecipe(
-                    ItemStackWrapper.of(ModItems.ROLE_CARD.getDefaultStack()),
+                    ItemStackWrapper.of(ModItems.ROLE_CARD.getDefaultInstance()),
                     wrappers,
                     ItemStackWrapper.of(this.roleCard.itemStack())
             );

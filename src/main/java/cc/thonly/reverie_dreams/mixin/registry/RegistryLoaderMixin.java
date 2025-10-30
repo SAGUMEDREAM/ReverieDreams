@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.registry.RegistryLoader;
+import net.minecraft.resources.RegistryDataLoader;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Slf4j
-@Mixin(RegistryLoader.class)
+@Mixin(RegistryDataLoader.class)
 public class RegistryLoaderMixin {
 }

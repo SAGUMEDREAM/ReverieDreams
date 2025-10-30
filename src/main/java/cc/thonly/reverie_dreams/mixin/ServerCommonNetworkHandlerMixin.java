@@ -8,21 +8,21 @@ import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.network.packet.c2s.common.CustomClickActionC2SPacket;
-import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
+import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerCommonNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerCommonPacketListenerImpl;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,24 +34,24 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-@Mixin(ServerCommonNetworkHandler.class)
+@Mixin(ServerCommonPacketListenerImpl.class)
 public abstract class ServerCommonNetworkHandlerMixin {
     @Shadow @Final protected MinecraftServer server;
 
-    @Inject(method = "onCustomClickAction", at = @At("TAIL"))
-    private void handleCustomClick(CustomClickActionC2SPacket packet, CallbackInfo ci) {
+    @Inject(method = "handleCustomClickAction", at = @At("TAIL"))
+    private void handleCustomClick(ServerboundCustomClickActionPacket packet, CallbackInfo ci) {
         try {
             if (!packet.id().getNamespace().equals(Touhou.MOD_ID)) {
                 return;
             }
             switch (packet.id().getPath()) {
                 case "role/summon"-> {
-                    Optional<NbtElement> payload = packet.payload();
+                    Optional<Tag> payload = packet.payload();
                     if (payload.isEmpty()) {
                         return;
                     }
-                    NbtElement element = payload.get();
-                    if (!(element instanceof NbtCompound compound)) {
+                    Tag element = payload.get();
+                    if (!(element instanceof CompoundTag compound)) {
                         return;
                     }
                     Optional<String> siOptional = compound.getString("session_id");
@@ -72,20 +72,20 @@ public abstract class ServerCommonNetworkHandlerMixin {
                         RoleCard roleCard = usingData.getRoleCard();
                         Optional<NPCRole> roleWrapper = roleCard.random();
                         if (roleWrapper.isPresent()) {
-                            ServerPlayerEntity player = usingData.getPlayer();
-                            ServerWorld world = usingData.getWorld();
+                            ServerPlayer player = usingData.getPlayer();
+                            ServerLevel world = usingData.getWorld();
                             ItemStack itemStack = usingData.getItemStack();
                             NPCRole role = roleWrapper.get();
-                            itemStack.decrementUnlessCreative(1, player);
+                            itemStack.consume(1, player);
                             EntityType<NPCRoleFastEntity> entityType = role.get();
-                            entityType.spawn(world, usingData.getBlockPos(), SpawnReason.SPAWN_ITEM_USE);
+                            entityType.spawn(world, usingData.getBlockPos(), EntitySpawnReason.SPAWN_ITEM_USE);
 
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BUCKET_FILL, player.getSoundCategory(), 2.0f, 1.0f);
+                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BUCKET_FILL, player.getSoundSource(), 2.0f, 1.0f);
                         }
                         RoleCardItem.USING_DATA_MAP.remove(sessionId);
                         return;
                     }
-                    Identifier identifier = Identifier.tryParse(entityId);
+                    ResourceLocation identifier = ResourceLocation.tryParse(entityId);
                     if (identifier == null) {
                         return;
                     }
@@ -93,23 +93,23 @@ public abstract class ServerCommonNetworkHandlerMixin {
                     if (role == null) {
                         return;
                     }
-                    ServerPlayerEntity player = usingData.getPlayer();
-                    ServerWorld world = usingData.getWorld();
+                    ServerPlayer player = usingData.getPlayer();
+                    ServerLevel world = usingData.getWorld();
                     ItemStack itemStack = usingData.getItemStack();
-                    itemStack.decrementUnlessCreative(1, player);
+                    itemStack.consume(1, player);
                     EntityType<NPCRoleFastEntity> entityType = role.get();
-                    entityType.spawn(world, usingData.getBlockPos(), SpawnReason.SPAWN_ITEM_USE);
+                    entityType.spawn(world, usingData.getBlockPos(), EntitySpawnReason.SPAWN_ITEM_USE);
 
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BUCKET_FILL, player.getSoundCategory(), 2.0f, 1.0f);
+                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BUCKET_FILL, player.getSoundSource(), 2.0f, 1.0f);
                     RoleCardItem.USING_DATA_MAP.remove(sessionId);
                 }
                 case "stop/dialog_video"-> {
-                    Optional<NbtElement> payload = packet.payload();
+                    Optional<Tag> payload = packet.payload();
                     if (payload.isEmpty()) {
                         return;
                     }
-                    NbtElement element = payload.get();
-                    if (!(element instanceof NbtCompound compound)) {
+                    Tag element = payload.get();
+                    if (!(element instanceof CompoundTag compound)) {
                         return;
                     }
                     Optional<String> uidOptional = compound.getString("uid");
@@ -119,13 +119,13 @@ public abstract class ServerCommonNetworkHandlerMixin {
                     String uid = uidOptional.get();
                     for (Map.Entry<String, DialogPlayer> entry : DialogPlayer.INSTANCES.entrySet()) {
                         DialogPlayer dialogPlayer = entry.getValue();
-                        ServerPlayerEntity player = dialogPlayer.getPlayer();
-                        if (player.getUuidAsString().equals(uid)) {
+                        ServerPlayer player = dialogPlayer.getPlayer();
+                        if (player.getStringUUID().equals(uid)) {
                             dialogPlayer.remove();
                             SoundEvent soundEvent = dialogPlayer.getSoundEvent();
                             if (soundEvent != null) {
-                                StopSoundS2CPacket stopSoundS2CPacket = new StopSoundS2CPacket(soundEvent.id(), SoundCategory.PLAYERS);
-                                player.networkHandler.sendPacket(stopSoundS2CPacket);
+                                ClientboundStopSoundPacket stopSoundS2CPacket = new ClientboundStopSoundPacket(soundEvent.location(), SoundSource.PLAYERS);
+                                player.connection.send(stopSoundS2CPacket);
                             }
                         }
                     }

@@ -4,47 +4,50 @@ import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.fumo.Fumo;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.passive.WanderingTraderEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.village.*;
-import net.minecraft.world.World;
-
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.Level;
 import java.util.*;
 
 
 public class FumoSellerVillager extends AbstractSellerEntity {
 
-    public FumoSellerVillager(EntityType<? extends WanderingTraderEntity> entityType, World world) {
+    public FumoSellerVillager(EntityType<? extends WanderingTrader> entityType, Level world) {
         super(entityType, world);
     }
 
-    public FumoSellerVillager(World world) {
+    public FumoSellerVillager(Level world) {
         super(ModEntities.FUMO_SELLER_VILLAGER, world);
     }
 
-    public FumoSellerVillager(VillagerData prev, World world) {
+    public FumoSellerVillager(VillagerData prev, Level world) {
         super(ModEntities.FUMO_SELLER_VILLAGER, world);
         this.prev = prev;
     }
 
-    public FumoSellerVillager(VillagerEntity prevEntity, World world) {
+    public FumoSellerVillager(Villager prevEntity, Level world) {
         super(ModEntities.FUMO_SELLER_VILLAGER, world);
         this.prev = prevEntity.getVillagerData();
     }
 
-    public List<TradeOffer> getVillagerOffers() {
+    public List<MerchantOffer> getVillagerOffers() {
         long seed = this.getVillagerSeed();
         Random random = new Random(seed);
 
-        List<TradeOffer> offers = new ArrayList<>();
+        List<MerchantOffer> offers = new ArrayList<>();
         List<Fumo> allFumos = new ArrayList<>(RegistryManager.FUMO.values());
 
         Collections.shuffle(allFumos, random);
@@ -58,10 +61,10 @@ public class FumoSellerVillager extends AbstractSellerEntity {
             ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
 
             int emeraldAmount = 31 + random.nextInt(14);
-            TradedItem first = new TradedItem(Items.EMERALD, emeraldAmount);
-            TradedItem second = new TradedItem(Items.WHITE_WOOL, 32);
+            ItemCost first = new ItemCost(Items.EMERALD, emeraldAmount);
+            ItemCost second = new ItemCost(Items.WHITE_WOOL, 32);
 
-            TradeOffer offer = new TradeOffer(first, Optional.of(second), sellItem, Math.max(0, 2 - this.sellInfo.getSellArchive(seed, wrapper)), 1, 0.05f);
+            MerchantOffer offer = new MerchantOffer(first, Optional.of(second), sellItem, Math.max(0, 2 - this.sellInfo.getSellArchive(seed, wrapper)), 1, 0.05f);
             offers.add(offer);
         }
 
@@ -70,9 +73,9 @@ public class FumoSellerVillager extends AbstractSellerEntity {
 
     @Override
     public VillagerData getModifyVillagerData(MinecraftServer server) {
-        DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-        Registry<VillagerType> villagerTypeRegistry = registryManager.getOrThrow(RegistryKeys.VILLAGER_TYPE);
-        Registry<VillagerProfession> villagerProfessionRegistry = registryManager.getOrThrow(RegistryKeys.VILLAGER_PROFESSION);
+        RegistryAccess.Frozen registryManager = server.registryAccess();
+        Registry<VillagerType> villagerTypeRegistry = registryManager.lookupOrThrow(Registries.VILLAGER_TYPE);
+        Registry<VillagerProfession> villagerProfessionRegistry = registryManager.lookupOrThrow(Registries.VILLAGER_PROFESSION);
 
         return new VillagerData(
                 villagerTypeRegistry.getOrThrow(VillagerType.PLAINS),

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.datagen.generator;
 
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.resources.ResourceKey;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
@@ -33,11 +33,11 @@ public class DataGeneratorUtil {
         }
     }
 
-    public static Path getAssets(Path output, String namespace, RegistryKey<?> key, @Nullable List<String> other) {
+    public static Path getAssets(Path output, String namespace, ResourceKey<?> key, @Nullable List<String> other) {
         return getOutput(output, namespace, key, other, ASSETS);
     }
 
-    public static Path getData(Path output, String namespace, RegistryKey<?> key, @Nullable List<String> other) {
+    public static Path getData(Path output, String namespace, ResourceKey<?> key, @Nullable List<String> other) {
         return getOutput(output, namespace, key, other, DATA);
     }
 
@@ -49,18 +49,18 @@ public class DataGeneratorUtil {
         return getOutput(output, namespace, key, other, DATA);
     }
 
-    public static Path getAssetsByNullable(Path output, String namespace, RegistryKey<?> key, @Nullable List<String> other) {
+    public static Path getAssetsByNullable(Path output, String namespace, ResourceKey<?> key, @Nullable List<String> other) {
         return getOutput(output, namespace, key, other, ASSETS);
     }
 
-    public static Path getDataByNullable(Path output, String namespace, RegistryKey<?> key, @Nullable List<String> other) {
+    public static Path getDataByNullable(Path output, String namespace, ResourceKey<?> key, @Nullable List<String> other) {
         return getOutput(output, namespace, key, other, DATA);
     }
 
-    public static Path getOutput(Path output, String namespace, RegistryKey<?> key, @Nullable List<String> other, String type) {
+    public static Path getOutput(Path output, String namespace, ResourceKey<?> key, @Nullable List<String> other, String type) {
         Path base = output.resolve(type).resolve(namespace);
         if (key != null) {
-            base = base.resolve(key.getValue().getPath());
+            base = base.resolve(key.location().getPath());
         }
         if (other != null) {
             for (String string : other) {

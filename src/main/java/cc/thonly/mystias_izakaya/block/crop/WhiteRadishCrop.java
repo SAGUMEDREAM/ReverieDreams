@@ -3,13 +3,13 @@ package cc.thonly.mystias_izakaya.block.crop;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.util.block.CropAgeUtil;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.state.property.IntProperty;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class WhiteRadishCrop extends AbstractCropBlock {
-    public static final MapCodec<WhiteRadishCrop> CODEC = WhiteRadishCrop.createCodec(WhiteRadishCrop::new);
+    public static final MapCodec<WhiteRadishCrop> CODEC = WhiteRadishCrop.simpleCodec(WhiteRadishCrop::new);
 
-    public WhiteRadishCrop(Settings settings) {
+    public WhiteRadishCrop(Properties settings) {
         super(settings);
     }
 
@@ -19,12 +19,12 @@ public class WhiteRadishCrop extends AbstractCropBlock {
     }
 
     @Override
-    public IntProperty getAgeProperty() {
+    public IntegerProperty getAgeProperty() {
         return CropAgeUtil.fromInt(8);
     }
 
     @Override
-    protected MapCodec<? extends PlantBlock> getCodec() {
+    protected MapCodec<? extends VegetationBlock> codec() {
         return CODEC;
     }
 }

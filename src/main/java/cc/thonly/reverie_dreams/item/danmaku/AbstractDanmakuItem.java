@@ -7,22 +7,17 @@ import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import java.util.function.Consumer;
 
 @Setter
@@ -31,57 +26,57 @@ import java.util.function.Consumer;
 public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
     public static final Integer DEFAULT_COUNT = 3;
 
-    public AbstractDanmakuItem(Settings settings) {
-        super(settings.maxCount(1));
+    public AbstractDanmakuItem(Properties settings) {
+        super(settings.stacksTo(1));
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        if (!context.getWorld().isClient()) {
-            use((ServerWorld) context.getWorld(),
-                    (PlayerEntity) context.getPlayer(),
+    public InteractionResult useOn(UseOnContext context) {
+        if (!context.getLevel().isClientSide()) {
+            use((ServerLevel) context.getLevel(),
+                    (Player) context.getPlayer(),
                     context.getHand());
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        World world = user.getWorld();
-        if (!world.isClient()) {
-            use((ServerWorld) world,
+    public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
+        Level world = user.level();
+        if (!world.isClientSide()) {
+            use((ServerLevel) world,
                     user,
                     hand);
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        ItemStack itemStack = user.getItemInHand(hand);
         Boolean isInfinite = itemStack.getOrDefault(ModDataComponentTypes.Danmaku.INFINITE, false);
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            var cooldownManager = user.getItemCooldownManager();
-            if (cooldownManager.isCoolingDown(itemStack)) {
-                return ActionResult.FAIL;
+        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+            var cooldownManager = user.getCooldowns();
+            if (cooldownManager.isOnCooldown(itemStack)) {
+                return InteractionResult.FAIL;
             }
-            cooldownManager.set(itemStack, 10);
+            cooldownManager.addCooldown(itemStack, 10);
             for (int i = 0; i < itemStack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, DEFAULT_COUNT); i++) {
                 this.shoot(serverWorld, user, hand);
             }
             if (!isInfinite) {
-                itemStack.damage(1, user);
-                if (itemStack.isDamageable() && itemStack.getDamage() >= itemStack.getMaxDamage()) {
-                    itemStack.decrement(1);
+                itemStack.hurtWithoutBreaking(1, user);
+                if (itemStack.isDamageableItem() && itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
+                    itemStack.shrink(1);
                 }
             }
 
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEventInit.FIRE, SoundCategory.NEUTRAL, 1f, 1.0f);
-            user.swingHand(hand);
-            return ActionResult.SUCCESS_SERVER;
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEventInit.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
+            user.swing(hand);
+            return InteractionResult.SUCCESS_SERVER;
         }
-        user.incrementStat(Stats.USED.getOrCreateStat(this));
-        return ActionResult.SUCCESS;
+        user.awardStat(Stats.ITEM_USED.get(this));
+        return InteractionResult.SUCCESS;
     }
 
 //    @Override
@@ -98,5 +93,5 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
 //        textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.base_type")).append(Text.translatable(Identifier.of(templateType).toTranslationKey())));
 //    }
 
-    public abstract void shoot(ServerWorld serverWorld, LivingEntity user, Hand hand);
+    public abstract void shoot(ServerLevel serverWorld, LivingEntity user, InteractionHand hand);
 }

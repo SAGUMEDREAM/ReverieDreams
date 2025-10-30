@@ -5,9 +5,8 @@ import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
+import net.minecraft.resources.ResourceLocation;
 
 public class RoleCards {
     private static final IntrinsicalRegister<RoleCard> REGISTER = RegistryManager.ROLE_CARD;
@@ -196,7 +195,7 @@ public class RoleCards {
         return register(Touhou.id(name), roleCard);
     }
 
-    public static RoleCard register(Identifier key, RoleCard roleCard) {
+    public static RoleCard register(ResourceLocation key, RoleCard roleCard) {
         return RegistryManager.register(REGISTER, key, roleCard);
     }
 

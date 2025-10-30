@@ -10,35 +10,35 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
     public static final Map<BlockState, Model> STATE_TO_MODEL = new HashMap<>();
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        return Blocks.BARRIER.getDefaultState();
+        return Blocks.BARRIER.defaultBlockState();
     }
 
     @Override
     public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return Blocks.ENCHANTING_TABLE.getDefaultState();
+        return Blocks.ENCHANTING_TABLE.defaultBlockState();
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState state) {
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState state) {
         Model altarModel = new Model(world, pos, state);
         STATE_TO_MODEL.put(state, altarModel);
         return altarModel;
@@ -49,11 +49,11 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
         public final ItemDisplayElement[] itemStackDisplay = new ItemDisplayElement[9];
         BlockState state;
         BlockPos pos;
-        ServerWorld world;
+        ServerLevel world;
         GensokyoAltarBlockEntity blockEntity;
-        SimpleInventory inventory;
+        SimpleContainer inventory;
 
-        public Model(ServerWorld world, BlockPos pos, BlockState state) {
+        public Model(ServerLevel world, BlockPos pos, BlockState state) {
             init(state);
             this.world = world;
             this.pos = pos;
@@ -73,7 +73,7 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
             this.inventory = this.blockEntity.getInventory();
 
             for (int i = 0; i < this.itemStackDisplay.length; i++) {
-                ItemStack stack = this.inventory.getStack(i);
+                ItemStack stack = this.inventory.getItem(i);
                 ItemDisplayElement element = this.itemStackDisplay[i];
 
                 if (stack.isEmpty()) {
@@ -84,7 +84,7 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
                     continue;
                 }
 
-                if (element == null || !ItemStack.areEqual(stack, element.getItem())) {
+                if (element == null || !ItemStack.matches(stack, element.getItem())) {
                     if (element != null) {
                         this.removeElement(element);
                     }
@@ -93,7 +93,7 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
                     int[] offset = GensokyoAltarBlock.OFFSETS[i];
                     newElement.setScale(new Vector3f(i != 8 ? 0.6f : 0.5f));
                     newElement.setDisplaySize(0.5f, 0.5f);
-                    newElement.setOffset(new Vec3d(offset[0], i != 8 ? 3 : 0.5, offset[1]));
+                    newElement.setOffset(new Vec3(offset[0], i != 8 ? 3 : 0.5, offset[1]));
 
                     this.addElement(newElement);
                     this.itemStackDisplay[i] = newElement;

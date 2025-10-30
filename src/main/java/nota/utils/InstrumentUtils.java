@@ -1,7 +1,7 @@
 package nota.utils;
 
-import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import nota.model.Sound;
 
 /**

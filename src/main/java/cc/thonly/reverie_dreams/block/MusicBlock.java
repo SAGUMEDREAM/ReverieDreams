@@ -4,69 +4,69 @@ import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
 import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.block.WireOrientation;
 import nota.player.SongPlayer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.BlockHitResult;
 
-public class MusicBlock extends BlockWithEntity {
-    public static final BooleanProperty POWERED = Properties.POWERED;
+public class MusicBlock extends BaseEntityBlock {
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-    public MusicBlock(Settings settings) {
+    public MusicBlock(Properties settings) {
         super( settings);
-        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(POWERED);
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             MusicBlockEntity blockEntity = (MusicBlockEntity) serverWorld.getBlockEntity(pos);
             if (blockEntity == null) {
-                return ActionResult.FAIL;
+                return InteractionResult.FAIL;
             }
             int index = -1;
-            index = player.isSneaking() ? blockEntity.next() : blockEntity.prev();
+            index = player.isShiftKeyDown() ? blockEntity.next() : blockEntity.prev();
             if (blockEntity.getFilenames().isEmpty()) {
-                player.sendMessage(Text.translatable("item.reverie_dreams.music.no_files"), false);
-                return ActionResult.PASS;
+                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
+                return InteractionResult.PASS;
             }
             if (index == -1) {
-                player.sendMessage(Text.translatable("item.reverie_dreams.music.no_music_selected"), false);
-                return ActionResult.PASS;
-            } else if (world.isReceivingRedstonePower(pos)){
+                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
+                return InteractionResult.PASS;
+            } else if (world.hasNeighborSignal(pos)){
                 TouhouNotaUtils.playAt(world, pos, blockEntity.getSelect());
             }
-            player.sendMessage(Text.translatable("item.reverie_dreams.music.switch_music", blockEntity.getSelect()), false);
-            return ActionResult.SUCCESS_SERVER;
+            player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", blockEntity.getSelect()), false);
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return super.onUse(state, world, pos, player, hit);
+        return super.useWithoutItem(state, world, pos, player, hit);
     }
 
     @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof MusicBlockEntity musicBlockEntity) {
             SongPlayer selfPlayer = musicBlockEntity.getSelfPlayer();
@@ -78,18 +78,18 @@ public class MusicBlock extends BlockWithEntity {
                 }
             }
         }
-        return super.onBreak(world, pos, state, player);
+        return super.playerWillDestroy(world, pos, state, player);
     }
 
     @Override
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-        super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
+    protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, @Nullable Orientation wireOrientation, boolean notify) {
+        super.neighborChanged(state, world, pos, sourceBlock, wireOrientation, notify);
 
-        boolean hasPower = world.isReceivingRedstonePower(pos);
-        boolean wasPowered = state.get(POWERED);
+        boolean hasPower = world.hasNeighborSignal(pos);
+        boolean wasPowered = state.getValue(POWERED);
 
         if (hasPower != wasPowered) {
-            world.setBlockState(pos, state.with(POWERED, hasPower), Block.NOTIFY_ALL);
+            world.setBlock(pos, state.setValue(POWERED, hasPower), Block.UPDATE_ALL);
 
             if (hasPower) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -101,17 +101,17 @@ public class MusicBlock extends BlockWithEntity {
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.MUSIC_BLOCK_ENTITY, MusicBlockEntity::tick);
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, ModBlockEntities.MUSIC_BLOCK_ENTITY, MusicBlockEntity::tick);
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec(MusicBlock::new);
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(MusicBlock::new);
     }
 
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new MusicBlockEntity(pos, state);
     }
 }

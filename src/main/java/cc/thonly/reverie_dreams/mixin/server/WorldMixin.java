@@ -2,34 +2,34 @@ package cc.thonly.reverie_dreams.mixin.server;
 
 import cc.thonly.reverie_dreams.interfaces.IWorld;
 import cc.thonly.reverie_dreams.world.dimension.WorldInit;
-import net.minecraft.entity.Entity;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(World.class)
-public abstract class WorldMixin implements WorldAccess,
+@Mixin(Level.class)
+public abstract class WorldMixin implements LevelAccessor,
         AutoCloseable, IWorld {
 
-    @Inject(method = "playSound(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V", at = @At("TAIL"))
-    public void onPlaySound(Entity source, BlockPos pos, SoundEvent sound, SoundCategory category, float volume, float pitch, CallbackInfo ci) {
+    @Inject(method = "playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V", at = @At("TAIL"))
+    public void onPlaySound(Entity source, BlockPos pos, SoundEvent sound, SoundSource category, float volume, float pitch, CallbackInfo ci) {
 
     }
 
     @Override
-    public RegistryKey<World> getDreamWorld() {
+    public ResourceKey<Level> getDreamWorld() {
         return WorldInit.getDreamWorld();
     }
 
     @Override
-    public RegistryKey<World> getMoon() {
+    public ResourceKey<Level> getMoon() {
         return WorldInit.getMoon();
     }
 }

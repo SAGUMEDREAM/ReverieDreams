@@ -2,16 +2,21 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.Touhou;
 import lombok.Getter;
-import net.minecraft.block.*;
-import net.minecraft.data.family.BlockFamilies;
-import net.minecraft.data.family.BlockFamily;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,7 +35,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
     private Block slab;
     private Block wall;
 
-    private DecorativeBlockCreator(Identifier id) {
+    private DecorativeBlockCreator(ResourceLocation id) {
         super(id.getPath(), id);
         INSTANCES.add(this);
     }
@@ -73,45 +78,45 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
         ).filter(Objects::nonNull);
     }
 
-    public void offerRecipe(RecipeGenerator generator, @NotNull Item material) {
-        Identifier id = Registries.ITEM.getId(material);
-        ItemConvertible start = this.base() == null ? material : this.base();
+    public void offerRecipe(RecipeProvider generator, @NotNull Item material) {
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(material);
+        ItemLike start = this.base() == null ? material : this.base();
         if (start != this.block()) {
-            generator.createShaped(RecipeCategory.DECORATIONS, this.block(), 2)
+            generator.shaped(RecipeCategory.DECORATIONS, this.block(), 2)
                     .pattern("XX")
                     .pattern("XX")
-                    .input('X', start)
-                    .criterion("has_" + id.getPath(), generator.conditionsFromItem(start))
-                    .offerTo(generator.exporter, RecipeGenerator.getRecipeName(this.block()));
+                    .define('X', start)
+                    .unlockedBy("has_" + id.getPath(), generator.has(start))
+                    .save(generator.output, RecipeProvider.getSimpleRecipeName(this.block()));
         }
-        generator.offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, this.slab(), material);
-        generator.offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, this.slab(), this.block(), 2);
-        generator.createStairsRecipe(this.stair(), Ingredient.ofItem(material))
-                .criterion("has_" + id.getPath(), generator.conditionsFromItem(material))
-                .offerTo(generator.exporter, RecipeGenerator.getRecipeName(this.stair()));
-        generator.offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, this.stair(), this.block());
-        generator.offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, this.wall(), material);
+        generator.slab(RecipeCategory.BUILDING_BLOCKS, this.slab(), material);
+        generator.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, this.slab(), this.block(), 2);
+        generator.stairBuilder(this.stair(), Ingredient.of(material))
+                .unlockedBy("has_" + id.getPath(), generator.has(material))
+                .save(generator.output, RecipeProvider.getSimpleRecipeName(this.stair()));
+        generator.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, this.stair(), this.block());
+        generator.wall(RecipeCategory.BUILDING_BLOCKS, this.wall(), material);
     }
 
     @Override
     protected DecorativeBlockCreator build() {
-        this.block = ModBlocks.registerSimpleBlock(this.getId(), Block::new, AbstractBlock.Settings.copy(Blocks.STONE));
-        this.stair = ModBlocks.registerSimpleBlock(suffix("stairs"), (settings) -> new StairsBlock(this.block.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS));
-        this.slab = ModBlocks.registerSimpleBlock(suffix("slab"), SlabBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque());
-        this.wall = ModBlocks.registerSimpleBlock(suffix("wall"), WallBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_BRICK_WALL).nonOpaque());
+        this.block = ModBlocks.registerSimpleBlock(this.getId(), Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
+        this.stair = ModBlocks.registerSimpleBlock(suffix("stairs"), (settings) -> new StairBlock(this.block.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
+        this.slab = ModBlocks.registerSimpleBlock(suffix("slab"), SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB).noOcclusion());
+        this.wall = ModBlocks.registerSimpleBlock(suffix("wall"), WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).noOcclusion());
 
-        Registries.ITEM.addAlias(suffix("stair"), suffix("stairs"));
+        BuiltInRegistries.ITEM.addAlias(suffix("stair"), suffix("stairs"));
 
         this.stream().forEach((block) -> {
             BLOCK_ITEMS.add(block.asItem());
         });
 
-        this.blockFamily = BlockFamilies.register(this.block)
+        this.blockFamily = BlockFamilies.familyBuilder(this.block)
                 .stairs(this.stair)
                 .slab(this.slab)
                 .wall(this.wall)
-                .group(this.getId().getPath()).unlockCriterionName("has_" + this.getId().getPath())
-                .build();
+                .recipeGroupPrefix(this.getId().getPath()).recipeUnlockedBy("has_" + this.getId().getPath())
+                .getFamily();
         return this;
     }
 
@@ -119,7 +124,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
         return new DecorativeBlockCreator(name);
     }
 
-    public static DecorativeBlockCreator create(Identifier id) {
+    public static DecorativeBlockCreator create(ResourceLocation id) {
         return new DecorativeBlockCreator(id);
     }
 }

@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.util.block;
 
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.IntProperty;
-
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import java.util.*;
 
 /**
@@ -21,7 +20,7 @@ public class CropAgeModelProvider {
      * 作物使用的 age 属性（IntProperty），用于 BlockState 管理。
      */
     @Getter
-    private final IntProperty ageProperty;
+    private final IntegerProperty ageProperty;
     /**
      * 生长阶段与渲染模型索引之间的映射表。
      * key: age 值，value: 索引值（用于渲染或 ItemStack[] 数组索引）。

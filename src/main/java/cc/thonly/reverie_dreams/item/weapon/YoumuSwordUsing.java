@@ -1,33 +1,33 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.EntityTypeTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 public interface YoumuSwordUsing {
-    default ActionResult useItem(World world, PlayerEntity user, Hand hand) {
+    default InteractionResult useItem(Level world, Player user, InteractionHand hand) {
         var pThis = (Item) this;
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            var itemStack = user.getStackInHand(hand);
+        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+            var itemStack = user.getItemInHand(hand);
             var server = serverWorld.getServer();
-            var registryManager = server.getRegistryManager();
-            var entityTypes = registryManager.getOrThrow(RegistryKeys.ENTITY_TYPE);
+            var registryManager = server.registryAccess();
+            var entityTypes = registryManager.lookupOrThrow(Registries.ENTITY_TYPE);
 
-            var center = user.getBlockPos();
+            var center = user.blockPosition();
 
-            var entities = serverWorld.getEntitiesByClass(
+            var entities = serverWorld.getEntitiesOfClass(
                     LivingEntity.class,
-                    new Box(
+                    new AABB(
                             center.getX() - 16, center.getY() - 16, center.getZ() - 16,
                             center.getX() + 16, center.getY() + 16, center.getZ() + 16
                     ),
@@ -35,23 +35,23 @@ public interface YoumuSwordUsing {
             );
 
             entities.removeIf(entity ->
-                    !entityTypes.getEntry(entity.getType()).isIn(EntityTypeTags.UNDEAD)
+                    !entityTypes.wrapAsHolder(entity.getType()).is(EntityTypeTags.UNDEAD)
             );
 
             if (!entities.isEmpty()) {
                 for (LivingEntity entity : entities) {
-                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 15 * 20));
+                    entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 15 * 20));
                 }
-                serverWorld.playSound(null, user.getX(), user.getEyeY(), user.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, user.getSoundCategory(), 1.0f, 1.0f);
+                serverWorld.playSound(null, user.getX(), user.getEyeY(), user.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, user.getSoundSource(), 1.0f, 1.0f);
 
-                if (!user.isInCreativeMode()) {
-                    itemStack.damage(1, user);
+                if (!user.hasInfiniteMaterials()) {
+                    itemStack.hurtWithoutBreaking(1, user);
                 }
-                return ActionResult.SUCCESS_SERVER;
+                return InteractionResult.SUCCESS_SERVER;
             } else {
-                return ActionResult.PASS;
+                return InteractionResult.PASS;
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

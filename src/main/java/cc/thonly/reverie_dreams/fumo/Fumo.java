@@ -7,20 +7,20 @@ import com.mojang.serialization.Codec;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.phys.Vec3;
 
 @Setter
 @Getter
 public class Fumo implements CodecStep<Fumo>, OwnerBinding<Fumo>, BuiltinObject, Translatable {
     public static final Codec<Fumo> CODEC = Codec.unit(Fumo::new);
-    private Identifier id;
-    private Identifier registryKey;
+    private ResourceLocation id;
+    private ResourceLocation registryKey;
     private IntrinsicalRegister<Fumo> owner;
 
     @Setter(AccessLevel.PROTECTED)
@@ -29,14 +29,14 @@ public class Fumo implements CodecStep<Fumo>, OwnerBinding<Fumo>, BuiltinObject,
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.PROTECTED)
     private Item item;
-    private Vec3d offset;
+    private Vec3 offset;
 
     private Fumo() {
     }
 
-    public Fumo(Identifier id, Vec3d offset) {
+    public Fumo(ResourceLocation id, Vec3 offset) {
         this.id = id;
-        this.registryKey = Identifier.of(id.getNamespace(), "fumo/" + id.getPath());
+        this.registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "fumo/" + id.getPath());
         this.offset = offset;
     }
 
@@ -52,21 +52,21 @@ public class Fumo implements CodecStep<Fumo>, OwnerBinding<Fumo>, BuiltinObject,
         if (this.block == null) {
             return Translatable.super.translateKey();
         }
-        return this.block.getTranslationKey();
+        return this.block.getDescriptionId();
     }
 
     public Fumo build() {
-        Pair<Block, Item> pair = this.registerBlock();
-        this.block = pair.getLeft();
-        this.item = pair.getRight();
+        Tuple<Block, Item> pair = this.registerBlock();
+        this.block = pair.getA();
+        this.item = pair.getB();
         return this;
     }
 
-    private Pair<Block, Item> registerBlock() {
-        Pair<Block, Item> pair = new Pair<>(null, null);
-        Block left = ModBlocks.registerSimpleBlock(this.registryKey, (settings) -> new BaseFumoBlock(this.offset, settings.noCollision()), AbstractBlock.Settings.copy(Blocks.WHITE_WOOL));
-        pair.setLeft(left);
-        pair.setRight(left.asItem());
+    private Tuple<Block, Item> registerBlock() {
+        Tuple<Block, Item> pair = new Tuple<>(null, null);
+        Block left = ModBlocks.registerSimpleBlock(this.registryKey, (settings) -> new BaseFumoBlock(this.offset, settings.noCollission()), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
+        pair.setA(left);
+        pair.setB(left.asItem());
         return pair;
     }
 

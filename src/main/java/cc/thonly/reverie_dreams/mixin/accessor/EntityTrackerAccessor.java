@@ -1,18 +1,18 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import net.minecraft.server.network.EntityTrackerEntry;
-import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
-import net.minecraft.server.world.ServerChunkLoadingManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Set;
+import net.minecraft.server.level.ChunkMap;
+import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.network.ServerPlayerConnection;
 
-@Mixin(ServerChunkLoadingManager.EntityTracker.class)
+@Mixin(ChunkMap.TrackedEntity.class)
 public interface EntityTrackerAccessor {
-    @Accessor("listeners")
-    Set<PlayerAssociatedNetworkHandler> getListenerSet();
+    @Accessor("seenBy")
+    Set<ServerPlayerConnection> getListenerSet();
 
-    @Accessor("entry")
-    EntityTrackerEntry getTrackEntry();
+    @Accessor("serverEntity")
+    ServerEntity getTrackEntry();
 }

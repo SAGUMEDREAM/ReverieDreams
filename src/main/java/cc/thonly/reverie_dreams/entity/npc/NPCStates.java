@@ -3,10 +3,9 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import net.minecraft.util.Identifier;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.resources.ResourceLocation;
 
 public class NPCStates {
     public static final NPCState FOLLOW = register(Touhou.id("follow"), new NPCState("follow"));
@@ -26,15 +25,15 @@ public class NPCStates {
             )
     );
 
-    public static NPCState get(Identifier id) {
-        return RegistryManager.NPC_STATE.get(id);
+    public static NPCState get(ResourceLocation id) {
+        return RegistryManager.NPC_STATE.getValue(id);
     }
 
     public static NPCState fromInt(Integer rawId) {
-        return DEFAULT_RAW_ID2STATE.getOrDefault(rawId, RegistryManager.NPC_STATE.get(rawId));
+        return DEFAULT_RAW_ID2STATE.getOrDefault(rawId, RegistryManager.NPC_STATE.byId(rawId));
     }
 
-    public static NPCState register(Identifier id, NPCState npcState) {
+    public static NPCState register(ResourceLocation id, NPCState npcState) {
         return RegistryManager.register(RegistryManager.NPC_STATE, id, npcState);
     }
 

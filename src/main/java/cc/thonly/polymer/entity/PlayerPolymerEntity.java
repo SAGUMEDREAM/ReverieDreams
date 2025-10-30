@@ -10,57 +10,57 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.EntityS2CPacket;
-import net.minecraft.network.packet.s2c.play.EntitySetHeadYawS2CPacket;
-import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
-import net.minecraft.network.packet.s2c.play.PlayerRemoveS2CPacket;
-import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.GameMode;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
+import net.minecraft.network.protocol.game.ClientboundRotateHeadPacket;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerPlayerConnection;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 
 public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity {
 
     @Override
     default void onEntityPacketSent(Consumer<Packet<?>> consumer, Packet<?> packet) {
         PolymerEntity.super.onEntityPacketSent(consumer, packet);
-        if (packet instanceof EntitySetHeadYawS2CPacket headYawS2CPacket) {
+        if (packet instanceof ClientboundRotateHeadPacket headYawS2CPacket) {
             var ent = this.getEntity();
-            consumer.accept(new EntityS2CPacket.Rotate(ent.getId(), MathHelper.packDegrees(headYawS2CPacket.getHeadYaw()), (byte) (ent.getPitch() * 256.0F / 360.0F), ent.isOnGround()));
+            consumer.accept(new ClientboundMoveEntityPacket.Rot(ent.getId(), Mth.packDegrees(headYawS2CPacket.getYHeadRot()), (byte) (ent.getXRot() * 256.0F / 360.0F), ent.onGround()));
         }
     }
 
     @Override
-    default List<Pair<EquipmentSlot, ItemStack>> getPolymerVisibleEquipment(List<Pair<EquipmentSlot, ItemStack>> items, ServerPlayerEntity player) {
+    default List<Pair<EquipmentSlot, ItemStack>> getPolymerVisibleEquipment(List<Pair<EquipmentSlot, ItemStack>> items, ServerPlayer player) {
         return PolymerEntity.super.getPolymerVisibleEquipment(items, player);
     }
 
     @Override
-    default void onBeforeSpawnPacket(ServerPlayerEntity player, Consumer<Packet<?>> packetConsumer) {
-        PlayerListS2CPacket packet = PolymerEntityUtils.createMutablePlayerListPacket(EnumSet.of(PlayerListS2CPacket.Action.ADD_PLAYER));
-        GameProfile profile = new GameProfile(this.getEntity().getUuid(), "");
+    default void onBeforeSpawnPacket(ServerPlayer player, Consumer<Packet<?>> packetConsumer) {
+        ClientboundPlayerInfoUpdatePacket packet = PolymerEntityUtils.createMutablePlayerListPacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER));
+        GameProfile profile = new GameProfile(this.getEntity().getUUID(), "");
         profile.getProperties().put("textures", this.getSkin());
-        List<PlayerListS2CPacket.Entry> entries = packet.getEntries();
-        entries.add(new PlayerListS2CPacket.Entry(
+        List<ClientboundPlayerInfoUpdatePacket.Entry> entries = packet.entries();
+        entries.add(new ClientboundPlayerInfoUpdatePacket.Entry(
                 profile.getId(),
                 profile,
                 false,
                 Integer.MAX_VALUE,
-                GameMode.ADVENTURE,
-                Text.empty(),
+                GameType.ADVENTURE,
+                Component.empty(),
                 true,
                 0,
                 null)
@@ -74,18 +74,18 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
     }
 
     @Override
-    default void modifyRawTrackedData(List<DataTracker.SerializedEntry<?>> data, ServerPlayerEntity player, boolean initial) {
-        data.add(DataTracker.SerializedEntry.of(
+    default void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
+        data.add(SynchedEntityData.DataValue.create(
                 PlayerEntityAccessor.getPlayerModelParts(),
                 (byte) (0xFF & ~0x01)
         ));
-        data.add(DataTracker.SerializedEntry.of(
+        data.add(SynchedEntityData.DataValue.create(
                 EntityAccessor.getNameVisible(),
                 false
         ));
     }
 
-    default void onTrackingStopped(ServerPlayerEntity player) {
+    default void onTrackingStopped(ServerPlayer player) {
         var e = this.getEntity();
         ItemDisplayElement element = PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.get(e);
         if (element != null) {
@@ -95,11 +95,11 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
             }
         }
         PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.remove(e);
-        player.networkHandler.sendPacket(new PlayerRemoveS2CPacket(List.of((this.getEntity().getUuid()))));
+        player.connection.send(new ClientboundPlayerInfoRemovePacket(List.of((this.getEntity().getUUID()))));
     }
 
     @Override
-    default void onEntityTrackerTick(Set<PlayerAssociatedNetworkHandler> listeners) {
+    default void onEntityTrackerTick(Set<ServerPlayerConnection> listeners) {
         PolymerEntity.super.onEntityTrackerTick(listeners);
         var e = this.getEntity();
 

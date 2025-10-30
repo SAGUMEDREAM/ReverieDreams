@@ -1,8 +1,8 @@
 package nota.player;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import nota.Nota;
 import nota.model.Layer;
 import nota.model.Note;
@@ -14,14 +14,14 @@ import nota.model.Song;
  */
 public class PositionSongPlayer extends RangeSongPlayer {
 	private BlockPos pos;
-	World world;
+	Level world;
 
-	public PositionSongPlayer(Song song, World world) {
+	public PositionSongPlayer(Song song, Level world) {
 		super(song);
 		this.world = world;
 	}
 
-	public PositionSongPlayer(Playlist playlist, World world) {
+	public PositionSongPlayer(Playlist playlist, Level world) {
 		super(playlist);
 		this.world = world;
 	}
@@ -43,8 +43,8 @@ public class PositionSongPlayer extends RangeSongPlayer {
 	}
 
 	@Override
-	public void playTick(PlayerEntity player, int tick) {
-		if(!player.getWorld().getRegistryKey().equals(world.getRegistryKey())) {
+	public void playTick(Player player, int tick) {
+		if(!player.level().dimension().equals(world.dimension())) {
 			return; // not in same world
 		}
 
@@ -58,11 +58,11 @@ public class PositionSongPlayer extends RangeSongPlayer {
 					* ((1F / 16F) * getDistance());
 
 			if(isInRange(player)) {
-				this.playerList.put(player.getUuid(), true);
+				this.playerList.put(player.getUUID(), true);
 				this.channelMode.play(player, pos, song, layer, note, volume, !enable10Octave);
 			}
 			else {
-				this.playerList.put(player.getUuid(), false);
+				this.playerList.put(player.getUUID(), false);
 			}
 		}
 	}
@@ -74,7 +74,7 @@ public class PositionSongPlayer extends RangeSongPlayer {
 	 * @return ability to hear the current PositionSongPlayer
 	 */
 	@Override
-	public boolean isInRange(PlayerEntity player) {
-		return player.getBlockPos().isWithinDistance(pos, getDistance());
+	public boolean isInRange(Player player) {
+		return player.blockPosition().closerThan(pos, getDistance());
 	}
 }

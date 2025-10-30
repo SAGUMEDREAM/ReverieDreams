@@ -4,21 +4,21 @@ import cc.thonly.reverie_dreams.block.MusicBlock;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.phys.Vec3;
 import nota.model.RepeatMode;
 import nota.model.Song;
 import nota.player.EntitySongPlayer;
@@ -39,7 +39,7 @@ public final class TouhouNotaUtils {
     public static final String STR_PATH = "config/reverie_dreams/nota";
     public static final Path PATH = Paths.get(STR_PATH);
     public static final Map<String, SongPlayer> id2SongCache = new HashMap<>();
-    public static final Map<World, Map<Long, SongPlayer>> blockMusicPlayCache = new HashMap<>();
+    public static final Map<Level, Map<Long, SongPlayer>> blockMusicPlayCache = new HashMap<>();
     public static int MAX_DISTANCE = 32;
 
     static {
@@ -52,7 +52,7 @@ public final class TouhouNotaUtils {
         }
     }
 
-    public static void playAt(World world, BlockPos pos, String select) {
+    public static void playAt(Level world, BlockPos pos, String select) {
         if (select == null) {
             return;
         }
@@ -61,7 +61,7 @@ public final class TouhouNotaUtils {
         MinecraftServer server = world.getServer();
 
         assert server != null;
-        PlayerManager playerManager = server.getPlayerManager();
+        PlayerList playerManager = server.getPlayerList();
         Song song;
         try {
             song = NBSDecoderPlus.parse(getFilePath(filename).toFile());
@@ -82,14 +82,14 @@ public final class TouhouNotaUtils {
             psp.setBlockPos(new BlockPos(pos));
             psp.setDistance(MAX_DISTANCE);
             psp.setRepeatMode(RepeatMode.ALL);
-            for (var sPlayer : playerManager.getPlayerList()) {
+            for (var sPlayer : playerManager.getPlayers()) {
                 psp.addPlayer(sPlayer);
             }
             psp.setPlaying(true);
             blockPos2SongPlayer.put(pos.asLong(), psp);
             AtomicInteger age = new AtomicInteger();
             DelayedTask.whenTick(server, () -> {
-                if (world.isChunkLoaded(pos)) {
+                if (world.hasChunkAt(pos)) {
                     return false;
                 }
                 BlockState blockState = world.getBlockState(pos);
@@ -104,12 +104,12 @@ public final class TouhouNotaUtils {
                     age.set(0);
                 }
                 if (psp.isPlaying()) {
-                    ServerWorld serverWorld = (ServerWorld) world;
-                    ParticleEffect particleEffect = ParticleTypes.NOTE;
-                    List<ServerPlayerEntity> players = serverWorld.getPlayers();
-                    for (ServerPlayerEntity player : players) {
+                    ServerLevel serverWorld = (ServerLevel) world;
+                    ParticleOptions particleEffect = ParticleTypes.NOTE;
+                    List<ServerPlayer> players = serverWorld.players();
+                    for (ServerPlayer player : players) {
                         if (psp.hasPlayer(player)) continue;
-                        double squaredDistance = pos.getSquaredDistance(player.getPos());
+                        double squaredDistance = pos.distToCenterSqr(player.position());
                         if (squaredDistance > MAX_DISTANCE * MAX_DISTANCE) continue;
                         psp.addPlayer(player);
                     }
@@ -118,7 +118,7 @@ public final class TouhouNotaUtils {
                     double py = pos.getY() + 1;
                     double pz = pos.getZ() + 0.5;
 
-                    serverWorld.spawnParticles(
+                    serverWorld.sendParticles(
                             particleEffect,
                             px, py, pz,
                             1,
@@ -131,7 +131,7 @@ public final class TouhouNotaUtils {
     }
 
     public static void play(LivingEntity user, String playingMusic, NoteBlockInstrument noteBlockInstrument) {
-        if (user.getWorld().isClient) {
+        if (user.level().isClientSide) {
             return;
         }
         String filename = playingMusic;
@@ -139,19 +139,19 @@ public final class TouhouNotaUtils {
         playingMusic = playingMusic.toLowerCase();
         MinecraftServer server = user.getServer();
         assert server != null;
-        PlayerManager playerManager = server.getPlayerManager();
+        PlayerList playerManager = server.getPlayerList();
         Song song;
         try {
             song = NBSDecoderPlus.parse(getFilePath(filename).toFile(), noteBlockInstrument);
         } catch (Exception e) {
             log.error("读取音乐失败: {}", playingMusic, e);
-            if (user instanceof ServerPlayerEntity player) {
-                player.sendMessage(Text.literal("§c无法读取音乐：" + playingMusic), false);
+            if (user instanceof ServerPlayer player) {
+                player.displayClientMessage(Component.literal("§c无法读取音乐：" + playingMusic), false);
             }
             return;
         }
 
-        String id = "music_" + user.getUuidAsString();
+        String id = "music_" + user.getStringUUID();
 
         SongPlayer prev = id2SongCache.get(id);
         if (prev != null) {
@@ -160,34 +160,34 @@ public final class TouhouNotaUtils {
         }
 
         EntitySongPlayer esp = new EntitySongPlayer(song);
-        esp.setId(Identifier.of(UUID.randomUUID().toString()));
+        esp.setId(ResourceLocation.parse(UUID.randomUUID().toString()));
         esp.setEntity(user);
         esp.setDistance(32);
         esp.setRepeatMode(RepeatMode.NONE);
-        for (var sPlayer : playerManager.getPlayerList()) {
+        for (var sPlayer : playerManager.getPlayers()) {
             esp.addPlayer(sPlayer);
         }
         esp.setPlaying(true);
         id2SongCache.put(id, esp);
         DelayedTask.whenTick(server, () -> {
-            ItemStack handStack = user.getMainHandStack();
-            ItemStack offStack = user.getOffHandStack();
+            ItemStack handStack = user.getMainHandItem();
+            ItemStack offStack = user.getOffhandItem();
             return !(handStack.getItem() instanceof MusicalInstrumentItem) && !(offStack.getItem() instanceof MusicalInstrumentItem);
         }, 2, () -> {
             esp.setPlaying(false);
             id2SongCache.remove(id);
         }, () -> {
             if (esp.isPlaying()) {
-                ServerWorld serverWorld = (ServerWorld) user.getWorld();
-                ParticleEffect particleEffect = ParticleTypes.NOTE;
+                ServerLevel serverWorld = (ServerLevel) user.level();
+                ParticleOptions particleEffect = ParticleTypes.NOTE;
 
-                Vec3d frontVec = user.getRotationVec(1.0F);
+                Vec3 frontVec = user.getViewVector(1.0F);
 
                 double px = user.getX() + frontVec.x * 0.5;
-                double py = user.getY() + user.getStandingEyeHeight() - 0.1;
+                double py = user.getY() + user.getEyeHeight() - 0.1;
                 double pz = user.getZ() + frontVec.z * 0.5;
 
-                serverWorld.spawnParticles(
+                serverWorld.sendParticles(
                         particleEffect,
                         px, py, pz,
                         2,

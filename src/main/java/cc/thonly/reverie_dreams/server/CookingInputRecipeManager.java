@@ -1,13 +1,19 @@
 package cc.thonly.reverie_dreams.server;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.*;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
-
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.BlastingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.item.crafting.SmokingRecipe;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +32,7 @@ public class CookingInputRecipeManager {
     }
 
     public static boolean isFuel(ItemStack itemStack) {
-        return itemStack.isIn(ItemTags.COALS) || itemStack.getItem() == Items.DRIED_KELP_BLOCK;
+        return itemStack.is(ItemTags.COALS) || itemStack.getItem() == Items.DRIED_KELP_BLOCK;
     }
 
     public void clearItems() {
@@ -38,12 +44,12 @@ public class CookingInputRecipeManager {
 
     public void load(MinecraftServer server) {
         this.clearItems();
-        ServerRecipeManager recipeManager = server.getRecipeManager();
-        for (RecipeEntry<?> recipeEntry : recipeManager.values()) {
+        RecipeManager recipeManager = server.getRecipeManager();
+        for (RecipeHolder<?> recipeEntry : recipeManager.getRecipes()) {
             Recipe<?> recipe = recipeEntry.value();
             if (recipe instanceof AbstractCookingRecipe cookingRecipe) {
-                Ingredient ingredient = cookingRecipe.ingredient();
-                for (RegistryEntry<Item> entry : ingredient.entries) {
+                Ingredient ingredient = cookingRecipe.input();
+                for (Holder<Item> entry : ingredient.values) {
                     Item value = entry.value();
                     this.items.add(value);
                     if (recipe instanceof SmeltingRecipe) {

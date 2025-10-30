@@ -4,12 +4,12 @@ import cc.thonly.reverie_dreams.entity.MobDanmakuShooter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -20,7 +20,7 @@ import java.util.EnumSet;
 public class DanmakuGoal extends Goal {
     public static final MobDanmakuShooter DEFAULT_MOB_DANMAKU_FIRE_LAUNCHER = MobDanmakuShooter.DEFAULT;
     private final LivingEntity self;
-    private final MobEntity mob;
+    private final Mob mob;
     @Nullable
     private LivingEntity attackTarget;
     private final MobDanmakuShooter launcher;
@@ -35,21 +35,21 @@ public class DanmakuGoal extends Goal {
 
     public DanmakuGoal(LivingEntity self, @Nullable MobDanmakuShooter launcher, int minDelayTicks, int maxDelayTicks) {
         this.self = self;
-        this.mob = (MobEntity) self;
+        this.mob = (Mob) self;
         this.launcher = launcher != null ? launcher : DEFAULT_MOB_DANMAKU_FIRE_LAUNCHER;
         this.minDelayTicks = minDelayTicks;
         this.maxDelayTicks = maxDelayTicks;
-        this.setControls(EnumSet.of(Goal.Control.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.LOOK));
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         LivingEntity livingEntity = this.mob.getTarget();
         if (livingEntity == null || !livingEntity.isAlive()) {
             return false;
         }
-        if (livingEntity instanceof PlayerEntity player) {
-            if (player.isInCreativeMode()) {
+        if (livingEntity instanceof Player player) {
+            if (player.hasInfiniteMaterials()) {
                 return false;
             }
         }
@@ -69,12 +69,12 @@ public class DanmakuGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return this.attackTarget != null && this.attackTarget.isAlive();
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    public boolean requiresUpdateEveryTick() {
         return true;
     }
 
@@ -89,22 +89,22 @@ public class DanmakuGoal extends Goal {
         }
 
         float[] pitchYaw = MobDanmakuShooter.getPitchYaw(this.self, this.attackTarget);
-        this.mob.getLookControl().lookAt(this.attackTarget);
-        this.mob.setPitch(pitchYaw[0]);
-        this.mob.setYaw(pitchYaw[1]);
+        this.mob.getLookControl().setLookAt(this.attackTarget);
+        this.mob.setXRot(pitchYaw[0]);
+        this.mob.setYRot(pitchYaw[1]);
 
-        double distanceSq = this.self.squaredDistanceTo(this.attackTarget);
+        double distanceSq = this.self.distanceToSqr(this.attackTarget);
         if (distanceSq > 64.0) {
-            if (this.mob.getNavigation().isIdle()) {
-                this.mob.getNavigation().startMovingTo(this.attackTarget, 1.5);
+            if (this.mob.getNavigation().isDone()) {
+                this.mob.getNavigation().moveTo(this.attackTarget, 1.5);
             }
         } else {
             this.mob.getNavigation().stop();
         }
 
         if (--this.updateCountdownTicks <= 0) {
-            World world = this.self.getWorld();
-            if (world instanceof ServerWorld serverWorld) {
+            Level world = this.self.level();
+            if (world instanceof ServerLevel serverWorld) {
                 this.launcher.fire(this.self, this.attackTarget, serverWorld);
                 this.launcher.sound(this.self);
             }

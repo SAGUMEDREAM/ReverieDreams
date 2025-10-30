@@ -2,9 +2,8 @@ package cc.thonly.mystias_izakaya.block;
 
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.block.Block;
-
 import java.util.Map;
+import net.minecraft.world.level.block.Block;
 
 public class KitchenBlockType {
     public static final Map<Block, KitchenRecipeType.KitchenType> BLOCK_2_KITCHEN_TYPE = new Object2ObjectOpenHashMap<>();

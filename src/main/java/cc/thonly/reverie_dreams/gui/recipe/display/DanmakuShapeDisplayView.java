@@ -16,15 +16,12 @@ import eu.pb4.sgui.api.gui.SlotGuiInterface;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.item.Items;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.inventory.MenuType;
 import java.util.*;
 
 @Getter
@@ -32,13 +29,13 @@ import java.util.*;
 @ToString(callSuper = true)
 public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
     public final RecipeEntryWrapper<DanmakuShapeDrawRecipe> key2ValueEntry;
-    public final Identifier key;
+    public final ResourceLocation key;
     public final DanmakuShapeDrawRecipe value;
-    public final GuiElementBuilder back = new GuiElementBuilder().setItem(ModGuiItems.BACK).setSkullOwner(PlayerHeadInfo.GUI_ADD).setItemName(Text.of("Back")).setCallback(this::back);
+    public final GuiElementBuilder back = new GuiElementBuilder().setItem(ModGuiItems.BACK).setSkullOwner(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
 
-    public DanmakuShapeDisplayView(ServerPlayerEntity player, RecipeEntryWrapper<DanmakuShapeDrawRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
-        super(ScreenHandlerType.GENERIC_9X6, player, false);
+    public DanmakuShapeDisplayView(ServerPlayer player, RecipeEntryWrapper<DanmakuShapeDrawRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
+        super(MenuType.GENERIC_9x6, player, false);
         this.key2ValueEntry = key2ValueEntry;
         this.key = this.key2ValueEntry.getKey();
         this.value = this.key2ValueEntry.getValue();
@@ -48,7 +45,7 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
 
     @Override
     public void init() {
-        this.setTitle(this.key2ValueEntry.getValue().getOutput().getItemStack().getName());
+        this.setTitle(this.key2ValueEntry.getValue().getOutput().getItemStack().getHoverName());
         int counter = 0;
         int counter2 = 0;
         List<List<Boolean>> shape = this.value.getShape();
@@ -60,7 +57,7 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
             for (int x = 0; x < this.getGrid()[y].length; x++) {
                 String c = this.getGrid()[y][x];
                 if (Objects.equals(c, "A")) {
-                    this.setSlot(counter, ModGuiItems.EMPTY_SLOT.getDefaultStack());
+                    this.setSlot(counter, ModGuiItems.EMPTY_SLOT.getDefaultInstance());
                 }
                 if (Objects.equals(c, "X")) {
                     GuiElementBuilder builder = new GuiElementBuilder();
@@ -83,8 +80,8 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
         }
     }
 
-    public void back(int index, ClickType clickType, SlotActionType action) {
-        this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+    public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
         this.close();
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();

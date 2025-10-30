@@ -1,30 +1,29 @@
 package cc.thonly.reverie_dreams.armor;
 
 import cc.thonly.reverie_dreams.Touhou;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.item.equipment.EquipmentAssetKeys;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.sound.SoundEvents;
-
 import java.util.Map;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 
 public interface KoishiHatArmorMaterial {
     int BASE_DURABILITY = 250;
-    RegistryKey<EquipmentAsset> REGISTRY_KEY = RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Touhou.id("koishi_hat"));
+    ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, Touhou.id("koishi_hat"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
-                    EquipmentType.HELMET, 3,
-                    EquipmentType.CHESTPLATE, 8,
-                    EquipmentType.LEGGINGS, 6,
-                    EquipmentType.BOOTS, 3
+                    ArmorType.HELMET, 3,
+                    ArmorType.CHESTPLATE, 8,
+                    ArmorType.LEGGINGS, 6,
+                    ArmorType.BOOTS, 3
             ),
             5,
-            SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            SoundEvents.ARMOR_EQUIP_IRON,
             0.0F,
             0.0F,
             ItemTags.REPAIRS_GOLD_ARMOR,

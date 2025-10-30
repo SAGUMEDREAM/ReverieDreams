@@ -2,35 +2,32 @@ package cc.thonly.reverie_dreams.datagen.generator;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.block.Block;
-import net.minecraft.data.tag.ProvidedTagBuilder;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagBuilder;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.poi.PointOfInterestType;
-import net.minecraft.world.poi.PointOfInterestTypes;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-public abstract class PointOfInterestTypeProvider extends FabricTagProvider<PointOfInterestType> {
-    private final Function<PointOfInterestType, RegistryKey<PointOfInterestType>> valueToKey;
+public abstract class PointOfInterestTypeProvider extends FabricTagProvider<PoiType> {
+    private final Function<PoiType, ResourceKey<PoiType>> valueToKey;
 
-    public PointOfInterestTypeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, RegistryKeys.POINT_OF_INTEREST_TYPE, registriesFuture);
+    public PointOfInterestTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, Registries.POINT_OF_INTEREST_TYPE, registriesFuture);
         this.valueToKey = value -> {
-            Optional<RegistryKey<PointOfInterestType>> key = Registries.POINT_OF_INTEREST_TYPE.getKey(value);
-            return key.orElseGet(() -> RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, Identifier.of("none")));
+            Optional<ResourceKey<PoiType>> key = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(value);
+            return key.orElseGet(() -> ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.parse("none")));
         };
     }
 
-    protected ProvidedTagBuilder<PointOfInterestType, PointOfInterestType> valueLookupBuilder(TagKey<PointOfInterestType> tag) {
-        TagBuilder tagBuilder = this.getTagBuilder(tag);
-        return ProvidedTagBuilder.<PointOfInterestType>of(tagBuilder).mapped(this.valueToKey);
+    protected TagAppender<PoiType, PoiType> valueLookupBuilder(TagKey<PoiType> tag) {
+        TagBuilder tagBuilder = this.getOrCreateRawBuilder(tag);
+        return TagAppender.<PoiType>forBuilder(tagBuilder).map(this.valueToKey);
     }
 }

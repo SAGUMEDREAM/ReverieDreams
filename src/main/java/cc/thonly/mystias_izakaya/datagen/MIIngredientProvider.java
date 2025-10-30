@@ -5,13 +5,12 @@ import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.registry.FoodProperties;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.Items;
 import java.util.concurrent.CompletableFuture;
 
 public class MIIngredientProvider extends IngredientProvider {
-    public MIIngredientProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public MIIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

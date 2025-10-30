@@ -13,25 +13,24 @@ import lombok.experimental.Accessors;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.predicate.StatePredicate;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -41,8 +40,8 @@ import java.util.Set;
 @Setter
 @Getter
 public final class CropBlockCreator {
-    private static final Map<Identifier, CropBlockCreator.Instance> INSTANCES = new Object2ObjectOpenHashMap<>();
-    private final Identifier identifier;
+    private static final Map<ResourceLocation, CropBlockCreator.Instance> INSTANCES = new Object2ObjectOpenHashMap<>();
+    private final ResourceLocation identifier;
     private Integer maxAge;
     private float seedCompostingLevel = 0.3f;
     private float cropCompostingLevel = 0.6f;
@@ -55,11 +54,11 @@ public final class CropBlockCreator {
     @Setter(value = AccessLevel.PRIVATE)
     private CropBlockCreator.Instance instance;
 
-    private CropBlockCreator(Identifier identifier) {
+    private CropBlockCreator(ResourceLocation identifier) {
         this.identifier = identifier;
     }
 
-    public static CropBlockCreator createCreator(Identifier identifier) {
+    public static CropBlockCreator createCreator(ResourceLocation identifier) {
         return new CropBlockCreator(identifier);
     }
 
@@ -75,21 +74,21 @@ public final class CropBlockCreator {
      * 构建并注册作物 block 与 item
      */
     public CropBlockCreator.Instance build() {
-        AbstractCropBlock basicCropBlock = this.factory.newInstance(AbstractBlock.Settings.create().registryKey(ModBlocks.keyOf(this.identifier)));
+        AbstractCropBlock basicCropBlock = this.factory.newInstance(BlockBehaviour.Properties.of().setId(ModBlocks.keyOf(this.identifier)));
         MIBlocks.registerSimpleBlock(basicCropBlock);
-        Registry.register(Registries.BLOCK, this.identifier, basicCropBlock);
+        Registry.register(BuiltInRegistries.BLOCK, this.identifier, basicCropBlock);
 
         Item seedItem;
-        Identifier seedId = Identifier.of(this.identifier.getNamespace(), this.identifier.getPath() + "_seeds");
+        ResourceLocation seedId = ResourceLocation.fromNamespaceAndPath(this.identifier.getNamespace(), this.identifier.getPath() + "_seeds");
         seedItem = ModItems.registerSimpleItem(
                 seedId,
                 (settings) -> new BlockItem(
                         basicCropBlock,
                         settings
-                                .registryKey(RegistryKey.of(RegistryKeys.ITEM, seedId))
-                                .useItemPrefixedTranslationKey()
+                                .setId(ResourceKey.create(Registries.ITEM, seedId))
+                                .useItemDescriptionPrefix()
                 ),
-                new Item.Settings()
+                new Item.Properties()
         );
 
         CompostingChanceRegistry.INSTANCE.add(seedItem, getSeedCompostingLevel());
@@ -122,20 +121,20 @@ public final class CropBlockCreator {
         return instance;
     }
 
-    public static Optional<Instance> getInstance(Identifier identifier) {
+    public static Optional<Instance> getInstance(ResourceLocation identifier) {
         return Optional.ofNullable(INSTANCES.get(identifier));
     }
 
     public static Optional<Instance> getInstance(Block block) {
-        return Optional.ofNullable(INSTANCES.get(Registries.BLOCK.getId(block)));
+        return Optional.ofNullable(INSTANCES.get(BuiltInRegistries.BLOCK.getKey(block)));
     }
 
-    public static Set<Map.Entry<Identifier, Instance>> getViews() {
+    public static Set<Map.Entry<ResourceLocation, Instance>> getViews() {
         return INSTANCES.entrySet();
     }
 
     public interface BasicBlockFactory {
-        AbstractCropBlock newInstance(AbstractBlock.Settings settings);
+        AbstractCropBlock newInstance(BlockBehaviour.Properties settings);
     }
 
     @Accessors(chain = true)
@@ -143,7 +142,7 @@ public final class CropBlockCreator {
     @Getter
     @ToString
     public static class Instance {
-        private final Identifier identifier;
+        private final ResourceLocation identifier;
         private final Set<Item> items = new HashSet<>();
         private Item seed;
         private Item product;
@@ -153,11 +152,11 @@ public final class CropBlockCreator {
         private boolean inWater = false;
         private boolean selfSeed = false;
 
-        private Instance(Identifier identifier) {
+        private Instance(ResourceLocation identifier) {
             this.identifier = identifier;
         }
 
-        public static Instance createInstance(Identifier identifier) {
+        public static Instance createInstance(ResourceLocation identifier) {
             return new Instance(identifier);
         }
 
@@ -168,46 +167,46 @@ public final class CropBlockCreator {
 
         public void generateLoot(FabricBlockLootTableProvider provider) {
             if (this.cropBlock != null && this.product != null) {
-                BlockStatePropertyLootCondition.Builder condition = BlockStatePropertyLootCondition
-                        .builder(this.cropBlock)
-                        .properties(
-                                StatePredicate.Builder
-                                        .create()
-                                        .exactMatch(this.cropBlock.getAgeProperty(), this.cropBlock.getMaxAge())
+                LootItemBlockStatePropertyCondition.Builder condition = LootItemBlockStatePropertyCondition
+                        .hasBlockStateProperties(this.cropBlock)
+                        .setProperties(
+                                StatePropertiesPredicate.Builder
+                                        .properties()
+                                        .hasProperty(this.cropBlock.getAgeProperty(), this.cropBlock.getMaxAge())
                         );
 //                LootTable.Builder lootTableBuilder = provider.cropDrops(this.cropBlock, this.product, this.seed, condition);
-                LootTable.Builder lootTableBuilder = LootTable.builder();
-                LeafEntry.Builder<?> productEntry = ItemEntry.builder(this.product)
-                        .apply(SetCountLootFunction.builder(
-                                UniformLootNumberProvider.create(1.0f, 3.0f)
+                LootTable.Builder lootTableBuilder = LootTable.lootTable();
+                LootPoolSingletonContainer.Builder<?> productEntry = LootItem.lootTableItem(this.product)
+                        .apply(SetItemCountFunction.setCount(
+                                UniformGenerator.between(1.0f, 3.0f)
                         ));
-                LeafEntry.Builder<?> seedEntry = ItemEntry.builder(this.seed)
-                        .apply(SetCountLootFunction.builder(
-                                UniformLootNumberProvider.create(1.0f, 2.0f)
+                LootPoolSingletonContainer.Builder<?> seedEntry = LootItem.lootTableItem(this.seed)
+                        .apply(SetItemCountFunction.setCount(
+                                UniformGenerator.between(1.0f, 2.0f)
                         ));
-                LeafEntry.Builder<?> baseSeedEntry = ItemEntry.builder(this.seed)
-                        .apply(SetCountLootFunction.builder(
-                                ConstantLootNumberProvider.create(1)
+                LootPoolSingletonContainer.Builder<?> baseSeedEntry = LootItem.lootTableItem(this.seed)
+                        .apply(SetItemCountFunction.setCount(
+                                ConstantValue.exactly(1)
                         ));
-                lootTableBuilder.pool(
-                        LootPool.builder()
+                lootTableBuilder.withPool(
+                        LootPool.lootPool()
                                 .conditionally(condition.build())
-                                .rolls(ConstantLootNumberProvider.create(1))
-                                .with(baseSeedEntry)
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(baseSeedEntry)
                 );
-                lootTableBuilder.pool(
-                        LootPool.builder()
+                lootTableBuilder.withPool(
+                        LootPool.lootPool()
                                 .conditionally(condition.build())
-                                .rolls(ConstantLootNumberProvider.create(1))
-                                .with(productEntry)
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(productEntry)
                 );
-                lootTableBuilder.pool(
-                        LootPool.builder()
+                lootTableBuilder.withPool(
+                        LootPool.lootPool()
                                 .conditionally(condition.build())
-                                .rolls(ConstantLootNumberProvider.create(1))
-                                .with(seedEntry)
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(seedEntry)
                 );
-                provider.addDrop(this.cropBlock, lootTableBuilder);
+                provider.add(this.cropBlock, lootTableBuilder);
             }
         }
     }

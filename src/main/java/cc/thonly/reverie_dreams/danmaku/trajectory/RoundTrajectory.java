@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.danmaku.trajectory;
 
 import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -16,7 +16,7 @@ public class RoundTrajectory extends DanmakuTrajectory {
     private static final float ANGLE_OFFSET = 0f;   // 起始角度偏移
 
     @Override
-    public void run(ServerWorld world, @Nullable LivingEntity livingEntity, ItemStack stack,
+    public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack,
                     Double x, Double y, Double z, float pitch, float yaw,
                     float speed, float acceleration, float divergence, float offsetDist,
                     IDanmakuItem pThis) {
@@ -38,10 +38,10 @@ public class RoundTrajectory extends DanmakuTrajectory {
             offset.rotate(rotation);
 
             // 计算弹幕位置
-            Vec3d pos = new Vec3d(centerX + offset.x * RADIUS, centerY + offset.y * RADIUS, centerZ + offset.z * RADIUS);
+            Vec3 pos = new Vec3(centerX + offset.x * RADIUS, centerY + offset.y * RADIUS, centerZ + offset.z * RADIUS);
 
             // 将方向转换为pitch/yaw
-            Vec3d dir = new Vec3d(offset.x, offset.y, offset.z).normalize();
+            Vec3 dir = new Vec3(offset.x, offset.y, offset.z).normalize();
             float bulletYaw = (float) Math.toDegrees(Math.atan2(-dir.x, -dir.z));
             float bulletPitch = (float) Math.toDegrees(-Math.asin(dir.y));
 

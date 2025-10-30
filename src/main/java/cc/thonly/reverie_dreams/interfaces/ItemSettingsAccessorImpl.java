@@ -1,30 +1,30 @@
 package cc.thonly.reverie_dreams.interfaces;
 
-import net.minecraft.component.ComponentMap;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeyedValue;
-import net.minecraft.resource.featuretoggle.FeatureSet;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.resources.DependantName;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.Item;
 
 public interface ItemSettingsAccessorImpl {
-    public static RegistryKeyedValue<Item, String> BLOCK_PREFIXED_TRANSLATION_KEY() {
+    public static DependantName<Item, String> BLOCK_PREFIXED_TRANSLATION_KEY() {
         throw new UnsupportedOperationException();
     }
 
-    public static RegistryKeyedValue<Item, String> ITEM_PREFIXED_TRANSLATION_KEY() {
+    public static DependantName<Item, String> ITEM_PREFIXED_TRANSLATION_KEY() {
         throw new UnsupportedOperationException();
     }
 
-    ComponentMap.Builder getComponents();
+    DataComponentMap.Builder getComponents();
 
     Item getRecipeRemainder();
 
-    FeatureSet getRequiredFeatures();
+    FeatureFlagSet getRequiredFeatures();
 
-    RegistryKey<Item> getRegistryKey();
+    ResourceKey<Item> getRegistryKey();
 
-    RegistryKeyedValue<Item, String> getTranslationKey();
+    DependantName<Item, String> getTranslationKey();
 
-    RegistryKeyedValue<Item, Identifier> getModelId();
+    DependantName<Item, ResourceLocation> getModelId();
 }

@@ -3,8 +3,8 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 
 public class NPCWorkModes {
     public static final IntrinsicalRegister<NPCWorkMode> REGISTRY = RegistryManager.NPC_WORK_MODE;
@@ -17,15 +17,15 @@ public class NPCWorkModes {
     public static final NPCWorkMode PLAYING_MUSIC = register(Touhou.id("playing_music"), new NPCWorkMode("playing_music", Items.NOTE_BLOCK));
 
     public static NPCWorkMode fromInt(Integer rawId) {
-        return REGISTRY.get(rawId);
+        return REGISTRY.byId(rawId);
     }
 
-    public static NPCWorkMode register(Identifier id, NPCWorkMode npcWorkMode) {
+    public static NPCWorkMode register(ResourceLocation id, NPCWorkMode npcWorkMode) {
         return RegistryManager.register(REGISTRY, id, npcWorkMode);
     }
 
-    public static NPCWorkMode get(Identifier id) {
-        return REGISTRY.get(id);
+    public static NPCWorkMode get(ResourceLocation id) {
+        return REGISTRY.getValue(id);
     }
 
     public static void bootstrap(IntrinsicalRegister<NPCWorkMode> registry) {

@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.entity.skin.SkinTypes;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public class NPCRoles extends SkinTypes {
     private static final IntrinsicalRegister<NPCRole> REGISTER = RegistryManager.NPC_ROLE;
@@ -150,8 +150,8 @@ public class NPCRoles extends SkinTypes {
 
     public static void bootstrap(IntrinsicalRegister<NPCRole> registry) {
         SkinType.CODEC = RecordCodecBuilder.create(x->x.group(
-                Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-        ).apply(x, RegistryManager.SKIN_TYPE::get));
+                ResourceLocation.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
+        ).apply(x, RegistryManager.SKIN_TYPE::getValue));
     }
 
     public static NPCRole registerRole(NPCRole role) {
@@ -162,7 +162,7 @@ public class NPCRoles extends SkinTypes {
         return registerRole(Touhou.id(name), role);
     }
 
-    public static NPCRole registerRole(Identifier id, NPCRole role) {
+    public static NPCRole registerRole(ResourceLocation id, NPCRole role) {
         NPCRole entry = RegistryManager.register(REGISTER, id, role);
         return entry.build();
     }

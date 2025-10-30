@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
-import net.minecraft.util.collection.IndexedIterable;
+import net.minecraft.core.IdMap;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(IndexedIterable.class)
+@Mixin(IdMap.class)
 public interface IndexedIterableMixin<T> {
 //    @Inject(method = "getOrThrow", at = @At("HEAD"))
 //    private void onGetOrThrow(int index, CallbackInfoReturnable<T> cir) {

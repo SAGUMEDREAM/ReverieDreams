@@ -5,9 +5,9 @@ import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.core.model.Pose;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -22,23 +22,23 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
     }
 
     @Override
-    protected void applyPose(ServerPlayerEntity serverPlayer, Pose pose, DisplayWrapper<?> display) {
+    protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
         var translation = new Vector3f(0, -0.1f, 0);
         Matrix4f matrix4f = new Matrix4f().translate(translation);
 
-        Vector3f movement = parent.getMovement().toVector3f();
+        Vector3f movement = parent.getKnownMovement().toVector3f();
         if (movement.lengthSquared() > 0.0001f) {
             movement.normalize();
             float movementYaw = (float) Math.atan2(-movement.x, movement.z);
             float movementPitch = (float) Math.asin(movement.y);
 
-            lastPitch = MathHelper.lerpAngleRadians(0.5f, movementPitch, lastPitch);
-            lastYaw = MathHelper.lerpAngleRadians(0.5f, movementYaw, lastYaw);
+            lastPitch = Mth.rotLerpRad(0.5f, movementPitch, lastPitch);
+            lastYaw = Mth.rotLerpRad(0.5f, movementYaw, lastYaw);
 
             matrix4f
                     .rotateLocalZ(0)
                     .rotateLocalX(lastPitch)
-                    .rotateLocalY(-lastYaw + MathHelper.PI);
+                    .rotateLocalY(-lastYaw + Mth.PI);
 
             display.element().setTransformation(serverPlayer, matrix4f);
             display.element().startInterpolationIfDirty(serverPlayer);
@@ -46,7 +46,7 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
     }
 
     @Override
-    public void updateElement(ServerPlayerEntity serverPlayer, DisplayWrapper<?> display, @Nullable Pose pose) {
+    public void updateElement(ServerPlayer serverPlayer, DisplayWrapper<?> display, @Nullable Pose pose) {
         if (pose == null) {
             this.applyPose(serverPlayer, display.getLastPose(serverPlayer), display);
         } else {

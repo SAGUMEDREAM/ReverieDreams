@@ -3,27 +3,27 @@ package cc.thonly.reverie_dreams.world.gen;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.world.gen.biome.DreamBiomeCreator;
 import cc.thonly.reverie_dreams.world.gen.biome.TheMoonBiomeCreator;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.carver.ConfiguredCarver;
-import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 
 public class BiomeInit {
-    public static final RegistryKey<Biome> THE_MOON = getOrCreateRegistryKey("the_moon");
-    public static final RegistryKey<Biome> DREAM = getOrCreateRegistryKey("dream");
+    public static final ResourceKey<Biome> THE_MOON = getOrCreateRegistryKey("the_moon");
+    public static final ResourceKey<Biome> DREAM = getOrCreateRegistryKey("dream");
 
     public static void init() {
 
     }
 
-    public static void bootstrap(Registerable<Biome> context) {
-        RegistryEntryLookup<PlacedFeature> placedFeatureLookup = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
-        RegistryEntryLookup<ConfiguredCarver<?>> configuredCarverLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
+    public static void bootstrap(BootstrapContext<Biome> context) {
+        HolderGetter<PlacedFeature> placedFeatureLookup = context.lookup(Registries.PLACED_FEATURE);
+        HolderGetter<ConfiguredWorldCarver<?>> configuredCarverLookup = context.lookup(Registries.CONFIGURED_CARVER);
         context.register(DREAM, DreamBiomeCreator.createDream(
                 placedFeatureLookup, configuredCarverLookup
         ));
@@ -32,12 +32,12 @@ public class BiomeInit {
         ));
     }
 
-    public static RegistryKey<Biome> getOrCreateRegistryKey(String name) {
+    public static ResourceKey<Biome> getOrCreateRegistryKey(String name) {
         return getOrCreateRegistryKey(Touhou.id(name));
     }
 
-    public static RegistryKey<Biome> getOrCreateRegistryKey(Identifier id) {
-        return RegistryKey.of(RegistryKeys.BIOME, id);
+    public static ResourceKey<Biome> getOrCreateRegistryKey(ResourceLocation id) {
+        return ResourceKey.create(Registries.BIOME, id);
     }
 
 }

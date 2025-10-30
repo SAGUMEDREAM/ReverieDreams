@@ -2,18 +2,18 @@ package cc.thonly.reverie_dreams.mixin.client;
 
 import cc.thonly.reverie_dreams.TouhouClient;
 import eu.pb4.polymer.core.api.block.PolymerBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.NoteBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.NoteBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,19 +21,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(NoteBlock.class)
 public class NoteBlockMixin {
-    @Inject(method = "getStateForNeighborUpdate", cancellable = true, at = @At("HEAD"))
-    public void neighborUpdateInject(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random, CallbackInfoReturnable<BlockState> cir) {
-        if (world.isClient()) {
+    @Inject(method = "updateShape", cancellable = true, at = @At("HEAD"))
+    public void neighborUpdateInject(BlockState state, LevelReader world, ScheduledTickAccess tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random, CallbackInfoReturnable<BlockState> cir) {
+        if (world.isClientSide()) {
             if (state.getBlock() instanceof PolymerBlock)
-                cir.setReturnValue(Blocks.AIR.getDefaultState());
+                cir.setReturnValue(Blocks.AIR.defaultBlockState());
         }
     }
 
-    @Inject(method = "onUse", cancellable = true, at = @At("HEAD"))
-    public void onUseInject(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        if (world.isClient()) {
+    @Inject(method = "useWithoutItem", cancellable = true, at = @At("HEAD"))
+    public void onUseInject(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
+        if (world.isClientSide()) {
             if (TouhouClient.SERVER_SIDE_BLOCKS.contains(state.getBlock())) {
-                cir.setReturnValue(ActionResult.FAIL);
+                cir.setReturnValue(InteractionResult.FAIL);
             }
         }
     }

@@ -8,23 +8,22 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.dialog.AfterAction;
-import net.minecraft.dialog.DialogActionButtonData;
-import net.minecraft.dialog.DialogButtonData;
-import net.minecraft.dialog.DialogCommonData;
-import net.minecraft.dialog.action.SimpleDialogAction;
-import net.minecraft.dialog.body.PlainMessageDialogBody;
-import net.minecraft.dialog.type.NoticeDialog;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.ServerTickManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.server.ServerTickRateManager;
+import net.minecraft.server.dialog.ActionButton;
+import net.minecraft.server.dialog.CommonButtonData;
+import net.minecraft.server.dialog.CommonDialogData;
+import net.minecraft.server.dialog.DialogAction;
+import net.minecraft.server.dialog.NoticeDialog;
+import net.minecraft.server.dialog.action.StaticAction;
+import net.minecraft.server.dialog.body.PlainMessage;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -36,7 +35,7 @@ public class DialogPlayer {
     public static final Map<String, String> FILENAME2UID = new Object2ObjectOpenHashMap<>();
     public static final Map<String, Boolean> LOADED = new Object2ObjectOpenHashMap<>();
 
-    public static synchronized DialogPlayer play(ServerPlayerEntity player, String filename, @Nullable SoundEvent soundEvent) {
+    public static synchronized DialogPlayer play(ServerPlayer player, String filename, @Nullable SoundEvent soundEvent) {
         if (DialogFiles.contain(filename)) {
             DialogFiles.Entry entry = DialogFiles.getEntry(filename);
             ;
@@ -64,7 +63,7 @@ public class DialogPlayer {
     }
 
     public static synchronized void tick(MinecraftServer server) {
-        ServerTickManager tickManager = server.getTickManager();
+        ServerTickRateManager tickManager = server.tickRateManager();
         if (!tickManager.isFrozen()) {
             for (Map.Entry<String, DialogPlayer> entry : INSTANCES.entrySet()) {
                 entry.getValue().tick();
@@ -76,7 +75,7 @@ public class DialogPlayer {
         return INSTANCES.get(uuid);
     }
 
-    private final ServerPlayerEntity player;
+    private final ServerPlayer player;
     private final String uuid;
     private LinkedList<LinkedList<String>> source = new LinkedList<>();
     private ListIterator<LinkedList<String>> iterator = null;
@@ -86,18 +85,18 @@ public class DialogPlayer {
     @Nullable
     private SoundEvent soundEvent;
 
-    public DialogPlayer(ServerPlayerEntity player, String fileId) {
+    public DialogPlayer(ServerPlayer player, String fileId) {
         this.player = player;
-        this.uuid = this.player.getUuid().toString();
+        this.uuid = this.player.getUUID().toString();
         this.parse(fileId);
         INSTANCES.put(this.uuid, this);
     }
 
-    public DialogPlayer(ServerPlayerEntity player, DialogFiles.Entry entry) {
+    public DialogPlayer(ServerPlayer player, DialogFiles.Entry entry) {
         this(player, entry.getFileId());
     }
 
-    public DialogPlayer(ServerPlayerEntity player, DialogFiles.Entry entry, @Nullable SoundEvent soundEvent) {
+    public DialogPlayer(ServerPlayer player, DialogFiles.Entry entry, @Nullable SoundEvent soundEvent) {
         this(player, entry.getFileId());
         this.soundEvent = soundEvent;
     }
@@ -105,7 +104,7 @@ public class DialogPlayer {
     public synchronized void start() {
         this.iterator = this.source.listIterator();
         if (this.soundEvent != null) {
-            this.player.playSound(this.soundEvent);
+            this.player.makeSound(this.soundEvent);
             System.out.println(111);
         }
         DelayedTask.createFromSecond(Touhou.getServer(), 0.75f, () -> {
@@ -167,7 +166,7 @@ public class DialogPlayer {
     }
 
     public synchronized void tick() {
-        if (this.player.isDisconnected()) {
+        if (this.player.hasDisconnected()) {
             INSTANCES.remove(this.uuid);
             return;
         }
@@ -185,34 +184,34 @@ public class DialogPlayer {
 //        }
         this.state++;
 //        System.out.println(this.state);
-        NbtCompound nbtCompound = new NbtCompound();
-        nbtCompound.putString("uid", this.player.getUuidAsString());
+        CompoundTag nbtCompound = new CompoundTag();
+        nbtCompound.putString("uid", this.player.getStringUUID());
 
         NoticeDialog result = new NoticeDialog(
-                new DialogCommonData(
-                        Text.literal(""),
-                        Optional.of(Text.empty()),
+                new CommonDialogData(
+                        Component.literal(""),
+                        Optional.of(Component.empty()),
                         true, false,
-                        AfterAction.CLOSE,
+                        DialogAction.CLOSE,
                         new ArrayList<>(List.of()),
                         new ArrayList<>(List.of())
                 ),
-                new DialogActionButtonData(
-                        new DialogButtonData(Text.empty().append(Text.translatable("dialog.text.back")), 200),
-                        Optional.of(new SimpleDialogAction(new ClickEvent.Custom(Touhou.id("stop/dialog_video"), Optional.of(nbtCompound))))
+                new ActionButton(
+                        new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.back")), 200),
+                        Optional.of(new StaticAction(new ClickEvent.Custom(Touhou.id("stop/dialog_video"), Optional.of(nbtCompound))))
                 )
         );
 
         if (this.iterator.hasNext()) {
             LinkedList<String> next = this.iterator.next();
-            MutableText mutableText = Text.empty();
+            MutableComponent mutableText = Component.empty();
             for (String line : next) {
-                mutableText.append(Text.literal(line + "\n"));
+                mutableText.append(Component.literal(line + "\n"));
             }
             result.common().body().add(
-                    new PlainMessageDialogBody(mutableText, 1024)
+                    new PlainMessage(mutableText, 1024)
             );
-            this.player.openDialog(RegistryEntry.of(result));
+            this.player.openDialog(Holder.direct(result));
         } else {
             INSTANCES.remove(this.uuid);
 //            System.out.println("removed");

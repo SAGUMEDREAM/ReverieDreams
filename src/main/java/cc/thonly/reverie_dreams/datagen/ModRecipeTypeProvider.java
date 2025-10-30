@@ -20,25 +20,24 @@ import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 public class ModRecipeTypeProvider extends RecipeTypeProvider {
-    public final Factory<GensokyoAltarRecipe> gensokyoAltarRecipeFactory = this.getOrCreateFactory(RecipeManager.GENSOKYO_ALTAR, GensokyoAltarRecipe.class);
-    public final Factory<DanmakuRecipe> danmakuRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_TYPE, DanmakuRecipe.class);
-    public final Factory<DanmakuShapeDrawRecipe> danmakuShapeDrawRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_SHAPE_DRAW_TYPE, DanmakuShapeDrawRecipe.class);
-    public final Factory<KitchenRecipe> kitchenRecipeFactory = this.getOrCreateFactory(MiRecipeManager.KITCHEN_RECIPE, KitchenRecipe.class);
+    public final cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<GensokyoAltarRecipe> gensokyoAltarRecipeFactory = this.getOrCreateFactory(RecipeManager.GENSOKYO_ALTAR, GensokyoAltarRecipe.class);
+    public final cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<DanmakuRecipe> danmakuRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_TYPE, DanmakuRecipe.class);
+    public final cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<DanmakuShapeDrawRecipe> danmakuShapeDrawRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_SHAPE_DRAW_TYPE, DanmakuShapeDrawRecipe.class);
+    public final cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<KitchenRecipe> kitchenRecipeFactory = this.getOrCreateFactory(MiRecipeManager.KITCHEN_RECIPE, KitchenRecipe.class);
 
-    public ModRecipeTypeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public ModRecipeTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 
@@ -522,11 +521,11 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
     }
 
     public void generateKitchenRecipe() {
-        Identifier cookingPot = KitchenRecipeType.KitchenType.COOKING_POT.toId();
-        Identifier grill = KitchenRecipeType.KitchenType.GRILL.toId();
-        Identifier cuttingBoard = KitchenRecipeType.KitchenType.CUTTING_BOARD.toId();
-        Identifier streamer = KitchenRecipeType.KitchenType.STREAMER.toId();
-        Identifier fryingPan = KitchenRecipeType.KitchenType.FRYING_PAN.toId();
+        ResourceLocation cookingPot = KitchenRecipeType.KitchenType.COOKING_POT.toId();
+        ResourceLocation grill = KitchenRecipeType.KitchenType.GRILL.toId();
+        ResourceLocation cuttingBoard = KitchenRecipeType.KitchenType.CUTTING_BOARD.toId();
+        ResourceLocation streamer = KitchenRecipeType.KitchenType.STREAMER.toId();
+        ResourceLocation fryingPan = KitchenRecipeType.KitchenType.FRYING_PAN.toId();
 
         // 煮锅
         this.kitchenRecipeFactory.register(MystiasIzakaya.id("seafood_miso_soup"), new KitchenRecipe(
@@ -1506,15 +1505,15 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
     public void generateDanmakuRecipe() {
         Stream<DanmakuType> stream = RegistryManager.DANMAKU_TYPE.stream();
         stream.forEach(value -> {
-            Identifier key = RegistryManager.DANMAKU_TYPE.getId(value);
+            ResourceLocation key = RegistryManager.DANMAKU_TYPE.getKey(value);
             if (!DanmakuTypes.UNLIST.contains(value)) {
-                for (Pair<Item, ItemStack> pair : value.getColorPairs()) {
-                    Item dye = pair.getLeft();
-                    ItemStack result = pair.getRight();
+                for (Tuple<Item, ItemStack> pair : value.getColorPairs()) {
+                    Item dye = pair.getA();
+                    ItemStack result = pair.getB();
                     Item item = result.getItem();
-                    Identifier itemId = Registries.ITEM.getId(item);
-                    Identifier dyeId = Registries.ITEM.getId(dye);
-                    Identifier registryKey = Identifier.of(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
+                    ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
+                    ResourceLocation dyeId = BuiltInRegistries.ITEM.getKey(dye);
+                    ResourceLocation registryKey = ResourceLocation.fromNamespaceAndPath(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
                     DanmakuRecipe recipe = new DanmakuRecipe(
                             new ItemStackWrapper(new ItemStack(dye, 4)),
                             new ItemStackWrapper(new ItemStack(ModItems.DANMAKU_CORE, 4)),

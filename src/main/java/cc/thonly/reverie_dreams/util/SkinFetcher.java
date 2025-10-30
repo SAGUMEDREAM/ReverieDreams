@@ -7,8 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.properties.Property;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
 import javax.imageio.ImageIO;
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.image.*;
@@ -39,7 +38,7 @@ public class SkinFetcher {
     public static Optional<Property> getSkinFromNPCSkin(SkinConfig config) {
 //        System.out.println(config.getSkin().getId());
         boolean useSlim = config.getType() == SkinConfig.ModelType.SLIM;
-        Identifier id = RegistryManager.SKIN_CONFIG.getId(config);
+        ResourceLocation id = RegistryManager.SKIN_CONFIG.getKey(config);
         if (id == null) {
             return Optional.empty();
         }

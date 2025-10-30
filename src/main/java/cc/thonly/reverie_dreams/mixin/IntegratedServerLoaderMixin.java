@@ -1,30 +1,30 @@
 package cc.thonly.reverie_dreams.mixin;
 
 import com.mojang.serialization.Lifecycle;
-import net.minecraft.server.integrated.IntegratedServerLoader;
-import net.minecraft.world.SaveProperties;
+import net.minecraft.client.gui.screens.worldselection.WorldOpenFlows;
+import net.minecraft.world.level.storage.WorldData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(IntegratedServerLoader.class)
+@Mixin(WorldOpenFlows.class)
 public class IntegratedServerLoaderMixin {
     // Make SaveProperties.getLifecycle() always return Lifecycle.stable()
     @Redirect(
-            method = "checkBackupAndStart",
+            method = "openWorldCheckWorldStemCompatibility",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/SaveProperties;getLifecycle()Lcom/mojang/serialization/Lifecycle;"
+                    target = "Lnet/minecraft/world/level/storage/WorldData;worldGenSettingsLifecycle()Lcom/mojang/serialization/Lifecycle;"
             )
     )
-    private Lifecycle removeAdviceOnLoad(SaveProperties saveProperties) {
+    private Lifecycle removeAdviceOnLoad(WorldData saveProperties) {
         return Lifecycle.stable();
     }
 
     // Set bypassWarnings = true
     @ModifyVariable(
-            method = "tryLoad",
+            method = "confirmWorldCreation",
             at = @At("HEAD"),
             argsOnly = true,
             index = 4

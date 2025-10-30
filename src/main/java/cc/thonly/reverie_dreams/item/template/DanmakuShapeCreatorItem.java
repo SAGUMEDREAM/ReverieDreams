@@ -4,33 +4,28 @@ import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.gui.DanmakuShapeEditGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-
 import java.util.function.Consumer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class DanmakuShapeCreatorItem extends Item {
-    public DanmakuShapeCreatorItem(Settings settings) {
-        super(settings.maxCount(4));
+    public DanmakuShapeCreatorItem(Properties settings) {
+        super(settings.stacksTo(4));
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (!world.isClient && user instanceof ServerPlayerEntity player) {
-            SimpleGui gui = new DanmakuShapeEditGui(player, user.getStackInHand(hand), hand);
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        if (!world.isClientSide && user instanceof ServerPlayer player) {
+            SimpleGui gui = new DanmakuShapeEditGui(player, user.getItemInHand(hand), hand);
             gui.open();
-            return ActionResult.SUCCESS_SERVER;
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
 //    @Override
@@ -42,7 +37,7 @@ public class DanmakuShapeCreatorItem extends Item {
 //    }
 
     @Override
-    public boolean hasGlint(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         ItemStackWrapper itemStackWrapper = stack.get(ModDataComponentTypes.Danmaku.SHAPE);
         return itemStackWrapper != null;
     }

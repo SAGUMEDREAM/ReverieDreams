@@ -12,12 +12,11 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.item.ItemStack;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Unit;
-
+import net.minecraft.world.item.ItemStack;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,14 +39,14 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
 
     @Override
     public void reload(ResourceManager manager) {
-        Map<Identifier, Resource> resources = manager.findResources((this.getTypeId() + "_recipe"), id -> {
+        Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
             return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
         });
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.of(id.getNamespace(), id.getPath().replaceFirst("^danmaku_shape_draw_recipe/", "").replaceAll("\\.json$", ""));
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation id = entry.getKey();
+            ResourceLocation registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^danmaku_shape_draw_recipe/", "").replaceAll("\\.json$", ""));
             Resource resource = entry.getValue();
-            try (InputStream stream = resource.getInputStream()) {
+            try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
@@ -152,7 +151,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return Touhou.id(this.getTypeId());
     }
 }

@@ -1,17 +1,16 @@
 package cc.thonly.reverie_dreams.inventory;
 
 import lombok.Getter;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 
 @Getter
-public class NPCInventoryImpl extends SimpleInventory {
+public class NPCInventoryImpl extends SimpleContainer {
     public static final int MAX_SIZE = 24;
     public static final int HEAD = 18;
     public static final int CHEST = 19;
@@ -34,69 +33,69 @@ public class NPCInventoryImpl extends SimpleInventory {
 
     }
 
-    public ItemStack getHand(Hand hand) {
-        if (hand == Hand.MAIN_HAND) {
+    public ItemStack getHand(InteractionHand hand) {
+        if (hand == InteractionHand.MAIN_HAND) {
             return getMainHand();
-        } else if (hand == Hand.OFF_HAND) {
+        } else if (hand == InteractionHand.OFF_HAND) {
             return getOffHand();
         }
         return ItemStack.EMPTY;
     }
 
     public ItemStack getMainHand() {
-        return this.getStack(MAIN_HAND);
+        return this.getItem(MAIN_HAND);
     }
 
     public ItemStack getOffHand() {
-        return this.getStack(OFF_HAND);
+        return this.getItem(OFF_HAND);
     }
 
     public ItemStack getHead() {
-        return this.getStack(HEAD);
+        return this.getItem(HEAD);
     }
 
     public ItemStack getChest() {
-        return this.getStack(CHEST);
+        return this.getItem(CHEST);
     }
 
     public ItemStack getLegs() {
-        return this.getStack(LEGS);
+        return this.getItem(LEGS);
     }
 
     public ItemStack getFeet() {
-        return this.getStack(FEET);
+        return this.getItem(FEET);
     }
 
-    public void setHand(Hand hand, ItemStack stack) {
-        if (hand == Hand.MAIN_HAND) {
+    public void setHand(InteractionHand hand, ItemStack stack) {
+        if (hand == InteractionHand.MAIN_HAND) {
             setMainHand(stack);
-        } else if (hand == Hand.OFF_HAND) {
+        } else if (hand == InteractionHand.OFF_HAND) {
             setOffHand(stack);
         }
     }
 
     public void setMainHand(ItemStack stack) {
-        this.setStack(MAIN_HAND, stack.copy());
+        this.setItem(MAIN_HAND, stack.copy());
     }
 
     public void setOffHand(ItemStack stack) {
-        this.setStack(OFF_HAND, stack.copy());
+        this.setItem(OFF_HAND, stack.copy());
     }
 
     public void setHead(ItemStack stack) {
-        this.setStack(HEAD, stack.copy());
+        this.setItem(HEAD, stack.copy());
     }
 
     public void setChest(ItemStack stack) {
-        this.setStack(CHEST, stack.copy());
+        this.setItem(CHEST, stack.copy());
     }
 
     public void setLegs(ItemStack stack) {
-        this.setStack(LEGS, stack.copy());
+        this.setItem(LEGS, stack.copy());
     }
 
     public void setFeet(ItemStack stack) {
-        this.setStack(FEET, stack.copy());
+        this.setItem(FEET, stack.copy());
     }
 
     public boolean isArmorSlot(int slot) {
@@ -104,8 +103,8 @@ public class NPCInventoryImpl extends SimpleInventory {
     }
 
     @Override
-    public boolean canInsert(ItemStack stack) {
-        return super.canInsert(stack);
+    public boolean canAddItem(ItemStack stack) {
+        return super.canAddItem(stack);
     }
 
     public int insertStack(ItemStack stack) {
@@ -113,28 +112,28 @@ public class NPCInventoryImpl extends SimpleInventory {
         int remaining = stack.getCount();
         int inserted = 0;
 
-        for (int i = 0; i < this.heldStacks.size(); i++) {
+        for (int i = 0; i < this.items.size(); i++) {
             if (this.isArmorSlot(i)) {
                 continue;
             }
-            ItemStack slot = this.heldStacks.get(i);
+            ItemStack slot = this.items.get(i);
             if (slot.isEmpty()) {
-                int toInsert = Math.min(remaining, stack.getMaxCount());
-                this.heldStacks.set(i, stack.copy());
-                this.heldStacks.get(i).setCount(toInsert);
+                int toInsert = Math.min(remaining, stack.getMaxStackSize());
+                this.items.set(i, stack.copy());
+                this.items.get(i).setCount(toInsert);
                 inserted += toInsert;
                 remaining -= toInsert;
-            } else if (ItemStack.areItemsAndComponentsEqual(slot, stack) && slot.getCount() < slot.getMaxCount()) {
-                int space = slot.getMaxCount() - slot.getCount();
+            } else if (ItemStack.isSameItemSameComponents(slot, stack) && slot.getCount() < slot.getMaxStackSize()) {
+                int space = slot.getMaxStackSize() - slot.getCount();
                 int toInsert = Math.min(remaining, space);
-                slot.increment(toInsert);
+                slot.grow(toInsert);
                 inserted += toInsert;
                 remaining -= toInsert;
             }
             if (remaining <= 0) break;
         }
 
-        stack.decrement(inserted);
+        stack.shrink(inserted);
         return inserted;
     }
 
@@ -143,7 +142,7 @@ public class NPCInventoryImpl extends SimpleInventory {
         List<Integer> itemSlots = new LinkedList<>();
         for (int i = MAX_SIZE - 1; i >= 0; i--) {
             if (itemSlots.size() >= maxLength) break;
-            ItemStack stack = this.getStack(i);
+            ItemStack stack = this.getItem(i);
             if ((!stack.isEmpty()) && (!isExcludeIndex.test(i)) && isGood.test(stack))
                 itemSlots.add(i);
         }
@@ -156,7 +155,7 @@ public class NPCInventoryImpl extends SimpleInventory {
     }
 
     public Integer findHand(Predicate<ItemStack> isGood) {
-        return isGood.test(getStack(23))
-                ? Integer.valueOf(23) : isGood.test(getStack(22)) ? 22 : null;
+        return isGood.test(getItem(23))
+                ? Integer.valueOf(23) : isGood.test(getItem(22)) ? 22 : null;
     }
 }

@@ -10,52 +10,53 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
 @ToString
 public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<DrinkProperty>, BuiltinObject, Translatable {
     public static final Codec<DrinkProperty> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf("registry_key").forGetter(DrinkProperty::getId),
+            ResourceLocation.CODEC.fieldOf("registry_key").forGetter(DrinkProperty::getId),
             ITEMS_CODEC.fieldOf("properties").forGetter(DrinkProperty::getItemList)
     ).apply(instance, DrinkProperty::new));
 
-    private Identifier id;
-    private final StatusEffectInstance effectInstance;
+    private ResourceLocation id;
+    private final MobEffectInstance effectInstance;
     private Set<Item> items = new ObjectOpenHashSet<>();
     private IntrinsicalRegister<DrinkProperty> owner;
 
     public DrinkProperty() {
-        this(new StatusEffectInstance(new StatusEffectInstance(ModStatusEffects.EMPTY, 1)));
+        this(new MobEffectInstance(new MobEffectInstance(ModStatusEffects.EMPTY, 1)));
     }
 
-    public DrinkProperty(StatusEffectInstance effectInstance) {
+    public DrinkProperty(MobEffectInstance effectInstance) {
         this.effectInstance = effectInstance;
     }
 
-    public DrinkProperty(Identifier id, List<Item> items) {
+    public DrinkProperty(ResourceLocation id, List<Item> items) {
         this();
         this.id = id;
         this.items.addAll(items);
     }
 
-    public final void use(ServerWorld world, LivingEntity user) {
-        StatusEffectInstance effectInstance = new StatusEffectInstance(this.effectInstance);
-        user.addStatusEffect(effectInstance);
+    public final void use(ServerLevel world, LivingEntity user) {
+        MobEffectInstance effectInstance = new MobEffectInstance(this.effectInstance);
+        user.addEffect(effectInstance);
         DrinkPropertyLoaderCallback.EVENT.invoker().onUse(world, user, this);
         this.onUse(world, user);
     }
 
-    public void onUse(ServerWorld world, LivingEntity user) {
+    public void onUse(ServerLevel world, LivingEntity user) {
 
     }
 
@@ -63,13 +64,13 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
         return this == property || this.getId().equals(property.getId()) || this.hashCode() == property.hashCode();
     }
 
-    public Text getTooltip() {
-        return Text.translatable(this.id.toTranslationKey("drink_property"));
+    public Component getTooltip() {
+        return Component.translatable(this.id.toLanguageKey("drink_property"));
     }
 
     @Override
     public String translateKey() {
-        return this.id.toTranslationKey("drink_property");
+        return this.id.toLanguageKey("drink_property");
     }
 
     public List<Item> getItemList() {
@@ -86,8 +87,8 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
 
     public static List<DrinkProperty> getDrinkProperties(Item item) {
         List<DrinkProperty> list = new ArrayList<>();
-        Set<Map.Entry<Identifier, DrinkProperty>> entries = MIRegistryManager.DRINK_PROPERTY.entrySet();
-        for (Map.Entry<Identifier, DrinkProperty> entry : entries) {
+        Set<Map.Entry<ResourceLocation, DrinkProperty>> entries = MIRegistryManager.DRINK_PROPERTY.idEntrySet();
+        for (Map.Entry<ResourceLocation, DrinkProperty> entry : entries) {
             DrinkProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
             if (tags.contains(item)) {
@@ -100,8 +101,8 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
     public static List<DrinkProperty> getFromStrings(List<String> ids) {
         List<DrinkProperty> list = new ArrayList<>();
         for (String id : ids) {
-            Identifier identifier = Identifier.of(id);
-            DrinkProperty foodProperty = MIRegistryManager.DRINK_PROPERTY.get(identifier);
+            ResourceLocation identifier = ResourceLocation.parse(id);
+            DrinkProperty foodProperty = MIRegistryManager.DRINK_PROPERTY.getValue(identifier);
             if (foodProperty != null) {
                 list.add(foodProperty);
             }
@@ -117,8 +118,8 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
     public static List<DrinkProperty> getFromItemStack(ItemStack itemStack) {
         List<DrinkProperty> list = new ArrayList<>();
         Item item = itemStack.getItem();
-        Set<Map.Entry<Identifier, DrinkProperty>> entries = MIRegistryManager.DRINK_PROPERTY.entrySet();
-        for (Map.Entry<Identifier, DrinkProperty> entry : entries) {
+        Set<Map.Entry<ResourceKey<DrinkProperty>, DrinkProperty>> entries = MIRegistryManager.DRINK_PROPERTY.entrySet();
+        for (Map.Entry<ResourceKey<DrinkProperty>, DrinkProperty> entry : entries) {
             DrinkProperty drinkProperty = entry.getValue();
             Set<Item> tags = drinkProperty.getItems();
             if (tags.contains(item)) {

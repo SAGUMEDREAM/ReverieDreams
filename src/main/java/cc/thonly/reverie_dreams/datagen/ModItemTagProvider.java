@@ -18,16 +18,15 @@ import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.data.tag.ProvidedTagBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,12 +38,12 @@ import java.util.stream.Stream;
 
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
         // === 基础工具方法 ===
         BiConsumer<TagKey<Item>, Collection<? extends Item>> addAll = (tag, items) -> valueLookupBuilder(tag).add(items.toArray(Item[]::new));
         Supplier<List<Item>> allDanmakuItemGetter = () -> {
@@ -93,7 +92,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModTags.ItemTypeTag.DREAM_TOOL_MATERIALS).add(ModItems.DREAM_CRYSTAL_FRAGMENT);
 
         // === 自定义方块 ===
-        valueLookupBuilder(ItemTags.PLANKS).add(WoodCreator.INSTANCES.stream().map(ins->ins.planks().asItem()));
+        valueLookupBuilder(ItemTags.PLANKS).addAll(WoodCreator.INSTANCES.stream().map(ins->ins.planks().asItem()));
         valueLookupBuilder(ModTags.ItemTypeTag.ORB_BLOCK).add(
                 ModBlocks.RED_ORB_BLOCK.asItem(),
                 ModBlocks.YELLOW_ORB_BLOCK.asItem(),
@@ -105,9 +104,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModTags.ItemTypeTag.POINT_BLOCK).add(ModBlocks.POINT_BLOCK.asItem());
         valueLookupBuilder(ModTags.ItemTypeTag.SILVER_BLOCK).add(ModBlocks.SILVER_BLOCK.asItem());
         valueLookupBuilder(ModTags.ItemTypeTag.VAISRAVANAS_PAGODA).add(Items.BLAZE_POWDER);
-        valueLookupBuilder(ModTags.ItemTypeTag.INGREDIENT_ITEM).add(MIItems.INGREDIENTS);
-        valueLookupBuilder(ModTags.ItemTypeTag.FOOD_ITEM).add(MIItems.FOOD_ITEMS);
-        valueLookupBuilder(ModTags.ItemTypeTag.DRINK_ITEM).add(MIItems.DRINK_ITEMS);
+        valueLookupBuilder(ModTags.ItemTypeTag.INGREDIENT_ITEM).addAll(MIItems.INGREDIENTS);
+        valueLookupBuilder(ModTags.ItemTypeTag.FOOD_ITEM).addAll(MIItems.FOOD_ITEMS);
+        valueLookupBuilder(ModTags.ItemTypeTag.DRINK_ITEM).addAll(MIItems.DRINK_ITEMS);
 
         valueLookupBuilder(ModTags.ItemTypeTag.ROLE_TAME_FOOD)
                 .add(Items.CAKE)
@@ -115,11 +114,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(MIItems.SCARLET_DEVILS_CAKE);
 
         // === 兼容物品 ===
-        valueLookupBuilder(ConventionalItemTags.FOODS).add(MIItems.FOOD_ITEMS);
+        valueLookupBuilder(ConventionalItemTags.FOODS).addAll(MIItems.FOOD_ITEMS);
         valueLookupBuilder(ModTags.ItemTypeTag.PEACH).add(MIItems.PEACH);
 
         // === 方块物品分类 ===
-        Map<TagKey<Item>, Collection<? extends ItemConvertible>> blockItemGroups = Map.of(
+        Map<TagKey<Item>, Collection<? extends ItemLike>> blockItemGroups = Map.of(
                 ItemTags.FENCES, BlockTypeGroup.FENCE.items(),
                 ItemTags.FENCE_GATES, BlockTypeGroup.FENCE_GATE.items(),
                 ItemTags.WALLS, BlockTypeGroup.WALL.items(),
@@ -131,23 +130,23 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 ItemTags.LEAVES, BlockTypeGroup.LEAVES.items()
         );
         blockItemGroups.forEach((tag, list) -> {
-            ProvidedTagBuilder<Item, Item> builder = valueLookupBuilder(tag);
+            TagAppender<Item, Item> builder = valueLookupBuilder(tag);
             list.forEach(item -> builder.add(item.asItem()));
         });
 
         // === 种子 ===
-        ProvidedTagBuilder<Item, Item> seeds = valueLookupBuilder(ConventionalItemTags.SEEDS);
-        ProvidedTagBuilder<Item, Item> villagerPlantableSeeds = valueLookupBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS);
+        TagAppender<Item, Item> seeds = valueLookupBuilder(ConventionalItemTags.SEEDS);
+        TagAppender<Item, Item> villagerPlantableSeeds = valueLookupBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS);
         for (var entry : CropBlockCreator.getViews()) {
             Item seed = entry.getValue().getSeed();
             villagerPlantableSeeds.add(seed);
             seeds.add(seed);
         }
 
-        ProvidedTagBuilder<Item, Item> pigFoods = valueLookupBuilder(ItemTags.PIG_FOOD);
+        TagAppender<Item, Item> pigFoods = valueLookupBuilder(ItemTags.PIG_FOOD);
         pigFoods.add(MIItems.WHITE_RADISH);
 
-        ProvidedTagBuilder<Item, Item> rabbitFoods = valueLookupBuilder(ItemTags.RABBIT_FOOD);
+        TagAppender<Item, Item> rabbitFoods = valueLookupBuilder(ItemTags.RABBIT_FOOD);
         rabbitFoods.add(MIItems.WHITE_RADISH);
 
         // === 模组兼容扩展 ===
@@ -155,14 +154,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     }
 
 
-    protected void configureCompat(RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void configureCompat(HolderLookup.Provider wrapperLookup) {
         // Farmer'delight
-        ProvidedTagBuilder<Item, Item> onion = valueLookupCommon("crops/onion");
-        ProvidedTagBuilder<Item, Item> tomatoCrop = valueLookupCommon("crops/tomato");
-        ProvidedTagBuilder<Item, Item> cabbage = valueLookupCommon("crops/cabbage");
-        ProvidedTagBuilder<Item, Item> rawSalmon = valueLookupCommon("foods/raw_salmon");
-        ProvidedTagBuilder<Item, Item> rawFish = valueLookupCommon("foods/raw_fish");
-        ProvidedTagBuilder<Item, Item> tomatoFood = valueLookupCommon("foods/tomato");
+        TagAppender<Item, Item> onion = valueLookupCommon("crops/onion");
+        TagAppender<Item, Item> tomatoCrop = valueLookupCommon("crops/tomato");
+        TagAppender<Item, Item> cabbage = valueLookupCommon("crops/cabbage");
+        TagAppender<Item, Item> rawSalmon = valueLookupCommon("foods/raw_salmon");
+        TagAppender<Item, Item> rawFish = valueLookupCommon("foods/raw_fish");
+        TagAppender<Item, Item> tomatoFood = valueLookupCommon("foods/tomato");
 
         onion.add(MIItems.ONION);
         tomatoCrop.add(MIItems.TOMATO);
@@ -170,7 +169,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         rawFish.add(MIItems.SALMON, MIItems.HAGFISH, MIItems.TUNA, MIItems.SUPREME_TUNA);
         tomatoFood.add(MIItems.TOMATO);
 
-        ProvidedTagBuilder<Item, Item> meals = valueLookupFarmerDelight("meals");
+        TagAppender<Item, Item> meals = valueLookupFarmerDelight("meals");
         meals.add(
                 MIItems.BLACK_PORK,
                 MIItems.VENISON,
@@ -179,12 +178,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         );
     }
 
-    private ProvidedTagBuilder<Item, Item> valueLookupFarmerDelight(String name) {
-        return valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("farmersdelight", name)));
+    private TagAppender<Item, Item> valueLookupFarmerDelight(String name) {
+        return valueLookupBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("farmersdelight", name)));
     }
 
-    private ProvidedTagBuilder<Item, Item> valueLookupCommon(String name) {
-        return valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", name)));
+    private TagAppender<Item, Item> valueLookupCommon(String name) {
+        return valueLookupBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name)));
     }
 
 }

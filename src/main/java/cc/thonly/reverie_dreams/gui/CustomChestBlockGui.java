@@ -6,22 +6,19 @@ import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.util.PredicateSlot;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import net.minecraft.block.Block;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 
 public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
@@ -35,20 +32,20 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     private final BlockPos blockPos;
     private final SlotFactory factory;
 
-    public CustomChestBlockGui(Block block, CustomChestBlockEntity chestBlockEntity, ServerPlayerEntity player, SlotFactory factory) {
-        super(ScreenHandlerType.GENERIC_9X3, player, false);
+    public CustomChestBlockGui(Block block, CustomChestBlockEntity chestBlockEntity, ServerPlayer player, SlotFactory factory) {
+        super(MenuType.GENERIC_9x3, player, false);
         this.block = block;
         this.chestBlockEntity = chestBlockEntity;
-        this.blockPos = chestBlockEntity.getPos();
+        this.blockPos = chestBlockEntity.getBlockPos();
         this.factory = factory;
-        this.setTitle(Text.translatable(block.getTranslationKey()));
+        this.setTitle(Component.translatable(block.getDescriptionId()));
         this.init();
     }
 
     @Override
     public void onTick() {
         super.onTick();
-        ServerWorld world = this.player.getWorld();
+        ServerLevel world = this.player.level();
         if (!(world.getBlockState(this.blockPos).getBlock() instanceof CustomChestBlock) && !(world.getBlockState(this.blockPos).getBlock() instanceof CashBoxBlock)) {
             this.close();
         }
@@ -56,7 +53,7 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
 
     @Override
     public void init() {
-        for (int i = 0; i < this.chestBlockEntity.size(); i++) {
+        for (int i = 0; i < this.chestBlockEntity.getContainerSize(); i++) {
             this.setSlotRedirect(i, this.factory.get(this.chestBlockEntity.getInventory(), i, 0, 0));
         }
     }
@@ -64,16 +61,16 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     @Override
     public void onOpen() {
         super.onOpen();
-        this.player.playSound(SoundEvents.BLOCK_CHEST_OPEN);
+        this.player.makeSound(SoundEvents.CHEST_OPEN);
     }
 
     @Override
     public void onClose() {
         super.onClose();
-        this.chestBlockEntity.markDirty();
+        this.chestBlockEntity.setChanged();
     }
 
     public interface SlotFactory {
-        Slot get(Inventory inventory, int index, int x, int y);
+        Slot get(Container inventory, int index, int x, int y);
     }
 }

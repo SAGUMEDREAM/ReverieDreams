@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 @Setter
 @Getter
@@ -23,7 +23,7 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
 
     public DanmakuShape(DanmakuType danmakuType) {
         this.type = danmakuType;
-        ItemStack stack = ModItems.DANMAKU_SHAPE_CREATOR.getDefaultStack();
+        ItemStack stack = ModItems.DANMAKU_SHAPE_CREATOR.getDefaultInstance();
         stack.set(ModDataComponentTypes.Danmaku.SHAPE, ItemStackWrapper.of(danmakuType.getItem()));
         this.baseItemStack = stack;
     }

@@ -1,23 +1,22 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
 import cc.thonly.reverie_dreams.Touhou;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.world.dimension.DimensionType;
-
 import java.util.Optional;
 import java.util.OptionalLong;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.dimension.DimensionType;
 
 public class DimensionTypeInit {
-    public static final RegistryKey<DimensionType> DREAM_WORLD = getOrCreateRegistryKey("dream_world");
-    public static final RegistryKey<DimensionType> THE_MOON = getOrCreateRegistryKey("the_moon");
-    public static final RegistryKey<DimensionType> GENSOKYO = getOrCreateRegistryKey("gensokyo");
+    public static final ResourceKey<DimensionType> DREAM_WORLD = getOrCreateRegistryKey("dream_world");
+    public static final ResourceKey<DimensionType> THE_MOON = getOrCreateRegistryKey("the_moon");
+    public static final ResourceKey<DimensionType> GENSOKYO = getOrCreateRegistryKey("gensokyo");
 
-    public static void bootstrap(Registerable<DimensionType> context) {
+    public static void bootstrap(BootstrapContext<DimensionType> context) {
         context.register(DREAM_WORLD, new DimensionType(
                 OptionalLong.empty(),                   // fixedTime
                 true,                                   // hasSkyLight
@@ -30,14 +29,14 @@ public class DimensionTypeInit {
                 0,                                      // minY
                 256,                                    // height
                 256,                                    // logicalHeight
-                TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "infiniburn_overworld")), // infiniburn
-                Identifier.of("minecraft", "overworld"),                                          // effects
+                TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
+                ResourceLocation.fromNamespaceAndPath("minecraft", "overworld"),                                          // effects
                 0.0f,                                   // ambientLight
                 Optional.empty(),                       // cloudHeight
                 new DimensionType.MonsterSettings(      // monsterSettings
                         true,                           // piglinSafe
                         true,                           // hasRaids
-                        UniformIntProvider.create(0, 7),// monsterSpawnLightLevel (UniformIntProvider)
+                        UniformInt.of(0, 7),// monsterSpawnLightLevel (UniformIntProvider)
                         0                               // monsterSpawnBlockLightLimit
                 )
         ));
@@ -53,14 +52,14 @@ public class DimensionTypeInit {
                 0,                    // minY
                 256,                  // height
                 256,                  // logicalHeight
-                TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "infiniburn_overworld")), // infiniburn
-                Identifier.of("minecraft", "the_end"), // effects
+                TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
+                ResourceLocation.fromNamespaceAndPath("minecraft", "the_end"), // effects
                 0.0f,                 // ambientLight
                 Optional.empty(),     // cloudHeight
                 new DimensionType.MonsterSettings(
                         false,                           // piglinSafe
                         true,                            // hasRaids
-                        UniformIntProvider.create(0, 7), // monsterSpawnLightLevel
+                        UniformInt.of(0, 7), // monsterSpawnLightLevel
                         0                                // monsterSpawnBlockLightLimit
                 )
         ));
@@ -70,8 +69,8 @@ public class DimensionTypeInit {
 
     }
 
-    public static RegistryKey<DimensionType> getOrCreateRegistryKey(String name) {
-        return RegistryKey.of(RegistryKeys.DIMENSION_TYPE, Identifier.of(Touhou.MOD_ID, name));
+    public static ResourceKey<DimensionType> getOrCreateRegistryKey(String name) {
+        return ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
     }
 
 }

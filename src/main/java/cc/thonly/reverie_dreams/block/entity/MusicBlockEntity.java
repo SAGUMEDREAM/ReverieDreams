@@ -2,12 +2,12 @@ package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import nota.player.SongPlayer;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,15 +26,15 @@ public class MusicBlockEntity extends BlockEntity {
 
     @Nullable
     public SongPlayer getSelfPlayer() {
-        Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(this.world);
+        Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(this.level);
         if (blockPos2SongPlayer == null) return null;
-        return blockPos2SongPlayer.get(this.pos.asLong());
+        return blockPos2SongPlayer.get(this.worldPosition.asLong());
     }
 
-    public static synchronized void tick(World world, BlockPos pos, BlockState state, MusicBlockEntity blockEntity) {
-        if (world.isClient()) return;
+    public static synchronized void tick(Level world, BlockPos pos, BlockState state, MusicBlockEntity blockEntity) {
+        if (world.isClientSide()) return;
 
-        boolean hasRedstone = world.isReceivingRedstonePower(pos);
+        boolean hasRedstone = world.hasNeighborSignal(pos);
 
         Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.computeIfAbsent(world, w -> new HashMap<>());
         SongPlayer songPlayer = blockPos2SongPlayer.get(pos.asLong());
@@ -57,15 +57,15 @@ public class MusicBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
         view.putString("Select", this.select == null ? "" : this.select);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
-        this.select = view.getString("Select","");
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+        this.select = view.getStringOr("Select","");
     }
 
     public int play() {
@@ -74,8 +74,8 @@ public class MusicBlockEntity extends BlockEntity {
             return -1;
         }
 
-        if (this.world != null && !this.world.isClient) {
-            TouhouNotaUtils.playAt(world, pos, select);
+        if (this.level != null && !this.level.isClientSide) {
+            TouhouNotaUtils.playAt(level, worldPosition, select);
         }
         return filenames.indexOf(select);
     }
@@ -89,7 +89,7 @@ public class MusicBlockEntity extends BlockEntity {
 
         index = (index - 1 + filenames.size()) % filenames.size();
         this.select = filenames.get(index);
-        this.markDirty();
+        this.setChanged();
         return index;
     }
 
@@ -100,7 +100,7 @@ public class MusicBlockEntity extends BlockEntity {
         int index = select == null ? -1 : filenames.indexOf(select);
         index = (index + 1) % filenames.size();
         this.select = filenames.get(index);
-        this.markDirty();
+        this.setChanged();
         return index;
     }
 

@@ -10,14 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataWriter;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -32,51 +31,51 @@ import java.util.function.BiConsumer;
 @Environment(value = EnvType.CLIENT)
 public abstract class EquipmentAssetProvider implements DataProvider {
     public final FabricDataOutput output;
-    public final CompletableFuture<RegistryWrapper.WrapperLookup> future;
+    public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public EquipmentAssetProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public EquipmentAssetProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
 
-    protected abstract void bootstrap(BiConsumer<RegistryKey<EquipmentAsset>, EquipmentModel> consumer);
+    protected abstract void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer);
 
-    protected EquipmentModel createHumanoidOnlyModel(String id) {
-        return EquipmentModel.builder().addHumanoidLayers(Identifier.ofVanilla(id)).build();
+    protected EquipmentClientInfo createHumanoidOnlyModel(String id) {
+        return EquipmentClientInfo.builder().addHumanoidLayers(ResourceLocation.withDefaultNamespace(id)).build();
     }
 
-    protected EquipmentModel createHumanoidAndHorseModel(String id) {
-        return EquipmentModel.builder().addHumanoidLayers(Identifier.ofVanilla(id)).addLayers(EquipmentModel.LayerType.HORSE_BODY, EquipmentModel.Layer.createWithLeatherColor(Identifier.ofVanilla(id), false)).build();
+    protected EquipmentClientInfo createHumanoidAndHorseModel(String id) {
+        return EquipmentClientInfo.builder().addHumanoidLayers(ResourceLocation.withDefaultNamespace(id)).addLayers(EquipmentClientInfo.LayerType.HORSE_BODY, EquipmentClientInfo.Layer.leatherDyeable(ResourceLocation.withDefaultNamespace(id), false)).build();
     }
 
-    protected EquipmentModel createHumanoidOnlyModel(Identifier id) {
-        return EquipmentModel.builder().addHumanoidLayers(id).build();
+    protected EquipmentClientInfo createHumanoidOnlyModel(ResourceLocation id) {
+        return EquipmentClientInfo.builder().addHumanoidLayers(id).build();
     }
 
-    protected EquipmentModel createHumanoidAndHorseModel(Identifier id) {
-        return EquipmentModel.builder().addHumanoidLayers(id).addLayers(EquipmentModel.LayerType.HORSE_BODY, EquipmentModel.Layer.createWithLeatherColor(id, false)).build();
+    protected EquipmentClientInfo createHumanoidAndHorseModel(ResourceLocation id) {
+        return EquipmentClientInfo.builder().addHumanoidLayers(id).addLayers(EquipmentClientInfo.LayerType.HORSE_BODY, EquipmentClientInfo.Layer.leatherDyeable(id, false)).build();
     }
 
     @Override
-    public CompletableFuture<?> run(DataWriter writer) {
+    public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> this.export(writer));
     }
 
-    public void export(DataWriter writer) {
+    public void export(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
-            HashMap<RegistryKey<EquipmentAsset>, EquipmentModel> map = new HashMap<>();
+            HashMap<ResourceKey<EquipmentAsset>, EquipmentClientInfo> map = new HashMap<>();
             this.bootstrap((key, model) -> {
                 if (map.putIfAbsent(key, model) != null) {
                     throw new IllegalStateException("Tried to register equipment asset twice for id: " + String.valueOf(key));
                 }
-                Identifier identifier = key.getValue();
+                ResourceLocation identifier = key.location();
                 String namespaceRef = identifier.getNamespace();
                 String pathRef = identifier.getPath();
                 Path generatePath = DataGeneratorUtil.getAssets(path, namespaceRef, "equipment", null);
 
-                DataResult<JsonElement> result = EquipmentModel.CODEC.encodeStart(JsonOps.INSTANCE, model);
+                DataResult<JsonElement> result = EquipmentClientInfo.CODEC.encodeStart(JsonOps.INSTANCE, model);
                 Optional<JsonElement> optional = result.result();
 
                 if (optional.isPresent()) {
@@ -86,7 +85,7 @@ public abstract class EquipmentAssetProvider implements DataProvider {
                     byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
                     try {
                         Files.createDirectories(output.getParent());
-                        writer.write(output, bytes, HashCode.fromBytes(bytes));
+                        writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
                     } catch (IOException e) {
                         log.error("Can't generate equipment asset {}", identifier.toString());
                     }

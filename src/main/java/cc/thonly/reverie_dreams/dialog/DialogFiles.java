@@ -12,8 +12,7 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.server.command.ServerCommandSource;
-
+import net.minecraft.commands.CommandSourceStack;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,9 +42,9 @@ public class DialogFiles {
     }
 
     @Slf4j
-    public static class FilesSuggestionProvider implements SuggestionProvider<ServerCommandSource> {
+    public static class FilesSuggestionProvider implements SuggestionProvider<CommandSourceStack> {
         @Override
-        public CompletableFuture<Suggestions> getSuggestions(CommandContext<ServerCommandSource> commandContext, SuggestionsBuilder builder) throws CommandSyntaxException {
+        public CompletableFuture<Suggestions> getSuggestions(CommandContext<CommandSourceStack> commandContext, SuggestionsBuilder builder) throws CommandSyntaxException {
             try {
                 List<String> files = getFileNames(PATH);
                 for (String file : files) {

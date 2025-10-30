@@ -10,48 +10,50 @@ import cc.thonly.reverie_dreams.entity.skin.SkinType;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.util.entity.ModelUtil;
-import com.mojang.authlib.properties.Property;
 import de.tomalbrc.bil.core.model.Model;
 import lombok.Getter;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.Leashable;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Leashable;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import java.util.function.Supplier;
 
 @Getter
 public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, Yousei {
-    public static final Identifier ID = Touhou.id("yousei_wing");
+    public static final ResourceLocation ID = Touhou.id("yousei_wing");
     public static final Model MODEL = ModelUtil.loadModel(ID);
 
-    public SunflowerYouseiEntity(EntityType<? extends TameableEntity> entityType, World world, SkinType skinType) {
+    public SunflowerYouseiEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         super(entityType, world, skinType);
         NPCInventoryImpl inventory = this.getInventory();
-        inventory.setHead(Items.SUNFLOWER.getDefaultStack());
-        inventory.setMainHand(Items.SUNFLOWER.getDefaultStack());
+        inventory.setHead(Items.SUNFLOWER.getDefaultInstance());
+        inventory.setMainHand(Items.SUNFLOWER.getDefaultInstance());
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
+    protected void registerGoals() {
+        super.registerGoals();
 
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new SitGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
 //        this.goalSelector.add(2, new SmartFlyGoal(this, 1.5));
 
 //        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
 
-        this.goalSelector.add(3, new DanmakuGoal(this, (self, target, world) -> {
+        this.goalSelector.addGoal(3, new DanmakuGoal(this, (self, target, world) -> {
             ItemStack stack = DanmakuTypes.random(DanmakuTypes.BUBBLE);
             float[] pitchYaw = MobDanmakuShooter.getPitchYaw(self, target);
             DelayedTask.repeat(world.getServer(), 2, 0.8f, () -> {
@@ -60,24 +62,24 @@ public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashabl
                 MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
             });
         }));
-        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 10.0f));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, MobEntity.class, 10.0f));
-        this.goalSelector.add(5, new LookAroundGoal(this));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 10.0f));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 10.0f));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 
-        this.targetSelector.add(1, new DifferentRevengeGoal(this).setGroupRevenge());
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
+        this.targetSelector.addGoal(1, new DifferentRevengeGoal(this).setGroupRevenge());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
     @Override
-    public void onDeath(DamageSource damageSource) {
-        super.onDeath(damageSource);
-        int i = this.random.nextBetween(1, 9);
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+        int i = this.random.nextIntBetweenInclusive(1, 9);
         if (i<=3) {
-            World world = this.getWorld();
-            ItemStack itemStack = new ItemStack(MIItems.MOONFLOWER, this.random.nextBetween(1,2));
+            Level world = this.level();
+            ItemStack itemStack = new ItemStack(MIItems.MOONFLOWER, this.random.nextIntBetweenInclusive(1,2));
             ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), itemStack);
-            world.spawnEntity(itemEntity);
+            world.addFreshEntity(itemEntity);
         }
     }
 
@@ -92,7 +94,7 @@ public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashabl
     }
 
     @Override
-    public boolean cannotDespawn() {
+    public boolean requiresCustomPersistence() {
         return false;
     }
 

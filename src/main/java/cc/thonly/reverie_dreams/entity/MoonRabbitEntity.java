@@ -1,72 +1,79 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.RabbitEntity;
-import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.ClimbOnTopOfPowderSnowGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public class MoonRabbitEntity extends RabbitEntity {
-    public MoonRabbitEntity(EntityType<? extends RabbitEntity> entityType, World world) {
+public class MoonRabbitEntity extends Rabbit {
+    public MoonRabbitEntity(EntityType<? extends Rabbit> entityType, Level world) {
         super(entityType, world);
         this.setVariant(Variant.WHITE);
-        AttributeContainer attributeContainer = this.getAttributes();
+        AttributeMap attributeContainer = this.getAttributes();
         if (attributeContainer != null) {
-            EntityAttributeInstance scale = attributeContainer.getCustomInstance(EntityAttributes.SCALE);
+            AttributeInstance scale = attributeContainer.getInstance(Attributes.SCALE);
             if (scale != null) {
                 scale.setBaseValue(1.8);
             }
         }
     }
 
-    public MoonRabbitEntity(World world) {
+    public MoonRabbitEntity(Level world) {
         this(ModEntities.MOON_RABBIT_ENTITY_TYPE, world);
     }
 
     @Override
-    public @Nullable EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        EntityData data = super.initialize(world, difficulty, spawnReason, entityData);
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
+        SpawnGroupData data = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
         this.setVariant(Variant.WHITE);
         return data;
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new PowderSnowJumpGoal(this, this.getWorld()));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new ClimbOnTopOfPowderSnowGoal(this, this.level()));
 //        this.goalSelector.add(1, new EscapeDangerGoal(this, 2.2));
-        this.goalSelector.add(2, new AnimalMateGoal(this, 0.8));
-        this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2, true));
-        this.goalSelector.add(3, new TemptGoal(this, 1.0, stack -> stack.isIn(ItemTags.RABBIT_FOOD), false));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, true));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, stack -> stack.is(ItemTags.RABBIT_FOOD), false));
 //        this.goalSelector.add(4, new FleeGoal<PlayerEntity>(this, PlayerEntity.class, 8.0f, 2.2, 2.2));
-        this.goalSelector.add(4, new FleeGoal<WolfEntity>(this, WolfEntity.class, 10.0f, 2.2, 2.2));
+        this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<Wolf>(this, Wolf.class, 10.0f, 2.2, 2.2));
 //        this.goalSelector.add(4, new FleeGoal<HostileEntity>(this, HostileEntity.class, 4.0f, 2.2, 2.2));
-        this.goalSelector.add(5, new EatCarrotCropGoal(this));
-        this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.6));
-        this.goalSelector.add(11, new LookAtEntityGoal(this, PlayerEntity.class, 10.0f));
+        this.goalSelector.addGoal(5, new RaidGardenGoal(this));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6));
+        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0f));
 
-        this.targetSelector.add(3, new RevengeGoal(this));
-        this.targetSelector.add(3, new UniversalLivingAngerGoal<>(this, false));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(3, new UniversalLivingAngerGoal<>(this, false));
 
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
     }
 
 
@@ -77,8 +84,8 @@ public class MoonRabbitEntity extends RabbitEntity {
     }
 
     @Override
-    public @Nullable RabbitEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        return ModEntities.MOON_RABBIT_ENTITY_TYPE.create(serverWorld, SpawnReason.BREEDING);
+    public @Nullable Rabbit getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
+        return ModEntities.MOON_RABBIT_ENTITY_TYPE.create(serverWorld, EntitySpawnReason.BREEDING);
     }
 
 }

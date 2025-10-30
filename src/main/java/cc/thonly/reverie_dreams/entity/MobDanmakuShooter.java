@@ -4,17 +4,17 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 @FunctionalInterface
 public interface MobDanmakuShooter {
     MobDanmakuShooter DEFAULT = new MobDanmakuShooter() {
         @Override
-        public void fire(LivingEntity self, Entity target, ServerWorld world) {
+        public void fire(LivingEntity self, Entity target, ServerLevel world) {
             ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY);
             float[] pitchYaw = getPitchYaw(self, target);
             spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 1.0f, 0f, 0.35f);
@@ -23,10 +23,10 @@ public interface MobDanmakuShooter {
         }
     };
 
-    void fire(LivingEntity self, Entity target, ServerWorld world);
+    void fire(LivingEntity self, Entity target, ServerLevel world);
 
     default void sound(LivingEntity self) {
-        self.playSound(SoundEventInit.FIRE);
+        self.makeSound(SoundEventInit.FIRE);
     }
 
     static float[] getPitchYaw(Entity self, Entity target) {
@@ -42,7 +42,7 @@ public interface MobDanmakuShooter {
         return new float[]{pitch, yaw};
     }
 
-    static DanmakuEntity spawn(ServerWorld world, LivingEntity entity, ItemStack stack, float pitch, float yaw, float speed, float divergence, float offsetDist) {
+    static DanmakuEntity spawn(ServerLevel world, LivingEntity entity, ItemStack stack, float pitch, float yaw, float speed, float divergence, float offsetDist) {
         Item item = stack.getItem();
         if (item instanceof AbstractDanmakuItem danmakuItem) {
             DanmakuEntity danmakuEntity = new DanmakuEntity(
@@ -59,7 +59,7 @@ public interface MobDanmakuShooter {
                     divergence,
                     offsetDist
             );
-            world.spawnEntity(danmakuEntity);
+            world.addFreshEntity(danmakuEntity);
             return danmakuEntity;
         }
         return null;

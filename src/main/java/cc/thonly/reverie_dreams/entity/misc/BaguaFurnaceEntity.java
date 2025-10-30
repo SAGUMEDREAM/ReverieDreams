@@ -4,18 +4,17 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.decoration.DisplayEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
@@ -31,7 +30,7 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
     private final float fixedYaw;
 
 
-    public BaguaFurnaceEntity(EntityType<? extends Entity> entityType, World world) {
+    public BaguaFurnaceEntity(EntityType<? extends Entity> entityType, Level world) {
         super(entityType, world);
         this.owner = null;
         this.fixedPitch = 0;
@@ -39,26 +38,26 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
     }
 
-    public BaguaFurnaceEntity(ServerWorld world, @NotNull LivingEntity owner) {
+    public BaguaFurnaceEntity(ServerLevel world, @NotNull LivingEntity owner) {
         super(ModEntities.BAGUA_FURNACE_ENTITY, world);
         this.owner = owner;
 
-        this.setPitch(owner.getPitch());
-        this.setYaw(owner.getYaw());
-        Vec3d v3d = owner.getPos();
-        this.setPosition(v3d);
-        this.setPosition(v3d.x, owner.getEyeY(), v3d.z);
+        this.setXRot(owner.getXRot());
+        this.setYRot(owner.getYRot());
+        Vec3 v3d = owner.position();
+        this.setPos(v3d);
+        this.setPos(v3d.x, owner.getEyeY(), v3d.z);
 
-        double offsetX = -Math.sin(Math.toRadians(this.getYaw()));
-        double offsetZ = Math.cos(Math.toRadians(this.getYaw()));
-        this.setPos(this.getX() + offsetX, this.getY(), this.getZ() + offsetZ);
+        double offsetX = -Math.sin(Math.toRadians(this.getYRot()));
+        double offsetZ = Math.cos(Math.toRadians(this.getYRot()));
+        this.setPosRaw(this.getX() + offsetX, this.getY(), this.getZ() + offsetZ);
 
-        this.fixedPitch = owner.getPitch();
-        this.fixedYaw = owner.getYaw();
+        this.fixedPitch = owner.getXRot();
+        this.fixedYaw = owner.getYRot();
     }
 
     @Override
@@ -72,7 +71,7 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
 
         if (this.intervalTick1 <= 0) {
             DanmakuEntity entity = DanmakuTrajectory.spawnByItemStack(
-                    (ServerWorld) this.getWorld(),
+                    (ServerLevel) this.level(),
                     null,
                     this.getX(), this.getY(), this.getZ(),
                     DanmakuTypes.random(DanmakuTypes.BIG_LASER),
@@ -84,9 +83,9 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
         }
 
         if (this.intervalTick2 <= 0) {
-            this.getWorld().playSound(
-                    null, this.owner.getBlockPos(),
-                    SoundEventInit.BAGUA, SoundCategory.PLAYERS
+            this.level().playSound(
+                    null, this.owner.blockPosition(),
+                    SoundEventInit.BAGUA, SoundSource.PLAYERS
             );
             this.intervalTick2 = PER_INTERVAL_TICK2;
         }
@@ -97,19 +96,19 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
     }
 
     @Override
-    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+    public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         return false;
     }
 
     @Override
-    protected void readCustomData(ReadView view) {
-        this.livingTick = view.getInt("LivingTick", MAX_TICK);
-        this.intervalTick1 = view.getInt("IntervalTick1", PER_INTERVAL_TICK1);
-        this.intervalTick1 = view.getInt("IntervalTick2", PER_INTERVAL_TICK2);
+    protected void readAdditionalSaveData(ValueInput view) {
+        this.livingTick = view.getIntOr("LivingTick", MAX_TICK);
+        this.intervalTick1 = view.getIntOr("IntervalTick1", PER_INTERVAL_TICK1);
+        this.intervalTick1 = view.getIntOr("IntervalTick2", PER_INTERVAL_TICK2);
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
+    protected void addAdditionalSaveData(ValueOutput view) {
         view.putInt("LivingTick", this.livingTick);
         view.putInt("IntervalTick1", this.intervalTick1);
         view.putInt("IntervalTick2", this.intervalTick2);

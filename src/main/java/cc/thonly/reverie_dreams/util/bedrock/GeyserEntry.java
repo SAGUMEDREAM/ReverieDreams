@@ -3,12 +3,12 @@ package cc.thonly.reverie_dreams.util.bedrock;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 import org.geysermc.event.subscribe.Subscribe;
 import org.geysermc.geyser.api.GeyserApi;
 import org.geysermc.geyser.api.event.EventRegistrar;
@@ -35,20 +35,20 @@ public class GeyserEntry implements EventRegistrar {
 
     @Subscribe
     public void onGeyserDefineCustomItemsEvent(GeyserDefineCustomItemsEvent event) {
-        for (Map.Entry<RegistryKey<Item>, Item> mapEntry : Registries.ITEM.getEntrySet()) {
-            RegistryKey<Item> key = mapEntry.getKey();
-            if (!key.getValue().getNamespace().equals(Touhou.MOD_ID)) continue;
+        for (Map.Entry<ResourceKey<Item>, Item> mapEntry : BuiltInRegistries.ITEM.entrySet()) {
+            ResourceKey<Item> key = mapEntry.getKey();
+            if (!key.location().getNamespace().equals(Touhou.MOD_ID)) continue;
             Item item = mapEntry.getValue();
             if(item instanceof IdentifierGetter) {
-                int id = Registries.ITEM.getRawId(item);
-                Identifier identifier = ((IdentifierGetter) item).getIdentifier();
+                int id = BuiltInRegistries.ITEM.getId(item);
+                ResourceLocation identifier = ((IdentifierGetter) item).getIdentifier();
                 NonVanillaCustomItemData.Builder customItemData = NonVanillaCustomItemData.builder()
-                        .displayName(Text.translatable(item.getTranslationKey()).getString())
-                        .name(Text.translatable(item.getTranslationKey()).getString())
+                        .displayName(Component.translatable(item.getDescriptionId()).getString())
+                        .name(Component.translatable(item.getDescriptionId()).getString())
                         .javaId(id)
-                        .stackSize(item.getMaxCount())
+                        .stackSize(item.getDefaultMaxStackSize())
                         .identifier(identifier.toString())
-                        .translationString(item.getTranslationKey())
+                        .translationString(item.getDescriptionId())
                         .allowOffhand(true)
                         .displayHandheld(true)
                         .icon(identifier.toString())
@@ -59,8 +59,8 @@ public class GeyserEntry implements EventRegistrar {
             }
         }
     }
-    public static boolean isPlayerOnBedrock(ServerPlayerEntity player) {
+    public static boolean isPlayerOnBedrock(ServerPlayer player) {
         if (geyser == null || player == null) return false;
-        return geyser.isBedrockPlayer(player.getUuid());
+        return geyser.isBedrockPlayer(player.getUUID());
     }
 }

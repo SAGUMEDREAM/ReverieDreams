@@ -16,15 +16,10 @@ import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import net.fabricmc.fabric.api.event.Event;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -44,10 +39,10 @@ public class ModTooltips {
             Integer count = stack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, AbstractDanmakuItem.DEFAULT_COUNT);
             String templateType = stack.getOrDefault(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString());
 
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.damage")).append(String.valueOf(damage)));
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.speed")).append(String.valueOf(speed)));
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.count")).append(String.valueOf(count)));
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.base_type")).append(Text.translatable(Identifier.of(templateType).toTranslationKey())));
+            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(damage)));
+            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(speed)));
+            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.count")).append(String.valueOf(count)));
+            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(ResourceLocation.parse(templateType).toLanguageKey())));
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
             if (!(stack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
@@ -55,7 +50,7 @@ public class ModTooltips {
             }
             ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.Danmaku.SHAPE, ItemStackWrapper.of(Items.AIR));
             ItemStack itemStack = itemStackWrapper.getItemStack();
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.shape")).append(itemStack.getName()));
+            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
             if (!(stack.getItem() instanceof DrinkItem drinkItem)) {
@@ -63,10 +58,10 @@ public class ModTooltips {
             }
             List<DrinkProperty> allProperties = DrinkProperty.getAllProperties(stack);
             if (!allProperties.isEmpty()) {
-                textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
             }
             for (DrinkProperty property : allProperties) {
-                textConsumer.accept(Text.empty().append("§b+").append(Text.translatable(property.translateKey())));
+                textConsumer.accept(Component.empty().append("§b+").append(Component.translatable(property.translateKey())));
             }
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
@@ -79,17 +74,17 @@ public class ModTooltips {
             foodPropertyList.addAll(foodProperties);
             foodPropertyList.addAll(foodIngredientProperties);
             if (!foodPropertyList.isEmpty()) {
-                textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
             }
             for (FoodProperty foodProperty : foodPropertyList) {
-                textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
+                textConsumer.accept(Component.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
             }
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
             if (!(stack.getItem() instanceof FumoLicenseItem fumoLicenseItem)) {
                 return;
             }
-            textConsumer.accept(Text.translatable("item.tooltip.use.villager"));
+            textConsumer.accept(Component.translatable("item.tooltip.use.villager"));
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
             if (!(stack.getItem() instanceof IngredientItem ingredientItem)) {
@@ -97,10 +92,10 @@ public class ModTooltips {
             }
             List<FoodProperty> foodProperties = FoodProperty.getIngredientProperties(stack.getItem());
             if (!foodProperties.isEmpty()) {
-                textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.food_properties")));
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
             }
             for (FoodProperty foodProperty : foodProperties) {
-                textConsumer.accept(Text.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
+                textConsumer.accept(Component.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
             }
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
@@ -109,14 +104,14 @@ public class ModTooltips {
             }
             Optional<RoleCard> roleCardComponent = roleCardItem.getRoleCardComponent(stack);
             if (roleCardComponent.isEmpty()) {
-                textConsumer.accept(Text.translatable("item.disabled"));
+                textConsumer.accept(Component.translatable("item.disabled"));
                 return;
             }
             if (roleCardComponent.get().isEmpty()) {
-                textConsumer.accept(Text.translatable("item.disabled"));
+                textConsumer.accept(Component.translatable("item.disabled"));
                 return;
             }
-            textConsumer.accept(Text.translatable("item.tooltip.use"));
+            textConsumer.accept(Component.translatable("item.tooltip.use"));
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
             if (!(stack.getItem() instanceof SpellCardTemplateItem spellCardTemplateItem)) {
@@ -128,7 +123,7 @@ public class ModTooltips {
             Integer count = stack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, AbstractDanmakuItem.DEFAULT_COUNT);
             String templateType = stack.getOrDefault(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString());
 
-            textConsumer.accept(Text.empty().append(Text.translatable("item.tooltip.base_type")).append(Text.translatable(Identifier.of(templateType).toTranslationKey())));
+            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(ResourceLocation.parse(templateType).toLanguageKey())));
 
         });
     }

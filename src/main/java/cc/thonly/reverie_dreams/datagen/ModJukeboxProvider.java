@@ -5,12 +5,11 @@ import cc.thonly.reverie_dreams.datagen.generator.JukeboxProvider;
 import cc.thonly.reverie_dreams.sound.JukeBoxEntry;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
 import java.util.concurrent.CompletableFuture;
 
 public class ModJukeboxProvider extends JukeboxProvider {
-    public ModJukeboxProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public ModJukeboxProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

@@ -1,17 +1,17 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
 import cc.thonly.reverie_dreams.Touhou;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class WorldInit {
-    public static final RegistryKey<World> DREAM_WORLD = getOrCreateRegistryKey("dream_world");
-    public static final RegistryKey<World> THE_MOON = getOrCreateRegistryKey("the_moon");
+    public static final ResourceKey<Level> DREAM_WORLD = getOrCreateRegistryKey("dream_world");
+    public static final ResourceKey<Level> THE_MOON = getOrCreateRegistryKey("the_moon");
 
-    public static void bootstrap(Registerable<World> context) {
+    public static void bootstrap(BootstrapContext<Level> context) {
 
     }
 
@@ -23,15 +23,15 @@ public class WorldInit {
 
     }
 
-    public static RegistryKey<World> getOrCreateRegistryKey(String name) {
-        return RegistryKey.of(RegistryKeys.WORLD, Identifier.of(Touhou.MOD_ID, name));
+    public static ResourceKey<Level> getOrCreateRegistryKey(String name) {
+        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
     }
 
-    public static RegistryKey<World> getDreamWorld() {
+    public static ResourceKey<Level> getDreamWorld() {
         return DREAM_WORLD;
     }
 
-    public static RegistryKey<World> getMoon() {
+    public static ResourceKey<Level> getMoon() {
         return THE_MOON;
     }
 }

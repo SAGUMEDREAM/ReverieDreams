@@ -10,13 +10,12 @@ import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import java.util.List;
 
 @Getter
@@ -25,7 +24,7 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
     GuiElementBuilder output;
     String inputText = "";
 
-    public StrengthTableGui(ServerPlayerEntity player, StrengthenTableBlockEntity blockEntity, boolean manipulatePlayerSlots) {
+    public StrengthTableGui(ServerPlayer player, StrengthenTableBlockEntity blockEntity, boolean manipulatePlayerSlots) {
         super(player, manipulatePlayerSlots);
         this.blockEntity = blockEntity;
         this.init();
@@ -45,12 +44,12 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
     public void onTick() {
         super.onTick();
         if (this.blockEntity == null) return;
-        if (this.blockEntity.getWorld() != null && this.blockEntity.getWorld().getBlockState(this.blockEntity.getPos()).getBlock() != ModBlocks.STRENGTH_TABLE) {
+        if (this.blockEntity.getLevel() != null && this.blockEntity.getLevel().getBlockState(this.blockEntity.getBlockPos()).getBlock() != ModBlocks.STRENGTH_TABLE) {
             this.close();
         }
 //        this.inputText = this.getInput();
-        ItemStack mainStack = this.blockEntity.getInventory().getStack(0).copy();
-        ItemStack offStack = this.blockEntity.getInventory().getStack(1).copy();
+        ItemStack mainStack = this.blockEntity.getInventory().getItem(0).copy();
+        ItemStack offStack = this.blockEntity.getInventory().getItem(1).copy();
         ItemStackWrapper mainSlot = new ItemStackWrapper(mainStack);
         ItemStackWrapper offSlot = new ItemStackWrapper(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
@@ -72,8 +71,8 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
 
     public void click() {
         if (this.blockEntity == null) return;
-        ItemStack mainStack = this.blockEntity.getInventory().getStack(0);
-        ItemStack offStack = this.blockEntity.getInventory().getStack(1);
+        ItemStack mainStack = this.blockEntity.getInventory().getItem(0);
+        ItemStack offStack = this.blockEntity.getInventory().getItem(1);
         ItemStackWrapper mainSlot = new ItemStackWrapper(mainStack);
         ItemStackWrapper offSlot = new ItemStackWrapper(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
@@ -86,15 +85,15 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
             ItemStackWrapper offItem = entry.getOffItem();
             ItemStackWrapper resultItem = entry.getOutput();
 
-            this.blockEntity.getInventory().removeStack(0, mainItem.getCount());
-            this.blockEntity.getInventory().removeStack(1, offItem.getCount());
+            this.blockEntity.getInventory().removeItem(0, mainItem.getCount());
+            this.blockEntity.getInventory().removeItem(1, offItem.getCount());
             ItemStack itemStack = resultItem.getItemStack().copy();
 //            itemStack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(this.inputText));
-            this.player.giveItemStack(itemStack);
+            this.player.addItem(itemStack);
         } else {
             this.output.setItem(Items.AIR);
         }
-        this.player.playSoundToPlayer(SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        this.player.playNotifySound(SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
     }
 
     @Override
@@ -105,7 +104,7 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
     @Override
     public void onClose() {
         super.onClose();
-        this.blockEntity.markDirty();
+        this.blockEntity.setChanged();
     }
 
 

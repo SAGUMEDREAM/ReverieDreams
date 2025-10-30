@@ -3,11 +3,11 @@ package cc.thonly.reverie_dreams.mixin.registry;
 import cc.thonly.reverie_dreams.datafixer.DataFixerContentManager;
 import cc.thonly.reverie_dreams.interfaces.SimpleRegistrySetter;
 import net.fabricmc.fabric.api.event.registry.FabricRegistry;
-import net.minecraft.registry.MutableRegistry;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.SimpleRegistry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.WritableRegistry;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,18 +18,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 
-@Mixin(SimpleRegistry.class)
-public abstract class SimpleRegistryMixin<T> implements SimpleRegistrySetter, MutableRegistry<T> {
+@Mixin(MappedRegistry.class)
+public abstract class SimpleRegistryMixin<T> implements SimpleRegistrySetter, WritableRegistry<T> {
 
     @Shadow
     private boolean frozen;
 
     @Shadow
-    private @Nullable Map<T, RegistryEntry.Reference<T>> intrusiveValueToEntry;
+    private @Nullable Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
 
-    @Shadow @Final public Map<Identifier, RegistryEntry.Reference<T>> idToEntry;
+    @Shadow @Final public Map<ResourceLocation, Holder.Reference<T>> byLocation;
 
-    @Shadow @Final public Map<T, RegistryEntry.Reference<T>> valueToEntry;
+    @Shadow @Final public Map<T, Holder.Reference<T>> byValue;
 
     @Override
     public void setFrozen(boolean value) {
@@ -38,14 +38,14 @@ public abstract class SimpleRegistryMixin<T> implements SimpleRegistrySetter, Mu
 
     @Inject(method = "freeze", at = @At("HEAD"))
     public void onFreeze(CallbackInfoReturnable<Registry<T>> cir) {
-        for (Map.Entry<Registry<?>, Map<Identifier, Identifier>> registryMapEntry : DataFixerContentManager.ENTRIES.entrySet()) {
+        for (Map.Entry<Registry<?>, Map<ResourceLocation, ResourceLocation>> registryMapEntry : DataFixerContentManager.ENTRIES.entrySet()) {
             Registry<?> key = registryMapEntry.getKey();
             FabricRegistry fabricRegistry = this;
             if (key.equals(fabricRegistry)) {
-                Map<Identifier, Identifier> old2new = registryMapEntry.getValue();
-                for (Map.Entry<Identifier, Identifier> old2newEntry : old2new.entrySet()) {
-                    Identifier oldId = old2newEntry.getKey();
-                    Identifier newId = old2newEntry.getValue();
+                Map<ResourceLocation, ResourceLocation> old2new = registryMapEntry.getValue();
+                for (Map.Entry<ResourceLocation, ResourceLocation> old2newEntry : old2new.entrySet()) {
+                    ResourceLocation oldId = old2newEntry.getKey();
+                    ResourceLocation newId = old2newEntry.getValue();
                     this.addAlias(oldId, newId);
                 }
             }

@@ -10,22 +10,21 @@ import eu.pb4.sgui.api.gui.SimpleGui;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 
 @Getter
 @Slf4j
 @ToString(callSuper = true)
 public class StrengthTableDisplayView extends AnvilInputGui implements DisplayView {
     public final RecipeEntryWrapper<StrengthTableRecipe> key2ValueEntry;
-    public final Identifier key;
+    public final ResourceLocation key;
     public final StrengthTableRecipe value;
     public final GuiOpeningPrevCallback prevGuiCallback;
 
-    public StrengthTableDisplayView(ServerPlayerEntity player, RecipeEntryWrapper<StrengthTableRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
+    public StrengthTableDisplayView(ServerPlayer player, RecipeEntryWrapper<StrengthTableRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
         super(player, false);
         this.key2ValueEntry = key2ValueEntry;
         this.key = this.key2ValueEntry.getKey();
@@ -46,8 +45,8 @@ public class StrengthTableDisplayView extends AnvilInputGui implements DisplayVi
         this.back(0,null,null);
     }
 
-    public void back(int index, ClickType clickType, SlotActionType action) {
-        this.player.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+    public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
         this.close();
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();

@@ -4,20 +4,20 @@ import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 
-public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
+public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
 
     protected int timer;
 
@@ -26,16 +26,16 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
     }
 
     @Override
-    public double getDesiredDistanceToTarget() {
+    public double acceptedDistance() {
         return 2.0;
     }
 
     @Override
-    public boolean shouldResetPath() {
-        return this.tryingTime % 100 == 0;
+    public boolean shouldRecalculatePath() {
+        return this.tryTicks % 100 == 0;
     }
 
-    private boolean isFoodDisplay(WorldView world, BlockPos pos) {
+    private boolean isFoodDisplay(LevelReader world, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof ItemStackDisplayBlockEntity isdBlockEntity) {
             ItemStackWrapper item = isdBlockEntity.getItem();
             return ((IItemStack) (Object) item.getItemStack()).isFood();
@@ -44,20 +44,20 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
     }
 
     @Override
-    protected boolean isTargetPos(WorldView world, BlockPos pos) {
+    protected boolean isValidTarget(LevelReader world, BlockPos pos) {
         return isFoodDisplay(world, pos);
     }
 
     @Override
     public void tick() {
-        if (this.hasReached()) {
+        if (this.isReachedTarget()) {
             if (this.timer >= 40) {
                 this.eatBerries();
             } else {
                 this.timer++;
             }
-        } else if (!this.hasReached() && mob.getRandom().nextFloat() < 0.05F) {
-            this.mob.playSound(SoundEvents.ENTITY_FOX_SNIFF, 1.0F, 1.0F);
+        } else if (!this.isReachedTarget() && mob.getRandom().nextFloat() < 0.05F) {
+            this.mob.playSound(SoundEvents.FOX_SNIFF, 1.0F, 1.0F);
         }
 
         super.tick();
@@ -65,15 +65,15 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
 
     protected void eatBerries() {
         BaseNPCLikeEntity maid = (BaseNPCLikeEntity) this.mob;
-        World world = maid.getWorld();
-        if (castToServerWorld(world).getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-            if (isFoodDisplay(world, this.targetPos)) {
-                ItemStackDisplayBlockEntity displayBlockEntity = (ItemStackDisplayBlockEntity) world.getBlockEntity(targetPos);
+        Level world = maid.level();
+        if (getServerLevel(world).getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+            if (isFoodDisplay(world, this.blockPos)) {
+                ItemStackDisplayBlockEntity displayBlockEntity = (ItemStackDisplayBlockEntity) world.getBlockEntity(blockPos);
                 ItemStackWrapper item = displayBlockEntity.getItem();
-                ComponentMap components = item.getItemStack().getComponents();
-                FoodComponent foodComponent = components.get(DataComponentTypes.FOOD);
+                DataComponentMap components = item.getItemStack().getComponents();
+                FoodProperties foodComponent = components.get(DataComponents.FOOD);
                 if (foodComponent != null) {
-                    maid.swingHand(Hand.MAIN_HAND);
+                    maid.swing(InteractionHand.MAIN_HAND);
                     int nutritionValue = foodComponent.nutrition();
                     int saturationValue = Math.round(foodComponent.saturation());
                     maid.setNutrition(maid.getNutrition() + nutritionValue);
@@ -85,10 +85,10 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
                             maid.getX(),
                             maid.getY(),
                             maid.getZ(),
-                            SoundEvents.ENTITY_PLAYER_BURP,
-                            SoundCategory.AMBIENT,
+                            SoundEvents.PLAYER_BURP,
+                            SoundSource.AMBIENT,
                             0.5F,
-                            MathHelper.nextBetween(world.random, 0.9F, 1.0F)
+                            Mth.randomBetween(world.random, 0.9F, 1.0F)
                     );
                 }
             }
@@ -97,9 +97,9 @@ public class NPCEatFoodDispalyGoal extends MoveToTargetPosGoal {
 
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         BaseNPCLikeEntity maid = (BaseNPCLikeEntity) this.mob;
-        return ((maid.getNutrition() < 20 && maid.getHealth() < 20) || maid.getNutrition() < 10) && super.canStart();
+        return ((maid.getNutrition() < 20 && maid.getHealth() < 20) || maid.getNutrition() < 10) && super.canUse();
     }
 
     @Override

@@ -11,17 +11,16 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.component.ComponentChanges;
-import net.minecraft.component.ComponentType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.LoreComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemLore;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -33,27 +32,27 @@ public class ItemStackWrapper {
     public static final Gson GSON = new Gson();
     public static final Codec<Item> ITEM_CODEC_ALLOWING_AIR = Codec.STRING.xmap(
             id -> {
-                Identifier identifier = Identifier.tryParse(id);
+                ResourceLocation identifier = ResourceLocation.tryParse(id);
                 if (identifier == null) {
                     return Items.AIR;
                 }
-                Item item = Registries.ITEM.get(identifier);
+                Item item = BuiltInRegistries.ITEM.getValue(identifier);
                 if (item == null) {
                     return Items.AIR;
                 }
                 return item;
             },
-            item -> Registries.ITEM.getId(item).toString()
+            item -> BuiltInRegistries.ITEM.getKey(item).toString()
     );
     public static final Codec<ItemStack> FLEXIBLE_ITEMSTACK_CODEC = Codec.lazyInitialized(() ->
             RecordCodecBuilder.create(instance -> instance.group(
                     ITEM_CODEC_ALLOWING_AIR.fieldOf("id").forGetter(ItemStack::getItem),
                     Codec.INT.optionalFieldOf("count", 0).forGetter(ItemStack::getCount),
-                    ComponentChanges.CODEC.optionalFieldOf("components", ComponentChanges.EMPTY)
-                            .forGetter(stack -> stack.components.getChanges())
+                    DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY)
+                            .forGetter(stack -> stack.components.asPatch())
             ).apply(instance, (item, count, components) -> {
                 ItemStack stack = new ItemStack(item, count);
-                stack.components.setChanges(components);
+                stack.components.restorePatch(components);
                 return stack;
             }))
     );
@@ -99,16 +98,16 @@ public class ItemStackWrapper {
         return of(new ItemStack(item, amount));
     }
 
-    public static ItemStackWrapper of(Item item, int amount, ComponentChanges components) {
-        return of(new ItemStack(Registries.ITEM.getEntry(item), amount, components));
+    public static ItemStackWrapper of(Item item, int amount, DataComponentPatch components) {
+        return of(new ItemStack(BuiltInRegistries.ITEM.wrapAsHolder(item), amount, components));
     }
 
     public static ItemStack createErrorItem() {
-        ItemStack stack = Items.WHITE_DYE.getDefaultStack();
-        stack.set(DataComponentTypes.ITEM_MODEL, Registries.ITEM.getId(Items.BARRIER));
-        stack.set(DataComponentTypes.ITEM_NAME, Text.literal("§cError Item"));
-        stack.set(DataComponentTypes.LORE, new LoreComponent(
-                new ArrayList<>(List.of(Text.literal("§cThis item failed to be serialized")))
+        ItemStack stack = Items.WHITE_DYE.getDefaultInstance();
+        stack.set(DataComponents.ITEM_MODEL, BuiltInRegistries.ITEM.getKey(Items.BARRIER));
+        stack.set(DataComponents.ITEM_NAME, Component.literal("§cError Item"));
+        stack.set(DataComponents.LORE, new ItemLore(
+                new ArrayList<>(List.of(Component.literal("§cThis item failed to be serialized")))
         ));
         return stack;
     }
@@ -117,11 +116,11 @@ public class ItemStackWrapper {
         return this.clone();
     }
 
-    public <T> T get(ComponentType<T> type) {
+    public <T> T get(DataComponentType<T> type) {
         return this.itemStack.get(type);
     }
 
-    public <T> T getOrCreate(ComponentType<T> type, Supplier<T> supplier) {
+    public <T> T getOrCreate(DataComponentType<T> type, Supplier<T> supplier) {
         T val = this.get(type);
         if (val == null) {
             T newVal = supplier.get();
@@ -131,7 +130,7 @@ public class ItemStackWrapper {
         return val;
     }
 
-    public <T> T getOrDefault(ComponentType<T> type, T value) {
+    public <T> T getOrDefault(DataComponentType<T> type, T value) {
         return this.itemStack.getOrDefault(type, value);
     }
 
@@ -149,7 +148,7 @@ public class ItemStackWrapper {
     }
 
     public Boolean test(ItemStack other) {
-        return ItemStack.areEqual(this.itemStack, other);
+        return ItemStack.matches(this.itemStack, other);
     }
 
     public Boolean greaterThan(ItemStack other) {
@@ -163,7 +162,7 @@ public class ItemStackWrapper {
             return false;
         }
 
-        return ItemStack.areItemsAndComponentsEqual(this.itemStack, other) && (other.getCount() >= this.itemStack.getCount());
+        return ItemStack.isSameItemSameComponents(this.itemStack, other) && (other.getCount() >= this.itemStack.getCount());
     }
 
     public static ItemStackWrapper findEquivalentKey(Map<ItemStackWrapper, ?> map, ItemStackWrapper key) {
@@ -178,7 +177,7 @@ public class ItemStackWrapper {
 
     public boolean matchesAndSufficient(ItemStack other) {
         if (other == null) return false;
-        if (!other.isOf(itemStack.getItem())) return false;
+        if (!other.is(itemStack.getItem())) return false;
         if (!Objects.equals(other.components, itemStack.components)) return false;
         return other.getCount() >= itemStack.getCount();
     }
@@ -187,13 +186,13 @@ public class ItemStackWrapper {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof ItemStackWrapper other)) return false;
-        return ItemStack.areEqual(this.itemStack, other.itemStack);
+        return ItemStack.matches(this.itemStack, other.itemStack);
     }
 
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + Item.getRawId(itemStack.getItem());
+        result = 31 * result + Item.getId(itemStack.getItem());
         result = 31 * result + (itemStack.getComponents() != null ? itemStack.getComponents().hashCode() : 0);
         result = 31 * result + itemStack.getCount();
         return result;

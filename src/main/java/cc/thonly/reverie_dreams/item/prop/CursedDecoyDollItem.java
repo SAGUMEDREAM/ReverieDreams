@@ -1,62 +1,61 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.decoration.ArmorStandEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 public class CursedDecoyDollItem extends Item {
-    public CursedDecoyDollItem(Settings settings) {
+    public CursedDecoyDollItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        PlayerEntity player = context.getPlayer();
-        Hand hand = context.getHand();
-        World world = context.getWorld();
-        BlockPos blockPos = context.getBlockPos().up();
-        if (!world.isClient && world instanceof ServerWorld serverWorld && player instanceof ServerPlayerEntity serverPlayer) {
-            ItemStack stackInHand = serverPlayer.getStackInHand(hand);
-            ArmorStandEntity armorStandEntity = new ArmorStandEntity(serverWorld, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
-            armorStandEntity.setYaw(player.getYaw());
-            armorStandEntity.setPitch(player.getPitch());
-            serverWorld.spawnEntity(armorStandEntity);
-            List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, new Box(blockPos).expand(24), livingEntity -> true);
+    public InteractionResult useOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        InteractionHand hand = context.getHand();
+        Level world = context.getLevel();
+        BlockPos blockPos = context.getClickedPos().above();
+        if (!world.isClientSide && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayer) {
+            ItemStack stackInHand = serverPlayer.getItemInHand(hand);
+            ArmorStand armorStandEntity = new ArmorStand(serverWorld, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
+            armorStandEntity.setYRot(player.getYRot());
+            armorStandEntity.setXRot(player.getXRot());
+            serverWorld.addFreshEntity(armorStandEntity);
+            List<LivingEntity> list = world.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos).inflate(24), livingEntity -> true);
             for (LivingEntity livingEntity : list) {
-                if (livingEntity instanceof PlayerEntity) continue;
+                if (livingEntity instanceof Player) continue;
                 if (livingEntity instanceof NPCRoleEntity role) {
-                    LivingEntity attacker = role.getAttacker();
+                    LivingEntity attacker = role.getLastHurtByMob();
                     LivingEntity target = role.getTarget();
                     if (attacker == player || target == player) {
                         continue;
                     }
                 }
-                if (livingEntity instanceof MobEntity mob) {
+                if (livingEntity instanceof Mob mob) {
                     if (mob.getTarget() != null) {
                         mob.setTarget(armorStandEntity);
                     }
                 }
-                if (livingEntity.getAttacker() != null) {
-                    livingEntity.setAttacker(armorStandEntity);
+                if (livingEntity.getLastHurtByMob() != null) {
+                    livingEntity.setLastHurtByMob(armorStandEntity);
                 }
             }
-            stackInHand.decrementUnlessCreative(1, serverPlayer);
-            return ActionResult.SUCCESS_SERVER;
+            stackInHand.consume(1, serverPlayer);
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

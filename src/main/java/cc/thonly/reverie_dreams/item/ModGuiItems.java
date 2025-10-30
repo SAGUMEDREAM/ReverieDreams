@@ -3,16 +3,15 @@ package cc.thonly.reverie_dreams.item;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.item.other.GuiSlotItem;
 import it.unimi.dsi.fastutil.objects.ReferenceSortedSets;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ModGuiItems {
     public static final List<Item> GUI_ITEM_LIST = new ArrayList<>();
@@ -33,20 +32,20 @@ public class ModGuiItems {
 
     }
 
-    public static Item registerItem(String name, Function<Item.Settings, Item> factory) {
-        Item.Settings itemSettings = createSlotItemSettings();
-        Item item = factory.apply(itemSettings.registryKey(ModItems.keyOf(name)));
-        Registry.register(Registries.ITEM, Touhou.id(name), item);
+    public static Item registerItem(String name, Function<Item.Properties, Item> factory) {
+        Item.Properties itemSettings = createSlotItemSettings();
+        Item item = factory.apply(itemSettings.setId(ModItems.keyOf(name)));
+        Registry.register(BuiltInRegistries.ITEM, Touhou.id(name), item);
         GUI_ITEM_LIST.add(item);
         return item;
     }
 
-    public static Item.Settings createSlotItemSettings() {
-        return new Item.Settings()
-                .maxCount(1)
-                .translationKey("")
-                .component(DataComponentTypes.ITEM_NAME, Text.of(""))
-                .component(DataComponentTypes.TOOLTIP_DISPLAY, new TooltipDisplayComponent(
+    public static Item.Properties createSlotItemSettings() {
+        return new Item.Properties()
+                .stacksTo(1)
+                .overrideDescription("")
+                .component(DataComponents.ITEM_NAME, Component.nullToEmpty(""))
+                .component(DataComponents.TOOLTIP_DISPLAY, new TooltipDisplay(
                                 true,
                                 ReferenceSortedSets.emptySet()
                         )

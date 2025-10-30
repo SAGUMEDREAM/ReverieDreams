@@ -9,16 +9,16 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.WeakHashMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 
 public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements PolymerEntity, PolymerHolderEntity {
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
@@ -32,8 +32,8 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
         var x = new ItemDisplayElement();
         var holder = new MagicBroomHolder(this.magicBroomEntity);
         var stack = new ItemStack(ModEntityHolders.MAGIC_BROOM_DISPLAY);
-        if (this.magicBroomEntity.itemWrapper.getItemStack().hasGlint()) {
-            stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
+        if (this.magicBroomEntity.itemWrapper.getItemStack().hasFoil()) {
+            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         }
         x.setItem(stack);
         x.setItemDisplayContext(ItemDisplayContext.HEAD);
@@ -52,7 +52,7 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
         return EntityType.PIG;
     }
 
-    public void onTrackingStopped(ServerPlayerEntity player) {
+    public void onTrackingStopped(ServerPlayer player) {
         ItemDisplayElement element = ELEMENTS.get(this.magicBroomEntity);
         if (element != null) {
             ElementHolder holder = element.getHolder();

@@ -6,39 +6,39 @@ import cc.thonly.reverie_dreams.entity.npc.NPCStates;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
 import cc.thonly.reverie_dreams.interfaces.IAnimalEntity;
 import lombok.Getter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.List;
 
 @Getter
-public class NPCBreedGoal extends TrackTargetGoal {
+public class NPCBreedGoal extends TargetGoal {
     private final BaseNPCLikeEntity maid;
-    private final TargetPredicate targetPredicate = TargetPredicate.createAttackable().setBaseMaxDistance(16).setPredicate((e, w) -> {
+    private final TargetingConditions targetPredicate = TargetingConditions.forCombat().range(16).selector((e, w) -> {
         return !e.hasCustomName();
     });
     @Nullable
     private Runnable task;
-    private AnimalEntity targetEntity;
+    private Animal targetEntity;
 
     public NPCBreedGoal(BaseNPCLikeEntity maid) {
         super(maid, false);
         this.maid = maid;
-        this.setControls(EnumSet.of(Goal.Control.TARGET));
+        this.setFlags(EnumSet.of(Goal.Flag.TARGET));
     }
 
     @Override
-    public boolean canStart() {
-        if (!this.maid.isTamed() || this.maid.isSitting()) {
+    public boolean canUse() {
+        if (!this.maid.isTame() || this.maid.isOrderedToSit()) {
             return false;
         }
         NPCState state = maid.getNpcState();
@@ -47,26 +47,26 @@ public class NPCBreedGoal extends TrackTargetGoal {
             return false;
         }
         BlockPos workPos = maid.getWorkingPos();
-        ServerWorld serverWorld = getServerWorld(maid);
+        ServerLevel serverWorld = getServerLevel(maid);
 
-        List<AnimalEntity> targets = this.mob.getWorld().getEntitiesByClass(AnimalEntity.class, new Box(workPos).expand(16, 8, 16), (e) -> {
+        List<Animal> targets = this.mob.level().getEntitiesOfClass(Animal.class, new AABB(workPos).inflate(16, 8, 16), (e) -> {
             boolean alive = e.isAlive();
-            boolean hasItem = e.isBreedingItem(this.maid.getStackInHand(Hand.MAIN_HAND));
-            int i = e.getBreedingAge();
-            if (i == 0 && e.canEat() && !e.isBaby()) {
+            boolean hasItem = e.isFood(this.maid.getItemInHand(InteractionHand.MAIN_HAND));
+            int i = e.getAge();
+            if (i == 0 && e.canFallInLove() && !e.isBaby()) {
                 return alive && hasItem;
             }
             return false;
         });
-        this.targetEntity = serverWorld.getClosestEntity(targets, this.targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
+        this.targetEntity = serverWorld.getNearestEntity(targets, this.targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
         return this.targetEntity != null;
     }
 
     @Override
     public void start() {
         this.task = ()-> {
-            ((IAnimalEntity)this.targetEntity).eatStackFood(this.maid, Hand.MAIN_HAND, this.maid.getStackInHand(Hand.MAIN_HAND));
-            this.targetEntity.playEatSound();
+            ((IAnimalEntity)this.targetEntity).eatStackFood(this.maid, InteractionHand.MAIN_HAND, this.maid.getItemInHand(InteractionHand.MAIN_HAND));
+            this.targetEntity.playEatingSound();
             ((IAnimalEntity)this.targetEntity).loveEntity(this.maid);
         };
     }
@@ -77,9 +77,9 @@ public class NPCBreedGoal extends TrackTargetGoal {
             return;
         }
         if (this.targetEntity != null && this.targetEntity.isAlive()) {
-            this.maid.getNavigation().startMovingTo(this.targetEntity, 1.0D);
+            this.maid.getNavigation().moveTo(this.targetEntity, 1.0D);
 
-            if (this.maid.squaredDistanceTo(this.targetEntity) <= 4.0D) {
+            if (this.maid.distanceToSqr(this.targetEntity) <= 4.0D) {
                 this.task.run();
                 this.task = null;
                 this.stop();

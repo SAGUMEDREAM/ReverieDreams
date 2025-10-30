@@ -3,57 +3,53 @@ package cc.thonly.mystias_izakaya.item.base;
 import cc.thonly.mystias_izakaya.component.DrinkProperty;
 import cc.thonly.mystias_izakaya.component.MIDataComponentTypes;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ConsumableComponents;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.food.FoodData;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.level.Level;
 
 public class DrinkItem extends Item {
     public static final Map<Item, Set<DrinkProperty>> ITEM_DRINK_CACHED = new HashMap<>();
     public static final Map<Item, Integer> PRICE_CALCULATION_TABLE = new Object2ObjectOpenHashMap<>();
 
-    public DrinkItem(Settings settings) {
-        super(settings.maxCount(16)
-                .component(DataComponentTypes.CONSUMABLE, ConsumableComponents.DRINK)
-                .useRemainder(Items.GLASS_BOTTLE));
+    public DrinkItem(Properties settings) {
+        super(settings.stacksTo(16)
+                .component(DataComponents.CONSUMABLE, Consumables.DEFAULT_DRINK)
+                .usingConvertsTo(Items.GLASS_BOTTLE));
     }
 
-    public DrinkItem(List<DrinkProperty> drinkProperties, Settings settings) {
-        super(settings.maxCount(16)
-                .component(DataComponentTypes.CONSUMABLE, ConsumableComponents.DRINK)
-                .component(MIDataComponentTypes.DRINK_PROPERTIES, drinkProperties.stream().map(DrinkProperty::getId).map(Identifier::toString).toList())
-                .useRemainder(Items.GLASS_BOTTLE));
+    public DrinkItem(List<DrinkProperty> drinkProperties, Properties settings) {
+        super(settings.stacksTo(16)
+                .component(DataComponents.CONSUMABLE, Consumables.DEFAULT_DRINK)
+                .component(MIDataComponentTypes.DRINK_PROPERTIES, drinkProperties.stream().map(DrinkProperty::getId).map(ResourceLocation::toString).toList())
+                .usingConvertsTo(Items.GLASS_BOTTLE));
     }
 
     @Override
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
             List<DrinkProperty> allProperties = DrinkProperty.getAllProperties(stack);
             for (DrinkProperty property : allProperties) {
                 property.use(serverWorld, user);
             }
-            if (user instanceof ServerPlayerEntity player) {
-                HungerManager hungerManager = player.getHungerManager();
-                hungerManager.add(1, allProperties.size() % 3);
+            if (user instanceof ServerPlayer player) {
+                FoodData hungerManager = player.getFoodData();
+                hungerManager.eat(1, allProperties.size() % 3);
             }
         }
-        return super.finishUsing(stack, world, user);
+        return super.finishUsingItem(stack, world, user);
     }
 
 //    @Override

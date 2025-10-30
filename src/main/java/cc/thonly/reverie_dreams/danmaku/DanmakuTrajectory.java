@@ -10,9 +10,9 @@ import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,11 +23,11 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
     public static final Codec<DanmakuTrajectory> CODEC = Codec.unit(DanmakuTrajectory::new);
     private IntrinsicalRegister<DanmakuTrajectory> owner;
 
-    public void run(ServerWorld world, @Nullable LivingEntity livingEntity, ItemStack stack, Double x, Double y, Double z, float pitch, float yaw, float speed, float acceleration, float divergence, float offsetDist, IDanmakuItem pThis) {
+    public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack, Double x, Double y, Double z, float pitch, float yaw, float speed, float acceleration, float divergence, float offsetDist, IDanmakuItem pThis) {
 
     }
 
-    public static DanmakuEntity spawnByItemStack(ServerWorld world, @NotNull LivingEntity livingEntity, ItemStack stack, Float speed, Float acceleration, Float divergence, Float offsetDist) {
+    public static DanmakuEntity spawnByItemStack(ServerLevel world, @NotNull LivingEntity livingEntity, ItemStack stack, Float speed, Float acceleration, Float divergence, Float offsetDist) {
         stack = stack.copy();
         double x = livingEntity.getX();
         double y = livingEntity.getY();
@@ -40,18 +40,18 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
                 world,
                 x, y, z,
                 stack,
-                livingEntity.getPitch(),
-                livingEntity.getYaw(),
+                livingEntity.getXRot(),
+                livingEntity.getYRot(),
                 speed,
                 acceleration,
                 divergence,
                 offsetDist
         );
-        world.spawnEntity(danmakuEntity);
+        world.addFreshEntity(danmakuEntity);
         return danmakuEntity;
     }
 
-    public static DanmakuEntity spawnByItemStack(ServerWorld world, @Nullable LivingEntity livingEntity, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
+    public static DanmakuEntity spawnByItemStack(ServerLevel world, @Nullable LivingEntity livingEntity, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
         stack = stack.copy();
         if (offsetDist == null) {
             offsetDist = 1.5f;
@@ -68,7 +68,7 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
                 divergence,
                 offsetDist
         );
-        world.spawnEntity(danmakuEntity);
+        world.addFreshEntity(danmakuEntity);
         return danmakuEntity;
     }
 

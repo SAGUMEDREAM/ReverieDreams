@@ -9,17 +9,17 @@ import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.server.ItemTagManager;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 public class ModServerReloadListener implements SimpleSynchronousResourceReloadListener {
     @Override
-    public Identifier getFabricId() {
+    public ResourceLocation getFabricId() {
         return Touhou.id("data");
     }
 
     @Override
-    public void reload(ResourceManager manager) {
+    public void onResourceManagerReload(ResourceManager manager) {
         RecipeManager.onReload(manager);
         for (var entry : RegistryManager.ROOT.entrySet()) {
             IntrinsicalRegister<?> registry = entry.getValue();

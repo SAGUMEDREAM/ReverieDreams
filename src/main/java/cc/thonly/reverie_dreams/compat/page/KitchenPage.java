@@ -8,14 +8,14 @@ import cc.thonly.reverie_dreams.item.ModGuiItems;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -24,45 +24,45 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class KitchenPage implements PolydexPage {
-    public static final Identifier id = Touhou.id("recipe/kitchen");
+    public static final ResourceLocation id = Touhou.id("recipe/kitchen");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
-    private static final Text TEXTURE = Text.empty();
-    public static final ItemStack ICON = new GuiElementBuilder(MIBlocks.COOKING_POT.asItem()).setName(Text.translatable(id.toTranslationKey())).asStack();
-    public final Identifier key;
+    private static final Component TEXTURE = Component.empty();
+    public static final ItemStack ICON = new GuiElementBuilder(MIBlocks.COOKING_POT.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
+    public final ResourceLocation key;
     public final KitchenRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
     private final PolydexStack<?> output;
 
-    public KitchenPage(Identifier key, KitchenRecipe value) {
-        this.key = key.withPrefixedPath("recipe/");
+    public KitchenPage(ResourceLocation key, KitchenRecipe value) {
+        this.key = key.withPrefix("recipe/");
         this.value = value;
         List<PolydexIngredient<?>> list = new ArrayList<>();
 
         for (var x : value.getIngredients()) {
             if (x.isEmpty()) continue;
-            list.add(PolydexIngredient.of(Ingredient.ofItem(x.getItem()), x.getCount()));
+            list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
         this.output = PolydexStack.of(this.value.getOutput().getItemStack());
     }
 
     @Override
-    public Identifier identifier() {
+    public ResourceLocation identifier() {
         return key;
     }
 
     @Override
-    public ItemStack typeIcon(ServerPlayerEntity serverPlayerEntity) {
+    public ItemStack typeIcon(ServerPlayer serverPlayerEntity) {
         return ICON;
     }
 
     @Override
-    public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayerEntity serverPlayerEntity) {
+    public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
         return this.value.getOutput().getItemStack();
     }
 
     @Override
-    public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayerEntity serverPlayerEntity, PageBuilder layout) {
+    public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity, PageBuilder layout) {
         String[][] views = {
                 {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
                 {"X", "I", "I", "I", "I", "I", "T", "O", "X"},
@@ -80,7 +80,7 @@ public class KitchenPage implements PolydexPage {
 
     private ItemStack getViewStack(AtomicInteger input, String s) {
         if (s.equals("X")) {
-            return ModGuiItems.EMPTY_SLOT.getDefaultStack();
+            return ModGuiItems.EMPTY_SLOT.getDefaultInstance();
         } else if (s.equals("O")) {
             return this.value.getOutput().getItemStack();
         } else if (s.equals("I")) {
@@ -90,14 +90,14 @@ public class KitchenPage implements PolydexPage {
                 return this.value.getIngredients().get(i).getItemStack();
             }
         } else if (s.equals("T")) {
-            return ModGuiItems.PROGRESS_TO_RESULT.getDefaultStack();
+            return ModGuiItems.PROGRESS_TO_RESULT.getDefaultInstance();
         } else if (s.equals("P")) {
             Block block = KitchenBlockType.KITCHEN_TYPE_2_BLOCK.get(this.value.getType());
             if (block != null) {
-                return block.asItem().getDefaultStack();
+                return block.asItem().getDefaultInstance();
             }
         }
-        return Items.AIR.getDefaultStack();
+        return Items.AIR.getDefaultInstance();
     }
 
 

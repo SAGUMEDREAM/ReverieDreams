@@ -4,19 +4,18 @@ import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import net.minecraft.component.ComponentChanges;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class SpellCardTemplates {
-    private static final Map<Identifier, DanmakuTrajectory> TEMPLATES = new Object2ObjectLinkedOpenHashMap<>();
-    private static final Map<Identifier, ItemStack> TEMPLATE_ITEM_STACKS = new Object2ObjectLinkedOpenHashMap<>();
+    private static final Map<ResourceLocation, DanmakuTrajectory> TEMPLATES = new Object2ObjectLinkedOpenHashMap<>();
+    private static final Map<ResourceLocation, ItemStack> TEMPLATE_ITEM_STACKS = new Object2ObjectLinkedOpenHashMap<>();
     static {
         var simple = registerTemplateItem(DanmakuTrajectories.SINGLE);
         var triple = registerTemplateItem(DanmakuTrajectories.TRIPLE);
@@ -33,28 +32,28 @@ public class SpellCardTemplates {
     }
 
     public static DanmakuTrajectory registerTemplateItem(DanmakuTrajectory entry) {
-        Identifier id = RegistryManager.DANMAKU_TRAJECTORY.getId(entry);
+        ResourceLocation id = RegistryManager.DANMAKU_TRAJECTORY.getKey(entry);
         assert id != null;
         return registerTemplateItem(id, entry);
     }
 
-    public static DanmakuTrajectory registerTemplateItem(Identifier key, DanmakuTrajectory entry) {
+    public static DanmakuTrajectory registerTemplateItem(ResourceLocation key, DanmakuTrajectory entry) {
         assert key != null;
         TEMPLATES.put(key, entry);
         TEMPLATE_ITEM_STACKS.put(key, createItemStack(key));
         return entry;
     }
 
-    public static ItemStack createItemStack(Identifier key) {
-        RegistryEntry<Item> entry = Registries.ITEM.getEntry(ModItems.SPELL_CARD_TEMPLATE);
-        return new ItemStack(entry, 1, ComponentChanges.builder().add(ModDataComponentTypes.Danmaku.TEMPLATE, key.toString()).build());
+    public static ItemStack createItemStack(ResourceLocation key) {
+        Holder<Item> entry = BuiltInRegistries.ITEM.wrapAsHolder(ModItems.SPELL_CARD_TEMPLATE);
+        return new ItemStack(entry, 1, DataComponentPatch.builder().set(ModDataComponentTypes.Danmaku.TEMPLATE, key.toString()).build());
     }
 
-    public static Map<Identifier, DanmakuTrajectory> getRegistryView() {
+    public static Map<ResourceLocation, DanmakuTrajectory> getRegistryView() {
         return new LinkedHashMap<>(TEMPLATES);
     }
 
-    public static Map<Identifier, ItemStack> getRegistryItemStackView() {
+    public static Map<ResourceLocation, ItemStack> getRegistryItemStackView() {
         return new LinkedHashMap<>(TEMPLATE_ITEM_STACKS);
     }
 }

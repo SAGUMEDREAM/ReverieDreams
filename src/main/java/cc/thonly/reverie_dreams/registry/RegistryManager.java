@@ -20,20 +20,19 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.command.argument.IdentifierArgumentType;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntryInfo;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.core.RegistrationInfo;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import java.util.Map;
 
 @Slf4j
 @SuppressWarnings("unchecked")
 public class RegistryManager {
-    public static final Map<RegistryKey<? extends Registry<?>>, IntrinsicalRegister<?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Map<ResourceKey<? extends Registry<?>>, IntrinsicalRegister<?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
     public static final IntrinsicalRegister<BaseRecipeType<?>> RECIPE_TYPE = RegistryManager.<BaseRecipeType<?>>ofEntry(Touhou.id("recipe_type"));
 
     public static final IntrinsicalRegister<DanmakuType> DANMAKU_TYPE = RegistryManager.<DanmakuType>ofEntry(Touhou.id("danmaku_type"))
@@ -106,27 +105,27 @@ public class RegistryManager {
         }
     }
 
-    public static <T> T registerForBuiltin(IntrinsicalRegister<T> registry, Identifier key, T value) {
+    public static <T> T registerForBuiltin(IntrinsicalRegister<T> registry, ResourceLocation key, T value) {
         register(registry, key, value);
         registry.setBuiltin(key, value);
         return value;
     }
 
-    public static <T> T register(IntrinsicalRegister<T> registry, Identifier key, T value) {
-        registry.add(RegistryKey.of(registry.getKey(), key), value, RegistryEntryInfo.DEFAULT);
+    public static <T> T register(IntrinsicalRegister<T> registry, ResourceLocation key, T value) {
+        registry.register(ResourceKey.create(registry.key(), key), value, RegistrationInfo.BUILT_IN);
         return value;
     }
 
-    public static <T> T set(IntrinsicalRegister<T> registry, Identifier key, T value) {
-        registry.set(RegistryKey.of(registry.getKey(), key), value, RegistryEntryInfo.DEFAULT);
+    public static <T> T set(IntrinsicalRegister<T> registry, ResourceLocation key, T value) {
+        registry.set(ResourceKey.create(registry.key(), key), value, RegistrationInfo.BUILT_IN);
         return value;
     }
 
-    public static <T> IntrinsicalRegister<T> ofEntry(Identifier identifier) {
-        return ofEntry(RegistryKey.ofRegistry(identifier));
+    public static <T> IntrinsicalRegister<T> ofEntry(ResourceLocation identifier) {
+        return ofEntry(ResourceKey.createRegistryKey(identifier));
     }
 
-    public static <T> IntrinsicalRegister<T> ofEntry(RegistryKey<? extends Registry<T>> key) {
+    public static <T> IntrinsicalRegister<T> ofEntry(ResourceKey<? extends Registry<T>> key) {
         if (ROOT.containsKey(key)) {
             return (IntrinsicalRegister<T>) ROOT.get(key);
         }
@@ -135,32 +134,32 @@ public class RegistryManager {
         return intrinsicalRegister;
     }
 
-    public static RequiredArgumentBuilder<ServerCommandSource, Identifier> getSuggestProvider(
-            Command<ServerCommandSource> command
+    public static RequiredArgumentBuilder<CommandSourceStack, ResourceLocation> getSuggestProvider(
+            Command<CommandSourceStack> command
     ) {
-        return CommandManager
-                .argument("registry_key", IdentifierArgumentType.identifier())
+        return Commands
+                .argument("registry_key", ResourceLocationArgument.id())
                 .suggests((context, builder) -> {
-                    for (RegistryKey<? extends Registry<?>> registryKey : RegistryManager.ROOT.keySet()) {
-                        builder.suggest(registryKey.getValue().toString());
+                    for (ResourceKey<? extends Registry<?>> registryKey : RegistryManager.ROOT.keySet()) {
+                        builder.suggest(registryKey.location().toString());
                     }
                     return builder.buildFuture();
                 })
-                .then(CommandManager.argument("id", IdentifierArgumentType.identifier())
+                .then(Commands.argument("id", ResourceLocationArgument.id())
                         .suggests((context, builder) -> {
-                            Identifier identifier = IdentifierArgumentType.getIdentifier(context, "registry_key");
+                            ResourceLocation identifier = ResourceLocationArgument.getId(context, "registry_key");
                             if (identifier == null) {
                                 return builder.buildFuture();
                             }
 
-                            RegistryKey<Registry<Object>> registryKey = RegistryKey.ofRegistry(identifier);
+                            ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
 
                             if (!RegistryManager.ROOT.containsKey(registryKey)) {
                                 return builder.buildFuture();
                             }
 
                             IntrinsicalRegister<?> registry = RegistryManager.ROOT.get(registryKey);
-                            for (Identifier key : registry.keys()) {
+                            for (ResourceLocation key : registry.keys()) {
                                 builder.suggest(key.toString());
                             }
 
@@ -170,18 +169,18 @@ public class RegistryManager {
                 );
     }
 
-    public static <T> RequiredArgumentBuilder<ServerCommandSource, Identifier> getSuggestProvider(
-            Command<ServerCommandSource> command,
-            RegistryKey<Registry<T>> registryKey
+    public static <T> RequiredArgumentBuilder<CommandSourceStack, ResourceLocation> getSuggestProvider(
+            Command<CommandSourceStack> command,
+            ResourceKey<Registry<T>> registryKey
     ) {
-        return CommandManager
-                .argument("id", IdentifierArgumentType.identifier())
+        return Commands
+                .argument("id", ResourceLocationArgument.id())
                 .suggests((context, builder) -> {
                     IntrinsicalRegister<?> registry = ROOT.get(registryKey);
                     if (registry == null) {
                         return builder.buildFuture();
                     }
-                    for (Identifier key : registry.keys()) {
+                    for (ResourceLocation key : registry.keys()) {
                         builder.suggest(key.toString());
                     }
                     return builder.buildFuture();

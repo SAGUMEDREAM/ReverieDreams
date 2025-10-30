@@ -4,54 +4,52 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.world.poi.PointOfInterestType;
-import net.minecraft.world.poi.PointOfInterestTypes;
-
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import java.util.Locale;
 import java.util.Set;
 
-public class ModPointOfInterestTypes extends PointOfInterestTypes {
-    public static final RegistryKey<PointOfInterestType> HAWKERS = of("hawkers");
-    public static final RegistryKey<PointOfInterestType> PRIEST = of("priest");
-    public static final RegistryKey<PointOfInterestType> MONEY_SHOP_CLERK = of("money_shop_clerk");
+public class ModPointOfInterestTypes extends PoiTypes {
+    public static final ResourceKey<PoiType> HAWKERS = createKey("hawkers");
+    public static final ResourceKey<PoiType> PRIEST = createKey("priest");
+    public static final ResourceKey<PoiType> MONEY_SHOP_CLERK = createKey("money_shop_clerk");
 
     public static void registers() {
-        register(HAWKERS, getStatesOfBlock(ModBlocks.WOODEN_BOX.chestBlock()), 1, 2);
-        register(PRIEST, getStatesOfBlock(ModBlocks.CASH_BOX_BLOCK), 1, 2);
-        register(MONEY_SHOP_CLERK, getStatesOfBlock(Blocks.ENDER_CHEST), 1, 2);
+        register(HAWKERS, getBlockStates(ModBlocks.WOODEN_BOX.chestBlock()), 1, 2);
+        register(PRIEST, getBlockStates(ModBlocks.CASH_BOX_BLOCK), 1, 2);
+        register(MONEY_SHOP_CLERK, getBlockStates(Blocks.ENDER_CHEST), 1, 2);
     }
 
-    private static Set<BlockState> getStatesOfBlock(Block block) {
-        return ImmutableSet.copyOf(block.getStateManager().getStates());
+    private static Set<BlockState> getBlockStates(Block block) {
+        return ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates());
     }
 
-    private static RegistryKey<PointOfInterestType> of(String id) {
-        return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, Touhou.id(id));
+    private static ResourceKey<PoiType> createKey(String id) {
+        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, Touhou.id(id));
     }
 
-    private static PointOfInterestType register(RegistryKey<PointOfInterestType> key, Set<BlockState> states, int ticketCount, int searchDistance) {
-        Registry<PointOfInterestType> registry = Registries.POINT_OF_INTEREST_TYPE;
-        PointOfInterestType pointOfInterestType = new PointOfInterestType(states, ticketCount, searchDistance);
+    private static PoiType register(ResourceKey<PoiType> key, Set<BlockState> states, int ticketCount, int searchDistance) {
+        Registry<PoiType> registry = BuiltInRegistries.POINT_OF_INTEREST_TYPE;
+        PoiType pointOfInterestType = new PoiType(states, ticketCount, searchDistance);
         Registry.register(registry, key, pointOfInterestType);
-        registerStates(registry.getOrThrow(key), states);
+        registerBlockStates(registry.getOrThrow(key), states);
         return pointOfInterestType;
     }
 
-    private static void registerStates(RegistryEntry<PointOfInterestType> poiTypeEntry, Set<BlockState> states) {
+    private static void registerBlockStates(Holder<PoiType> poiTypeEntry, Set<BlockState> states) {
         states.forEach(state -> {
-            RegistryEntry<PointOfInterestType> registryEntry2 = POI_STATES_TO_TYPE.put((BlockState) state, poiTypeEntry);
+            Holder<PoiType> registryEntry2 = TYPE_BY_STATE.put((BlockState) state, poiTypeEntry);
             if (registryEntry2 != null) {
-                throw Util.getFatalOrPause(new IllegalStateException(String.format(Locale.ROOT, "%s is defined in more than one PoI type", state)));
+                throw Util.pauseInIde(new IllegalStateException(String.format(Locale.ROOT, "%s is defined in more than one PoI type", state)));
             }
         });
     }

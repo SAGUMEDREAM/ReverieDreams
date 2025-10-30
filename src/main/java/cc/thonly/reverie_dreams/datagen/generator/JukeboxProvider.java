@@ -9,13 +9,12 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.jukebox.JukeboxSong;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataWriter;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.JukeboxSong;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,39 +26,39 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public abstract class JukeboxProvider implements DataProvider {
     public final FabricDataOutput output;
-    public final CompletableFuture<RegistryWrapper.WrapperLookup> future;
+    public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, JukeboxSong> identifierJukeboxSongMap = new Object2ObjectOpenHashMap<>();
+    private final Map<ResourceLocation, JukeboxSong> identifierJukeboxSongMap = new Object2ObjectOpenHashMap<>();
 
-    public JukeboxProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public JukeboxProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
 
     @Override
-    public CompletableFuture<?> run(DataWriter writer) {
+    public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
             this.export(writer);
         });
     }
 
-    public JukeboxSong add(Identifier id, JukeboxSong song) {
+    public JukeboxSong add(ResourceLocation id, JukeboxSong song) {
         return this.identifierJukeboxSongMap.put(id, song);
     }
 
     public abstract void configured();
 
-    public void export(DataWriter writer) {
+    public void export(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
             for (var entry: this.identifierJukeboxSongMap.entrySet()) {
                 String namespace = entry.getKey().getNamespace();
                 String key = entry.getKey().getPath();
                 JukeboxSong ref = entry.getValue();
-                Path generatePath = DataGeneratorUtil.getData(path, namespace, RegistryKeys.JUKEBOX_SONG, null);
+                Path generatePath = DataGeneratorUtil.getData(path, namespace, Registries.JUKEBOX_SONG, null);
 
-                DataResult<JsonElement> result = JukeboxSong.CODEC.encodeStart(JsonOps.INSTANCE, ref);
+                DataResult<JsonElement> result = JukeboxSong.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, ref);
                 Optional<JsonElement> optional = result.result();
 
                 if (optional.isPresent()) {
@@ -69,7 +68,7 @@ public abstract class JukeboxProvider implements DataProvider {
                     byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
                     Files.createDirectories(output.getParent());
 
-                    writer.write(output, bytes, HashCode.fromBytes(bytes));
+                    writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
                 }
 
             }

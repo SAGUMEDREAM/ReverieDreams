@@ -4,12 +4,12 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class ModBlockEntities {
 
@@ -33,9 +33,9 @@ public class ModBlockEntities {
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
             Block... blocks
     ) {
-        Identifier id = Touhou.id(name);
+        ResourceLocation id = Touhou.id(name);
         BlockEntityType<T> entityType = FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build();
-        Registry.register(Registries.BLOCK_ENTITY_TYPE, id, entityType);
+        Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id, entityType);
         PolymerBlockUtils.registerBlockEntity(entityType);
         return entityType;
     }

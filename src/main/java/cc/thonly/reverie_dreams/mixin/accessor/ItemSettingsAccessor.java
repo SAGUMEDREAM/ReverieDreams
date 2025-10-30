@@ -2,45 +2,45 @@ package cc.thonly.reverie_dreams.mixin.accessor;
 
 import cc.thonly.reverie_dreams.interfaces.ItemSettingsAccessorImpl;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeyedValue;
-import net.minecraft.resource.featuretoggle.FeatureSet;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.resources.DependantName;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(Item.Settings.class)
+@Mixin(Item.Properties.class)
 public interface ItemSettingsAccessor extends FabricItem.Settings, ItemSettingsAccessorImpl {
-    @Accessor("BLOCK_PREFIXED_TRANSLATION_KEY")
-    public static RegistryKeyedValue<Item, String> BLOCK_PREFIXED_TRANSLATION_KEY() {
+    @Accessor("BLOCK_DESCRIPTION_ID")
+    public static DependantName<Item, String> BLOCK_PREFIXED_TRANSLATION_KEY() {
         throw new UnsupportedOperationException();
     }
 
-    @Accessor("ITEM_PREFIXED_TRANSLATION_KEY")
-    public static RegistryKeyedValue<Item, String> ITEM_PREFIXED_TRANSLATION_KEY() {
+    @Accessor("ITEM_DESCRIPTION_ID")
+    public static DependantName<Item, String> ITEM_PREFIXED_TRANSLATION_KEY() {
         throw new UnsupportedOperationException();
     }
 
     @Accessor("components")
-    public ComponentMap.Builder getComponents();
+    public DataComponentMap.Builder getComponents();
 
-    @Accessor("recipeRemainder")
+    @Accessor("craftingRemainingItem")
     @Nullable
     public Item getRecipeRemainder();
 
     @Accessor("requiredFeatures")
-    public FeatureSet getRequiredFeatures();
+    public FeatureFlagSet getRequiredFeatures();
 
-    @Accessor("registryKey")
+    @Accessor("id")
     @Nullable
-    public RegistryKey<Item> getRegistryKey();
+    public ResourceKey<Item> getRegistryKey();
 
-    @Accessor("translationKey")
-    public RegistryKeyedValue<Item, String> getTranslationKey();
+    @Accessor("descriptionId")
+    public DependantName<Item, String> getTranslationKey();
 
-    @Accessor("modelId")
-    public RegistryKeyedValue<Item, Identifier> getModelId();
+    @Accessor("model")
+    public DependantName<Item, ResourceLocation> getModelId();
 }

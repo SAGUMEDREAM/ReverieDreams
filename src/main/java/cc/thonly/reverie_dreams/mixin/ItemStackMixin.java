@@ -6,26 +6,26 @@ import cc.thonly.mystias_izakaya.item.base.FoodItem;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.server.ItemDescriptionManager;
 import net.fabricmc.fabric.api.item.v1.FabricItemStack;
-import net.minecraft.component.ComponentHolder;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.MergedComponentMap;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentHolder;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.PatchedDataComponentMap;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +39,7 @@ import java.util.List;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin<T> implements IItemStack,
-        ComponentHolder,
+        DataComponentHolder,
         FabricItemStack {
     @Shadow
     public abstract Item getItem();
@@ -47,49 +47,49 @@ public abstract class ItemStackMixin<T> implements IItemStack,
     @Shadow
     public abstract boolean isEmpty();
 
-    @Shadow public abstract void decrementUnlessCreative(int amount, @Nullable LivingEntity entity);
+    @Shadow public abstract void consume(int amount, @Nullable LivingEntity entity);
 
-    @Shadow public abstract ComponentMap getComponents();
+    @Shadow public abstract DataComponentMap getComponents();
 
-    @Shadow @Final public MergedComponentMap components;
+    @Shadow @Final public PatchedDataComponentMap components;
 
-    @Inject(method = "useOnEntity", at = @At("HEAD"), cancellable = true)
-    public void useOnVillager(PlayerEntity user, LivingEntity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (entity instanceof VillagerEntity villager && this.getItem() == Items.BARREL) {
-            if (user.getWorld() instanceof ServerWorld world) {
-                BlockPos blockPos = entity.getBlockPos();
-                Vec3d pos = villager.getPos();
-                Text name = villager.getName();
+    @Inject(method = "interactLivingEntity", at = @At("HEAD"), cancellable = true)
+    public void useOnVillager(Player user, LivingEntity entity, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        if (entity instanceof Villager villager && this.getItem() == Items.BARREL) {
+            if (user.level() instanceof ServerLevel world) {
+                BlockPos blockPos = entity.blockPosition();
+                Vec3 pos = villager.position();
+                Component name = villager.getName();
                 boolean hasCN = villager.hasCustomName();
                 villager.discard();
                 TavernVillager sellerVillager = new TavernVillager(villager.getVillagerData(), world);
-                sellerVillager.setPos(pos.getX(), pos.getY(), pos.getZ());
+                sellerVillager.setPosRaw(pos.x(), pos.y(), pos.z());
                 if (hasCN) {
                     sellerVillager.setCustomName(name);
                 }
-                world.spawnEntity(sellerVillager);
-                world.playSound(null, blockPos, SoundEvents.BLOCK_ANVIL_FALL, SoundCategory.PLAYERS);
+                world.addFreshEntity(sellerVillager);
+                world.playSound(null, blockPos, SoundEvents.ANVIL_FALL, SoundSource.PLAYERS);
 
-                this.decrementUnlessCreative(1, user);
-                user.swingHand(hand);
+                this.consume(1, user);
+                user.swing(hand);
 
-                cir.setReturnValue(ActionResult.SUCCESS_SERVER);
+                cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
             } else {
-                cir.setReturnValue(ActionResult.SUCCESS);
+                cir.setReturnValue(InteractionResult.SUCCESS);
             }
         }
     }
 
-    @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
-    public void appendTooltip(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir) {
+    @Inject(method = "getTooltipLines", at = @At("RETURN"), cancellable = true)
+    public void appendTooltip(Item.TooltipContext context, @Nullable Player player, TooltipFlag type, CallbackInfoReturnable<List<Component>> cir) {
         if (this.isEmpty()) {
             return;
         }
         Item item = this.getItem();
-        List<MutableText> texts = ItemDescriptionManager.getDescription(item);
+        List<MutableComponent> texts = ItemDescriptionManager.getDescription(item);
         try {
             if (!texts.isEmpty()) {
-                List<Text> textList = cir.getReturnValue();
+                List<Component> textList = cir.getReturnValue();
                 textList.addAll(texts);
             }
         } catch (Exception ignored) {
@@ -105,7 +105,7 @@ public abstract class ItemStackMixin<T> implements IItemStack,
         }
 //        System.out.println(item);
 //        this.components.forEach(component -> System.out.println(component.type()));
-        return this.components.contains(DataComponentTypes.FOOD);
+        return this.components.has(DataComponents.FOOD);
     }
 
     @Unique

@@ -10,12 +10,12 @@ import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.jukebox.JukeboxSong;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataWriter;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.JukeboxSong;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
@@ -31,30 +31,30 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public abstract class SoundProvider implements DataProvider {
     public final FabricDataOutput output;
-    public final CompletableFuture<RegistryWrapper.WrapperLookup> future;
+    public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, SoundEventBuilder> identifierSoundEventMap = new Object2ObjectOpenHashMap<>();
+    private final Map<ResourceLocation, SoundEventBuilder> identifierSoundEventMap = new Object2ObjectOpenHashMap<>();
 
-    public SoundProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public SoundProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
 
     @Override
-    public CompletableFuture<?> run(DataWriter writer) {
+    public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
             this.export(writer);
         });
     }
 
-    public SoundProvider add(Identifier id, SoundEventBuilder entry) {
+    public SoundProvider add(ResourceLocation id, SoundEventBuilder entry) {
         this.identifierSoundEventMap.put(id, entry);
         return this;
     }
 
     public SoundProvider addWithSoundEvent(SoundEvent soundEvent, @Nullable String soundPath) {
-        Identifier id = soundEvent.id();
+        ResourceLocation id = soundEvent.location();
         SoundEventBuilder entry = new SoundEventBuilder(id);
         entry.setSubtitle(id);
         if (soundPath != null) {
@@ -68,7 +68,7 @@ public abstract class SoundProvider implements DataProvider {
 
     public SoundProvider addWithRecords(JukeBoxEntry jukeBoxEntry, @Nullable String soundPath) {
         JukeboxSong ref = jukeBoxEntry.getRef();
-        Identifier id = ref.soundEvent().value().id();
+        ResourceLocation id = ref.soundEvent().value().location();
         SoundEventBuilder entry = new SoundEventBuilder(id);
         entry.setSubtitle(id);
         if (soundPath != null) {
@@ -83,7 +83,7 @@ public abstract class SoundProvider implements DataProvider {
     public abstract void configured();
 
 //    @SuppressWarnings("deprecation")
-    public void export(DataWriter writer) {
+    public void export(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
             Map<String, List<SoundEventBuilder>> namespaceToBuild = new LinkedHashMap<>();
@@ -101,13 +101,13 @@ public abstract class SoundProvider implements DataProvider {
                 List<SoundEventBuilder> list = entry.getValue();
                 JsonObject object = new JsonObject();
                 for (var builder : list) {
-                    Identifier key = builder.getKey();
+                    ResourceLocation key = builder.getKey();
                     JsonElement element = builder.toJsonElement();
                     object.add(key.getPath(), element);
                 }
                 String jsonString = this.gson.toJson(object);
                 byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                writer.write(output, bytes, HashCode.fromBytes(bytes));
+                writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
             }
         } catch (Exception err) {
             log.error("Can't export sounds.json: ", err);

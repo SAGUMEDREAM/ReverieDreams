@@ -1,8 +1,8 @@
 package nota.player;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.entity.player.Player;
 import nota.Nota;
 import nota.event.SongEndEvent;
 import nota.event.SongStartEvent;
@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @SuppressWarnings("unused")
 public abstract class SongPlayer {
-	Identifier id = Identifier.of("noteblock-api:unidentified");
+	ResourceLocation id = ResourceLocation.parse("noteblock-api:unidentified");
 
 	protected Song song;
 	protected Playlist playlist;
@@ -82,7 +82,7 @@ public abstract class SongPlayer {
 
 	private synchronized void play() {
 		for(UUID uuid : playerList.keySet()) {
-			PlayerEntity player = Nota.getAPI().getServer().getPlayerManager().getPlayer(uuid);
+			Player player = Nota.getAPI().getServer().getPlayerList().getPlayer(uuid);
 			if(player != null) {
 				this.playTick(player, tick);
 			}
@@ -135,7 +135,7 @@ public abstract class SongPlayer {
 			for(UUID uuid : playerList.keySet()) {
                 MinecraftServer server = Nota.getAPI().getServer();
                 if (server != null) {
-                    PlayerEntity player = server.getPlayerManager().getPlayer(uuid);
+                    Player player = server.getPlayerList().getPlayer(uuid);
                     if(player != null) {
                         this.playTick(player, tick);
                     }
@@ -161,7 +161,7 @@ public abstract class SongPlayer {
 	 *
 	 * @return song entity's unique id
 	 */
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return this.id;
 	}
 
@@ -169,15 +169,15 @@ public abstract class SongPlayer {
 	 * Sets unique id for this SongPlayer
 	 *
 	 */
-	public void setId(Identifier id) {
+	public void setId(ResourceLocation id) {
 		this.id = id;
 	}
 
 	/**
 	*
 	* **/
-	public boolean hasPlayer(PlayerEntity player) {
-		return this.playerList.containsKey(player.getUuid());
+	public boolean hasPlayer(Player player) {
+		return this.playerList.containsKey(player.getUUID());
 	}
 
 	/**
@@ -195,8 +195,8 @@ public abstract class SongPlayer {
 	 *
 	 * @param player entity entity
 	 */
-	public void addPlayer(PlayerEntity player) {
-		addPlayer(player.getUuid());
+	public void addPlayer(Player player) {
+		addPlayer(player.getUUID());
 	}
 
 	/**
@@ -242,7 +242,7 @@ public abstract class SongPlayer {
 	 * @param player to play this SongPlayer for
 	 * @param tick   to play at
 	 */
-	public abstract void playTick(PlayerEntity player, int tick);
+	public abstract void playTick(Player player, int tick);
 
 	/**
 	 * SongPlayer will destroy itself
@@ -294,8 +294,8 @@ public abstract class SongPlayer {
 	 *
 	 * @param player to remove
 	 */
-	public void removePlayer(PlayerEntity player) {
-		removePlayer(player.getUuid());
+	public void removePlayer(Player player) {
+		removePlayer(player.getUUID());
 	}
 
 	/**

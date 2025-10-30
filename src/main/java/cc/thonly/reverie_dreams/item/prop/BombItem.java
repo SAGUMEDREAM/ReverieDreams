@@ -3,39 +3,38 @@ package cc.thonly.reverie_dreams.item.prop;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class BombItem extends Item {
-    public BombItem(Settings settings) {
+    public BombItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            ItemStack itemStack = user.getStackInHand(hand);
-            world.playSound(null, user.getX(), user.getEyeY(), user.getZ(), SoundEventInit.SPELL_CARD, user.getSoundCategory(), 1.0f, 1.0f);
-            List<Entity> nearbyEntities = serverWorld.getEntitiesByClass(Entity.class, user.getBoundingBox().expand(20), entity -> true);
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+            ItemStack itemStack = user.getItemInHand(hand);
+            world.playSound(null, user.getX(), user.getEyeY(), user.getZ(), SoundEventInit.SPELL_CARD, user.getSoundSource(), 1.0f, 1.0f);
+            List<Entity> nearbyEntities = serverWorld.getEntitiesOfClass(Entity.class, user.getBoundingBox().inflate(20), entity -> true);
             List<Entity> nearbyDanmaku = nearbyEntities.stream().filter((entity -> entity instanceof DanmakuEntity danmakuEntity && danmakuEntity.getOwner() != user)).toList();
             List<Entity> sign = new ArrayList<>();
-            ItemStackParticleEffect ispe = new ItemStackParticleEffect(ParticleTypes.ITEM, ModItems.BOMB_FRAGMENT.getDefaultStack());
-            serverWorld.spawnParticles(
+            ItemParticleOption ispe = new ItemParticleOption(ParticleTypes.ITEM, ModItems.BOMB_FRAGMENT.getDefaultInstance());
+            serverWorld.sendParticles(
                     ispe,
                     user.getX(),
                     user.getY(),
@@ -48,14 +47,14 @@ public class BombItem extends Item {
             );
             nearbyDanmaku.forEach((entity) -> {
                 DanmakuEntity danmakuEntity = (DanmakuEntity) entity;
-                Vec3d pos = danmakuEntity.getPos();
+                Vec3 pos = danmakuEntity.position();
                 int particleCount = (int) 8;
-                double radius = danmakuEntity.getWidth() / 2 + 0.5;
-                double heightOffset = danmakuEntity.getHeight();
-                Random random = world.getRandom();
-                int count = random.nextBetween(1, 4);
+                double radius = danmakuEntity.getBbWidth() / 2 + 0.5;
+                double heightOffset = danmakuEntity.getBbHeight();
+                RandomSource random = world.getRandom();
+                int count = random.nextIntBetweenInclusive(1, 4);
                 for (int i = 0; i < count; i++) {
-                    serverWorld.spawnEntity(
+                    serverWorld.addFreshEntity(
                             new ItemEntity(serverWorld,
                                     danmakuEntity.getX(),
                                     danmakuEntity.getY(),
@@ -69,8 +68,8 @@ public class BombItem extends Item {
                     double xOffset = radius * Math.cos(angle);
                     double zOffset = radius * Math.sin(angle);
 
-                    ItemStackParticleEffect itemStackParticleEffect = new ItemStackParticleEffect(ParticleTypes.ITEM, ModItems.POINT.getDefaultStack());
-                    serverWorld.spawnParticles(
+                    ItemParticleOption itemStackParticleEffect = new ItemParticleOption(ParticleTypes.ITEM, ModItems.POINT.getDefaultInstance());
+                    serverWorld.sendParticles(
                             itemStackParticleEffect,
                             pos.x,
                             pos.y,
@@ -92,7 +91,7 @@ public class BombItem extends Item {
                 if (entity.equals(user)) {
                     continue;
                 }
-                serverWorld.spawnEntity(
+                serverWorld.addFreshEntity(
                         new ItemEntity(serverWorld,
                                 user.getX(),
                                 user.getY(),
@@ -101,10 +100,10 @@ public class BombItem extends Item {
                         )
                 );
             }
-            user.incrementStat(Stats.USED.getOrCreateStat(this));
-            itemStack.decrementUnlessCreative(1, user);
-            return ActionResult.SUCCESS_SERVER;
+            user.awardStat(Stats.ITEM_USED.get(this));
+            itemStack.consume(1, user);
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

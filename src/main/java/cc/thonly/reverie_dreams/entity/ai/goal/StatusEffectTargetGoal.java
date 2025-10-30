@@ -1,50 +1,50 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Box;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 
-public class StatusEffectTargetGoal<T extends LivingEntity> extends TrackTargetGoal {
+public class StatusEffectTargetGoal<T extends LivingEntity> extends TargetGoal {
     private static final int DEFAULT_RECIPROCAL_CHANCE = 10;
     protected final Class<T> targetClass;
     protected final int reciprocalChance;
     @Nullable
     protected LivingEntity targetEntity;
-    protected TargetPredicate targetPredicate;
+    protected TargetingConditions targetPredicate;
 
     @Nullable
-    private final RegistryEntry<StatusEffect> requiredEffect;
+    private final Holder<MobEffect> requiredEffect;
 
-    public StatusEffectTargetGoal(MobEntity mob, Class<T> targetClass, boolean checkVisibility, @Nullable RegistryEntry<StatusEffect> requiredEffect) {
+    public StatusEffectTargetGoal(Mob mob, Class<T> targetClass, boolean checkVisibility, @Nullable Holder<MobEffect> requiredEffect) {
         this(mob, targetClass, DEFAULT_RECIPROCAL_CHANCE, checkVisibility, false, null, requiredEffect);
     }
 
-    public StatusEffectTargetGoal(MobEntity mob, Class<T> targetClass, int reciprocalChance, boolean checkVisibility, boolean checkCanNavigate, @Nullable TargetPredicate.EntityPredicate targetPredicate, @Nullable RegistryEntry<StatusEffect> requiredEffect) {
+    public StatusEffectTargetGoal(Mob mob, Class<T> targetClass, int reciprocalChance, boolean checkVisibility, boolean checkCanNavigate, @Nullable TargetingConditions.Selector targetPredicate, @Nullable Holder<MobEffect> requiredEffect) {
         super(mob, checkVisibility, checkCanNavigate);
         this.targetClass = targetClass;
-        this.reciprocalChance = ActiveTargetGoal.toGoalTicks(reciprocalChance);
-        this.setControls(EnumSet.of(Goal.Control.TARGET));
+        this.reciprocalChance = NearestAttackableTargetGoal.reducedTickDelay(reciprocalChance);
+        this.setFlags(EnumSet.of(Goal.Flag.TARGET));
         this.requiredEffect = requiredEffect;
 
-        this.targetPredicate = TargetPredicate.createAttackable()
-                .setBaseMaxDistance(this.getFollowRange())
-                .setPredicate(targetPredicate);
+        this.targetPredicate = TargetingConditions.forCombat()
+                .range(this.getFollowDistance())
+                .selector(targetPredicate);
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (this.reciprocalChance > 0 && this.mob.getRandom().nextInt(this.reciprocalChance) != 0) {
             return false;
         }
@@ -52,17 +52,17 @@ public class StatusEffectTargetGoal<T extends LivingEntity> extends TrackTargetG
         return this.targetEntity != null;
     }
 
-    protected Box getSearchBox(double distance) {
-        return this.mob.getBoundingBox().expand(distance, distance, distance);
+    protected AABB getSearchBox(double distance) {
+        return this.mob.getBoundingBox().inflate(distance, distance, distance);
     }
 
     protected void findClosestTarget() {
-        ServerWorld serverWorld = ActiveTargetGoal.getServerWorld(this.mob);
+        ServerLevel serverWorld = NearestAttackableTargetGoal.getServerLevel(this.mob);
 
-        if (this.targetClass == PlayerEntity.class || this.targetClass == ServerPlayerEntity.class) {
-            this.targetEntity = serverWorld.getClosestPlayer(
-                    this.getAndUpdateTargetPredicate().setPredicate(
-                            (entity, world) -> requiredEffect == null || entity.hasStatusEffect(requiredEffect)
+        if (this.targetClass == Player.class || this.targetClass == ServerPlayer.class) {
+            this.targetEntity = serverWorld.getNearestPlayer(
+                    this.getAndUpdateTargetPredicate().selector(
+                            (entity, world) -> requiredEffect == null || entity.hasEffect(requiredEffect)
                     ),
                     this.mob,
                     this.mob.getX(),
@@ -70,13 +70,13 @@ public class StatusEffectTargetGoal<T extends LivingEntity> extends TrackTargetG
                     this.mob.getZ()
             );
         } else {
-            this.targetEntity = serverWorld.getClosestEntity(
-                    this.mob.getWorld().getEntitiesByClass(
+            this.targetEntity = serverWorld.getNearestEntity(
+                    this.mob.level().getEntitiesOfClass(
                             this.targetClass,
-                            this.getSearchBox(this.getFollowRange()),
+                            this.getSearchBox(this.getFollowDistance()),
                             entity -> {
                                 if (entity.getClass() == this.mob.getClass()) return false;
-                                return requiredEffect == null || entity.hasStatusEffect(requiredEffect);
+                                return requiredEffect == null || entity.hasEffect(requiredEffect);
                             }
                     ),
                     this.getAndUpdateTargetPredicate(),
@@ -98,7 +98,7 @@ public class StatusEffectTargetGoal<T extends LivingEntity> extends TrackTargetG
         this.targetEntity = targetEntity;
     }
 
-    private TargetPredicate getAndUpdateTargetPredicate() {
-        return this.targetPredicate.setBaseMaxDistance(this.getFollowRange());
+    private TargetingConditions getAndUpdateTargetPredicate() {
+        return this.targetPredicate.range(this.getFollowDistance());
     }
 }

@@ -7,11 +7,10 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.item.ItemStack;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.collection.DefaultedList;
-
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +19,7 @@ import java.util.Optional;
 public class InventoriesImpl {
     public static final Gson GSON = new Gson();
 
-    public static void writeView(WriteView view, String key, DefaultedList<ItemStack> stacks) {
+    public static void writeView(ValueOutput view, String key, NonNullList<ItemStack> stacks) {
         String json;
         try {
             json = toJson(stacks);
@@ -31,8 +30,8 @@ public class InventoriesImpl {
         view.putString(key, json);
     }
 
-    public static void readView(ReadView view, String key, DefaultedList<ItemStack> stacks) {
-        Optional<String> jsonOptional = view.getOptionalString(key);
+    public static void readView(ValueInput view, String key, NonNullList<ItemStack> stacks) {
+        Optional<String> jsonOptional = view.getString(key);
         if (jsonOptional.isPresent()) {
             String jsonString = jsonOptional.get();
             Optional<List<Slot2ItemStack>> slot2ItemStacksOptional = parseJson(jsonString);
@@ -47,7 +46,7 @@ public class InventoriesImpl {
         }
     }
 
-    public static List<Slot2ItemStack> toSlot2ItemStack(DefaultedList<ItemStack> stacks) {
+    public static List<Slot2ItemStack> toSlot2ItemStack(NonNullList<ItemStack> stacks) {
         List<Slot2ItemStack> list = new ArrayList<>();
         for (int i = 0; i < stacks.size(); i++) {
             list.add(new Slot2ItemStack(i, stacks.get(i)));
@@ -55,7 +54,7 @@ public class InventoriesImpl {
         return list;
     }
 
-    public static String toJson(DefaultedList<ItemStack> stacks) {
+    public static String toJson(NonNullList<ItemStack> stacks) {
         return toJson(toSlot2ItemStack(stacks));
     }
 

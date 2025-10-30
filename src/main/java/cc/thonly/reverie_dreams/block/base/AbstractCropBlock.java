@@ -7,73 +7,78 @@ import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.block.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.block.WireOrientation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 @Setter
 @Getter
 @ToString
-public abstract class AbstractCropBlock extends PlantBlock implements Fertilizable, IMatureBlock {
+public abstract class AbstractCropBlock extends VegetationBlock implements BonemealableBlock, IMatureBlock {
     protected Item seed;
     protected CropAgeModelProvider modelProvider;
 
-    protected AbstractCropBlock(Settings settings) {
-        super(settings.nonOpaque().noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP));
-        this.setDefaultState(this.stateManager.getDefaultState().with(this.getAgeProperty(), 0));
+    protected AbstractCropBlock(Properties settings) {
+        super(settings.noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.CROP));
+        this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(this.getAgeProperty());
     }
 
     public abstract Integer getMaxAge();
 
-    public abstract IntProperty getAgeProperty();
+    public abstract IntegerProperty getAgeProperty();
 
     @Override
-    protected abstract MapCodec<? extends PlantBlock> getCodec();
+    protected abstract MapCodec<? extends VegetationBlock> codec();
 
-    protected ItemConvertible getSeedsItem() {
+    protected ItemLike getSeedsItem() {
         return this.seed;
     }
 
     @Override
-    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+    protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(this.getSeedsItem());
     }
 
     @Override
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         if (!BorukvaFoodCompatImpl.hasBorukvaFood()) {
-            return floor.isOf(Blocks.FARMLAND);
+            return floor.is(Blocks.FARMLAND);
         } else {
-            return floor.isOf(Blocks.FARMLAND) || floor.isOf(BorukvaFoodCompatImpl.BETTER_FARMLAND);
+            return floor.is(Blocks.FARMLAND) || floor.is(BorukvaFoodCompatImpl.BETTER_FARMLAND);
         }
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return !this.isMature(state);
     }
 
     @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
@@ -82,67 +87,67 @@ public abstract class AbstractCropBlock extends PlantBlock implements Fertilizab
     }
 
     @Override
-    protected boolean hasRandomTicks(BlockState state) {
+    protected boolean isRandomlyTicking(BlockState state) {
         return !this.isMature(state);
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         int age = this.getAge(state);
         if (age >= this.getMaxAge()) return;
 
-        if (world.getBaseLightLevel(pos, 0) >= 9) {
+        if (world.getRawBrightness(pos, 0) >= 9) {
             float moisture = getAvailableMoisture(this, world, pos);
 
             int chance = (int)(10.0f / moisture) + 1;
 
             if (random.nextInt(chance) == 0) {
-                world.setBlockState(pos, this.withAge(age + 1), Block.NOTIFY_LISTENERS);
+                world.setBlock(pos, this.withAge(age + 1), Block.UPDATE_CLIENTS);
             }
         }
     }
 
     @Override
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-        super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
-        if (!state.canPlaceAt(world, pos)) {
-            world.breakBlock(pos, true);
+    protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, @Nullable Orientation wireOrientation, boolean notify) {
+        super.neighborChanged(state, world, pos, sourceBlock, wireOrientation, notify);
+        if (!state.canSurvive(world, pos)) {
+            world.destroyBlock(pos, true);
         }
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         this.applyGrowth(world, pos, state);
     }
 
-    public void applyGrowth(World world, BlockPos pos, BlockState state) {
+    public void applyGrowth(Level world, BlockPos pos, BlockState state) {
         int i = Math.min(this.getMaxAge(), this.getAge(state) + this.getGrowthAmount(world));
-        world.setBlockState(pos, this.withAge(i), Block.NOTIFY_LISTENERS);
+        world.setBlock(pos, this.withAge(i), Block.UPDATE_CLIENTS);
     }
 
-    protected int getGrowthAmount(World world) {
-        return MathHelper.nextInt(world.random, 1, 3);
+    protected int getGrowthAmount(Level world) {
+        return Mth.nextInt(world.random, 1, 3);
     }
 
     public BlockState withAge(int age) {
-        return (BlockState) this.getDefaultState().with(this.getAgeProperty(), age);
+        return (BlockState) this.defaultBlockState().setValue(this.getAgeProperty(), age);
     }
 
     public int getAge(BlockState state) {
-        return state.get(this.getAgeProperty());
+        return state.getValue(this.getAgeProperty());
     }
 
-    protected static float getAvailableMoisture(Block block, BlockView world, BlockPos pos) {
+    protected static float getAvailableMoisture(Block block, BlockGetter world, BlockPos pos) {
         boolean bl2;
         float f = 1.0f;
-        BlockPos blockPos = pos.down();
+        BlockPos blockPos = pos.below();
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
                 float g = 0.0f;
-                BlockState blockState = world.getBlockState(blockPos.add(i, 0, j));
-                if (blockState.isOf(Blocks.FARMLAND)) {
+                BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
+                if (blockState.is(Blocks.FARMLAND)) {
                     g = 1.0f;
-                    if (blockState.get(FarmlandBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(FarmBlock.MOISTURE) > 0) {
                         g = 3.0f;
                     }
                 }
@@ -156,13 +161,13 @@ public abstract class AbstractCropBlock extends PlantBlock implements Fertilizab
         BlockPos blockPos3 = pos.south();
         BlockPos blockPos4 = pos.west();
         BlockPos blockPos5 = pos.east();
-        boolean bl = world.getBlockState(blockPos4).isOf(block) || world.getBlockState(blockPos5).isOf(block);
-        boolean bl3 = bl2 = world.getBlockState(blockPos2).isOf(block) || world.getBlockState(blockPos3).isOf(block);
+        boolean bl = world.getBlockState(blockPos4).is(block) || world.getBlockState(blockPos5).is(block);
+        boolean bl3 = bl2 = world.getBlockState(blockPos2).is(block) || world.getBlockState(blockPos3).is(block);
         if (bl && bl2) {
             f /= 2.0f;
         } else {
             boolean bl32;
-            boolean bl4 = bl32 = world.getBlockState(blockPos4.north()).isOf(block) || world.getBlockState(blockPos5.north()).isOf(block) || world.getBlockState(blockPos5.south()).isOf(block) || world.getBlockState(blockPos4.south()).isOf(block);
+            boolean bl4 = bl32 = world.getBlockState(blockPos4.north()).is(block) || world.getBlockState(blockPos5.north()).is(block) || world.getBlockState(blockPos5.south()).is(block) || world.getBlockState(blockPos4.south()).is(block);
             if (bl32) {
                 f /= 2.0f;
             }

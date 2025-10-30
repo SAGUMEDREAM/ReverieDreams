@@ -3,19 +3,26 @@ package cc.thonly.reverie_dreams.entity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,7 +45,7 @@ public class GoblinEntity extends BaseNPCLikeEntity {
         OFFHAND_POOL.add(Items.SHIELD);
     }
 
-    public GoblinEntity(EntityType<? extends TameableEntity> entityType, World world) {
+    public GoblinEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world, MobSkinTypes.GOBLIN);
         this.inventory.setMainHand(this.getRandomPickaxe());
         this.inventory.setOffHand(this.getRandomOffHand());
@@ -48,34 +55,34 @@ public class GoblinEntity extends BaseNPCLikeEntity {
     }
 
     private void tryGetGoldenItem() {
-        Set<Identifier> ids = Registries.ITEM.getIds();
-        Set<Identifier> collect = ids.stream().filter(id -> {
+        Set<ResourceLocation> ids = BuiltInRegistries.ITEM.keySet();
+        Set<ResourceLocation> collect = ids.stream().filter(id -> {
                     String path = id.getPath();
                     return path.startsWith("gold_") || path.startsWith("golden_");
                 })
                 .collect(Collectors.toSet());
-        collect.forEach((id) -> GOLDEN_ITEMS.add(Registries.ITEM.get(id)));
+        collect.forEach((id) -> GOLDEN_ITEMS.add(BuiltInRegistries.ITEM.getValue(id)));
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
+    protected void registerGoals() {
+        super.registerGoals();
 
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new SitGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
 
-        this.goalSelector.add(4, new TemptGoal(this, 1.2, stack -> GOLDEN_ITEMS.contains(stack.getItem()), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, stack -> GOLDEN_ITEMS.contains(stack.getItem()), false));
 
-        this.goalSelector.add(7, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
 
-        this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 12.0f));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f));
-        this.goalSelector.add(10, new LookAroundGoal(this));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 12.0f));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, BaseNPCLikeEntity.class, 8.0f));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
-        this.targetSelector.add(3, new RevengeGoal(this).setGroupRevenge());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
     }
 
     public ItemStack getRandomPickaxe() {
@@ -87,7 +94,7 @@ public class GoblinEntity extends BaseNPCLikeEntity {
         ItemStack itemStack = new ItemStack(item);
 //        itemStack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         if (itemStack.isDamaged()) {
-            itemStack.damage(itemStack.getMaxDamage() - 50, this, Hand.MAIN_HAND);
+            itemStack.hurtAndBreak(itemStack.getMaxDamage() - 50, this, InteractionHand.MAIN_HAND);
         }
         return itemStack;
     }
@@ -100,7 +107,7 @@ public class GoblinEntity extends BaseNPCLikeEntity {
         Item item = OFFHAND_POOL.get(random.nextInt(OFFHAND_POOL.size()));
         ItemStack itemStack = new ItemStack(item);
         if (itemStack.isDamaged()) {
-            itemStack.damage(itemStack.getMaxDamage() - 50, this, Hand.OFF_HAND);
+            itemStack.hurtAndBreak(itemStack.getMaxDamage() - 50, this, InteractionHand.OFF_HAND);
         }
         return itemStack;
     }
@@ -120,7 +127,7 @@ public class GoblinEntity extends BaseNPCLikeEntity {
     }
 
     @Override
-    public boolean cannotDespawn() {
+    public boolean requiresCustomPersistence() {
         return false;
     }
 }

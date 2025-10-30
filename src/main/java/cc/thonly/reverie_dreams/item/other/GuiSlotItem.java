@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.item.other;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class GuiSlotItem extends Item {
 
-    public GuiSlotItem(Settings settings) {
-        super(settings.maxCount(1));
+    public GuiSlotItem(Properties settings) {
+        super(settings.stacksTo(1));
     }
 
 }

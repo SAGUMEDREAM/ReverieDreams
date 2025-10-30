@@ -2,14 +2,15 @@ package cc.thonly.reverie_dreams.danmaku;
 
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import net.minecraft.util.Identifier;
-
 import java.util.Map;
+
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 
 public class DanmakuShapes {
     public static void bootstrap(IntrinsicalRegister<DanmakuShape> registry) {
-        for (Map.Entry<Identifier, DanmakuType> mapEntry : RegistryManager.DANMAKU_TYPE.entrySet()) {
-            Identifier key = mapEntry.getKey();
+        for (Map.Entry<ResourceKey<DanmakuType>, DanmakuType> mapEntry : RegistryManager.DANMAKU_TYPE.entrySet()) {
+            ResourceLocation key = mapEntry.getKey().location();
             DanmakuType type = mapEntry.getValue();
             RegistryManager.register(registry, key, new DanmakuShape(type));
         }

@@ -10,24 +10,24 @@ import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UseRemainderComponent;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.UseRemainder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -37,42 +37,42 @@ public class NPCRoleInteractionEvents {
     public static final List<NPCRoleMessage> MESSAGES = new ArrayList<>();
 
     static {
-        registerMessage(Text.translatable("npc.event.send_message.0"));
-        registerMessage(Text.translatable("npc.event.send_message.1"));
-        registerMessage(Text.translatable("npc.event.send_message.2"));
-        registerMessage(Text.translatable("npc.event.send_message.3"));
-        registerMessage(Text.translatable("npc.event.send_message.4"));
-        registerMessage(Text.translatable("npc.event.send_message.5"));
-        registerMessage(Text.translatable("npc.event.send_message.6"));
-        registerMessage(Text.translatable("npc.event.send_message.7"));
-        registerMessage(Text.translatable("npc.event.send_message.8"));
-        registerMessage(Text.translatable("npc.event.send_message.9"));
+        registerMessage(Component.translatable("npc.event.send_message.0"));
+        registerMessage(Component.translatable("npc.event.send_message.1"));
+        registerMessage(Component.translatable("npc.event.send_message.2"));
+        registerMessage(Component.translatable("npc.event.send_message.3"));
+        registerMessage(Component.translatable("npc.event.send_message.4"));
+        registerMessage(Component.translatable("npc.event.send_message.5"));
+        registerMessage(Component.translatable("npc.event.send_message.6"));
+        registerMessage(Component.translatable("npc.event.send_message.7"));
+        registerMessage(Component.translatable("npc.event.send_message.8"));
+        registerMessage(Component.translatable("npc.event.send_message.9"));
     }
 
     public static final NPCRoleInteractionEvent MESSAGE = registerEvent("message", (world, player, stack, hand, entity) -> {
-        if (stack.isEmpty() && !player.isSneaking() && entity.isTamed()) {
+        if (stack.isEmpty() && !player.isShiftKeyDown() && entity.isTame()) {
             if (MESSAGES.isEmpty()) {
                 return NPCInteractResult.PASS;
             }
-            Random random = Random.create();
-            NPCRoleMessage npcRoleMessage = MESSAGES.get(random.nextBetween(0, MESSAGES.size() - 1));
-            MutableText message = npcRoleMessage.getMessage(world, player, stack, hand, entity);
-            MutableText body = Text.empty();
+            RandomSource random = RandomSource.create();
+            NPCRoleMessage npcRoleMessage = MESSAGES.get(random.nextIntBetweenInclusive(0, MESSAGES.size() - 1));
+            MutableComponent message = npcRoleMessage.getMessage(world, player, stack, hand, entity);
+            MutableComponent body = Component.empty();
             body.append(entity.getName());
             body.append(": ");
             body.append(message);
             Optional.ofNullable(npcRoleMessage.getSoundEvent()).ifPresent(
                     (soundEvent) -> {
-                        world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, SoundCategory.HOSTILE);
+                        world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, SoundSource.HOSTILE);
                     }
             );
-            player.sendMessage(body, false);
+            player.displayClientMessage(body, false);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;
     });
     public static final NPCRoleInteractionEvent ON_OPEN_INVENTORY = registerEvent("on_open_inventory", (world, player, stack, hand, entity) -> {
-        if (stack.isEmpty() && entity.isAllowOpenInventory(player) && player.isSneaking()) {
+        if (stack.isEmpty() && entity.isAllowOpenInventory(player) && player.isShiftKeyDown()) {
             NPCGui npcGui = new NPCGui(player, entity);
             npcGui.open();
             return NPCInteractResult.SUCCESS;
@@ -80,78 +80,78 @@ public class NPCRoleInteractionEvents {
         return NPCInteractResult.PASS;
     });
     public static final NPCRoleInteractionEvent ON_UPGRADED_HEALTH = registerEvent("on_upgraded_health", (world, player, stack, hand, entity) -> {
-        if (!entity.isOwner(player)) {
+        if (!entity.isOwnedBy(player)) {
             return NPCInteractResult.PASS;
         }
         if (stack.getItem() == ModItems.UPGRADED_HEALTH) {
-            AttributeContainer attributes = entity.getAttributes();
-            EntityAttributeInstance max_health = attributes.getCustomInstance(EntityAttributes.MAX_HEALTH);
+            AttributeMap attributes = entity.getAttributes();
+            AttributeInstance max_health = attributes.getInstance(Attributes.MAX_HEALTH);
             float health = entity.getHealth();
             float maxHealth = entity.getMaxHealth();
             if (max_health != null) {
                 max_health.setBaseValue(maxHealth + 2);
                 entity.setHealth(health + 2);
             }
-            player.swingHand(hand);
+            player.swing(hand);
             player.playSound(SoundEventInit.UP, 1.0f, 1.0f);
-            stack.decrementUnlessCreative(1, player);
+            stack.consume(1, player);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;
     });
     public static final NPCRoleInteractionEvent ON_TAME = registerEvent("on_tame", (world, player, stack, hand, entity) -> {
-        if (entity.npcOwner.isEmpty() && stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) {
-            Random random = Random.create();
+        if (entity.npcOwner.isEmpty() && stack.is(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) {
+            RandomSource random = RandomSource.create();
             float chance = random.nextFloat();
             if (chance <= 0.4) {
                 entity.setOwner(player);
-                entity.setTamed(true, true);
-                world.spawnParticles(ParticleTypes.HEART, entity.getX(), entity.getY() + 1.0, entity.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
+                entity.setTame(true, true);
+                world.sendParticles(ParticleTypes.HEART, entity.getX(), entity.getY() + 1.0, entity.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
             }
             entity.setHealth(entity.getHealth() + 5);
-            stack.decrementUnlessCreative(1, player);
-            player.swingHand(hand);
+            stack.consume(1, player);
+            player.swing(hand);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;
     });
     public static final NPCRoleInteractionEvent ON_FEED_POTIONS = registerEvent("on_feed_potions", (world, player, stack, hand, entity) -> {
-        if (!entity.isOwner(player)) {
+        if (!entity.isOwnedBy(player)) {
             return NPCInteractResult.PASS;
         }
         if (stack.isEmpty()) {
             return NPCInteractResult.PASS;
         }
         if (entity.canFeed() && (stack.getItem() == Items.POTION || stack.getItem() instanceof DrinkItem drinkItem)) {
-            UseRemainderComponent useRemainderComponent = stack.get(DataComponentTypes.USE_REMAINDER);
-            entity.playSound(SoundEvents.ENTITY_GENERIC_DRINK.value(), 1.0f, 1.0f);
-            ItemStack result = stack.finishUsing(world, entity);
-            if (!player.isInCreativeMode()) {
-                player.setStackInHand(hand, result);
+            UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
+            entity.playSound(SoundEvents.GENERIC_DRINK.value(), 1.0f, 1.0f);
+            ItemStack result = stack.finishUsingItem(world, entity);
+            if (!player.hasInfiniteMaterials()) {
+                player.setItemInHand(hand, result);
             }
-            if (useRemainderComponent != null && !player.isInCreativeMode()) {
-                ItemStack itemStack = useRemainderComponent.convert(stack, stack.getCount(), player.isInCreativeMode(), player::giveOrDropStack);
-                player.setStackInHand(hand, itemStack);
+            if (useRemainderComponent != null && !player.hasInfiniteMaterials()) {
+                ItemStack itemStack = useRemainderComponent.convertIntoRemainder(stack, stack.getCount(), player.hasInfiniteMaterials(), player::handleExtraItemsCreatedOnUse);
+                player.setItemInHand(hand, itemStack);
             }
-            player.swingHand(hand);
+            player.swing(hand);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;
     });
     public static final NPCRoleInteractionEvent ON_FEED_FOOD = registerEvent("_feed_food", (world, player, stack, hand, entity) -> {
-        if (!entity.isOwner(player)) {
+        if (!entity.isOwnedBy(player)) {
             return NPCInteractResult.PASS;
         }
         if (stack.isEmpty()) {
             return NPCInteractResult.PASS;
         }
-        if ((((IItemStack) (Object) stack).isFood() || stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) && entity.canFeed()) {
-            entity.playSound(SoundEvents.ENTITY_GENERIC_EAT.value(), 1.0f, 1.0f);
-            ItemStack result = stack.finishUsing(world, entity);
-            if (!player.isInCreativeMode()) {
-                player.setStackInHand(hand, result);
+        if ((((IItemStack) (Object) stack).isFood() || stack.is(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) && entity.canFeed()) {
+            entity.playSound(SoundEvents.GENERIC_EAT.value(), 1.0f, 1.0f);
+            ItemStack result = stack.finishUsingItem(world, entity);
+            if (!player.hasInfiniteMaterials()) {
+                player.setItemInHand(hand, result);
             }
-            player.swingHand(hand);
+            player.swing(hand);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;
@@ -168,8 +168,8 @@ public class NPCRoleInteractionEvents {
 
     }
 
-    public static ActionResult emit(ServerWorld world, ServerPlayerEntity player, Hand hand, NPCRoleEntity entity) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    public static InteractionResult emit(ServerLevel world, ServerPlayer player, InteractionHand hand, NPCRoleEntity entity) {
+        ItemStack itemStack = player.getItemInHand(hand);
         for (NPCRoleInteractionEvent event : RegistryManager.ROLE_INTERACTION_EVENT) {
             int i = 0;
             NPCInteractResult interact = null;
@@ -180,26 +180,26 @@ public class NPCRoleInteractionEvents {
                     continue;
                 }
                 return switch (interact) {
-                    case SUCCESS -> ActionResult.SUCCESS_SERVER;
-                    case FAIL -> ActionResult.FAIL;
+                    case SUCCESS -> InteractionResult.SUCCESS_SERVER;
+                    case FAIL -> InteractionResult.FAIL;
                     default -> throw new IllegalStateException("Unexpected value: " + interact);
                 };
             } catch (Exception err) {
                 log.error("Role Interaction event {} triggering failed", interact != null ? interact.name() : i, err);
             }
         }
-        return ActionResult.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
-    public static NPCRoleMessage registerMessage(MutableText mutableText) {
+    public static NPCRoleMessage registerMessage(MutableComponent mutableText) {
         NPCRoleMessage npcRoleMessage = new NPCRoleMessage() {
             @Override
-            public @NotNull MutableText getMessage(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, BaseNPCLikeEntity entity) {
+            public @NotNull MutableComponent getMessage(ServerLevel world, ServerPlayer player, ItemStack stack, InteractionHand hand, BaseNPCLikeEntity entity) {
                 return mutableText;
             }
 
             @Override
-            public Identifier getId() {
+            public ResourceLocation getId() {
                 return Touhou.id("message/%s".formatted(MESSAGES.size()));
             }
         };
@@ -216,7 +216,7 @@ public class NPCRoleInteractionEvents {
         return registerEvent(Touhou.id(name), callback);
     }
 
-    public static NPCRoleInteractionEvent registerEvent(Identifier eventId, NPCRoleInteractionEvent.InteractionCallback callback) {
+    public static NPCRoleInteractionEvent registerEvent(ResourceLocation eventId, NPCRoleInteractionEvent.InteractionCallback callback) {
         NPCRoleInteractionEvent event = new NPCRoleInteractionEvent(callback);
         return RegistryManager.registerForBuiltin(RegistryManager.ROLE_INTERACTION_EVENT, eventId, event);
     }

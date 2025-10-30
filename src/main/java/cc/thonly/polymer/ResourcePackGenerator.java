@@ -10,13 +10,12 @@ import eu.pb4.polymer.resourcepack.api.ResourcePackBuilder;
 import eu.pb4.polymer.resourcepack.extras.api.format.atlas.AtlasAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelElement;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 
 public class ResourcePackGenerator {
     private static final Set<String> EXPANDABLE = Set.of(
@@ -29,7 +28,7 @@ public class ResourcePackGenerator {
     }
 
     private static void build(ResourcePackBuilder builder) {
-        final var expansion = new Vec3d(0.08, 0.08, 0.08);
+        final var expansion = new Vec3(0.08, 0.08, 0.08);
         var atlas = AtlasAsset.builder();
 
         builder.forEachFile(((string, bytes) -> {
@@ -57,10 +56,10 @@ public class ResourcePackGenerator {
         }));
 
         for (var entry : BlockStateModelManager.UV_LOCKED_MODELS.get(Touhou.MOD_ID).entrySet()) {
-            var expand = EXPANDABLE.stream().anyMatch(expandable -> entry.getKey().contains(expandable) && entry.getKey().startsWith("block/")) ? expansion : Vec3d.ZERO;
+            var expand = EXPANDABLE.stream().anyMatch(expandable -> entry.getKey().contains(expandable) && entry.getKey().startsWith("block/")) ? expansion : Vec3.ZERO;
             for (var v : entry.getValue()) {
                 var suffix = "_uvlock_" + v.x() + "_" + v.y();
-                var modelId = v.model().withSuffixedPath(suffix);
+                var modelId = v.model().withSuffix(suffix);
                 var asset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getData(AssetPaths.model(v.model()) + ".json")), StandardCharsets.UTF_8));
 
                 if (asset.parent().isPresent()) {
@@ -69,7 +68,7 @@ public class ResourcePackGenerator {
                     builder.addData(AssetPaths.model(LateLoaderInit.POLYMER_MOD_ID, parentId.getPath() + suffix) + ".json",
                             ModelModifiers.expandModelAndRotateUVLocked(parentAsset, expand, v.x(), v.y()));
                     builder.addData(AssetPaths.model(modelId) + ".json",
-                            new ModelAsset(Optional.of(Identifier.of(LateLoaderInit.POLYMER_MOD_ID, parentId.getPath() + suffix)), asset.elements(),
+                            new ModelAsset(Optional.of(ResourceLocation.fromNamespaceAndPath(LateLoaderInit.POLYMER_MOD_ID, parentId.getPath() + suffix)), asset.elements(),
                                     asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
                 }
             }
@@ -80,7 +79,7 @@ public class ResourcePackGenerator {
                 for (var expandable : EXPANDABLE) {
                     if (string.contains(expandable) && string.startsWith("assets/%s/models/block/".formatted(Touhou.MOD_ID))) {
                         var asset = ModelAsset.fromJson(new String(bytes, StandardCharsets.UTF_8));
-                        return new ModelAsset(asset.parent().map(x -> Identifier.of(LateLoaderInit.POLYMER_MOD_ID, x.getPath())), asset.elements(), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes();
+                        return new ModelAsset(asset.parent().map(x -> ResourceLocation.fromNamespaceAndPath(LateLoaderInit.POLYMER_MOD_ID, x.getPath())), asset.elements(), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes();
                     }
                 }
             }

@@ -20,12 +20,10 @@ import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-import net.minecraft.village.VillagerProfession;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.Item;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.ArrayList;
@@ -61,7 +59,7 @@ public class LateLoaderInit implements ModInitializer {
     }
 
     public void polymerify() {
-        for (RegistryEntry<StatusEffect> registryEntry : ModStatusEffects.REVERIE_DREAMS_EFFECTS) {
+        for (Holder<MobEffect> registryEntry : ModStatusEffects.REVERIE_DREAMS_EFFECTS) {
             PolymerStatusEffectHelper.registerOverlay(registryEntry);
         }
         for (Item item : ModGuiItems.GUI_ITEM_LIST) {
@@ -103,7 +101,7 @@ public class LateLoaderInit implements ModInitializer {
         ResourcePackGenerator.setup();
     }
 
-    public static Identifier id(String name) {
-        return Identifier.of(POLYMER_MOD_ID, name);
+    public static ResourceLocation id(String name) {
+        return ResourceLocation.fromNamespaceAndPath(POLYMER_MOD_ID, name);
     }
 }

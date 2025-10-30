@@ -10,20 +10,23 @@ import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Leashable;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Leashable;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import java.util.Objects;
 
 @Setter
@@ -31,12 +34,12 @@ import java.util.Objects;
 public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, Yousei {
     private YouseiVariant variant = null;
 
-    public YouseiEntity(EntityType<? extends TameableEntity> entityType, World world) {
+    public YouseiEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType,
                 world,
                 (
                         YouseiVariants.isEmpty()
-                                ? (YouseiVariants.REGISTRY.getDefaultEntry().isPresent() ? YouseiVariants.REGISTRY.getDefaultEntry().get().value().getSkinType() : YouseiVariants.BLUE.getSkinType())
+                                ? (YouseiVariants.REGISTRY.getAny().isPresent() ? YouseiVariants.REGISTRY.getAny().get().value().getSkinType() : YouseiVariants.BLUE.getSkinType())
                                 : Objects.requireNonNull(YouseiVariants.random()).getSkinType()
                 )
        );
@@ -44,11 +47,11 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
+    protected void registerGoals() {
+        super.registerGoals();
 
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new DanmakuGoal(this, (self, target, world) -> {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new DanmakuGoal(this, (self, target, world) -> {
             ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY);
             final MinecraftServer server = world.getServer();
             final float[] pitchYaw = MobDanmakuShooter.getPitchYaw(self, target);
@@ -61,14 +64,14 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
         }));
 //        this.goalSelector.add(2, new SmartFlyGoal(this, 1.2));
 
-        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, MobEntity.class, 6.0f));
-        this.goalSelector.add(5, new LookAroundGoal(this));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 6.0f));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 
-        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
 
-        this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge());
-        this.targetSelector.add(3, new UniversalLivingAngerGoal<>(this, false));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
+        this.targetSelector.addGoal(3, new UniversalLivingAngerGoal<>(this, false));
     }
 
     @Override
@@ -78,25 +81,25 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     }
 
     @Override
-    public void tickMovement() {
-        super.tickMovement();
-        Vec3d vec3d = getVelocity();
-        if (!isOnGround() && vec3d.y < 0.0 && !(moveControl.getTargetY() < getY())) {
-            setVelocity(vec3d.multiply(1.0, 0.6, 1.0));
+    public void aiStep() {
+        super.aiStep();
+        Vec3 vec3d = getDeltaMovement();
+        if (!onGround() && vec3d.y < 0.0 && !(moveControl.getWantedY() < getY())) {
+            setDeltaMovement(vec3d.multiply(1.0, 0.6, 1.0));
         }
     }
 
     @Override
-    public void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        String youseiVariantId = view.getString("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
-        Identifier variantId = Identifier.of(youseiVariantId);
-        this.variant = RegistryManager.YOUSEI_VARIANT.get(variantId);
+    public void readAdditionalSaveData(ValueInput view) {
+        super.readAdditionalSaveData(view);
+        String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
+        ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
+        this.variant = RegistryManager.YOUSEI_VARIANT.getValue(variantId);
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
+    protected void addAdditionalSaveData(ValueOutput view) {
+        super.addAdditionalSaveData(view);
         view.putString("YouseiVariant", this.variant.getId().toString());
     }
 
@@ -111,20 +114,20 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     }
 
     @Override
-    public void setVariantData(Identifier id) {
-        this.variant = RegistryManager.YOUSEI_VARIANT.get(id);
+    public void setVariantData(ResourceLocation id) {
+        this.variant = RegistryManager.YOUSEI_VARIANT.getValue(id);
         if (this.variant != null) {
             this.skinType = this.variant.getSkinType();
         }
     }
 
     @Override
-    public Identifier getVariantData() {
+    public ResourceLocation getVariantData() {
         return this.variant.getId();
     }
 
     @Override
-    public boolean cannotDespawn() {
+    public boolean requiresCustomPersistence() {
         return false;
     }
 }

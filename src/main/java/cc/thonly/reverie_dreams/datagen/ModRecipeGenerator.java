@@ -7,205 +7,204 @@ import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.item.ModItems;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.block.Block;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.data.recipe.ShapelessRecipeJsonBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.resource.featuretoggle.FeatureSet;
-import net.minecraft.util.Identifier;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
-public class ModRecipeGenerator extends RecipeGenerator {
-    public static ImmutableList<ItemConvertible> SILVER = ImmutableList.of(ModBlocks.SILVER_ORE.asItem(), ModBlocks.DEEPSLATE_SILVER_ORE.asItem(), ModItems.RAW_SILVER);
-    public static ImmutableList<ItemConvertible> DREAM = ImmutableList.of(ModBlocks.DREAM_CRYSTAL_ORE.asItem());
+public class ModRecipeGenerator extends RecipeProvider {
+    public static ImmutableList<ItemLike> SILVER = ImmutableList.of(ModBlocks.SILVER_ORE.asItem(), ModBlocks.DEEPSLATE_SILVER_ORE.asItem(), ModItems.RAW_SILVER);
+    public static ImmutableList<ItemLike> DREAM = ImmutableList.of(ModBlocks.DREAM_CRYSTAL_ORE.asItem());
 
-    protected ModRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
+    protected ModRecipeGenerator(HolderLookup.Provider registries, RecipeOutput exporter) {
         super(registries, exporter);
     }
 
     @Override
-    public void generate() {
+    public void buildRecipes() {
         // 入门书
-        createShaped(RecipeCategory.MISC, ModItems.TOUHOU_HELPER)
+        shaped(RecipeCategory.MISC, ModItems.TOUHOU_HELPER)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', ModItems.POWER)
-                .input('#', Items.BOOK)
-                .criterion("has_diamond", conditionsFromItem(Items.DIAMOND))
-                .offerTo(exporter, getRecipeName(ModItems.TOUHOU_HELPER));
+                .define('X', ModItems.POWER)
+                .define('#', Items.BOOK)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output, getSimpleRecipeName(ModItems.TOUHOU_HELPER));
 
         // Point / 块
-        offerIngotToBlockRecipe(exporter, ModItems.POINT, ModBlocks.POINT_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.POINT_BLOCK.asItem(), ModItems.POINT);
+        offerIngotToBlockRecipe(output, ModItems.POINT, ModBlocks.POINT_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.POINT_BLOCK.asItem(), ModItems.POINT);
 
         // Power / 块
-        offerIngotToBlockRecipe(exporter, ModItems.POWER, ModBlocks.POWER_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.POWER_BLOCK.asItem(), ModItems.POWER);
+        offerIngotToBlockRecipe(output, ModItems.POWER, ModBlocks.POWER_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.POWER_BLOCK.asItem(), ModItems.POWER);
 
         // 速度羽毛
-        createShaped(RecipeCategory.DECORATIONS, ModItems.SPEED_FEATHER)
+        shaped(RecipeCategory.DECORATIONS, ModItems.SPEED_FEATHER)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', Items.FEATHER)
-                .input('#', Items.DIAMOND)
-                .criterion("has_diamond", conditionsFromItem(Items.DIAMOND))
-                .offerTo(exporter, getRecipeName(ModItems.SPEED_FEATHER));
+                .define('X', Items.FEATHER)
+                .define('#', Items.DIAMOND)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output, getSimpleRecipeName(ModItems.SPEED_FEATHER));
 
         // 梦境枕头
-        createShaped(RecipeCategory.DECORATIONS, ModItems.DREAM_PILLOW)
+        shaped(RecipeCategory.DECORATIONS, ModItems.DREAM_PILLOW)
                 .pattern("XXX")
                 .pattern("Y#Y")
-                .input('X', Items.PINK_WOOL)
-                .input('Y', Items.GOLD_INGOT)
-                .input('#', Items.EMERALD)
-                .criterion("has_emerald", conditionsFromItem(Items.EMERALD))
-                .offerTo(exporter, getRecipeName(ModItems.DREAM_PILLOW));
+                .define('X', Items.PINK_WOOL)
+                .define('Y', Items.GOLD_INGOT)
+                .define('#', Items.EMERALD)
+                .unlockedBy("has_emerald", has(Items.EMERALD))
+                .save(output, getSimpleRecipeName(ModItems.DREAM_PILLOW));
 
         // 残机
-        offer1To4Recipe(exporter, ModItems.UPGRADED_HEALTH, ModItems.UPGRADED_HEALTH_FRAGMENT);
-        createShaped(RecipeCategory.MISC, ModItems.UPGRADED_HEALTH, 2)
+        offer1To4Recipe(output, ModItems.UPGRADED_HEALTH, ModItems.UPGRADED_HEALTH_FRAGMENT);
+        shaped(RecipeCategory.MISC, ModItems.UPGRADED_HEALTH, 2)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', ModBlocks.POWER_BLOCK)
-                .input('#', ModItems.UPGRADED_HEALTH_FRAGMENT)
-                .criterion("has_health_fragment", conditionsFromItem(ModItems.UPGRADED_HEALTH_FRAGMENT))
-                .offerTo(exporter, getRecipeName(ModItems.UPGRADED_HEALTH_FRAGMENT) + "_copy");
+                .define('X', ModBlocks.POWER_BLOCK)
+                .define('#', ModItems.UPGRADED_HEALTH_FRAGMENT)
+                .unlockedBy("has_health_fragment", has(ModItems.UPGRADED_HEALTH_FRAGMENT))
+                .save(output, getSimpleRecipeName(ModItems.UPGRADED_HEALTH_FRAGMENT) + "_copy");
 
         // Bomb
-        offer1To4Recipe(exporter, ModItems.BOMB, ModItems.BOMB_FRAGMENT);
-        createShaped(RecipeCategory.MISC, ModItems.BOMB_FRAGMENT, 2)
+        offer1To4Recipe(output, ModItems.BOMB, ModItems.BOMB_FRAGMENT);
+        shaped(RecipeCategory.MISC, ModItems.BOMB_FRAGMENT, 2)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', ModBlocks.POINT_BLOCK)
-                .input('#', ModItems.BOMB_FRAGMENT)
-                .criterion("has_bomb_fragment", conditionsFromItem(ModItems.BOMB_FRAGMENT))
-                .offerTo(exporter, getRecipeName(ModItems.BOMB_FRAGMENT) + "_copy");
+                .define('X', ModBlocks.POINT_BLOCK)
+                .define('#', ModItems.BOMB_FRAGMENT)
+                .unlockedBy("has_bomb_fragment", has(ModItems.BOMB_FRAGMENT))
+                .save(output, getSimpleRecipeName(ModItems.BOMB_FRAGMENT) + "_copy");
 
         // 弹幕创作模板
-        createShaped(RecipeCategory.MISC, ModItems.DANMAKU_SHAPE_CREATOR)
+        shaped(RecipeCategory.MISC, ModItems.DANMAKU_SHAPE_CREATOR)
                 .pattern("RRR")
                 .pattern("R#R")
                 .pattern("RRR")
-                .input('R', ModItems.POWER)
-                .input('#', Items.WRITABLE_BOOK)
-                .criterion("has_power", conditionsFromItem(ModItems.POWER))
-                .offerTo(exporter, getRecipeName(ModItems.DANMAKU_SHAPE_CREATOR));
+                .define('R', ModItems.POWER)
+                .define('#', Items.WRITABLE_BOOK)
+                .unlockedBy("has_power", has(ModItems.POWER))
+                .save(output, getSimpleRecipeName(ModItems.DANMAKU_SHAPE_CREATOR));
 
         // 空白角色卡
-        createShaped(RecipeCategory.MISC, ModItems.ROLE_CARD)
+        shaped(RecipeCategory.MISC, ModItems.ROLE_CARD)
                 .pattern(" R ")
                 .pattern("R#R")
                 .pattern(" R ")
-                .input('R', Items.REDSTONE)
-                .input('#', Items.PAPER)
-                .criterion("has_paper", conditionsFromItem(Items.PAPER))
-                .offerTo(exporter, getRecipeName(ModItems.ROLE_CARD));
+                .define('R', Items.REDSTONE)
+                .define('#', Items.PAPER)
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .save(output, getSimpleRecipeName(ModItems.ROLE_CARD));
 
         // 魔理沙的帽子
-        createShaped(RecipeCategory.DECORATIONS, ModBlocks.MARISA_HAT_BLOCK)
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.MARISA_HAT_BLOCK)
                 .pattern(" X ")
                 .pattern("X#X")
                 .pattern("XYX")
-                .input('X', Items.WHITE_WOOL)
-                .input('Y', Items.LEATHER)
-                .input('#', Items.BLACK_WOOL)
-                .criterion("has_diamond", conditionsFromItem(Items.DIAMOND))
-                .offerTo(exporter, getRecipeName(ModBlocks.MARISA_HAT_BLOCK));
+                .define('X', Items.WHITE_WOOL)
+                .define('Y', Items.LEATHER)
+                .define('#', Items.BLACK_WOOL)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output, getSimpleRecipeName(ModBlocks.MARISA_HAT_BLOCK));
 
         // 塞钱箱
-        createShaped(RecipeCategory.MISC, ModBlocks.CASH_BOX_BLOCK)
+        shaped(RecipeCategory.MISC, ModBlocks.CASH_BOX_BLOCK)
                 .pattern("YYY")
                 .pattern("X#X")
                 .pattern("YYY")
-                .input('X', ModBlocks.SPIRITUAL.planks())
-                .input('Y', ModBlocks.SPIRITUAL.slab())
-                .input('#', Items.CHEST)
-                .criterion("has_wool", conditionsFromItem(Items.CHEST))
-                .offerTo(exporter, getRecipeName(ModBlocks.CASH_BOX_BLOCK));
+                .define('X', ModBlocks.SPIRITUAL.planks())
+                .define('Y', ModBlocks.SPIRITUAL.slab())
+                .define('#', Items.CHEST)
+                .unlockedBy("has_wool", has(Items.CHEST))
+                .save(output, getSimpleRecipeName(ModBlocks.CASH_BOX_BLOCK));
 
         // 防撞桶
-        createShaped(RecipeCategory.MISC, ModBlocks.ANTI_COLLISION_BARREL)
+        shaped(RecipeCategory.MISC, ModBlocks.ANTI_COLLISION_BARREL)
                 .pattern("YXY")
                 .pattern("Z#Z")
                 .pattern("YXY")
-                .input('X', Items.YELLOW_WOOL)
-                .input('Y', Items.RED_WOOL)
-                .input('Z', Items.WHITE_WOOL)
-                .input('#', Items.IRON_BLOCK)
-                .criterion("has_iron_block", conditionsFromItem(Items.IRON_BLOCK))
-                .offerTo(exporter, getRecipeName(ModBlocks.ANTI_COLLISION_BARREL));
+                .define('X', Items.YELLOW_WOOL)
+                .define('Y', Items.RED_WOOL)
+                .define('Z', Items.WHITE_WOOL)
+                .define('#', Items.IRON_BLOCK)
+                .unlockedBy("has_iron_block", has(Items.IRON_BLOCK))
+                .save(output, getSimpleRecipeName(ModBlocks.ANTI_COLLISION_BARREL));
         // 轮椅
-        createShaped(RecipeCategory.MISC, ModBlocks.WHEEL_CHAIR)
+        shaped(RecipeCategory.MISC, ModBlocks.WHEEL_CHAIR)
                 .pattern("Z  ")
                 .pattern("X# ")
                 .pattern("YYY")
-                .input('#', Items.IRON_INGOT)
-                .input('X', Items.IRON_BLOCK)
-                .input('Y', Items.RESIN_BRICK)
-                .input('Z', Items.BLACK_WOOL)
-                .criterion("has_iron", conditionsFromItem(Items.IRON_INGOT))
-                .offerTo(exporter, getRecipeName(ModBlocks.WHEEL_CHAIR));
+                .define('#', Items.IRON_INGOT)
+                .define('X', Items.IRON_BLOCK)
+                .define('Y', Items.RESIN_BRICK)
+                .define('Z', Items.BLACK_WOOL)
+                .unlockedBy("has_iron", has(Items.IRON_INGOT))
+                .save(output, getSimpleRecipeName(ModBlocks.WHEEL_CHAIR));
 
         // 木板箱
-        createShaped(RecipeCategory.MISC, ModBlocks.WOODEN_BOX.chestBlock())
+        shaped(RecipeCategory.MISC, ModBlocks.WOODEN_BOX.chestBlock())
                 .pattern("YZY")
                 .pattern("X#X")
                 .pattern("YZY")
-                .input('#', Items.CHEST)
-                .input('X', Items.OAK_SLAB)
-                .input('Y', Items.OAK_PLANKS)
-                .input('Z', Items.STICK)
-                .criterion("has_stick", conditionsFromItem(Items.STICK))
-                .offerTo(exporter, getRecipeName(ModBlocks.WOODEN_BOX.chestBlock()));
+                .define('#', Items.CHEST)
+                .define('X', Items.OAK_SLAB)
+                .define('Y', Items.OAK_PLANKS)
+                .define('Z', Items.STICK)
+                .unlockedBy("has_stick", has(Items.STICK))
+                .save(output, getSimpleRecipeName(ModBlocks.WOODEN_BOX.chestBlock()));
 
         // Fumo销售许可
-        createShaped(RecipeCategory.MISC, ModItems.FUMO_LICENSE)
+        shaped(RecipeCategory.MISC, ModItems.FUMO_LICENSE)
                 .pattern("YXY")
                 .pattern("X#X")
                 .pattern("YXY")
-                .input('X', Items.WHITE_WOOL)
-                .input('Y', Items.DIAMOND)
-                .input('#', Items.PAPER)
-                .criterion("has_wool", conditionsFromItem(Items.WHITE_WOOL))
-                .offerTo(exporter, getRecipeName(ModItems.FUMO_LICENSE));
+                .define('X', Items.WHITE_WOOL)
+                .define('Y', Items.DIAMOND)
+                .define('#', Items.PAPER)
+                .unlockedBy("has_wool", has(Items.WHITE_WOOL))
+                .save(output, getSimpleRecipeName(ModItems.FUMO_LICENSE));
 
         // 烟火之星
-        createShaped(RecipeCategory.MISC, Items.FIREWORK_STAR)
+        shaped(RecipeCategory.MISC, Items.FIREWORK_STAR)
                 .pattern("###")
                 .pattern("#X#")
                 .pattern("###")
-                .input('#', Items.GUNPOWDER)
-                .input('X', Items.SAND)
-                .criterion("has_sand", conditionsFromItem(Items.GUNPOWDER))
-                .offerTo(exporter, "rd_provided_" + getRecipeName(Items.FIREWORK_STAR));
+                .define('#', Items.GUNPOWDER)
+                .define('X', Items.SAND)
+                .unlockedBy("has_sand", has(Items.GUNPOWDER))
+                .save(output, "rd_provided_" + getSimpleRecipeName(Items.FIREWORK_STAR));
 
         // 弹幕核心
-        createShaped(RecipeCategory.MISC, ModItems.DANMAKU_CORE)
+        shaped(RecipeCategory.MISC, ModItems.DANMAKU_CORE)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('#', Items.FIREWORK_STAR)
-                .input('X', Items.IRON_NUGGET)
-                .criterion("has_sand", conditionsFromItem(Items.FIREWORK_STAR))
-                .offerTo(exporter, getRecipeName(ModItems.DANMAKU_CORE));
+                .define('#', Items.FIREWORK_STAR)
+                .define('X', Items.IRON_NUGGET)
+                .unlockedBy("has_sand", has(Items.FIREWORK_STAR))
+                .save(output, getSimpleRecipeName(ModItems.DANMAKU_CORE));
 
         this.generateWoodCreator(ModBlocks.SPIRITUAL);
         this.generateWoodCreator(MIBlocks.LEMON);
@@ -225,7 +224,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
     }
 
     private void generateWoodCreator(WoodCreator creator) {
-        RegistryEntryLookup<Item> itemImpl = this.registries.getOrThrow(RegistryKeys.ITEM);
+        HolderGetter<Item> itemImpl = this.registries.lookupOrThrow(Registries.ITEM);
         Block log = creator.log();
         Block wood = creator.wood();
         Block strippedLog = creator.strippedLog();
@@ -239,114 +238,114 @@ public class ModRecipeGenerator extends RecipeGenerator {
         Block fenceGate = creator.fenceGate();
         Block button = creator.button();
 
-        generateFamily(creator.getBlockFamily(), FeatureSet.empty());
+        generateRecipes(creator.getBlockFamily(), FeatureFlagSet.of());
 
         // 原木 -> 木板（shapeless）
-        ShapelessRecipeJsonBuilder.create(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
-                .input(log)
+        ShapelessRecipeBuilder.shapeless(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
+                .requires(log)
                 .group("planks")
-                .criterion("has_log", conditionsFromItem(log))
-                .offerTo(exporter, convertBetween(planks, log));
+                .unlockedBy("has_log", has(log))
+                .save(output, getConversionRecipeName(planks, log));
 
-        ShapelessRecipeJsonBuilder.create(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
-                .input(wood)
+        ShapelessRecipeBuilder.shapeless(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
+                .requires(wood)
                 .group("planks")
-                .criterion("has_wood", conditionsFromItem(wood))
-                .offerTo(exporter, convertBetween(planks, wood));
+                .unlockedBy("has_wood", has(wood))
+                .save(output, getConversionRecipeName(planks, wood));
         // 去皮木 -> 木板（shapeless）
-        ShapelessRecipeJsonBuilder.create(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
-                .input(strippedLog)
+        ShapelessRecipeBuilder.shapeless(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
+                .requires(strippedLog)
                 .group("planks")
-                .criterion("has_log", conditionsFromItem(log))
-                .offerTo(exporter, convertBetween(planks, strippedLog));
+                .unlockedBy("has_log", has(log))
+                .save(output, getConversionRecipeName(planks, strippedLog));
 
-        ShapelessRecipeJsonBuilder.create(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
-                .input(strippedWood)
+        ShapelessRecipeBuilder.shapeless(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
+                .requires(strippedWood)
                 .group("planks")
-                .criterion("has_wood", conditionsFromItem(wood))
-                .offerTo(exporter, convertBetween(planks, strippedWood));
+                .unlockedBy("has_wood", has(wood))
+                .save(output, getConversionRecipeName(planks, strippedWood));
 
         // 木板 -> 楼梯
-        createStairsRecipe(stair, Ingredient.ofItem(planks))
-                .criterion("has_planks", conditionsFromItem(planks))
-                .offerTo(exporter);
+        stairBuilder(stair, Ingredient.of(planks))
+                .unlockedBy("has_planks", has(planks))
+                .save(output);
 
         // 木板 -> 台阶
-        createSlabRecipe(RecipeCategory.DECORATIONS, slab, Ingredient.ofItem(planks))
-                .criterion("has_planks", conditionsFromItem(planks))
-                .offerTo(exporter);
+        slabBuilder(RecipeCategory.DECORATIONS, slab, Ingredient.of(planks))
+                .unlockedBy("has_planks", has(planks))
+                .save(output);
 
         // 木板 + 棍子 -> 栅栏
-        createFenceRecipe(fence, Ingredient.ofItem(planks))
-                .criterion("has_planks", conditionsFromItem(planks))
-                .offerTo(exporter);
+        fenceBuilder(fence, Ingredient.of(planks))
+                .unlockedBy("has_planks", has(planks))
+                .save(output);
 
         // 木板 + 棍子 -> 栅栏门
-        createFenceGateRecipe(fenceGate, Ingredient.ofItem(planks))
-                .criterion("has_planks", conditionsFromItem(planks))
-                .offerTo(exporter);
+        fenceGateBuilder(fenceGate, Ingredient.of(planks))
+                .unlockedBy("has_planks", has(planks))
+                .save(output);
 
         // 木板 -> 活板门
-        createTrapdoorRecipe(trapdoor, Ingredient.ofItem(planks))
-                .criterion("has_planks", conditionsFromItem(planks))
-                .offerTo(exporter);
+        trapdoorBuilder(trapdoor, Ingredient.of(planks))
+                .unlockedBy("has_planks", has(planks))
+                .save(output);
 
         // 木板 -> 门
-        createDoorRecipe(door, Ingredient.ofItem(planks))
-                .criterion("has_planks", conditionsFromItem(planks))
-                .offerTo(exporter);
+        doorBuilder(door, Ingredient.of(planks))
+                .unlockedBy("has_planks", has(planks))
+                .save(output);
 
         // 木板 -> 按钮
-        createButtonRecipe(button, Ingredient.ofItem(planks)).
+        buttonBuilder(button, Ingredient.of(planks)).
                 group("wooden_button")
-                .criterion("has_planks", conditionsFromItem(planks))
-                .offerTo(exporter);
+                .unlockedBy("has_planks", has(planks))
+                .save(output);
     }
 
     private void generateIngredient() {
-        createShaped(RecipeCategory.FOOD, MIItems.CHEESE)
+        shaped(RecipeCategory.FOOD, MIItems.CHEESE)
                 .pattern("##")
                 .pattern("##")
-                .input('#', Items.MILK_BUCKET)
-                .criterion("has_milk", conditionsFromItem(Items.MILK_BUCKET))
-                .offerTo(exporter, getRecipeName(MIItems.CHEESE));
-        createShaped(RecipeCategory.FOOD, MIItems.BUTTER)
+                .define('#', Items.MILK_BUCKET)
+                .unlockedBy("has_milk", has(Items.MILK_BUCKET))
+                .save(output, getSimpleRecipeName(MIItems.CHEESE));
+        shaped(RecipeCategory.FOOD, MIItems.BUTTER)
                 .pattern("#")
                 .pattern("#")
                 .pattern("X")
-                .input('#', Items.MILK_BUCKET)
-                .input('X', Items.BOWL)
-                .criterion("has_milk", conditionsFromItem(MIItems.FLOUR))
-                .offerTo(exporter, getRecipeName(MIItems.BUTTER));
-        createShaped(RecipeCategory.FOOD, MIItems.FLOUR)
+                .define('#', Items.MILK_BUCKET)
+                .define('X', Items.BOWL)
+                .unlockedBy("has_milk", has(MIItems.FLOUR))
+                .save(output, getSimpleRecipeName(MIItems.BUTTER));
+        shaped(RecipeCategory.FOOD, MIItems.FLOUR)
                 .pattern("##")
                 .pattern("##")
-                .input('#', Items.WHEAT)
-                .criterion("has_wheat", conditionsFromItem(Items.WHEAT))
-                .offerTo(exporter, getRecipeName(MIItems.FLOUR));
-        createShaped(RecipeCategory.FOOD, MIItems.TOFU)
+                .define('#', Items.WHEAT)
+                .unlockedBy("has_wheat", has(Items.WHEAT))
+                .save(output, getSimpleRecipeName(MIItems.FLOUR));
+        shaped(RecipeCategory.FOOD, MIItems.TOFU)
                 .pattern("##")
                 .pattern("##")
-                .input('#', MIBlocks.SOY_BEANS.getSeed())
-                .criterion("has_soy_beans", conditionsFromItem(MIBlocks.SOY_BEANS.getSeed()))
-                .offerTo(exporter, getRecipeName(MIItems.TOFU));
-        createShaped(RecipeCategory.FOOD, MIItems.CAPSAICIN)
+                .define('#', MIBlocks.SOY_BEANS.getSeed())
+                .unlockedBy("has_soy_beans", has(MIBlocks.SOY_BEANS.getSeed()))
+                .save(output, getSimpleRecipeName(MIItems.TOFU));
+        shaped(RecipeCategory.FOOD, MIItems.CAPSAICIN)
                 .pattern("#")
                 .pattern("X")
-                .input('#', MIItems.CHILI)
-                .input('X', Items.GLASS_BOTTLE)
-                .criterion("has_chili", conditionsFromItem(MIItems.CHILI))
-                .offerTo(exporter, getRecipeName(MIItems.CAPSAICIN));
-        createShaped(RecipeCategory.FOOD, MIItems.CREAM)
+                .define('#', MIItems.CHILI)
+                .define('X', Items.GLASS_BOTTLE)
+                .unlockedBy("has_chili", has(MIItems.CHILI))
+                .save(output, getSimpleRecipeName(MIItems.CAPSAICIN));
+        shaped(RecipeCategory.FOOD, MIItems.CREAM)
                 .pattern("#")
                 .pattern("#")
                 .pattern("X")
-                .input('#', Items.MILK_BUCKET)
-                .input('X', Items.GLASS_BOTTLE)
-                .criterion("has_chili", conditionsFromItem(MIItems.CHILI))
-                .offerTo(exporter, getRecipeName(MIItems.CREAM));
+                .define('#', Items.MILK_BUCKET)
+                .define('X', Items.GLASS_BOTTLE)
+                .unlockedBy("has_chili", has(MIItems.CHILI))
+                .save(output, getSimpleRecipeName(MIItems.CREAM));
 
-        offerSmelting(List.of(MIItems.BLACK_PORK, MIItems.WILD_BOAR_MEAT), RecipeCategory.MISC, Items.COOKED_PORKCHOP, 0.7F, 160, "food");
+        oreSmelting(List.of(MIItems.BLACK_PORK, MIItems.WILD_BOAR_MEAT), RecipeCategory.MISC, Items.COOKED_PORKCHOP, 0.7F, 160, "food");
 
 //        createShaped(RecipeCategory.FOOD, MIItems.FLOWERS)
 //                .pattern("##")
@@ -366,131 +365,131 @@ public class ModRecipeGenerator extends RecipeGenerator {
 
     private void generateMusicBlock() {
         // 音乐盒
-        createShaped(RecipeCategory.REDSTONE, ModBlocks.MUSIC_BLOCK)
+        shaped(RecipeCategory.REDSTONE, ModBlocks.MUSIC_BLOCK)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', Items.EMERALD)
-                .input('#', Items.NOTE_BLOCK)
-                .criterion("has_emerald", conditionsFromItem(Items.EMERALD))
-                .offerTo(exporter, getRecipeName(ModBlocks.MUSIC_BLOCK));
+                .define('X', Items.EMERALD)
+                .define('#', Items.NOTE_BLOCK)
+                .unlockedBy("has_emerald", has(Items.EMERALD))
+                .save(output, getSimpleRecipeName(ModBlocks.MUSIC_BLOCK));
         // 小提琴
-        createShaped(RecipeCategory.TOOLS, ModItems.VIOLIN)
+        shaped(RecipeCategory.TOOLS, ModItems.VIOLIN)
                 .pattern(" X ")
                 .pattern("XYX")
                 .pattern("X#X")
-                .input('X', Items.SPRUCE_PLANKS)
-                .input('Y', Items.STRING)
-                .input('#', ModBlocks.MUSIC_BLOCK)
-                .criterion("has_music_block", conditionsFromItem(ModBlocks.MUSIC_BLOCK))
-                .offerTo(exporter, getRecipeName(ModItems.VIOLIN));
+                .define('X', Items.SPRUCE_PLANKS)
+                .define('Y', Items.STRING)
+                .define('#', ModBlocks.MUSIC_BLOCK)
+                .unlockedBy("has_music_block", has(ModBlocks.MUSIC_BLOCK))
+                .save(output, getSimpleRecipeName(ModItems.VIOLIN));
         // 键盘
-        createShaped(RecipeCategory.TOOLS, ModItems.KEYBOARD)
+        shaped(RecipeCategory.TOOLS, ModItems.KEYBOARD)
                 .pattern("XYX")
                 .pattern("YXY")
                 .pattern("Z#W")
-                .input('X', Items.BLACK_WOOL)
-                .input('Y', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
-                .input('Z', Items.STONE_BUTTON)
-                .input('W', Items.REDSTONE)
-                .input('#', ModBlocks.MUSIC_BLOCK)
-                .criterion("has_music_block", conditionsFromItem(ModBlocks.MUSIC_BLOCK))
-                .offerTo(exporter, getRecipeName(ModItems.KEYBOARD));
+                .define('X', Items.BLACK_WOOL)
+                .define('Y', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
+                .define('Z', Items.STONE_BUTTON)
+                .define('W', Items.REDSTONE)
+                .define('#', ModBlocks.MUSIC_BLOCK)
+                .unlockedBy("has_music_block", has(ModBlocks.MUSIC_BLOCK))
+                .save(output, getSimpleRecipeName(ModItems.KEYBOARD));
         // 小号
-        createShaped(RecipeCategory.TOOLS, ModItems.TRUMPET)
+        shaped(RecipeCategory.TOOLS, ModItems.TRUMPET)
                 .pattern("XXX")
                 .pattern("XY#")
                 .pattern("ZYX")
-                .input('X', Items.GOLD_INGOT)
-                .input('Y', Items.STONE_BUTTON)
-                .input('Z', Items.REDSTONE)
-                .input('#', ModBlocks.MUSIC_BLOCK)
-                .criterion("has_music_block", conditionsFromItem(ModBlocks.MUSIC_BLOCK))
-                .offerTo(exporter, getRecipeName(ModItems.TRUMPET));
+                .define('X', Items.GOLD_INGOT)
+                .define('Y', Items.STONE_BUTTON)
+                .define('Z', Items.REDSTONE)
+                .define('#', ModBlocks.MUSIC_BLOCK)
+                .unlockedBy("has_music_block", has(ModBlocks.MUSIC_BLOCK))
+                .save(output, getSimpleRecipeName(ModItems.TRUMPET));
     }
 
     private void generateWorkBlock() {
         // 弹幕工作台
-        createShaped(RecipeCategory.DECORATIONS, ModBlocks.DANMAKU_CRAFTING_TABLE)
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.DANMAKU_CRAFTING_TABLE)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', Items.REDSTONE)
-                .input('#', Items.CRAFTING_TABLE)
-                .criterion("has_redstone", conditionsFromItem(Items.REDSTONE))
-                .offerTo(exporter, getRecipeName(ModBlocks.DANMAKU_CRAFTING_TABLE));
+                .define('X', Items.REDSTONE)
+                .define('#', Items.CRAFTING_TABLE)
+                .unlockedBy("has_redstone", has(Items.REDSTONE))
+                .save(output, getSimpleRecipeName(ModBlocks.DANMAKU_CRAFTING_TABLE));
 
         // 幻想乡祭坛
-        createShaped(RecipeCategory.DECORATIONS, ModBlocks.GENSOKYO_ALTAR)
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.GENSOKYO_ALTAR)
                 .pattern("X")
                 .pattern("#")
-                .input('X', Items.EMERALD_BLOCK)
-                .input('#', Items.ENCHANTING_TABLE)
-                .criterion("has_emerald", conditionsFromItem(Items.EMERALD_BLOCK))
-                .offerTo(exporter, getRecipeName(ModBlocks.GENSOKYO_ALTAR));
+                .define('X', Items.EMERALD_BLOCK)
+                .define('#', Items.ENCHANTING_TABLE)
+                .unlockedBy("has_emerald", has(Items.EMERALD_BLOCK))
+                .save(output, getSimpleRecipeName(ModBlocks.GENSOKYO_ALTAR));
 
         // 强化台
-        createShaped(RecipeCategory.DECORATIONS, ModBlocks.STRENGTH_TABLE)
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.STRENGTH_TABLE)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', ModItems.SILVER_INGOT)
-                .input('#', Items.ENCHANTING_TABLE)
-                .criterion("has_silver", conditionsFromItem(ModItems.SILVER_INGOT))
-                .offerTo(exporter, getRecipeName(ModBlocks.STRENGTH_TABLE));
+                .define('X', ModItems.SILVER_INGOT)
+                .define('#', Items.ENCHANTING_TABLE)
+                .unlockedBy("has_silver", has(ModItems.SILVER_INGOT))
+                .save(output, getSimpleRecipeName(ModBlocks.STRENGTH_TABLE));
     }
 
     private void generateOrb() {
         // 宝玉 / 宝玉块
-        offerIngotToBlockRecipe(exporter, ModItems.RED_ORB, ModBlocks.RED_ORB_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.RED_ORB_BLOCK.asItem(), ModItems.RED_ORB);
+        offerIngotToBlockRecipe(output, ModItems.RED_ORB, ModBlocks.RED_ORB_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.RED_ORB_BLOCK.asItem(), ModItems.RED_ORB);
 
-        offerIngotToBlockRecipe(exporter, ModItems.YELLOW_ORB, ModBlocks.YELLOW_ORB_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.YELLOW_ORB_BLOCK.asItem(), ModItems.YELLOW_ORB);
+        offerIngotToBlockRecipe(output, ModItems.YELLOW_ORB, ModBlocks.YELLOW_ORB_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.YELLOW_ORB_BLOCK.asItem(), ModItems.YELLOW_ORB);
 
-        offerIngotToBlockRecipe(exporter, ModItems.BLUE_ORB, ModBlocks.BLUE_ORB_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.BLUE_ORB_BLOCK.asItem(), ModItems.BLUE_ORB);
+        offerIngotToBlockRecipe(output, ModItems.BLUE_ORB, ModBlocks.BLUE_ORB_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.BLUE_ORB_BLOCK.asItem(), ModItems.BLUE_ORB);
 
-        offerIngotToBlockRecipe(exporter, ModItems.GREEN_ORB, ModBlocks.GREEN_ORB_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.GREEN_ORB_BLOCK.asItem(), ModItems.GREEN_ORB);
+        offerIngotToBlockRecipe(output, ModItems.GREEN_ORB, ModBlocks.GREEN_ORB_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.GREEN_ORB_BLOCK.asItem(), ModItems.GREEN_ORB);
 
-        offerIngotToBlockRecipe(exporter, ModItems.PURPLE_ORB, ModBlocks.PURPLE_ORB_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.PURPLE_ORB_BLOCK.asItem(), ModItems.PURPLE_ORB);
+        offerIngotToBlockRecipe(output, ModItems.PURPLE_ORB, ModBlocks.PURPLE_ORB_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.PURPLE_ORB_BLOCK.asItem(), ModItems.PURPLE_ORB);
 
     }
 
     private void generateSilver() {
         // 银武器/工具
-        offerSwordRecipe(exporter, ModItems.SILVER_SWORD, ModItems.SILVER_INGOT);
-        offerPickaxeRecipe(exporter, ModItems.SILVER_PICKAXE, ModItems.SILVER_INGOT);
-        offerAxeRecipe(exporter, ModItems.SILVER_AXE, ModItems.SILVER_INGOT);
-        offerShovelRecipe(exporter, ModItems.SILVER_SHOVEL, ModItems.SILVER_INGOT);
-        offerHoeRecipe(exporter, ModItems.SILVER_HOE, ModItems.SILVER_INGOT);
+        offerSwordRecipe(output, ModItems.SILVER_SWORD, ModItems.SILVER_INGOT);
+        offerPickaxeRecipe(output, ModItems.SILVER_PICKAXE, ModItems.SILVER_INGOT);
+        offerAxeRecipe(output, ModItems.SILVER_AXE, ModItems.SILVER_INGOT);
+        offerShovelRecipe(output, ModItems.SILVER_SHOVEL, ModItems.SILVER_INGOT);
+        offerHoeRecipe(output, ModItems.SILVER_HOE, ModItems.SILVER_INGOT);
 
         // 银盔甲
-        offerHelmetRecipe(exporter, ModItems.SILVER_HELMET, ModItems.SILVER_INGOT);
-        offerChestplateRecipe(exporter, ModItems.SILVER_CHESTPLATE, ModItems.SILVER_INGOT);
-        offerLeggingsRecipe(exporter, ModItems.SILVER_LEGGINGS, ModItems.SILVER_INGOT);
-        offerBootsRecipe(exporter, ModItems.SILVER_BOOTS, ModItems.SILVER_INGOT);
+        offerHelmetRecipe(output, ModItems.SILVER_HELMET, ModItems.SILVER_INGOT);
+        offerChestplateRecipe(output, ModItems.SILVER_CHESTPLATE, ModItems.SILVER_INGOT);
+        offerLeggingsRecipe(output, ModItems.SILVER_LEGGINGS, ModItems.SILVER_INGOT);
+        offerBootsRecipe(output, ModItems.SILVER_BOOTS, ModItems.SILVER_INGOT);
 
         // 银粒 / 锭 / 块
-        offerIngotToBlockRecipe(exporter, ModItems.SILVER_NUGGET, ModItems.SILVER_INGOT);
-        offerBlockToIngotRecipe(exporter, ModItems.SILVER_INGOT, ModItems.SILVER_NUGGET);
-        offerIngotToBlockRecipe(exporter, ModItems.SILVER_INGOT, ModBlocks.SILVER_BLOCK.asItem());
-        offerBlockToIngotRecipe(exporter, ModBlocks.SILVER_BLOCK.asItem(), ModItems.SILVER_INGOT);
+        offerIngotToBlockRecipe(output, ModItems.SILVER_NUGGET, ModItems.SILVER_INGOT);
+        offerBlockToIngotRecipe(output, ModItems.SILVER_INGOT, ModItems.SILVER_NUGGET);
+        offerIngotToBlockRecipe(output, ModItems.SILVER_INGOT, ModBlocks.SILVER_BLOCK.asItem());
+        offerBlockToIngotRecipe(output, ModBlocks.SILVER_BLOCK.asItem(), ModItems.SILVER_INGOT);
 
-        createShaped(RecipeCategory.DECORATIONS, ModBlocks.SILVER_CHEST_BLOCK.chestBlock())
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.SILVER_CHEST_BLOCK.chestBlock())
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
-                .input('X', ModItems.SILVER_INGOT)
-                .input('#', Items.CHEST)
-                .criterion("has_silver", conditionsFromItem(ModItems.SILVER_INGOT))
-                .offerTo(exporter, getRecipeName(ModBlocks.SILVER_CHEST_BLOCK.chestBlock()));
+                .define('X', ModItems.SILVER_INGOT)
+                .define('#', Items.CHEST)
+                .unlockedBy("has_silver", has(ModItems.SILVER_INGOT))
+                .save(output, getSimpleRecipeName(ModBlocks.SILVER_CHEST_BLOCK.chestBlock()));
 
         // 烧银矿
-        offerSmelting(SILVER, RecipeCategory.MISC, ModItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
-        offerBlasting(SILVER, RecipeCategory.MISC, ModItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
+        oreSmelting(SILVER, RecipeCategory.MISC, ModItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
+        oreBlasting(SILVER, RecipeCategory.MISC, ModItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
 
     }
 
@@ -506,128 +505,128 @@ public class ModRecipeGenerator extends RecipeGenerator {
         for (Map.Entry<Item, Item> itemItemEntry : itemItemMap.entrySet()) {
             Item left = itemItemEntry.getKey();
             Item right = itemItemEntry.getValue();
-            createShaped(RecipeCategory.REDSTONE, right)
+            shaped(RecipeCategory.REDSTONE, right)
                     .pattern("XXX")
                     .pattern("X#X")
                     .pattern("XXX")
-                    .input('X', ItemTags.WOOL)
-                    .input('#', left)
-                    .criterion("has_wool", conditionsFromTag(ItemTags.WOOL))
-                    .offerTo(exporter, getRecipeName(right));
+                    .define('X', ItemTags.WOOL)
+                    .define('#', left)
+                    .unlockedBy("has_wool", has(ItemTags.WOOL))
+                    .save(output, getSimpleRecipeName(right));
         }
     }
 
     private void generateMagicIce() {
-        offerSmelting(List.of(ModBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, ModItems.ICE_SCALES, 0.7F, 140, "silver_ingot");
-        offerBlasting(List.of(ModBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, ModItems.ICE_SCALES, 0.7F, 70, "silver_ingot");
+        oreSmelting(List.of(ModBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, ModItems.ICE_SCALES, 0.7F, 140, "silver_ingot");
+        oreBlasting(List.of(ModBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, ModItems.ICE_SCALES, 0.7F, 70, "silver_ingot");
         // 魔法冰
-        createShaped(RecipeCategory.DECORATIONS, ModBlocks.MAGIC_ICE_BLOCK)
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.MAGIC_ICE_BLOCK)
                 .pattern("XX")
                 .pattern("XX")
-                .input('X', Items.ICE)
-                .criterion("has_ice", conditionsFromItem(Items.ICE))
-                .offerTo(exporter, getRecipeName(ModBlocks.MAGIC_ICE_BLOCK));
+                .define('X', Items.ICE)
+                .unlockedBy("has_ice", has(Items.ICE))
+                .save(output, getSimpleRecipeName(ModBlocks.MAGIC_ICE_BLOCK));
 
         // 冰武器/工具
-        offerSwordRecipe(exporter, ModItems.MAGIC_ICE_SWORD, ModItems.ICE_SCALES);
-        offerPickaxeRecipe(exporter, ModItems.MAGIC_ICE_PICKAXE, ModItems.ICE_SCALES);
-        offerAxeRecipe(exporter, ModItems.MAGIC_ICE_AXE, ModItems.ICE_SCALES);
-        offerShovelRecipe(exporter, ModItems.MAGIC_ICE_SHOVEL, ModItems.ICE_SCALES);
-        offerHoeRecipe(exporter, ModItems.MAGIC_ICE_HOE, ModItems.ICE_SCALES);
+        offerSwordRecipe(output, ModItems.MAGIC_ICE_SWORD, ModItems.ICE_SCALES);
+        offerPickaxeRecipe(output, ModItems.MAGIC_ICE_PICKAXE, ModItems.ICE_SCALES);
+        offerAxeRecipe(output, ModItems.MAGIC_ICE_AXE, ModItems.ICE_SCALES);
+        offerShovelRecipe(output, ModItems.MAGIC_ICE_SHOVEL, ModItems.ICE_SCALES);
+        offerHoeRecipe(output, ModItems.MAGIC_ICE_HOE, ModItems.ICE_SCALES);
 
         // 冰盔甲
-        offerHelmetRecipe(exporter, ModItems.MAGIC_ICE_HELMET, ModBlocks.MAGIC_ICE_BLOCK.asItem());
-        offerChestplateRecipe(exporter, ModItems.MAGIC_ICE_CHESTPLATE, ModBlocks.MAGIC_ICE_BLOCK.asItem());
-        offerLeggingsRecipe(exporter, ModItems.MAGIC_ICE_LEGGINGS, ModBlocks.MAGIC_ICE_BLOCK.asItem());
-        offerBootsRecipe(exporter, ModItems.MAGIC_ICE_BOOTS, ModBlocks.MAGIC_ICE_BLOCK.asItem());
+        offerHelmetRecipe(output, ModItems.MAGIC_ICE_HELMET, ModBlocks.MAGIC_ICE_BLOCK.asItem());
+        offerChestplateRecipe(output, ModItems.MAGIC_ICE_CHESTPLATE, ModBlocks.MAGIC_ICE_BLOCK.asItem());
+        offerLeggingsRecipe(output, ModItems.MAGIC_ICE_LEGGINGS, ModBlocks.MAGIC_ICE_BLOCK.asItem());
+        offerBootsRecipe(output, ModItems.MAGIC_ICE_BOOTS, ModBlocks.MAGIC_ICE_BLOCK.asItem());
 
     }
 
     private void generateDream() {
         // 梦境水晶武器/工具
-        offerSwordRecipe(exporter, ModItems.DREAM_SWORD, ModItems.DREAM_CRYSTAL_FRAGMENT);
-        offerPickaxeRecipe(exporter, ModItems.DREAM_PICKAXE, ModItems.DREAM_CRYSTAL_FRAGMENT);
-        offerAxeRecipe(exporter, ModItems.DREAM_AXE, ModItems.DREAM_CRYSTAL_FRAGMENT);
-        offerShovelRecipe(exporter, ModItems.DREAM_SHOVEL, ModItems.DREAM_CRYSTAL_FRAGMENT);
-        offerHoeRecipe(exporter, ModItems.DREAM_HOE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerSwordRecipe(output, ModItems.DREAM_SWORD, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerPickaxeRecipe(output, ModItems.DREAM_PICKAXE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerAxeRecipe(output, ModItems.DREAM_AXE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerShovelRecipe(output, ModItems.DREAM_SHOVEL, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerHoeRecipe(output, ModItems.DREAM_HOE, ModItems.DREAM_CRYSTAL_FRAGMENT);
 
         // 梦境水晶盔甲
-        offerHelmetRecipe(exporter, ModItems.DREAM_HELMET, ModItems.DREAM_CRYSTAL_FRAGMENT);
-        offerChestplateRecipe(exporter, ModItems.DREAM_CHESTPLATE, ModItems.DREAM_CRYSTAL_FRAGMENT);
-        offerLeggingsRecipe(exporter, ModItems.DREAM_LEGGINGS, ModItems.DREAM_CRYSTAL_FRAGMENT);
-        offerBootsRecipe(exporter, ModItems.DREAM_BOOTS, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerHelmetRecipe(output, ModItems.DREAM_HELMET, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerChestplateRecipe(output, ModItems.DREAM_CHESTPLATE, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerLeggingsRecipe(output, ModItems.DREAM_LEGGINGS, ModItems.DREAM_CRYSTAL_FRAGMENT);
+        offerBootsRecipe(output, ModItems.DREAM_BOOTS, ModItems.DREAM_CRYSTAL_FRAGMENT);
 
         // 烧梦境水晶矿
-        offerSmelting(DREAM, RecipeCategory.MISC, ModItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
-        offerBlasting(DREAM, RecipeCategory.MISC, ModItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
+        oreSmelting(DREAM, RecipeCategory.MISC, ModItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
+        oreBlasting(DREAM, RecipeCategory.MISC, ModItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
 
     }
 
     private void generateMIPlant2Ingredient() {
-        createShaped(RecipeCategory.FOOD, MIItems.UDUMBARA)
+        shaped(RecipeCategory.FOOD, MIItems.UDUMBARA)
                 .pattern("#")
-                .input('#', MIBlocks.UDUMBARA_FLOWER)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIItems.UDUMBARA));
-        createShaped(RecipeCategory.FOOD, MIItems.TREMELLA)
+                .define('#', MIBlocks.UDUMBARA_FLOWER)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIItems.UDUMBARA));
+        shaped(RecipeCategory.FOOD, MIItems.TREMELLA)
                 .pattern("#")
-                .input('#', MIBlocks.TREMELLA)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIItems.TREMELLA));
+                .define('#', MIBlocks.TREMELLA)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIItems.TREMELLA));
     }
 
     private void generateMICookRecipe() {
         // 厨具
-        createShaped(RecipeCategory.DECORATIONS, MIBlocks.COOKING_POT)
+        shaped(RecipeCategory.DECORATIONS, MIBlocks.COOKING_POT)
                 .pattern(" Y ")
                 .pattern("X X")
                 .pattern("XXX")
-                .input('X', Items.IRON_INGOT)
-                .input('Y', Items.IRON_NUGGET)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIBlocks.COOKING_POT));
+                .define('X', Items.IRON_INGOT)
+                .define('Y', Items.IRON_NUGGET)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIBlocks.COOKING_POT));
 
-        createShaped(RecipeCategory.DECORATIONS, MIBlocks.CUTTING_BOARD)
+        shaped(RecipeCategory.DECORATIONS, MIBlocks.CUTTING_BOARD)
                 .pattern(" Y ")
                 .pattern("XXX")
-                .input('X', Items.OAK_SLAB)
-                .input('Y', Items.IRON_SWORD)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIBlocks.CUTTING_BOARD));
+                .define('X', Items.OAK_SLAB)
+                .define('Y', Items.IRON_SWORD)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIBlocks.CUTTING_BOARD));
 
-        createShaped(RecipeCategory.DECORATIONS, MIBlocks.FRYING_PAN)
+        shaped(RecipeCategory.DECORATIONS, MIBlocks.FRYING_PAN)
                 .pattern(" XX")
                 .pattern(" XX")
                 .pattern("Y  ")
-                .input('X', Items.IRON_INGOT)
-                .input('Y', Items.IRON_NUGGET)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIBlocks.FRYING_PAN));
+                .define('X', Items.IRON_INGOT)
+                .define('Y', Items.IRON_NUGGET)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIBlocks.FRYING_PAN));
 
-        createShaped(RecipeCategory.DECORATIONS, MIBlocks.GRILL)
+        shaped(RecipeCategory.DECORATIONS, MIBlocks.GRILL)
                 .pattern("YYY")
                 .pattern("X X")
                 .pattern("XXX")
-                .input('X', Items.IRON_INGOT)
-                .input('Y', Items.IRON_NUGGET)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIBlocks.GRILL));
+                .define('X', Items.IRON_INGOT)
+                .define('Y', Items.IRON_NUGGET)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIBlocks.GRILL));
 
-        createShaped(RecipeCategory.DECORATIONS, MIBlocks.STEAMER)
+        shaped(RecipeCategory.DECORATIONS, MIBlocks.STEAMER)
                 .pattern("YYY")
                 .pattern("X X")
                 .pattern("XXX")
-                .input('X', Items.IRON_INGOT)
-                .input('Y', Items.OAK_SLAB)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIBlocks.STEAMER));
-        createShaped(RecipeCategory.DECORATIONS, MIBlocks.ITEM_DISPLAY)
+                .define('X', Items.IRON_INGOT)
+                .define('Y', Items.OAK_SLAB)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIBlocks.STEAMER));
+        shaped(RecipeCategory.DECORATIONS, MIBlocks.ITEM_DISPLAY)
                 .pattern("YXY")
                 .pattern(" Y ")
-                .input('X', Items.ITEM_FRAME)
-                .input('Y', Items.QUARTZ)
-                .criterion("always", conditionsFromItem(Items.AIR))
-                .offerTo(exporter, getRecipeName(MIBlocks.ITEM_DISPLAY));
+                .define('X', Items.ITEM_FRAME)
+                .define('Y', Items.QUARTZ)
+                .unlockedBy("always", has(Items.AIR))
+                .save(output, getSimpleRecipeName(MIBlocks.ITEM_DISPLAY));
 
         this.offerMIUpgradeRecipes();
 //        // 能量罩
@@ -682,144 +681,144 @@ public class ModRecipeGenerator extends RecipeGenerator {
         for (Map.Entry<Block, Block> entry : entries) {
             Block key = entry.getKey();
             Block value = entry.getValue();
-            createShaped(RecipeCategory.DECORATIONS, value)
+            shaped(RecipeCategory.DECORATIONS, value)
                     .pattern("YYY")
                     .pattern("YXY")
                     .pattern("YYY")
-                    .input('X', key)
-                    .input('Y', upgradeMaterial)
-                    .criterion("always", conditionsFromItem(Items.AIR))
-                    .offerTo(exporter, getRecipeName(value));
+                    .define('X', key)
+                    .define('Y', upgradeMaterial)
+                    .unlockedBy("always", has(Items.AIR))
+                    .save(output, getSimpleRecipeName(value));
         }
     }
 
-    private void offerSwordRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.COMBAT, result)
+    private void offerSwordRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.COMBAT, result)
                 .pattern("X")
                 .pattern("X")
                 .pattern("#")
-                .input('X', ingot)
-                .input('#', Items.STICK)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .define('#', Items.STICK)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerPickaxeRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.TOOLS, result)
+    private void offerPickaxeRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.TOOLS, result)
                 .pattern("XXX")
                 .pattern(" # ")
                 .pattern(" # ")
-                .input('X', ingot)
-                .input('#', Items.STICK)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .define('#', Items.STICK)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerAxeRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.TOOLS, result)
+    private void offerAxeRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.TOOLS, result)
                 .pattern("XX")
                 .pattern("X#")
                 .pattern(" #")
-                .input('X', ingot)
-                .input('#', Items.STICK)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .define('#', Items.STICK)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerShovelRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.TOOLS, result)
+    private void offerShovelRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.TOOLS, result)
                 .pattern("X")
                 .pattern("#")
                 .pattern("#")
-                .input('X', ingot)
-                .input('#', Items.STICK)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .define('#', Items.STICK)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerHoeRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.TOOLS, result)
+    private void offerHoeRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.TOOLS, result)
                 .pattern("XX")
                 .pattern(" #")
                 .pattern(" #")
-                .input('X', ingot)
-                .input('#', Items.STICK)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .define('#', Items.STICK)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerHelmetRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.COMBAT, result)
+    private void offerHelmetRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.COMBAT, result)
                 .pattern("XXX")
                 .pattern("X X")
-                .input('X', ingot)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerChestplateRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.COMBAT, result)
+    private void offerChestplateRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.COMBAT, result)
                 .pattern("X X")
                 .pattern("XXX")
                 .pattern("XXX")
-                .input('X', ingot)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerLeggingsRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.COMBAT, result)
+    private void offerLeggingsRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.COMBAT, result)
                 .pattern("XXX")
                 .pattern("X X")
                 .pattern("X X")
-                .input('X', ingot)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offerBootsRecipe(RecipeExporter exporter, Item result, Item ingot) {
-        createShaped(RecipeCategory.COMBAT, result)
+    private void offerBootsRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.COMBAT, result)
                 .pattern("X X")
                 .pattern("X X")
-                .input('X', ingot)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(result));
+                .define('X', ingot)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
     }
 
-    private void offer4To1Recipe(RecipeExporter exporter, Item input, Item export) {
-        Identifier id = Registries.ITEM.getId(input);
-        createShaped(RecipeCategory.BUILDING_BLOCKS, export)
+    private void offer4To1Recipe(RecipeOutput exporter, Item input, Item export) {
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(input);
+        shaped(RecipeCategory.BUILDING_BLOCKS, export)
                 .pattern("XX")
                 .pattern("XX")
-                .input('X', input)
-                .criterion("has_" + id.getPath(), conditionsFromItem(input))
-                .offerTo(exporter, getRecipeName(export));
+                .define('X', input)
+                .unlockedBy("has_" + id.getPath(), has(input))
+                .save(exporter, getSimpleRecipeName(export));
     }
 
-    private void offer1To4Recipe(RecipeExporter exporter, Item input, Item export) {
-        Identifier id = Registries.ITEM.getId(input);
-        createShaped(RecipeCategory.BUILDING_BLOCKS, export, 4)
+    private void offer1To4Recipe(RecipeOutput exporter, Item input, Item export) {
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(input);
+        shaped(RecipeCategory.BUILDING_BLOCKS, export, 4)
                 .pattern("X")
-                .input('X', input)
-                .criterion("has_" + id.getPath(), conditionsFromItem(input))
-                .offerTo(exporter, getRecipeName(export));
+                .define('X', input)
+                .unlockedBy("has_" + id.getPath(), has(input))
+                .save(exporter, getSimpleRecipeName(export));
     }
 
-    private void offerIngotToBlockRecipe(RecipeExporter exporter, Item ingot, Item block) {
-        createShaped(RecipeCategory.BUILDING_BLOCKS, block)
+    private void offerIngotToBlockRecipe(RecipeOutput exporter, Item ingot, Item block) {
+        shaped(RecipeCategory.BUILDING_BLOCKS, block)
                 .pattern("XXX")
                 .pattern("XXX")
                 .pattern("XXX")
-                .input('X', ingot)
-                .criterion("has_ingot", conditionsFromItem(ingot))
-                .offerTo(exporter, getRecipeName(block));
+                .define('X', ingot)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(block));
     }
 
-    private void offerBlockToIngotRecipe(RecipeExporter exporter, Item block, Item ingot) {
-        createShapeless(RecipeCategory.MISC, ingot, 9)
-                .input(block)
-                .criterion("has_block", conditionsFromItem(block))
-                .offerTo(exporter, getRecipeName(ingot) + "_from_block");
+    private void offerBlockToIngotRecipe(RecipeOutput exporter, Item block, Item ingot) {
+        shapeless(RecipeCategory.MISC, ingot, 9)
+                .requires(block)
+                .unlockedBy("has_block", has(block))
+                .save(exporter, getSimpleRecipeName(ingot) + "_from_block");
     }
 
 

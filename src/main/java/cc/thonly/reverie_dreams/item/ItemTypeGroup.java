@@ -3,11 +3,10 @@ package cc.thonly.reverie_dreams.item;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import lombok.Getter;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ShovelItem;
-
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ShovelItem;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;

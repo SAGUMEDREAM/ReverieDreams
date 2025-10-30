@@ -3,19 +3,19 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 public class EatGoal extends Goal {
     private final BaseNPCLikeEntity maid;
@@ -29,7 +29,7 @@ public class EatGoal extends Goal {
 
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (GensokyoSkinTypes.YUYUKO.get().equals(this.maid.getSkin())){
             return maid.getNutrition() < 20;
         }
@@ -44,7 +44,7 @@ public class EatGoal extends Goal {
     @Override
     public void tick() {
         dealyTick--;
-        ServerWorld world = (ServerWorld) maid.getWorld();
+        ServerLevel world = (ServerLevel) maid.level();
         if (dealyTick <= 0) {
             stop();
             return;
@@ -53,31 +53,31 @@ public class EatGoal extends Goal {
             findFood();
             return;
         }
-        ItemStack stack = maid.getInventory().getStack(slot);
+        ItemStack stack = maid.getInventory().getItem(slot);
         if (((IItemStack) (Object) stack).isFood()) {
 
-            Vec3d eyePos = maid.getEyePos();
+            Vec3 eyePos = maid.getEyePosition();
 
             //干饭粒子
-            world.spawnParticles(
-                    new ItemStackParticleEffect(ParticleTypes.ITEM, stack), // 粒子类型 + 物品
-                    eyePos.x + maid.getRotationVector().x / 3.0, eyePos.y, eyePos.z + maid.getRotationVector().x / 3.0,
+            world.sendParticles(
+                    new ItemParticleOption(ParticleTypes.ITEM, stack), // 粒子类型 + 物品
+                    eyePos.x + maid.getLookAngle().x / 3.0, eyePos.y, eyePos.z + maid.getLookAngle().x / 3.0,
                     2,
                     world.random.nextGaussian() * 0.05, world.random.nextGaussian() * 0.05, world.random.nextGaussian() * 0.05
                     , world.random.nextGaussian() * 0.05
             );
             //干饭声音
             if (dealyTick % 3 == 0) {
-                maid.swingHand(Hand.MAIN_HAND);
+                maid.swing(InteractionHand.MAIN_HAND);
                 world.playSound(
                         null,
                         maid.getX(),
                         maid.getY(),
                         maid.getZ(),
-                        SoundEvents.ENTITY_GENERIC_EAT,
-                        SoundCategory.AMBIENT,
+                        SoundEvents.GENERIC_EAT,
+                        SoundSource.AMBIENT,
                         0.5F,
-                        MathHelper.nextBetween(world.random, 0.9F, 1.0F)
+                        Mth.randomBetween(world.random, 0.9F, 1.0F)
                 );
             }
         } else findFood();
@@ -109,29 +109,29 @@ public class EatGoal extends Goal {
     }
 
     public void eat() {
-        ServerWorld world = (ServerWorld) maid.getWorld();
+        ServerLevel world = (ServerLevel) maid.level();
         if (dealyTick > 0 || slot == -1) {
             return;
         }
-        ItemStack stack = maid.getInventory().getStack(slot);
+        ItemStack stack = maid.getInventory().getItem(slot);
         if (((IItemStack) (Object) stack).isFood()) {
-            ComponentMap components = stack.getComponents();
-            FoodComponent foodComponent = components.get(DataComponentTypes.FOOD);
+            DataComponentMap components = stack.getComponents();
+            FoodProperties foodComponent = components.get(DataComponents.FOOD);
             if (foodComponent != null) {
                 int nutritionValue = foodComponent.nutrition();
                 int saturationValue = Math.round(foodComponent.saturation());
                 maid.setNutrition(maid.getNutrition() + nutritionValue);
                 maid.setSaturation(maid.getSaturation() + saturationValue);
-                stack.decrement(1);
+                stack.shrink(1);
                 world.playSound(
                         null,
                         maid.getX(),
                         maid.getY(),
                         maid.getZ(),
-                        SoundEvents.ENTITY_PLAYER_BURP,
-                        SoundCategory.AMBIENT,
+                        SoundEvents.PLAYER_BURP,
+                        SoundSource.AMBIENT,
                         0.5F,
-                        MathHelper.nextBetween(world.random, 0.9F, 1.0F)
+                        Mth.randomBetween(world.random, 0.9F, 1.0F)
                 );
             }
         }

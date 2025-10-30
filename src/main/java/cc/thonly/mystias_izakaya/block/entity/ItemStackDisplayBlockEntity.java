@@ -10,14 +10,13 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,21 +31,21 @@ public class ItemStackDisplayBlockEntity extends BlockEntity {
     }
 
     public void update() {
-        if (!(this.getWorld() instanceof ServerWorld serverWorld)) {
+        if (!(this.getLevel() instanceof ServerLevel serverWorld)) {
             return;
         }
         Map<Long, ItemStackDisplayImpl.Model> longModelMap = ItemStackDisplayImpl.MAPPING.computeIfAbsent(serverWorld, w -> new Object2ObjectOpenHashMap<>());
-        var model = longModelMap.get(this.getPos().asLong());
-        if (!(this.getCachedState().getBlock() instanceof ItemStackDisplay)) {
+        var model = longModelMap.get(this.getBlockPos().asLong());
+        if (!(this.getBlockState().getBlock() instanceof ItemStackDisplay)) {
             return;
         }
         if (model != null) {
-            model.updateItem(this.getCachedState());
+            model.updateItem(this.getBlockState());
         }
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, ItemStackDisplayBlockEntity blockEntity) {
-        if (!(world instanceof ServerWorld serverWorld)) {
+    public static void tick(Level world, BlockPos pos, BlockState state, ItemStackDisplayBlockEntity blockEntity) {
+        if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
 
@@ -59,20 +58,20 @@ public class ItemStackDisplayBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
         Optional<ItemStackWrapper> itemOptional = view.read("Item", ItemStackWrapper.CODEC);
         itemOptional.ifPresent(wrapper -> this.item = wrapper);
-        this.yaw = view.getDouble("Yaw", 0);
+        this.yaw = view.getDoubleOr("Yaw", 0);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
         DataResult<JsonElement> dataResult = ItemStackWrapper.CODEC.encodeStart(JsonOps.INSTANCE, this.item);
         Optional<JsonElement> result = dataResult.result();
         if (result.isPresent()) {
-            view.put("Item", ItemStackWrapper.CODEC, this.item);
+            view.store("Item", ItemStackWrapper.CODEC, this.item);
         }
         view.putDouble("Yaw", this.yaw);
     }

@@ -11,39 +11,39 @@ import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
-import net.minecraft.block.entity.BedBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.s2c.play.PositionFlag;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Relative;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BedBlockEntity;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -62,10 +62,10 @@ import java.util.stream.Stream;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements ILivingEntity {
     @Shadow
-    public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
+    public abstract boolean hasEffect(Holder<MobEffect> effect);
 
     @Shadow
-    public abstract boolean addStatusEffect(StatusEffectInstance effect);
+    public abstract boolean addEffect(MobEffectInstance effect);
 
     @Shadow
     public abstract void setHealth(float health);
@@ -85,16 +85,16 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Shadow
     @Nullable
-    public abstract EntityAttributeInstance getAttributeInstance(RegistryEntry<EntityAttribute> attribute);
+    public abstract AttributeInstance getAttribute(Holder<Attribute> attribute);
 
     @Shadow
-    public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+    public abstract ItemStack getItemBySlot(EquipmentSlot slot);
 
     @Shadow
-    public abstract Optional<BlockPos> getSleepingPosition();
+    public abstract Optional<BlockPos> getSleepingPos();
 
     @Shadow
-    public float headYaw;
+    public float yHeadRot;
 
     @Unique
     public double manpozuchiUsingState = 1;
@@ -105,85 +105,85 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Unique
     private int deathCountResetTimer = 0;
     @Unique
-    private ServerWorld kanjuWorld;
+    private ServerLevel kanjuWorld;
     @Unique
     private BlockPos kanjuBlockPos = new BlockPos(0, 0, 0);
     @Unique
     private BlockPos tempSleepPosition;
 
 
-    public LivingEntityMixin(EntityType<?> type, World world) {
+    public LivingEntityMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
 
     @Override
-    public void setKanju(ServerWorld world, BlockPos blockPos) {
+    public void setKanju(ServerLevel world, BlockPos blockPos) {
         this.kanjuWorld = world;
         this.kanjuBlockPos = blockPos;
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void setMaxHealth(EntityType<? extends LivingEntity> entityType, World world, CallbackInfo ci) {
+    public void setMaxHealth(EntityType<? extends LivingEntity> entityType, Level world, CallbackInfo ci) {
         if (this.maxHealthModifier < 0) {
             this.maxHealthModifier = 0;
         }
-        EntityAttributeInstance maxHealthAttributeInstance = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
+        AttributeInstance maxHealthAttributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
         if (maxHealthAttributeInstance != null) {
             maxHealthAttributeInstance.setBaseValue(Math.abs(this.getMaxHealth() + this.maxHealthModifier));
         }
-        if (world instanceof ServerWorld) {
-            this.kanjuWorld = (ServerWorld) world;
+        if (world instanceof ServerLevel) {
+            this.kanjuWorld = (ServerLevel) world;
         }
     }
 
-    @Inject(method = "wakeUp", at = @At(value = "HEAD"))
+    @Inject(method = "stopSleeping", at = @At(value = "HEAD"))
     public void wakeUpHead(CallbackInfo ci) {
-        Optional<BlockPos> blockPos = this.dataTracker.get(LivingEntity.SLEEPING_POSITION);
+        Optional<BlockPos> blockPos = this.entityData.get(LivingEntity.SLEEPING_POS_ID);
         blockPos.ifPresent(pos -> this.tempSleepPosition = pos);
     }
 
-    @Inject(method = "wakeUp", at = @At(value = "TAIL"))
+    @Inject(method = "stopSleeping", at = @At(value = "TAIL"))
     public void wakeUp(CallbackInfo ci) {
         MinecraftServer server = this.getServer();
         if (server == null) {
             return;
         }
-        World world = this.getWorld();
-        if (!(world instanceof ServerWorld serverWorld)) {
+        Level world = this.level();
+        if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
         IWorld iWorld = (IWorld) world;
-        RegistryKey<World> dreamWorldKey = iWorld.getDreamWorld();
-        ServerWorld dreamWorld = server.getWorld(dreamWorldKey);
+        ResourceKey<Level> dreamWorldKey = iWorld.getDreamWorld();
+        ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
         if (dreamWorld == null) {
             return;
         }
-        ServerWorld overworld = server.getOverworld();
+        ServerLevel overworld = server.overworld();
         if (serverWorld.equals(dreamWorld)) {
-            BlockPos spawnPos = overworld.getSpawnPos();
-            this.teleport(server.getOverworld(), spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5,
-                    EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
-            serverWorld.spawnParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
+            BlockPos spawnPos = overworld.getSharedSpawnPos();
+            this.teleportTo(server.overworld(), spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5,
+                    EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
+            serverWorld.sendParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
             return;
         }
         Optional<BlockPos> sleepingPosition = Optional.ofNullable(this.tempSleepPosition);
         sleepingPosition.ifPresent(pos -> {
-            Pair<Boolean, BlockPos> bedHead = DreamPillowItem.getBedHead(serverWorld, pos);
+            Tuple<Boolean, BlockPos> bedHead = DreamPillowItem.getBedHead(serverWorld, pos);
             if (
-                    bedHead.getLeft() &&
-                            this.getWorld().getBlockEntity(bedHead.getRight()) instanceof BedBlockEntity bedBlockEntity &&
-                            this.getWorld() == server.getOverworld()
+                    bedHead.getA() &&
+                            this.level().getBlockEntity(bedHead.getB()) instanceof BedBlockEntity bedBlockEntity &&
+                            this.level() == server.overworld()
             ) {
                 IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) bedBlockEntity;
                 if (iBedBlockEntity.hasDreamPillow()) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20 * 5));
-                    this.teleport(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
-                            EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
+                    this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5));
+                    this.teleportTo(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
+                            EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
 
                     BlockPos targetPos = findSafeTeleportPos(dreamWorld, new BlockPos((int) this.getX(), (int) this.getY(), (int) this.getZ()));
-                    this.teleport(dreamWorld, targetPos.getX() + 0.5, targetPos.getY() + 5, targetPos.getZ() + 0.5,
-                            EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
-                    serverWorld.spawnParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
+                    this.teleportTo(dreamWorld, targetPos.getX() + 0.5, targetPos.getY() + 5, targetPos.getZ() + 0.5,
+                            EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
+                    serverWorld.sendParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
 
                 }
             }
@@ -191,8 +191,8 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     }
 
     @Unique
-    private BlockPos findSafeTeleportPos(ServerWorld world, BlockPos pos) {
-        return world.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, pos);
+    private BlockPos findSafeTeleportPos(ServerLevel world, BlockPos pos) {
+        return world.getHeightmapPos(Heightmap.Types.WORLD_SURFACE_WG, pos);
     }
 
 
@@ -239,62 +239,62 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
-        if (this.hasStatusEffect(ModStatusEffects.ELIXIR_OF_LIFE)) {
+        if (this.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE)) {
             if (this.deathCount == 1) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 0));
+                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 0));
             }
             if (this.deathCount == 2) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 1));
+                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 1));
             }
             if (this.deathCount == 3) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 2));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20, 0));
+                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 2));
+                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 0));
             }
             if (this.deathCount == 3) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 3));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20, 1));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 0));
+                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
+                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 1));
+                this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0));
             }
             if (this.deathCount == 3) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 3));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20, 2));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 1));
+                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
+                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 2));
+                this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1));
             }
             if (this.deathCount > 3) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 3));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20, 2));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 2));
+                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
+                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 2));
+                this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 2));
             }
         } else {
             this.deathCount = 0;
         }
 
-        if (!this.getWorld().isClient()) {
-            MinecraftServer server = this.getWorld().getServer();
-            World world = this.getWorld();
+        if (!this.level().isClientSide()) {
+            MinecraftServer server = this.level().getServer();
+            Level world = this.level();
             double mobY = this.getY();
-            RegistryKey<World> moonKey = ((IWorld) world).getMoon();
-            RegistryKey<World> registryKey = world.getRegistryKey();
+            ResourceKey<Level> moonKey = ((IWorld) world).getMoon();
+            ResourceKey<Level> registryKey = world.dimension();
             if (server != null) {
-                ServerWorld moonWorld = server.getWorld(moonKey);
-                ServerWorld endWorld = server.getWorld(World.END);
+                ServerLevel moonWorld = server.getLevel(moonKey);
+                ServerLevel endWorld = server.getLevel(Level.END);
                 if (moonWorld != null && endWorld != null) {
-                    if (registryKey.equals(World.END)) {
+                    if (registryKey.equals(Level.END)) {
                         if (mobY >= endWorld.getHeight()) {
-                            this.teleport(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
+                            this.teleportTo(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
                     } else if (registryKey.equals(moonKey)) {
-                        this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 1, 0));
+                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1, 0));
                         if (mobY >= moonWorld.getHeight()) {
-                            this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 40 * 20, 0));
-                            this.teleport(endWorld, this.getX(), endWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
+                            this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0));
+                            this.teleportTo(endWorld, this.getX(), endWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
                     }
                 }
             }
         }
 
-        if (!this.getWorld().isClient()) {
+        if (!this.level().isClientSide()) {
             this.deathCountResetTimer++;
             if (this.deathCountResetTimer >= 18000) {
                 this.deathCount = Math.max(0, this.deathCount - 1);
@@ -303,34 +303,34 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
-    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    public void damage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
+    public void damage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         MinecraftServer server = this.getServer();
         if (server == null) {
             return;
         }
-        boolean isPlayer = ((LivingEntity) (Object) this) instanceof PlayerEntity;
+        boolean isPlayer = ((LivingEntity) (Object) this) instanceof Player;
         boolean deathInElixir = this.deathInElixir(world, source, amount, cir);
         boolean deathInKanju = this.deathInKanju(world, source, amount, cir);
         if (!deathInElixir && !deathInKanju) {
             this.deathByDanmakuEntity(world, source, amount, cir);
             if ((this.getHealth() - amount <= 0f)) {
                 IWorld iWorld = (IWorld) world;
-                RegistryKey<World> dreamWorldKey = iWorld.getDreamWorld();
-                ServerWorld dreamWorld = server.getWorld(dreamWorldKey);
-                if (this.getWorld().equals(dreamWorld) && isPlayer) {
+                ResourceKey<Level> dreamWorldKey = iWorld.getDreamWorld();
+                ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
+                if (this.level().equals(dreamWorld) && isPlayer) {
                     this.setHealth(this.getMaxHealth());
                     this.fallDistance = 0;
-                    this.teleport(
-                            server.getOverworld(),
-                            server.getOverworld().getSpawnPos().getX() + 0.5,
-                            server.getOverworld().getSpawnPos().getY() + 1.5,
-                            server.getOverworld().getSpawnPos().getZ() + 0.5,
-                            EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true
+                    this.teleportTo(
+                            server.overworld(),
+                            server.overworld().getSharedSpawnPos().getX() + 0.5,
+                            server.overworld().getSharedSpawnPos().getY() + 1.5,
+                            server.overworld().getSharedSpawnPos().getZ() + 0.5,
+                            EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true
                     );
                     return;
                 }
-                EntityAttributeInstance maxHealthAttributeInstance = this.getAttributeInstance(EntityAttributes.MAX_HEALTH);
+                AttributeInstance maxHealthAttributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
                 if (maxHealthAttributeInstance != null) {
                     if (this.getMaxHealth() > 20) {
                         maxHealthAttributeInstance.setBaseValue(Math.abs(this.getMaxHealth() - 2));
@@ -340,26 +340,26 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
-    @Inject(method = "damage", at = @At("RETURN"), cancellable = true)
-    public void damageAfter(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtServer", at = @At("RETURN"), cancellable = true)
+    public void damageAfter(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         List<ItemStack> armorStacks = List.of(
-                this.getEquippedStack(EquipmentSlot.HEAD),
-                this.getEquippedStack(EquipmentSlot.CHEST),
-                this.getEquippedStack(EquipmentSlot.LEGS),
-                this.getEquippedStack(EquipmentSlot.FEET)
+                this.getItemBySlot(EquipmentSlot.HEAD),
+                this.getItemBySlot(EquipmentSlot.CHEST),
+                this.getItemBySlot(EquipmentSlot.LEGS),
+                this.getItemBySlot(EquipmentSlot.FEET)
         );
-        Stream<Item> itemStream = armorStacks.stream().filter(stack -> stack.isIn(ModTags.ItemTypeTag.DREAM_ARMOR)).map(ItemStack::getItem).filter(item -> item instanceof DreamArmorItem);
+        Stream<Item> itemStream = armorStacks.stream().filter(stack -> stack.is(ModTags.ItemTypeTag.DREAM_ARMOR)).map(ItemStack::getItem).filter(item -> item instanceof DreamArmorItem);
         if (!itemStream.toList().isEmpty()) {
-            Random random = Random.create();
-            if (random.nextBetween(0, 100) < 39) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 5 * 20));
+            RandomSource random = RandomSource.create();
+            if (random.nextIntBetweenInclusive(0, 100) < 39) {
+                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20));
             }
         }
     }
 
     @Unique
-    public boolean deathByDanmakuEntity(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if ((this.getHealth() - amount <= 0f) && source.getSource() instanceof DanmakuEntity) {
+    public boolean deathByDanmakuEntity(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if ((this.getHealth() - amount <= 0f) && source.getDirectEntity() instanceof DanmakuEntity) {
             Entity self = (Entity) this;
             self.playSound(SoundEventInit.BIU, 0.32F, 1.0F);
             return true;
@@ -367,15 +367,15 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         return false;
     }
 
-    public boolean deathInKanju(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    public boolean deathInKanju(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (this.kanjuWorld == null) {
             return false;
         }
-        if (this.kanjuWorld instanceof ServerWorld serverWorld && this.hasStatusEffect(ModStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
+        if (this.kanjuWorld instanceof ServerLevel serverWorld && this.hasEffect(ModStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
 //            System.out.println(1);
-            this.teleport(serverWorld, this.kanjuBlockPos.getX(), this.kanjuBlockPos.getY(), this.kanjuBlockPos.getZ(), EnumSet.noneOf(PositionFlag.class), this.getYaw(), this.getPitch(), true);
+            this.teleportTo(serverWorld, this.kanjuBlockPos.getX(), this.kanjuBlockPos.getY(), this.kanjuBlockPos.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
             return true;
         }
         return false;
@@ -390,8 +390,8 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 //    }
 
     @Unique
-    public boolean deathInElixir(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (this.hasStatusEffect(ModStatusEffects.ELIXIR_OF_LIFE) && (this.getHealth() - amount <= 0f)) {
+    public boolean deathInElixir(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (this.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE) && (this.getHealth() - amount <= 0f)) {
             this.deathCount++;
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
@@ -399,9 +399,9 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             SoundEvent deathSound = getDeathSound();
             this.playSound(hurtSound, 1.0f, 1.0f);
             this.playSound(deathSound, 1.0f, 1.0f);
-            this.playSound(SoundEvents.ITEM_TOTEM_USE, 1.0f, 1.0f);
-            for (var player : world.getPlayers()) {
-                world.spawnParticles(player, ParticleTypes.TOTEM_OF_UNDYING, true, false, this.getX(), this.getY(), this.getZ(), 250, 1.5, 2, 1.5, 0.5);
+            this.playSound(SoundEvents.TOTEM_USE, 1.0f, 1.0f);
+            for (var player : world.players()) {
+                world.sendParticles(player, ParticleTypes.TOTEM_OF_UNDYING, true, false, this.getX(), this.getY(), this.getZ(), 250, 1.5, 2, 1.5, 0.5);
             }
 //            System.out.println("deathInElixir");
             cir.cancel();
@@ -410,7 +410,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         return false;
     }
 
-    @Inject(method = "onDeath", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "die", at = @At("HEAD"), cancellable = true)
     public void onDeath(CallbackInfo ci) {
         if (this.maxHealthModifier >= 1) {
             this.maxHealthModifier--;
@@ -420,32 +420,32 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
-    @Inject(method = "writeCustomData", at = @At("HEAD"))
-    public void writeCustomDataToNbt(WriteView view, CallbackInfo ci) {
-        DynamicRegistryManager registryManager = this.getRegistryManager();
+    @Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
+    public void writeCustomDataToNbt(ValueOutput view, CallbackInfo ci) {
+        RegistryAccess registryManager = this.registryAccess();
         view.putFloat("MaxHealthModifier", this.maxHealthModifier);
         view.putInt("DeathCount", this.deathCount);
         view.putInt("DeathCountResetTimer", this.deathCountResetTimer);
         view.putDouble("ManpozuchiUsingState", this.manpozuchiUsingState);
-        view.putString("KanjuWorld", this.kanjuWorld.getRegistryKey().getValue().toString());
+        view.putString("KanjuWorld", this.kanjuWorld.dimension().location().toString());
         view.putLong("KanjuBlockPos", this.kanjuBlockPos.asLong());
     }
 
-    @Inject(method = "readCustomData", at = @At("HEAD"))
-    public void readCustomDataFromNbt(ReadView view, CallbackInfo ci) {
-        DynamicRegistryManager registryManager = this.getRegistryManager();
+    @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
+    public void readCustomDataFromNbt(ValueInput view, CallbackInfo ci) {
+        RegistryAccess registryManager = this.registryAccess();
         MinecraftServer server = this.getServer();
-        this.maxHealthModifier = view.getFloat("MaxHealthModifier", 0.0f);
-        this.deathCount = view.getInt("DeathCount", 0);
-        this.deathCountResetTimer = view.getInt("DeathCountResetTimer", 0);
-        this.manpozuchiUsingState = view.getDouble("ManpozuchiUsingState", 0.0);
-        String kanjuWorldStr = view.getString("KanjuWorld", "");
+        this.maxHealthModifier = view.getFloatOr("MaxHealthModifier", 0.0f);
+        this.deathCount = view.getIntOr("DeathCount", 0);
+        this.deathCountResetTimer = view.getIntOr("DeathCountResetTimer", 0);
+        this.manpozuchiUsingState = view.getDoubleOr("ManpozuchiUsingState", 0.0);
+        String kanjuWorldStr = view.getStringOr("KanjuWorld", "");
         if (kanjuWorldStr != null && !kanjuWorldStr.isEmpty()) {
             if (server != null) {
-                this.kanjuWorld = server.getWorld(RegistryKey.of(RegistryKeys.WORLD, Identifier.of(kanjuWorldStr)));
+                this.kanjuWorld = server.getLevel(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(kanjuWorldStr)));
             }
         }
-        this.kanjuBlockPos = BlockPos.fromLong(view.getLong("KanjuBlockPos", new BlockPos(0, 0, 0).asLong()));
+        this.kanjuBlockPos = BlockPos.of(view.getLongOr("KanjuBlockPos", new BlockPos(0, 0, 0).asLong()));
     }
 
     @Override

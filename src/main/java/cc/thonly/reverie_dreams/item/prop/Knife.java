@@ -9,21 +9,20 @@ import cc.thonly.reverie_dreams.item.material.SilverMaterial;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.component.Component;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ItemCooldownManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.TypedDataComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +33,7 @@ import java.util.Random;
 @Getter
 public class Knife extends SwordItem implements IDanmakuItem {
 
-    public Knife(float attackDamage, float attackSpeed, Settings settings) {
+    public Knife(float attackDamage, float attackSpeed, Properties settings) {
         super(
                 SilverMaterial.INSTANCE,
                 attackDamage + 3.0f,
@@ -44,49 +43,49 @@ public class Knife extends SwordItem implements IDanmakuItem {
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack heldItemStack = user.getStackInHand(hand);
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        ItemStack heldItemStack = user.getItemInHand(hand);
         ItemStack itemStack = new ItemStack(ModEntityHolders.KNIFE_DISPLAY);
-        ComponentMap components = heldItemStack.getComponents();
-        Iterator<Component<?>> iterator = components.stream().iterator();
+        DataComponentMap components = heldItemStack.getComponents();
+        Iterator<TypedDataComponent<?>> iterator = components.stream().iterator();
         while (iterator.hasNext()) {
-            Component<Object> next = (Component<Object>) iterator.next();
+            TypedDataComponent<Object> next = (TypedDataComponent<Object>) iterator.next();
             itemStack.set(next.type(), next.value());
         }
         Boolean isInfinite = itemStack.getOrDefault(ModDataComponentTypes.Danmaku.INFINITE, false);
-        if (!world.isClient && world instanceof ServerWorld serverWorld && user instanceof ServerPlayerEntity player) {
-            ItemCooldownManager cooldownManager = player.getItemCooldownManager();
+        if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
+            ItemCooldowns cooldownManager = player.getCooldowns();
             for (int i = 0; i < itemStack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, 1); i++) {
                 this.shoot(serverWorld, user, hand);
             }
-            cooldownManager.set(heldItemStack, 10);
+            cooldownManager.addCooldown(heldItemStack, 10);
             if (!isInfinite) {
-                itemStack.damage(1, user);
+                itemStack.hurtWithoutBreaking(1, user);
             }
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEventInit.FIRE, SoundCategory.NEUTRAL, 1f, 1.0f);
-            return ActionResult.SUCCESS_SERVER;
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEventInit.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
+            return InteractionResult.SUCCESS_SERVER;
         }
-        user.incrementStat(Stats.USED.getOrCreateStat(this));
-        return ActionResult.SUCCESS;
+        user.awardStat(Stats.ITEM_USED.get(this));
+        return InteractionResult.SUCCESS;
     }
 
-    public void shoot(ServerWorld serverWorld, PlayerEntity user, Hand hand) {
+    public void shoot(ServerLevel serverWorld, Player user, InteractionHand hand) {
         this.spawn(serverWorld, user, hand);
     }
 
-    public void spawn(ServerWorld serverWorld, PlayerEntity user, Hand hand) {
+    public void spawn(ServerLevel serverWorld, Player user, InteractionHand hand) {
         Random random = new Random();
-        ItemStack heldItemStack = user.getStackInHand(hand);
+        ItemStack heldItemStack = user.getItemInHand(hand);
         ItemStack itemStack = new ItemStack(ModEntityHolders.KNIFE_DISPLAY);
-        ComponentMap components = heldItemStack.getComponents();
-        Iterator<Component<?>> iterator = components.stream().iterator();
+        DataComponentMap components = heldItemStack.getComponents();
+        Iterator<TypedDataComponent<?>> iterator = components.stream().iterator();
         while (iterator.hasNext()) {
-            Component<Object> next = (Component<Object>) iterator.next();
+            TypedDataComponent<Object> next = (TypedDataComponent<Object>) iterator.next();
             itemStack.set(next.type(), next.value());
         }
         ItemStack stack = itemStack.copy();
-        float pitch = user.getPitch();
-        float yaw = user.getYaw();
+        float pitch = user.getXRot();
+        float yaw = user.getYRot();
 
         Item item = stack.getItem();
 
@@ -123,6 +122,6 @@ public class Knife extends SwordItem implements IDanmakuItem {
                     0.4f
             ));
         }
-        list.forEach(serverWorld::spawnEntity);
+        list.forEach(serverWorld::addFreshEntity);
     }
 }

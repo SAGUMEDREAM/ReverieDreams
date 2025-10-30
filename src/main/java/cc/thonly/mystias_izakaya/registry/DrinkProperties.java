@@ -11,11 +11,10 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.item.Item;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.Item;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -60,30 +59,30 @@ public class DrinkProperties {
     }
 
     public static void reload(ResourceManager manager) {
-        Map<Identifier, DrinkProperty> map = MIRegistryManager.DRINK_PROPERTY.getEntrySet().stream()
+        Map<ResourceLocation, DrinkProperty> map = MIRegistryManager.DRINK_PROPERTY.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().getValue(),
+                        entry -> entry.getKey().location(),
                         Map.Entry::getValue
                 ));
-        Set<Map.Entry<Identifier, DrinkProperty>> entries = map.entrySet();
+        Set<Map.Entry<ResourceLocation, DrinkProperty>> entries = map.entrySet();
         entries.forEach((es) -> es.getValue().getItems().clear());
 
-        Map<Identifier, Resource> resources = manager.findResources("drink_property", id ->
+        Map<ResourceLocation, Resource> resources = manager.listResources("drink_property", id ->
                 id.getNamespace().equals(MystiasIzakaya.MOD_ID) && id.getPath().endsWith(".json")
         );
 
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier resourceId = entry.getKey();
-            Identifier key = Identifier.of(resourceId.getNamespace(), resourceId.getPath().replace("drink_property/", "").replace(".json", ""));
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation resourceId = entry.getKey();
+            ResourceLocation key = ResourceLocation.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath().replace("drink_property/", "").replace(".json", ""));
             Resource resource = entry.getValue();
-            DrinkProperty property = MIRegistryManager.DRINK_PROPERTY.get(key);
+            DrinkProperty property = MIRegistryManager.DRINK_PROPERTY.getValue(key);
 
             if (property == null) {
                 MystiasIzakaya.LOGGER.warn("Unknown DrinkProperty id: {}", resourceId);
                 continue;
             }
 
-            try (InputStream stream = resource.getInputStream()) {
+            try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
@@ -101,7 +100,7 @@ public class DrinkProperties {
 
         Map<Item, Set<DrinkProperty>> itemDrinkPropertyCached = DrinkItem.ITEM_DRINK_CACHED;
         itemDrinkPropertyCached.clear();
-        for (Map.Entry<Identifier, DrinkProperty> entry : entries) {
+        for (Map.Entry<ResourceLocation, DrinkProperty> entry : entries) {
             DrinkProperty property = entry.getValue();
             Set<Item> tags = property.getItems();
             for (Item item : tags) {

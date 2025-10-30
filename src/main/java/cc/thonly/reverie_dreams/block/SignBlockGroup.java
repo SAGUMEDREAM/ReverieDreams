@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.block;
 
 import lombok.*;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 @Getter
 @Setter

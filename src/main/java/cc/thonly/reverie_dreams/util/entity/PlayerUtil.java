@@ -1,21 +1,20 @@
 package cc.thonly.reverie_dreams.util.entity;
 
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.Vec3;
 
 public class PlayerUtil {
 
-    public static List<ServerPlayerEntity> getNearbyPlayers(ServerWorld world, Vec3d center, double radius) {
+    public static List<ServerPlayer> getNearbyPlayers(ServerLevel world, Vec3 center, double radius) {
         double radiusSquared = radius * radius;
-        return world.getPlayers(player -> player.squaredDistanceTo(center) <= radiusSquared);
+        return world.getPlayers(player -> player.distanceToSqr(center) <= radiusSquared);
     }
 
-    public static List<ServerPlayerEntity> getNearbyPlayers(ServerWorld world, BlockPos pos, double radius) {
-        Vec3d center = Vec3d.ofCenter(pos);
+    public static List<ServerPlayer> getNearbyPlayers(ServerLevel world, BlockPos pos, double radius) {
+        Vec3 center = Vec3.atCenterOf(pos);
         return getNearbyPlayers(world, center, radius);
     }
 }

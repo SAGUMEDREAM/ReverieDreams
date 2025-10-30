@@ -3,10 +3,9 @@ package cc.thonly.reverie_dreams.item.base;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.item.Item;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentType;
-
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +19,15 @@ public class ArmorItem extends Item {
     public static final List<ArmorItem> FEET_ITEMS = new ArrayList<>();
     public static final List<ArmorItem> ITEMS = new ArrayList<>();
 
-    public ArmorItem(ArmorMaterial material, EquipmentType type, Settings settings) {
-        super(settings.maxCount(1).armor(material, type));
-        if (type.equals(EquipmentType.HELMET)) {
+    public ArmorItem(ArmorMaterial material, ArmorType type, Properties settings) {
+        super(settings.stacksTo(1).humanoidArmor(material, type));
+        if (type.equals(ArmorType.HELMET)) {
             HEAD_ITEMS.add(this);
-        } else if (type.equals(EquipmentType.CHESTPLATE)) {
+        } else if (type.equals(ArmorType.CHESTPLATE)) {
             CHEST_ITEMS.add(this);
-        } else if (type.equals(EquipmentType.LEGGINGS)) {
+        } else if (type.equals(ArmorType.LEGGINGS)) {
             LEG_ITEMS.add(this);
-        } else if (type.equals(EquipmentType.BOOTS)) {
+        } else if (type.equals(ArmorType.BOOTS)) {
             FEET_ITEMS.add(this);
         }
         ITEMS.add(this);

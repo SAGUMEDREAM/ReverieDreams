@@ -2,49 +2,45 @@ package cc.thonly.reverie_dreams.item.template;
 
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.world.World;
-
 import java.util.function.Consumer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
 public class RoleFollowerArchiveItem extends Item {
-    public static final SoundEvent SOUND = SoundEvents.ITEM_BUCKET_FILL;
+    public static final SoundEvent SOUND = SoundEvents.BUCKET_FILL;
 
-    public RoleFollowerArchiveItem(Settings settings) {
+    public RoleFollowerArchiveItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        World contextWorld = context.getWorld();
-        PlayerEntity player = context.getPlayer();
-        if (!contextWorld.isClient() && contextWorld instanceof ServerWorld world && player != null) {
-            ItemStack stack = context.getStack();
+    public InteractionResult useOn(UseOnContext context) {
+        Level contextWorld = context.getLevel();
+        Player player = context.getPlayer();
+        if (!contextWorld.isClientSide() && contextWorld instanceof ServerLevel world && player != null) {
+            ItemStack stack = context.getItemInHand();
             RoleFollowerArchive followerArchive = stack.get(ModDataComponentTypes.ROLE_FOLLOWER_ARCHIVE);
             if (followerArchive == null) {
-                return ActionResult.PASS;
+                return InteractionResult.PASS;
             }
             boolean canRespawn = stack.getOrDefault(ModDataComponentTypes.ROLE_CAN_RESPAWN, false);
             if (!canRespawn) {
-                return ActionResult.PASS;
+                return InteractionResult.PASS;
             }
-            followerArchive.respawn(world, context.getBlockPos().up(), world.getRegistryManager());
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, player.getSoundCategory(), 2.0f, 1.0f);
-            stack.decrementUnlessCreative(1, player);
-            player.swingHand(context.getHand());
-            return ActionResult.SUCCESS_SERVER;
+            followerArchive.respawn(world, context.getClickedPos().above(), world.registryAccess());
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, player.getSoundSource(), 2.0f, 1.0f);
+            stack.consume(1, player);
+            player.swing(context.getHand());
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
 }

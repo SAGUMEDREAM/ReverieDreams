@@ -7,17 +7,17 @@ import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 
 @Setter
 @Getter
 public class NPCRoleInteractionEvent implements CodecStep<NPCRoleInteractionEvent>, OwnerBinding<NPCRoleInteractionEvent>, BuiltinObject {
     public static final Codec<NPCRoleInteractionEvent> CODEC = Codec.unit(NPCRoleInteractionEvent::new);
-    private Identifier id;
+    private ResourceLocation id;
     private IntrinsicalRegister<NPCRoleInteractionEvent> owner;
     private final InteractionCallback callback;
 
@@ -29,7 +29,7 @@ public class NPCRoleInteractionEvent implements CodecStep<NPCRoleInteractionEven
         this.callback = callback;
     }
 
-    public NPCInteractResult interact(ServerWorld world, ServerPlayerEntity player, ItemStack itemStack, Hand hand, BaseNPCLikeEntity entity) {
+    public NPCInteractResult interact(ServerLevel world, ServerPlayer player, ItemStack itemStack, InteractionHand hand, BaseNPCLikeEntity entity) {
         return this.callback.onInteract(world, player, itemStack, hand, entity);
     }
 
@@ -39,6 +39,6 @@ public class NPCRoleInteractionEvent implements CodecStep<NPCRoleInteractionEven
     }
 
     public interface InteractionCallback {
-        NPCInteractResult onInteract(ServerWorld world, ServerPlayerEntity player, ItemStack stack, Hand hand, BaseNPCLikeEntity entity);
+        NPCInteractResult onInteract(ServerLevel world, ServerPlayer player, ItemStack stack, InteractionHand hand, BaseNPCLikeEntity entity);
     }
 }

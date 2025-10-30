@@ -5,14 +5,14 @@ import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 @Setter
 @Getter
 @Slf4j
 public class JavaScriptElement implements CodecStep<JavaScriptElement>, OwnerBinding<JavaScriptElement>, BuiltinObject {
     public static final Codec<JavaScriptElement> CODEC = Codec.unit(JavaScriptElement::new);
-    private Identifier id;
+    private ResourceLocation id;
     private final String src;
     private IntrinsicalRegister<JavaScriptElement> owner;
 

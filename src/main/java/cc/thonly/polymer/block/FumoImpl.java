@@ -10,13 +10,12 @@ import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
@@ -34,7 +33,7 @@ public class FumoImpl implements PolymerTexturedBlock, FactoryBlock {
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         return new Model(initialBlockState, this.fumoBlock.getOffsets());
     }
 
@@ -42,21 +41,21 @@ public class FumoImpl implements PolymerTexturedBlock, FactoryBlock {
         private final Block block;
         private final ItemDisplayElement main;
 
-        public Model(BlockState state, Vec3d offsets) {
+        public Model(BlockState state, Vec3 offsets) {
             this.block = state.getBlock();
             this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
             this.main.setDisplaySize(this.getDisplaySizeWidth(), this.getDisplaySizeHeight());
             this.main.setOffset(this.modifyOffset(offsets));
             this.main.setScale(this.getScale());
             this.main.setItemDisplayContext(ItemDisplayContext.NONE);
-            var yaw = state.get(BaseFumoBlock.FACING_16).getYaw();
+            var yaw = state.getValue(BaseFumoBlock.FACING_16).getYaw();
             this.main.setYaw(yaw);
             this.addElement(this.main);
         }
 
-        public Vec3d modifyOffset(Vec3d offsets) {
+        public Vec3 modifyOffset(Vec3 offsets) {
             if (this.block == Fumos.TAN_CIRNO.block()) {
-                return offsets.add(new Vec3d(0, 0.5, 0));
+                return offsets.add(new Vec3(0, 0.5, 0));
             }
             return offsets;
         }

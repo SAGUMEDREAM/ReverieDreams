@@ -12,17 +12,15 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.WeakHashMap;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 
 public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements PolymerEntity, PolymerHolderEntity {
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
@@ -53,7 +51,7 @@ public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements Polym
         return EntityType.PIG;
     }
 
-    public void onTrackingStopped(ServerPlayerEntity player) {
+    public void onTrackingStopped(ServerPlayer player) {
         ItemDisplayElement element = ELEMENTS.get(this.wheelchairEntity);
         if (element != null) {
             ElementHolder holder = element.getHolder();

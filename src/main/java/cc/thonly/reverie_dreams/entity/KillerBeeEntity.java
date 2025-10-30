@@ -1,28 +1,27 @@
 package cc.thonly.reverie_dreams.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.MerchantEntity;
-import net.minecraft.entity.passive.TurtleEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
-
 import java.util.Set;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
-public class KillerBeeEntity extends BeeEntity {
-    public KillerBeeEntity(EntityType<? extends BeeEntity> entityType, World world) {
+public class KillerBeeEntity extends Bee {
+    public KillerBeeEntity(EntityType<? extends Bee> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        Set<PrioritizedGoal> goals = this.goalSelector.getGoals();
+    protected void registerGoals() {
+        super.registerGoals();
+        Set<WrappedGoal> goals = this.goalSelector.getAvailableGoals();
         TemptGoal temptGoal = null;
 
         for (var prioritizedGoal: goals) {
@@ -33,13 +32,13 @@ public class KillerBeeEntity extends BeeEntity {
         }
 
         if(temptGoal != null) {
-            this.goalSelector.remove(temptGoal);
+            this.goalSelector.removeGoal(temptGoal);
         }
 
-        this.targetSelector.add(4, new ActiveTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<MerchantEntity>(this, MerchantEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<IronGolemEntity>(this, IronGolemEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<TurtleEntity>(this, TurtleEntity.class, 10, true, false, TurtleEntity.BABY_TURTLE_ON_LAND_FILTER));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<Player>(this, Player.class, true));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<AbstractVillager>(this, AbstractVillager.class, true));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<IronGolem>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<Turtle>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
 
     }
 

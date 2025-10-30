@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.interfaces;
 
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.SoundType;
 
 public interface IAbstractBlockSettingsAccessor {
-    BlockSoundGroup getSoundGroup();
+    SoundType getSoundGroup();
 }

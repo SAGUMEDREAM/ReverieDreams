@@ -8,17 +8,22 @@ import cc.thonly.reverie_dreams.interfaces.IExperienceOrbEntity;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.Leashable;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -28,101 +33,101 @@ import java.util.function.Supplier;
 @Setter
 public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
 
-    public NPCRoleEntity(EntityType<? extends NPCRoleEntity> entityType, World world) {
+    public NPCRoleEntity(EntityType<? extends NPCRoleEntity> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
+    protected void registerGoals() {
+        super.registerGoals();
 
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new SitGoal(this));
-        this.goalSelector.add(1, new NPCEatFoodDispalyGoal(this, 1, 15, 1));
-        this.goalSelector.add(2, new EatGoal(this));
-        this.goalSelector.add(3, new SleepAtNightGoal(this, 1.0));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(1, new NPCEatFoodDispalyGoal(this, 1, 15, 1));
+        this.goalSelector.addGoal(2, new EatGoal(this));
+        this.goalSelector.addGoal(3, new SleepAtNightGoal(this, 1.0));
 
-        this.goalSelector.add(4, new NPCTemptGoal(this, 1.2, stack -> stack.isIn(ModTags.ItemTypeTag.ROLE_TAME_FOOD), false));
+        this.goalSelector.addGoal(4, new NPCTemptGoal(this, 1.2, stack -> stack.is(ModTags.ItemTypeTag.ROLE_TAME_FOOD), false));
         //        this.goalSelector.add(4, this.bowAttackGoal);
         //        this.goalSelector.add(4, this.meleeAttackGoal);
 
-        this.goalSelector.add(6, new NPCFollowOwnerGoal(this, 1.0, 2.0f, 10.0f));
-        this.goalSelector.add(7, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(8, new NPCWanderAroundFarGoal(this, 1.0));
+        this.goalSelector.addGoal(6, new NPCFollowOwnerGoal(this, 1.0, 2.0f, 10.0f));
+        this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new NPCWanderAroundFarGoal(this, 1.0));
 
-        this.goalSelector.add(10, new NPCLookAroundGoal(this));
-        this.goalSelector.add(10, new NPCLookAtEntityGoal(this, PlayerEntity.class, 8.0f, 0.02f, true));
-        this.goalSelector.add(10, new NPCLookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f, 0.02f, true));
+        this.goalSelector.addGoal(10, new NPCLookAroundGoal(this));
+        this.goalSelector.addGoal(10, new NPCLookAtEntityGoal(this, Player.class, 8.0f, 0.02f, true));
+        this.goalSelector.addGoal(10, new NPCLookAtEntityGoal(this, BaseNPCLikeEntity.class, 8.0f, 0.02f, true));
 
-        this.targetSelector.add(1, new NPCTrackOwnerAttackerGoal(this));
-        this.targetSelector.add(1, new NPCCleanMonsterGoal(this));
-        this.targetSelector.add(1, new NPCBreedGoal(this));
-        this.targetSelector.add(1, new NPCSheepShearGoal(this));
-        this.targetSelector.add(2, new NPCAttackWithOwnerGoal(this));
-        this.targetSelector.add(3, new RevengeGoal(this).setGroupRevenge());
+        this.targetSelector.addGoal(1, new NPCTrackOwnerAttackerGoal(this));
+        this.targetSelector.addGoal(1, new NPCCleanMonsterGoal(this));
+        this.targetSelector.addGoal(1, new NPCBreedGoal(this));
+        this.targetSelector.addGoal(1, new NPCSheepShearGoal(this));
+        this.targetSelector.addGoal(2, new NPCAttackWithOwnerGoal(this));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
 
-        this.goalSelector.add(1, new NPCOpenDoorGoal(this));
-        this.goalSelector.add(1, new NPCOpenSilverChestGoal(this));
-        this.goalSelector.add(1, new NPCSmeltGoal(this));
-        this.goalSelector.add(1, new NPCChestClassificationGoal(this));
-        this.goalSelector.add(1, new NPCFarmGoal(this));
-        this.goalSelector.add(1, new NPCAutoPickItemGoal(this));
-        this.goalSelector.add(2, new NPCCloseToCropGoal(this, 1));
+        this.goalSelector.addGoal(1, new NPCOpenDoorGoal(this));
+        this.goalSelector.addGoal(1, new NPCOpenSilverChestGoal(this));
+        this.goalSelector.addGoal(1, new NPCSmeltGoal(this));
+        this.goalSelector.addGoal(1, new NPCChestClassificationGoal(this));
+        this.goalSelector.addGoal(1, new NPCFarmGoal(this));
+        this.goalSelector.addGoal(1, new NPCAutoPickItemGoal(this));
+        this.goalSelector.addGoal(2, new NPCCloseToCropGoal(this, 1));
 
         this.getNavigation().setCanOpenDoors(true);
-        this.getNavigation().setCanSwim(true);
+        this.getNavigation().setCanFloat(true);
     }
 
     @Override
     public void tick() {
-        World world = this.getWorld();
-        if (!world.isClient && world.isDay()) {
-            this.wakeUp();
+        Level world = this.level();
+        if (!world.isClientSide && world.isBrightOutside()) {
+            this.stopSleeping();
         }
         this.attractNearbyExperienceOrbs();
         super.tick();
     }
 
     @Override
-    protected void drop(ServerWorld world, DamageSource damageSource) {
+    protected void dropAllDeathLoot(ServerLevel world, DamageSource damageSource) {
 //        super.drop(world, damageSource);
     }
 
     public void attractNearbyExperienceOrbs() {
-        if (this.getWorld().isClient) return; // 只在服务端处理
+        if (this.level().isClientSide) return; // 只在服务端处理
 
         double radius = 7.0;
-        List<ExperienceOrbEntity> orbs = this.getWorld().getEntitiesByClass(
-                ExperienceOrbEntity.class,
-                this.getBoundingBox().expand(radius),
+        List<ExperienceOrb> orbs = this.level().getEntitiesOfClass(
+                ExperienceOrb.class,
+                this.getBoundingBox().inflate(radius),
                 Entity::isAlive
         );
 
-        for (ExperienceOrbEntity orb : orbs) {
+        for (ExperienceOrb orb : orbs) {
             ((IExperienceOrbEntity) (Object) orb).setNPCTarget(this);
         }
     }
 
     @Override
-    public boolean damage(ServerWorld world, DamageSource source, float amount) {
-        Entity attacker = source.getAttacker();
+    public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
+        Entity attacker = source.getEntity();
         if (attacker instanceof LivingEntity livingEntity &&
-                livingEntity.getStackInHand(Hand.MAIN_HAND).isEmpty() &&
-                livingEntity.getStackInHand(Hand.OFF_HAND).isEmpty() &&
-                livingEntity.isSneaking() && this.isOwner(livingEntity)
+                livingEntity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() &&
+                livingEntity.getItemInHand(InteractionHand.OFF_HAND).isEmpty() &&
+                livingEntity.isShiftKeyDown() && this.isOwnedBy(livingEntity)
         ) {
             this.setTarget(null);
-            this.setAttacker(null);
+            this.setLastHurtByMob(null);
             return false;
         }
-        return super.damage(world, source, amount);
+        return super.hurtServer(world, source, amount);
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        World world = this.getWorld();
-        if (world.isClient || !(world instanceof ServerWorld serverWorld) || !(player instanceof ServerPlayerEntity serverPlayerEntity)) {
-            return super.interactMob(player, hand);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        Level world = this.level();
+        if (world.isClientSide || !(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayerEntity)) {
+            return super.mobInteract(player, hand);
         }
         return NPCRoleInteractionEvents.emit(serverWorld, serverPlayerEntity, hand, this);
     }

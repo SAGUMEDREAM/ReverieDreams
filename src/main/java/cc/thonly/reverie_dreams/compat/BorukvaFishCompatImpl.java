@@ -10,13 +10,12 @@ import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import com.phoen1x.borukvafish.item.ModItems;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 @SuppressWarnings("unchecked")
 public class BorukvaFishCompatImpl {
@@ -53,7 +52,7 @@ public class BorukvaFishCompatImpl {
                 return;
             }
             IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
+            Stream<Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry->{
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> items = property.getItems();

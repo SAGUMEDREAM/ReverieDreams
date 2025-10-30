@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 
 public class WakeUpGoal extends Goal {
     private final BaseNPCLikeEntity entity;
@@ -12,26 +12,26 @@ public class WakeUpGoal extends Goal {
     }
 
     @Override
-    public boolean canStart() {
-        World world = this.entity.getWorld();
-        return !world.isClient && this.entity.getWorld().isDay();
+    public boolean canUse() {
+        Level world = this.entity.level();
+        return !world.isClientSide && this.entity.level().isBrightOutside();
     }
 
     @Override
     public void start() {
-        this.entity.wakeUp();
+        this.entity.stopSleeping();
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (canStart()) {
+        if (canUse()) {
             start();
         }
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return true;
     }
 

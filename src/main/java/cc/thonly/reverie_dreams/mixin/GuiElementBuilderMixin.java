@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.mixin;
 import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.elements.GuiElementBuilderInterface;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,6 +18,7 @@ public abstract class GuiElementBuilderMixin implements GuiElementBuilderInterfa
         this.itemStack = stack;
         return stack;
     }
+
     @Override
     public ItemStack getItemStack() {
         return this.itemStack;

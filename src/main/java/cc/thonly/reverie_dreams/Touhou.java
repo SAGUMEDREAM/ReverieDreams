@@ -38,7 +38,6 @@ import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.*;
-import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
@@ -55,22 +54,22 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.EntityTypeTags;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Unit;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,9 +86,9 @@ public class Touhou implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static MinecraftServer server;
     @Getter
-    private static DynamicRegistryManager dynamicRegistryManager;
-    private static final Set<ServerPlayerEntity> PLAYER_WITH_MOD = new HashSet<>();
-    private static final Map<ServerPlayerEntity, String> PLAYER_SIDE_VERSION = new WeakHashMap<>();
+    private static RegistryAccess dynamicRegistryManager;
+    private static final Set<ServerPlayer> PLAYER_WITH_MOD = new HashSet<>();
+    private static final Map<ServerPlayer, String> PLAYER_SIDE_VERSION = new WeakHashMap<>();
 
     @Override
     public void onInitialize() {
@@ -138,16 +137,16 @@ public class Touhou implements ModInitializer {
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
-            if (server != null && target.getWorld() instanceof ServerWorld serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(ModDataComponentTypes.SILVER_ITEM, null))) {
-                DynamicRegistryManager.Immutable registryManager = server.getRegistryManager();
-                Registry<EntityType<?>> entityTypes = registryManager.getOrThrow(RegistryKeys.ENTITY_TYPE);
-                DamageSources damageSources = attacker.getDamageSources();
-                for (RegistryEntry<EntityType<?>> iterateEntry : entityTypes.iterateEntries(EntityTypeTags.UNDEAD)) {
+            if (server != null && target.level() instanceof ServerLevel serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(ModDataComponentTypes.SILVER_ITEM, null))) {
+                RegistryAccess.Frozen registryManager = server.registryAccess();
+                Registry<EntityType<?>> entityTypes = registryManager.lookupOrThrow(Registries.ENTITY_TYPE);
+                DamageSources damageSources = attacker.damageSources();
+                for (Holder<EntityType<?>> iterateEntry : entityTypes.getTagOrEmpty(EntityTypeTags.UNDEAD)) {
                     EntityType<?> value = iterateEntry.value();
                     if (target.getType() == value) {
-                        target.lastDamageTaken = 0;
-                        target.damage(serverWorld, damageSources.magic(), 2);
-                        target.lastDamageTaken = 0;
+                        target.lastHurt = 0;
+                        target.hurtServer(serverWorld, damageSources.magic(), 2);
+                        target.lastHurt = 0;
                         break;
                     }
                 }
@@ -158,10 +157,10 @@ public class Touhou implements ModInitializer {
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
-            if (server != null && target.getWorld() instanceof ServerWorld serverWorld && target.getType() == ModEntities.GHOST_ENTITY_TYPE && stack.getItem() == ModItems.ROKANKEN) {
-                DamageSources damageSources = attacker.getDamageSources();
-                target.lastDamageTaken = 0;
-                target.damage(serverWorld, damageSources.magic(), Integer.MAX_VALUE);
+            if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == ModEntities.GHOST_ENTITY_TYPE && stack.getItem() == ModItems.ROKANKEN) {
+                DamageSources damageSources = attacker.damageSources();
+                target.lastHurt = 0;
+                target.hurtServer(serverWorld, damageSources.magic(), Integer.MAX_VALUE);
             }
             return true;
         });
@@ -172,7 +171,7 @@ public class Touhou implements ModInitializer {
     private void registerNetworkingEvent() {
         PayloadTypeRegistry.playC2S().register(HelloPayload.PACKET_ID, HelloPayload.codec);
         ServerPlayNetworking.registerGlobalReceiver(HelloPayload.PACKET_ID, (payload, context) -> {
-            ServerPlayerEntity player = context.player();
+            ServerPlayer player = context.player();
             if (player != null) {
                 PLAYER_WITH_MOD.add(player);
             }
@@ -182,7 +181,7 @@ public class Touhou implements ModInitializer {
         });
         PayloadTypeRegistry.playC2S().register(CSVersionPayload.PACKET_ID, CSVersionPayload.codec);
         ServerPlayNetworking.registerGlobalReceiver(CSVersionPayload.PACKET_ID, (payload, context) -> {
-            ServerPlayerEntity player = context.player();
+            ServerPlayer player = context.player();
             String version = payload.version();
             if (player != null) {
                 PLAYER_SIDE_VERSION.put(player, version);
@@ -196,7 +195,7 @@ public class Touhou implements ModInitializer {
     @SuppressWarnings("rawtypes")
     private void registerServerEvents() {
         ServerPlayConnectionEvents.JOIN.register((handler, packetSender, server) -> {
-            ServerPlayerEntity player = handler.getPlayer();
+            ServerPlayer player = handler.getPlayer();
             PlayerDataComponentManager componentManager = PlayerDataComponentManager.getInstance();
             for (Map.Entry<Class<PlayerComponent<? extends PlayerComponent>>, PlayerComponentInitializer<?>> mapEntry : PlayerDataComponentManager.getComponents()) {
                 Class<PlayerComponent<? extends PlayerComponent>> key = mapEntry.getKey();
@@ -214,25 +213,25 @@ public class Touhou implements ModInitializer {
             }
         });
         ServerPlayConnectionEvents.JOIN.register((handler, packetSender, minecraftServer) -> {
-            ServerPlayerEntity player = handler.getPlayer();
+            ServerPlayer player = handler.getPlayer();
             if (!ReverieDreamsConfiguration.CHECK_UPDATE) {
                 return;
             }
-            if (!player.hasPermissionLevel(2)) {
+            if (!player.hasPermissions(2)) {
                 return;
             }
             if (ConstantInfo.LATEST_VERSION == null) {
                 return;
             }
-            MutableText mutableText = Text.empty();
-            mutableText.append(Text.translatable("message.reverie_dreams.update", ConstantInfo.LATEST_VERSION));
+            MutableComponent mutableText = Component.empty();
+            mutableText.append(Component.translatable("message.reverie_dreams.update", ConstantInfo.LATEST_VERSION));
             mutableText.append(" §r[");
-            mutableText.append(Text.translatable("item.action.click.left").setStyle(Style.EMPTY.withClickEvent(new ClickEvent.OpenUrl(URI.create("https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams")))));
+            mutableText.append(Component.translatable("item.action.click.left").setStyle(Style.EMPTY.withClickEvent(new ClickEvent.OpenUrl(URI.create("https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams")))));
             mutableText.append("§r]");
-            player.sendMessage(mutableText, false);
+            player.displayClientMessage(mutableText, false);
         });
         ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, v) -> {
-            return !livingEntity.hasStatusEffect(ModStatusEffects.ELIXIR_OF_LIFE);
+            return !livingEntity.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE);
         });
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             PlayerInputManager inputManager = PlayerInputManager.getInstance();
@@ -315,16 +314,16 @@ public class Touhou implements ModInitializer {
         });
     }
 
-    public static Identifier id(String id) {
-        return Identifier.of(MOD_ID, id);
+    public static ResourceLocation id(String id) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, id);
     }
 
-    public static boolean hasModOnClient(ServerPlayerEntity player) {
+    public static boolean hasModOnClient(ServerPlayer player) {
         if (player == null) return false;
         return PLAYER_WITH_MOD.contains(player);
     }
 
-    public static void setDynamicRegistryManager(DynamicRegistryManager dynamicRegistryManager) {
+    public static void setDynamicRegistryManager(RegistryAccess dynamicRegistryManager) {
         Touhou.dynamicRegistryManager = dynamicRegistryManager;
     }
 

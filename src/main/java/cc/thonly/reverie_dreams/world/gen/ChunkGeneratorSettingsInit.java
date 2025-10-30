@@ -2,54 +2,53 @@ package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.block.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-import net.minecraft.world.gen.chunk.GenerationShapeConfig;
-import net.minecraft.world.gen.densityfunction.DensityFunction;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
-import net.minecraft.world.gen.densityfunction.DensityFunctions;
-import net.minecraft.world.gen.noise.NoiseRouter;
-import net.minecraft.world.gen.surfacebuilder.MaterialRules;
-
 import java.util.ArrayList;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.DensityFunction;
+import net.minecraft.world.level.levelgen.DensityFunctions;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import net.minecraft.world.level.levelgen.NoiseRouter;
+import net.minecraft.world.level.levelgen.NoiseRouterData;
+import net.minecraft.world.level.levelgen.NoiseSettings;
+import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 public class ChunkGeneratorSettingsInit {
-    public static final RegistryKey<ChunkGeneratorSettings> MOON = getOrCreateRegistryKey("moon");
+    public static final ResourceKey<NoiseGeneratorSettings> MOON = getOrCreateRegistryKey("moon");
 
-    public static void bootstrap(Registerable<ChunkGeneratorSettings> context) {
-        RegistryEntryLookup<DensityFunction> densityFunctionLookup = context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION);
-        ChunkGeneratorSettings moon = new ChunkGeneratorSettings(
-                GenerationShapeConfig.create(0, 128, 2, 1),
-                ModBlocks.MOON_STONE.block().getDefaultState(),
-                Blocks.AIR.getDefaultState(),
+    public static void bootstrap(BootstrapContext<NoiseGeneratorSettings> context) {
+        HolderGetter<DensityFunction> densityFunctionLookup = context.lookup(Registries.DENSITY_FUNCTION);
+        NoiseGeneratorSettings moon = new NoiseGeneratorSettings(
+                NoiseSettings.create(0, 128, 2, 1),
+                ModBlocks.MOON_STONE.block().defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
                 new NoiseRouter(
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctions.applySlides(DensityFunctionTypes.constant(-0.703125), 0, 128, 80, 64, -0.1, 0, 24, 0.1),
-                        DensityFunctions.applyBlendDensity(method_50924(DensityFunctions.entryHolder(densityFunctionLookup, DensityFunctions.DEPTH_OVERWORLD))),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero(),
-                        DensityFunctionTypes.zero()
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        NoiseRouterData.slide(DensityFunctions.constant(-0.703125), 0, 128, 80, 64, -0.1, 0, 24, 0.1),
+                        NoiseRouterData.postProcess(method_50924(NoiseRouterData.getFunction(densityFunctionLookup, NoiseRouterData.DEPTH))),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero(),
+                        DensityFunctions.zero()
                 ),
-                MaterialRules.sequence(
-                        MaterialRules.condition(MaterialRules.verticalGradient(
+                SurfaceRules.sequence(
+                        SurfaceRules.ifTrue(SurfaceRules.verticalGradient(
                                         "bedrock_floor",
-                                        YOffset.getBottom(), YOffset.aboveBottom(5)),
+                                        VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)),
                                 block(Blocks.BEDROCK)
                         ),
                         block(ModBlocks.MOON_STONE.block())),
@@ -65,18 +64,18 @@ public class ChunkGeneratorSettingsInit {
     }
 
     private static DensityFunction method_50924(DensityFunction densityFunction) {
-        return DensityFunctions.applySlides(densityFunction, 0, 128, 80, 64, -0.1, 0, 24, 0.1);
+        return NoiseRouterData.slide(densityFunction, 0, 128, 80, 64, -0.1, 0, 24, 0.1);
     }
 
-    private static MaterialRules.MaterialRule block(Block block) {
-        return MaterialRules.block(block.getDefaultState());
+    private static SurfaceRules.RuleSource block(Block block) {
+        return SurfaceRules.state(block.defaultBlockState());
     }
 
     public static void init() {
 
     }
 
-    public static RegistryKey<ChunkGeneratorSettings> getOrCreateRegistryKey(String name) {
-        return RegistryKey.of(RegistryKeys.CHUNK_GENERATOR_SETTINGS, Identifier.of(Touhou.MOD_ID, name));
+    public static ResourceKey<NoiseGeneratorSettings> getOrCreateRegistryKey(String name) {
+        return ResourceKey.create(Registries.NOISE_SETTINGS, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
     }
 }

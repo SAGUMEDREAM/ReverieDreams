@@ -5,52 +5,52 @@ import cc.thonly.reverie_dreams.entity.misc.WheelchairEntity;
 import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class WheelChairBlock extends ModelBlock {
-    public static final MapCodec<WheelChairBlock> CODEC = createCodec(WheelChairBlock::new);
+    public static final MapCodec<WheelChairBlock> CODEC = simpleCodec(WheelChairBlock::new);
     public static final EnumProperty<SixteenDirection> FACING_16 = ModBlockStateTemplates.FACING_16;
 
-    public WheelChairBlock(Settings settings) {
+    public WheelChairBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING_16, SixteenDirection.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING_16, SixteenDirection.NORTH));
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.isSneaking()) {
-            world.setBlockState(pos, Blocks.AIR.getDefaultState());
-            world.spawnEntity(new WheelchairEntity(ModEntities.WHEEL_CHAIR_ENTITY, world, pos.getX(), pos.getY(), pos.getZ(), player.getUuidAsString()));
-            return ActionResult.SUCCESS_SERVER;
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!world.isClientSide && player.isShiftKeyDown()) {
+            world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            world.addFreshEntity(new WheelchairEntity(ModEntities.WHEEL_CHAIR_ENTITY, world, pos.getX(), pos.getY(), pos.getZ(), player.getStringUUID()));
+            return InteractionResult.SUCCESS_SERVER;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        double yaw = ctx.getPlayerYaw();
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        double yaw = ctx.getRotation();
         SixteenDirection direction = SixteenDirection.fromYaw(yaw + 180f);
-        return this.getDefaultState().with(FACING_16, direction);
+        return this.defaultBlockState().setValue(FACING_16, direction);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING_16);
     }
 
     @Override
-    public MapCodec<? extends HorizontalFacingBlock> getCodec() {
+    public MapCodec<? extends HorizontalDirectionalBlock> codec() {
         return CODEC;
     }
 }

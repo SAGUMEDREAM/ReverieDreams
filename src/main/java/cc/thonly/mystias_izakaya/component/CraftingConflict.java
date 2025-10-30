@@ -16,14 +16,13 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,11 +33,11 @@ import java.util.stream.Stream;
 @ToString
 public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBinding<CraftingConflict>, BuiltinObject {
     public static final Codec<CraftingConflict> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf("item").forGetter((entry) -> Registries.ITEM.getId(entry.item)),
-            Codec.list(Identifier.CODEC).fieldOf("values").forGetter((entry) -> {
-                List<Identifier> identifiers = new ArrayList<>();
+            ResourceLocation.CODEC.fieldOf("item").forGetter((entry) -> BuiltInRegistries.ITEM.getKey(entry.item)),
+            Codec.list(ResourceLocation.CODEC).fieldOf("values").forGetter((entry) -> {
+                List<ResourceLocation> identifiers = new ArrayList<>();
                 for (FoodProperty foodProperty : entry.foodProperties) {
-                    Identifier id = foodProperty.getId();
+                    ResourceLocation id = foodProperty.getId();
                     identifiers.add(id);
                 }
                 return identifiers;
@@ -46,7 +45,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     ).apply(instance, CraftingConflict::new));
     @Setter
     @Getter
-    private Identifier id;
+    private ResourceLocation id;
     @Getter
     private final Item item;
     private final Set<FoodProperty> foodProperties = new ObjectOpenHashSet<>();
@@ -58,14 +57,14 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
         this.item = Items.AIR;
     }
 
-    public CraftingConflict(Identifier item, List<Identifier> identifiers) {
-        this(Registries.ITEM.get(item), identifiers);
+    public CraftingConflict(ResourceLocation item, List<ResourceLocation> identifiers) {
+        this(BuiltInRegistries.ITEM.getValue(item), identifiers);
     }
 
-    public CraftingConflict(Item item, List<Identifier> identifiers) {
+    public CraftingConflict(Item item, List<ResourceLocation> identifiers) {
         this.item = item;
         for (var identifier : identifiers) {
-            FoodProperty property = MIRegistryManager.FOOD_PROPERTY.get(identifier);
+            FoodProperty property = MIRegistryManager.FOOD_PROPERTY.getValue(identifier);
             if (property != null) {
                 this.foodProperties.add(property);
             }
@@ -73,7 +72,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     }
 
     public static CraftingConflict of(Item item, List<FoodProperty> foodProperties) {
-        List<Identifier> list = foodProperties.stream().map(FoodProperty::getId).toList();
+        List<ResourceLocation> list = foodProperties.stream().map(FoodProperty::getId).toList();
         return new CraftingConflict(item, list);
     }
 
@@ -106,14 +105,14 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     }
 
     public static void reload(ResourceManager manager) {
-        Map<Identifier, Resource> resources = manager.findResources("crafting_conflict", id ->
+        Map<ResourceLocation, Resource> resources = manager.listResources("crafting_conflict", id ->
                 id.getNamespace().equals(MystiasIzakaya.MOD_ID) && id.getPath().endsWith(".json")
         );
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier resId = entry.getKey();
-            Identifier id = Identifier.of(resId.getNamespace(), resId.getPath().replace("crafting_conflict/", "").replace(".json", ""));
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
+            ResourceLocation resId = entry.getKey();
+            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(resId.getNamespace(), resId.getPath().replace("crafting_conflict/", "").replace(".json", ""));
             Resource resource = entry.getValue();
-            try (InputStream stream = resource.getInputStream()) {
+            try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 DataResult<CraftingConflict> result = CraftingConflict.CODEC.parse(JsonOps.INSTANCE, json);
                 Optional<CraftingConflict> optional = result.result();

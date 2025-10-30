@@ -11,16 +11,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.Item;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     public static final Codec<NPCRole> CODEC = Codec.unit(NPCRole::new);
     public static final List<Item> NPC_SPAWN_EGG_ITEM_LIST = new LinkedList<>();
 
-    private Identifier id;
+    private ResourceLocation id;
     private SkinType skinType;
     // 构建后属性
     private EntityType<NPCRoleFastEntity> entityType;
@@ -44,7 +43,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     private NPCRole() {
     }
 
-    public NPCRole(Identifier id, SkinType skinType) {
+    public NPCRole(ResourceLocation id, SkinType skinType) {
         this.id = id;
         this.skinType = skinType;
     }
@@ -67,7 +66,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
 
     @Override
     public String translateKey() {
-        return this.entityType.getTranslationKey();
+        return this.entityType.getDescriptionId();
     }
 
     public NPCRole build() {
@@ -75,15 +74,15 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
             return this;
         }
         try {
-            EntityType<NPCRoleFastEntity> build = EntityType.Builder.<NPCRoleFastEntity>create(
+            EntityType<NPCRoleFastEntity> build = EntityType.Builder.<NPCRoleFastEntity>of(
                             (type, world) -> new NPCRoleFastEntity(type, world, this.skinType),
-                            SpawnGroup.MISC)
+                            MobCategory.MISC)
 //                    .disableSummon()
                     .build(of(this.id));
             EntityType<NPCRoleFastEntity> entityType = registerEntity(this.id, build);;
             FabricDefaultAttributeRegistry.register(entityType, BaseNPCLikeEntity.createAttributes());
-            Identifier spawnEggId = Identifier.of(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
-            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Settings().modelId(Touhou.id("spawn_egg"))));
+            ResourceLocation spawnEggId = ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
+            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Properties().modelId(Touhou.id("spawn_egg"))));
             this.entityType = build;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;
@@ -98,19 +97,19 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
         return CODEC;
     }
 
-    protected static <T extends Entity> EntityType<T> registerEntity(Identifier id, EntityType<T> entityType) {
-        EntityType<T> entityTypeRef = Registry.register(Registries.ENTITY_TYPE, id, entityType);
+    protected static <T extends Entity> EntityType<T> registerEntity(ResourceLocation id, EntityType<T> entityType) {
+        EntityType<T> entityTypeRef = Registry.register(BuiltInRegistries.ENTITY_TYPE, id, entityType);
         PolymerEntityUtils.registerType(entityTypeRef);
         return entityTypeRef;
     }
 
     protected static Item registerNPCSpawnEggItem(IdentifierGetter item) {
-        Registry.register(Registries.ITEM, item.getIdentifier(), (Item) item);
+        Registry.register(BuiltInRegistries.ITEM, item.getIdentifier(), (Item) item);
         NPC_SPAWN_EGG_ITEM_LIST.add((Item) item);
         return (Item) item;
     }
 
-    private static RegistryKey<EntityType<?>> of(Identifier id) {
-        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, id);
+    private static ResourceKey<EntityType<?>> of(ResourceLocation id) {
+        return ResourceKey.create(Registries.ENTITY_TYPE, id);
     }
 }

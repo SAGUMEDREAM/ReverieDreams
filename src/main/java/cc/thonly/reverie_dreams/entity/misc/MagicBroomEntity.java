@@ -8,84 +8,90 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.PlayerRideableJumping;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 @Setter
 @Getter
 @ToString
-public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
-    public ItemStackWrapper itemWrapper = ItemStackWrapper.of(Items.AIR.getDefaultStack());
+public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJumping {
+    public ItemStackWrapper itemWrapper = ItemStackWrapper.of(Items.AIR.getDefaultInstance());
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
     public String ownerUUID = "";
 
-    public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
+    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
     }
 
-    public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world, int x, int y, int z, ItemStackWrapper wrapper) {
+    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper) {
         this(entityType, world);
-        this.setPosition(x, y, z);
+        this.setPos(x, y, z);
         this.itemWrapper = wrapper;
     }
 
-    public MagicBroomEntity(EntityType<? extends PathAwareEntity> entityType, World world, int x, int y, int z, ItemStackWrapper wrapper, String ownerUUID) {
+    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, String ownerUUID) {
         this(entityType, world, x, y, z, wrapper);
         this.ownerUUID = ownerUUID;
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(0, new SwimGoal(this));
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new FloatGoal(this));
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.getWorld() instanceof ServerWorld world) {
-            this.setNoGravity(this.hasPassengers());
-            if (!this.hasStatusEffect(StatusEffects.INVISIBILITY)) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+        if (this.level() instanceof ServerLevel world) {
+            this.setNoGravity(this.isVehicle());
+            if (!this.hasEffect(MobEffects.INVISIBILITY)) {
+                this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
             }
-            if (!this.itemWrapper.isEmpty() && this.itemWrapper.getItemStack().isDamageable() && this.itemWrapper.getItemStack().getDamage() >= this.itemWrapper.getItemStack().getMaxDamage()) {
-                this.damage(world, this.getDamageSources().magic(), Integer.MAX_VALUE);
+            if (!this.itemWrapper.isEmpty() && this.itemWrapper.getItemStack().isDamageableItem() && this.itemWrapper.getItemStack().getDamageValue() >= this.itemWrapper.getItemStack().getMaxDamage()) {
+                this.hurtServer(world, this.damageSources().magic(), Integer.MAX_VALUE);
             }
         }
     }
 
     @Override
-    public void onStartedTrackingBy(ServerPlayerEntity player) {
-        super.onStartedTrackingBy(player);
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
         PolymerEntity polymerEntity = PolymerEntity.get(this);
         if (polymerEntity instanceof MagicBroomImpl impl) {
             impl.onTrackingStopped(player);
@@ -94,8 +100,8 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     }
 
     @Override
-    public void onStoppedTrackingBy(ServerPlayerEntity player) {
-        super.onStoppedTrackingBy(player);
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
         PolymerEntity polymerEntity = PolymerEntity.get(this);
         if (polymerEntity instanceof MagicBroomImpl impl) {
             impl.onTrackingStopped(player);
@@ -103,63 +109,63 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     }
 
     @Override
-    public boolean damage(ServerWorld world, DamageSource source, float amount) {
-        Entity attacker = source.getAttacker();
-        if (attacker != null && attacker.isSneaking() && this.ownerUUID.intern().equalsIgnoreCase(attacker.getUuid().toString())) {
+    public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
+        Entity attacker = source.getEntity();
+        if (attacker != null && attacker.isShiftKeyDown() && this.ownerUUID.intern().equalsIgnoreCase(attacker.getUUID().toString())) {
             if (!this.itemWrapper.isEmpty()) {
                 ItemStack copiedStack = this.itemWrapper.getItemStack().copy();
                 ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
-                world.spawnEntity(itemEntity);
+                world.addFreshEntity(itemEntity);
                 this.discard();
             }
         }
-        return super.damage(world, source, amount);
+        return super.hurtServer(world, source, amount);
     }
 
     @Override
-    public void onDamaged(DamageSource damageSource) {
-        if (damageSource.isOf(DamageTypes.FALL)) {
+    public void handleDamageEvent(DamageSource damageSource) {
+        if (damageSource.is(DamageTypes.FALL)) {
             return;
         }
-        super.onDamaged(damageSource);
+        super.handleDamageEvent(damageSource);
     }
 
     @Override
-    protected void applyDamage(ServerWorld world, DamageSource source, float amount) {
-        if (source.isOf(DamageTypes.FALL)) {
+    protected void actuallyHurt(ServerLevel world, DamageSource source, float amount) {
+        if (source.is(DamageTypes.FALL)) {
             return;
         }
-        super.applyDamage(world, source, amount);
+        super.actuallyHurt(world, source, amount);
     }
 
     @Override
     @Nullable
     public LivingEntity getControllingPassenger() {
-        PlayerEntity playerEntity;
+        Player playerEntity;
         Entity entity;
-        if ((entity = this.getFirstPassenger()) instanceof PlayerEntity && (playerEntity = (PlayerEntity) entity).isAlive()) {
+        if ((entity = this.getFirstPassenger()) instanceof Player && (playerEntity = (Player) entity).isAlive()) {
             return playerEntity;
         }
         return super.getControllingPassenger();
     }
 
     @Override
-    protected void tickControlled(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        super.tickControlled(controllingPlayer, movementInput);
-        Vec2f vec2f = this.getControlledRotation(controllingPlayer);
-        this.setRotation(vec2f.y, vec2f.x);
-        this.bodyYaw = this.headYaw = this.getYaw();
-        this.lastBodyYaw = this.headYaw;
+    protected void tickRidden(Player controllingPlayer, Vec3 movementInput) {
+        super.tickRidden(controllingPlayer, movementInput);
+        Vec2 vec2f = this.getControlledRotation(controllingPlayer);
+        this.setRot(vec2f.y, vec2f.x);
+        this.yBodyRot = this.yHeadRot = this.getYRot();
+        this.yBodyRotO = this.yHeadRot;
 
-        if (!this.itemWrapper.isEmpty() && !controllingPlayer.isInCreativeMode() && this.itemWrapper.getItemStack().isDamageable()) {
+        if (!this.itemWrapper.isEmpty() && !controllingPlayer.hasInfiniteMaterials() && this.itemWrapper.getItemStack().isDamageableItem()) {
             this.damageTick++;
             if (this.damageTick > this.maxDamageTick) {
-                this.itemWrapper.getItemStack().damage(1, this, EquipmentSlot.MAINHAND);
+                this.itemWrapper.getItemStack().hurtAndBreak(1, this, EquipmentSlot.MAINHAND);
                 this.damageTick = 0;
             }
         }
 
-        if (controllingPlayer instanceof ServerPlayerEntity player) {
+        if (controllingPlayer instanceof ServerPlayer player) {
             boolean keyLeft = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.LEFT);
             boolean keyRight = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.RIGHT);
             boolean keyForward = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.FORWARD);
@@ -167,86 +173,86 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
             boolean keySpeedUp = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.SPRINT);
 
             float strafe = keyLeft ? 0.5f : (keyRight ? -0.5f : 0);
-            float vertical = keyForward ? -(player.getPitch() - 10) / 22.5f : 0;
+            float vertical = keyForward ? -(player.getXRot() - 10) / 22.5f : 0;
             float forward = keyForward ? 3 : (keyBack ? -0.5f : 0);
 
             float speedMultiplier = keySpeedUp ? 1.8f : 1.0f;
 
-            this.updateVelocity(0.245f * speedMultiplier, new Vec3d(strafe, vertical, forward));
-            this.move(MovementType.SELF, this.getVelocity());
-            this.velocityDirty = true;
+            this.moveRelative(0.245f * speedMultiplier, new Vec3(strafe, vertical, forward));
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.hasImpulse = true;
         }
     }
 
-    protected Vec2f getControlledRotation(LivingEntity controllingPassenger) {
-        return new Vec2f(controllingPassenger.getPitch() * 0.5f, controllingPassenger.getYaw());
+    protected Vec2 getControlledRotation(LivingEntity controllingPassenger) {
+        return new Vec2(controllingPassenger.getXRot() * 0.5f, controllingPassenger.getYRot());
     }
 
     @Override
-    protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        float f = controllingPlayer.sidewaysSpeed * 0.5f;
-        float g = controllingPlayer.forwardSpeed;
+    protected Vec3 getRiddenInput(Player controllingPlayer, Vec3 movementInput) {
+        float f = controllingPlayer.xxa * 0.5f;
+        float g = controllingPlayer.zza;
         if (g <= 0.0f) {
             g *= 0.25f;
         }
-        return new Vec3d(f, 0.0, g);
+        return new Vec3(f, 0.0, g);
     }
 
     @Override
-    public void onDeath(DamageSource damageSource) {
-        super.onDeath(damageSource);
-        World world = this.getWorld();
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+        Level world = this.level();
         if (this.itemWrapper.isEmpty()) {
             return;
         }
         ItemStack copiedStack = this.itemWrapper.getItemStack().copy();
         ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
-        world.spawnEntity(itemEntity);
+        world.addFreshEntity(itemEntity);
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        World world = player.getWorld();
-        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        Level world = player.level();
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
 
         }
-        if (!this.hasPassengers() && !player.shouldCancelInteraction()) {
-            if (!this.getWorld().isClient) {
+        if (!this.isVehicle() && !player.isSecondaryUseActive()) {
+            if (!this.level().isClientSide) {
                 player.startRiding(this);
             }
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return super.interactMob(player, hand);
+        return super.mobInteract(player, hand);
     }
 
-    public static DefaultAttributeContainer createAttributes() {
-        return AnimalEntity.createAnimalAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 15.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.25)
-                .add(EntityAttributes.FLYING_SPEED, 0.15)
-                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 10.0)
+    public static AttributeSupplier createAttributes() {
+        return Animal.createAnimalAttributes()
+                .add(Attributes.MAX_HEALTH, 15.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.FLYING_SPEED, 0.15)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 10.0)
                 .build();
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
-        view.put("SummonedItem", ItemStackWrapper.CODEC, this.itemWrapper);
+    protected void addAdditionalSaveData(ValueOutput view) {
+        super.addAdditionalSaveData(view);
+        view.store("SummonedItem", ItemStackWrapper.CODEC, this.itemWrapper);
         view.putString("OwnerUUID", this.ownerUUID);
     }
 
     @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        DynamicRegistryManager registryManager = this.getRegistryManager();
+    protected void readAdditionalSaveData(ValueInput view) {
+        super.readAdditionalSaveData(view);
+        RegistryAccess registryManager = this.registryAccess();
         this.itemWrapper = view.read("SummonedItem", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
 
-        this.ownerUUID = view.getString("OwnerUUID", "null");
+        this.ownerUUID = view.getStringOr("OwnerUUID", "null");
 
     }
 
     @Override
-    public void setJumpStrength(int strength) {
+    public void onPlayerJump(int strength) {
 
     }
 
@@ -256,12 +262,12 @@ public class MagicBroomEntity extends PathAwareEntity implements JumpingMount {
     }
 
     @Override
-    public void startJumping(int height) {
+    public void handleStartJump(int height) {
 
     }
 
     @Override
-    public void stopJumping() {
+    public void handleStopJump() {
 
     }
 }

@@ -16,23 +16,19 @@ import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.elements.GuiElementInterface;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import lombok.Getter;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UseCooldownComponent;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.UseCooldown;
+import net.minecraft.world.level.Level;
 import java.util.*;
 import java.util.function.Function;
 
@@ -47,16 +43,16 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
 
     private int resultSlot = -1;
 
-    public DanmakuCraftingTableGui(ServerPlayerEntity player, World world, BlockPos pos) {
-        super(ScreenHandlerType.GENERIC_9X3, player, false);
-        this.setTitle(Text.translatable(ModBlocks.DANMAKU_CRAFTING_TABLE.getTranslationKey()));
+    public DanmakuCraftingTableGui(ServerPlayer player, Level world, BlockPos pos) {
+        super(MenuType.GENERIC_9x3, player, false);
+        this.setTitle(Component.translatable(ModBlocks.DANMAKU_CRAFTING_TABLE.getDescriptionId()));
         this.blockEntity = (DanmakuCraftingTableBlockEntity) world.getBlockEntity(pos);
         this.init();
     }
 
     @Override
     public void init() {
-        Inventory inventory = this.blockEntity.getInventory();
+        Container inventory = this.blockEntity.getInventory();
         int counter = 0;
         int counter2 = 0;
         for (int i = 0; i < layout.length; i++) {
@@ -101,7 +97,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     @Override
     public void onTick() {
         super.onTick();
-        if (this.blockEntity.getWorld() != null && this.blockEntity.getWorld().getBlockState(blockEntity.getPos()).getBlock() != ModBlocks.DANMAKU_CRAFTING_TABLE) {
+        if (this.blockEntity.getLevel() != null && this.blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock() != ModBlocks.DANMAKU_CRAFTING_TABLE) {
             this.close();
             return;
         }
@@ -118,19 +114,19 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                 DanmakuRecipe recipeEntry = recipeEntries.getFirst();
                 ItemStackWrapper resultWrapper = recipeEntry.getOutput().copy();
                 ItemStack itemStack = resultWrapper.getItemStack();
-                itemStack.set(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(0.5f, Optional.of(Identifier.of(UUID.randomUUID().toString()))));
+                itemStack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))));
 
                 this.setSlot(this.resultSlot, new GuiElementBuilder(itemStack).setCallback(new GuiElementInterface.ItemClickCallback() {
                     @Override
-                    public void click(int i, ClickType clickType, SlotActionType slotActionType) {
+                    public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
                         for (ItemStackWrapper countRecipeSlot : List.of(recipeEntry.getDye(), recipeEntry.getCore(), recipeEntry.getPower(), recipeEntry.getPoint(), recipeEntry.getMaterial())) {
                             if (countRecipeSlot.getItem() != Items.AIR) {
                                 Item item = countRecipeSlot.getItem();
                                 int count = countRecipeSlot.getCount();
-                                DanmakuCraftingTableGui.this.blockEntity.getInventory().removeItem(item, count);
+                                DanmakuCraftingTableGui.this.blockEntity.getInventory().removeItemType(item, count);
                             }
                         }
-                        DanmakuCraftingTableGui.this.player.giveItemStack(itemStack.copy());
+                        DanmakuCraftingTableGui.this.player.addItem(itemStack.copy());
                         DanmakuCraftingTableGui.this.setSlot(DanmakuCraftingTableGui.this.resultSlot, new GuiElementBuilder()
                                 .setItem(ModGuiItems.PROGRESS_TO_RESULT)
                         );
@@ -144,7 +140,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     private List<ItemStackWrapper> getInputs() {
         List<ItemStackWrapper> countRecipeSlotList = new LinkedList<>();
         for (int i = 0; i < 5; i++) {
-            ItemStack itemStack = this.blockEntity.getInventory().getStack(i);
+            ItemStack itemStack = this.blockEntity.getInventory().getItem(i);
             countRecipeSlotList.add(new ItemStackWrapper(itemStack));
         }
         return countRecipeSlotList;
@@ -153,6 +149,6 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     @Override
     public void onClose() {
         super.onClose();
-        this.blockEntity.markDirty();
+        this.blockEntity.setChanged();
     }
 }

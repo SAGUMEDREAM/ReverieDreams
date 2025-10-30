@@ -2,9 +2,18 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import lombok.Getter;
-import net.minecraft.block.*;
-import net.minecraft.item.Item;
-
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -46,7 +55,7 @@ public enum BlockTypeGroup {
         if (block instanceof FenceGateBlock) {
             FENCE_GATE.add(block);
         }
-        if (block instanceof StairsBlock) {
+        if (block instanceof StairBlock) {
             STAIR.add(block);
         }
         if (block instanceof SlabBlock) {
@@ -58,7 +67,7 @@ public enum BlockTypeGroup {
         if (block instanceof PressurePlateBlock) {
             PRESSURE_PLATE.add(block);
         }
-        if (block instanceof TrapdoorBlock) {
+        if (block instanceof TrapDoorBlock) {
             TRAPDOOR.add(block);
         }
         if (block instanceof DoorBlock) {
@@ -70,7 +79,7 @@ public enum BlockTypeGroup {
         if (block instanceof AbstractKitchenwareBlock) {
             KITCHENWARE.add(block);
         }
-        if (block instanceof PlantBlock) {
+        if (block instanceof VegetationBlock) {
             PLANT.add(block);
         }
         BLOCK.add(block);

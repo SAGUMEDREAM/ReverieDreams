@@ -8,27 +8,27 @@ import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 
 @Setter
 @Getter
 public class DanmakuDamageType implements CodecStep<DanmakuDamageType>, OwnerBinding<DanmakuDamageType>, BuiltinObject {
-    public static final Codec<DanmakuDamageType> CODEC = RegistryKey.createCodec(RegistryKeys.DAMAGE_TYPE)
+    public static final Codec<DanmakuDamageType> CODEC = ResourceKey.codec(Registries.DAMAGE_TYPE)
             .xmap(DanmakuDamageType::new, DanmakuDamageType::getRegistryKey);
-    public static final Identifier DEFAULT_ID = Touhou.id("generic");
-    private Identifier id;
-    private final RegistryKey<DamageType> registryKey;
+    public static final ResourceLocation DEFAULT_ID = Touhou.id("generic");
+    private ResourceLocation id;
+    private final ResourceKey<DamageType> registryKey;
     private IntrinsicalRegister<DanmakuDamageType> owner;
 
-    public DanmakuDamageType(RegistryKey<DamageType> registryKey) {
+    public DanmakuDamageType(ResourceKey<DamageType> registryKey) {
         this.registryKey = registryKey;
     }
 
@@ -45,14 +45,14 @@ public class DanmakuDamageType implements CodecStep<DanmakuDamageType>, OwnerBin
         return sources.generic();
     }
 
-    public RegistryKey<DamageType> getType() {
+    public ResourceKey<DamageType> getType() {
         return this.registryKey;
     }
 
-    public DamageType getValue(DynamicRegistryManager registryManager) {
+    public DamageType getValue(RegistryAccess registryManager) {
         if (this.registryKey == null) return null;
-        Registry<DamageType> registry = registryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE);
-        return registry.get(this.registryKey);
+        Registry<DamageType> registry = registryManager.lookupOrThrow(Registries.DAMAGE_TYPE);
+        return registry.getValue(this.registryKey);
     }
 
     @Override

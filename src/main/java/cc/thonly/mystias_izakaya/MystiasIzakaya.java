@@ -15,14 +15,14 @@ import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,27 +48,27 @@ public class MystiasIzakaya implements ModInitializer {
         MIDataFixer.bootstrap();
 
         UseBlockCallback.EVENT.register((playerEntity, world, hand, blockHitResult) -> {
-            if (!world.isClient()) {
-                ItemStack stack = playerEntity.getStackInHand(hand);
+            if (!world.isClientSide()) {
+                ItemStack stack = playerEntity.getItemInHand(hand);
                 BlockPos blockPos = blockHitResult.getBlockPos();
                 BlockState blockState = world.getBlockState(blockPos);
                 Block block = blockState.getBlock();
-                if (block instanceof LeavesBlock && (blockState.get(LeavesBlock.WATERLOGGED))) {
+                if (block instanceof LeavesBlock && (blockState.getValue(LeavesBlock.WATERLOGGED))) {
                     if (stack.getItem() == Items.LILY_PAD) {
-                        stack.decrementUnlessCreative(1, playerEntity);
-                        if (!playerEntity.isInCreativeMode()) {
-                            playerEntity.giveItemStack(new ItemStack(MIItems.DEW, 1));
+                        stack.consume(1, playerEntity);
+                        if (!playerEntity.hasInfiniteMaterials()) {
+                            playerEntity.addItem(new ItemStack(MIItems.DEW, 1));
                         }
-                        playerEntity.swingHand(hand);
-                        return ActionResult.SUCCESS_SERVER;
+                        playerEntity.swing(hand);
+                        return InteractionResult.SUCCESS_SERVER;
                     }
                 }
             }
-            return ActionResult.PASS;
+            return InteractionResult.PASS;
         });
     }
 
-    public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path.toLowerCase());
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path.toLowerCase());
     }
 }

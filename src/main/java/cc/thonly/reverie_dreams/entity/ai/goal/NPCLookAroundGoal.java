@@ -1,28 +1,27 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.MobEntity;
-
 import java.util.EnumSet;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class NPCLookAroundGoal extends Goal {
-    private final MobEntity mob;
+    private final Mob mob;
     private double deltaX;
     private double deltaZ;
     private int lookTime;
 
-    public NPCLookAroundGoal(MobEntity mob) {
+    public NPCLookAroundGoal(Mob mob) {
         this.mob = mob;
-        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     @Override
-    public boolean canStart() {
-        return this.mob.getAttacker() != null && this.mob.getRandom().nextFloat() < 0.02f;
+    public boolean canUse() {
+        return this.mob.getLastHurtByMob() != null && this.mob.getRandom().nextFloat() < 0.02f;
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return this.lookTime >= 0;
     }
 
@@ -35,13 +34,13 @@ public class NPCLookAroundGoal extends Goal {
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    public boolean requiresUpdateEveryTick() {
         return true;
     }
 
     @Override
     public void tick() {
         --this.lookTime;
-        this.mob.getLookControl().lookAt(this.mob.getX() + this.deltaX, this.mob.getEyeY(), this.mob.getZ() + this.deltaZ);
+        this.mob.getLookControl().setLookAt(this.mob.getX() + this.deltaX, this.mob.getEyeY(), this.mob.getZ() + this.deltaZ);
     }
 }

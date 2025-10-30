@@ -14,12 +14,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataWriter;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,34 +30,34 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("rawTypes")
 public abstract class IngredientProvider implements DataProvider {
     public final FabricDataOutput output;
-    public final CompletableFuture<RegistryWrapper.WrapperLookup> future;
+    public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, Factory> identifier2BuilderListMap = new Object2ObjectOpenHashMap<>();
+    private final Map<ResourceLocation, cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory> identifier2BuilderListMap = new Object2ObjectOpenHashMap<>();
 
-    public IngredientProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> future) {
+    public IngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
         this.configured();
     }
 
-    public Factory createFactory(FoodProperty property) {
-        Identifier id = property.getId();
+    public cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory createFactory(FoodProperty property) {
+        ResourceLocation id = property.getId();
         if (this.identifier2BuilderListMap.containsKey(id)) {
             return this.identifier2BuilderListMap.get(id);
         }
-        Factory factory = new Factory(id, property);
+        cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory factory = new cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory(id, property);
         this.identifier2BuilderListMap.put(id, factory);
         return factory;
     }
 
-    public Factory createFactory(FoodProperty property, Item... items) {
-        Factory factory = createFactory(property);
+    public cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory createFactory(FoodProperty property, Item... items) {
+        cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory factory = createFactory(property);
         factory.getList().addAll(Arrays.stream(items).toList());
         return factory;
     }
 
     @Override
-    public CompletableFuture<?> run(DataWriter writer) {
+    public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
             this.export(writer);
@@ -67,12 +66,12 @@ public abstract class IngredientProvider implements DataProvider {
 
     protected abstract void configured();
 
-    public void export(DataWriter writer) {
+    public void export(CachedOutput writer) {
         Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         try {
             for (var entry : this.identifier2BuilderListMap.entrySet()) {
-                Identifier identifier = entry.getKey();
-                Factory factory = entry.getValue();
+                ResourceLocation identifier = entry.getKey();
+                cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory factory = entry.getValue();
                 factory.getProperty().setId(identifier);
                 Path generatePath = DataGeneratorUtil.getData(path, MystiasIzakaya.MOD_ID, "food_property", null);
 
@@ -86,7 +85,7 @@ public abstract class IngredientProvider implements DataProvider {
                     byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
                     Files.createDirectories(output.getParent());
 
-                    writer.write(output, bytes, HashCode.fromBytes(bytes));
+                    writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
                 }
             }
         } catch (Exception err) {
@@ -97,22 +96,22 @@ public abstract class IngredientProvider implements DataProvider {
     @Setter
     @Getter
     public static class Factory {
-        private final Identifier id;
+        private final ResourceLocation id;
         private final FoodProperty property;
         private final List<Item> list = new LinkedList<>();
         private boolean done = false;
 
-        protected Factory(Identifier id, FoodProperty property) {
+        protected Factory(ResourceLocation id, FoodProperty property) {
             this.id = id;
             this.property = property;
         }
 
-        public Factory add(Item item) {
+        public cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory add(Item item) {
             this.list.add(item);
             return this;
         }
 
-        public Factory add(Item... item) {
+        public cc.thonly.mystias_izakaya.datagen.generator.IngredientProvider.Factory add(Item... item) {
             this.list.addAll(Arrays.stream(item).toList());
             return this;
         }

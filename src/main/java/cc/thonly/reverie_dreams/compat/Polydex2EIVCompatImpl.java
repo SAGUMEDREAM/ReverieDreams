@@ -5,13 +5,12 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Pair;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class Polydex2EIVCompatImpl {
     public static void bootstrap(
@@ -20,9 +19,9 @@ public class Polydex2EIVCompatImpl {
             List<ItemStack> stacks = new ArrayList<>();
             Collection<DanmakuType> danmakuTypes = RegistryManager.DANMAKU_TYPE.values();
             for (DanmakuType danmakuType : danmakuTypes) {
-                List<Pair<Item, ItemStack>> pairs = danmakuType.getColorPairs();
-                for (Pair<Item, ItemStack> pair : pairs) {
-                    stacks.add(pair.getRight());
+                List<Tuple<Item, ItemStack>> pairs = danmakuType.getColorPairs();
+                for (Tuple<Item, ItemStack> pair : pairs) {
+                    stacks.add(pair.getB());
                 }
             }
 

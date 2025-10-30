@@ -11,19 +11,18 @@ import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Block;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.item.Item;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -33,58 +32,58 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
     private final Function<WoodCreator, Void> woodCreatorLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
             if (block instanceof DoorBlock) {
-                LootTable.Builder builder = this.doorDrops(block);
-                this.addDrop(block, builder);
+                LootTable.Builder builder = this.createDoorTable(block);
+                this.add(block, builder);
                 return;
             }
             if (block instanceof LeavesBlock) {
-                this.leavesDrops(block, creator.sapling(), 0.2f);
+                this.createLeavesDrops(block, creator.sapling(), 0.2f);
                 return;
             }
             if (block instanceof SlabBlock) {
-                LootTable.Builder builder = this.slabDrops(block);
-                this.addDrop(block, builder);
+                LootTable.Builder builder = this.createSlabItemTable(block);
+                this.add(block, builder);
                 return;
             }
-            this.addDrop(block);
+            this.dropSelf(block);
         }));
         return null;
     };
     private final Function<DecorativeBlockCreator, Void> decorativeBlockCreatorLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
             if (block instanceof SlabBlock) {
-                LootTable.Builder builder = this.slabDrops(block);
-                this.addDrop(block, builder);
+                LootTable.Builder builder = this.createSlabItemTable(block);
+                this.add(block, builder);
                 return;
             }
-            this.addDrop(block);
+            this.dropSelf(block);
         }));
         return null;
     };
 
-    public ModBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public ModBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
     @Override
     public void generate() {
-        addDrop(ModBlocks.DANMAKU_CRAFTING_TABLE);
-        addDrop(ModBlocks.STRENGTH_TABLE);
-        addDrop(ModBlocks.GENSOKYO_ALTAR);
-        addDrop(ModBlocks.MUSIC_BLOCK);
+        dropSelf(ModBlocks.DANMAKU_CRAFTING_TABLE);
+        dropSelf(ModBlocks.STRENGTH_TABLE);
+        dropSelf(ModBlocks.GENSOKYO_ALTAR);
+        dropSelf(ModBlocks.MUSIC_BLOCK);
 
         this.woodCreatorLootFunction.apply(ModBlocks.SPIRITUAL);
 
-        addDrop(ModBlocks.MAGIC_ICE_BLOCK);
-        addDrop(ModBlocks.MARISA_HAT_BLOCK);
-        addDrop(ModBlocks.ANTI_COLLISION_BARREL);
-        addDrop(ModBlocks.CASH_BOX_BLOCK);
-        addDrop(ModBlocks.WHEEL_CHAIR);
+        dropSelf(ModBlocks.MAGIC_ICE_BLOCK);
+        dropSelf(ModBlocks.MARISA_HAT_BLOCK);
+        dropSelf(ModBlocks.ANTI_COLLISION_BARREL);
+        dropSelf(ModBlocks.CASH_BOX_BLOCK);
+        dropSelf(ModBlocks.WHEEL_CHAIR);
 
-        addDrop(ModBlocks.POINT_BLOCK);
-        addDrop(ModBlocks.POWER_BLOCK);
-        addDrop(ModBlocks.SILVER_ORE, (Block block) -> this.oreDrops(block, ModItems.RAW_SILVER));
-        addDrop(ModBlocks.DEEPSLATE_SILVER_ORE, (Block block) -> this.oreDrops(block, ModItems.RAW_SILVER));
+        dropSelf(ModBlocks.POINT_BLOCK);
+        dropSelf(ModBlocks.POWER_BLOCK);
+        add(ModBlocks.SILVER_ORE, (Block block) -> this.createOreDrop(block, ModItems.RAW_SILVER));
+        add(ModBlocks.DEEPSLATE_SILVER_ORE, (Block block) -> this.createOreDrop(block, ModItems.RAW_SILVER));
         Function<Block, LootTable.Builder> orbDropFunction = (Block block) -> {
             LootTable.Builder builder = new LootTable.Builder();
 
@@ -97,28 +96,28 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
             );
 
             for (Item item : itemList) {
-                LootPool.Builder pool = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.25f))
-                        .with(ItemEntry.builder(item));
-                builder.pool(pool);
+                LootPool.Builder pool = LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .when(LootItemRandomChanceCondition.randomChance(0.25f))
+                        .add(LootItem.lootTableItem(item));
+                builder.withPool(pool);
             }
 
-            LootPool.Builder fallbackPool = LootPool.builder()
-                    .rolls(ConstantLootNumberProvider.create(1))
-                    .with(ItemEntry.builder(ModItems.RED_ORB).weight(1))
-                    .with(ItemEntry.builder(ModItems.BLUE_ORB).weight(1))
-                    .with(ItemEntry.builder(ModItems.YELLOW_ORB).weight(1))
-                    .with(ItemEntry.builder(ModItems.GREEN_ORB).weight(1))
-                    .with(ItemEntry.builder(ModItems.PURPLE_ORB).weight(1));
-            builder.pool(fallbackPool);
+            LootPool.Builder fallbackPool = LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(ModItems.RED_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(ModItems.BLUE_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(ModItems.YELLOW_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(ModItems.GREEN_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(ModItems.PURPLE_ORB).setWeight(1));
+            builder.withPool(fallbackPool);
 
             return builder;
         };
-        addDrop(ModBlocks.ORB_ORE, orbDropFunction);
-        addDrop(ModBlocks.DEEPSLATE_ORB_ORE, orbDropFunction);
-        addDrop(ModBlocks.SILVER_BLOCK);
-        addDrop(ModBlocks.SILVER_CHEST_BLOCK.chestBlock());
+        add(ModBlocks.ORB_ORE, orbDropFunction);
+        add(ModBlocks.DEEPSLATE_ORB_ORE, orbDropFunction);
+        dropSelf(ModBlocks.SILVER_BLOCK);
+        dropSelf(ModBlocks.SILVER_CHEST_BLOCK.chestBlock());
         Function<Block, LootTable.Builder> dreamCrystlDropFunction = (Block block) -> {
             LootTable.Builder builder = new LootTable.Builder();
 
@@ -128,22 +127,22 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
             );
 
             for (Item item : itemList) {
-                LootPool.Builder pool = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.25f))
-                        .with(ItemEntry.builder(item));
-                builder.pool(pool);
+                LootPool.Builder pool = LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .when(LootItemRandomChanceCondition.randomChance(0.25f))
+                        .add(LootItem.lootTableItem(item));
+                builder.withPool(pool);
             }
 
-            LootPool.Builder fallbackPool = LootPool.builder()
-                    .rolls(ConstantLootNumberProvider.create(1))
-                    .with(ItemEntry.builder(ModItems.DREAM_CRYSTAL_FRAGMENT).weight(1))
+            LootPool.Builder fallbackPool = LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(ModItems.DREAM_CRYSTAL_FRAGMENT).setWeight(1))
                     ;
-            builder.pool(fallbackPool);
+            builder.withPool(fallbackPool);
 
             return builder;
         };
-        addDrop(ModBlocks.DREAM_CRYSTAL_ORE, dreamCrystlDropFunction);
+        add(ModBlocks.DREAM_CRYSTAL_ORE, dreamCrystlDropFunction);
 
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.ICE_SCALES);
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.DREAM_STONE);
@@ -152,7 +151,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.MOON_STONE_BRICK);
 
         for (Fumo fumo : Fumos.getView()) {
-            addDrop(fumo.block());
+            dropSelf(fumo.block());
         }
 
         this.generateMI();
@@ -160,27 +159,27 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     public void generateMI() {
         for (Block block : AbstractKitchenwareBlock.KITCHENWARE_BLOCKS) {
-            addDrop(block);
+            dropSelf(block);
         }
-        addDrop(MIBlocks.ITEM_DISPLAY);
+        dropSelf(MIBlocks.ITEM_DISPLAY);
 
-        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             CropBlockCreator.Instance instance = view.getValue();
             instance.generateLoot(this);
         }
 
         this.woodCreatorLootFunction.apply(MIBlocks.LEMON);
-        addDrop(MIBlocks.LEMON_FRUIT_LEAVES, MIBlocks.LEMON.sapling());
+        dropOther(MIBlocks.LEMON_FRUIT_LEAVES, MIBlocks.LEMON.sapling());
 
         this.woodCreatorLootFunction.apply(MIBlocks.GINKGO);
-        addDrop(MIBlocks.GINKGO_FRUIT_LEAVES, MIBlocks.GINKGO.sapling());
+        dropOther(MIBlocks.GINKGO_FRUIT_LEAVES, MIBlocks.GINKGO.sapling());
 
         this.woodCreatorLootFunction.apply(MIBlocks.PEACH);
-        addDrop(MIBlocks.PEACH_FRUIT_LEAVES, MIBlocks.PEACH.sapling());
+        dropOther(MIBlocks.PEACH_FRUIT_LEAVES, MIBlocks.PEACH.sapling());
 
 //        addDrop(MIBlocks.COOKTOP);
-        addDrop(MIBlocks.BLACK_SALT_BLOCK);
-        addDrop(MIBlocks.UDUMBARA_FLOWER);
-        addDrop(MIBlocks.TREMELLA);
+        dropSelf(MIBlocks.BLACK_SALT_BLOCK);
+        dropSelf(MIBlocks.UDUMBARA_FLOWER);
+        dropSelf(MIBlocks.TREMELLA);
     }
 }

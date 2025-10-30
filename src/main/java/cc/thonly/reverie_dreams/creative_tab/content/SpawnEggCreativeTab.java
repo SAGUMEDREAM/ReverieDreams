@@ -4,24 +4,24 @@ import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.ModItems;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.text.Text;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class SpawnEggCreativeTab implements ItemGroupContentHelper {
-    public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group_spawn_egg"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
+    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Touhou.id("item_group_spawn_egg"));
+    public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.SPAWN_EGG))
-            .displayName(Text.translatable("item_group.touhou.spawn_egg"))
+            .title(Component.translatable("item_group.touhou.spawn_egg"))
             .build();
 
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(SpawnEggCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
             for (Item item : ModEntities.getSpawnEggItemView()) {
-                itemGroup.add(item);
+                itemGroup.accept(item);
             }
         });
         ItemGroupContentHelper.registerGroup(SpawnEggCreativeTab.ITEM_GROUP_KEY, SpawnEggCreativeTab.ITEM_GROUP);

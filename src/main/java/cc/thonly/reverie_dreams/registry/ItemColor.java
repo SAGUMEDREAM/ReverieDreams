@@ -1,13 +1,12 @@
 package cc.thonly.reverie_dreams.registry;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.DyedItemColor;
 
 public record ItemColor(Item item, Long color) {
     public static final Key2ValueRegister<Item, ItemColor> REGISTRY_KEY = Key2ValueRegistryManager.ITEM_COLOR;
@@ -29,12 +28,12 @@ public record ItemColor(Item item, Long color) {
     public static final ItemColor BLACK = registerItemColor(Items.BLACK_DYE, 2500134L);
 
     public ItemStack color(Item item) {
-        ItemStack itemStack = item.getDefaultStack();
+        ItemStack itemStack = item.getDefaultInstance();
         return this.color(itemStack);
     }
 
     public ItemStack color(ItemStack itemStack) {
-        itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color().intValue()));
+        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color().intValue()));
         return itemStack;
     }
 

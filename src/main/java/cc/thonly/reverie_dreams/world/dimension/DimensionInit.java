@@ -3,50 +3,49 @@ package cc.thonly.reverie_dreams.world.dimension;
 import cc.thonly.reverie_dreams.Touhou;
 import cc.thonly.reverie_dreams.world.gen.BiomeInit;
 import cc.thonly.reverie_dreams.world.gen.ChunkGeneratorSettingsInit;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.source.FixedBiomeSource;
-import net.minecraft.world.dimension.DimensionOptions;
-import net.minecraft.world.gen.chunk.FlatChunkGenerator;
-import net.minecraft.world.gen.chunk.FlatChunkGeneratorConfig;
-import net.minecraft.world.gen.chunk.FlatChunkGeneratorLayer;
-import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
-
 import java.util.ArrayList;
 import java.util.Optional;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.FixedBiomeSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
+import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
+import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
 
 public class DimensionInit {
-    public static final RegistryKey<DimensionOptions> DREAM_WORLD = getOrCreateRegistryKey("dream_world");
-    public static final RegistryKey<DimensionOptions> THE_MOON = getOrCreateRegistryKey("the_moon");
-    public static final RegistryKey<DimensionOptions> GENSOKYO = getOrCreateRegistryKey("gensokyo");
+    public static final ResourceKey<LevelStem> DREAM_WORLD = getOrCreateRegistryKey("dream_world");
+    public static final ResourceKey<LevelStem> THE_MOON = getOrCreateRegistryKey("the_moon");
+    public static final ResourceKey<LevelStem> GENSOKYO = getOrCreateRegistryKey("gensokyo");
 
-    public static void bootstrap(Registerable<DimensionOptions> context) {
-        var dimensionTypeLookup = context.getRegistryLookup(RegistryKeys.DIMENSION_TYPE);
-        var biomeLookup = context.getRegistryLookup(RegistryKeys.BIOME);
-        var chunkGeneratorSettingsLookup = context.getRegistryLookup(RegistryKeys.CHUNK_GENERATOR_SETTINGS);
+    public static void bootstrap(BootstrapContext<LevelStem> context) {
+        var dimensionTypeLookup = context.lookup(Registries.DIMENSION_TYPE);
+        var biomeLookup = context.lookup(Registries.BIOME);
+        var chunkGeneratorSettingsLookup = context.lookup(Registries.NOISE_SETTINGS);
 
-        var dreamWorldConfig = new FlatChunkGeneratorConfig(
+        var dreamWorldConfig = new FlatLevelGeneratorSettings(
                 Optional.empty(),
                 biomeLookup.getOrThrow(BiomeInit.DREAM),
                 new ArrayList<>()
         );
-        dreamWorldConfig.enableFeatures();
-        dreamWorldConfig.enableLakes();
-        dreamWorldConfig.getLayers().add(new FlatChunkGeneratorLayer(4, Blocks.BARRIER.getDefaultState().getBlock()));
+        dreamWorldConfig.setDecoration();
+        dreamWorldConfig.setAddLakes();
+        dreamWorldConfig.getLayersInfo().add(new FlatLayerInfo(4, Blocks.BARRIER.defaultBlockState().getBlock()));
 
-        context.register(DREAM_WORLD, new DimensionOptions(
+        context.register(DREAM_WORLD, new LevelStem(
                 dimensionTypeLookup.getOrThrow(DimensionTypeInit.DREAM_WORLD),
-                new FlatChunkGenerator(
+                new FlatLevelSource(
                         dreamWorldConfig
                 )
         ));
 
-        context.register(THE_MOON, new DimensionOptions(
+        context.register(THE_MOON, new LevelStem(
                 dimensionTypeLookup.getOrThrow(DimensionTypeInit.THE_MOON),
-                new NoiseChunkGenerator(
+                new NoiseBasedChunkGenerator(
                         new FixedBiomeSource(
                                 biomeLookup.getOrThrow(BiomeInit.THE_MOON)
                         ),
@@ -58,8 +57,8 @@ public class DimensionInit {
     public static void init() {
     }
 
-    public static RegistryKey<DimensionOptions> getOrCreateRegistryKey(String name) {
-        return RegistryKey.of(RegistryKeys.DIMENSION, Identifier.of(Touhou.MOD_ID, name));
+    public static ResourceKey<LevelStem> getOrCreateRegistryKey(String name) {
+        return ResourceKey.create(Registries.LEVEL_STEM, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
     }
 
 }

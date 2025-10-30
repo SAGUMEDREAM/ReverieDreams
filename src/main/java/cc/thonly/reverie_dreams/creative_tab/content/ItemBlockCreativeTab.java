@@ -9,39 +9,39 @@ import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.effect.ModPotions;
 import cc.thonly.reverie_dreams.item.ModItems;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.text.Text;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
 public class ItemBlockCreativeTab implements ItemGroupContentHelper {
-    public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Touhou.id("item_group"));
-    public static final ItemGroup ITEM_GROUP = ItemGroupContentHelper.builder()
+    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Touhou.id("item_group"));
+    public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.HAKUREI_CANE))
-            .displayName(Text.translatable("item_group.touhou_block_and_item"))
+            .title(Component.translatable("item_group.touhou_block_and_item"))
             .build();
 
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(ItemBlockCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            itemGroup.addAll(ModItems.getItemView().stream().map(Item::getDefaultStack).toList());
-            for (ItemConvertible item : ModItems.getItemView()) {
-                itemGroup.add(item);
+            itemGroup.acceptAll(ModItems.getItemView().stream().map(Item::getDefaultInstance).toList());
+            for (ItemLike item : ModItems.getItemView()) {
+                itemGroup.accept(item);
             }
-            itemGroup.add(ModItems.ROLE_CARD);
-            itemGroup.add(ModPotions.createStack(ModPotions.ELIXIR_OF_LIFE_POTION));
-            itemGroup.add(ModPotions.createStack(ModPotions.ELIXIR_OF_LIFE_POTION_INF));
-            itemGroup.add(ModPotions.createStack(ModPotions.MENTAL_DISORDER_POTION));
-            itemGroup.add(ModPotions.createStack(ModPotions.BACK_OF_LIFE_POTION));
-            itemGroup.add(ModPotions.createStack(ModPotions.KANJU_KUSURI_POTION));
-            for (ItemConvertible item : ModBlocks.BLOCKS) {
-                itemGroup.add(item);
+            itemGroup.accept(ModItems.ROLE_CARD);
+            itemGroup.accept(ModPotions.createStack(ModPotions.ELIXIR_OF_LIFE_POTION));
+            itemGroup.accept(ModPotions.createStack(ModPotions.ELIXIR_OF_LIFE_POTION_INF));
+            itemGroup.accept(ModPotions.createStack(ModPotions.MENTAL_DISORDER_POTION));
+            itemGroup.accept(ModPotions.createStack(ModPotions.BACK_OF_LIFE_POTION));
+            itemGroup.accept(ModPotions.createStack(ModPotions.KANJU_KUSURI_POTION));
+            for (ItemLike item : ModBlocks.BLOCKS) {
+                itemGroup.accept(item);
             }
             for (WoodCreator instance : WoodCreator.INSTANCES) {
-                instance.stream().forEach(block -> itemGroup.add(block.asItem()));
+                instance.stream().forEach(block -> itemGroup.accept(block.asItem()));
             }
             for (Block block : BlockTypeGroup.FRUIT_LEAVES.blocks()) {
                 if (block instanceof FruitLeavesBlock fruitLeavesBlock) {
@@ -49,9 +49,9 @@ public class ItemBlockCreativeTab implements ItemGroupContentHelper {
                 }
             }
             for (DecorativeBlockCreator instance : DecorativeBlockCreator.INSTANCES) {
-                instance.stream().forEach(block -> itemGroup.add(block.asItem()));
+                instance.stream().forEach(block -> itemGroup.accept(block.asItem()));
             }
-            FruitLeavesBlock.FRUIT_LEAVES_BLOCKS.forEach(itemGroup::add);
+            FruitLeavesBlock.FRUIT_LEAVES_BLOCKS.forEach(itemGroup::accept);
         });
         ItemGroupContentHelper.registerGroup(ItemBlockCreativeTab.ITEM_GROUP_KEY, ItemBlockCreativeTab.ITEM_GROUP);
     }

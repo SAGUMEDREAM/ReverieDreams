@@ -3,17 +3,17 @@ package cc.thonly.reverie_dreams.world.gen.feature;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.datagen.ModChestLootTableProvider;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
     public DreamTrialRoom(Codec<DreamTrialRoomConfig> configCodec) {
@@ -21,14 +21,14 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
     }
 
     @Override
-    public boolean generate(FeatureContext<DreamTrialRoomConfig> context) {
-        StructureWorldAccess world = context.getWorld();
-        Random random = context.getRandom();
-        DreamTrialRoomConfig config = context.getConfig();
+    public boolean place(FeaturePlaceContext<DreamTrialRoomConfig> context) {
+        WorldGenLevel world = context.level();
+        RandomSource random = context.random();
+        DreamTrialRoomConfig config = context.config();
 
-        int originX = context.getOrigin().getX();
-        int originY = context.getOrigin().getY();
-        int originZ = context.getOrigin().getZ();
+        int originX = context.origin().getX();
+        int originY = context.origin().getY();
+        int originZ = context.origin().getZ();
 
         int sizeX = 16;
         int sizeY = 16;
@@ -48,10 +48,10 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
                     BlockPos blockPos = new BlockPos(worldX, worldY, worldZ);
                     if (isEdge && world.getBlockState(blockPos).isAir()) {
                         // 放房间方块，例如梦境石
-                        world.setBlockState(
+                        world.setBlock(
                                 new BlockPos(worldX, worldY, worldZ),
-                                ModBlocks.DREAM_STONE_BRICK.block().getDefaultState(),
-                                Block.FORCE_STATE
+                                ModBlocks.DREAM_STONE_BRICK.block().defaultBlockState(),
+                                Block.UPDATE_KNOWN_SHAPE
                         );
                     } else {
                         // 内部留空
@@ -63,28 +63,28 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
 
         // 放置刷怪笼在中心
         for (int i = 0; i < 2; i++) {
-            int i1 = random.nextBetween(1, 2 + i);
+            int i1 = random.nextIntBetweenInclusive(1, 2 + i);
             BlockPos spawnerPos = new BlockPos(
                     i1 + originX + sizeX / 2,
                     originY + 1,
                     i1 + originZ + sizeZ / 2
             );
 
-            world.setBlockState(spawnerPos,
-                    Blocks.SPAWNER.getDefaultState(),
-                    Block.FORCE_STATE
+            world.setBlock(spawnerPos,
+                    Blocks.SPAWNER.defaultBlockState(),
+                    Block.UPDATE_KNOWN_SHAPE
             );
 
-            if (world.getBlockEntity(spawnerPos) instanceof MobSpawnerBlockEntity spawner) {
-                EntityType<?> entityType = Registries.ENTITY_TYPE.get(config.entityTypeId());
-                spawner.getLogic().setEntityId(entityType, null, random, spawnerPos);
+            if (world.getBlockEntity(spawnerPos) instanceof SpawnerBlockEntity spawner) {
+                EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.getValue(config.entityTypeId());
+                spawner.getSpawner().setEntityId(entityType, null, random, spawnerPos);
             }
         }
 
-        BlockPos boxPos = new BlockPos(originX + sizeX / 2 + random.nextBetween(1, 2), originY + 1, originZ + sizeZ / 2 + random.nextBetween(1, 2));
-        world.setBlockState(boxPos,
-                Blocks.CHEST.getDefaultState(),
-                Block.FORCE_STATE);
+        BlockPos boxPos = new BlockPos(originX + sizeX / 2 + random.nextIntBetweenInclusive(1, 2), originY + 1, originZ + sizeZ / 2 + random.nextIntBetweenInclusive(1, 2));
+        world.setBlock(boxPos,
+                Blocks.CHEST.defaultBlockState(),
+                Block.UPDATE_KNOWN_SHAPE);
         if (world.getBlockEntity(boxPos) instanceof ChestBlockEntity chestBlockEntity) {
             chestBlockEntity.setLootTable(ModChestLootTableProvider.DREAM_CHEST);
         }

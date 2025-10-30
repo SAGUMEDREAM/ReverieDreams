@@ -11,14 +11,13 @@ import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import io.github.macuguita.item.ModItems;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 @SuppressWarnings("unchecked")
 public class SpanishDelightCompatImpl {
@@ -37,8 +36,8 @@ public class SpanishDelightCompatImpl {
                 return;
             }
             IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
-            Stream<? extends Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
-            stream.forEach((Consumer<Map.Entry<Identifier, FoodProperty>>) mapEntry -> {
+            Stream<? extends Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
+            stream.forEach((Consumer<Map.Entry<ResourceLocation, FoodProperty>>) mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> tags = property.getItems();
                 if (property.equals(FoodProperties.SPICY)) {

@@ -3,13 +3,27 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.Touhou;
 import lombok.Getter;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
-import net.minecraft.block.*;
-import net.minecraft.data.family.BlockFamilies;
-import net.minecraft.data.family.BlockFamily;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +33,7 @@ public class WoodCreator extends AbstractBlockCreator {
     public static final List<WoodCreator> INSTANCES = new ArrayList<>();
     public static final List<Item> BLOCK_ITEMS = new ArrayList<>();
     @Getter
-    private final SaplingGenerator saplingGenerator;
+    private final TreeGrower saplingGenerator;
     @Getter
     private BlockFamily blockFamily;
     private Block log;
@@ -37,67 +51,67 @@ public class WoodCreator extends AbstractBlockCreator {
     private Block fenceGate;
     private Block button;
 
-    private WoodCreator(Identifier id, SaplingGenerator saplingGenerator) {
+    private WoodCreator(ResourceLocation id, TreeGrower saplingGenerator) {
         super(id.getPath(), id);
         this.saplingGenerator = saplingGenerator;
         INSTANCES.add(this);
     }
 
-    private WoodCreator(String name, SaplingGenerator saplingGenerator) {
+    private WoodCreator(String name, TreeGrower saplingGenerator) {
         this(Touhou.id(name), saplingGenerator);
     }
 
     public WoodCreator build() {
         this.log = ModBlocks.registerSimpleBlock(suffix("log"),
-                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
+                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
         this.wood = ModBlocks.registerSimpleBlock(suffix("wood"),
-                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
+                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
         this.strippedLog = ModBlocks.registerSimpleBlock(prefix(suffix("log"), "stripped"),
-                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG).nonOpaque());
+                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
         this.strippedWood = ModBlocks.registerSimpleBlock(prefix(suffix("wood"), "stripped"),
-                PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_WOOD).nonOpaque());
+                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion());
 
         this.leaves = ModBlocks.registerSimpleBlock(suffix("leaves"),
-                (settings) -> new TintedParticleLeavesBlock(0.01f, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES));
+                (settings) -> new TintedParticleLeavesBlock(0.01f, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
 
         this.sapling = ModBlocks.registerSimpleBlock(suffix("sapling"),
-                (settings) -> new SaplingBlock(this.saplingGenerator, settings), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
+                (settings) -> new SaplingBlock(this.saplingGenerator, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING));
 
         this.planks = ModBlocks.registerSimpleBlock(suffix("planks"),
-                Block::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+                Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS));
 
         this.stairs = ModBlocks.registerSimpleBlock(suffix("stairs"),
-                (settings) -> new StairsBlock(this.planks.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS));
+                (settings) -> new StairBlock(this.planks.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
 
         this.slab = ModBlocks.registerSimpleBlock(suffix("slab"),
-                SlabBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB));
+                SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB));
 
         this.door = ModBlocks.registerSimpleBlock(suffix("door"),
-                (settings) -> new DoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_DOOR));
+                (settings) -> new DoorBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR));
 
         this.trapdoor = ModBlocks.registerSimpleBlock(suffix("trapdoor"),
-                (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR));
+                (settings) -> new TrapDoorBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR));
 
         this.fence = ModBlocks.registerSimpleBlock(suffix("fence"),
-                FenceBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_FENCE));
+                FenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE));
 
         this.fenceGate = ModBlocks.registerSimpleBlock(suffix("fence_gate"),
-                (settings) -> new FenceGateBlock(WoodType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_FENCE_GATE));
+                (settings) -> new FenceGateBlock(WoodType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE));
 
         this.button = ModBlocks.registerSimpleBlock(suffix("button"),
-                (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), AbstractBlock.Settings.copy(Blocks.OAK_BUTTON));
+                (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON));
 
-        Registries.ITEM.addAlias(suffix("stair"), suffix("stairs"));
+        BuiltInRegistries.ITEM.addAlias(suffix("stair"), suffix("stairs"));
 
         this.stream().forEach((block) -> {
             BLOCK_ITEMS.add(block.asItem());
         });
         StrippableBlockRegistry.register(this.log, this.strippedLog);
 
-        this.blockFamily = BlockFamilies.register(this.planks())
+        this.blockFamily = BlockFamilies.familyBuilder(this.planks())
                 .slab(this.slab())
                 .stairs(this.stairs())
                 .fence(this.fence())
@@ -105,8 +119,8 @@ public class WoodCreator extends AbstractBlockCreator {
                 .button(this.button())
                 .door(this.door())
                 .trapdoor(this.trapdoor())
-                .group("wooden").unlockCriterionName("has_planks")
-                .build();
+                .recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks")
+                .getFamily();
         return this;
     }
 
@@ -186,11 +200,11 @@ public class WoodCreator extends AbstractBlockCreator {
     }
 
 
-    public static WoodCreator create(String name, SaplingGenerator saplingGenerator) {
+    public static WoodCreator create(String name, TreeGrower saplingGenerator) {
         return new WoodCreator(name, saplingGenerator);
     }
 
-    public static WoodCreator create(Identifier id, SaplingGenerator saplingGenerator) {
+    public static WoodCreator create(ResourceLocation id, TreeGrower saplingGenerator) {
         return new WoodCreator(id, saplingGenerator);
     }
 }

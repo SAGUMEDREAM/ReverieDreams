@@ -4,9 +4,6 @@ import cc.thonly.reverie_dreams.world.dimension.DimensionInit;
 import cc.thonly.reverie_dreams.world.dimension.DimensionTypeInit;
 import cc.thonly.reverie_dreams.world.dimension.WorldInit;
 import cc.thonly.reverie_dreams.world.gen.*;
-import cc.thonly.reverie_dreams.world.gen.ModStructures;
-import cc.thonly.reverie_dreams.world.gen.ModStructureSets;
-import cc.thonly.reverie_dreams.world.gen.ModTemplatePools;
 
 public class WorldGenerationInit {
     public static void registerWorldGeneration() {
