@@ -55,7 +55,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
                 this.getStateDefinition()
                         .any()
                         .setValue(DISTANCE, 7)
-                        .setValue(AGE_PROPERTY, 0)
+                        .setValue(AGE_PROPERTY, MAX_AGE)
                         .setValue(LeavesBlock.WATERLOGGED, false)
         );
         BlockTypeGroup.FRUIT_LEAVES.add(this);

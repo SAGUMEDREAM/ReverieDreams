@@ -15,12 +15,12 @@ public class BroccoliCrop extends AbstractCropBlock {
 
     @Override
     public Integer getMaxAge() {
-        return 6;
+        return 4;
     }
 
     @Override
     public IntegerProperty getAgeProperty() {
-        return CropAgeUtil.fromInt(6);
+        return CropAgeUtil.fromInt(4);
     }
 
     @Override

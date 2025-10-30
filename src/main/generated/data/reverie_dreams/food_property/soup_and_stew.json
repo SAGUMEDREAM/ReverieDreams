@@ -2,16 +2,16 @@
   "registry_key": "reverie_dreams:soup_and_stew",
   "properties": {
     "values": [
+      "reverie_dreams:food/tofu_miso",
+      "reverie_dreams:food/peach_blossom_soup",
       "reverie_dreams:food/seafood_miso_soup",
       "reverie_dreams:food/cream_stew",
-      "reverie_dreams:food/real_seafood_miso_soup",
-      "reverie_dreams:food/hula_soup",
       "reverie_dreams:food/the_source_of_life",
       "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup",
-      "reverie_dreams:food/peach_blossom_soup",
       "reverie_dreams:food/the_beauty_of_han_palace",
       "reverie_dreams:food/strength_soup",
-      "reverie_dreams:food/tofu_miso"
+      "reverie_dreams:food/real_seafood_miso_soup",
+      "reverie_dreams:food/hula_soup"
     ]
   }
 }

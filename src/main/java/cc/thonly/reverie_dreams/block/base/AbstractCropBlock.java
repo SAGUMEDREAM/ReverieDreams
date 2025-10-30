@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.block.base;
 
 import cc.thonly.reverie_dreams.compat.BorukvaFoodCompatImpl;
 import cc.thonly.reverie_dreams.interfaces.IMatureBlock;
-import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +33,6 @@ import org.jetbrains.annotations.Nullable;
 @ToString
 public abstract class AbstractCropBlock extends VegetationBlock implements BonemealableBlock, IMatureBlock {
     protected Item seed;
-    protected CropAgeModelProvider modelProvider;
 
     protected AbstractCropBlock(Properties settings) {
         super(settings.noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.CROP));
@@ -99,7 +97,7 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
         if (world.getRawBrightness(pos, 0) >= 9) {
             float moisture = getAvailableMoisture(this, world, pos);
 
-            int chance = (int)(10.0f / moisture) + 1;
+            int chance = (int) (15.0f / moisture) + 1;
 
             if (random.nextInt(chance) == 0) {
                 world.setBlock(pos, this.withAge(age + 1), Block.UPDATE_CLIENTS);

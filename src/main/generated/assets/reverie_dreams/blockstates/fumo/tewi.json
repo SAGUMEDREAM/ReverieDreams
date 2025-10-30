@@ -1,6 +1,63 @@
 {
   "variants": {
-    "": {
+    "facing_16=south": {
+      "model": "reverie_dreams:block/fumo/tewi"
+    },
+    "facing_16=south_southwest": {
+      "model": "reverie_dreams:block/fumo/tewi"
+    },
+    "facing_16=southwest": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 90
+    },
+    "facing_16=west_southwest": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 90
+    },
+    "facing_16=west": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 90
+    },
+    "facing_16=west_northwest": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 90
+    },
+    "facing_16=northwest": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 180
+    },
+    "facing_16=north_northwest": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 180
+    },
+    "facing_16=north": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 180
+    },
+    "facing_16=north_northeast": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 180
+    },
+    "facing_16=northeast": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 270
+    },
+    "facing_16=east_northeast": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 270
+    },
+    "facing_16=east": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 270
+    },
+    "facing_16=east_southeast": {
+      "model": "reverie_dreams:block/fumo/tewi",
+      "y": 270
+    },
+    "facing_16=southeast": {
+      "model": "reverie_dreams:block/fumo/tewi"
+    },
+    "facing_16=south_southeast": {
       "model": "reverie_dreams:block/fumo/tewi"
     }
   }

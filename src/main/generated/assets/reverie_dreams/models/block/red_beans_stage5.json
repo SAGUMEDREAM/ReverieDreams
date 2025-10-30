@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "reverie_dreams:block/red_beans_stage5"
-  }
-}

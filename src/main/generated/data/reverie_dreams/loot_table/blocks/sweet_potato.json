@@ -8,7 +8,7 @@
           "block": "reverie_dreams:sweet_potato",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "age": "6"
+            "age": "3"
           }
         }
       ],
@@ -34,7 +34,7 @@
           "block": "reverie_dreams:sweet_potato",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "age": "6"
+            "age": "3"
           }
         }
       ],
@@ -64,7 +64,7 @@
           "block": "reverie_dreams:sweet_potato",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "age": "6"
+            "age": "3"
           }
         }
       ],

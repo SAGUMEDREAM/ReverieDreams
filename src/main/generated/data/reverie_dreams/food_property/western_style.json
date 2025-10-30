@@ -2,21 +2,21 @@
   "registry_key": "reverie_dreams:western_style",
   "properties": {
     "values": [
-      "reverie_dreams:food/scarlet_devils_cake",
-      "reverie_dreams:food/cat_pizza",
-      "reverie_dreams:food/risotto",
-      "reverie_dreams:food/phoenix",
-      "reverie_dreams:food/unconscious_monster_mousse",
-      "reverie_dreams:food/beef_wellington",
-      "reverie_dreams:food/cream_stew",
       "reverie_dreams:food/hot_waffles",
-      "reverie_dreams:food/butter_steak",
-      "reverie_dreams:food/mad_hatter_tea_party",
       "reverie_dreams:food/pan_fried_salmon",
       "reverie_dreams:ingredient/cream",
+      "reverie_dreams:food/beef_wellington",
       "reverie_dreams:food/maoyu_tricolor_ice_cream",
+      "reverie_dreams:food/butter_steak",
+      "reverie_dreams:food/cream_stew",
       "reverie_dreams:food/eggs_benedict",
-      "reverie_dreams:food/the_dream"
+      "reverie_dreams:food/unconscious_monster_mousse",
+      "reverie_dreams:food/mad_hatter_tea_party",
+      "reverie_dreams:food/risotto",
+      "reverie_dreams:food/phoenix",
+      "reverie_dreams:food/the_dream",
+      "reverie_dreams:food/scarlet_devils_cake",
+      "reverie_dreams:food/cat_pizza"
     ]
   }
 }

@@ -1,5 +1,6 @@
 package cc.thonly.polymer.block;
 
+import cc.thonly.polymer.block.model.TransparentFlatTripWire;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.block.model.generic.BSMMParticleBlock;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModel;
@@ -24,6 +25,8 @@ import net.minecraft.world.phys.BlockHitResult;
 public record BaseFactoryBlock(BlockState clientState, boolean tick, BiFunction<BlockState, BlockPos, BlockModel> modelFunction) implements FactoryBlock, PolymerTexturedBlock, BSMMParticleBlock {
     public static final BaseFactoryBlock BARRIER = new BaseFactoryBlock(Blocks.BARRIER. defaultBlockState(), false, BlockStateModel::longRange);
     public static final BaseFactoryBlock SAPLING = new BaseFactoryBlock(PolymerBlockResourceUtils.requestEmpty(BlockModelType.PLANT_BLOCK),false, BlockStateModel::midRange);
+    public static final BaseFactoryBlock TRIPWIRE = new BaseFactoryBlock(PolymerBlockResourceUtils.requestEmpty(BlockModelType.TRIPWIRE_BLOCK),false, BlockStateModel::midRange);
+    public static final BaseFactoryBlock TRIPWIRE_FLAT = new BaseFactoryBlock(PolymerBlockResourceUtils.requestEmpty(BlockModelType.TRIPWIRE_BLOCK_FLAT),false, BlockStateModel::midRange);
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {

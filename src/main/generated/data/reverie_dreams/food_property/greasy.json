@@ -2,27 +2,27 @@
   "registry_key": "reverie_dreams:greasy",
   "properties": {
     "values": [
-      "reverie_dreams:food/assorted_tempura",
       "reverie_dreams:food/pan_fried_mushroom_meat_roll",
-      "reverie_dreams:food/game_soup",
+      "reverie_dreams:food/honey_bbq_pork",
+      "reverie_dreams:food/fried_shrimp_tempura",
+      "reverie_dreams:food/fried_pork_shreds",
+      "reverie_dreams:food/butter_steak",
+      "reverie_dreams:food/assorted_tempura",
+      "reverie_dreams:food/biscay_biscuits",
+      "reverie_dreams:food/mushroom_girls_dance_stew",
+      "reverie_dreams:food/braised_eel",
+      "reverie_dreams:food/salmon_tempura",
       "reverie_dreams:food/one_hit_kill",
       "reverie_dreams:ingredient/butter",
-      "reverie_dreams:food/salmon_tempura",
-      "reverie_dreams:food/fried_pork_cutlet",
-      "reverie_dreams:food/braised_eel",
-      "reverie_dreams:food/cheese_egg",
-      "reverie_dreams:food/fried_tofu",
-      "reverie_dreams:food/potato_croquettes",
       "reverie_dreams:food/golden_crispy_fish_cake",
+      "reverie_dreams:food/fried_pork_cutlet",
       "reverie_dreams:food/fantasy_is_all_the_rage",
-      "reverie_dreams:food/fried_hagfish",
-      "reverie_dreams:food/honey_bbq_pork",
       "reverie_dreams:food/hell_thrill_warning",
-      "reverie_dreams:food/fried_pork_shreds",
-      "reverie_dreams:food/mushroom_girls_dance_stew",
-      "reverie_dreams:food/butter_steak",
-      "reverie_dreams:food/fried_shrimp_tempura",
-      "reverie_dreams:food/biscay_biscuits"
+      "reverie_dreams:food/potato_croquettes",
+      "reverie_dreams:food/fried_hagfish",
+      "reverie_dreams:food/fried_tofu",
+      "reverie_dreams:food/cheese_egg",
+      "reverie_dreams:food/game_soup"
     ]
   }
 }

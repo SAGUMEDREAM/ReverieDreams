@@ -54,7 +54,7 @@ public class PolymerBlockHelper {
 
         return switch (block) {
             case ItemStackDisplay ignored -> new ItemStackDisplayImpl();
-            case AbstractCropBlock ignored -> new CropBlockImpl(ignored);
+            case AbstractCropBlock ignored -> new CropHolderImpl(ignored);
             case FruitLeavesBlock ignored -> new FruitLeavesImpl(ignored);
             case ModelBlock ignored -> new ModelFactoryImpl(ignored);
             case MarisaHatBlock ignored -> new FumoImpl(ignored);

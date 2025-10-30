@@ -15,12 +15,12 @@ public class ToonCrop extends AbstractCropBlock {
 
     @Override
     public Integer getMaxAge() {
-        return 8;
+        return 3;
     }
 
     @Override
     public IntegerProperty getAgeProperty() {
-        return CropAgeUtil.fromInt(8);
+        return CropAgeUtil.fromInt(3);
     }
 
     @Override

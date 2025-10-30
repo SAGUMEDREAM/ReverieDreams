@@ -113,7 +113,7 @@ public abstract class RecipeTypeProvider implements DataProvider {
 
     public abstract void configured();
 
-    public void export(CachedOutput writer) {
+    public void export(CachedOutput cachedOutput) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
             for (Map.Entry<ResourceLocation, cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider.Factory<?>> entry : identifierFactoryMap.entrySet()) {
@@ -136,7 +136,7 @@ public abstract class RecipeTypeProvider implements DataProvider {
                         byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
                         Files.createDirectories(output.getParent());
 
-                        writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
+                        cachedOutput.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
                     }
                 }
             }

@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -46,7 +45,6 @@ public final class CropBlockCreator {
     private float seedCompostingLevel = 0.3f;
     private float cropCompostingLevel = 0.6f;
     private Item gain;
-    private CropAgeModelProvider provider;
     private BasicBlockFactory factory;
     private boolean inWater;
     private boolean selfSeed = false;
@@ -100,13 +98,11 @@ public final class CropBlockCreator {
         }
 
         basicCropBlock.setSeed(seedItem);
-        basicCropBlock.setModelProvider(this.provider);
 
         Instance instance = Instance.createInstance(this.identifier)
                 .setCropBlock(basicCropBlock)
                 .setSeed(seedItem)
                 .setProduct(this.gain)
-                .setProvider(this.provider)
                 .setModelType(this.modelType)
                 .setInWater(this.inWater)
                 .setSelfSeed(this.selfSeed);
@@ -147,7 +143,6 @@ public final class CropBlockCreator {
         private Item seed;
         private Item product;
         private AbstractCropBlock cropBlock;
-        private CropAgeModelProvider provider;
         private ModelType modelType;
         private boolean inWater = false;
         private boolean selfSeed = false;

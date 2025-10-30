@@ -37,6 +37,7 @@ public class TouhouDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModRecipeTypeProvider::new);
         pack.addProvider(ModDynamicRegistryProvider::new);
         pack.addProvider(ModSkinConfigProvider::new);
+        pack.addProvider(ModJsonElementWriterProvider::new);
 
         pack.addProvider(MIIngredientProvider::new);
         pack.addProvider(MIDrinkProvider::new);

@@ -8,7 +8,7 @@
           "block": "reverie_dreams:grape",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "age": "7"
+            "age": "5"
           }
         }
       ],
@@ -34,7 +34,7 @@
           "block": "reverie_dreams:grape",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "age": "7"
+            "age": "5"
           }
         }
       ],
@@ -64,7 +64,7 @@
           "block": "reverie_dreams:grape",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "age": "7"
+            "age": "5"
           }
         }
       ],

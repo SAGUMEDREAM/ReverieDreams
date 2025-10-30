@@ -3,17 +3,8 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import lombok.Getter;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
-import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.*;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -75,6 +66,9 @@ public enum BlockTypeGroup {
         }
         if (block instanceof LeavesBlock) {
             LEAVES.add(block);
+        }
+        if (block instanceof WallBlock) {
+            WALL.add(block);
         }
         if (block instanceof AbstractKitchenwareBlock) {
             KITCHENWARE.add(block);

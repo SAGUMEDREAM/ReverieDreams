@@ -15,12 +15,12 @@ public class TomatoCrop extends AbstractCropBlock {
 
     @Override
     public Integer getMaxAge() {
-        return 6;
+        return 3;
     }
 
     @Override
     public IntegerProperty getAgeProperty() {
-        return CropAgeUtil.fromInt(6);
+        return CropAgeUtil.fromInt(3);
     }
 
     @Override

@@ -1,20 +1,14 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.polymer.*;
-import cc.thonly.reverie_dreams.block.AbstractBlockCreator;
 import cc.thonly.reverie_dreams.block.ChestBlockCreator;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
-import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.effect.ModStatusEffects;
-import cc.thonly.reverie_dreams.entity.villager.ModVillagerProfessions;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
-import eu.pb4.polymer.core.api.entity.PolymerVillagerProfession;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import net.fabricmc.api.ModInitializer;
@@ -24,7 +18,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +91,7 @@ public class LateLoaderInit implements ModInitializer {
                 id("entity"),
                 id("font")
         );
-        ResourcePackGenerator.setup();
+        ResourcePackGenerator.registerEvent();
     }
 
     public static ResourceLocation id(String name) {

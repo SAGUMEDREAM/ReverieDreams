@@ -12,22 +12,15 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.fumo.Fumo;
-import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
-import cc.thonly.reverie_dreams.state.SixteenDirection;
-import cc.thonly.reverie_dreams.util.block.CropAgeModelProvider;
-import cc.thonly.reverie_dreams.util.block.CropAgeUtil;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.*;
 import net.minecraft.client.data.models.BlockModelGenerators;
-import net.minecraft.client.data.models.BlockModelGenerators.BlockFamilyProvider;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.ModelTemplate;
@@ -43,6 +36,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -73,6 +67,7 @@ public class ModModelProvider extends FabricModelProvider {
         this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.DREAM_STONE_BRICK);
         this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.MOON_STONE);
         this.registerDecorativeBlockCreator(blockStateModelGenerator, ModBlocks.MOON_STONE_BRICK);
+
         this.registerWoodCreator(blockStateModelGenerator, MIBlocks.LEMON);
         blockStateModelGenerator.family(MIBlocks.LEMON_FRUIT_LEAVES);
         this.registerWoodCreator(blockStateModelGenerator, MIBlocks.GINKGO);
@@ -98,15 +93,15 @@ public class ModModelProvider extends FabricModelProvider {
 
         blockStateModelGenerator.family(ModBlocks.DREAM_BLUE_BLOCK);
         blockStateModelGenerator.family(ModBlocks.DREAM_RED_BLOCK);
-        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.MARISA_HAT_BLOCK);
+//        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.MARISA_HAT_BLOCK);
         this.registerRotatable(blockStateModelGenerator, ModBlocks.CASH_BOX_BLOCK);
         blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.ANTI_COLLISION_BARREL);
         blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.WHEEL_CHAIR);
         blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.WOODEN_BOX.chestBlock());
 
-        for (Fumo fumoType : Fumos.getView()) {
-            this.registerFumo(blockStateModelGenerator, fumoType);
-        }
+//        for (Fumo fumoType : Fumos.getView()) {
+//            this.registerFumo(blockStateModelGenerator, fumoType);
+//        }
 
         this.generateCropBlockModel(blockStateModelGenerator);
         this.generateMIBlock(blockStateModelGenerator);
@@ -122,12 +117,15 @@ public class ModModelProvider extends FabricModelProvider {
                 AbstractCropBlock cropBlock = instance.getCropBlock();
                 CropBlockCreator.ModelType modelType = instance.getModelType();
                 IntegerProperty ageProperty = cropBlock.getAgeProperty();
-                CropAgeModelProvider provider = instance.getProvider();
+                int[] arr = ageProperty.getPossibleValues()
+                        .stream()
+                        .mapToInt(Integer::intValue)
+                        .toArray();
 
                 if (modelType == CropBlockCreator.ModelType.CROSS) {
-                    blockStateModelGenerator.createCrossBlock(cropBlock, BlockModelGenerators.PlantType.NOT_TINTED, ageProperty, CropAgeUtil.toArray(ageProperty));
+                    blockStateModelGenerator.createCrossBlock(cropBlock, BlockModelGenerators.PlantType.NOT_TINTED, ageProperty, arr);
                 } else if (modelType == CropBlockCreator.ModelType.CROP) {
-                    blockStateModelGenerator.createCropBlock(cropBlock, ageProperty, provider.toArray());
+                    blockStateModelGenerator.createCropBlock(cropBlock, ageProperty, arr);
                 }
             } catch (Exception e) {
                 log.error("Can't generate crop block model {}, cause by {}", id, e.getCause());

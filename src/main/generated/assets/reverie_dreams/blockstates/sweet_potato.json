@@ -1,25 +1,16 @@
 {
   "variants": {
     "age=0": {
-      "model": "reverie_dreams:block/sweet_potato_stage1"
+      "model": "reverie_dreams:block/sweet_potato_stage0"
     },
     "age=1": {
       "model": "reverie_dreams:block/sweet_potato_stage1"
     },
     "age=2": {
-      "model": "reverie_dreams:block/sweet_potato_stage1"
-    },
-    "age=3": {
       "model": "reverie_dreams:block/sweet_potato_stage2"
     },
-    "age=4": {
+    "age=3": {
       "model": "reverie_dreams:block/sweet_potato_stage3"
-    },
-    "age=5": {
-      "model": "reverie_dreams:block/sweet_potato_stage3"
-    },
-    "age=6": {
-      "model": "reverie_dreams:block/sweet_potato_stage4"
     }
   }
 }

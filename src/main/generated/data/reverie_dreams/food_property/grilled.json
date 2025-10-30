@@ -3,13 +3,13 @@
   "properties": {
     "values": [
       "reverie_dreams:food/energy_string",
-      "reverie_dreams:food/phoenix",
       "reverie_dreams:food/pork_and_trout_smoked",
       "reverie_dreams:food/roasted_mushrooms",
-      "reverie_dreams:food/grilled_hagfish",
-      "reverie_dreams:food/two_heavens_one_style",
+      "reverie_dreams:food/phoenix",
+      "reverie_dreams:food/horai-dama_no_eda",
       "reverie_dreams:food/one_hit_kill",
-      "reverie_dreams:food/horai-dama_no_eda"
+      "reverie_dreams:food/grilled_hagfish",
+      "reverie_dreams:food/two_heavens_one_style"
     ]
   }
 }

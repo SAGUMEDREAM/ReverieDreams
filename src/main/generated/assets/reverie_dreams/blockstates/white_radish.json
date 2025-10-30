@@ -1,31 +1,16 @@
 {
   "variants": {
     "age=0": {
-      "model": "reverie_dreams:block/white_radish_stage1"
+      "model": "reverie_dreams:block/white_radish_stage0"
     },
     "age=1": {
       "model": "reverie_dreams:block/white_radish_stage1"
     },
     "age=2": {
-      "model": "reverie_dreams:block/white_radish_stage1"
+      "model": "reverie_dreams:block/white_radish_stage2"
     },
     "age=3": {
-      "model": "reverie_dreams:block/white_radish_stage1"
-    },
-    "age=4": {
-      "model": "reverie_dreams:block/white_radish_stage2"
-    },
-    "age=5": {
-      "model": "reverie_dreams:block/white_radish_stage2"
-    },
-    "age=6": {
       "model": "reverie_dreams:block/white_radish_stage3"
-    },
-    "age=7": {
-      "model": "reverie_dreams:block/white_radish_stage3"
-    },
-    "age=8": {
-      "model": "reverie_dreams:block/white_radish_stage4"
     }
   }
 }

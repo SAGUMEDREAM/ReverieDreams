@@ -61,9 +61,6 @@ public record StatePolymerBlock(Map<BlockState, BlockState> map, FactoryBlock fa
             BlockStateModelManager.parseVariants(block, decoded.variants().orElseThrow(), (a, b) -> list.add(new Tuple<>(a, b)));
             var map = new IdentityHashMap<BlockState, BlockState>();
 
-
-
-
             for (var state : block.getStateDefinition().getPossibleStates()) {
                 for (var pair : list) {
                     if (pair.getA().test(state) && canUseBlock.test(state)) {

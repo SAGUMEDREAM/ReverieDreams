@@ -81,7 +81,7 @@ public class SkinFetcherCaches {
             JsonElement element = dataResult.getOrThrow();  // 获取编码后的JSON元素
             String json = GSON.toJson(element);  // 转换为JSON字符串
             try (Writer writer = new OutputStreamWriter(new FileOutputStream(PATH.toFile()))) {
-                GSON.toJson(json, writer);  // 将JSON写入文件
+                GSON.toJson(json.getBytes(StandardCharsets.UTF_8), writer);  // 将JSON写入文件
             } catch (IOException e) {
                 log.error("写入文件失败", e);
             }

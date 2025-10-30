@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/crop",
   "textures": {
-    "crop": "reverie_dreams:block/white_radish_stage4"
+    "crop": "reverie_dreams:block/white_radish_stage0"
   }
 }
