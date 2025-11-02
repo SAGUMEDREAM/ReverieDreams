@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import com.google.common.collect.ImmutableSet;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -34,7 +33,7 @@ public class ModPointOfInterestTypes extends PoiTypes {
     }
 
     private static ResourceKey<PoiType> createKey(String id) {
-        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, Touhou.id(id));
+        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ReverieDreams.id(id));
     }
 
     private static PoiType register(ResourceKey<PoiType> key, Set<BlockState> states, int ticketCount, int searchDistance) {

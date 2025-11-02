@@ -7,6 +7,6 @@ import eu.midnightdust.lib.config.MidnightConfig;
 public class ModMenuInit implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> MidnightConfig.getScreen(parent, Touhou.MOD_ID);
+        return parent -> MidnightConfig.getScreen(parent, ReverieDreams.MOD_ID);
     }
 }

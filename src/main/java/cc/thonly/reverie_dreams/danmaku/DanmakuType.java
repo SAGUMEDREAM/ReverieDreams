@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.danmaku;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.UseCooldown;
+
 import java.util.*;
 
 @Setter
@@ -130,17 +132,24 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     public Item.Properties createItemSettings() {
         return new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, this.getIdentifier()))
-                .component(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString())
-                .component(ModDataComponentTypes.Danmaku.DAMAGE, this.damage)
-                .component(ModDataComponentTypes.Danmaku.SPEED, this.speed)
-                .component(ModDataComponentTypes.Danmaku.SCALE, this.scale)
-                .component(ModDataComponentTypes.Danmaku.COUNT, 1)
-                .component(ModDataComponentTypes.Danmaku.TILE, this.tile)
-                .component(ModDataComponentTypes.Danmaku.INFINITE, this.infinite)
-                .component(ModDataComponentTypes.Danmaku.DAMAGE_TYPE, Touhou.id("generic").toString())
+                .component(ModDataComponentTypes.DANMAKU_PROPERTIES, this.createDanmakuProperties())
                 .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))))
                 .durability(120)
                 .repairable(ModTags.ItemTypeTag.POWER_BLOCK);
+    }
+
+    public DanmakuProperties createDanmakuProperties() {
+        return new DanmakuProperties(
+                ReverieDreams.id("single"),
+                1,
+                this.damage,
+                ReverieDreams.id("generic"),
+                this.scale,
+                this.speed,
+                0,
+                this.tile,
+                this.infinite
+        );
     }
 
     @Override

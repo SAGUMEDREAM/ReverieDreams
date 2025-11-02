@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.armor;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
+
 import java.util.Map;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 
 public interface EarphoneArmorMaterial {
     int BASE_DURABILITY = 150;
-    ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, Touhou.id("earphone"));
+    ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, ReverieDreams.id("earphone"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,

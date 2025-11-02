@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import java.util.ArrayList;
 import net.minecraft.core.HolderGetter;
@@ -76,6 +76,6 @@ public class ChunkGeneratorSettingsInit {
     }
 
     public static ResourceKey<NoiseGeneratorSettings> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.NOISE_SETTINGS, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
+        return ResourceKey.create(Registries.NOISE_SETTINGS, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 }

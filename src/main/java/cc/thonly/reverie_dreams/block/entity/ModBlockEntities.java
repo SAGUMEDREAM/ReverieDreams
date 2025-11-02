@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -33,7 +33,7 @@ public class ModBlockEntities {
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
             Block... blocks
     ) {
-        ResourceLocation id = Touhou.id(name);
+        ResourceLocation id = ReverieDreams.id(name);
         BlockEntityType<T> entityType = FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build();
         Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id, entityType);
         PolymerBlockUtils.registerBlockEntity(entityType);

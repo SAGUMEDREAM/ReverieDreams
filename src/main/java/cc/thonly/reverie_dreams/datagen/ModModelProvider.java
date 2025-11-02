@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.item.MIItems;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.DecorativeBlockCreator;
 import cc.thonly.reverie_dreams.block.ModBlocks;
@@ -412,7 +412,7 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     private static ModelTemplate item(String parent, TextureSlot... requiredTextureKeys) {
-        return new ModelTemplate(Optional.of(Touhou.id("item/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new ModelTemplate(Optional.of(ReverieDreams.id("item/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
     private void registerWoodCreator(BlockModelGenerators blockStateModelGenerator, WoodCreator creator) {

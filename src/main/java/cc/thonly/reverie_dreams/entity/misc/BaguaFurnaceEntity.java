@@ -76,7 +76,7 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
                     this.getX(), this.getY(), this.getZ(),
                     DanmakuTypes.random(DanmakuTypes.BIG_LASER),
                     fixedPitch, fixedYaw,
-                    1.6f, 0f, 0.0f, 0.5f
+                    0.0f, 0.5f
             );
             entity.setOwner(this.owner);
             this.intervalTick1 = PER_INTERVAL_TICK1;

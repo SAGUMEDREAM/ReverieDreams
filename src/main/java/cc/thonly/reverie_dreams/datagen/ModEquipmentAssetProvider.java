@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.datagen.generator.EquipmentAssetProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -19,11 +19,11 @@ public class ModEquipmentAssetProvider extends EquipmentAssetProvider {
 
     @Override
     protected void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer) {
-        consumer.accept(EarphoneArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("earphone")));
-        consumer.accept(KoishiHatArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("koishi_hat")));
-        consumer.accept(SilverArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("silver")));
-        consumer.accept(MagicIceArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("magic_ice")));
-        consumer.accept(MaidArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("maid")));
-        consumer.accept(DreamArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(Touhou.id("dream")));
+        consumer.accept(EarphoneArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("earphone")));
+        consumer.accept(KoishiHatArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("koishi_hat")));
+        consumer.accept(SilverArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("silver")));
+        consumer.accept(MagicIceArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("magic_ice")));
+        consumer.accept(MaidArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("maid")));
+        consumer.accept(DreamArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("dream")));
     }
 }

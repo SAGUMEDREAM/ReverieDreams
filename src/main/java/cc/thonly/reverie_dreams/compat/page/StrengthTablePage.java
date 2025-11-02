@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.compat.page;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class StrengthTablePage implements PolydexPage {
-    public static final ResourceLocation id = Touhou.id("recipe/strength_table");
+    public static final ResourceLocation id = ReverieDreams.id("recipe/strength_table");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
     public static final ItemStack ICON = new GuiElementBuilder(ModBlocks.STRENGTH_TABLE.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();

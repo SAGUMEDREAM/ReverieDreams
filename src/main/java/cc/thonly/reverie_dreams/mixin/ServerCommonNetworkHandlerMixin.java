@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.mixin;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
-import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -41,7 +40,7 @@ public abstract class ServerCommonNetworkHandlerMixin {
     @Inject(method = "handleCustomClickAction", at = @At("TAIL"))
     private void handleCustomClick(ServerboundCustomClickActionPacket packet, CallbackInfo ci) {
         try {
-            if (!packet.id().getNamespace().equals(Touhou.MOD_ID)) {
+            if (!packet.id().getNamespace().equals(ReverieDreams.MOD_ID)) {
                 return;
             }
             switch (packet.id().getPath()) {

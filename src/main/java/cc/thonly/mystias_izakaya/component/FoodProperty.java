@@ -63,7 +63,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
     public static String getDisplayPrefix(ItemStack itemStack, FoodProperty foodProperty) {
         List<FoodProperty> all = FoodProperty.getIngredientProperties(itemStack.getItem());
         for (CraftingConflict conflict : MIRegistryManager.CRAFTING_CONFLICT.values()) {
-            if (conflict.test(itemStack)) {
+            if (conflict.test(itemStack, foodProperty)) {
                 return "§c-";
             }
         }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
@@ -38,7 +38,7 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
     @Override
     public void reload(ResourceManager manager) {
         Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
+            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
         });
 
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
@@ -122,6 +122,6 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
 
     @Override
     public ResourceLocation getId() {
-        return Touhou.id(this.getTypeId());
+        return ReverieDreams.id(this.getTypeId());
     }
 }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.skin.SkinType;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.*;
@@ -82,7 +82,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
             EntityType<NPCRoleFastEntity> entityType = registerEntity(this.id, build);;
             FabricDefaultAttributeRegistry.register(entityType, BaseNPCLikeEntity.createAttributes());
             ResourceLocation spawnEggId = ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
-            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Properties().modelId(Touhou.id("spawn_egg"))));
+            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Properties().modelId(ReverieDreams.id("spawn_egg"))));
             this.entityType = build;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;

@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-public class TouhouPreload implements PreLaunchEntrypoint {
-    public static final Logger LOGGER = LoggerFactory.getLogger(Touhou.MOD_ID);
+public class ReverieDreamsPreload implements PreLaunchEntrypoint {
+    public static final Logger LOGGER = LoggerFactory.getLogger(ReverieDreams.MOD_ID);
 
     @Override
     public void onPreLaunch() {

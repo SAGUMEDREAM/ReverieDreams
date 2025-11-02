@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.other.GuiSlotItem;
 import it.unimi.dsi.fastutil.objects.ReferenceSortedSets;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ModGuiItems {
     public static Item registerItem(String name, Function<Item.Properties, Item> factory) {
         Item.Properties itemSettings = createSlotItemSettings();
         Item item = factory.apply(itemSettings.setId(ModItems.keyOf(name)));
-        Registry.register(BuiltInRegistries.ITEM, Touhou.id(name), item);
+        Registry.register(BuiltInRegistries.ITEM, ReverieDreams.id(name), item);
         GUI_ITEM_LIST.add(item);
         return item;
     }

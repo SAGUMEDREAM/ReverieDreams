@@ -1,27 +1,23 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.skin.SkinConfig;
 import cc.thonly.reverie_dreams.entity.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.util.SkinFetcher;
-import cc.thonly.reverie_dreams.util.network.MojangSkinFetcher;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.ResourceLocation;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +61,7 @@ public class CustomCharacterLoader {
                         VirtualZipFS.FileEntry skinConfigFileEntry = virtualZipFS.get(skinConfigPath);
                         String baseName = skinConfigFileEntry.filename()
                                 .replaceFirst("\\.[^.]+$", "");
-                        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, baseName);
+                        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, baseName);
                         JsonElement json = JsonParser.parseString(new String(skinConfigFileEntry.data(), StandardCharsets.UTF_8));
                         DataResult<SkinConfig> parse = SkinConfig.CODEC.parse(JsonOps.INSTANCE, json);
                         Optional<SkinConfig> result = parse.result();

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -15,7 +15,7 @@ public class ModTags {
         public static final TagKey<Block> SILVER = of("silver");
 
         private static TagKey<Block> of(String id) {
-            return TagKey.create(Registries.BLOCK, Touhou.id(id));
+            return TagKey.create(Registries.BLOCK, ReverieDreams.id(id));
         }
 
         public static void register() {
@@ -53,7 +53,7 @@ public class ModTags {
         public static final TagKey<Item> DLC6 = of("touhou_mystia_dlc/6");
 
         private static TagKey<Item> of(String id) {
-            return TagKey.create(Registries.ITEM, Touhou.id(id));
+            return TagKey.create(Registries.ITEM, ReverieDreams.id(id));
         }
 
         public static void register() {
@@ -64,7 +64,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> NPC_ROLE = of("role");
 
         private static TagKey<EntityType<?>> of(String id) {
-            return TagKey.create(Registries.ENTITY_TYPE, Touhou.id(id));
+            return TagKey.create(Registries.ENTITY_TYPE, ReverieDreams.id(id));
         }
 
         public static void register() {

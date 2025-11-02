@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
@@ -99,9 +99,9 @@ public class MusicalInstrumentItem extends Item {
                 }
            } else {
                 TouhouNotaUtils.play(user, playingMusic, noteBlockInstrument);
-                if (user instanceof ServerPlayer player && Touhou.getServer() != null) {
+                if (user instanceof ServerPlayer player && ReverieDreams.getServer() != null) {
                     player.displayClientMessage(Component.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.getSerializedName()), false);
-                    Touhou.getServer().executeIfPossible(()-> {
+                    ReverieDreams.getServer().executeIfPossible(()-> {
                         AABB box = player.getBoundingBox().inflate(TouhouNotaUtils.MAX_DISTANCE);
                         List<NPCRoleEntity> entities = world.getEntitiesOfClass(
                                 NPCRoleEntity.class,

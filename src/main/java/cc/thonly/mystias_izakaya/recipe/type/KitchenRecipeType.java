@@ -2,7 +2,7 @@ package cc.thonly.mystias_izakaya.recipe.type;
 
 import cc.thonly.mystias_izakaya.MystiasIzakaya;
 import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.gson.JsonElement;
@@ -43,7 +43,7 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     public void reload(ResourceManager manager) {
         this.kitchenRegistries.clear();
         Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
+            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
         });
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
             ResourceLocation id = entry.getKey();

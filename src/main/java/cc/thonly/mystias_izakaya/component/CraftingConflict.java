@@ -76,6 +76,14 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
         return new CraftingConflict(item, list);
     }
 
+    public boolean test(ItemStack ingredient, FoodProperty property) {
+        if (!ingredient.getItem().equals(this.item)) {
+            return false;
+        }
+        return this.foodProperties.contains(property);
+    }
+
+
     public boolean test(ItemStack ingredient) {
         if (!ingredient.getItem().equals(this.item)) {
             return false;
@@ -84,10 +92,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
         properties.addAll(FoodProperty.getFromItemStack(ingredient));
         properties.addAll(FoodProperty.getFromItemStackComponent(ingredient));
         for (FoodProperty ingredientProperty : properties) {
-//            System.out.println(ingredientProperty);
-//            System.out.println(this.foodProperties);
             if (this.foodProperties.contains(ingredientProperty)) {
-//                System.out.println(true);
                 return true;
             }
         }

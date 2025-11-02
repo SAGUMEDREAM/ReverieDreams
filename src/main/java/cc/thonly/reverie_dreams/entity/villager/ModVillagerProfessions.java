@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import com.google.common.collect.ImmutableSet;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +38,7 @@ public class ModVillagerProfessions {
     }
 
     protected static ResourceKey<VillagerProfession> of(String id) {
-        return ResourceKey.create(Registries.VILLAGER_PROFESSION, Touhou.id(id));
+        return ResourceKey.create(Registries.VILLAGER_PROFESSION, ReverieDreams.id(id));
     }
 
     protected static VillagerProfession registerProfession(ResourceKey<VillagerProfession> key, ResourceKey<PoiType> heldWorkstation, @Nullable SoundEvent workSound) {

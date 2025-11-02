@@ -14,7 +14,7 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.dimension.LevelStem;
 
-public class TouhouDataGenerator implements DataGeneratorEntrypoint {
+public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {

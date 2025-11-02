@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import lombok.Getter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
@@ -41,7 +41,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
     }
 
     private DecorativeBlockCreator(String name) {
-        this(Touhou.id(name));
+        this(ReverieDreams.id(name));
     }
 
     public void base(Block base) {

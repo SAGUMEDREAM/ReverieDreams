@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.util;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.skin.SkinConfig;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import com.google.gson.JsonObject;
@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class SkinFetcher {
     private static final Set<Class<?>> SCAN_LIST = new HashSet<>(
-            Set.of(Touhou.class)
+            Set.of(ReverieDreams.class)
     );
     private static final Map<String, File> SKIN_CACHE = new ConcurrentHashMap<>();
     static String PROPERTY_TEXTURES = "textures";
@@ -36,40 +36,39 @@ public class SkinFetcher {
     }
 
     public static Optional<Property> getSkinFromNPCSkin(SkinConfig config) {
-//        System.out.println(config.getSkin().getId());
         boolean useSlim = config.getType() == SkinConfig.ModelType.SLIM;
         ResourceLocation id = RegistryManager.SKIN_CONFIG.getKey(config);
-        if (id == null) {
-            return Optional.empty();
-        }
+        if (id == null) return Optional.empty();
 
         String assetPath = "/assets/%s/textures/entity/player/skin/%s.png"
                 .formatted(id.getNamespace(), id.getPath());
 
-        File cached = SKIN_CACHE.get(assetPath);
-        if (cached != null && cached.exists()) {
-            return getSkinFromFile(cached, useSlim);
-        }
-
         for (Class<?> aClass : SCAN_LIST) {
             try (InputStream in = aClass.getResourceAsStream(assetPath)) {
                 if (in == null) continue;
+
                 Path tempFile = Files.createTempFile("npcskin_", ".png");
                 Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
                 File skinFile = tempFile.toFile();
 
-                Property property = SkinFetcherCaches.from(in);
-                if (property != null) {
-                    return Optional.of(property);
+                String md5;
+                try (InputStream md5In = new FileInputStream(skinFile)) {
+                    md5 = SkinFetcherCaches.getMD5FromInputStream(md5In);
                 }
-                SKIN_CACHE.put(assetPath, skinFile);
+
+                SkinFetcherCaches.Entry entry = SkinFetcherCaches.MD5_CACHED.get(md5);
+                if (entry != null) {
+                    return Optional.of(entry.property());
+                }
+
                 Optional<Property> skinFromFile = getSkinFromFile(skinFile, useSlim);
                 if (skinFromFile.isPresent()) {
+                    SkinFetcherCaches.MD5_CACHED.put(md5, new SkinFetcherCaches.Entry(skinFromFile.get()));
                     SkinFetcherCaches.save();
                 }
                 return skinFromFile;
             } catch (IOException e) {
-                continue;
+                log.error("加载皮肤失败: {}", assetPath, e);
             }
         }
         return Optional.empty();

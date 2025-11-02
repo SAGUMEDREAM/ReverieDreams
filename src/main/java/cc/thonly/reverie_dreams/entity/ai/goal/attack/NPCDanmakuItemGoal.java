@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.MobDanmakuShooter;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
 import java.util.EnumSet;
 
 @Setter
@@ -103,13 +105,18 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
             Level world = this.actor.level();
             if (world instanceof ServerLevel serverWorld) {
                 ItemStack itemStack = this.actor.getMainHandItem();
-                Boolean isInfinite = itemStack.getOrDefault(ModDataComponentTypes.Danmaku.INFINITE, false);
+                DanmakuProperties properties = itemStack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+                if (properties == null) {
+                    return;
+                }
                 Item item = itemStack.getItem();
-                if (!(item instanceof AbstractDanmakuItem polymerDanmakuItem)) return;
-                for (int i = 0; i < itemStack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, 3); i++) {
+                if (!(item instanceof AbstractDanmakuItem polymerDanmakuItem)) {
+                    return;
+                }
+                for (int i = 0; i < properties.getCount(); i++) {
                     polymerDanmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
                 }
-                if (!isInfinite) {
+                if (!properties.isInfinite()) {
                     itemStack.hurtAndBreak(1, this.actor, InteractionHand.MAIN_HAND);
                     if (itemStack.isDamageableItem() && itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
                         itemStack.shrink(1);

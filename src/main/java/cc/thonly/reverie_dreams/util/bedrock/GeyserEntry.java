@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.util.bedrock;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -37,7 +37,7 @@ public class GeyserEntry implements EventRegistrar {
     public void onGeyserDefineCustomItemsEvent(GeyserDefineCustomItemsEvent event) {
         for (Map.Entry<ResourceKey<Item>, Item> mapEntry : BuiltInRegistries.ITEM.entrySet()) {
             ResourceKey<Item> key = mapEntry.getKey();
-            if (!key.location().getNamespace().equals(Touhou.MOD_ID)) continue;
+            if (!key.location().getNamespace().equals(ReverieDreams.MOD_ID)) continue;
             Item item = mapEntry.getValue();
             if(item instanceof IdentifierGetter) {
                 int id = BuiltInRegistries.ITEM.getId(item);

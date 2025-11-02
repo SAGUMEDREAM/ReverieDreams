@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.item.base;
 
-import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import lombok.Getter;
@@ -31,8 +30,8 @@ public class SpawnEggItem extends PolymerSpawnEggItem implements IdentifierGette
     private long color = -1;
 
     public SpawnEggItem(String identifier, EntityType<? extends Mob> type, Properties settings) {
-        super(type, settings.setId(ResourceKey.create(Registries.ITEM, Touhou.id(identifier))).component(DataComponents.DYED_COLOR, DEFAULT_COLOR));
-        this.identifier = Touhou.id(identifier);
+        super(type, settings.setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(identifier))).component(DataComponents.DYED_COLOR, DEFAULT_COLOR));
+        this.identifier = ReverieDreams.id(identifier);
     }
 
     public SpawnEggItem(ResourceLocation identifier, EntityType<? extends Mob> type, Properties settings) {

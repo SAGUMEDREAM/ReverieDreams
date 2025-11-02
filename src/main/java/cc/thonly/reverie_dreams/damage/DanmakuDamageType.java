@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.damage;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.CodecStep;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
@@ -23,7 +23,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 public class DanmakuDamageType implements CodecStep<DanmakuDamageType>, OwnerBinding<DanmakuDamageType>, BuiltinObject {
     public static final Codec<DanmakuDamageType> CODEC = ResourceKey.codec(Registries.DAMAGE_TYPE)
             .xmap(DanmakuDamageType::new, DanmakuDamageType::getRegistryKey);
-    public static final ResourceLocation DEFAULT_ID = Touhou.id("generic");
+    public static final ResourceLocation DEFAULT_ID = ReverieDreams.id("generic");
     private ResourceLocation id;
     private final ResourceKey<DamageType> registryKey;
     private IntrinsicalRegister<DanmakuDamageType> owner;

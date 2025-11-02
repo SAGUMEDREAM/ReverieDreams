@@ -11,7 +11,7 @@ public class BulletTrajectory extends DanmakuTrajectory {
     @Override
     public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack,
                     Double x, Double y, Double z, float pitch, float yaw,
-                    float speed, float acceleration, float divergence, float offsetDist,
+                    float divergence, float offsetDist,
                     IDanmakuItem pThis) {
 
         int maxLayer = 2; // 层级从 -2 到 0
@@ -43,8 +43,6 @@ public class BulletTrajectory extends DanmakuTrajectory {
                         stack,
                         pitch,
                         yaw,
-                        speed,
-                        acceleration,
                         divergence,
                         offsetDist
                 );

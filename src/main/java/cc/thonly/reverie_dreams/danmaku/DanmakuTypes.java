@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.danmaku;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.ItemColor;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
@@ -15,18 +15,18 @@ import net.minecraft.world.item.ItemStack;
 
 public class DanmakuTypes {
     public static final List<DanmakuType> UNLIST = new ArrayList<>();
-    public static final DanmakuType AMULET = register(Touhou.id("amulet"), 2f, 1f, 1.0f, false, false);
-    public static final DanmakuType ARROWHEAD = register(Touhou.id("arrowhead"), 2f, 1f, 1.0f, false, false);
-    public static final DanmakuType BALL = register(Touhou.id("ball"), 2f, 1f, 1.0f, true, false);
-    public static final DanmakuType BUBBLE = register(Touhou.id("bubble"), 2.5f, 2f, 1.0f, true, false);
-    public static final DanmakuType BULLET = register(Touhou.id("bullet"), 2f, 1f, 1.0f, false, false);
-    public static final DanmakuType FIREBALL = register(Touhou.id("fireball"), 2f, 1f, 1.0f, true, false);
-    public static final DanmakuType FIREBALL_GLOWY = register(Touhou.id("fireball_glowy"), 1f, 1f, 1.0f, true, false);
-    public static final DanmakuType KUNAI = register(Touhou.id("kunai"), 2f, 1f, 1.0f, false, false);
-    public static final DanmakuType RICE = register(Touhou.id("rice"), 2f, 1f, 1.0f, false, false);
-    public static final DanmakuType STAR = register(Touhou.id("star"), 2f, 1f, 1.0f, true, false);
-    public static final DanmakuType LASER = register(Touhou.id("laser"), 3f, 1.5f, 1.0f, false, false);
-    public static final DanmakuType BIG_LASER = register(Touhou.id("big_laser"), 3f, 1.5f, 1.0f, false, false);
+    public static final DanmakuType AMULET = register(ReverieDreams.id("amulet"), 2f, 1f, 1.0f, false, false);
+    public static final DanmakuType ARROWHEAD = register(ReverieDreams.id("arrowhead"), 2f, 1f, 1.0f, false, false);
+    public static final DanmakuType BALL = register(ReverieDreams.id("ball"), 2f, 1f, 1.0f, true, false);
+    public static final DanmakuType BUBBLE = register(ReverieDreams.id("bubble"), 2.5f, 2f, 1.0f, true, false);
+    public static final DanmakuType BULLET = register(ReverieDreams.id("bullet"), 2f, 1f, 1.0f, false, false);
+    public static final DanmakuType FIREBALL = register(ReverieDreams.id("fireball"), 2f, 1f, 1.0f, true, false);
+    public static final DanmakuType FIREBALL_GLOWY = register(ReverieDreams.id("fireball_glowy"), 1f, 1f, 1.0f, true, false);
+    public static final DanmakuType KUNAI = register(ReverieDreams.id("kunai"), 2f, 1f, 1.0f, false, false);
+    public static final DanmakuType RICE = register(ReverieDreams.id("rice"), 2f, 1f, 1.0f, false, false);
+    public static final DanmakuType STAR = register(ReverieDreams.id("star"), 2f, 1f, 1.0f, true, false);
+    public static final DanmakuType LASER = register(ReverieDreams.id("laser"), 3f, 1.5f, 1.0f, false, false);
+    public static final DanmakuType BIG_LASER = register(ReverieDreams.id("big_laser"), 3f, 1.5f, 1.0f, false, false);
 
     static {
         UNLIST.add(LASER);

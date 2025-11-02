@@ -5,7 +5,7 @@ import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.mystias_izakaya.recipe.MiRecipeManager;
 import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
@@ -454,7 +454,7 @@ public class ModRecipeTypeProvider extends RecipeTypeProvider {
                 this.ofItem(ModItems.DEATH_SCYTHE)
         ));
         ItemStack kanjuKusuri = ModPotions.createStack(ModPotions.KANJU_KUSURI_POTION);
-        this.gensokyoAltarRecipeFactory.register(Touhou.id("kanju_kusuri"), new GensokyoAltarRecipe(
+        this.gensokyoAltarRecipeFactory.register(ReverieDreams.id("kanju_kusuri"), new GensokyoAltarRecipe(
                 this.ofItem(Items.GLASS_BOTTLE),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 20), this.ofItem(Items.SAND, 20), this.ofItem(Items.NETHER_WART, 5),

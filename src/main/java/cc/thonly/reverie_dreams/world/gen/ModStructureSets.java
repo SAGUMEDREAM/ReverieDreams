@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -10,7 +10,6 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import java.util.List;
 
 public class ModStructureSets {
 
@@ -49,6 +48,6 @@ public class ModStructureSets {
     }
 
     public static ResourceKey<StructureSet> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.STRUCTURE_SET, Touhou.id(name));
+        return ResourceKey.create(Registries.STRUCTURE_SET, ReverieDreams.id(name));
     }
 }

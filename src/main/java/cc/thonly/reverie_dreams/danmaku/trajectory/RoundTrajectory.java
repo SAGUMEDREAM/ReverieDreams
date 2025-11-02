@@ -18,7 +18,7 @@ public class RoundTrajectory extends DanmakuTrajectory {
     @Override
     public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack,
                     Double x, Double y, Double z, float pitch, float yaw,
-                    float speed, float acceleration, float divergence, float offsetDist,
+                    float divergence, float offsetDist,
                     IDanmakuItem pThis) {
         double centerX = x;
         double centerY = y;
@@ -54,8 +54,6 @@ public class RoundTrajectory extends DanmakuTrajectory {
                     stack,
                     bulletPitch,
                     bulletYaw,
-                    speed,
-                    acceleration,
                     divergence,
                     offsetDist
             );

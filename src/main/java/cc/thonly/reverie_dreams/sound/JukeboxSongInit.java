@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.sound;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
+
 import java.util.LinkedList;
 import java.util.List;
 import net.minecraft.core.Holder;
@@ -31,7 +32,7 @@ public class JukeboxSongInit {
     }
 
     private static ResourceKey<JukeboxSong> createJukeBoxSongRegistryKey(String id) {
-        return ResourceKey.create(Registries.JUKEBOX_SONG, Touhou.id(id));
+        return ResourceKey.create(Registries.JUKEBOX_SONG, ReverieDreams.id(id));
     }
 
     public static void init() {

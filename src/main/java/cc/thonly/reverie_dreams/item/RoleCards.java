@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoles;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
@@ -10,13 +10,13 @@ import net.minecraft.resources.ResourceLocation;
 
 public class RoleCards {
     private static final IntrinsicalRegister<RoleCard> REGISTER = RegistryManager.ROLE_CARD;
-    public static final RoleCard PROTAGONIST_GROUP = register(new RoleCard(Touhou.id("protagonist_group"),
+    public static final RoleCard PROTAGONIST_GROUP = register(new RoleCard(ReverieDreams.id("protagonist_group"),
             16727357L,
             List.of(NPCRoles.REIMU,
                     NPCRoles.CYAN_REIMU,
                     NPCRoles.MARISA)
     ).build());
-    public static final RoleCard KOUMAKYOU = register(new RoleCard(Touhou.id("koumakyou"),
+    public static final RoleCard KOUMAKYOU = register(new RoleCard(ReverieDreams.id("koumakyou"),
             16716820L,
             List.of(NPCRoles.RUMIA,
                     NPCRoles.CIRNO,
@@ -26,7 +26,7 @@ public class RoleCards {
                     NPCRoles.REMILIA,
                     NPCRoles.FLANDRE)
     ).build());
-    public static final RoleCard YOUYOUMU = register(new RoleCard(Touhou.id("youyoumu"),
+    public static final RoleCard YOUYOUMU = register(new RoleCard(ReverieDreams.id("youyoumu"),
             16717035L,
             List.of(NPCRoles.LETTY_WHITEROCK,
                     NPCRoles.CHEN,
@@ -40,7 +40,7 @@ public class RoleCards {
                     NPCRoles.YUYUKO,
                     NPCRoles.YUKARI)
     ).build());
-    public static final RoleCard EIYASHOU = register(new RoleCard(Touhou.id("eiyashou"),
+    public static final RoleCard EIYASHOU = register(new RoleCard(ReverieDreams.id("eiyashou"),
             6160593L,
             List.of(NPCRoles.MYSTIA_LORELEI,
                     NPCRoles.WRIGGLE_NIGHTBUG,
@@ -50,12 +50,12 @@ public class RoleCards {
                     NPCRoles.HOURAISAN_KAGUYA,
                     NPCRoles.HUZIWARA_NO_MOKOU)
     ).build());
-    public static final RoleCard KAEIZUKA = register(new RoleCard(Touhou.id("kaeizuka"),
+    public static final RoleCard KAEIZUKA = register(new RoleCard(ReverieDreams.id("kaeizuka"),
             53595L,
             List.of(NPCRoles.SHIKIEIKI_YAMAXANADU,
                     NPCRoles.KAZAMI_YUKA)
     ).build());
-    public static final RoleCard FUUJINROKU = register(new RoleCard(Touhou.id("fuujinroku"),
+    public static final RoleCard FUUJINROKU = register(new RoleCard(ReverieDreams.id("fuujinroku"),
             6934784L,
             List.of(NPCRoles.KAGIYAMA_HINA,
                     NPCRoles.INUBASHIRI_MOMIZI,
@@ -65,7 +65,7 @@ public class RoleCards {
                     NPCRoles.YASAKA_KANAKO,
                     NPCRoles.MORIYA_SUWAKO)
     ).build());
-    public static final RoleCard CHIREIDEN = register(new RoleCard(Touhou.id("chireiden"),
+    public static final RoleCard CHIREIDEN = register(new RoleCard(ReverieDreams.id("chireiden"),
             41777L,
             List.of(NPCRoles.KISUME,
                     NPCRoles.KURODANI_YAMAME,
@@ -77,13 +77,13 @@ public class RoleCards {
                     NPCRoles.KOMEIJI_KOISHI,
                     NPCRoles.WHITE_KOMEIJI_KOISHI)
     ).build());
-    public static final RoleCard SEIRENSEN = register(new RoleCard(Touhou.id("seirensen"),
+    public static final RoleCard SEIRENSEN = register(new RoleCard(ReverieDreams.id("seirensen"),
             1506915L,
             List.of(NPCRoles.NAZRIN,
                     NPCRoles.TATARA_KOGASA,
                     NPCRoles.NUE)
     ).build());
-    public static final RoleCard SHINREIBYOU = register(new RoleCard(Touhou.id("shinreibyou"),
+    public static final RoleCard SHINREIBYOU = register(new RoleCard(ReverieDreams.id("shinreibyou"),
             16775603L,
             List.of(NPCRoles.KASODANI_KYOUKO,
                     NPCRoles.MIYAKO_YOSHIKA,
@@ -94,7 +94,7 @@ public class RoleCards {
                     NPCRoles.HOUJUU_NUE,
                     NPCRoles.HUTATSUIWA_MAMIZOU)
     ).build());
-    public static final RoleCard KISHINJOU = register(new RoleCard(Touhou.id("kishinjou"),
+    public static final RoleCard KISHINJOU = register(new RoleCard(ReverieDreams.id("kishinjou"),
             16761692L,
             List.of(
                     NPCRoles.WAKASAGIHIME,
@@ -105,7 +105,7 @@ public class RoleCards {
                     NPCRoles.HORIKAWA_RAIKO
             )
     ).build());
-    public static final RoleCard KANJUDEN = register(new RoleCard(Touhou.id("kanjuden"),
+    public static final RoleCard KANJUDEN = register(new RoleCard(ReverieDreams.id("kanjuden"),
             14024704L,
             List.of(
                     NPCRoles.SEIRAN,
@@ -117,7 +117,7 @@ public class RoleCards {
                     NPCRoles.HECATIA_LAPISLAZULI
             )
     ).build());
-    public static final RoleCard TENKUUSHOU = register(new RoleCard(Touhou.id("tenkuushou"),
+    public static final RoleCard TENKUUSHOU = register(new RoleCard(ReverieDreams.id("tenkuushou"),
             6750023L,
             List.of(
                     NPCRoles.ETERNITY_LARVA,
@@ -129,7 +129,7 @@ public class RoleCards {
                     NPCRoles.MATARA_OKINA
             )
     ).build());
-    public static final RoleCard KIKEIJUU = register(new RoleCard(Touhou.id("kikeijuu"),
+    public static final RoleCard KIKEIJUU = register(new RoleCard(ReverieDreams.id("kikeijuu"),
             12386304L,
             List.of(
                     NPCRoles.EBISU_EIKA,
@@ -141,7 +141,7 @@ public class RoleCards {
                     NPCRoles.KUROKOMA_SAKI
             )
     ).build());
-    public static final RoleCard KOURYUUDOU = register(new RoleCard(Touhou.id("kouryuudou"),
+    public static final RoleCard KOURYUUDOU = register(new RoleCard(ReverieDreams.id("kouryuudou"),
             15853109L,
             List.of(
                     NPCRoles.GOUTOKUZI_MIKE,
@@ -154,17 +154,17 @@ public class RoleCards {
                     NPCRoles.HIMEMUSHI_MOMOYO
             )
     ).build());
-    public static final RoleCard JUUOUEN = register(new RoleCard(Touhou.id("juuouen"),
+    public static final RoleCard JUUOUEN = register(new RoleCard(ReverieDreams.id("juuouen"),
             7252587L,
             List.of()
     ).build());
-    public static final RoleCard KINJOUKYOU = register(new RoleCard(Touhou.id("kinjoukyou"),
+    public static final RoleCard KINJOUKYOU = register(new RoleCard(ReverieDreams.id("kinjoukyou"),
             12969971L,
             List.of()
     ).build());
 
     // 其他作品
-    public static final RoleCard SANGETSUSEI = register(new RoleCard(Touhou.id("sangetsusei"),
+    public static final RoleCard SANGETSUSEI = register(new RoleCard(ReverieDreams.id("sangetsusei"),
             16770140L,
             List.of(
                     NPCRoles.STAR,
@@ -172,14 +172,14 @@ public class RoleCards {
                     NPCRoles.SUNNY
             )
     ).build());
-    public static final RoleCard HIFUU = register(new RoleCard(Touhou.id("hifuu"),
+    public static final RoleCard HIFUU = register(new RoleCard(ReverieDreams.id("hifuu"),
             8931582L,
             List.of(
                     NPCRoles.USAMI_RENKO,
                     NPCRoles.MARIBEL_HEARN
             )
     ).build());
-    public static final RoleCard TASOGARE_FURONTIA = register(new RoleCard(Touhou.id("tasogare_furontia"),
+    public static final RoleCard TASOGARE_FURONTIA = register(new RoleCard(ReverieDreams.id("tasogare_furontia"),
             16683336L,
             List.of(
                     NPCRoles.SUIKA,
@@ -192,7 +192,7 @@ public class RoleCards {
     }
 
     public static RoleCard register(String name, RoleCard roleCard) {
-        return register(Touhou.id(name), roleCard);
+        return register(ReverieDreams.id(name), roleCard);
     }
 
     public static RoleCard register(ResourceLocation key, RoleCard roleCard) {

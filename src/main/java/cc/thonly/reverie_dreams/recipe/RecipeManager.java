@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.recipe;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RecipeInjectCallback;
@@ -24,10 +24,10 @@ import java.util.Map;
 @Slf4j
 public class RecipeManager {
     public static final Map<ResourceLocation, BaseRecipeType<?>> RECIPE_TYPES = new Object2ObjectOpenHashMap<>();
-    public static final BaseRecipeType<DanmakuRecipe> DANMAKU_TYPE = registerRecipeType(Touhou.id("danmaku"), new DanmakuRecipeType());
-    public static final BaseRecipeType<DanmakuShapeDrawRecipe> DANMAKU_SHAPE_DRAW_TYPE = registerRecipeType(Touhou.id("danmaku_shape_draw"), new DanmakuShapeDrawRecipeType());
-    public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(Touhou.id("gensokyo_altar"), new GensokyoAltarRecipeType());
-    public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(Touhou.id("strength_table"), new StrengthTableRecipeType());
+    public static final BaseRecipeType<DanmakuRecipe> DANMAKU_TYPE = registerRecipeType(ReverieDreams.id("danmaku"), new DanmakuRecipeType());
+    public static final BaseRecipeType<DanmakuShapeDrawRecipe> DANMAKU_SHAPE_DRAW_TYPE = registerRecipeType(ReverieDreams.id("danmaku_shape_draw"), new DanmakuShapeDrawRecipeType());
+    public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
+    public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
 
     public static void bootstrap() {
 

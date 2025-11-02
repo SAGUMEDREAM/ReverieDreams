@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import lombok.Getter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -13,7 +12,7 @@ public class ChestBlockCreator extends AbstractBlockCreator {
     private CustomChestBlock chestBlock;
 
     public ChestBlockCreator(String name, BlockBehaviour.Properties settings) {
-        super(name, Touhou.id(name));
+        super(name, ReverieDreams.id(name));
         this.settings = settings;
     }
 

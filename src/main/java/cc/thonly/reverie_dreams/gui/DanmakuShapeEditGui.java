@@ -3,9 +3,7 @@ package cc.thonly.reverie_dreams.gui;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.mixin.accessor.GuiElementBuilderAccessor;
-import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
 import eu.pb4.sgui.api.ClickType;
@@ -124,7 +122,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
     private void readData() {
         DanmakuShapeDrawRecipeType recipeType = DanmakuShapeDrawRecipeType.getInstance();
         ItemStack source = this.source;
-        ItemStackWrapper itemStackWrapper = source.get(ModDataComponentTypes.Danmaku.SHAPE);
+        ItemStackWrapper itemStackWrapper = source.get(ModDataComponentTypes.SHAPE);
         if (itemStackWrapper == null) {
             return;
         }

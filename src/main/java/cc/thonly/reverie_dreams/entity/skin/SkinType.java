@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.skin;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.util.SkinFetcher;
 import com.mojang.authlib.properties.Property;
@@ -102,7 +102,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
 
     private void valid() {
         try {
-            ResourceLocation fileId = Touhou.id("entity/player/%s".formatted(this.id.getPath()));
+            ResourceLocation fileId = ReverieDreams.id("entity/player/%s".formatted(this.id.getPath()));
 
         } catch (Exception err) {
             log.error("Can't parse role code", err);

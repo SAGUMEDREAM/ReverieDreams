@@ -4,7 +4,7 @@ import cc.thonly.mystias_izakaya.block.ItemStackDisplay;
 import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
 import cc.thonly.polymer.block.*;
 import cc.thonly.reverie_dreams.LateLoaderInit;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
@@ -36,7 +36,7 @@ public class PolymerBlockHelper {
         }
 
         if (block instanceof SignBlock) {
-            LateLoaderInit.LATE_INIT.add(() -> SignModel.setModel(block, Touhou.id("block_sign/" + id.getPath())));
+            LateLoaderInit.LATE_INIT.add(() -> SignModel.setModel(block, ReverieDreams.id("block_sign/" + id.getPath())));
         }
     }
 

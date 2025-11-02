@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.engine;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
@@ -74,7 +74,7 @@ public class JavaScriptManager {
 
     public static void reload(ResourceManager manager) {
         Map<ResourceLocation, Resource> resources = manager.listResources(DIRNAME, id ->
-                id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".js")
+                id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".js")
         );
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
             ResourceLocation fileId = entry.getKey();

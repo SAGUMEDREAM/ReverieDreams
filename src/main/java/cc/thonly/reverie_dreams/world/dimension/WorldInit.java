@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -24,7 +24,7 @@ public class WorldInit {
     }
 
     public static ResourceKey<Level> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
+        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 
     public static ResourceKey<Level> getDreamWorld() {

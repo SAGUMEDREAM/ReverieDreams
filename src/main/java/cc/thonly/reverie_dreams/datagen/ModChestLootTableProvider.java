@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.item.MIItems;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -29,12 +29,12 @@ public class ModChestLootTableProvider extends SimpleFabricLootTableProvider {
         super(dataOutput, registryLookup, LootContextParamSets.CHEST);
     }
 
-    public static final ResourceKey<LootTable> DREAM_CHEST = ResourceKey.create(Registries.LOOT_TABLE, Touhou.id("dream_chest"));
-    public static final ResourceKey<LootTable> OUTER_SHRINE_CHEST = ResourceKey.create(Registries.LOOT_TABLE, Touhou.id("outer_shrine_chest"));
-    public static final ResourceKey<LootTable> ABANDONED_ALTAR_CHEST = ResourceKey.create(Registries.LOOT_TABLE, Touhou.id("abandoned_altar_chest"));
-    public static final ResourceKey<LootTable> MINI_BAR_CHEST = ResourceKey.create(Registries.LOOT_TABLE, Touhou.id("mini_bar_chest"));
-    public static final ResourceKey<LootTable> BAMBOO_FOREST_BBQ_CHEST = ResourceKey.create(Registries.LOOT_TABLE, Touhou.id("bamboo_forest_bbq_chest"));
-    public static final ResourceKey<LootTable> SAKURAZUKA_CHEST = ResourceKey.create(Registries.LOOT_TABLE, Touhou.id("sakurazuka_chest"));
+    public static final ResourceKey<LootTable> DREAM_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("dream_chest"));
+    public static final ResourceKey<LootTable> OUTER_SHRINE_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("outer_shrine_chest"));
+    public static final ResourceKey<LootTable> ABANDONED_ALTAR_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("abandoned_altar_chest"));
+    public static final ResourceKey<LootTable> MINI_BAR_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("mini_bar_chest"));
+    public static final ResourceKey<LootTable> BAMBOO_FOREST_BBQ_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("bamboo_forest_bbq_chest"));
+    public static final ResourceKey<LootTable> SAKURAZUKA_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("sakurazuka_chest"));
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {

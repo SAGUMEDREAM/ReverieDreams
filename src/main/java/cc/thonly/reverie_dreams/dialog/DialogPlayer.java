@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.dialog;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -107,7 +107,7 @@ public class DialogPlayer {
             this.player.makeSound(this.soundEvent);
             System.out.println(111);
         }
-        DelayedTask.createFromSecond(Touhou.getServer(), 0.75f, () -> {
+        DelayedTask.createFromSecond(ReverieDreams.getServer(), 0.75f, () -> {
             this.paused = false;
         });
     }
@@ -198,7 +198,7 @@ public class DialogPlayer {
                 ),
                 new ActionButton(
                         new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.back")), 200),
-                        Optional.of(new StaticAction(new ClickEvent.Custom(Touhou.id("stop/dialog_video"), Optional.of(nbtCompound))))
+                        Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("stop/dialog_video"), Optional.of(nbtCompound))))
                 )
         );
 

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.danmaku;
 
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
@@ -46,7 +47,7 @@ public class SpellCardTemplates {
 
     public static ItemStack createItemStack(ResourceLocation key) {
         Holder<Item> entry = BuiltInRegistries.ITEM.wrapAsHolder(ModItems.SPELL_CARD_TEMPLATE);
-        return new ItemStack(entry, 1, DataComponentPatch.builder().set(ModDataComponentTypes.Danmaku.TEMPLATE, key.toString()).build());
+        return new ItemStack(entry, 1, DataComponentPatch.builder().set(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault().withTemplateId(key)).build());
     }
 
     public static Map<ResourceLocation, DanmakuTrajectory> getRegistryView() {

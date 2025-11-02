@@ -30,7 +30,8 @@ public class VaisravanasPagodaItem extends Item {
                 DanmakuEntity entity = DanmakuTrajectory.spawnByItemStack(
                         serverWorld, user, user.getX(), user.getY(), user.getZ(),
                         DanmakuTypes.random(DanmakuTypes.LASER),
-                        pitch, yaw, 1.6f, 0f, 0.0f, 1.5f
+                        pitch, yaw,
+                        0.0f, 1.5f
                 );
                 entity.setOnHitEffect((livingEntity, damage) -> {
                     livingEntity.setRemainingFireTicks(20 * 5);

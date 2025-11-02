@@ -22,6 +22,7 @@ public class PolymerEntityHelper {
     public static void bootstrap() {
         registerOverlay(ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, SunflowerYouseiImpl::new);
         registerOverlay(ModEntities.YOUSEI_ENTITY_TYPE, YouseiImpl::new);
+        registerOverlay(ModEntities.MAID_YOUSEI_ENTITY_TYPE, MaidYouseiImpl::new);
         registerOverlay(ModEntities.GHOST_ENTITY_TYPE, NPCImpl::new);
         registerOverlay(ModEntities.GOBLIN_ENTITY_TYPE, NPCImpl::new);
         registerOverlay(ModEntities.WATER_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);

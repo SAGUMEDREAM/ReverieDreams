@@ -33,7 +33,12 @@ public class HakureiCane extends SwordItem {
             float pitch = user.getXRot();
             float yaw = user.getYRot();
 
-            DanmakuEntity center = DanmakuTrajectory.spawnByItemStack(serverWorld, user, user.getX(), user.getY(), user.getZ(), DanmakuTypes.withColor(DanmakuTypes.AMULET, ItemColor.RED), pitch, yaw, 1.4f, 0f, 0.0f, 0.8f);
+            DanmakuEntity center = DanmakuTrajectory.spawnByItemStack(serverWorld,
+                    user,
+                    user.getX(), user.getY(), user.getZ(),
+                    DanmakuTypes.withColor(DanmakuTypes.AMULET, ItemColor.RED),
+                    pitch, yaw,
+                    0.0f, 0.8f);
             center.playSound(SoundEventInit.FIRE, 1.0f, 1.0f);
 
             ItemCooldowns itemCooldownManager = player.getCooldowns();

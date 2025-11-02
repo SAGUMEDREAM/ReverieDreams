@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
@@ -19,7 +20,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -52,14 +52,14 @@ public class Knife extends SwordItem implements IDanmakuItem {
             TypedDataComponent<Object> next = (TypedDataComponent<Object>) iterator.next();
             itemStack.set(next.type(), next.value());
         }
-        Boolean isInfinite = itemStack.getOrDefault(ModDataComponentTypes.Danmaku.INFINITE, false);
+        DanmakuProperties properties = itemStack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
             ItemCooldowns cooldownManager = player.getCooldowns();
-            for (int i = 0; i < itemStack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, 1); i++) {
+            for (int i = 0; i < properties.getCount(); i++) {
                 this.shoot(serverWorld, user, hand);
             }
             cooldownManager.addCooldown(heldItemStack, 10);
-            if (!isInfinite) {
+            if (!properties.isInfinite()) {
                 itemStack.hurtWithoutBreaking(1, user);
             }
             world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEventInit.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
@@ -86,21 +86,19 @@ public class Knife extends SwordItem implements IDanmakuItem {
         ItemStack stack = itemStack.copy();
         float pitch = user.getXRot();
         float yaw = user.getYRot();
-
-        Item item = stack.getItem();
+        DanmakuProperties properties = stack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
 
         List<DanmakuEntity> list = new ArrayList<>();
         DanmakuEntity danmakuEntity = new DanmakuEntity(
-                (LivingEntity) user,
+                user,
                 serverWorld,
                 user.getX(),
                 user.getY(),
                 user.getZ(),
                 stack.copy(),
+                properties,
                 pitch,
                 yaw,
-                1.4f,
-                0f,
                 5.0f,
                 0.4f
         );
@@ -114,10 +112,9 @@ public class Knife extends SwordItem implements IDanmakuItem {
                     user.getY(),
                     user.getZ(),
                     stack.copy(),
+                    properties,
                     pitch+i1/1.5f,
                     yaw+i1,
-                    1.4f,
-                    0f,
                     5.0f,
                     0.4f
             ));

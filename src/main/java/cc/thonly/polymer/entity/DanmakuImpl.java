@@ -9,6 +9,7 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
 import java.util.Set;
+
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerPlayerConnection;
@@ -39,7 +40,11 @@ public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity 
             for (int i = 0; i < data.size(); i++) {
                 var roll = data.get(i);
                 if (roll.id() == DanmakuEntity.ROLL.id() && roll.serializer() == DanmakuEntity.ROLL.serializer()) {
-                    data.set(i, SynchedEntityData.DataValue.create(DisplayTrackedData.LEFT_ROTATION, new Quaternionf().rotateY(Mth.HALF_PI).rotateZ((float) roll.value())));
+                    data.set(i, SynchedEntityData.DataValue.create(
+                            DisplayTrackedData.LEFT_ROTATION,
+                            new Quaternionf()
+                                    .rotateY(Mth.HALF_PI)
+                                    .rotateZ((float) roll.value())));
                     sendBase = false;
                     break;
                 }
@@ -47,8 +52,8 @@ public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity 
 
             data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.TELEPORTATION_DURATION, 3));
             data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.INTERPOLATION_DURATION, 0));
-            data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.SCALE, new Vector3f(this.danmakuEntity.getScale() * 0.85f)));
-            if (this.danmakuEntity.getTile()) {
+            data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.SCALE, new Vector3f(this.danmakuEntity.getProperties().getScale() * 0.85f * 0.65f)));
+            if (this.danmakuEntity.getProperties().isTile()) {
                 data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.BILLBOARD, (byte) Display.BillboardConstraints.CENTER.ordinal()));
             } else {
                 data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.TRANSLATION, new Vector3f(0, -0.1f, 0)));

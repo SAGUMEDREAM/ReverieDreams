@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.mystias_izakaya.item.base.DrinkItem;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.gui.NPCGui;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
@@ -200,7 +200,7 @@ public class NPCRoleInteractionEvents {
 
             @Override
             public ResourceLocation getId() {
-                return Touhou.id("message/%s".formatted(MESSAGES.size()));
+                return ReverieDreams.id("message/%s".formatted(MESSAGES.size()));
             }
         };
         MESSAGES.add(npcRoleMessage);
@@ -213,7 +213,7 @@ public class NPCRoleInteractionEvents {
     }
 
     public static NPCRoleInteractionEvent registerEvent(String name, NPCRoleInteractionEvent.InteractionCallback callback) {
-        return registerEvent(Touhou.id(name), callback);
+        return registerEvent(ReverieDreams.id(name), callback);
     }
 
     public static NPCRoleInteractionEvent registerEvent(ResourceLocation eventId, NPCRoleInteractionEvent.InteractionCallback callback) {

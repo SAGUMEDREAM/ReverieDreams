@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
 
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +19,14 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("unchecked")
 public class KnifeEntity extends DanmakuEntity {
 
-    public KnifeEntity(@Nullable Entity livingEntity, ServerLevel world, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
-        super(livingEntity, world, x, y, z, stack, pitch, yaw, speed, acceleration, divergence, offsetDist);
+    public KnifeEntity(@Nullable Entity livingEntity,
+                       ServerLevel world,
+                       Double x, Double y, Double z,
+                       ItemStack stack,
+                       Float pitch, Float yaw,
+                       DanmakuProperties properties,
+                       Float divergence, Float offsetDist) {
+        super(livingEntity, world, x, y, z, stack, properties, pitch, yaw, divergence, offsetDist);
     }
 
     public KnifeEntity(EntityType<KnifeEntity> knifeEntityEntityType, Level world) {

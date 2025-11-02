@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -17,6 +17,6 @@ public class ConfigurationCarverInit {
     }
 
     private static ResourceKey<ConfiguredWorldCarver<?>> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_CARVER, Touhou.id(name));
+        return ResourceKey.create(Registries.CONFIGURED_CARVER, ReverieDreams.id(name));
     }
 }

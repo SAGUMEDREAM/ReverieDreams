@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.effect;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
+
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.Holder;
@@ -21,7 +22,7 @@ public class ModStatusEffects {
     }
 
     private static Holder<MobEffect> registerEffect(String id, MobEffect statusEffect) {
-        Holder.Reference<MobEffect> reference = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, Touhou.id(id), statusEffect);
+        Holder.Reference<MobEffect> reference = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, ReverieDreams.id(id), statusEffect);
         REVERIE_DREAMS_EFFECTS.add(reference);
         return reference;
     }

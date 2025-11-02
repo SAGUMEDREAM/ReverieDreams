@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.command;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
@@ -251,9 +251,9 @@ public class MainCommand implements CommandInit.CommandRegistration {
     }
 
     private int about(CommandContext<CommandSourceStack> context) {
-        Class<?> clazz = Touhou.class;
+        Class<?> clazz = ReverieDreams.class;
         ImageToTextScanner instance = ImageToTextScanner.createInstance(clazz);
-        String path = ImageToTextScanner.ofNamespace(Touhou.MOD_ID, "icon_about.png");
+        String path = ImageToTextScanner.ofNamespace(ReverieDreams.MOD_ID, "icon_about.png");
         BufferedImage iconBuffer = instance.loadImageFromJar(path);
         List<Component> iconText = instance.renderImageToText(iconBuffer, 16, 16);
 

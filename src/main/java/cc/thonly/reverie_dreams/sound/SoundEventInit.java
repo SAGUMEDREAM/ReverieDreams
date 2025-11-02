@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.sound;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import eu.pb4.polymer.core.api.other.PolymerSoundEvent;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import java.util.LinkedList;
@@ -40,7 +40,7 @@ public class SoundEventInit {
     }
 
     public static SoundEvent registerSound(String id) {
-        ResourceLocation identifier = Touhou.id(id);
+        ResourceLocation identifier = ReverieDreams.id(id);
         SoundEvent soundEvent = Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
 //        SoundEvent soundEvent = SoundEvent.of(identifier);
         PolymerSoundEvent.registerOverlay(soundEvent);
@@ -49,7 +49,7 @@ public class SoundEventInit {
     }
 
     protected static Holder.Reference<SoundEvent> registerReference(String id) {
-        return registerReference(Touhou.id(id));
+        return registerReference(ReverieDreams.id(id));
     }
 
     protected static Holder.Reference<SoundEvent> registerReference(ResourceLocation id) {

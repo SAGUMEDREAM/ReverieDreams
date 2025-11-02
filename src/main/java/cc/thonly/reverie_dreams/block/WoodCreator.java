@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import lombok.Getter;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -58,7 +58,7 @@ public class WoodCreator extends AbstractBlockCreator {
     }
 
     private WoodCreator(String name, TreeGrower saplingGenerator) {
-        this(Touhou.id(name), saplingGenerator);
+        this(ReverieDreams.id(name), saplingGenerator);
     }
 
     public WoodCreator build() {

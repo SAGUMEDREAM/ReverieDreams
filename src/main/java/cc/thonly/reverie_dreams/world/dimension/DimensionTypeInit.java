@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import java.util.Optional;
 import java.util.OptionalLong;
 import net.minecraft.core.registries.Registries;
@@ -70,7 +70,7 @@ public class DimensionTypeInit {
     }
 
     public static ResourceKey<DimensionType> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
+        return ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 
 }

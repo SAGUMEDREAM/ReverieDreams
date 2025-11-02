@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.client;
 
 
-import cc.thonly.reverie_dreams.TouhouClient;
+import cc.thonly.reverie_dreams.ReverieDreamsClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,7 +27,7 @@ public class AbstractBlockMixin {
         if (world.isClientSide()) {
             if (Minecraft.getInstance().getSingleplayerServer() != null)
                 if (Minecraft.getInstance().getSingleplayerServer().isDedicatedServer())
-                    if (TouhouClient.SERVER_SIDE_BLOCKS.contains(state.getBlock()))
+                    if (ReverieDreamsClient.SERVER_SIDE_BLOCKS.contains(state.getBlock()))
                         cir.setReturnValue(Blocks.AIR.defaultBlockState());
         }
     }
@@ -37,7 +37,7 @@ public class AbstractBlockMixin {
         if (world.isClientSide) {
             if (Minecraft.getInstance().getSingleplayerServer() != null) {
                if (Minecraft.getInstance().getSingleplayerServer().isDedicatedServer()) {
-                    if (TouhouClient.SERVER_SIDE_BLOCKS.contains(state.getBlock())) {
+                    if (ReverieDreamsClient.SERVER_SIDE_BLOCKS.contains(state.getBlock())) {
                         cir.setReturnValue(InteractionResult.FAIL);
                     }
                 }

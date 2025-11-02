@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.component;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.tooltip.ModTooltips;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
@@ -13,35 +13,18 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+
 import java.util.List;
 
 @Slf4j
 public class ModDataComponentTypes {
-    public static class Danmaku {
-        public static final DataComponentType<String> TEMPLATE = registerComponent("template",
-                DataComponentType.<String>builder().persistent(Codec.STRING).build());
-        public static final DataComponentType<Integer> COUNT = registerComponent("count",
-                DataComponentType.<Integer>builder().persistent(Codec.INT).build());
-        public static final DataComponentType<Float> DAMAGE = registerComponent("damage",
-                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
-        public static final DataComponentType<String> DAMAGE_TYPE = registerComponent("damage_type",
-                DataComponentType.<String>builder().persistent(Codec.STRING).build());
-        public static final DataComponentType<Float> SCALE = registerComponent("scale",
-                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
-        public static final DataComponentType<Float> SPEED = registerComponent("speed",
-                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
-        public static final DataComponentType<Float> ACCELERATION = registerComponent("acceleration",
-                DataComponentType.<Float>builder().persistent(Codec.FLOAT).build());
-        public static final DataComponentType<Boolean> TILE = registerComponent("tile",
-                DataComponentType.<Boolean>builder().persistent(Codec.BOOL).build());
-        public static final DataComponentType<Boolean> INFINITE = registerComponent("infinite",
-                DataComponentType.<Boolean>builder().persistent(Codec.BOOL).build());
-        public static final DataComponentType<ItemStackWrapper> SHAPE = registerComponent("shape",
-                DataComponentType.<ItemStackWrapper>builder().persistent(ItemStackWrapper.CODEC).build());
-        public static void init() {
-
-        }
-    }
+    public static final DataComponentType<DanmakuProperties> DANMAKU_PROPERTIES = registerComponent("danmaku_properties",
+            DataComponentType.<DanmakuProperties>builder()
+                    .persistent(DanmakuProperties.CODEC)
+                    .build()
+    );
+    public static final DataComponentType<ItemStackWrapper> SHAPE = registerComponent("shape",
+            DataComponentType.<ItemStackWrapper>builder().persistent(ItemStackWrapper.CODEC).build());
 
 //    public static final ComponentType<Identifier> REGISTRY_KEY = registerComponent("registry_key",
 //            ComponentType.<Identifier>builder()
@@ -95,16 +78,10 @@ public class ModDataComponentTypes {
 
     public static void init() {
         ModTooltips.bootstrap();
-        try {
-            Class.forName(Danmaku.class.getName(), true, Danmaku.class.getClassLoader());
-        } catch (Exception err) {
-            log.error("Can't initialize danmaku component", err);
-        }
-
     }
 
     public static <T> DataComponentType<T> registerComponent(String path, DataComponentType<T> componentType) {
-        DataComponentType<T> value = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Touhou.id(path), componentType);
+        DataComponentType<T> value = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ReverieDreams.id(path), componentType);
         PolymerComponent.registerDataComponent(value);
         return value;
     }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.mystias_izakaya.item.MIItems;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
@@ -29,11 +29,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import java.util.function.Supplier;
 
 @Getter
 public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, Yousei {
-    public static final ResourceLocation ID = Touhou.id("yousei_wing");
+    public static final ResourceLocation ID = ReverieDreams.id("yousei_wing");
     public static final Model MODEL = ModelUtil.loadModel(ID);
 
     public SunflowerYouseiEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {

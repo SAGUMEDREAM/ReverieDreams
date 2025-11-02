@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class TemplateCreativeTab implements ItemGroupContentHelper {
-    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Touhou.id("item_group_template"));
+    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("item_group_template"));
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.SPELL_CARD_TEMPLATE))
             .title(Component.translatable("item_group.touhou.template"))

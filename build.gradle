@@ -146,6 +146,9 @@ dependencies {
     compileOnly 'com.google.auto.value:auto-value:1.10.4'
     annotationProcessor 'com.google.auto.value:auto-value:1.10.4'
 
+    compileOnly 'io.soabase.record-builder:record-builder-core:39'
+    annotationProcessor 'io.soabase.record-builder:record-builder-processor:39'
+
 }
 
 def includeDependencyJar = { File targetJar, List<String> list ->

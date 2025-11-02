@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.danmaku;
 
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
+import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
@@ -23,11 +25,11 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
     public static final Codec<DanmakuTrajectory> CODEC = Codec.unit(DanmakuTrajectory::new);
     private IntrinsicalRegister<DanmakuTrajectory> owner;
 
-    public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack, Double x, Double y, Double z, float pitch, float yaw, float speed, float acceleration, float divergence, float offsetDist, IDanmakuItem pThis) {
+    public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack, Double x, Double y, Double z, float pitch, float yaw, float divergence, float offsetDist, IDanmakuItem pThis) {
 
     }
 
-    public static DanmakuEntity spawnByItemStack(ServerLevel world, @NotNull LivingEntity livingEntity, ItemStack stack, Float speed, Float acceleration, Float divergence, Float offsetDist) {
+    public static DanmakuEntity spawnByItemStack(ServerLevel world, @NotNull LivingEntity livingEntity, ItemStack stack, Float divergence, Float offsetDist) {
         stack = stack.copy();
         double x = livingEntity.getX();
         double y = livingEntity.getY();
@@ -35,36 +37,34 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
         if (offsetDist == null) {
             offsetDist = 1.5f;
         }
+        DanmakuProperties properties = stack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         DanmakuEntity danmakuEntity = new DanmakuEntity(
                 livingEntity,
                 world,
                 x, y, z,
                 stack,
-                livingEntity.getXRot(),
-                livingEntity.getYRot(),
-                speed,
-                acceleration,
-                divergence,
-                offsetDist
+                properties,
+                livingEntity.getXRot(), livingEntity.getYRot(),
+                divergence, offsetDist
         );
         world.addFreshEntity(danmakuEntity);
         return danmakuEntity;
     }
 
-    public static DanmakuEntity spawnByItemStack(ServerLevel world, @Nullable LivingEntity livingEntity, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float speed, Float acceleration, Float divergence, Float offsetDist) {
+    public static DanmakuEntity spawnByItemStack(ServerLevel world, @Nullable LivingEntity livingEntity, Double x, Double y, Double z, ItemStack stack, Float pitch, Float yaw, Float divergence, Float offsetDist) {
         stack = stack.copy();
         if (offsetDist == null) {
             offsetDist = 1.5f;
         }
+        DanmakuProperties properties = stack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         DanmakuEntity danmakuEntity = new DanmakuEntity(
                 livingEntity,
                 world,
                 x, y, z,
                 stack,
+                properties,
                 pitch,
                 yaw,
-                speed,
-                acceleration,
                 divergence,
                 offsetDist
         );

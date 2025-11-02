@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import java.util.function.Function;
+
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -65,6 +65,6 @@ public class ModTemplatePools {
     }
 
     public static ResourceKey<StructureTemplatePool> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.TEMPLATE_POOL, Touhou.id(name));
+        return ResourceKey.create(Registries.TEMPLATE_POOL, ReverieDreams.id(name));
     }
 }

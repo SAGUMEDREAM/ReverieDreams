@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -37,7 +36,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import java.util.*;
-import java.util.function.Consumer;
 
 @Getter
 public class RoleCardItem extends Item {
@@ -123,7 +121,7 @@ public class RoleCardItem extends Item {
             element.putString("entity_id", identifier.toString());
             dialog.actions().add(new ActionButton(
                     new CommonButtonData(Component.empty().append(Component.translatable(entityType.getDescriptionId())), 180),
-                    Optional.of(new StaticAction(new ClickEvent.Custom(Touhou.id("role/summon"), Optional.of(element))))
+                    Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("role/summon"), Optional.of(element))))
             ));
         }
         CompoundTag element = new CompoundTag();
@@ -131,7 +129,7 @@ public class RoleCardItem extends Item {
         element.putString("entity_id", "random");
         dialog.actions().add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.random")), 180),
-                Optional.of(new StaticAction(new ClickEvent.Custom(Touhou.id("role/summon"), Optional.of(element))))
+                Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("role/summon"), Optional.of(element))))
         ));
         dialog.actions().add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.exit")), 200),

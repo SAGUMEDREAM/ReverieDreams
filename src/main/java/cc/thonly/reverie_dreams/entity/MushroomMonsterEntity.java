@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.entity.AnimationHelper;
 import cc.thonly.reverie_dreams.util.entity.ModelUtil;
 import de.tomalbrc.bil.api.AnimatedEntity;
@@ -39,7 +39,7 @@ import java.util.WeakHashMap;
 @Getter
 public class MushroomMonsterEntity extends PathfinderMob implements AnimatedEntity {
     public static final WeakHashMap<Entity, EntityHolder<MushroomMonsterEntity>> ELEMENTS = new WeakHashMap<>();
-    public static final Model MODEL = ModelUtil.loadModel(Touhou.id("mushroom_monster"));
+    public static final Model MODEL = ModelUtil.loadModel(ReverieDreams.id("mushroom_monster"));
     private final Model hairballModel;
     private EntityHolder<MushroomMonsterEntity> holder;
 

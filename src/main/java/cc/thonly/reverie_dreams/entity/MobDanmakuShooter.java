@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
+import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
@@ -44,18 +46,18 @@ public interface MobDanmakuShooter {
 
     static DanmakuEntity spawn(ServerLevel world, LivingEntity entity, ItemStack stack, float pitch, float yaw, float speed, float divergence, float offsetDist) {
         Item item = stack.getItem();
+        DanmakuProperties properties = stack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         if (item instanceof AbstractDanmakuItem danmakuItem) {
             DanmakuEntity danmakuEntity = new DanmakuEntity(
-                    (LivingEntity) entity,
+                    entity,
                     world,
                     entity.getX(),
                     entity.getY(),
                     entity.getZ(),
                     stack.copy(),
+                    properties,
                     pitch,
                     yaw,
-                    speed,
-                    0f,
                     divergence,
                     offsetDist
             );

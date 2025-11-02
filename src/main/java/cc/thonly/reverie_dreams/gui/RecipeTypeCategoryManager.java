@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.gui;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
 import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGetter;
@@ -41,11 +41,11 @@ public class RecipeTypeCategoryManager {
     public static final Map<ResourceLocation, RecipeTypeGuiInfo<? extends BasePageGui>> REGISTRIES = new Object2ObjectOpenHashMap<>();
     public static final List<RecipeTypeGuiInfo<? extends BasePageGui>> CATEGORY_ENTRIES = new LinkedList<>();
 
-    public static final ResourceLocation DANMAKU_TABLE_ICON = Touhou.id("recipe/danmaku_table");
-    public static final ResourceLocation DANMAKU_SHAPE_ICON = Touhou.id("recipe/danmaku_shape");
-    public static final ResourceLocation GENSOKYO_ALTAR_ICON = Touhou.id("recipe/gensokyo_altar");
-    public static final ResourceLocation STRENGTH_TABLE_ICON = Touhou.id("recipe/strength_table");
-    public static final ResourceLocation KITCHEN_ICON = Touhou.id("recipe/kitchen");
+    public static final ResourceLocation DANMAKU_TABLE_ICON = ReverieDreams.id("recipe/danmaku_table");
+    public static final ResourceLocation DANMAKU_SHAPE_ICON = ReverieDreams.id("recipe/danmaku_shape");
+    public static final ResourceLocation GENSOKYO_ALTAR_ICON = ReverieDreams.id("recipe/gensokyo_altar");
+    public static final ResourceLocation STRENGTH_TABLE_ICON = ReverieDreams.id("recipe/strength_table");
+    public static final ResourceLocation KITCHEN_ICON = ReverieDreams.id("recipe/kitchen");
 
     public static void addCategoryType(RecipeTypeGuiInfo<? extends BasePageGui> type) {
         CATEGORY_ENTRIES.add(type);

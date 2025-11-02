@@ -1,20 +1,14 @@
 package cc.thonly.reverie_dreams.compat.page;
 
-import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.gui.BasePageGui;
-import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.recipe.display.DanmakuShapeDisplayView;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import eu.pb4.polydex.api.v1.recipe.*;
-import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.elements.GuiElementInterface;
-import eu.pb4.sgui.api.gui.SimpleGui;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,12 +19,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class DanmakuShapePage implements PolydexPage {
-    public static final ResourceLocation id = Touhou.id("recipe/danmaku_shape");
+    public static final ResourceLocation id = ReverieDreams.id("recipe/danmaku_shape");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
     public static final ItemStack ICON = new GuiElementBuilder(ModItems.DANMAKU_SHAPE_CREATOR).setName(Component.translatable(id.toLanguageKey())).asStack();

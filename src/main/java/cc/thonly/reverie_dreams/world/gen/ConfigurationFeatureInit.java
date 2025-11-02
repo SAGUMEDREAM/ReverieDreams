@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.world.gen.feature.*;
@@ -216,7 +216,7 @@ public class ConfigurationFeatureInit {
     }
 
     private static ResourceKey<ConfiguredFeature<?, ?>> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, Touhou.id(name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ReverieDreams.id(name));
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F registerForVanilla(String name, F feature) {
@@ -224,6 +224,6 @@ public class ConfigurationFeatureInit {
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature) {
-        return (F) Registry.register(BuiltInRegistries.FEATURE, Touhou.id(name), feature);
+        return (F) Registry.register(BuiltInRegistries.FEATURE, ReverieDreams.id(name), feature);
     }
 }

@@ -1,7 +1,6 @@
 package cc.thonly.polymer;
 
-import cc.thonly.reverie_dreams.LateLoaderInit;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
 import eu.pb4.factorytools.api.resourcepack.ModelModifiers;
 import eu.pb4.polymer.resourcepack.api.AssetPaths;
@@ -11,9 +10,9 @@ import eu.pb4.polymer.resourcepack.extras.api.format.atlas.AtlasAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.blockstate.StateModelVariant;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelElement;
+
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.Consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,7 +32,7 @@ public class ResourcePackGenerator {
     public static final List<SignBlock> SIGN_MODELS = new ArrayList<>();
 
     static {
-        NAMESPACES.add(Touhou.MOD_ID);
+        NAMESPACES.add(ReverieDreams.MOD_ID);
     }
 
     public static void registerEvent() {
@@ -103,9 +102,14 @@ public class ResourcePackGenerator {
 
                         builder.addData(AssetPaths.model(polymerify_namespace, parentId.getPath() + suffix) + ".json",
                                 finalModelAsset);
+                        ModelAsset modelAsset = new ModelAsset(
+                                Optional.of(ResourceLocation.fromNamespaceAndPath(polymerify_namespace, parentId.getPath() + suffix)), asset.elements(),
+                                asset.textures(),
+                                asset.display(),
+                                asset.guiLight(),
+                                asset.ambientOcclusion());
                         builder.addData(AssetPaths.model(modelId) + ".json",
-                                new ModelAsset(Optional.of(ResourceLocation.fromNamespaceAndPath(polymerify_namespace, parentId.getPath() + suffix)), asset.elements(),
-                                        asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
+                                modelAsset.toBytes());
                     }
                 }
             }

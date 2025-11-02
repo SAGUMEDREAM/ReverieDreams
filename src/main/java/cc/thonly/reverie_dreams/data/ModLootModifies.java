@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
 import cc.thonly.reverie_dreams.entity.GoblinEntity;
@@ -121,11 +122,10 @@ public class ModLootModifies {
                         .when(LootItemRandomChanceCondition.randomChance(0.4f));
                 for (var entry : SpellCardTemplates.getRegistryItemStackView().entrySet()) {
                     ItemStack itemStack = entry.getValue();
-                    String templateId = itemStack.get(ModDataComponentTypes.Danmaku.TEMPLATE);
-                    if (templateId == null) continue;
-
+                    DanmakuProperties properties = itemStack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+                    if (properties==null) continue;
                     poolBuilder.add(LootItem.lootTableItem(itemStack.getItem())
-                            .apply(SetComponentsFunction.setComponent(ModDataComponentTypes.Danmaku.TEMPLATE, templateId))
+                            .apply(SetComponentsFunction.setComponent(ModDataComponentTypes.DANMAKU_PROPERTIES, properties.clone()))
                             .setWeight(6));
                 }
                 tableBuilder.withPool(poolBuilder);
@@ -199,7 +199,7 @@ public class ModLootModifies {
     }
 
     private static ResourceKey<LootTable> key(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, Touhou.id(path));
+        return ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id(path));
     }
 
 }

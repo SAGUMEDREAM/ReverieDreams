@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.npc.NPCRole;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Collection;
 
 public class NPCSpawnEggCreativeTab implements ItemGroupContentHelper {
-    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Touhou.id("item_group_role_spawn_egg"));
+    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("item_group_role_spawn_egg"));
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.SPAWN_EGG))
             .title(Component.translatable("item_group.touhou.role.spawn_egg"))

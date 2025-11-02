@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.util.Map;
 @Setter
 public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWorkMode>, BuiltinObject, Translatable {
     public static final Codec<NPCWorkMode> CODEC = Codec.unit(NPCWorkMode::new);
-    public static final ResourceLocation DEFAULT_ID = Touhou.id("combat");
+    public static final ResourceLocation DEFAULT_ID = ReverieDreams.id("combat");
     private final String type;
     private final Item itemDisplay;
     private IntrinsicalRegister<NPCWorkMode> owner;

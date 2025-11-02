@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.elemental.FireElementalEntity;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.entity.elemental.WaterElementalEntity;
@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +131,21 @@ public class ModEntities {
                     .add(Attributes.TEMPT_RANGE, 10.0)
                     .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
                     .build());
+    public static final EntityType<MaidYouseiEntity> MAID_YOUSEI_ENTITY_TYPE = registerEntityWithSpawnEgg("maid_yousei",
+            EntityType.Builder.<MaidYouseiEntity>of(MaidYouseiEntity::new, MobCategory.MONSTER)
+                    .build(of("yousei")),
+            () -> LivingEntity.createLivingAttributes()
+                    .add(Attributes.MAX_HEALTH, 25.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                    .add(Attributes.ATTACK_DAMAGE, 0.5)
+                    .add(Attributes.SCALE, 1.8f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 16.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .build()
+            );
     public static final EntityType<SunflowerYouseiEntity> SUNFLOWER_YOUSEI_ENTITY_TYPE = registerEntityWithSpawnEgg("sunflower_yousei",
             EntityType.Builder.<SunflowerYouseiEntity>of((type, world) -> new SunflowerYouseiEntity(type, world, MobSkinTypes.SUNFLOWER_YOUSEI), MobCategory.MONSTER)
                     .build(of("sunflower_yousei")),
@@ -196,11 +212,11 @@ public class ModEntities {
     }
 
     public static ResourceKey<EntityType<?>> of(String name) {
-        return ResourceKey.create(Registries.ENTITY_TYPE, Touhou.id(name));
+        return ResourceKey.create(Registries.ENTITY_TYPE, ReverieDreams.id(name));
     }
 
     public static <T extends Entity> EntityType<T> registerEntity(String path, EntityType<T> entityType) {
-        EntityType<T> entityTypeRef = Registry.register(BuiltInRegistries.ENTITY_TYPE, Touhou.id(path), entityType);
+        EntityType<T> entityTypeRef = Registry.register(BuiltInRegistries.ENTITY_TYPE, ReverieDreams.id(path), entityType);
         PolymerEntityUtils.registerType(entityTypeRef);
         return entityTypeRef;
     }
@@ -212,9 +228,9 @@ public class ModEntities {
     }
 
     public static <T extends Entity> EntityType<T> registerEntityWithSpawnEgg(String path, EntityType<T> entityType, CreateAttributesFunction createAttributesFunction) {
-        EntityType<T> entityTypeRef = Registry.register(BuiltInRegistries.ENTITY_TYPE, Touhou.id(path), entityType);
+        EntityType<T> entityTypeRef = Registry.register(BuiltInRegistries.ENTITY_TYPE, ReverieDreams.id(path), entityType);
         FabricDefaultAttributeRegistry.register((EntityType<? extends Mob>) entityTypeRef, createAttributesFunction.apply());
-        Item item = registerSpawnEggItem(new SpawnEggItem(path + "_spawn_egg", (EntityType<? extends Mob>) entityTypeRef, new Item.Properties().modelId(Touhou.id("spawn_egg"))));
+        Item item = registerSpawnEggItem(new SpawnEggItem(path + "_spawn_egg", (EntityType<? extends Mob>) entityTypeRef, new Item.Properties().modelId(ReverieDreams.id("spawn_egg"))));
         PolymerEntityUtils.registerType(entityTypeRef);
         SPAWN_EGG_ITEM_LIST.add(item);
         SPAWN_EGG_BIND.put(entityTypeRef, item);

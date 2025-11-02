@@ -10,7 +10,7 @@ import cc.thonly.mystias_izakaya.loot.MILootModifies;
 import cc.thonly.mystias_izakaya.recipe.MiRecipeManager;
 import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
 import cc.thonly.mystias_izakaya.villager.MIVillagerTradeModifier;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.api.ModInitializer;
@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 @Getter
 public class MystiasIzakaya implements ModInitializer {
     public static final String MOD_NAME = "Mystias Izakaya";
-    public static final String MOD_ID = Touhou.MOD_ID;
+    public static final String MOD_ID = ReverieDreams.MOD_ID;
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override

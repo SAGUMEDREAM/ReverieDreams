@@ -80,7 +80,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Setter
 @Getter
-public class Touhou implements ModInitializer {
+public class ReverieDreams implements ModInitializer {
     public static final String MOD_NAME = "Gensokyo: Reverie of Lost Dreams";
     public static final String MOD_ID = "reverie_dreams";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -324,11 +324,11 @@ public class Touhou implements ModInitializer {
     }
 
     public static void setDynamicRegistryManager(RegistryAccess dynamicRegistryManager) {
-        Touhou.dynamicRegistryManager = dynamicRegistryManager;
+        ReverieDreams.dynamicRegistryManager = dynamicRegistryManager;
     }
 
     public static void setServer(MinecraftServer server) {
-        Touhou.server = server;
+        ReverieDreams.server = server;
     }
 
     @Nullable

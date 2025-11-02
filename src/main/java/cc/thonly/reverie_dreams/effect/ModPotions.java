@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.effect;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import eu.pb4.polymer.core.api.other.SimplePolymerPotion;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
@@ -31,7 +31,7 @@ public class ModPotions {
     }
 
     public static Holder.Reference<Potion> registerPotion(String id, Potion potion) {
-        var reference = Registry.registerForHolder(BuiltInRegistries.POTION, Touhou.id(id), potion);
+        var reference = Registry.registerForHolder(BuiltInRegistries.POTION, ReverieDreams.id(id), potion);
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.POTION, potion);
         return reference;
     }

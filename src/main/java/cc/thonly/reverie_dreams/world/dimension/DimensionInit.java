@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.world.gen.BiomeInit;
 import cc.thonly.reverie_dreams.world.gen.ChunkGeneratorSettingsInit;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class DimensionInit {
     }
 
     public static ResourceKey<LevelStem> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.LEVEL_STEM, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
+        return ResourceKey.create(Registries.LEVEL_STEM, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 
 }

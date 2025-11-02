@@ -6,7 +6,7 @@ import cc.thonly.mystias_izakaya.component.FoodProperty;
 import cc.thonly.mystias_izakaya.item.base.DrinkItem;
 import cc.thonly.mystias_izakaya.item.base.FoodItem;
 import cc.thonly.mystias_izakaya.item.base.IngredientItem;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
@@ -17,14 +17,13 @@ import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class ModTooltips {
     public static void bootstrap() {
@@ -33,22 +32,19 @@ public class ModTooltips {
             if (!(stack.getItem() instanceof AbstractDanmakuItem abstractDanmakuItem)) {
                 return;
             }
-            Float damage = stack.getOrDefault(ModDataComponentTypes.Danmaku.DAMAGE, null);
-            Float scale = stack.getOrDefault(ModDataComponentTypes.Danmaku.SCALE, null);
-            Float speed = stack.getOrDefault(ModDataComponentTypes.Danmaku.SPEED, null);
-            Integer count = stack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, AbstractDanmakuItem.DEFAULT_COUNT);
-            String templateType = stack.getOrDefault(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString());
-
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(damage)));
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(speed)));
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.count")).append(String.valueOf(count)));
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(ResourceLocation.parse(templateType).toLanguageKey())));
+            DanmakuProperties properties = stack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+            if (properties != null) {
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(properties.damage)));
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(properties.speed)));
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.count")).append(String.valueOf(properties.count)));
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId.toLanguageKey())));
+            }
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
             if (!(stack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
                 return;
             }
-            ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.Danmaku.SHAPE, ItemStackWrapper.of(Items.AIR));
+            ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.SHAPE, ItemStackWrapper.of(Items.AIR));
             ItemStack itemStack = itemStackWrapper.getItemStack();
             textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
         });
@@ -117,14 +113,10 @@ public class ModTooltips {
             if (!(stack.getItem() instanceof SpellCardTemplateItem spellCardTemplateItem)) {
                 return;
             }
-            Float damage = stack.getOrDefault(ModDataComponentTypes.Danmaku.DAMAGE, null);
-            Float scale = stack.getOrDefault(ModDataComponentTypes.Danmaku.SCALE, null);
-            Float speed = stack.getOrDefault(ModDataComponentTypes.Danmaku.SPEED, null);
-            Integer count = stack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, AbstractDanmakuItem.DEFAULT_COUNT);
-            String templateType = stack.getOrDefault(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString());
-
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(ResourceLocation.parse(templateType).toLanguageKey())));
-
+            DanmakuProperties properties = stack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+            if (properties != null) {
+                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId.toLanguageKey())));
+            }
         });
     }
 }

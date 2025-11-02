@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.datagen.generator;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
@@ -121,7 +121,7 @@ public abstract class RecipeTypeProvider implements DataProvider {
                 Codec codec = factory.getCodec();
                 BaseRecipeType<?> recipeType = factory.getRecipeType();
                 Map<ResourceLocation, ?> registries = factory.getRegistries();
-                Path generatePath = DataGeneratorUtil.getData(path, Touhou.MOD_ID, recipeType.getTypeId() + "_recipe", null);
+                Path generatePath = DataGeneratorUtil.getData(path, ReverieDreams.MOD_ID, recipeType.getTypeId() + "_recipe", null);
 
                 for (Map.Entry<ResourceLocation, ?> registryEntry : registries.entrySet()) {
                     ResourceLocation identifier = registryEntry.getKey();

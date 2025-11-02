@@ -1,7 +1,7 @@
 package cc.thonly.polymer.block;
 
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
@@ -48,7 +48,7 @@ public record StatePolymerBlock(Map<BlockState, BlockState> map, FactoryBlock fa
         try {
             var id = BuiltInRegistries.BLOCK.getKey(block);
 
-            var path = FabricLoader.getInstance().getModContainer(Touhou.MOD_ID).get()
+            var path = FabricLoader.getInstance().getModContainer(ReverieDreams.MOD_ID).get()
                     .findPath("assets/" + id.getNamespace() + "/blockstates/" + id.getPath() + ".json").get();
             BlockStateAsset decoded;
 

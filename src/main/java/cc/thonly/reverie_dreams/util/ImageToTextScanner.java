@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.util;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import javax.imageio.ImageIO;
 import net.minecraft.ChatFormatting;
@@ -16,8 +16,8 @@ import java.util.concurrent.CompletableFuture;
 public class ImageToTextScanner {
     private static final Map<Class<?>, ImageToTextScanner> INSTANCES = new Object2ObjectOpenHashMap<>();
     public static final LoaderFactory DEFAULT_FACTORY = (instance) -> {
-        instance.loadImageFromJar(ofNamespace(Touhou.MOD_ID, "icon.png"));
-        instance.loadImageFromJar(ofNamespace(Touhou.MOD_ID, "icon_about.png"));
+        instance.loadImageFromJar(ofNamespace(ReverieDreams.MOD_ID, "icon.png"));
+        instance.loadImageFromJar(ofNamespace(ReverieDreams.MOD_ID, "icon_about.png"));
     };
 
     private final Map<Integer, List<Component>> caches = new HashMap<>();
@@ -34,7 +34,7 @@ public class ImageToTextScanner {
 
     public static void bootstrap() {
         CompletableFuture.runAsync(()-> {
-            ImageToTextScanner instance = ImageToTextScanner.createInstance(Touhou.class);
+            ImageToTextScanner instance = ImageToTextScanner.createInstance(ReverieDreams.class);
             DEFAULT_FACTORY.onLoad(instance);
         });
     }

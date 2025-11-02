@@ -37,10 +37,10 @@ public class CropHolderImpl implements PolymerTexturedBlock, FactoryBlock {
         for (int index = 0; index <= this.block.getMaxAge(); index++) {
             String modelId = "%s:block/%s_stage%s".formatted(key.getNamespace(), key.getPath(), index);
             ItemStack model = ItemDisplayElementUtil.getModel(ResourceLocation.parse(modelId));
-            System.out.println(modelId);
+//            System.out.println(modelId);
             this.age2itemStackHolder.put(index, model);
         }
-        System.out.println(this.age2itemStackHolder);
+//        System.out.println(this.age2itemStackHolder);
     }
 
     @Override

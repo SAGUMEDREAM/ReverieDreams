@@ -24,7 +24,7 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
     public DanmakuShape(DanmakuType danmakuType) {
         this.type = danmakuType;
         ItemStack stack = ModItems.DANMAKU_SHAPE_CREATOR.getDefaultInstance();
-        stack.set(ModDataComponentTypes.Danmaku.SHAPE, ItemStackWrapper.of(danmakuType.getItem()));
+        stack.set(ModDataComponentTypes.SHAPE, ItemStackWrapper.of(danmakuType.getItem()));
         this.baseItemStack = stack;
     }
 

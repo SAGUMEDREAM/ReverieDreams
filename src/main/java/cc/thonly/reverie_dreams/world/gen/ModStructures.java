@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.reverie_dreams.Touhou;
-import com.mojang.datafixers.util.Pair;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -19,8 +18,6 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
-import java.util.Arrays;
-import java.util.List;
 
 public class ModStructures {
 
@@ -93,6 +90,6 @@ public class ModStructures {
     }
 
     public static ResourceKey<Structure> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.STRUCTURE, Touhou.id(name));
+        return ResourceKey.create(Registries.STRUCTURE, ReverieDreams.id(name));
     }
 }

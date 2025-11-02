@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.armor;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.ModTags;
 import java.util.Map;
 import net.minecraft.resources.ResourceKey;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 
 public interface DreamArmorMaterial {
     int BASE_DURABILITY = 18;
-    ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, Touhou.id("dream"));
+    ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, ReverieDreams.id("dream"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,

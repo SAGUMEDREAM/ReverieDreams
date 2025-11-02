@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.gui.DanmakuShapeEditGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import java.util.function.Consumer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,7 +37,7 @@ public class DanmakuShapeCreatorItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        ItemStackWrapper itemStackWrapper = stack.get(ModDataComponentTypes.Danmaku.SHAPE);
+        ItemStackWrapper itemStackWrapper = stack.get(ModDataComponentTypes.SHAPE);
         return itemStackWrapper != null;
     }
 }

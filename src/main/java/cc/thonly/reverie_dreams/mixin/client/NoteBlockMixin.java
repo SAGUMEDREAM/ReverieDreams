@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.client;
 
-import cc.thonly.reverie_dreams.TouhouClient;
+import cc.thonly.reverie_dreams.ReverieDreamsClient;
 import eu.pb4.polymer.core.api.block.PolymerBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,7 +32,7 @@ public class NoteBlockMixin {
     @Inject(method = "useWithoutItem", cancellable = true, at = @At("HEAD"))
     public void onUseInject(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
         if (world.isClientSide()) {
-            if (TouhouClient.SERVER_SIDE_BLOCKS.contains(state.getBlock())) {
+            if (ReverieDreamsClient.SERVER_SIDE_BLOCKS.contains(state.getBlock())) {
                 cir.setReturnValue(InteractionResult.FAIL);
             }
         }

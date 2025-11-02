@@ -1,9 +1,5 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.Touhou;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
-import java.util.function.Consumer;
 import net.minecraft.world.item.Item;
 
 public class SpellCardTemplateItem extends Item {

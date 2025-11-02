@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.world.gen.biome.DreamBiomeCreator;
 import cc.thonly.reverie_dreams.world.gen.biome.TheMoonBiomeCreator;
 import net.minecraft.core.HolderGetter;
@@ -33,7 +33,7 @@ public class BiomeInit {
     }
 
     public static ResourceKey<Biome> getOrCreateRegistryKey(String name) {
-        return getOrCreateRegistryKey(Touhou.id(name));
+        return getOrCreateRegistryKey(ReverieDreams.id(name));
     }
 
     public static ResourceKey<Biome> getOrCreateRegistryKey(ResourceLocation id) {

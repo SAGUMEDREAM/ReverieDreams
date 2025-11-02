@@ -1,18 +1,17 @@
 package cc.thonly.reverie_dreams.util;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 
 import java.util.Locale;
-import java.util.function.Function;
 
 public class ConstantInfo {
     public static final FabricLoader FABRIC = FabricLoader.getInstance();
     public static final String VERSION = FABRIC
-            .getModContainer(Touhou.MOD_ID)
+            .getModContainer(ReverieDreams.MOD_ID)
             .map(container -> container.getMetadata().getVersion().getFriendlyString())
             .orElse("unknown");
     public static final MappingResolver MAPPING_RESOLVER = FABRIC.getMappingResolver();

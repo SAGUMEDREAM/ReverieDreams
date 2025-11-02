@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -31,12 +33,26 @@ public class DanmakuItem extends AbstractDanmakuItem {
     @Override
     public void shoot(ServerLevel serverWorld, LivingEntity user, InteractionHand hand) {
         ItemStack stack = user.getItemInHand(hand).copy();
-        String templateType = stack.getOrDefault(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString());
-        DanmakuTrajectory danmakuTrajectory = RegistryManager.DANMAKU_TRAJECTORY.getValue(ResourceLocation.parse(templateType));
-        Float speed = stack.getOrDefault(ModDataComponentTypes.Danmaku.SPEED, 1.0f);
-        Float acceleration = stack.getOrDefault(ModDataComponentTypes.Danmaku.ACCELERATION, 0.0f);
+        DanmakuProperties properties = stack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+        if (properties==null) {
+            return;
+        }
+        ResourceLocation templateId = properties.getTemplateId();
+        DanmakuTrajectory danmakuTrajectory = RegistryManager.DANMAKU_TRAJECTORY.getValue(templateId);
 
-        danmakuTrajectory.run(serverWorld, user, stack, user.getX(), user.getY(), user.getZ(), user.getXRot(), user.getYRot(), speed, acceleration, 0f, 1.5f, this);
+        if (danmakuTrajectory != null) {
+            danmakuTrajectory.run(serverWorld,
+                    user,
+                    stack,
+                    user.getX(),
+                    user.getY(),
+                    user.getZ(),
+                    user.getXRot(),
+                    user.getYRot(),
+                    properties.getSpeed(),
+                    properties.getAcceleration(),
+                    this);
+        }
 
     }
 }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
@@ -46,7 +46,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     @Override
     public void reload(ResourceManager manager) {
         Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
+            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
         });
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
             ResourceLocation id = entry.getKey();
@@ -70,7 +70,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
     public void registerDynamicRecipe() {
-        this.add(Touhou.id("role_archive"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.ROLE_ARCHIVE), List.of(
+        this.add(ReverieDreams.id("role_archive"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.ROLE_ARCHIVE), List.of(
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
@@ -80,7 +80,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2)
         ), ItemStackWrapper.of(ModItems.ROLE_ARCHIVE)));
-        this.add(Touhou.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.SPELL_CARD_TEMPLATE), List.of(
+        this.add(ReverieDreams.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.SPELL_CARD_TEMPLATE), List.of(
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
@@ -186,6 +186,6 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
     @Override
     public ResourceLocation getId() {
-        return Touhou.id(this.getTypeId());
+        return ReverieDreams.id(this.getTypeId());
     }
 }

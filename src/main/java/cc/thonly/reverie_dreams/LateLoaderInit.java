@@ -76,14 +76,14 @@ public class LateLoaderInit implements ModInitializer {
         });
 
         LATE_INIT.clear();
-        PolymerResourcePackUtils.addModAssets(Touhou.MOD_ID);
+        PolymerResourcePackUtils.addModAssets(ReverieDreams.MOD_ID);
         PolymerResourcePackUtils.addModAssets(POLYMER_MOD_ID);
         PolymerResourcePackUtils.markAsRequired();
         ResourcePackExtras.forDefault().addBridgedModelsFolder(
-                Touhou.id("block"),
-                Touhou.id("item"),
-                Touhou.id("entity"),
-                Touhou.id("font")
+                ReverieDreams.id("block"),
+                ReverieDreams.id("item"),
+                ReverieDreams.id("entity"),
+                ReverieDreams.id("font")
         );
         ResourcePackExtras.forDefault().addBridgedModelsFolder(
                 id("block"),

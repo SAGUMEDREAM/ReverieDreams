@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
-import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
@@ -15,7 +14,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 public class ModServerReloadListener implements SimpleSynchronousResourceReloadListener {
     @Override
     public ResourceLocation getFabricId() {
-        return Touhou.id("data");
+        return ReverieDreams.id("data");
     }
 
     @Override

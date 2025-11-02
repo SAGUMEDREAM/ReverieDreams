@@ -1,9 +1,10 @@
 package cc.thonly.reverie_dreams.item;
 
 import cc.thonly.polymer.PolymerItemHelper;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
@@ -194,13 +195,8 @@ public class ModItems {
 
     // 女仆装备
     public static final Item KNIFE = registerItem("knife", (settings) -> new Knife(0f, 0f, settings), new Item.Properties().stacksTo(1)
-            .component(ModDataComponentTypes.Danmaku.TEMPLATE, Touhou.id("single").toString())
-            .component(ModDataComponentTypes.Danmaku.DAMAGE, 2.0f)
-            .component(ModDataComponentTypes.Danmaku.SPEED, 0.5f)
-            .component(ModDataComponentTypes.Danmaku.SCALE, 0.8f)
-            .component(ModDataComponentTypes.Danmaku.COUNT, 1)
-            .component(ModDataComponentTypes.Danmaku.TILE, false)
-            .component(ModDataComponentTypes.Danmaku.INFINITE, false));
+            .component(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault().withSpeed(0.5f).withScale(1.8f))
+    );
     public static final Item MAID_HAIRBAND = registerItem("maid_hairband", (settings) -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.HELMET, settings), new Item.Properties().durability(ArmorType.HELMET.getDurability(MaidArmorMaterial.BASE_DURABILITY)));
     public static final Item MAID_UPPER_SKIRT = registerItem("maid_upper_skirt", (settings) -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, settings), new Item.Properties().durability(ArmorType.CHESTPLATE.getDurability(MaidArmorMaterial.BASE_DURABILITY)));
     public static final Item MAID_LOWER_SKIRT = registerItem("maid_lowerband", (settings) -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.LEGGINGS, settings), new Item.Properties().durability(ArmorType.LEGGINGS.getDurability(MaidArmorMaterial.BASE_DURABILITY)));
@@ -301,7 +297,7 @@ public class ModItems {
     }
 
     public static Item registerSimpleItem(String name, Function<Item.Properties, Item> factory, Item.Properties settings) {
-        return registerSimpleItem(Touhou.id(name), factory, settings);
+        return registerSimpleItem(ReverieDreams.id(name), factory, settings);
     }
 
     public static ResourceKey<Item> keyOf(ResourceLocation id) {
@@ -309,7 +305,7 @@ public class ModItems {
     }
 
     public static ResourceKey<Item> keyOf(String id) {
-        return ResourceKey.create(Registries.ITEM, Touhou.id(id));
+        return ResourceKey.create(Registries.ITEM, ReverieDreams.id(id));
     }
 
     public static ResourceKey<Item> keyOf(ResourceKey<Block> blockKey) {

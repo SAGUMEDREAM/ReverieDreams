@@ -2,7 +2,7 @@ package cc.thonly.mystias_izakaya.loot;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.item.MIItems;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.data.ModLootModifies;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
@@ -109,6 +109,6 @@ public class MILootModifies {
     }
 
     private static ResourceKey<LootTable> key(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, Touhou.id(path));
+        return ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id(path));
     }
 }

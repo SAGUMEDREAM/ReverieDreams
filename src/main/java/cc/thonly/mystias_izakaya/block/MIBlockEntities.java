@@ -3,7 +3,7 @@ package cc.thonly.mystias_izakaya.block;
 //import cc.thonly.mystias_izakaya.block.entity.CooktopBlockEntity;
 import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
 import cc.thonly.mystias_izakaya.block.entity.KitchenwareBlockEntity;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
@@ -47,7 +47,7 @@ public class MIBlockEntities {
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
             Block... blocks
     ) {
-        ResourceLocation id = Touhou.id(name);
+        ResourceLocation id = ReverieDreams.id(name);
         BlockEntityType<T> entityType = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
         PolymerBlockUtils.registerBlockEntity(entityType);
         return entityType;

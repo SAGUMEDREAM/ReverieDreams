@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 public class SkinFetcherCaches {
@@ -34,6 +35,7 @@ public class SkinFetcherCaches {
             load();
         }
         String md5 = getMD5FromInputStream(in);
+        System.out.println(md5);
         if (md5 == null) {
             return null;
         }
@@ -77,15 +79,15 @@ public class SkinFetcherCaches {
     // 保存缓存到文件
     public static void save() {
         DataResult<JsonElement> dataResult = CODEC_MAP.encodeStart(JsonOps.INSTANCE, MD5_CACHED);
-        if (dataResult.isSuccess()) {
-            JsonElement element = dataResult.getOrThrow();  // 获取编码后的JSON元素
-            String json = GSON.toJson(element);  // 转换为JSON字符串
-            try (Writer writer = new OutputStreamWriter(new FileOutputStream(PATH.toFile()))) {
-                GSON.toJson(json.getBytes(StandardCharsets.UTF_8), writer);  // 将JSON写入文件
+        dataResult.result().ifPresent(element -> {
+            String json = GSON.toJson(element);
+            System.out.println(json);
+            try (Writer writer = new OutputStreamWriter(new FileOutputStream(PATH.toFile()), StandardCharsets.UTF_8)) {
+                writer.write(json);
             } catch (IOException e) {
                 log.error("写入文件失败", e);
             }
-        }
+        });
     }
 
     // 从输入流计算MD5
@@ -122,7 +124,7 @@ public class SkinFetcherCaches {
         public static final Codec<Property> PROPERTY_CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.STRING.fieldOf("name").forGetter(Property::name),
                 Codec.STRING.fieldOf("value").forGetter(Property::value),
-                Codec.STRING.optionalFieldOf("signature", null).forGetter(Property::signature)
+                Codec.STRING.optionalFieldOf("signature", "").forGetter(Property::signature)
         ).apply(instance, Property::new));
 
         // Entry的Codec

@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class TripleTrajectory extends DanmakuTrajectory {
     @Override
-    public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack, Double x, Double y, Double z, float pitch, float yaw, float speed, float acceleration, float divergence, float offsetDist, IDanmakuItem pThis) {
-        DanmakuTrajectory.spawnByItemStack(world, livingEntity, x, y, z, stack, pitch, yaw - 15.0f, 1.4f, acceleration, 0f, 0f);
-        DanmakuTrajectory.spawnByItemStack(world, livingEntity, x, y, z, stack, pitch, yaw, 1.4f, acceleration, 0f, 0f);
-        DanmakuTrajectory.spawnByItemStack(world, livingEntity, x, y, z, stack, pitch, yaw + 15.0f, 1.4f, acceleration, 0f, 0f);
+    public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack, Double x, Double y, Double z, float pitch, float yaw, float divergence, float offsetDist, IDanmakuItem pThis) {
+        DanmakuTrajectory.spawnByItemStack(world, livingEntity, x, y, z, stack, pitch, yaw - 15.0f, 0f, 0f);
+        DanmakuTrajectory.spawnByItemStack(world, livingEntity, x, y, z, stack, pitch, yaw, 0f, 0f);
+        DanmakuTrajectory.spawnByItemStack(world, livingEntity, x, y, z, stack, pitch, yaw + 15.0f, 0f, 0f);
     }
 }

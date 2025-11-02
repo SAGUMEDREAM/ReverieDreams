@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.compat.page;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Getter
 public class DanmakuPage implements PolydexPage {
-    public static final ResourceLocation id = Touhou.id("recipe/danmaku_table");
+    public static final ResourceLocation id = ReverieDreams.id("recipe/danmaku_table");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
     public static final ItemStack ICON = new GuiElementBuilder(ModBlocks.DANMAKU_CRAFTING_TABLE.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();

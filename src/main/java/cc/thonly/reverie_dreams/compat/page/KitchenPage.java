@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat.page;
 import cc.thonly.mystias_izakaya.block.KitchenBlockType;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class KitchenPage implements PolydexPage {
-    public static final ResourceLocation id = Touhou.id("recipe/kitchen");
+    public static final ResourceLocation id = ReverieDreams.id("recipe/kitchen");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
     public static final ItemStack ICON = new GuiElementBuilder(MIBlocks.COOKING_POT.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();

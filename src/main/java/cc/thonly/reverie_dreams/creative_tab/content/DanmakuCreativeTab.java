@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.item.ModItems;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public class DanmakuCreativeTab implements ItemGroupContentHelper {
-    public static final ResourceKey<CreativeModeTab> BULLET_ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Touhou.id("item_group_bullet"));
+    public static final ResourceKey<CreativeModeTab> BULLET_ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("item_group_bullet"));
     public static final CreativeModeTab ITEM_GROUP_BULLET = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(ModItems.DANMAKU))
             .title(Component.translatable("item_group.touhou.bullet"))

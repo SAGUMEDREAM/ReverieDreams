@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
@@ -27,6 +28,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -59,7 +61,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         this.dynamicBuilder.clear();
         this.automaticRecipeIdCounter.clear();
         Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
+            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
         });
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
             ResourceLocation id = entry.getKey();
@@ -84,10 +86,10 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultInstance).toList();
         List<ItemStack> templateStackView = SpellCardTemplates.getRegistryItemStackView().values().stream().map(ItemStack::copy).toList();
 
-        this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, ModDataComponentTypes.Danmaku.TEMPLATE);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(ModItems.SPEED_FEATHER.getDefaultInstance()), ModDataComponentTypes.Danmaku.SPEED);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultInstance()), ModDataComponentTypes.Danmaku.COUNT);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultInstance()), ModDataComponentTypes.Danmaku.DAMAGE);
+        this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, ModDataComponentTypes.DANMAKU_PROPERTIES);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(ModItems.SPEED_FEATHER.getDefaultInstance()), ModDataComponentTypes.DANMAKU_PROPERTIES);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultInstance()), ModDataComponentTypes.DANMAKU_PROPERTIES);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultInstance()), ModDataComponentTypes.DANMAKU_PROPERTIES);
 
         Map<ResourceLocation, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
@@ -166,33 +168,36 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         boolean isSlime = offItem == Items.SLIME_BLOCK;
         boolean isIronSword = offItem == Items.IRON_SWORD;
         if (isDanmakuItem && isSpellCardTemplate) {
-            String templateId = offStack.get(ModDataComponentTypes.Danmaku.TEMPLATE);
-            if (templateId != null) {
-                mainStack.set(ModDataComponentTypes.Danmaku.TEMPLATE, templateId);
+            DanmakuProperties component = mainStack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            DanmakuProperties properties = offStack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+            if (properties != null) {
+                mainStack.set(ModDataComponentTypes.DANMAKU_PROPERTIES, component.withTemplateId(properties.getTemplateId()));
                 return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isSpeedItem) {
-            float speed = mainStack.getOrDefault(ModDataComponentTypes.Danmaku.SPEED, 1.0f);
+            DanmakuProperties component = mainStack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            float speed = component.getSpeed();
             float sum = speed + 0.25f;
             if (sum <= MAX_SPEED) {
-                mainStack.set(ModDataComponentTypes.Danmaku.SPEED, sum);
+                mainStack.set(ModDataComponentTypes.DANMAKU_PROPERTIES, component.withSpeed(sum));
                 return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isSlime) {
-            int count = mainStack.getOrDefault(ModDataComponentTypes.Danmaku.COUNT, 1);
+            DanmakuProperties component = mainStack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            int count = component.getCount();
             int sum = count + 1;
             if (sum < MAX_COUNT) {
-                mainStack.set(ModDataComponentTypes.Danmaku.COUNT, sum);
+                mainStack.set(ModDataComponentTypes.DANMAKU_PROPERTIES, component.withCount(sum));
                 return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isIronSword) {
-            float damage = mainStack.getOrDefault(ModDataComponentTypes.Danmaku.DAMAGE, 2f);
-            float sum = damage + 0.25f;
+            DanmakuProperties component = mainStack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            float sum = component.getDamage() + 0.25f;
             if (sum < MAX_DAMAGE) {
-                mainStack.set(ModDataComponentTypes.Danmaku.DAMAGE, sum);
+                mainStack.set(ModDataComponentTypes.DANMAKU_PROPERTIES, component.withDamage(sum));
                 return new ItemStackWrapper(mainStack);
             }
         }
@@ -216,6 +221,6 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
 
     @Override
     public ResourceLocation getId() {
-        return Touhou.id(this.getTypeId());
+        return ReverieDreams.id(this.getTypeId());
     }
 }

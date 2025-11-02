@@ -3,21 +3,16 @@ package cc.thonly.reverie_dreams.dialog;
 import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.mystias_izakaya.entity.MIEntities;
 import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.net.URI;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.minecraft.core.Registry;
@@ -75,15 +70,15 @@ public class DialogInit {
     public static List<ItemBody> UPGRADE_ITEM_BODIES = new ArrayList<>();
     public static final List<ItemStack> UPGRADE_ITEM = getUpgradeItemList();
     public static final ResourceKey<Registry<Dialog>> REGISTRY = Registries.DIALOG;
-    public static final ResourceLocation MAIN_HELP_ID = Touhou.id("main_help");
-    public static final ResourceLocation ALTAR_HELP_ID = Touhou.id("altar_help");
-    public static final ResourceLocation CRAFTING_DANMAKU_HELP_ID = Touhou.id("crafting_danmaku_help");
-    public static final ResourceLocation UPGRADE_DANMAKU_HELP_ID = Touhou.id("upgrade_danmaku_help");
-    public static final ResourceLocation GET_FUMO_HELP_ID = Touhou.id("get_fumo_help");
-    public static final ResourceLocation ROLE_HELP_ID = Touhou.id("role_help");
-    public static final ResourceLocation TOUHOU_MYSTIA_HELP_ID = Touhou.id("touhou_mystia_help");
-    public static final ResourceLocation REGISTRIES_ID = Touhou.id("registries");
-    public static final ResourceLocation OTHER_MOD_LIST_ID = Touhou.id("other_mod_list");
+    public static final ResourceLocation MAIN_HELP_ID = ReverieDreams.id("main_help");
+    public static final ResourceLocation ALTAR_HELP_ID = ReverieDreams.id("altar_help");
+    public static final ResourceLocation CRAFTING_DANMAKU_HELP_ID = ReverieDreams.id("crafting_danmaku_help");
+    public static final ResourceLocation UPGRADE_DANMAKU_HELP_ID = ReverieDreams.id("upgrade_danmaku_help");
+    public static final ResourceLocation GET_FUMO_HELP_ID = ReverieDreams.id("get_fumo_help");
+    public static final ResourceLocation ROLE_HELP_ID = ReverieDreams.id("role_help");
+    public static final ResourceLocation TOUHOU_MYSTIA_HELP_ID = ReverieDreams.id("touhou_mystia_help");
+    public static final ResourceLocation REGISTRIES_ID = ReverieDreams.id("registries");
+    public static final ResourceLocation OTHER_MOD_LIST_ID = ReverieDreams.id("other_mod_list");
     public static final MultiActionDialog MAIN_HELP;
     public static final MultiActionDialog ALTAR_HELP;
     public static final MultiActionDialog CRAFTING_DANMAKU_HELP;
@@ -137,7 +132,7 @@ public class DialogInit {
                                         Component.empty()
                                                 .append(Component.translatable(ModBlocks.SPIRITUAL.strippedLog().getDescriptionId()))
                                                 .append(Component.literal(" - "))
-                                                .append(Component.literal("§c\u999a").setStyle(Style.EMPTY.withFont(Touhou.id("reverie_dreams"))))
+                                                .append(Component.literal("§c\u999a").setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))))
                                                 .append(Component.literal(" * 3"))
                                         , 200)
 
@@ -146,7 +141,7 @@ public class DialogInit {
                                         Component.empty()
                                                 .append(Component.translatable(ModBlocks.GENSOKYO_ALTAR.getDescriptionId()))
                                                 .append(Component.literal(" - "))
-                                                .append(Component.literal("§e\u999a").setStyle(Style.EMPTY.withFont(Touhou.id("reverie_dreams"))))
+                                                .append(Component.literal("§e\u999a").setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))))
                                                 .append(Component.literal(""))
                                         , 200)
                                 ), true, true, 16, 16),
@@ -490,7 +485,7 @@ public class DialogInit {
                 MutableComponent result = Component.empty();
 //                result.append(" ");
                 result.append(Component.literal(token.replace("⏹", "\u999a"))
-                        .setStyle(Style.EMPTY.withFont(Touhou.id("reverie_dreams"))));
+                        .setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))));
 //                result.append(" ");
                 list.add(new ActionButton(
                         new CommonButtonData(result, 30),

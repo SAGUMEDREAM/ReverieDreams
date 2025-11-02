@@ -1,11 +1,11 @@
 {
   "values": [
-    "reverie_dreams:lemon_fruit_leaves",
-    "reverie_dreams:peach_fruit_leaves",
+    "reverie_dreams:ginkgo_fruit_leaves",
+    "reverie_dreams:peach_leaves",
     "reverie_dreams:lemon_leaves",
     "reverie_dreams:ginkgo_leaves",
-    "reverie_dreams:spiritual_leaves",
-    "reverie_dreams:ginkgo_fruit_leaves",
-    "reverie_dreams:peach_leaves"
+    "reverie_dreams:peach_fruit_leaves",
+    "reverie_dreams:lemon_fruit_leaves",
+    "reverie_dreams:spiritual_leaves"
   ]
 }

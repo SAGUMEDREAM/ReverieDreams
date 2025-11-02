@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.datagen.generator.JukeboxProvider;
 import cc.thonly.reverie_dreams.sound.JukeBoxEntry;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
@@ -16,7 +16,7 @@ public class ModJukeboxProvider extends JukeboxProvider {
     @Override
     public void configured() {
         for (JukeBoxEntry entry : JukeboxSongInit.ENTRIES) {
-            this.add(Touhou.id(entry.getId()), entry.getRef());
+            this.add(ReverieDreams.id(entry.getId()), entry.getRef());
         }
     }
 }

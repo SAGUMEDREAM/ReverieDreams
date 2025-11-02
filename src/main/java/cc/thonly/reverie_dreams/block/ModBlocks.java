@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.polymer.PolymerBlockHelper;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.world.sapling.SaplingGeneratorInit;
 import lombok.Getter;
@@ -91,7 +91,7 @@ public class ModBlocks {
     }
 
     public static Block registerSimpleBlock(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings, Item.Properties itemSettings) {
-        return registerSimpleBlock(Touhou.id(name), factory, settings, itemSettings);
+        return registerSimpleBlock(ReverieDreams.id(name), factory, settings, itemSettings);
     }
 
     public static Block registerSimpleBlock(ResourceLocation id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
@@ -113,7 +113,7 @@ public class ModBlocks {
     }
 
     public static ResourceKey<Block> keyOf(String id) {
-        return ResourceKey.create(Registries.BLOCK, Touhou.id(id));
+        return ResourceKey.create(Registries.BLOCK, ReverieDreams.id(id));
     }
 
     public static ResourceKey<Block> keyOf(ResourceLocation id) {

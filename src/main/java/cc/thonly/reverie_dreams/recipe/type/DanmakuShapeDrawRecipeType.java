@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
@@ -40,7 +40,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
     @Override
     public void reload(ResourceManager manager) {
         Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(Touhou.MOD_ID) && id.getPath().endsWith(".json");
+            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
         });
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
             ResourceLocation id = entry.getKey();
@@ -117,7 +117,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
         for (DanmakuShapeDrawRecipe recipe : stream().toList()) {
             ItemStackWrapper outputWrapper = recipe.getOutput();
             ItemStack itemStack = outputWrapper.getItemStack();
-            ItemStackWrapper itemStackWrapper = itemStack.get(ModDataComponentTypes.Danmaku.SHAPE);
+            ItemStackWrapper itemStackWrapper = itemStack.get(ModDataComponentTypes.SHAPE);
             if (itemStackWrapper == null) {
                 continue;
             }
@@ -152,6 +152,6 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
 
     @Override
     public ResourceLocation getId() {
-        return Touhou.id(this.getTypeId());
+        return ReverieDreams.id(this.getTypeId());
     }
 }

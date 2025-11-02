@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.mystias_izakaya.block.MIBlocks;
-import cc.thonly.reverie_dreams.Touhou;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -200,7 +200,7 @@ public class PlacedFeaturesInit {
     }
 
     public static ResourceKey<PlacedFeature> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Touhou.MOD_ID, name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 
 

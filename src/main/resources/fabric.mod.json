@@ -16,19 +16,19 @@
   "entrypoints": {
     "main": [
       "nota.Nota",
-      "cc.thonly.reverie_dreams.Touhou",
+      "cc.thonly.reverie_dreams.ReverieDreams",
       "cc.thonly.mystias_izakaya.MystiasIzakaya",
       "cc.thonly.reverie_dreams.debug.DebugExportInit",
       "cc.thonly.reverie_dreams.LateLoaderInit"
     ],
     "client": [
-      "cc.thonly.reverie_dreams.TouhouClient"
+      "cc.thonly.reverie_dreams.ReverieDreamsClient"
     ],
     "preLaunch": [
-      "cc.thonly.reverie_dreams.TouhouPreload"
+      "cc.thonly.reverie_dreams.ReverieDreamsPreload"
     ],
     "fabric-datagen": [
-      "cc.thonly.reverie_dreams.TouhouDataGenerator"
+      "cc.thonly.reverie_dreams.ReverieDreamsDataGenerator"
     ],
     "modmenu": [
       "cc.thonly.reverie_dreams.ModMenuInit"
