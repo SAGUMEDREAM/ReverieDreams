@@ -11,7 +11,7 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.item.ModGuiItems;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -180,6 +180,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.COPPER_COIN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.SILVER_COIN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLD_COIN, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPELLCARD, ModelTemplates.FLAT_ITEM);
 
         // 武器
         itemModelGenerator.generateFlatItem(ModItems.HAKUREI_CANE, ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -385,7 +386,7 @@ public class ModModelProvider extends FabricModelProvider {
 
     }
 
-    private void registerFumo(BlockModelGenerators blockStateModelGenerator, Fumo fumoType) {
+    private void registerFumo(BlockModelGenerators blockStateModelGenerator, FumoType fumoType) {
         Block block = fumoType.block();
         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
 //        blockStateModelGenerator.blockStateCollector.accept(new BlockModelDefinitionCreator() {

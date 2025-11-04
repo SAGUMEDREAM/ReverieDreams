@@ -4,13 +4,15 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
 import cc.thonly.reverie_dreams.damage.DanmakuDamageTypes;
 import cc.thonly.reverie_dreams.danmaku.*;
+import cc.thonly.reverie_dreams.danmaku.spellcard.SpellCardFrameConfig;
+import cc.thonly.reverie_dreams.danmaku.spellcard.SpellCardFrameConfigs;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
 import cc.thonly.reverie_dreams.entity.npc.*;
 import cc.thonly.reverie_dreams.entity.skin.*;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.RoleCards;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -45,6 +47,11 @@ public class RegistryManager {
     public static final IntrinsicalRegister<DanmakuTrajectory> DANMAKU_TRAJECTORY = RegistryManager.<DanmakuTrajectory>ofEntry(ReverieDreams.id("danmaku_trajectory"))
             .codec(DanmakuTrajectory.CODEC)
             .builder(DanmakuTrajectories::bootstrap);
+
+    public static final IntrinsicalRegister<SpellCardFrameConfig> DANMAKU_CONFIG = RegistryManager.<SpellCardFrameConfig>ofEntry(ReverieDreams.id("danmaku_config"))
+            .codec(SpellCardFrameConfig.CODEC)
+            .reloadBuilder(SpellCardFrameConfigs::reload)
+            .builder(SpellCardFrameConfigs::bootstrap);
 
     public static final IntrinsicalRegister<DanmakuDamageType> DANMAKU_DAMAGE_TYPE = RegistryManager.<DanmakuDamageType>ofEntry(ReverieDreams.id("danmaku_damage_type"))
             .codec(DanmakuDamageType.CODEC)
@@ -88,8 +95,8 @@ public class RegistryManager {
             .defaultId(NPCWorkMode.DEFAULT_ID)
             .builder(NPCWorkModes::bootstrap);
 
-    public static final IntrinsicalRegister<Fumo> FUMO = RegistryManager.<Fumo>ofEntry(ReverieDreams.id("fumo"))
-            .codec(Fumo.CODEC)
+    public static final IntrinsicalRegister<FumoType> FUMO = RegistryManager.<FumoType>ofEntry(ReverieDreams.id("fumo"))
+            .codec(FumoType.CODEC)
             .builder(Fumos::bootstrap);
 
     public static final IntrinsicalRegister<YouseiVariant> YOUSEI_VARIANT = RegistryManager.<YouseiVariant>ofEntry(ReverieDreams.id("yousei_variant"))

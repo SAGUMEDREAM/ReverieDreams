@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.minecraft.core.Registry;
@@ -48,14 +48,14 @@ public class FumoSellerVillager extends AbstractSellerEntity {
         Random random = new Random(seed);
 
         List<MerchantOffer> offers = new ArrayList<>();
-        List<Fumo> allFumos = new ArrayList<>(RegistryManager.FUMO.values());
+        List<FumoType> allFumos = new ArrayList<>(RegistryManager.FUMO.values());
 
         Collections.shuffle(allFumos, random);
 
         int count = 4 + random.nextInt(5) + this.level;
-        List<Fumo> selectedFumos = allFumos.subList(0, Math.min(count, allFumos.size()));
+        List<FumoType> selectedFumos = allFumos.subList(0, Math.min(count, allFumos.size()));
 
-        for (Fumo fumo : selectedFumos) {
+        for (FumoType fumo : selectedFumos) {
             Item item = fumo.item();
             ItemStack sellItem = new ItemStack(item);
             ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);

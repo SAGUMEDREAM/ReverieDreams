@@ -122,7 +122,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
     private void readData() {
         DanmakuShapeDrawRecipeType recipeType = DanmakuShapeDrawRecipeType.getInstance();
         ItemStack source = this.source;
-        ItemStackWrapper itemStackWrapper = source.get(ModDataComponentTypes.SHAPE);
+        ItemStackWrapper itemStackWrapper = source.get(ModDataComponentTypes.DANMAKU_SHAPE);
         if (itemStackWrapper == null) {
             return;
         }

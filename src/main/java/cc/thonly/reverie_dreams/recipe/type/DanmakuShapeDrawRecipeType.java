@@ -117,7 +117,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
         for (DanmakuShapeDrawRecipe recipe : stream().toList()) {
             ItemStackWrapper outputWrapper = recipe.getOutput();
             ItemStack itemStack = outputWrapper.getItemStack();
-            ItemStackWrapper itemStackWrapper = itemStack.get(ModDataComponentTypes.SHAPE);
+            ItemStackWrapper itemStackWrapper = itemStack.get(ModDataComponentTypes.DANMAKU_SHAPE);
             if (itemStackWrapper == null) {
                 continue;
             }

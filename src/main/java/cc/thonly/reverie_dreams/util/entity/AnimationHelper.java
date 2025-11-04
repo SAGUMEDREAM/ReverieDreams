@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.util.entity;
 
 import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.api.Animator;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 public class AnimationHelper {
@@ -11,7 +12,7 @@ public class AnimationHelper {
 
     public static void updateWalkAnimation(LivingEntity entity, AnimatedHolder holder, int priority) {
         Animator animator = holder.getAnimator();
-        if (entity.walkAnimation.isMoving() && entity.walkAnimation.speed() > 0.02) {
+        if (isActuallyMoving(entity)) {
             animator.playAnimation("walk", priority);
             animator.pauseAnimation("idle");
         } else {
@@ -30,4 +31,13 @@ public class AnimationHelper {
         else
             holder.clearColor();
     }
+
+    public static boolean isActuallyMoving(Entity entity) {
+        var motion = entity.getDeltaMovement();
+        double horizontalSpeedSq = motion.x * motion.x + motion.z * motion.z;
+        boolean grounded = entity.onGround() || entity.isInWater();
+
+        return grounded && horizontalSpeedSq > 0.0001;
+    }
+
 }

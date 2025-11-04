@@ -8,8 +8,9 @@ import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.compat.ModCompats;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
-import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
+import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.danmaku.script.DanmakuScriptManager;
+import cc.thonly.reverie_dreams.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.ModLootModifies;
 import cc.thonly.reverie_dreams.data.ModServerResourceManager;
 import cc.thonly.reverie_dreams.data.ModTags;
@@ -125,7 +126,7 @@ public class ReverieDreams implements ModInitializer {
         Key2ValueRegistryManager.bootstrap();
         ModLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
-        SpellCardTemplates.init();
+        DanmakuTemplates.init();
 
         ImageToTextScanner.bootstrap();
         ItemDescriptionManager.bootstrap();
@@ -233,28 +234,14 @@ public class ReverieDreams implements ModInitializer {
         ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, v) -> {
             return !livingEntity.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE);
         });
-        ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             PlayerInputManager inputManager = PlayerInputManager.getInstance();
             inputManager.reload();
+            DialogPlayer.reload();
         });
-        ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
-            @Override
-            public void onServerStarted(MinecraftServer server) {
-
-            }
-        });
-        ServerLifecycleEvents.SERVER_STARTED.register(new ServerLifecycleEvents.ServerStarted() {
-            @Override
-            public void onServerStarted(MinecraftServer server) {
-                DialogPlayer.reload();
-            }
-        });
-        ServerLifecycleEvents.AFTER_SAVE.register(new ServerLifecycleEvents.AfterSave() {
-            @Override
-            public void onAfterSave(MinecraftServer server, boolean flush, boolean force) {
-                PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
-                playerDataComponentManager.saveAll();
-            }
+        ServerLifecycleEvents.AFTER_SAVE.register((server, flush, force) -> {
+            PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
+            playerDataComponentManager.saveAll();
         });
 //        ServerTickEvents.END_SERVER_TICK.register(server -> {
 //            System.out.println(PolymerEntityHelper.ELEMENTS.size());
@@ -266,6 +253,7 @@ public class ReverieDreams implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(PlayerInputManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(DanmakuScriptManager::onTick);
         ServerTickEvents.END_SERVER_TICK.register(DialogPlayer::tick);
+        ServerTickEvents.END_SERVER_TICK.register(SpellcardRenderer::tick);
     }
 
     private void loadCompletableEvent() {

@@ -34,7 +34,7 @@ public class DanmakuItem extends AbstractDanmakuItem {
     public void shoot(ServerLevel serverWorld, LivingEntity user, InteractionHand hand) {
         ItemStack stack = user.getItemInHand(hand).copy();
         DanmakuProperties properties = stack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
-        if (properties==null) {
+        if (properties == null) {
             return;
         }
         ResourceLocation templateId = properties.getTemplateId();

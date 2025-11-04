@@ -133,7 +133,7 @@ public class ModEntities {
                     .build());
     public static final EntityType<MaidYouseiEntity> MAID_YOUSEI_ENTITY_TYPE = registerEntityWithSpawnEgg("maid_yousei",
             EntityType.Builder.<MaidYouseiEntity>of(MaidYouseiEntity::new, MobCategory.MONSTER)
-                    .build(of("yousei")),
+                    .build(of("maid_yousei")),
             () -> LivingEntity.createLivingAttributes()
                     .add(Attributes.MAX_HEALTH, 25.0)
                     .add(Attributes.FLYING_SPEED, 0.8f)

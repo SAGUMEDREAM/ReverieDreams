@@ -35,7 +35,7 @@ public class SkinFetcherCaches {
             load();
         }
         String md5 = getMD5FromInputStream(in);
-        System.out.println(md5);
+//        System.out.println(md5);
         if (md5 == null) {
             return null;
         }
@@ -81,7 +81,7 @@ public class SkinFetcherCaches {
         DataResult<JsonElement> dataResult = CODEC_MAP.encodeStart(JsonOps.INSTANCE, MD5_CACHED);
         dataResult.result().ifPresent(element -> {
             String json = GSON.toJson(element);
-            System.out.println(json);
+//            System.out.println(json);
             try (Writer writer = new OutputStreamWriter(new FileOutputStream(PATH.toFile()), StandardCharsets.UTF_8)) {
                 writer.write(json);
             } catch (IOException e) {

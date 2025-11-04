@@ -17,11 +17,11 @@ import net.minecraft.world.phys.Vec3;
 
 @Setter
 @Getter
-public class Fumo implements CodecStep<Fumo>, OwnerBinding<Fumo>, BuiltinObject, Translatable {
-    public static final Codec<Fumo> CODEC = Codec.unit(Fumo::new);
+public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, BuiltinObject, Translatable {
+    public static final Codec<FumoType> CODEC = Codec.unit(FumoType::new);
     private ResourceLocation id;
     private ResourceLocation registryKey;
-    private IntrinsicalRegister<Fumo> owner;
+    private IntrinsicalRegister<FumoType> owner;
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.PROTECTED)
@@ -31,10 +31,10 @@ public class Fumo implements CodecStep<Fumo>, OwnerBinding<Fumo>, BuiltinObject,
     private Item item;
     private Vec3 offset;
 
-    private Fumo() {
+    private FumoType() {
     }
 
-    public Fumo(ResourceLocation id, Vec3 offset) {
+    public FumoType(ResourceLocation id, Vec3 offset) {
         this.id = id;
         this.registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "fumo/" + id.getPath());
         this.offset = offset;
@@ -55,7 +55,7 @@ public class Fumo implements CodecStep<Fumo>, OwnerBinding<Fumo>, BuiltinObject,
         return this.block.getDescriptionId();
     }
 
-    public Fumo build() {
+    public FumoType build() {
         Tuple<Block, Item> pair = this.registerBlock();
         this.block = pair.getA();
         this.item = pair.getB();
@@ -71,7 +71,7 @@ public class Fumo implements CodecStep<Fumo>, OwnerBinding<Fumo>, BuiltinObject,
     }
 
     @Override
-    public Codec<Fumo> getCodec() {
+    public Codec<FumoType> getCodec() {
         return CODEC;
     }
 }

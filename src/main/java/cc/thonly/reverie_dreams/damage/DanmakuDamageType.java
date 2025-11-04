@@ -50,7 +50,9 @@ public class DanmakuDamageType implements CodecStep<DanmakuDamageType>, OwnerBin
     }
 
     public DamageType getValue(RegistryAccess registryManager) {
-        if (this.registryKey == null) return null;
+        if (this.registryKey == null) {
+            return null;
+        }
         Registry<DamageType> registry = registryManager.lookupOrThrow(Registries.DAMAGE_TYPE);
         return registry.getValue(this.registryKey);
     }

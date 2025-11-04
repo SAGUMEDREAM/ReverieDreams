@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSettings;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
@@ -12,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Leashable;
 import net.minecraft.world.entity.Mob;
@@ -25,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -45,8 +48,10 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
                                 ? (YouseiVariants.REGISTRY.getAny().isPresent() ? YouseiVariants.REGISTRY.getAny().get().value().getSkinType() : YouseiVariants.BLUE.getSkinType())
                                 : Objects.requireNonNull(YouseiVariants.random()).getSkinType()
                 )
-       );
+        );
         this.variant = YouseiVariants.getFromProperty(this.getSkin());
+        this.setItemInHand(InteractionHand.MAIN_HAND, Items.IRON_SWORD.getDefaultInstance());
+        this.setItemInHand(InteractionHand.OFF_HAND, Items.SHIELD.getDefaultInstance());
     }
 
     @Override
@@ -55,16 +60,22 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new DanmakuGoal(this, (self, target, world) -> {
-            ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY);
+            ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI);
             final MinecraftServer server = world.getServer();
             final float[] pitchYaw = MobDanmakuShooter.getPitchYaw(self, target);
+            ItemStack knifeStack = new ItemStack(ModEntityHolders.KNIFE_DISPLAY);
 
-            DelayedTask.repeat(server, 1, 0.3f, () -> {
+            DelayedTask.repeat(server, 2, 0.3f, () -> {
                 MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
                 MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
                 MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
             });
-        }));
+            DelayedTask.repeat(server, 1, 1f, () -> {
+                MobDanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
+                MobDanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
+                MobDanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
+            });
+        }, 45, 75));
 
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 6.0f));
@@ -111,6 +122,11 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
     @Override
     public Boolean canPickItem() {
         return false;
+    }
+
+    @Override
+    public KeepInventoryTypes getKeepInventoryType() {
+        return KeepInventoryTypes.NOT_DROP_ANY;
     }
 
     @Override

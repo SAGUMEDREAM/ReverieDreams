@@ -42,7 +42,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -51,6 +53,8 @@ import java.util.Optional;
 @ToString
 public class DanmakuEntity extends AbstractArrow {
     public static final EntityDataAccessor<Float> ROLL = SynchedEntityData.defineId(DanmakuEntity.class, EntityDataSerializers.FLOAT);
+    private static final Map<String, Long> PARTICLE_COOLDOWN = new HashMap<>();
+    private static final long PARTICLE_INTERVAL_MS = 50; // 每种类型每 50ms 最多一次
     public static final int MAX_FLIGHT_TICK = 20 * 20;
     protected Item danmakuItem;
     protected ItemStack itemStack = Items.SNOWBALL.getDefaultInstance();
@@ -74,6 +78,18 @@ public class DanmakuEntity extends AbstractArrow {
                          Float pitch, Float yaw,
                          Float divergence, Float offsetDist
     ) {
+        this(livingEntity, world, x, y, z, stack, properties, pitch, yaw, divergence, offsetDist, true);
+    }
+
+    public DanmakuEntity(@Nullable Entity livingEntity,
+                         ServerLevel world,
+                         Double x, Double y, Double z,
+                         ItemStack stack,
+                         DanmakuProperties properties,
+                         Float pitch, Float yaw,
+                         Float divergence, Float offsetDist,
+                         boolean entityDelta
+    ) {
         super(ModEntities.DANMAKU_ENTITY_TYPE,
                 x,
                 y + (livingEntity != null ? livingEntity.getEyeHeight() : 0),
@@ -89,16 +105,21 @@ public class DanmakuEntity extends AbstractArrow {
         double offsetZ = Math.cos(Math.toRadians(yaw)) * offsetDist;
 
         double newX = x + offsetX;
-        double newY = y + (livingEntity != null ? livingEntity.getEyeHeight() : 0);
+        double newY = y + (livingEntity != null ? livingEntity.getEyeHeight() : 0) + (entityDelta ? 0 : -0.5);
         double newZ = z + offsetZ;
         this.setPosRaw(newX, newY, newZ);
 
         this.setOwner(livingEntity);
-        if (livingEntity != null) {
+        if (livingEntity != null && entityDelta) {
             this.shootFromRotation(livingEntity, pitch, yaw, 0.0F, this.properties.getSpeed(), divergence);
             this.setDeltaMovement(this.getDeltaMovement().subtract(livingEntity.getDeltaMovement()));
+//            System.out.println("living");
+//            System.out.println(this.getDeltaMovement());
         } else {
-            this.shootFromRotation(this, pitch, yaw, 0.0F, this.properties.getSpeed(), divergence);
+//            this.shootFromRotation(this, pitch, yaw, 0.0F, this.properties.getSpeed(), divergence);
+            this.shootFromRotation(pitch, yaw);
+//            System.out.println("null");
+//            System.out.println(this.getDeltaMovement());
         }
 
         this.setYRot(yaw);
@@ -118,6 +139,29 @@ public class DanmakuEntity extends AbstractArrow {
         this.originYaw = 0;
     }
 
+    void shootFromRotation(float pitch, float yaw) {
+        this.setYRot(yaw);
+        this.setXRot(pitch);
+
+        float pitchRad = (float) Math.toRadians(pitch);
+        float yawRad = (float) Math.toRadians(yaw);
+
+        double dx = -Math.sin(yawRad) * Math.cos(pitchRad);
+        double dy = -Math.sin(pitchRad);
+        double dz = Math.cos(yawRad) * Math.cos(pitchRad);
+
+        double speed = 0.5 * (this.properties != null ? this.properties.getSpeed() : 0.6d);
+        Vec3 motion = new Vec3(dx * speed, dy * speed, dz * speed);
+        this.setDeltaMovement(motion);
+        
+        this.setNoGravity(true);
+
+        System.out.println("shootFromRotation -> pitch=" + pitch + " yaw=" + yaw);
+        System.out.println("rad -> pitchRad=" + pitchRad + " yawRad=" + yawRad);
+        System.out.println("motion -> " + this.getDeltaMovement());
+    }
+
+
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
@@ -132,6 +176,7 @@ public class DanmakuEntity extends AbstractArrow {
         }
         view.store("Properties", DanmakuProperties.CODEC, this.properties);
         view.putInt("FlyAge", this.flyAge);
+        view.store("VelocityVector", Vec3.CODEC, this.getDeltaMovement());
     }
 
     @Override
@@ -140,6 +185,9 @@ public class DanmakuEntity extends AbstractArrow {
         this.itemStack = view.read("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
         this.properties = view.read("Properties", DanmakuProperties.CODEC).orElse(DanmakuProperties.ofDefault());
         this.flyAge = view.getIntOr("FlyAge", 0);
+        Optional<Vec3> velocityVector = view.read("VelocityVector", Vec3.CODEC);
+        velocityVector.ifPresent(this::setDeltaMovement);
+
     }
 
     @Override
@@ -157,22 +205,30 @@ public class DanmakuEntity extends AbstractArrow {
         fightTick();
     }
 
+
     private void particleTick() {
         this.particleTick++;
         if (this.particleTick > 2) {
             Level world = this.level();
             if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-                serverWorld.sendParticles(
-                        ParticleTypes.SNOWFLAKE,
-                        this.position().x,
-                        this.position().y,
-                        this.position().z,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0.1
-                );
+                long now = System.currentTimeMillis();
+                String key = this.getType().toString(); // 或 "danmaku"
+                Long last = PARTICLE_COOLDOWN.getOrDefault(key, 0L);
+
+                if (now - last >= PARTICLE_INTERVAL_MS) {
+                    serverWorld.sendParticles(
+                            ParticleTypes.SNOWFLAKE,
+                            this.position().x,
+                            this.position().y,
+                            this.position().z,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0.1
+                    );
+                    PARTICLE_COOLDOWN.put(key, now);
+                }
             }
             this.particleTick = 0;
         }

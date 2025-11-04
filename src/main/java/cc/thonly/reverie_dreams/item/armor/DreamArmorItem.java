@@ -16,6 +16,8 @@ public class DreamArmorItem extends ArmorItem {
     }
 
     void onAccept(LivingEntity entity, ItemStack itemStack) {
-        entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20, 0, true, false, true));
+        if (!entity.hasEffect(MobEffects.REGENERATION)) {
+            entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20, 0, true, false, true));
+        }
     }
 }

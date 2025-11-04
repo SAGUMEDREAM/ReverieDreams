@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -50,7 +50,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
             planks.add(instance.planks());
         }
 
-        for (Fumo instance : Fumos.getView()) {
+        for (FumoType instance : Fumos.getView()) {
             fumo.add(instance.block());
         }
 

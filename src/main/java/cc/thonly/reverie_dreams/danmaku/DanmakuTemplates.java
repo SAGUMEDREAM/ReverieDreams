@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class SpellCardTemplates {
+public class DanmakuTemplates {
     private static final Map<ResourceLocation, DanmakuTrajectory> TEMPLATES = new Object2ObjectLinkedOpenHashMap<>();
     private static final Map<ResourceLocation, ItemStack> TEMPLATE_ITEM_STACKS = new Object2ObjectLinkedOpenHashMap<>();
     static {

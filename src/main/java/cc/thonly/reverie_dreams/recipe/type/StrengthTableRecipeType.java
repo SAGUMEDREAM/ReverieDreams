@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
+import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
@@ -84,7 +84,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         List<Item> danmakuItemView = RegistryManager.DANMAKU_TYPE
                 .values().stream().map(DanmakuType::getItem).toList();
         List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultInstance).toList();
-        List<ItemStack> templateStackView = SpellCardTemplates.getRegistryItemStackView().values().stream().map(ItemStack::copy).toList();
+        List<ItemStack> templateStackView = DanmakuTemplates.getRegistryItemStackView().values().stream().map(ItemStack::copy).toList();
 
         this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, ModDataComponentTypes.DANMAKU_PROPERTIES);
         this.registerAutomaticDynamic(danmakuItemStackView, List.of(ModItems.SPEED_FEATHER.getDefaultInstance()), ModDataComponentTypes.DANMAKU_PROPERTIES);

@@ -15,6 +15,7 @@ public class DanmakuTrajectories {
     public static final DanmakuTrajectory X = register(ReverieDreams.id("x"), new PatternTrajectory(Pattern.BuiltIn.X));
     public static final DanmakuTrajectory ROUND = register(ReverieDreams.id("round"), new RoundTrajectory());
     public static final DanmakuTrajectory RING = register(ReverieDreams.id("ring"), new RingTrajectory());
+    public static final DanmakuTrajectory CUSTOM = register(ReverieDreams.id("custom"), new CustomTrajectory());
 
     public static DanmakuTrajectory register(ResourceLocation key, DanmakuTrajectory value) {
         return RegistryManager.registerForBuiltin(RegistryManager.DANMAKU_TRAJECTORY, key, value);

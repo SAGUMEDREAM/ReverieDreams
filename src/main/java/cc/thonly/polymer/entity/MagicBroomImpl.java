@@ -24,8 +24,9 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
     public MagicBroomImpl {
-        PolymerEntityHelper.NEXT.add(this);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
+
     @Override
     public void onCreated() {
         this.magicBroomEntity.setNoGravity(true);

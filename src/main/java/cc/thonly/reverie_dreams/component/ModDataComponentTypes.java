@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.component;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.tooltip.ModTooltips;
+import cc.thonly.reverie_dreams.danmaku.SpellcardRenderer;
+import cc.thonly.reverie_dreams.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;
@@ -23,18 +25,18 @@ public class ModDataComponentTypes {
                     .persistent(DanmakuProperties.CODEC)
                     .build()
     );
-    public static final DataComponentType<ItemStackWrapper> SHAPE = registerComponent("shape",
-            DataComponentType.<ItemStackWrapper>builder().persistent(ItemStackWrapper.CODEC).build());
-
-//    public static final ComponentType<Identifier> REGISTRY_KEY = registerComponent("registry_key",
-//            ComponentType.<Identifier>builder()
-//                    .codec(RegistryKeyComponent.CODEC)
-//                    .build());
-
-//    public static final ComponentType<OverTooltipAppender> OVER_TOOLTIP_APPENDER = registerComponent("over_tooltip_appender",
-//            ComponentType.<OverTooltipAppender>builder()
-//                    .codec(OverTooltipAppender.CODEC)
-//                    .build());
+    public static final DataComponentType<SpellCardFrameConfig> SPELLCARD_FRAME_CONFIG = registerComponent("spellcard_frame",
+            DataComponentType.<SpellCardFrameConfig>builder()
+                    .persistent(SpellCardFrameConfig.CODEC)
+                    .build());
+    public static final DataComponentType<SpellcardRenderer> SPELL_CARD_COMPONENT = registerComponent("spell_card_component",
+            DataComponentType.<SpellcardRenderer>builder()
+                    .persistent(SpellcardRenderer.CODEC)
+                    .build());
+    public static final DataComponentType<ItemStackWrapper> DANMAKU_SHAPE = registerComponent("shape",
+            DataComponentType.<ItemStackWrapper>builder()
+                    .persistent(ItemStackWrapper.CODEC)
+                    .build());
 
     public static final DataComponentType<Unit> SILVER_ITEM = registerComponent("silver_item",
             DataComponentType.<Unit>builder()

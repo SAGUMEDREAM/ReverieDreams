@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.ModItems;
@@ -61,7 +61,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         // === 通用 Tag ===
         valueLookupBuilder(ModTags.ItemTypeTag.EMPTY).add(Items.BEDROCK).add(Items.BARRIER);
-        addAll.accept(ModTags.ItemTypeTag.FUMO, Fumos.getView().stream().map(Fumo::item).toList());
+        addAll.accept(ModTags.ItemTypeTag.FUMO, Fumos.getView().stream().map(FumoType::item).toList());
         addAll.accept(ItemTags.CREEPER_DROP_MUSIC_DISCS, AlbumItem.ITEMS);
 
         // === 工具类 Tag ===

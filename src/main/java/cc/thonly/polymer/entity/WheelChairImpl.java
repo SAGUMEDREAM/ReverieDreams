@@ -2,17 +2,13 @@ package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.entity.ModEntityHolders;
-import cc.thonly.reverie_dreams.entity.holder.MagicBroomHolder;
 import cc.thonly.reverie_dreams.entity.holder.WheelChairHolder;
 import cc.thonly.reverie_dreams.entity.misc.WheelchairEntity;
-import cc.thonly.reverie_dreams.item.ModItems;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.WeakHashMap;
@@ -26,7 +22,7 @@ public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements Polym
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
     public WheelChairImpl {
-        PolymerEntityHelper.NEXT.add(this);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     @Override

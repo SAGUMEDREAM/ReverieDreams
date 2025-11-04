@@ -21,6 +21,8 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.AABB;
+
 import java.util.Random;
 
 public class BiomeModificationInit {
@@ -90,10 +92,22 @@ public class BiomeModificationInit {
                 ModEntities.YOUSEI_ENTITY_TYPE,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (entity, world, reason, pos, random) ->
-                        world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) &&
-                                world.getRawBrightness(pos, 0) > 8 &&
-                                world.getBlockState(pos).isAir()
+                (entityType, world, reason, pos, random) -> {
+                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
+                    if (world.getRawBrightness(pos, 0) <= 8) return false;
+                    if (!world.getBlockState(pos).isAir()) return false;
+
+                    int nearby = world.getEntitiesOfClass(
+                            ModEntities.YOUSEI_ENTITY_TYPE.getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
+                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                            )
+                    ).size();
+
+                    if (nearby > 2) return false;
+                    return random.nextFloat() < 0.6f;
+                }
         );
         // 向日葵妖精
         BiomeModifications.addSpawn(
@@ -110,10 +124,29 @@ public class BiomeModificationInit {
                 ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (entity, world, reason, pos, random) ->
-                        world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) &&
-                                world.getRawBrightness(pos, 0) > 8 &&
-                                world.getBlockState(pos).isAir()
+                (entityType, world, reason, pos, random) -> {
+                    // 原本条件
+                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
+                    if (world.getRawBrightness(pos, 0) <= 8) return false;
+                    if (!world.getBlockState(pos).isAir()) return false;
+
+                    // ✅ 新增：检测周围是否已有太多该实体
+                    int nearbyCount = world.getEntitiesOfClass(
+                            ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE.getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
+                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                            )
+                    ).size();
+
+                    return nearbyCount < 3; // 附近 16x8x16 范围内少于 3 个才允许生成
+                }
+        );
+        // 女仆妖精
+        BiomeModifications.addSpawn(
+                BiomeSelectors.tag(ConventionalBiomeTags.IS_DARK_FOREST),
+                MobCategory.MONSTER,
+                ModEntities.MAID_YOUSEI_ENTITY_TYPE, 10, 1, 2
         );
         // 杀人蜂
         BiomeModifications.addSpawn(

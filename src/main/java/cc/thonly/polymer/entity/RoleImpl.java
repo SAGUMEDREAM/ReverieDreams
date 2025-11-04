@@ -13,7 +13,7 @@ import org.joml.Vector3f;
 public record RoleImpl(AbstractNPCEntity npcEntity) implements PlayerPolymerEntity {
 
     public RoleImpl {
-        PolymerEntityHelper.NEXT.add(this);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     public void onCreated() {

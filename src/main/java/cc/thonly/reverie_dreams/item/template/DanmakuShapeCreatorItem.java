@@ -37,7 +37,7 @@ public class DanmakuShapeCreatorItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        ItemStackWrapper itemStackWrapper = stack.get(ModDataComponentTypes.SHAPE);
+        ItemStackWrapper itemStackWrapper = stack.get(ModDataComponentTypes.DANMAKU_SHAPE);
         return itemStackWrapper != null;
     }
 }

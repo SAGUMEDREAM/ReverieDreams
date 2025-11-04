@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.block.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.DecorativeBlockCreator;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.WoodCreator;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -150,7 +150,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.MOON_STONE);
         this.decorativeBlockCreatorLootFunction.apply(ModBlocks.MOON_STONE_BRICK);
 
-        for (Fumo fumo : Fumos.getView()) {
+        for (FumoType fumo : Fumos.getView()) {
             dropSelf(fumo.block());
         }
 

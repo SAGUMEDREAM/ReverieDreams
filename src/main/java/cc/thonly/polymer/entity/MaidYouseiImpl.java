@@ -3,7 +3,6 @@ package cc.thonly.polymer.entity;
 import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.entity.MaidYouseiEntity;
 import cc.thonly.reverie_dreams.entity.ModEntityHolders;
-import cc.thonly.reverie_dreams.entity.YouseiEntity;
 import cc.thonly.reverie_dreams.entity.holder.WingHolder;
 import com.mojang.authlib.properties.Property;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
@@ -15,7 +14,7 @@ import org.joml.Vector3f;
 
 public record MaidYouseiImpl(MaidYouseiEntity source) implements PlayerPolymerEntity {
     public MaidYouseiImpl {
-        PolymerEntityHelper.NEXT.add(this);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     @Override

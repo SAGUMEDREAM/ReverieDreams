@@ -586,6 +586,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.add(ModEntities.GHOST_ENTITY_TYPE, "幽灵", "幽灵刷怪蛋");
         builder.add(ModEntities.MOON_RABBIT_ENTITY_TYPE, "月兔", "月兔刷怪蛋");
         builder.add(ModEntities.YOUSEI_ENTITY_TYPE, "妖精", "妖精刷怪蛋");
+        builder.add(ModEntities.MAID_YOUSEI_ENTITY_TYPE, "女仆妖精", "女仆妖精刷怪蛋");
         builder.add(ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, "向日葵妖精", "向日葵妖精刷怪蛋");
         builder.add(ModEntities.GOBLIN_ENTITY_TYPE, "哥布林", "哥布林刷怪蛋");
         builder.add(ModEntities.WATER_ELEMENTAL_ENTITY_TYPE, "水元素", "水元素刷怪蛋");
@@ -915,6 +916,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         translationBuilder.add(ModItems.COPPER_COIN, "铜币");
         translationBuilder.add(ModItems.SILVER_COIN, "银币");
         translationBuilder.add(ModItems.GOLD_COIN, "金币");
+        translationBuilder.add(ModItems.SPELLCARD, "符卡");
 
         // 武器
         translationBuilder.add(ModItems.HAKUREI_CANE, "博丽御币");

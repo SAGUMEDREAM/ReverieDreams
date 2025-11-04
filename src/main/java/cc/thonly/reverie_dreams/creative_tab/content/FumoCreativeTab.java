@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.item.ModItems;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -21,7 +21,7 @@ public class FumoCreativeTab implements ItemGroupContentHelper {
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(FumoCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
             itemGroup.accept(ModItems.FUMO_LICENSE);
-            for (Fumo fumo : Fumos.getView()) {
+            for (FumoType fumo : Fumos.getView()) {
                 itemGroup.accept(fumo.item());
             }
         });

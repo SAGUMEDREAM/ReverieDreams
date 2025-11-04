@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
+import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.entity.GoblinEntity;
 import cc.thonly.reverie_dreams.entity.HairballEntity;
 import cc.thonly.reverie_dreams.entity.Yousei;
@@ -120,7 +120,7 @@ public class ModLootModifies {
                 LootPool.Builder poolBuilder = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(0.4f));
-                for (var entry : SpellCardTemplates.getRegistryItemStackView().entrySet()) {
+                for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
                     ItemStack itemStack = entry.getValue();
                     DanmakuProperties properties = itemStack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
                     if (properties==null) continue;

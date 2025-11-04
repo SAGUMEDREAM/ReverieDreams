@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class BaguaFurnaceEntity extends Entity implements BypassHitEntity{
+public class BaguaFurnaceEntity extends Entity implements BypassHitEntity {
     private static final int MAX_TICK = 300;
     private static final int PER_INTERVAL_TICK1 = 1;
     private static final int PER_INTERVAL_TICK2 = 5 * 20;

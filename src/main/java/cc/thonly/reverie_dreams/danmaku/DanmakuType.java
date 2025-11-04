@@ -39,7 +39,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
                     Codec.FLOAT.fieldOf("speed").forGetter(DanmakuType::getSpeed),
                     Codec.BOOL.fieldOf("tile").forGetter(DanmakuType::isTile),
                     Codec.BOOL.fieldOf("infinite").forGetter(DanmakuType::isInfinite)
-            ).apply(instance, DanmakuType::new)
+            ).apply(instance, DanmakuType::getOrCreate)
     );
 
     private ResourceLocation id;
@@ -59,7 +59,15 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.speed = speed;
         this.tile = tile;
         this.infinite = infinite;
-        this.buildItem();
+        this.createItem();
+    }
+
+    public static DanmakuType getOrCreate(ResourceLocation id, float damage, float scale, float speed, boolean tile, boolean infinite) {
+        DanmakuType type = RegistryManager.DANMAKU_TYPE.getValue(id);
+        if (type == null) {
+            return new DanmakuType(id, damage, scale, speed, tile, infinite);
+        }
+        return type;
     }
 
     @Override
@@ -102,14 +110,14 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.buildShapeRecipe(factory, list);
     }
 
-    public void buildItem() {
+    public void createItem() {
         DanmakuItem item = new DanmakuItem(this.createItemSettings()
                 .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
                 .durability(120)
         );
         item.type(this);
         this.item = item;
-        Registry.register(BuiltInRegistries.ITEM, this.getIdentifier(), this.item);
+        Registry.register(BuiltInRegistries.ITEM, this.getItemId(), this.item);
     }
 
     public List<Tuple<Item, ItemStack>> getColorPairs() {
@@ -125,13 +133,13 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         return pairList;
     }
 
-    public ResourceLocation getIdentifier() {
+    public ResourceLocation getItemId() {
         return ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), "danmaku/" + this.id.getPath());
     }
 
     public Item.Properties createItemSettings() {
         return new Item.Properties()
-                .setId(ResourceKey.create(Registries.ITEM, this.getIdentifier()))
+                .setId(ResourceKey.create(Registries.ITEM, this.getItemId()))
                 .component(ModDataComponentTypes.DANMAKU_PROPERTIES, this.createDanmakuProperties())
                 .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))))
                 .durability(120)

@@ -434,8 +434,11 @@ public class DialogInit {
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.title.other_mod_list")), 200),
                 Optional.of(new StaticAction(showPage("OTHER_MOD_LIST")))
         ));
-        if (isChina()) {
-            list.add(getIssueButtonData());
+        try {
+            if (isChina()) {
+                list.add(getIssueButtonData());
+            }
+        } catch (Exception ignored) {
         }
         list.add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.title.open_recipe_manager")), 200),

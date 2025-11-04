@@ -12,6 +12,7 @@ import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.base.*;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
+import cc.thonly.reverie_dreams.item.danmaku.SpellcardItem;
 import cc.thonly.reverie_dreams.item.material.DreamMaterial;
 import cc.thonly.reverie_dreams.item.material.MagicIceMaterial;
 import cc.thonly.reverie_dreams.item.material.SilverMaterial;
@@ -135,6 +136,7 @@ public class ModItems {
     public static final Item TENGU_CAMERA = registerItem("tengu_camera", TenguCameraItem::new, new Item.Properties().stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR));
     public static final Item BAD_APPLE = registerItem("bad_apple", BadAppleItem::new, new Item.Properties().food(Foods.GOLDEN_APPLE).stacksTo(16).rarity(Rarity.EPIC));
     public static final Item EXORCISM_PAPER = registerItem("exorcism_paper", ExorcismPaperItem::new, new Item.Properties().stacksTo(16));
+    public static final Item SPELLCARD = registerItem("spellcard", SpellcardItem::new, new Item.Properties().stacksTo(1).durability(50));
 
     // 武器
     public static final Item HAKUREI_CANE = registerItem("hakurei_cane", (settings) -> new HakureiCane(1f, -2.4f, settings), new Item.Properties());

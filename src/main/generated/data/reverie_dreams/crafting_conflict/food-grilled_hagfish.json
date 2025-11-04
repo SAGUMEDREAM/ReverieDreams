@@ -1,7 +1,7 @@
 {
   "item": "reverie_dreams:food/grilled_hagfish",
   "values": [
-    "reverie_dreams:meat",
-    "reverie_dreams:vegetarian"
+    "reverie_dreams:vegetarian",
+    "reverie_dreams:meat"
   ]
 }

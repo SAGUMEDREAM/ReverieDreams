@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.compat;
 
 import cc.thonly.polydex2eiv.api.ItemViewServerModifier;
 import cc.thonly.reverie_dreams.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
+import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class Polydex2EIVCompatImpl {
                 }
             }
 
-            Collection<ItemStack> spellCardTemplates = SpellCardTemplates.getRegistryItemStackView().values();
+            Collection<ItemStack> spellCardTemplates = DanmakuTemplates.getRegistryItemStackView().values();
             stacks.addAll(spellCardTemplates);
 
             Collection<RoleCard> roleCards = RegistryManager.ROLE_CARD.values();

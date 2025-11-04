@@ -37,21 +37,11 @@ import net.minecraft.world.level.pathfinder.PathType;
 import java.util.WeakHashMap;
 
 @Getter
-public class MushroomMonsterEntity extends PathfinderMob implements AnimatedEntity {
-    public static final WeakHashMap<Entity, EntityHolder<MushroomMonsterEntity>> ELEMENTS = new WeakHashMap<>();
-    public static final Model MODEL = ModelUtil.loadModel(ReverieDreams.id("mushroom_monster"));
-    private final Model hairballModel;
-    private EntityHolder<MushroomMonsterEntity> holder;
+public class MushroomMonsterEntity extends PathfinderMob {
 
-    protected MushroomMonsterEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
-        this(entityType, world, MODEL);
-    }
-
-    protected MushroomMonsterEntity(EntityType<? extends PathfinderMob> entityType, Level world, Model hairballModel) {
-        super(entityType, world);
-        this.hairballModel = hairballModel;
+    public MushroomMonsterEntity(EntityType<MushroomMonsterEntity> mushroomMonsterEntityEntityType, Level level) {
+        super(mushroomMonsterEntityEntityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.init();
     }
 
     @Override
@@ -73,21 +63,6 @@ public class MushroomMonsterEntity extends PathfinderMob implements AnimatedEnti
             ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20));
         }
         return super.doHurtTarget(world, target);
-    }
-
-    private void init() {
-        this.holder = new LivingEntityHolder<>(this, this.hairballModel);
-        EntityAttachment.ofTicking(this.holder, this);
-        ELEMENTS.put(this, holder);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateWalkAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
-        }
     }
 
     public static AttributeSupplier createAttributes() {
@@ -113,8 +88,4 @@ public class MushroomMonsterEntity extends PathfinderMob implements AnimatedEnti
         }
     }
 
-    @Override
-    public AnimatedEntityHolder getHolder() {
-        return this.holder;
-    }
 }

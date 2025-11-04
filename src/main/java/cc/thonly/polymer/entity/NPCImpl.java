@@ -13,7 +13,7 @@ import org.joml.Vector3f;
 public record NPCImpl(BaseNPCLikeEntity npcEntity) implements PlayerPolymerEntity {
 
     public NPCImpl {
-        PolymerEntityHelper.NEXT.add(this);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     @Override

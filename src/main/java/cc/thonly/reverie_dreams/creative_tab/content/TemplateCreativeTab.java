@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.danmaku.SpellCardTemplates;
+import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -25,7 +25,7 @@ public class TemplateCreativeTab implements ItemGroupContentHelper {
 
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(TemplateCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            Map<ResourceLocation, ItemStack> registryView = SpellCardTemplates.getRegistryItemStackView();
+            Map<ResourceLocation, ItemStack> registryView = DanmakuTemplates.getRegistryItemStackView();
             Set<Map.Entry<ResourceLocation, ItemStack>> views = registryView.entrySet();
             for (Map.Entry<ResourceLocation, ItemStack> view : views) {
                 ItemStack stack = view.getValue();

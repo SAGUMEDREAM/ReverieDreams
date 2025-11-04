@@ -14,7 +14,7 @@ import org.joml.Vector3f;
 
 public record SunflowerYouseiImpl(SunflowerYouseiEntity source) implements PlayerPolymerEntity {
     public SunflowerYouseiImpl {
-        PolymerEntityHelper.NEXT.add(this);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     @Override

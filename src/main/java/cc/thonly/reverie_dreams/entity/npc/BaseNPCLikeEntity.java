@@ -399,6 +399,13 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     @Override
+    protected void dropAllDeathLoot(ServerLevel serverLevel, DamageSource damageSource) {
+        if (this.getKeepInventoryType() != KeepInventoryTypes.NOT_DROP_ANY) {
+            super.dropAllDeathLoot(serverLevel, damageSource);
+        }
+    }
+
+    @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
         return null;
     }

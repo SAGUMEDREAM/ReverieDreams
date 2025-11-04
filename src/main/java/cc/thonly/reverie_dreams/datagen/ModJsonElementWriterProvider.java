@@ -4,10 +4,9 @@ import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.datagen.generator.JsonElementWriterProvider;
-import cc.thonly.reverie_dreams.fumo.Fumo;
+import cc.thonly.reverie_dreams.fumo.FumoType;
 import cc.thonly.reverie_dreams.fumo.Fumos;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -26,7 +25,7 @@ public class ModJsonElementWriterProvider extends JsonElementWriterProvider {
 
     @Override
     protected void configured() {
-        for (Fumo fumoType : Fumos.getView()) {
+        for (FumoType fumoType : Fumos.getView()) {
             Block block = fumoType.block();
             this.addSixteenDirectionBlockState(block);
         }

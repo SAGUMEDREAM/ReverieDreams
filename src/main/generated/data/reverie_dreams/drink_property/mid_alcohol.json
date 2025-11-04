@@ -2,19 +2,19 @@
   "registry_key": "reverie_dreams:mid_alcohol",
   "properties": {
     "values": [
+      "reverie_dreams:drink/otter_festival",
+      "reverie_dreams:drink/fourteenth_night",
       "reverie_dreams:drink/daiginjo",
-      "reverie_dreams:drink/plum_wine",
-      "reverie_dreams:drink/gods_wheat",
-      "reverie_dreams:drink/sparrow_sake",
       "reverie_dreams:drink/red_mist",
       "reverie_dreams:drink/ordinary_fitness_tea",
-      "reverie_dreams:drink/otter_festival",
       "reverie_dreams:drink/sun_moon_star",
-      "reverie_dreams:drink/fourteenth_night",
       "reverie_dreams:drink/negroni",
+      "reverie_dreams:drink/plum_wine",
       "reverie_dreams:drink/blessing_wind",
       "reverie_dreams:drink/space_beer",
-      "reverie_dreams:drink/qilin"
+      "reverie_dreams:drink/sparrow_sake",
+      "reverie_dreams:drink/qilin",
+      "reverie_dreams:drink/gods_wheat"
     ]
   }
 }

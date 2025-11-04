@@ -37,7 +37,8 @@
   "mixins": [
     "minecraft.mixins.json",
     "reverie_dreams.mixins.json",
-    "mystias_izakaya.mixins.json"
+    "mystias_izakaya.mixins.json",
+    "polymer.mixins.json"
   ],
   "depends": {
     "fabricloader": "*",

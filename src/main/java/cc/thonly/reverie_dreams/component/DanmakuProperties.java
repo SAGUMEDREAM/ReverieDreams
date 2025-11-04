@@ -24,7 +24,7 @@ public class DanmakuProperties {
             2,
             DEFAULT_DAMAGE_TYPE,
             1,
-            1,
+            0.5f,
             0,
             false,
             false

@@ -63,10 +63,8 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
                 x, y, z,
                 stack,
                 properties,
-                pitch,
-                yaw,
-                divergence,
-                offsetDist
+                pitch, yaw,
+                divergence, offsetDist
         );
         world.addFreshEntity(danmakuEntity);
         return danmakuEntity;

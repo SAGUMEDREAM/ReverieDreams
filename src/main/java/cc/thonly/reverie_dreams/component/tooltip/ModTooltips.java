@@ -44,7 +44,7 @@ public class ModTooltips {
             if (!(stack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
                 return;
             }
-            ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.SHAPE, ItemStackWrapper.of(Items.AIR));
+            ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.DANMAKU_SHAPE, ItemStackWrapper.of(Items.AIR));
             ItemStack itemStack = itemStackWrapper.getItemStack();
             textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
         });

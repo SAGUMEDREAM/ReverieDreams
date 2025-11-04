@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.entity.AnimationHelper;
 import cc.thonly.reverie_dreams.util.entity.ModelUtil;
 import de.tomalbrc.bil.api.AnimatedEntity;
-import de.tomalbrc.bil.api.AnimatedEntityHolder;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
@@ -28,21 +27,10 @@ import net.minecraft.world.level.pathfinder.PathType;
 import java.util.WeakHashMap;
 
 @Getter
-public class HairballEntity extends PathfinderMob implements AnimatedEntity {
-    public static final WeakHashMap<Entity, EntityHolder<HairballEntity>> ELEMENTS = new WeakHashMap<>();
-    public static final Model BLUE = ModelUtil.loadModel(ReverieDreams.id("hairball"));
-    private final Model hairballModel;
-    private EntityHolder<HairballEntity> holder;
-
+public class HairballEntity extends PathfinderMob {
     protected HairballEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
-        this(entityType, world, BLUE);
-    }
-
-    protected HairballEntity(EntityType<? extends PathfinderMob> entityType, Level world, Model hairballModel) {
         super(entityType, world);
-        this.hairballModel = hairballModel;
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.init();
     }
 
     @Override
@@ -55,22 +43,11 @@ public class HairballEntity extends PathfinderMob implements AnimatedEntity {
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 12.0f));
 
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-
-    }
-
-    private void init() {
-        this.holder = new LivingEntityHolder<>(this, this.hairballModel);
-        EntityAttachment.ofTicking(this.holder, this);
-        ELEMENTS.put(this,holder);
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateWalkAnimation(this, this.holder); // util methods, see below
-            AnimationHelper.updateHurtVariant(this, this.holder); // util methods
-        }
     }
 
     public static AttributeSupplier createAttributes() {
@@ -82,8 +59,5 @@ public class HairballEntity extends PathfinderMob implements AnimatedEntity {
                 .build();
     }
 
-    @Override
-    public AnimatedEntityHolder getHolder() {
-        return this.holder;
-    }
+
 }
