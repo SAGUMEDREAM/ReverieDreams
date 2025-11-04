@@ -101,6 +101,12 @@
       "reverie_dreams:spell_card"
     ]
   },
+  "graze": {
+    "subtitle": "sound.reverie_dreams.graze",
+    "sounds": [
+      "reverie_dreams:graze"
+    ]
+  },
   "bagua": {
     "subtitle": "sound.reverie_dreams.bagua",
     "sounds": [

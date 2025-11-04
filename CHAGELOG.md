@@ -1,14 +1,16 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
-# 0.4.6+1.21.7
+# 0.4.5+1.21.7
 * Add tags to the vanilla food
 * Fixed skin cache not hitting correctly
-* Fixed the display of the negative keyword tooltip.
-* Fixed the issue where DanmakuEntity's speed changed with sprinting.
+* Fixed the display of the negative keyword tooltip
+* Fixed the issue where DanmakuEntity's speed changed with sprinting
+* Fixed the danmaku bullet can't damage the EnderDragon 
 * The single component for bullet screen attributes has been removed, and a comprehensive component for bullet screen attributes has been added.
 * Porting to mojmap
 * Improved crop models and mechanisms
 * Fixed wall tag is empty
+* Added custom spellcard item component
 
 ## 0.4.4+1.21.7
 * Fixed the issue where some items would not be damaged when their durability reached 0

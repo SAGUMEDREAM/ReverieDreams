@@ -39,6 +39,9 @@ public class SkinFetcher {
         boolean useSlim = config.getType() == SkinConfig.ModelType.SLIM;
         ResourceLocation id = RegistryManager.SKIN_CONFIG.getKey(config);
         if (id == null) return Optional.empty();
+        if (SkinFetcherCaches.MD5_CACHED.isEmpty()) {
+            SkinFetcherCaches.load();
+        }
 
         String assetPath = "/assets/%s/textures/entity/player/skin/%s.png"
                 .formatted(id.getNamespace(), id.getPath());

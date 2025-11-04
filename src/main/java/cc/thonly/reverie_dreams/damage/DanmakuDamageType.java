@@ -1,11 +1,9 @@
 package cc.thonly.reverie_dreams.damage;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.*;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.Registry;
@@ -21,40 +19,30 @@ import net.minecraft.world.damagesource.DamageTypes;
 @Setter
 @Getter
 public class DanmakuDamageType implements CodecStep<DanmakuDamageType>, OwnerBinding<DanmakuDamageType>, BuiltinObject {
-    public static final Codec<DanmakuDamageType> CODEC = ResourceKey.codec(Registries.DAMAGE_TYPE)
-            .xmap(DanmakuDamageType::new, DanmakuDamageType::getRegistryKey);
+    public static final Codec<DanmakuDamageType> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ResourceLocation.CODEC.fieldOf("id").forGetter(DanmakuDamageType::getId)
+    ).apply(instance, DanmakuDamageType::getOrCreate));
     public static final ResourceLocation DEFAULT_ID = ReverieDreams.id("generic");
-    private ResourceLocation id;
-    private final ResourceKey<DamageType> registryKey;
+    private final ResourceLocation id;
     private IntrinsicalRegister<DanmakuDamageType> owner;
 
-    public DanmakuDamageType(ResourceKey<DamageType> registryKey) {
-        this.registryKey = registryKey;
+    public DanmakuDamageType(ResourceLocation id) {
+        this.id = id;
+    }
+
+    public static DanmakuDamageType getOrCreate(ResourceLocation id) {
+        DanmakuDamageType value = RegistryManager.DANMAKU_DAMAGE_TYPE.getValue(id);
+        if (value == null) {
+            return RegistryManager.register(RegistryManager.DANMAKU_DAMAGE_TYPE, id, new DanmakuDamageType(id));
+        }
+        return value;
     }
 
     public DamageSource mapToSource(DamageSources sources) {
-        if (this.registryKey == null) {
-            return null;
-        }
-        if (this.registryKey == DamageTypes.GENERIC) {
-            return sources.generic();
-        }
-        if (this.registryKey == DamageTypes.MAGIC) {
+        if (this.id == DanmakuDamageTypes.REAL.getId()) {
             return sources.magic();
         }
         return sources.generic();
-    }
-
-    public ResourceKey<DamageType> getType() {
-        return this.registryKey;
-    }
-
-    public DamageType getValue(RegistryAccess registryManager) {
-        if (this.registryKey == null) {
-            return null;
-        }
-        Registry<DamageType> registry = registryManager.lookupOrThrow(Registries.DAMAGE_TYPE);
-        return registry.getValue(this.registryKey);
     }
 
     @Override

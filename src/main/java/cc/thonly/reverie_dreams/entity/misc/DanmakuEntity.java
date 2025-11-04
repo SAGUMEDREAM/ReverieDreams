@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.entity.ModEntities;
 import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -25,6 +27,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.EnderDragonPart;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
@@ -54,7 +58,9 @@ import java.util.Optional;
 public class DanmakuEntity extends AbstractArrow {
     public static final EntityDataAccessor<Float> ROLL = SynchedEntityData.defineId(DanmakuEntity.class, EntityDataSerializers.FLOAT);
     private static final Map<String, Long> PARTICLE_COOLDOWN = new HashMap<>();
-    private static final long PARTICLE_INTERVAL_MS = 50; // 每种类型每 50ms 最多一次
+    private static final long PARTICLE_INTERVAL_MS = 50;
+    private static final double GRAZE_RADIUS = 0.5;
+    private static final Map<Integer, Long> GRAZE_CACHE = new HashMap<>(); // 记录 entityId -> lastTick
     public static final int MAX_FLIGHT_TICK = 20 * 20;
     protected Item danmakuItem;
     protected ItemStack itemStack = Items.SNOWBALL.getDefaultInstance();
@@ -113,13 +119,8 @@ public class DanmakuEntity extends AbstractArrow {
         if (livingEntity != null && entityDelta) {
             this.shootFromRotation(livingEntity, pitch, yaw, 0.0F, this.properties.getSpeed(), divergence);
             this.setDeltaMovement(this.getDeltaMovement().subtract(livingEntity.getDeltaMovement()));
-//            System.out.println("living");
-//            System.out.println(this.getDeltaMovement());
         } else {
-//            this.shootFromRotation(this, pitch, yaw, 0.0F, this.properties.getSpeed(), divergence);
             this.shootFromRotation(pitch, yaw);
-//            System.out.println("null");
-//            System.out.println(this.getDeltaMovement());
         }
 
         this.setYRot(yaw);
@@ -153,12 +154,8 @@ public class DanmakuEntity extends AbstractArrow {
         double speed = 0.5 * (this.properties != null ? this.properties.getSpeed() : 0.6d);
         Vec3 motion = new Vec3(dx * speed, dy * speed, dz * speed);
         this.setDeltaMovement(motion);
-        
-        this.setNoGravity(true);
 
-        System.out.println("shootFromRotation -> pitch=" + pitch + " yaw=" + yaw);
-        System.out.println("rad -> pitchRad=" + pitchRad + " yawRad=" + yawRad);
-        System.out.println("motion -> " + this.getDeltaMovement());
+        this.setNoGravity(true);
     }
 
 
@@ -187,7 +184,6 @@ public class DanmakuEntity extends AbstractArrow {
         this.flyAge = view.getIntOr("FlyAge", 0);
         Optional<Vec3> velocityVector = view.read("VelocityVector", Vec3.CODEC);
         velocityVector.ifPresent(this::setDeltaMovement);
-
     }
 
     @Override
@@ -200,9 +196,45 @@ public class DanmakuEntity extends AbstractArrow {
         this.setXRot(this.originPitch);
         this.setYRot(this.originYaw);
 
-        particleTick();
-        waterTick();
-        fightTick();
+        this.particleTick();
+        this.waterTick();
+        this.fightTick();
+//        this.grazeTick();
+    }
+
+    private void grazeTick() {
+        if (!(this.level() instanceof ServerLevel serverLevel)) return;
+        if (serverLevel.getGameTime() % 2 != 0) return;
+        List<Entity> nearby = serverLevel.getEntitiesOfClass(
+                Entity.class,
+                this.getBoundingBox().inflate(GRAZE_RADIUS)
+        );
+
+        for (Entity entity : nearby) {
+            if (entity.isSpectator() || entity.isRemoved()) {
+                continue;
+            }
+            if (entity == this.getOwner()) {
+                continue;
+            }
+            if (entity instanceof AbstractArrow) {
+                continue;
+            }
+            if (!this.canDamage(entity, this.getOwner())) {
+                continue;
+            }
+            if (this.distanceTo(entity) <= GRAZE_RADIUS) {
+                continue;
+            }
+
+            int id = entity.getId();
+            long now = serverLevel.getGameTime();
+            long last = GRAZE_CACHE.getOrDefault(id, -100L);
+            if (now - last < 10) continue;
+
+            GRAZE_CACHE.put(id, now);
+            SoundEventInit.playSound(entity, SoundEventInit.GRAZE, 1.0f, 1.0f);
+        }
     }
 
 
@@ -251,7 +283,7 @@ public class DanmakuEntity extends AbstractArrow {
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult blockHitResult) {
+    public void onHitBlock(BlockHitResult blockHitResult) {
         this.setPos(blockHitResult.getLocation());
         if (blockHitResult.getType() == HitResult.Type.BLOCK) {
             BlockState block = this.level().getBlockState(blockHitResult.getBlockPos());
@@ -267,7 +299,7 @@ public class DanmakuEntity extends AbstractArrow {
         this.discard();
     }
 
-    protected boolean canDamage(Entity entity, Entity owner) {
+    public boolean canDamage(Entity entity, Entity owner) {
         if (entity instanceof BypassHitEntity) {
             return false;
         }
@@ -282,7 +314,7 @@ public class DanmakuEntity extends AbstractArrow {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult entityHitResult) {
+    public void onHitEntity(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
         Entity owner = this.getOwner();
         if (!this.canDamage(entity, owner)) {
@@ -345,6 +377,12 @@ public class DanmakuEntity extends AbstractArrow {
         if (world instanceof ServerLevel serverWorld) {
             Entity target = entityHitResult.getEntity();
             Entity owner = this.getOwner();
+            boolean bypassHurtTick = true;
+
+            if (target instanceof EnderDragonPart part && part.parentMob instanceof EnderDragon dragon) {
+                target = dragon;
+                bypassHurtTick = false;
+            }
 
             if (target instanceof LivingEntity livingTarget && this.getOwner() != entityHitResult.getEntity()) {
                 DamageSource damageSource;
@@ -352,9 +390,9 @@ public class DanmakuEntity extends AbstractArrow {
                 if (owner instanceof LivingEntity attacker) {
                     damageSource = world.damageSources().mobProjectile(this, attacker);
                 } else {
-                    Optional<Holder.Reference<DanmakuDamageType>> referenceOptional = RegistryManager.DANMAKU_DAMAGE_TYPE.get(this.properties.getDamageType());
-                    if (referenceOptional.isPresent()) {
-                        Holder.Reference<DanmakuDamageType> reference = referenceOptional.get();
+                    Optional<Holder.Reference<DanmakuDamageType>> optionalHolder = RegistryManager.DANMAKU_DAMAGE_TYPE.get(this.properties.getDamageType());
+                    if (optionalHolder.isPresent()) {
+                        Holder.Reference<DanmakuDamageType> reference = optionalHolder.get();
                         damageSource = reference.value().mapToSource(world.damageSources());
                     } else {
                         damageSource = world.damageSources().mobProjectile(this, null);
@@ -364,7 +402,11 @@ public class DanmakuEntity extends AbstractArrow {
                 float damageAmount = this.properties.getDamage();
                 livingTarget.hurtServer(serverWorld, damageSource, damageAmount);
                 livingTarget.setInvulnerable(false);
-                livingTarget.lastHurt = 0;
+                if (bypassHurtTick) {
+                    livingTarget.lastHurt = 0;
+                } else {
+                    livingTarget.lastHurt = 5;
+                }
                 this.onHitEffect.damage(livingTarget, this.properties.getDamage());
             }
         }

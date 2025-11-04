@@ -23,6 +23,7 @@ public class SoundEventInit {
     public static final SoundEvent BAGUA = registerSound("bagua");
     public static final SoundEvent PHOTO = registerSound("photo");
     public static final SoundEvent TICK_WAVE = registerSound("tick_wave");
+    public static final SoundEvent GRAZE = registerSound("graze");
     public static final SoundEvent FUMO_0 = registerSound("fumo/0");
     public static final SoundEvent FUMO_1 = registerSound("fumo/1");
     public static final SoundEvent FUMO_2 = registerSound("fumo/2");

@@ -1,7 +1,7 @@
 {
   "item": "reverie_dreams:food/cats_playing_in_water",
   "values": [
-    "reverie_dreams:good_with_alcohol",
-    "reverie_dreams:fiery"
+    "reverie_dreams:fiery",
+    "reverie_dreams:good_with_alcohol"
   ]
 }

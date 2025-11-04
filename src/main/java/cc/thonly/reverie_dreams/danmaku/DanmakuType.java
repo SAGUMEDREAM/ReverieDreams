@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.danmaku;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
 import cc.thonly.reverie_dreams.data.ModTags;
 import cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
@@ -34,6 +35,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     ResourceLocation.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
+                    DanmakuDamageType.CODEC.fieldOf("damage_type").forGetter(DanmakuType::getDamageType),
                     Codec.FLOAT.fieldOf("damage").forGetter(DanmakuType::getDamage),
                     Codec.FLOAT.fieldOf("scale").forGetter(DanmakuType::getScale),
                     Codec.FLOAT.fieldOf("speed").forGetter(DanmakuType::getSpeed),
@@ -43,6 +45,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     );
 
     private ResourceLocation id;
+    private final DanmakuDamageType damageType;
     private final float damage;
     private final float scale;
     private final float speed;
@@ -52,8 +55,9 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private DanmakuEntity.OnHitFactory hitFactory;
     private IntrinsicalRegister<DanmakuType> owner;
 
-    public DanmakuType(ResourceLocation id, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public DanmakuType(ResourceLocation id, DanmakuDamageType damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
         this.id = id;
+        this.damageType = damageType;
         this.damage = damage;
         this.scale = scale;
         this.speed = speed;
@@ -62,10 +66,10 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.createItem();
     }
 
-    public static DanmakuType getOrCreate(ResourceLocation id, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public static DanmakuType getOrCreate(ResourceLocation id, DanmakuDamageType damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
         DanmakuType type = RegistryManager.DANMAKU_TYPE.getValue(id);
         if (type == null) {
-            return new DanmakuType(id, damage, scale, speed, tile, infinite);
+            return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite);
         }
         return type;
     }
@@ -151,7 +155,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
                 ReverieDreams.id("single"),
                 1,
                 this.damage,
-                ReverieDreams.id("generic"),
+                RegistryManager.DANMAKU_DAMAGE_TYPE.getKey(this.damageType),
                 this.scale,
                 this.speed,
                 0,

@@ -7,6 +7,8 @@ import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCSettings;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
+import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
+import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
@@ -52,6 +54,11 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
         this.variant = YouseiVariants.getFromProperty(this.getSkin());
         this.setItemInHand(InteractionHand.MAIN_HAND, Items.IRON_SWORD.getDefaultInstance());
         this.setItemInHand(InteractionHand.OFF_HAND, Items.SHIELD.getDefaultInstance());
+        NPCInventoryImpl inventory = this.getInventory();
+        inventory.setHead(new ItemStack(ModItems.MAID_HAIRBAND));
+        inventory.setChest(new ItemStack(ModItems.MAID_UPPER_SKIRT));
+        inventory.setLegs(new ItemStack(ModItems.MAID_LOWER_SKIRT));
+        inventory.setFeet(new ItemStack(ModItems.MAID_SHOE));
     }
 
     @Override

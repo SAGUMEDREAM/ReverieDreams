@@ -1007,6 +1007,7 @@ public class ModSimpChineseLangProvider extends FabricLanguageProvider implement
         builder.generateSoundEventSubtitle(SoundEventInit.BAGUA, "魔炮");
         builder.generateSoundEventSubtitle(SoundEventInit.PHOTO, "拍照");
         builder.generateSoundEventSubtitle(SoundEventInit.TICK_WAVE, "波");
+        builder.generateSoundEventSubtitle(SoundEventInit.GRAZE, "擦弹");
 
         this.generateDiscTranslations(wrapperLookup, translationBuilder);
         this.generateDanmakuType(wrapperLookup, translationBuilder);

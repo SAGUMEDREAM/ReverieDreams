@@ -40,6 +40,9 @@ public class SpellcardRenderer {
     @Setter
     private Vec3 position;
     @Setter
+    @Nullable
+    private PositionGetter positionGetter;
+    @Setter
     private ServerLevel world;
     private final List<List<SpellCardFrameConfig>> frames;
     private final Random random = new Random();
@@ -63,7 +66,7 @@ public class SpellcardRenderer {
         this.source = null;
         this.position = position;
         this.world = world;
-        this.frames = copyFramesConfig(frames);
+        this.frames = this.copyFramesConfig(frames);
         this.tick = tick;
         this.maxTick = maxTick;
     }
@@ -179,10 +182,18 @@ public class SpellcardRenderer {
 
     private void spawnDanmaku(ItemStack itemStack, float speed, float pitch, float yaw) {
         DanmakuProperties properties = itemStack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
-        if (properties == null) return;
+        if (properties == null) {
+            return;
+        }
         properties = properties.withSpeed(speed);
         if (this.source != null) {
             this.position = new Vec3(this.source.getX(), this.source.getEyeY(), this.source.getZ());
+        }
+        if (this.position == null && this.positionGetter != null) {
+            this.position = this.positionGetter.getPosition(this.tick);
+        }
+        if (this.position == null) {
+            return;
         }
 
         DanmakuEntity danmakuEntity = new DanmakuEntity(

@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.danmaku;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
+import cc.thonly.reverie_dreams.damage.DanmakuDamageTypes;
 import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
 import cc.thonly.reverie_dreams.registry.ItemColor;
 import cc.thonly.reverie_dreams.registry.RegistryManager;
@@ -15,26 +17,26 @@ import net.minecraft.world.item.ItemStack;
 
 public class DanmakuTypes {
     public static final List<DanmakuType> UNLIST = new ArrayList<>();
-    public static final DanmakuType AMULET = register(ReverieDreams.id("amulet"), 2f, 1f, 0.75f, false, false);
-    public static final DanmakuType ARROWHEAD = register(ReverieDreams.id("arrowhead"), 2f, 1f, 0.75f, false, false);
-    public static final DanmakuType BALL = register(ReverieDreams.id("ball"), 2f, 1f, 0.75f, true, false);
-    public static final DanmakuType BUBBLE = register(ReverieDreams.id("bubble"), 2.5f, 2f, 0.75f, true, false);
-    public static final DanmakuType BULLET = register(ReverieDreams.id("bullet"), 2f, 1f, 0.75f, false, false);
-    public static final DanmakuType FIREBALL = register(ReverieDreams.id("fireball"), 2f, 1f, 0.75f, true, false);
-    public static final DanmakuType FIREBALL_GLOWY = register(ReverieDreams.id("fireball_glowy"), 1f, 1f, 0.75f, true, false);
-    public static final DanmakuType KUNAI = register(ReverieDreams.id("kunai"), 2f, 1f, 0.75f, false, false);
-    public static final DanmakuType RICE = register(ReverieDreams.id("rice"), 2f, 1f, 0.75f, false, false);
-    public static final DanmakuType STAR = register(ReverieDreams.id("star"), 2f, 1f, 0.75f, true, false);
-    public static final DanmakuType LASER = register(ReverieDreams.id("laser"), 3f, 1.5f, 0.75f, false, false);
-    public static final DanmakuType BIG_LASER = register(ReverieDreams.id("big_laser"), 3f, 1.5f, 0.75f, false, false);
+    public static final DanmakuType AMULET = registerType(ReverieDreams.id("amulet"), DanmakuDamageTypes.GENERIC, 2f, 1f, 0.75f, false, false);
+    public static final DanmakuType ARROWHEAD = registerType(ReverieDreams.id("arrowhead"), DanmakuDamageTypes.REAL, 2f, 1f, 0.75f, false, false);
+    public static final DanmakuType BALL = registerType(ReverieDreams.id("ball"), DanmakuDamageTypes.GENERIC, 2f, 1f, 0.75f, true, false);
+    public static final DanmakuType BUBBLE = registerType(ReverieDreams.id("bubble"), DanmakuDamageTypes.GENERIC, 2.5f, 2f, 0.75f, true, false);
+    public static final DanmakuType BULLET = registerType(ReverieDreams.id("bullet"), DanmakuDamageTypes.REAL, 3f, 1f, 0.75f, false, false);
+    public static final DanmakuType FIREBALL = registerType(ReverieDreams.id("fireball"), DanmakuDamageTypes.GENERIC, 2f, 1f, 0.75f, true, false);
+    public static final DanmakuType FIREBALL_GLOWY = registerType(ReverieDreams.id("fireball_glowy"), DanmakuDamageTypes.GENERIC, 1f, 1f, 0.75f, true, false);
+    public static final DanmakuType KUNAI = registerType(ReverieDreams.id("kunai"), DanmakuDamageTypes.REAL, 2f, 1f, 0.75f, false, false);
+    public static final DanmakuType RICE = registerType(ReverieDreams.id("rice"), DanmakuDamageTypes.GENERIC, 2f, 1f, 0.75f, false, false);
+    public static final DanmakuType STAR = registerType(ReverieDreams.id("star"), DanmakuDamageTypes.GENERIC, 2f, 1f, 0.75f, true, false);
+    public static final DanmakuType LASER = registerType(ReverieDreams.id("laser"), DanmakuDamageTypes.GENERIC, 4f, 1.5f, 0.75f, false, false);
+    public static final DanmakuType BIG_LASER = registerType(ReverieDreams.id("big_laser"), DanmakuDamageTypes.GENERIC, 4f, 1.5f, 0.75f, false, false);
 
     static {
         UNLIST.add(LASER);
         UNLIST.add(BIG_LASER);
     }
 
-    public static DanmakuType register(ResourceLocation key, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        return RegistryManager.registerForBuiltin(RegistryManager.DANMAKU_TYPE, key, new DanmakuType(key, damage, scale, speed, tile, infinite));
+    public static DanmakuType registerType(ResourceLocation key, DanmakuDamageType damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
+        return RegistryManager.registerForBuiltin(RegistryManager.DANMAKU_TYPE, key, new DanmakuType(key, damageType, damage, scale, speed, tile, infinite));
     }
 
     public static ItemStack withColor(DanmakuType type, ItemColor color) {
