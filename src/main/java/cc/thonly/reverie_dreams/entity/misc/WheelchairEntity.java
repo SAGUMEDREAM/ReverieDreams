@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.polymer.entity.WheelChairImpl;
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
@@ -107,7 +107,7 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (attacker != null && attacker.isShiftKeyDown() && this.ownerUUID.equalsIgnoreCase(attacker.getStringUUID())) {
-                ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(ModBlocks.WHEEL_CHAIR));
+                ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.WHEEL_CHAIR));
                 world.addFreshEntity(itemEntity);
                 this.discard();
         }
@@ -175,7 +175,7 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
     public void die(DamageSource damageSource) {
         super.die(damageSource);
         Level world = this.level();
-        ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(ModBlocks.WHEEL_CHAIR));
+        ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.WHEEL_CHAIR));
         world.addFreshEntity(itemEntity);
     }
 

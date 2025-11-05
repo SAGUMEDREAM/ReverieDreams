@@ -1,18 +1,13 @@
 package cc.thonly.reverie_dreams.gui.recipe.display;
 
-import cc.thonly.reverie_dreams.gui.DanmakuShapeEditGui;
 import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import eu.pb4.sgui.api.elements.GuiElementInterface;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import eu.pb4.sgui.api.gui.SlotGuiInterface;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +26,7 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
     public final RecipeEntryWrapper<DanmakuShapeDrawRecipe> key2ValueEntry;
     public final ResourceLocation key;
     public final DanmakuShapeDrawRecipe value;
-    public final GuiElementBuilder back = new GuiElementBuilder().setItem(ModGuiItems.BACK).setSkullOwner(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
+    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.BACK).setSkullOwner(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
 
     public DanmakuShapeDisplayView(ServerPlayer player, RecipeEntryWrapper<DanmakuShapeDrawRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
@@ -57,14 +52,14 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
             for (int x = 0; x < this.getGrid()[y].length; x++) {
                 String c = this.getGrid()[y][x];
                 if (Objects.equals(c, "A")) {
-                    this.setSlot(counter, ModGuiItems.EMPTY_SLOT.getDefaultInstance());
+                    this.setSlot(counter, RDGuiItems.EMPTY_SLOT.getDefaultInstance());
                 }
                 if (Objects.equals(c, "X")) {
                     GuiElementBuilder builder = new GuiElementBuilder();
                     if (list.get(counter2)) {
-                        builder.setItem(ModGuiItems.ENABLE);
+                        builder.setItem(RDGuiItems.ENABLE);
                     } else {
-                        builder.setItem(ModGuiItems.DISABLE);
+                        builder.setItem(RDGuiItems.DISABLE);
                     }
                     this.setSlot(counter, builder);
                     counter2++;

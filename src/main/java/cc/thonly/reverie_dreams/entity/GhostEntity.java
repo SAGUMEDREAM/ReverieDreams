@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.effect.ModStatusEffects;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCFollowOwnerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,7 +33,7 @@ public class GhostEntity extends BaseNPCLikeEntity {
     }
 
     public GhostEntity(Level world) {
-        super(ModEntities.GHOST_ENTITY_TYPE, world, MobSkinTypes.GHOST);
+        super(RDEntityTypes.GHOST_ENTITY_TYPE, world, MobSkinTypes.GHOST);
     }
 
     @Override
@@ -96,8 +97,8 @@ public class GhostEntity extends BaseNPCLikeEntity {
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, BaseNPCLikeEntity.class, 8.0f));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 
-        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Player.class, true, ModStatusEffects.MENTAL_DISORDER));
-        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Mob.class, true, ModStatusEffects.MENTAL_DISORDER));
+        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Player.class, true, RDStatusEffects.MENTAL_DISORDER));
+        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Mob.class, true, RDStatusEffects.MENTAL_DISORDER));
     }
 
     @Override

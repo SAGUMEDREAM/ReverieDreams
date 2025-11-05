@@ -1,6 +1,6 @@
 package cc.thonly.polymer;
 
-import cc.thonly.reverie_dreams.entity.villager.ModVillagerProfessions;
+import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.entity.PolymerVillagerProfession;
 import eu.pb4.polymer.core.api.utils.PolymerSyncedObject;
@@ -11,19 +11,19 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 public class PolymerVillagerProfessionHelper {
     public static void bootstrap() {
-        registerOverlay(ModVillagerProfessions.HAWKERS, new PolymerVillagerProfession() {
+        registerOverlay(RDVillagerProfessions.HAWKERS, new PolymerVillagerProfession() {
             @Override
             public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
                 return BuiltInRegistries.VILLAGER_PROFESSION.getValue(VillagerProfession.BUTCHER);
             }
         });
-        registerOverlay(ModVillagerProfessions.PRIEST, new PolymerVillagerProfession() {
+        registerOverlay(RDVillagerProfessions.PRIEST, new PolymerVillagerProfession() {
             @Override
             public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
                 return BuiltInRegistries.VILLAGER_PROFESSION.getValue(VillagerProfession.CLERIC);
             }
         });
-        registerOverlay(ModVillagerProfessions.MONEY_SHOP_CLERK, new PolymerVillagerProfession() {
+        registerOverlay(RDVillagerProfessions.MONEY_SHOP_CLERK, new PolymerVillagerProfession() {
             @Override
             public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
                 return BuiltInRegistries.VILLAGER_PROFESSION.getValue(VillagerProfession.LIBRARIAN);

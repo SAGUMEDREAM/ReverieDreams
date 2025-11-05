@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.util;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.skin.SkinConfig;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.data.skin.SkinConfig;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.properties.Property;
@@ -37,7 +37,7 @@ public class SkinFetcher {
 
     public static Optional<Property> getSkinFromNPCSkin(SkinConfig config) {
         boolean useSlim = config.getType() == SkinConfig.ModelType.SLIM;
-        ResourceLocation id = RegistryManager.SKIN_CONFIG.getKey(config);
+        ResourceLocation id = RegistryHandlers.SKIN_CONFIG.getKey(config);
         if (id == null) return Optional.empty();
         if (SkinFetcherCaches.MD5_CACHED.isEmpty()) {
             SkinFetcherCaches.load();

@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.entity.elemental;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.entity.interfaces.ElementalMob;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -112,7 +113,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
         super.die(damageSource);
         Level world = this.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            ItemEntity itemEntity = new ItemEntity(serverWorld, this.getX(), this.getY(), this.getZ(), new ItemStack(ModBlocks.MAGIC_ICE_BLOCK, RandomSource.create().nextIntBetweenInclusive(0, 5)), 0, 0.1, 0);
+            ItemEntity itemEntity = new ItemEntity(serverWorld, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.MAGIC_ICE_BLOCK, RandomSource.create().nextIntBetweenInclusive(0, 5)), 0, 0.1, 0);
             world.addFreshEntity(itemEntity);
         }
     }

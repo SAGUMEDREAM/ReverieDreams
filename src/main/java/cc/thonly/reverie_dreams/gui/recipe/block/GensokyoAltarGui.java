@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.gui.recipe.block;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -37,7 +37,7 @@ public class GensokyoAltarGui extends SimpleGui {
     }
 
     public void init() {
-        this.setTitle(Component.translatable(ModBlocks.GENSOKYO_ALTAR.getDescriptionId()));
+        this.setTitle(Component.translatable(RDBlocks.GENSOKYO_ALTAR.getDescriptionId()));
         int invSlot = 0;
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
@@ -45,7 +45,7 @@ public class GensokyoAltarGui extends SimpleGui {
                 int index = row * 9 + col;
                 if (pos.equalsIgnoreCase("X")) {
                     this.setSlot(index, new GuiElementBuilder()
-                            .setItem(ModGuiItems.EMPTY_SLOT));
+                            .setItem(RDGuiItems.EMPTY_SLOT));
                     continue;
                 }
                 if (pos.equalsIgnoreCase("I")) {
@@ -64,7 +64,7 @@ public class GensokyoAltarGui extends SimpleGui {
     public void onTick() {
         super.onTick();
         if (blockEntity == null) return;
-        if (blockEntity.getLevel() != null && blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock() != ModBlocks.GENSOKYO_ALTAR) {
+        if (blockEntity.getLevel() != null && blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock() != RDBlocks.GENSOKYO_ALTAR) {
             this.close();
             return;
         }

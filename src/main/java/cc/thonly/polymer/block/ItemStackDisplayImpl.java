@@ -1,6 +1,6 @@
 package cc.thonly.polymer.block;
 
-import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
+import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.polymer.block.model.TransparentFlatTripWire;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import eu.pb4.factorytools.api.block.FactoryBlock;
@@ -44,7 +44,7 @@ public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWi
         private final Block block;
         private final BlockPos blockPos;
         private final ItemDisplayElement main;
-        private ItemStackDisplayBlockEntity blockEntity;
+        private FoodDisplayBlockEntity blockEntity;
         private final ItemDisplayElement item;
 
         public Model(ServerLevel serverWorld, Block block, BlockState initialBlockState, BlockPos blockPos) {
@@ -65,7 +65,7 @@ public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWi
 
         public void updateItem(BlockState blockState) {
             BlockEntity blockEntity = this.serverWorld.getBlockEntity(this.blockPos);
-            if (this.blockEntity == null && blockEntity instanceof ItemStackDisplayBlockEntity itemStackDisplayBlockEntity) {
+            if (this.blockEntity == null && blockEntity instanceof FoodDisplayBlockEntity itemStackDisplayBlockEntity) {
                 this.blockEntity = itemStackDisplayBlockEntity;
             }
 

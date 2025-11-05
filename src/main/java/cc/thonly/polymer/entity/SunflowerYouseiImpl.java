@@ -1,7 +1,7 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.reverie_dreams.entity.ModEntityHolders;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.entity.SunflowerYouseiEntity;
 import cc.thonly.reverie_dreams.entity.holder.WingHolder;
 import com.mojang.authlib.properties.Property;
@@ -23,7 +23,7 @@ public record SunflowerYouseiImpl(SunflowerYouseiEntity source) implements Playe
         PlayerPolymerEntity.super.onCreated();
         var x = new ItemDisplayElement();
         var holder = new WingHolder(this.source);
-        x.setItem(new ItemStack(ModEntityHolders.YOUSEI_WINGS));
+        x.setItem(new ItemStack(RDEntityHolderItems.YOUSEI_WINGS));
         x.setInvisible(true);
         x.setTeleportDuration(3);
         x.setScale(new Vector3f(1.2f));

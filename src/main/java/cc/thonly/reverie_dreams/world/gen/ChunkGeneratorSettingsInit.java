@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import java.util.ArrayList;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -26,7 +26,7 @@ public class ChunkGeneratorSettingsInit {
         HolderGetter<DensityFunction> densityFunctionLookup = context.lookup(Registries.DENSITY_FUNCTION);
         NoiseGeneratorSettings moon = new NoiseGeneratorSettings(
                 NoiseSettings.create(0, 128, 2, 1),
-                ModBlocks.MOON_STONE.block().defaultBlockState(),
+                RDBlocks.MOON_STONE.block().defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 new NoiseRouter(
                         DensityFunctions.zero(),
@@ -51,7 +51,7 @@ public class ChunkGeneratorSettingsInit {
                                         VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)),
                                 block(Blocks.BEDROCK)
                         ),
-                        block(ModBlocks.MOON_STONE.block())),
+                        block(RDBlocks.MOON_STONE.block())),
                 new ArrayList<>(),
                 10,
                 false,

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
-import cc.thonly.mystias_izakaya.block.MIBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -70,7 +70,7 @@ public class FloatingIslandFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 case 1 -> {
                     world.setBlock(above,
-                            random.nextBoolean() ? MIBlocks.UDUMBARA_FLOWER.defaultBlockState() : Blocks.POPPY.defaultBlockState(), 3);
+                            random.nextBoolean() ? RDWoodBlocks.UDUMBARA_FLOWER.defaultBlockState() : Blocks.POPPY.defaultBlockState(), 3);
                 }
                 case 2 -> {
                     if (saplingCount < 2) {

@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.danmaku.DanmakuShape;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -19,7 +19,7 @@ import java.util.Set;
 public class TemplateCreativeTab implements ItemGroupContentHelper {
     public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("item_group_template"));
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
-            .icon(() -> new ItemStack(ModItems.SPELL_CARD_TEMPLATE))
+            .icon(() -> new ItemStack(RDItems.SPELL_CARD_TEMPLATE))
             .title(Component.translatable("item_group.touhou.template"))
             .build();
 
@@ -31,7 +31,7 @@ public class TemplateCreativeTab implements ItemGroupContentHelper {
                 ItemStack stack = view.getValue();
                 itemGroup.accept(stack.copy());
             }
-            for (DanmakuShape shape : RegistryManager.DANMAKU_SHAPE) {
+            for (DanmakuShape shape : RegistryHandlers.DANMAKU_SHAPE) {
                 if (DanmakuTypes.UNLIST.contains(shape.getType())) {
                     continue;
                 }

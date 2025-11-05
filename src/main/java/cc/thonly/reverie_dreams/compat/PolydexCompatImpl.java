@@ -1,11 +1,7 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
+import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.compat.page.*;
-import cc.thonly.reverie_dreams.danmaku.DanmakuShape;
-import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;

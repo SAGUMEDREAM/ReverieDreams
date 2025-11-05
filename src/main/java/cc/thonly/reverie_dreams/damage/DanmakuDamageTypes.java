@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.damage;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.minecraft.resources.ResourceLocation;
 
 public class DanmakuDamageTypes {
@@ -10,13 +10,13 @@ public class DanmakuDamageTypes {
     public static final DanmakuDamageType REAL = register(ReverieDreams.id("real"));
 
     public static DanmakuDamageType register(ResourceLocation id) {
-        return RegistryManager.register(RegistryManager.DANMAKU_DAMAGE_TYPE,
+        return RegistryHandlers.register(RegistryHandlers.DANMAKU_DAMAGE_TYPE,
                 id,
                 new DanmakuDamageType(id)
         );
     }
 
-    public static void bootstrap(IntrinsicalRegister<DanmakuDamageType> registry) {
+    public static void bootstrap(RegistryHandler<DanmakuDamageType> registry) {
 
     }
 }

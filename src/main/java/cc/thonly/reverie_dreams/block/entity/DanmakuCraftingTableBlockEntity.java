@@ -14,7 +14,7 @@ public class DanmakuCraftingTableBlockEntity extends BlockEntity {
     private SimpleContainer inventory = new SimpleContainer(5);
 
     public DanmakuCraftingTableBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.DANMAKU_CRAFTING_TABLE_BLOCK_ENTITY, pos, state);
+        super(RDBlockEntityTypes.DANMAKU_CRAFTING_TABLE_BLOCK_ENTITY, pos, state);
     }
 
     @Override

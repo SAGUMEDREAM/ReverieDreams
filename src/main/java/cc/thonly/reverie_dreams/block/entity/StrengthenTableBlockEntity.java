@@ -14,7 +14,7 @@ public class StrengthenTableBlockEntity extends BlockEntity {
     private SimpleContainer inventory = new SimpleContainer(2);
 
     public StrengthenTableBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STRENGTH_TABLE_BLOCK_ENTITY, pos, state);
+        super(RDBlockEntityTypes.STRENGTH_TABLE_BLOCK_ENTITY, pos, state);
     }
 
     @Override

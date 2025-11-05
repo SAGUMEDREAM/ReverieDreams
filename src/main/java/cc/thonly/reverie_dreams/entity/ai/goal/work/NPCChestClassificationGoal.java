@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import cc.thonly.reverie_dreams.server.ItemTagManager;
+import cc.thonly.reverie_dreams.server.ItemCateManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundEvents;
@@ -73,8 +73,8 @@ public class NPCChestClassificationGoal extends Goal {
         boolean can = EntityTargetUtil.isThisWorkMode(this.roleEntity, NPCWorkModes.CHEST_CLASSIFICATION);
 //        System.out.println("[canStart] Work mode check: " + can);
         MinecraftServer server = this.roleEntity.getServer();
-        if (server != null && ItemTagManager.getInstance().isEmpty()) {
-            ItemTagManager.getInstance().load(server);
+        if (server != null && ItemCateManager.getInstance().isEmpty()) {
+            ItemCateManager.getInstance().load(server);
 //            System.out.println("[canStart] ItemTagManager loaded");
         }
         return can;

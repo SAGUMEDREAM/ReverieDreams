@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.fumo.FumoType;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -30,16 +30,16 @@ public class FumoSellerVillager extends AbstractSellerEntity {
     }
 
     public FumoSellerVillager(Level world) {
-        super(ModEntities.FUMO_SELLER_VILLAGER, world);
+        super(RDEntityTypes.FUMO_SELLER_VILLAGER, world);
     }
 
     public FumoSellerVillager(VillagerData prev, Level world) {
-        super(ModEntities.FUMO_SELLER_VILLAGER, world);
+        super(RDEntityTypes.FUMO_SELLER_VILLAGER, world);
         this.prev = prev;
     }
 
     public FumoSellerVillager(Villager prevEntity, Level world) {
-        super(ModEntities.FUMO_SELLER_VILLAGER, world);
+        super(RDEntityTypes.FUMO_SELLER_VILLAGER, world);
         this.prev = prevEntity.getVillagerData();
     }
 
@@ -48,7 +48,7 @@ public class FumoSellerVillager extends AbstractSellerEntity {
         Random random = new Random(seed);
 
         List<MerchantOffer> offers = new ArrayList<>();
-        List<FumoType> allFumos = new ArrayList<>(RegistryManager.FUMO.values());
+        List<FumoType> allFumos = new ArrayList<>(RegistryHandlers.FUMO.values());
 
         Collections.shuffle(allFumos, random);
 

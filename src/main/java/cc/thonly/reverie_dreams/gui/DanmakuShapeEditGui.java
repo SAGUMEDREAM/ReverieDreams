@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.gui;
 
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.mixin.accessor.GuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
@@ -63,7 +63,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
             for (int x = 0; x < grid[y].length; x++) {
                 char c = grid[y][x];
                 if (c == 'A') {
-                    this.setSlot(counter, ModGuiItems.EMPTY_SLOT.getDefaultInstance());
+                    this.setSlot(counter, RDGuiItems.EMPTY_SLOT.getDefaultInstance());
                 }
                 if (c == 'X') {
                     final int shapeY = counter2 / 6;
@@ -92,7 +92,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                     counter2++;
                 }
                 if (c == 'S') {
-                    this.setSlot(counter, new GuiElementBuilder(ModGuiItems.DONE)
+                    this.setSlot(counter, new GuiElementBuilder(RDGuiItems.DONE)
                             .setCallback(new GuiElementInterface.ItemClickCallback() {
                                 @Override
                                 public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
@@ -104,7 +104,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                     );
                 }
                 if (c == 'E') {
-                    this.setSlot(counter, new GuiElementBuilder(ModGuiItems.CLOSE)
+                    this.setSlot(counter, new GuiElementBuilder(RDGuiItems.CLOSE)
                             .setCallback(new GuiElementInterface.ItemClickCallback() {
                                 @Override
                                 public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
@@ -122,7 +122,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
     private void readData() {
         DanmakuShapeDrawRecipeType recipeType = DanmakuShapeDrawRecipeType.getInstance();
         ItemStack source = this.source;
-        ItemStackWrapper itemStackWrapper = source.get(ModDataComponentTypes.DANMAKU_SHAPE);
+        ItemStackWrapper itemStackWrapper = source.get(RDDataComponentTypes.DANMAKU_SHAPE);
         if (itemStackWrapper == null) {
             return;
         }
@@ -164,9 +164,9 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
 
     private ItemStack getItemForState(boolean state) {
         if (state) {
-            return ModGuiItems.ENABLE.getDefaultInstance();
+            return RDGuiItems.ENABLE.getDefaultInstance();
         } else {
-            return ModGuiItems.DISABLE.getDefaultInstance();
+            return RDGuiItems.DISABLE.getDefaultInstance();
         }
     }
 

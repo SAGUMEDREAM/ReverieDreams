@@ -3,12 +3,11 @@ package cc.thonly.reverie_dreams.gui;
 import cc.thonly.reverie_dreams.block.CashBoxBlock;
 import cc.thonly.reverie_dreams.block.CustomChestBlock;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.util.PredicateSlot;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -23,9 +22,9 @@ import net.minecraft.world.level.block.Block;
 
 public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     public static final List<Item> COIN_ITEMS = new ArrayList<>(List.of(
-            ModItems.COPPER_COIN,
-            ModItems.SILVER_COIN,
-            ModItems.GOLD_COIN
+            RDItems.COPPER_COIN,
+            RDItems.SILVER_COIN,
+            RDItems.GOLD_COIN
     ));
     private final Block block;
     private final CustomChestBlockEntity chestBlockEntity;

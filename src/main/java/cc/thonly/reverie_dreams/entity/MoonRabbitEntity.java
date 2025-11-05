@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
@@ -41,7 +42,7 @@ public class MoonRabbitEntity extends Rabbit {
     }
 
     public MoonRabbitEntity(Level world) {
-        this(ModEntities.MOON_RABBIT_ENTITY_TYPE, world);
+        this(RDEntityTypes.MOON_RABBIT_ENTITY_TYPE, world);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class MoonRabbitEntity extends Rabbit {
 
     @Override
     public @Nullable Rabbit getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
-        return ModEntities.MOON_RABBIT_ENTITY_TYPE.create(serverWorld, EntitySpawnReason.BREEDING);
+        return RDEntityTypes.MOON_RABBIT_ENTITY_TYPE.create(serverWorld, EntitySpawnReason.BREEDING);
     }
 
 }

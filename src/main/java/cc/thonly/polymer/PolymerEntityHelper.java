@@ -1,11 +1,10 @@
 package cc.thonly.polymer;
 
-import cc.thonly.mystias_izakaya.entity.MIEntities;
 import cc.thonly.polymer.entity.*;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.entity.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.util.entity.ModelUtil;
 import de.tomalbrc.bil.core.model.Model;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
@@ -25,30 +24,30 @@ public class PolymerEntityHelper {
     public static final Model MUSHROOM_MONSTER_MODEL = ModelUtil.loadModel(ReverieDreams.id("mushroom_monster"));
 
     public static void bootstrap() {
-        registerOverlay(ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, SunflowerYouseiImpl::new);
-        registerOverlay(ModEntities.YOUSEI_ENTITY_TYPE, YouseiImpl::new);
-        registerOverlay(ModEntities.MAID_YOUSEI_ENTITY_TYPE, MaidYouseiImpl::new);
-        registerOverlay(ModEntities.GHOST_ENTITY_TYPE, NPCImpl::new);
-        registerOverlay(ModEntities.GOBLIN_ENTITY_TYPE, NPCImpl::new);
-        registerOverlay(ModEntities.WATER_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
-        registerOverlay(ModEntities.FIRE_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
-        registerOverlay(ModEntities.ICE_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
-        registerOverlay(ModEntities.BROOM_ENTITY_TYPE, MagicBroomImpl::new);
-        registerOverlay(ModEntities.WHEEL_CHAIR_ENTITY, WheelChairImpl::new);
-        registerOverlay(ModEntities.MOON_RABBIT_ENTITY_TYPE, MoonRabbitImpl::new);
-        registerOverlay(ModEntities.KILLER_BEE_ENTITY_TYPE, KillerBeeImpl::new);
-        registerOverlay(ModEntities.ORE_ESP_ENTITY_TYPE, OreEspImpl::new);
-        registerOverlay(ModEntities.BAGUA_FURNACE_ENTITY, BaguaFurnaceImpl::new);
-        registerOverlay(ModEntities.DANMAKU_ENTITY_TYPE, DanmakuImpl::new);
-        registerOverlay(ModEntities.KNIFE_ENTITY_TYPE, DanmakuImpl::new);
-        registerOverlay(ModEntities.FUMO_SELLER_VILLAGER, VillagerImpl::new);
-        registerOverlay(ModEntities.NPC_ROLE_ENTITY, RoleImpl::new);
-        registerOverlay(ModEntities.HAIRBALL_ENTITY_TYPE, HairballImpl::new);
-        registerOverlay(ModEntities.MUSHROOM_MONSTER_ENTITY_TYPE, MushroomMonsterImpl::new);
-        registerOverlay(MIEntities.WILD_PIG, WildPigImpl::new);
-        registerOverlay(MIEntities.TAVERN_VILLAGER, VillagerImpl::new);
+        registerOverlay(RDEntityTypes.SUNFLOWER_YOUSEI_ENTITY_TYPE, SunflowerYouseiImpl::new);
+        registerOverlay(RDEntityTypes.YOUSEI_ENTITY_TYPE, YouseiImpl::new);
+        registerOverlay(RDEntityTypes.MAID_YOUSEI_ENTITY_TYPE, MaidYouseiImpl::new);
+        registerOverlay(RDEntityTypes.GHOST_ENTITY_TYPE, NPCImpl::new);
+        registerOverlay(RDEntityTypes.GOBLIN_ENTITY_TYPE, NPCImpl::new);
+        registerOverlay(RDEntityTypes.WATER_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
+        registerOverlay(RDEntityTypes.FIRE_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
+        registerOverlay(RDEntityTypes.ICE_ELEMENTAL_ENTITY_TYPE, NPCImpl::new);
+        registerOverlay(RDEntityTypes.BROOM_ENTITY_TYPE, MagicBroomImpl::new);
+        registerOverlay(RDEntityTypes.WHEEL_CHAIR_ENTITY, WheelChairImpl::new);
+        registerOverlay(RDEntityTypes.MOON_RABBIT_ENTITY_TYPE, MoonRabbitImpl::new);
+        registerOverlay(RDEntityTypes.KILLER_BEE_ENTITY_TYPE, KillerBeeImpl::new);
+        registerOverlay(RDEntityTypes.ORE_ESP_ENTITY_TYPE, OreEspImpl::new);
+        registerOverlay(RDEntityTypes.BAGUA_FURNACE_ENTITY, BaguaFurnaceImpl::new);
+        registerOverlay(RDEntityTypes.DANMAKU_ENTITY_TYPE, DanmakuImpl::new);
+        registerOverlay(RDEntityTypes.KNIFE_ENTITY_TYPE, DanmakuImpl::new);
+        registerOverlay(RDEntityTypes.FUMO_SELLER_VILLAGER, VillagerImpl::new);
+        registerOverlay(RDEntityTypes.NPC_ROLE_ENTITY, RoleImpl::new);
+        registerOverlay(RDEntityTypes.HAIRBALL_ENTITY_TYPE, HairballImpl::new);
+        registerOverlay(RDEntityTypes.MUSHROOM_MONSTER_ENTITY_TYPE, MushroomMonsterImpl::new);
+        registerOverlay(RDEntityTypes.WILD_PIG, WildPigImpl::new);
+        registerOverlay(RDEntityTypes.TAVERN_VILLAGER, VillagerImpl::new);
 
-        for (NPCRole role : RegistryManager.NPC_ROLE) {
+        for (NPCRole role : RegistryHandlers.NPC_ROLE) {
             registerOverlay(role.getEntityType(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);
         }
 

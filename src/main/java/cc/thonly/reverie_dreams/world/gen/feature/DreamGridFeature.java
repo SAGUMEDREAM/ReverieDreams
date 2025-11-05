@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -23,7 +23,7 @@ public class DreamGridFeature extends Feature<DreamGridFeatureConfig> {
         for (int y = world.getMinY(); y < world.getHeight(); y++) {
             if (y % 16 == 0) {
                 BlockPos pos = origin.atY(y);
-                Block colorBlock = (y / 16 % 2 == 0) ? ModBlocks.DREAM_RED_BLOCK : ModBlocks.DREAM_BLUE_BLOCK;
+                Block colorBlock = (y / 16 % 2 == 0) ? RDBlocks.DREAM_RED_BLOCK : RDBlocks.DREAM_BLUE_BLOCK;
                 for (int i = 0; i < 16; i++) {
                     world.setBlock(pos.west(i), colorBlock.defaultBlockState(), Block.UPDATE_KNOWN_SHAPE);
                 }

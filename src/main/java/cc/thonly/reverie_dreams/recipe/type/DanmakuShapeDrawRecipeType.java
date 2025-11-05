@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
@@ -117,7 +117,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
         for (DanmakuShapeDrawRecipe recipe : stream().toList()) {
             ItemStackWrapper outputWrapper = recipe.getOutput();
             ItemStack itemStack = outputWrapper.getItemStack();
-            ItemStackWrapper itemStackWrapper = itemStack.get(ModDataComponentTypes.DANMAKU_SHAPE);
+            ItemStackWrapper itemStackWrapper = itemStack.get(RDDataComponentTypes.DANMAKU_SHAPE);
             if (itemStackWrapper == null) {
                 continue;
             }

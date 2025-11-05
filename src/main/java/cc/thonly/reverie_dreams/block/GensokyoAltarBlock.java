@@ -1,11 +1,12 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
-import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
+import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.gui.recipe.block.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -116,7 +117,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
     }
 
     public boolean canUse(Level world, BlockPos center) {
-        Block blockType = ModBlocks.SPIRITUAL.strippedLog();
+        Block blockType = RDWoodBlocks.SPIRITUAL.strippedLog();
 
         for (int dy = 0; dy <= 2; dy++) {
             for (int i = 0; i < OFFSETS.length; i++) {
@@ -135,7 +136,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.GENSOKYO_ALTAR_BLOCK_ENTITY, GensokyoAltarBlockEntity::tick);
+        return createTickerHelper(type, RDBlockEntityTypes.GENSOKYO_ALTAR_BLOCK_ENTITY, GensokyoAltarBlockEntity::tick);
     }
 
     @Override

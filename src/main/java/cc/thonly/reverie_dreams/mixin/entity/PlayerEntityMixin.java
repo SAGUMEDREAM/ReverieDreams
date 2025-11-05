@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.effect.ModStatusEffects;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.entity.GhostEntity;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.interfaces.IPlayerEntity;
@@ -40,7 +40,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     @Unique
     private boolean sleep = false;
     @Unique
-    private static final Holder<MobEffect> MENTAL_DISORDER = ModStatusEffects.MENTAL_DISORDER;
+    private static final Holder<MobEffect> MENTAL_DISORDER = RDStatusEffects.MENTAL_DISORDER;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
@@ -79,7 +79,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
                 this.nonSleepingTime++;
             } else if (serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST)){
                 this.trySpawnGhost();
-                this.addEffect(new MobEffectInstance(ModStatusEffects.MENTAL_DISORDER, 20 * 60 * 5));
+                this.addEffect(new MobEffectInstance(RDStatusEffects.MENTAL_DISORDER, 20 * 60 * 5));
                 DelayedTask.whenTick(server, () -> this.sleep, 20 * 60 * 2, this::trySpawnGhost, () -> {
 
                 });

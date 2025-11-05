@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
+import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import lombok.Getter;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.server.level.ServerLevel;

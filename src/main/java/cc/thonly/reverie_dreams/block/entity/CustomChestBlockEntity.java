@@ -21,7 +21,7 @@ public class CustomChestBlockEntity extends BlockEntity implements WorldlyContai
     private SimpleContainer inventory = new SimpleContainer(27);
 
     public CustomChestBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.CUSTOM_CHEST_BLOCK_ENTITY, pos, state);
+        super(RDBlockEntityTypes.CUSTOM_CHEST_BLOCK_ENTITY, pos, state);
     }
 
     @Override

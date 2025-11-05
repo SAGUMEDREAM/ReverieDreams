@@ -6,9 +6,9 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class EmptyEffect extends MobEffect implements PolymerStatusEffect {
+public class EmptyEffect extends MobEffect {
 
-    protected EmptyEffect() {
+    public EmptyEffect() {
         super(MobEffectCategory.BENEFICIAL, 16262179);
     }
 

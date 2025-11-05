@@ -6,9 +6,9 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class MentalDisorder extends MobEffect implements PolymerStatusEffect {
+public class MentalDisorder extends MobEffect {
 
-    protected MentalDisorder() {
+    public MentalDisorder() {
         super(MobEffectCategory.NEUTRAL, 16262179);
     }
 

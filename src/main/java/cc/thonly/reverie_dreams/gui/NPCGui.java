@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.gui;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCStates;
-import cc.thonly.reverie_dreams.entity.npc.NPCWorkMode;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
+import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                 String posChar = GRID[row][col];
                 if (posChar.equalsIgnoreCase("X")) {
                     this.setSlot(slotIndex, new GuiElementBuilder()
-                            .setItem(ModGuiItems.EMPTY_SLOT));
+                            .setItem(RDGuiItems.EMPTY_SLOT));
                 }
                 if (posChar.equalsIgnoreCase("Q")) {
                     this.npcName = new GuiElementBuilder()

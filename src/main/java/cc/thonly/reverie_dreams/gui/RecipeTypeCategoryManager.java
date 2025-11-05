@@ -1,16 +1,16 @@
 package cc.thonly.reverie_dreams.gui;
 
-import cc.thonly.mystias_izakaya.block.MIBlocks;
-import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
-import cc.thonly.mystias_izakaya.recipe.type.KitchenRecipeType;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
+import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGetter;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
 import cc.thonly.reverie_dreams.gui.recipe.display.*;
 import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
@@ -90,7 +90,7 @@ public class RecipeTypeCategoryManager {
 
     @SuppressWarnings("unchecked")
     public static void registerCategories() {
-        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(ModItems.POWER), DANMAKU_TABLE_ICON, BasePageGui.class,
+        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(RDItems.POWER), DANMAKU_TABLE_ICON, BasePageGui.class,
                 DanmakuTableDisplayView.class,
                 DanmakuRecipeType::getInstance,
                 ((gui, slotIndex) -> {
@@ -109,7 +109,7 @@ public class RecipeTypeCategoryManager {
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
-        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(ModItems.DANMAKU_SHAPE_CREATOR), DANMAKU_SHAPE_ICON, BasePageGui.class,
+        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(RDItems.DANMAKU_SHAPE_CREATOR), DANMAKU_SHAPE_ICON, BasePageGui.class,
                 DanmakuShapeDisplayView.class,
                 DanmakuShapeDrawRecipeType::getInstance,
                 ((gui, slotIndex) -> {
@@ -128,7 +128,7 @@ public class RecipeTypeCategoryManager {
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
-        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(ModBlocks.GENSOKYO_ALTAR), GENSOKYO_ALTAR_ICON, BasePageGui.class,
+        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(RDBlocks.GENSOKYO_ALTAR), GENSOKYO_ALTAR_ICON, BasePageGui.class,
                 GensokyoAltarDisplayView.class,
                 GensokyoAltarRecipeType::getInstance,
                 ((gui, slotIndex) -> {
@@ -147,7 +147,7 @@ public class RecipeTypeCategoryManager {
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
-        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(ModBlocks.STRENGTH_TABLE), STRENGTH_TABLE_ICON, BasePageGui.class,
+        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(RDBlocks.STRENGTH_TABLE), STRENGTH_TABLE_ICON, BasePageGui.class,
                 StrengthTableDisplayView.class,
                 StrengthTableRecipeType::getInstance,
                 ((gui, slotIndex) -> {
@@ -166,7 +166,7 @@ public class RecipeTypeCategoryManager {
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
-        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(MIBlocks.COOKING_POT), KITCHEN_ICON, BasePageGui.class,
+        addCategoryType(new RecipeTypeGuiInfo<>(new ItemStack(KitchenBlocks.COOKING_POT), KITCHEN_ICON, BasePageGui.class,
                 KitchenBlockDisplayView.class,
                 KitchenRecipeType::getInstance,
                 ((gui, slotIndex) -> {

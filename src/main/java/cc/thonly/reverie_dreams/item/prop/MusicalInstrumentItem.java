@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
@@ -46,12 +46,12 @@ public class MusicalInstrumentItem extends Item {
                     return InteractionResult.SUCCESS;
                 }
 
-                String playingMusic = stack.getOrDefault(ModDataComponentTypes.PLAYING_MUSIC, null);
+                String playingMusic = stack.getOrDefault(RDDataComponentTypes.PLAYING_MUSIC, null);
                 int index = playingMusic == null ? -1 : fileNames.indexOf(playingMusic);
                 index = (index - 1 + fileNames.size()) % fileNames.size(); // 向上翻页
 
                 String previous = fileNames.get(index);
-                stack.set(ModDataComponentTypes.PLAYING_MUSIC, previous);
+                stack.set(RDDataComponentTypes.PLAYING_MUSIC, previous);
                 player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", previous), false);
                 player.swing(hand);
 
@@ -81,14 +81,14 @@ public class MusicalInstrumentItem extends Item {
             return InteractionResult.FAIL;
         }
 
-        String playingMusic = itemStack.getOrDefault(ModDataComponentTypes.PLAYING_MUSIC, null);
-        NoteBlockInstrument noteBlockInstrument = itemStack.getOrDefault(ModDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.PLING);
+        String playingMusic = itemStack.getOrDefault(RDDataComponentTypes.PLAYING_MUSIC, null);
+        NoteBlockInstrument noteBlockInstrument = itemStack.getOrDefault(RDDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.PLING);
 
         if (isSneaking) {
             int index = playingMusic == null ? -1 : fileNames.indexOf(playingMusic);
             index = (index + 1) % fileNames.size();
             String next = fileNames.get(index);
-            itemStack.set(ModDataComponentTypes.PLAYING_MUSIC, next);
+            itemStack.set(RDDataComponentTypes.PLAYING_MUSIC, next);
             if (user instanceof ServerPlayer player) {
                 player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", next), false);
             }
@@ -112,10 +112,10 @@ public class MusicalInstrumentItem extends Item {
                             ItemStack mainHandStack = e.getMainHandItem();
                             ItemStack offHandStack = e.getOffhandItem();
                             if (mainHandStack.getItem() instanceof MusicalInstrumentItem) {
-                                mainHandStack.set(ModDataComponentTypes.PLAYING_MUSIC, playingMusic);
+                                mainHandStack.set(RDDataComponentTypes.PLAYING_MUSIC, playingMusic);
                                 this.useByEntity(world, e, InteractionHand.MAIN_HAND);
                             } else if (offHandStack.getItem() instanceof MusicalInstrumentItem) {
-                                offHandStack.set(ModDataComponentTypes.PLAYING_MUSIC, playingMusic);
+                                offHandStack.set(RDDataComponentTypes.PLAYING_MUSIC, playingMusic);
                                 this.useByEntity(world, e, InteractionHand.OFF_HAND);
                             }
                         }

@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.compat;
 
 import cc.thonly.polydex2eiv.api.ItemViewServerModifier;
-import cc.thonly.reverie_dreams.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Polydex2EIVCompatImpl {
     ) {
         ItemViewServerModifier.MODIFIER.register(() -> {
             List<ItemStack> stacks = new ArrayList<>();
-            Collection<DanmakuType> danmakuTypes = RegistryManager.DANMAKU_TYPE.values();
+            Collection<DanmakuType> danmakuTypes = RegistryHandlers.DANMAKU_TYPE.values();
             for (DanmakuType danmakuType : danmakuTypes) {
                 List<Tuple<Item, ItemStack>> pairs = danmakuType.getColorPairs();
                 for (Tuple<Item, ItemStack> pair : pairs) {
@@ -28,7 +29,7 @@ public class Polydex2EIVCompatImpl {
             Collection<ItemStack> spellCardTemplates = DanmakuTemplates.getRegistryItemStackView().values();
             stacks.addAll(spellCardTemplates);
 
-            Collection<RoleCard> roleCards = RegistryManager.ROLE_CARD.values();
+            Collection<RoleCard> roleCards = RegistryHandlers.ROLE_CARD.values();
             for (RoleCard instance : roleCards) {
                 stacks.add(instance.itemStack());
             }

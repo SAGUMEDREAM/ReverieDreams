@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
 public class SwordOfHisou extends SwordItem {
-    public static final ToolMaterial HISOU = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 1561, 8.0f, 4.5f, 10, ModTags.ItemTypeTag.PEACH);
+    public static final ToolMaterial HISOU = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 4.5f, 10, RDItemTags.PEACH);
 
     public SwordOfHisou(float attackDamage, float attackSpeed, Properties settings) {
         super(HISOU, attackDamage, attackSpeed, settings);

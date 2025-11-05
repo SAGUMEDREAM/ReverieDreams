@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.command;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +30,7 @@ public class SuggestionProvidersMixin {
         if (Objects.equals(id, ResourceLocation.withDefaultNamespace("summonable_entities"))) {
             provider = (context, builder) -> SharedSuggestionProvider.suggestResource(BuiltInRegistries.ENTITY_TYPE.stream().filter(entityType -> {
                 boolean a = entityType.isEnabled(context.getSource().enabledFeatures()) && entityType.canSummon();
-                boolean b = !RegistryManager.NPC_ROLE.stream().map(NPCRole::getEntityType).toList().contains(entityType);
+                boolean b = !RegistryHandlers.NPC_ROLE.stream().map(NPCRole::getEntityType).toList().contains(entityType);
                 return a && b;
             }), builder, EntityType::getKey, EntityType::getDescription);
             SuggestionProvider<SharedSuggestionProvider> suggestionProvider = PROVIDERS_BY_NAME.putIfAbsent(id, provider);

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.danmaku.SpellcardRenderer;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -26,7 +26,7 @@ public class SpellcardItem extends Item {
         ItemCooldowns cooldowns = player.getCooldowns();
         if (level instanceof ServerLevel world) {
             ItemStack itemStack = player.getItemInHand(hand);
-            SpellcardRenderer renderer = itemStack.get(ModDataComponentTypes.SPELL_CARD_COMPONENT);
+            SpellcardRenderer renderer = itemStack.get(RDDataComponentTypes.SPELL_CARD_COMPONENT);
             if (renderer == null) {
                 return InteractionResult.PASS;
             }

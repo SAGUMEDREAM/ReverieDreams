@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
@@ -18,7 +19,7 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
 public class HoraiDamaNoEdaItem extends SwordItem {
-    public static final ToolMaterial HORAI_DAMA_NO_EDA = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 300, 4.5f, 3.5f, 5, ModTags.ItemTypeTag.ORB_BLOCK);
+    public static final ToolMaterial HORAI_DAMA_NO_EDA = new ToolMaterial(RDBlockTags.EMPTY, 300, 4.5f, 3.5f, 5, RDItemTags.ORB_BLOCK);
 
     public HoraiDamaNoEdaItem(float attackDamage, float attackSpeed, Properties settings) {
         super(HORAI_DAMA_NO_EDA, attackDamage + 1f, attackSpeed - 2.4f, settings);

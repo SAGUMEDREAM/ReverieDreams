@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.MobDanmakuShooter;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,22 +18,22 @@ import java.util.EnumSet;
 @Setter
 @ToString
 public class DanmakuGoal extends Goal {
-    public static final MobDanmakuShooter DEFAULT_MOB_DANMAKU_FIRE_LAUNCHER = MobDanmakuShooter.DEFAULT;
+    public static final DanmakuShooter DEFAULT_MOB_DANMAKU_FIRE_LAUNCHER = DanmakuShooter.DEFAULT;
     private final LivingEntity self;
     private final Mob mob;
     @Nullable
     private LivingEntity attackTarget;
-    private final MobDanmakuShooter launcher;
+    private final DanmakuShooter launcher;
 
     private final int minDelayTicks;
     private final int maxDelayTicks;
     private int updateCountdownTicks = -1;
 
-    public DanmakuGoal(LivingEntity self, @Nullable MobDanmakuShooter launcher) {
+    public DanmakuGoal(LivingEntity self, @Nullable DanmakuShooter launcher) {
         this(self, launcher, 20, 20 * 3);
     }
 
-    public DanmakuGoal(LivingEntity self, @Nullable MobDanmakuShooter launcher, int minDelayTicks, int maxDelayTicks) {
+    public DanmakuGoal(LivingEntity self, @Nullable DanmakuShooter launcher, int minDelayTicks, int maxDelayTicks) {
         this.self = self;
         this.mob = (Mob) self;
         this.launcher = launcher != null ? launcher : DEFAULT_MOB_DANMAKU_FIRE_LAUNCHER;
@@ -88,7 +88,7 @@ public class DanmakuGoal extends Goal {
             return;
         }
 
-        float[] pitchYaw = MobDanmakuShooter.getPitchYaw(this.self, this.attackTarget);
+        float[] pitchYaw = DanmakuShooter.getPitchYaw(this.self, this.attackTarget);
         this.mob.getLookControl().setLookAt(this.attackTarget);
         this.mob.setXRot(pitchYaw[0]);
         this.mob.setYRot(pitchYaw[1]);

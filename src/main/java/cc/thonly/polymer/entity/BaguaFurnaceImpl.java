@@ -2,7 +2,7 @@ package cc.thonly.polymer.entity;
 
 import cc.thonly.reverie_dreams.entity.misc.BaguaFurnaceEntity;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.tracker.DisplayTrackedData;
 import org.joml.Quaternionf;
@@ -51,7 +51,7 @@ public record BaguaFurnaceImpl(BaguaFurnaceEntity baguaFurnaceEntity) implements
                 data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.LEFT_ROTATION, new Quaternionf().rotateX(Mth.HALF_PI)));
             }
 
-            data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.Item.ITEM, ModItems.BAGUA_FURNACE.getDefaultInstance()));
+            data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.Item.ITEM, RDItems.BAGUA_FURNACE.getDefaultInstance()));
             data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.Item.ITEM_DISPLAY, ItemDisplayContext.GROUND.getId()));
         }
     }

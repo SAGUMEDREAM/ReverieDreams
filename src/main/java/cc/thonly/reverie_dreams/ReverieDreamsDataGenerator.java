@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams;
 
-import cc.thonly.mystias_izakaya.datagen.MICraftingConflictProvider;
-import cc.thonly.mystias_izakaya.datagen.MIDrinkProvider;
-import cc.thonly.mystias_izakaya.datagen.MIIngredientProvider;
+import cc.thonly.reverie_dreams.datagen.CraftingConflictProvider;
+import cc.thonly.reverie_dreams.datagen.DrinkProvider;
+import cc.thonly.reverie_dreams.datagen.IngredientProvider;
 import cc.thonly.reverie_dreams.datagen.*;
 import cc.thonly.reverie_dreams.world.dimension.DimensionInit;
 import cc.thonly.reverie_dreams.world.dimension.DimensionTypeInit;
@@ -21,27 +21,27 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-        pack.addProvider(ModSimpChineseLangProvider::new);
-        pack.addProvider(ModItemTagProvider::new);
-        pack.addProvider(ModBlockTagProvider::new);
-        pack.addProvider(ModPointOfInterestTypeProvider::new);
-        pack.addProvider(ModEntityTagProvider::new);
-        pack.addProvider(ModModelProvider::new);
-        pack.addProvider(ModRecipeProvider::new);
-        pack.addProvider(ModBlockLootTableProvider::new);
-        pack.addProvider(ModChestLootTableProvider::new);
-        pack.addProvider(ModEntityLootTableProvider::new);
-        pack.addProvider(ModEquipmentAssetProvider::new);
-        pack.addProvider(ModJukeboxProvider::new);
-        pack.addProvider(ModSoundProvider::new);
-        pack.addProvider(ModRecipeTypeProvider::new);
-        pack.addProvider(ModDynamicRegistryProvider::new);
-        pack.addProvider(ModSkinConfigProvider::new);
-        pack.addProvider(ModJsonElementWriterProvider::new);
+        pack.addProvider(SimpChineseLangProvider::new);
+        pack.addProvider(ItemTagProvider::new);
+        pack.addProvider(BlockTagProvider::new);
+        pack.addProvider(PointOfInterestTypeProvider::new);
+        pack.addProvider(EntityTagProvider::new);
+        pack.addProvider(ModelProvider::new);
+        pack.addProvider(RecipeProvider::new);
+        pack.addProvider(BlockLootTableProvider::new);
+        pack.addProvider(ChestLootTableProvider::new);
+        pack.addProvider(EntityLootTableProvider::new);
+        pack.addProvider(EquipmentAssetProvider::new);
+        pack.addProvider(JukeboxProvider::new);
+        pack.addProvider(SoundProvider::new);
+        pack.addProvider(RecipeTypeProvider::new);
+        pack.addProvider(AbstractDynamicRegistryProvider::new);
+        pack.addProvider(SkinConfigProvider::new);
+        pack.addProvider(JsonElementWriterProvider::new);
 
-        pack.addProvider(MIIngredientProvider::new);
-        pack.addProvider(MIDrinkProvider::new);
-        pack.addProvider(MICraftingConflictProvider::new);
+        pack.addProvider(IngredientProvider::new);
+        pack.addProvider(DrinkProvider::new);
+        pack.addProvider(CraftingConflictProvider::new);
     }
 
     @Override

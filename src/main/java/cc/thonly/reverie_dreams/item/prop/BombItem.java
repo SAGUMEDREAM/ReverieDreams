@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class BombItem extends Item {
             List<Entity> nearbyEntities = serverWorld.getEntitiesOfClass(Entity.class, user.getBoundingBox().inflate(20), entity -> true);
             List<Entity> nearbyDanmaku = nearbyEntities.stream().filter((entity -> entity instanceof DanmakuEntity danmakuEntity && danmakuEntity.getOwner() != user)).toList();
             List<Entity> sign = new ArrayList<>();
-            ItemParticleOption ispe = new ItemParticleOption(ParticleTypes.ITEM, ModItems.BOMB_FRAGMENT.getDefaultInstance());
+            ItemParticleOption ispe = new ItemParticleOption(ParticleTypes.ITEM, RDItems.BOMB_FRAGMENT.getDefaultInstance());
             serverWorld.sendParticles(
                     ispe,
                     user.getX(),
@@ -59,7 +59,7 @@ public class BombItem extends Item {
                                     danmakuEntity.getX(),
                                     danmakuEntity.getY(),
                                     danmakuEntity.getZ(),
-                                    new ItemStack(ModItems.POINT)
+                                    new ItemStack(RDItems.POINT)
                             )
                     );
                 }
@@ -68,7 +68,7 @@ public class BombItem extends Item {
                     double xOffset = radius * Math.cos(angle);
                     double zOffset = radius * Math.sin(angle);
 
-                    ItemParticleOption itemStackParticleEffect = new ItemParticleOption(ParticleTypes.ITEM, ModItems.POINT.getDefaultInstance());
+                    ItemParticleOption itemStackParticleEffect = new ItemParticleOption(ParticleTypes.ITEM, RDItems.POINT.getDefaultInstance());
                     serverWorld.sendParticles(
                             itemStackParticleEffect,
                             pos.x,
@@ -96,7 +96,7 @@ public class BombItem extends Item {
                                 user.getX(),
                                 user.getY(),
                                 user.getZ(),
-                                new ItemStack(ModItems.POINT)
+                                new ItemStack(RDItems.POINT)
                         )
                 );
             }

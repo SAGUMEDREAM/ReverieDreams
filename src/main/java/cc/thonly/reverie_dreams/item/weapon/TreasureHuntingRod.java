@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.entity.ModEntities;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
@@ -30,7 +30,7 @@ import java.util.List;
 
 public class TreasureHuntingRod extends SwordItem {
     public static final List<TagKey<Block>> ORE_BLOCK_TAGS = new ArrayList<>();
-    public static final ToolMaterial MATERIAL = new ToolMaterial(ModTags.BlockTypeTag.EMPTY, 300, 4.0f, 4.5f, 5, ItemTags.DIAMOND_TOOL_MATERIALS);
+    public static final ToolMaterial MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 300, 4.0f, 4.5f, 5, ItemTags.DIAMOND_TOOL_MATERIALS);
 
     static {
         ORE_BLOCK_TAGS.add(BlockTags.GOLD_ORES);
@@ -99,7 +99,7 @@ public class TreasureHuntingRod extends SwordItem {
                     ).append(" ").append(Component.translatable(closestOreBlock.getDescriptionId()));
 
 //                    entity.sendMessage(message, false);
-                    OreEspEntity oreEspEntity = ModEntities.ORE_ESP_ENTITY_TYPE.create(world, EntitySpawnReason.EVENT);
+                    OreEspEntity oreEspEntity = RDEntityTypes.ORE_ESP_ENTITY_TYPE.create(world, EntitySpawnReason.EVENT);
                     if (oreEspEntity != null) {
                         oreEspEntity.setBlockState(world.getBlockState(closestOrePos));
                         oreEspEntity.setPos(new Vec3(closestOrePos));

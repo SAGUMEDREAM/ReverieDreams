@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.mixin;
 
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

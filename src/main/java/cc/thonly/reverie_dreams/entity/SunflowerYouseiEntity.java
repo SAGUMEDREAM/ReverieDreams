@@ -1,13 +1,16 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.mystias_izakaya.item.MIItems;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.skin.SkinType;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
+import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.util.entity.ModelUtil;
 import de.tomalbrc.bil.core.model.Model;
@@ -54,11 +57,11 @@ public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashabl
 
         this.goalSelector.addGoal(3, new DanmakuGoal(this, (self, target, world) -> {
             ItemStack stack = DanmakuTypes.random(DanmakuTypes.BUBBLE);
-            float[] pitchYaw = MobDanmakuShooter.getPitchYaw(self, target);
+            float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
             DelayedTask.repeat(world.getServer(), 2, 0.8f, () -> {
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
             });
         }));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 10.0f));
@@ -76,7 +79,7 @@ public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashabl
         int i = this.random.nextIntBetweenInclusive(1, 9);
         if (i<=3) {
             Level world = this.level();
-            ItemStack itemStack = new ItemStack(MIItems.MOONFLOWER, this.random.nextIntBetweenInclusive(1,2));
+            ItemStack itemStack = new ItemStack(RDIngredientItems.MOONFLOWER, this.random.nextIntBetweenInclusive(1,2));
             ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), itemStack);
             world.addFreshEntity(itemEntity);
         }

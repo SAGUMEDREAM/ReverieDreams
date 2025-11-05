@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class StrengthenTableBlock extends BaseEntityBlock {
 
-    protected StrengthenTableBlock(Properties settings) {
+    public StrengthenTableBlock(Properties settings) {
         super(settings);
     }
 

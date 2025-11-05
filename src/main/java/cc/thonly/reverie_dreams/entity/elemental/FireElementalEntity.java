@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.entity.elemental;
 
+import cc.thonly.reverie_dreams.entity.interfaces.ElementalMob;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;

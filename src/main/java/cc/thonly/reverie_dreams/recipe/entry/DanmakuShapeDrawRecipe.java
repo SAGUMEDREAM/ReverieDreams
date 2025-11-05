@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.recipe.entry;
 
-import cc.thonly.reverie_dreams.danmaku.DanmakuShape;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;

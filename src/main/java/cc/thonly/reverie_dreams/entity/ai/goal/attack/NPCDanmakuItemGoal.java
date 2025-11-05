@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.entity.MobDanmakuShooter;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
@@ -85,7 +85,7 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
             this.stop();
             return;
         }
-        float[] pitchYaw = MobDanmakuShooter.getPitchYaw(this.actor, target);
+        float[] pitchYaw = DanmakuShooter.getPitchYaw(this.actor, target);
         this.actor.getLookControl().setLookAt(target);
         this.actor.setXRot(pitchYaw[0]);
         this.actor.setYRot(pitchYaw[1]);
@@ -105,7 +105,7 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
             Level world = this.actor.level();
             if (world instanceof ServerLevel serverWorld) {
                 ItemStack itemStack = this.actor.getMainHandItem();
-                DanmakuProperties properties = itemStack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+                DanmakuProperties properties = itemStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
                 if (properties == null) {
                     return;
                 }

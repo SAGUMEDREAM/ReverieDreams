@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.gui.recipe.GuiStackBuilder;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeInfo;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -32,9 +32,9 @@ public class BasePageGui extends SimpleGui {
             {"P", "W", "W", "W", "B", "W", "W", "W", "N"},
     };
     public static final int PER_PAGE_SIZE = 5 * 9;
-    public final GuiElementBuilder back = new GuiElementBuilder(ModGuiItems.BACK).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
-    public final GuiElementBuilder next = new GuiElementBuilder(ModGuiItems.NEXT).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
-    public final GuiElementBuilder prev = new GuiElementBuilder(ModGuiItems.PREV).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
+    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiItems.BACK).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
+    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
+    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
     public int page = 0;
     public final int maxSize;
     public final List<GuiElementBuilder> displayList = new LinkedList<>();
@@ -82,7 +82,7 @@ public class BasePageGui extends SimpleGui {
                     this.setSlot(slot, this.prev);
                 }
                 if (c.equalsIgnoreCase("W")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(ModGuiItems.EMPTY_SLOT));
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiItems.EMPTY_SLOT));
                 }
             }
         }

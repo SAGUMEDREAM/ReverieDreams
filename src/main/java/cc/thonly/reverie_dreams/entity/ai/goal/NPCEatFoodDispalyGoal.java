@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.mystias_izakaya.block.entity.ItemStackDisplayBlockEntity;
+import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
@@ -36,7 +36,7 @@ public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
     }
 
     private boolean isFoodDisplay(LevelReader world, BlockPos pos) {
-        if (world.getBlockEntity(pos) instanceof ItemStackDisplayBlockEntity isdBlockEntity) {
+        if (world.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity) {
             ItemStackWrapper item = isdBlockEntity.getItem();
             return ((IItemStack) (Object) item.getItemStack()).isFood();
         }
@@ -68,7 +68,7 @@ public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
         Level world = maid.level();
         if (getServerLevel(world).getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
             if (isFoodDisplay(world, this.blockPos)) {
-                ItemStackDisplayBlockEntity displayBlockEntity = (ItemStackDisplayBlockEntity) world.getBlockEntity(blockPos);
+                FoodDisplayBlockEntity displayBlockEntity = (FoodDisplayBlockEntity) world.getBlockEntity(blockPos);
                 ItemStackWrapper item = displayBlockEntity.getItem();
                 DataComponentMap components = item.getItemStack().getComponents();
                 FoodProperties foodComponent = components.get(DataComponents.FOOD);

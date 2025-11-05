@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.world.gen.feature.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -84,21 +84,21 @@ public class ConfigurationFeatureInit {
         RuleTest endOreReplaceables = new BlockMatchTest(Blocks.END_STONE);
 
         List<OreConfiguration.TargetBlockState> overworldSilverTargets = List.of(
-                OreConfiguration.target(stoneReplaceables, ModBlocks.SILVER_ORE.defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_SILVER_ORE.defaultBlockState()));
+                OreConfiguration.target(stoneReplaceables, RDBlocks.SILVER_ORE.defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, RDBlocks.DEEPSLATE_SILVER_ORE.defaultBlockState()));
         List<OreConfiguration.TargetBlockState> overworldOrbTargets = List.of(
-                OreConfiguration.target(stoneReplaceables, ModBlocks.ORB_ORE.defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_ORB_ORE.defaultBlockState()));
+                OreConfiguration.target(stoneReplaceables, RDBlocks.ORB_ORE.defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, RDBlocks.DEEPSLATE_ORB_ORE.defaultBlockState()));
         List<OreConfiguration.TargetBlockState> netherSaltTargets = List.of(
-                OreConfiguration.target(netherOreReplaceables, MIBlocks.BLACK_SALT_BLOCK.defaultBlockState())
+                OreConfiguration.target(netherOreReplaceables, RDBlocks.BLACK_SALT_BLOCK.defaultBlockState())
         );
 
         // 树木
         context.register(SPIRITUAL_TREE_KEY, new ConfiguredFeature<>(Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
-                        BlockStateProvider.simple(ModBlocks.SPIRITUAL.log()),
+                        BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL.log()),
                         new StraightTrunkPlacer(4, 2, 1),
-                        BlockStateProvider.simple(ModBlocks.SPIRITUAL.leaves()),
+                        BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL.leaves()),
                         new BlobFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -106,11 +106,11 @@ public class ConfigurationFeatureInit {
 
         context.register(LEMON_TREE_KEY, new ConfiguredFeature<>(Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
-                        BlockStateProvider.simple(MIBlocks.LEMON.log()),
+                        BlockStateProvider.simple(RDWoodBlocks.LEMON.log()),
                         new BendingTrunkPlacer(2, 1, 2, 2, UniformInt.of(1, 1)),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(MIBlocks.LEMON.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                .add(MIBlocks.LEMON_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                .add(RDWoodBlocks.LEMON.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                .add(RDWoodBlocks.LEMON_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -118,11 +118,11 @@ public class ConfigurationFeatureInit {
 
         context.register(GINKGO_TREE_KEY, new ConfiguredFeature<>(Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
-                        BlockStateProvider.simple(MIBlocks.LEMON.log()),
+                        BlockStateProvider.simple(RDWoodBlocks.LEMON.log()),
                         new StraightTrunkPlacer(3, 1, 0),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(MIBlocks.GINKGO.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                .add(MIBlocks.GINKGO_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                .add(RDWoodBlocks.GINKGO.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                .add(RDWoodBlocks.GINKGO_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -130,11 +130,11 @@ public class ConfigurationFeatureInit {
 
         context.register(PEACH_TREE_KEY, new ConfiguredFeature<>(Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
-                        BlockStateProvider.simple(MIBlocks.PEACH.log()),
+                        BlockStateProvider.simple(RDWoodBlocks.PEACH.log()),
                         new StraightTrunkPlacer(2, 1, 1),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(MIBlocks.PEACH.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                .add(MIBlocks.PEACH_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                .add(RDWoodBlocks.PEACH.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                .add(RDWoodBlocks.PEACH_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -157,13 +157,13 @@ public class ConfigurationFeatureInit {
         context.register(UDUMBARA_FLOWER_KEY, new ConfiguredFeature<>(Feature.FLOWER,
                 new RandomPatchConfiguration(32, 4, 1,
                         PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                                new SimpleBlockConfiguration(BlockStateProvider.simple(MIBlocks.UDUMBARA_FLOWER)))
+                                new SimpleBlockConfiguration(BlockStateProvider.simple(RDWoodBlocks.UDUMBARA_FLOWER)))
                 )
         ));
         context.register(TREMELLA_KEY, new ConfiguredFeature<>(Feature.FLOWER,
                 new RandomPatchConfiguration(32, 5, 2,
                         PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                                new SimpleBlockConfiguration(BlockStateProvider.simple(MIBlocks.TREMELLA)))
+                                new SimpleBlockConfiguration(BlockStateProvider.simple(RDWoodBlocks.TREMELLA)))
                 )
         ));
 
@@ -195,11 +195,11 @@ public class ConfigurationFeatureInit {
         ));
 
         context.register(FLOATING_DREAM_STONE_KEY, new ConfiguredFeature<>(FLOATING_SPHERE,
-                new FloatingSphereFeatureConfig(BuiltInRegistries.BLOCK.getKey(ModBlocks.DREAM_STONE.block()), 2, 7, 25, 120, 32)
+                new FloatingSphereFeatureConfig(BuiltInRegistries.BLOCK.getKey(RDBlocks.DREAM_STONE.block()), 2, 7, 25, 120, 32)
         ));
 
         context.register(FLOATING_DREAM_CRYSTAL_KEY, new ConfiguredFeature<>(FLOATING_SPHERE,
-                new FloatingSphereFeatureConfig(BuiltInRegistries.BLOCK.getKey(ModBlocks.DREAM_CRYSTAL_ORE), 0, 1, 60, 128, 32)
+                new FloatingSphereFeatureConfig(BuiltInRegistries.BLOCK.getKey(RDBlocks.DREAM_CRYSTAL_ORE), 0, 1, 60, 128, 32)
         ));
 
         context.register(FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY, new ConfiguredFeature<>(DREAM_TRIAL_ROOM,

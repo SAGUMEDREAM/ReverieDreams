@@ -17,7 +17,6 @@
     "main": [
       "nota.Nota",
       "cc.thonly.reverie_dreams.ReverieDreams",
-      "cc.thonly.mystias_izakaya.MystiasIzakaya",
       "cc.thonly.reverie_dreams.debug.DebugExportInit",
       "cc.thonly.reverie_dreams.LateLoaderInit"
     ],

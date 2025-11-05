@@ -1,14 +1,12 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.effect.ModStatusEffects;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
 import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
 import cc.thonly.reverie_dreams.interfaces.IWorld;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
-import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
-import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.core.BlockPos;
@@ -239,7 +237,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
-        if (this.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE)) {
+        if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE)) {
             if (this.deathCount == 1) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 0));
             }
@@ -348,7 +346,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                 this.getItemBySlot(EquipmentSlot.LEGS),
                 this.getItemBySlot(EquipmentSlot.FEET)
         );
-        Stream<Item> itemStream = armorStacks.stream().filter(stack -> stack.is(ModTags.ItemTypeTag.DREAM_ARMOR)).map(ItemStack::getItem).filter(item -> item instanceof DreamArmorItem);
+        Stream<Item> itemStream = armorStacks.stream().filter(stack -> stack.is(RDItemTags.DREAM_ARMOR)).map(ItemStack::getItem).filter(item -> item instanceof DreamArmorItem);
         if (!itemStream.toList().isEmpty()) {
             RandomSource random = RandomSource.create();
             if (random.nextIntBetweenInclusive(0, 100) < 39) {
@@ -371,7 +369,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         if (this.kanjuWorld == null) {
             return false;
         }
-        if (this.kanjuWorld instanceof ServerLevel serverWorld && this.hasEffect(ModStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
+        if (this.kanjuWorld instanceof ServerLevel serverWorld && this.hasEffect(RDStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
 //            System.out.println(1);
@@ -391,7 +389,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Unique
     public boolean deathInElixir(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (this.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE) && (this.getHealth() - amount <= 0f)) {
+        if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE) && (this.getHealth() - amount <= 0f)) {
             this.deathCount++;
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());

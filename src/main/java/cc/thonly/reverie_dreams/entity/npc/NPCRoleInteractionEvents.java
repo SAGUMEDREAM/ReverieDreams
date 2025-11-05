@@ -1,13 +1,14 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.mystias_izakaya.item.base.DrinkItem;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.gui.NPCGui;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.component.DataComponents;
@@ -83,7 +84,7 @@ public class NPCRoleInteractionEvents {
         if (!entity.isOwnedBy(player)) {
             return NPCInteractResult.PASS;
         }
-        if (stack.getItem() == ModItems.UPGRADED_HEALTH) {
+        if (stack.getItem() == RDItems.UPGRADED_HEALTH) {
             AttributeMap attributes = entity.getAttributes();
             AttributeInstance max_health = attributes.getInstance(Attributes.MAX_HEALTH);
             float health = entity.getHealth();
@@ -100,7 +101,7 @@ public class NPCRoleInteractionEvents {
         return NPCInteractResult.PASS;
     });
     public static final NPCRoleInteractionEvent ON_TAME = registerEvent("on_tame", (world, player, stack, hand, entity) -> {
-        if (entity.npcOwner.isEmpty() && stack.is(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) {
+        if (entity.npcOwner.isEmpty() && stack.is(RDItemTags.ROLE_TAME_FOOD)) {
             RandomSource random = RandomSource.create();
             float chance = random.nextFloat();
             if (chance <= 0.4) {
@@ -145,7 +146,7 @@ public class NPCRoleInteractionEvents {
         if (stack.isEmpty()) {
             return NPCInteractResult.PASS;
         }
-        if ((((IItemStack) (Object) stack).isFood() || stack.is(ModTags.ItemTypeTag.ROLE_TAME_FOOD)) && entity.canFeed()) {
+        if ((((IItemStack) (Object) stack).isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
             entity.playSound(SoundEvents.GENERIC_EAT.value(), 1.0f, 1.0f);
             ItemStack result = stack.finishUsingItem(world, entity);
             if (!player.hasInfiniteMaterials()) {
@@ -157,20 +158,20 @@ public class NPCRoleInteractionEvents {
         return NPCInteractResult.PASS;
     });
     public static final NPCRoleInteractionEvent SET_OWNER_BY_STICk = registerEvent("set_owner_by_stick", (world, player, stack, hand, entity) -> {
-        if (stack.getItem() == ModItems.OWNER_STICK) {
+        if (stack.getItem() == RDItems.OWNER_STICK) {
             entity.setOwner(player);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;
     });
 
-    public static void bootstrap(IntrinsicalRegister<NPCRoleInteractionEvent> registry) {
+    public static void bootstrap(RegistryHandler<NPCRoleInteractionEvent> registry) {
 
     }
 
     public static InteractionResult emit(ServerLevel world, ServerPlayer player, InteractionHand hand, NPCRoleEntity entity) {
         ItemStack itemStack = player.getItemInHand(hand);
-        for (NPCRoleInteractionEvent event : RegistryManager.ROLE_INTERACTION_EVENT) {
+        for (NPCRoleInteractionEvent event : RegistryHandlers.ROLE_INTERACTION_EVENT) {
             int i = 0;
             NPCInteractResult interact = null;
             try {
@@ -218,6 +219,6 @@ public class NPCRoleInteractionEvents {
 
     public static NPCRoleInteractionEvent registerEvent(ResourceLocation eventId, NPCRoleInteractionEvent.InteractionCallback callback) {
         NPCRoleInteractionEvent event = new NPCRoleInteractionEvent(callback);
-        return RegistryManager.registerForBuiltin(RegistryManager.ROLE_INTERACTION_EVENT, eventId, event);
+        return RegistryHandlers.registerForBuiltin(RegistryHandlers.ROLE_INTERACTION_EVENT, eventId, event);
     }
 }

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.misc;
 
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.entity.ModEntityHolders;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,6 +35,6 @@ public class KnifeEntity extends DanmakuEntity {
 
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return ModEntityHolders.KNIFE_DISPLAY.getDefaultInstance();
+        return RDEntityHolderItems.KNIFE_DISPLAY.getDefaultInstance();
     }
 }

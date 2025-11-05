@@ -1,15 +1,15 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.mystias_izakaya.item.MIItems;
-import cc.thonly.mystias_izakaya.recipe.MiRecipeManager;
-import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
-import cc.thonly.mystias_izakaya.registry.FoodProperties;
-import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
+import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.recipe.RecipeManager;
+import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.Map;
@@ -24,22 +24,22 @@ import net.minecraft.world.item.Items;
 public class FarmersdelightCompatImpl {
     public static void bootstrap() {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
-            RecipeCompatPatchesImpl.Builder<KitchenRecipe> builder = RecipeCompatPatchesImpl.getOrCreateBuilder(MiRecipeManager.KITCHEN_RECIPE);
-            builder.add(MIItems.TOMATO, ModItems.TOMATO.get());
-            builder.add(MIItems.ONION, ModItems.ONION.get());
+            RecipeCompatPatchesImpl.Builder<KitchenRecipe> builder = RecipeCompatPatchesImpl.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
+            builder.add(RDIngredientItems.TOMATO, ModItems.TOMATO.get());
+            builder.add(RDIngredientItems.ONION, ModItems.ONION.get());
             builder.add(Items.PORKCHOP, ModItems.BACON.get());
             builder.add(Items.PUMPKIN, ModItems.PUMPKIN_SLICE.get());
             builder.add(Items.MUTTON, ModItems.MUTTON_CHOPS.get());
             builder.add(Items.COD, ModItems.COD_SLICE.get());
             builder.add(Items.SALMON, ModItems.SALMON_SLICE.get());
             builder.add(Items.BEEF, ModItems.MINCED_BEEF.get());
-            builder.add(MIItems.WAGYU_BEEF, ModItems.MINCED_BEEF.get());
+            builder.add(RDIngredientItems.WAGYU_BEEF, ModItems.MINCED_BEEF.get());
         });
         RegistryManagerReloadCallback.EVENT.register(simpleRegistry -> {
-            if (!simpleRegistry.equals(MIRegistryManager.FOOD_PROPERTY)) {
+            if (!simpleRegistry.equals(RegistryHandlers.FOOD_PROPERTY)) {
                 return;
             }
-            IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
+            RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
             Stream<? extends Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach((Consumer<Map.Entry<ResourceLocation, FoodProperty>>) mapEntry -> {
                 FoodProperty property = mapEntry.getValue();

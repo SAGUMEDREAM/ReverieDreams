@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.compat.page;
 
-import cc.thonly.mystias_izakaya.block.KitchenBlockType;
-import cc.thonly.mystias_izakaya.block.MIBlocks;
-import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
+import cc.thonly.reverie_dreams.block.KitchenBlockType;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class KitchenPage implements PolydexPage {
     public static final ResourceLocation id = ReverieDreams.id("recipe/kitchen");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
-    public static final ItemStack ICON = new GuiElementBuilder(MIBlocks.COOKING_POT.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
+    public static final ItemStack ICON = new GuiElementBuilder(KitchenBlocks.COOKING_POT.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
     public final ResourceLocation key;
     public final KitchenRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
@@ -80,7 +80,7 @@ public class KitchenPage implements PolydexPage {
 
     private ItemStack getViewStack(AtomicInteger input, String s) {
         if (s.equals("X")) {
-            return ModGuiItems.EMPTY_SLOT.getDefaultInstance();
+            return RDGuiItems.EMPTY_SLOT.getDefaultInstance();
         } else if (s.equals("O")) {
             return this.value.getOutput().getItemStack();
         } else if (s.equals("I")) {
@@ -90,7 +90,7 @@ public class KitchenPage implements PolydexPage {
                 return this.value.getIngredients().get(i).getItemStack();
             }
         } else if (s.equals("T")) {
-            return ModGuiItems.PROGRESS_TO_RESULT.getDefaultInstance();
+            return RDGuiItems.PROGRESS_TO_RESULT.getDefaultInstance();
         } else if (s.equals("P")) {
             Block block = KitchenBlockType.KITCHEN_TYPE_2_BLOCK.get(this.value.getType());
             if (block != null) {

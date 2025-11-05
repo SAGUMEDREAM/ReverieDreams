@@ -1,13 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.server.DelayedTask;
-import eu.pb4.sgui.api.elements.BookElementBuilder;
-import eu.pb4.sgui.api.gui.BookGui;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;

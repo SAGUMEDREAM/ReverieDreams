@@ -6,9 +6,9 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class ElixirOfLifeEffect extends MobEffect implements PolymerStatusEffect {
+public class ElixirOfLifeEffect extends MobEffect {
 
-    protected ElixirOfLifeEffect() {
+    public ElixirOfLifeEffect() {
         super(MobEffectCategory.BENEFICIAL, 16262179);
     }
 

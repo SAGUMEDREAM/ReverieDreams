@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.base;
 
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ public abstract class MiningToolItem extends Item {
                         attackSpeed
                 )
                 .tool(material,
-                        ModTags.BlockTypeTag.MIN_TOOL,
+                        RDBlockTags.MIN_TOOL,
                         attackDamage,
                         attackSpeed,0.0F
                 )

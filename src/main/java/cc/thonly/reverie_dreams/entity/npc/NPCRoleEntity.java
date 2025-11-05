@@ -1,11 +1,9 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.data.ModTags;
-import cc.thonly.reverie_dreams.entity.ModEntities;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
 import cc.thonly.reverie_dreams.interfaces.IExperienceOrbEntity;
-import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.level.ServerLevel;
@@ -24,10 +22,8 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 @Getter
 @Setter
@@ -47,7 +43,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
         this.goalSelector.addGoal(2, new EatGoal(this));
         this.goalSelector.addGoal(3, new SleepAtNightGoal(this, 1.0));
 
-        this.goalSelector.addGoal(4, new NPCTemptGoal(this, 1.2, stack -> stack.is(ModTags.ItemTypeTag.ROLE_TAME_FOOD), false));
+        this.goalSelector.addGoal(4, new NPCTemptGoal(this, 1.2, stack -> stack.is(RDItemTags.ROLE_TAME_FOOD), false));
         //        this.goalSelector.add(4, this.bowAttackGoal);
         //        this.goalSelector.add(4, this.meleeAttackGoal);
 

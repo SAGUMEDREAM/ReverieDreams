@@ -6,9 +6,9 @@ import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
-import cc.thonly.reverie_dreams.registry.Translatable;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import com.mojang.brigadier.CommandDispatcher;
@@ -69,7 +69,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         var registry = Commands.literal("registry")
                 .requires(source -> source.hasPermission(2))
                 .then(
-                        RegistryManager.getSuggestProvider(this::registry)
+                        RegistryHandlers.getSuggestProvider(this::registry)
                 );
         var dialog = Commands.literal("dialog")
                 .then(
@@ -134,7 +134,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         }
 
         ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
-        IntrinsicalRegister<?> registry = RegistryManager.ROOT.get(registryKey);
+        RegistryHandler<?> registry = RegistryHandlers.ROOT.get(registryKey);
         if (registry == null) {
             source.sendFailure(Component.literal("Registry not found: ").append(Component.literal(registryKey.toString())));
             return 0;

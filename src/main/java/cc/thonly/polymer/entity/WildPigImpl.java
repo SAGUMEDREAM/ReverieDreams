@@ -1,6 +1,6 @@
 package cc.thonly.polymer.entity;
 
-import cc.thonly.mystias_izakaya.entity.WildPigEntity;
+import cc.thonly.reverie_dreams.entity.WildPigEntity;
 import cc.thonly.reverie_dreams.mixin.accessor.PigEntityAccessor;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.core.Holder;

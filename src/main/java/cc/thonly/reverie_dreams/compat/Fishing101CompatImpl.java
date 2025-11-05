@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.mystias_izakaya.registry.FoodProperties;
-import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
+import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.macck209.fishing101.registries.ItemRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -17,10 +17,10 @@ import java.util.stream.Stream;
 public class Fishing101CompatImpl {
     public static void bootstrap() {
         RegistryManagerReloadCallback.EVENT.register(simpleRegistry -> {
-            if (!simpleRegistry.equals(MIRegistryManager.FOOD_PROPERTY)) {
+            if (!simpleRegistry.equals(RegistryHandlers.FOOD_PROPERTY)) {
                 return;
             }
-            IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
+            RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
             Stream<Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();

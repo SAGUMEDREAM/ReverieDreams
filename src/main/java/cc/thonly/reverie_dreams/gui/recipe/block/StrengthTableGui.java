@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.gui.recipe.block;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.StrengthenTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
@@ -44,7 +44,7 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
     public void onTick() {
         super.onTick();
         if (this.blockEntity == null) return;
-        if (this.blockEntity.getLevel() != null && this.blockEntity.getLevel().getBlockState(this.blockEntity.getBlockPos()).getBlock() != ModBlocks.STRENGTH_TABLE) {
+        if (this.blockEntity.getLevel() != null && this.blockEntity.getLevel().getBlockState(this.blockEntity.getBlockPos()).getBlock() != RDBlocks.STRENGTH_TABLE) {
             this.close();
         }
 //        this.inputText = this.getInput();

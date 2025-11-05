@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -53,7 +53,7 @@ public class TenguCameraItem extends Item {
                                     danmakuEntity.getX(),
                                     danmakuEntity.getY(),
                                     danmakuEntity.getZ(),
-                                    new ItemStack(ModItems.POINT)
+                                    new ItemStack(RDItems.POINT)
                             )
                     );
                     danmakuEntity.discard();

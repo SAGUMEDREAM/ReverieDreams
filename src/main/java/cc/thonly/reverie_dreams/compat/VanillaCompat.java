@@ -1,18 +1,15 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.mystias_izakaya.api.FoodPropertyLoaderCallback;
-import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.mystias_izakaya.recipe.MiRecipeManager;
-import cc.thonly.mystias_izakaya.recipe.entry.KitchenRecipe;
-import cc.thonly.mystias_izakaya.registry.FoodProperties;
-import cc.thonly.mystias_izakaya.registry.MIRegistryManager;
+import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.recipe.RecipeManager;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -26,16 +23,16 @@ public class VanillaCompat {
     // 修补模组内配方兼容性
     public static void bootstrap() {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
-            RecipeCompatPatchesImpl.Builder<KitchenRecipe> builder = RecipeCompatPatchesImpl.getOrCreateBuilder(MiRecipeManager.KITCHEN_RECIPE);
+            RecipeCompatPatchesImpl.Builder<KitchenRecipe> builder = RecipeCompatPatchesImpl.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
             builder.add(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
             builder.add(Items.EGG, Items.BROWN_EGG);
             builder.add(Items.EGG, Items.BLUE_EGG);
         });
         RegistryManagerReloadCallback.EVENT.register(simpleRegistry -> {
-            if (!simpleRegistry.equals(MIRegistryManager.FOOD_PROPERTY)) {
+            if (!simpleRegistry.equals(RegistryHandlers.FOOD_PROPERTY)) {
                 return;
             }
-            IntrinsicalRegister<FoodProperty> registry = (IntrinsicalRegister<FoodProperty>) simpleRegistry;
+            RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
             Stream<? extends Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach((Consumer<Map.Entry<ResourceLocation, FoodProperty>>) mapEntry -> {
                 FoodProperty property = mapEntry.getValue();

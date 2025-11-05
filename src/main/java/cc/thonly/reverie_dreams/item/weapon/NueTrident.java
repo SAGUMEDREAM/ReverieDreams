@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.item.base.MiningToolItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,7 +42,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class NueTrident extends MiningToolItem implements ProjectileItem {
-    public static final ToolMaterial NUE_TRIDENT = new ToolMaterial(ModTags.BlockTypeTag.MIN_TOOL, 450, 4.5f, 5.5f, 1, ItemTags.NETHERITE_TOOL_MATERIALS);
+    public static final ToolMaterial NUE_TRIDENT = new ToolMaterial(RDBlockTags.MIN_TOOL, 450, 4.5f, 5.5f, 1, ItemTags.NETHERITE_TOOL_MATERIALS);
 
     public NueTrident(float attackDamage, float attackSpeed, Item.Properties settings) {
         super(NUE_TRIDENT, attackDamage, attackSpeed, settings.attributes(createAttributeModifiers()).component(DataComponents.TOOL, createToolComponent()).enchantable(1).component(DataComponents.WEAPON, new Weapon(1)).enchantable(1));

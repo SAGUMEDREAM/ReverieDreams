@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
+import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

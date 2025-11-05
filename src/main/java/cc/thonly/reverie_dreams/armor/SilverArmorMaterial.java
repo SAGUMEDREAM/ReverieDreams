@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.armor;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+
 import java.util.Map;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -26,7 +27,7 @@ public interface SilverArmorMaterial {
             SoundEvents.ARMOR_EQUIP_IRON,
             0.0F,
             0.0F,
-            ModTags.ItemTypeTag.SILVER_TOOL_MATERIALS,
+            RDItemTags.SILVER_TOOL_MATERIALS,
             REGISTRY_KEY
     );
 }

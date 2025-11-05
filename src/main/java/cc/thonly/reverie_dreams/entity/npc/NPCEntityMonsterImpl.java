@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCAttackWithOwnerGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.SleepAtNightGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.WakeUpGoal;
-import cc.thonly.reverie_dreams.entity.skin.SkinType;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.world.entity.EntityType;

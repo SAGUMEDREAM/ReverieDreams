@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.entity.skin.SkinType;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
@@ -34,7 +34,7 @@ public class NPCRoleFastEntity extends Mob {
         if (!(this.level() instanceof ServerLevel)) {
             return;
         }
-        BaseNPCLikeEntity baseNPCRole = ModEntities.NPC_ROLE_ENTITY.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
+        BaseNPCLikeEntity baseNPCRole = RDEntityTypes.NPC_ROLE_ENTITY.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
         if (baseNPCRole == null) {
             return;
         }

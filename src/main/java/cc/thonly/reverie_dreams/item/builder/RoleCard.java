@@ -1,13 +1,17 @@
 package cc.thonly.reverie_dreams.item.builder;
 
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.datagen.generator.RecipeTypeProvider;
-import cc.thonly.reverie_dreams.entity.npc.NPCRole;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.datagen.generator.AbstractRecipeTypeProvider;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
+import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +32,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
     public static final Long DEFAULT_COLOR = 16777215L;
     @Setter
     @Getter
-    private IntrinsicalRegister<RoleCard> owner;
+    private RegistryHandler<RoleCard> owner;
     @Setter
     @Getter
     private ResourceLocation id;
@@ -53,7 +57,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
 
     @Nullable
     public static RoleCard findRoleCard(NPCRole role) {
-        Stream<RoleCard> stream = RegistryManager.ROLE_CARD.values().stream().filter(card -> card.entries.contains(role));
+        Stream<RoleCard> stream = RegistryHandlers.ROLE_CARD.values().stream().filter(card -> card.entries.contains(role));
         return stream.findFirst()
                 .orElse(null);
     }
@@ -72,10 +76,10 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
     }
 
     public ItemStack itemStack() {
-        ItemStack itemStack = new ItemStack(ModItems.ROLE_CARD, 1);
+        ItemStack itemStack = new ItemStack(RDItems.ROLE_CARD, 1);
         itemStack.set(DataComponents.ITEM_NAME, Component.translatable(this.translationKey()));
         itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color.intValue()));
-        itemStack.set(ModDataComponentTypes.ROLE_CARD_ID, this.getId());
+        itemStack.set(RDDataComponentTypes.ROLE_CARD_ID, this.getId());
         return itemStack.copy();
     }
 
@@ -159,11 +163,11 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
             }
             for (int i = 0; i < POINT_INDEXES.length; i++) {
                 int pointIndex = POINT_INDEXES[i];
-                wrappers.set(pointIndex, ItemStackWrapper.of(ModItems.POINT, 14 + i + this.plus));
+                wrappers.set(pointIndex, ItemStackWrapper.of(RDItems.POINT, 14 + i + this.plus));
             }
             for (int i = 0; i < POWER_INDEXES.length; i++) {
                 int powerIndex = POWER_INDEXES[i];
-                wrappers.set(powerIndex, ItemStackWrapper.of(ModItems.POWER, 18 + i + this.plus));
+                wrappers.set(powerIndex, ItemStackWrapper.of(RDItems.POWER, 18 + i + this.plus));
             }
             PrimitiveIterator.OfInt iterator = Arrays.stream(EMPTY_INDEXES).iterator();
             for (ItemStackWrapper itemStackWrapper : this.itemStackWrappers) {
@@ -173,14 +177,14 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
             }
 
             this.result = new GensokyoAltarRecipe(
-                    ItemStackWrapper.of(ModItems.ROLE_CARD.getDefaultInstance()),
+                    ItemStackWrapper.of(RDItems.ROLE_CARD.getDefaultInstance()),
                     wrappers,
                     ItemStackWrapper.of(this.roleCard.itemStack())
             );
             return this;
         }
 
-        public void apply(RecipeTypeProvider.Factory<GensokyoAltarRecipe> factory) {
+        public void apply(AbstractRecipeTypeProvider.Factory<GensokyoAltarRecipe> factory) {
             factory.register(this.roleCard.getId(), this.result);
         }
     }

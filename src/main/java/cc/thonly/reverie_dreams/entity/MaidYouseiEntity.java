@@ -1,15 +1,19 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
+import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCSettings;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,10 +59,10 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
         this.setItemInHand(InteractionHand.MAIN_HAND, Items.IRON_SWORD.getDefaultInstance());
         this.setItemInHand(InteractionHand.OFF_HAND, Items.SHIELD.getDefaultInstance());
         NPCInventoryImpl inventory = this.getInventory();
-        inventory.setHead(new ItemStack(ModItems.MAID_HAIRBAND));
-        inventory.setChest(new ItemStack(ModItems.MAID_UPPER_SKIRT));
-        inventory.setLegs(new ItemStack(ModItems.MAID_LOWER_SKIRT));
-        inventory.setFeet(new ItemStack(ModItems.MAID_SHOE));
+        inventory.setHead(new ItemStack(RDItems.MAID_HAIRBAND));
+        inventory.setChest(new ItemStack(RDItems.MAID_UPPER_SKIRT));
+        inventory.setLegs(new ItemStack(RDItems.MAID_LOWER_SKIRT));
+        inventory.setFeet(new ItemStack(RDItems.MAID_SHOE));
     }
 
     @Override
@@ -69,18 +73,18 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
         this.goalSelector.addGoal(1, new DanmakuGoal(this, (self, target, world) -> {
             ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI);
             final MinecraftServer server = world.getServer();
-            final float[] pitchYaw = MobDanmakuShooter.getPitchYaw(self, target);
-            ItemStack knifeStack = new ItemStack(ModEntityHolders.KNIFE_DISPLAY);
+            final float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
+            ItemStack knifeStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY);
 
             DelayedTask.repeat(server, 2, 0.3f, () -> {
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
             });
             DelayedTask.repeat(server, 1, 1f, () -> {
-                MobDanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
             });
         }, 45, 75));
 
@@ -117,7 +121,7 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
         super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
         ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
-        this.variant = RegistryManager.YOUSEI_VARIANT.getValue(variantId);
+        this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
     }
 
     @Override
@@ -143,7 +147,7 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
 
     @Override
     public void setVariantData(ResourceLocation id) {
-        this.variant = RegistryManager.YOUSEI_VARIANT.getValue(id);
+        this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(id);
         if (this.variant != null) {
             this.skinType = this.variant.getSkinType();
         }

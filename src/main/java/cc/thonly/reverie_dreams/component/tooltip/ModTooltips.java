@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.component.tooltip;
 
 import cc.thonly.minecraft.api.ItemStackTooltipCallback;
-import cc.thonly.mystias_izakaya.component.DrinkProperty;
-import cc.thonly.mystias_izakaya.component.FoodProperty;
-import cc.thonly.mystias_izakaya.item.base.DrinkItem;
-import cc.thonly.mystias_izakaya.item.base.FoodItem;
-import cc.thonly.mystias_izakaya.item.base.IngredientItem;
+import cc.thonly.reverie_dreams.data.DrinkProperty;
+import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.item.base.DrinkItem;
+import cc.thonly.reverie_dreams.item.base.FoodItem;
+import cc.thonly.reverie_dreams.item.base.IngredientItem;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
@@ -32,7 +32,7 @@ public class ModTooltips {
             if (!(stack.getItem() instanceof AbstractDanmakuItem abstractDanmakuItem)) {
                 return;
             }
-            DanmakuProperties properties = stack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+            DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
             if (properties != null) {
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(properties.damage)));
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(properties.speed)));
@@ -44,7 +44,7 @@ public class ModTooltips {
             if (!(stack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
                 return;
             }
-            ItemStackWrapper itemStackWrapper = stack.getOrDefault(ModDataComponentTypes.DANMAKU_SHAPE, ItemStackWrapper.of(Items.AIR));
+            ItemStackWrapper itemStackWrapper = stack.getOrDefault(RDDataComponentTypes.DANMAKU_SHAPE, ItemStackWrapper.of(Items.AIR));
             ItemStack itemStack = itemStackWrapper.getItemStack();
             textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
         });
@@ -113,7 +113,7 @@ public class ModTooltips {
             if (!(stack.getItem() instanceof SpellCardTemplateItem spellCardTemplateItem)) {
                 return;
             }
-            DanmakuProperties properties = stack.get(ModDataComponentTypes.DANMAKU_PROPERTIES);
+            DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
             if (properties != null) {
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId.toLanguageKey())));
             }

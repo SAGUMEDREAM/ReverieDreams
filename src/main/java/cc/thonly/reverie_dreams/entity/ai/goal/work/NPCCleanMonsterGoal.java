@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCState;
-import cc.thonly.reverie_dreams.entity.npc.NPCStates;
-import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
+import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

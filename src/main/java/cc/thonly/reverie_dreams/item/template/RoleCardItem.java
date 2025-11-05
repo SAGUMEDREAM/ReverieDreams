@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.item.template;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.entity.npc.NPCRole;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -47,11 +47,11 @@ public class RoleCardItem extends Item {
     }
 
     public Optional<RoleCard> getRoleCardComponent(ItemStack itemStack) {
-        ResourceLocation identifier = itemStack.get(ModDataComponentTypes.ROLE_CARD_ID);
+        ResourceLocation identifier = itemStack.get(RDDataComponentTypes.ROLE_CARD_ID);
         if (identifier == null) {
             return Optional.empty();
         }
-        RoleCard roleCard = RegistryManager.ROLE_CARD.getValue(identifier);
+        RoleCard roleCard = RegistryHandlers.ROLE_CARD.getValue(identifier);
         if (roleCard == null) {
             return Optional.empty();
         }

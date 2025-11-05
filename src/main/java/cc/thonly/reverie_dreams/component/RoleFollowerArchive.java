@@ -1,12 +1,8 @@
 package cc.thonly.reverie_dreams.component;
 
-import cc.thonly.minecraft.inventory.InventoriesImpl;
-import cc.thonly.minecraft.inventory.Slot2ItemStack;
-import cc.thonly.minecraft.text.TextUtil;
-import cc.thonly.reverie_dreams.entity.ModEntities;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
-import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -24,8 +20,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.ValueInput;
-import java.util.List;
-import java.util.Optional;
 
 @Getter
 public class RoleFollowerArchive {
@@ -46,7 +40,7 @@ public class RoleFollowerArchive {
     }
 
     public BaseNPCLikeEntity respawn(ServerLevel world, BlockPos pos, HolderLookup.Provider registries) {
-        NPCRoleEntity npcLikeEntity = new NPCRoleEntity(ModEntities.NPC_ROLE_ENTITY, world);
+        NPCRoleEntity npcLikeEntity = new NPCRoleEntity(RDEntityTypes.NPC_ROLE_ENTITY, world);
         npcLikeEntity.setPosRaw(pos.getX(), pos.getY(), pos.getZ());
         npcLikeEntity.setCustomName(this.name);
         npcLikeEntity.setOwner((LivingEntity) null);

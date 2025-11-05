@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.entity.ModEntityHolders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
@@ -45,14 +45,14 @@ public class Knife extends SwordItem implements IDanmakuItem {
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
         ItemStack heldItemStack = user.getItemInHand(hand);
-        ItemStack itemStack = new ItemStack(ModEntityHolders.KNIFE_DISPLAY);
+        ItemStack itemStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY);
         DataComponentMap components = heldItemStack.getComponents();
         Iterator<TypedDataComponent<?>> iterator = components.stream().iterator();
         while (iterator.hasNext()) {
             TypedDataComponent<Object> next = (TypedDataComponent<Object>) iterator.next();
             itemStack.set(next.type(), next.value());
         }
-        DanmakuProperties properties = itemStack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        DanmakuProperties properties = itemStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
             ItemCooldowns cooldownManager = player.getCooldowns();
             for (int i = 0; i < properties.getCount(); i++) {
@@ -76,7 +76,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
     public void spawn(ServerLevel serverWorld, Player user, InteractionHand hand) {
         Random random = new Random();
         ItemStack heldItemStack = user.getItemInHand(hand);
-        ItemStack itemStack = new ItemStack(ModEntityHolders.KNIFE_DISPLAY);
+        ItemStack itemStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY);
         DataComponentMap components = heldItemStack.getComponents();
         Iterator<TypedDataComponent<?>> iterator = components.stream().iterator();
         while (iterator.hasNext()) {
@@ -86,7 +86,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
         ItemStack stack = itemStack.copy();
         float pitch = user.getXRot();
         float yaw = user.getYRot();
-        DanmakuProperties properties = stack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
 
         List<DanmakuEntity> list = new ArrayList<>();
         DanmakuEntity danmakuEntity = new DanmakuEntity(

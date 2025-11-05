@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.mixin;
 
-import cc.thonly.mystias_izakaya.entity.villager.TavernVillager;
-import cc.thonly.mystias_izakaya.item.base.DrinkItem;
-import cc.thonly.mystias_izakaya.item.base.FoodItem;
+import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
+import cc.thonly.reverie_dreams.item.base.DrinkItem;
+import cc.thonly.reverie_dreams.item.base.FoodItem;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import cc.thonly.reverie_dreams.server.ItemDescriptionManager;
 import net.fabricmc.fabric.api.item.v1.FabricItemStack;

@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.compat.page;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.recipe.display.DanmakuShapeDisplayView;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import eu.pb4.polydex.api.v1.recipe.*;
@@ -26,7 +26,7 @@ public class DanmakuShapePage implements PolydexPage {
     public static final ResourceLocation id = ReverieDreams.id("recipe/danmaku_shape");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
-    public static final ItemStack ICON = new GuiElementBuilder(ModItems.DANMAKU_SHAPE_CREATOR).setName(Component.translatable(id.toLanguageKey())).asStack();
+    public static final ItemStack ICON = new GuiElementBuilder(RDItems.DANMAKU_SHAPE_CREATOR).setName(Component.translatable(id.toLanguageKey())).asStack();
     public final ResourceLocation key;
     public final DanmakuShapeDrawRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
@@ -35,7 +35,7 @@ public class DanmakuShapePage implements PolydexPage {
     public DanmakuShapePage(ResourceLocation key, DanmakuShapeDrawRecipe value) {
         this.key = key.withPrefix("recipe/");
         this.value = value;
-        this.ingredients = List.of(PolydexIngredient.of(Ingredient.of(ModGuiItems.ENABLE)));
+        this.ingredients = List.of(PolydexIngredient.of(Ingredient.of(RDGuiItems.ENABLE)));
         this.output = PolydexStack.of(this.value.getOutput().getItemStack());
     }
 
@@ -76,7 +76,7 @@ public class DanmakuShapePage implements PolydexPage {
 
     private GuiElementBuilder getViewStack(String s, GuiElementInterface.ItemClickCallback callback) {
         if (s.equalsIgnoreCase("X")) {
-            return new GuiElementBuilder(ModGuiItems.EMPTY_SLOT);
+            return new GuiElementBuilder(RDGuiItems.EMPTY_SLOT);
         }
         if (s.equalsIgnoreCase("E")) {
             return new GuiElementBuilder(this.value.getOutput().getItemStack().copy())

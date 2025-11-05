@@ -2,7 +2,7 @@
 //
 //import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 //import cc.thonly.reverie_dreams.entity.npc.NPCEntityImpl;
-//import cc.thonly.reverie_dreams.entity.npc.NPCWorkModes;
+//import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 //import net.minecraft.entity.ai.goal.Goal;
 //import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 //import net.minecraft.entity.mob.PathAwareEntity;

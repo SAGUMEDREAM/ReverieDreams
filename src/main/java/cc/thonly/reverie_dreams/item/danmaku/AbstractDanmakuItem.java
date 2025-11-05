@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
@@ -57,7 +57,7 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
                 return InteractionResult.FAIL;
             }
             cooldownManager.addCooldown(itemStack, 10);
-            DanmakuProperties properties = itemStack.getOrDefault(ModDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            DanmakuProperties properties = itemStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
             for (int i = 0; i < properties.getCount(); i++) {
                 this.shoot(serverWorld, user, hand);
             }

@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams;
 
-import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
-import cc.thonly.reverie_dreams.block.CropBlockCreator;
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
@@ -29,13 +28,13 @@ public class ReverieDreamsClient implements ClientModInitializer {
         BlockTypeGroup.SAPLING.stream().forEach(this::registerBlockCutout);
         BlockTypeGroup.KITCHENWARE.stream().forEach(this::registerBlockCutout);
         BlockTypeGroup.PLANT.stream().forEach(this::registerBlockCutout);
-        registerBlockCutout(ModBlocks.MARISA_HAT_BLOCK);
-        registerBlockCutout(ModBlocks.CASH_BOX_BLOCK);
+        registerBlockCutout(RDBlocks.MARISA_HAT_BLOCK);
+        registerBlockCutout(RDBlocks.CASH_BOX_BLOCK);
         for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             this.registerBlockCutout(view.getValue().getCropBlock());
         }
-        registerBlockCutout(MIBlocks.ITEM_DISPLAY);
-        registerBlockCutout(MIBlocks.GENSOKYO_ALTAR);
+        registerBlockCutout(RDBlocks.ITEM_DISPLAY);
+        registerBlockCutout(RDBlocks.GENSOKYO_ALTAR);
     }
 
     public void registerBlockCutout(Block block) {

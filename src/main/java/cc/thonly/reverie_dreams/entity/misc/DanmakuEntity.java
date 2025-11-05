@@ -2,11 +2,11 @@ package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
-import cc.thonly.reverie_dreams.entity.FriendlyFaction;
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -96,7 +95,7 @@ public class DanmakuEntity extends AbstractArrow {
                          Float divergence, Float offsetDist,
                          boolean entityDelta
     ) {
-        super(ModEntities.DANMAKU_ENTITY_TYPE,
+        super(RDEntityTypes.DANMAKU_ENTITY_TYPE,
                 x,
                 y + (livingEntity != null ? livingEntity.getEyeHeight() : 0),
                 z,
@@ -390,7 +389,7 @@ public class DanmakuEntity extends AbstractArrow {
                 if (owner instanceof LivingEntity attacker) {
                     damageSource = world.damageSources().mobProjectile(this, attacker);
                 } else {
-                    Optional<Holder.Reference<DanmakuDamageType>> optionalHolder = RegistryManager.DANMAKU_DAMAGE_TYPE.get(this.properties.getDamageType());
+                    Optional<Holder.Reference<DanmakuDamageType>> optionalHolder = RegistryHandlers.DANMAKU_DAMAGE_TYPE.get(this.properties.getDamageType());
                     if (optionalHolder.isPresent()) {
                         Holder.Reference<DanmakuDamageType> reference = optionalHolder.get();
                         damageSource = reference.value().mapToSource(world.damageSources());
@@ -491,7 +490,7 @@ public class DanmakuEntity extends AbstractArrow {
         if (this.danmakuItem != null && !this.danmakuItem.getDefaultInstance().isEmpty()) {
             return this.danmakuItem.getDefaultInstance();
         } else {
-            return new ItemStack(ModItems.ICON);
+            return new ItemStack(RDItems.ICON);
         }
     }
 

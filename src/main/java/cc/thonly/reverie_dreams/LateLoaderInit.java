@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.polymer.*;
-import cc.thonly.reverie_dreams.block.ChestBlockCreator;
-import cc.thonly.reverie_dreams.block.WoodCreator;
-import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
+import cc.thonly.reverie_dreams.block.creator.ChestBlockCreator;
+import cc.thonly.reverie_dreams.block.creator.WoodCreator;
+import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
-import cc.thonly.reverie_dreams.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.effect.ModStatusEffects;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import net.fabricmc.api.ModInitializer;
@@ -45,20 +45,20 @@ public class LateLoaderInit implements ModInitializer {
             });
         }
         for (ChestBlockCreator chestBlockCreator : ChestBlockCreator.INSTANCES.get(ChestBlockCreator.class).stream().map((ab)->(ChestBlockCreator)ab).toList()) {
-            ModBlockEntities.CUSTOM_CHEST_BLOCK_ENTITY.addSupportedBlock(chestBlockCreator.chestBlock());
+            RDBlockEntityTypes.CUSTOM_CHEST_BLOCK_ENTITY.addSupportedBlock(chestBlockCreator.chestBlock());
         }
         CreativeTabs.registerItemGroups();
         this.polymerify();
     }
 
     public void polymerify() {
-        for (Holder<MobEffect> registryEntry : ModStatusEffects.REVERIE_DREAMS_EFFECTS) {
+        for (Holder<MobEffect> registryEntry : RDStatusEffects.REVERIE_DREAMS_EFFECTS) {
             PolymerStatusEffectHelper.registerOverlay(registryEntry);
         }
-        for (Item item : ModGuiItems.GUI_ITEM_LIST) {
+        for (Item item : RDGuiItems.GUI_ITEM_LIST) {
             PolymerItemHelper.registerOverlay(item);
         }
-        for (DanmakuType danmakuType : RegistryManager.DANMAKU_TYPE) {
+        for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
             PolymerItemHelper.registerOverlay(danmakuType.getItem());
         }
         PolymerEntityHelper.bootstrap();

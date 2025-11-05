@@ -2,9 +2,7 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.gui.CustomChestBlockGui;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.item.weapon.HakureiCane;
-import cc.thonly.reverie_dreams.item.weapon.WindBlessingCane;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.player.FaithComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
@@ -116,13 +114,13 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
 
     protected static int calValue(ItemStack itemStack) {
         int cal = 0;
-        if (itemStack.getItem() == ModItems.COPPER_COIN) {
+        if (itemStack.getItem() == RDItems.COPPER_COIN) {
             cal += 1;
         }
-        if (itemStack.getItem() == ModItems.SILVER_COIN) {
+        if (itemStack.getItem() == RDItems.SILVER_COIN) {
             cal += 3;
         }
-        if (itemStack.getItem() == ModItems.GOLD_COIN) {
+        if (itemStack.getItem() == RDItems.GOLD_COIN) {
             cal += 8;
         }
         return cal;

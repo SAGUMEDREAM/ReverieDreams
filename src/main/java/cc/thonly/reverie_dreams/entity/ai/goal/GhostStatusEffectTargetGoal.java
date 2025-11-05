@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -34,7 +34,7 @@ public class GhostStatusEffectTargetGoal<T extends LivingEntity> extends StatusE
 
     public static boolean hasSilverArmor(LivingEntity targetEntity) {
         if (!targetEntity.isAlive()) return false;
-        final var tag = ModTags.ItemTypeTag.SILVER_ARMOR;
+        final var tag = RDItemTags.SILVER_ARMOR;
         ItemStack head = targetEntity.getItemBySlot(EquipmentSlot.HEAD);
         ItemStack chest = targetEntity.getItemBySlot(EquipmentSlot.CHEST);
         ItemStack legs = targetEntity.getItemBySlot(EquipmentSlot.LEGS);

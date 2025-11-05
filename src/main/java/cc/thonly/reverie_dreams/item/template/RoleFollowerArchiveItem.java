@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
-import java.util.function.Consumer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -26,11 +25,11 @@ public class RoleFollowerArchiveItem extends Item {
         Player player = context.getPlayer();
         if (!contextWorld.isClientSide() && contextWorld instanceof ServerLevel world && player != null) {
             ItemStack stack = context.getItemInHand();
-            RoleFollowerArchive followerArchive = stack.get(ModDataComponentTypes.ROLE_FOLLOWER_ARCHIVE);
+            RoleFollowerArchive followerArchive = stack.get(RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE);
             if (followerArchive == null) {
                 return InteractionResult.PASS;
             }
-            boolean canRespawn = stack.getOrDefault(ModDataComponentTypes.ROLE_CAN_RESPAWN, false);
+            boolean canRespawn = stack.getOrDefault(RDDataComponentTypes.ROLE_CAN_RESPAWN, false);
             if (!canRespawn) {
                 return InteractionResult.PASS;
             }

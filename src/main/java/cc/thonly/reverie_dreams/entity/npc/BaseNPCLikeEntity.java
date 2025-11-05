@@ -1,19 +1,23 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.polymer.entity.PlayerPolymerEntity;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCCrossbowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCDanmakuItemGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
-import cc.thonly.reverie_dreams.entity.skin.MobSkinTypes;
-import cc.thonly.reverie_dreams.entity.skin.SkinType;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import com.mojang.authlib.properties.Property;
@@ -240,8 +244,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super.addAdditionalSaveData(view);
         view.putBoolean("IsSit", this.sit);
         view.putString("NpcOwner", this.npcOwner);
-        view.putString("NPCStateId", Optional.ofNullable(RegistryManager.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
-        view.putString("NPCWorkStateId", Optional.ofNullable(RegistryManager.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
+        view.putString("NPCStateId", Optional.ofNullable(RegistryHandlers.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
+        view.putString("NPCWorkStateId", Optional.ofNullable(RegistryHandlers.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
         view.putFloat("FoodNutrition", this.nutrition);
         view.putFloat("FoodSaturation", this.saturation);
         view.putFloat("FoodExhaustionLevel", this.exhaustionLevel);
@@ -261,7 +265,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     public void writeSkinData(ValueOutput view) {
-        RegistryManager.SKIN_TYPE.getKey(this.skinType);
+        RegistryHandlers.SKIN_TYPE.getKey(this.skinType);
         view.store("Skin", SkinType.CODEC, this.skinType);
     }
 
@@ -661,16 +665,16 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     public NPCState getNextState() {
         if (this.isSleeping()) return this.npcState;
-        int rawId = RegistryManager.NPC_STATE.getId(this.npcState);
+        int rawId = RegistryHandlers.NPC_STATE.getId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId + 1);
         return next != null ? next : NPCStates.fromInt(0);
     }
 
     public NPCState getPreviousState() {
         if (this.isSleeping()) return this.npcState;
-        int rawId = RegistryManager.NPC_STATE.getId(this.npcState);
+        int rawId = RegistryHandlers.NPC_STATE.getId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId - 1);
-        Map<Integer, Holder.Reference<NPCState>> rawToEntry = RegistryManager.NPC_STATE.getIdToEntryMap();
+        Map<Integer, Holder.Reference<NPCState>> rawToEntry = RegistryHandlers.NPC_STATE.getIdToEntryMap();
         int maxKey = Collections.max(rawToEntry.keySet());
         return next != null ? next : NPCStates.fromInt(maxKey);
     }
@@ -852,15 +856,15 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     public ItemStack toArchive() {
-        ItemStack itemStack = ModItems.ROLE_ARCHIVE.getDefaultInstance();
+        ItemStack itemStack = RDItems.ROLE_ARCHIVE.getDefaultInstance();
         CompoundTag nbtCompound;
         try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(this.problemPath(), LogUtils.getLogger())) {
             TagValueOutput view = TagValueOutput.createWithContext(logging, this.registryAccess());
             this.addAdditionalSaveData(view);
             nbtCompound = view.buildResult();
         }
-        itemStack.set(ModDataComponentTypes.ROLE_FOLLOWER_ARCHIVE, new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));
-        itemStack.set(ModDataComponentTypes.ROLE_CAN_RESPAWN, false);
+        itemStack.set(RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE, new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));
+        itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN, false);
         return itemStack;
     }
 

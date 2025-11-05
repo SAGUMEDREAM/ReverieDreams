@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.skin.SkinConfig;
-import cc.thonly.reverie_dreams.entity.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.data.skin.SkinConfig;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.util.SkinFetcher;
+import cc.thonly.reverie_dreams.util.VirtualZipFS;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -77,8 +78,8 @@ public class CustomCharacterLoader {
                         Files.write(tempFile, bytes);
                         File file = tempFile.toFile();
                         SkinFetcher.getSkinFromFile(file, skinConfig.getType() == SkinConfig.ModelType.SLIM);
-                        RegistryManager.set(RegistryManager.SKIN_TYPE, id, skinType);
-                        RegistryManager.set(RegistryManager.SKIN_CONFIG, id, skinConfig);
+                        RegistryHandlers.set(RegistryHandlers.SKIN_TYPE, id, skinType);
+                        RegistryHandlers.set(RegistryHandlers.SKIN_CONFIG, id, skinConfig);
                         file.deleteOnExit();
                     }
                     virtualZipFS.close();

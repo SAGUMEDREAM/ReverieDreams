@@ -1,14 +1,16 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
-import cc.thonly.reverie_dreams.entity.SimpleVariant;
-import cc.thonly.reverie_dreams.entity.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.*;
-import com.mojang.authlib.properties.Property;
+import cc.thonly.reverie_dreams.entity.interfaces.SimpleVariant;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
+import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.resources.ResourceLocation;
-import java.util.function.Supplier;
 
 @Setter
 @Getter
@@ -18,7 +20,7 @@ public class YouseiVariant implements CodecStep<YouseiVariant>, OwnerBinding<You
     private ResourceLocation id;
     private int number;
     private SkinType skinType;
-    private IntrinsicalRegister<YouseiVariant> owner;
+    private RegistryHandler<YouseiVariant> owner;
 
     private YouseiVariant() {
     }

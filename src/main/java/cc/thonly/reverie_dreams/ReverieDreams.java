@@ -1,43 +1,43 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.minecraft.api.ItemPostHitCallback;
-import cc.thonly.reverie_dreams.armor.ModArmorMaterials;
-import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
+import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
+import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
+import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
+import cc.thonly.reverie_dreams.registry.content.block.*;
+import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.command.CommandInit;
-import cc.thonly.reverie_dreams.compat.ModCompats;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.compat.ReverieDreamsCompats;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTemplates;
-import cc.thonly.reverie_dreams.danmaku.script.DanmakuScriptManager;
-import cc.thonly.reverie_dreams.danmaku.SpellcardRenderer;
-import cc.thonly.reverie_dreams.data.ModLootModifies;
-import cc.thonly.reverie_dreams.data.ModServerResourceManager;
-import cc.thonly.reverie_dreams.data.ModTags;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
+import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
+import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
+import cc.thonly.reverie_dreams.loot.RDLootModifies;
+import cc.thonly.reverie_dreams.registry.content.item.*;
+import cc.thonly.reverie_dreams.registry.impl.ServerResourceHelper;
 import cc.thonly.reverie_dreams.datafixer.DataFixerContentManager;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
-import cc.thonly.reverie_dreams.effect.ModStatusEffects;
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.entity.ModEntityHolders;
-import cc.thonly.reverie_dreams.entity.villager.ModPointOfInterestTypes;
-import cc.thonly.reverie_dreams.entity.villager.ModVillagerProfessions;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
+import cc.thonly.reverie_dreams.entity.villager.RDPointOfInterestTypes;
+import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
-import cc.thonly.reverie_dreams.item.ModItems;
 import cc.thonly.reverie_dreams.networking.CSVersionPayload;
 import cc.thonly.reverie_dreams.networking.HelloPayload;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.registry.Key2ValueRegistryManager;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
 import cc.thonly.reverie_dreams.server.*;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
 import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
-import cc.thonly.reverie_dreams.state.ModBlockStateTemplates;
+import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.*;
 import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
@@ -52,9 +52,11 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -69,8 +71,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Unit;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,20 +107,27 @@ public class ReverieDreams implements ModInitializer {
         // 初始化静态注册表
         SoundEventInit.init();
         JukeboxSongInit.init();
-        ModDataComponentTypes.init();
-        ModArmorMaterials.init();
-        ModGuiItems.init();
-        ModBlockStateTemplates.bootstrap();
-        ModBlockEntities.registerBlockEntities();
-        ModBlocks.registerBlocks();
-        ModItems.registerItems();
-        ModEntityHolders.registerHolders();
-        ModEntities.registerEntities();
-        ModStatusEffects.init();
-        ModTags.loadTags();
+        RDDataComponentTypes.init();
+        RDArmorMaterials.init();
+        RDGuiItems.init();
+        RDBlockStateTemplates.bootstrap();
+        RDBlockEntityTypes.registerBlockEntityTypes();
+        RDBlocks.registerBlocks();
+        RDWoodBlocks.registerBlocks();
+        RDCropBlocks.registerBlocks();
+        RDPlantBlocks.registerBlocks();
+        KitchenBlocks.registerBlocks();
+        RDItems.registerItems();
+        RDIngredientItems.registerItems();
+        RDFoodItems.registerItems();
+        RDDrinkItems.registerItems();
+        RDEntityHolderItems.registerHolders();
+        RDEntityTypes.registerEntityTypes();
+        RDStatusEffects.registerEffects();
+        RDPotions.registerPotions();
         WorldGenerationInit.registerWorldGeneration();
-        ModPointOfInterestTypes.registers();
-        ModVillagerProfessions.registers();
+        RDPointOfInterestTypes.registers();
+        RDVillagerProfessions.registers();
         BiomeModificationInit.init();
         GameRulesInit.init();
         DataFixerContentManager.bootstrap();
@@ -121,10 +136,12 @@ public class ReverieDreams implements ModInitializer {
         // 初始化其他注册内容
         CommandInit.init();
         RecipeManager.bootstrap();
-        ModServerResourceManager.init();
-        RegistryManager.bootstrap();
-        Key2ValueRegistryManager.bootstrap();
-        ModLootModifies.register();
+        ServerResourceHelper.init();
+        RegistryHandlers.bootstrap();
+        FoodProperties.registerDefaultItemUsingProperty();
+        DrinkProperties.registerDefaultItemUsingProperty();
+        Key2ValueRegistryHandlers.bootstrap();
+        RDLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.init();
 
@@ -135,10 +152,35 @@ public class ReverieDreams implements ModInitializer {
         this.loadCompletableEvent();
         this.registerNetworkingEvent();
         this.registerServerEvents();
+        this.registerContentEvent();
+
+        ReverieDreamsCompats.init();
+    }
+
+    private void registerContentEvent() {
+        UseBlockCallback.EVENT.register((playerEntity, world, hand, blockHitResult) -> {
+            if (!world.isClientSide()) {
+                ItemStack stack = playerEntity.getItemInHand(hand);
+                BlockPos blockPos = blockHitResult.getBlockPos();
+                BlockState blockState = world.getBlockState(blockPos);
+                Block block = blockState.getBlock();
+                if (block instanceof LeavesBlock && (blockState.getValue(LeavesBlock.WATERLOGGED))) {
+                    if (stack.getItem() == Items.LILY_PAD) {
+                        stack.consume(1, playerEntity);
+                        if (!playerEntity.hasInfiniteMaterials()) {
+                            playerEntity.addItem(new ItemStack(RDIngredientItems.DEW, 1));
+                        }
+                        playerEntity.swing(hand);
+                        return InteractionResult.SUCCESS_SERVER;
+                    }
+                }
+            }
+            return InteractionResult.PASS;
+        });
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
-            if (server != null && target.level() instanceof ServerLevel serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(ModDataComponentTypes.SILVER_ITEM, null))) {
+            if (server != null && target.level() instanceof ServerLevel serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(RDDataComponentTypes.SILVER_ITEM, null))) {
                 RegistryAccess.Frozen registryManager = server.registryAccess();
                 Registry<EntityType<?>> entityTypes = registryManager.lookupOrThrow(Registries.ENTITY_TYPE);
                 DamageSources damageSources = attacker.damageSources();
@@ -158,15 +200,13 @@ public class ReverieDreams implements ModInitializer {
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
-            if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == ModEntities.GHOST_ENTITY_TYPE && stack.getItem() == ModItems.ROKANKEN) {
+            if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST_ENTITY_TYPE && stack.getItem() == RDItems.ROKANKEN) {
                 DamageSources damageSources = attacker.damageSources();
                 target.lastHurt = 0;
                 target.hurtServer(serverWorld, damageSources.magic(), Integer.MAX_VALUE);
             }
             return true;
         });
-
-        ModCompats.init();
     }
 
     private void registerNetworkingEvent() {
@@ -232,7 +272,7 @@ public class ReverieDreams implements ModInitializer {
             player.displayClientMessage(mutableText, false);
         });
         ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, v) -> {
-            return !livingEntity.hasEffect(ModStatusEffects.ELIXIR_OF_LIFE);
+            return !livingEntity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE);
         });
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             PlayerInputManager inputManager = PlayerInputManager.getInstance();

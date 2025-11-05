@@ -1,13 +1,15 @@
 package cc.thonly.polymer;
 
-import cc.thonly.mystias_izakaya.block.ItemStackDisplay;
-import cc.thonly.mystias_izakaya.block.kitchenware.AbstractKitchenwareBlock;
+import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
+import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.polymer.block.*;
 import cc.thonly.reverie_dreams.LateLoaderInit;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
+import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
+import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import eu.pb4.factorytools.api.block.model.SignModel;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
@@ -53,7 +55,7 @@ public class PolymerBlockHelper {
         });
 
         return switch (block) {
-            case ItemStackDisplay ignored -> new ItemStackDisplayImpl();
+            case FoodDisplayBlock ignored -> new ItemStackDisplayImpl();
             case AbstractCropBlock ignored -> new CropHolderImpl(ignored);
             case FruitLeavesBlock ignored -> new FruitLeavesImpl(ignored);
             case ModelBlock ignored -> new ModelFactoryImpl(ignored);

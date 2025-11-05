@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCState;
-import cc.thonly.reverie_dreams.entity.npc.NPCStates;
+import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;

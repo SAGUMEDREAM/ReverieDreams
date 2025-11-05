@@ -28,7 +28,7 @@ import java.util.WeakHashMap;
 
 @Getter
 public class HairballEntity extends PathfinderMob {
-    protected HairballEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
+    public HairballEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }

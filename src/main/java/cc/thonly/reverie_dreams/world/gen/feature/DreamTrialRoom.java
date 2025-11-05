@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.datagen.ModChestLootTableProvider;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.datagen.ChestLootTableProvider;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -50,7 +50,7 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
                         // 放房间方块，例如梦境石
                         world.setBlock(
                                 new BlockPos(worldX, worldY, worldZ),
-                                ModBlocks.DREAM_STONE_BRICK.block().defaultBlockState(),
+                                RDBlocks.DREAM_STONE_BRICK.block().defaultBlockState(),
                                 Block.UPDATE_KNOWN_SHAPE
                         );
                     } else {
@@ -86,7 +86,7 @@ public class DreamTrialRoom extends Feature<DreamTrialRoomConfig> {
                 Blocks.CHEST.defaultBlockState(),
                 Block.UPDATE_KNOWN_SHAPE);
         if (world.getBlockEntity(boxPos) instanceof ChestBlockEntity chestBlockEntity) {
-            chestBlockEntity.setLootTable(ModChestLootTableProvider.DREAM_CHEST);
+            chestBlockEntity.setLootTable(ChestLootTableProvider.DREAM_CHEST);
         }
 
         return true;

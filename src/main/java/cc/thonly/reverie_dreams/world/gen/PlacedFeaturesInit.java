@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.mystias_izakaya.block.MIBlocks;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -50,7 +49,7 @@ public class PlacedFeaturesInit {
                 registryLookup.getOrThrow(ConfigurationFeatureInit.SPIRITUAL_TREE_KEY),
                 VegetationPlacements.treePlacement(
                         PlacementUtils.countExtra(0, 0.1f, 1),
-                        ModBlocks.SPIRITUAL.sapling()
+                        RDWoodBlocks.SPIRITUAL.sapling()
                 )
         ));
 
@@ -58,7 +57,7 @@ public class PlacedFeaturesInit {
                 registryLookup.getOrThrow(ConfigurationFeatureInit.LEMON_TREE_KEY),
                 VegetationPlacements.treePlacement(
                         PlacementUtils.countExtra(0, 0.2f, 1),
-                        MIBlocks.LEMON.sapling()
+                        RDWoodBlocks.LEMON.sapling()
                 )
         ));
 
@@ -66,7 +65,7 @@ public class PlacedFeaturesInit {
                 registryLookup.getOrThrow(ConfigurationFeatureInit.GINKGO_TREE_KEY),
                 VegetationPlacements.treePlacement(
                         PlacementUtils.countExtra(0, 0.1f, 1),
-                        MIBlocks.GINKGO.sapling()
+                        RDWoodBlocks.GINKGO.sapling()
                 )
         ));
 
@@ -74,7 +73,7 @@ public class PlacedFeaturesInit {
                 registryLookup.getOrThrow(ConfigurationFeatureInit.PEACH_TREE_KEY),
                 VegetationPlacements.treePlacement(
                         PlacementUtils.countExtra(0, 0.1f, 1),
-                        MIBlocks.PEACH.sapling()
+                        RDWoodBlocks.PEACH.sapling()
                 )
         ));
 

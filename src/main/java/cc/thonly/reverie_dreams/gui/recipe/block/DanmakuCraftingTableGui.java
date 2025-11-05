@@ -1,12 +1,10 @@
 package cc.thonly.reverie_dreams.gui.recipe.block;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
-import cc.thonly.reverie_dreams.item.ModItems;
-import cc.thonly.reverie_dreams.item.other.GuiSlotItem;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
@@ -45,7 +43,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
 
     public DanmakuCraftingTableGui(ServerPlayer player, Level world, BlockPos pos) {
         super(MenuType.GENERIC_9x3, player, false);
-        this.setTitle(Component.translatable(ModBlocks.DANMAKU_CRAFTING_TABLE.getDescriptionId()));
+        this.setTitle(Component.translatable(RDBlocks.DANMAKU_CRAFTING_TABLE.getDescriptionId()));
         this.blockEntity = (DanmakuCraftingTableBlockEntity) world.getBlockEntity(pos);
         this.init();
     }
@@ -60,16 +58,16 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                 char c = layout[i].charAt(j);
                 if (c == '#') {
                     this.setSlot(counter, new GuiElementBuilder()
-                            .setItem(ModGuiItems.EMPTY_SLOT));
+                            .setItem(RDGuiItems.EMPTY_SLOT));
                 }
                 if (c == 'X') {
                     Function<Integer, Function<ItemStack, Boolean>> iffib = index -> {
                         return switch (index) {
                             case 0 -> itemStack -> itemStack.getItem() instanceof DyeItem;
-                            case 1 -> itemStack -> itemStack.getItem() == ModItems.DANMAKU_CORE;
-                            case 2 -> itemStack -> itemStack.getItem() == ModItems.POWER;
-                            case 3 -> itemStack -> itemStack.getItem() == ModItems.POINT;
-                            case 4 -> itemStack -> itemStack.getItem() == ModItems.DANMAKU_SHAPE_CREATOR;
+                            case 1 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_CORE;
+                            case 2 -> itemStack -> itemStack.getItem() == RDItems.POWER;
+                            case 3 -> itemStack -> itemStack.getItem() == RDItems.POINT;
+                            case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR;
                             default -> itemStack -> true;
                         };
                     };
@@ -84,7 +82,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                 }
                 if (c == 'R') {
                     this.setSlot(counter, new GuiElementBuilder()
-                            .setItem(ModGuiItems.PROGRESS_TO_RESULT_DOWN)
+                            .setItem(RDGuiItems.PROGRESS_TO_RESULT_DOWN)
                     );
                 }
                 counter++;
@@ -97,7 +95,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     @Override
     public void onTick() {
         super.onTick();
-        if (this.blockEntity.getLevel() != null && this.blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock() != ModBlocks.DANMAKU_CRAFTING_TABLE) {
+        if (this.blockEntity.getLevel() != null && this.blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock() != RDBlocks.DANMAKU_CRAFTING_TABLE) {
             this.close();
             return;
         }
@@ -128,7 +126,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                         }
                         DanmakuCraftingTableGui.this.player.addItem(itemStack.copy());
                         DanmakuCraftingTableGui.this.setSlot(DanmakuCraftingTableGui.this.resultSlot, new GuiElementBuilder()
-                                .setItem(ModGuiItems.PROGRESS_TO_RESULT)
+                                .setItem(RDGuiItems.PROGRESS_TO_RESULT)
                         );
                     }
                 }));

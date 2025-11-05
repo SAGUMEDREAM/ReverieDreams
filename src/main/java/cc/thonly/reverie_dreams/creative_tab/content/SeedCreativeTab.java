@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
-import cc.thonly.mystias_izakaya.MystiasIzakaya;
-import cc.thonly.mystias_izakaya.block.MIBlocks;
-import cc.thonly.reverie_dreams.block.CropBlockCreator;
-import cc.thonly.reverie_dreams.block.WoodCreator;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
+import cc.thonly.reverie_dreams.block.creator.WoodCreator;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class SeedCreativeTab implements ItemGroupContentHelper {
 
-    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, MystiasIzakaya.id("seeds_item_group"));
+    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("seeds_item_group"));
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(SeedCreativeTab::getSeedItemIcon)
             .title(Component.translatable("item_group.seed_item_group"))
@@ -30,8 +30,8 @@ public class SeedCreativeTab implements ItemGroupContentHelper {
                 Item seed = instance.getSeed();
                 itemGroup.accept(seed);
             }
-            itemGroup.accept(MIBlocks.UDUMBARA_FLOWER);
-            itemGroup.accept(MIBlocks.TREMELLA);
+            itemGroup.accept(RDWoodBlocks.UDUMBARA_FLOWER);
+            itemGroup.accept(RDWoodBlocks.TREMELLA);
             WoodCreator.INSTANCES.forEach((instance) -> itemGroup.accept(instance.sapling()));
 
         });

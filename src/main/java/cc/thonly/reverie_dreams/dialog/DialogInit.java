@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.dialog;
 
-import cc.thonly.mystias_izakaya.block.MIBlocks;
-import cc.thonly.mystias_izakaya.entity.MIEntities;
 import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -93,8 +93,8 @@ public class DialogInit {
         List<ItemStack> list = new ArrayList<>();
         list.add(Items.IRON_SWORD.getDefaultInstance());
         list.add(Items.SLIME_BLOCK.getDefaultInstance());
-        list.add(ModItems.SPEED_FEATHER.getDefaultInstance());
-        list.add(ModItems.SPELL_CARD_TEMPLATE.getDefaultInstance());
+        list.add(RDItems.SPEED_FEATHER.getDefaultInstance());
+        list.add(RDItems.SPELL_CARD_TEMPLATE.getDefaultInstance());
         list.forEach(value -> UPGRADE_ITEM_BODIES.add(createItemStackBody(value)));
         return list;
     }
@@ -126,20 +126,20 @@ public class DialogInit {
                         true, false,
                         DialogAction.CLOSE,
                         new ArrayList<>(List.of(
-                                new PlainMessage(Component.empty().append(Component.translatable(ModBlocks.GENSOKYO_ALTAR.getDescriptionId())).append(Component.literal("使用方式：空手 + Shift + 右键")), 200),
+                                new PlainMessage(Component.empty().append(Component.translatable(RDBlocks.GENSOKYO_ALTAR.getDescriptionId())).append(Component.literal("使用方式：空手 + Shift + 右键")), 200),
                                 new PlainMessage(Component.empty().append(Component.translatable("dialog.altar.material")), 180),
-                                new ItemBody(ModBlocks.SPIRITUAL.strippedLog().asItem().getDefaultInstance(), Optional.of(new PlainMessage(
+                                new ItemBody(RDWoodBlocks.SPIRITUAL.strippedLog().asItem().getDefaultInstance(), Optional.of(new PlainMessage(
                                         Component.empty()
-                                                .append(Component.translatable(ModBlocks.SPIRITUAL.strippedLog().getDescriptionId()))
+                                                .append(Component.translatable(RDWoodBlocks.SPIRITUAL.strippedLog().getDescriptionId()))
                                                 .append(Component.literal(" - "))
                                                 .append(Component.literal("§c\u999a").setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))))
                                                 .append(Component.literal(" * 3"))
                                         , 200)
 
                                 ), true, true, 16, 16),
-                                new ItemBody(ModBlocks.GENSOKYO_ALTAR.asItem().getDefaultInstance(), Optional.of(new PlainMessage(
+                                new ItemBody(RDBlocks.GENSOKYO_ALTAR.asItem().getDefaultInstance(), Optional.of(new PlainMessage(
                                         Component.empty()
-                                                .append(Component.translatable(ModBlocks.GENSOKYO_ALTAR.getDescriptionId()))
+                                                .append(Component.translatable(RDBlocks.GENSOKYO_ALTAR.getDescriptionId()))
                                                 .append(Component.literal(" - "))
                                                 .append(Component.literal("§e\u999a").setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))))
                                                 .append(Component.literal(""))
@@ -164,8 +164,8 @@ public class DialogInit {
                         DialogAction.CLOSE,
                         new ArrayList<>(List.of(
                                 new ItemBody(
-                                        new ItemStack(ModBlocks.DANMAKU_CRAFTING_TABLE, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModBlocks.DANMAKU_CRAFTING_TABLE.getDescriptionId())).append(Component.literal("")), 200)),
+                                        new ItemStack(RDBlocks.DANMAKU_CRAFTING_TABLE, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDBlocks.DANMAKU_CRAFTING_TABLE.getDescriptionId())).append(Component.literal("")), 200)),
                                         true, true, 16, 16
                                 ),
                                 new PlainMessage(Component.empty().append(Component.translatable("dialog.danmaku.description.0")), 200),
@@ -176,23 +176,23 @@ public class DialogInit {
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(ModItems.DANMAKU_CORE, 4),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModItems.DANMAKU_CORE.getDescriptionId())).append(Component.literal("")), 200)),
+                                        new ItemStack(RDItems.DANMAKU_CORE, 4),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDItems.DANMAKU_CORE.getDescriptionId())).append(Component.literal("")), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(ModItems.POWER, 35),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModItems.POWER.getDescriptionId())).append(Component.literal("")), 200)),
+                                        new ItemStack(RDItems.POWER, 35),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDItems.POWER.getDescriptionId())).append(Component.literal("")), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(ModItems.POINT, 35),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModItems.POINT.getDescriptionId())).append(Component.literal("")), 200)),
+                                        new ItemStack(RDItems.POINT, 35),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDItems.POINT.getDescriptionId())).append(Component.literal("")), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(ModItems.DANMAKU_SHAPE_CREATOR),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModItems.DANMAKU_SHAPE_CREATOR.getDescriptionId())).append(Component.literal("")), 200)),
+                                        new ItemStack(RDItems.DANMAKU_SHAPE_CREATOR),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDItems.DANMAKU_SHAPE_CREATOR.getDescriptionId())).append(Component.literal("")), 200)),
                                         true, true, 16, 16
                                 )
 
@@ -232,10 +232,10 @@ public class DialogInit {
                         new ArrayList<>(List.of(
                                 new PlainMessage(Component.translatable("dialog.fumo.description.0"), 200),
                                 new PlainMessage(Component.empty().append(Component.translatable("dialog.fumo.description.1")), 200),
-                                new PlainMessage(Component.empty().append(Component.translatable("dialog.fumo.description.2", Component.translatable(ModItems.FUMO_LICENSE.getDescriptionId()))), 200),
-                                new ItemBody(ModItems.FUMO_LICENSE.getDefaultInstance(), Optional.empty(), true, true, 16, 16),
+                                new PlainMessage(Component.empty().append(Component.translatable("dialog.fumo.description.2", Component.translatable(RDItems.FUMO_LICENSE.getDescriptionId()))), 200),
+                                new ItemBody(RDItems.FUMO_LICENSE.getDefaultInstance(), Optional.empty(), true, true, 16, 16),
                                 new ItemBody(Items.VILLAGER_SPAWN_EGG.getDefaultInstance(), Optional.empty(), true, true, 16, 16),
-                                new ItemBody(ModEntities.SPAWN_EGG_BIND.getOrDefault(ModEntities.FUMO_SELLER_VILLAGER, ModItems.SPAWN_EGG).getDefaultInstance(), Optional.empty(), true, true, 16, 16)
+                                new ItemBody(RDEntityTypes.SPAWN_EGG_BIND.getOrDefault(RDEntityTypes.FUMO_SELLER_VILLAGER, RDItems.SPAWN_EGG).getDefaultInstance(), Optional.empty(), true, true, 16, 16)
                         )),
                         new ArrayList<>(List.of(
 
@@ -254,18 +254,18 @@ public class DialogInit {
                         new ArrayList<>(List.of(
                                 new PlainMessage(Component.translatable("dialog.role.description.0"), 200),
                                 new PlainMessage(Component.translatable("dialog.role.description.1"), 200),
-                                new PlainMessage(Component.translatable("dialog.role.description.2", Component.translatable(ModItems.ROLE_ARCHIVE.getDescriptionId())), 200),
+                                new PlainMessage(Component.translatable("dialog.role.description.2", Component.translatable(RDItems.ROLE_ARCHIVE.getDescriptionId())), 200),
                                 new PlainMessage(Component.translatable("dialog.role.description.3"), 200),
                                 new PlainMessage(Component.translatable("dialog.role.description.4"), 200),
                                 new PlainMessage(Component.translatable("dialog.role.description.5"), 200),
                                 new ItemBody(
-                                        new ItemStack(ModItems.ROLE_CARD, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModItems.ROLE_CARD.getDescriptionId())), 200)),
+                                        new ItemStack(RDItems.ROLE_CARD, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDItems.ROLE_CARD.getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(ModItems.ROLE_ARCHIVE, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModItems.ROLE_ARCHIVE.getDescriptionId())), 200)),
+                                        new ItemStack(RDItems.ROLE_ARCHIVE, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDItems.ROLE_ARCHIVE.getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 )
                         )),
@@ -290,34 +290,34 @@ public class DialogInit {
                                 new PlainMessage(Component.translatable("dialog.touhou_mystia.description.3"), 200),
                                 new PlainMessage(Component.translatable("dialog.touhou_mystia.description.4"), 200),
                                 new ItemBody(
-                                        new ItemStack(MIBlocks.COOKING_POT, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(MIBlocks.COOKING_POT.getDescriptionId())), 200)),
+                                        new ItemStack(KitchenBlocks.COOKING_POT, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(KitchenBlocks.COOKING_POT.getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(MIBlocks.CUTTING_BOARD, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(MIBlocks.CUTTING_BOARD.getDescriptionId())), 200)),
+                                        new ItemStack(KitchenBlocks.CUTTING_BOARD, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(KitchenBlocks.CUTTING_BOARD.getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(MIBlocks.FRYING_PAN, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(MIBlocks.FRYING_PAN.getDescriptionId())), 200)),
+                                        new ItemStack(KitchenBlocks.FRYING_PAN, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(KitchenBlocks.FRYING_PAN.getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(MIBlocks.GRILL, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(MIBlocks.GRILL.getDescriptionId())), 200)),
+                                        new ItemStack(KitchenBlocks.GRILL, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(KitchenBlocks.GRILL.getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(MIBlocks.STEAMER, 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(MIBlocks.STEAMER.getDescriptionId())), 200)),
+                                        new ItemStack(KitchenBlocks.STEAMER, 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(KitchenBlocks.STEAMER.getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 ),
                                 new PlainMessage(Component.translatable("dialog.touhou_mystia.description.5"), 200),
                                 new PlainMessage(Component.translatable("dialog.touhou_mystia.description.6"), 200),
-                                new PlainMessage(Component.translatable("dialog.touhou_mystia.description.7", Component.translatable(MIEntities.TAVERN_VILLAGER.getDescriptionId())), 200),
-                                new PlainMessage(Component.translatable("dialog.touhou_mystia.description.8", Component.translatable(Blocks.BARREL.getDescriptionId()), Component.translatable(MIEntities.TAVERN_VILLAGER.getDescriptionId())), 200),
+                                new PlainMessage(Component.translatable("dialog.touhou_mystia.description.7", Component.translatable(RDEntityTypes.TAVERN_VILLAGER.getDescriptionId())), 200),
+                                new PlainMessage(Component.translatable("dialog.touhou_mystia.description.8", Component.translatable(Blocks.BARREL.getDescriptionId()), Component.translatable(RDEntityTypes.TAVERN_VILLAGER.getDescriptionId())), 200),
                                 new ItemBody(
                                         new ItemStack(Blocks.BARREL, 1),
                                         Optional.of(new PlainMessage(Component.empty().append(Component.translatable(Blocks.BARREL.getDescriptionId())), 200)),
@@ -329,8 +329,8 @@ public class DialogInit {
                                         true, true, 16, 16
                                 ),
                                 new ItemBody(
-                                        new ItemStack(ModEntities.SPAWN_EGG_BIND.getOrDefault(MIEntities.TAVERN_VILLAGER, Items.VILLAGER_SPAWN_EGG), 1),
-                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(ModEntities.SPAWN_EGG_BIND.getOrDefault(MIEntities.TAVERN_VILLAGER, Items.VILLAGER_SPAWN_EGG).getDescriptionId())), 200)),
+                                        new ItemStack(RDEntityTypes.SPAWN_EGG_BIND.getOrDefault(RDEntityTypes.TAVERN_VILLAGER, Items.VILLAGER_SPAWN_EGG), 1),
+                                        Optional.of(new PlainMessage(Component.empty().append(Component.translatable(RDEntityTypes.SPAWN_EGG_BIND.getOrDefault(RDEntityTypes.TAVERN_VILLAGER, Items.VILLAGER_SPAWN_EGG).getDescriptionId())), 200)),
                                         true, true, 16, 16
                                 )
                         )),

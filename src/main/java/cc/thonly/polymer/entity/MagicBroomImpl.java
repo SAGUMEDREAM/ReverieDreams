@@ -1,7 +1,7 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.reverie_dreams.entity.ModEntityHolders;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.entity.holder.MagicBroomHolder;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
@@ -32,7 +32,7 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
         this.magicBroomEntity.setNoGravity(true);
         var x = new ItemDisplayElement();
         var holder = new MagicBroomHolder(this.magicBroomEntity);
-        var stack = new ItemStack(ModEntityHolders.MAGIC_BROOM_DISPLAY);
+        var stack = new ItemStack(RDEntityHolderItems.MAGIC_BROOM_DISPLAY);
         if (this.magicBroomEntity.itemWrapper.getItemStack().hasFoil()) {
             stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         }

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.gui.recipe.display;
 
 import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
@@ -30,7 +30,7 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
     public final RecipeEntryWrapper<DanmakuRecipe> key2ValueEntry;
     public final ResourceLocation key;
     public final DanmakuRecipe value;
-    public final GuiElementBuilder back = new GuiElementBuilder().setItem(ModGuiItems.BACK).setSkullOwner(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
+    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.BACK).setSkullOwner(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
 
     public DanmakuTableDisplayView(ServerPlayer player, RecipeEntryWrapper<DanmakuRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
@@ -59,11 +59,11 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
                 String c = grid[row][col];
                 int slot = row * 9 + col;
                 if (c.equalsIgnoreCase("X")) {
-                    GuiElementBuilder builder = new GuiElementBuilder(ModGuiItems.EMPTY_SLOT);
+                    GuiElementBuilder builder = new GuiElementBuilder(RDGuiItems.EMPTY_SLOT);
                     this.setSlot(slot, builder);
                 }
                 if (c.equalsIgnoreCase("T")) {
-                    GuiElementBuilder builder = new GuiElementBuilder(ModGuiItems.PROGRESS_TO_RESULT);
+                    GuiElementBuilder builder = new GuiElementBuilder(RDGuiItems.PROGRESS_TO_RESULT);
                     this.setSlot(slot, builder);
                 }
                 if (c.equalsIgnoreCase("B")) {

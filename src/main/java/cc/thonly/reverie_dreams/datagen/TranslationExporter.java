@@ -1,11 +1,10 @@
 package cc.thonly.reverie_dreams.datagen;
 
 import autovalue.shaded.com.google.errorprone.annotations.CanIgnoreReturnValue;
-import cc.thonly.reverie_dreams.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.entity.ModEntities;
-import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -36,7 +35,7 @@ import java.util.Map;
 @Getter
 @Slf4j
 public class TranslationExporter implements TranslationExporterBuilderImpl {
-    public static final Map<EntityType<?>, Item> MAPPER = ModEntities.SPAWN_EGG_BIND;
+    public static final Map<EntityType<?>, Item> MAPPER = RDEntityTypes.SPAWN_EGG_BIND;
     private final HolderLookup.Provider wrapperLookup;
     private final FabricLanguageProvider.TranslationBuilder translationBuilder;
 
@@ -139,7 +138,7 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
     }
 
     public TranslationExporter generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        this.translationBuilder.add(RegistryManager.DANMAKU_TRAJECTORY.getKey(trajectory).toLanguageKey(), value);
+        this.translationBuilder.add(RegistryHandlers.DANMAKU_TRAJECTORY.getKey(trajectory).toLanguageKey(), value);
         return this;
     }
 

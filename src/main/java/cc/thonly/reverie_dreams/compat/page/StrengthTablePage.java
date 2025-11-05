@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.compat.page;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.ModBlocks;
-import cc.thonly.reverie_dreams.item.ModGuiItems;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -25,7 +25,7 @@ public class StrengthTablePage implements PolydexPage {
     public static final ResourceLocation id = ReverieDreams.id("recipe/strength_table");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
-    public static final ItemStack ICON = new GuiElementBuilder(ModBlocks.STRENGTH_TABLE.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
+    public static final ItemStack ICON = new GuiElementBuilder(RDBlocks.STRENGTH_TABLE.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
     public final ResourceLocation key;
     public final StrengthTableRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
@@ -79,7 +79,7 @@ public class StrengthTablePage implements PolydexPage {
 
     private ItemStack getViewStack(AtomicInteger input, String s) {
         if (s.equals("X")) {
-            return ModGuiItems.EMPTY_SLOT.getDefaultInstance();
+            return RDGuiItems.EMPTY_SLOT.getDefaultInstance();
         } else if (s.equals("I")) {
             int i = input.get();
             input.incrementAndGet();
@@ -91,7 +91,7 @@ public class StrengthTablePage implements PolydexPage {
                 return this.value.getOutput().getItemStack().copy();
             }
         } else if (s.equals("T")) {
-            return ModGuiItems.PROGRESS_TO_RESULT.getDefaultInstance();
+            return RDGuiItems.PROGRESS_TO_RESULT.getDefaultInstance();
         }
         return Items.AIR.getDefaultInstance();
     }

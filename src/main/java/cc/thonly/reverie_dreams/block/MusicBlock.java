@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
-import cc.thonly.reverie_dreams.block.entity.ModBlockEntities;
+import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import com.mojang.serialization.MapCodec;
@@ -102,7 +102,7 @@ public class MusicBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.MUSIC_BLOCK_ENTITY, MusicBlockEntity::tick);
+        return createTickerHelper(type, RDBlockEntityTypes.MUSIC_BLOCK_ENTITY, MusicBlockEntity::tick);
     }
 
     @Override

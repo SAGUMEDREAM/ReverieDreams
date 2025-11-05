@@ -1,12 +1,16 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
+import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,12 +58,12 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
         this.goalSelector.addGoal(1, new DanmakuGoal(this, (self, target, world) -> {
             ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY);
             final MinecraftServer server = world.getServer();
-            final float[] pitchYaw = MobDanmakuShooter.getPitchYaw(self, target);
+            final float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
 
             DelayedTask.repeat(server, 1, 0.3f, () -> {
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
-                MobDanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
+                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
             });
         }));
 //        this.goalSelector.add(2, new SmartFlyGoal(this, 1.2));
@@ -94,7 +98,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
         super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
         ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
-        this.variant = RegistryManager.YOUSEI_VARIANT.getValue(variantId);
+        this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
     }
 
     @Override
@@ -115,7 +119,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
 
     @Override
     public void setVariantData(ResourceLocation id) {
-        this.variant = RegistryManager.YOUSEI_VARIANT.getValue(id);
+        this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(id);
         if (this.variant != null) {
             this.skinType = this.variant.getSkinType();
         }

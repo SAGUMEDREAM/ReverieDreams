@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
@@ -49,7 +49,7 @@ public class NPCOpenSilverChestGoal extends Goal {
             for (int y = box.minY(); y <= box.maxY(); y++) {
                 for (int z = box.minZ(); z <= box.maxZ(); z++) {
                     pos.set(x, y, z);
-                    if (!(world.getBlockState(pos).getBlock() == ModBlocks.SILVER_CHEST_BLOCK.getChestBlock())) {
+                    if (!(world.getBlockState(pos).getBlock() == RDBlocks.SILVER_CHEST_BLOCK.getChestBlock())) {
                         continue;
                     }
                     if (world.getBlockEntity(pos) instanceof CustomChestBlockEntity customChestBlockEntity) {

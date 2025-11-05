@@ -1,7 +1,7 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.reverie_dreams.block.ModBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.entity.holder.WheelChairHolder;
 import cc.thonly.reverie_dreams.entity.misc.WheelchairEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
@@ -30,7 +30,7 @@ public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements Polym
         this.wheelchairEntity.setNoGravity(true);
         var x = new ItemDisplayElement();
         var holder = new WheelChairHolder(this.wheelchairEntity);
-        var stack = new ItemStack(ModBlocks.WHEEL_CHAIR);
+        var stack = new ItemStack(RDBlocks.WHEEL_CHAIR);
         x.setItem(stack);
         x.setItemDisplayContext(ItemDisplayContext.HEAD);
         x.setInvisible(true);

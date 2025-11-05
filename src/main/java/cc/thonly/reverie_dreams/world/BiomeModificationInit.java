@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world;
 
-import cc.thonly.reverie_dreams.entity.ModEntities;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.world.gen.BiomeInit;
 import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
@@ -81,15 +81,15 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_PLAINS),
                 MobCategory.MONSTER,
-                ModEntities.YOUSEI_ENTITY_TYPE, 10, 1, 2
+                RDEntityTypes.YOUSEI_ENTITY_TYPE, 10, 1, 2
         );
         BiomeModifications.addSpawn(
                 BiomeSelectors.includeByKey(BiomeInit.DREAM),
                 MobCategory.MONSTER,
-                ModEntities.YOUSEI_ENTITY_TYPE, 2, 1, 2
+                RDEntityTypes.YOUSEI_ENTITY_TYPE, 2, 1, 2
         );
         SpawnPlacements.register(
-                ModEntities.YOUSEI_ENTITY_TYPE,
+                RDEntityTypes.YOUSEI_ENTITY_TYPE,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, world, reason, pos, random) -> {
@@ -98,7 +98,7 @@ public class BiomeModificationInit {
                     if (!world.getBlockState(pos).isAir()) return false;
 
                     int nearby = world.getEntitiesOfClass(
-                            ModEntities.YOUSEI_ENTITY_TYPE.getBaseClass(),
+                            RDEntityTypes.YOUSEI_ENTITY_TYPE.getBaseClass(),
                             new AABB(
                                     pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
                                     pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
@@ -113,15 +113,15 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_PLAINS),
                 MobCategory.MONSTER,
-                ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, 3, 1, 3
+                RDEntityTypes.SUNFLOWER_YOUSEI_ENTITY_TYPE, 3, 1, 3
         );
         BiomeModifications.addSpawn(
                 BiomeSelectors.includeByKey(BiomeInit.DREAM),
                 MobCategory.MONSTER,
-                ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE, 1, 1, 1
+                RDEntityTypes.SUNFLOWER_YOUSEI_ENTITY_TYPE, 1, 1, 1
         );
         SpawnPlacements.register(
-                ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE,
+                RDEntityTypes.SUNFLOWER_YOUSEI_ENTITY_TYPE,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, world, reason, pos, random) -> {
@@ -132,7 +132,7 @@ public class BiomeModificationInit {
 
                     // ✅ 新增：检测周围是否已有太多该实体
                     int nearbyCount = world.getEntitiesOfClass(
-                            ModEntities.SUNFLOWER_YOUSEI_ENTITY_TYPE.getBaseClass(),
+                            RDEntityTypes.SUNFLOWER_YOUSEI_ENTITY_TYPE.getBaseClass(),
                             new AABB(
                                     pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
                                     pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
@@ -146,28 +146,28 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_DARK_FOREST),
                 MobCategory.MONSTER,
-                ModEntities.MAID_YOUSEI_ENTITY_TYPE, 10, 1, 2
+                RDEntityTypes.MAID_YOUSEI_ENTITY_TYPE, 10, 1, 2
         );
         // 杀人蜂
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_BIRCH_FOREST),
                 MobCategory.MONSTER,
-                ModEntities.KILLER_BEE_ENTITY_TYPE, 7, 2, 3
+                RDEntityTypes.KILLER_BEE_ENTITY_TYPE, 7, 2, 3
         );
         // 毛玉
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST),
                 MobCategory.MONSTER,
-                ModEntities.HAIRBALL_ENTITY_TYPE, 10, 2, 4
+                RDEntityTypes.HAIRBALL_ENTITY_TYPE, 10, 2, 4
         );
         // 哥布林
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_DESERT),
                 MobCategory.MONSTER,
-                ModEntities.GOBLIN_ENTITY_TYPE, 50 / 5, 1, 1
+                RDEntityTypes.GOBLIN_ENTITY_TYPE, 50 / 5, 1, 1
         );
         SpawnPlacements.register(
-                ModEntities.GOBLIN_ENTITY_TYPE,
+                RDEntityTypes.GOBLIN_ENTITY_TYPE,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entity, world, reason, pos, random) ->
@@ -179,31 +179,31 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_MUSHROOM),
                 MobCategory.MONSTER,
-                ModEntities.MUSHROOM_MONSTER_ENTITY_TYPE, 8, 1, 2
+                RDEntityTypes.MUSHROOM_MONSTER_ENTITY_TYPE, 8, 1, 2
         );
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_DARK_FOREST),
                 MobCategory.MONSTER,
-                ModEntities.MUSHROOM_MONSTER_ENTITY_TYPE, 8, 1, 2
+                RDEntityTypes.MUSHROOM_MONSTER_ENTITY_TYPE, 8, 1, 2
         );
         // 冰元素
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_SNOWY),
                 MobCategory.MONSTER,
-                ModEntities.ICE_ELEMENTAL_ENTITY_TYPE, 10, 1, 2
+                RDEntityTypes.ICE_ELEMENTAL_ENTITY_TYPE, 10, 1, 2
         );
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_SNOWY_PLAINS),
                 MobCategory.MONSTER,
-                ModEntities.ICE_ELEMENTAL_ENTITY_TYPE, 10, 1, 2
+                RDEntityTypes.ICE_ELEMENTAL_ENTITY_TYPE, 10, 1, 2
         );
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_COLD_END),
                 MobCategory.MONSTER,
-                ModEntities.ICE_ELEMENTAL_ENTITY_TYPE, 10, 1, 2
+                RDEntityTypes.ICE_ELEMENTAL_ENTITY_TYPE, 10, 1, 2
         );
         SpawnPlacements.register(
-                ModEntities.ICE_ELEMENTAL_ENTITY_TYPE,
+                RDEntityTypes.ICE_ELEMENTAL_ENTITY_TYPE,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 IceElementalEntity::canSpawn
@@ -212,14 +212,14 @@ public class BiomeModificationInit {
         BiomeModifications.addSpawn(
                 BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                 MobCategory.MONSTER,
-                ModEntities.MOON_RABBIT_ENTITY_TYPE, 10, 1, 1
+                RDEntityTypes.MOON_RABBIT_ENTITY_TYPE, 10, 1, 1
         );
         BiomeModifications.create(ResourceLocation.fromNamespaceAndPath("reverie_dreams", "moon_spawns"))
                 .add(ModificationPhase.ADDITIONS,
                         BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                         ctx -> ctx.getSpawnSettings().addSpawn(
                                 MobCategory.MONSTER,
-                                new MobSpawnSettings.SpawnerData(ModEntities.MOON_RABBIT_ENTITY_TYPE, 1, 1),
+                                new MobSpawnSettings.SpawnerData(RDEntityTypes.MOON_RABBIT_ENTITY_TYPE, 1, 1),
                                 5
                         )
                 );

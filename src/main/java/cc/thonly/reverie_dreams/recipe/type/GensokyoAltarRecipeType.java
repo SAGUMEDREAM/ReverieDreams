@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
-import cc.thonly.reverie_dreams.item.ModItems;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
@@ -70,7 +70,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
     public void registerDynamicRecipe() {
-        this.add(ReverieDreams.id("role_archive"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.ROLE_ARCHIVE), List.of(
+        this.add(ReverieDreams.id("role_archive"), new GensokyoAltarRecipe(ItemStackWrapper.of(RDItems.ROLE_ARCHIVE), List.of(
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
@@ -79,8 +79,8 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2)
-        ), ItemStackWrapper.of(ModItems.ROLE_ARCHIVE)));
-        this.add(ReverieDreams.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackWrapper.of(ModItems.SPELL_CARD_TEMPLATE), List.of(
+        ), ItemStackWrapper.of(RDItems.ROLE_ARCHIVE)));
+        this.add(ReverieDreams.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackWrapper.of(RDItems.SPELL_CARD_TEMPLATE), List.of(
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
@@ -89,7 +89,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2),
                 ItemStackWrapper.of(Items.DIAMOND, 2)
-        ), ItemStackWrapper.of(ModItems.SPELL_CARD_TEMPLATE, 2)));
+        ), ItemStackWrapper.of(RDItems.SPELL_CARD_TEMPLATE, 2)));
     }
 
     @Override
@@ -109,7 +109,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
         if (coreWrapper.getItem() instanceof RoleFollowerArchiveItem && isAllMatch.test(2)) {
             ItemStack itemStack = coreWrapper.copy().getItemStack();
-            itemStack.set(ModDataComponentTypes.ROLE_CAN_RESPAWN, true);
+            itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN, true);
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,

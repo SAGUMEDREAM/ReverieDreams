@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.engine;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.IntrinsicalRegister;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.loader.api.FabricLoader;
@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 @Slf4j
 public class JavaScriptManager {
     private static final String DIRNAME = "javascript_src";
-    private static final IntrinsicalRegister<JavaScriptElement> REGISTRY = RegistryManager.JAVASCRIPT_ELEMENT;
+    private static final RegistryHandler<JavaScriptElement> REGISTRY = RegistryHandlers.JAVASCRIPT_ELEMENT;
     private static final JavaScriptManager INSTANCE = new JavaScriptManager();
     private static final Supplier<ScriptEngine> ENGINE = () -> new ScriptEngineManager().getEngineByName("JavaScript");
 
@@ -82,14 +82,14 @@ public class JavaScriptManager {
             ResourceLocation key = ResourceLocation.fromNamespaceAndPath(fileId.getNamespace(), fileId.getPath().replace(DIRNAME + "/", "").replace(".json", ""));
             try (InputStream inputStream = resource.open()) {
                 String src = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-                RegistryManager.register(REGISTRY, key, new JavaScriptElement(src));
+                RegistryHandlers.register(REGISTRY, key, new JavaScriptElement(src));
             } catch (Exception e) {
                 log.error("Can't load script {}", key, e);
             }
         }
     }
 
-    public static void bootstrap(IntrinsicalRegister<JavaScriptElement> registry) {
+    public static void bootstrap(RegistryHandler<JavaScriptElement> registry) {
 
     }
 }

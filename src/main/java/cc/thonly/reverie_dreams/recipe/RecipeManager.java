@@ -4,15 +4,9 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RecipeInjectCallback;
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
-import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
-import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
-import cc.thonly.reverie_dreams.recipe.type.DanmakuRecipeType;
-import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
-import cc.thonly.reverie_dreams.recipe.type.StrengthTableRecipeType;
-import cc.thonly.reverie_dreams.registry.RegistryManager;
+import cc.thonly.reverie_dreams.recipe.entry.*;
+import cc.thonly.reverie_dreams.recipe.type.*;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.ResourceLocation;
@@ -28,6 +22,7 @@ public class RecipeManager {
     public static final BaseRecipeType<DanmakuShapeDrawRecipe> DANMAKU_SHAPE_DRAW_TYPE = registerRecipeType(ReverieDreams.id("danmaku_shape_draw"), new DanmakuShapeDrawRecipeType());
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
+    public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
 
     public static void bootstrap() {
 
@@ -80,7 +75,7 @@ public class RecipeManager {
     }
 
     public static <R extends BaseRecipe, BR extends BaseRecipeType<R>> BR registerRecipeType(ResourceLocation id, BR recipeType) {
-        RegistryManager.register(RegistryManager.RECIPE_TYPE, id, recipeType);
+        RegistryHandlers.register(RegistryHandlers.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();
         assert id == recipeType.getId();

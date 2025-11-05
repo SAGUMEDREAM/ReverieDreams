@@ -1,6 +1,6 @@
 package cc.thonly.polymer.block;
 
-import cc.thonly.reverie_dreams.block.ModelBlock;
+import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.block.model.generic.BSMMParticleBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;

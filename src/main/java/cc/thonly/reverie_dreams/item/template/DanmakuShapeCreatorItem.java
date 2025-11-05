@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.component.ModDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.gui.DanmakuShapeEditGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -37,7 +37,7 @@ public class DanmakuShapeCreatorItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        ItemStackWrapper itemStackWrapper = stack.get(ModDataComponentTypes.DANMAKU_SHAPE);
+        ItemStackWrapper itemStackWrapper = stack.get(RDDataComponentTypes.DANMAKU_SHAPE);
         return itemStackWrapper != null;
     }
 }
