@@ -67,6 +67,7 @@ public class DialogInit {
             1
     );
     private static final URI GROUP_LINK = URI.create("https://qun.qq.com/universal-share/share?ac=1&authKey=ijHEaEfpwdV4sNlrpdjmEjSZsCWx4zO9F7UM4B8vI47y4nIg%2FtNOSptKxn%2BxSrhN&busi_data=eyJncm91cENvZGUiOiIxMDU3MTMyMTc1IiwidG9rZW4iOiJjN0xaWmtWWk9KUk9hSFpkdHRrUmE4U2NhUzQyZDRHYlZIblYvRkxrWlRoUmJ6T0VXcG9nVG9hUllqRHQxUWllIiwidWluIjoiODA3MTMxODI5In0%3D&data=LLbqAIG4qDGldPh2yXGEmiNpZEV9Ch4t82ROb7z5ozfubUArvyZNB5d8huGu6plHcZ61ugJfy5suoiA4Lr6e_A&svctype=4&tempid=h5_group_info");
+    private static final URI DISCORD_LINK = URI.create("https://discord.gg/8nzjpm8wex");
     public static List<ItemBody> UPGRADE_ITEM_BODIES = new ArrayList<>();
     public static final List<ItemStack> UPGRADE_ITEM = getUpgradeItemList();
     public static final ResourceKey<Registry<Dialog>> REGISTRY = Registries.DIALOG;
@@ -440,6 +441,10 @@ public class DialogInit {
             }
         } catch (Exception ignored) {
         }
+        list.add(new ActionButton(
+                new CommonButtonData(Component.empty().append(Component.literal("Discord Community")), 200),
+                Optional.of(new StaticAction(new ClickEvent.OpenUrl(DISCORD_LINK)))
+        ));
         list.add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.title.open_recipe_manager")), 200),
                 Optional.of(new StaticAction(new ClickEvent.RunCommand("touhou recipe")))

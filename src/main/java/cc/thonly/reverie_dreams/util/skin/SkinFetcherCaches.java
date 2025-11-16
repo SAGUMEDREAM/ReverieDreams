@@ -1,10 +1,9 @@
-package cc.thonly.reverie_dreams.util;
+package cc.thonly.reverie_dreams.util.skin;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -21,7 +20,6 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 public class SkinFetcherCaches {

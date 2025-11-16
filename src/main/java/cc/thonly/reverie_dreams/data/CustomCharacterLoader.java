@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.util.SkinFetcher;
+import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import cc.thonly.reverie_dreams.util.VirtualZipFS;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

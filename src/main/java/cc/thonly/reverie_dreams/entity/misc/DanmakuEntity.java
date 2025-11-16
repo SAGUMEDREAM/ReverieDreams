@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
 import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -12,10 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,6 +24,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -216,6 +218,9 @@ public class DanmakuEntity extends AbstractArrow {
             if (entity == this.getOwner()) {
                 continue;
             }
+            if (this.getOwner() != null && this.getOwner().getControlledVehicle() == entity) {
+                continue;
+            }
             if (entity instanceof AbstractArrow) {
                 continue;
             }
@@ -364,7 +369,6 @@ public class DanmakuEntity extends AbstractArrow {
         this.setSilent(false);
         this.setSilent(true);
 
-        entityHitResult.getEntity();
         this.setBaseDamage(this.properties.getDamage());
         this.entityHitParticles(entityHitResult.getEntity(), this.properties.getDamage() * this.getDeltaMovement().length());
 
@@ -389,13 +393,10 @@ public class DanmakuEntity extends AbstractArrow {
                 if (owner instanceof LivingEntity attacker) {
                     damageSource = world.damageSources().mobProjectile(this, attacker);
                 } else {
-                    Optional<Holder.Reference<DanmakuDamageType>> optionalHolder = RegistryHandlers.DANMAKU_DAMAGE_TYPE.get(this.properties.getDamageType());
-                    if (optionalHolder.isPresent()) {
-                        Holder.Reference<DanmakuDamageType> reference = optionalHolder.get();
-                        damageSource = reference.value().mapToSource(world.damageSources());
-                    } else {
-                        damageSource = world.damageSources().mobProjectile(this, null);
-                    }
+                    RegistryAccess registryAccess = this.registryAccess();
+                    Holder.Reference<DamageType> damageType = registryAccess.lookupOrThrow(Registries.DAMAGE_TYPE)
+                            .getOrThrow(this.properties.getDamageType());
+                    damageSource = new DamageSource(damageType, livingTarget);
                 }
 
                 float damageAmount = this.properties.getDamage();

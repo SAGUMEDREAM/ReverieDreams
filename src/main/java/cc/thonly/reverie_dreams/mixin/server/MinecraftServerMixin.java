@@ -27,9 +27,7 @@ public class MinecraftServerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     public void init(Thread serverThread, LevelStorageSource.LevelStorageAccess session, PackRepository dataPackManager, WorldStem saveLoader, Proxy proxy, DataFixer dataFixer, Services apiServices, ChunkProgressListenerFactory worldGenerationProgressListenerFactory, CallbackInfo ci) {
         MinecraftServer minecraftServer = (MinecraftServer) (Object) this;
-        RegistryAccess.Frozen registryManager = minecraftServer.registryAccess();
         ReverieDreams.setServer(minecraftServer);
-        ReverieDreams.setDynamicRegistryManager(registryManager);
         PlayerDataComponentManager.getInstance().onLoad(minecraftServer);
         Nota.getAPI().server = minecraftServer;
     }

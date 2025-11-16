@@ -4,12 +4,12 @@
     "values": [
       "reverie_dreams:drink/blessing_wind",
       "reverie_dreams:drink/qi",
-      "reverie_dreams:drink/fruity_high_ball",
-      "reverie_dreams:drink/mojito_burst_ball",
-      "reverie_dreams:drink/godfather",
+      "reverie_dreams:drink/negroni",
       "reverie_dreams:drink/fruity_sour",
+      "reverie_dreams:drink/godfather",
       "reverie_dreams:drink/scarlet_devil",
-      "reverie_dreams:drink/negroni"
+      "reverie_dreams:drink/mojito_burst_ball",
+      "reverie_dreams:drink/fruity_high_ball"
     ]
   }
 }

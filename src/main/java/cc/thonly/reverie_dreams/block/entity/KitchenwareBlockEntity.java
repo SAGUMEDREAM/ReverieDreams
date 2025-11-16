@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
-import cc.thonly.reverie_dreams.gui.recipe.block.KitchenBlockGui;
+import cc.thonly.reverie_dreams.gui.recipe.gui.KitchenBlockGui;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class ModTooltips {
+public class TooltipManager {
     public static void bootstrap() {
         Event<ItemStackTooltipCallback> event = ItemStackTooltipCallback.EVENT;
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {

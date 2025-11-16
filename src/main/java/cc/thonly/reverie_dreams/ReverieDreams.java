@@ -1,8 +1,10 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.minecraft.api.ItemPostHitCallback;
+import cc.thonly.reverie_dreams.item.weapon.YukaFlowerUmbrella;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
+import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
@@ -71,11 +73,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Unit;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -83,6 +90,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.*;
 import java.net.URI;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -94,8 +102,6 @@ public class ReverieDreams implements ModInitializer {
     public static final String MOD_ID = "reverie_dreams";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static MinecraftServer server;
-    @Getter
-    private static RegistryAccess dynamicRegistryManager;
     private static final Set<ServerPlayer> PLAYER_WITH_MOD = new HashSet<>();
     private static final Map<ServerPlayer, String> PLAYER_SIDE_VERSION = new WeakHashMap<>();
 
@@ -117,6 +123,7 @@ public class ReverieDreams implements ModInitializer {
         RDCropBlocks.registerBlocks();
         RDPlantBlocks.registerBlocks();
         KitchenBlocks.registerBlocks();
+        RDEnchantments.registerEnchantments();
         RDItems.registerItems();
         RDIngredientItems.registerItems();
         RDFoodItems.registerItems();
@@ -140,7 +147,7 @@ public class ReverieDreams implements ModInitializer {
         RegistryHandlers.bootstrap();
         FoodProperties.registerDefaultItemUsingProperty();
         DrinkProperties.registerDefaultItemUsingProperty();
-        Key2ValueRegistryHandlers.bootstrap();
+        PairRegistryHandlers.bootstrap();
         RDLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.init();
@@ -181,8 +188,8 @@ public class ReverieDreams implements ModInitializer {
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
             if (server != null && target.level() instanceof ServerLevel serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(RDDataComponentTypes.SILVER_ITEM, null))) {
-                RegistryAccess.Frozen registryManager = server.registryAccess();
-                Registry<EntityType<?>> entityTypes = registryManager.lookupOrThrow(Registries.ENTITY_TYPE);
+                RegistryAccess.Frozen registryAccess = server.registryAccess();
+                Registry<EntityType<?>> entityTypes = registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
                 DamageSources damageSources = attacker.damageSources();
                 for (Holder<EntityType<?>> iterateEntry : entityTypes.getTagOrEmpty(EntityTypeTags.UNDEAD)) {
                     EntityType<?> value = iterateEntry.value();
@@ -200,6 +207,54 @@ public class ReverieDreams implements ModInitializer {
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
+            ItemStack itemStack = attacker.getItemInHand(InteractionHand.MAIN_HAND);
+            if (server != null && !itemStack.isEmpty()) {
+                Level world = target.level();
+                RegistryAccess registryAccess = target.registryAccess();
+                Registry<Enchantment> enchantments = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
+                Holder.Reference<Enchantment> moonDamage = enchantments.getOrThrow(RDEnchantments.MOON_DAMAGE);
+                int itemEnchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(moonDamage, itemStack);
+                if (itemEnchantmentLevel != 0) {
+                    DelayedTask.create(server, 1, () -> {
+                        target.hurtTime = 0;
+                        if (target.getHealth() - itemEnchantmentLevel >= 0) {
+                            target.setHealth(target.getHealth() - itemEnchantmentLevel);
+                        }
+                        target.lastHurt = 0;
+                    });
+                }
+            }
+            return true;
+        });
+
+        ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
+            Level level = attacker.level();
+            if (level instanceof ServerLevel world && stack.getItem() instanceof YukaFlowerUmbrella) {
+                double speed = attacker.getDeltaMovement().length();
+                Entity vehicle = attacker.getVehicle();
+                if (vehicle != null) {
+                    double length = vehicle.getDeltaMovement().length();
+                    if (speed > length) {
+                        speed = length;
+                    }
+                }
+                MinecraftServer server = level.getServer();
+                float damageValue = (float) (48f * speed);
+                DelayedTask.create(server, 1, () -> {
+                    target.hurtTime = 0;
+                    if (target.getHealth() - damageValue >= 0) {
+                        target.setHealth(target.getHealth() - damageValue);
+                    } else {
+                        target.setHealth(0);
+                    }
+                    target.hurtTime = 0;
+                });
+            }
+            return true;
+        });
+
+        ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
+            MinecraftServer server = target.getServer();
             if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST_ENTITY_TYPE && stack.getItem() == RDItems.ROKANKEN) {
                 DamageSources damageSources = attacker.damageSources();
                 target.lastHurt = 0;
@@ -207,6 +262,7 @@ public class ReverieDreams implements ModInitializer {
             }
             return true;
         });
+
     }
 
     private void registerNetworkingEvent() {
@@ -283,9 +339,6 @@ public class ReverieDreams implements ModInitializer {
             PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
             playerDataComponentManager.saveAll();
         });
-//        ServerTickEvents.END_SERVER_TICK.register(server -> {
-//            System.out.println(PolymerEntityHelper.ELEMENTS.size());
-//        });
         ServerTickEvents.END_SERVER_TICK.register(DelayedTask::tick);
         ServerTickEvents.END_SERVER_TICK.register(ArmorAttributeManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerDataComponentManager::tick);
@@ -349,10 +402,6 @@ public class ReverieDreams implements ModInitializer {
     public static boolean hasModOnClient(ServerPlayer player) {
         if (player == null) return false;
         return PLAYER_WITH_MOD.contains(player);
-    }
-
-    public static void setDynamicRegistryManager(RegistryAccess dynamicRegistryManager) {
-        ReverieDreams.dynamicRegistryManager = dynamicRegistryManager;
     }
 
     public static void setServer(MinecraftServer server) {

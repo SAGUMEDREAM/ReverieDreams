@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.datagen;
+package cc.thonly.reverie_dreams.datagen.tag;
 
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;

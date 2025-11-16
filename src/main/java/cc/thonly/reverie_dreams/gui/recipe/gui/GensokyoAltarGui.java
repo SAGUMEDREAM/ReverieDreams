@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.gui.recipe.block;
+package cc.thonly.reverie_dreams.gui.recipe.gui;
 
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;

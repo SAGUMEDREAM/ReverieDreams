@@ -4,6 +4,12 @@ import cc.thonly.reverie_dreams.datagen.CraftingConflictProvider;
 import cc.thonly.reverie_dreams.datagen.DrinkProvider;
 import cc.thonly.reverie_dreams.datagen.IngredientProvider;
 import cc.thonly.reverie_dreams.datagen.*;
+import cc.thonly.reverie_dreams.datagen.tag.BlockTagProvider;
+import cc.thonly.reverie_dreams.datagen.tag.DamageTypeTagProvider;
+import cc.thonly.reverie_dreams.datagen.tag.EntityTagProvider;
+import cc.thonly.reverie_dreams.datagen.tag.ItemTagProvider;
+import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
+import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.world.dimension.DimensionInit;
 import cc.thonly.reverie_dreams.world.dimension.DimensionTypeInit;
 import cc.thonly.reverie_dreams.world.gen.*;
@@ -16,6 +22,7 @@ import net.minecraft.world.level.dimension.LevelStem;
 
 public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
@@ -26,6 +33,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(PointOfInterestTypeProvider::new);
         pack.addProvider(EntityTagProvider::new);
+        pack.addProvider(DamageTypeTagProvider::new);
         pack.addProvider(ModelProvider::new);
         pack.addProvider(RecipeProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
@@ -35,7 +43,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(JukeboxProvider::new);
         pack.addProvider(SoundProvider::new);
         pack.addProvider(RecipeTypeProvider::new);
-        pack.addProvider(AbstractDynamicRegistryProvider::new);
+        pack.addProvider(DynamicRegistryProvider::new);
         pack.addProvider(SkinConfigProvider::new);
         pack.addProvider(JsonElementWriterProvider::new);
 
@@ -47,6 +55,8 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
     @Override
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
+        registryBuilder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
+        registryBuilder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
         registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);
         registryBuilder.add(Registries.CONFIGURED_CARVER, ConfigurationCarverInit::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);

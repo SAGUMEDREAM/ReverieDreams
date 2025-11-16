@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.datagen;
+package cc.thonly.reverie_dreams.datagen.tag;
 
 import cc.thonly.reverie_dreams.registry.tag.RDEntityTypeTags;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
@@ -23,7 +23,15 @@ public class EntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 
         RegistryHandlers.NPC_ROLE.values().forEach(role -> roleBuilder.add(role.getEntityType()));
 
-        TagAppender<EntityType<?>, EntityType<?>> undeadBuilder = valueLookupBuilder(EntityTypeTags.UNDEAD);
-        undeadBuilder.add(RDEntityTypes.GHOST_ENTITY_TYPE);
+        TagAppender<EntityType<?>, EntityType<?>> undead = valueLookupBuilder(EntityTypeTags.UNDEAD);
+        undead.add(RDEntityTypes.GHOST_ENTITY_TYPE);
+
+        TagAppender<EntityType<?>, EntityType<?>> yokai = valueLookupBuilder(RDEntityTypeTags.YOKAI);
+        yokai.add(RDEntityTypes.MAID_YOUSEI_ENTITY_TYPE);
+        yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI_ENTITY_TYPE);
+        yokai.add(RDEntityTypes.YOUSEI_ENTITY_TYPE);
+        yokai.add(RDEntityTypes.HAIRBALL_ENTITY_TYPE);
+        yokai.add(RDEntityTypes.GHOST_ENTITY_TYPE);
+        yokai.add(RDEntityTypes.MUSHROOM_MONSTER_ENTITY_TYPE);
     }
 }

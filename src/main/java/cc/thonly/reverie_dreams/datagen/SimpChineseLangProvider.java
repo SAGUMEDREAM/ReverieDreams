@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class SimpChineseLangProvider extends FabricLanguageProvider implements TranslationExporterBuilderImpl {
+public class SimpChineseLangProvider extends FabricLanguageProvider implements ITranslationExporterBuilder {
 
     public SimpChineseLangProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, "zh_cn", registryLookup);
@@ -40,7 +40,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
 
     @Override
     public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
         builder.add(ItemBlockCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 物品/方块");
         builder.add(DanmakuCreativeTab.ITEM_GROUP_BULLET, "梦隐的幻想乡 | 弹幕");
         builder.add(TemplateCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 弹幕模板");
@@ -145,6 +145,13 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
         translationBuilder.add("npc.event.send_message.8", "呀呀！不小心又摔了一跤，不过有你在，心情一下子就好了！");
         translationBuilder.add("npc.event.send_message.9", "哼哼~又来找我了，是不是已经迫不及待想要我帮忙了呢？");
 
+        translationBuilder.add("death.attack.danmaku", "%1$s 满身疮痍");
+        translationBuilder.add("death.attack.danmaku.player", "%1$s 与 %2$s 对战的过程中满身疮痍");
+        translationBuilder.add("death.attack.danmaku.item", "%1$s 被 %2$s 在对战的过程中使用 %3$s 被打的满身疮痍");
+
+        translationBuilder.addEnchantment(RDEnchantments.EXTERMINATION, "退治");
+        translationBuilder.addEnchantment(RDEnchantments.MOON_DAMAGE, "月伤");
+        translationBuilder.addEnchantment(RDEnchantments.DANMAKU_PROTECTION, "弹幕保护");
 
         this.generateCommandTranslations(wrapperLookup, translationBuilder);
         this.generateMITranslations(wrapperLookup, translationBuilder);
@@ -182,7 +189,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
     }
 
     public void generateMITranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
         translationBuilder.add("item.tooltip.food_properties", "属性：");
@@ -580,7 +587,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
     }
 
     public void generateEntityTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
         builder.add(RDEntityTypes.FUMO_SELLER_VILLAGER, "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
         builder.add(RDEntityTypes.KILLER_BEE_ENTITY_TYPE, "杀人蜂", "杀人蜂刷怪蛋");
         builder.add(RDEntityTypes.GHOST_ENTITY_TYPE, "幽灵", "幽灵刷怪蛋");
@@ -632,7 +639,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
     }
 
     public void generateRoleTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
         // 主角组
         builder.addRoleEntity(NPCRoles.REIMU, "博丽灵梦", "刷怪蛋");
         builder.addRoleEntity(NPCRoles.CYAN_REIMU, "青灵梦", "刷怪蛋");
@@ -751,6 +758,21 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
         builder.addRoleEntity(NPCRoles.TENKYU_CHIMATA, "天弓千亦", "刷怪蛋");
         builder.addRoleEntity(NPCRoles.HIMEMUSHI_MOMOYO, "姬虫百百世", "刷怪蛋");
 
+        // 兽王园
+        builder.addRoleEntity(NPCRoles.SON_BITEN, "孙美天", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.MITSUGASHIRA_ENOKO, "三头慧乃子", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.TENKAJIN_CHIYARI, "天火人血枪", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.YOMOTSU_HISAMI, " 豫母都日狭美", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.NIPPAKU_ZANMU, "日白残无", "刷怪蛋");
+
+        // 锦上京
+        builder.addRoleEntity(NPCRoles.CHIRIZUKA_UBAME, "尘塚姥芽", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.HOUJU_CHIMI, "封兽魑魅", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.MICHIGAMI_NAREKO, "道神驯子", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.YUIMAN_ASAMA, "维缦·浅间", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.WATATSUKI_TOYOHIME, "绵月丰姬", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.IWANAGA_ARIYA, "磐永阿梨夜", "刷怪蛋");
+        builder.addRoleEntity(NPCRoles.WATARI_NINA, "渡里贝子", "刷怪蛋");
 
         // 三月精
         builder.addRoleEntity(NPCRoles.STAR, "斯塔·萨菲雅", "刷怪蛋");
@@ -767,7 +789,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
     }
 
     public void generateEffectTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
         builder.add(RDStatusEffects.ELIXIR_OF_LIFE.value(), "不死");
         builder.add(RDStatusEffects.MENTAL_DISORDER.value(), "精神错乱");
         builder.add(RDStatusEffects.BACK_OF_LIFE.value(), "返生");
@@ -899,6 +921,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
         translationBuilder.add(RDItems.UPGRADED_HEALTH, "残机");
         translationBuilder.add(RDItems.BOMB, "Bomb");
         translationBuilder.add(RDItems.HORAI_DAMA_NO_EDA, "蓬莱玉枝");
+        translationBuilder.add(RDItems.YUKA_FLOWER_UMBRELLA, "花洋伞");
         translationBuilder.add(RDItems.CROSSING_CHISEL, "穿墙之凿");
         translationBuilder.add(RDItems.GAP_BALL, "隙间之球");
         translationBuilder.add(RDItems.BAGUA_FURNACE, "八卦炉");
@@ -994,7 +1017,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
     }
 
     public void generateSoundTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
 
         for (var sound : SoundEventInit.FUMO_SOUNDS) {
             builder.generateSoundEventSubtitle(sound, "fumo");
@@ -1014,7 +1037,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
     }
 
     public void generateDanmakuType(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
 
         builder.generateDanmakuType(DanmakuTrajectories.SINGLE, "线性");
         builder.generateDanmakuType(DanmakuTrajectories.TRIPLE, "三线");
@@ -1027,7 +1050,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements T
     }
 
     public void generateDiscTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = TranslationExporterBuilderImpl.createBuilder(wrapperLookup, translationBuilder);
+        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
 
         builder.generateJukeBox(JukeboxSongInit.HR01_01.getJukeboxSongRegistryKey(), "蓬莱人形　～ Dolls in Pseudo Paradise. - 蓬莱伝説");
         builder.generateJukeBox(JukeboxSongInit.HR02_08.getJukeboxSongRegistryKey(), "莲台野夜行 - 过去的花 ～ Fairy of Flower");

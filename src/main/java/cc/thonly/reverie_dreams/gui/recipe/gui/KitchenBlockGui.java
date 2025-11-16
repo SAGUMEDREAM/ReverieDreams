@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.gui.recipe.block;
+package cc.thonly.reverie_dreams.gui.recipe.gui;
 
 import cc.thonly.reverie_dreams.block.entity.KitchenwareBlockEntity;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;

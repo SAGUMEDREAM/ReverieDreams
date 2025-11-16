@@ -25,14 +25,14 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Consumer;
 
-public abstract class BlockbenchEntityHolder<E extends Entity, A extends AnimatedEntity> extends AbstractAnimationHolder implements AnimatedEntityHolder {
+public abstract class OverlayEntityHolder<E extends Entity, A extends AnimatedEntity> extends AbstractAnimationHolder implements AnimatedEntityHolder {
     protected final ObjectOpenHashSet<DisplayElement> additionalDisplays;
     protected final E entity;
     protected final A animatedEntity;
     protected EntityDimensions dimensions;
     protected int tickCount;
 
-    protected BlockbenchEntityHolder(E entity, A animatedEntity, Model model) {
+    protected OverlayEntityHolder(E entity, A animatedEntity, Model model) {
         super(model);
         this.additionalDisplays = new ObjectOpenHashSet<>();
         this.entity = entity;

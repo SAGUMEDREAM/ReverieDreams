@@ -6,17 +6,17 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import java.util.concurrent.CompletableFuture;
 
-public class AbstractDynamicRegistryProvider extends FabricDynamicRegistryProvider {
-    public AbstractDynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+public class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
+    public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     @Override
     protected void configure(HolderLookup.Provider registries, Entries entries) {
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_MATERIAL));
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_PATTERN));
         entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
+        entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
 
         entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
         entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_CARVER));

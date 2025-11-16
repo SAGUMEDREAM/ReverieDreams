@@ -15,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 
 public class SoundEventInit {
     public static final List<SoundEvent> SOUND_EVENTS = new LinkedList<>();
+    public static final Holder.Reference<SoundEvent> EMPTY = registerReference("empty");
     public static final SoundEvent POINT = registerSound("point");
     public static final SoundEvent BIU = registerSound("biu");
     public static final SoundEvent SPELL_CARD = registerSound("spell_card");

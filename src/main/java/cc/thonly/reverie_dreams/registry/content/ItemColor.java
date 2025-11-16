@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.registry.content;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import cc.thonly.reverie_dreams.registry.Key2ValueRegistryHandlers;
+import cc.thonly.reverie_dreams.registry.PairRegistryHandlers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -39,13 +39,13 @@ public record ItemColor(Item item, Long color) {
     }
 
     public static ItemColor registerItemColor(Item item, Long value) {
-        return Key2ValueRegistryHandlers.register(Key2ValueRegistryHandlers.ITEM_COLOR, item, new ItemColor(item, value));
+        return PairRegistryHandlers.register(PairRegistryHandlers.ITEM_COLOR, item, new ItemColor(item, value));
     }
 
     public static Map<Item, Long> getView() {
         Map<Item, Long> view = new LinkedHashMap<>();
-        Key2ValueRegistryHandlers.ITEM_COLOR.keysStream().forEach(item -> {
-            ItemColor color = Key2ValueRegistryHandlers.ITEM_COLOR.get(item);
+        PairRegistryHandlers.ITEM_COLOR.keysStream().forEach(item -> {
+            ItemColor color = PairRegistryHandlers.ITEM_COLOR.get(item);
             if (color != null) {
                 view.put(item, color.color());
             }

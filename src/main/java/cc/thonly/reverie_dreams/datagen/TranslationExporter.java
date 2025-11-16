@@ -34,7 +34,7 @@ import java.util.Map;
 @CanIgnoreReturnValue
 @Getter
 @Slf4j
-public class TranslationExporter implements TranslationExporterBuilderImpl {
+public class TranslationExporter implements ITranslationExporterBuilder {
     public static final Map<EntityType<?>, Item> MAPPER = RDEntityTypes.SPAWN_EGG_BIND;
     private final HolderLookup.Provider wrapperLookup;
     private final FabricLanguageProvider.TranslationBuilder translationBuilder;
@@ -162,6 +162,7 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         this.translationBuilder.add(getPotion(registryEntry), potion);
         this.translationBuilder.add(getSplashPotion(registryEntry), splash);
         this.translationBuilder.add(getLingeringPotion(registryEntry), lingering);
+        this.translationBuilder.add(getPotionArrow(registryEntry), potion);
         return this;
     }
 
@@ -204,8 +205,8 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         String idAsString = registryEntry.name();
         idAsString = idAsString.replaceAll(":", ".");
         idAsString = idAsString.replaceAll("/", ".");
-        sb = sb.append("item.minecraft.splash_potion.effect.");
-        sb = sb.append(idAsString);
+        sb.append("item.minecraft.splash_potion.effect.");
+        sb.append(idAsString);
         return sb.toString();
     }
 
@@ -214,8 +215,18 @@ public class TranslationExporter implements TranslationExporterBuilderImpl {
         String idAsString = registryEntry.name();
         idAsString = idAsString.replaceAll(":", ".");
         idAsString = idAsString.replaceAll("/", ".");
-        sb = sb.append("item.minecraft.lingering_potion.effect.");
-        sb = sb.append(idAsString);
+        sb.append("item.minecraft.lingering_potion.effect.");
+        sb.append(idAsString);
+        return sb.toString();
+    }
+
+    public String getPotionArrow(Potion registryEntry) {
+        StringBuilder sb = new StringBuilder();
+        String idAsString = registryEntry.name();
+        idAsString = idAsString.replaceAll(":", ".");
+        idAsString = idAsString.replaceAll("/", ".");
+        sb.append("item.minecraft.tipped_arrow.effect.");
+        sb.append(idAsString);
         return sb.toString();
     }
 

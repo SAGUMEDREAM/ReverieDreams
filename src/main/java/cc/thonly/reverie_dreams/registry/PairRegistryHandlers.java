@@ -7,7 +7,7 @@ import java.util.Map;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
-public class Key2ValueRegistryHandlers {
+public class PairRegistryHandlers {
     public static final Map<ResourceLocation, PairRegistryHandler<?, ?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
     public static final PairRegistryHandler<Item, ItemColor> ITEM_COLOR = PairRegistryHandler.createRegister(ResourceLocation.parse("item_color"), Item.class, ItemColor.class);
     

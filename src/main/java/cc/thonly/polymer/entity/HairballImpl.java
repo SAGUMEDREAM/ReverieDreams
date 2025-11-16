@@ -1,8 +1,8 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.polymer.entity.bil.BlockBenchLivingEntityHolder;
-import cc.thonly.polymer.entity.bil.BlockbenchEntityHolder;
+import cc.thonly.polymer.entity.bil.OverlayLivingEntityHolder;
+import cc.thonly.polymer.entity.bil.OverlayEntityHolder;
 import cc.thonly.reverie_dreams.entity.HairballEntity;
 import cc.thonly.reverie_dreams.util.entity.AnimationHelper;
 import de.tomalbrc.bil.api.AnimatedEntity;
@@ -11,7 +11,7 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 
 public class HairballImpl implements AnimatedEntity, PolymerHolderEntity, TickHolderEntity {
     private final HairballEntity entity;
-    private BlockbenchEntityHolder<HairballEntity, HairballImpl> holder;
+    private OverlayEntityHolder<HairballEntity, HairballImpl> holder;
 
     public HairballImpl(HairballEntity entity) {
         this.entity = entity;
@@ -20,7 +20,7 @@ public class HairballImpl implements AnimatedEntity, PolymerHolderEntity, TickHo
 
     @Override
     public void onCreated() {
-        this.holder = new BlockBenchLivingEntityHolder<>(this.entity, this, PolymerEntityHelper.HAIRBALL_MODEL);
+        this.holder = new OverlayLivingEntityHolder<>(this.entity, this, PolymerEntityHelper.HAIRBALL_MODEL);
         TickHolderEntity.addTickHolder(this);
         TickHolderEntity.addElementBind(this.entity, this.holder);
         EntityAttachment.ofTicking(this.holder, this.entity);

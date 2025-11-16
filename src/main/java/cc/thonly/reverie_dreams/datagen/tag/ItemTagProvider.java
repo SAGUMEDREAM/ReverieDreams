@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.datagen;
+package cc.thonly.reverie_dreams.datagen.tag;
 
 import cc.thonly.reverie_dreams.item.*;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
@@ -11,11 +11,13 @@ import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.tag.FarmersDelightCommonItemTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -93,6 +95,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(RDItemTags.DREAM_ARMOR).add(RDItems.DREAM_HELMET).add(RDItems.DREAM_CHESTPLATE).add(RDItems.DREAM_LEGGINGS).add(RDItems.DREAM_BOOTS);
         valueLookupBuilder(RDItemTags.DREAM_TOOL_MATERIALS).add(RDItems.DREAM_CRYSTAL_FRAGMENT);
 
+        // === 弹幕 ===
+        TagAppender<Item, Item> danmaku = valueLookupBuilder(RDItemTags.DANMAKU_ITEM);
+        for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
+            danmaku.add(danmakuType.getItem());
+        }
+        danmaku.add(RDItems.KNIFE);
+
         // === 自定义方块 ===
         valueLookupBuilder(ItemTags.PLANKS).addAll(WoodCreator.INSTANCES.stream().map(ins->ins.planks().asItem()));
         valueLookupBuilder(RDItemTags.ORB_BLOCK).add(
@@ -151,6 +160,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagAppender<Item, Item> rabbitFoods = valueLookupBuilder(ItemTags.RABBIT_FOOD);
         rabbitFoods.add(RDIngredientItems.WHITE_RADISH);
 
+
         // === 模组兼容扩展 ===
         this.configureCompat(wrapperLookup);
     }
@@ -178,6 +188,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 RDIngredientItems.WAGYU_BEEF,
                 RDIngredientItems.WILD_BOAR_MEAT
         );
+
+        valueLookupBuilder(FarmersDelightCommonItemTags.FOODS_TOMATO).add(RDIngredientItems.TOMATO);
+        valueLookupBuilder(FarmersDelightCommonItemTags.FOODS_ONION).add(RDIngredientItems.ONION);
     }
 
     private TagAppender<Item, Item> valueLookupFarmerDelight(String name) {

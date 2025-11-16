@@ -26,6 +26,7 @@ public class RDItemTags {
     public static final TagKey<Item> FOOD_ITEM = of("food_item");
     public static final TagKey<Item> DRINK_ITEM = of("drink_item");
     public static final TagKey<Item> ROLE_TAME_FOOD = of("role_tame_food");
+    public static final TagKey<Item> DANMAKU_ITEM = of("danmaku_item");
     public static final TagKey<Item> DLC0 = of("touhou_mystia_dlc/0");
     public static final TagKey<Item> DLC1 = of("touhou_mystia_dlc/1");
     public static final TagKey<Item> DLC2 = of("touhou_mystia_dlc/2");

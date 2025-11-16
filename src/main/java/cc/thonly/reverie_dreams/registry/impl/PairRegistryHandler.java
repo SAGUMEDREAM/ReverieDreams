@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.registry.impl;
 
-import cc.thonly.reverie_dreams.registry.Key2ValueRegistryHandlers;
+import cc.thonly.reverie_dreams.registry.PairRegistryHandlers;
 import com.sun.nio.sctp.IllegalUnbindException;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.AccessLevel;
@@ -37,7 +37,7 @@ public class PairRegistryHandler<K, V> implements Serializable {
         if (key == null) {
             throw new IllegalArgumentException("Registry require a key, but it is null");
         }
-        if (Key2ValueRegistryHandlers.ROOT.containsKey(key)) {
+        if (PairRegistryHandlers.ROOT.containsKey(key)) {
             throw new IllegalUnbindException("Repeat the creation of the same named instance");
         }
         this.key = key;
@@ -46,7 +46,7 @@ public class PairRegistryHandler<K, V> implements Serializable {
         this.entryToKey = new Object2ObjectLinkedOpenHashMap<>();
         this.klass = klass;
         this.vlass = vlass;
-        Key2ValueRegistryHandlers.ROOT.put(key, this);
+        PairRegistryHandlers.ROOT.put(key, this);
     }
 
     public static <K, V> PairRegistryHandler<K, V> createRegister(ResourceLocation id, Class<K> klass, Class<V> vlass) {
@@ -54,11 +54,11 @@ public class PairRegistryHandler<K, V> implements Serializable {
     }
 
     public static <K, V> PairRegistryHandler<K, V> of(ResourceLocation id, Class<K> klass, Class<V> vlass) {
-        return (PairRegistryHandler<K, V>) Key2ValueRegistryHandlers.ROOT.computeIfAbsent(id, x -> new PairRegistryHandler<>(id, klass, vlass));
+        return (PairRegistryHandler<K, V>) PairRegistryHandlers.ROOT.computeIfAbsent(id, x -> new PairRegistryHandler<>(id, klass, vlass));
     }
 
     public static <K, V> PairRegistryHandler<K, V> of(Class<K> klass, Class<V> vlass) {
-        Set<Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>>> registries = Key2ValueRegistryHandlers.ROOT.entrySet();
+        Set<Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>>> registries = PairRegistryHandlers.ROOT.entrySet();
         for (Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>> entry : registries) {
             PairRegistryHandler<?, ?> registry = entry.getValue();
             if (registry.klass == klass && registry.vlass == vlass) {
@@ -69,7 +69,7 @@ public class PairRegistryHandler<K, V> implements Serializable {
     }
 
     public static <K, V> PairRegistryHandler<K, V> ofNullable(Class<K> klass, Class<V> vlass) {
-        Set<Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>>> registries = Key2ValueRegistryHandlers.ROOT.entrySet();
+        Set<Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>>> registries = PairRegistryHandlers.ROOT.entrySet();
         for (Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>> entry : registries) {
             PairRegistryHandler<?, ?> registry = entry.getValue();
             if (registry.klass == klass && registry.vlass == vlass) {

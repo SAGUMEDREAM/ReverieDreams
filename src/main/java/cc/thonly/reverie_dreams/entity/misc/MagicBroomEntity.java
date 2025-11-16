@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.polymer.entity.MagicBroomImpl;
-import cc.thonly.polymer.entity.WheelChairImpl;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
+import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +40,8 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 @Setter
 @Getter
 @ToString
@@ -47,7 +49,8 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     public ItemStackWrapper itemWrapper = ItemStackWrapper.of(Items.AIR.getDefaultInstance());
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
-    public String ownerUUID = "";
+    @Nullable
+    public UUID owner;
 
     public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
@@ -59,9 +62,9 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
         this.itemWrapper = wrapper;
     }
 
-    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, String ownerUUID) {
+    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, UUID owner) {
         this(entityType, world, x, y, z, wrapper);
-        this.ownerUUID = ownerUUID;
+        this.owner = owner;
     }
 
     @Override
@@ -111,7 +114,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
-        if (attacker != null && attacker.isShiftKeyDown() && this.ownerUUID.intern().equalsIgnoreCase(attacker.getUUID().toString())) {
+        if (attacker != null && attacker.isShiftKeyDown()) {
             if (!this.itemWrapper.isEmpty()) {
                 ItemStack copiedStack = this.itemWrapper.getItemStack().copy();
                 ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
@@ -176,7 +179,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
             float vertical = keyForward ? -(player.getXRot() - 10) / 22.5f : 0;
             float forward = keyForward ? 3 : (keyBack ? -0.5f : 0);
 
-            float speedMultiplier = keySpeedUp ? 1.8f : 1.0f;
+            float speedMultiplier = 1.5f * (keySpeedUp ? 1.8f : 1.0f);
 
             this.moveRelative(0.245f * speedMultiplier, new Vec3(strafe, vertical, forward));
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -212,10 +215,6 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        Level world = player.level();
-        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-
-        }
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
             if (!this.level().isClientSide) {
                 player.startRiding(this);
@@ -227,7 +226,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
 
     public static AttributeSupplier createAttributes() {
         return Animal.createAnimalAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0)
+                .add(Attributes.MAX_HEALTH, 100.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
                 .add(Attributes.FLYING_SPEED, 0.15)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.0)
@@ -237,18 +236,26 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     protected void addAdditionalSaveData(ValueOutput view) {
         super.addAdditionalSaveData(view);
-        view.store("SummonedItem", ItemStackWrapper.CODEC, this.itemWrapper);
-        view.putString("OwnerUUID", this.ownerUUID);
+        view.store("Item", ItemStackWrapper.CODEC, this.itemWrapper);
+        if (this.owner != null) {
+            view.store("Owner", UUIDCodec.CODEC, this.owner);
+        }
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput view) {
         super.readAdditionalSaveData(view);
         RegistryAccess registryManager = this.registryAccess();
-        this.itemWrapper = view.read("SummonedItem", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
+        this.itemWrapper = view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
+        view.read("Owner", UUIDCodec.CODEC).ifPresent(value -> this.owner = value);
 
-        this.ownerUUID = view.getStringOr("OwnerUUID", "null");
+    }
 
+    @Override
+    public Vec3 getPassengerRidingPosition(Entity entity) {
+        Vec3 position = super.getPassengerRidingPosition(entity);
+        position = new Vec3(position.x, position.y - 1, position.z);
+        return position;
     }
 
     @Override

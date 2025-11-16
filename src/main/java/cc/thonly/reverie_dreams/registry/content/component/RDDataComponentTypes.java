@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.GapRecorder;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
-import cc.thonly.reverie_dreams.component.tooltip.ModTooltips;
+import cc.thonly.reverie_dreams.component.tooltip.TooltipManager;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
@@ -96,7 +96,7 @@ public class RDDataComponentTypes {
     );
 
     public static void init() {
-        ModTooltips.bootstrap();
+        TooltipManager.bootstrap();
     }
 
     public static <T> DataComponentType<T> registerComponent(String path, DataComponentType<T> componentType) {

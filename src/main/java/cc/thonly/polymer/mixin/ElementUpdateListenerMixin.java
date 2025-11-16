@@ -1,6 +1,6 @@
 package cc.thonly.polymer.mixin;
 
-import cc.thonly.polymer.entity.bil.BlockbenchEntityHolder;
+import cc.thonly.polymer.entity.bil.OverlayEntityHolder;
 import de.tomalbrc.bil.core.extra.ElementUpdateListener;
 import de.tomalbrc.bil.core.holder.base.AbstractAnimationHolder;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
@@ -28,14 +28,14 @@ public abstract class ElementUpdateListenerMixin {
 
     @Inject(method = "update", at = @At(value = "INVOKE", target = "Lde/tomalbrc/bil/core/extra/ElementUpdateListener;updateNonEntityBasedHolder(Lde/tomalbrc/bil/core/holder/base/AbstractAnimationHolder;Lde/tomalbrc/bil/core/model/Pose;)V"), cancellable = true)
     public void updateInvoke(ServerPlayer serverPlayer, AbstractAnimationHolder holder, Pose pose, CallbackInfo ci) {
-        if (holder instanceof BlockbenchEntityHolder<?,?> entityHolder) {
+        if (holder instanceof OverlayEntityHolder<?,?> entityHolder) {
             this.updateBBEntityBasedHolder(entityHolder, pose);
             ci.cancel();
         }
     }
 
     @Unique
-    private void updateBBEntityBasedHolder(BlockbenchEntityHolder<?,?> holder, Pose pose) {
+    private void updateBBEntityBasedHolder(OverlayEntityHolder<?,?> holder, Pose pose) {
         Entity entity = holder.getEntity();
         float scale = holder.getScale();
         float yRot = entity.getYRot();

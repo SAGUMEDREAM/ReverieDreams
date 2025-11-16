@@ -9,6 +9,7 @@ public class CreativeTabs {
     public static final List<Runnable> LATE_INIT = new ArrayList<>();
 
     public static void registerItemGroups() {
+        registerContent(BaseCreativeTab::bootstrap);
         registerContent(ItemBlockCreativeTab::bootstrap);
         registerContent(DanmakuCreativeTab::bootstrap);
         registerContent(TemplateCreativeTab::bootstrap);

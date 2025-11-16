@@ -3,20 +3,26 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.creator.DecorativeBlockCreator;
+import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+
+import java.util.List;
 
 public class ItemBlockCreativeTab implements ItemGroupContentHelper {
     public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("item_group"));
@@ -32,11 +38,19 @@ public class ItemBlockCreativeTab implements ItemGroupContentHelper {
                 itemGroup.accept(item);
             }
             itemGroup.accept(RDItems.ROLE_CARD);
+            CreativeModeTab.ItemDisplayParameters context = itemGroup.getContext();
+            HolderLookup.Provider registryAccess = context.holders();
+            for (ResourceKey<Enchantment> key : RDEnchantments.KEYS) {
+                List<ItemStack> books = RDEnchantments.getEnchantmentBook(registryAccess, key);
+                books.forEach(itemGroup::accept);
+            }
             itemGroup.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION));
             itemGroup.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION_INF));
             itemGroup.accept(RDPotions.createStack(RDPotions.MENTAL_DISORDER_POTION));
             itemGroup.accept(RDPotions.createStack(RDPotions.BACK_OF_LIFE_POTION));
             itemGroup.accept(RDPotions.createStack(RDPotions.KANJU_KUSURI_POTION));
+
+            // 方块
             for (ItemLike item : RDBlocks.BLOCKS) {
                 itemGroup.accept(item);
             }

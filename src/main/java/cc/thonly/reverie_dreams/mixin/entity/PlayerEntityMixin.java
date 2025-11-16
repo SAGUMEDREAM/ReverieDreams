@@ -124,13 +124,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     protected void writeCustomData(ValueOutput view, CallbackInfo ci) {
-        super.addAdditionalSaveData(view);
         view.putLong("NonSleepingTime", this.nonSleepingTime);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     protected void readCustomData(ValueInput view, CallbackInfo ci) {
-        super.readAdditionalSaveData(view);
         this.nonSleepingTime = view.getLongOr("NonSleepingTime", 0L);
     }
 

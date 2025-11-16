@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
@@ -11,6 +12,7 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
+import com.mojang.authlib.properties.Property;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -38,6 +40,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -64,6 +67,9 @@ public class MainCommand implements CommandInit.CommandRegistration {
         var root = Commands.literal("touhou");
         var help = Commands.literal("help")
                 .executes(this::help);
+        var cachedAllSkins = Commands.literal("start-cached-skins")
+                .requires(ctx -> ctx.hasPermission(2))
+                .executes(this::cachedAllSkins);
         var recipe = Commands.literal("recipe")
                 .executes(this::recipe);
         var registry = Commands.literal("registry")
@@ -107,6 +113,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
 
         root.executes(this::run);
         root.then(help);
+        root.then(cachedAllSkins);
         root.then(recipe);
         root.then(registry);
         root.then(dialog);
@@ -119,6 +126,23 @@ public class MainCommand implements CommandInit.CommandRegistration {
     private int run(CommandContext<CommandSourceStack> context) {
         MutableComponent text = Component.translatable("command.touhou.suggest_help");
         context.getSource().sendSuccess(() -> text.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW)), false);
+        return 1;
+    }
+
+    private int cachedAllSkins(CommandContext<CommandSourceStack> context) {
+        for (SkinType skinType : RegistryHandlers.SKIN_TYPE) {
+            try {
+                if (skinType.get() == null) {
+                    throw new NullPointerException();
+                }
+            } catch (Exception e) {
+                log.error("Can't request get skin {}", skinType.getId());
+                context.getSource().sendSuccess(() -> Component.literal("§d× Can't get skin %s Succeed".formatted(skinType.getId())), false);
+                continue;
+            }
+            context.getSource().sendSuccess(() -> Component.literal("§a√ Get skin %s Succeed".formatted(skinType.getId())), false);
+        }
+        context.getSource().sendSuccess(() -> Component.literal("§e Cached skin worker has finished"), false);
         return 1;
     }
 

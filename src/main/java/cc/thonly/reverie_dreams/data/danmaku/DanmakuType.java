@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
 import cc.thonly.reverie_dreams.datagen.generator.AbstractRecipeTypeProvider;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
@@ -28,6 +27,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
@@ -41,7 +41,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     ResourceLocation.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
-                    DanmakuDamageType.CODEC.fieldOf("damage_type").forGetter(DanmakuType::getDamageType),
+                    ResourceKey.codec(Registries.DAMAGE_TYPE).fieldOf("damage_type").forGetter(DanmakuType::getDamageType),
                     Codec.FLOAT.fieldOf("damage").forGetter(DanmakuType::getDamage),
                     Codec.FLOAT.fieldOf("scale").forGetter(DanmakuType::getScale),
                     Codec.FLOAT.fieldOf("speed").forGetter(DanmakuType::getSpeed),
@@ -51,7 +51,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     );
 
     private ResourceLocation id;
-    private final DanmakuDamageType damageType;
+    private final ResourceKey<DamageType> damageType;
     private final float damage;
     private final float scale;
     private final float speed;
@@ -61,7 +61,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private DanmakuEntity.OnHitFactory hitFactory;
     private RegistryHandler<DanmakuType> owner;
 
-    public DanmakuType(ResourceLocation id, DanmakuDamageType damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public DanmakuType(ResourceLocation id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
         this.id = id;
         this.damageType = damageType;
         this.damage = damage;
@@ -72,7 +72,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.createItem();
     }
 
-    public static DanmakuType getOrCreate(ResourceLocation id, DanmakuDamageType damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public static DanmakuType getOrCreate(ResourceLocation id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
         DanmakuType type = RegistryHandlers.DANMAKU_TYPE.getValue(id);
         if (type == null) {
             return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite);
@@ -161,7 +161,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
                 ReverieDreams.id("single"),
                 1,
                 this.damage,
-                RegistryHandlers.DANMAKU_DAMAGE_TYPE.getKey(this.damageType),
+                this.damageType,
                 this.scale,
                 this.speed,
                 0,

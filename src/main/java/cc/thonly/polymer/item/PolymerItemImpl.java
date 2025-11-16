@@ -1,7 +1,10 @@
 package cc.thonly.polymer.item;
 
+import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
+import cc.thonly.reverie_dreams.item.prop.Knife;
 import cc.thonly.reverie_dreams.item.prop.TenguShieldItem;
+import cc.thonly.reverie_dreams.item.weapon.TrumpetGun;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
 import eu.pb4.polymer.core.api.utils.PolymerKeepModel;
@@ -27,7 +30,10 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
 
     @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
-        if (this.item instanceof IDanmakuItem) {
+        if (this.item instanceof TrumpetGun || this.item instanceof Knife) {
+            return Items.TRIAL_KEY;
+        }
+        if (this.item instanceof IDanmakuItem && ReverieDreamsConfiguration.ENABLE_DANMAKU_GLOW) {
             return Items.TORCH;
         }
         if (this.item instanceof TenguShieldItem) {

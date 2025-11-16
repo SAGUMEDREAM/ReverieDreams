@@ -41,7 +41,7 @@ public record StatePolymerBlock(Map<BlockState, BlockState> map, FactoryBlock fa
     }
 
     public static StatePolymerBlock of(Block block, BlockModelType type, FactoryBlock fallback, Predicate<BlockState> canUseBlock) {
-        if (ConstantInfo.IS_DATAGEN) {
+        if (ConstantInfo.IS_DATAGEN_MODE) {
             return new StatePolymerBlock(new HashMap<>(), fallback);
         }
 

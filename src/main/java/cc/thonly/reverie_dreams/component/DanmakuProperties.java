@@ -1,13 +1,17 @@
 package cc.thonly.reverie_dreams.component;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageType;
 
 import java.util.function.Supplier;
 
@@ -17,12 +21,11 @@ import java.util.function.Supplier;
 @Builder(toBuilder = true)
 public class DanmakuProperties {
     public static final ResourceLocation DEFAULT_TEMPLATE_ID = ReverieDreams.id("single");
-    public static final ResourceLocation DEFAULT_DAMAGE_TYPE = ReverieDreams.id("generic");
     public static final Supplier<DanmakuProperties> EMPTY = () -> new DanmakuProperties(
             DEFAULT_TEMPLATE_ID,
             1,
             2,
-            DEFAULT_DAMAGE_TYPE,
+            RDDamageTypes.DANMAKU_GENERIC,
             1,
             0.5f,
             0,
@@ -33,7 +36,7 @@ public class DanmakuProperties {
     public ResourceLocation templateId;
     public int count;
     public float damage;
-    public ResourceLocation damageType;
+    public ResourceKey<DamageType> damageType;
     public float scale;
     public float speed;
     public float acceleration;
@@ -45,7 +48,7 @@ public class DanmakuProperties {
                     ResourceLocation.CODEC.fieldOf("templateId").forGetter(DanmakuProperties::getTemplateId),
                     Codec.INT.fieldOf("count").forGetter(DanmakuProperties::getCount),
                     Codec.FLOAT.fieldOf("damage").forGetter(DanmakuProperties::getDamage),
-                    ResourceLocation.CODEC.fieldOf("damageType").forGetter(DanmakuProperties::getDamageType),
+                    ResourceKey.codec(Registries.DAMAGE_TYPE).optionalFieldOf("damage_type", RDDamageTypes.DANMAKU_GENERIC).forGetter(DanmakuProperties::getDamageType),
                     Codec.FLOAT.fieldOf("scale").forGetter(DanmakuProperties::getScale),
                     Codec.FLOAT.fieldOf("speed").forGetter(DanmakuProperties::getSpeed),
                     Codec.FLOAT.fieldOf("acceleration").forGetter(DanmakuProperties::getAcceleration),

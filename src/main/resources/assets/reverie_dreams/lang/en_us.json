@@ -1127,5 +1127,50 @@
   "item.action.click.cashbox.fails.full": "§cYour Faith value has already exceeded %s",
   "item.action.click.cashbox.fails.used": "§cYou have already been blessed today",
   "item.action.click.cashbox.success": "§fYou received the shrine's blessing, Faith +%s",
-  "item.reverie_dreams.exorcism_paper": "Exorcism Paper"
+  "item.reverie_dreams.exorcism_paper": "Exorcism Paper",
+  "death.attack.danmaku": "%1$s was riddled with danmaku",
+  "death.attack.danmaku.item": "%1$s was overwhelmed by %2$s using %3$s during a danmaku duel",
+  "death.attack.danmaku.player": "%1$s was overwhelmed by %2$s in a danmaku duel",
+
+  "enchantment.reverie_dreams.danmaku_protection": "Danmaku Protection",
+  "enchantment.reverie_dreams.extermination": "Extermination",
+  "enchantment.reverie_dreams.moon_damage": "Moon Damage",
+
+  "entity.reverie_dreams.chirizuka_ubame": "Chirizuka Ubame",
+  "entity.reverie_dreams.houju_chimi": "Houju Chimi",
+  "entity.reverie_dreams.iwanaga_ariya": "Iwanaga Ariya",
+  "entity.reverie_dreams.maid_yousei": "Maid Fairy",
+  "entity.reverie_dreams.michigami_nareko": "Michigami Nareko",
+  "entity.reverie_dreams.mitsugashira_enoko": "Mitsugashira Enoko",
+  "entity.reverie_dreams.nippaku_zanmu": "Nippaku Zanmu",
+  "entity.reverie_dreams.son_biten": "Son Biten",
+  "entity.reverie_dreams.tenkajin_chiyari": "Tenkajin Chiyari",
+  "entity.reverie_dreams.watari_nina": "Watari Nina",
+  "entity.reverie_dreams.watatsuki_toyohime": "Watatsuki Toyohime",
+  "entity.reverie_dreams.yomotsu_hisami": "Yomotsu Hisami",
+  "entity.reverie_dreams.yuiman_asama": "Yuiman Asama",
+
+  "item.minecraft.tipped_arrow.effect.back_of_life": "Elixir of Revival",
+  "item.minecraft.tipped_arrow.effect.elixir_of_life": "Elixir of Immortality",
+  "item.minecraft.tipped_arrow.effect.kanju_kusuri": "Kanju Medicine",
+  "item.minecraft.tipped_arrow.effect.mental_disorder": "Potion of Madness",
+
+  "item.reverie_dreams.chirizuka_ubame_spawn_egg": "Chirizuka Ubame Spawn Egg",
+  "item.reverie_dreams.houju_chimi_spawn_egg": "Houju Chimi Spawn Egg",
+  "item.reverie_dreams.iwanaga_ariya_spawn_egg": "Iwanaga Ariya Spawn Egg",
+  "item.reverie_dreams.maid_yousei_spawn_egg": "Maid Fairy Spawn Egg",
+  "item.reverie_dreams.michigami_nareko_spawn_egg": "Michigami Nareko Spawn Egg",
+  "item.reverie_dreams.mitsugashira_enoko_spawn_egg": "Mitsugashira Enoko Spawn Egg",
+  "item.reverie_dreams.nippaku_zanmu_spawn_egg": "Nippaku Zanmu Spawn Egg",
+  "item.reverie_dreams.son_biten_spawn_egg": "Son Biten Spawn Egg",
+  "item.reverie_dreams.tenkajin_chiyari_spawn_egg": "Tenkajin Chiyari Spawn Egg",
+  "item.reverie_dreams.watari_nina_spawn_egg": "Watari Nina Spawn Egg",
+  "item.reverie_dreams.watatsuki_toyohime_spawn_egg": "Watatsuki Toyohime Spawn Egg",
+  "item.reverie_dreams.yomotsu_hisami_spawn_egg": "Yomotsu Hisami Spawn Egg",
+  "item.reverie_dreams.yuiman_asama_spawn_egg": "Yuiman Asama Spawn Egg",
+
+  "item.reverie_dreams.spellcard": "Spell Card",
+  "item.reverie_dreams.yuka_flower_umbrella": "Flower Parasol",
+
+  "sound.reverie_dreams.graze": "Graze"
 }

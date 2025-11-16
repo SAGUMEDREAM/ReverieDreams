@@ -30,7 +30,7 @@ public class ReverieDreamsPreload implements PreLaunchEntrypoint {
         List<String> args = Arrays.stream(FabricLoader.getInstance().getLaunchArguments(true)).toList();
         for (String arg : args) {
             if (arg.contains("--output") || arg.contains("--input") || arg.contains("--mod") || arg.contains("--all")) {
-                ConstantInfo.IS_DATAGEN = true;
+                ConstantInfo.IS_DATAGEN_MODE = true;
                 break;
             }
         }

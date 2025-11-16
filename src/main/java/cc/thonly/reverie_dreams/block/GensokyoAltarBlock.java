@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.gui.recipe.block.GensokyoAltarGui;
+import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;

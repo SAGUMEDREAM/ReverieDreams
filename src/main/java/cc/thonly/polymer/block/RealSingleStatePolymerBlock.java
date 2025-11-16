@@ -25,7 +25,7 @@ import java.util.Set;
 public record RealSingleStatePolymerBlock(BlockState state) implements PolymerTexturedBlock {
 
     public static RealSingleStatePolymerBlock of(Block block, BlockModelType type) {
-        if (ConstantInfo.IS_DATAGEN) {
+        if (ConstantInfo.IS_DATAGEN_MODE) {
             return new RealSingleStatePolymerBlock(block.defaultBlockState());
         }
 

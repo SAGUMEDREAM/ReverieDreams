@@ -117,6 +117,19 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(GensokyoSkinTypes.IIZUNAMARU_MEGUMU, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.TENKYU_CHIMATA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.HIMEMUSHI_MOMOYO, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.SON_BITEN, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.MITSUGASHIRA_ENOKO, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.TENKAJIN_CHIYARI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.YOMOTSU_HISAMI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.NIPPAKU_ZANMU, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.CHIRIZUKA_UBAME, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.HOUJU_CHIMI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.MICHIGAMI_NAREKO, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.YUIMAN_ASAMA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.WATATSUKI_TOYOHIME, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.IWANAGA_ARIYA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(GensokyoSkinTypes.WATARI_NINA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+
         this.addConfig(GensokyoSkinTypes.SUIKA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.TENSHI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.STAR, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));

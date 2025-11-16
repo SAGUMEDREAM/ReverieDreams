@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
-import cc.thonly.reverie_dreams.util.SkinFetcher;
+import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

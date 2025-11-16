@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DeathScytheItem extends SwordItem {
     public static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.5f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
@@ -28,7 +29,7 @@ public class DeathScytheItem extends SwordItem {
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = target.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            if (serverWorld.random.nextFloat() < 0.28f) {
+            if (ThreadLocalRandom.current().nextFloat() < 0.28f) {
                 attacker.setHealth(attacker.getHealth() + 3);
             }
         }

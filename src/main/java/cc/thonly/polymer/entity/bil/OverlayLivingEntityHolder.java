@@ -34,13 +34,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class BlockBenchLivingEntityHolder<E extends LivingEntity, A extends AnimatedEntity> extends BlockbenchEntityHolder<E, A> {
+public class OverlayLivingEntityHolder<E extends LivingEntity, A extends AnimatedEntity> extends OverlayEntityHolder<E, A> {
     protected final InteractionElement hitboxInteraction;
     protected final CollisionElement collisionElement;
     protected float deathAngle;
     protected float entityScale = 1F;
 
-    public BlockBenchLivingEntityHolder(E entity, A animatedEntity, Model model) {
+    public OverlayLivingEntityHolder(E entity, A animatedEntity, Model model) {
         super(entity, animatedEntity, model);
 
         this.hitboxInteraction = InteractionElement.redirect(entity);

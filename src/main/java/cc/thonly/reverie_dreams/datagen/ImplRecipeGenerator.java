@@ -30,11 +30,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
-public class ModRecipeGenerator extends RecipeProvider {
+public class ImplRecipeGenerator extends RecipeProvider {
     public static ImmutableList<ItemLike> SILVER = ImmutableList.of(RDBlocks.SILVER_ORE.asItem(), RDBlocks.DEEPSLATE_SILVER_ORE.asItem(), RDItems.RAW_SILVER);
     public static ImmutableList<ItemLike> DREAM = ImmutableList.of(RDBlocks.DREAM_CRYSTAL_ORE.asItem());
 
-    protected ModRecipeGenerator(HolderLookup.Provider registries, RecipeOutput exporter) {
+    protected ImplRecipeGenerator(HolderLookup.Provider registries, RecipeOutput exporter) {
         super(registries, exporter);
     }
 

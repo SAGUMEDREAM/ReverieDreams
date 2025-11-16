@@ -1,5 +1,19 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.6+1.21.7
+* Added Weapon Item `Yuka's Flower Umbrella`
+* Added Config to switch `Danmaku Entity` glowing
+* Added Enchantment Type `Extermination`
+* Added Enchantment Type `Moon Damage`
+* Added Enchantment Type `Danmaku Protection`
+* Added Role Type from TH19 to TH20
+* Extended `Death Scythe`'s attack range
+* Increased `Magic Broom`'s movement speed
+* Increased `Magic Broom`'s max health
+* Fixed `Knife Entity`'s model
+* Fixed the firing position on the vehicle shifted.
+* Updated translational files zh_tw and en_us 
+
 # 0.4.5+1.21.7
 * Add tags to the vanilla food
 * Fixed skin cache not hitting correctly

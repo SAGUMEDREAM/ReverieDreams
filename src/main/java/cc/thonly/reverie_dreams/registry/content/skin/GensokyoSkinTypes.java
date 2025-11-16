@@ -510,6 +510,22 @@ public class GensokyoSkinTypes extends SkinTypes {
             "nYJoR/ybGeTBrfXgd0jQxytfcMtsYk59BnDv8LIoGhb3EaYTn3/DdZx/+jUTcAgqM1qzdvEOaiaFGxAy/CnJVUSWANiVA/35Smy6ds9BsA7XVkSQwGGljwlzkFU4JXMmRJEz/qqoty3329KFK+juOmuxhSP51l855CQZPnXdAfvPkPCsn2deyioT3igAhJDUR/rZm2LrynzdRv09KB0vn2YYpYNdiqK8r42FVI+VIaw8iElg1JY6N3HfEtjMzUPuTyhvJ+wEwcFt0HZlHo/neiD8jzU2uL7AxFQEcD9W1sthOR1gT9ylBviemeojdGgiZ0kZrXpdn3DHnKvhpQTbijRBHVQcTdQCa8PeQViJgnRlR0kPPUeaUzc/l5gwkU8lkIDjgkQFszu46c/NkK15cpSX9mt3Q7ZtSpUV+a8l4SkijL8sTqo8VkKqmkoow+bsvwXn4nffE8Dl067J3POgZks25dpJ0Rw8dOpXXF7T5jkqbVTx0YRYH7QK+2QOYCHFH9NcoaVH2Kjs7l3yovRrEwlK1hevCwiHhC/Jqc3O6PUn3CW7QmcWTj+e3Ib8wxflrUN/65tG5IRN9yd1ibUXs9P9NOXHtuTd0SMf9LSt+W9kqUWMiTrFHTHwHR0B+u1pmWeWjzRCX4aCXXAnMpp96qFNSr2TDU8t9NJAnWH56pI="
     ));
 
+    // 兽王园
+    public static final SkinType SON_BITEN = register(new SkinType(ReverieDreams.id("son_biten")));
+    public static final SkinType MITSUGASHIRA_ENOKO = register(new SkinType(ReverieDreams.id("mitsugashira_enoko")));
+    public static final SkinType TENKAJIN_CHIYARI = register(new SkinType(ReverieDreams.id("tenkajin_chiyari")));
+    public static final SkinType YOMOTSU_HISAMI = register(new SkinType(ReverieDreams.id("yomotsu_hisami")));
+    public static final SkinType NIPPAKU_ZANMU = register(new SkinType(ReverieDreams.id("nippaku_zanmu")));
+
+    // 锦上京
+    public static final SkinType CHIRIZUKA_UBAME = register(new SkinType(ReverieDreams.id("chirizuka_ubame")));
+    public static final SkinType HOUJU_CHIMI = register(new SkinType(ReverieDreams.id("houju_chimi")));
+    public static final SkinType MICHIGAMI_NAREKO = register(new SkinType(ReverieDreams.id("michigami_nareko")));
+    public static final SkinType YUIMAN_ASAMA = register(new SkinType(ReverieDreams.id("yuiman_asama")));
+    public static final SkinType WATATSUKI_TOYOHIME = register(new SkinType(ReverieDreams.id("watatsuki_toyohime")));
+    public static final SkinType IWANAGA_ARIYA = register(new SkinType(ReverieDreams.id("iwanaga_ariya")));
+    public static final SkinType WATARI_NINA = register(new SkinType(ReverieDreams.id("watari_nina")));
+
 
     // 黄昏
     public static final SkinType SUIKA = register(new SkinType(

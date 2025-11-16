@@ -23,7 +23,7 @@ public class ConstantInfo {
     private static final boolean HAS_FORGE_API = isModLoaded("kilt");
     private static final boolean HAS_OPTIFINE = isModLoaded("optifabric");
     public static String SYSTEM_LANGUAGE = null;
-    public static boolean IS_DATAGEN = System.getProperty("fabric-api.datagen.output-dir") != null;
+    public static boolean IS_DATAGEN_MODE = System.getProperty("fabric-api.datagen.output-dir") != null;
     public static String LATEST_VERSION = null;
 
     static {

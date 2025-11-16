@@ -10,9 +10,8 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 
-public class NPCRoles extends SkinTypes {
-    private static final RegistryHandler<NPCRole> REGISTER = RegistryHandlers.NPC_ROLE;
-
+@SuppressWarnings("SpellCheckingInspection")
+public class NPCRoles {
     // 主角组
     public static final NPCRole REIMU = registerRole(new NPCRole(ReverieDreams.id("reimu"), GensokyoSkinTypes.REIMU));
     public static final NPCRole CYAN_REIMU = registerRole(new NPCRole(ReverieDreams.id("cyan_reimu"), GensokyoSkinTypes.CYAN_REIMU));
@@ -133,6 +132,21 @@ public class NPCRoles extends SkinTypes {
     public static final NPCRole TENKYU_CHIMATA = registerRole(new NPCRole(ReverieDreams.id("tenkyu_chimata"), GensokyoSkinTypes.TENKYU_CHIMATA));
     public static final NPCRole HIMEMUSHI_MOMOYO = registerRole(new NPCRole(ReverieDreams.id("himemushi_momoyo"), GensokyoSkinTypes.HIMEMUSHI_MOMOYO));
 
+    // 兽王园
+    public static final NPCRole SON_BITEN = registerRole(new NPCRole(ReverieDreams.id("son_biten"), GensokyoSkinTypes.SON_BITEN));
+    public static final NPCRole MITSUGASHIRA_ENOKO = registerRole(new NPCRole(ReverieDreams.id("mitsugashira_enoko"), GensokyoSkinTypes.MITSUGASHIRA_ENOKO));
+    public static final NPCRole TENKAJIN_CHIYARI = registerRole(new NPCRole(ReverieDreams.id("tenkajin_chiyari"), GensokyoSkinTypes.TENKAJIN_CHIYARI));
+    public static final NPCRole YOMOTSU_HISAMI = registerRole(new NPCRole(ReverieDreams.id("yomotsu_hisami"), GensokyoSkinTypes.YOMOTSU_HISAMI));
+    public static final NPCRole NIPPAKU_ZANMU = registerRole(new NPCRole(ReverieDreams.id("nippaku_zanmu"), GensokyoSkinTypes.NIPPAKU_ZANMU));
+
+    // 锦上京
+    public static final NPCRole CHIRIZUKA_UBAME = registerRole(new NPCRole(ReverieDreams.id("chirizuka_ubame"), GensokyoSkinTypes.CHIRIZUKA_UBAME));
+    public static final NPCRole HOUJU_CHIMI = registerRole(new NPCRole(ReverieDreams.id("houju_chimi"), GensokyoSkinTypes.HOUJU_CHIMI));
+    public static final NPCRole MICHIGAMI_NAREKO = registerRole(new NPCRole(ReverieDreams.id("michigami_nareko"), GensokyoSkinTypes.MICHIGAMI_NAREKO));
+    public static final NPCRole YUIMAN_ASAMA = registerRole(new NPCRole(ReverieDreams.id("yuiman_asama"), GensokyoSkinTypes.YUIMAN_ASAMA));
+    public static final NPCRole WATATSUKI_TOYOHIME = registerRole(new NPCRole(ReverieDreams.id("watatsuki_toyohime"), GensokyoSkinTypes.WATATSUKI_TOYOHIME));
+    public static final NPCRole IWANAGA_ARIYA = registerRole(new NPCRole(ReverieDreams.id("iwanaga_ariya"), GensokyoSkinTypes.IWANAGA_ARIYA));
+    public static final NPCRole WATARI_NINA = registerRole(new NPCRole(ReverieDreams.id("watari_nina"), GensokyoSkinTypes.WATARI_NINA));
 
     // 三月精
     public static final NPCRole STAR = registerRole(new NPCRole(ReverieDreams.id("star"), GensokyoSkinTypes.STAR));
@@ -164,7 +178,7 @@ public class NPCRoles extends SkinTypes {
     }
 
     public static NPCRole registerRole(ResourceLocation id, NPCRole role) {
-        NPCRole entry = RegistryHandlers.register(REGISTER, id, role);
+        NPCRole entry = RegistryHandlers.register(RegistryHandlers.NPC_ROLE, id, role);
         return entry.build();
     }
 }

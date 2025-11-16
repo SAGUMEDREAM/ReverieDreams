@@ -32,6 +32,8 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundEntityPositionSyncPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -863,6 +865,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             this.addAdditionalSaveData(view);
             nbtCompound = view.buildResult();
         }
+        MutableComponent mutableComponent = Component.empty();
+        mutableComponent.append(itemStack.getItemName()).append("(").append(this.getName()).append(")");
         itemStack.set(RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE, new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));
         itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN, false);
         return itemStack;

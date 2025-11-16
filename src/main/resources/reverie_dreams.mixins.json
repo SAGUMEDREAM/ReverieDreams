@@ -50,8 +50,6 @@
     "registry.DynamicRegistryManagerMixin",
     "registry.IndexedIterableMixin",
     "registry.RegistryLoaderEntryMixin",
-    "registry.RegistryLoaderMixin",
-    "registry.SaveLoadingMixin",
     "registry.SimpleRegistryMixin",
     "server.IServerAdvancementLoaderAccessor",
     "server.MinecraftServerMixin",

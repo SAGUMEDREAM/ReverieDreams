@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DataGenMixin {
     @Inject(method = "main", at = @At("HEAD"), remap = false)
     private static void main(String[] args, CallbackInfo ci) {
-        ConstantInfo.IS_DATAGEN = true;
+        ConstantInfo.IS_DATAGEN_MODE = true;
     }
 }

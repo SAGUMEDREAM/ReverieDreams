@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.util;
+package cc.thonly.reverie_dreams.util.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;

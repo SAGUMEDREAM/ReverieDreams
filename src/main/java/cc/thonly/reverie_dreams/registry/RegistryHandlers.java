@@ -4,8 +4,6 @@ import cc.thonly.reverie_dreams.data.CraftingConflict;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.damage.DanmakuDamageType;
-import cc.thonly.reverie_dreams.damage.DanmakuDamageTypes;
 import cc.thonly.reverie_dreams.data.danmaku.*;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfigs;
@@ -66,11 +64,6 @@ public class RegistryHandlers {
             .codec(SpellCardFrameConfig.CODEC)
             .reloadBuilder(SpellCardFrameConfigs::reload)
             .builder(SpellCardFrameConfigs::bootstrap);
-
-    public static final RegistryHandler<DanmakuDamageType> DANMAKU_DAMAGE_TYPE = RegistryHandlers.<DanmakuDamageType>ofEntry(ReverieDreams.id("danmaku_damage_type"))
-            .codec(DanmakuDamageType.CODEC)
-            .defaultId(DanmakuDamageType.DEFAULT_ID)
-            .builder(DanmakuDamageTypes::bootstrap);
 
     public static final RegistryHandler<JavaScriptElement> JAVASCRIPT_ELEMENT = RegistryHandlers.<JavaScriptElement>ofEntry(ReverieDreams.id("javascript_element"))
             .codec(JavaScriptElement.CODEC)

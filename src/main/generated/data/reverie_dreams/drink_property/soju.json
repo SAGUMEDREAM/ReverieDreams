@@ -2,11 +2,11 @@
   "registry_key": "reverie_dreams:soju",
   "properties": {
     "values": [
-      "reverie_dreams:drink/heaven_and_earth_are_useless",
       "reverie_dreams:drink/gods_wheat",
-      "reverie_dreams:drink/fire_rat_fur",
+      "reverie_dreams:drink/fruity_sour",
+      "reverie_dreams:drink/heaven_and_earth_are_useless",
       "reverie_dreams:drink/demon_slayer",
-      "reverie_dreams:drink/fruity_sour"
+      "reverie_dreams:drink/fire_rat_fur"
     ]
   }
 }

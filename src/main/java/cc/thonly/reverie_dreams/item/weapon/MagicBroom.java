@@ -31,7 +31,7 @@ public class MagicBroom extends SwordItem {
         BlockPos blockPos = context.getClickedPos();
         InteractionHand hand = context.getHand();
         if (!world.isClientSide() && player != null) {
-            MagicBroomEntity entity = new MagicBroomEntity(RDEntityTypes.BROOM_ENTITY_TYPE, world, blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), ItemStackWrapper.of(itemStack.copy()), player.getUUID().toString().intern());
+            MagicBroomEntity entity = new MagicBroomEntity(RDEntityTypes.BROOM_ENTITY_TYPE, world, blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), ItemStackWrapper.of(itemStack.copy()), player.getUUID());
             world.addFreshEntity(entity);
             itemStack.consume(1, player);
             player.swing(hand);

@@ -2,15 +2,15 @@
   "registry_key": "reverie_dreams:economical",
   "properties": {
     "values": [
-      "reverie_dreams:food/rice_ball",
-      "reverie_dreams:food/fried_tofu",
       "reverie_dreams:food/fried_pork_shreds",
-      "reverie_dreams:food/biscay_biscuits",
-      "reverie_dreams:food/pork_rice",
-      "reverie_dreams:food/roasted_mushrooms",
-      "reverie_dreams:food/pickled_cucumbers",
+      "reverie_dreams:food/rice_ball",
       "reverie_dreams:food/seafood_miso_soup",
-      "reverie_dreams:food/tofu_pot"
+      "reverie_dreams:food/roasted_mushrooms",
+      "reverie_dreams:food/biscay_biscuits",
+      "reverie_dreams:food/tofu_pot",
+      "reverie_dreams:food/pickled_cucumbers",
+      "reverie_dreams:food/fried_tofu",
+      "reverie_dreams:food/pork_rice"
     ]
   }
 }

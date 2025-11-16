@@ -11,23 +11,15 @@ public class ReverieDreamsConfiguration extends MidnightConfig {
     @Entry
     public static int CONFIG_VERSION = 1;
 
-    @Comment(name = "SOCK5 Proxy Address")
-    @Entry
-    public static String SOCK_5_PROXY_ADDRESS = "";
-
-    @Comment(name = "SOCK5 Proxy PORT")
-    @Entry
-    public static Integer SOCK_5_PROXY_PORT = -1;
-
     @Comment(name = "Check Update")
     @Entry
     public static boolean CHECK_UPDATE = true;
+
+    @Comment(name = "Enable Danmaku Item Glowing (Torch replace item overlay)")
+    public static boolean ENABLE_DANMAKU_GLOW = true;
 
     @Comment(name = "Enable Debug Mode")
     @Entry
     public static boolean DEBUG_MODE = false;
 
-    public static boolean hasProxy() {
-        return !SOCK_5_PROXY_ADDRESS.isEmpty() && SOCK_5_PROXY_PORT != -1;
-    }
 }

@@ -24,6 +24,7 @@ accessible class net/minecraft/world/inventory/ArmorSlot
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
 accessible method net/minecraft/server/level/ServerEntity sendDirtyEntityData ()V
 accessible method net/minecraft/server/level/ServerEntity broadcastAndSend (Lnet/minecraft/network/protocol/Packet;)V
+accessible class net/minecraft/network/protocol/game/ServerboundInteractPacket$Action
 accessible method net/minecraft/world/item/ProjectileWeaponItem draw (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)Ljava/util/List;
 accessible field net/minecraft/world/item/ItemStack components Lnet/minecraft/core/component/PatchedDataComponentMap;
 accessible field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;

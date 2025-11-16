@@ -10,7 +10,6 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.minecraft.resources.ResourceLocation;
 
 public class RoleCards {
-    private static final RegistryHandler<RoleCard> REGISTER = RegistryHandlers.ROLE_CARD;
     public static final RoleCard PROTAGONIST_GROUP = register(new RoleCard(ReverieDreams.id("protagonist_group"),
             16727357L,
             List.of(NPCRoles.REIMU,
@@ -157,11 +156,25 @@ public class RoleCards {
     ).build());
     public static final RoleCard JUUOUEN = register(new RoleCard(ReverieDreams.id("juuouen"),
             7252587L,
-            List.of()
+            List.of(
+                    NPCRoles.SON_BITEN,
+                    NPCRoles.MITSUGASHIRA_ENOKO,
+                    NPCRoles.TENKAJIN_CHIYARI,
+                    NPCRoles.YOMOTSU_HISAMI,
+                    NPCRoles.NIPPAKU_ZANMU
+            )
     ).build());
     public static final RoleCard KINJOUKYOU = register(new RoleCard(ReverieDreams.id("kinjoukyou"),
             12969971L,
-            List.of()
+            List.of(
+                    NPCRoles.CHIRIZUKA_UBAME,
+                    NPCRoles.HOUJU_CHIMI,
+                    NPCRoles.MICHIGAMI_NAREKO,
+                    NPCRoles.YUIMAN_ASAMA,
+                    NPCRoles.WATATSUKI_TOYOHIME,
+                    NPCRoles.IWANAGA_ARIYA,
+                    NPCRoles.WATARI_NINA
+            )
     ).build());
 
     // 其他作品
@@ -197,7 +210,7 @@ public class RoleCards {
     }
 
     public static RoleCard register(ResourceLocation key, RoleCard roleCard) {
-        return RegistryHandlers.register(REGISTER, key, roleCard);
+        return RegistryHandlers.register(RegistryHandlers.ROLE_CARD, key, roleCard);
     }
 
     public static void bootstrap(RegistryHandler<RoleCard> registry) {

@@ -64,6 +64,7 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -151,6 +152,7 @@ public class RDItems {
     public static final Item HAKUROKEN = registerItem("hakuroken", (settings) -> new Hakuroken(2f, 1f - 2.4f, settings), new Item.Properties());
     public static final Item PAPILIO_PATTERN_FAN = registerItem("papilio_pattern_fan", (settings) -> new PapilioPatternFan(1f - 4f, 1f - 2.4f, settings), new Item.Properties());
     public static final Item HORAI_DAMA_NO_EDA = registerItem("horai-dama_no_eda", (settings) -> new HoraiDamaNoEdaItem(0, 0, settings), new Item.Properties());
+    public static final Item YUKA_FLOWER_UMBRELLA = registerItem("yuka_flower_umbrella", (settings) -> new YukaFlowerUmbrella(1f, -2.4f, settings), new Item.Properties());
     public static final Item MAPLE_LEAF_FAN = registerItem("maple_leaf_fan", (settings) -> new MapleLeafFan(1f, -2.4f, settings), new Item.Properties());
     public static final Item IBUKIHO = registerItem("ibukiho", (settings) -> new Ibukiho(1f, -2.4f, settings), new Item.Properties()
             .useCooldown(130f)
@@ -225,7 +227,7 @@ public class RDItems {
     public static final Item DREAM_SHOVEL = registerItem("dream_shovel", (settings) -> new ShovelItem(DreamMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Properties());
     public static final Item DREAM_HOE = registerItem("dream_hoe", (settings) -> new HoeItem(DreamMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Properties());
     public static final Item DREAM_HELMET = registerItem("dream_helmet", (settings) -> new DreamArmorItem(ArmorType.HELMET, settings), new Item.Properties().durability(ArmorType.HELMET.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
-    public static final Item DREAM_CHESTPLATE = registerItem("dream_chestplate", (settings) -> new DreamArmorItem(ArmorType.CHESTPLATE, settings), new Item.Properties().durability( ArmorType.CHESTPLATE.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
+    public static final Item DREAM_CHESTPLATE = registerItem("dream_chestplate", (settings) -> new DreamArmorItem(ArmorType.CHESTPLATE, settings), new Item.Properties().durability(ArmorType.CHESTPLATE.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
     public static final Item DREAM_LEGGINGS = registerItem("dream_leggings", (settings) -> new DreamArmorItem(ArmorType.LEGGINGS, settings), new Item.Properties().durability(ArmorType.LEGGINGS.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
     public static final Item DREAM_BOOTS = registerItem("dream_boots", (settings) -> new DreamArmorItem(ArmorType.BOOTS, settings), new Item.Properties().durability(ArmorType.BOOTS.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
 

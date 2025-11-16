@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 @Slf4j
 public class PolymerBlockHelper {
     public static void registerOverlay(Block block) {
-        if (ConstantInfo.IS_DATAGEN) {
+        if (ConstantInfo.IS_DATAGEN_MODE) {
             return;
         }
         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);

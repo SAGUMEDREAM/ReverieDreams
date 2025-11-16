@@ -211,6 +211,14 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
         super.readAdditionalSaveData(view);
         this.ownerUUID = view.getStringOr("OwnerUUID", "null");
     }
+
+    @Override
+    public Vec3 getPassengerRidingPosition(Entity entity) {
+        Vec3 position = super.getPassengerRidingPosition(entity);
+        position = new Vec3(position.x, position.y - 0.5, position.z);
+        return position;
+    }
+
     @Override
     public void onPlayerJump(int strength) {
 

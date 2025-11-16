@@ -4,13 +4,18 @@ import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.item.base.FoodItem;
 import cc.thonly.reverie_dreams.interfaces.IItemStack;
+import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.server.ItemDescriptionManager;
 import net.fabricmc.fabric.api.item.v1.FabricItemStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentHolder;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +30,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -52,6 +61,8 @@ public abstract class ItemStackMixin<T> implements IItemStack,
     @Shadow public abstract DataComponentMap getComponents();
 
     @Shadow @Final public PatchedDataComponentMap components;
+
+    @Shadow @Final @Deprecated private @Nullable Item item;
 
     @Inject(method = "interactLivingEntity", at = @At("HEAD"), cancellable = true)
     public void useOnVillager(Player user, LivingEntity entity, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
