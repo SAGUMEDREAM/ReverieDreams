@@ -1,9 +1,9 @@
 {
   "item": "reverie_dreams:food/moonlight_over_lotus_pond",
   "values": [
-    "reverie_dreams:fiery",
-    "reverie_dreams:good_with_alcohol",
     "reverie_dreams:bizarre",
-    "reverie_dreams:meat"
+    "reverie_dreams:fiery",
+    "reverie_dreams:meat",
+    "reverie_dreams:good_with_alcohol"
   ]
 }
