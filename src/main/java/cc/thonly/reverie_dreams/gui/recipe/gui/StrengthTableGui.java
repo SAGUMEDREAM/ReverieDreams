@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.gui.recipe.gui;
 
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.StrengthenTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
+import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;
 import lombok.Getter;
@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
 import java.util.List;
 
 @Getter

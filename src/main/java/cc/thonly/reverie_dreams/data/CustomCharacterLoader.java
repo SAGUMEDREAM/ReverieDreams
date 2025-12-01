@@ -4,8 +4,8 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import cc.thonly.reverie_dreams.util.VirtualZipFS;
+import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -13,6 +13,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.ResourceLocation;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -77,6 +78,7 @@ public class CustomCharacterLoader {
                         Path tempFile = Files.createTempFile(id.getPath(), "_%s".formatted(LocalDateTime.now().hashCode()));
                         Files.write(tempFile, bytes);
                         File file = tempFile.toFile();
+                        System.out.println(skinConfig.getType());
                         SkinFetcher.getSkinFromFile(file, skinConfig.getType() == SkinConfig.ModelType.SLIM);
                         RegistryHandlers.set(RegistryHandlers.SKIN_TYPE, id, skinType);
                         RegistryHandlers.set(RegistryHandlers.SKIN_CONFIG, id, skinConfig);

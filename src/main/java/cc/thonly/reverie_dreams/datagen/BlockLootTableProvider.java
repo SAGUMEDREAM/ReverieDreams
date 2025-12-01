@@ -1,16 +1,17 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.creator.DecorativeBlockCreator;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
+import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -21,8 +22,13 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -37,7 +43,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 return;
             }
             if (block instanceof LeavesBlock) {
-                this.createLeavesDrops(block, creator.sapling(), 0.2f);
+                LootTable.Builder builder = this.createLeavesDrops(block, creator.sapling(), 0.2f);
+                this.add(block, builder);
                 return;
             }
             if (block instanceof SlabBlock) {
@@ -71,8 +78,6 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         dropSelf(RDBlocks.STRENGTH_TABLE);
         dropSelf(RDBlocks.GENSOKYO_ALTAR);
         dropSelf(RDBlocks.MUSIC_BLOCK);
-
-        this.woodCreatorLootFunction.apply(RDWoodBlocks.SPIRITUAL);
 
         dropSelf(RDBlocks.MAGIC_ICE_BLOCK);
         dropSelf(RDBlocks.MARISA_HAT_BLOCK);
@@ -157,6 +162,52 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         this.generateMI();
     }
 
+    void generateCropLoot(CropBlockCreator.Instance instance) {
+        if (instance.getCropBlock() != null && instance.getProduct() != null) {
+            LootItemBlockStatePropertyCondition.Builder condition = LootItemBlockStatePropertyCondition
+                    .hasBlockStateProperties(instance.getCropBlock())
+                    .setProperties(
+                            StatePropertiesPredicate.Builder
+                                    .properties()
+                                    .hasProperty(instance.getCropBlock().getAgeProperty(), instance.getCropBlock().getMaxAge())
+                    );
+//                LootTable.Builder lootTableBuilder = provider.cropDrops(this.cropBlock, this.product, this.seed, condition);
+            LootTable.Builder lootTableBuilder = LootTable.lootTable();
+            LootPoolSingletonContainer.Builder<?> productEntry = LootItem.lootTableItem(instance.getProduct())
+                    .apply(SetItemCountFunction.setCount(
+                            UniformGenerator.between(1.0f, 3.0f)
+                    ));
+            LootPoolSingletonContainer.Builder<?> seedEntry = LootItem.lootTableItem(instance.getSeed())
+                    .apply(SetItemCountFunction.setCount(
+                            UniformGenerator.between(1.0f, 2.0f)
+                    ));
+            LootPoolSingletonContainer.Builder<?> baseSeedEntry = LootItem.lootTableItem(instance.getSeed())
+                    .apply(SetItemCountFunction.setCount(
+                            ConstantValue.exactly(1)
+                    ));
+            lootTableBuilder.withPool(
+                    LootPool.lootPool()
+                            .conditionally(condition.build())
+                            .setRolls(ConstantValue.exactly(1))
+                            .add(baseSeedEntry)
+            );
+            lootTableBuilder.withPool(
+                    LootPool.lootPool()
+                            .conditionally(condition.build())
+                            .setRolls(ConstantValue.exactly(1))
+                            .add(productEntry)
+            );
+            lootTableBuilder.withPool(
+                    LootPool.lootPool()
+                            .conditionally(condition.build())
+                            .setRolls(ConstantValue.exactly(1))
+                            .add(seedEntry)
+            );
+            this.add(instance.getCropBlock(), lootTableBuilder);
+        }
+    }
+
+
     public void generateMI() {
         for (Block block : AbstractKitchenwareBlock.KITCHENWARE_BLOCKS) {
             dropSelf(block);
@@ -165,8 +216,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             CropBlockCreator.Instance instance = view.getValue();
-            instance.generateLoot(this);
+            generateCropLoot(instance);
         }
+
+        this.woodCreatorLootFunction.apply(RDWoodBlocks.SPIRITUAL);
+        dropSelf(RDWoodBlocks.BLESSED_SPIRITUAL_LOG);
 
         this.woodCreatorLootFunction.apply(RDWoodBlocks.LEMON);
         dropOther(RDWoodBlocks.LEMON_FRUIT_LEAVES, RDWoodBlocks.LEMON.sapling());

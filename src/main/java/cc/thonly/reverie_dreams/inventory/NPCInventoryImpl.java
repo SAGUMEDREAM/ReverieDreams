@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
 import java.util.List;

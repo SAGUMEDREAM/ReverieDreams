@@ -3,6 +3,11 @@ package cc.thonly.reverie_dreams.mixin.command;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.synchronization.SuggestionProviders;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,11 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 import java.util.Objects;
-import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.commands.synchronization.SuggestionProviders;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 
 @SuppressWarnings("unchecked")
 @Mixin(SuggestionProviders.class)

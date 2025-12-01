@@ -8,9 +8,10 @@ import com.google.gson.JsonParser;
 import com.mojang.authlib.properties.Property;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.ResourceLocation;
+
 import javax.imageio.ImageIO;
 import javax.net.ssl.HttpsURLConnection;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;

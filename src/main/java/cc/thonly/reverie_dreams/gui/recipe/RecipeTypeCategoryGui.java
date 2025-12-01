@@ -6,14 +6,15 @@ import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import java.util.LinkedList;
-import java.util.List;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class RecipeTypeCategoryGui extends SimpleGui {
     public static final String[][] GRID = {

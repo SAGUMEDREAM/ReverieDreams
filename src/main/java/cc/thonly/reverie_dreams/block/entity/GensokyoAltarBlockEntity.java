@@ -22,13 +22,13 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
 
     public static void tick(Level world, BlockPos pos, BlockState state, GensokyoAltarBlockEntity blockEntity) {
         if (blockEntity.tick > 5) {
-            GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.STATE_TO_MODEL.get(state);
+            GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.POS_TO_MODEL.get(pos.asLong());
             if (altarModel != null) {
                 altarModel.update();
             }
             blockEntity.tick = 0;
         }
-        GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.STATE_TO_MODEL.get(state);
+        GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.POS_TO_MODEL.get(pos.asLong());
         if (altarModel != null) {
             altarModel.angle += 2f;
             if (altarModel.angle >= 360) {

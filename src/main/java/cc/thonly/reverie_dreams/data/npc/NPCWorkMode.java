@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -17,6 +17,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+
 import java.util.Collections;
 import java.util.Map;
 

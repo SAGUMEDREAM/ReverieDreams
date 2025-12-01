@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data.danmaku;
 
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -29,7 +29,7 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
     public DanmakuShape(DanmakuType danmakuType) {
         this.type = danmakuType;
         ItemStack stack = RDItems.DANMAKU_SHAPE_CREATOR.getDefaultInstance();
-        stack.set(RDDataComponentTypes.DANMAKU_SHAPE, ItemStackWrapper.of(danmakuType.getItem()));
+        stack.set(RDDataComponents.DANMAKU_SHAPE, ItemStackWrapper.of(danmakuType.getItem()));
         this.baseItemStack = stack;
     }
 

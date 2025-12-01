@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
-import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.gui.NPCGui;
-import cc.thonly.reverie_dreams.interfaces.IItemStack;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.inf.IItemStack;
+import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.component.DataComponents;
@@ -31,7 +31,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.UseRemainder;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class NPCRoleInteractionEvents {

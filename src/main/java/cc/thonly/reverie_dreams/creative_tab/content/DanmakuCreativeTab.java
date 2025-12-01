@@ -1,18 +1,18 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfigs;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemLore;
 
 import java.util.List;
 
@@ -21,18 +21,19 @@ public class DanmakuCreativeTab implements ItemGroupContentHelper {
     public static final CreativeModeTab ITEM_GROUP_BULLET = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(RDItems.DANMAKU))
             .title(Component.translatable("item_group.touhou.bullet"))
+            .displayItems((parameters, output) -> {
+                List<ItemStack> color = DanmakuTypes.allColor();
+                color.forEach(output::accept);
+                SpellCardFrameConfigs.MAP.forEach((s, frames) -> {
+                    ItemStack itemStack = new ItemStack(RDItems.SPELLCARD);
+                    itemStack.set(RDDataComponents.SPELL_CARD_COMPONENT, new SpellcardRenderer(frames));
+                    itemStack.set(DataComponents.LORE, new ItemLore(List.of(Component.empty().append("§eBuiltIn Id:").append(Component.translatable(s)))));
+                    output.accept(itemStack);
+                });
+            })
             .build();
 
     public static void bootstrap() {
-        PolymerItemGroupUtils.registerPolymerItemGroup(DanmakuCreativeTab.BULLET_ITEM_GROUP_KEY, DanmakuCreativeTab.ITEM_GROUP_BULLET);
-        ItemGroupEvents.modifyEntriesEvent(DanmakuCreativeTab.BULLET_ITEM_GROUP_KEY).register(itemGroup -> {
-            List<ItemStack> color = DanmakuTypes.allColor();
-            color.forEach(itemGroup::accept);
-            SpellCardFrameConfigs.MAP.values().forEach((frames) -> {
-                ItemStack itemStack = new ItemStack(RDItems.SPELLCARD);
-                itemStack.set(RDDataComponentTypes.SPELL_CARD_COMPONENT, new SpellcardRenderer(frames));
-                itemGroup.accept(itemStack);
-            });
-        });
+        ItemGroupContentHelper.registerGroup(DanmakuCreativeTab.BULLET_ITEM_GROUP_KEY, DanmakuCreativeTab.ITEM_GROUP_BULLET);
     }
 }

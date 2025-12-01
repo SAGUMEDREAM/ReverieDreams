@@ -2,19 +2,14 @@ package cc.thonly.reverie_dreams.dialog;
 
 import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
+import cc.thonly.reverie_dreams.util.network.NetUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import java.net.URI;
-import java.time.ZoneId;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.ClickEvent;
@@ -23,18 +18,19 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.dialog.ActionButton;
-import net.minecraft.server.dialog.CommonButtonData;
-import net.minecraft.server.dialog.CommonDialogData;
-import net.minecraft.server.dialog.Dialog;
-import net.minecraft.server.dialog.DialogAction;
-import net.minecraft.server.dialog.MultiActionDialog;
+import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.ItemBody;
 import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+
+import java.net.URI;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DialogInit {
     public static final Map<String, Dialog> ARGS_DIALOG = new Object2ObjectLinkedOpenHashMap<>();
@@ -129,6 +125,7 @@ public class DialogInit {
                         new ArrayList<>(List.of(
                                 new PlainMessage(Component.empty().append(Component.translatable(RDBlocks.GENSOKYO_ALTAR.getDescriptionId())).append(Component.literal("使用方式：空手 + Shift + 右键")), 200),
                                 new PlainMessage(Component.empty().append(Component.translatable("dialog.altar.material")), 180),
+                                new PlainMessage(Component.empty().append(Component.translatable("dialog.altar.on_top")), 180),
                                 new ItemBody(RDWoodBlocks.SPIRITUAL.strippedLog().asItem().getDefaultInstance(), Optional.of(new PlainMessage(
                                         Component.empty()
                                                 .append(Component.translatable(RDWoodBlocks.SPIRITUAL.strippedLog().getDescriptionId()))

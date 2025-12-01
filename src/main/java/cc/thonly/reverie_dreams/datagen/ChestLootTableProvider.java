@@ -8,7 +8,6 @@ import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 

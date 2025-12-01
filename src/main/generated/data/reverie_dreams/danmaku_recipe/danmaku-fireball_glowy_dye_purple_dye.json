@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/fireball_glowy",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.fireball_glowy",
+        "color": "#FF2FFF"
+      },
       "minecraft:dyed_color": 16721620,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:5dde1d41-517d-450f-a06c-b74d0912c1da"
+        "cooldown_group": "minecraft:a9366087-92dd-4c6c-8280-74f7d0912c5d"
       }
     }
   },

@@ -1,11 +1,12 @@
 package cc.thonly.reverie_dreams.datagen;
 
+import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.datagen.generator.AbstractSkinConfigProvider;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
+
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 

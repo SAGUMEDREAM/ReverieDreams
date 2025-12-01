@@ -118,15 +118,28 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
 
     public boolean canUse(Level world, BlockPos center) {
         Block blockType = RDWoodBlocks.SPIRITUAL.strippedLog();
+        Block topBlockType = RDWoodBlocks.BLESSED_SPIRITUAL_LOG;
 
         for (int dy = 0; dy <= 2; dy++) {
+
+            boolean isTopLayer = (dy == 2);
+
             for (int i = 0; i < OFFSETS.length; i++) {
                 int[] offset = OFFSETS[i];
+
                 if (i == 8) continue;
+
                 BlockPos checkPos = center.offset(offset[0], dy, offset[1]);
                 Block blockAtPos = world.getBlockState(checkPos).getBlock();
-                if (blockAtPos != blockType) {
-                    return false;
+
+                if (isTopLayer) {
+                    if (blockAtPos != topBlockType) {
+                        return false;
+                    }
+                } else {
+                    if (blockAtPos != blockType) {
+                        return false;
+                    }
                 }
             }
         }

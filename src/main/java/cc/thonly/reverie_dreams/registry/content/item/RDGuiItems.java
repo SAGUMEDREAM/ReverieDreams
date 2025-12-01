@@ -3,15 +3,16 @@ package cc.thonly.reverie_dreams.registry.content.item;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.other.GuiSlotItem;
 import it.unimi.dsi.fastutil.objects.ReferenceSortedSets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.TooltipDisplay;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 public class RDGuiItems {
     public static final List<Item> GUI_ITEM_LIST = new ArrayList<>();

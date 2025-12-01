@@ -1,46 +1,49 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.minecraft.api.ItemPostHitCallback;
-import cc.thonly.reverie_dreams.item.weapon.YukaFlowerUmbrella;
-import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
-import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
-import cc.thonly.reverie_dreams.registry.*;
-import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
-import cc.thonly.reverie_dreams.registry.content.block.*;
+import cc.thonly.reverie_dreams.block.creator.ChestBlockCreator;
+import cc.thonly.reverie_dreams.block.creator.WoodCreator;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.compat.ReverieDreamsCompats;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
-import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
+import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
-import cc.thonly.reverie_dreams.loot.RDLootModifies;
-import cc.thonly.reverie_dreams.registry.content.item.*;
-import cc.thonly.reverie_dreams.registry.impl.ServerResourceHelper;
+import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.datafixer.DataFixerContentManager;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.entity.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
+import cc.thonly.reverie_dreams.item.weapon.YukaFlowerUmbrella;
+import cc.thonly.reverie_dreams.loot.RDLootModifies;
 import cc.thonly.reverie_dreams.networking.CSVersionPayload;
 import cc.thonly.reverie_dreams.networking.HelloPayload;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
+import cc.thonly.reverie_dreams.registry.PairRegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
+import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
+import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
+import cc.thonly.reverie_dreams.registry.content.block.*;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
+import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.item.*;
+import cc.thonly.reverie_dreams.registry.impl.ServerResourceHelper;
 import cc.thonly.reverie_dreams.server.*;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
-import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
-import cc.thonly.reverie_dreams.util.*;
+import cc.thonly.reverie_dreams.util.ConstantInfo;
+import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
@@ -58,6 +61,8 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -85,14 +90,17 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.entity.FuelValues;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
 import java.net.URI;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.concurrent.CompletableFuture;
 
 @Setter
@@ -113,7 +121,7 @@ public class ReverieDreams implements ModInitializer {
         // 初始化静态注册表
         SoundEventInit.init();
         JukeboxSongInit.init();
-        RDDataComponentTypes.init();
+        RDDataComponents.init();
         RDArmorMaterials.init();
         RDGuiItems.init();
         RDBlockStateTemplates.bootstrap();
@@ -161,6 +169,26 @@ public class ReverieDreams implements ModInitializer {
         this.registerServerEvents();
         this.registerContentEvent();
 
+        for (WoodCreator instance : WoodCreator.INSTANCES) {
+            FlammableBlockRegistry defaultInstance = FlammableBlockRegistry.getDefaultInstance();
+            defaultInstance.add(instance.log(), 5, 20);
+            defaultInstance.add(instance.strippedLog(), 5, 20);
+            defaultInstance.add(instance.wood(), 5, 20);
+            defaultInstance.add(instance.strippedWood(), 5, 20);
+            defaultInstance.add(instance.planks(), 5, 20);
+            defaultInstance.add(instance.stairs(), 5, 20);
+            defaultInstance.add(instance.slab(), 5, 20);
+            defaultInstance.add(instance.fence(), 5, 20);
+            defaultInstance.add(instance.fenceGate(), 5, 20);
+            FuelRegistryEvents.BUILD.register((builder, context) -> {
+                builder.add(instance.fence(), 300);
+                builder.add(instance.fenceGate(), 300);
+            });
+        }
+        for (ChestBlockCreator chestBlockCreator : ChestBlockCreator.INSTANCES.get(ChestBlockCreator.class).stream().map((ab) -> (ChestBlockCreator) ab).toList()) {
+            RDBlockEntityTypes.CUSTOM_CHEST_BLOCK_ENTITY.addSupportedBlock(chestBlockCreator.chestBlock());
+        }
+        CreativeTabs.registerItemGroups();
         ReverieDreamsCompats.init();
     }
 
@@ -187,7 +215,7 @@ public class ReverieDreams implements ModInitializer {
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
-            if (server != null && target.level() instanceof ServerLevel serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(RDDataComponentTypes.SILVER_ITEM, null))) {
+            if (server != null && target.level() instanceof ServerLevel serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(RDDataComponents.SILVER_ITEM, null))) {
                 RegistryAccess.Frozen registryAccess = server.registryAccess();
                 Registry<EntityType<?>> entityTypes = registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
                 DamageSources damageSources = attacker.damageSources();
@@ -255,7 +283,7 @@ public class ReverieDreams implements ModInitializer {
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
             MinecraftServer server = target.getServer();
-            if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST_ENTITY_TYPE && stack.getItem() == RDItems.ROKANKEN) {
+            if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST && stack.getItem() == RDItems.ROKANKEN) {
                 DamageSources damageSources = attacker.damageSources();
                 target.lastHurt = 0;
                 target.hurtServer(serverWorld, damageSources.magic(), Integer.MAX_VALUE);
@@ -273,9 +301,6 @@ public class ReverieDreams implements ModInitializer {
                 PLAYER_WITH_MOD.add(player);
             }
         });
-        ServerPlayConnectionEvents.DISCONNECT.register((playNetworkHandler, server) -> {
-            PLAYER_WITH_MOD.remove(playNetworkHandler.player);
-        });
         PayloadTypeRegistry.playC2S().register(CSVersionPayload.PACKET_ID, CSVersionPayload.codec);
         ServerPlayNetworking.registerGlobalReceiver(CSVersionPayload.PACKET_ID, (payload, context) -> {
             ServerPlayer player = context.player();
@@ -285,6 +310,7 @@ public class ReverieDreams implements ModInitializer {
             }
         });
         ServerPlayConnectionEvents.DISCONNECT.register((playNetworkHandler, server) -> {
+            PLAYER_WITH_MOD.remove(playNetworkHandler.player);
             PLAYER_SIDE_VERSION.remove(playNetworkHandler.player);
         });
     }
@@ -340,7 +366,6 @@ public class ReverieDreams implements ModInitializer {
             playerDataComponentManager.saveAll();
         });
         ServerTickEvents.END_SERVER_TICK.register(DelayedTask::tick);
-        ServerTickEvents.END_SERVER_TICK.register(ArmorAttributeManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerDataComponentManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(ParticleTickerManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerInputManager::tick);

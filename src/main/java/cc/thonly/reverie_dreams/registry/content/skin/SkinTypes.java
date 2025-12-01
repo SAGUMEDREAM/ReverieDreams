@@ -7,7 +7,6 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.minecraft.resources.ResourceLocation;
 
 public abstract class SkinTypes {
-    private static final RegistryHandler<SkinType> REGISTRY = RegistryHandlers.SKIN_TYPE;
 
     public static SkinType register(SkinType skin) {
         return register(skin.getId(), skin);
@@ -18,6 +17,6 @@ public abstract class SkinTypes {
     }
 
     public static SkinType register(ResourceLocation id, SkinType skin) {
-        return RegistryHandlers.register(REGISTRY, id, skin);
+        return RegistryHandlers.register(RegistryHandlers.SKIN_TYPE, id, skin);
     }
 }

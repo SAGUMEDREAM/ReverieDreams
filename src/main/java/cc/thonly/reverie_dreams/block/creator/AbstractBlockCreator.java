@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;

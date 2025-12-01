@@ -17,6 +17,10 @@
     "reverie_dreams:dream_helmet",
     "reverie_dreams:dream_chestplate",
     "reverie_dreams:dream_leggings",
-    "reverie_dreams:dream_boots"
+    "reverie_dreams:dream_boots",
+    "reverie_dreams:waterproof_hat",
+    "reverie_dreams:waterproof_clothing",
+    "reverie_dreams:waterproof_leggings",
+    "reverie_dreams:waterproof_boots"
   ]
 }

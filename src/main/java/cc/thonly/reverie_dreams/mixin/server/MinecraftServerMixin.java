@@ -2,10 +2,9 @@ package cc.thonly.reverie_dreams.mixin.server;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
-import cc.thonly.reverie_dreams.server.player.PlayerDataComponentManager;
+import cc.thonly.reverie_dreams.server.PlayerDataComponentManager;
 import com.mojang.datafixers.DataFixer;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.Services;
 import net.minecraft.server.WorldStem;

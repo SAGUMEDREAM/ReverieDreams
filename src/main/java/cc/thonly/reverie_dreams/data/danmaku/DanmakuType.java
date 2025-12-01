@@ -2,14 +2,14 @@ package cc.thonly.reverie_dreams.data.danmaku;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.ItemColor;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.datagen.generator.AbstractRecipeTypeProvider;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
-import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.ItemColor;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -24,6 +24,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
@@ -60,6 +62,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private Item item;
     private DanmakuEntity.OnHitFactory hitFactory;
     private RegistryHandler<DanmakuType> owner;
+    private boolean deleteFromList = false;
 
     public DanmakuType(ResourceLocation id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
         this.id = id;
@@ -69,7 +72,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.speed = speed;
         this.tile = tile;
         this.infinite = infinite;
-        this.createItem();
+        this.createItemEntry();
     }
 
     public static DanmakuType getOrCreate(ResourceLocation id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
@@ -120,7 +123,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.buildShapeRecipe(factory, list);
     }
 
-    public void createItem() {
+    public void createItemEntry() {
         DanmakuItem item = new DanmakuItem(this.createItemSettings()
                 .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
                 .durability(120)
@@ -136,6 +139,11 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         for (Map.Entry<Item, Long> itemLongEntry : ItemColor.getView().entrySet()) {
             Item dyeItem = itemLongEntry.getKey();
             ItemStack stack = defaultStack.copy();
+            int color = itemLongEntry.getValue().intValue();
+            Component hoverName = stack.getHoverName();
+            Style style = hoverName.getStyle().withColor(brighten(color, 1.25f));
+            Component colored = hoverName.copy().setStyle(style);
+            stack.set(DataComponents.ITEM_NAME, colored);
             stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
             stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))));
             pairList.add(new Tuple<>(dyeItem, stack));
@@ -143,14 +151,31 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         return pairList;
     }
 
+    private int brighten(int color, float factor) {
+        int r = (color >> 16) & 0xFF;
+        int g = (color >> 8) & 0xFF;
+        int b = color & 0xFF;
+
+        r = Math.min(255, (int)(r * factor));
+        g = Math.min(255, (int)(g * factor));
+        b = Math.min(255, (int)(b * factor));
+
+        return (r << 16) | (g << 8) | b;
+    }
+
     public ResourceLocation getItemId() {
         return ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), "danmaku/" + this.id.getPath());
+    }
+
+    public DanmakuType unlist() {
+        this.deleteFromList = true;
+        return this;
     }
 
     public Item.Properties createItemSettings() {
         return new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, this.getItemId()))
-                .component(RDDataComponentTypes.DANMAKU_PROPERTIES, this.createDanmakuProperties())
+                .component(RDDataComponents.DANMAKU_PROPERTIES, this.createDanmakuProperties())
                 .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))))
                 .durability(120)
                 .repairable(RDItemTags.POWER_BLOCK);

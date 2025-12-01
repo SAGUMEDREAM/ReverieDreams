@@ -2,16 +2,16 @@ package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -86,10 +86,10 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultInstance).toList();
         List<ItemStack> templateStackView = DanmakuTemplates.getRegistryItemStackView().values().stream().map(ItemStack::copy).toList();
 
-        this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, RDDataComponentTypes.DANMAKU_PROPERTIES);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(RDItems.SPEED_FEATHER.getDefaultInstance()), RDDataComponentTypes.DANMAKU_PROPERTIES);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultInstance()), RDDataComponentTypes.DANMAKU_PROPERTIES);
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultInstance()), RDDataComponentTypes.DANMAKU_PROPERTIES);
+        this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, RDDataComponents.DANMAKU_PROPERTIES);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(RDItems.SPEED_FEATHER.getDefaultInstance()), RDDataComponents.DANMAKU_PROPERTIES);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultInstance()), RDDataComponents.DANMAKU_PROPERTIES);
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultInstance()), RDDataComponents.DANMAKU_PROPERTIES);
 
         Map<ResourceLocation, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
@@ -168,36 +168,36 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         boolean isSlime = offItem == Items.SLIME_BLOCK;
         boolean isIronSword = offItem == Items.IRON_SWORD;
         if (isDanmakuItem && isSpellCardTemplate) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
-            DanmakuProperties properties = offStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            DanmakuProperties properties = offStack.get(RDDataComponents.DANMAKU_PROPERTIES);
             if (properties != null) {
-                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES, component.withTemplateId(properties.getTemplateId()));
+                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES, component.withTemplateId(properties.getTemplateId()));
                 return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isSpeedItem) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
             float speed = component.getSpeed();
             float sum = speed + 0.25f;
             if (sum <= MAX_SPEED) {
-                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES, component.withSpeed(sum));
+                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES, component.withSpeed(sum));
                 return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isSlime) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
             int count = component.getCount();
             int sum = count + 1;
             if (sum < MAX_COUNT) {
-                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES, component.withCount(sum));
+                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES, component.withCount(sum));
                 return new ItemStackWrapper(mainStack);
             }
         }
         if (isDanmakuItem && isIronSword) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
             float sum = component.getDamage() + 0.25f;
             if (sum < MAX_DAMAGE) {
-                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES, component.withDamage(sum));
+                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES, component.withDamage(sum));
                 return new ItemStackWrapper(mainStack);
             }
         }

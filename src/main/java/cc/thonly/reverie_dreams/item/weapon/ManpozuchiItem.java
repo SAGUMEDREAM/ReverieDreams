@@ -1,10 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
+import cc.thonly.reverie_dreams.inf.ILivingEntity;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
@@ -31,6 +28,9 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Predicate;
 
 public class ManpozuchiItem extends PickaxeItem {
     private static final int ATTACK_DAMAGE_MODIFIER_VALUE = 5;

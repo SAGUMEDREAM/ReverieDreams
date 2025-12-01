@@ -3,8 +3,6 @@ package cc.thonly.reverie_dreams.world.dimension;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.world.gen.BiomeInit;
 import cc.thonly.reverie_dreams.world.gen.ChunkGeneratorSettingsInit;
-import java.util.ArrayList;
-import java.util.Optional;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -16,6 +14,9 @@ import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
 import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class DimensionInit {
     public static final ResourceKey<LevelStem> DREAM_WORLD = getOrCreateRegistryKey("dream_world");

@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.api.DrinkPropertyLoaderCallback;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -23,6 +23,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.*;
 
 @Setter
@@ -115,7 +116,7 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
     }
 
     public static List<DrinkProperty> getFromItemStackComponent(ItemStack itemStack) {
-        List<String> ids = itemStack.getOrDefault(RDDataComponentTypes.DRINK_PROPERTIES, new ArrayList<>());
+        List<String> ids = itemStack.getOrDefault(RDDataComponents.DRINK_PROPERTIES, new ArrayList<>());
         return getFromStrings(ids);
     }
 

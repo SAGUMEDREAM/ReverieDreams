@@ -1,8 +1,8 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.polymer.entity.bil.OverlayLivingEntityHolder;
 import cc.thonly.polymer.entity.bil.OverlayEntityHolder;
+import cc.thonly.polymer.entity.bil.OverlayLivingEntityHolder;
 import cc.thonly.reverie_dreams.entity.MushroomMonsterEntity;
 import cc.thonly.reverie_dreams.util.entity.AnimationHelper;
 import de.tomalbrc.bil.api.AnimatedEntity;

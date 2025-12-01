@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data.danmaku;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -37,7 +37,7 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
         if (offsetDist == null) {
             offsetDist = 1.5f;
         }
-        DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        DanmakuProperties properties = stack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         DanmakuEntity danmakuEntity = new DanmakuEntity(
                 livingEntity,
                 world,
@@ -56,7 +56,7 @@ public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBin
         if (offsetDist == null) {
             offsetDist = 1.5f;
         }
-        DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        DanmakuProperties properties = stack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         DanmakuEntity danmakuEntity = new DanmakuEntity(
                 livingEntity,
                 world,

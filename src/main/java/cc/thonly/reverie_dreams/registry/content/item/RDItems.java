@@ -5,11 +5,12 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
+import cc.thonly.reverie_dreams.item.armor.WaterproofArmor;
+import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.item.base.*;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.SpellcardItem;
@@ -24,9 +25,11 @@ import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.item.weapon.*;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -49,15 +52,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -72,7 +67,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class RDItems {
-    public static final List<Item> ITEM_LIST = new ArrayList<>();
+    public static final List<Item> ITEM_LIST = new ArrayList<>(128);
+    public static final List<Item> SIMPLE_LIST = new ArrayList<>(128);
 
     public static final Supplier<ItemStack> NOT_COMPLETED = () -> {
         ItemStack itemStack = new ItemStack(Items.BARRIER);
@@ -83,7 +79,7 @@ public class RDItems {
     // 调试
     public static final Item BATTLE_STICK = registerSimpleItem("battle_stick", BattleStickItem::new, new Item.Properties().
             stacksTo(1)
-            .component(RDDataComponentTypes.BATTLE_STICK_RECORDER, BattleStickRecorder.empty()));
+            .component(RDDataComponents.BATTLE_STICK_RECORDER, BattleStickRecorder.empty()));
     public static final Item OWNER_STICK = registerSimpleItem("owner_stick", OwnerStickItem::new, new Item.Properties()
             .stacksTo(1));
 
@@ -109,9 +105,10 @@ public class RDItems {
     public static final Item GREEN_ORB = registerItem("green_orb", Item::new, new Item.Properties());
     public static final Item PURPLE_ORB = registerItem("purple_orb", Item::new, new Item.Properties());
     public static final Item YIN_YANG_ORB = registerItem("yin-yang_orb", Item::new, new Item.Properties());
-    public static final Item SPEED_FEATHER = registerItem("speed_feather", Item::new, new Item.Properties()
+    public static final Item SPEED_FEATHER = registerItem("speed_feather", SpeedFeatherItem::new, new Item.Properties()
             .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     public static final Item DREAM_CRYSTAL_FRAGMENT = registerItem("dream_crystal_fragment", Item::new, new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
+    public static final Item EMPTY_PHOTO = registerItem("empty_photo", Item::new, new Item.Properties());
     public static final Item COPPER_COIN = registerItem("copper_coin", Item::new, new Item.Properties().stacksTo(96));
     public static final Item SILVER_COIN = registerItem("silver_coin", Item::new, new Item.Properties().stacksTo(96));
     public static final Item GOLD_COIN = registerItem("gold_coin", Item::new, new Item.Properties().stacksTo(96));
@@ -124,7 +121,7 @@ public class RDItems {
     public static final Item UPGRADED_HEALTH = registerItem("upgraded_health", UpgradedHealthItem::new, new Item.Properties());
     public static final Item BOMB = registerItem("bomb", BombItem::new, new Item.Properties().useCooldown(2.0f));
     public static final Item CROSSING_CHISEL = registerItem("crossing_chisel", CrossingChisel::new, new Item.Properties().useCooldown(3.0f)
-            .component(RDDataComponentTypes.MAX_DISTANCE, CrossingChisel.DEFAULT_VALUE)
+            .component(RDDataComponents.MAX_DISTANCE, CrossingChisel.DEFAULT_VALUE)
             .stacksTo(1)
             .durability(150));
     public static final Item GAP_BALL = registerItem("gap_ball", GapBall::new, new Item.Properties().stacksTo(1));
@@ -137,7 +134,9 @@ public class RDItems {
     public static final Item DREAM_PILLOW = registerItem("dream_pillow", DreamPillowItem::new, new Item.Properties().durability(4));
     public static final Item TENGU_SHIELD = registerItem("tengu_shield", TenguShieldItem::new, TenguShieldItem.createItemSettings());
     public static final Item TENGU_CAMERA = registerItem("tengu_camera", TenguCameraItem::new, new Item.Properties().stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR));
+    public static final Item HIMEKAIDOU_HATATES_PHONE = registerItem("himekaidou_hatates_phone", HimekaidouHatatesPhone::new, new Item.Properties().component(RDDataComponents.FOV, 75).stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR));
     public static final Item BAD_APPLE = registerItem("bad_apple", BadAppleItem::new, new Item.Properties().food(Foods.GOLDEN_APPLE).stacksTo(16).rarity(Rarity.EPIC));
+    public static final Item SCARECROW = registerItem("scarecrow", ScarecrowItem::new, new Item.Properties());
     public static final Item EXORCISM_PAPER = registerItem("exorcism_paper", ExorcismPaperItem::new, new Item.Properties().stacksTo(16));
     public static final Item SPELLCARD = registerItem("spellcard", SpellcardItem::new, new Item.Properties().stacksTo(1).durability(50));
 
@@ -175,33 +174,33 @@ public class RDItems {
     public static final Item VIOLIN = registerItem("violin", MusicalInstrumentItem::new, new Item.Properties()
             .stacksTo(1)
             .equipmentSlot((livingEntity, stack) -> EquipmentSlot.HEAD)
-            .component(RDDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.FLUTE));
+            .component(RDDataComponents.NOTE_TYPE, NoteBlockInstrument.FLUTE));
     public static final Item KEYBOARD = registerItem("keyboard", MusicalInstrumentItem::new, new Item.Properties()
             .stacksTo(1)
             .equipmentSlot((livingEntity, stack) -> EquipmentSlot.HEAD)
-            .component(RDDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.PLING));
+            .component(RDDataComponents.NOTE_TYPE, NoteBlockInstrument.PLING));
     public static final Item TRUMPET = registerItem("trumpet", MusicalInstrumentItem::new, new Item.Properties()
             .stacksTo(1)
             .equipmentSlot((livingEntity, stack) -> EquipmentSlot.HEAD)
-            .component(RDDataComponentTypes.NOTE_TYPE, NoteBlockInstrument.DIDGERIDOO));
+            .component(RDDataComponents.NOTE_TYPE, NoteBlockInstrument.DIDGERIDOO));
 
     // 银装备
     public static final Item RAW_SILVER = registerItem("raw_silver", Item::new, new Item.Properties());
     public static final Item SILVER_INGOT = registerItem("silver_ingot", Item::new, new Item.Properties());
     public static final Item SILVER_NUGGET = registerItem("silver_nugget", Item::new, new Item.Properties());
-    public static final Item SILVER_SWORD = registerItem("silver_sword", (settings) -> new SwordItem(SilverMaterial.INSTANCE, 3.0f, -2.4f, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE));
-    public static final Item SILVER_AXE = registerItem("silver_axe", (settings) -> new AxeItem(SilverMaterial.INSTANCE, 6.0f, -2.8f, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE));
-    public static final Item SILVER_PICKAXE = registerItem("silver_pickaxe", (settings) -> new PickaxeItem(SilverMaterial.INSTANCE, 1.0f, -2.8f, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE));
-    public static final Item SILVER_SHOVEL = registerItem("silver_shovel", (settings) -> new ShovelItem(SilverMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE));
-    public static final Item SILVER_HOE = registerItem("silver_hoe", (settings) -> new HoeItem(SilverMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE));
-    public static final Item SILVER_HELMET = registerItem("silver_helmet", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.HELMET, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.HELMET.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
-    public static final Item SILVER_CHESTPLATE = registerItem("silver_chestplate", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.CHESTPLATE.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
-    public static final Item SILVER_LEGGINGS = registerItem("silver_leggings", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.LEGGINGS, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.LEGGINGS.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
-    public static final Item SILVER_BOOTS = registerItem("silver_boots", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.BOOTS, settings), new Item.Properties().component(RDDataComponentTypes.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.BOOTS.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
+    public static final Item SILVER_SWORD = registerItem("silver_sword", (settings) -> new SwordItem(SilverMaterial.INSTANCE, 3.0f, -2.4f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
+    public static final Item SILVER_AXE = registerItem("silver_axe", (settings) -> new AxeItem(SilverMaterial.INSTANCE, 6.0f, -2.8f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
+    public static final Item SILVER_PICKAXE = registerItem("silver_pickaxe", (settings) -> new PickaxeItem(SilverMaterial.INSTANCE, 1.0f, -2.8f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
+    public static final Item SILVER_SHOVEL = registerItem("silver_shovel", (settings) -> new ShovelItem(SilverMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
+    public static final Item SILVER_HOE = registerItem("silver_hoe", (settings) -> new HoeItem(SilverMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
+    public static final Item SILVER_HELMET = registerItem("silver_helmet", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.HELMET, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.HELMET.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
+    public static final Item SILVER_CHESTPLATE = registerItem("silver_chestplate", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.CHESTPLATE.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
+    public static final Item SILVER_LEGGINGS = registerItem("silver_leggings", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.LEGGINGS, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.LEGGINGS.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
+    public static final Item SILVER_BOOTS = registerItem("silver_boots", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.BOOTS, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.BOOTS.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
 
     // 女仆装备
     public static final Item KNIFE = registerItem("knife", (settings) -> new Knife(0f, 0f, settings), new Item.Properties().stacksTo(1)
-            .component(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault().withSpeed(0.5f).withScale(1.8f))
+            .component(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault().withSpeed(0.5f).withScale(1.8f))
     );
     public static final Item MAID_HAIRBAND = registerItem("maid_hairband", (settings) -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.HELMET, settings), new Item.Properties().durability(ArmorType.HELMET.getDurability(MaidArmorMaterial.BASE_DURABILITY)));
     public static final Item MAID_UPPER_SKIRT = registerItem("maid_upper_skirt", (settings) -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, settings), new Item.Properties().durability(ArmorType.CHESTPLATE.getDurability(MaidArmorMaterial.BASE_DURABILITY)));
@@ -231,6 +230,13 @@ public class RDItems {
     public static final Item DREAM_LEGGINGS = registerItem("dream_leggings", (settings) -> new DreamArmorItem(ArmorType.LEGGINGS, settings), new Item.Properties().durability(ArmorType.LEGGINGS.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
     public static final Item DREAM_BOOTS = registerItem("dream_boots", (settings) -> new DreamArmorItem(ArmorType.BOOTS, settings), new Item.Properties().durability(ArmorType.BOOTS.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
 
+    // 防水衣
+    public static final Item WATERPROOF_LEATHER = registerItem("waterproof_leather", Item::new, new Item.Properties());
+    public static final Item WATER_PROOF_HAT = registerItem("waterproof_hat", (settings) -> new WaterproofArmor(ArmorType.HELMET, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.HELMET.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+    public static final Item WATER_PROOF_CLOTHING = registerItem("waterproof_clothing", (settings) -> new WaterproofArmor(ArmorType.CHESTPLATE, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.CHESTPLATE.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+    public static final Item WATER_PROOF_LEGGINGS = registerItem("waterproof_leggings", (settings) -> new WaterproofArmor(ArmorType.LEGGINGS, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.LEGGINGS.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+    public static final Item WATER_PROOF_BOOTS = registerItem("waterproof_boots", (settings) -> new WaterproofArmor(ArmorType.BOOTS, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.BOOTS.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+
     // 模板
     public static final Item DANMAKU_SHAPE_CREATOR = registerItem("danmaku_recipe_creator", DanmakuShapeCreatorItem::new, new Item.Properties());
     public static final Item SPELL_CARD_TEMPLATE = registerItem("spell_card_template", SpellCardTemplateItem::new, new Item.Properties());
@@ -239,7 +245,7 @@ public class RDItems {
             .component(DataComponents.DYED_COLOR, new DyedItemColor(RoleCard.DEFAULT_COLOR.intValue())));
     public static final Item ROLE_ARCHIVE = registerItem("role_archive", RoleFollowerArchiveItem::new, new Item.Properties().stacksTo(1));
 
-    // DISC
+    // 唱片
     public static final Item HR01_01 = registerAlbum("hr01_01", AlbumItem::new, new Item.Properties().jukeboxPlayable(JukeboxSongInit.HR01_01.getJukeboxSongRegistryKey()));
     public static final Item HR02_08 = registerAlbum("hr02_08", AlbumItem::new, new Item.Properties().jukeboxPlayable(JukeboxSongInit.HR02_08.getJukeboxSongRegistryKey()));
     public static final Item HR03_01 = registerAlbum("hr03_01", AlbumItem::new, new Item.Properties().jukeboxPlayable(JukeboxSongInit.HR03_01.getJukeboxSongRegistryKey()));
@@ -249,18 +255,16 @@ public class RDItems {
     public static final Item COOKIE = registerAlbum("cookie", AlbumItem::new, new Item.Properties().jukeboxPlayable(JukeboxSongInit.COOKIE.getJukeboxSongRegistryKey()));
     public static final Item BADAPPLE = registerAlbum("bad-apple", AlbumItem::new, new Item.Properties().jukeboxPlayable(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey()));
 
-    static {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.OP_BLOCKS).register(itemGroup -> {
-            itemGroup.accept(BATTLE_STICK);
-            itemGroup.accept(OWNER_STICK);
-        });
-    }
-
     public static void registerItems() {
         List<Item> silverItems = new ArrayList<>(List.of(SILVER_SWORD, SILVER_AXE, SILVER_PICKAXE, SILVER_HOE, SILVER_HOE));
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(itemGroup -> {
-            itemGroup.addAfter(Items.MUSIC_DISC_PIGSTEP, AlbumItem.ITEMS.stream().map(Item::getDefaultInstance).toList());
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.OP_BLOCKS).register(entries -> entries.acceptAll(List.of(BATTLE_STICK.getDefaultInstance(), OWNER_STICK.getDefaultInstance())));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
+            for (Item item : AlbumItem.ITEMS) {
+                entries.addAfter(Items.MUSIC_DISC_PIGSTEP, item);
+            }
         });
+
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (!world.isClientSide() && silverItems.contains(player.getItemInHand(hand).getItem())) {
                 if (entity instanceof LivingEntity livingEntity) {
@@ -298,7 +302,7 @@ public class RDItems {
         Item item = factory.apply(settings.setId(keyOf(id)));
         Registry.register(BuiltInRegistries.ITEM, id, item);
         ItemTypeGroup.join(item);
-        PolymerItemHelper.registerOverlay(item);
+        SIMPLE_LIST.add(item);
         return item;
     }
 

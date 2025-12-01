@@ -2,12 +2,11 @@ package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
-
-import java.util.List;
-
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.List;
 
 public class RoleCards {
     public static final RoleCard PROTAGONIST_GROUP = register(new RoleCard(ReverieDreams.id("protagonist_group"),

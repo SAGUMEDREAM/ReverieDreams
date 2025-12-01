@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -17,6 +17,7 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -117,7 +118,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
         for (DanmakuShapeDrawRecipe recipe : stream().toList()) {
             ItemStackWrapper outputWrapper = recipe.getOutput();
             ItemStack itemStack = outputWrapper.getItemStack();
-            ItemStackWrapper itemStackWrapper = itemStack.get(RDDataComponentTypes.DANMAKU_SHAPE);
+            ItemStackWrapper itemStackWrapper = itemStack.get(RDDataComponents.DANMAKU_SHAPE);
             if (itemStackWrapper == null) {
                 continue;
             }

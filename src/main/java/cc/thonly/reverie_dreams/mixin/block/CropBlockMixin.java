@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
-import cc.thonly.reverie_dreams.interfaces.IMatureBlock;
+import cc.thonly.reverie_dreams.inf.IMatureBlock;
 import net.minecraft.world.level.block.CropBlock;
 import org.spongepowered.asm.mixin.Mixin;
 

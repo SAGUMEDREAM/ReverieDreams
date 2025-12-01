@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/rice",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.rice",
+        "color": "#FF2FFF"
+      },
       "minecraft:dyed_color": 16721620,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:a66cd8bf-e33a-4c18-abb6-084d4296d31d"
+        "cooldown_group": "minecraft:263f72be-c172-43ab-898b-a791d0ba9f8e"
       }
     }
   },

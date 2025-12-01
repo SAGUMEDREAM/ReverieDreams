@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
-import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

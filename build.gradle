@@ -109,6 +109,7 @@ dependencies {
 
     modImplementation files('libs/resourceconfigapi-fabric-1.21.7-3.7.3.jar')
     modImplementation files('libs/eiv-fabric-2.5.3+1.21.8.jar')
+    modImplementation files('libs/camera-obscura-1.2.1+1.21.7.jar')
 
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')
@@ -210,7 +211,8 @@ tasks.remapJar {
         def jarFile = archiveFile.get().asFile
         // 这里传入你的依赖 jar 列表
         includeDependencyJar(jarFile, [
-                "libs/dynamic-registries-modifier-1.0.1.jar"
+                "libs/dynamic-registries-modifier-1.0.1.jar",
+                "libs/camera-obscura-1.2.1+1.21.7.jar",
         ])
     }
 }

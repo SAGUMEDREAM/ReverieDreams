@@ -1,17 +1,16 @@
 package cc.thonly.reverie_dreams.sound;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import eu.pb4.polymer.core.api.other.PolymerSoundEvent;
-import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class SoundEventInit {
     public static final List<SoundEvent> SOUND_EVENTS = new LinkedList<>();
@@ -44,8 +43,6 @@ public class SoundEventInit {
     public static SoundEvent registerSound(String id) {
         ResourceLocation identifier = ReverieDreams.id(id);
         SoundEvent soundEvent = Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
-//        SoundEvent soundEvent = SoundEvent.of(identifier);
-        PolymerSoundEvent.registerOverlay(soundEvent);
         SOUND_EVENTS.add(soundEvent);
         return soundEvent;
     }
@@ -60,9 +57,9 @@ public class SoundEventInit {
 
     protected static Holder.Reference<SoundEvent> registerReference(ResourceLocation id, ResourceLocation soundId) {
         SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(soundId);
-        Holder.Reference<SoundEvent> soundEventReference = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, soundEvent);
-        RegistrySyncUtils.setServerEntry(BuiltInRegistries.SOUND_EVENT, soundEvent);
-        return soundEventReference;
+        Holder.Reference<SoundEvent> ref = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, soundEvent);
+        SOUND_EVENTS.add(ref.value());
+        return ref;
     }
 
     public static void playSound(Entity entity, SoundEvent sound, float volume, float pitch) {

@@ -1,14 +1,9 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -17,6 +12,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NPCOpenSilverChestGoal extends Goal {
     private final BaseNPCLikeEntity roleEntity;

@@ -1,9 +1,10 @@
 package cc.thonly.reverie_dreams.util;
 
-import java.util.function.Function;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.function.Function;
 
 public class PredicateSlot extends Slot {
     private final Function<ItemStack, Boolean> predicate;

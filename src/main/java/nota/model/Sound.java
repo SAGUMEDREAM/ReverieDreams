@@ -1,13 +1,13 @@
 package nota.model;
 
-import nota.Nota;
-
-import java.util.HashMap;
-import java.util.Map;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import nota.Nota;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Version independent Spigot sounds.

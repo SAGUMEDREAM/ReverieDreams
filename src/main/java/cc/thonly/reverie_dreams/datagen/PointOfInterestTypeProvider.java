@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.PoiTypeTags;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+
 import java.util.concurrent.CompletableFuture;
 
 public class PointOfInterestTypeProvider extends cc.thonly.reverie_dreams.datagen.generator.PointOfInterestTypeProvider {

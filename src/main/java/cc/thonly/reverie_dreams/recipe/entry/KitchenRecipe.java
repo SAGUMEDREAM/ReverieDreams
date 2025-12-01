@@ -1,14 +1,15 @@
 package cc.thonly.reverie_dreams.recipe.entry;
 
-import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.ResourceLocation;
+
 import java.util.List;
 
 @Accessors(chain = true)

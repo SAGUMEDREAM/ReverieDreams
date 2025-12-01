@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import java.util.EnumSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -13,6 +12,8 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ChargedProjectiles;
+
+import java.util.EnumSet;
 
 public class NPCCrossbowAttackGoal extends Goal {
 	public static final UniformInt COOLDOWN_RANGE = TimeUtil.rangeOfSeconds(1, 2);

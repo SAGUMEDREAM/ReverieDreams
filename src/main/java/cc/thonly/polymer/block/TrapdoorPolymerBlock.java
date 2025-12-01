@@ -7,10 +7,6 @@ import eu.pb4.polymer.blocks.api.BlockModelType;
 import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
-import xyz.nucleoid.packettweaker.PacketContext;
-
-import java.util.Locale;
-import java.util.Map;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,6 +18,10 @@ import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.BlockHitResult;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.Locale;
+import java.util.Map;
 
 public record TrapdoorPolymerBlock() implements FactoryBlock, PolymerTexturedBlock, BSMMParticleBlock {
     public static final TrapdoorPolymerBlock INSTANCE = new TrapdoorPolymerBlock();

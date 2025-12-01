@@ -10,16 +10,15 @@ import eu.pb4.polymer.resourcepack.extras.api.format.atlas.AtlasAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.blockstate.StateModelVariant;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelElement;
-
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.phys.Vec3;
+
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 @Slf4j
 public class ResourcePackGenerator {

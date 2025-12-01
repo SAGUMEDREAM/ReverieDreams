@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.api.FoodPropertyLoaderCallback;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -22,6 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -129,7 +130,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
      * @return 对应的 FoodProperty 列表
      */
     public static List<FoodProperty> getFromItemStackComponent(ItemStack itemStack) {
-        List<String> ids = itemStack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES, new ArrayList<>());
+        List<String> ids = itemStack.getOrDefault(RDDataComponents.FOOD_PROPERTIES, new ArrayList<>());
         return getFromStrings(ids);
     }
 

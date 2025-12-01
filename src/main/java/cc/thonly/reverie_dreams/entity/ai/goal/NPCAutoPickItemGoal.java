@@ -1,12 +1,13 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import java.util.List;
 
 public class NPCAutoPickItemGoal extends Goal {
 

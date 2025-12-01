@@ -1,17 +1,18 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import draylar.gofish.registry.GoFishItems;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 
 @SuppressWarnings("unchecked")
 public class GoFishingCompatImpl {

@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -31,7 +31,7 @@ public class DanmakuItem extends AbstractDanmakuItem {
     @Override
     public void shoot(ServerLevel serverWorld, LivingEntity user, InteractionHand hand) {
         ItemStack stack = user.getItemInHand(hand).copy();
-        DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
+        DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES);
         if (properties == null) {
             return;
         }

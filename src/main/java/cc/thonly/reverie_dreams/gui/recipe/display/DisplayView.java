@@ -1,14 +1,15 @@
 package cc.thonly.reverie_dreams.gui.recipe.display;
 
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
+import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import net.minecraft.server.level.ServerPlayer;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import net.minecraft.server.level.ServerPlayer;
 
 public interface DisplayView {
     default void init() {

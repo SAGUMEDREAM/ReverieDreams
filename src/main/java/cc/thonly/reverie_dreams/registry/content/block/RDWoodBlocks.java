@@ -5,14 +5,17 @@ import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.world.sapling.SaplingGeneratorInit;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class RDWoodBlocks {
     public static final WoodCreator SPIRITUAL = WoodCreator.create("spiritual", SaplingGeneratorInit.SPIRITUAL_TREE).build();
+    public static final Block BLESSED_SPIRITUAL_LOG = RDBlocks.registerBlock("blessed_spiritual_log", RotatedPillarBlock::new, Blocks.OAK_LOG.properties());
     public static final WoodCreator LEMON = WoodCreator.create(
             "lemon", SaplingGeneratorInit.LEMON_TREE).build();
     public static final Block LEMON_FRUIT_LEAVES = RDBlocks.registerSimpleBlock(
@@ -35,6 +38,7 @@ public class RDWoodBlocks {
             "tremella",
             (settings) -> new FlowerBlock(MobEffects.REGENERATION, 3f, settings), RDPlantBlocks.createPlantSettings());
     public static void registerBlocks() {
+        StrippableBlockRegistry.register(BLESSED_SPIRITUAL_LOG, SPIRITUAL.strippedLog());
 
     }
 }

@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
+import cc.thonly.reverie_dreams.inf.IBedBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;

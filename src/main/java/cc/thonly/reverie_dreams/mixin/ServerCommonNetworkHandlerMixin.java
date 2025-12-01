@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.mixin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:paper",
+    "X": "minecraft:iron_nugget",
+    "Y": "minecraft:glass_pane"
+  },
+  "pattern": [
+    "YYY",
+    "###",
+    "XXX"
+  ],
+  "result": {
+    "count": 2,
+    "id": "reverie_dreams:empty_photo"
+  }
+}

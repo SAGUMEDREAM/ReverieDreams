@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.inventory;
 import lombok.Getter;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.function.Function;
 
 @Getter

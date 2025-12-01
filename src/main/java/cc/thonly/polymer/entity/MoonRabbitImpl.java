@@ -3,13 +3,13 @@ package cc.thonly.polymer.entity;
 import cc.thonly.reverie_dreams.entity.MoonRabbitEntity;
 import cc.thonly.reverie_dreams.mixin.accessor.RabbitEntityAccessor;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
-import xyz.nucleoid.packettweaker.PacketContext;
-
-import java.util.List;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Rabbit;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.List;
 
 public record MoonRabbitImpl(MoonRabbitEntity moonRabbitEntity) implements PolymerEntity {
 

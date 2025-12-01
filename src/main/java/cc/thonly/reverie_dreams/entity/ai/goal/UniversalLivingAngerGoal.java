@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import java.util.List;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,6 +8,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.phys.AABB;
+
+import java.util.List;
 
 public class UniversalLivingAngerGoal<T extends LivingEntity>
         extends Goal {

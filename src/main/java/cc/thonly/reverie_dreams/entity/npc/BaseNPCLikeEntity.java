@@ -1,23 +1,23 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.polymer.entity.PlayerPolymerEntity;
+import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
-import cc.thonly.reverie_dreams.registry.content.NPCStates;
-import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCCrossbowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCDanmakuItemGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
-import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import com.mojang.authlib.properties.Property;
@@ -44,7 +44,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerPlayerConnection;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.*;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -52,17 +52,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
@@ -79,14 +69,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.CrossbowItem;
-import net.minecraft.world.item.FireworkRocketItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
@@ -131,6 +114,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     protected int hungerTick = 20;
     // 经验
     protected int storedExperience = 0;
+    // 好感度
+    protected int goodwill = 100;
     // 工作
     protected BlockPos workingPos = new BlockPos(0, 0, 0);
     protected int workTick = 0;
@@ -235,6 +220,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
                 .orElseGet(() -> BlockPos.of(new BlockPos(0, 0, 0).asLong()));
 
         this.storedExperience = view.getIntOr("ExperienceAmount", 0);
+        this.goodwill = view.getIntOr("GoodWIll", 100);
 
         this.readSkinData(view);
 
@@ -263,6 +249,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         }
 
         view.putInt("ExperienceAmount", this.storedExperience);
+        view.putInt("GoodWill", this.goodwill);
         this.writeSkinData(view);
     }
 
@@ -867,8 +854,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         }
         MutableComponent mutableComponent = Component.empty();
         mutableComponent.append(itemStack.getItemName()).append("(").append(this.getName()).append(")");
-        itemStack.set(RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE, new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));
-        itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN, false);
+        itemStack.set(RDDataComponents.ROLE_FOLLOWER_ARCHIVE, new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));
+        itemStack.set(RDDataComponents.ROLE_CAN_RESPAWN, false);
         return itemStack;
     }
 

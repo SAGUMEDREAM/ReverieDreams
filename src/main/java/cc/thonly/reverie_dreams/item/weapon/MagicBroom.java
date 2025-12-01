@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
-import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,7 +31,7 @@ public class MagicBroom extends SwordItem {
         BlockPos blockPos = context.getClickedPos();
         InteractionHand hand = context.getHand();
         if (!world.isClientSide() && player != null) {
-            MagicBroomEntity entity = new MagicBroomEntity(RDEntityTypes.BROOM_ENTITY_TYPE, world, blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), ItemStackWrapper.of(itemStack.copy()), player.getUUID());
+            MagicBroomEntity entity = new MagicBroomEntity(RDEntityTypes.MAGIC_BROOM, world, blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), ItemStackWrapper.of(itemStack.copy()), player.getUUID());
             world.addFreshEntity(entity);
             itemStack.consume(1, player);
             player.swing(hand);

@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -16,15 +15,15 @@ public class FumoCreativeTab implements ItemGroupContentHelper {
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(RDItems.FUMO_ICON))
             .title(Component.translatable("item_group.touhou.fumo"))
+            .displayItems((parameters, output) -> {
+                output.accept(RDItems.FUMO_LICENSE);
+                for (FumoType fumo : FumoTypes.getView()) {
+                    output.accept(fumo.item());
+                }
+            })
             .build();
 
     public static void bootstrap() {
-        ItemGroupEvents.modifyEntriesEvent(FumoCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            itemGroup.accept(RDItems.FUMO_LICENSE);
-            for (FumoType fumo : FumoTypes.getView()) {
-                itemGroup.accept(fumo.item());
-            }
-        });
         ItemGroupContentHelper.registerGroup(FumoCreativeTab.ITEM_GROUP_KEY, FumoCreativeTab.ITEM_GROUP);
     }
 }

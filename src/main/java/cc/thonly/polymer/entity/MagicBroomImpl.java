@@ -1,24 +1,24 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
-import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.entity.holder.MagicBroomHolder;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
-
-import java.util.WeakHashMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.WeakHashMap;
 
 public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements PolymerEntity, PolymerHolderEntity {
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();

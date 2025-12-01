@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.datagen.generator;
 
-import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,6 +15,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceLocation;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;

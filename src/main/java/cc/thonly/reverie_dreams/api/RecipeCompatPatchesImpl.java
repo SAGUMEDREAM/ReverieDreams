@@ -13,6 +13,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -49,17 +50,17 @@ public class RecipeCompatPatchesImpl {
         }
 
         public Builder<R> add(Item targetItem, Item compatItem) {
-            return this.add(new CompatEntry(targetItem, compatItem));
+            return this.add(new ItemPair(targetItem, compatItem));
         }
 
         public Builder<R> add(Item targetItem, List<Item> compatItems) {
-            compatItems.forEach(item -> this.add(new CompatEntry(targetItem, item)));
+            compatItems.forEach(item -> this.add(new ItemPair(targetItem, item)));
             return this;
         }
 
         public Builder<R> add(Item targetItem, Item... compatItems) {
             for (Item item : compatItems) {
-                this.add(new CompatEntry(targetItem, item));
+                this.add(new ItemPair(targetItem, item));
             }
             return this;
         }
@@ -69,7 +70,7 @@ public class RecipeCompatPatchesImpl {
             return this;
         }
 
-        public Builder<R> add(CompatEntry compatEntry) {
+        public Builder<R> add(ItemPair itemPair) {
             try {
                 Map<ResourceLocation, R> registryView = this.baseRecipeType.getRegistryView();
                 for (Map.Entry<ResourceLocation, R> view : registryView.entrySet()) {
@@ -84,11 +85,11 @@ public class RecipeCompatPatchesImpl {
                             field.setAccessible(true);
                             Object fieldValue = field.get(value);
 
-                            if (fieldValue instanceof ItemStackWrapper wrapper && wrapper.getItem().equals(compatEntry.targetItem)) {
-                                if (wrapper.getItem().equals(compatEntry.compatItem)) {
+                            if (fieldValue instanceof ItemStackWrapper wrapper && wrapper.getItem().equals(itemPair.targetItem)) {
+                                if (wrapper.getItem().equals(itemPair.compatItem)) {
                                     continue;
                                 }
-                                field.set(object, new ItemStackWrapper(new ItemStack(compatEntry.targetItem, wrapper.getCount())));
+                                field.set(object, new ItemStackWrapper(new ItemStack(itemPair.targetItem, wrapper.getCount())));
                                 changed = true;
                             }
                             if (fieldValue instanceof List<?> list) {
@@ -104,13 +105,13 @@ public class RecipeCompatPatchesImpl {
                                 boolean listChanged = false;
 
                                 for (ItemStackWrapper wrapper : (List<ItemStackWrapper>) list) {
-                                    if (compatEntry.targetItem.equals(compatEntry.compatItem)) {
+                                    if (itemPair.targetItem.equals(itemPair.compatItem)) {
                                         wrappers.add(wrapper);
                                         continue;
                                     }
 
-                                    if (wrapper.getItem().equals(compatEntry.targetItem)) {
-                                        wrappers.add(ItemStackWrapper.of(new ItemStack(compatEntry.compatItem, wrapper.getCount())));
+                                    if (wrapper.getItem().equals(itemPair.targetItem)) {
+                                        wrappers.add(ItemStackWrapper.of(new ItemStack(itemPair.compatItem, wrapper.getCount())));
                                         listChanged = true;
                                     } else {
                                         wrappers.add(wrapper);
@@ -124,7 +125,7 @@ public class RecipeCompatPatchesImpl {
                             }
                         }
                         if (changed) {
-                            ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(compatEntry.compatItem);
+                            ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(itemPair.compatItem);
                             ResourceLocation oldId = view.getKey();
                             ResourceLocation newIdentifier = null;
                             if (oldId == null) {
@@ -156,7 +157,7 @@ public class RecipeCompatPatchesImpl {
         }
     }
 
-    public record CompatEntry(Item targetItem, Item compatItem) {
+    public record ItemPair(Item targetItem, Item compatItem) {
     }
 
 }

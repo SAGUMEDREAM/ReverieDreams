@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;

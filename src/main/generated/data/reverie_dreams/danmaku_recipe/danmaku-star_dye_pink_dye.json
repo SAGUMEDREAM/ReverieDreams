@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/star",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.star",
+        "color": "#FF3DB0"
+      },
       "minecraft:dyed_color": 16724365,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:a656486f-4cd4-451e-9f45-22a40eeddf9a"
+        "cooldown_group": "minecraft:273d8b2e-3d6f-4406-9e02-8b81780ecf04"
       }
     }
   },

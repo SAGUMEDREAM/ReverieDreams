@@ -1,7 +1,7 @@
 package cc.thonly.polymer.block;
 
-import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.polymer.block.model.TransparentFlatTripWire;
+import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;

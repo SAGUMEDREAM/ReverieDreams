@@ -2,8 +2,8 @@ package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.entity.MaidYouseiEntity;
-import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.entity.holder.WingHolder;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import com.mojang.authlib.properties.Property;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;

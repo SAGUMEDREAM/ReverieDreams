@@ -1,16 +1,16 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import org.spongepowered.asm.mixin.*;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceKey;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceKey;
 
 @SuppressWarnings("unchecked")
 @Mixin(RegistryAccess.ImmutableRegistryAccess.class)

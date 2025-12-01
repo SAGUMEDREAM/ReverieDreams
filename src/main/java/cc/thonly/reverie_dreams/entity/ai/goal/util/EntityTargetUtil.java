@@ -1,11 +1,12 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.util;
 
+import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
-import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
-import java.util.Objects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+
+import java.util.Objects;
 
 public class EntityTargetUtil {
     public static boolean canAttack(Entity target, BaseNPCLikeEntity maid) {

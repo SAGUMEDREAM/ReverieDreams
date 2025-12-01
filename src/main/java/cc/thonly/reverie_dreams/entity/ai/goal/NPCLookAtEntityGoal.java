@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import java.util.EnumSet;
-import java.util.function.Predicate;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -11,6 +9,9 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class NPCLookAtEntityGoal extends Goal {
     public static final float DEFAULT_CHANCE = 0.02F;

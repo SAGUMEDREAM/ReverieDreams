@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.state;
 
-import java.util.Locale;
 import net.minecraft.util.StringRepresentable;
+
+import java.util.Locale;
 
 public enum EightDirection implements StringRepresentable {
     NORTH, NORTHEAST, EAST, SOUTHEAST,

@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.item.template;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -16,12 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.dialog.ActionButton;
-import net.minecraft.server.dialog.CommonButtonData;
-import net.minecraft.server.dialog.CommonDialogData;
-import net.minecraft.server.dialog.Dialog;
-import net.minecraft.server.dialog.DialogAction;
-import net.minecraft.server.dialog.MultiActionDialog;
+import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.server.level.ServerLevel;
@@ -35,6 +30,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+
 import java.util.*;
 
 @Getter
@@ -47,7 +43,7 @@ public class RoleCardItem extends Item {
     }
 
     public Optional<RoleCard> getRoleCardComponent(ItemStack itemStack) {
-        ResourceLocation identifier = itemStack.get(RDDataComponentTypes.ROLE_CARD_ID);
+        ResourceLocation identifier = itemStack.get(RDDataComponents.ROLE_CARD_ID);
         if (identifier == null) {
             return Optional.empty();
         }

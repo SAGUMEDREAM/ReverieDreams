@@ -23,12 +23,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.FarmBlock;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -76,9 +71,13 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld && isGrowItem) {
             return InteractionResult.PASS;
         }
+
         if (isGrowItem) {
             ParticleUtils.spawnParticleInBlock(world, pos, 3, ParticleTypes.HAPPY_VILLAGER);
-            return InteractionResult.PASS;
+            Integer age = state.getValue(AGE_PROPERTY);
+            if (age < MAX_AGE) {
+                return InteractionResult.PASS;
+            }
         }
 
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
@@ -86,9 +85,41 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
             RandomSource random = world.getRandom();
             if (age >= MAX_AGE) {
                 world.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
-                ItemEntity drop = new ItemEntity(serverWorld, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this.output, random.nextIntBetweenInclusive(1, 3)));
+
+                // 优化合适掉落位置
+                double resultY = pos.getY();
+                double resultYCloned = pos.getY();
+                int tryY = (int) resultY;
+
+                BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+
+                final int MAX_TRY = 16;
+
+                for (int i = 0; i < MAX_TRY; i++) {
+                    mutable.set(pos.getX(), tryY - i, pos.getZ());
+                    BlockState state0 = serverWorld.getBlockState(mutable);
+
+                    if (state0.canBeReplaced()) {
+                        resultY = (tryY - i);
+                        break;
+                    }
+                }
+
+                // 检测下面是虚空
+                if (resultY < world.getMinY()) {
+                    resultY = resultYCloned;
+                }
+
+                ItemEntity drop = new ItemEntity(
+                        serverWorld,
+                        pos.getX() + 0.5,
+                        resultY + 0.3,
+                        pos.getZ() + 0.5,
+                        new ItemStack(this.output, random.nextIntBetweenInclusive(1, 3))
+                );
+
+                serverWorld.addFreshEntity(drop);
                 drop.setPickUpDelay(10);
-                drop.setDeltaMovement(random.nextBoolean() ? random.nextFloat() : -random.nextFloat(), 0.2, random.nextBoolean() ? random.nextFloat() : -random.nextFloat());
                 world.addFreshEntity(drop);
                 world.setBlockAndUpdate(pos, state.setValue(AGE_PROPERTY, 1));
                 return InteractionResult.SUCCESS_SERVER;

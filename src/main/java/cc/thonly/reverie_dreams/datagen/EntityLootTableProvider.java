@@ -14,6 +14,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
 import java.util.concurrent.CompletableFuture;
 
 public class EntityLootTableProvider extends FabricEntityLootTableProvider {
@@ -30,7 +31,7 @@ public class EntityLootTableProvider extends FabricEntityLootTableProvider {
                                 .add(LootItem.lootTableItem(RDIngredientItems.WILD_BOAR_MEAT))
                         )
         );
-        this.add(RDEntityTypes.MOON_RABBIT_ENTITY_TYPE,
+        this.add(RDEntityTypes.MOON_RABBIT,
                 new LootTable.Builder()
                         .withPool(new LootPool.Builder()
                                 .setRolls(ConstantValue.exactly(1.0f))

@@ -19,7 +19,6 @@ public class ReverieDreamsPreload implements PreLaunchEntrypoint {
     public void onPreLaunch() {
         this.preload();
         try {
-            Class.forName("cc.thonly.reverie_dreams.util.fabric.FKMod");
             Class.forName("cc.thonly.reverie_dreams.util.ConstantInfo");
         } catch (ClassNotFoundException e) {
             log.error("Can't load packaging mod", e);

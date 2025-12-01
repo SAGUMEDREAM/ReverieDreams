@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.compat.page;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;

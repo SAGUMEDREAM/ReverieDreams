@@ -7,6 +7,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;

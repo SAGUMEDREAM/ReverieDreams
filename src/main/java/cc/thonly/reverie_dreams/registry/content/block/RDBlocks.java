@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.registry.content.block;
 
-import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
 import cc.thonly.polymer.PolymerBlockHelper;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.*;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.phys.Vec3;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.Function;
@@ -98,6 +98,9 @@ public class RDBlocks {
     public static Block registerSimpleBlock(ResourceLocation id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings, Item.Properties itemSettings) {
         Block block = factory.apply(settings.setId(keyOf(id)).noOcclusion());
         Registry.register(BuiltInRegistries.BLOCK, id, block);
+        if (block instanceof MarisaHatBlock hat) {
+            itemSettings.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).build());
+        }
         Item item = RDItems.registerSimpleItem(id, (itemSetting -> new BlockItem(block, itemSetting)), itemSettings.useBlockDescriptionPrefix());
         return registerSimpleBlock(block);
     }

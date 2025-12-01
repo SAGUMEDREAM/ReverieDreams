@@ -13,6 +13,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.commands.CommandSourceStack;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

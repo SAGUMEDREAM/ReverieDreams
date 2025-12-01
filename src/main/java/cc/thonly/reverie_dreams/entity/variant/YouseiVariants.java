@@ -1,13 +1,14 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.mojang.authlib.properties.Property;
+import net.minecraft.resources.ResourceLocation;
+
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import net.minecraft.resources.ResourceLocation;
 
 public class YouseiVariants {
     public static final RegistryHandler<YouseiVariant> REGISTRY = RegistryHandlers.YOUSEI_VARIANT;

@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
+
 import java.util.*;
 
 public class Hawkers {
@@ -23,6 +24,7 @@ public class Hawkers {
         hawkers.put(4, getHawkersLevelFactories4());
         hawkers.put(5, getHawkersLevelFactories2());
         hawkers.forEach((level, list) -> {
+
             TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.HAWKERS, level, factories -> {
                 factories.addAll(list);
             });
@@ -31,7 +33,7 @@ public class Hawkers {
 
     private static List<VillagerTrades.ItemListing> getHawkersLevelFactories1() {
         List<VillagerTrades.ItemListing> list = new ArrayList<>();
-        Item[] arr =new Item[] {
+        Item[] arr = new Item[]{
                 Items.WHEAT,
                 Items.POTATO,
                 Items.CARROT
@@ -69,10 +71,10 @@ public class Hawkers {
     }
 
     private static List<VillagerTrades.ItemListing> getHawkersLevelFactories3() {
-        Item[] arr = new Item[] {
-               Items.SALMON,
-               Items.COD,
-               Items.TROPICAL_FISH
+        Item[] arr = new Item[]{
+                Items.SALMON,
+                Items.COD,
+                Items.TROPICAL_FISH
         };
         List<VillagerTrades.ItemListing> list = new ArrayList<>();
         for (Item item : arr) {

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import lombok.Getter;

@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.registry.content;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import cc.thonly.reverie_dreams.registry.PairRegistryHandlers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.DyedItemColor;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public record ItemColor(Item item, Long color) {
     public static final ItemColor WHITE = registerItemColor(Items.WHITE_DYE, 16777215L);

@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
-import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;

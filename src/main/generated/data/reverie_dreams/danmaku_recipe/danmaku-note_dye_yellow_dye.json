@@ -1,0 +1,43 @@
+{
+  "point": {
+    "id": "reverie_dreams:point",
+    "count": 35
+  },
+  "material": {
+    "id": "reverie_dreams:danmaku_recipe_creator",
+    "count": 1,
+    "components": {
+      "reverie_dreams:shape": {
+        "id": "reverie_dreams:danmaku/note",
+        "count": 1
+      }
+    }
+  },
+  "output": {
+    "id": "reverie_dreams:danmaku/note",
+    "count": 1,
+    "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.note",
+        "color": "#FFFF2F"
+      },
+      "minecraft:dyed_color": 16776998,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:8868cde5-29fb-4ad7-87c0-92bf5bcb876d"
+      }
+    }
+  },
+  "dye": {
+    "id": "minecraft:yellow_dye",
+    "count": 4
+  },
+  "core": {
+    "id": "reverie_dreams:danmaku_core",
+    "count": 4
+  },
+  "power": {
+    "id": "reverie_dreams:power",
+    "count": 35
+  }
+}

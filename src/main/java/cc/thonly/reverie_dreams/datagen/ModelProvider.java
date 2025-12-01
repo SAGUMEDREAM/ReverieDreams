@@ -1,18 +1,17 @@
 package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.armor.WaterproofArmorMaterial;
+import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
 import cc.thonly.reverie_dreams.block.creator.DecorativeBlockCreator;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
-import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
-import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.data.FumoType;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
-import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.*;
 import com.google.common.collect.ImmutableMap;
@@ -22,11 +21,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.client.data.models.model.ModelTemplate;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.data.models.model.TextureSlot;
-import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
@@ -92,15 +87,10 @@ public class ModelProvider extends FabricModelProvider {
 
         blockStateModelGenerator.family(RDBlocks.DREAM_BLUE_BLOCK);
         blockStateModelGenerator.family(RDBlocks.DREAM_RED_BLOCK);
-//        blockStateModelGenerator.createNonTemplateModelBlock(ModBlocks.MARISA_HAT_BLOCK);
         this.registerRotatable(blockStateModelGenerator, RDBlocks.CASH_BOX_BLOCK);
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.ANTI_COLLISION_BARREL);
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WHEEL_CHAIR);
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WOODEN_BOX.chestBlock());
-
-//        for (Fumo fumoType : Fumos.getView()) {
-//            this.registerFumo(blockStateModelGenerator, fumoType);
-//        }
 
         this.generateCropBlockModel(blockStateModelGenerator);
         this.generateMIBlock(blockStateModelGenerator);
@@ -159,6 +149,8 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.YIN_YANG_ORB, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SPEED_FEATHER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_CRYSTAL_FRAGMENT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.EMPTY_PHOTO, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.WATERPROOF_LEATHER, ModelTemplates.FLAT_ITEM);
 
         // 道具
         itemModelGenerator.generateFlatItem(RDItems.TOUHOU_HELPER, ModelTemplates.FLAT_ITEM);
@@ -174,7 +166,9 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.VAISRAVANAS_PAGODA, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.DREAM_PILLOW);
         itemModelGenerator.declareCustomModelItem(RDItems.TENGU_CAMERA);
+        itemModelGenerator.declareCustomModelItem(RDItems.HIMEKAIDOU_HATATES_PHONE);
         itemModelGenerator.generateFlatItem(RDItems.BAD_APPLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.SCARECROW, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.EXORCISM_PAPER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.COPPER_COIN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SILVER_COIN, ModelTemplates.FLAT_ITEM);
@@ -242,6 +236,10 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.DREAM_CHESTPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_LEGGINGS, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_BOOTS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_HAT, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_HELMET, true);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_CLOTHING, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, true);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_LEGGINGS, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, true);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_BOOTS, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS, true);
 
         // 符卡
         itemModelGenerator.generateFlatItem(RDItems.DANMAKU_SHAPE_CREATOR, ModelTemplates.FLAT_ITEM);
@@ -260,16 +258,6 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.GLOWING_NEEDLES_LITTLE_PEOPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.COOKIE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.BADAPPLE, ModelTemplates.FLAT_ITEM);
-
-        // 测试物品
-//        itemModelGenerator.registerWithDyeableOverlay(ModItems.TEST_COLOR_DANMAKU_ITEM);
-
-//        itemModelGenerator.register(ModItems.EMPTY_SPELL_CARD, Models.GENERATED);
-
-        // 调试
-//        itemModelGenerator.register(ModItems.DEBUG_DANMAKU_ITEM, Models.GENERATED);
-//        itemModelGenerator.register(ModItems.DEBUG_SPELL_CARD_ITEM, Models.GENERATED);
-//        itemModelGenerator.register(ModItems.DEBUG_SPELL_CARD_ITEM2, Models.GENERATED);
 
         this.generateGuiItemModels(itemModelGenerator);
         this.generateDanmakuItemModels(itemModelGenerator);
@@ -366,7 +354,7 @@ public class ModelProvider extends FabricModelProvider {
     public void generateDanmakuItemModels(ItemModelGenerators itemModelGenerator) {
         for (Item item : RegistryHandlers.DANMAKU_TYPE.values()
                 .stream()
-                .filter(type -> !DanmakuTypes.UNLIST.contains(type))
+                .filter(type -> !type.isDeleteFromList())
                 .map(DanmakuType::getItem)
                 .toList()) {
             itemModelGenerator.generateTwoLayerDyedItem(item);

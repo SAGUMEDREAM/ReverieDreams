@@ -2,8 +2,6 @@ package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import com.mojang.datafixers.util.Pair;
-import java.util.List;
-
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -12,6 +10,8 @@ import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+
+import java.util.List;
 
 public class ModTemplatePools {
 
@@ -22,6 +22,7 @@ public class ModTemplatePools {
     public static final ResourceKey<StructureTemplatePool> BAMBOO_FOREST_HUT = getOrCreateRegistryKey("bamboo_forest_hut");
     public static final ResourceKey<StructureTemplatePool> SAKURAZUKA = getOrCreateRegistryKey("sakurazuka");
     public static final ResourceKey<StructureTemplatePool> OUTER_SHRINE = getOrCreateRegistryKey("outer_shrine");
+    public static final ResourceKey<StructureTemplatePool> NETHER_HOT_SPRING = getOrCreateRegistryKey("nether_hot_spring");
 
     public static void init() {
 
@@ -57,6 +58,10 @@ public class ModTemplatePools {
         context.register(SAKURAZUKA, new StructureTemplatePool(
                 emptyPool,
                 List.of(Pair.of(StructurePoolElement.single(ModStructures.SAKURAZUKA.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+        );
+        context.register(NETHER_HOT_SPRING, new StructureTemplatePool(
+                emptyPool,
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.NETHER_HOT_SPRING.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
     }
 

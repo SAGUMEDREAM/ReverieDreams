@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ToolMaterial;
 

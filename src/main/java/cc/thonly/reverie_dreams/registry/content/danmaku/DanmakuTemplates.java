@@ -3,17 +3,18 @@ package cc.thonly.reverie_dreams.registry.content.danmaku;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class DanmakuTemplates {
     private static final Map<ResourceLocation, DanmakuTrajectory> TEMPLATES = new Object2ObjectLinkedOpenHashMap<>();
@@ -48,7 +49,7 @@ public class DanmakuTemplates {
 
     public static ItemStack createItemStack(ResourceLocation key) {
         Holder<Item> entry = BuiltInRegistries.ITEM.wrapAsHolder(RDItems.SPELL_CARD_TEMPLATE);
-        return new ItemStack(entry, 1, DataComponentPatch.builder().set(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault().withTemplateId(key)).build());
+        return new ItemStack(entry, 1, DataComponentPatch.builder().set(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault().withTemplateId(key)).build());
     }
 
     public static Map<ResourceLocation, DanmakuTrajectory> getRegistryView() {

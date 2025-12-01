@@ -1,9 +1,10 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.entity.GhostEntity;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
-import cc.thonly.reverie_dreams.interfaces.IPlayerEntity;
+import cc.thonly.reverie_dreams.inf.IPlayerEntity;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import net.minecraft.core.BlockPos;
@@ -77,7 +78,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
             }
             if (this.nonSleepingTime < MAX_NON_SLEEPING_TIME) {
                 this.nonSleepingTime++;
-            } else if (serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST)){
+            } else if (ReverieDreamsConfiguration.ENABLE_GHOST_SPAWN && serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST)){
                 this.trySpawnGhost();
                 this.addEffect(new MobEffectInstance(RDStatusEffects.MENTAL_DISORDER, 20 * 60 * 5));
                 DelayedTask.whenTick(server, () -> this.sleep, 20 * 60 * 2, this::trySpawnGhost, () -> {
@@ -90,12 +91,21 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
 
     @Unique
     private void trySpawnGhost() {
+        if (!ReverieDreamsConfiguration.ENABLE_GHOST_SPAWN) {
+            return;
+        }
         var server = this.getServer();
-        if (server == null) return;
+        if (server == null) {
+            return;
+        }
         var world = this.level();
-        if (!(world instanceof ServerLevel serverWorld)) return;
+        if (!(world instanceof ServerLevel serverWorld)) {
+            return;
+        }
         boolean value = serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST);
-        if (!value) return;
+        if (!value) {
+            return;
+        }
         if (world.equals(server.overworld())) {
             BlockPos origin = this.blockPosition();
             BlockPos a = this.getRandomPos(origin);

@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 

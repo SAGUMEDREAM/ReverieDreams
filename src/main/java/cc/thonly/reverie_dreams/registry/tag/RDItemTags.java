@@ -10,6 +10,7 @@ public class RDItemTags {
     public static final TagKey<Item> FUMO = of("fumo");
     public static final TagKey<Item> ORB_BLOCK = of("orb");
     public static final TagKey<Item> ARMOR = of("armor");
+    public static final TagKey<Item> SILVER_ITEM = of("silver_item");
     public static final TagKey<Item> SILVER_ARMOR = of("silver_armor");
     public static final TagKey<Item> SILVER_TOOL_MATERIALS = of("silver_tool_materials");
     public static final TagKey<Item> MAGIC_ICE_ARMOR = of("magic_ice_armor");
@@ -27,6 +28,7 @@ public class RDItemTags {
     public static final TagKey<Item> DRINK_ITEM = of("drink_item");
     public static final TagKey<Item> ROLE_TAME_FOOD = of("role_tame_food");
     public static final TagKey<Item> DANMAKU_ITEM = of("danmaku_item");
+    public static final TagKey<Item> REPLACEABLE_BLANK_PHOTOS = of("replaceable_blank_photos");
     public static final TagKey<Item> DLC0 = of("touhou_mystia_dlc/0");
     public static final TagKey<Item> DLC1 = of("touhou_mystia_dlc/1");
     public static final TagKey<Item> DLC2 = of("touhou_mystia_dlc/2");

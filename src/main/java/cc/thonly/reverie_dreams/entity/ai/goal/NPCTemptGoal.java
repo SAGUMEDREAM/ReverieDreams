@@ -1,9 +1,5 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
-import java.util.function.Predicate;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
@@ -13,6 +9,10 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class NPCTemptGoal extends Goal {
     private static final TargetingConditions TEMPTING_ENTITY_PREDICATE = TargetingConditions.forNonCombat().ignoreLineOfSight();

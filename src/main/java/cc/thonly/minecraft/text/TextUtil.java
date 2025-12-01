@@ -6,9 +6,10 @@ import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
-import java.util.Optional;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
+
+import java.util.Optional;
 
 public class TextUtil {
     public static final Gson GSON = new Gson();

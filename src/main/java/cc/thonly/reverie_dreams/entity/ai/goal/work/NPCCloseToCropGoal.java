@@ -3,13 +3,14 @@ package cc.thonly.reverie_dreams.entity.ai.goal.work;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.EnumSet;
 
 public class NPCCloseToCropGoal extends Goal {
 

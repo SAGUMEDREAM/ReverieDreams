@@ -2,12 +2,13 @@ package cc.thonly.reverie_dreams.util;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import javax.imageio.ImageIO;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.*;

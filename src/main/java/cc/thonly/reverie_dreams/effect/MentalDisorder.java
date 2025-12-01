@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.effect;
 
-import eu.pb4.polymer.core.api.other.PolymerStatusEffect;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;

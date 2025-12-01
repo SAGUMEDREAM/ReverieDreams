@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data.danmaku;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -181,7 +181,7 @@ public class SpellcardRenderer {
     }
 
     private void spawnDanmaku(ItemStack itemStack, float speed, float pitch, float yaw) {
-        DanmakuProperties properties = itemStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
+        DanmakuProperties properties = itemStack.get(RDDataComponents.DANMAKU_PROPERTIES);
         if (properties == null) {
             return;
         }

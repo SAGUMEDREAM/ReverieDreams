@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/amulet",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.amulet",
+        "color": "#FFFFFF"
+      },
       "minecraft:dyed_color": 16777215,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:2b97ed27-7226-4a07-81f4-e8ea60d0ccf2"
+        "cooldown_group": "minecraft:ba4ca54c-4278-4016-9444-355ff666703a"
       }
     }
   },

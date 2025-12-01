@@ -1,8 +1,5 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,6 +12,9 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
 
 public class StatusEffectTargetGoal<T extends LivingEntity> extends TargetGoal {
     private static final int DEFAULT_RECIPROCAL_CHANCE = 10;

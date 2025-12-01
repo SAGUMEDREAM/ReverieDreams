@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.item.builder;
 
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.datagen.generator.AbstractRecipeTypeProvider;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.datagen.generator.AbstractRecipeTypeProvider;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -79,7 +79,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
         ItemStack itemStack = new ItemStack(RDItems.ROLE_CARD, 1);
         itemStack.set(DataComponents.ITEM_NAME, Component.translatable(this.translationKey()));
         itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color.intValue()));
-        itemStack.set(RDDataComponentTypes.ROLE_CARD_ID, this.getId());
+        itemStack.set(RDDataComponents.ROLE_CARD_ID, this.getId());
         return itemStack.copy();
     }
 

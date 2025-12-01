@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item;
 
+import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ShovelItem;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -19,6 +21,7 @@ public enum ItemTypeGroup {
     AXES(),
     SHOVELS(),
     HOES(),
+    ARMOR(),
     ;
     private final Set<Item> entries = new LinkedHashSet<>();
 
@@ -40,6 +43,9 @@ public enum ItemTypeGroup {
         }
         if (item instanceof HoeItem) {
             HOES.add(item);
+        }
+        if (item instanceof ArmorItem) {
+            ARMOR.add(item);
         }
     }
 

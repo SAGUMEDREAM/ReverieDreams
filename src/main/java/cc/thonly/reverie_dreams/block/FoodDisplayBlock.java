@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.interfaces.IItemStack;
+import cc.thonly.reverie_dreams.inf.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;

@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/ball",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.ball",
+        "color": "#FFFF2F"
+      },
       "minecraft:dyed_color": 16776998,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:e785a4cd-a289-40bc-a8ee-1571559a3bec"
+        "cooldown_group": "minecraft:a9b25507-9ccf-4142-a784-5bf6908d6521"
       }
     }
   },

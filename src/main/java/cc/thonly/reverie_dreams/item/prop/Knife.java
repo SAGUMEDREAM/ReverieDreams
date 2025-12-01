@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.item.material.SilverMaterial;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +54,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
             TypedDataComponent<Object> next = (TypedDataComponent<Object>) iterator.next();
             itemStack.set(next.type(), next.value());
         }
-        DanmakuProperties properties = itemStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        DanmakuProperties properties = itemStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
             ItemCooldowns cooldownManager = player.getCooldowns();
             for (int i = 0; i < properties.getCount(); i++) {
@@ -92,7 +92,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
         ItemStack stack = itemStack.copy();
         float pitch = user.getXRot();
         float yaw = user.getYRot();
-        DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        DanmakuProperties properties = stack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         properties = properties.withDamage(4.5f).withSpeed(1.5f);
 
         List<DanmakuEntity> list = new ArrayList<>();

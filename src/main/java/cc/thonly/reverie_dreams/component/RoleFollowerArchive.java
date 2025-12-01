@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.component;
 
-import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -40,7 +40,7 @@ public class RoleFollowerArchive {
     }
 
     public BaseNPCLikeEntity respawn(ServerLevel world, BlockPos pos, HolderLookup.Provider registries) {
-        NPCRoleEntity npcLikeEntity = new NPCRoleEntity(RDEntityTypes.NPC_ROLE_ENTITY, world);
+        NPCRoleEntity npcLikeEntity = new NPCRoleEntity(RDEntityTypes.NPC_ROLE, world);
         npcLikeEntity.setPosRaw(pos.getX(), pos.getY(), pos.getZ());
         npcLikeEntity.setCustomName(this.name);
         npcLikeEntity.setOwner((LivingEntity) null);

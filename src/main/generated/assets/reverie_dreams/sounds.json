@@ -20,9 +20,7 @@
   "cookie": {
     "subtitle": "sound.reverie_dreams.cookie",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/cookie"
-      }
+      "reverie_dreams:cookie"
     ]
   },
   "fumo/3": {
@@ -31,24 +29,16 @@
       "reverie_dreams:fumo/3"
     ]
   },
-  "tick_wave": {
-    "subtitle": "sound.reverie_dreams.tick_wave",
-    "sounds": [
-      "reverie_dreams:tick_wave"
-    ]
-  },
   "fumo/2": {
     "subtitle": "sound.reverie_dreams.fumo/2",
     "sounds": [
       "reverie_dreams:fumo/2"
     ]
   },
-  "badapple": {
-    "subtitle": "sound.reverie_dreams.badapple",
+  "tick_wave": {
+    "subtitle": "sound.reverie_dreams.tick_wave",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/badapple"
-      }
+      "reverie_dreams:tick_wave"
     ]
   },
   "fumo/1": {
@@ -57,36 +47,40 @@
       "reverie_dreams:fumo/1"
     ]
   },
+  "badapple": {
+    "subtitle": "sound.reverie_dreams.badapple",
+    "sounds": [
+      "reverie_dreams:badapple"
+    ]
+  },
+  "empty": {
+    "subtitle": "sound.reverie_dreams.empty",
+    "sounds": [
+      "reverie_dreams:empty"
+    ]
+  },
   "hr03_01": {
     "subtitle": "sound.reverie_dreams.hr03_01",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/hr03_01"
-      }
+      "reverie_dreams:hr03_01"
     ]
   },
   "yv_flower_clock_and_dreams": {
     "subtitle": "sound.reverie_dreams.yv_flower_clock_and_dreams",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/yv_flower_clock_and_dreams"
-      }
+      "reverie_dreams:yv_flower_clock_and_dreams"
     ]
   },
   "hr02_08": {
     "subtitle": "sound.reverie_dreams.hr02_08",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/hr02_08"
-      }
+      "reverie_dreams:hr02_08"
     ]
   },
   "melodic-taste-nightmare-before-crossroads": {
     "subtitle": "sound.reverie_dreams.melodic-taste-nightmare-before-crossroads",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/melodic-taste-nightmare-before-crossroads"
-      }
+      "reverie_dreams:melodic-taste-nightmare-before-crossroads"
     ]
   },
   "up": {
@@ -116,17 +110,13 @@
   "glowing_needles_little_people": {
     "subtitle": "sound.reverie_dreams.glowing_needles_little_people",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/glowing_needles_little_people"
-      }
+      "reverie_dreams:glowing_needles_little_people"
     ]
   },
   "hr01_01": {
     "subtitle": "sound.reverie_dreams.hr01_01",
     "sounds": [
-      {
-        "name": "reverie_dreams:records/hr01_01"
-      }
+      "reverie_dreams:hr01_01"
     ]
   },
   "fire": {

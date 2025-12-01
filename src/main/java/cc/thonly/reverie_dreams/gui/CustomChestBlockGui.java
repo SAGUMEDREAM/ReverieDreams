@@ -5,9 +5,6 @@ import cc.thonly.reverie_dreams.block.CustomChestBlock;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +15,9 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomChestBlockGui extends SimpleGui implements GuiCommon {

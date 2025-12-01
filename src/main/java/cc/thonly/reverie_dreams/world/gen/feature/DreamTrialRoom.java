@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.datagen.ChestLootTableProvider;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;

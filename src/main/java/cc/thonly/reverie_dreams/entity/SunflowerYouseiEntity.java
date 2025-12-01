@@ -1,21 +1,17 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
-import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
-import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
-import cc.thonly.reverie_dreams.util.entity.ModelUtil;
-import de.tomalbrc.bil.core.model.Model;
 import lombok.Getter;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Leashable;
@@ -35,11 +31,9 @@ import net.minecraft.world.level.Level;
 
 @Getter
 public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, Yousei {
-    public static final ResourceLocation ID = ReverieDreams.id("yousei_wing");
-    public static final Model MODEL = ModelUtil.loadModel(ID);
-
     public SunflowerYouseiEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         super(entityType, world, skinType);
+        this.xpReward = 5;
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(Items.SUNFLOWER.getDefaultInstance());
         inventory.setMainHand(Items.SUNFLOWER.getDefaultInstance());

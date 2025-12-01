@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.component.GapRecorder;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -24,6 +24,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -59,7 +60,7 @@ public class GapBall extends Item {
         public GapGUI(ServerPlayer player, ItemStack stack) {
             super(MenuType.GENERIC_9x3, player, false);
             this.stack = stack;
-            this.gapRecorders = new ArrayList<>(stack.getOrDefault(RDDataComponentTypes.GAP_RECORDER, new ArrayList<>()));
+            this.gapRecorders = new ArrayList<>(stack.getOrDefault(RDDataComponents.GAP_RECORDER, new ArrayList<>()));
             while (gapRecorders.size() <= MAX_INDEX) {
                 this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().location().toString(), BlockPos.ZERO, false));
             }
@@ -105,7 +106,7 @@ public class GapBall extends Item {
         @Override
         public void onTick() {
             super.onTick();
-            this.gapRecorders = new ArrayList<>(this.stack.getOrDefault(RDDataComponentTypes.GAP_RECORDER, new ArrayList<>()));
+            this.gapRecorders = new ArrayList<>(this.stack.getOrDefault(RDDataComponents.GAP_RECORDER, new ArrayList<>()));
             while (gapRecorders.size() <= MAX_INDEX) {
                 this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().location().toString(), BlockPos.ZERO, false));
             }
@@ -167,10 +168,10 @@ public class GapBall extends Item {
             GapRecorder recorder = new GapRecorder("位置 " + index, this.getPlayer().level().dimension().location().toString(), pos, true);
             player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             this.gapRecorders.set(index, recorder);
-            this.stack.set(RDDataComponentTypes.GAP_RECORDER, this.gapRecorders);
+            this.stack.set(RDDataComponents.GAP_RECORDER, this.gapRecorders);
             this.player.displayClientMessage(Component.literal("已记录当前位置至槽位 " + index), false);
             this.init();
-            this.stack.set(RDDataComponentTypes.GAP_RECORDER, this.gapRecorders);
+            this.stack.set(RDDataComponents.GAP_RECORDER, this.gapRecorders);
             this.player.getInventory().setChanged();
         }
 
@@ -179,18 +180,18 @@ public class GapBall extends Item {
             player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             if (recorder != null) {
                 recorder.setEnable(false);
-                this.stack.set(RDDataComponentTypes.GAP_RECORDER, this.gapRecorders);
+                this.stack.set(RDDataComponents.GAP_RECORDER, this.gapRecorders);
                 this.player.displayClientMessage(Component.literal("已清除槽位 " + index), false);
                 this.init();
             }
-            this.stack.set(RDDataComponentTypes.GAP_RECORDER, this.gapRecorders);
+            this.stack.set(RDDataComponents.GAP_RECORDER, this.gapRecorders);
             this.player.getInventory().setChanged();
         }
 
         @Override
         public void onClose() {
             super.onClose();
-            this.stack.set(RDDataComponentTypes.GAP_RECORDER, this.gapRecorders);
+            this.stack.set(RDDataComponents.GAP_RECORDER, this.gapRecorders);
             this.player.getInventory().setChanged();
         }
     }

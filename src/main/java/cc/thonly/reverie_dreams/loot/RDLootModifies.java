@@ -2,17 +2,17 @@ package cc.thonly.reverie_dreams.loot;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.entity.GoblinEntity;
 import cc.thonly.reverie_dreams.entity.HairballEntity;
 import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
+import cc.thonly.reverie_dreams.item.base.AlbumItem;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,6 +38,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,10 +84,10 @@ public class RDLootModifies {
     }
 
     public static void register() {
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+        LootTableEvents.MODIFY.register((key, lootTableBuilder, source, registries) -> {
             // 钓鱼修改
             if (source.isBuiltin() && key.equals(FISHING)) {
-                tableBuilder.modifyPools(tb -> {
+                lootTableBuilder.modifyPools(tb -> {
                     tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(10));
                     tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(10));
                     tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(10));
@@ -106,7 +107,7 @@ public class RDLootModifies {
                         .when(LootItemRandomChanceCondition.randomChance(0.1f));
 
                 poolBuilder.add(LootItem.lootTableItem(RDIngredientItems.TRUFFLE).setWeight(10));
-                tableBuilder.withPool(poolBuilder);
+                lootTableBuilder.withPool(poolBuilder);
             }
             // 魔法冰块
             Optional<ResourceKey<LootTable>> lootTableKey = Blocks.ICE.getLootTable();
@@ -116,7 +117,7 @@ public class RDLootModifies {
                         .when(LootItemRandomChanceCondition.randomChance(0.1f));
 
                 poolBuilder.add(LootItem.lootTableItem(RDBlocks.MAGIC_ICE_BLOCK).setWeight(10));
-                tableBuilder.withPool(poolBuilder);
+                lootTableBuilder.withPool(poolBuilder);
             }
             // 奖励箱掉落
             if (
@@ -129,7 +130,7 @@ public class RDLootModifies {
                 for (var item : AlbumItem.ITEMS) {
                     discPool.add(LootItem.lootTableItem(item).setWeight(8));
                 }
-                tableBuilder.withPool(discPool);
+                lootTableBuilder.withPool(discPool);
 
                 LootPool.Builder fragmentPool = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
@@ -144,14 +145,14 @@ public class RDLootModifies {
                                 .setWeight(10)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f)))
                 );
-                tableBuilder.withPool(fragmentPool);
+                lootTableBuilder.withPool(fragmentPool);
 
                 LootPool.Builder rarePool = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(0.2f));
                 rarePool.add(LootItem.lootTableItem(RDItems.UPGRADED_HEALTH).setWeight(10));
                 rarePool.add(LootItem.lootTableItem(RDItems.BOMB).setWeight(10));
-                tableBuilder.withPool(rarePool);
+                lootTableBuilder.withPool(rarePool);
             }
             // 种子掉落 I
             if (key.equals(BLOCKS_SHORT_GRASS)) {
@@ -163,7 +164,7 @@ public class RDLootModifies {
                     poolBuilder = poolBuilder.add(LootItem.lootTableItem(instance.getSeed()).setWeight(10));
                 }
 
-                tableBuilder.withPool(poolBuilder);
+                lootTableBuilder.withPool(poolBuilder);
             }
             // 种子掉落 II
             if (RDLootModifies.COMMON_CHESTS.contains(key)) {
@@ -175,9 +176,22 @@ public class RDLootModifies {
                     Item seed = instance.getSeed();
                     poolBuilder.add(LootItem.lootTableItem(seed).setWeight(8));
                 }
-                tableBuilder.withPool(poolBuilder);
+                lootTableBuilder.withPool(poolBuilder);
             }
-
+            if (key.equals(OPEN_MINESHAFT_CHEST) || key.equals(VILLAGE_WEAPONSMITH_CHEST) || key.equals(END_CITY_TREASURE_CHEST)) {
+                LootPool.Builder poolBuilder = LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .when(LootItemRandomChanceCondition.randomChance(0.4f));
+                for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
+                    ItemStack itemStack = entry.getValue();
+                    DanmakuProperties properties = itemStack.get(RDDataComponents.DANMAKU_PROPERTIES);
+                    if (properties==null) continue;
+                    poolBuilder.add(LootItem.lootTableItem(itemStack.getItem())
+                            .apply(SetComponentsFunction.setComponent(RDDataComponents.DANMAKU_PROPERTIES, properties.clone()))
+                            .setWeight(6));
+                }
+                lootTableBuilder.withPool(poolBuilder);
+            }
         });
         LootTableEvents.REPLACE.register((key, table, source, registries) -> {
             // 竹笋掉落
@@ -191,25 +205,6 @@ public class RDLootModifies {
                 return builder.build();
             }
             return table;
-        });
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-
-        });
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-            if (key.equals(OPEN_MINESHAFT_CHEST) || key.equals(VILLAGE_WEAPONSMITH_CHEST) || key.equals(END_CITY_TREASURE_CHEST)) {
-                LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.4f));
-                for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
-                    ItemStack itemStack = entry.getValue();
-                    DanmakuProperties properties = itemStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
-                    if (properties==null) continue;
-                    poolBuilder.add(LootItem.lootTableItem(itemStack.getItem())
-                            .apply(SetComponentsFunction.setComponent(RDDataComponentTypes.DANMAKU_PROPERTIES, properties.clone()))
-                            .setWeight(6));
-                }
-                tableBuilder.withPool(poolBuilder);
-            }
         });
 
         ServerLivingEntityEvents.AFTER_DEATH.register(RDLootModifies::modifyDrops);

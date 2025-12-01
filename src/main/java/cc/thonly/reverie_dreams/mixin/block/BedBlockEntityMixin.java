@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
-import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
+import cc.thonly.reverie_dreams.inf.IBedBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import cc.thonly.reverie_dreams.interfaces.IComponentMapBuilder;
+import cc.thonly.reverie_dreams.inf.IComponentMapBuilder;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectMap;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;

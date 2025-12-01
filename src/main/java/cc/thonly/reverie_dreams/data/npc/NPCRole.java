@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
-import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
@@ -26,6 +26,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
             EntityType<NPCRoleFastEntity> entityType = registerEntity(this.id, build);;
             FabricDefaultAttributeRegistry.register(entityType, BaseNPCLikeEntity.createAttributes());
             ResourceLocation spawnEggId = ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
-            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Properties().modelId(ReverieDreams.id("spawn_egg"))));
+            Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Properties()));
             this.entityType = build;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;

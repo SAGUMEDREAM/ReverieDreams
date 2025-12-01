@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.inf.IItemStack;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
-import cc.thonly.reverie_dreams.interfaces.IItemStack;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -33,7 +33,7 @@ public class EatGoal extends Goal {
         if (GensokyoSkinTypes.YUYUKO.get().equals(this.maid.getSkin())){
             return maid.getNutrition() < 20;
         }
-        return (maid.getNutrition() < 20 && maid.getHealth() < 20) || maid.getNutrition() < 10;
+        return (maid.getNutrition() < 20 && maid.getHealth() < this.maid.getMaxHealth()) || maid.getNutrition() < 10;
     }
 
     @Override

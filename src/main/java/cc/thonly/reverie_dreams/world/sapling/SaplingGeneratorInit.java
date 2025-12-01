@@ -2,8 +2,9 @@ package cc.thonly.reverie_dreams.world.sapling;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.world.gen.ConfigurationFeatureInit;
-import java.util.Optional;
 import net.minecraft.world.level.block.grower.TreeGrower;
+
+import java.util.Optional;
 
 public interface SaplingGeneratorInit {
     TreeGrower SPIRITUAL_TREE = new TreeGrower(

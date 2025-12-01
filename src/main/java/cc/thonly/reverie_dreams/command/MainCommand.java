@@ -10,9 +10,8 @@ import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
-import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
-import com.mojang.authlib.properties.Property;
+import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -42,7 +41,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 

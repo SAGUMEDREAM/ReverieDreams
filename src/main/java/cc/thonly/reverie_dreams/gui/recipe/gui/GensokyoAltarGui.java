@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.gui.recipe.gui;
 
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;

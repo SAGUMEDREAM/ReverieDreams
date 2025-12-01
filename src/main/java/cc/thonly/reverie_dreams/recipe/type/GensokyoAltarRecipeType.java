@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -20,6 +20,7 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -109,7 +110,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
         if (coreWrapper.getItem() instanceof RoleFollowerArchiveItem && isAllMatch.test(2)) {
             ItemStack itemStack = coreWrapper.copy().getItemStack();
-            itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN, true);
+            itemStack.set(RDDataComponents.ROLE_CAN_RESPAWN, true);
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,

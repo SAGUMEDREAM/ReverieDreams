@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.compat.page;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.polydex.api.v1.recipe.*;

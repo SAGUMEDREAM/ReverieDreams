@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import java.util.EnumSet;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+
+import java.util.EnumSet;
 
 public class NPCLookAroundGoal extends Goal {
     private final Mob mob;

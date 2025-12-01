@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +22,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -69,13 +70,14 @@ public class DanmakuEntity extends AbstractArrow {
 
     };
     public DanmakuProperties properties = DanmakuProperties.ofDefault();
-    private final float originPitch;
-    private final float originYaw;
+    private float originPitch;
+    private float originYaw;
 
     public int flyAge = 0;
     protected int fluidAge = 0;
     protected int fightTick = 0;
     protected int particleTick = 0;
+    private int remainingBounces = 16;
 
     public DanmakuEntity(@Nullable Entity livingEntity,
                          ServerLevel world,
@@ -97,7 +99,7 @@ public class DanmakuEntity extends AbstractArrow {
                          Float divergence, Float offsetDist,
                          boolean entityDelta
     ) {
-        super(RDEntityTypes.DANMAKU_ENTITY_TYPE,
+        super(RDEntityTypes.DANMAKU,
                 x,
                 y + (livingEntity != null ? livingEntity.getEyeHeight() : 0),
                 z,
@@ -174,6 +176,7 @@ public class DanmakuEntity extends AbstractArrow {
         }
         view.store("Properties", DanmakuProperties.CODEC, this.properties);
         view.putInt("FlyAge", this.flyAge);
+        view.putInt("RemainingBounces", this.remainingBounces);
         view.store("VelocityVector", Vec3.CODEC, this.getDeltaMovement());
     }
 
@@ -183,6 +186,7 @@ public class DanmakuEntity extends AbstractArrow {
         this.itemStack = view.read("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
         this.properties = view.read("Properties", DanmakuProperties.CODEC).orElse(DanmakuProperties.ofDefault());
         this.flyAge = view.getIntOr("FlyAge", 0);
+        this.remainingBounces = view.getIntOr("RemainingBounces", 0);
         Optional<Vec3> velocityVector = view.read("VelocityVector", Vec3.CODEC);
         velocityVector.ifPresent(this::setDeltaMovement);
     }
@@ -288,6 +292,56 @@ public class DanmakuEntity extends AbstractArrow {
 
     @Override
     public void onHitBlock(BlockHitResult blockHitResult) {
+        if (this.itemStack.getItem() == DanmakuTypes.NOTE.getItem()) {
+            playSound(SoundEvents.NOTE_BLOCK_BASS.value(), 1.0F, 1.0F);
+            if (this.remainingBounces <= 0) {
+                this.discard();
+                return;
+            }
+
+            var dir = blockHitResult.getDirection();
+
+            Vec3 normal = new Vec3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).normalize();
+            Vec3 velocity = this.getDeltaMovement();
+
+            double dot = velocity.dot(normal);
+            Vec3 reflected = velocity.subtract(normal.scale(2.0 * dot));
+
+            float damping = 0.95f;
+            reflected = reflected.scale(damping);
+
+            if (reflected.lengthSqr() < 1e-4) {
+                this.discard();
+                return;
+            }
+
+            this.setDeltaMovement(reflected);
+            this.setPos(this.position().add(normal.scale(0.05)));
+
+            float yaw = this.getYRot();
+            float pitch = this.getXRot();
+
+            switch (dir) {
+                case EAST, WEST, NORTH, SOUTH -> {
+                    yaw = 180f - yaw;
+                }
+                case UP, DOWN -> {
+                    pitch = -pitch;
+                }
+            }
+
+            yaw = (yaw % 360 + 360) % 360;
+            pitch = Mth.clamp(pitch, -90f, 90f);
+            this.setYRot(yaw);
+            this.setXRot(pitch);
+            this.setYBodyRot(yaw);
+            this.setOriginPitch(pitch);
+            this.setOriginYaw(yaw);
+
+            this.remainingBounces--;
+            return;
+        }
+
         this.setPos(blockHitResult.getLocation());
         if (blockHitResult.getType() == HitResult.Type.BLOCK) {
             BlockState block = this.level().getBlockState(blockHitResult.getBlockPos());
@@ -297,6 +351,7 @@ public class DanmakuEntity extends AbstractArrow {
             playSound(soundEvent, 0.2F, 1.0F);
             setSilent(true);
         }
+
         this.setSharedFlagOnFire(true);
         super.onHitBlock(blockHitResult);
         this.setSharedFlagOnFire(false);
@@ -409,6 +464,10 @@ public class DanmakuEntity extends AbstractArrow {
                 }
                 this.onHitEffect.damage(livingTarget, this.properties.getDamage());
             }
+        }
+
+        if (this.itemStack.getItem() == DanmakuTypes.NOTE.getItem()) {
+            playSound(SoundEvents.NOTE_BLOCK_BASS.value(), 1.0F, 1.0F);
         }
     }
 

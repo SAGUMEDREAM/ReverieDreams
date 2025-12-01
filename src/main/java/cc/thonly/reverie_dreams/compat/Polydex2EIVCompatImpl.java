@@ -2,16 +2,16 @@ package cc.thonly.reverie_dreams.compat;
 
 import cc.thonly.polydex2eiv.api.ItemViewServerModifier;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import net.minecraft.util.Tuple;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 public class Polydex2EIVCompatImpl {
     public static void bootstrap(

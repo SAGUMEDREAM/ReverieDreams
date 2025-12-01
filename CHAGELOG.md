@@ -1,5 +1,36 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.7+1.21.7
+* Added the Note Danmaku (Block face reflecting when hit block )
+* Added `Himekaidou Hatate's Phone` item
+* Added `Yuka's Flower Umbrella` recipe
+* Added empty photo item
+* Added UFO Entity
+* Added Scarecrow Entity
+* Added speed mob effect in hold speed feather
+* Added Structure Nether Hot Spring
+* Added block Blessed Spiritual Log
+* Added an option to enable Yousei spawning.
+* Added an option to enable Ghost spawning.
+* Now the top layer of the altar was changed to a Blessed Spiritual Log
+* Now carrying silver items will prevent ghosts from spawning.
+* Fixed not drop sapling when breaking leaves
+* Fixed missing enchantable tag in enchantment
+* Fixed crashing in opening settings
+* Fixed the bad apple item is missing sound play
+* Fixed Marisa hat can't place in HEAD slot
+* Fixed Sound offset in playing Fumo
+* Fixed Placing fake overlay in client
+* Fixed the handheld bone meal will continue to consume the ripening fruit leaves.
+* Fixed some blocks is missing particle
+* Fixed Gensokyo Altar Block Entity Item not displaying
+* Fixed Youmu model
+* Optimized dropping item location in picking fruit leaves
+* Repainted type of 3 coins textures
+* Limited Upgraded Health for 46
+* Increase change for shoot Wind Ball in using Wind Blessing Cane
+* Allowed shooting a lot of note danmakus in place note danmaku item in OffHand
+
 # 0.4.6+1.21.7
 * Added Weapon Item `Yuka's Flower Umbrella`
 * Added Config to switch `Danmaku Entity` glowing
@@ -100,7 +131,7 @@
 * Fixed Missing translationKey in NPC GUI work mode button
 * Fixed incorrect orientation of kitchen utensils and hoppers
 * Fixed Food Dash drop model too large
-* Fixed Youmu using the wrong STEVE model
+* Fixed Youmu using the wrong model
 * Fixed Mistake set value in `ON_UPGRADED_HEALTH`
 * Modify Bagua Furnace laser to cylindrical model
 * Optimized the logic of feeding food and potions to Role

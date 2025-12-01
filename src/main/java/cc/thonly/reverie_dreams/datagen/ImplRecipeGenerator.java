@@ -1,18 +1,14 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,6 +25,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ImplRecipeGenerator extends RecipeProvider {
     public static ImmutableList<ItemLike> SILVER = ImmutableList.of(RDBlocks.SILVER_ORE.asItem(), RDBlocks.DEEPSLATE_SILVER_ORE.asItem(), RDItems.RAW_SILVER);
@@ -208,7 +209,30 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_sand", has(Items.FIREWORK_STAR))
                 .save(output, getSimpleRecipeName(RDItems.DANMAKU_CORE));
 
+        // 空照片
+        shaped(RecipeCategory.MISC, RDItems.EMPTY_PHOTO, 2)
+                .pattern("YYY")
+                .pattern("###")
+                .pattern("XXX")
+                .define('#', Items.PAPER)
+                .define('Y', Items.GLASS_PANE)
+                .define('X', Items.IRON_NUGGET)
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .save(output, getSimpleRecipeName(RDItems.EMPTY_PHOTO));
+
         this.generateWoodCreator(RDWoodBlocks.SPIRITUAL);
+        shapeless(RecipeCategory.BUILDING_BLOCKS, RDWoodBlocks.SPIRITUAL.strippedLog())
+                .requires(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)
+                .unlockedBy("has_blessed_spiritual_log", has(RDWoodBlocks.BLESSED_SPIRITUAL_LOG))
+                .save(output, "cutting_" + getSimpleRecipeName(RDWoodBlocks.BLESSED_SPIRITUAL_LOG));
+        shaped(RecipeCategory.BUILDING_BLOCKS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG, 1)
+                .pattern("Y")
+                .pattern("X")
+                .define('Y', Items.PAPER)
+                .define('X', RDWoodBlocks.SPIRITUAL.strippedLog())
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .save(output, getSimpleRecipeName(RDWoodBlocks.BLESSED_SPIRITUAL_LOG));
+
         this.generateWoodCreator(RDWoodBlocks.LEMON);
         this.generateWoodCreator(RDWoodBlocks.GINKGO);
         this.generateDecorativeBlock();
@@ -557,6 +581,22 @@ public class ImplRecipeGenerator extends RecipeProvider {
         offerChestplateRecipe(output, RDItems.DREAM_CHESTPLATE, RDItems.DREAM_CRYSTAL_FRAGMENT);
         offerLeggingsRecipe(output, RDItems.DREAM_LEGGINGS, RDItems.DREAM_CRYSTAL_FRAGMENT);
         offerBootsRecipe(output, RDItems.DREAM_BOOTS, RDItems.DREAM_CRYSTAL_FRAGMENT);
+
+        // 防水衣
+        shaped(RecipeCategory.MISC, RDItems.WATERPROOF_LEATHER)
+                .define('X', Items.LEATHER)
+                .define('Y', Items.TURTLE_SCUTE)
+                .define('R', Items.REDSTONE)
+                .define('E', Items.HONEYCOMB)
+                .unlockedBy("has_leather", has(Items.LEATHER))
+                .pattern("RYR")
+                .pattern("RXR")
+                .pattern("RER")
+                .save(output);
+        offerHelmetRecipe(output, RDItems.WATER_PROOF_HAT, RDItems.WATERPROOF_LEATHER);
+        offerChestplateRecipe(output, RDItems.WATER_PROOF_CLOTHING, RDItems.WATERPROOF_LEATHER);
+        offerLeggingsRecipe(output, RDItems.WATER_PROOF_LEGGINGS, RDItems.WATERPROOF_LEATHER);
+        offerBootsRecipe(output, RDItems.WATER_PROOF_BOOTS, RDItems.WATERPROOF_LEATHER);
 
         // 烧梦境水晶矿
         oreSmelting(DREAM, RecipeCategory.MISC, RDItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");

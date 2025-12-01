@@ -1,0 +1,34 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "reverie_dreams:waterproof",
+        "dyeable": {
+          "color_when_undyed": -6265536
+        }
+      },
+      {
+        "texture": "reverie_dreams:waterproof_overlay"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "reverie_dreams:waterproof",
+        "dyeable": {
+          "color_when_undyed": -6265536
+        }
+      },
+      {
+        "texture": "reverie_dreams:waterproof_overlay"
+      }
+    ],
+    "horse_body": [
+      {
+        "texture": "reverie_dreams:waterproof",
+        "dyeable": {
+          "color_when_undyed": -6265536
+        }
+      }
+    ]
+  }
+}

@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,13 +35,13 @@ public class SkinConfigs {
             config.setSkin(skin);
         }
         Map<ResourceLocation, Resource> resources = manager.listResources("skin_config", id -> id.getPath().endsWith(".json"));
-//        List<Runnable> tasks = new ArrayList<>();
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
             ResourceLocation resourceId = entry.getKey();
             ResourceLocation key = ResourceLocation.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath()
                     .replace("skin_config/", "")
                     .replace(".json", "")
             );
+            System.out.println(key);
             Resource resource = entry.getValue();
             SkinType skin = RegistryHandlers.SKIN_TYPE.getValue(key);
             if (skin == null) {
@@ -56,14 +57,8 @@ public class SkinConfigs {
                         .ifPresent(data -> {
                             skin.setConfig(data);
                             data.setSkin(skin);
+                            log.info("register skin {} {}", key, data);
                             RegistryHandlers.register(RegistryHandlers.SKIN_CONFIG, key, data);
-//                            tasks.add(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    Optional<Property> skinFromNPCSkin = SkinFetcher.getSkinFromNPCSkin(data);
-//                                    skinFromNPCSkin.ifPresent(skin::setInstance);
-//                                }
-//                            });
                         });
             } catch (IOException e) {
                 log.error("Failed to load Skin Config {}: {}", resourceId, e.getMessage(), e);

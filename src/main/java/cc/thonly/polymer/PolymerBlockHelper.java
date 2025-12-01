@@ -1,15 +1,17 @@
 package cc.thonly.polymer;
 
-import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.polymer.block.*;
 import cc.thonly.reverie_dreams.LateLoaderInit;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.*;
+import cc.thonly.reverie_dreams.block.CashBoxBlock;
+import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
+import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
+import cc.thonly.reverie_dreams.block.MarisaHatBlock;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
+import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import eu.pb4.factorytools.api.block.model.SignModel;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;

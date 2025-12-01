@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin;
 
-import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
+import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.elements.GuiElementBuilderInterface;
 import net.minecraft.world.item.ItemStack;

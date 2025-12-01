@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
-import cc.thonly.reverie_dreams.interfaces.IExperienceOrbEntity;
+import cc.thonly.reverie_dreams.inf.IExperienceOrbEntity;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.level.ServerLevel;
@@ -11,11 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.Leashable;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;

@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -17,15 +16,15 @@ public class DrinkCreativeTab implements ItemGroupContentHelper {
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(RDDrinkItems.GREEN_TEA))
             .title(Component.translatable("item_group.drink_item_group"))
+            .displayItems((parameters, output) -> {
+                output.accept(Items.BARREL);
+                for (Item item : RDDrinkItems.DRINK_ITEMS) {
+                    output.accept(item);
+                }
+            })
             .build();
 
     public static void bootstrap() {
-        ItemGroupEvents.modifyEntriesEvent(DrinkCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            itemGroup.accept(Items.BARREL);
-            for (Item item : RDDrinkItems.DRINK_ITEMS) {
-                itemGroup.accept(item);
-            }
-        });
         ItemGroupContentHelper.registerGroup(DrinkCreativeTab.ITEM_GROUP_KEY, DrinkCreativeTab.ITEM_GROUP);
 
     }

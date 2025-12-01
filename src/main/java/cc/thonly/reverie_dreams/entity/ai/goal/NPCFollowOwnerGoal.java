@@ -1,11 +1,8 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -13,6 +10,9 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.pathfinder.PathType;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
 
 public class NPCFollowOwnerGoal extends Goal {
     private final TamableAnimal tameable;

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import cc.thonly.reverie_dreams.interfaces.ItemSettingsAccessorImpl;
+import cc.thonly.reverie_dreams.inf.ItemSettingsAccessorImpl;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.resources.DependantName;

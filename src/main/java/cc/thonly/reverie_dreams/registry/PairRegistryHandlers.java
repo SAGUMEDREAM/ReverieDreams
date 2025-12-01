@@ -3,9 +3,10 @@ package cc.thonly.reverie_dreams.registry;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.impl.PairRegistryHandler;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import java.util.Map;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+
+import java.util.Map;
 
 public class PairRegistryHandlers {
     public static final Map<ResourceLocation, PairRegistryHandler<?, ?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();

@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -17,16 +16,15 @@ public class FoodCreativeTab implements ItemGroupContentHelper {
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(FoodCreativeTab::getFoodItemIcon)
             .title(Component.translatable("item_group.food_item_group"))
+            .displayItems((parameters, output) -> {
+                for (Item item : RDFoodItems.FOOD_ITEMS) {
+                    output.accept(item);
+                }
+            })
             .build();
 
     public static void bootstrap() {
-        ItemGroupEvents.modifyEntriesEvent(FoodCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            for (Item item : RDFoodItems.FOOD_ITEMS) {
-                itemGroup.accept(item);
-            }
-        });
         ItemGroupContentHelper.registerGroup(FoodCreativeTab.ITEM_GROUP_KEY, FoodCreativeTab.ITEM_GROUP);
-
     }
 
     public static ItemStack getFoodItemIcon() {

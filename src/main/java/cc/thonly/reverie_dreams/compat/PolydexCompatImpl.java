@@ -1,16 +1,13 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.compat.page.*;
-import cc.thonly.reverie_dreams.recipe.type.DanmakuRecipeType;
-import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
-import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
-import cc.thonly.reverie_dreams.recipe.type.StrengthTableRecipeType;
+import cc.thonly.reverie_dreams.recipe.type.*;
 import eu.pb4.polydex.api.v1.recipe.PolydexEntry;
 import eu.pb4.polydex.api.v1.recipe.PolydexPage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;

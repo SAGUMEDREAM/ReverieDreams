@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.api.FoodPropertyLoaderCallback;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.base.IngredientItem;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
@@ -18,6 +18,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

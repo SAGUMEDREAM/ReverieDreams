@@ -5,7 +5,6 @@ import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
-import cc.thonly.reverie_dreams.registry.content.skin.SkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;

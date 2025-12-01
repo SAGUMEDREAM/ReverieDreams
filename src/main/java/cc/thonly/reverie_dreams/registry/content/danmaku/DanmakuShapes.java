@@ -4,11 +4,10 @@ import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-
-import java.util.Map;
-
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.Map;
 
 public class DanmakuShapes {
     public static void bootstrap(RegistryHandler<DanmakuShape> registry) {

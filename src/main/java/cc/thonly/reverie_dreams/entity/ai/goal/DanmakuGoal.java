@@ -49,6 +49,9 @@ public class DanmakuGoal extends Goal {
             return false;
         }
         if (livingEntity instanceof Player player) {
+            if (player.isSpectator()) {
+                return false;
+            }
             if (player.hasInfiniteMaterials()) {
                 return false;
             }

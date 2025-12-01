@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.interfaces.IAnimalEntity;
+import cc.thonly.reverie_dreams.inf.IAnimalEntity;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.AgeableMob;

@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,13 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.PlayerRideableJumping;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -65,6 +60,25 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, UUID owner) {
         this(entityType, world, x, y, z, wrapper);
         this.owner = owner;
+    }
+
+    @Override
+    public Component getName() {
+        if (this.itemWrapper == null || this.itemWrapper.isEmpty()) {
+            return super.getName();
+        }
+        ItemStack itemStack = this.itemWrapper.getItemStack();
+        return itemStack.getHoverName();
+    }
+
+    @Override
+    public @Nullable Component getCustomName() {
+        return this.getName();
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return this.getName();
     }
 
     @Override

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blessed_spiritual_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reverie_dreams:blessed_spiritual_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "reverie_dreams:cutting_blessed_spiritual_log"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blessed_spiritual_log"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "reverie_dreams:cutting_blessed_spiritual_log"
+    ]
+  }
+}

@@ -4,10 +4,10 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.resources.ResourceLocation;
 
 public class NPCStates {
     public static final NPCState FOLLOW = register(ReverieDreams.id("follow"), new NPCState("follow"));

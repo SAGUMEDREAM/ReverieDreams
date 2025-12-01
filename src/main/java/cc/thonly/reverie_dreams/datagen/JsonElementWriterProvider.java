@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
-import cc.thonly.reverie_dreams.datagen.generator.AbstractJsonElementWriterProvider;
 import cc.thonly.reverie_dreams.data.FumoType;
+import cc.thonly.reverie_dreams.datagen.generator.AbstractJsonElementWriterProvider;
+import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
 import com.google.gson.JsonElement;
@@ -12,7 +13,9 @@ import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 
@@ -23,6 +26,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
         super(output, future);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void configured() {
         for (FumoType fumoType : FumoTypes.getView()) {
@@ -33,6 +37,63 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
         this.addFruityLeavesBlockState(RDWoodBlocks.LEMON_FRUIT_LEAVES, RDWoodBlocks.LEMON.leaves());
         this.addFruityLeavesBlockState(RDWoodBlocks.GINKGO_FRUIT_LEAVES, RDWoodBlocks.GINKGO.leaves());
         this.addFruityLeavesBlockState(RDWoodBlocks.PEACH_FRUIT_LEAVES, RDWoodBlocks.PEACH.leaves());
+
+        this.addElement(Type.ASSETS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.builtInRegistryHolder().key().location(), "blockstates", strToJson(
+                "{\n" +
+                        "  \"variants\": {\n" +
+                        "    \"axis=x\": {\n" +
+                        "      \"model\": \"reverie_dreams:block/blessed_spiritual_log\",\n" +
+                        "      \"x\": 90,\n" +
+                        "      \"y\": 90\n" +
+                        "    },\n" +
+                        "    \"axis=y\": {\n" +
+                        "      \"model\": \"reverie_dreams:block/blessed_spiritual_log\"\n" +
+                        "    },\n" +
+                        "    \"axis=z\": {\n" +
+                        "      \"model\": \"reverie_dreams:block/blessed_spiritual_log\",\n" +
+                        "      \"x\": 90\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}"
+        ));
+        this.addElement(Type.ASSETS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.builtInRegistryHolder().key().location(), "items", strToJson(
+                "{\n" +
+                        "  \"model\": {\n" +
+                        "    \"type\": \"minecraft:model\",\n" +
+                        "    \"model\": \"reverie_dreams:block/blessed_spiritual_log\"\n" +
+                        "  }\n" +
+                        "}"
+        ));
+        for (Item spawnEgg : SpawnEggItem.SPAWN_EGGS) {
+            ResourceKey<Item> key = spawnEgg.builtInRegistryHolder().key();
+            ResourceLocation location = key.location();
+            JsonElement element = strToJson("{\n" +
+                    "  \"model\": {\n" +
+                    "    \"type\": \"minecraft:condition\",\n" +
+                    "    \"component\": \"minecraft:dyed_color\",\n" +
+                    "    \"on_false\": {\n" +
+                    "      \"type\": \"minecraft:model\",\n" +
+                    "      \"model\": \"reverie_dreams:item/spawn_egg\"\n" +
+                    "    },\n" +
+                    "    \"on_true\": {\n" +
+                    "      \"type\": \"minecraft:model\",\n" +
+                    "      \"model\": \"reverie_dreams:item/spawn_egg_dyed\",\n" +
+                    "      \"tints\": [\n" +
+                    "        {\n" +
+                    "          \"type\": \"minecraft:constant\",\n" +
+                    "          \"value\": -1\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"type\": \"minecraft:dye\",\n" +
+                    "          \"default\": 0\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    \"property\": \"minecraft:has_component\"\n" +
+                    "  }\n" +
+                    "}");
+            this.addElement(Type.ASSETS, location, "items", element);
+        }
     }
 
     void addSixteenDirectionBlockState(Block block) {

@@ -28,6 +28,7 @@ public class ModStructures {
     public static final ResourceKey<Structure> BAMBOO_FOREST_HUT = getOrCreateRegistryKey("bamboo_forest_hut");
     public static final ResourceKey<Structure> SAKURAZUKA = getOrCreateRegistryKey("sakurazuka");
     public static final ResourceKey<Structure> OUTER_SHRINE = getOrCreateRegistryKey("outer_shrine");
+    public static final ResourceKey<Structure> NETHER_HOT_SPRING = getOrCreateRegistryKey("nether_hot_spring");
 
     public static void init() {
 
@@ -49,11 +50,9 @@ public class ModStructures {
         taiga.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                 .terrainAdapation(TerrainAdjustment.BEARD_THIN);
         Structure.StructureSettings. Builder bambooForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BAMBOO_JUNGLE)));
-        taiga.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
         Structure.StructureSettings. Builder cherryForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.CHERRY_GROVE)));
-        taiga.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+        Structure.StructureSettings. Builder basaltDeltas = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BASALT_DELTAS)));
+        Structure.StructureSettings. Builder netherWastes = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.NETHER_WASTES)));
 
         context.register(
                 ABANDONED_ALTAR,
@@ -82,6 +81,10 @@ public class ModStructures {
         context.register(
                 SAKURAZUKA,
                 new JigsawStructure(cherryForest.build(), structurePoolLookup.getOrThrow(ModTemplatePools.SAKURAZUKA), 1, ConstantHeight.of(VerticalAnchor.absolute(0)), false, Heightmap.Types.WORLD_SURFACE_WG)
+        );
+        context.register(
+                NETHER_HOT_SPRING,
+                new JigsawStructure(forest.build(), structurePoolLookup.getOrThrow(ModTemplatePools.NETHER_HOT_SPRING), 1, ConstantHeight.of(VerticalAnchor.absolute(0)), false, Heightmap.Types.WORLD_SURFACE_WG)
         );
     }
 

@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
-import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -25,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +100,7 @@ public class TreasureHuntingRod extends SwordItem {
                     ).append(" ").append(Component.translatable(closestOreBlock.getDescriptionId()));
 
 //                    entity.sendMessage(message, false);
-                    OreEspEntity oreEspEntity = RDEntityTypes.ORE_ESP_ENTITY_TYPE.create(world, EntitySpawnReason.EVENT);
+                    OreEspEntity oreEspEntity = RDEntityTypes.ORE_ESP.create(world, EntitySpawnReason.EVENT);
                     if (oreEspEntity != null) {
                         oreEspEntity.setBlockState(world.getBlockState(closestOrePos));
                         oreEspEntity.setPos(new Vec3(closestOrePos));

@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.datagen.tag;
 
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
-import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
-import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -19,6 +19,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -49,6 +50,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             logs.add(instance.log());
             planks.add(instance.planks());
         }
+        logs.add(RDWoodBlocks.BLESSED_SPIRITUAL_LOG);
 
         for (FumoType instance : FumoTypes.getView()) {
             fumo.add(instance.block());

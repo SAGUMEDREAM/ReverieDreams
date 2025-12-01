@@ -1,6 +1,339 @@
 {
   "variants": {
-    "": {
+    "fruit_age=0,distance=1,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=1,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=1,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=1,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=2,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=2,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=2,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=2,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=3,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=3,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=3,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=3,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=4,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=4,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=4,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=4,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=5,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=5,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=5,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=5,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=6,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=6,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=6,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=6,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=7,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=7,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=7,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=0,distance=7,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=1,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=1,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=1,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=1,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=2,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=2,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=2,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=2,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=3,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=3,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=3,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=3,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=4,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=4,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=4,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=4,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=5,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=5,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=5,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=5,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=6,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=6,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=6,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=6,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=7,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=7,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=7,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=1,distance=7,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=1,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=1,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=1,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=1,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=2,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=2,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=2,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=2,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=3,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=3,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=3,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=3,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=4,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=4,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=4,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=4,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=5,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=5,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=5,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=5,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=6,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=6,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=6,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=6,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=7,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=7,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=7,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=2,distance=7,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_leaves"
+    },
+    "fruit_age=3,distance=1,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=1,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=1,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=1,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=2,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=2,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=2,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=2,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=3,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=3,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=3,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=3,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=4,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=4,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=4,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=4,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=5,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=5,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=5,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=5,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=6,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=6,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=6,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=6,persistent=false,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=7,persistent=true,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=7,persistent=true,waterlogged=false": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=7,persistent=false,waterlogged=true": {
+      "model": "reverie_dreams:block/ginkgo_fruit_leaves"
+    },
+    "fruit_age=3,distance=7,persistent=false,waterlogged=false": {
       "model": "reverie_dreams:block/ginkgo_fruit_leaves"
     }
   }

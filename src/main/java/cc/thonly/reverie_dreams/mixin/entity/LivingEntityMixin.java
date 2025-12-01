@@ -1,18 +1,17 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
-import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.interfaces.IBedBlockEntity;
-import cc.thonly.reverie_dreams.interfaces.ILivingEntity;
-import cc.thonly.reverie_dreams.interfaces.IWorld;
+import cc.thonly.reverie_dreams.inf.IBedBlockEntity;
+import cc.thonly.reverie_dreams.inf.ILivingEntity;
+import cc.thonly.reverie_dreams.inf.IWorld;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -28,18 +27,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Relative;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -102,9 +96,9 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Unique
     public float maxHealthModifier = 0f;
     @Unique
-    public int deathCount = 0;
+    public int deathLevel = 0;
     @Unique
-    private int deathCountResetTimer = 0;
+    private int deathLevelResetTimer = 0;
     @Unique
     private ServerLevel kanjuWorld;
     @Unique
@@ -124,7 +118,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void setMaxHealth(EntityType<? extends LivingEntity> entityType, Level world, CallbackInfo ci) {
+    public void initMaxHealth(EntityType<? extends LivingEntity> entityType, Level world, CallbackInfo ci) {
         if (this.maxHealthModifier < 0) {
             this.maxHealthModifier = 0;
         }
@@ -167,8 +161,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             serverWorld.sendParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
             return;
         }
-        Optional<BlockPos> sleepingPosition = Optional.ofNullable(this.tempSleepPosition);
-        sleepingPosition.ifPresent(pos -> {
+        Optional.ofNullable(this.tempSleepPosition).ifPresent(pos -> {
             Tuple<Boolean, BlockPos> bedHead = DreamPillowItem.getBedHead(serverWorld, pos);
             if (
                     bedHead.getA() &&
@@ -196,41 +189,55 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         return world.getHeightmapPos(Heightmap.Types.WORLD_SURFACE_WG, pos);
     }
 
-    @Inject(method = "tick", at = @At("HEAD"))
-    public void tickBefore(CallbackInfo ci) {
-        LivingEntity livingEntity = (LivingEntity) (Object) this;
+    @Unique
+    public void fixedPlayerData() {
+        AttributeInstance maxHealthAttributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
+        if (this.maxHealthModifier > ReverieDreamsConfiguration.MAX_UPGRADED_HEALTH_VALUE && maxHealthAttributeInstance != null) {
+            this.maxHealthModifier--;
+            maxHealthAttributeInstance.setBaseValue(maxHealthAttributeInstance.getValue() - 1);
+        }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        if (livingEntity.level().isClientSide) {
+            return;
+        }
+        this.fixedPlayerData();
+        this.processDeathLevel();
+    }
+
+    @Unique
+    public void processDeathLevel() {
         if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE)) {
-            if (this.deathCount == 1) {
+            if (this.deathLevel == 1) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 0));
             }
-            if (this.deathCount == 2) {
+            if (this.deathLevel == 2) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 1));
             }
-            if (this.deathCount == 3) {
+            if (this.deathLevel == 3) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 2));
                 this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 0));
             }
-            if (this.deathCount == 3) {
+            if (this.deathLevel == 3) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
                 this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0));
             }
-            if (this.deathCount == 3) {
+            if (this.deathLevel == 3) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
                 this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 2));
                 this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1));
             }
-            if (this.deathCount > 3) {
+            if (this.deathLevel > 3) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
                 this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 2));
                 this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 2));
             }
         } else {
-            this.deathCount = 0;
+            this.deathLevel = 0;
         }
 
         if (!this.level().isClientSide()) {
@@ -259,10 +266,10 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
 
         if (!this.level().isClientSide()) {
-            this.deathCountResetTimer++;
-            if (this.deathCountResetTimer >= 18000) {
-                this.deathCount = Math.max(0, this.deathCount - 1);
-                this.deathCountResetTimer = 0;
+            this.deathLevelResetTimer++;
+            if (this.deathLevelResetTimer >= 18000) {
+                this.deathLevel = Math.max(0, this.deathLevel - 1);
+                this.deathLevelResetTimer = 0;
             }
         }
     }
@@ -331,6 +338,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         return false;
     }
 
+    @Unique
     public boolean deathInKanju(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (this.kanjuWorld == null) {
             return false;
@@ -356,7 +364,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Unique
     public boolean deathInElixir(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE) && (this.getHealth() - amount <= 0f)) {
-            this.deathCount++;
+            this.deathLevel++;
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
             SoundEvent hurtSound = getHurtSound(source);
@@ -375,7 +383,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     }
 
     @Inject(method = "die", at = @At("HEAD"), cancellable = true)
-    public void onDeath(CallbackInfo ci) {
+    public void onDie(CallbackInfo ci) {
         if (this.maxHealthModifier >= 1) {
             this.maxHealthModifier--;
         }
@@ -388,8 +396,8 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     public void writeCustomDataToNbt(ValueOutput view, CallbackInfo ci) {
         RegistryAccess registryManager = this.registryAccess();
         view.putFloat("MaxHealthModifier", this.maxHealthModifier);
-        view.putInt("DeathCount", this.deathCount);
-        view.putInt("DeathCountResetTimer", this.deathCountResetTimer);
+        view.putInt("DeathCount", this.deathLevel);
+        view.putInt("DeathCountResetTimer", this.deathLevelResetTimer);
         view.putDouble("ManpozuchiUsingState", this.manpozuchiUsingState);
         view.putString("KanjuWorld", this.kanjuWorld.dimension().location().toString());
         view.putLong("KanjuBlockPos", this.kanjuBlockPos.asLong());
@@ -400,8 +408,8 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         RegistryAccess registryManager = this.registryAccess();
         MinecraftServer server = this.getServer();
         this.maxHealthModifier = view.getFloatOr("MaxHealthModifier", 0.0f);
-        this.deathCount = view.getIntOr("DeathCount", 0);
-        this.deathCountResetTimer = view.getIntOr("DeathCountResetTimer", 0);
+        this.deathLevel = view.getIntOr("DeathCount", 0);
+        this.deathLevelResetTimer = view.getIntOr("DeathCountResetTimer", 0);
         this.manpozuchiUsingState = view.getDoubleOr("ManpozuchiUsingState", 0.0);
         String kanjuWorldStr = view.getStringOr("KanjuWorld", "");
         if (!kanjuWorldStr.isEmpty()) {
@@ -412,20 +420,14 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         this.kanjuBlockPos = BlockPos.of(view.getLongOr("KanjuBlockPos", new BlockPos(0, 0, 0).asLong()));
     }
 
-//    @Inject(method = "setItemSlot", at = @At("TAIL"))
-//    public void debugSlot(EquipmentSlot slot, ItemStack stack, CallbackInfo ci) {
-//        System.out.println("[DEBUG] setItemSlot called: slot=" + slot + ", item=" + stack);
-//        Thread.dumpStack();
-//    }
-
     @Override
-    public void setDeathCount(int deathCount) {
-        this.deathCount = deathCount;
+    public void setDeathLevel(int deathLevel) {
+        this.deathLevel = deathLevel;
     }
 
     @Override
-    public int getDeathCount() {
-        return deathCount;
+    public int getDeathLevel() {
+        return deathLevel;
     }
 
     @Override

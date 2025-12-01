@@ -1,14 +1,12 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.minecraft.api.ItemLeftClickCallback;
-import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;

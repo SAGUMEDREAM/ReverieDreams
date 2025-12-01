@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/bullet",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.bullet",
+        "color": "#8D8D8D"
+      },
       "minecraft:dyed_color": 7434609,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:2ddd5926-d83e-4c5e-932a-6e34325546b4"
+        "cooldown_group": "minecraft:94a06396-c721-443b-933f-ad45ceab41fe"
       }
     }
   },

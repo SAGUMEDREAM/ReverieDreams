@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import java.util.EnumSet;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.EnumSet;
 
 public class SmartFlyGoal extends Goal {
     private final PathfinderMob mob;

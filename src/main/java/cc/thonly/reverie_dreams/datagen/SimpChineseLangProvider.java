@@ -1,21 +1,19 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.registry.content.*;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
 import cc.thonly.reverie_dreams.creative_tab.content.*;
+import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
+import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
+import cc.thonly.reverie_dreams.registry.content.*;
+import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTrajectories;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.NPCRoles;
-import cc.thonly.reverie_dreams.registry.content.NPCStates;
-import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
-import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
-import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
-import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
@@ -28,6 +26,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.npc.VillagerProfession;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -48,13 +47,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         builder.add(RoleCardCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 角色卡");
         builder.add(SpawnEggCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 刷怪蛋");
         builder.add(NPCSpawnEggCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 角色刷怪蛋");
-//        translationBuilder.add("item_group.touhou_block_and_item", "梦隐的幻想乡 - 物品/方块");
-//        translationBuilder.add("item_group.touhou.bullet", "梦隐的幻想乡 - 子弹");
-//        translationBuilder.add("item_group.touhou.template", "梦隐的幻想乡 - 弹幕模板");
-//        translationBuilder.add("item_group.touhou.fumo", "梦隐的幻想乡 - Fumo");
-//        translationBuilder.add("item_group.touhou.spawn_egg", "梦隐的幻想乡 - 刷怪蛋");
-//        translationBuilder.add("item_group.touhou.role_card", "梦隐的幻想乡 - 角色卡");
-//        translationBuilder.add("item_group.touhou.role.spawn_egg", "梦隐的幻想乡 - 角色刷怪蛋");
+        translationBuilder.add("reverie_dreams.midnightlib.title", "配置页面");
         translationBuilder.add("item.action.click.left", "§b左键查看");
         translationBuilder.add("item.action.click.right", "§b右键查看");
         translationBuilder.add("item.action.click.shape_recipe.success", "§a成功");
@@ -63,6 +56,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("item.action.click.cashbox.fails.coin", "§f缺少钱币物品");
         translationBuilder.add("item.action.click.cashbox.fails.used", "§c你今天已经被祝福过了哦");
         translationBuilder.add("item.action.click.cashbox.fails.full", "§c你的信仰值已超过了%s哦");
+        translationBuilder.add("item.action.click.upgraded_health.max_full", "§c你的最大生命值已超过了%s§c哦");
         translationBuilder.add("item.tooltip.use", "§b[右键使用]");
         translationBuilder.add("item.tooltip.use.villager", "§b[右键村民使用]");
         translationBuilder.add("item.tooltip.shape", "形状：");
@@ -573,37 +567,43 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDWoodBlocks.TREMELLA, "银耳丛");
 
         // 种子
-        RDCropBlocks.CHILL.generateTranslation(translationBuilder, "辣椒种子");
-        RDCropBlocks.CUCUMBER.generateTranslation(translationBuilder, "黄瓜种子");
-        RDCropBlocks.GRAPE.generateTranslation(translationBuilder, "葡萄种子");
-        RDCropBlocks.ONION.generateTranslation(translationBuilder, "洋葱种子");
-        RDCropBlocks.RED_BEANS.generateTranslation(translationBuilder, "红豆种子");
-        RDCropBlocks.TOMATO.generateTranslation(translationBuilder, "番茄种子");
-        RDCropBlocks.TOON.generateTranslation(translationBuilder, "香椿种子");
-        RDCropBlocks.WHITE_RADISH.generateTranslation(translationBuilder, "白萝卜种子");
-        RDCropBlocks.SWEET_POTATO.generateTranslation(translationBuilder, "红薯种子");
-        RDCropBlocks.BROCCOLI.generateTranslation(translationBuilder, "西兰花种子");
-        RDCropBlocks.SOY_BEANS.generateTranslation(translationBuilder, "黄豆种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.CHILL, "辣椒种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.CUCUMBER, "黄瓜种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.GRAPE, "葡萄种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.ONION, "洋葱种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.RED_BEANS, "红豆种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.TOMATO, "番茄种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.TOON, "香椿种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.WHITE_RADISH, "白萝卜种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.SWEET_POTATO, "红薯种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.BROCCOLI, "西兰花种子");
+        generateCropBlock(translationBuilder, RDCropBlocks.SOY_BEANS, "黄豆种子");
+    }
+
+    void generateCropBlock(TranslationBuilder builder, CropBlockCreator.Instance instance, String seedName) {
+        builder.add(instance.getCropBlock(), seedName);
+        builder.add(instance.getSeed(), seedName);
     }
 
     public void generateEntityTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
         builder.add(RDEntityTypes.FUMO_SELLER_VILLAGER, "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
-        builder.add(RDEntityTypes.KILLER_BEE_ENTITY_TYPE, "杀人蜂", "杀人蜂刷怪蛋");
-        builder.add(RDEntityTypes.GHOST_ENTITY_TYPE, "幽灵", "幽灵刷怪蛋");
-        builder.add(RDEntityTypes.MOON_RABBIT_ENTITY_TYPE, "月兔", "月兔刷怪蛋");
-        builder.add(RDEntityTypes.YOUSEI_ENTITY_TYPE, "妖精", "妖精刷怪蛋");
-        builder.add(RDEntityTypes.MAID_YOUSEI_ENTITY_TYPE, "女仆妖精", "女仆妖精刷怪蛋");
-        builder.add(RDEntityTypes.SUNFLOWER_YOUSEI_ENTITY_TYPE, "向日葵妖精", "向日葵妖精刷怪蛋");
-        builder.add(RDEntityTypes.GOBLIN_ENTITY_TYPE, "哥布林", "哥布林刷怪蛋");
-        builder.add(RDEntityTypes.WATER_ELEMENTAL_ENTITY_TYPE, "水元素", "水元素刷怪蛋");
-        builder.add(RDEntityTypes.FIRE_ELEMENTAL_ENTITY_TYPE, "火元素", "火元素刷怪蛋");
-        builder.add(RDEntityTypes.ICE_ELEMENTAL_ENTITY_TYPE, "冰元素", "冰元素刷怪蛋");
-        builder.add(RDEntityTypes.BROOM_ENTITY_TYPE, "魔法扫帚", "魔法扫帚刷怪蛋");
-        builder.add(RDEntityTypes.WHEEL_CHAIR_ENTITY, "轮椅", "轮椅刷怪蛋");
-        builder.add(RDEntityTypes.HAIRBALL_ENTITY_TYPE, "毛玉", "毛玉刷怪蛋");
-        builder.add(RDEntityTypes.MUSHROOM_MONSTER_ENTITY_TYPE, "蘑菇", "蘑菇刷怪蛋");
-
+        builder.add(RDEntityTypes.KILLER_BEE, "杀人蜂", "杀人蜂刷怪蛋");
+        builder.add(RDEntityTypes.GHOST, "幽灵", "幽灵刷怪蛋");
+        builder.add(RDEntityTypes.MOON_RABBIT, "月兔", "月兔刷怪蛋");
+        builder.add(RDEntityTypes.YOUSEI, "妖精", "妖精刷怪蛋");
+        builder.add(RDEntityTypes.MAID_YOUSEI, "女仆妖精", "女仆妖精刷怪蛋");
+        builder.add(RDEntityTypes.SUNFLOWER_YOUSEI, "向日葵妖精", "向日葵妖精刷怪蛋");
+        builder.add(RDEntityTypes.GOBLIN, "哥布林", "哥布林刷怪蛋");
+        builder.add(RDEntityTypes.WATER_ELEMENTAL, "水元素", "水元素刷怪蛋");
+        builder.add(RDEntityTypes.FIRE_ELEMENTAL, "火元素", "火元素刷怪蛋");
+        builder.add(RDEntityTypes.ICE_ELEMENTAL, "冰元素", "冰元素刷怪蛋");
+        builder.add(RDEntityTypes.MAGIC_BROOM, "魔法扫帚", "魔法扫帚刷怪蛋");
+        builder.add(RDEntityTypes.WHEEL_CHAIR, "轮椅", "轮椅刷怪蛋");
+        builder.add(RDEntityTypes.HAIRBALL, "毛玉", "毛玉刷怪蛋");
+        builder.add(RDEntityTypes.SCARECROW, "稻草人", "稻草人刷怪蛋");
+        builder.add(RDEntityTypes.UFO, "UFO", "UFO刷怪蛋");
+        builder.add(RDEntityTypes.MUSHROOM_MONSTER, "蘑菇", "蘑菇刷怪蛋");
         builder.add(RDEntityTypes.WILD_PIG, "野猪", "野猪刷怪蛋");
         builder.add(RDEntityTypes.TAVERN_VILLAGER, "酒馆老板", "酒馆老板刷怪蛋");
 
@@ -827,6 +827,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
         translationBuilder.add("dialog.altar.material", "材料");
         translationBuilder.add("dialog.altar.ways", "摆放方式");
+        translationBuilder.add("dialog.altar.on_top", "提示: 需要使用纸对顶层的木头右键祝福");
 
         translationBuilder.add("dialog.danmaku.description.0", "弹幕工作台是一个用于合成弹幕物品的工作方块，里面共有5个槽位可以摆放物品合成位。");
         translationBuilder.add("dialog.danmaku.description.1", "摆放示例：");
@@ -915,6 +916,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.YIN_YANG_ORB, "阴阳玉");
         translationBuilder.add(RDItems.SPEED_FEATHER, "速度羽毛");
         translationBuilder.add(RDItems.DREAM_CRYSTAL_FRAGMENT, "梦境水晶碎片");
+        translationBuilder.add(RDItems.EMPTY_PHOTO, "空照片");
+        translationBuilder.add(RDItems.WATERPROOF_LEATHER, "防水皮革");
 
         // 道具
         translationBuilder.add(RDItems.TOUHOU_HELPER, "东方模组入门");
@@ -934,7 +937,9 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.DREAM_PILLOW, "梦境枕头");
         translationBuilder.add(RDItems.TENGU_SHIELD, "天狗手盾");
         translationBuilder.add(RDItems.TENGU_CAMERA, "天狗相机");
+        translationBuilder.add(RDItems.HIMEKAIDOU_HATATES_PHONE, "姬海棠果的手机");
         translationBuilder.add(RDItems.BAD_APPLE, "Bad Apple!!");
+        translationBuilder.add(RDItems.SCARECROW, "稻草人");
         translationBuilder.add(RDItems.EXORCISM_PAPER, "驱魔符纸");
         translationBuilder.add(RDItems.COPPER_COIN, "铜币");
         translationBuilder.add(RDItems.SILVER_COIN, "银币");
@@ -1001,6 +1006,10 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.DREAM_CHESTPLATE, "梦境水晶胸甲");
         translationBuilder.add(RDItems.DREAM_LEGGINGS, "梦境水晶护腿");
         translationBuilder.add(RDItems.DREAM_BOOTS, "梦境水晶靴子");
+        translationBuilder.add(RDItems.WATER_PROOF_HAT, "防水帽子");
+        translationBuilder.add(RDItems.WATER_PROOF_CLOTHING, "防水衣");
+        translationBuilder.add(RDItems.WATER_PROOF_LEGGINGS, "防水护腿");
+        translationBuilder.add(RDItems.WATER_PROOF_BOOTS, "防水靴子");
 
         // 角色卡
         translationBuilder.add(RDItems.ROLE_CARD, "空白角色卡");
@@ -1104,6 +1113,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDWoodBlocks.SPIRITUAL.button(), "绳文杉按钮");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL.strippedLog(), "去皮绳文杉");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL.strippedWood(), "去皮绳文杉树皮");
+        translationBuilder.add(RDWoodBlocks.BLESSED_SPIRITUAL_LOG, "被祝福的绳文杉柱");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL.leaves(), "绳文杉树叶");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL.sapling(), "绳文杉树苗");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL.planks(), "绳文杉木板");
@@ -1284,6 +1294,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(DanmakuTypes.KUNAI.getItem(), "链弹");
         translationBuilder.add(DanmakuTypes.RICE.getItem(), "米弹");
         translationBuilder.add(DanmakuTypes.STAR.getItem(), "星弹");
+        translationBuilder.add(DanmakuTypes.NOTE.getItem(), "音符");
         translationBuilder.add(DanmakuTypes.LASER.getItem(), "激光");
         translationBuilder.add(DanmakuTypes.BIG_LASER.getItem(), "大激光");
 

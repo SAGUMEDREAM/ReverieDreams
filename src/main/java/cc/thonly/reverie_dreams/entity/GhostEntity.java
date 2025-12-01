@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCFollowOwnerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,12 +13,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
@@ -33,7 +28,7 @@ public class GhostEntity extends BaseNPCLikeEntity {
     }
 
     public GhostEntity(Level world) {
-        super(RDEntityTypes.GHOST_ENTITY_TYPE, world, MobSkinTypes.GHOST);
+        super(RDEntityTypes.GHOST, world, MobSkinTypes.GHOST);
     }
 
     @Override

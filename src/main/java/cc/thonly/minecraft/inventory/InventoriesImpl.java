@@ -11,6 +11,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

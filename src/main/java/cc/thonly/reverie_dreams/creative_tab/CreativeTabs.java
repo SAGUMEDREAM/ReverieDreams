@@ -9,21 +9,21 @@ public class CreativeTabs {
     public static final List<Runnable> LATE_INIT = new ArrayList<>();
 
     public static void registerItemGroups() {
-        registerContent(BaseCreativeTab::bootstrap);
-        registerContent(ItemBlockCreativeTab::bootstrap);
-        registerContent(DanmakuCreativeTab::bootstrap);
-        registerContent(TemplateCreativeTab::bootstrap);
-        registerContent(FumoCreativeTab::bootstrap);
-        registerContent(RoleCardCreativeTab::bootstrap);
+        CreativeTabs.registerContent(BaseCreativeTab::bootstrap);
+        CreativeTabs.registerContent(ItemBlockCreativeTab::bootstrap);
+        CreativeTabs.registerContent(DanmakuCreativeTab::bootstrap);
+        CreativeTabs.registerContent(TemplateCreativeTab::bootstrap);
+        CreativeTabs.registerContent(FumoCreativeTab::bootstrap);
+        CreativeTabs.registerContent(RoleCardCreativeTab::bootstrap);
 
-        registerContent(KitchenwareCreativeTab::bootstrap);
-        registerContent(IngredientCreativeTab::bootstrap);
-        registerContent(FoodCreativeTab::bootstrap);
-        registerContent(DrinkCreativeTab::bootstrap);
-        registerContent(SeedCreativeTab::bootstrap);
+        CreativeTabs.registerContent(KitchenwareCreativeTab::bootstrap);
+        CreativeTabs.registerContent(IngredientCreativeTab::bootstrap);
+        CreativeTabs.registerContent(FoodCreativeTab::bootstrap);
+        CreativeTabs.registerContent(DrinkCreativeTab::bootstrap);
+        CreativeTabs.registerContent(SeedCreativeTab::bootstrap);
 
-        registerContent(SpawnEggCreativeTab::bootstrap);
-        registerContent(NPCSpawnEggCreativeTab::bootstrap);
+        CreativeTabs.registerContent(SpawnEggCreativeTab::bootstrap);
+        CreativeTabs.registerContent(NPCSpawnEggCreativeTab::bootstrap);
 
         LATE_INIT.forEach(Runnable::run);
         LATE_INIT.clear();

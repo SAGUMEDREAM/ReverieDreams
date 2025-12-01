@@ -4,10 +4,10 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-
-import java.util.Collection;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Collection;
 
 public class FumoTypes {
     public static final RegistryHandler<FumoType> REGISTRY_KEY = RegistryHandlers.FUMO;

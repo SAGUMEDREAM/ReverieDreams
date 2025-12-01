@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "minecraft:honeycomb",
+    "R": "minecraft:redstone",
+    "X": "minecraft:leather",
+    "Y": "minecraft:turtle_scute"
+  },
+  "pattern": [
+    "RYR",
+    "RXR",
+    "RER"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:waterproof_leather"
+  }
+}

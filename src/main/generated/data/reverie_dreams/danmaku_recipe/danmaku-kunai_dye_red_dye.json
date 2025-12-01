@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/kunai",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.kunai",
+        "color": "#FF3D3D"
+      },
       "minecraft:dyed_color": 16724273,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:cf3067f6-ed41-4293-90dd-50f5cc1a4bfb"
+        "cooldown_group": "minecraft:d621ebe1-6ddf-41f9-b7fc-3ca8455e93c0"
       }
     }
   },

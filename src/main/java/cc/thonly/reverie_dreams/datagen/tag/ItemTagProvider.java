@@ -1,17 +1,16 @@
 package cc.thonly.reverie_dreams.datagen.tag;
 
-import cc.thonly.reverie_dreams.item.*;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
-import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.FumoType;
-import cc.thonly.reverie_dreams.registry.content.FumoTypes;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
-import cc.thonly.reverie_dreams.registry.*;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.FumoTypes;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
@@ -31,6 +30,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -87,6 +87,24 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         addAll.accept(RDItemTags.ARMOR, ArmorItem.ITEMS);
 
         // === 工具材料 ===
+        valueLookupBuilder(RDItemTags.SILVER_ITEM).add(
+                RDItems.SILVER_AXE,
+                RDItems.SILVER_BOOTS,
+                RDItems.SILVER_CHESTPLATE,
+                RDItems.SILVER_LEGGINGS,
+                RDItems.SILVER_COIN,
+                RDItems.SILVER_HELMET,
+                RDItems.SILVER_NUGGET,
+                RDItems.SILVER_PICKAXE,
+                RDItems.SILVER_SHOVEL,
+                RDItems.SILVER_SWORD,
+                RDItems.SILVER_HOE,
+                RDItems.SILVER_INGOT,
+                RDBlocks.SILVER_BLOCK.asItem(),
+                RDBlocks.SILVER_CHEST_BLOCK.chestBlock().asItem(),
+                RDBlocks.SILVER_ORE.asItem(),
+                RDBlocks.DEEPSLATE_SILVER_ORE.asItem()
+        );
         valueLookupBuilder(RDItemTags.SILVER_ARMOR).add(RDItems.SILVER_HELMET, RDItems.SILVER_CHESTPLATE, RDItems.SILVER_LEGGINGS, RDItems.SILVER_BOOTS);
         valueLookupBuilder(RDItemTags.SILVER_TOOL_MATERIALS).add(RDItems.SILVER_INGOT);
         valueLookupBuilder(RDItemTags.MAGIC_ICE_ARMOR).add(RDItems.MAGIC_ICE_HELMET, RDItems.MAGIC_ICE_CHESTPLATE, RDItems.MAGIC_ICE_LEGGINGS, RDItems.MAGIC_ICE_BOOTS);
@@ -127,6 +145,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         // === 兼容物品 ===
         valueLookupBuilder(ConventionalItemTags.FOODS).addAll(RDFoodItems.FOOD_ITEMS);
         valueLookupBuilder(RDItemTags.PEACH).add(RDIngredientItems.PEACH);
+        valueLookupBuilder(RDItemTags.REPLACEABLE_BLANK_PHOTOS).add(RDItems.EMPTY_PHOTO);
 
         // === 方块物品分类 ===
         Map<TagKey<Item>, Collection<? extends ItemLike>> blockItemGroups = Map.of(

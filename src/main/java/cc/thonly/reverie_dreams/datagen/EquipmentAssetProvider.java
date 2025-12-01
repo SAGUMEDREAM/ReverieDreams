@@ -8,6 +8,7 @@ import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.EquipmentAsset;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
@@ -25,5 +26,6 @@ public class EquipmentAssetProvider extends AbstractEquipmentAssetProvider {
         consumer.accept(MagicIceArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("magic_ice")));
         consumer.accept(MaidArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("maid")));
         consumer.accept(DreamArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("dream")));
+        consumer.accept(WaterproofArmorMaterial.REGISTRY_KEY, EquipmentClientInfo.builder().addHumanoidLayers(ReverieDreams.id("waterproof"), true).addHumanoidLayers(ReverieDreams.id("waterproof_overlay"), false).addLayers(EquipmentClientInfo.LayerType.HORSE_BODY, EquipmentClientInfo.Layer.leatherDyeable(ReverieDreams.id("waterproof"), true)).build());
     }
 }

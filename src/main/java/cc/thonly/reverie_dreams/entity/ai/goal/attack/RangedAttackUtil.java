@@ -2,13 +2,14 @@ package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
-import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.component.ChargedProjectiles;
+
+import java.util.List;
 
 public class RangedAttackUtil {
     public static ItemStack getArrowStack(BaseNPCLikeEntity maid) {

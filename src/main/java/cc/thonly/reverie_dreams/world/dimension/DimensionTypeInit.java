@@ -1,8 +1,6 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import java.util.Optional;
-import java.util.OptionalLong;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -10,6 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.dimension.DimensionType;
+
+import java.util.Optional;
+import java.util.OptionalLong;
 
 public class DimensionTypeInit {
     public static final ResourceKey<DimensionType> DREAM_WORLD = getOrCreateRegistryKey("dream_world");

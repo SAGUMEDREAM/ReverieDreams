@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.entity.interfaces;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.Knife;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -42,9 +42,14 @@ public interface DanmakuShooter {
         return new float[]{pitch, yaw};
     }
 
+    static DanmakuEntity spawn(ServerLevel world, LivingEntity entity, ItemStack stack, float pitch, float yaw, float speed, float divergence, float offsetDist, StackModifier modifier) {
+        ItemStack itemStack = modifier.get(stack.copy());
+        return spawn(world, entity, itemStack, pitch, yaw, speed, divergence, offsetDist);
+    }
+
     static DanmakuEntity spawn(ServerLevel world, LivingEntity entity, ItemStack stack, float pitch, float yaw, float speed, float divergence, float offsetDist) {
         Item item = stack.getItem();
-        DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        DanmakuProperties properties = stack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
         properties = properties.withSpeed(speed);
         if (item instanceof AbstractDanmakuItem danmakuItem) {
             DanmakuEntity danmakuEntity = new DanmakuEntity(
@@ -81,5 +86,10 @@ public interface DanmakuShooter {
             return danmakuEntity;
         }
         return null;
+    }
+
+    @FunctionalInterface
+    public interface StackModifier {
+        ItemStack get(ItemStack origin);
     }
 }

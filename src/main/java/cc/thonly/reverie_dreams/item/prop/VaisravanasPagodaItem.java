@@ -1,8 +1,10 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -27,9 +29,14 @@ public class VaisravanasPagodaItem extends Item {
             float pitch = user.getXRot();
             float yaw = user.getYRot();
             for (int i = 0; i < 3; i++) {
+                ItemStack isd = DanmakuTypes.random(DanmakuTypes.LASER);
+                DanmakuProperties properties = isd.get(RDDataComponents.DANMAKU_PROPERTIES);
+                if (properties != null) {
+                    isd.set(RDDataComponents.DANMAKU_PROPERTIES, properties.withSpeed(1.7f));
+                }
                 DanmakuEntity entity = DanmakuTrajectory.spawnByItemStack(
                         serverWorld, user, user.getX(), user.getY(), user.getZ(),
-                        DanmakuTypes.random(DanmakuTypes.LASER),
+                        isd,
                         pitch, yaw,
                         0.0f, 1.5f
                 );
@@ -38,7 +45,7 @@ public class VaisravanasPagodaItem extends Item {
                 });
             }
             ItemCooldowns itemCooldownManager = user.getCooldowns();
-            itemCooldownManager.addCooldown(itemStack, 20 * 10);
+            itemCooldownManager.addCooldown(itemStack, 20 * 5);
             itemStack.hurtWithoutBreaking(1, user);
             world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEventInit.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
 

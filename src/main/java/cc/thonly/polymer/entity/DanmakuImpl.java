@@ -3,13 +3,6 @@ package cc.thonly.polymer.entity;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.tracker.DisplayTrackedData;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
-
-import java.util.List;
-import java.util.Set;
-
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerPlayerConnection;
@@ -17,6 +10,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.List;
+import java.util.Set;
 
 public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity {
     public DanmakuImpl {
@@ -37,6 +36,7 @@ public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity 
     public void setTileProjectileData(List<SynchedEntityData.DataValue<?>> data, boolean initial) {
         if (initial && !this.danmakuEntity.level().isClientSide) {
             var sendBase = true;
+            SynchedEntityData.DataValue<?> rRoll = null;
             for (int i = 0; i < data.size(); i++) {
                 var roll = data.get(i);
                 if (roll.id() == DanmakuEntity.ROLL.id() && roll.serializer() == DanmakuEntity.ROLL.serializer()) {
@@ -46,6 +46,7 @@ public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity 
                                     .rotateY(Mth.HALF_PI)
                                     .rotateZ((float) roll.value())));
                     sendBase = false;
+                    rRoll = roll;
                     break;
                 }
             }

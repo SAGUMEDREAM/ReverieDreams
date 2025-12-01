@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.gui;
 
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.mixin.accessor.GuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.elements.GuiElementInterface;
@@ -21,6 +21,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -122,7 +123,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
     private void readData() {
         DanmakuShapeDrawRecipeType recipeType = DanmakuShapeDrawRecipeType.getInstance();
         ItemStack source = this.source;
-        ItemStackWrapper itemStackWrapper = source.get(RDDataComponentTypes.DANMAKU_SHAPE);
+        ItemStackWrapper itemStackWrapper = source.get(RDDataComponents.DANMAKU_SHAPE);
         if (itemStackWrapper == null) {
             return;
         }

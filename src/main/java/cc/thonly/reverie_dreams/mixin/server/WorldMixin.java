@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
-import cc.thonly.reverie_dreams.interfaces.IWorld;
+import cc.thonly.reverie_dreams.inf.IWorld;
 import cc.thonly.reverie_dreams.world.dimension.WorldInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;

@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.datagen;
 
 import autovalue.shaded.com.google.errorprone.annotations.CanIgnoreReturnValue;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -27,6 +27,7 @@ import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;

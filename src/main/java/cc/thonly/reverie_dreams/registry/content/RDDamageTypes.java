@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

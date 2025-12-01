@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
 import com.mojang.serialization.Codec;
-import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -11,6 +10,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+
+import java.util.function.Consumer;
 
 public class CraterFeature extends Feature<CraterFeatureConfig> {
     public CraterFeature(Codec<CraterFeatureConfig> codec) {

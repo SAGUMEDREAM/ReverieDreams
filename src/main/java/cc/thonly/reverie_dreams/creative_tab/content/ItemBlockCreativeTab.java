@@ -2,13 +2,14 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
+import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.block.creator.DecorativeBlockCreator;
+import cc.thonly.reverie_dreams.block.creator.WoodCreator;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.block.creator.WoodCreator;
-import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -17,7 +18,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -29,43 +29,42 @@ public class ItemBlockCreativeTab implements ItemGroupContentHelper {
     public static final CreativeModeTab ITEM_GROUP = ItemGroupContentHelper.builder()
             .icon(() -> new ItemStack(RDItems.HAKUREI_CANE))
             .title(Component.translatable("item_group.touhou_block_and_item"))
+            .displayItems((parameters, output) -> {
+                for (ItemLike item : RDItems.getItemView()) {
+                    output.accept(item);
+                }
+                HolderLookup.Provider registryAccess = parameters.holders();
+                for (ResourceKey<Enchantment> key : RDEnchantments.KEYS) {
+                    List<ItemStack> books = RDEnchantments.getEnchantmentBook(registryAccess, key);
+                    books.forEach(output::accept);
+                }
+                output.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION));
+                output.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION_INF));
+                output.accept(RDPotions.createStack(RDPotions.MENTAL_DISORDER_POTION));
+                output.accept(RDPotions.createStack(RDPotions.BACK_OF_LIFE_POTION));
+                output.accept(RDPotions.createStack(RDPotions.KANJU_KUSURI_POTION));
+
+                // 方块
+                for (ItemLike item : RDBlocks.BLOCKS) {
+                    output.accept(item);
+                }
+                for (WoodCreator instance : WoodCreator.INSTANCES) {
+                    instance.stream().forEach(block -> output.accept(block.asItem()));
+                }
+                for (DecorativeBlockCreator instance : DecorativeBlockCreator.INSTANCES) {
+                    instance.stream().forEach(block -> output.accept(block.asItem()));
+                }
+                FruitLeavesBlock.FRUIT_LEAVES_BLOCKS.forEach(output::accept);
+            })
             .build();
 
     public static void bootstrap() {
-        ItemGroupEvents.modifyEntriesEvent(ItemBlockCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            itemGroup.acceptAll(RDItems.getItemView().stream().map(Item::getDefaultInstance).toList());
-            for (ItemLike item : RDItems.getItemView()) {
-                itemGroup.accept(item);
-            }
-            itemGroup.accept(RDItems.ROLE_CARD);
-            CreativeModeTab.ItemDisplayParameters context = itemGroup.getContext();
-            HolderLookup.Provider registryAccess = context.holders();
-            for (ResourceKey<Enchantment> key : RDEnchantments.KEYS) {
-                List<ItemStack> books = RDEnchantments.getEnchantmentBook(registryAccess, key);
-                books.forEach(itemGroup::accept);
-            }
-            itemGroup.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION));
-            itemGroup.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION_INF));
-            itemGroup.accept(RDPotions.createStack(RDPotions.MENTAL_DISORDER_POTION));
-            itemGroup.accept(RDPotions.createStack(RDPotions.BACK_OF_LIFE_POTION));
-            itemGroup.accept(RDPotions.createStack(RDPotions.KANJU_KUSURI_POTION));
-
-            // 方块
-            for (ItemLike item : RDBlocks.BLOCKS) {
-                itemGroup.accept(item);
-            }
-            for (WoodCreator instance : WoodCreator.INSTANCES) {
-                instance.stream().forEach(block -> itemGroup.accept(block.asItem()));
-            }
+        ItemGroupEvents.modifyEntriesEvent(ItemBlockCreativeTab.ITEM_GROUP_KEY).register(entries -> {
             for (Block block : BlockTypeGroup.FRUIT_LEAVES.blocks()) {
                 if (block instanceof FruitLeavesBlock fruitLeavesBlock) {
-                    itemGroup.addAfter(fruitLeavesBlock.getEmptyLeavesBlock(), block);
+                    entries.addAfter(fruitLeavesBlock.getEmptyLeavesBlock().asItem(), block);
                 }
             }
-            for (DecorativeBlockCreator instance : DecorativeBlockCreator.INSTANCES) {
-                instance.stream().forEach(block -> itemGroup.accept(block.asItem()));
-            }
-            FruitLeavesBlock.FRUIT_LEAVES_BLOCKS.forEach(itemGroup::accept);
         });
         ItemGroupContentHelper.registerGroup(ItemBlockCreativeTab.ITEM_GROUP_KEY, ItemBlockCreativeTab.ITEM_GROUP);
     }

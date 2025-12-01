@@ -4,12 +4,8 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.compat.BorukvaFoodCompatImpl;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.inf.IMatureBlock;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.interfaces.IMatureBlock;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -26,6 +22,11 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class NPCFarmGoal extends Goal {
 

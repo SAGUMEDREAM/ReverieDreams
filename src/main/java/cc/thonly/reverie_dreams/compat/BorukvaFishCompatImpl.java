@@ -1,21 +1,22 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
+import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.recipe.RecipeManager;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.phoen1x.borukvafish.item.ModItems;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Stream;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @SuppressWarnings("unchecked")
 public class BorukvaFishCompatImpl {

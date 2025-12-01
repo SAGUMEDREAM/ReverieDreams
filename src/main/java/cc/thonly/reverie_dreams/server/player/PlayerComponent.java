@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.server.player;
 
+import cc.thonly.reverie_dreams.server.PlayerDataComponentManager;
 import com.mojang.serialization.Codec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;

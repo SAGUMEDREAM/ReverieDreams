@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
+import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import lombok.Getter;
@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.phys.AABB;
+
 import java.util.EnumSet;
 import java.util.List;
 

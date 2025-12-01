@@ -1,27 +1,33 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.polymer.*;
-import cc.thonly.reverie_dreams.block.creator.ChestBlockCreator;
-import cc.thonly.reverie_dreams.block.creator.WoodCreator;
-import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.sound.SoundEventInit;
+import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
+import eu.pb4.polymer.core.api.other.PolymerSoundEvent;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
+import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class LateLoaderInit implements ModInitializer {
     public static final List<Runnable> LATE_INIT = new ArrayList<>();
@@ -29,31 +35,15 @@ public class LateLoaderInit implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        for (WoodCreator instance : WoodCreator.INSTANCES) {
-            FlammableBlockRegistry.getDefaultInstance().add(instance.log(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.strippedLog(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.wood(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.strippedWood(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.planks(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.stairs(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.slab(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.fence(), 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(instance.fenceGate(), 5, 20);
-            FuelRegistryEvents.BUILD.register((builder, context) -> {
-                builder.add(instance.fence(), 300);
-                builder.add(instance.fenceGate(), 300);
-            });
-        }
-        for (ChestBlockCreator chestBlockCreator : ChestBlockCreator.INSTANCES.get(ChestBlockCreator.class).stream().map((ab)->(ChestBlockCreator)ab).toList()) {
-            RDBlockEntityTypes.CUSTOM_CHEST_BLOCK_ENTITY.addSupportedBlock(chestBlockCreator.chestBlock());
-        }
-        CreativeTabs.registerItemGroups();
         this.polymerify();
     }
 
     public void polymerify() {
-        for (Holder<MobEffect> registryEntry : RDStatusEffects.REVERIE_DREAMS_EFFECTS) {
-            PolymerStatusEffectHelper.registerOverlay(registryEntry);
+        for (Item item : RDItems.SIMPLE_LIST) {
+            PolymerItemHelper.registerOverlay(item);
+        }
+        for (Item spawnEgg : SpawnEggItem.SPAWN_EGGS) {
+            PolymerItemHelper.registerOverlay(spawnEgg);
         }
         for (Item item : RDGuiItems.GUI_ITEM_LIST) {
             PolymerItemHelper.registerOverlay(item);
@@ -61,21 +51,30 @@ public class LateLoaderInit implements ModInitializer {
         for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
             PolymerItemHelper.registerOverlay(danmakuType.getItem());
         }
+        for (SoundEvent soundEvent : SoundEventInit.SOUND_EVENTS) {
+            PolymerSoundEvent.registerOverlay(soundEvent);
+            RegistrySyncUtils.setServerEntry(BuiltInRegistries.SOUND_EVENT, soundEvent);
+        }
+        for (Holder<MobEffect> registryEntry : RDStatusEffects.EFFECTS) {
+            PolymerStatusEffectHelper.registerOverlay(registryEntry);
+        }
+        for (Potion potion : RDPotions.POTIONS) {
+            RegistrySyncUtils.setServerEntry(BuiltInRegistries.POTION, potion);
+        }
+        for (EntityType<?> entityType : RDEntityTypes.ENTITY_TYPES) {
+            PolymerEntityUtils.registerType(entityType);
+        }
+
         PolymerEntityHelper.bootstrap();
         PolymerVillagerProfessionHelper.bootstrap();
 
-        LATE_INIT.forEach(new Consumer<Runnable>() {
-            @Override
-            public void accept(Runnable runnable) {
-                try {
-                    runnable.run();
-                } catch (Exception ignored) {
+        Iterator<Runnable> rIterator = LATE_INIT.iterator();
+        while (rIterator.hasNext()) {
+            Runnable next = rIterator.next();
+            next.run();
+            rIterator.remove();
+        }
 
-                }
-            }
-        });
-
-        LATE_INIT.clear();
         PolymerResourcePackUtils.addModAssets(ReverieDreams.MOD_ID);
         PolymerResourcePackUtils.addModAssets(POLYMER_MOD_ID);
         PolymerResourcePackUtils.markAsRequired();

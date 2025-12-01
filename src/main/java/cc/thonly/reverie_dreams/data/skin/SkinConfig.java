@@ -1,18 +1,21 @@
 package cc.thonly.reverie_dreams.data.skin;
 
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
+
 import java.util.Optional;
 
 @Getter
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+@ToString
 public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfig> {
     public static final Codec<SkinConfig> CODEC = RecordCodecBuilder.create(x -> x.group(
             ModelType.CODEC.fieldOf("type").forGetter(SkinConfig::getType),

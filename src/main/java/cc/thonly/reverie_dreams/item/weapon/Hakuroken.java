@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.item.base.SwordItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

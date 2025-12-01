@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.state;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import java.util.Map;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+
+import java.util.Map;
 
 public interface RDBlockStateTemplates {
     Map<String, EnumProperty<?>> STATES = new Object2ObjectOpenHashMap<>();

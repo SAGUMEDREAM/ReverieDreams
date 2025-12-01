@@ -3,8 +3,9 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import java.util.Map;
 import net.minecraft.world.level.block.Block;
+
+import java.util.Map;
 
 public class KitchenBlockType {
     public static final Map<Block, KitchenRecipeType.KitchenType> BLOCK_2_KITCHEN_TYPE = new Object2ObjectOpenHashMap<>();

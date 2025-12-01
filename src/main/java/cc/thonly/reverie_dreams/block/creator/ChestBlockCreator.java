@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import lombok.Getter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+
 import java.util.stream.Stream;
 
 @Getter

@@ -1,8 +1,5 @@
 package cc.thonly.reverie_dreams;
 
-import cc.thonly.reverie_dreams.datagen.CraftingConflictProvider;
-import cc.thonly.reverie_dreams.datagen.DrinkProvider;
-import cc.thonly.reverie_dreams.datagen.IngredientProvider;
 import cc.thonly.reverie_dreams.datagen.*;
 import cc.thonly.reverie_dreams.datagen.tag.*;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;

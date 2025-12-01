@@ -2,9 +2,6 @@ package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import com.google.common.collect.ImmutableSet;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Predicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,6 +15,9 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Predicate;
 
 public class RDVillagerProfessions {
     public static final ResourceKey<VillagerProfession> HAWKERS = of("hawkers");

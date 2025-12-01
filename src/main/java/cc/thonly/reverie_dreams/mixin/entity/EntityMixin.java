@@ -1,53 +1,60 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
+import cc.thonly.reverie_dreams.item.armor.WaterproofArmor;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
-public abstract class EntityMixin{
-    @Shadow public abstract boolean isAlive();
+public abstract class EntityMixin {
+    @Shadow
+    public abstract boolean isAlive();
 
-    @Shadow public abstract Level level();
+    @Shadow
+    public abstract Level level();
 
-    @Shadow public abstract void gameEvent(Holder<GameEvent> event, @Nullable Entity entity);
+    @Shadow
+    public abstract void gameEvent(Holder<GameEvent> event, @Nullable Entity entity);
 
-//    @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
-//    public void interact(PlayerEntity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-//        Entity entity;
-//        if (this.isAlive() && (entity = (Entity) (Object)this) instanceof Leashable) {
-//            Leashable leashable = (Leashable)((Object)entity);
-//            System.out.println(0);
-//            if (leashable.getLeashHolder() == entity) {
-//                System.out.println(1);
-//                if (!this.getWorld().isClient()) {
-//                    System.out.println(2);
-//                    if (entity.isInCreativeMode()) {
-//                        System.out.println(3);
-//                        leashable.detachLeashWithoutDrop();
-//                    } else {
-//                        System.out.println(4);
-//                        leashable.detachLeash();
-//                    }
-//                    this.emitGameEvent(GameEvent.ENTITY_INTERACT, entity);
-//                }
-//                cir.setReturnValue(ActionResult.SUCCESS.noIncrementStat());
-//            }
-//            ItemStack itemStack = entity.getStackInHand(hand);
-//            if (itemStack.isOf(ItemTypeTag.LEAD) && leashable.canLeashAttachTo()) {
-//                System.out.println(5);
-//                if (!this.getWorld().isClient()) {
-//                    System.out.println(6);
-//                    leashable.attachLeash(entity, true);
-//                }
-//                itemStack.decrement(1);
-//                cir.setReturnValue(ActionResult.SUCCESS);
-//            }
-//        }
-//        cir.setReturnValue(ActionResult.PASS);
-//    }
+    @Inject(method = {"isInWater", "isUnderWater", "isInWaterOrRain"}, at = @At("HEAD"), cancellable = true)
+    public void modifyInWater(CallbackInfoReturnable<Boolean> cir) {
+        Entity entity = ((Entity)(Object) this);
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+        if (WaterproofArmor.hasEquipment(livingEntity)) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("HEAD"), cancellable = true)
+    public void modifyInWaterTick(CallbackInfo ci) {
+        Entity entity = ((Entity)(Object) this);
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+        if (WaterproofArmor.hasEquipment(livingEntity)) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "clearFire", at = @At("HEAD"), cancellable = true)
+    public void modifyClearFire(CallbackInfo ci) {
+        Entity entity = ((Entity)(Object) this);
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+        if (WaterproofArmor.hasEquipment(livingEntity)) {
+            ci.cancel();
+        }
+    }
 }

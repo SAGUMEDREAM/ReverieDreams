@@ -4,20 +4,21 @@ import cc.thonly.reverie_dreams.block.entity.KitchenwareBlockEntity;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.data.CraftingConflict;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.recipe.*;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.gui.GuiCommon;
+import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
+import cc.thonly.reverie_dreams.recipe.BaseRecipe;
+import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.interfaces.IGuiElementBuilderAccessor;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -32,6 +33,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.UseRemainder;
 import net.minecraft.world.level.block.Block;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements GuiCommon {
     public static final String[][] GRID = new String[][]{
@@ -112,7 +116,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
     private ItemStackWrapper buildFoodTags(KitchenRecipe recipe, ItemStackWrapper output, List<ItemStackWrapper> inputs) {
         ItemStack base = output.getItemStack().copy();
-        List<String> baseTags = base.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES, new ArrayList<>());
+        List<String> baseTags = base.getOrDefault(RDDataComponents.FOOD_PROPERTIES, new ArrayList<>());
 
         HashSet<String> propertyIds = new HashSet<>(baseTags);
         List<ItemStackWrapper> ingredients = recipe.getIngredients();
@@ -131,13 +135,13 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             ingredientProperties.forEach(property -> propertyIds.add(property.getId().toString()));
         }
         List<String> tagList = new ArrayList<>(propertyIds);
-        base.set(RDDataComponentTypes.FOOD_PROPERTIES, tagList);
+        base.set(RDDataComponents.FOOD_PROPERTIES, tagList);
         return new ItemStackWrapper(base.copy());
     }
 
     private ItemStackWrapper buildAllFoodTags(ItemStackWrapper output, List<ItemStackWrapper> inputs) {
         ItemStack itemStack = output.getItemStack().copy();
-        List<String> outputTags = itemStack.get(RDDataComponentTypes.FOOD_PROPERTIES);
+        List<String> outputTags = itemStack.get(RDDataComponents.FOOD_PROPERTIES);
         if (outputTags == null) {
             outputTags = new ArrayList<>();
         }
@@ -151,7 +155,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             ingredientProperties.forEach(property -> propertyIds.add(property.getId().toString()));
         }
         List<String> tagList = new ArrayList<>(propertyIds);
-        itemStack.set(RDDataComponentTypes.FOOD_PROPERTIES, tagList);
+        itemStack.set(RDDataComponents.FOOD_PROPERTIES, tagList);
         return new ItemStackWrapper(itemStack.copy());
     }
 

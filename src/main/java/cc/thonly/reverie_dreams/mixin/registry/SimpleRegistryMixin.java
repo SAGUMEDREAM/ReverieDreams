@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
 import cc.thonly.reverie_dreams.datafixer.DataFixerContentManager;
-import cc.thonly.reverie_dreams.interfaces.SimpleRegistrySetter;
+import cc.thonly.reverie_dreams.inf.SimpleRegistrySetter;
 import net.fabricmc.fabric.api.event.registry.FabricRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;

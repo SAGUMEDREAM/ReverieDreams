@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.util;
 
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -1,19 +1,18 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import net.minecraft.world.item.Item;
-
 public class RDEntityHolderItems {
     public static final List<Item> HOLDERS = new ArrayList<>();
     public static final Item YOUSEI_WINGS = register("holder/yousei_wing_holder", Item::new, new Item.Properties().overrideDescription("Entity Holder"));
     public static final Item KNIFE_DISPLAY = register("holder/knife_display", Item::new, new Item.Properties().stacksTo(1)
-            .component(RDDataComponentTypes.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault()
+            .component(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault()
                     .withSpeed(0.5f)
                     .withScale(0.8f)
             )

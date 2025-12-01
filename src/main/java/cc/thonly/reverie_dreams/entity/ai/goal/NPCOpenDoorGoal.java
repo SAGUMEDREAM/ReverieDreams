@@ -1,12 +1,13 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+
+import java.util.EnumSet;
 
 public class NPCOpenDoorGoal extends Goal {
     private final BaseNPCLikeEntity roleEntity;

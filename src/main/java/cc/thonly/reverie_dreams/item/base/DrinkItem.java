@@ -1,13 +1,8 @@
 package cc.thonly.reverie_dreams.item.base;
 
 import cc.thonly.reverie_dreams.data.DrinkProperty;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -19,6 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.level.Level;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DrinkItem extends Item {
     public static final Map<Item, Set<DrinkProperty>> ITEM_DRINK_CACHED = new HashMap<>();
@@ -33,7 +33,7 @@ public class DrinkItem extends Item {
     public DrinkItem(List<DrinkProperty> drinkProperties, Properties settings) {
         super(settings.stacksTo(16)
                 .component(DataComponents.CONSUMABLE, Consumables.DEFAULT_DRINK)
-                .component(RDDataComponentTypes.DRINK_PROPERTIES, drinkProperties.stream().map(DrinkProperty::getId).map(ResourceLocation::toString).toList())
+                .component(RDDataComponents.DRINK_PROPERTIES, drinkProperties.stream().map(DrinkProperty::getId).map(ResourceLocation::toString).toList())
                 .usingConvertsTo(Items.GLASS_BOTTLE));
     }
 

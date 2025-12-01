@@ -20,6 +20,7 @@ public class ModStructureSets {
     public static final ResourceKey<StructureSet> BAMBOO_FOREST_HUT = getOrCreateRegistryKey("bamboo_forest_hut");
     public static final ResourceKey<StructureSet> SAKURAZUKA = getOrCreateRegistryKey("sakurazuka");
     public static final ResourceKey<StructureSet> OUTER_SHRINE = getOrCreateRegistryKey("outer_shrine");
+    public static final ResourceKey<StructureSet> NETHER_HOT_SPRING = getOrCreateRegistryKey("nether_hot_spring");
 
     public static void init() {
 
@@ -34,6 +35,7 @@ public class ModStructureSets {
         Holder.Reference<Structure> bambooForestBBQStallStructure = structureLookup.getOrThrow(ModStructures.BAMBOO_FOREST_BBQ_STALL);
         Holder.Reference<Structure> bambooForestHuyStructure = structureLookup.getOrThrow(ModStructures.BAMBOO_FOREST_HUT);
         Holder.Reference<Structure> sakurazukaStructure = structureLookup.getOrThrow(ModStructures.SAKURAZUKA);
+        Holder.Reference<Structure> netherHotSpringStructure = structureLookup.getOrThrow(ModStructures.NETHER_HOT_SPRING);
         context.register(ABANDONED_ALTAR, new StructureSet(abandonedAltarStructure, new RandomSpreadStructurePlacement(165, 25, RandomSpreadType.LINEAR, 1947319134)));
         context.register(ABANDONED_TORII, new StructureSet(abandonedToriiStructure, new RandomSpreadStructurePlacement(165, 25, RandomSpreadType.LINEAR, 2134619147)));
         context.register(MINI_BAR, new StructureSet(miniBarStructure, new RandomSpreadStructurePlacement(165, 25, RandomSpreadType.LINEAR, 889525356)));
@@ -41,6 +43,7 @@ public class ModStructureSets {
         context.register(BAMBOO_FOREST_BBQ_STALL, new StructureSet(bambooForestBBQStallStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
         context.register(BAMBOO_FOREST_HUT, new StructureSet(bambooForestHuyStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
         context.register(SAKURAZUKA, new StructureSet(sakurazukaStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
+        context.register(NETHER_HOT_SPRING, new StructureSet(netherHotSpringStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
     }
 
     public static Holder.Reference<StructureSet> register(BootstrapContext<StructureSet> registry, ResourceKey<StructureSet> registryKey, StructureSet structureSet) {

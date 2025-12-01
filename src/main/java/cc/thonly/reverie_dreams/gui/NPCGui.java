@@ -1,15 +1,12 @@
 package cc.thonly.reverie_dreams.gui;
 
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -22,6 +19,10 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class NPCGui extends SimpleGui implements GuiCommon {
     public static final String[][] GRID = {

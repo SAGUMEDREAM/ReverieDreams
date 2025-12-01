@@ -13,13 +13,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.ClimbOnTopOfPowderSnowGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.wolf.Wolf;
@@ -42,7 +36,7 @@ public class MoonRabbitEntity extends Rabbit {
     }
 
     public MoonRabbitEntity(Level world) {
-        this(RDEntityTypes.MOON_RABBIT_ENTITY_TYPE, world);
+        this(RDEntityTypes.MOON_RABBIT, world);
     }
 
     @Override
@@ -86,7 +80,7 @@ public class MoonRabbitEntity extends Rabbit {
 
     @Override
     public @Nullable Rabbit getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
-        return RDEntityTypes.MOON_RABBIT_ENTITY_TYPE.create(serverWorld, EntitySpawnReason.BREEDING);
+        return RDEntityTypes.MOON_RABBIT.create(serverWorld, EntitySpawnReason.BREEDING);
     }
 
 }

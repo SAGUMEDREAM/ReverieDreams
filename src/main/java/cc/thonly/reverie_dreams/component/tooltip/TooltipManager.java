@@ -1,13 +1,12 @@
 package cc.thonly.reverie_dreams.component.tooltip;
 
 import cc.thonly.minecraft.api.ItemStackTooltipCallback;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.item.base.FoodItem;
 import cc.thonly.reverie_dreams.item.base.IngredientItem;
-import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
@@ -15,6 +14,7 @@ import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +32,7 @@ public class TooltipManager {
             if (!(stack.getItem() instanceof AbstractDanmakuItem abstractDanmakuItem)) {
                 return;
             }
-            DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
+            DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES);
             if (properties != null) {
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(properties.damage)));
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(properties.speed)));
@@ -44,7 +44,7 @@ public class TooltipManager {
             if (!(stack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
                 return;
             }
-            ItemStackWrapper itemStackWrapper = stack.getOrDefault(RDDataComponentTypes.DANMAKU_SHAPE, ItemStackWrapper.of(Items.AIR));
+            ItemStackWrapper itemStackWrapper = stack.getOrDefault(RDDataComponents.DANMAKU_SHAPE, ItemStackWrapper.of(Items.AIR));
             ItemStack itemStack = itemStackWrapper.getItemStack();
             textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
         });
@@ -113,7 +113,7 @@ public class TooltipManager {
             if (!(stack.getItem() instanceof SpellCardTemplateItem spellCardTemplateItem)) {
                 return;
             }
-            DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES);
+            DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES);
             if (properties != null) {
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId.toLanguageKey())));
             }

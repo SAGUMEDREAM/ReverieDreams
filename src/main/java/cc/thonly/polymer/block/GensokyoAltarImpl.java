@@ -10,12 +10,6 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
-
-import java.util.HashMap;
-import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
@@ -23,9 +17,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
-    public static final Map<BlockState, Model> STATE_TO_MODEL = new HashMap<>();
+    public static final Map<Long, Model> POS_TO_MODEL = new HashMap<>();
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
@@ -40,18 +40,18 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
     @Override
     public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState state) {
         Model altarModel = new Model(world, pos, state);
-        STATE_TO_MODEL.put(state, altarModel);
+        POS_TO_MODEL.put(pos.asLong(), altarModel);
         return altarModel;
     }
 
     public static class Model extends BlockModel {
         protected ItemDisplayElement main;
         public final ItemDisplayElement[] itemStackDisplay = new ItemDisplayElement[9];
-        BlockState state;
-        BlockPos pos;
-        ServerLevel world;
-        GensokyoAltarBlockEntity blockEntity;
-        SimpleContainer inventory;
+        private BlockState state;
+        private BlockPos pos;
+        private ServerLevel world;
+        private GensokyoAltarBlockEntity blockEntity;
+        private SimpleContainer inventory;
 
         public Model(ServerLevel world, BlockPos pos, BlockState state) {
             init(state);
@@ -61,7 +61,9 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
         }
 
         public GensokyoAltarBlockEntity getBlockEntityFromWorld() {
-            if (this.world == null) return null;
+            if (this.world == null) {
+                return null;
+            }
             return (GensokyoAltarBlockEntity) this.world.getBlockEntity(this.pos);
         }
 

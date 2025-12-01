@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
 import cc.thonly.polymer.block.ItemStackDisplayImpl;
+import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+
 import java.util.Map;
 import java.util.Optional;
 

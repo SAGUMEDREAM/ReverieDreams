@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/waterproof_hat",
+    "layer1": "reverie_dreams:item/waterproof_hat_overlay",
+    "layer2": "minecraft:trims/items/helmet_trim_iron"
+  }
+}

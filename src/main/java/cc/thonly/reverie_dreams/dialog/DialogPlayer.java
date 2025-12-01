@@ -15,15 +15,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerTickRateManager;
-import net.minecraft.server.dialog.ActionButton;
-import net.minecraft.server.dialog.CommonButtonData;
-import net.minecraft.server.dialog.CommonDialogData;
-import net.minecraft.server.dialog.DialogAction;
-import net.minecraft.server.dialog.NoticeDialog;
+import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -104,8 +101,8 @@ public class DialogPlayer {
     public synchronized void start() {
         this.iterator = this.source.listIterator();
         if (this.soundEvent != null) {
-            this.player.makeSound(this.soundEvent);
-            System.out.println(111);
+            this.player.level().playSound(null, this.player.getOnPos(), this.soundEvent, SoundSource.PLAYERS, 1.0f, 1.0f);
+//            System.out.println(111);
         }
         DelayedTask.createFromSecond(ReverieDreams.getServer(), 0.75f, () -> {
             this.paused = false;

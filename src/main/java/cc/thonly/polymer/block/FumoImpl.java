@@ -4,6 +4,7 @@ import cc.thonly.polymer.block.model.TransparentFlatTripWire;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.block.model.generic.BSMMParticleBlock;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
-public class FumoImpl implements PolymerTexturedBlock, FactoryBlock {
+public class FumoImpl implements PolymerTexturedBlock, FactoryBlock, BSMMParticleBlock {
     private final BaseFumoBlock fumoBlock;
 
     public FumoImpl(BaseFumoBlock fumoBlock) {

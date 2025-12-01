@@ -1,9 +1,7 @@
 package cc.thonly.reverie_dreams.datagen.generator;
 
 import com.google.common.hash.HashCode;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
+import com.google.gson.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -61,6 +59,18 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
     public void addElement(Type type, ResourceLocation location, String subPath, JsonElement element) {
         String relativePath = type.path + location.getNamespace() + "/" + subPath + "/" + location.getPath() + ".json";
         this.path2JsonElement.put(relativePath, element);
+    }
+
+    protected JsonElement strToJson(String jsonStr) {
+        if (jsonStr == null || jsonStr.isEmpty()) {
+            return new JsonObject(); // 空对象
+        }
+
+        try {
+            return JsonParser.parseString(jsonStr);
+        } catch (Exception e) {
+            return new JsonObject();
+        }
     }
 
     @Override

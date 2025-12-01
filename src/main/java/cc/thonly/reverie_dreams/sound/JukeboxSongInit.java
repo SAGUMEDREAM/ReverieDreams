@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.sound;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-
-import java.util.LinkedList;
-import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static cc.thonly.reverie_dreams.sound.SoundEventInit.registerReference;
 

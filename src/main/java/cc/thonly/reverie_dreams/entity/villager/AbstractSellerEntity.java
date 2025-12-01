@@ -22,23 +22,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.InteractGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.LookAtTradingPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.TradeWithPlayerGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.monster.Evoker;
-import net.minecraft.world.entity.monster.Illusioner;
-import net.minecraft.world.entity.monster.Pillager;
-import net.minecraft.world.entity.monster.Vex;
-import net.minecraft.world.entity.monster.Vindicator;
-import net.minecraft.world.entity.monster.Zoglin;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.WanderingTrader;
@@ -49,6 +35,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+
 import java.util.*;
 
 @Slf4j
@@ -192,15 +179,9 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
             result.ifPresent((data) -> this.prev = data);
         }
         this.level = view.getIntOr("Level",0);
-        Optional<String> sellInfoData = view.getString("SellInfoData");
-        if (sellInfoData.isPresent()) {
-            String jsonString = sellInfoData.get();
-            JsonElement element = JsonParser.parseString(jsonString);
-            Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, element);
-            DataResult<SellInfo> parse = SellInfo.CODEC.parse(input);
-            Optional<SellInfo> result = parse.result();
-            result.ifPresent((data) -> this.sellInfo = data);
-        }
+        view.read("SellInfoData", SellInfo.CODEC).ifPresent(value-> {
+            this.sellInfo = value;
+        });
     }
 
     @Override
@@ -215,14 +196,7 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
             }
         }
         view.putInt("Level", this.level);
-        if (this.sellInfo != null) {
-            DataResult<JsonElement> dataResult = SellInfo.CODEC.encodeStart(JsonOps.INSTANCE, this.sellInfo);
-            Optional<JsonElement> result = dataResult.result();
-            if (result.isPresent()) {
-                JsonElement element = result.get();
-                view.putString("SellInfoData", GSON.toJson(element));
-            }
-        }
+        view.storeNullable("SellInfoData", SellInfo.CODEC, this.sellInfo);
     }
 
     public abstract List<MerchantOffer> getVillagerOffers();

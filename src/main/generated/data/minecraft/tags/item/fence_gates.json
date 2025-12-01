@@ -1,8 +1,8 @@
 {
   "values": [
-    "reverie_dreams:spiritual_fence_gate",
-    "reverie_dreams:ginkgo_fence_gate",
     "reverie_dreams:lemon_fence_gate",
-    "reverie_dreams:peach_fence_gate"
+    "reverie_dreams:ginkgo_fence_gate",
+    "reverie_dreams:peach_fence_gate",
+    "reverie_dreams:spiritual_fence_gate"
   ]
 }

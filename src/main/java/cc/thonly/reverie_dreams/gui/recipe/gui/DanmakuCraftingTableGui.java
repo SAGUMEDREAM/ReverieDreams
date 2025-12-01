@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.gui.recipe.gui;
 
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.PredicateSlot;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -27,7 +27,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.UseCooldown;
 import net.minecraft.world.level.Level;
-import java.util.*;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Getter

@@ -1,16 +1,16 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
-import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
-import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
-import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
+import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+
 import java.util.Objects;
 
 @Setter
@@ -47,6 +48,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
                                 : Objects.requireNonNull(YouseiVariants.random()).getSkinType()
                 )
        );
+        this.xpReward = 5;
         this.variant = YouseiVariants.getFromProperty(this.getSkin());
     }
 

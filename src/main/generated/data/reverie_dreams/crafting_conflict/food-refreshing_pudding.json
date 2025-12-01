@@ -1,7 +1,7 @@
 {
   "item": "reverie_dreams:food/refreshing_pudding",
   "values": [
-    "reverie_dreams:greasy",
-    "reverie_dreams:salty"
+    "reverie_dreams:salty",
+    "reverie_dreams:greasy"
   ]
 }

@@ -1,10 +1,13 @@
 package cc.thonly.reverie_dreams.registry;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.CraftingConflict;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.data.danmaku.*;
+import cc.thonly.reverie_dreams.data.FumoType;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfigs;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
@@ -15,10 +18,9 @@ import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
-import cc.thonly.reverie_dreams.entity.npc.*;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvents;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
-import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.registry.content.*;
@@ -40,6 +42,7 @@ import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+
 import java.util.Map;
 
 @Slf4j
@@ -110,14 +113,17 @@ public class RegistryHandlers {
             .codec(YouseiVariant.CODEC)
             .defaultId(ReverieDreams.id("blue"))
             .builder(YouseiVariants::bootstrap);
+
     public static final RegistryHandler<FoodProperty> FOOD_PROPERTY = RegistryHandlers.<FoodProperty>ofEntry(ReverieDreams.id("food_property"))
             .codec(FoodProperty.CODEC)
             .reloadBuilder(FoodProperties::reload)
             .builder(FoodProperties::bootstrap);
+
     public static final RegistryHandler<DrinkProperty> DRINK_PROPERTY = RegistryHandlers.<DrinkProperty>ofEntry(ReverieDreams.id("drink_property"))
             .codec(DrinkProperty.CODEC)
             .reloadBuilder(DrinkProperties::reload)
             .builder(DrinkProperties::bootstrap);
+
     public static final RegistryHandler<CraftingConflict> CRAFTING_CONFLICT = RegistryHandlers.<CraftingConflict>ofEntry(ReverieDreams.id("crafting_conflict"))
             .codec(CraftingConflict.CODEC)
             .reloadBuilder(CraftingConflict::reload)

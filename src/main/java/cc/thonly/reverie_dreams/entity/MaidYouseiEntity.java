@@ -1,25 +1,26 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
-import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
-import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
-import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
+import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
+import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
+import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Leashable;
 import net.minecraft.world.entity.Mob;
@@ -33,12 +34,12 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
 import java.util.Objects;
 
 @Setter
@@ -55,9 +56,8 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
                                 : Objects.requireNonNull(YouseiVariants.random()).getSkinType()
                 )
         );
+        this.xpReward = 5;
         this.variant = YouseiVariants.getFromProperty(this.getSkin());
-        this.setItemInHand(InteractionHand.MAIN_HAND, Items.IRON_SWORD.getDefaultInstance());
-        this.setItemInHand(InteractionHand.OFF_HAND, Items.SHIELD.getDefaultInstance());
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(new ItemStack(RDItems.MAID_HAIRBAND));
         inventory.setChest(new ItemStack(RDItems.MAID_UPPER_SKIRT));
@@ -71,17 +71,29 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new DanmakuGoal(this, (self, target, world) -> {
-            ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI);
             final MinecraftServer server = world.getServer();
             final float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
-            ItemStack knifeStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY);
+            for (Float v : List.of(0.3f, 0.5f, 0.7f)) {
+                DelayedTask.repeat(server, 2, v, () -> {
+                    ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI);
+                    DanmakuShooter.StackModifier modifier = origin -> {
+                        ItemStack stack0 = DanmakuTypes.random(DanmakuTypes.KUNAI);
+                        DanmakuProperties properties = stack0.get(RDDataComponents.DANMAKU_PROPERTIES);
+                        if (properties != null) {
+                            origin.set(RDDataComponents.DANMAKU_PROPERTIES, properties.withSpeed(2.2f));
+                        }
+                        return origin;
+                    };
+                    DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f, modifier);
+                });
+            }
 
-            DelayedTask.repeat(server, 2, 0.3f, () -> {
-                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
-                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
-                DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);
-            });
             DelayedTask.repeat(server, 1, 1f, () -> {
+                ItemStack knifeStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY);
+                DanmakuProperties properties = knifeStack.get(RDDataComponents.DANMAKU_PROPERTIES);
+                if (properties != null) {
+                    knifeStack.set(RDDataComponents.DANMAKU_PROPERTIES, properties.withSpeed(1.2f));
+                }
                 DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
                 DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
                 DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] + 15.0f, 0.5f, 5.0f, 0.2f);

@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.danmaku.spellcard;
 
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -16,11 +16,14 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 public class SpellCardFrameConfigs {
-    public static final Map<Integer, List<List<SpellCardFrameConfig>>> MAP = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Map<String, List<List<SpellCardFrameConfig>>> MAP = new Object2ObjectLinkedOpenHashMap<>();
 
     public static void reload(ResourceManager manager) {
         Map<ResourceLocation, Resource> resources = manager.listResources("danmaku_config", id -> id.getPath().endsWith(".json"));
@@ -49,7 +52,7 @@ public class SpellCardFrameConfigs {
     }
 
     public static void bootstrap(RegistryHandler<SpellCardFrameConfig> configs) {
-        MAP.put(0, createFancySpellcardTest());
+        MAP.put("Test", createFancySpellcardTest());
     }
 
     public static List<List<SpellCardFrameConfig>> createFancySpellcardTest() {

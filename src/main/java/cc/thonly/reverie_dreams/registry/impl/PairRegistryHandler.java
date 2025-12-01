@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.resources.ResourceLocation;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;

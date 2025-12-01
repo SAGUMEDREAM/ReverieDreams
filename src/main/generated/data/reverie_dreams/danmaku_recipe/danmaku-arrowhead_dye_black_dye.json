@@ -17,10 +17,14 @@
     "id": "reverie_dreams:danmaku/arrowhead",
     "count": 1,
     "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.arrowhead",
+        "color": "#2F2F2F"
+      },
       "minecraft:dyed_color": 2500134,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:b8b78bc3-047c-49ef-8ae2-f8df130a4571"
+        "cooldown_group": "minecraft:6a38275e-061a-4ab5-bb26-def72dbf34fb"
       }
     }
   },

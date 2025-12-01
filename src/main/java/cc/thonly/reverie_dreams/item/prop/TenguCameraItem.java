@@ -1,77 +1,109 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
-import net.minecraft.server.level.ServerLevel;
+import de.tomalbrc.cameraobscura.ModConfig;
+import de.tomalbrc.cameraobscura.command.CameraCommand;
+import de.tomalbrc.cameraobscura.render.renderer.CanvasImageRenderer;
+import eu.pb4.mapcanvas.api.core.CanvasImage;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public class TenguCameraItem extends Item {
 
     public TenguCameraItem(Properties settings) {
         super(settings);
     }
-
     @Override
-    public InteractionResult use(Level world, Player user, InteractionHand hand) {
-        ItemStack itemStack = user.getItemInHand(hand);
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
-            var center = user.blockPosition();
-            var entities = serverWorld.getEntitiesOfClass(
-                    Entity.class,
-                    new AABB(
-                            center.getX() - 16, center.getY() - 16, center.getZ() - 16,
-                            center.getX() + 16, center.getY() + 16, center.getZ() + 16
-                    ),
-                    entity -> entity != user
-            );
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 15, 0, false, false));
-            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 3 * 20, 0, false, false));
-            for (Entity entity : entities) {
-                if (entity instanceof LivingEntity livingEntity) {
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 5 * 20, 1, false, false));
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, (int) (1.5 * 2 * 20), 0, false, false));
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, (int) (1.5 * 2 * 20), 0, false, false));
-                }
-                if (entity instanceof DanmakuEntity danmakuEntity) {
-                    serverWorld.addFreshEntity(
-                            new ItemEntity(serverWorld,
-                                    danmakuEntity.getX(),
-                                    danmakuEntity.getY(),
-                                    danmakuEntity.getZ(),
-                                    new ItemStack(RDItems.POINT)
-                            )
-                    );
-                    danmakuEntity.discard();
-                }
-            }
-            world.playSound(null, player.blockPosition(), SoundEventInit.PHOTO, SoundSource.PLAYERS);
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            ItemStack stack = player.getItemInHand(hand);
+            if (player.isShiftKeyDown()) {
 
-            ItemCooldowns itemCooldownManager = user.getCooldowns();
-            itemCooldownManager.addCooldown(itemStack, 30);
+                int fov = stack.getOrDefault(RDDataComponents.FOV, 75);
 
-            if (!user.hasInfiniteMaterials()) {
-                itemStack.hurtWithoutBreaking(1, user);
+                float pitch = player.getXRot();
+
+                int delta = pitch < 0 ? +1 : -1;
+
+                int newFov = fov + delta;
+
+                if (newFov < 30) newFov = 30;
+                if (newFov > 110) newFov = 110;
+
+                stack.set(RDDataComponents.FOV, newFov);
+
+                serverPlayer.sendSystemMessage(
+                        Component.literal("§a" + newFov),
+                        true
+                );
+
+                return InteractionResult.SUCCESS_SERVER;
             }
-            if (itemStack.isDamageableItem() && itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
-                itemStack.shrink(1);
+            Inventory inventory = player.getInventory();
+            ItemStack cunsumeStack = ItemStack.EMPTY;
+            for (ItemStack itemStack : inventory) {
+                if (itemStack.isEmpty()) {
+                    continue;
+                }
+                if (itemStack.is(RDItemTags.REPLACEABLE_BLANK_PHOTOS)) {
+                    cunsumeStack = itemStack;
+                    break;
+                }
             }
+            if (cunsumeStack.isEmpty() && !player.isCreative()) {
+                return InteractionResult.FAIL;
+            }
+            ModConfig instance = ModConfig.getInstance();
+            instance.renderEntities = true;
+            CanvasImageRenderer renderer = new CanvasImageRenderer(player, 128, 128, instance.renderDistance);
+            Objects.requireNonNull(renderer);
+            int fov = stack.getOrDefault(RDDataComponents.FOV, 75);
+            int oldFov = instance.fov;
+            instance.fov = fov;
+            ItemStack finalCunsumeStack = cunsumeStack;
+            CompletableFuture.supplyAsync(renderer::render).thenAcceptAsync((mapImage) -> {
+                instance.fov = oldFov;
+                player.getCooldowns().addCooldown(player.getItemInHand(hand), 20 * 4);
+                player.awardStat(Stats.ITEM_USED.get(this));
+                level.playSound(null, player.blockPosition(), SoundEventInit.PHOTO, SoundSource.PLAYERS);
+                if (!finalCunsumeStack.isEmpty()) {
+                    finalCunsumeStack.consume(1, player);
+                }
+                this.finalize(mapImage, serverPlayer);
+            }, level.getServer());
             return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.SUCCESS;
     }
+
+    private void finalize(CanvasImage canvasImage, ServerPlayer player) {
+        if (player != null && !player.isRemoved()) {
+            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0F, 1.0F);
+            List<ItemStack> items = CameraCommand.mapItems(canvasImage, player.level());
+            items.forEach((x) -> {
+                if (!player.addItem(x)) {
+                    player.spawnAtLocation(player.level(), x);
+                }
+
+            });
+        }
+
+    }
+
 }

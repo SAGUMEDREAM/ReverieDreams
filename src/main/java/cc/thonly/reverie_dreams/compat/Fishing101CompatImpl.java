@@ -1,13 +1,14 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import net.macck209.fishing101.registries.ItemRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

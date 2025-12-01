@@ -1,20 +1,20 @@
 package cc.thonly.reverie_dreams.datagen;
 
-import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.RoleCards;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.datagen.generator.AbstractRecipeTypeProvider;
-import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
+import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.RoleCards;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -131,6 +131,14 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                 "FFTTFF",
                 "FTFFTF",
                 "FFFFFF"
+        });
+        DanmakuTypes.NOTE.buildShapeRecipe(this.danmakuShapeDrawRecipeFactory, new String[]{
+                "FFFFTF",
+                "FFFFTF",
+                "FFFFTF",
+                "FTTFTF",
+                "FTTFFF",
+                "FTTFFF"
         });
 
     }
@@ -1515,7 +1523,7 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
         Stream<DanmakuType> stream = RegistryHandlers.DANMAKU_TYPE.stream();
         stream.forEach(value -> {
             ResourceLocation key = RegistryHandlers.DANMAKU_TYPE.getKey(value);
-            if (!DanmakuTypes.UNLIST.contains(value)) {
+            if (!value.isDeleteFromList()) {
                 for (Tuple<Item, ItemStack> pair : value.getColorPairs()) {
                     Item dye = pair.getA();
                     ItemStack result = pair.getB();

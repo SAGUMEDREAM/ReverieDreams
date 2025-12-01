@@ -10,12 +10,6 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import xyz.nucleoid.packettweaker.PacketContext;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
@@ -31,6 +25,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 
 public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity {
 
