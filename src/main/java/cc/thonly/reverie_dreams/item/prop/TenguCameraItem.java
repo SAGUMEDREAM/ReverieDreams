@@ -7,6 +7,7 @@ import de.tomalbrc.cameraobscura.ModConfig;
 import de.tomalbrc.cameraobscura.command.CameraCommand;
 import de.tomalbrc.cameraobscura.render.renderer.CanvasImageRenderer;
 import eu.pb4.mapcanvas.api.core.CanvasImage;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -24,11 +25,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class TenguCameraItem extends Item {
 
     public TenguCameraItem(Properties settings) {
         super(settings);
     }
+
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
@@ -71,22 +74,25 @@ public class TenguCameraItem extends Item {
             }
             ModConfig instance = ModConfig.getInstance();
             instance.renderEntities = true;
-            CanvasImageRenderer renderer = new CanvasImageRenderer(player, 128, 128, instance.renderDistance);
-            Objects.requireNonNull(renderer);
-            int fov = stack.getOrDefault(RDDataComponents.FOV, 75);
-            int oldFov = instance.fov;
-            instance.fov = fov;
-            ItemStack finalCunsumeStack = cunsumeStack;
-            CompletableFuture.supplyAsync(renderer::render).thenAcceptAsync((mapImage) -> {
-                instance.fov = oldFov;
-                player.getCooldowns().addCooldown(player.getItemInHand(hand), 20 * 4);
-                player.awardStat(Stats.ITEM_USED.get(this));
-                level.playSound(null, player.blockPosition(), SoundEventInit.PHOTO, SoundSource.PLAYERS);
-                if (!finalCunsumeStack.isEmpty()) {
-                    finalCunsumeStack.consume(1, player);
-                }
-                this.finalize(mapImage, serverPlayer);
-            }, level.getServer());
+            try {
+                CanvasImageRenderer renderer = new CanvasImageRenderer(player, 128, 128, instance.renderDistance);
+                int fov = stack.getOrDefault(RDDataComponents.FOV, 75);
+                int oldFov = instance.fov;
+                instance.fov = fov;
+                ItemStack finalCunsumeStack = cunsumeStack;
+                CompletableFuture.supplyAsync(renderer::render).thenAcceptAsync((mapImage) -> {
+                    instance.fov = oldFov;
+                    player.getCooldowns().addCooldown(player.getItemInHand(hand), 20 * 4);
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                    level.playSound(null, player.blockPosition(), SoundEventInit.PHOTO, SoundSource.PLAYERS);
+                    if (!finalCunsumeStack.isEmpty()) {
+                        finalCunsumeStack.consume(1, player);
+                    }
+                    this.finalize(mapImage, serverPlayer);
+                }, level.getServer());
+            } catch (Exception err) {
+                log.error("Can't render canvas", err);
+            }
             return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.SUCCESS;

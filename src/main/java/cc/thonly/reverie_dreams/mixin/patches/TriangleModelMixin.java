@@ -6,14 +6,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(TriangleModel.class)
+@Mixin(value = TriangleModel.class, remap = false)
 public class TriangleModelMixin {
-    @Redirect(method = "intersect", at = @At(
-            value = "INVOKE",
-            target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V"),
-            remap = false
-    )
-    public void cancelError(Logger instance, String s, Object o) {
-
-    }
+//    @Redirect(method = "intersect", at = @At(
+//            value = "INVOKE",
+//            target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V")
+//    )
+//    public void cancelError(Logger instance, String s, Object o) {
+//
+//    }
 }
