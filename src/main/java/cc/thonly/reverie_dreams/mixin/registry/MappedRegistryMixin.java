@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
-import cc.thonly.reverie_dreams.datafixer.DataFixerContentManager;
 import cc.thonly.reverie_dreams.inf.SimpleRegistrySetter;
-import net.fabricmc.fabric.api.event.registry.FabricRegistry;
+import cc.thonly.reverie_dreams.server.ServerContentRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -12,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Map;
 
 @Mixin(MappedRegistry.class)
-public abstract class SimpleRegistryMixin<T> implements SimpleRegistrySetter, WritableRegistry<T> {
+public abstract class MappedRegistryMixin<T> implements SimpleRegistrySetter, WritableRegistry<T> {
 
     @Shadow
     private boolean frozen;
@@ -31,25 +31,23 @@ public abstract class SimpleRegistryMixin<T> implements SimpleRegistrySetter, Wr
 
     @Shadow @Final public Map<T, Holder.Reference<T>> byValue;
 
+    @Unique
+    private boolean reverie_dreams$injected = false;
+
     @Override
-    public void setFrozen(boolean value) {
+    public void reverie_dreams$setFrozen(boolean value) {
         this.frozen = value;
     }
 
-    @Inject(method = "freeze", at = @At("HEAD"))
-    public void onFreeze(CallbackInfoReturnable<Registry<T>> cir) {
-        for (Map.Entry<Registry<?>, Map<ResourceLocation, ResourceLocation>> registryMapEntry : DataFixerContentManager.ENTRIES.entrySet()) {
-            Registry<?> key = registryMapEntry.getKey();
-            FabricRegistry fabricRegistry = this;
-            if (key.equals(fabricRegistry)) {
-                Map<ResourceLocation, ResourceLocation> old2new = registryMapEntry.getValue();
-                for (Map.Entry<ResourceLocation, ResourceLocation> old2newEntry : old2new.entrySet()) {
-                    ResourceLocation oldId = old2newEntry.getKey();
-                    ResourceLocation newId = old2newEntry.getValue();
-                    this.addAlias(oldId, newId);
-                }
-            }
+    @SuppressWarnings("unchecked")
+    @Inject(method = "freeze", at = @At("HEAD"), order = 100)
+    public void reverie_dreams$onFreeze(CallbackInfoReturnable<Registry<T>> cir) {
+        if (this.reverie_dreams$injected) {
+            return;
         }
+        this.reverie_dreams$injected = true;
+        MappedRegistry<T> registry = (MappedRegistry<T>) (Object) this;
+        ServerContentRegistry.IMPL.write(registry);
     }
 
 //    @Inject(method = "add", at = @At("HEAD"), cancellable = true)

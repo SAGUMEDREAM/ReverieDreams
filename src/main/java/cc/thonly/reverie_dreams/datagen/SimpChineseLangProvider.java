@@ -146,6 +146,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.addEnchantment(RDEnchantments.EXTERMINATION, "退治");
         translationBuilder.addEnchantment(RDEnchantments.MOON_DAMAGE, "月伤");
         translationBuilder.addEnchantment(RDEnchantments.DANMAKU_PROTECTION, "弹幕保护");
+        translationBuilder.addEnchantment(RDEnchantments.POWERFUL, "威力");
 
         this.generateCommandTranslations(wrapperLookup, translationBuilder);
         this.generateMITranslations(wrapperLookup, translationBuilder);

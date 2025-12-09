@@ -1,6 +1,19 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
-# 0.4.7+1.21.7
+# 0.4.9+1.21.7
+* Optimize peach item texture
+* Removed attack range bonuses for the umbrella and scythe (unstable)
+* Updated with new en_us content for the previous update
+* Updated with new zh_tw content for the previous update
+* Added Japanese ja_jp translation (experimental)
+* Added English en_gb translation (experimental)
+* Remove DynamicRegistryModifier Lib dependencies
+* Muted polymerify warn logger in client
+* Setting up a collision box for Gensokyo Altar Block
+* Fixed Missing CD Music
+* Remove some useless code
+
+# 0.4.8+1.21.7
 * Added the Note Danmaku (Block face reflecting when hit block )
 * Added `Himekaidou Hatate's Phone` item
 * Added `Yuka's Flower Umbrella` recipe
@@ -30,6 +43,9 @@
 * Limited Upgraded Health for 46
 * Increase change for shoot Wind Ball in using Wind Blessing Cane
 * Allowed shooting a lot of note danmakus in place note danmaku item in OffHand
+
+# 0.4.7+1.21.7
+* Fixed async RandomSource access
 
 # 0.4.6+1.21.7
 * Added Weapon Item `Yuka's Flower Umbrella`

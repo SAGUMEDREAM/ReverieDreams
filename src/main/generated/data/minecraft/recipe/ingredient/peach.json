@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "reverie_dreams:ingredient/peach",
+    "X": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "result": {
+    "components": {
+      "minecraft:enchantments": {
+        "reverie_dreams:powerful": 1
+      }
+    },
+    "count": 1,
+    "id": "reverie_dreams:ingredient/peach"
+  }
+}

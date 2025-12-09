@@ -5,16 +5,23 @@ import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.inf.IPlayerEntity;
 import cc.thonly.reverie_dreams.item.base.FoodItem;
 import cc.thonly.reverie_dreams.item.base.IngredientItem;
+import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +33,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,13 +50,29 @@ import java.util.function.Consumer;
 
 @Mixin(Item.class)
 public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem {
+
+    @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
+    public void reverie_dreams$finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+        if (!level.isClientSide && itemStack.isEnchanted()) {
+            RegistryAccess registryAccess = level.registryAccess();
+            Registry<Enchantment> enchantmentAccess = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
+            Holder.Reference<Enchantment> powerful = enchantmentAccess.getOrThrow(RDEnchantments.POWERFUL);
+            ItemEnchantments enchantments = itemStack.getEnchantments();
+            int enchantLevel = enchantments.getLevel(powerful);
+            if (enchantLevel >= 1) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 20));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 20));
+            }
+        }
+    }
+
     @Inject(method = "hurtEnemy", at = @At("TAIL"))
-    public void postHitCallback(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfo ci) {
+    public void reverie_dreams$postHitCallback(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfo ci) {
         ItemPostHitCallback.EVENT.invoker().postHit(stack, target, attacker);
     }
 
     @Inject(method = "inventoryTick", at = @At("HEAD"))
-    public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
+    public void reverie_dreams$inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
         if (entity instanceof IPlayerEntity iPlayerEntity) {
             if (itemStack.is(RDItemTags.SILVER_ITEM)) {
                 iPlayerEntity.setNonSleepingTime(0);
@@ -56,7 +81,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
     }
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
-    public void usePaperOnSpiritualStrippedLog(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
+    public void reverie_dreams$usePaperOnSpiritualStrippedLog(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = context.getPlayer();
         InteractionHand hand = context.getHand();
         Level level = context.getLevel();
@@ -87,7 +112,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
     }
 
     @Inject(method = "appendHoverText", at = @At("HEAD"))
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type, CallbackInfo ci) {
+    public void reverie_dreams$appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type, CallbackInfo ci) {
         Item item = this.asItem();
         if (item instanceof IngredientItem || item instanceof FoodItem) {
             return;

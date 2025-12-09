@@ -14,14 +14,14 @@ import static cc.thonly.reverie_dreams.sound.SoundEventInit.registerReference;
 
 public class JukeboxSongInit {
     public static final List<JukeBoxEntry> ENTRIES = new LinkedList<>();
-    public static final JukeBoxEntry HR01_01 = registerJukeBoxEntry("hr01_01", 233, 6);
-    public static final JukeBoxEntry HR02_08 = registerJukeBoxEntry("hr02_08", 296, 6);
-    public static final JukeBoxEntry HR03_01 = registerJukeBoxEntry("hr03_01", 309, 6);
-    public static final JukeBoxEntry MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS = registerJukeBoxEntry("melodic-taste-nightmare-before-crossroads", 231, 6);
-    public static final JukeBoxEntry YV_FLOWER_CLOCK_AND_DREAMS = registerJukeBoxEntry("yv_flower_clock_and_dreams", 357, 6);
-    public static final JukeBoxEntry GLOWING_NEEDLES_LITTLE_PEOPLE = registerJukeBoxEntry("glowing_needles_little_people", 242, 6);
-    public static final JukeBoxEntry COOKIE = registerJukeBoxEntry("cookie", 72, 6);
-    public static final JukeBoxEntry BAD_APPLE = registerJukeBoxEntry("badapple", 219,6);
+    public static final JukeBoxEntry HR01_01 = registerJukeBoxEntry("records/hr01_01", 233, 6);
+    public static final JukeBoxEntry HR02_08 = registerJukeBoxEntry("records/hr02_08", 296, 6);
+    public static final JukeBoxEntry HR03_01 = registerJukeBoxEntry("records/hr03_01", 309, 6);
+    public static final JukeBoxEntry MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS = registerJukeBoxEntry("records/melodic-taste-nightmare-before-crossroads", 231, 6);
+    public static final JukeBoxEntry YV_FLOWER_CLOCK_AND_DREAMS = registerJukeBoxEntry("records/yv_flower_clock_and_dreams", 357, 6);
+    public static final JukeBoxEntry GLOWING_NEEDLES_LITTLE_PEOPLE = registerJukeBoxEntry("records/glowing_needles_little_people", 242, 6);
+    public static final JukeBoxEntry COOKIE = registerJukeBoxEntry("records/cookie", 72, 6);
+    public static final JukeBoxEntry BAD_APPLE = registerJukeBoxEntry("records/badapple", 219, 6);
 
     private static JukeBoxEntry registerJukeBoxEntry(String id, int length, int output) {
         ResourceKey<JukeboxSong> jukeboxSongRegistryKey = createJukeBoxSongRegistryKey(id);

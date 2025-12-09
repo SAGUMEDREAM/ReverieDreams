@@ -1,0 +1,10 @@
+{
+  "sound_event": {
+    "sound_id": "reverie_dreams:records/cookie"
+  },
+  "description": {
+    "translate": "jukebox_song.reverie_dreams.records.cookie"
+  },
+  "length_in_seconds": 72.0,
+  "comparator_output": 6
+}

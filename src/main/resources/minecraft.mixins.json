@@ -3,8 +3,7 @@
   "package": "cc.thonly.minecraft.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ItemStackMixin",
-    "ServerGamePacketListenerImplMixin"
+    "ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

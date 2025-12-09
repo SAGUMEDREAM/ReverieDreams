@@ -2,21 +2,21 @@
   "registry_key": "reverie_dreams:sweet",
   "properties": {
     "values": [
-      "reverie_dreams:drink/qi",
       "reverie_dreams:drink/komeiji_ice_cream",
-      "reverie_dreams:drink/daiginjo",
-      "reverie_dreams:drink/blessing_wind",
-      "reverie_dreams:drink/big_popsicle",
       "reverie_dreams:drink/paleo_creamy_smoothie",
-      "reverie_dreams:drink/qi_health",
-      "reverie_dreams:drink/fourteenth_night",
-      "reverie_dreams:drink/fairy_rain",
       "reverie_dreams:drink/fruity_high_ball",
+      "reverie_dreams:drink/blessing_wind",
       "reverie_dreams:drink/winter_brew",
-      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
-      "reverie_dreams:drink/fruity_sour",
+      "reverie_dreams:drink/big_popsicle",
+      "reverie_dreams:drink/fourteenth_night",
+      "reverie_dreams:drink/daiginjo",
       "reverie_dreams:drink/drunk_actor",
-      "reverie_dreams:drink/affgado"
+      "reverie_dreams:drink/affgado",
+      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
+      "reverie_dreams:drink/qi",
+      "reverie_dreams:drink/fairy_rain",
+      "reverie_dreams:drink/fruity_sour",
+      "reverie_dreams:drink/qi_health"
     ]
   }
 }

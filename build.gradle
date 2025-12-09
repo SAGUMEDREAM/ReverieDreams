@@ -105,8 +105,6 @@ dependencies {
     modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
     modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
 
-    modImplementation files('libs/dynamic-registries-modifier-1.0.1.jar')
-
     modImplementation files('libs/resourceconfigapi-fabric-1.21.7-3.7.3.jar')
     modImplementation files('libs/eiv-fabric-2.5.3+1.21.8.jar')
     modImplementation files('libs/camera-obscura-1.2.1+1.21.7.jar')
@@ -211,7 +209,6 @@ tasks.remapJar {
         def jarFile = archiveFile.get().asFile
         // 这里传入你的依赖 jar 列表
         includeDependencyJar(jarFile, [
-                "libs/dynamic-registries-modifier-1.0.1.jar",
                 "libs/camera-obscura-1.2.1+1.21.7.jar",
         ])
     }

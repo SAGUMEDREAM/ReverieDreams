@@ -1,0 +1,10 @@
+{
+  "sound_event": {
+    "sound_id": "reverie_dreams:records/badapple"
+  },
+  "description": {
+    "translate": "jukebox_song.reverie_dreams.records.badapple"
+  },
+  "length_in_seconds": 219.0,
+  "comparator_output": 6
+}

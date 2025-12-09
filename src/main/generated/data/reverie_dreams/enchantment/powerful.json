@@ -1,0 +1,20 @@
+{
+  "anvil_cost": 10,
+  "description": {
+    "translate": "enchantment.reverie_dreams.powerful"
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "any"
+  ],
+  "supported_items": "#reverie_dreams:peach",
+  "weight": 1
+}

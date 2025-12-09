@@ -1,6 +1,9 @@
 package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.reverie_dreams.block.creator.WoodCreator;
+import cc.thonly.reverie_dreams.datagen.entry.ShapedStackRecipeBuilder;
+import cc.thonly.reverie_dreams.mixin.accessor.RecipeProviderAccessor;
+import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
@@ -9,20 +12,21 @@ import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.*;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
@@ -232,6 +236,20 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('X', RDWoodBlocks.SPIRITUAL.strippedLog())
                 .unlockedBy("has_paper", has(Items.PAPER))
                 .save(output, getSimpleRecipeName(RDWoodBlocks.BLESSED_SPIRITUAL_LOG));
+
+        // 附魔桃子
+        ItemStack peachStack = RDIngredientItems.PEACH.getDefaultInstance();
+        HolderLookup.RegistryLookup<Enchantment> enchantmentRegistryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        Holder.Reference<Enchantment> powerful = enchantmentRegistryLookup.getOrThrow(RDEnchantments.POWERFUL);
+        peachStack.enchant(powerful, 1);
+        shapedItemStack(RecipeCategory.MISC, peachStack)
+                .pattern("XXX")
+                .pattern("X#X")
+                .pattern("XXX")
+                .define('X', Items.GOLD_NUGGET)
+                .define('#', RDIngredientItems.PEACH)
+                .unlockedBy("has_gold_nugget", has(Items.GOLD_NUGGET))
+                .save(output, getSimpleRecipeName(RDIngredientItems.PEACH));
 
         this.generateWoodCreator(RDWoodBlocks.LEMON);
         this.generateWoodCreator(RDWoodBlocks.GINKGO);
@@ -863,5 +881,12 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .save(exporter, getSimpleRecipeName(ingot) + "_from_block");
     }
 
+    public ShapedStackRecipeBuilder shapedItemStack(RecipeCategory recipeCategory, ItemStack itemStack) {
+        return ShapedStackRecipeBuilder.shaped(((RecipeProviderAccessor) this).reverie_dreams$getItems(), recipeCategory, itemStack);
+    }
 
+    public ShapedStackRecipeBuilder shapedItemStack(RecipeCategory recipeCategory, ItemStack itemStack, int i) {
+        itemStack.setCount(i);
+        return ShapedStackRecipeBuilder.shaped(((RecipeProviderAccessor) this).reverie_dreams$getItems(), recipeCategory, itemStack);
+    }
 }

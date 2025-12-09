@@ -1,0 +1,10 @@
+{
+  "sound_event": {
+    "sound_id": "reverie_dreams:records/hr03_01"
+  },
+  "description": {
+    "translate": "jukebox_song.reverie_dreams.records.hr03_01"
+  },
+  "length_in_seconds": 309.0,
+  "comparator_output": 6
+}

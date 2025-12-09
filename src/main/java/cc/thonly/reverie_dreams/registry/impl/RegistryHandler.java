@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.registry.impl;
 
-import cc.thonly.registry_modifier.mixin.NamedAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.NamedAccessor;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.Initialization;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;

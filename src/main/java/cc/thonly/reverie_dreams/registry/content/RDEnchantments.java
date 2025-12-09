@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.registry.content;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.registry.tag.RDEntityTypeTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -43,6 +44,7 @@ public class RDEnchantments {
     public static final ResourceKey<Enchantment> EXTERMINATION = getOrCreateKey("extermination");
     public static final ResourceKey<Enchantment> MOON_DAMAGE = getOrCreateKey("moon_damage");
     public static final ResourceKey<Enchantment> DANMAKU_PROTECTION = getOrCreateKey("danmaku_protection");
+    public static final ResourceKey<Enchantment> POWERFUL = getOrCreateKey("powerful");
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         HolderGetter<Item> itemLookup = context.lookup(Registries.ITEM);
@@ -105,6 +107,22 @@ public class RDEnchantments {
                                 new AddValue(LevelBasedValue.perLevel(2.0f)),
                                 DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(RDDamageTypeTags.DANMAKU_HIT)))
                         )
+        );
+
+        registerEnchantment(
+                context,
+                POWERFUL,
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(RDItemTags.PEACH),
+                                1,
+                                1,
+                                Enchantment.constantCost(1),
+                                Enchantment.constantCost(1),
+                                10,
+                                EquipmentSlotGroup.ANY
+                        )
+                )
         );
 
     }

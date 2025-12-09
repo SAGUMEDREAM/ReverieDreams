@@ -19,6 +19,11 @@ public class EnchantmentTagProvider extends KeyTagProvider<Enchantment> {
     protected void addTags(HolderLookup.Provider wrapperLookup) {
         HolderLookup.RegistryLookup<Enchantment> lookup = wrapperLookup.lookupOrThrow(Registries.ENCHANTMENT);
 
-        this.tag(EnchantmentTags.IN_ENCHANTING_TABLE).add(RDEnchantments.EXTERMINATION).add(RDEnchantments.MOON_DAMAGE).add(RDEnchantments.DANMAKU_PROTECTION);
+        this.tag(EnchantmentTags.IN_ENCHANTING_TABLE)
+                .add(RDEnchantments.EXTERMINATION)
+                .add(RDEnchantments.MOON_DAMAGE)
+                .add(RDEnchantments.DANMAKU_PROTECTION)
+                .add(RDEnchantments.POWERFUL)
+        ;
     }
 }

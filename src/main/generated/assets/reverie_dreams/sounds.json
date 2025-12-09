@@ -1,4 +1,16 @@
 {
+  "records/glowing_needles_little_people": {
+    "subtitle": "sound.reverie_dreams.records/glowing_needles_little_people",
+    "sounds": [
+      "reverie_dreams:records/glowing_needles_little_people"
+    ]
+  },
+  "records/melodic-taste-nightmare-before-crossroads": {
+    "subtitle": "sound.reverie_dreams.records/melodic-taste-nightmare-before-crossroads",
+    "sounds": [
+      "reverie_dreams:records/melodic-taste-nightmare-before-crossroads"
+    ]
+  },
   "photo": {
     "subtitle": "sound.reverie_dreams.photo",
     "sounds": [
@@ -17,22 +29,10 @@
       "reverie_dreams:biu"
     ]
   },
-  "cookie": {
-    "subtitle": "sound.reverie_dreams.cookie",
+  "records/cookie": {
+    "subtitle": "sound.reverie_dreams.records/cookie",
     "sounds": [
-      "reverie_dreams:cookie"
-    ]
-  },
-  "fumo/3": {
-    "subtitle": "sound.reverie_dreams.fumo/3",
-    "sounds": [
-      "reverie_dreams:fumo/3"
-    ]
-  },
-  "fumo/2": {
-    "subtitle": "sound.reverie_dreams.fumo/2",
-    "sounds": [
-      "reverie_dreams:fumo/2"
+      "reverie_dreams:records/cookie"
     ]
   },
   "tick_wave": {
@@ -47,10 +47,22 @@
       "reverie_dreams:fumo/1"
     ]
   },
-  "badapple": {
-    "subtitle": "sound.reverie_dreams.badapple",
+  "records/hr03_01": {
+    "subtitle": "sound.reverie_dreams.records/hr03_01",
     "sounds": [
-      "reverie_dreams:badapple"
+      "reverie_dreams:records/hr03_01"
+    ]
+  },
+  "fumo/2": {
+    "subtitle": "sound.reverie_dreams.fumo/2",
+    "sounds": [
+      "reverie_dreams:fumo/2"
+    ]
+  },
+  "fumo/3": {
+    "subtitle": "sound.reverie_dreams.fumo/3",
+    "sounds": [
+      "reverie_dreams:fumo/3"
     ]
   },
   "empty": {
@@ -59,40 +71,28 @@
       "reverie_dreams:empty"
     ]
   },
-  "hr03_01": {
-    "subtitle": "sound.reverie_dreams.hr03_01",
-    "sounds": [
-      "reverie_dreams:hr03_01"
-    ]
-  },
-  "yv_flower_clock_and_dreams": {
-    "subtitle": "sound.reverie_dreams.yv_flower_clock_and_dreams",
-    "sounds": [
-      "reverie_dreams:yv_flower_clock_and_dreams"
-    ]
-  },
-  "hr02_08": {
-    "subtitle": "sound.reverie_dreams.hr02_08",
-    "sounds": [
-      "reverie_dreams:hr02_08"
-    ]
-  },
-  "melodic-taste-nightmare-before-crossroads": {
-    "subtitle": "sound.reverie_dreams.melodic-taste-nightmare-before-crossroads",
-    "sounds": [
-      "reverie_dreams:melodic-taste-nightmare-before-crossroads"
-    ]
-  },
   "up": {
     "subtitle": "sound.reverie_dreams.up",
     "sounds": [
       "reverie_dreams:up"
     ]
   },
+  "records/hr02_08": {
+    "subtitle": "sound.reverie_dreams.records/hr02_08",
+    "sounds": [
+      "reverie_dreams:records/hr02_08"
+    ]
+  },
   "spell_card": {
     "subtitle": "sound.reverie_dreams.spell_card",
     "sounds": [
       "reverie_dreams:spell_card"
+    ]
+  },
+  "records/yv_flower_clock_and_dreams": {
+    "subtitle": "sound.reverie_dreams.records/yv_flower_clock_and_dreams",
+    "sounds": [
+      "reverie_dreams:records/yv_flower_clock_and_dreams"
     ]
   },
   "graze": {
@@ -107,18 +107,6 @@
       "reverie_dreams:bagua"
     ]
   },
-  "glowing_needles_little_people": {
-    "subtitle": "sound.reverie_dreams.glowing_needles_little_people",
-    "sounds": [
-      "reverie_dreams:glowing_needles_little_people"
-    ]
-  },
-  "hr01_01": {
-    "subtitle": "sound.reverie_dreams.hr01_01",
-    "sounds": [
-      "reverie_dreams:hr01_01"
-    ]
-  },
   "fire": {
     "subtitle": "sound.reverie_dreams.fire",
     "sounds": [
@@ -129,6 +117,18 @@
     "subtitle": "sound.reverie_dreams.point",
     "sounds": [
       "reverie_dreams:point"
+    ]
+  },
+  "records/badapple": {
+    "subtitle": "sound.reverie_dreams.records/badapple",
+    "sounds": [
+      "reverie_dreams:records/badapple"
+    ]
+  },
+  "records/hr01_01": {
+    "subtitle": "sound.reverie_dreams.records/hr01_01",
+    "sounds": [
+      "reverie_dreams:records/hr01_01"
     ]
   }
 }

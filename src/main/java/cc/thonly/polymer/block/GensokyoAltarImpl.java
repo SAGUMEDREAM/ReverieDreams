@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +30,8 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        return Blocks.BARRIER.defaultBlockState();
+//        return Blocks.BARRIER.defaultBlockState();
+        return Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, 6);
     }
 
     @Override

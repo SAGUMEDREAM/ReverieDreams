@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.dialog;
 
-import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.server.ServerContentRegistry;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -513,15 +513,15 @@ public class DialogInit {
     }
 
     public static void bootstrap() {
-        DynamicRegistryManagerCallback.Builder<Dialog> builder = DynamicRegistryManagerCallback.createBuilder(REGISTRY);
-        builder.register(MAIN_HELP_ID, MAIN_HELP);
-        builder.register(ALTAR_HELP_ID, ALTAR_HELP);
-        builder.register(CRAFTING_DANMAKU_HELP_ID, CRAFTING_DANMAKU_HELP);
-        builder.register(UPGRADE_DANMAKU_HELP_ID, UPGRADE_DANMAKU_HELP);
-        builder.register(GET_FUMO_HELP_ID, GET_FUMO_HELP);
-        builder.register(ROLE_HELP_ID, ROLE_HELP);
-        builder.register(TOUHOU_MYSTIA_HELP_ID, TOUHOU_MYSTIA_HELP);
-        builder.register(OTHER_MOD_LIST_ID, OTHER_MOD_LIST);
+        ServerContentRegistry registry = ServerContentRegistry.IMPL;
+        registry.register(Registries.DIALOG, MAIN_HELP_ID, MAIN_HELP);
+        registry.register(Registries.DIALOG, ALTAR_HELP_ID, ALTAR_HELP);
+        registry.register(Registries.DIALOG, CRAFTING_DANMAKU_HELP_ID, CRAFTING_DANMAKU_HELP);
+        registry.register(Registries.DIALOG, UPGRADE_DANMAKU_HELP_ID, UPGRADE_DANMAKU_HELP);
+        registry.register(Registries.DIALOG, GET_FUMO_HELP_ID, GET_FUMO_HELP);
+        registry.register(Registries.DIALOG, ROLE_HELP_ID, ROLE_HELP);
+        registry.register(Registries.DIALOG, TOUHOU_MYSTIA_HELP_ID, TOUHOU_MYSTIA_HELP);
+        registry.register(Registries.DIALOG, OTHER_MOD_LIST_ID, OTHER_MOD_LIST);
     }
 
     static {

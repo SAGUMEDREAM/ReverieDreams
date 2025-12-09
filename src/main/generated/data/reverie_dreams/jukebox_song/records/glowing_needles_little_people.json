@@ -1,0 +1,10 @@
+{
+  "sound_event": {
+    "sound_id": "reverie_dreams:records/glowing_needles_little_people"
+  },
+  "description": {
+    "translate": "jukebox_song.reverie_dreams.records.glowing_needles_little_people"
+  },
+  "length_in_seconds": 242.0,
+  "comparator_output": 6
+}

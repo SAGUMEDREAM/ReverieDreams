@@ -10,7 +10,6 @@ import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
-import cc.thonly.reverie_dreams.datafixer.DataFixerContentManager;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
@@ -145,7 +144,6 @@ public class ReverieDreams implements ModInitializer {
         RDVillagerProfessions.registers();
         BiomeModificationInit.init();
         GameRulesInit.init();
-        DataFixerContentManager.bootstrap();
         DialogInit.bootstrap();
 
         // 初始化其他注册内容

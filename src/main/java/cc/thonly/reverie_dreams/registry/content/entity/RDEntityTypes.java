@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.registry.content.entity;
 
-import cc.thonly.registry_modifier.api.DynamicRegistryManagerCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.*;
 import cc.thonly.reverie_dreams.entity.elemental.FireElementalEntity;
@@ -13,6 +12,7 @@ import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
+import cc.thonly.reverie_dreams.server.ServerContentRegistry;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -239,11 +239,12 @@ public class RDEntityTypes {
             );
 
     public static void registerEntityTypes() {
-        DynamicRegistryManagerCallback.Builder<PigVariant> pigVariantBuilder = DynamicRegistryManagerCallback.createBuilder(Registries.PIG_VARIANT);
-        pigVariantBuilder.register(ReverieDreams.id("wild_pig"), new PigVariant(
-                new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
-                SpawnPrioritySelectors.EMPTY
-        ));
+        ServerContentRegistry.IMPL.register(Registries.PIG_VARIANT,
+                ReverieDreams.id("wild_pig"),
+                new PigVariant(
+                        new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
+                        SpawnPrioritySelectors.EMPTY
+                ));
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST),
                 MobCategory.MONSTER,

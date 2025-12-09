@@ -41,7 +41,7 @@ public class SkinConfigs {
                     .replace("skin_config/", "")
                     .replace(".json", "")
             );
-            System.out.println(key);
+//            System.out.println(key);
             Resource resource = entry.getValue();
             SkinType skin = RegistryHandlers.SKIN_TYPE.getValue(key);
             if (skin == null) {
@@ -57,7 +57,7 @@ public class SkinConfigs {
                         .ifPresent(data -> {
                             skin.setConfig(data);
                             data.setSkin(skin);
-                            log.info("register skin {} {}", key, data);
+//                            log.info("register skin {} {}", key, data);
                             RegistryHandlers.register(RegistryHandlers.SKIN_CONFIG, key, data);
                         });
             } catch (IOException e) {

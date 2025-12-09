@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("UnusedReturnValue")
 @Slf4j
 public abstract class AbstractSoundProvider implements DataProvider {
     public final FabricDataOutput output;
@@ -74,7 +75,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
         if (soundPath != null) {
             entry.addSoundsByName(soundPath);
         } else {
-            entry.addSoundsByName(id.getNamespace()  + ":" + "records/"+ id.getPath());
+            entry.addSoundsByName(id.getNamespace() + ":" + "records/" + id.getPath());
         }
         this.identifierSoundEventMap.put(id, entry);
         return this;
@@ -82,7 +83,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
 
     public abstract void configured();
 
-//    @SuppressWarnings("deprecation")
+    //    @SuppressWarnings("deprecation")
     public void export(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);

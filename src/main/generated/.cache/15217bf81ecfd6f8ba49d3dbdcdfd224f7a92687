@@ -1,4 +1,6 @@
 // 1.21.7	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Touhou Mod RecipeProvider
+a702f28e0484025186308f87c3e81af1f6875302 data/minecraft/advancement/recipes/misc/ingredient/peach.json
+5c8ea9e9710b08d81aa63ea469eb543b8ac66571 data/minecraft/recipe/ingredient/peach.json
 7afefa7181e625324c053342c9d897ce1e9da7f2 data/reverie_dreams/advancement/recipes/building_blocks/blessed_spiritual_log.json
 e739477e307d8be71213394b4dbc6bdbf8bddd6c data/reverie_dreams/advancement/recipes/building_blocks/blue_orb_block.json
 0d3280fc191c427cbe4e0c9e067274fae0f2109f data/reverie_dreams/advancement/recipes/building_blocks/bomb_fragment.json
