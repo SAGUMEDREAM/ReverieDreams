@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
+import cc.thonly.minecraft.util.TagValueFunction;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.gui.recipe.gui.KitchenBlockGui;
@@ -8,18 +9,15 @@ import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.util.entity.PlayerUtil;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,8 +33,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -261,23 +257,31 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
 
 
     @Override
-    protected void saveAdditional(ValueOutput view) {
-        super.saveAdditional(view);
-        ContainerHelper.saveAllItems(view, this.inventory.items);
-        view.putDouble("TickLeft", this.tickLeft);
-        view.putInt("WorkingState", this.workingState.getId());
-        view.storeNullable("PreOutput", ItemStackWrapper.CODEC, this.preOutput);
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        if (this.level != null) {
+            TagValueFunction.ofOutput(compoundTag, this.level.registryAccess(), view->{
+                ContainerHelper.saveAllItems(compoundTag, this.inventory.items, provider);
+                view.putDouble("TickLeft", this.tickLeft);
+                view.putInt("WorkingState", this.workingState.getId());
+                view.storeNullable("PreOutput", ItemStackWrapper.CODEC, this.preOutput);
+            });
+        }
     }
 
     @Override
-    protected void loadAdditional(ValueInput view) {
-        super.loadAdditional(view);
-        SimpleContainer inventory = new SimpleContainer(6);
-        ContainerHelper.loadAllItems(view, inventory.items);
-        this.inventory = inventory;
-        this.tickLeft = view.getDoubleOr("TickLeft", 0.0);
-        this.workingState = WorkingState.getFromInt(view.getIntOr("WorkingState", 0));
-        view.read("PreOutput", ItemStackWrapper.CODEC).ifPresent(preOutput -> this.preOutput = preOutput);
+    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
+        if (this.level != null) {
+            TagValueFunction.ofInput(compoundTag, this.level.registryAccess(), view->{
+                SimpleContainer inventory = new SimpleContainer(6);
+                ContainerHelper.loadAllItems(compoundTag, inventory.items, provider);
+                this.inventory = inventory;
+                this.tickLeft = view.getDoubleOr("TickLeft", 0.0);
+                this.workingState = WorkingState.getFromInt(view.getIntOr("WorkingState", 0));
+                view.read("PreOutput", ItemStackWrapper.CODEC).ifPresent(preOutput -> this.preOutput = preOutput);
+            });
+        }
     }
 
     public KitchenwareBlockEntity get() {

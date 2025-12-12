@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
+import cc.thonly.minecraft.util.TagValueFunction;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
@@ -17,6 +18,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -169,26 +171,30 @@ public class DanmakuEntity extends AbstractArrow {
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        if (!this.itemStack.isEmpty()) {
-            view.store("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC, this.itemStack.copy());
-        }
-        view.store("Properties", DanmakuProperties.CODEC, this.properties);
-        view.putInt("FlyAge", this.flyAge);
-        view.putInt("RemainingBounces", this.remainingBounces);
-        view.store("VelocityVector", Vec3.CODEC, this.getDeltaMovement());
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view-> {
+            if (!this.itemStack.isEmpty()) {
+                view.store("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC, this.itemStack.copy());
+            }
+            view.store("Properties", DanmakuProperties.CODEC, this.properties);
+            view.putInt("FlyAge", this.flyAge);
+            view.putInt("RemainingBounces", this.remainingBounces);
+            view.store("VelocityVector", Vec3.CODEC, this.getDeltaMovement());
+        });
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
-        this.itemStack = view.read("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
-        this.properties = view.read("Properties", DanmakuProperties.CODEC).orElse(DanmakuProperties.ofDefault());
-        this.flyAge = view.getIntOr("FlyAge", 0);
-        this.remainingBounces = view.getIntOr("RemainingBounces", 0);
-        Optional<Vec3> velocityVector = view.read("VelocityVector", Vec3.CODEC);
-        velocityVector.ifPresent(this::setDeltaMovement);
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        TagValueFunction.ofInput(compoundTag, this.registryAccess(), view-> {
+            this.itemStack = view.read("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
+            this.properties = view.read("Properties", DanmakuProperties.CODEC).orElse(DanmakuProperties.ofDefault());
+            this.flyAge = view.getIntOr("FlyAge", 0);
+            this.remainingBounces = view.getIntOr("RemainingBounces", 0);
+            Optional<Vec3> velocityVector = view.read("VelocityVector", Vec3.CODEC);
+            velocityVector.ifPresent(this::setDeltaMovement);
+        });
     }
 
     @Override

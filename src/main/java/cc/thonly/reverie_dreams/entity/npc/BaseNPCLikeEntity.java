@@ -1,5 +1,9 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.minecraft.util.TagValueFunction;
+import cc.thonly.minecraft.util.TagValueOutput;
+import cc.thonly.minecraft.util.ValueInput;
+import cc.thonly.minecraft.util.ValueOutput;
 import cc.thonly.polymer.entity.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
@@ -75,14 +79,12 @@ import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.level.storage.TagValueOutput;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @Getter
@@ -191,67 +193,72 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super.defineSynchedData(builder);
     }
 
+
     @Override
-    public void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
         RegistryAccess registryManager = this.registryAccess();
+        TagValueFunction.ofInput(compoundTag, registryManager, view -> {
+            this.sit = view.getBooleanOr("IsSit", false);
 
-        this.sit = view.getBooleanOr("IsSit", false);
+            this.npcState = NPCStates.get(ResourceLocation.parse(view.getStringOr("NPCStateId", NPCState.DEFAULT_ID.toString())));
+            this.workMode = NPCWorkModes.get(ResourceLocation.parse(view.getStringOr("NPCWorkStateId", NPCWorkMode.DEFAULT_ID.toString())));
+            this.npcOwner = view.getStringOr("NpcOwner", "");
 
-        this.npcState = NPCStates.get(ResourceLocation.parse(view.getStringOr("NPCStateId", NPCState.DEFAULT_ID.toString())));
-        this.workMode = NPCWorkModes.get(ResourceLocation.parse(view.getStringOr("NPCWorkStateId", NPCWorkMode.DEFAULT_ID.toString())));
-        this.npcOwner = view.getStringOr("NpcOwner", "");
+            NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
+            ContainerHelper.loadAllItems(compoundTag, inventory.items, this.registryAccess());
 
-        NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
-        ContainerHelper.loadAllItems(view, inventory.items);
+            view.getBooleanOr("AutoPick", false);
 
-        view.getBooleanOr("AutoPick", false);
+            this.inventory = inventory;
 
-        this.inventory = inventory;
+            this.seatUUID = view.getStringOr("SeatUUID", "null");
 
-        this.seatUUID = view.getStringOr("SeatUUID", "null");
+            this.nutrition = view.getIntOr("FoodNutrition", 20);
+            this.saturation = view.getIntOr("FoodSaturation", 20);
 
-        this.nutrition = view.getIntOr("FoodNutrition", 20);
-        this.saturation = view.getIntOr("FoodSaturation", 20);
+            this.exhaustionLevel = view.getIntOr("FoodExhaustionLevel", 0);
+            Optional<Long> workingPosOptional = view.getLong("WorkingPos");
+            this.workingPos = workingPosOptional
+                    .map(BlockPos::of)
+                    .orElseGet(() -> BlockPos.of(new BlockPos(0, 0, 0).asLong()));
 
-        this.exhaustionLevel = view.getIntOr("FoodExhaustionLevel", 0);
-        Optional<Long> workingPosOptional = view.getLong("WorkingPos");
-        this.workingPos = workingPosOptional
-                .map(BlockPos::of)
-                .orElseGet(() -> BlockPos.of(new BlockPos(0, 0, 0).asLong()));
+            this.storedExperience = view.getIntOr("ExperienceAmount", 0);
+            this.goodwill = view.getIntOr("GoodWIll", 100);
 
-        this.storedExperience = view.getIntOr("ExperienceAmount", 0);
-        this.goodwill = view.getIntOr("GoodWIll", 100);
+            this.readSkinData(view);
 
-        this.readSkinData(view);
+            this.updateAttackType();
+        });
 
-        this.updateAttackType();
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        view.putBoolean("IsSit", this.sit);
-        view.putString("NpcOwner", this.npcOwner);
-        view.putString("NPCStateId", Optional.ofNullable(RegistryHandlers.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
-        view.putString("NPCWorkStateId", Optional.ofNullable(RegistryHandlers.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
-        view.putFloat("FoodNutrition", this.nutrition);
-        view.putFloat("FoodSaturation", this.saturation);
-        view.putFloat("FoodExhaustionLevel", this.exhaustionLevel);
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view -> {
+            view.putBoolean("IsSit", this.sit);
+            view.putString("NpcOwner", this.npcOwner);
+            view.putString("NPCStateId", Optional.ofNullable(RegistryHandlers.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
+            view.putString("NPCWorkStateId", Optional.ofNullable(RegistryHandlers.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
+            view.putFloat("FoodNutrition", this.nutrition);
+            view.putFloat("FoodSaturation", this.saturation);
+            view.putFloat("FoodExhaustionLevel", this.exhaustionLevel);
 
-        ContainerHelper.saveAllItems(view, this.inventory.items);
+            ContainerHelper.saveAllItems(compoundTag, this.inventory.items, this.registryAccess());
 
-        view.putLong("WorkingPos", this.workingPos.asLong());
+            view.putLong("WorkingPos", this.workingPos.asLong());
 
-        view.putBoolean("AutoPick", this.autoPick);
+            view.putBoolean("AutoPick", this.autoPick);
 
-        if (!this.seatUUID.isEmpty() && !this.seatUUID.equals("null")) {
-            view.putString("SeatUUID", this.seatUUID);
-        }
+            if (!this.seatUUID.isEmpty() && !this.seatUUID.equals("null")) {
+                view.putString("SeatUUID", this.seatUUID);
+            }
 
-        view.putInt("ExperienceAmount", this.storedExperience);
-        view.putInt("GoodWill", this.goodwill);
-        this.writeSkinData(view);
+            view.putInt("ExperienceAmount", this.storedExperience);
+            view.putInt("GoodWill", this.goodwill);
+            this.writeSkinData(view);
+        });
     }
 
     public void writeSkinData(ValueOutput view) {
@@ -348,7 +355,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super.die(damageSource);
         Level world = this.level();
         if (this.storedExperience > 0) {
-            ExperienceOrb orbEntity = new ExperienceOrb(world, this.position(), this.getDeltaMovement(), this.storedExperience);
+            Vec3 position = this.position();
+            ExperienceOrb orbEntity = new ExperienceOrb(world, position.x, position.y, position.z, this.storedExperience);
             world.addFreshEntity(orbEntity);
         }
         KeepInventoryTypes keepInventoryType = this.getKeepInventoryType();
@@ -415,15 +423,14 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         return super.mobInteract(player, hand);
     }
 
-    //    @Override
-    public void setOwnerUuid(@Nullable UUID uuid) {
+    @Override
+    public void setOwnerUUID(@Nullable UUID uuid) {
         if (uuid != null) {
             this.npcOwner = uuid.toString();
             this.setTame(true, true);
         }
     }
 
-    @Override
     public void setOwner(LivingEntity player) {
         if (player != null) {
             this.npcOwner = player.getUUID().toString();
@@ -787,7 +794,9 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         ArmorStand as = EntityType.ARMOR_STAND.create(this.level(), EntitySpawnReason.TRIGGERED);
         if (as == null) return;
 
-        as.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+        as.setPos(new Vec3(this.getX(), this.getY(), this.getZ()));
+        as.setXRot(this.getXRot());
+        as.setYRot(this.getYRot());
         as.setInvisible(true);
         as.setNoGravity(true);
         as.setMarker(true);
@@ -839,7 +848,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         if (result) {
             ItemStack mainHand = this.getMainHandItem();
             if (mainHand.isDamageableItem()) {
-                mainHand.hurtAndBreak(1, (LivingEntity) this, (InteractionHand) null);
+                mainHand.hurtAndBreak(1, (LivingEntity) this, EquipmentSlot.MAINHAND);
             }
         }
         return result;
@@ -848,11 +857,11 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     public ItemStack toArchive() {
         ItemStack itemStack = RDItems.ROLE_ARCHIVE.getDefaultInstance();
         CompoundTag nbtCompound;
-        try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(this.problemPath(), LogUtils.getLogger())) {
-            TagValueOutput view = TagValueOutput.createWithContext(logging, this.registryAccess());
-            this.addAdditionalSaveData(view);
-            nbtCompound = view.buildResult();
-        }
+        ProblemReporter logging = new ProblemReporter.Collector();
+        TagValueOutput view = TagValueOutput.createWithContext(logging, this.registryAccess());
+        this.addAdditionalSaveData(view.buildResult());
+        nbtCompound = view.buildResult();
+
         MutableComponent mutableComponent = Component.empty();
         mutableComponent.append(itemStack.getItemName()).append("(").append(this.getName()).append(")");
         itemStack.set(RDDataComponents.ROLE_FOLLOWER_ARCHIVE, new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));

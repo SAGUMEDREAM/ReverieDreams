@@ -1,13 +1,14 @@
 package cc.thonly.reverie_dreams.block.entity;
 
+import cc.thonly.minecraft.util.TagValueFunction;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import nota.player.SongPlayer;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,15 +58,24 @@ public class MusicBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput view) {
-        super.saveAdditional(view);
-        view.putString("Select", this.select == null ? "" : this.select);
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        if (this.level != null) {
+            TagValueFunction.ofOutput(compoundTag, this.level.registryAccess(), view-> {
+                view.putString("Select", this.select == null ? "" : this.select);
+            });
+        }
+
     }
 
     @Override
-    protected void loadAdditional(ValueInput view) {
-        super.loadAdditional(view);
-        this.select = view.getStringOr("Select","");
+    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
+        if (this.level != null) {
+            TagValueFunction.ofInput(compoundTag, this.level.registryAccess(), view-> {
+                this.select = view.getStringOr("Select", "");
+            });
+        }
     }
 
     public int play() {

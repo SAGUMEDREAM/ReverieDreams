@@ -349,7 +349,7 @@ public class ReverieDreams implements ModInitializer {
             MutableComponent mutableText = Component.empty();
             mutableText.append(Component.translatable("message.reverie_dreams.update", ConstantInfo.LATEST_VERSION));
             mutableText.append(" §r[");
-            mutableText.append(Component.translatable("item.action.click.left").setStyle(Style.EMPTY.withClickEvent(new ClickEvent.OpenUrl(URI.create("https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams")))));
+            mutableText.append(Component.translatable("item.action.click.left").setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams"))));
             mutableText.append("§r]");
             player.displayClientMessage(mutableText, false);
         });

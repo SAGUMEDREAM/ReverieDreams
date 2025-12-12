@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 @Setter
 @Getter
 @ToString
-public abstract class AbstractCropBlock extends VegetationBlock implements BonemealableBlock, IMatureBlock {
+public abstract class AbstractCropBlock extends BushBlock implements BonemealableBlock, IMatureBlock {
     protected Item seed;
 
     protected AbstractCropBlock(Properties settings) {
@@ -45,7 +45,7 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
     public abstract IntegerProperty getAgeProperty();
 
     @Override
-    protected abstract MapCodec<? extends VegetationBlock> codec();
+    protected abstract MapCodec<? extends BushBlock> codec();
 
     protected ItemLike getSeedsItem() {
         return this.seed;

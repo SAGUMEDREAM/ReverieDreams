@@ -21,7 +21,7 @@ public class OwnerStickItem extends Item {
         Level world = user.level();
         if (world.isClientSide()) return InteractionResult.SUCCESS;
         if (entity instanceof TamableAnimal target) {
-            target.setOwner(user);
+            target.setOwnerUUID(user.getUUID());
             ((ServerLevel) world).sendParticles(ParticleTypes.HEART, target.getX(), target.getY() + 1.0, target.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
         }
         return InteractionResult.SUCCESS_SERVER;

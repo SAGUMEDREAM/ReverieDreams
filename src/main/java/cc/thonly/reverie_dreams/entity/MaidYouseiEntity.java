@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.minecraft.util.TagValueFunction;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
@@ -19,6 +20,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.EntityType;
@@ -35,8 +37,6 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -129,17 +129,22 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
-        String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
-        ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
-        this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        TagValueFunction.ofInput(compoundTag, this.registryAccess(), view -> {
+            String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
+            ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
+            this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
+        });
+
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        view.putString("YouseiVariant", this.variant.getId().toString());
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view -> {
+            view.putString("YouseiVariant", this.variant.getId().toString());
+        });
     }
 
     @Override

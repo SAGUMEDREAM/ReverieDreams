@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
+import cc.thonly.minecraft.util.TagValueFunction;
 import cc.thonly.polymer.entity.MagicBroomImpl;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
@@ -9,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -29,8 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -248,21 +248,23 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        view.store("Item", ItemStackWrapper.CODEC, this.itemWrapper);
-        if (this.owner != null) {
-            view.store("Owner", UUIDCodec.CODEC, this.owner);
-        }
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view-> {
+            view.store("Item", ItemStackWrapper.CODEC, this.itemWrapper);
+            if (this.owner != null) {
+                view.store("Owner", UUIDCodec.CODEC, this.owner);
+            }
+        });
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
-        RegistryAccess registryManager = this.registryAccess();
-        this.itemWrapper = view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
-        view.read("Owner", UUIDCodec.CODEC).ifPresent(value -> this.owner = value);
-
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        TagValueFunction.ofInput(compoundTag, this.registryAccess(),view-> {
+            this.itemWrapper = view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
+            view.read("Owner", UUIDCodec.CODEC).ifPresent(value -> this.owner = value);
+        });
     }
 
     @Override

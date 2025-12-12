@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.component;
 
+import cc.thonly.minecraft.util.TagValueInput;
+import cc.thonly.minecraft.util.ValueInput;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
@@ -18,8 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.level.storage.TagValueInput;
-import net.minecraft.world.level.storage.ValueInput;
 
 @Getter
 public class RoleFollowerArchive {
@@ -44,10 +44,7 @@ public class RoleFollowerArchive {
         npcLikeEntity.setPosRaw(pos.getX(), pos.getY(), pos.getZ());
         npcLikeEntity.setCustomName(this.name);
         npcLikeEntity.setOwner((LivingEntity) null);
-        try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(npcLikeEntity.problemPath(), LogUtils.getLogger())) {
-            ValueInput view = TagValueInput.create(logging, registries, this.nbt);
-            npcLikeEntity.readAdditionalSaveData(view);
-        }
+        npcLikeEntity.readAdditionalSaveData(this.nbt);
         AttributeMap attributes = npcLikeEntity.getAttributes();
         AttributeInstance attributeInstance = attributes.getInstance(Attributes.MAX_HEALTH);
         if (attributeInstance != null) {

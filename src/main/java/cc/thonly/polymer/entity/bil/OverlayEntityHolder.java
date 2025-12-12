@@ -4,7 +4,6 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.api.AnimatedEntityHolder;
 import de.tomalbrc.bil.core.holder.base.AbstractAnimationHolder;
 import de.tomalbrc.bil.core.holder.wrapper.Bone;
-import de.tomalbrc.bil.core.holder.wrapper.ItemBone;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.util.Utils;
 import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
@@ -18,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -33,7 +33,7 @@ public abstract class OverlayEntityHolder<E extends Entity, A extends AnimatedEn
     protected int tickCount;
 
     protected OverlayEntityHolder(E entity, A animatedEntity, Model model) {
-        super(model);
+        super(model, (ServerLevel) entity.level());
         this.additionalDisplays = new ObjectOpenHashSet<>();
         this.entity = entity;
         this.animatedEntity = animatedEntity;
@@ -142,7 +142,7 @@ public abstract class OverlayEntityHolder<E extends Entity, A extends AnimatedEn
 
     protected void updateInvisibility(boolean isInvisible) {
         for (int i = 0; i < this.bones.length; i++) {
-            if (this.bones[i] instanceof ItemBone itemBone) itemBone.setInvisible(isInvisible);
+            if (this.bones[i] instanceof Bone itemBone) itemBone.setInvisible(isInvisible);
         }
     }
 
@@ -157,7 +157,7 @@ public abstract class OverlayEntityHolder<E extends Entity, A extends AnimatedEn
         int[] displays = new int[this.bones.length + this.additionalDisplays.size()];
 
         int index = 0;
-        for (Bone<?> bone : this.bones) {
+        for (Bone bone : this.bones) {
             displays[index++] = bone.element().getEntityId();
         }
 

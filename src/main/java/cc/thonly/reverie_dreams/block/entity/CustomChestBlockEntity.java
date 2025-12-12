@@ -3,6 +3,8 @@ package cc.thonly.reverie_dreams.block.entity;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
@@ -10,8 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.IntStream;
@@ -25,16 +25,20 @@ public class CustomChestBlockEntity extends BlockEntity implements WorldlyContai
     }
 
     @Override
-    protected void loadAdditional(ValueInput view) {
-        super.loadAdditional(view);
-        this.inventory = new SimpleContainer(27);
-        ContainerHelper.loadAllItems(view, this.inventory.items);
+    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
+        if (this.level != null) {
+            this.inventory = new SimpleContainer(27);
+            ContainerHelper.loadAllItems(compoundTag, this.inventory.items, this.level.registryAccess());
+        }
     }
 
     @Override
-    protected void saveAdditional(ValueOutput view) {
-        super.saveAdditional(view);
-        ContainerHelper.saveAllItems(view, this.inventory.items);
+    public void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        if (this.level != null) {
+            ContainerHelper.saveAllItems(compoundTag, this.inventory.items, this.level.registryAccess());
+        }
     }
 
     @Override
