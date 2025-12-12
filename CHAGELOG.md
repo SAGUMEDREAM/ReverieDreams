@@ -1,5 +1,9 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.10+1.21.7
+* Fixed a crash due to missing Kotlin standard library
+* Fixed remap
+
 # 0.4.9+1.21.7
 * Optimize peach item texture
 * Removed attack range bonuses for the umbrella and scythe (unstable)
