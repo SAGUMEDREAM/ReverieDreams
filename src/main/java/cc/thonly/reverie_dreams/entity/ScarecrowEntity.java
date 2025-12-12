@@ -90,7 +90,7 @@ public class ScarecrowEntity extends Mob {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         Level world = this.level();
-        if (world.isClientSide || !(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayer)) {
+        if (world.isClientSide() || !(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayer)) {
             return super.mobInteract(player, hand);
         }
         if (player.isShiftKeyDown() && player.getItemInHand(hand).isEmpty()) {

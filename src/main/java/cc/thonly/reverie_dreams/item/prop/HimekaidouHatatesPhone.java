@@ -29,7 +29,7 @@ public class HimekaidouHatatesPhone extends Item {
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
         ItemStack itemStack = user.getItemInHand(hand);
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
             var center = user.blockPosition();
             var entities = serverWorld.getEntitiesOfClass(
                     Entity.class,

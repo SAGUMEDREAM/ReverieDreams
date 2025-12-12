@@ -2,7 +2,7 @@ import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
 plugins {
-    id 'fabric-loom' version '1.10-SNAPSHOT'
+    id 'fabric-loom' version '1.14-SNAPSHOT'
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
 //    id 'com.github.johnrengelman.shadow' version '8.1.1'
@@ -20,8 +20,8 @@ enum RemapJarType {
     }
 }
 
-def isLts = true
-def remapJarType = RemapJarType.STABLE
+def isLts = false
+def remapJarType = RemapJarType.BETA
 
 version = project.mod_version +
         "+" + project.minecraft_version +
@@ -36,6 +36,12 @@ base {
 
 
 repositories {
+    maven {
+        url 'https://maven.aliyun.com/nexus/content/groups/public'
+    }
+    maven {
+        url 'https://repository.hanbings.io/proxy'
+    }
     maven { url = "https://maven.fabricmc.net/" }
     maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url = 'https://maven.nucleoid.xyz' }
@@ -104,15 +110,15 @@ dependencies {
 
     modImplementation include("eu.pb4:factorytools:[${factorytools_version}]")
     modImplementation include("eu.pb4:sgui:[${sgui_version}]")
-    modImplementation include("xyz.nucleoid:server-translations-api:2.5.1+1.21.5")
+    modImplementation include("xyz.nucleoid:server-translations-api:2.5.2+1.21.9-pre3")
     modImplementation include("maven.modrinth:midnightlib:${midnightlib_version}")
 
     modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
     modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
 
-    modImplementation files('libs/resourceconfigapi-fabric-1.21.7-3.7.3.jar')
-    modImplementation files('libs/eiv-fabric-2.5.3+1.21.8.jar')
-    modImplementation files('libs/camera-obscura-1.2.1+1.21.7.jar')
+    modImplementation files('libs/resourceconfigapi-fabric-1.21.10-3.8.1.jar')
+    modImplementation files('libs/eiv-fabric-5.2.0+1.21.10.jar')
+    modImplementation files('libs/camera-obscura-1.2.2+1.21.9-rc1.jar')
 
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')
@@ -140,11 +146,14 @@ dependencies {
 //    compileOnly('org.geysermc.geyser:api:2.7.0-SNAPSHOT')
 
     compileOnly 'org.projectlombok:lombok:1.18.34'
-    modCompileOnly 'maven.modrinth:polydex:1.6.0+1.21.6'
+    modCompileOnly 'maven.modrinth:polydex:1.7.0+1.21.9-rc1'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
     implementation include('com.squareup.okhttp3:okhttp:4.12.0')
     implementation include('com.squareup.okio:okio:3.4.0')
+    implementation include('org.jetbrains.kotlin:kotlin-stdlib:1.9.10')
+    implementation include('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10')
+    implementation include('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10')
     implementation include('com.mohistmc:dynamicenum:0.3')
     implementation include('org.reflections:reflections:0.10.2')
 
@@ -214,7 +223,7 @@ tasks.remapJar {
         def jarFile = archiveFile.get().asFile
         // 这里传入你的依赖 jar 列表
         includeDependencyJar(jarFile, [
-                "libs/camera-obscura-1.2.1+1.21.7.jar",
+                "libs/camera-obscura-1.2.2+1.21.9-rc1.jar",
         ])
     }
 }

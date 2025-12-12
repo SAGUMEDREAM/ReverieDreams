@@ -22,7 +22,7 @@ public class StandingAndWallBlockItemMixin {
         Level level = context.getLevel();
         ResourceLocation polymerIdentifier = PolymerItemUtils.getPolymerIdentifier(itemStack);
         if (itemStack.getItem() instanceof StandingAndWallBlockItem && polymerIdentifier != null && polymerIdentifier.getNamespace().equals(ReverieDreams.MOD_ID)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 cir.setReturnValue(InteractionResult.FAIL);
             }
         }

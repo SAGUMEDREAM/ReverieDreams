@@ -37,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
@@ -139,7 +140,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Inject(method = "stopSleeping", at = @At(value = "TAIL"))
     public void wakeUp(CallbackInfo ci) {
-        MinecraftServer server = this.getServer();
+        MinecraftServer server = this.level().getServer();
         if (server == null) {
             return;
         }
@@ -155,7 +156,8 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
         ServerLevel overworld = server.overworld();
         if (serverWorld.equals(dreamWorld)) {
-            BlockPos spawnPos = overworld.getSharedSpawnPos();
+            LevelData.RespawnData respawnData = overworld.getRespawnData();
+            BlockPos spawnPos = respawnData.globalPos().pos();
             this.teleportTo(server.overworld(), spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5,
                     EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
             serverWorld.sendParticles(ParticleTypes.HEART, this.getX(), this.getY() + 1.0, this.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
@@ -201,7 +203,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
         LivingEntity livingEntity = (LivingEntity) (Object) this;
-        if (livingEntity.level().isClientSide) {
+        if (livingEntity.level().isClientSide()) {
             return;
         }
         this.fixedPlayerData();
@@ -278,7 +280,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
     public void damage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        MinecraftServer server = this.getServer();
+        MinecraftServer server = this.level().getServer();
         if (server == null) {
             return;
         }
@@ -296,9 +298,9 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                     this.fallDistance = 0;
                     this.teleportTo(
                             server.overworld(),
-                            server.overworld().getSharedSpawnPos().getX() + 0.5,
-                            server.overworld().getSharedSpawnPos().getY() + 1.5,
-                            server.overworld().getSharedSpawnPos().getZ() + 0.5,
+                            server.overworld().getRespawnData().pos().getX() + 0.5,
+                            server.overworld().getRespawnData().pos().getY() + 1.5,
+                            server.overworld().getRespawnData().pos().getZ() + 0.5,
                             EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true
                     );
                     return;
@@ -405,7 +407,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     public void readCustomDataFromNbt(ValueInput view, CallbackInfo ci) {
         RegistryAccess registryManager = this.registryAccess();
-        MinecraftServer server = this.getServer();
+        MinecraftServer server = this.level().getServer();
         this.maxHealthModifier = view.getFloatOr("MaxHealthModifier", 0.0f);
         this.deathLevel = view.getIntOr("DeathCount", 0);
         this.deathLevelResetTimer = view.getIntOr("DeathCountResetTimer", 0);

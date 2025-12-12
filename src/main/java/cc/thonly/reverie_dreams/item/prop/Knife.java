@@ -55,7 +55,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
             itemStack.set(next.type(), next.value());
         }
         DanmakuProperties properties = itemStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
             ItemCooldowns cooldownManager = player.getCooldowns();
             for (int i = 0; i < properties.getCount(); i++) {
                 this.shoot(serverWorld, user, hand);

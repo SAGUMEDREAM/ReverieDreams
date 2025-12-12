@@ -51,7 +51,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer && world.getBlockEntity(pos) instanceof GensokyoAltarBlockEntity blockEntity) {
+        if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer && world.getBlockEntity(pos) instanceof GensokyoAltarBlockEntity blockEntity) {
             boolean b = canUse(world, pos);
             player.swing(player.getUsedItemHand(), true);
             ServerLevel serverWorld = (ServerLevel) world;

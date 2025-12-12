@@ -24,7 +24,7 @@ public record BaguaFurnaceImpl(BaguaFurnaceEntity baguaFurnaceEntity) implements
     }
 
     public void setTileProjectileData(List<SynchedEntityData.DataValue<?>> data, boolean initial) {
-        if (initial && !this.baguaFurnaceEntity.level().isClientSide) {
+        if (initial && !this.baguaFurnaceEntity.level().isClientSide()) {
             var sendBase = true;
             for (int i = 0; i < data.size(); i++) {
                 var roll = data.get(i);

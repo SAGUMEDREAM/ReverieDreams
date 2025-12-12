@@ -81,7 +81,7 @@ public class FoodProperties {
 
     public static void registerDefaultItemUsingProperty() {
         FoodPropertyLoaderCallback.EVENT.register((world, user, property) -> {
-            if (world.isClientSide) {
+            if (world.isClientSide()) {
                 return;
             }
             if (property.is(FoodProperties.COOL)) {

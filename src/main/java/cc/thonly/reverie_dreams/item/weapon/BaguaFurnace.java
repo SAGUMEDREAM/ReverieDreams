@@ -60,7 +60,7 @@ public class BaguaFurnace extends Item {
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
         ItemStack itemStack = user.getItemInHand(hand);
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             if (user.isShiftKeyDown()) {
                 user.startUsingItem(hand);
                 return InteractionResult.CONSUME;

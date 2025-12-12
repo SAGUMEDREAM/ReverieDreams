@@ -22,7 +22,7 @@ public class Levatin extends SwordItem {
 
     @Override
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (!target.level().isClientSide) {
+        if (!target.level().isClientSide()) {
             tryBreakEquipments(target);
         }
 

@@ -138,7 +138,7 @@ public class GapBall extends Item {
             this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             if (recorder != null && recorder.isEnable()) {
                 BlockPos pos = recorder.getValue();
-                MinecraftServer server = this.player.getServer();
+                MinecraftServer server = this.player.level().getServer();
                 ResourceLocation id = ResourceLocation.parse(recorder.getWorld());
                 ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, id);
                 ServerLevel targetWorld = server.getLevel(worldKey);

@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.Services;
 import net.minecraft.server.WorldStem;
-import net.minecraft.server.level.progress.ChunkProgressListenerFactory;
+import net.minecraft.server.level.progress.LevelLoadListener;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import nota.Nota;
@@ -24,7 +24,7 @@ import java.util.function.BooleanSupplier;
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void init(Thread serverThread, LevelStorageSource.LevelStorageAccess session, PackRepository dataPackManager, WorldStem saveLoader, Proxy proxy, DataFixer dataFixer, Services apiServices, ChunkProgressListenerFactory worldGenerationProgressListenerFactory, CallbackInfo ci) {
+    public void init(Thread thread, LevelStorageSource.LevelStorageAccess levelStorageAccess, PackRepository packRepository, WorldStem worldStem, Proxy proxy, DataFixer dataFixer, Services services, LevelLoadListener levelLoadListener, CallbackInfo ci) {
         MinecraftServer minecraftServer = (MinecraftServer) (Object) this;
         ReverieDreams.setServer(minecraftServer);
         PlayerDataComponentManager.getInstance().onLoad(minecraftServer);

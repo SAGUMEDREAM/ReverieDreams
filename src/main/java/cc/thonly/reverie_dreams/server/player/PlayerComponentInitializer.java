@@ -16,7 +16,7 @@ public interface PlayerComponentInitializer<T> {
         try {
             playerComponent.onLoad();
         } catch (Exception err) {
-            log.error("Can't load Player Data Component {}: {}", player.getGameProfile().getName(), player.getStringUUID());
+            log.error("Can't load Player Data Component {}: {}", player.getGameProfile().name(), player.getStringUUID());
         }
         return playerComponent;
     }

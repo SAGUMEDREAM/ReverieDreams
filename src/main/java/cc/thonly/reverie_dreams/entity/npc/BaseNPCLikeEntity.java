@@ -12,6 +12,7 @@ import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.ServerEntityAccessor;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
@@ -473,7 +474,11 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
                             ServerEntity entry = ((EntityTrackerAccessor) tracker).getTrackEntry();
                             entry.sendPairingData(handler.getPlayer(), packets -> {
                                 entry.sendDirtyEntityData();
-                                entry.broadcastAndSend(ClientboundEntityPositionSyncPacket.of(this));
+                                ClientboundEntityPositionSyncPacket syncPacket = ClientboundEntityPositionSyncPacket.of(this);
+                                entry.sendChanges();
+                                ServerEntity.Synchronizer synchronizer = ((ServerEntityAccessor) entry).reverie_dreams$getSynchronizer();
+                                synchronizer.sendToTrackingPlayers(syncPacket);
+                                player.connection.send(syncPacket);
                             });
                         }
                     }
@@ -555,7 +560,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     protected void updateHealth() {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide()) return;
         if (this.getHealth() < this.getMaxHealth()) {
             this.healthTick--;
         } else {
@@ -616,7 +621,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
 
     protected void updateAttackType() {
-        if (this.level() == null || this.level().isClientSide) {
+        if (this.level() == null || this.level().isClientSide()) {
             return;
         }
         this.goalSelector.removeGoal(this.meleeAttackGoal);
@@ -795,7 +800,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
         this.seat = as;
         this.seatUUID = this.seat.getUUID().toString();
-        this.startRiding(as, true);
+        this.startRiding(as, true, true);
     }
 
 
@@ -929,7 +934,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
                 this.inventory.setFeet(stack);
             }
         }
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.updateAttackType();
         }
     }

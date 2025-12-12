@@ -16,7 +16,7 @@ public record MoonRabbitImpl(MoonRabbitEntity moonRabbitEntity) implements Polym
     @Override
     public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
         PolymerEntity.super.modifyRawTrackedData(data, player, initial);
-        if (initial && !this.moonRabbitEntity.level().isClientSide) {
+        if (initial && !this.moonRabbitEntity.level().isClientSide()) {
             data.add(SynchedEntityData.DataValue.create(RabbitEntityAccessor.getVariant(), Rabbit.Variant.WHITE.id()));
         }
     }

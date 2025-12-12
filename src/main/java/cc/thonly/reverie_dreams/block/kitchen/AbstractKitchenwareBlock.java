@@ -62,7 +62,7 @@ public class AbstractKitchenwareBlock extends BaseEntityBlock {
     }
 
     public AbstractKitchenwareBlock(DoubleUnaryOperator bonusOperator, Double failureProbability, Vector3f scale, Vec3 offset, Properties settings) {
-        super(settings.noCollission());
+        super(settings.noCollision());
         this.offset = offset;
         this.scale = scale;
         this.bonusOperator = bonusOperator;

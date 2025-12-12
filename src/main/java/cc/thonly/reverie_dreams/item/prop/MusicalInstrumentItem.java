@@ -190,7 +190,7 @@ public class MusicalInstrumentItem extends Item {
 
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             return this.useByEntity(world, user, hand);
         }
         return super.use(world, user, hand);

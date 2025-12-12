@@ -34,7 +34,7 @@ public class ShearsItemMixin {
             BlockPos blockPos = context.getClickedPos();
             BlockState blockState = level.getBlockState(blockPos);
             if (blockState.is(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)) {
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     level.setBlock(blockPos, RDWoodBlocks.SPIRITUAL.strippedLog().withPropertiesOf(blockState),  Block.UPDATE_KNOWN_SHAPE);
                     itemStack.hurtWithoutBreaking(1, player);
                     CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, blockPos, itemStack);

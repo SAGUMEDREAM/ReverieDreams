@@ -20,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+@SuppressWarnings("removal")
 @Slf4j
 public class ResourcePackGenerator {
     private static final Set<String> EXPANDABLE = Set.of(
@@ -46,7 +47,8 @@ public class ResourcePackGenerator {
         long start = System.nanoTime();
         var atlas = AtlasAsset.builder();
 
-        builder.forEachFile(((string, bytes) -> {
+        builder.forEachResource(((string, packResource) -> {
+            var bytes = packResource.readAllBytes();
             for (var expandable : EXPANDABLE) {
                 for (var namespace : NAMESPACES) {
                     var polymerify_namespace = namespace + "_polymerify";

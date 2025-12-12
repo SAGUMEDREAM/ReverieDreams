@@ -51,7 +51,7 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
         ItemStack itemStack = user.getItemInHand(hand);
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             var cooldownManager = user.getCooldowns();
             if (cooldownManager.isOnCooldown(itemStack)) {
                 return InteractionResult.FAIL;

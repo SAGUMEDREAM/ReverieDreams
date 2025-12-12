@@ -14,7 +14,7 @@ public class OreEspEntity extends Display.BlockDisplay {
     @Override
     public void tick() {
         super.tick();
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide()) return;
         this.lifetime--;
         if (lifetime <= 0||this.level().getBlockState(this.blockPosition()).getBlock()!=this.getBlockState().getBlock()) {
             this.remove(RemovalReason.DISCARDED);

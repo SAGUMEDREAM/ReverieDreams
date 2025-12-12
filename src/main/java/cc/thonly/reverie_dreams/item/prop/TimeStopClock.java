@@ -23,7 +23,7 @@ public class TimeStopClock extends Item {
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
         MinecraftServer server = world.getServer();
-        if (!world.isClientSide && server != null) {
+        if (!world.isClientSide() && server != null) {
             ItemStack itemStack = user.getItemInHand(hand);
             ItemCooldowns itemCooldownManager = user.getCooldowns();
             itemCooldownManager.addCooldown(itemStack, 20 * 10);

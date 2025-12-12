@@ -61,7 +61,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
     public void reverie_dreams$finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
-        if (!level.isClientSide && itemStack.isEnchanted()) {
+        if (!level.isClientSide() && itemStack.isEnchanted()) {
             RegistryAccess registryAccess = level.registryAccess();
             Registry<Enchantment> enchantmentAccess = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
             Holder.Reference<Enchantment> powerful = enchantmentAccess.getOrThrow(RDEnchantments.POWERFUL);
@@ -79,7 +79,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
     public void reverie_dreams$finishEatFood(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
         if (!(livingEntity instanceof ServerPlayer serverPlayer)) {
@@ -132,7 +132,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = level.getBlockState(blockPos);
         if (blockState.is(RDWoodBlocks.SPIRITUAL.strippedLog())) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 cir.cancel();
             } else {

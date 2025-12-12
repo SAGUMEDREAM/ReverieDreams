@@ -28,7 +28,7 @@ public class YukaFlowerUmbrella extends SwordItem {
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         super.use(level, player, interactionHand);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             player.addEffect(new MobEffectInstance(MobEffects.SPEED, 15, 4));
             return InteractionResult.PASS;
         }

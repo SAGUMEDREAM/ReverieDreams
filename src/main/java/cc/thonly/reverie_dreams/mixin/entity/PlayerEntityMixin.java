@@ -66,7 +66,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
         if (this.hasInfiniteMaterials()) {
             return;
         }
-        MinecraftServer server = this.getServer();
+        MinecraftServer server = this.level().getServer();
         Level world = this.level();
         if (server == null) {
             return;
@@ -94,7 +94,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
         if (!ReverieDreamsConfiguration.ENABLE_GHOST_SPAWN) {
             return;
         }
-        var server = this.getServer();
+        var server = this.level().getServer();
         if (server == null) {
             return;
         }

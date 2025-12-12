@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
@@ -34,13 +36,13 @@ public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implemen
     private long color = -1;
 
     public SpawnEggItem(String identifier, EntityType<? extends Mob> type, Properties settings) {
-        super(type, settings.setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(identifier))).component(DataComponents.DYED_COLOR, DEFAULT_COLOR));
+        super(settings.component(DataComponents.ENTITY_DATA, TypedEntityData.of(type, new CompoundTag())).setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(identifier))).component(DataComponents.DYED_COLOR, DEFAULT_COLOR));
         this.identifier = ReverieDreams.id(identifier);
         SPAWN_EGGS.add(this);
     }
 
     public SpawnEggItem(ResourceLocation identifier, EntityType<? extends Mob> type, Properties settings) {
-        super(type, settings.setId(ResourceKey.create(Registries.ITEM, identifier)).component(DataComponents.DYED_COLOR, DEFAULT_COLOR));
+        super(settings.component(DataComponents.ENTITY_DATA, TypedEntityData.of(type, new CompoundTag())).setId(ResourceKey.create(Registries.ITEM, identifier)).component(DataComponents.DYED_COLOR, DEFAULT_COLOR));
         this.identifier = identifier;
         SPAWN_EGGS.add(this);
     }

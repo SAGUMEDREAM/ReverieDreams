@@ -14,7 +14,7 @@ public class WakeUpGoal extends Goal {
     @Override
     public boolean canUse() {
         Level world = this.entity.level();
-        return !world.isClientSide && this.entity.level().isBrightOutside();
+        return !world.isClientSide() && this.entity.level().isBrightOutside();
     }
 
     @Override

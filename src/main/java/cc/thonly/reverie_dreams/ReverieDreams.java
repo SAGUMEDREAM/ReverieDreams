@@ -214,7 +214,7 @@ public class ReverieDreams implements ModInitializer {
         });
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
-            MinecraftServer server = target.getServer();
+            MinecraftServer server = target.level().getServer();
             if (server != null && target.level() instanceof ServerLevel serverWorld && Unit.INSTANCE.equals(stack.getOrDefault(RDDataComponents.SILVER_ITEM, null))) {
                 RegistryAccess.Frozen registryAccess = server.registryAccess();
                 Registry<EntityType<?>> entityTypes = registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
@@ -234,7 +234,7 @@ public class ReverieDreams implements ModInitializer {
         });
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
-            MinecraftServer server = target.getServer();
+            MinecraftServer server = target.level().getServer();
             ItemStack itemStack = attacker.getItemInHand(InteractionHand.MAIN_HAND);
             if (server != null && !itemStack.isEmpty()) {
                 Level world = target.level();
@@ -282,7 +282,7 @@ public class ReverieDreams implements ModInitializer {
         });
 
         ItemPostHitCallback.EVENT.register((stack, target, attacker) -> {
-            MinecraftServer server = target.getServer();
+            MinecraftServer server = target.level().getServer();
             if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST && stack.getItem() == RDItems.ROKANKEN) {
                 DamageSources damageSources = attacker.damageSources();
                 target.lastHurt = 0;

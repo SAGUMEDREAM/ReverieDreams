@@ -12,10 +12,7 @@ import cc.thonly.reverie_dreams.util.network.NetUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.dialog.*;
@@ -130,7 +127,7 @@ public class DialogInit {
                                         Component.empty()
                                                 .append(Component.translatable(RDWoodBlocks.SPIRITUAL.strippedLog().getDescriptionId()))
                                                 .append(Component.literal(" - "))
-                                                .append(Component.literal("§c\u999a").setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))))
+                                                .append(Component.literal("§c\u999a").setStyle(Style.EMPTY.withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
                                                 .append(Component.literal(" * 3"))
                                         , 200)
 
@@ -139,7 +136,7 @@ public class DialogInit {
                                         Component.empty()
                                                 .append(Component.translatable(RDBlocks.GENSOKYO_ALTAR.getDescriptionId()))
                                                 .append(Component.literal(" - "))
-                                                .append(Component.literal("§e\u999a").setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))))
+                                                .append(Component.literal("§e\u999a").setStyle(Style.EMPTY.withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
                                                 .append(Component.literal(""))
                                         , 200)
                                 ), true, true, 16, 16),
@@ -490,7 +487,7 @@ public class DialogInit {
                 MutableComponent result = Component.empty();
 //                result.append(" ");
                 result.append(Component.literal(token.replace("⏹", "\u999a"))
-                        .setStyle(Style.EMPTY.withFont(ReverieDreams.id("reverie_dreams"))));
+                        .setStyle(Style.EMPTY.withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))));
 //                result.append(" ");
                 list.add(new ActionButton(
                         new CommonButtonData(result, 30),

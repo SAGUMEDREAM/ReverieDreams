@@ -28,7 +28,7 @@ public class DreamPillowItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         Level world = context.getLevel();
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer) {
             boolean sneaking = player.isShiftKeyDown();
             ItemStack itemStack = player.getItemInHand(context.getHand());
             BlockPos blockPos = context.getClickedPos();

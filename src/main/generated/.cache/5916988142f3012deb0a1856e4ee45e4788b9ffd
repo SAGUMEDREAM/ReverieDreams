@@ -1,4 +1,4 @@
-// 1.21.7	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Dynamic Registry Provider
+// 1.21.10	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Dynamic Registry Provider
 ee0f85c2551d19b1b6d09f3cadae129f28ec866c data/reverie_dreams/damage_type/danmaku_generic.json
 ee0f85c2551d19b1b6d09f3cadae129f28ec866c data/reverie_dreams/damage_type/danmaku_real.json
 00251b7ccdbdb5baaaf4bd6566138cfc1512d3a0 data/reverie_dreams/dimension/dream_world.json
@@ -29,7 +29,7 @@ b5d1fd6beec71cd2baf5092074b9739f43338362 data/reverie_dreams/worldgen/configured
 6c94aec1212bf3a4ff1073d51174879963240d70 data/reverie_dreams/worldgen/configured_feature/spiritual_tree.json
 0322ea25c738efda67c15f11140eb47cfe36b8eb data/reverie_dreams/worldgen/configured_feature/tremella_flower.json
 a72525ed18834a0a4c842e957b4b5426f2c73676 data/reverie_dreams/worldgen/configured_feature/udumbara_flower.json
-88f30d1dcf8efda50e35afd5efbf37e3aeba2693 data/reverie_dreams/worldgen/noise_settings/moon.json
+93b010ec56fd6fb523cb6300250b5ccfcec4a72b data/reverie_dreams/worldgen/noise_settings/moon.json
 d97ad5f0ea1c9d85b509366b9ea076744562ffe9 data/reverie_dreams/worldgen/placed_feature/crater_large.json
 bbc8f8100673ed20b17e4f521e303e4da9ff3923 data/reverie_dreams/worldgen/placed_feature/crater_mega.json
 b2c8fea0f26efd48a9b58697794b48167eb5e328 data/reverie_dreams/worldgen/placed_feature/crater_small.json

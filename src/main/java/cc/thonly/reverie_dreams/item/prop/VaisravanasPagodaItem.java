@@ -24,7 +24,7 @@ public class VaisravanasPagodaItem extends Item {
 
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             ItemStack itemStack = user.getItemInHand(hand);
             float pitch = user.getXRot();
             float yaw = user.getYRot();

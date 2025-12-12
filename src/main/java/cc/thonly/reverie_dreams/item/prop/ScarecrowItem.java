@@ -32,7 +32,7 @@ public class ScarecrowItem extends Item {
         if (player == null) {
             return InteractionResult.FAIL;
         }
-        if (!level.isClientSide && level instanceof ServerLevel world) {
+        if (!level.isClientSide() && level instanceof ServerLevel world) {
             BlockPos blockPos2 = blockState.getCollisionShape(level, blockPos).isEmpty() ? blockPos : blockPos.relative(direction);
 
             itemStack.consume(1, player);

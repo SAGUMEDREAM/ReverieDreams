@@ -30,7 +30,7 @@ public class BombItem extends Item {
 
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             ItemStack itemStack = user.getItemInHand(hand);
             world.playSound(null, user.getX(), user.getEyeY(), user.getZ(), SoundEventInit.SPELL_CARD, user.getSoundSource(), 1.0f, 1.0f);
             List<Entity> nearbyEntities = serverWorld.getEntitiesOfClass(Entity.class, user.getBoundingBox().inflate(20), entity -> true);

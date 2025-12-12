@@ -131,13 +131,13 @@ public final class TouhouNotaUtils {
     }
 
     public static void play(LivingEntity user, String playingMusic, NoteBlockInstrument noteBlockInstrument) {
-        if (user.level().isClientSide) {
+        if (user.level().isClientSide()) {
             return;
         }
         String filename = playingMusic;
         playingMusic = playingMusic.replaceAll(" ", "_");
         playingMusic = playingMusic.toLowerCase();
-        MinecraftServer server = user.getServer();
+        MinecraftServer server = user.level().getServer();
         assert server != null;
         PlayerList playerManager = server.getPlayerList();
         Song song;

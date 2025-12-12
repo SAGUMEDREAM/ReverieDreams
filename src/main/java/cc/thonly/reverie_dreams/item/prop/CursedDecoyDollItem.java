@@ -29,7 +29,7 @@ public class CursedDecoyDollItem extends Item {
         InteractionHand hand = context.getHand();
         Level world = context.getLevel();
         BlockPos blockPos = context.getClickedPos().above();
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayer) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayer) {
             ItemStack stackInHand = serverPlayer.getItemInHand(hand);
             ArmorStand armorStandEntity = new ArmorStand(serverWorld, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
             armorStandEntity.setYRot(player.getYRot());

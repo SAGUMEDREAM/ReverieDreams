@@ -19,7 +19,7 @@ public class DanmakuShapeCreatorItem extends Item {
 
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
-        if (!world.isClientSide && user instanceof ServerPlayer player) {
+        if (!world.isClientSide() && user instanceof ServerPlayer player) {
             SimpleGui gui = new DanmakuShapeEditGui(player, user.getItemInHand(hand), hand);
             gui.open();
             return InteractionResult.SUCCESS_SERVER;

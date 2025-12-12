@@ -47,7 +47,7 @@ public class NueTrident extends MiningToolItem implements ProjectileItem {
 
     @Override
     public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity user) {
-        if (!world.isClientSide && user instanceof ServerPlayer player) {
+        if (!world.isClientSide() && user instanceof ServerPlayer player) {
             boolean b = super.canDestroyBlock(stack, state, world, pos, user);
             return b && !player.hasInfiniteMaterials();
         }

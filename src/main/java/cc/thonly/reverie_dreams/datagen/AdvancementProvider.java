@@ -212,7 +212,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
         DisplayInfo displayInfo = new DisplayInfo(new ItemStack(item),
                 RDAdvancements.getTitleComponent(key),
                 RDAdvancements.getDescriptionComponent(key),
-                AdvancementProvider.root ? Optional.of(RDAdvancements.ADVANCEMENT_BACKGROUND).map(ClientAsset::new): Optional.empty(),
+                AdvancementProvider.root ? Optional.of(RDAdvancements.ADVANCEMENT_BACKGROUND).map(ClientAsset.ResourceTexture::new): Optional.empty(),
                 type,
                 true,
                 true,

@@ -230,7 +230,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 player.startRiding(this);
             }
             return InteractionResult.SUCCESS;

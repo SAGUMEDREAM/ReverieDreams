@@ -30,7 +30,7 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
     protected Item seed;
 
     protected AbstractCropBlock(Properties settings) {
-        super(settings.noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.CROP));
+        super(settings.noOcclusion().noCollision().randomTicks().instabreak().sound(SoundType.CROP));
         this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
     }
 

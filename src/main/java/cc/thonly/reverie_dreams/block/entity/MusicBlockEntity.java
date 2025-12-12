@@ -74,7 +74,7 @@ public class MusicBlockEntity extends BlockEntity {
             return -1;
         }
 
-        if (this.level != null && !this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide()) {
             TouhouNotaUtils.playAt(level, worldPosition, select);
         }
         return filenames.indexOf(select);

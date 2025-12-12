@@ -68,7 +68,7 @@ public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, Bu
 
     private Tuple<Block, Item> registerBlock() {
         Tuple<Block, Item> pair = new Tuple<>(null, null);
-        Block left = RDBlocks.registerSimpleBlock(this.registryKey, (settings) -> new BaseFumoBlock(this.offset, settings.noCollission()), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
+        Block left = RDBlocks.registerSimpleBlock(this.registryKey, (settings) -> new BaseFumoBlock(this.offset, settings.noCollision()), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
         pair.setA(left);
         pair.setB(left.asItem());
         return pair;

@@ -34,7 +34,7 @@ public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity 
     }
 
     public void setTileProjectileData(List<SynchedEntityData.DataValue<?>> data, boolean initial) {
-        if (initial && !this.danmakuEntity.level().isClientSide) {
+        if (initial && !this.danmakuEntity.level().isClientSide()) {
             var sendBase = true;
             SynchedEntityData.DataValue<?> rRoll = null;
             for (int i = 0; i < data.size(); i++) {

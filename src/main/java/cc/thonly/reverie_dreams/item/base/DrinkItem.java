@@ -39,7 +39,7 @@ public class DrinkItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             List<DrinkProperty> allProperties = DrinkProperty.getAllProperties(stack);
             for (DrinkProperty property : allProperties) {
                 property.use(serverWorld, user);

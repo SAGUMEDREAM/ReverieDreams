@@ -24,7 +24,7 @@ public class UpgradedHealthItem extends Item {
 
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && user instanceof ServerPlayer player) {
             ItemStack itemStack = user.getItemInHand(hand);
             AttributeInstance maxHealthAttributeInstance = user.getAttribute(Attributes.MAX_HEALTH);
             if (maxHealthAttributeInstance != null && maxHealthAttributeInstance.getValue() + 2 > ReverieDreamsConfiguration.MAX_UPGRADED_HEALTH_VALUE) {

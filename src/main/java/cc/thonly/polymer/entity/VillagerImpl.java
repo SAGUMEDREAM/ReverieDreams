@@ -16,8 +16,8 @@ public record VillagerImpl(AbstractSellerEntity seller) implements PolymerEntity
     @Override
     public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
         PolymerEntity.super.modifyRawTrackedData(data, player, initial);
-        if (initial && !this.seller.level().isClientSide) {
-            MinecraftServer server = this.seller.getServer();
+        if (initial && !this.seller.level().isClientSide()) {
+            MinecraftServer server = this.seller.level().getServer();
             assert server != null;
             VillagerData modifyData = this.seller.getModifyVillagerData(server);
 

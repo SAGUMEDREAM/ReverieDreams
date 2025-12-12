@@ -75,7 +75,7 @@ public class NPCSmeltGoal extends Goal {
             return false;
         }
 
-        MinecraftServer server = this.roleEntity.getServer();
+        MinecraftServer server = this.roleEntity.level().getServer();
         CookingInputRecipeManager instance = CookingInputRecipeManager.getInstance();
         if (server != null && instance.isEmpty()) {
             instance.load(server);

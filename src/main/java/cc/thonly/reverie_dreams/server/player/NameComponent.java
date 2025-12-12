@@ -35,7 +35,7 @@ public class NameComponent implements PlayerComponent<NameComponent> {
     public void onLoad() {
         this.name = this.player.getName();
         GameProfile gameProfile = this.player.getGameProfile();
-        this.playerName = gameProfile.getName();
+        this.playerName = gameProfile.name();
     }
 
     @Override

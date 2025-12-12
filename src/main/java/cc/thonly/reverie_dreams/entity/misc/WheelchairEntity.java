@@ -178,7 +178,7 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         Level world = player.level();
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 player.startRiding(this);
             }
             return InteractionResult.SUCCESS;

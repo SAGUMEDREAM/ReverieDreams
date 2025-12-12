@@ -14,6 +14,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 
+@SuppressWarnings("deprecation")
 public class ServerResourceHelper {
     public static void init() {
         ResourceManagerHelper helper = ResourceManagerHelper.get(PackType.SERVER_DATA);

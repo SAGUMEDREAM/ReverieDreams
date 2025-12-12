@@ -71,7 +71,7 @@ public class BaseFumoBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             world.playSound(null, pos, SoundEventInit.randomFumo(), SoundSource.BLOCKS, 1f, 1);
             return InteractionResult.SUCCESS_SERVER;
         }
@@ -80,7 +80,7 @@ public class BaseFumoBlock extends HorizontalDirectionalBlock {
 
     @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.5f, 1);
         }
         super.setPlacedBy(world, pos, state, placer, itemStack);

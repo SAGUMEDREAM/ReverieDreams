@@ -73,7 +73,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     @Override
     public void tick() {
         Level world = this.level();
-        if (!world.isClientSide && world.isBrightOutside()) {
+        if (!world.isClientSide() && world.isBrightOutside()) {
             this.stopSleeping();
         }
         this.attractNearbyExperienceOrbs();
@@ -86,7 +86,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     }
 
     public void attractNearbyExperienceOrbs() {
-        if (this.level().isClientSide) return; // 只在服务端处理
+        if (this.level().isClientSide()) return; // 只在服务端处理
 
         double radius = 7.0;
         List<ExperienceOrb> orbs = this.level().getEntitiesOfClass(
@@ -118,7 +118,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         Level world = this.level();
-        if (world.isClientSide || !(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayerEntity)) {
+        if (world.isClientSide() || !(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayerEntity)) {
             return super.mobInteract(player, hand);
         }
         return NPCRoleInteractionEvents.emit(serverWorld, serverPlayerEntity, hand, this);

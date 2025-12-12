@@ -72,7 +72,7 @@ public class NPCChestClassificationGoal extends Goal {
     public boolean canUse() {
         boolean can = EntityTargetUtil.isThisWorkMode(this.roleEntity, NPCWorkModes.CHEST_CLASSIFICATION);
 //        System.out.println("[canStart] Work mode check: " + can);
-        MinecraftServer server = this.roleEntity.getServer();
+        MinecraftServer server = this.roleEntity.level().getServer();
         if (server != null && ItemCateManager.getInstance().isEmpty()) {
             ItemCateManager.getInstance().load(server);
 //            System.out.println("[canStart] ItemTagManager loaded");

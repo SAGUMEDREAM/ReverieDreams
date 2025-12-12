@@ -2,12 +2,15 @@ package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityAccessor;
-import cc.thonly.reverie_dreams.mixin.accessor.PlayerEntityAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.AvatarAccessor;
+import com.google.common.collect.ImmutableMultimap;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.datafixers.util.Pair;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
+import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.network.chat.Component;
@@ -20,6 +23,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerPlayerConnection;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -50,12 +54,10 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
 
     @Override
     default void onBeforeSpawnPacket(ServerPlayer player, Consumer<Packet<?>> packetConsumer) {
-        ClientboundPlayerInfoUpdatePacket packet = PolymerEntityUtils.createMutablePlayerListPacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER));
-        GameProfile profile = new GameProfile(this.getEntity().getUUID(), "");
-        profile.getProperties().put("textures", this.getSkin());
-        List<ClientboundPlayerInfoUpdatePacket.Entry> entries = packet.entries();
-        entries.add(new ClientboundPlayerInfoUpdatePacket.Entry(
-                profile.getId(),
+        var packet = PolymerEntityUtils.createMutablePlayerListPacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER));
+        var profile = new GameProfile((this.getEntity()).getUUID(), "", new PropertyMap(ImmutableMultimap.of("textures", this.getSkin())));
+        packet.entries().add(new ClientboundPlayerInfoUpdatePacket.Entry(
+                profile.id(),
                 profile,
                 false,
                 Integer.MAX_VALUE,
@@ -63,8 +65,8 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
                 Component.empty(),
                 true,
                 0,
-                null)
-        );
+                null
+        ));
         packetConsumer.accept(packet);
     }
 
@@ -75,14 +77,21 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
 
     @Override
     default void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
-        data.add(SynchedEntityData.DataValue.create(
-                PlayerEntityAccessor.getPlayerModelParts(),
-                (byte) (0xFF & ~0x01)
-        ));
-        data.add(SynchedEntityData.DataValue.create(
-                EntityAccessor.getNameVisible(),
-                false
-        ));
+        data.removeIf(x -> x.id() >= AvatarAccessor.getPlayerMainHand().id());
+        if (initial) {
+            data.add(SynchedEntityData.DataValue.create(
+                    AvatarAccessor.getPlayerModelParts(),
+                    (byte) (0xFF & ~0x01)
+            ));
+            data.add(SynchedEntityData.DataValue.create(
+                    AvatarAccessor.getPlayerMainHand(),
+                    (byte) (PolymerResourcePackUtils.hasMainPack(player) ? 0x3E : 0xFE))
+            );
+            data.add(SynchedEntityData.DataValue.create(
+                    EntityAccessor.getNameVisible(),
+                    false
+            ));
+        }
     }
 
     default void onTrackingStopped(ServerPlayer player) {

@@ -74,9 +74,7 @@ public class TranslationWrapper implements ITranslationExporter {
         if (content instanceof TranslatableContents translatableTextContent) {
             this.translationBuilder.add(translatableTextContent.getKey(), value);
         } else {
-            ComponentContents.Type<?> type = content.type();
-            String string = type.getSerializedName();
-            log.error("Can't get translatable text content in item group {}", string);
+            log.error("Can't get translatable text content in item group {}", itemGroup);
         }
         return this;
     }

@@ -24,7 +24,7 @@ public class ExorcismPaperItem extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
         Level world = user.level();
         RegistryAccess registryManager = world.registryAccess();
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             if (entity != null && EntityUtil.isInTag(registryManager, entity, EntityTypeTags.UNDEAD)) {
                 entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, EFFECT_TICK, 100));
                 entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, EFFECT_TICK, 100));

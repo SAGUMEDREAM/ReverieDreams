@@ -58,7 +58,7 @@ public class CustomChestBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             if (!(world.getBlockEntity(pos) instanceof CustomChestBlockEntity chestBlockEntity)) {
                 return InteractionResult.FAIL;
             }

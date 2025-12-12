@@ -94,11 +94,6 @@ public class UfoEntity extends Monster implements Enemy {
         this.entityData.set(DATA_IS_CHARGING, bl);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return true;
-    }
-
     private static boolean isReflectedFireball(DamageSource damageSource) {
         return damageSource.getDirectEntity() instanceof LargeFireball && damageSource.getEntity() instanceof Player;
     }

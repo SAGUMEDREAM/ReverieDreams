@@ -34,7 +34,7 @@ public class AbstractBlockMixin {
 
     @Inject(method = "useWithoutItem", cancellable = true, at = @At("HEAD"))
     public void onUseInject(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
-        if (world.isClientSide) {
+        if (world.isClientSide()) {
             if (Minecraft.getInstance().getSingleplayerServer() != null) {
                if (Minecraft.getInstance().getSingleplayerServer().isDedicatedServer()) {
                     if (ReverieDreamsClient.SERVER_SIDE_BLOCKS.contains(state.getBlock())) {

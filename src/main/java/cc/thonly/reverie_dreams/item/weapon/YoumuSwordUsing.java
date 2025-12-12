@@ -17,7 +17,7 @@ import net.minecraft.world.phys.AABB;
 public interface YoumuSwordUsing {
     default InteractionResult useItem(Level world, Player user, InteractionHand hand) {
         var pThis = (Item) this;
-        if (!world.isClientSide && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             var itemStack = user.getItemInHand(hand);
             var server = serverWorld.getServer();
             var registryManager = server.registryAccess();
