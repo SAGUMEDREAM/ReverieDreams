@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.item.prop.debug;
+package cc.thonly.reverie_dreams.item.debug;
 
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;

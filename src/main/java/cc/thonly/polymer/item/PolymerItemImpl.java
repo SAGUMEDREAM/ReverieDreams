@@ -35,6 +35,9 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
         if (this.item instanceof TenguShieldItem) {
             return Items.TRIAL_KEY;
         }
+        if (this.item instanceof BlockItem) {
+            return Items.RABBIT_FOOT;
+        }
         return this.item instanceof ShieldItem ? Items.SHIELD : Items.TRIAL_KEY;
     }
 
@@ -43,10 +46,10 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
         return actionResult.consumesAction();
     }
 
-    @Override
-    public boolean isIgnoringBlockInteractionPlaySoundExceptedEntity(BlockState state, ServerPlayer player, InteractionHand hand, ItemStack stack, ServerLevel world, BlockHitResult blockHitResult) {
-        return this.item instanceof BlockItem;
-    }
+//    @Override
+//    public boolean isIgnoringBlockInteractionPlaySoundExceptedEntity(BlockState state, ServerPlayer player, InteractionHand hand, ItemStack stack, ServerLevel world, BlockHitResult blockHitResult) {
+//        return this.item instanceof BlockItem;
+//    }
 
 //    @Override
 //    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {

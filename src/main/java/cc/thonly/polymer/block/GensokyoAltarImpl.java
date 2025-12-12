@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
+import eu.pb4.factorytools.api.virtualentity.FastItemDisplayElement;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
@@ -54,6 +55,7 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
         private ServerLevel world;
         private GensokyoAltarBlockEntity blockEntity;
         private SimpleContainer inventory;
+        public float angle = 0;
 
         public Model(ServerLevel world, BlockPos pos, BlockState state) {
             init(state);
@@ -68,8 +70,6 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
             }
             return (GensokyoAltarBlockEntity) this.world.getBlockEntity(this.pos);
         }
-
-        public float angle = 0;
 
         public void update() {
             this.blockEntity = this.getBlockEntityFromWorld();
@@ -93,7 +93,7 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
                         this.removeElement(element);
                     }
 
-                    ItemDisplayElement newElement = ItemDisplayElementUtil.createSimple(stack);
+                    FastItemDisplayElement newElement = new FastItemDisplayElement(stack.copy());
                     int[] offset = GensokyoAltarBlock.OFFSETS[i];
                     newElement.setScale(new Vector3f(i != 8 ? 0.6f : 0.5f));
                     newElement.setDisplaySize(0.5f, 0.5f);

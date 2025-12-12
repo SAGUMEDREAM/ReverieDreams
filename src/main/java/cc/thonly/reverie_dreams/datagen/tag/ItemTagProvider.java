@@ -121,7 +121,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         danmaku.add(RDItems.KNIFE);
 
         // === 自定义方块 ===
-        valueLookupBuilder(ItemTags.PLANKS).addAll(WoodCreator.INSTANCES.stream().map(ins->ins.planks().asItem()));
+        valueLookupBuilder(ItemTags.PLANKS).addAll(WoodCreator.INSTANCES.stream().map(ins -> ins.planks().asItem()));
         valueLookupBuilder(RDItemTags.ORB_BLOCK).add(
                 RDBlocks.RED_ORB_BLOCK.asItem(),
                 RDBlocks.YELLOW_ORB_BLOCK.asItem(),
@@ -146,6 +146,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ConventionalItemTags.FOODS).addAll(RDFoodItems.FOOD_ITEMS);
         valueLookupBuilder(RDItemTags.PEACH).add(RDIngredientItems.PEACH);
         valueLookupBuilder(RDItemTags.REPLACEABLE_BLANK_PHOTOS).add(RDItems.EMPTY_PHOTO);
+
+        valueLookupBuilder(RDItemTags.MUSICAL_INSTRUMENTS).add(RDItems.KEYBOARD, RDItems.VIOLIN, RDItems.TRUMPET);
+        valueLookupBuilder(RDItemTags.COINS).add(RDItems.COPPER_COIN, RDItems.SILVER_COIN, RDItems.GOLD_COIN);
 
         // === 方块物品分类 ===
         Map<TagKey<Item>, Collection<? extends ItemLike>> blockItemGroups = Map.of(

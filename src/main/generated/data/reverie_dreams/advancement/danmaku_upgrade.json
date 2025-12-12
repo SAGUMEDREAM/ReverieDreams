@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:danmaku_wars",
+  "criteria": {
+    "get_danmaku_upgrade": {
+      "conditions": {
+        "trigger": "reverie_dreams:danmaku_upgrade"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.danmaku_upgrade"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.danmaku_upgrade"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_danmaku_upgrade"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

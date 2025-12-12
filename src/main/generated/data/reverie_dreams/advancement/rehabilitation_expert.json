@@ -1,0 +1,47 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "kill_yokai": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#reverie_dreams:yokai"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.rehabilitation_expert"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:wind_blessing_cane"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.rehabilitation_expert"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "kill_yokai"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

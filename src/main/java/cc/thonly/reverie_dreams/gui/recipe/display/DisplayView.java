@@ -29,7 +29,7 @@ public interface DisplayView {
     default GuiElementBuilder getGuiElementBuilder(ItemStackWrapper recipe) {
         GuiElementBuilder guiElementBuilder = new GuiElementBuilder();
         IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) guiElementBuilder;
-        accessor.setItemStack(recipe.getItemStack());
+        accessor.reverie_dreams$setItemStack(recipe.getItemStack());
         return guiElementBuilder;
     }
 

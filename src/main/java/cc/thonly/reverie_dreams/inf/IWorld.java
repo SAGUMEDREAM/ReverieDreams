@@ -11,11 +11,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 public interface IWorld {
-    public ResourceKey<Level> getDreamWorld();
+    public ResourceKey<Level> reverie_dreams$getDreamWorldKey();
 
-    public ResourceKey<Level> getMoon();
+    public ResourceKey<Level> reverie_dreams$getMoonKey();
 
-    public static boolean isInWorld(Entity entity, ResourceKey<Level> registryKey) {
+    public static boolean reverie_dreams$isInWorld(Entity entity, ResourceKey<Level> registryKey) {
         RegistryAccess registryManager = entity.registryAccess();
         Optional<Registry<Level>> lookupOptional = registryManager.lookup(Registries.DIMENSION);
         if (lookupOptional.isEmpty()) {
@@ -23,10 +23,10 @@ public interface IWorld {
         }
         Registry<Level> worldLookup = lookupOptional.get();
         Level world = worldLookup.getValue(registryKey);
-        return isInWorld(entity, world);
+        return reverie_dreams$isInWorld(entity, world);
     }
 
-    public static boolean isInWorld(Entity entity, Level world) {
+    public static boolean reverie_dreams$isInWorld(Entity entity, Level world) {
         if (world == null) {
             return false;
         }

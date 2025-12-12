@@ -2,16 +2,19 @@ package cc.thonly.reverie_dreams.util.network;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.util.Arrays;
 
 @Slf4j
 public class ModrinthAPI {
@@ -79,7 +82,8 @@ public class ModrinthAPI {
             case "alpha" -> 0;
             case "beta" -> 1;
             case "", "stable", "release" -> 2;
-            default -> 3;
+            case "lts" -> 3;
+            default -> 4;
         };
     }
 
@@ -103,12 +107,31 @@ public class ModrinthAPI {
             conn.disconnect();
 
             if (!jsonArray.isEmpty()) {
+                String minecraftVersion = getMinecraftVersion();
+                for (JsonElement element : jsonArray) {
+                    Entry entry = new Gson().fromJson(element, Entry.class);
+                    if (entry.game_versions != null) {
+                        for (String gameVersion : entry.game_versions) {
+                            if (!gameVersion.startsWith(minecraftVersion)) {
+                                continue;
+                            }
+                            return entry;
+                        }
+                    }
+                }
                 return new Gson().fromJson(jsonArray.get(0), Entry.class);
             }
         } catch (Exception e) {
             log.error("Can't get new version");
         }
         return null;
+    }
+
+    public static String getMinecraftVersion() {
+        return FabricLoader.getInstance()
+                .getModContainer("minecraft")
+                .map(container -> container.getMetadata().getVersion().getFriendlyString())
+                .orElse("unknown");
     }
 
     @Getter
@@ -119,6 +142,7 @@ public class ModrinthAPI {
         String version_number;
         String changelog;
         String date_published;
+        String[] game_versions;
         int downloads;
 
         FileInfo[] files;

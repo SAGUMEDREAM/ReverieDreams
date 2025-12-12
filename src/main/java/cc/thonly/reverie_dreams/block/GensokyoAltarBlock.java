@@ -6,7 +6,10 @@ import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -72,6 +75,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
                     inventory.setItem(8, craft.getOutput().getItemStack().copy());
                     world.playSound(null, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS);
                     blockEntity.setChanged();
+                    SimpleTriggerFactory.create(SimpleTriggerKeys.GENSOKYO_ALTAR_CRAFTING).trigger(serverPlayer);
                 } else {
                     serverPlayer.displayClientMessage(Component.translatable("message.gensokyo_altar.miss_recipe"), false);
                 }

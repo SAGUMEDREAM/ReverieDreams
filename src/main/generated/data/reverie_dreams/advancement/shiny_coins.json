@@ -1,0 +1,43 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "get_coin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#reverie_dreams:coins"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.shiny_coins"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:gold_coin"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.shiny_coins"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_coin"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

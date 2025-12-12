@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
@@ -88,6 +89,7 @@ public class TenguCameraItem extends Item {
                     if (!finalCunsumeStack.isEmpty()) {
                         finalCunsumeStack.consume(1, player);
                     }
+                    RDCriteriaTriggers.USE_ITEM.trigger(serverPlayer, finalCunsumeStack);
                     this.finalize(mapImage, serverPlayer);
                 }, level.getServer());
             } catch (Exception err) {

@@ -15,6 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;

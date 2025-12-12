@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:cooking_by_myself",
+  "criteria": {
+    "eat_cooked_food": {
+      "conditions": {
+        "trigger": "reverie_dreams:eat_food"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.delicacy"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:food/rice_ball"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.delicacy"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "eat_cooked_food"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

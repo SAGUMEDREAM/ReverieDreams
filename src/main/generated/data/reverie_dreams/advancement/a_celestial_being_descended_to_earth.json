@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:touhou_mystias_izakaya",
+  "criteria": {
+    "a_celestial_being_descended_to_earth": {
+      "conditions": {
+        "trigger": "reverie_dreams:eat_peach"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.a_celestial_being_descended_to_earth"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:ingredient/peach"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.a_celestial_being_descended_to_earth"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "a_celestial_being_descended_to_earth"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

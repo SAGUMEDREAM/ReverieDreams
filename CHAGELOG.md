@@ -5,13 +5,21 @@
 * Removed attack range bonuses for the umbrella and scythe (unstable)
 * Updated with new en_us content for the previous update
 * Updated with new zh_tw content for the previous update
+* Updated Mod Icon
 * Added Japanese ja_jp translation (experimental)
+* Added Chinese (Hong Kong) zh_hk translation (experimental)
 * Added English en_gb translation (experimental)
+* Added a series of achievements
+* Added restrictions on the generation of some creatures
+* Added Texture for Scarecrow Entity
+* Added item Satori Eye
 * Remove DynamicRegistryModifier Lib dependencies
 * Muted polymerify warn logger in client
 * Setting up a collision box for Gensokyo Altar Block
 * Fixed Missing CD Music
 * Remove some useless code
+* Change the serialization of kitchenware output items and villager conversion data
+* Development of version 1.21.8 has concluded. This mod will now be migrated to version 1.21.10, which will serve as the final stable version for maintenance.
 
 # 0.4.8+1.21.7
 * Added the Note Danmaku (Block face reflecting when hit block )

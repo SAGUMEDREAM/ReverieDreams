@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:wood_with_spiritual_power",
+  "criteria": {
+    "crafting_in_gensokyo_altar": {
+      "conditions": {
+        "trigger": "reverie_dreams:gensokyo_altar_crafting"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.gensokyo_altar_crafting"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:gensokyo_altar"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.gensokyo_altar_crafting"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "crafting_in_gensokyo_altar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

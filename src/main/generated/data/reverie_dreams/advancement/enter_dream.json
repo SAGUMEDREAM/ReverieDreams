@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "enter_dream": {
+      "conditions": {
+        "to": "reverie_dreams:dream_world"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.enter_dream"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:red_bed"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.enter_dream"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "enter_dream"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

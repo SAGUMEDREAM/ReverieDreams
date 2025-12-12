@@ -7,6 +7,8 @@ import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;
 import lombok.Getter;
@@ -63,7 +65,7 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
             this.output = new GuiElementBuilder()
                     .setCallback((index, type, action) -> click());
             IGuiElementBuilderAccessor outputAccessor = (IGuiElementBuilderAccessor) this.output;
-            outputAccessor.setItemStack(outputItemWrapper.getItemStack().copy());
+            outputAccessor.reverie_dreams$setItemStack(outputItemWrapper.getItemStack().copy());
         } else {
             this.output = new GuiElementBuilder().setItem(Items.AIR);
         }
@@ -94,6 +96,7 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
         } else {
             this.output.setItem(Items.AIR);
         }
+        SimpleTriggerFactory.create(SimpleTriggerKeys.DANMAKU_UPGRADE).trigger(this.player);
         this.player.playNotifySound(SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
     }
 

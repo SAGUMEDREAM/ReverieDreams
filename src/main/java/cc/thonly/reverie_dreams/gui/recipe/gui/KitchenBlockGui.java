@@ -17,6 +17,8 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.component.DataComponents;
@@ -136,6 +138,9 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         }
         List<String> tagList = new ArrayList<>(propertyIds);
         base.set(RDDataComponents.FOOD_PROPERTIES, tagList);
+        if (tagList.size() >= 5) {
+            SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG).trigger(this.player);
+        }
         return new ItemStackWrapper(base.copy());
     }
 
@@ -220,7 +225,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         // 清空旧显示
         for (GuiElementBuilder builder : this.displayed.values()) {
             IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) builder;
-            accessor.setItemStack(RDGuiItems.EMPTY_SLOT.getDefaultInstance());
+            accessor.reverie_dreams$setItemStack(RDGuiItems.EMPTY_SLOT.getDefaultInstance());
         }
 
         int i = 0;
@@ -228,17 +233,19 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             if (i >= pageRecipes.size()) break;
 
             KitchenRecipe recipe = pageRecipes.get(i);
+            SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING).trigger(this.player);
             ItemStack outputShow = this.buildFoodTags(recipe, new ItemStackWrapper(recipe.getOutput().getItemStack().copy()), inputs).getItemStack();
             AtomicReference<ItemStack> output = new AtomicReference<>(outputShow);
 
             GuiElementBuilder builder = entry.getValue();
             IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) builder;
-            accessor.setItemStack(outputShow);
+            accessor.reverie_dreams$setItemStack(outputShow);
 
             builder.setCallback((slotIndex, clickType, actionType) -> {
                 ItemStack itemStack = output.get();
                 for (CraftingConflict conflict : RegistryHandlers.CRAFTING_CONFLICT.values()) {
                     if (conflict.test(itemStack)) {
+                        SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_DARK_CUISINE).trigger(this.player);
                         output.set(RDFoodItems.DARK_CUISINE.getDefaultInstance());
                     }
                 }

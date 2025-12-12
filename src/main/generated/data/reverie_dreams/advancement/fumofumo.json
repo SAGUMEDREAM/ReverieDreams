@@ -1,0 +1,43 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "get_fumo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#reverie_dreams:fumo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.fumofumo"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:fumo/cirno"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.fumofumo"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_fumo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

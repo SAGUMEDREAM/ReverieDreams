@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:touhou_mystias_izakaya",
+  "criteria": {
+    "having_drink": {
+      "conditions": {
+        "trigger": "reverie_dreams:having_drink"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.fine_wine"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:drink/beer"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.fine_wine"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "having_drink"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

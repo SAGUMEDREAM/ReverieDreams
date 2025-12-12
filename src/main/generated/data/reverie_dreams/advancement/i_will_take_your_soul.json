@@ -1,0 +1,43 @@
+{
+  "parent": "reverie_dreams:gensokyo_altar_crafting",
+  "criteria": {
+    "i_will_take_your_soul": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reverie_dreams:death_scythe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.i_will_take_your_soul"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:death_scythe"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.i_will_take_your_soul"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "i_will_take_your_soul"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

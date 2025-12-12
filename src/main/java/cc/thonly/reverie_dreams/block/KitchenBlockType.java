@@ -3,13 +3,15 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Map;
 
 public class KitchenBlockType {
-    public static final Map<Block, KitchenRecipeType.KitchenType> BLOCK_2_KITCHEN_TYPE = new Object2ObjectOpenHashMap<>();
-    public static final Map<KitchenRecipeType.KitchenType, Block> KITCHEN_TYPE_2_BLOCK = new Object2ObjectOpenHashMap<>();
+    public static final Map<Block, KitchenRecipeType.KitchenType> BLOCK_2_KITCHEN_TYPE = new Object2ObjectOpenHashMap<>(64);
+    public static final Map<KitchenRecipeType.KitchenType, Block> KITCHEN_TYPE_2_BLOCK = new Object2ObjectOpenHashMap<>(64);
 
     public static void init() {
         registerRecipeType(KitchenBlocks.COOKING_POT, KitchenRecipeType.KitchenType.COOKING_POT);
@@ -43,6 +45,13 @@ public class KitchenBlockType {
         registerRecipeType(KitchenBlocks.NUKE_STEAMER, KitchenRecipeType.KitchenType.STREAMER);
 
     }
+
+    public static ItemLike[] getBlockItemArrays() {
+        return BLOCK_2_KITCHEN_TYPE.keySet().stream()
+                .map(block -> (ItemLike) block.asItem()) // 转成 ItemLike
+                .toArray(ItemLike[]::new);
+    }
+
 
     public static void registerRecipeType(Block block, KitchenRecipeType.KitchenType recipeType) {
         BLOCK_2_KITCHEN_TYPE.put(block, recipeType);

@@ -1,0 +1,49 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "into_abandoned_shrine": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "reverie_dreams:abandoned_altar"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.abandoned_shrine"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:hakurei_cane"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.abandoned_shrine"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "into_abandoned_shrine"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

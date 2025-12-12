@@ -1,0 +1,43 @@
+{
+  "parent": "reverie_dreams:danmaku_table",
+  "criteria": {
+    "get_danmaku_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#reverie_dreams:danmaku_item"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.danmaku_wars"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:danmaku"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.danmaku_wars"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_danmaku_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

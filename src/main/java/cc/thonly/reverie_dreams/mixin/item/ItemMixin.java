@@ -3,19 +3,27 @@ package cc.thonly.reverie_dreams.mixin.item;
 import cc.thonly.minecraft.api.ItemPostHitCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.inf.IPlayerEntity;
+import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.item.base.FoodItem;
 import cc.thonly.reverie_dreams.item.base.IngredientItem;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import com.google.common.base.Objects;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -62,7 +70,35 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
             if (enchantLevel >= 1) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 20));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 20));
+                if (livingEntity instanceof ServerPlayer serverPlayer) {
+                    SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_PEACH).trigger(serverPlayer);
+                }
             }
+        }
+    }
+
+    @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
+    public void reverie_dreams$finishEatFood(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+        if (level.isClientSide) {
+            return;
+        }
+        if (!(livingEntity instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+        Item item = itemStack.getItem();
+        if (itemStack.has(RDDataComponents.FOOD_PROPERTIES) && (item instanceof FoodItem || itemStack.has(DataComponents.FOOD))) {
+            SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
+        }
+        if (itemStack.has(RDDataComponents.DRINK_PROPERTIES) && (item instanceof DrinkItem || itemStack.has(DataComponents.FOOD))) {
+            SimpleTriggerFactory.create(SimpleTriggerKeys.HAVING_DRINK).trigger(serverPlayer);
+        }
+    }
+
+    @Inject(method = "use", at = @At("RETURN"))
+    public void reverie_dreams$advancementUseItem(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (!level.isClientSide() && !itemStack.isEmpty() && !Objects.equal(cir.getReturnValue(), InteractionResult.FAIL)) {
+            RDCriteriaTriggers.USE_ITEM.trigger((ServerPlayer) player, itemStack);
         }
     }
 

@@ -26,6 +26,7 @@ import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
 import cc.thonly.reverie_dreams.registry.content.block.*;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -89,7 +90,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.entity.FuelValues;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -145,6 +145,7 @@ public class ReverieDreams implements ModInitializer {
         BiomeModificationInit.init();
         GameRulesInit.init();
         DialogInit.bootstrap();
+        RDCriteriaTriggers.registerCriteria();
 
         // 初始化其他注册内容
         CommandInit.init();
@@ -157,6 +158,7 @@ public class ReverieDreams implements ModInitializer {
         RDLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.init();
+        CustomClickActionRegistry.registerActions();
 
         ImageToTextScanner.bootstrap();
         ItemDescriptionManager.bootstrap();

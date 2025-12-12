@@ -2,25 +2,25 @@
   "registry_key": "reverie_dreams:chinese_style",
   "properties": {
     "values": [
-      "reverie_dreams:food/the_beauty_of_han_palace",
-      "reverie_dreams:food/poetry_and_ginkgo",
-      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
-      "reverie_dreams:food/hula_soup",
-      "reverie_dreams:food/boiled_fish",
-      "reverie_dreams:food/fish_leaps_over_dragon_gate",
-      "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup",
-      "reverie_dreams:food/honey_bbq_pork",
-      "reverie_dreams:food/lotus_fish_rice_bowl",
-      "reverie_dreams:food/mapo_tofu",
-      "reverie_dreams:food/beef_hot_pot",
-      "reverie_dreams:food/colorful_jade_fried_buns",
       "reverie_dreams:food/maoyu_lava_tofu",
-      "reverie_dreams:food/dumpling",
-      "reverie_dreams:food/stinky_tofu",
+      "reverie_dreams:food/mapo_tofu",
       "reverie_dreams:food/tianshi_braised_chestnut_mushrooms",
+      "reverie_dreams:food/dumpling",
+      "reverie_dreams:food/lotus_fish_rice_bowl",
+      "reverie_dreams:food/beef_hot_pot",
+      "reverie_dreams:food/the_beauty_of_han_palace",
       "reverie_dreams:food/moonlight_over_lotus_pond",
+      "reverie_dreams:food/hula_soup",
+      "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup",
+      "reverie_dreams:food/glutinous_rice_balls",
+      "reverie_dreams:food/poetry_and_ginkgo",
+      "reverie_dreams:food/fish_leaps_over_dragon_gate",
+      "reverie_dreams:food/colorful_jade_fried_buns",
+      "reverie_dreams:food/stinky_tofu",
+      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
+      "reverie_dreams:food/honey_bbq_pork",
       "reverie_dreams:food/fried_pork_shreds",
-      "reverie_dreams:food/glutinous_rice_balls"
+      "reverie_dreams:food/boiled_fish"
     ]
   }
 }

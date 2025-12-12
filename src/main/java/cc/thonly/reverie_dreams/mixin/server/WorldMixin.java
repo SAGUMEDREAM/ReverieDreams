@@ -18,18 +18,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class WorldMixin implements LevelAccessor,
         AutoCloseable, IWorld {
 
-    @Inject(method = "playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V", at = @At("TAIL"))
-    public void onPlaySound(Entity source, BlockPos pos, SoundEvent sound, SoundSource category, float volume, float pitch, CallbackInfo ci) {
-
-    }
-
     @Override
-    public ResourceKey<Level> getDreamWorld() {
+    public ResourceKey<Level> reverie_dreams$getDreamWorldKey() {
         return WorldInit.getDreamWorld();
     }
 
     @Override
-    public ResourceKey<Level> getMoon() {
+    public ResourceKey<Level> reverie_dreams$getMoonKey() {
         return WorldInit.getMoon();
     }
 }

@@ -98,7 +98,7 @@ public class RecipeTypeCategoryManager {
                                 view.open();
                             });
                     IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                    accessor.setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                    accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
@@ -117,7 +117,7 @@ public class RecipeTypeCategoryManager {
                                 view.open();
                             });
                     IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                    accessor.setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                    accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
@@ -136,7 +136,7 @@ public class RecipeTypeCategoryManager {
                                 view.open();
                             });
                     IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                    accessor.setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                    accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
@@ -155,7 +155,7 @@ public class RecipeTypeCategoryManager {
                                 view.open();
                             });
                     IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                    accessor.setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                    accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));
@@ -174,7 +174,7 @@ public class RecipeTypeCategoryManager {
                                 view.open();
                             });
                     IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                    accessor.setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                    accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
                     gui.setSlot(gui.getGridSlot(slotIndex), icon);
                 })
         ));

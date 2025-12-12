@@ -266,12 +266,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
         ContainerHelper.saveAllItems(view, this.inventory.items);
         view.putDouble("TickLeft", this.tickLeft);
         view.putInt("WorkingState", this.workingState.getId());
-        DataResult<JsonElement> dataResult = ItemStackWrapper.CODEC.encodeStart(JsonOps.INSTANCE, this.preOutput);
-        Optional<JsonElement> result = dataResult.result();
-        if (result.isPresent()) {
-            JsonElement element = result.get();
-            view.putString("PreOutput", GSON.toJson(element));
-        }
+        view.storeNullable("PreOutput", ItemStackWrapper.CODEC, this.preOutput);
     }
 
     @Override
@@ -282,15 +277,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
         this.inventory = inventory;
         this.tickLeft = view.getDoubleOr("TickLeft", 0.0);
         this.workingState = WorkingState.getFromInt(view.getIntOr("WorkingState", 0));
-        Optional<String> pOutputOptional = view.getString("PreOutput");
-        if (pOutputOptional.isPresent()) {
-            String preOutputJson = pOutputOptional.get();
-            JsonElement json = JsonParser.parseString(preOutputJson);
-            Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-            DataResult<ItemStackWrapper> parse = ItemStackWrapper.CODEC.parse(input);
-            Optional<ItemStackWrapper> result = parse.result();
-            result.ifPresent(wrapper -> this.preOutput = wrapper);
-        }
+        view.read("PreOutput", ItemStackWrapper.CODEC).ifPresent(preOutput -> this.preOutput = preOutput);
     }
 
     public KitchenwareBlockEntity get() {
@@ -299,7 +286,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
 
     @Override
     public int[] getSlotsForFace(Direction side) {
-        return new int[] {OUTPUT_SLOT};
+        return new int[]{OUTPUT_SLOT};
     }
 
     @Override

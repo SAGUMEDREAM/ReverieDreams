@@ -174,6 +174,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.SILVER_COIN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.GOLD_COIN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SPELLCARD, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.SATORI_EYE, ModelTemplates.FLAT_ITEM);
 
         // 武器
         itemModelGenerator.generateFlatItem(RDItems.HAKUREI_CANE, ModelTemplates.FLAT_HANDHELD_ITEM);

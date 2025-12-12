@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.inf.ILivingEntity;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -39,6 +40,7 @@ public class UpgradedHealthItem extends Item {
                 maxHealthAttributeInstance.setBaseValue(user.getMaxHealth() + 2);
             }
             user.awardStat(Stats.ITEM_USED.get(this));
+            RDCriteriaTriggers.USE_ITEM.trigger(player, itemStack);
             itemStack.consume(1, user);
             return InteractionResult.SUCCESS_SERVER;
         }

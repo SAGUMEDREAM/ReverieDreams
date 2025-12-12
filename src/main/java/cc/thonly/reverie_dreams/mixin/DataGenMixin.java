@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Main.class)
 public class DataGenMixin {
     @Inject(method = "main", at = @At("HEAD"), remap = false)
-    private static void main(String[] args, CallbackInfo ci) {
+    private static void reverie_dreams$$main(String[] args, CallbackInfo ci) {
         ConstantInfo.IS_DATAGEN_MODE = true;
     }
 }

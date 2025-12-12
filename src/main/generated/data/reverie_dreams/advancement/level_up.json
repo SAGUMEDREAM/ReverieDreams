@@ -1,0 +1,41 @@
+{
+  "parent": "reverie_dreams:rehabilitation_expert",
+  "criteria": {
+    "level_up": {
+      "conditions": {
+        "item": {
+          "items": "reverie_dreams:upgraded_health"
+        }
+      },
+      "trigger": "reverie_dreams:use_item"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.level_up"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:upgraded_health"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.level_up"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "level_up"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

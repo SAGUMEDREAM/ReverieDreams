@@ -33,10 +33,14 @@ import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.entity.projectile.windcharge.WindCharge;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 @Getter
 public class UfoEntity extends Monster implements Enemy {
@@ -52,6 +56,24 @@ public class UfoEntity extends Monster implements Enemy {
 
     public UfoEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+    }
+
+    public static boolean checkSpawnRules(
+            EntityType<UfoEntity> type,
+            ServerLevelAccessor level,
+            EntitySpawnReason reason,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        int max = 3;
+        int radius = 32;
+
+        List<UfoEntity> nearby = level.getEntitiesOfClass(
+                UfoEntity.class,
+                new AABB(pos).inflate(radius)
+        );
+
+        return nearby.size() < max;
     }
 
     @Override

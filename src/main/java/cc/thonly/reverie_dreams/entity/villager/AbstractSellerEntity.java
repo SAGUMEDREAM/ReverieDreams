@@ -169,15 +169,9 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
     @Override
     protected void readAdditionalSaveData(ValueInput view) {
         super.readAdditionalSaveData(view);
-        Optional<String> prevVillagerData = view.getString("PrevVillagerData");
-        if (prevVillagerData.isPresent()) {
-            String jsonString = prevVillagerData.get();
-            JsonElement element = JsonParser.parseString(jsonString);
-            Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, element);
-            DataResult<VillagerData> parse = VillagerData.CODEC.parse(input);
-            Optional<VillagerData> result = parse.result();
-            result.ifPresent((data) -> this.prev = data);
-        }
+        view.read("PrevVillagerData", VillagerData.CODEC).ifPresent(villagerData -> {
+            this.prev = villagerData;
+        });
         this.level = view.getIntOr("Level",0);
         view.read("SellInfoData", SellInfo.CODEC).ifPresent(value-> {
             this.sellInfo = value;
@@ -187,14 +181,7 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
     @Override
     protected void addAdditionalSaveData(ValueOutput view) {
         super.addAdditionalSaveData(view);
-        if (this.prev != null) {
-            DataResult<JsonElement> dataResult = VillagerData.CODEC.encodeStart(JsonOps.INSTANCE, this.prev);
-            Optional<JsonElement> result = dataResult.result();
-            if (result.isPresent()) {
-                JsonElement element = result.get();
-                view.putString("PrevVillagerData", GSON.toJson(element));
-            }
-        }
+        view.storeNullable("PrevVillagerData", VillagerData.CODEC, this.prev);
         view.putInt("Level", this.level);
         view.storeNullable("SellInfoData", SellInfo.CODEC, this.sellInfo);
     }

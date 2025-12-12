@@ -1,6 +1,10 @@
 package cc.thonly.reverie_dreams.entity;
 
 import lombok.Getter;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -10,7 +14,11 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
+
+import java.util.List;
 
 @Getter
 public class HairballEntity extends PathfinderMob {
@@ -44,5 +52,22 @@ public class HairballEntity extends PathfinderMob {
                 .add(Attributes.FOLLOW_RANGE, 15);
     }
 
+    public static boolean checkSpawnRules(
+            EntityType<HairballEntity> type,
+            ServerLevelAccessor level,
+            EntitySpawnReason reason,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        int max = 5;
+        int radius = 32;
+
+        List<HairballEntity> nearby = level.getEntitiesOfClass(
+                HairballEntity.class,
+                new AABB(pos).inflate(radius)
+        );
+
+        return nearby.size() < max;
+    }
 
 }

@@ -1,26 +1,29 @@
 ![UnsupportForge](https://raw.githubusercontent.com/intergrav/devins-badges/c7fd18efdadd1c3f12ae56b49afd834640d2d797/assets/cozy/unsupported/forge_vector.svg)
-![UnsupportQuilt](https://raw.githubusercontent.com/intergrav/devins-badges/c7fd18efdadd1c3f12ae56b49afd834640d2d797/assets/cozy/unsupported/quilt_vector.svg)
 ![UnsupportBukkit/Banner](https://raw.githubusercontent.com/intergrav/devins-badges/c7fd18efdadd1c3f12ae56b49afd834640d2d797/assets/cozy/unsupported/bukkit_vector.svg)
 ![NEED TRANSLATE](https://raw.githubusercontent.com/intergrav/devins-badges/refs/heads/v3/assets/cozy/translate/generic-singular_vector.svg)
 
 # 🌙 Gensokyo: Reverie of Lost Dreams
 
-**Gensokyo: Reverie of Lost Dreams** is a **server-side** mod based on the *Touhou Project* universe.  
+**Gensokyo: Reverie of Lost Dreams(梦隐的幻想乡/夢見る幻想郷)** is a **server-side** mod based on the *Touhou Project* universe.  
 It is currently under active development and aims to deliver a rich danmaku-style fantasy experience, combining mystical dimensions, food systems, and original recipes.
 
-> ⚠️ This mod does not require installation on the client to connect — similar to *ItemsAdder* behavior.
+> ⚠️
+>> This mod does not require installation on the client to connect — similar to *ItemsAdder* behavior.
+>>
+>> This mod requires server resource pack, about which setup you can read here: [https://polymer.pb4.eu/latest/user/resource-pack-hosting/](https://polymer.pb4.eu/latest/user/resource-pack-hosting/)
 
 ## 🔖 Important Notes
 
 - ✅ **Client installation is not required**
-- 🔄 **Compatible with item managers** such as **Polydex** and **EIV** (But you need install [polydex2eiv](https://github.com/SAGUMEDREAM/Polydex2EIV/releases), 1.21.6+ needs using [Ported EIV](https://github.com/SAGUMEDREAM/ExtendedItemView))
-- ❌ **NeoForge**, **Quilt**, and **Bukkit+Fabric mixes** will never be supported
+- 🔄 **Compatible with item managers** such as **Polydex** and **EIV** (But you need install [polydex2eiv](https://github.com/SAGUMEDREAM/Polydex2EIV/releases))
+- ❌ **NeoForge** and **Bukkit+Fabric mixes** will never be supported
 - 🌏 Imperfect **English translation**
 
 ---
 
 ## 🌏 Translation issues
 Simplified Chinese will be updated first, followed by Traditional Chinese, and finally English
+
 ---
 
 ## ✨ Features

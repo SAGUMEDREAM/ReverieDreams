@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.item.prop.debug;
+package cc.thonly.reverie_dreams.item.debug;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;

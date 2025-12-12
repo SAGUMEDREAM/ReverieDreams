@@ -1,0 +1,43 @@
+{
+  "criteria": {
+    "get_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reverie_dreams:touhou_helper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.root"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:icon"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.root"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

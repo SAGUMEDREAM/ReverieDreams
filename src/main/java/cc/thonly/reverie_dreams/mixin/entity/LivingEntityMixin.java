@@ -148,7 +148,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             return;
         }
         IWorld iWorld = (IWorld) world;
-        ResourceKey<Level> dreamWorldKey = iWorld.getDreamWorld();
+        ResourceKey<Level> dreamWorldKey = iWorld.reverie_dreams$getDreamWorldKey();
         ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
         if (dreamWorld == null) {
             return;
@@ -244,17 +244,19 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             MinecraftServer server = this.level().getServer();
             Level world = this.level();
             double mobY = this.getY();
-            ResourceKey<Level> moonKey = ((IWorld) world).getMoon();
+            ResourceKey<Level> moonKey = ((IWorld) world).reverie_dreams$getMoonKey();
+            ResourceKey<Level> dreamKey = ((IWorld) world).reverie_dreams$getDreamWorldKey();
             ResourceKey<Level> registryKey = world.dimension();
             if (server != null) {
                 ServerLevel moonWorld = server.getLevel(moonKey);
+                ServerLevel dreamWorld = server.getLevel(dreamKey);
                 ServerLevel endWorld = server.getLevel(Level.END);
                 if (moonWorld != null && endWorld != null) {
                     if (registryKey.equals(Level.END)) {
                         if (mobY >= endWorld.getHeight()) {
                             this.teleportTo(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
-                    } else if (registryKey.equals(moonKey)) {
+                    } else if (registryKey.equals(moonKey) || registryKey.equals(dreamKey)) {
                         this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1, 0));
                         if (mobY >= moonWorld.getHeight()) {
                             this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0));
@@ -287,7 +289,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             this.deathByDanmakuEntity(world, source, amount, cir);
             if ((this.getHealth() - amount <= 0f)) {
                 IWorld iWorld = (IWorld) world;
-                ResourceKey<Level> dreamWorldKey = iWorld.getDreamWorld();
+                ResourceKey<Level> dreamWorldKey = iWorld.reverie_dreams$getDreamWorldKey();
                 ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
                 if (this.level().equals(dreamWorld) && isPlayer) {
                     this.setHealth(this.getMaxHealth());
@@ -311,7 +313,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
-    @Inject(method = "hurtServer", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "hurtServer", at = @At("RETURN"))
     public void damageAfter(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         List<ItemStack> armorStacks = List.of(
                 this.getItemBySlot(EquipmentSlot.HEAD),
@@ -328,6 +330,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     @Unique
     public boolean deathByDanmakuEntity(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if ((this.getHealth() - amount <= 0f) && source.getDirectEntity() instanceof DanmakuEntity) {
@@ -346,20 +349,12 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         if (this.kanjuWorld instanceof ServerLevel serverWorld && this.hasEffect(RDStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
-//            System.out.println(1);
             this.teleportTo(serverWorld, this.kanjuBlockPos.getX(), this.kanjuBlockPos.getY(), this.kanjuBlockPos.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
             return true;
         }
         return false;
     }
 
-//    @Inject(method = "onDeath", at = {
-//            @At("HEAD"),
-//            @At("TAIL")
-//    })
-//    public void test(CallbackInfo ci){
-//        Thread.dumpStack();
-//    }
 
     @Unique
     public boolean deathInElixir(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -369,8 +364,12 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             this.setHealth(this.getMaxHealth());
             SoundEvent hurtSound = getHurtSound(source);
             SoundEvent deathSound = getDeathSound();
-            this.playSound(hurtSound, 1.0f, 1.0f);
-            this.playSound(deathSound, 1.0f, 1.0f);
+            if (hurtSound != null) {
+                this.playSound(hurtSound, 1.0f, 1.0f);
+            }
+            if (deathSound != null) {
+                this.playSound(deathSound, 1.0f, 1.0f);
+            }
             this.playSound(SoundEvents.TOTEM_USE, 1.0f, 1.0f);
             for (var player : world.players()) {
                 world.sendParticles(player, ParticleTypes.TOTEM_OF_UNDYING, true, false, this.getX(), this.getY(), this.getZ(), 250, 1.5, 2, 1.5, 0.5);

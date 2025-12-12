@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:cooking_by_myself",
+  "criteria": {
+    "cooking_food_for_5_tag": {
+      "conditions": {
+        "trigger": "reverie_dreams:kitchen_cooking_amount_of_5_tag"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.cooking_by_myself_amount_5_tag"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:cake"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.cooking_by_myself_amount_5_tag"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "cooking_food_for_5_tag"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

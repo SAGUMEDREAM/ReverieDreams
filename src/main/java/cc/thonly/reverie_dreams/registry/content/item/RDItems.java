@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
-import cc.thonly.polymer.PolymerItemHelper;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
@@ -18,8 +17,8 @@ import cc.thonly.reverie_dreams.item.material.DreamMaterial;
 import cc.thonly.reverie_dreams.item.material.MagicIceMaterial;
 import cc.thonly.reverie_dreams.item.material.SilverMaterial;
 import cc.thonly.reverie_dreams.item.prop.*;
-import cc.thonly.reverie_dreams.item.prop.debug.BattleStickItem;
-import cc.thonly.reverie_dreams.item.prop.debug.OwnerStickItem;
+import cc.thonly.reverie_dreams.item.debug.BattleStickItem;
+import cc.thonly.reverie_dreams.item.debug.OwnerStickItem;
 import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
@@ -29,7 +28,6 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -49,16 +47,12 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Block;
@@ -143,6 +137,7 @@ public class RDItems {
     public static final Item SCARECROW = registerItem("scarecrow", ScarecrowItem::new, new Item.Properties());
     public static final Item EXORCISM_PAPER = registerItem("exorcism_paper", ExorcismPaperItem::new, new Item.Properties().stacksTo(16));
     public static final Item SPELLCARD = registerItem("spellcard", SpellcardItem::new, new Item.Properties().stacksTo(1).durability(50));
+    public static final Item SATORI_EYE = registerItem("satori_eye", SatoriEye::new, new Item.Properties().stacksTo(1));
 
     // 武器
     public static final Item HAKUREI_CANE = registerItem("hakurei_cane", (settings) -> new HakureiCane(1f, -2.4f, settings), new Item.Properties());

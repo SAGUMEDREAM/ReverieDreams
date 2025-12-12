@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:ender_eye",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:spider_eye",
+      "count": 2
+    },
+    {
+      "id": "minecraft:ender_pearl",
+      "count": 2
+    },
+    {
+      "id": "minecraft:gold_ingot",
+      "count": 3
+    },
+    {
+      "id": "minecraft:iron_ingot",
+      "count": 5
+    },
+    {
+      "id": "minecraft:iron_ingot",
+      "count": 5
+    },
+    {
+      "id": "minecraft:redstone",
+      "count": 4
+    },
+    {
+      "id": "reverie_dreams:point",
+      "count": 12
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 12
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:satori_eye",
+    "count": 1
+  }
+}

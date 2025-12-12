@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:cooking_by_myself",
+  "criteria": {
+    "dark_cuisine": {
+      "conditions": {
+        "trigger": "reverie_dreams:kitchen_dark_cuisine"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.dark_cuisine"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:food/dark_cuisine"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.dark_cuisine"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "dark_cuisine"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

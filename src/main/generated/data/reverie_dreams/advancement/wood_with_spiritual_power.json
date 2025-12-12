@@ -1,0 +1,47 @@
+{
+  "parent": "reverie_dreams:rehabilitation_expert",
+  "criteria": {
+    "get_spiritual_wood": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "reverie_dreams:spiritual_log",
+              "reverie_dreams:stripped_spiritual_log",
+              "reverie_dreams:blessed_spiritual_log"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.wood_with_spiritual_power"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:spiritual_log"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.wood_with_spiritual_power"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_spiritual_wood"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

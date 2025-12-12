@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.datagen.*;
 import cc.thonly.reverie_dreams.datagen.tag.*;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
 import cc.thonly.reverie_dreams.world.dimension.DimensionInit;
 import cc.thonly.reverie_dreams.world.dimension.DimensionTypeInit;
 import cc.thonly.reverie_dreams.world.gen.*;
@@ -40,6 +41,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(RecipeTypeProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
         pack.addProvider(SkinConfigProvider::new);
+        pack.addProvider(AdvancementProvider::new);
         pack.addProvider(JsonElementWriterProvider::new);
 
         pack.addProvider(IngredientProvider::new);
@@ -48,20 +50,20 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     @Override
-    public void buildRegistry(RegistrySetBuilder registryBuilder) {
-        DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
-        registryBuilder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
-        registryBuilder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_CARVER, ConfigurationCarverInit::bootstrap);
-        registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);
-        registryBuilder.add(Registries.NOISE_SETTINGS, ChunkGeneratorSettingsInit::bootstrap);
-        registryBuilder.add(Registries.BIOME, BiomeInit::bootstrap);
-        registryBuilder.add(Registries.STRUCTURE, ModStructures::bootstrap);
-        registryBuilder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
-        registryBuilder.add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap);
-        registryBuilder.add(Registries.DIMENSION_TYPE, DimensionTypeInit::bootstrap);
-        registryBuilder.add(Registries.LEVEL_STEM, DimensionInit::bootstrap);
+    public void buildRegistry(RegistrySetBuilder builder) {
+        DataGeneratorEntrypoint.super.buildRegistry(builder);
+        builder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
+        builder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);
+        builder.add(Registries.CONFIGURED_CARVER, ConfigurationCarverInit::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);
+        builder.add(Registries.NOISE_SETTINGS, ChunkGeneratorSettingsInit::bootstrap);
+        builder.add(Registries.BIOME, BiomeInit::bootstrap);
+        builder.add(Registries.STRUCTURE, ModStructures::bootstrap);
+        builder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
+        builder.add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap);
+        builder.add(Registries.DIMENSION_TYPE, DimensionTypeInit::bootstrap);
+        builder.add(Registries.LEVEL_STEM, DimensionInit::bootstrap);
     }
 
 }

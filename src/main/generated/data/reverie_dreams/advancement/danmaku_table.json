@@ -1,0 +1,43 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "get_danmaku_crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reverie_dreams:danmaku_crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.danmaku_table"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:danmaku_crafting_table"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.danmaku_table"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_danmaku_crafting_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

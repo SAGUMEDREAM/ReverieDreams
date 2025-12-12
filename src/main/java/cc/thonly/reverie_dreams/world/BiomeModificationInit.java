@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.world;
 
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
+import cc.thonly.reverie_dreams.entity.HairballEntity;
+import cc.thonly.reverie_dreams.entity.UfoEntity;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.world.gen.BiomeInit;
@@ -161,6 +163,13 @@ public class BiomeModificationInit {
                 MobCategory.MONSTER,
                 RDEntityTypes.HAIRBALL, 10, 2, 4
         );
+        SpawnPlacements.register(
+                RDEntityTypes.HAIRBALL,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                HairballEntity::checkSpawnRules
+        );
+
         // 哥布林
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_DESERT),
@@ -229,6 +238,12 @@ public class BiomeModificationInit {
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_MOUNTAIN_PEAK),
                 MobCategory.MONSTER,
                 RDEntityTypes.UFO, 3, 1, 2
+        );
+        SpawnPlacements.register(
+                RDEntityTypes.UFO,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                UfoEntity::checkSpawnRules
         );
 
 //        SpawnRestriction.register(

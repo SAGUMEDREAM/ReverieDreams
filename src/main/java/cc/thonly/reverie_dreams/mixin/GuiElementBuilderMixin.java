@@ -14,13 +14,13 @@ public abstract class GuiElementBuilderMixin implements GuiElementBuilderInterfa
     @Shadow protected ItemStack itemStack;
 
     @Override
-    public ItemStack setItemStack(ItemStack stack) {
+    public ItemStack reverie_dreams$setItemStack(ItemStack stack) {
         this.itemStack = stack;
         return stack;
     }
 
     @Override
-    public ItemStack getItemStack() {
+    public ItemStack reverie_dreams$getItemStack() {
         return this.itemStack;
     }
 }

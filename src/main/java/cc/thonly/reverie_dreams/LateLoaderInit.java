@@ -4,6 +4,7 @@ import cc.thonly.polymer.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
@@ -16,6 +17,7 @@ import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -63,6 +65,9 @@ public class LateLoaderInit implements ModInitializer {
         }
         for (EntityType<?> entityType : RDEntityTypes.ENTITY_TYPES) {
             PolymerEntityUtils.registerType(entityType);
+        }
+        for (CriterionTrigger<?> trigger : RDCriteriaTriggers.LIST) {
+            RegistrySyncUtils.setServerEntry(BuiltInRegistries.TRIGGER_TYPES, trigger);
         }
 
         PolymerEntityHelper.bootstrap();

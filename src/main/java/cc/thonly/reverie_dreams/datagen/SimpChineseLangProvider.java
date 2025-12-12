@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.creative_tab.content.*;
 import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.registry.content.*;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
@@ -31,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class SimpChineseLangProvider extends FabricLanguageProvider implements ITranslationExporterBuilder {
+public class SimpChineseLangProvider extends FabricLanguageProvider implements ITranslationExporter {
 
     public SimpChineseLangProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, "zh_cn", registryLookup);
@@ -39,7 +40,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
     @Override
     public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
         builder.add(ItemBlockCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 物品/方块");
         builder.add(DanmakuCreativeTab.ITEM_GROUP_BULLET, "梦隐的幻想乡 | 弹幕");
         builder.add(TemplateCreativeTab.ITEM_GROUP, "梦隐的幻想乡 | 弹幕模板");
@@ -88,6 +89,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         this.generateEffectTranslations(wrapperLookup, translationBuilder);
         this.generateDialogTranslations(wrapperLookup, translationBuilder);
         this.generateTestTranslations(wrapperLookup, translationBuilder);
+        this.generateAdvancementsTranslations(wrapperLookup, translationBuilder);
 
         translationBuilder.add("gui.npc.info", "§d");
         translationBuilder.add("gui.npc.info.name", "§d名字: %s");
@@ -152,6 +154,35 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         this.generateMITranslations(wrapperLookup, translationBuilder);
     }
 
+    public void generateAdvancementsTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
+        builder.addAdvancement(RDAdvancements.ROOT, "夢見る幻想郷", "§r获得§a夢見る幻想郷§r模组指南");
+        builder.addAdvancement(RDAdvancements.DANMAKU_TABLE, "弹幕工作台", "获得§c弹幕工作台");
+        builder.addAdvancement(RDAdvancements.DANMAKU_WARS, "弹幕大战争！", "§r在§c弹幕工作台§r中制作你的弹幕");
+        builder.addAdvancement(RDAdvancements.DANMAKU_UPGRADE, "火力升级", "通过强化台强化你的弹幕");
+        builder.addAdvancement(RDAdvancements.DARK_CUISINE, "搞砸了", "烹饪出黑暗料理");
+        builder.addAdvancement(RDAdvancements.ABANDONED_SHRINE, "第一次接触", "进入废弃神社");
+        builder.addAdvancement(RDAdvancements.ENTER_DREAM, "梦里什么都有", "进入第四槐安通道");
+        builder.addAdvancement(RDAdvancements.FUMOFUMO, "FUMO FUMO", "获得fumo");
+        builder.addAdvancement(RDAdvancements.SHINY_COINS, "闪亮的货币", "获得金属货币");
+        builder.addAdvancement(RDAdvancements.LAYLA_PRISMRIVER, "蕾拉·普莉兹姆利巴", "获得一件乐器");
+        builder.addAdvancement(RDAdvancements.WOOD_WITH_SPIRITUAL_POWER, "灵力的木头", "获得绳文杉木头");
+        builder.addAdvancement(RDAdvancements.GENSOKYO_ALTAR_CRAFTING, "祭坛合成", "§r使用§d幻想乡祭坛§r合成一些物品");
+        builder.addAdvancement(RDAdvancements.PSYCHOLOGIST, "心理医生", "对生物使用§d觉之眼§r诊断");
+        builder.addAdvancement(RDAdvancements.MAKE_FRIEND, "旅途的伙伴", "使用蛋糕邀请一位角色成为你的伙伴");
+        builder.addAdvancement(RDAdvancements.TAKING_PHOTO, "不良新闻记者", "使用照相机拍照");
+        builder.addAdvancement(RDAdvancements.I_WILL_TAKE_YOUR_SOUL, "我要偷走你的灵魂！", "获得死神镰刀");
+        builder.addAdvancement(RDAdvancements.BURST, "爆！", "使用§aBomb§r");
+        builder.addAdvancement(RDAdvancements.LEVEL_UP, "+UP", "使用§d残机§r");
+        builder.addAdvancement(RDAdvancements.REHABILITATION_EXPERT, "退治专家", "击败一只妖怪或妖精");
+        builder.addAdvancement(RDAdvancements.A_CELESTIAL_BEING_DESCENDED_TO_EARTH, "天神下凡", "尝试带有威力附魔的桃子");
+        builder.addAdvancement(RDAdvancements.TOUHOU_MYSTIA_IZAKAYA, "东方夜雀食堂", "获得任意厨具");
+        builder.addAdvancement(RDAdvancements.COOKING_BY_MYSELF, "第一次烹饪", "使用任意厨具烹饪食物");
+        builder.addAdvancement(RDAdvancements.COOKING_BY_MYSELF_AMOUNT_5_TAG, "烹饪专家", "用厨具制作出带有 5 个以上标签的料理");
+        builder.addAdvancement(RDAdvancements.DELICACY, "美味", "品尝一次由厨具烹饪出的料理");
+        builder.addAdvancement(RDAdvancements.FINE_WINE, "好酒", "品尝一杯酒水");
+    }
+
     public void generateCommandTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder builder) {
         builder.add("command.touhou.suggest_help", "Use /touhou help for more information");
         builder.add("command.touhou.help.title", "Help Menu:");
@@ -184,7 +215,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateMITranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
         translationBuilder.add("item.tooltip.food_properties", "属性：");
@@ -587,7 +618,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateEntityTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
         builder.add(RDEntityTypes.FUMO_SELLER_VILLAGER, "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
         builder.add(RDEntityTypes.KILLER_BEE, "杀人蜂", "杀人蜂刷怪蛋");
         builder.add(RDEntityTypes.GHOST, "幽灵", "幽灵刷怪蛋");
@@ -640,7 +671,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateRoleTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
         // 主角组
         builder.addRoleEntity(NPCRoles.REIMU, "博丽灵梦", "刷怪蛋");
         builder.addRoleEntity(NPCRoles.CYAN_REIMU, "青灵梦", "刷怪蛋");
@@ -790,7 +821,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateEffectTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
         builder.add(RDStatusEffects.ELIXIR_OF_LIFE.value(), "不死");
         builder.add(RDStatusEffects.MENTAL_DISORDER.value(), "精神错乱");
         builder.add(RDStatusEffects.BACK_OF_LIFE.value(), "返生");
@@ -921,7 +952,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.WATERPROOF_LEATHER, "防水皮革");
 
         // 道具
-        translationBuilder.add(RDItems.TOUHOU_HELPER, "东方模组入门");
+        translationBuilder.add(RDItems.TOUHOU_HELPER, "§a夢見る幻想郷§r模组指南");
         translationBuilder.add(RDItems.UPGRADED_HEALTH, "残机");
         translationBuilder.add(RDItems.BOMB, "Bomb");
         translationBuilder.add(RDItems.HORAI_DAMA_NO_EDA, "蓬莱玉枝");
@@ -946,6 +977,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.SILVER_COIN, "银币");
         translationBuilder.add(RDItems.GOLD_COIN, "金币");
         translationBuilder.add(RDItems.SPELLCARD, "符卡");
+        translationBuilder.add(RDItems.SATORI_EYE, "觉之眼");
 
         // 武器
         translationBuilder.add(RDItems.HAKUREI_CANE, "博丽御币");
@@ -1027,7 +1059,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateSoundTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
 
         for (var sound : SoundEventInit.FUMO_SOUNDS) {
             builder.generateSoundEventSubtitle(sound, "fumo");
@@ -1047,7 +1079,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateDanmakuType(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
 
         builder.generateDanmakuType(DanmakuTrajectories.SINGLE, "线性");
         builder.generateDanmakuType(DanmakuTrajectories.TRIPLE, "三线");
@@ -1060,7 +1092,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateDiscTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        TranslationExporter builder = ITranslationExporterBuilder.createBuilder(wrapperLookup, translationBuilder);
+        TranslationWrapper builder = ITranslationExporter.ofWrapper(wrapperLookup, translationBuilder);
 
         builder.generateJukeBox(JukeboxSongInit.HR01_01.getJukeboxSongRegistryKey(), "蓬莱人形　～ Dolls in Pseudo Paradise. - 蓬莱伝説");
         builder.generateJukeBox(JukeboxSongInit.HR02_08.getJukeboxSongRegistryKey(), "莲台野夜行 - 过去的花 ～ Fairy of Flower");
@@ -1254,36 +1286,36 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateDanmakuItemTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder, boolean useChinese) {
-        Map<String, String> bulletTranslations = new HashMap<>();
-        bulletTranslations.put("amulet", "札弹");
-        bulletTranslations.put("arrow", "箭弹");
-        bulletTranslations.put("arrowhead", "鳞弹");
-        bulletTranslations.put("bacteria", "杆菌弹");
-        bulletTranslations.put("ball", "小玉");
-        bulletTranslations.put("ball_outlined", "小玉（描边）");
-        bulletTranslations.put("bubble", "大玉");
-        bulletTranslations.put("bullet", "铳弹");
-        bulletTranslations.put("butterfly", "蝶弹");
-        bulletTranslations.put("coin", "钱币弹");
-        bulletTranslations.put("fireball", "火光弹");
-        bulletTranslations.put("fireball_glowy", "水光弹");
-        bulletTranslations.put("heart", "心弹");
-        bulletTranslations.put("jellybean", "椭弹");
-        bulletTranslations.put("knife", "刀弹");
-        bulletTranslations.put("kunai", "链弹");
-        bulletTranslations.put("mentos", "中玉");
-        bulletTranslations.put("note", "音符弹");
-        bulletTranslations.put("orb", "光玉");
-        bulletTranslations.put("pellet", "点弹");
-        bulletTranslations.put("popcorn", "菌弹");
-        bulletTranslations.put("raindrop", "滴弹");
-        bulletTranslations.put("rest", "音符弹（休止符）");
-        bulletTranslations.put("rice", "米弹");
-        bulletTranslations.put("rose", "蔷薇弹");
-        bulletTranslations.put("shard", "棱角米弹");
-        bulletTranslations.put("star", "星弹");
-        bulletTranslations.put("star_big", "大星弹");
-        bulletTranslations.put("star_small", "小星弹");
+//        Map<String, String> bulletTranslations = new HashMap<>();
+//        bulletTranslations.put("amulet", "札弹");
+//        bulletTranslations.put("arrow", "箭弹");
+//        bulletTranslations.put("arrowhead", "鳞弹");
+//        bulletTranslations.put("bacteria", "杆菌弹");
+//        bulletTranslations.put("ball", "小玉");
+//        bulletTranslations.put("ball_outlined", "小玉（描边）");
+//        bulletTranslations.put("bubble", "大玉");
+//        bulletTranslations.put("bullet", "铳弹");
+//        bulletTranslations.put("butterfly", "蝶弹");
+//        bulletTranslations.put("coin", "钱币弹");
+//        bulletTranslations.put("fireball", "火光弹");
+//        bulletTranslations.put("fireball_glowy", "水光弹");
+//        bulletTranslations.put("heart", "心弹");
+//        bulletTranslations.put("jellybean", "椭弹");
+//        bulletTranslations.put("knife", "刀弹");
+//        bulletTranslations.put("kunai", "链弹");
+//        bulletTranslations.put("mentos", "中玉");
+//        bulletTranslations.put("note", "音符弹");
+//        bulletTranslations.put("orb", "光玉");
+//        bulletTranslations.put("pellet", "点弹");
+//        bulletTranslations.put("popcorn", "菌弹");
+//        bulletTranslations.put("raindrop", "滴弹");
+//        bulletTranslations.put("rest", "音符弹（休止符）");
+//        bulletTranslations.put("rice", "米弹");
+//        bulletTranslations.put("rose", "蔷薇弹");
+//        bulletTranslations.put("shard", "棱角米弹");
+//        bulletTranslations.put("star", "星弹");
+//        bulletTranslations.put("star_big", "大星弹");
+//        bulletTranslations.put("star_small", "小星弹");
 
         translationBuilder.add(DanmakuTypes.AMULET.getItem(), "札弹");
         translationBuilder.add(DanmakuTypes.ARROWHEAD.getItem(), "鳞弹");

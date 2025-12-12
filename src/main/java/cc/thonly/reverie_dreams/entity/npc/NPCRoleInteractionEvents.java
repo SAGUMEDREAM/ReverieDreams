@@ -10,6 +10,8 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -110,10 +112,12 @@ public class NPCRoleInteractionEvents {
                 entity.setOwner(player);
                 entity.setTame(true, true);
                 world.sendParticles(ParticleTypes.HEART, entity.getX(), entity.getY() + 1.0, entity.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
+                SimpleTriggerFactory.create(SimpleTriggerKeys.MAKING_FRIEND).trigger(player);
             }
             entity.setHealth(entity.getHealth() + 5);
             stack.consume(1, player);
             player.swing(hand);
+
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;

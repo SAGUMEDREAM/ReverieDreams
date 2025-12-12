@@ -1,11 +1,13 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -102,6 +104,7 @@ public class BombItem extends Item {
                 );
             }
             user.awardStat(Stats.ITEM_USED.get(this));
+            RDCriteriaTriggers.USE_ITEM.trigger((ServerPlayer) user, itemStack);
             itemStack.consume(1, user);
             return InteractionResult.SUCCESS_SERVER;
         }

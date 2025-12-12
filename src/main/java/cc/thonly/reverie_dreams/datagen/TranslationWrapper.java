@@ -4,10 +4,12 @@ import autovalue.shaded.com.google.errorprone.annotations.CanIgnoreReturnValue;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
@@ -32,40 +34,41 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 
+@SuppressWarnings("UnusedReturnValue")
 @CanIgnoreReturnValue
 @Getter
 @Slf4j
-public class TranslationExporter implements ITranslationExporterBuilder {
+public class TranslationWrapper implements ITranslationExporter {
     public static final Map<EntityType<?>, Item> MAPPER = RDEntityTypes.SPAWN_EGG_BIND;
     private final HolderLookup.Provider wrapperLookup;
     private final FabricLanguageProvider.TranslationBuilder translationBuilder;
 
-    public TranslationExporter(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
+    public TranslationWrapper(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
         this.wrapperLookup = wrapperLookup;
         this.translationBuilder = translationBuilder;
     }
 
-    public TranslationExporter add(String translationKey, String value) {
+    public TranslationWrapper add(String translationKey, String value) {
         this.translationBuilder.add(translationKey, value);
         return this;
     }
 
-    public TranslationExporter add(Item item, String value) {
+    public TranslationWrapper add(Item item, String value) {
         this.translationBuilder.add(item, value);
         return this;
     }
 
-    public TranslationExporter add(Block block, String value) {
+    public TranslationWrapper add(Block block, String value) {
         this.translationBuilder.add(block, value);
         return this;
     }
 
-    public TranslationExporter add(ResourceKey<CreativeModeTab> registryKey, String value) {
+    public TranslationWrapper add(ResourceKey<CreativeModeTab> registryKey, String value) {
         this.translationBuilder.add(registryKey, value);
         return this;
     }
 
-    public TranslationExporter add(CreativeModeTab itemGroup, String value) {
+    public TranslationWrapper add(CreativeModeTab itemGroup, String value) {
         Component text = itemGroup.getDisplayName();
         ComponentContents content = text.getContents();
         if (content instanceof TranslatableContents translatableTextContent) {
@@ -78,47 +81,47 @@ public class TranslationExporter implements ITranslationExporterBuilder {
         return this;
     }
 
-    public TranslationExporter add(EntityType<?> entityType, String value) {
+    public TranslationWrapper add(EntityType<?> entityType, String value) {
         this.translationBuilder.add(entityType, value);
         return this;
     }
 
-    public TranslationExporter addEnchantment(ResourceKey<Enchantment> enchantment, String value) {
+    public TranslationWrapper addEnchantment(ResourceKey<Enchantment> enchantment, String value) {
         this.translationBuilder.addEnchantment(enchantment, value);
         return this;
     }
 
-    public TranslationExporter add(Holder<Attribute> entityAttribute, String value) {
+    public TranslationWrapper add(Holder<Attribute> entityAttribute, String value) {
         this.translationBuilder.add(entityAttribute, value);
         return this;
     }
 
-    public TranslationExporter add(StatType<?> statType, String value) {
+    public TranslationWrapper add(StatType<?> statType, String value) {
         this.translationBuilder.add(statType, value);
         return this;
     }
 
-    public TranslationExporter add(MobEffect statusEffect, String value) {
+    public TranslationWrapper add(MobEffect statusEffect, String value) {
         this.translationBuilder.add(statusEffect, value);
         return this;
     }
 
-    public TranslationExporter add(ResourceLocation identifier, String value) {
+    public TranslationWrapper add(ResourceLocation identifier, String value) {
         this.translationBuilder.add(identifier, value);
         return this;
     }
 
-    public TranslationExporter add(TagKey<?> tagKey, String value) {
+    public TranslationWrapper add(TagKey<?> tagKey, String value) {
         this.translationBuilder.add(tagKey, value);
         return this;
     }
 
-    public TranslationExporter add(Path existingLanguageFile) throws IOException {
+    public TranslationWrapper add(Path existingLanguageFile) throws IOException {
         this.translationBuilder.add(existingLanguageFile);
         return this;
     }
 
-    public TranslationExporter add(EntityType<?> entityType, String name, String spawnEggName) {
+    public TranslationWrapper add(EntityType<?> entityType, String name, String spawnEggName) {
         this.add(entityType, name);
         Item item = MAPPER.get(entityType);
         if (item != null) {
@@ -127,7 +130,7 @@ public class TranslationExporter implements ITranslationExporterBuilder {
         return this;
     }
 
-    public TranslationExporter add(Component mutableText, String value) {
+    public TranslationWrapper add(Component mutableText, String value) {
         ComponentContents content = mutableText.getContents();
         if (content instanceof TranslatableContents translatableText) {
             String key = translatableText.getKey();
@@ -138,23 +141,36 @@ public class TranslationExporter implements ITranslationExporterBuilder {
         return this;
     }
 
-    public TranslationExporter generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        this.translationBuilder.add(RegistryHandlers.DANMAKU_TRAJECTORY.getKey(trajectory).toLanguageKey(), value);
+    public TranslationWrapper addAdvancement(ResourceKey<Advancement> key, String name, String description) {
+        String titleKey = key.location().toLanguageKey("title");
+        String descriptionKey = key.location().toLanguageKey("description");
+        this.add(titleKey, name);
+        this.add(descriptionKey, description);
         return this;
     }
 
-    public TranslationExporter generateJukeBox(ResourceKey<JukeboxSong> key, String value) {
+    public TranslationWrapper generateDanmakuType(DanmakuTrajectory trajectory, String value) {
+        ResourceLocation key = RegistryHandlers.DANMAKU_TRAJECTORY.getKey(trajectory);
+        if (key == null) {
+            log.error("Can't find key of {}", trajectory);
+            return this;
+        }
+        this.translationBuilder.add(key.toLanguageKey(), value);
+        return this;
+    }
+
+    public TranslationWrapper generateJukeBox(ResourceKey<JukeboxSong> key, String value) {
         this.translationBuilder.add(this.getSoundEventSubtitle(key), value);
         this.translationBuilder.add(this.getJukeBoxSongDisc(key), value);
         return this;
     }
 
-    public TranslationExporter generateStatusEffect(Holder<MobEffect> registryEntry, String value) {
+    public TranslationWrapper generateStatusEffect(Holder<MobEffect> registryEntry, String value) {
         this.translationBuilder.add(getStatusEffect(registryEntry), value);
         return this;
     }
 
-    public TranslationExporter generatePotion(
+    public TranslationWrapper generatePotion(
             Potion registryEntry,
             String potion,
             String splash,
@@ -167,12 +183,12 @@ public class TranslationExporter implements ITranslationExporterBuilder {
         return this;
     }
 
-    public TranslationExporter generateSoundEventSubtitle(SoundEvent soundEvent, String value) {
+    public TranslationWrapper generateSoundEventSubtitle(SoundEvent soundEvent, String value) {
         this.translationBuilder.add(getSoundEventSubtitle(soundEvent), value);
         return this;
     }
 
-    public TranslationExporter addRoleEntity(NPCRole role, String value, String spawnEggValue) {
+    public TranslationWrapper addRoleEntity(NPCRole role, String value, String spawnEggValue) {
         EntityType<?> entityType = role.getEntityType();
         Item egg = role.getEgg();
         String item_value = value + spawnEggValue;

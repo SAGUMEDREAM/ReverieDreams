@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
+import cc.thonly.reverie_dreams.item.prop.SatoriEye;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -41,13 +42,16 @@ public abstract class VillagerEntityMixin extends AbstractVillager
     @Unique
     public NearestAttackableTargetGoal<Zombie> activeTargetGoal = new NearestAttackableTargetGoal<>(this, Zombie.class, true);
     @Unique
-    private MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.0D, true);;
+    private MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.0D, true);
 
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     public void interactMob(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         Level world = player.level();
         ItemStack itemStack = player.getItemInHand(hand);
         if (!world.isClientSide() && itemStack.getItem() instanceof FumoLicenseItem) {
+            cir.setReturnValue(InteractionResult.PASS);
+        }
+        if (!world.isClientSide() && itemStack.getItem() instanceof SatoriEye) {
             cir.setReturnValue(InteractionResult.PASS);
         }
         if (!world.isClientSide() && itemStack.getItem() == Items.BARREL) {

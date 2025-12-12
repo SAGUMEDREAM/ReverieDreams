@@ -1,0 +1,43 @@
+{
+  "parent": "reverie_dreams:gensokyo_altar_crafting",
+  "criteria": {
+    "get_musical_instruments": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#reverie_dreams:musical_instruments"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.layla_prismriver"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:trumpet"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.layla_prismriver"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "get_musical_instruments"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

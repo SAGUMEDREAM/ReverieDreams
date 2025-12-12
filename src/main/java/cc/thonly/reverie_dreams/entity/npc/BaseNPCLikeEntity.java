@@ -170,6 +170,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     public void init() {
         AttributeMap attributeContainer = this.getAttributes();
+        //noinspection ConstantValue
         if (attributeContainer != null) {
             AttributeInstance scale = attributeContainer.getInstance(Attributes.SCALE);
             if (scale != null) {

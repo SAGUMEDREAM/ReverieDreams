@@ -535,6 +535,15 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                 ),
                 this.ofItem(RDItems.YUKA_FLOWER_UMBRELLA)
         ));
+        this.gensokyoAltarRecipeFactory.register(RDItems.SATORI_EYE, new GensokyoAltarRecipe(
+                this.ofItem(Items.ENDER_EYE),
+                List.of(
+                        this.ofItem(Items.SPIDER_EYE, 2), this.ofItem(Items.ENDER_PEARL, 2), this.ofItem(Items.GOLD_INGOT, 3),
+                        this.ofItem(Items.IRON_INGOT, 5), this.ofItem(Items.IRON_INGOT, 5),
+                        this.ofItem(Items.REDSTONE, 4), this.ofItem(RDItems.POINT, 12), this.ofItem(RDItems.POWER, 12)
+                ),
+                this.ofItem(RDItems.SATORI_EYE)
+        ));
     }
 
     public void generateKitchenRecipe() {
