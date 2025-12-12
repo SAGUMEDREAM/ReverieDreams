@@ -1,5 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.10
+* Upgrade to version 1.21.9/10
+
 # 0.4.9+1.21.7
 * Optimize peach item texture
 * Removed attack range bonuses for the umbrella and scythe (unstable)

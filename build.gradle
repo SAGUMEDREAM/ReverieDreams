@@ -21,7 +21,7 @@ enum RemapJarType {
 }
 
 def isLts = false
-def remapJarType = RemapJarType.BETA
+def remapJarType = RemapJarType.ALPHA
 
 version = project.mod_version +
         "+" + project.minecraft_version +
