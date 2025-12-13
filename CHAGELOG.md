@@ -1,7 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
-# 0.4.10
+# 0.4.10+1.21.10
 * Upgrade to version 1.21.9/10
+* Fixed an issue that caused entity animation to freeze.
 
 # 0.4.9+1.21.7
 * Optimize peach item texture

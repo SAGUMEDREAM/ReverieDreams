@@ -21,7 +21,7 @@ enum RemapJarType {
 }
 
 def isLts = false
-def remapJarType = RemapJarType.ALPHA
+def remapJarType = RemapJarType.BETA
 
 version = project.mod_version +
         "+" + project.minecraft_version +
@@ -117,9 +117,9 @@ dependencies {
     modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
 
     modImplementation files('libs/resourceconfigapi-fabric-1.21.10-3.8.1.jar')
-    modImplementation files('libs/eiv-fabric-5.2.0+1.21.10.jar')
     modImplementation files('libs/camera-obscura-1.2.2+1.21.9-rc1.jar')
 
+    modCompileOnly files('libs/eiv-fabric-5.2.0+1.21.10.jar')
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')
     modCompileOnly files('libs/borukva-food-0.1.14+1.21.7.jar')

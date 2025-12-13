@@ -23,7 +23,6 @@ public interface AnimatedEntityMixin {
         if (TickHolderEntity.ELEMENT_BINDS.containsKey(obj)) {
             cir.setReturnValue(TickHolderEntity.ELEMENT_BINDS.get(obj));
         }
-
     }
 
     @Inject(method = "modifyRawTrackedData", at = @At("HEAD"), cancellable = true)

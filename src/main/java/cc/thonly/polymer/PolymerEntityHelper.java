@@ -67,6 +67,8 @@ public class PolymerEntityHelper {
                 next.onCreated();
                 iterator.remove();
             }
+        });
+        ServerTickEvents.START_SERVER_TICK.register(server -> {
             TickHolderEntity.tick();
         });
     }
