@@ -408,7 +408,7 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                 this.ofItem(RDItems.IBUKIHO)
         ));
         this.gensokyoAltarRecipeFactory.register(RDItems.SWORD_OF_HISOU, new GensokyoAltarRecipe(
-                this.ofItem(Items.GOLDEN_SWORD),
+                this.ofItem(Items.COPPER_SWORD),
                 List.of(
                         this.ofItem(Items.GOLD_INGOT, 7), this.ofItem(Items.DIAMOND, 5), this.ofItem(Items.COPPER_INGOT, 2),
                         this.ofItem(Items.REDSTONE, 6), this.ofItem(Items.REDSTONE, 6),

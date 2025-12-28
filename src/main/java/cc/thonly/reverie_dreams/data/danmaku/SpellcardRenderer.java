@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.data.danmaku;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
+import cc.thonly.reverie_dreams.data.danmaku.spellcard.function.KeyframeFunction;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.mojang.serialization.Codec;
@@ -137,34 +138,57 @@ public class SpellcardRenderer {
 
         for (List<SpellCardFrameConfig> frame : this.frames) {
             for (SpellCardFrameConfig config : frame) {
+
                 int relativeTick = this.tick - config.getTickDelay();
                 if (relativeTick < 0 || relativeTick > config.getTickDuration()) continue;
                 if (relativeTick % config.getTickInterval() != 0) continue;
 
-                float pitchStart = config.getPitchRange().getStart();
-                float pitchEnd = config.getPitchRange().getEnd();
-                float yawStart = config.getYawRange().getStart();
-                float yawEnd = config.getYawRange().getEnd();
+                // ===== 1. 时间归一化 =====
+                float t = relativeTick / (float) config.getTickDuration();
+                t = Math.min(1f, Math.max(0f, t));
 
+                // ===== 2. 时间函数（中心角）=====
+                KeyframeFunction pitchFunc = config.getPitchRange().createFunction();
+                KeyframeFunction yawFunc   = config.getYawRange().createFunction();
+
+                float pitchCenter = pitchFunc.sample(t);
+                float yawCenter   = yawFunc.sample(t);
+
+                // ===== 3. density 空间展开 =====
                 int count = Math.max(1, config.getDensity());
-                float pitchStep = (pitchEnd - pitchStart) / count;
-                float yawStep = (yawEnd - yawStart) / count;
+
+                // 这里是关键：定义“展开角度宽度”
+                // 可以之后做成 config 参数
+                float pitchSpread = 0f;     // 通常 pitch 不展开
+                float yawSpread   = 360f;   // 示例：一个完整扇形
 
                 for (int i = 0; i < count && spawned < MAX_SPAWN_PER_TICK; i++) {
-                    float pitch = pitchStart + pitchStep * i;
-                    float yaw = yawStart + yawStep * i;
+
+                    float factor;
+                    if (count == 1) {
+                        factor = 0f;
+                    } else {
+                        factor = (i / (float)(count - 1) - 0.5f);
+                    }
+
+                    float pitch = pitchCenter + pitchSpread * factor;
+                    float yaw   = yawCenter   + yawSpread   * factor;
+
                     if (config.isRandomColor()) {
                         this.spawnDanmaku(config.getType(), config.getSpeed(), pitch, yaw);
                     } else {
                         this.spawnDanmaku(config.getType(), config.getColor(), pitch, yaw);
                     }
+
                     spawned++;
                 }
+
                 if (spawned >= MAX_SPAWN_PER_TICK) break;
             }
             if (spawned >= MAX_SPAWN_PER_TICK) break;
         }
     }
+
 
     private void spawnDanmaku(DanmakuType type, float speed, float pitch, float yaw) {
         int r = 128 + ThreadLocalRandom.current().nextInt(128);

@@ -10,6 +10,7 @@ import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
+import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
@@ -159,6 +160,7 @@ public class ReverieDreams implements ModInitializer {
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.init();
         CustomClickActionRegistry.registerActions();
+        KeyframeFunctions.bootstrap();
 
         ImageToTextScanner.bootstrap();
         ItemDescriptionManager.bootstrap();

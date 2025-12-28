@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams;
 
 import cc.thonly.polymer.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.entity.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
@@ -69,6 +70,9 @@ public class LateLoaderInit implements ModInitializer {
         for (CriterionTrigger<?> trigger : RDCriteriaTriggers.LIST) {
             RegistrySyncUtils.setServerEntry(BuiltInRegistries.TRIGGER_TYPES, trigger);
         }
+        RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.HAWKERS));
+        RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.PRIEST));
+        RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.MONEY_SHOP_CLERK));
 
         PolymerEntityHelper.bootstrap();
         PolymerVillagerProfessionHelper.bootstrap();

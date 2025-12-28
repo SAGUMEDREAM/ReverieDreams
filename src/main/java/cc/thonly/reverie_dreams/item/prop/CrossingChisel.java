@@ -35,11 +35,6 @@ public class CrossingChisel extends Item {
             BlockPos targetPos = getTravelPos(world, origin, direction, maxDistance);
             if (targetPos != null && isSafePos(world, targetPos.above())) {
                 if(!world.isClientSide()) {
-                    player.teleportTo(
-                            targetPos.getX() + 0.5,
-                            targetPos.getY(),
-                            targetPos.getZ() + 0.5
-                    );
 
                     world.levelEvent(2001, origin, 0);
                     world.playSound(null, targetPos, SoundEvents.CHORUS_FRUIT_TELEPORT, player.getSoundSource(), 1.0f, 1.0f);
@@ -47,6 +42,14 @@ public class CrossingChisel extends Item {
                     if (stack.isDamageableItem() && !player.hasInfiniteMaterials()) {
                         stack.hurtWithoutBreaking(1, player);
                     }
+                    if (targetPos.getY() < world.getMinY()) {
+                        return InteractionResult.SUCCESS_SERVER;
+                    }
+                    player.teleportTo(
+                            targetPos.getX() + 0.5,
+                            targetPos.getY(),
+                            targetPos.getZ() + 0.5
+                    );
                     return InteractionResult.SUCCESS_SERVER;
                 } else {
                     return InteractionResult.SUCCESS;

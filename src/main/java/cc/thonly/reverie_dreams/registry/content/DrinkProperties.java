@@ -61,13 +61,13 @@ public class DrinkProperties {
                 return;
             }
             if (property.is(DrinkProperties.LOW_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 3 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 20));
             }
             if (property.is(DrinkProperties.MID_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 9 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 4 * 20));
             }
             if (property.is(DrinkProperties.HIGH_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 27 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 10 * 20));
             }
             if (property.is(DrinkProperties.CAN_ADD_ICE)) {
                 user.setSharedFlagOnFire(false);

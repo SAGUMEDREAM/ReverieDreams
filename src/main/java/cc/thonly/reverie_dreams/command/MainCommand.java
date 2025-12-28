@@ -1,6 +1,10 @@
 package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.DrinkProperty;
+import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
+import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
@@ -8,6 +12,8 @@ import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
@@ -39,6 +45,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -60,6 +68,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         }
     }
 
+
     @Override
     public void register(CommandDispatcher<CommandSourceStack> dispatcher,
                          CommandBuildContext access,
@@ -68,6 +77,21 @@ public class MainCommand implements CommandInit.CommandRegistration {
         var root = Commands.literal("touhou");
         var help = Commands.literal("help")
                 .executes(this::help);
+        var get_sc_with_spell_config = Commands.literal("get_spellcard_with_config")
+                .requires(ctx -> ctx.hasPermission(2))
+                .then(
+                        RegistryHandlers.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
+                );
+        var with_food_property = Commands.literal("with_food_property")
+                .requires(ctx -> ctx.hasPermission(2))
+                .then(
+                        RegistryHandlers.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
+                );
+        var with_drink_property = Commands.literal("with_drink_property")
+                .requires(ctx -> ctx.hasPermission(2))
+                .then(
+                        RegistryHandlers.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("drink_property")))
+                );
         var cachedAllSkins = Commands.literal("start-cached-skins")
                 .requires(ctx -> ctx.hasPermission(2))
                 .executes(this::cachedAllSkins);
@@ -80,8 +104,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
                 );
         var dialog = Commands.literal("dialog")
                 .then(
-                        Commands
-                                .argument("value", StringArgumentType.string())
+                        Commands.argument("value", StringArgumentType.string())
                                 .suggests(new DialogSuggestionProvider())
                                 .executes(this::dialog)
                 );
@@ -114,6 +137,9 @@ public class MainCommand implements CommandInit.CommandRegistration {
 
         root.executes(this::run);
         root.then(help);
+        root.then(get_sc_with_spell_config);
+        root.then(with_food_property);
+        root.then(with_drink_property);
         root.then(cachedAllSkins);
         root.then(recipe);
         root.then(registry);
@@ -127,6 +153,78 @@ public class MainCommand implements CommandInit.CommandRegistration {
     private int run(CommandContext<CommandSourceStack> context) {
         MutableComponent text = Component.translatable("command.touhou.suggest_help");
         context.getSource().sendSuccess(() -> text.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW)), false);
+        return 1;
+    }
+
+    private int withFoodProperties(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        assert player != null;
+        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
+        FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(id);
+        if (property == null) {
+            source.sendFailure(Component.literal("Invalid resource key."));
+            return 0;
+        }
+        ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        if (itemStack.isEmpty()) {
+            source.sendFailure(Component.literal("§cYour hand item is empty."));
+            return 0;
+        }
+        List<String> strings = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.FOOD_PROPERTIES, new ArrayList<>()));
+        if (!strings.contains(property.getId().toString())) {
+            strings.add(property.getId().toString());
+        }
+        itemStack.set(RDDataComponents.FOOD_PROPERTIES, strings);
+        return 1;
+    }
+
+    private int withDrinkProperties(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        assert player != null;
+        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
+        DrinkProperty property = RegistryHandlers.DRINK_PROPERTY.getValue(id);
+        if (property == null) {
+            source.sendFailure(Component.literal("Invalid resource key."));
+            return 0;
+        }
+        ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        if (itemStack.isEmpty()) {
+            source.sendFailure(Component.literal("§cYour hand item is empty."));
+            return 0;
+        }
+        List<String> strings = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.DRINK_PROPERTIES, new ArrayList<>()));
+        if (!strings.contains(property.getId().toString())) {
+            strings.add(property.getId().toString());
+        }
+        itemStack.set(RDDataComponents.DRINK_PROPERTIES, strings);
+        return 1;
+    }
+
+    private int getItemWithDanmakuConfig(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        assert player != null;
+        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
+
+        SpellCardFrameConfig config = RegistryHandlers.DANMAKU_CONFIG.getValue(id);
+        if (config == null) {
+            source.sendFailure(Component.literal("Invalid resource key."));
+            return 0;
+        }
+        ItemStack itemStack = RDItems.SPELLCARD.getDefaultInstance();
+        itemStack.set(RDDataComponents.SPELL_CARD_COMPONENT, new SpellcardRenderer(List.of(List.of(config))));
+        player.addItem(itemStack);
         return 1;
     }
 
@@ -152,11 +250,6 @@ public class MainCommand implements CommandInit.CommandRegistration {
 
         ResourceLocation registryKeyId = ResourceLocationArgument.getId(context, "registry_key");
         ResourceLocation id = ResourceLocationArgument.getId(context, "id");
-
-        if (registryKeyId == null || id == null) {
-            source.sendFailure(Component.literal("Invalid identifier format."));
-            return 0;
-        }
 
         ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
         RegistryHandler<?> registry = RegistryHandlers.ROOT.get(registryKey);

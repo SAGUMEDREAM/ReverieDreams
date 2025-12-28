@@ -49,9 +49,6 @@ public class TooltipManager {
             textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
-            if (!(stack.getItem() instanceof DrinkItem drinkItem)) {
-                return;
-            }
             List<DrinkProperty> allProperties = DrinkProperty.getAllProperties(stack);
             if (!allProperties.isEmpty()) {
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));

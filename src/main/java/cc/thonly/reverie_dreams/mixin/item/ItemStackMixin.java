@@ -105,8 +105,6 @@ public abstract class ItemStackMixin<T> implements IItemStack,
         if (item instanceof FoodItem) {
             return true;
         }
-//        System.out.println(item);
-//        this.components.forEach(component -> System.out.println(component.type()));
         return this.components.has(DataComponents.FOOD);
     }
 

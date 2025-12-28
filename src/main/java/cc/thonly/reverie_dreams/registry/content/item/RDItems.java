@@ -164,7 +164,7 @@ public class RDItems {
                             .soundAfterConsume(SoundEvents.GENERIC_DRINK)
                             .build()
             ));
-    public static final Item SWORD_OF_HISOU = registerItem("sword_of_hisou", (settings) -> new SwordOfHisou(1f, -2.4f, settings), new Item.Properties());
+    public static final Item SWORD_OF_HISOU = registerItem("sword_of_hisou", (settings) -> new SwordOfHisou(2f, -2.4f, settings), new Item.Properties());
     public static final Item MANPOZUCHI = registerItem("manpozuchi", (settings) -> new ManpozuchiItem(3.5f, -2.5f, settings), new Item.Properties());
     public static final Item NUE_TRIDENT = registerItem("nue_trident", (settings) -> new NueTrident(3.5f, -2.8f, settings), new Item.Properties());
     public static final Item TRUMPET_GUN = registerItem("trumpet_gun", TrumpetGun::new, new Item.Properties().stacksTo(1).durability(150).repairable(Items.GOLD_BLOCK));

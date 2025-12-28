@@ -24,10 +24,10 @@ public class DanmakuCreativeTab implements ItemGroupContentHelper {
             .displayItems((parameters, output) -> {
                 List<ItemStack> color = DanmakuTypes.allColor();
                 color.forEach(output::accept);
-                SpellCardFrameConfigs.MAP.forEach((s, frames) -> {
+                SpellCardFrameConfigs.BUILTIN_ITEMS.forEach((s, frames) -> {
                     ItemStack itemStack = new ItemStack(RDItems.SPELLCARD);
                     itemStack.set(RDDataComponents.SPELL_CARD_COMPONENT, new SpellcardRenderer(frames));
-                    itemStack.set(DataComponents.LORE, new ItemLore(List.of(Component.empty().append("§eBuiltIn Id:").append(Component.translatable(s)))));
+                    itemStack.set(DataComponents.LORE, new ItemLore(List.of(Component.empty().append("§eBuiltIn Id: ").append(Component.translatable(s)))));
                     output.accept(itemStack);
                 });
             })

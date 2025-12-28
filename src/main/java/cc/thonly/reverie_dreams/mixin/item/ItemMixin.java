@@ -143,8 +143,6 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
                 cir.cancel();
             }
         }
-
-
     }
 
     @Inject(method = "appendHoverText", at = @At("HEAD"))

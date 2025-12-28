@@ -259,7 +259,7 @@ public class TranslationWrapper implements ITranslationExporter {
         ResourceLocation key = registryKey.location();
         String namespace = key.getNamespace();
         String path = key.getPath().replaceAll("/", ".");
-        return key.toLanguageKey("jukebox_song");
+        return key.toLanguageKey("jukebox_song").replaceAll("/",".");
     }
 
 }

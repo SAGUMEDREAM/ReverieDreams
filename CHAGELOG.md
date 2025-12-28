@@ -1,5 +1,15 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.11+1.21.10
+* Fixed registry not sync
+* Fixed disc translation missing
+* Added Sub Command For Adding item's `Food Property` and `Drink Property`  
+* Rewrote the danmaku function engine.
+* Replace Hisou Sword recipe item with Copper Sword
+* Added Damage for Hisou Sword
+* Added Danmaku Speed
+* Added a secure delivery policy for Crossing Chisel
+
 # 0.4.10+1.21.10
 * Upgrade to version 1.21.9/10
 * Fixed an issue that caused entity animation to freeze.

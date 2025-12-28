@@ -17,8 +17,8 @@ public class SpellCardFrameConfig {
             Codec.INT.optionalFieldOf("tick_interval", 5).forGetter(SpellCardFrameConfig::getTickInterval),
             Codec.INT.optionalFieldOf("tick_duration", 20).forGetter(SpellCardFrameConfig::getTickDuration),
             Codec.FLOAT.optionalFieldOf("speed", 0.5f).forGetter(SpellCardFrameConfig::getSpeed),
-            KeyframePair.CODEC.fieldOf("pitch_range").forGetter(SpellCardFrameConfig::getPitchRange),
-            KeyframePair.CODEC.fieldOf("yaw_range").forGetter(SpellCardFrameConfig::getYawRange),
+            KeyframeRange.CODEC.optionalFieldOf("pitch_range", KeyframeRange.empty(0, 180)).forGetter(SpellCardFrameConfig::getPitchRange),
+            KeyframeRange.CODEC.optionalFieldOf("yaw_range", KeyframeRange.empty(-180, 180)).forGetter(SpellCardFrameConfig::getYawRange),
             Codec.BOOL.fieldOf("sync").forGetter(SpellCardFrameConfig::isSync),
             Codec.BOOL.fieldOf("random_color").forGetter(SpellCardFrameConfig::isRandomColor)
     ).apply(instance, SpellCardFrameConfig::new));
@@ -30,8 +30,8 @@ public class SpellCardFrameConfig {
     private int tickInterval = 5;
     private int tickDuration = 20;
     private float speed = 0.5f;
-    private KeyframePair pitchRange = new KeyframePair(0, 180);
-    private KeyframePair yawRange = new KeyframePair(-180, 180);
+    private KeyframeRange pitchRange = KeyframeRange.empty(0, 180);
+    private KeyframeRange yawRange = KeyframeRange.empty(-180, 180);
     private boolean sync = true;
     private boolean randomColor = false;
 
@@ -48,8 +48,8 @@ public class SpellCardFrameConfig {
                 this.tickInterval,
                 this.tickDuration,
                 this.speed,
-                new KeyframePair(pitchRange.getStart(), pitchRange.getEnd()),
-                new KeyframePair(yawRange.getStart(), yawRange.getEnd()),
+                this.pitchRange.copy(),
+                this.yawRange.copy(),
                 this.sync,
                 this.randomColor
         );
@@ -85,13 +85,25 @@ public class SpellCardFrameConfig {
         return this;
     }
 
+    @Deprecated
     public SpellCardFrameConfig withPitchStartAt(float start, float end) {
-        this.pitchRange = new KeyframePair(start, end);
+        this.pitchRange = KeyframeRange.empty(start, end);
         return this;
     }
 
+    @Deprecated
     public SpellCardFrameConfig withYawStartAt(float start, float end) {
-        this.yawRange = new KeyframePair(start, end);
+        this.yawRange = KeyframeRange.empty(start, end);
+        return this;
+    }
+
+    public SpellCardFrameConfig withPitchFunction(KeyframeRange range) {
+        this.pitchRange = range;
+        return this;
+    }
+
+    public SpellCardFrameConfig withYawFunction(KeyframeRange range) {
+        this.yawRange = range;
         return this;
     }
 
@@ -109,4 +121,5 @@ public class SpellCardFrameConfig {
         this.randomColor = true;
         return this;
     }
+
 }
