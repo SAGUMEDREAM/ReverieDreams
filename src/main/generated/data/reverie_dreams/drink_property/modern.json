@@ -2,14 +2,14 @@
   "registry_key": "reverie_dreams:modern",
   "properties": {
     "values": [
-      "reverie_dreams:drink/satellite_iced_coffee",
-      "reverie_dreams:drink/space_beer",
-      "reverie_dreams:drink/soda",
-      "reverie_dreams:drink/komeiji_ice_cream",
       "reverie_dreams:drink/mojito_burst_ball",
+      "reverie_dreams:drink/space_beer",
+      "reverie_dreams:drink/satellite_iced_coffee",
       "reverie_dreams:drink/moon_rocket",
-      "reverie_dreams:drink/big_popsicle",
       "reverie_dreams:drink/coffee",
+      "reverie_dreams:drink/soda",
+      "reverie_dreams:drink/big_popsicle",
+      "reverie_dreams:drink/komeiji_ice_cream",
       "reverie_dreams:drink/blessing_wind"
     ]
   }

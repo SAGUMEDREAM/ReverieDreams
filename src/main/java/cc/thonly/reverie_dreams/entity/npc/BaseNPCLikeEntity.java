@@ -844,7 +844,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         if (result) {
             ItemStack mainHand = this.getMainHandItem();
             if (mainHand.isDamageableItem()) {
-                mainHand.hurtAndBreak(1, (LivingEntity) this, (InteractionHand) null);
+                mainHand.hurtAndBreak(1, this, InteractionHand.MAIN_HAND);
             }
         }
         return result;

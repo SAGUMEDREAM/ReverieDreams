@@ -3,6 +3,7 @@
 # 0.4.11+1.21.10
 * Fixed registry not sync
 * Fixed disc translation missing
+* Fixed BaseNPCLikeEntity NPE
 * Added Sub Command For Adding item's `Food Property` and `Drink Property`  
 * Rewrote the danmaku function engine.
 * Replace Hisou Sword recipe item with Copper Sword
