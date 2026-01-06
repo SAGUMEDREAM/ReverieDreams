@@ -28,35 +28,6 @@ public class PolymerEntityHelper {
     public static final Model SCARECROW_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("scarecrow"));
 
     public static void bootstrap() {
-        registerOverlay(RDEntityTypes.SUNFLOWER_YOUSEI, SunflowerYouseiImpl::new);
-        registerOverlay(RDEntityTypes.YOUSEI, YouseiImpl::new);
-        registerOverlay(RDEntityTypes.MAID_YOUSEI, MaidYouseiImpl::new);
-        registerOverlay(RDEntityTypes.GHOST, NPCImpl::new);
-        registerOverlay(RDEntityTypes.GOBLIN, NPCImpl::new);
-        registerOverlay(RDEntityTypes.WATER_ELEMENTAL, NPCImpl::new);
-        registerOverlay(RDEntityTypes.FIRE_ELEMENTAL, NPCImpl::new);
-        registerOverlay(RDEntityTypes.ICE_ELEMENTAL, NPCImpl::new);
-        registerOverlay(RDEntityTypes.MAGIC_BROOM, MagicBroomImpl::new);
-        registerOverlay(RDEntityTypes.WHEEL_CHAIR, WheelChairImpl::new);
-        registerOverlay(RDEntityTypes.MOON_RABBIT, MoonRabbitImpl::new);
-        registerOverlay(RDEntityTypes.KILLER_BEE, KillerBeeImpl::new);
-        registerOverlay(RDEntityTypes.ORE_ESP, OreEspImpl::new);
-        registerOverlay(RDEntityTypes.BAGUA_FURNACE, BaguaFurnaceImpl::new);
-        registerOverlay(RDEntityTypes.DANMAKU, DanmakuImpl::new);
-        registerOverlay(RDEntityTypes.KNIFE, DanmakuImpl::new);
-        registerOverlay(RDEntityTypes.FUMO_SELLER_VILLAGER, VillagerImpl::new);
-        registerOverlay(RDEntityTypes.NPC_ROLE, RoleImpl::new);
-        registerOverlay(RDEntityTypes.HAIRBALL, HairballImpl::new);
-        registerOverlay(RDEntityTypes.MUSHROOM_MONSTER, MushroomMonsterImpl::new);
-        registerOverlay(RDEntityTypes.WILD_PIG, WildPigImpl::new);
-        registerOverlay(RDEntityTypes.TAVERN_VILLAGER, VillagerImpl::new);
-        registerOverlay(RDEntityTypes.SCARECROW, ScarecrowImpl::new);
-        registerOverlay(RDEntityTypes.UFO, UfoImpl::new);
-
-        for (NPCRole role : RegistryHandlers.NPC_ROLE) {
-            registerOverlay(role.getEntityType(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);
-        }
-
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             if (HOLD_RENDER_QUEUE.isEmpty()) {
                 return;
@@ -67,16 +38,14 @@ public class PolymerEntityHelper {
                 next.onCreated();
                 iterator.remove();
             }
+        });
+        ServerTickEvents.START_SERVER_TICK.register(server -> {
             TickHolderEntity.tick();
         });
+
     }
 
     public static void addEntityHolderModel(PolymerHolderEntity polymerHolderEntity) {
         PolymerEntityHelper.HOLD_RENDER_QUEUE.add(polymerHolderEntity);
-    }
-
-    public static <T extends Entity> void registerOverlay(EntityType<T> type, Function<T, PolymerEntity> constructor) {
-        PolymerEntityUtils.registerOverlay(type, constructor);
-        ENTITY_TYPE_FUNCTION_MAP.put(type, constructor);
     }
 }

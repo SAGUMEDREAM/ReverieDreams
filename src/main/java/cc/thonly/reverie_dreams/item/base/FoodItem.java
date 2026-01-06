@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.base;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class FoodItem extends Item {
+public class FoodItem extends Item implements IBasicPolymerItem {
 
     public FoodItem(Properties settings) {
         this(0, 0f, settings);

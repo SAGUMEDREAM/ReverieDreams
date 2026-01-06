@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.component.WrittenBookContent;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class TouhouHelperItem extends Item {
+public class TouhouHelperItem extends Item implements IBasicPolymerItem {
 
     public TouhouHelperItem(Properties settings) {
         super(settings);

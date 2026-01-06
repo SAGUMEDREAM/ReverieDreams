@@ -103,7 +103,6 @@ dependencies {
     modImplementation("eu.pb4:polymer-networking:[${polymer_version}]")
 
     modImplementation include("eu.pb4:factorytools:[${factorytools_version}]")
-    modImplementation files('libs/factorytools-0.5.1+1.21.4.jar')
     modImplementation include("eu.pb4:sgui:[${sgui_version}]")
     modImplementation include("xyz.nucleoid:server-translations-api:2.5.1+1.21.5")
     modImplementation include("maven.modrinth:midnightlib:${midnightlib_version}")
@@ -215,18 +214,7 @@ tasks.remapJar {
         def jarFile = archiveFile.get().asFile
         // 这里传入你的依赖 jar 列表
         includeDependencyJar(jarFile, [
-                "libs/camera-obscura-1.2.0+1.21.4.jar",
-                "factorytools-0.5.1+1.21.4.jar",
-                "libs/polymer-bundled-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-autohost-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-blocks-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-common-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-core-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-resource-pack-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-resource-pack-extras-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-virtual-entity-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-networking-0.11.9+1.21.4.jar",
-                "libs/polymer/polymer-reg-sync-manipulator-0.11.9+1.21.4.jar"
+                "libs/camera-obscura-1.2.0+1.21.4.jar"
         ])
     }
 }

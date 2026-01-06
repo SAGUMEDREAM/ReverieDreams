@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
@@ -18,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
-public class HoraiDamaNoEdaItem extends SwordItem {
+public class HoraiDamaNoEdaItem extends SwordItem implements IBasicPolymerItem {
     public static final ToolMaterial HORAI_DAMA_NO_EDA = new ToolMaterial(RDBlockTags.EMPTY, 300, 4.5f, 3.5f, 5, RDItemTags.ORB_BLOCK);
 
     public HoraiDamaNoEdaItem(float attackDamage, float attackSpeed, Properties settings) {

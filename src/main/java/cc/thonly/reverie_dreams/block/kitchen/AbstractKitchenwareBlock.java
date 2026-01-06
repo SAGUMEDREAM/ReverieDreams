@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block.kitchen;
 
+import cc.thonly.polymer.block.AbstractKitchenwareInf;
 import cc.thonly.reverie_dreams.block.entity.KitchenwareBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.gui.recipe.gui.KitchenBlockGui;
@@ -42,7 +43,7 @@ import java.util.function.DoubleUnaryOperator;
 @Setter
 @Getter
 @ToString
-public class AbstractKitchenwareBlock extends BaseEntityBlock {
+public class AbstractKitchenwareBlock extends BaseEntityBlock implements AbstractKitchenwareInf {
     public static final Set<AbstractKitchenwareBlock> KITCHENWARE_BLOCKS = new HashSet<>();
     public static final MapCodec<AbstractKitchenwareBlock> CODEC = simpleCodec(AbstractKitchenwareBlock::new);
 

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.debug;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.minecraft.network.chat.Component;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.UUID;
 
-public class BattleStickItem extends Item {
+public class BattleStickItem extends Item implements IBasicPolymerItem {
     public BattleStickItem(Properties settings) {
         super(settings);
     }

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -11,10 +12,11 @@ import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.Set;
 
-public class KillerBeeEntity extends Bee {
+public class KillerBeeEntity extends Bee implements PolymerEntity {
     public KillerBeeEntity(EntityType<? extends Bee> entityType, Level world) {
         super(entityType, world);
     }
@@ -49,4 +51,8 @@ public class KillerBeeEntity extends Bee {
         this.setHasStung(false);
     }
 
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        return EntityType.BEE;
+    }
 }

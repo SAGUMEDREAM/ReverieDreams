@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -8,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class BadAppleItem extends Item {
+public class BadAppleItem extends Item implements IBasicPolymerItem {
     public static final String FILE_NAME = "badapple.json";
 
     public BadAppleItem(Properties settings) {

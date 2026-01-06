@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
-public class Ibukiho extends SwordItem {
+public class Ibukiho extends SwordItem implements IBasicPolymerItem {
     public static final ToolMaterial IBUKIHO = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.WART_BLOCKS);
 
     public Ibukiho(float attackDamage, float attackSpeed, Properties settings) {

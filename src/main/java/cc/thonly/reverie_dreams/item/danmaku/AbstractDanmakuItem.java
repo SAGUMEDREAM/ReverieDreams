@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -22,7 +23,7 @@ import net.minecraft.world.level.Level;
 @Setter
 @Getter
 @ToString
-public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
+public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem, IBasicPolymerItem {
     public AbstractDanmakuItem(Properties settings) {
         super(settings.stacksTo(1));
     }

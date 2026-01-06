@@ -20,18 +20,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWire {
-    public static final Map<ServerLevel, Map<Long, Model>> MAPPING = new Object2ObjectOpenHashMap<>();
-    public static final Map<Long, Model> POS_TO_MODEL = new HashMap<>();
+public interface ItemStackDisplayImpl extends FactoryBlock, TransparentFlatTripWire {
+    Map<ServerLevel, Map<Long, Model>> MAPPING = new Object2ObjectOpenHashMap<>();
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
+    default ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         var model = new Model(world, initialBlockState.getBlock(), initialBlockState, pos);
         Map<Long, Model> longModelMap = MAPPING.computeIfAbsent(world, w -> new HashMap<>());
         longModelMap.put(pos.asLong(), model);

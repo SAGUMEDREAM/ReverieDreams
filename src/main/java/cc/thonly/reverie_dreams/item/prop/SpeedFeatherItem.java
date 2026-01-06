@@ -1,17 +1,15 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import net.minecraft.server.level.ServerLevel;
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
-public class SpeedFeatherItem extends Item {
+public class SpeedFeatherItem extends Item implements IBasicPolymerItem {
     public SpeedFeatherItem(Properties properties) {
         super(properties);
     }

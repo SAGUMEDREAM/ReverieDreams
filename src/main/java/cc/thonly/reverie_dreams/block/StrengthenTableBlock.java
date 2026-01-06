@@ -3,7 +3,14 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.block.entity.StrengthenTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.recipe.gui.StrengthTableGui;
 import com.mojang.serialization.MapCodec;
+import eu.pb4.polymer.blocks.api.BlockModelType;
+import eu.pb4.polymer.blocks.api.PolymerBlockModel;
+import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
+import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
+import eu.pb4.polymer.core.api.block.PolymerBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
@@ -12,15 +19,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
-public class StrengthenTableBlock extends BaseEntityBlock {
+public class StrengthenTableBlock extends BaseEntityBlock implements PolymerBlock, PolymerTexturedBlock {
+    BlockState polymerBlockState;
 
     public StrengthenTableBlock(Properties settings) {
         super(settings);
+        ResourceKey<Block> resId = properties.id;
+        assert resId != null;
+        var id = resId.location();
+        this.polymerBlockState = PolymerBlockResourceUtils.requestBlock(BlockModelType.FULL_BLOCK, PolymerBlockModel.of(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath())));
     }
 
     @Override
@@ -58,5 +72,10 @@ public class StrengthenTableBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StrengthenTableBlockEntity(pos, state);
+    }
+
+    @Override
+    public BlockState getPolymerBlockState(BlockState blockState, PacketContext packetContext) {
+        return this.polymerBlockState;
     }
 }

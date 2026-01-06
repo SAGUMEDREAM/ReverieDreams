@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.item.base;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class ArmorItem extends net.minecraft.world.item.ArmorItem {
+public class ArmorItem extends net.minecraft.world.item.ArmorItem implements IBasicPolymerItem {
     public static final List<ArmorItem> HEAD_ITEMS = new ArrayList<>();
     public static final List<ArmorItem> CHEST_ITEMS = new ArrayList<>();
     public static final List<ArmorItem> LEG_ITEMS = new ArrayList<>();

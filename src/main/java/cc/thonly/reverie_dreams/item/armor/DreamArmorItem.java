@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.item.armor;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.armor.DreamArmorMaterial;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
-import cc.thonly.reverie_dreams.util.EquipmentSlotUtil;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -12,9 +11,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
-public class DreamArmorItem extends ArmorItem {
+public class DreamArmorItem extends ArmorItem implements IBasicPolymerItem {
     public DreamArmorItem(ArmorType type, Properties settings) {
         super(DreamArmorMaterial.INSTANCE, type, settings);
     }

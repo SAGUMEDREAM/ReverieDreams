@@ -1,11 +1,12 @@
 package cc.thonly.reverie_dreams.effect;
 
+import eu.pb4.polymer.core.api.other.PolymerPotion;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class MentalDisorder extends MobEffect {
+public class MentalDisorder extends MobEffect implements PolymerPotion {
 
     public MentalDisorder() {
         super(MobEffectCategory.NEUTRAL, 16262179);

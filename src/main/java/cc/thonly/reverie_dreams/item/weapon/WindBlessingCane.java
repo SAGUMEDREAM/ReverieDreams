@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.server.level.ServerLevel;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
-public class WindBlessingCane extends SwordItem {
+public class WindBlessingCane extends SwordItem implements IBasicPolymerItem {
     public static final ToolMaterial WIND_BLESSING_CANE = new ToolMaterial(RDBlockTags.EMPTY, 250, 4.0f, 3.5f, 5, ItemTags.IRON_TOOL_MATERIALS);
 
     public WindBlessingCane(float attackDamage, float attackSpeed, Properties settings) {

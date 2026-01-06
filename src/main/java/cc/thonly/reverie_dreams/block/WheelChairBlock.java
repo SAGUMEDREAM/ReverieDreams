@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
+import cc.thonly.polymer.block.HorizontalFacingInf;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import cc.thonly.reverie_dreams.entity.misc.WheelchairEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class WheelChairBlock extends ModelBlock {
+public class WheelChairBlock extends ModelBlock implements HorizontalFacingInf {
     public static final MapCodec<WheelChairBlock> CODEC = simpleCodec(WheelChairBlock::new);
     public static final EnumProperty<SixteenDirection> FACING_16 = RDBlockStateTemplates.FACING_16;
 

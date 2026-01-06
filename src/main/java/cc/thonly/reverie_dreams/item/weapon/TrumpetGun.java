@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class TrumpetGun extends Item implements IDanmakuItem {
+public class TrumpetGun extends Item implements IDanmakuItem, IBasicPolymerItem {
 
     public TrumpetGun(Properties settings) {
         super(settings);

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.template;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.gui.DanmakuShapeEditGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class DanmakuShapeCreatorItem extends Item {
+public class DanmakuShapeCreatorItem extends Item implements IBasicPolymerItem {
     public DanmakuShapeCreatorItem(Properties settings) {
         super(settings.stacksTo(4));
     }

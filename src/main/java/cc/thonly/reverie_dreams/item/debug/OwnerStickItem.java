@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.debug;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -11,7 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class OwnerStickItem extends Item {
+public class OwnerStickItem extends Item implements IBasicPolymerItem {
     public OwnerStickItem(Properties settings) {
         super(settings);
     }

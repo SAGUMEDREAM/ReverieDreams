@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
+import cc.thonly.polymer.block.GensokyoAltarInf;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
@@ -37,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 @Getter
-public class GensokyoAltarBlock extends BaseEntityBlock {
+public class GensokyoAltarBlock extends BaseEntityBlock implements GensokyoAltarInf {
     public static final int[][] OFFSETS = {
             {0, -4}, {-3, -3}, {3, -3},
             {-4, 0}, {4, 0},

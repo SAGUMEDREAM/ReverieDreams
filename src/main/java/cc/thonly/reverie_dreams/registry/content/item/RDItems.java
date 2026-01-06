@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
+import cc.thonly.polymer.item.BasicPolymerItem;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
@@ -84,34 +85,34 @@ public class RDItems {
             .stacksTo(1));
 
     // 图标
-    public static final Item ICON = registerCreativeTabIcon("icon", Item::new, new Item.Properties());
-    public static final Item FUMO_ICON = registerCreativeTabIcon("fumo_icon", Item::new, new Item.Properties());
-    public static final Item ROLE_ICON = registerCreativeTabIcon("role_icon", Item::new, new Item.Properties());
-    public static final Item SPAWN_EGG = registerCreativeTabIcon("spawn_egg", Item::new, new Item.Properties()
+    public static final Item ICON = registerCreativeTabIcon("icon", BasicPolymerItem::new, new Item.Properties());
+    public static final Item FUMO_ICON = registerCreativeTabIcon("fumo_icon", BasicPolymerItem::new, new Item.Properties());
+    public static final Item ROLE_ICON = registerCreativeTabIcon("role_icon", BasicPolymerItem::new, new Item.Properties());
+    public static final Item SPAWN_EGG = registerCreativeTabIcon("spawn_egg", BasicPolymerItem::new, new Item.Properties()
             .component(DataComponents.DYED_COLOR, SpawnEggItem.DEFAULT_COLOR));
-    public static final Item DANMAKU = registerCreativeTabIcon("danmaku", Item::new, new Item.Properties());
-    public static final Item MYSTIA_ICON = registerCreativeTabIcon("mystia_icon", Item::new, new Item.Properties().stacksTo(1));
+    public static final Item DANMAKU = registerCreativeTabIcon("danmaku", BasicPolymerItem::new, new Item.Properties());
+    public static final Item MYSTIA_ICON = registerCreativeTabIcon("mystia_icon", BasicPolymerItem::new, new Item.Properties().stacksTo(1));
 
     // 材料
-    public static final Item POINT = registerItem("point", Item::new, new Item.Properties());
-    public static final Item POWER = registerItem("power", Item::new, new Item.Properties());
-    public static final Item DANMAKU_CORE = registerItem("danmaku_core", Item::new, new Item.Properties()
+    public static final Item POINT = registerItem("point", BasicPolymerItem::new, new Item.Properties());
+    public static final Item POWER = registerItem("power", BasicPolymerItem::new, new Item.Properties());
+    public static final Item DANMAKU_CORE = registerItem("danmaku_core", BasicPolymerItem::new, new Item.Properties()
             .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
-    public static final Item UPGRADED_HEALTH_FRAGMENT = registerItem("upgraded_health_fragment", Item::new, new Item.Properties());
-    public static final Item BOMB_FRAGMENT = registerItem("bomb_fragment", Item::new, new Item.Properties());
-    public static final Item RED_ORB = registerItem("red_orb", Item::new, new Item.Properties());
-    public static final Item BLUE_ORB = registerItem("blue_orb", Item::new, new Item.Properties());
-    public static final Item YELLOW_ORB = registerItem("yellow_orb", Item::new, new Item.Properties());
-    public static final Item GREEN_ORB = registerItem("green_orb", Item::new, new Item.Properties());
-    public static final Item PURPLE_ORB = registerItem("purple_orb", Item::new, new Item.Properties());
-    public static final Item YIN_YANG_ORB = registerItem("yin-yang_orb", Item::new, new Item.Properties());
+    public static final Item UPGRADED_HEALTH_FRAGMENT = registerItem("upgraded_health_fragment", BasicPolymerItem::new, new Item.Properties());
+    public static final Item BOMB_FRAGMENT = registerItem("bomb_fragment", BasicPolymerItem::new, new Item.Properties());
+    public static final Item RED_ORB = registerItem("red_orb", BasicPolymerItem::new, new Item.Properties());
+    public static final Item BLUE_ORB = registerItem("blue_orb", BasicPolymerItem::new, new Item.Properties());
+    public static final Item YELLOW_ORB = registerItem("yellow_orb", BasicPolymerItem::new, new Item.Properties());
+    public static final Item GREEN_ORB = registerItem("green_orb", BasicPolymerItem::new, new Item.Properties());
+    public static final Item PURPLE_ORB = registerItem("purple_orb", BasicPolymerItem::new, new Item.Properties());
+    public static final Item YIN_YANG_ORB = registerItem("yin-yang_orb", BasicPolymerItem::new, new Item.Properties());
     public static final Item SPEED_FEATHER = registerItem("speed_feather", SpeedFeatherItem::new, new Item.Properties()
             .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
-    public static final Item DREAM_CRYSTAL_FRAGMENT = registerItem("dream_crystal_fragment", Item::new, new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
-    public static final Item EMPTY_PHOTO = registerItem("empty_photo", Item::new, new Item.Properties());
-    public static final Item COPPER_COIN = registerItem("copper_coin", Item::new, new Item.Properties().stacksTo(96));
-    public static final Item SILVER_COIN = registerItem("silver_coin", Item::new, new Item.Properties().stacksTo(96));
-    public static final Item GOLD_COIN = registerItem("gold_coin", Item::new, new Item.Properties().stacksTo(96));
+    public static final Item DREAM_CRYSTAL_FRAGMENT = registerItem("dream_crystal_fragment", BasicPolymerItem::new, new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
+    public static final Item EMPTY_PHOTO = registerItem("empty_photo", BasicPolymerItem::new, new Item.Properties());
+    public static final Item COPPER_COIN = registerItem("copper_coin", BasicPolymerItem::new, new Item.Properties().stacksTo(96));
+    public static final Item SILVER_COIN = registerItem("silver_coin", BasicPolymerItem::new, new Item.Properties().stacksTo(96));
+    public static final Item GOLD_COIN = registerItem("gold_coin", BasicPolymerItem::new, new Item.Properties().stacksTo(96));
 
     // 道具
     public static final Item TOUHOU_HELPER = registerItem("touhou_helper", TouhouHelperItem::new, new Item.Properties()

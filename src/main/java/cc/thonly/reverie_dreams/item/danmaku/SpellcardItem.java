@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
@@ -14,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class SpellcardItem extends Item {
+public class SpellcardItem extends Item implements IBasicPolymerItem {
     public SpellcardItem(Properties properties) {
         super(properties);
     }

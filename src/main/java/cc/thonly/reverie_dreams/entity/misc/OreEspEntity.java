@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import xyz.nucleoid.packettweaker.PacketContext;
 
-public class OreEspEntity extends Display.BlockDisplay {
+public class OreEspEntity extends Display.BlockDisplay implements PolymerEntity {
     public int lifetime = 100;
 
     public OreEspEntity(EntityType<?> entityType, Level world ) {
@@ -21,4 +23,8 @@ public class OreEspEntity extends Display.BlockDisplay {
         }
     }
 
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext packetContext) {
+        return EntityType.BLOCK_DISPLAY;
+    }
 }

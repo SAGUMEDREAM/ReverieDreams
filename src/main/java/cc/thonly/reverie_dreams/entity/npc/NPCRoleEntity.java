@@ -1,9 +1,16 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
 import cc.thonly.reverie_dreams.inf.IExperienceOrbEntity;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import com.mojang.authlib.properties.Property;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
+import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.level.ServerLevel;
@@ -18,15 +25,17 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.joml.Vector3f;
 
 import java.util.List;
 
 @Getter
 @Setter
-public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
+public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable, PlayerPolymerEntity {
 
     public NPCRoleEntity(EntityType<? extends NPCRoleEntity> entityType, Level world) {
         super(entityType, world);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     @Override
@@ -147,4 +156,24 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     public Boolean consumeHunger() {
         return true;
     }
+
+
+    public void onCreated() {
+        var entity = this.getEntity();
+        var x = new ItemDisplayElement();
+        var holder = new ElementHolder();
+        x.setInvisible(true);
+        x.setTeleportDuration(3);
+        x.setScale(new Vector3f(0.5f));
+        holder.addElement(x);
+        EntityAttachment.of(holder, entity);
+        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(entity, x);
+    }
+
+    @Override
+    public LivingEntity getEntity() {
+        return this;
+    }
+
 }

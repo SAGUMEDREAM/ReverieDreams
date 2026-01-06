@@ -1,17 +1,30 @@
 package cc.thonly.reverie_dreams.block.base;
 
+import cc.thonly.polymer.block.model.TransparentTripWire;
 import cc.thonly.reverie_dreams.compat.BorukvaFoodCompatImpl;
 import cc.thonly.reverie_dreams.inf.IMatureBlock;
 import com.mojang.serialization.MapCodec;
+import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.virtualentity.BlockModel;
+import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
+import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
+import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
+import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -22,16 +35,22 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.Map;
 
 @Setter
 @Getter
 @ToString
-public abstract class AbstractCropBlock extends BushBlock implements BonemealableBlock, IMatureBlock {
+public abstract class AbstractCropBlock extends BushBlock implements BonemealableBlock, IMatureBlock, PolymerTexturedBlock, FactoryBlock, TransparentTripWire {
+    private final Map<Integer, ItemStack> age2itemStackHolder = new Object2ObjectLinkedOpenHashMap<>();
     protected Item seed;
 
     protected AbstractCropBlock(Properties settings) {
         super(settings.noOcclusion().noCollission().randomTicks().instabreak().sound(SoundType.CROP));
         this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
+        this.parse();
     }
 
     @Override
@@ -166,6 +185,64 @@ public abstract class AbstractCropBlock extends BushBlock implements Bonemealabl
             }
         }
         return f;
+    }
+
+    void parse() {
+        assert properties.id != null;
+        ResourceLocation key = properties.id.location();
+        for (int index = 0; index <= this.getMaxAge(); index++) {
+            String modelId = "%s:block/%s_stage%s".formatted(key.getNamespace(), key.getPath(), index);
+            ItemStack model = ItemDisplayElementUtil.getModel(ResourceLocation.parse(modelId));
+//            System.out.println(modelId);
+            this.age2itemStackHolder.put(index, model);
+        }
+//        System.out.println(this.age2itemStackHolder);
+    }
+
+    @Override
+    public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
+        return Blocks.WHEAT.defaultBlockState();
+    }
+
+
+    @Override
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
+        return new Model(world, pos, initialBlockState);
+    }
+
+    public class Model extends BlockModel {
+        private final ServerLevel world;
+        private final BlockPos blockPos;
+        private final BlockState blockState;
+        public ItemDisplayElement main;
+
+        public Model(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
+            this.world = world;
+            this.blockPos = pos;
+            this.blockState = initialBlockState;
+            init(initialBlockState);
+        }
+
+        public void init(BlockState state) {
+            this.main = ItemDisplayElementUtil.createSimple();
+            updateItem(state);
+            this.main.setScale(new Vector3f(1));
+            this.addElement(main);
+        }
+
+        protected void updateItem(BlockState state) {
+            int age = state.getValue(AbstractCropBlock.this.getAgeProperty());
+            this.main.setItem(AbstractCropBlock.this.age2itemStackHolder.getOrDefault(age, new ItemStack(Items.BARRIER)));
+        }
+
+        @Override
+        public void notifyUpdate(HolderAttachment.UpdateType updateType) {
+            if (updateType == BlockBoundAttachment.BLOCK_STATE_UPDATE) {
+                updateItem(this.blockState());
+                this.tick();
+            }
+            super.notifyUpdate(updateType);
+        }
     }
 
 }

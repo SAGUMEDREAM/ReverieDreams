@@ -1,7 +1,10 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
+import cc.thonly.reverie_dreams.entity.holder.WingHolder;
 import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
 import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
 import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
@@ -11,16 +14,17 @@ import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Leashable;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -30,12 +34,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import java.util.Objects;
 
 @Setter
 @Getter
-public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, Yousei {
+public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, Yousei, PlayerPolymerEntity {
     private YouseiVariant variant = null;
 
     public YouseiEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
@@ -139,5 +144,26 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     @Override
     public boolean requiresCustomPersistence() {
         return false;
+    }
+
+    @Override
+    public void onCreated() {
+        var x = new ItemDisplayElement();
+        var holder = new WingHolder(this);
+        x.setItem(new ItemStack(RDEntityHolderItems.YOUSEI_WINGS));
+        x.setInvisible(true);
+        x.setTeleportDuration(3);
+        x.setScale(new Vector3f(1.2f));
+        holder.setElement(x);
+        holder.addElement(x);
+        EntityAttachment.ofTicking(holder, this);
+        VirtualEntityUtils.addVirtualPassenger(this, x.getEntityId());
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(this, x);
+    }
+
+
+    @Override
+    public LivingEntity getEntity() {
+        return this;
     }
 }

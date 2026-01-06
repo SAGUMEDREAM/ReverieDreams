@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.item.armor;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.armor.EarphoneArmorMaterial;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.server.ParticleTickerManager;
-import cc.thonly.reverie_dreams.util.EquipmentSlotUtil;
 import cc.thonly.reverie_dreams.util.math.Vec3d2Entity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -16,12 +16,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarphoneItem extends ArmorItem {
+public class EarphoneItem extends ArmorItem implements IBasicPolymerItem {
     public static final List<Vec3d2Entity> VEC_3_DS = new ArrayList<>();
 
     public EarphoneItem(Item.Properties settings) {

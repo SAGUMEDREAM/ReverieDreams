@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerTickRateManager;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class TimeStopClock extends Item {
+public class TimeStopClock extends Item implements IBasicPolymerItem {
     public static DelayedTask TASK = null;
 
     public TimeStopClock(Properties settings) {

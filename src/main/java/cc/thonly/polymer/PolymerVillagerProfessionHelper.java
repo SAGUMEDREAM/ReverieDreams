@@ -13,25 +13,25 @@ public class PolymerVillagerProfessionHelper {
     public static void bootstrap() {
         registerOverlay(RDVillagerProfessions.HAWKERS, new PolymerVillagerProfession() {
             @Override
-            public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
+            public VillagerProfession getPolymerProfession(VillagerProfession object, PacketContext context) {
                 return VillagerProfession.BUTCHER;
             }
         });
         registerOverlay(RDVillagerProfessions.PRIEST, new PolymerVillagerProfession() {
             @Override
-            public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
+            public VillagerProfession getPolymerProfession(VillagerProfession object, PacketContext context) {
                 return VillagerProfession.CLERIC;
             }
         });
         registerOverlay(RDVillagerProfessions.MONEY_SHOP_CLERK, new PolymerVillagerProfession() {
             @Override
-            public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
+            public VillagerProfession getPolymerProfession(VillagerProfession object, PacketContext packetContext) {
                 return VillagerProfession.LIBRARIAN;
             }
         });
     }
 
-    public static void registerOverlay(ResourceKey<VillagerProfession> registryKey, PolymerSyncedObject<VillagerProfession> overlay) {
+    public static void registerOverlay(ResourceKey<VillagerProfession> registryKey, PolymerVillagerProfession overlay) {
         VillagerProfession profession = BuiltInRegistries.VILLAGER_PROFESSION.getValue(registryKey);
         PolymerEntityUtils.registerProfession(profession, overlay);
     }

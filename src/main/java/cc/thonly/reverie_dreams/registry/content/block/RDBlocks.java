@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.registry.content.block;
 
-import cc.thonly.polymer.PolymerBlockHelper;
+import cc.thonly.polymer.block.impl.BasicPolymerAxisModelBlock;
+import cc.thonly.polymer.block.impl.BasicPolymerFullBlock;
+import cc.thonly.polymer.block.impl.BasicPolymerModelBlock;
+import cc.thonly.polymer.item.BasicPolymerBlockItem;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.*;
-import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import cc.thonly.reverie_dreams.block.creator.ChestBlockCreator;
 import cc.thonly.reverie_dreams.block.creator.DecorativeBlockCreator;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -36,37 +38,37 @@ public class RDBlocks {
     public static final Block GENSOKYO_ALTAR = registerBlock("gensokyo_altar", GensokyoAltarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ENCHANTING_TABLE).lightLevel((state) -> 7));
     public static final Block MUSIC_BLOCK = registerBlock("music_block", MusicBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.NOTE_BLOCK));
 
-    public static final Block MAGIC_ICE_BLOCK = registerBlock("magic_ice", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLUE_ICE));
-    public static final Block POINT_BLOCK = registerBlock("point_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
-    public static final Block POWER_BLOCK = registerBlock("power_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
+    public static final Block MAGIC_ICE_BLOCK = registerBlock("magic_ice", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLUE_ICE));
+    public static final Block POINT_BLOCK = registerBlock("point_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
+    public static final Block POWER_BLOCK = registerBlock("power_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
     public static final DecorativeBlockCreator ICE_SCALES = DecorativeBlockCreator.create("ice_scales_block").build();
     public static final DecorativeBlockCreator DREAM_STONE = DecorativeBlockCreator.create("dream_stone").build();
     public static final DecorativeBlockCreator DREAM_STONE_BRICK = DecorativeBlockCreator.create("dream_stone_brick").build();
     public static final DecorativeBlockCreator MOON_STONE = DecorativeBlockCreator.create("moon_stone").build();
     public static final DecorativeBlockCreator MOON_STONE_BRICK = DecorativeBlockCreator.create("moon_stone_brick").build();
 
-    public static final Block SILVER_ORE = registerBlock("silver_ore", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE));
-    public static final Block DEEPSLATE_SILVER_ORE = registerBlock("deepslate_silver_ore", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE));
-    public static final Block SILVER_BLOCK = registerBlock("silver_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+    public static final Block SILVER_ORE = registerBlock("silver_ore", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE));
+    public static final Block DEEPSLATE_SILVER_ORE = registerBlock("deepslate_silver_ore", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE));
+    public static final Block SILVER_BLOCK = registerBlock("silver_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final ChestBlockCreator SILVER_CHEST_BLOCK = ChestBlockCreator.create(
             "silver_chest",
             BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
     ).build();
-    public static final Block ORB_ORE = registerBlock("orb_ore", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE));
-    public static final Block DEEPSLATE_ORB_ORE = registerBlock("deepslate_orb_ore", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE));
-    public static final Block RED_ORB_BLOCK = registerBlock("red_orb_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
-    public static final Block YELLOW_ORB_BLOCK = registerBlock("yellow_orb_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
-    public static final Block BLUE_ORB_BLOCK = registerBlock("blue_orb_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
-    public static final Block GREEN_ORB_BLOCK = registerBlock("green_orb_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
-    public static final Block PURPLE_ORB_BLOCK = registerBlock("purple_orb_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
+    public static final Block ORB_ORE = registerBlock("orb_ore", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE));
+    public static final Block DEEPSLATE_ORB_ORE = registerBlock("deepslate_orb_ore", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE));
+    public static final Block RED_ORB_BLOCK = registerBlock("red_orb_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
+    public static final Block YELLOW_ORB_BLOCK = registerBlock("yellow_orb_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
+    public static final Block BLUE_ORB_BLOCK = registerBlock("blue_orb_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
+    public static final Block GREEN_ORB_BLOCK = registerBlock("green_orb_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
+    public static final Block PURPLE_ORB_BLOCK = registerBlock("purple_orb_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
 
-    public static final Block DREAM_RED_BLOCK = registerBlock("dream_world_red_line_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK));
-    public static final Block DREAM_BLUE_BLOCK = registerBlock("dream_world_blue_line_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK));
-    public static final Block DREAM_CRYSTAL_ORE = registerBlock("dream_crystal_ore", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE));
+    public static final Block DREAM_RED_BLOCK = registerBlock("dream_world_red_line_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK));
+    public static final Block DREAM_BLUE_BLOCK = registerBlock("dream_world_blue_line_block", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK));
+    public static final Block DREAM_CRYSTAL_ORE = registerBlock("dream_crystal_ore", BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE));
 
     public static final Block MARISA_HAT_BLOCK = registerBlock("marisa_hat", (settings) -> new MarisaHatBlock(Vec3.ZERO, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL), new Item.Properties().stacksTo(1).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setSwappable(false).build()));
     public static final Block CASH_BOX_BLOCK = registerBlock("cash_box", CashBoxBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS));
-    public static final Block ANTI_COLLISION_BARREL = registerBlock("anti_collision_barrel", ModelBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+    public static final Block ANTI_COLLISION_BARREL = registerBlock("anti_collision_barrel", BasicPolymerModelBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final Block WHEEL_CHAIR = registerBlock("wheel_chair", WheelChairBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final ChestBlockCreator WOODEN_BOX = ChestBlockCreator.create(
             "wooden_box",
@@ -79,7 +81,7 @@ public class RDBlocks {
     );
     public static final Block BLACK_SALT_BLOCK = registerSimpleBlock(
             "black_salt_block",
-            Block::new,
+            BasicPolymerFullBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
     );
 
@@ -90,7 +92,7 @@ public class RDBlocks {
     }
 
     public static Block registerSimpleBlock(Block block) {
-        PolymerBlockHelper.registerOverlay(block);
+//        PolymerBlockHelper.registerOverlay(block);
         BlockTypeGroup.join(block);
         return block;
     }
@@ -101,7 +103,7 @@ public class RDBlocks {
         if (block instanceof MarisaHatBlock hat) {
             itemSettings.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).build());
         }
-        Item item = RDItems.registerSimpleItem(id, (itemSetting -> new BlockItem(block, itemSetting)), itemSettings.useBlockDescriptionPrefix());
+        Item item = RDItems.registerSimpleItem(id, (itemSetting -> new BasicPolymerBlockItem(block, itemSetting)), itemSettings.useBlockDescriptionPrefix());
         return registerSimpleBlock(block);
     }
 

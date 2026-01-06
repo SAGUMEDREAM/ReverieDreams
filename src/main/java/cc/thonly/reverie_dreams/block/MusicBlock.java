@@ -4,8 +4,15 @@ import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import com.mojang.serialization.MapCodec;
+import eu.pb4.polymer.blocks.api.BlockModelType;
+import eu.pb4.polymer.blocks.api.PolymerBlockModel;
+import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
+import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
+import eu.pb4.polymer.core.api.block.PolymerBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,15 +30,22 @@ import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import nota.player.SongPlayer;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.Map;
 
-public class MusicBlock extends BaseEntityBlock {
+public class MusicBlock extends BaseEntityBlock implements PolymerBlock, PolymerTexturedBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    BlockState polymerBlockState;
 
     public MusicBlock(Properties settings) {
-        super( settings);
+        super(settings);
         this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false));
+        ResourceKey<Block> resId = properties.id;
+        assert resId != null;
+        var id = resId.location();
+        this.polymerBlockState = PolymerBlockResourceUtils.requestBlock(BlockModelType.FULL_BLOCK, PolymerBlockModel.of(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath())));
+
     }
 
     @Override
@@ -56,7 +70,7 @@ public class MusicBlock extends BaseEntityBlock {
             if (index == -1) {
                 player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
                 return InteractionResult.PASS;
-            } else if (world.hasNeighborSignal(pos)){
+            } else if (world.hasNeighborSignal(pos)) {
                 TouhouNotaUtils.playAt(world, pos, blockEntity.getSelect());
             }
             player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", blockEntity.getSelect()), false);
@@ -113,5 +127,10 @@ public class MusicBlock extends BaseEntityBlock {
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new MusicBlockEntity(pos, state);
+    }
+
+    @Override
+    public BlockState getPolymerBlockState(BlockState blockState, PacketContext packetContext) {
+        return this.polymerBlockState;
     }
 }

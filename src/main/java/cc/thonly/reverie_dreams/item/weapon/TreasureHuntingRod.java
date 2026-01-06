@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
@@ -29,7 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreasureHuntingRod extends SwordItem {
+public class TreasureHuntingRod extends SwordItem implements IBasicPolymerItem {
     public static final List<TagKey<Block>> ORE_BLOCK_TAGS = new ArrayList<>();
     public static final ToolMaterial MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 300, 4.0f, 4.5f, 5, ItemTags.DIAMOND_TOOL_MATERIALS);
 

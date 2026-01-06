@@ -502,19 +502,14 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        PolymerEntity polymerEntity = PolymerEntity.get(this);
-        if (polymerEntity instanceof PlayerPolymerEntity playerPolymerEntity) {
-            playerPolymerEntity.onCreated();
-        }
+        onCreated();
     }
 
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        PolymerEntity polymerEntity = PolymerEntity.get(this);
-        if (polymerEntity instanceof PlayerPolymerEntity playerPolymerEntity) {
-            playerPolymerEntity.onTrackingStopped(player);
-        }
+        onTrackingStopped(player);
+
     }
 
     @Override

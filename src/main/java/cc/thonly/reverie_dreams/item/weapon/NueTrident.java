@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.item.base.MiningToolItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.core.BlockPos;
@@ -37,7 +38,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public class NueTrident extends MiningToolItem implements ProjectileItem {
+public class NueTrident extends MiningToolItem implements ProjectileItem, IBasicPolymerItem {
     public static final ToolMaterial NUE_TRIDENT = new ToolMaterial(RDBlockTags.MIN_TOOL, 450, 4.5f, 5.5f, 1, ItemTags.NETHERITE_TOOL_MATERIALS);
 
     public NueTrident(float attackDamage, float attackSpeed, Item.Properties settings) {

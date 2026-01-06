@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.base;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class IngredientItem extends Item {
+public class IngredientItem extends Item implements IBasicPolymerItem {
     public static final Map<Item, Set<FoodProperty>> ITEM_INGREDIENT_CACHED = new HashMap<>();
 
     public IngredientItem(Properties settings) {

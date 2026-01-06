@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
@@ -33,7 +34,7 @@ import java.util.Random;
 @SuppressWarnings("unchecked")
 @Setter
 @Getter
-public class Knife extends SwordItem implements IDanmakuItem {
+public class Knife extends SwordItem implements IDanmakuItem, IBasicPolymerItem {
 
     public Knife(float attackDamage, float attackSpeed, Properties settings) {
         super(

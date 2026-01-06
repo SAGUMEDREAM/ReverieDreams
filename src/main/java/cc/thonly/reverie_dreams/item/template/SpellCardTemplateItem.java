@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.item.template;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import net.minecraft.world.item.Item;
 
-public class SpellCardTemplateItem extends Item {
+public class SpellCardTemplateItem extends Item implements IBasicPolymerItem {
     public SpellCardTemplateItem(Properties settings) {
         super(settings);
     }

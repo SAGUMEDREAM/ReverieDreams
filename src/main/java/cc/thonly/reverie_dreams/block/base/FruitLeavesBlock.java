@@ -2,10 +2,20 @@ package cc.thonly.reverie_dreams.block.base;
 
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import com.mojang.serialization.MapCodec;
+import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.virtualentity.BlockModel;
+import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
+import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
+import eu.pb4.polymer.core.api.block.PolymerBlock;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
+import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
+import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -13,7 +23,6 @@ import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -27,16 +36,17 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
+public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock, PolymerBlock, PolymerTexturedBlock, FactoryBlock {
     public static final MapCodec<FruitLeavesBlock> CODEC = FruitLeavesBlock.simpleCodec(FruitLeavesBlock::new);
     public static final List<FruitLeavesBlock> FRUIT_LEAVES_BLOCKS = new ArrayList<>();
     public static final int MAX_AGE = 3;
@@ -231,5 +241,65 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
         return f;
     }
 
+    @Override
+    public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
+        return Blocks.OAK_LEAVES.defaultBlockState();
+    }
 
+    @Override
+    public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
+        return Blocks.BARRIER.defaultBlockState();
+    }
+
+    @Override
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
+        return new Model(world, pos, initialBlockState);
+    }
+
+    @Getter
+    public class Model extends BlockModel {
+        private final ItemDisplayElement main;
+
+        private final ItemStack EMPTY_MODEL;
+        private final ItemStack FRUIT_MODEL;
+
+        public Model(ServerLevel world, BlockPos pos, BlockState state) {
+            ResourceLocation emptyId =
+                    BuiltInRegistries.BLOCK.getKey(emptyLeavesBlock);
+            ResourceLocation fruitId =
+                    BuiltInRegistries.BLOCK.getKey(FruitLeavesBlock.this);
+
+            EMPTY_MODEL = ItemDisplayElementUtil.getModel(
+                    ResourceLocation.fromNamespaceAndPath(
+                            emptyId.getNamespace(), "block/" + emptyId.getPath()
+                    )
+            );
+
+            FRUIT_MODEL = ItemDisplayElementUtil.getModel(
+                    ResourceLocation.fromNamespaceAndPath(
+                            fruitId.getNamespace(), "block/" + fruitId.getPath()
+                    )
+            );
+
+            main = ItemDisplayElementUtil.createSimple();
+            main.setScale(new Vector3f(2));
+
+            updateItem(state);
+            addElement(main);
+        }
+
+        private void updateItem(BlockState state) {
+            int age = state.getValue(AGE_PROPERTY);
+            main.setItem(age >= MAX_AGE ? FRUIT_MODEL : EMPTY_MODEL);
+        }
+
+        @Override
+        public void notifyUpdate(HolderAttachment.UpdateType type) {
+            if (type == BlockBoundAttachment.BLOCK_STATE_UPDATE) {
+                updateItem(this.blockState());
+                tick();
+            }
+            super.notifyUpdate(type);
+        }
+    }
 }

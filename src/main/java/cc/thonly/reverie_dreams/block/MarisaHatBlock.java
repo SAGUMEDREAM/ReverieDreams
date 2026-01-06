@@ -31,4 +31,6 @@ public class MarisaHatBlock extends BaseFumoBlock {
         }
         return InteractionResult.SUCCESS;
     }
+
+
 }

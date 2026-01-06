@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class VaisravanasPagodaItem extends Item {
+public class VaisravanasPagodaItem extends Item implements IBasicPolymerItem {
 
     public VaisravanasPagodaItem(Properties settings) {
         super(settings);

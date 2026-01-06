@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.core.component.DataComponents;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class DeathScytheItem extends SwordItem {
+public class DeathScytheItem extends SwordItem implements IBasicPolymerItem {
     public static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.5f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
     private static final double SWEEP_RADIUS = 2.5;
 

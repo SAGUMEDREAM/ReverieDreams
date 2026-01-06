@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.item.base;
 
-import net.minecraft.world.item.Item;
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import net.minecraft.world.item.ToolMaterial;
 
-public class PickaxeItem extends net.minecraft.world.item.PickaxeItem {
+public class PickaxeItem extends net.minecraft.world.item.PickaxeItem implements IBasicPolymerItem {
     public PickaxeItem(ToolMaterial material, float attackDamage, float attackSpeed, Properties settings) {
         super(material, attackDamage, attackSpeed, settings);
     }

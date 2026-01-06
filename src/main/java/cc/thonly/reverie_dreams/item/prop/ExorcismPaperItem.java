@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.util.entity.EntityUtil;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.tags.EntityTypeTags;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class ExorcismPaperItem extends Item {
+public class ExorcismPaperItem extends Item implements IBasicPolymerItem {
     private static final int EFFECT_TICK = 20 * 60 * 2;
 
     public ExorcismPaperItem(Properties settings) {

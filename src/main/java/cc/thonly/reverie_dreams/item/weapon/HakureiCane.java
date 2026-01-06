@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
@@ -18,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
-public class HakureiCane extends SwordItem {
+public class HakureiCane extends SwordItem implements IBasicPolymerItem {
     public static final ToolMaterial HAKUREI_CANE = new ToolMaterial(RDBlockTags.EMPTY, 250, 4.0f, 3.5f, 5, ItemTags.IRON_TOOL_MATERIALS);
 
     public HakureiCane(float attackDamage, float attackSpeed, Properties settings) {

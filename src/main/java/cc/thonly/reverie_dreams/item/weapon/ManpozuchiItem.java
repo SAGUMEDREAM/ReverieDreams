@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.inf.ILivingEntity;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class ManpozuchiItem extends PickaxeItem {
+public class ManpozuchiItem extends PickaxeItem implements IBasicPolymerItem {
     private static final int ATTACK_DAMAGE_MODIFIER_VALUE = 5;
     private static final float ATTACK_SPEED_MODIFIER_VALUE = -3.4f;
     public static final float MINING_SPEED_MULTIPLIER = 1.5f;

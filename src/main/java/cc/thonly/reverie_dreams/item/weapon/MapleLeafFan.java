@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.core.Direction;
@@ -21,7 +22,7 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class MapleLeafFan extends SwordItem {
+public class MapleLeafFan extends SwordItem implements IBasicPolymerItem {
     public static final ToolMaterial MAPLE_LEAF_FAN = new ToolMaterial(RDBlockTags.EMPTY, 250, 4.0f, 2.5f, 5, ItemTags.GOLD_TOOL_MATERIALS);
     public static float POWER = 1.5f;
 

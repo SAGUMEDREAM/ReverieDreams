@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block.creator;
 
+import cc.thonly.polymer.block.impl.*;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import lombok.Getter;
@@ -54,46 +55,46 @@ public class WoodCreator extends AbstractBlockCreator {
 
     public WoodCreator build() {
         this.log = RDBlocks.registerSimpleBlock(suffix("log"),
-                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
+                BasicPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
         this.wood = RDBlocks.registerSimpleBlock(suffix("wood"),
-                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
+                BasicPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
         this.strippedLog = RDBlocks.registerSimpleBlock(prefix(suffix("log"), "stripped"),
-                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
+                BasicPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
         this.strippedWood = RDBlocks.registerSimpleBlock(prefix(suffix("wood"), "stripped"),
-                RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion());
+                BasicPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion());
 
         this.leaves = RDBlocks.registerSimpleBlock(suffix("leaves"),
-                LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
+                BasicPolymerLeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
 
         this.sapling = RDBlocks.registerSimpleBlock(suffix("sapling"),
-                (settings) -> new SaplingBlock(this.saplingGenerator, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING));
+                (settings) -> new BasicPolymerSaplingBlock(this.saplingGenerator, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING));
 
         this.planks = RDBlocks.registerSimpleBlock(suffix("planks"),
-                Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS));
+                BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS));
 
         this.stairs = RDBlocks.registerSimpleBlock(suffix("stairs"),
-                (settings) -> new StairBlock(this.planks.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
+                (settings) -> new BasicPolymerStairsBlock(this.planks.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
 
         this.slab = RDBlocks.registerSimpleBlock(suffix("slab"),
-                SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB));
+                properties-> new BasicPolymerSlabBlock(this.log.defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB));
 
         this.door = RDBlocks.registerSimpleBlock(suffix("door"),
-                (settings) -> new DoorBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR));
+                BasicPolymerDoorBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR));
 
         this.trapdoor = RDBlocks.registerSimpleBlock(suffix("trapdoor"),
-                (settings) -> new TrapDoorBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR));
+                BasicPolymerTrapdoorBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR));
 
         this.fence = RDBlocks.registerSimpleBlock(suffix("fence"),
-                FenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE));
+                BasicPolymerFenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE));
 
         this.fenceGate = RDBlocks.registerSimpleBlock(suffix("fence_gate"),
-                (settings) -> new FenceGateBlock(WoodType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE));
+                (settings) -> new BasicPolymerFenceGateBlock(WoodType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE));
 
         this.button = RDBlocks.registerSimpleBlock(suffix("button"),
-                (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON));
+                (settings) -> new BasicPolymerButtonBlock(BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON));
 
         BuiltInRegistries.ITEM.addAlias(suffix("stair"), suffix("stairs"));
 

@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -16,8 +17,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
-public class WildPigEntity extends Pig {
+public class WildPigEntity extends Pig implements PolymerEntity {
     public WildPigEntity(EntityType<? extends Pig> entityType, Level world) {
         super(entityType, world);
     }
@@ -46,5 +48,9 @@ public class WildPigEntity extends Pig {
         return RDEntityTypes.WILD_PIG.create(serverWorld, EntitySpawnReason.BREEDING);
     }
 
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        return EntityType.PIG;
+    }
 
 }

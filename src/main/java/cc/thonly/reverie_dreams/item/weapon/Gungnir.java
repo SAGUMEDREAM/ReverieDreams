@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.core.Direction;
@@ -26,7 +27,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class Gungnir extends SwordItem implements ProjectileItem {
+public class Gungnir extends SwordItem implements ProjectileItem, IBasicPolymerItem {
     public static final ToolMaterial GUNGNIR = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
 
     public Gungnir(float attackDamage, float attackSpeed, Item.Properties settings) {

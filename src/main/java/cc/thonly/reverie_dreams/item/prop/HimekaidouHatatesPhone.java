@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
@@ -20,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-public class HimekaidouHatatesPhone extends Item {
+public class HimekaidouHatatesPhone extends Item implements IBasicPolymerItem {
     public HimekaidouHatatesPhone(Properties properties) {
         super(properties);
     }

@@ -1,25 +1,39 @@
-package cc.thonly.polymer.block;
+package cc.thonly.polymer.block.impl;
 
-import cc.thonly.polymer.block.model.TransparentFlatTripWire;
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
-import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
+import eu.pb4.polymer.blocks.api.BlockModelType;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
 
-public class AbstractKitchenwareImpl implements FactoryBlock, PolymerTexturedBlock, TransparentFlatTripWire {
-    private final AbstractKitchenwareBlock block;
-    public AbstractKitchenwareImpl(AbstractKitchenwareBlock block) {
-        this.block = block;
+@Setter
+@Getter
+@ToString
+public class BasicPolymerModelBlock extends Block implements FactoryBlock {
+
+    public BasicPolymerModelBlock(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public BlockState getPolymerBlockState(BlockState blockState, PacketContext packetContext) {
+        return Blocks.BARRIER.defaultBlockState();
     }
 
     @Override
@@ -27,26 +41,20 @@ public class AbstractKitchenwareImpl implements FactoryBlock, PolymerTexturedBlo
         return new Model(world, pos, initialBlockState);
     }
 
-    public class Model extends BlockModel {
+    public static class Model extends BlockModel {
         private ItemDisplayElement main;
+        private Level world;
+        private BlockPos pos;
 
-        public Model(ServerLevel world, BlockPos pos, BlockState state) {
+        public Model(Level world, BlockPos pos, BlockState state) {
+            this.world = world;
+            this.pos = pos;
             init(state);
         }
 
-        public void init(BlockState state) {
+        private void init(BlockState state) {
             this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
-            Direction facing = state.getValue(AbstractKitchenwareBlock.FACING);
-            float yaw = switch (facing) {
-                case NORTH -> 180f;
-                case EAST -> -90f;
-                case SOUTH -> 0f;
-                case WEST -> 90f;
-                default -> 0f;
-            };
-            main.setOffset(AbstractKitchenwareImpl.this.block.getOffset());
-            main.setScale(AbstractKitchenwareImpl.this.block.getScale());
-            this.main.setYaw(yaw);
+            this.main.setScale(new Vector3f(2f));
             addElement(this.main);
         }
 

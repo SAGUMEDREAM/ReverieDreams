@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -11,8 +12,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
-public class NPCRoleFastEntity extends Mob {
+public class NPCRoleFastEntity extends Mob implements PolymerEntity {
     private CompoundTag view;
     private SkinType skinType;
 
@@ -62,5 +64,10 @@ public class NPCRoleFastEntity extends Mob {
     @Override
     public HumanoidArm getMainArm() {
         return HumanoidArm.RIGHT;
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext packetContext) {
+        return EntityType.BLOCK_DISPLAY;
     }
 }

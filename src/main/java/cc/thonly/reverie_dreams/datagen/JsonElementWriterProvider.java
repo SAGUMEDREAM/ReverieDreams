@@ -2,8 +2,10 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.datagen.generator.AbstractJsonElementWriterProvider;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
+import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
@@ -94,6 +96,14 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
                     "}");
             this.addElement(Type.ASSETS, location, "items", element);
         }
+        for (Item item : SpawnEggItem.SPAWN_EGGS) {
+            this.addSpawnEgg(item);
+        }
+    }
+
+    void addSpawnEgg(Item item) {
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
+        JsonElement element = strToJson("");
     }
 
     void addSixteenDirectionBlockState(Block block) {

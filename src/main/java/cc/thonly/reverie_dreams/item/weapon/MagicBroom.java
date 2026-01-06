@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class MagicBroom extends SwordItem {
+public class MagicBroom extends SwordItem implements IBasicPolymerItem {
     public static final ToolMaterial MAGIC_BROOM = new ToolMaterial(RDBlockTags.EMPTY, 750, 7.5f, 4.0f, 10, RDItemTags.POWER_BLOCK);
 
     public MagicBroom(float attackDamage, float attackSpeed, Item.Properties settings) {

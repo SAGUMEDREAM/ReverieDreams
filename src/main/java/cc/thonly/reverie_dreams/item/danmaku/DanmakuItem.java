@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
@@ -11,7 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class DanmakuItem extends AbstractDanmakuItem {
+public class DanmakuItem extends AbstractDanmakuItem implements IBasicPolymerItem {
     protected DanmakuType type;
 
     public DanmakuItem(Properties settings) {

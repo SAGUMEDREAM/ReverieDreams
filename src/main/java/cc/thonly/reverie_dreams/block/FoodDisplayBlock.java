@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
+import cc.thonly.polymer.block.ItemStackDisplayImpl;
 import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.inf.IItemStack;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Setter
 @Getter
-public class FoodDisplayBlock extends BaseEntityBlock {
+public class FoodDisplayBlock extends BaseEntityBlock implements ItemStackDisplayImpl {
     public static final MapCodec<FoodDisplayBlock> CODEC = FoodDisplayBlock.simpleCodec(FoodDisplayBlock::new);
 
     public FoodDisplayBlock(Properties settings) {

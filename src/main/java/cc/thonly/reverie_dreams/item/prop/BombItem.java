@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -23,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BombItem extends Item {
+public class BombItem extends Item implements IBasicPolymerItem {
     public BombItem(Properties settings) {
         super(settings);
     }

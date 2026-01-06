@@ -1,5 +1,9 @@
 package cc.thonly.reverie_dreams.block.creator;
 
+import cc.thonly.polymer.block.impl.BasicPolymerFullBlock;
+import cc.thonly.polymer.block.impl.BasicPolymerSlabBlock;
+import cc.thonly.polymer.block.impl.BasicPolymerStairsBlock;
+import cc.thonly.polymer.block.impl.BasicPolymerWallBlock;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import lombok.Getter;
@@ -97,10 +101,10 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
 
     @Override
     public DecorativeBlockCreator build() {
-        this.block = RDBlocks.registerSimpleBlock(this.getId(), Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
-        this.stair = RDBlocks.registerSimpleBlock(suffix("stairs"), (settings) -> new StairBlock(this.block.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
-        this.slab = RDBlocks.registerSimpleBlock(suffix("slab"), SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB).noOcclusion());
-        this.wall = RDBlocks.registerSimpleBlock(suffix("wall"), WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).noOcclusion());
+        this.block = RDBlocks.registerSimpleBlock(this.getId(), BasicPolymerFullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
+        this.stair = RDBlocks.registerSimpleBlock(suffix("stairs"), (settings) -> new BasicPolymerStairsBlock(this.block.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
+        this.slab = RDBlocks.registerSimpleBlock(suffix("slab"), properties -> new BasicPolymerSlabBlock(this.block.defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB).noOcclusion());
+        this.wall = RDBlocks.registerSimpleBlock(suffix("wall"), BasicPolymerWallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).noOcclusion());
 
         BuiltInRegistries.ITEM.addAlias(suffix("stair"), suffix("stairs"));
 

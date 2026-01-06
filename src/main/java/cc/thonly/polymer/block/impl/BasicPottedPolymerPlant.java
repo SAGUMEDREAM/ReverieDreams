@@ -1,11 +1,10 @@
-package cc.thonly.polymer.block;
+package cc.thonly.polymer.block.impl;
 
-
+import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import com.mojang.math.Axis;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
-import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
@@ -13,23 +12,23 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 @Getter
-public class PottedPlantPolymerBlock implements PolymerTexturedBlock, FactoryBlock {
+public class BasicPottedPolymerPlant extends FlowerPotBlock implements FactoryBlock {
     private final ResourceLocation blockId;
     private final ItemStack MODEL;
 
-    public PottedPlantPolymerBlock(ResourceLocation blockId) {
-        this(blockId, false);
-    }
-    public PottedPlantPolymerBlock(ResourceLocation blockId, boolean useExtraModel) {
-        this.blockId = blockId;
-        MODEL = ItemDisplayElementUtil.getModel(ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/%s".formatted(useExtraModel ? blockId.getPath() : blockId.getPath().replace("potted_", ""))));
+    public BasicPottedPolymerPlant(ResourceLocation identifier, Block content, Properties settings, boolean useExtraModel) {
+        super(content, settings);
+        this.blockId = identifier;
+        MODEL = ItemDisplayElementUtil.getModel(ResourceLocation.fromNamespaceAndPath(identifier.getNamespace(), "block/%s".formatted(useExtraModel ? identifier.getPath() : identifier.getPath().replace("potted_", ""))));
     }
 
     @Override
@@ -37,13 +36,12 @@ public class PottedPlantPolymerBlock implements PolymerTexturedBlock, FactoryBlo
         return Blocks.FLOWER_POT.defaultBlockState();
     }
 
-
     @Override
     public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         return new ItemDisplayPottedPlantModel(pos);
     }
 
-    public class ItemDisplayPottedPlantModel extends BlockModel {
+    private class ItemDisplayPottedPlantModel extends BlockModel {
 
         public ItemDisplayPottedPlantModel(BlockPos pos) {
             ItemDisplayElement main = ItemDisplayElementUtil.createSimple(MODEL);

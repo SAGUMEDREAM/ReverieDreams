@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.inf.IBedBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 
-public class DreamPillowItem extends Item {
+public class DreamPillowItem extends Item implements IBasicPolymerItem {
 
     public DreamPillowItem(Properties settings) {
         super(settings);

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.base;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class DrinkItem extends Item {
+public class DrinkItem extends Item implements IBasicPolymerItem {
     public static final Map<Item, Set<DrinkProperty>> ITEM_DRINK_CACHED = new HashMap<>();
     public static final Map<Item, Integer> PRICE_CALCULATION_TABLE = new Object2ObjectOpenHashMap<>();
 

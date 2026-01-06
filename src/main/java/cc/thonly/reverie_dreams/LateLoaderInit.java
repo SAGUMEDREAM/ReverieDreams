@@ -12,7 +12,6 @@ import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
-import eu.pb4.polymer.core.api.other.PolymerSoundEvent;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
@@ -41,24 +40,20 @@ public class LateLoaderInit implements ModInitializer {
     }
 
     public void polymerify() {
-        for (Item item : RDItems.SIMPLE_LIST) {
-            PolymerItemHelper.registerOverlay(item);
-        }
-        for (Item spawnEgg : SpawnEggItem.SPAWN_EGGS) {
-            PolymerItemHelper.registerOverlay(spawnEgg);
-        }
-        for (Item item : RDGuiItems.GUI_ITEM_LIST) {
-            PolymerItemHelper.registerOverlay(item);
-        }
-        for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
-            PolymerItemHelper.registerOverlay(danmakuType.getItem());
-        }
+//        for (Item item : RDItems.SIMPLE_LIST) {
+//            PolymerItemHelper.registerOverlay(item);
+//        }
+//        for (Item spawnEgg : SpawnEggItem.SPAWN_EGGS) {
+//            PolymerItemHelper.registerOverlay(spawnEgg);
+//        }
+//        for (Item item : RDGuiItems.GUI_ITEM_LIST) {
+//            PolymerItemHelper.registerOverlay(item);
+//        }
+//        for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
+//            PolymerItemHelper.registerOverlay(danmakuType.getItem());
+//        }
         for (SoundEvent soundEvent : SoundEventInit.SOUND_EVENTS) {
-            PolymerSoundEvent.registerOverlay(soundEvent);
             RegistrySyncUtils.setServerEntry(BuiltInRegistries.SOUND_EVENT, soundEvent);
-        }
-        for (Holder<MobEffect> registryEntry : RDStatusEffects.EFFECTS) {
-            PolymerStatusEffectHelper.registerOverlay(registryEntry);
         }
         for (Potion potion : RDPotions.POTIONS) {
             RegistrySyncUtils.setServerEntry(BuiltInRegistries.POTION, potion);
@@ -95,7 +90,6 @@ public class LateLoaderInit implements ModInitializer {
                 id("entity"),
                 id("font")
         );
-        ResourcePackGenerator.registerEvent();
     }
 
     public static ResourceLocation id(String name) {

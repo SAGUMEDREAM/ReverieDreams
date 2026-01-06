@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.template;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class RoleFollowerArchiveItem extends Item {
+public class RoleFollowerArchiveItem extends Item implements IBasicPolymerItem {
     public static final SoundEvent SOUND = SoundEvents.BUCKET_FILL;
 
     public RoleFollowerArchiveItem(Properties settings) {

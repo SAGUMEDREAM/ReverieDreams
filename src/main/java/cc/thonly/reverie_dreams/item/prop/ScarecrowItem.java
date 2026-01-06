@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.entity.ScarecrowEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Objects;
 
-public class ScarecrowItem extends Item {
+public class ScarecrowItem extends Item implements IBasicPolymerItem {
     public ScarecrowItem(Properties properties) {
         super(properties);
     }

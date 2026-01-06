@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
-public class CursedDecoyDollItem extends Item {
+public class CursedDecoyDollItem extends Item implements IBasicPolymerItem {
     public CursedDecoyDollItem(Properties settings) {
         super(settings);
     }

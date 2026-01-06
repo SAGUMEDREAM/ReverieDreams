@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.base;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import lombok.Getter;
@@ -27,7 +28,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implements IdentifierGetter {
+public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implements IdentifierGetter, IBasicPolymerItem {
     public static final List<Item> SPAWN_EGGS = new ArrayList<>(128);
     public static final DyedItemColor DEFAULT_COLOR = new DyedItemColor(16777215, false);
     private final ResourceLocation identifier;

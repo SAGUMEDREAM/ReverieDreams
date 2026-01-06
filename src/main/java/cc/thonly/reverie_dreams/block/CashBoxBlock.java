@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block;
 
+import cc.thonly.polymer.block.HorizontalFacingInf;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.gui.CustomChestBlockGui;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBlock, HorizontalFacingInf {
     public static final MapCodec<CashBoxBlock> CODEC = simpleCodec(CashBoxBlock::new);
 
     public CashBoxBlock(Properties settings) {

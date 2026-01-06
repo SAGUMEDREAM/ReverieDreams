@@ -1,24 +1,32 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCFollowOwnerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
+import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.joml.Vector3f;
 
-public class GhostEntity extends BaseNPCLikeEntity {
+public class GhostEntity extends BaseNPCLikeEntity implements PlayerPolymerEntity {
     protected int particleTick = 0;
     protected int survivalTime = 0;
 
@@ -116,5 +124,24 @@ public class GhostEntity extends BaseNPCLikeEntity {
     @Override
     public Boolean canPickItem() {
         return false;
+    }
+
+    @Override
+    public void onCreated() {
+        var entity = this.getEntity();
+        var x = new ItemDisplayElement();
+        var holder = new ElementHolder();
+        x.setInvisible(true);
+        x.setTeleportDuration(3);
+        x.setScale(new Vector3f(0.5f));
+        holder.addElement(x);
+        EntityAttachment.of(holder, entity);
+        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(entity, x);
+    }
+
+    @Override
+    public LivingEntity getEntity() {
+        return this;
     }
 }

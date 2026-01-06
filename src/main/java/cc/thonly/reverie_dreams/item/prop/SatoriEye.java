@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.advancement.UseItemTrigger;
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.network.chat.Component;
@@ -14,7 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class SatoriEye extends Item {
+public class SatoriEye extends Item implements IBasicPolymerItem {
     public SatoriEye(Properties properties) {
         super(properties);
     }

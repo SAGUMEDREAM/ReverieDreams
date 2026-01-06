@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.template;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -27,7 +28,7 @@ import net.minecraft.world.level.Level;
 import java.util.*;
 
 @Getter
-public class RoleCardItem extends Item {
+public class RoleCardItem extends Item implements IBasicPolymerItem {
     public static final BiMap<String, UsingData> USING_DATA_MAP = HashBiMap.create();
     public static final SoundEvent SOUND = SoundEvents.BUCKET_FILL;
 

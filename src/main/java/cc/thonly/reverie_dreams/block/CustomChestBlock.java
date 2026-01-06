@@ -3,9 +3,15 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.gui.CustomChestBlockGui;
 import com.mojang.serialization.MapCodec;
+import eu.pb4.polymer.blocks.api.BlockModelType;
+import eu.pb4.polymer.blocks.api.PolymerBlockModel;
+import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
+import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -24,12 +30,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
-public class CustomChestBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public class CustomChestBlock extends HorizontalDirectionalBlock implements EntityBlock, PolymerTexturedBlock {
     public static final MapCodec<CustomChestBlock> CODEC = simpleCodec(CustomChestBlock::new);
+    BlockState polymerBlockState;
+
     public CustomChestBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        ResourceKey<Block> resId = properties.id;
+        assert resId != null;
+        var id = resId.location();
+        this.polymerBlockState = PolymerBlockResourceUtils.requestBlock(BlockModelType.FULL_BLOCK, PolymerBlockModel.of(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath())));
+
     }
 
     @Override
@@ -89,5 +103,10 @@ public class CustomChestBlock extends HorizontalDirectionalBlock implements Enti
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new CustomChestBlockEntity(pos, state);
+    }
+
+    @Override
+    public BlockState getPolymerBlockState(BlockState blockState, PacketContext packetContext) {
+        return this.polymerBlockState;
     }
 }

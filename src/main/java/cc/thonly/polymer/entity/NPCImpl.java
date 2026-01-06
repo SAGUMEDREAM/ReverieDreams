@@ -16,19 +16,7 @@ public record NPCImpl(BaseNPCLikeEntity npcEntity) implements PlayerPolymerEntit
         PolymerEntityHelper.addEntityHolderModel(this);
     }
 
-    @Override
-    public void onCreated() {
-        var entity = this.getEntity();
-        var x = new ItemDisplayElement();
-        var holder = new ElementHolder();
-        x.setInvisible(true);
-        x.setTeleportDuration(3);
-        x.setScale(new Vector3f(0.5f));
-        holder.addElement(x);
-        EntityAttachment.of(holder, entity);
-        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(entity, x);
-    }
+
 
     @Override
     public LivingEntity getEntity() {

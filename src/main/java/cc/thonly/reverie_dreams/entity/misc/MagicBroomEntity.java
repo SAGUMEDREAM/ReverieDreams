@@ -1,14 +1,23 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.minecraft.util.tvio.TagValueFunction;
-import cc.thonly.polymer.entity.MagicBroomImpl;
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PolymerHolderEntity;
+import cc.thonly.reverie_dreams.entity.holder.MagicBroomHolder;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
 import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
+import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,19 +36,24 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.UUID;
+import java.util.WeakHashMap;
 
 @Setter
 @Getter
 @ToString
-public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJumping {
+public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJumping, PolymerEntity, PolymerHolderEntity {
+    public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
     public ItemStackWrapper itemWrapper = ItemStackWrapper.of(Items.AIR.getDefaultInstance());
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
@@ -54,6 +68,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
         this(entityType, world);
         this.setPos(x, y, z);
         this.itemWrapper = wrapper;
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, UUID owner) {
@@ -64,7 +79,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public Component getName() {
         if (this.itemWrapper == null || this.itemWrapper.isEmpty()) {
-            return super.getName();
+            return Component.translatable(RDEntityTypes.MAGIC_BROOM.toShortString());
         }
         ItemStack itemStack = this.itemWrapper.getItemStack();
         return itemStack.getHoverName();
@@ -108,21 +123,53 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        PolymerEntity polymerEntity = PolymerEntity.get(this);
-        if (polymerEntity instanceof MagicBroomImpl impl) {
-            impl.onTrackingStopped(player);
-            impl.onCreated();
-        }
+        onTrackingStopped(player);
+        onCreated();
     }
 
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        PolymerEntity polymerEntity = PolymerEntity.get(this);
-        if (polymerEntity instanceof MagicBroomImpl impl) {
-            impl.onTrackingStopped(player);
-        }
+        onTrackingStopped(player);
     }
+
+    @Override
+    public void onCreated() {
+        this.setNoGravity(true);
+        var x = new ItemDisplayElement();
+        var holder = new MagicBroomHolder(this);
+        var stack = new ItemStack(RDEntityHolderItems.MAGIC_BROOM_DISPLAY);
+        if (this.itemWrapper.getItemStack().hasFoil()) {
+            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+        }
+        x.setItem(stack);
+        x.setModelTransformation(ItemDisplayContext.HEAD);
+        x.setInvisible(true);
+        x.setTeleportDuration(3);
+        x.setScale(new Vector3f(1.2f));
+        holder.setElement(x);
+        holder.addElement(x);
+        EntityAttachment.ofTicking(holder, this);
+        VirtualEntityUtils.addVirtualPassenger(this, x.getEntityId());
+        ELEMENTS.put(this, x);
+    }
+
+    public void onTrackingStopped(ServerPlayer player) {
+        ItemDisplayElement element = ELEMENTS.get(this);
+        if (element != null) {
+            ElementHolder holder = element.getHolder();
+            if (holder != null) {
+                holder.destroy();
+            }
+        }
+        ELEMENTS.remove(this);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        return EntityType.PIG;
+    }
+
 
     @Override
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
@@ -249,7 +296,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        TagValueFunction.write(compoundTag, this.registryAccess(), view-> {
+        TagValueFunction.write(compoundTag, this.registryAccess(), view -> {
             view.store("Item", ItemStackWrapper.CODEC, this.itemWrapper);
             if (this.owner != null) {
                 view.store("Owner", UUIDCodec.CODEC, this.owner);
@@ -260,7 +307,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        TagValueFunction.read(compoundTag, this.registryAccess(), view-> {
+        TagValueFunction.read(compoundTag, this.registryAccess(), view -> {
             this.itemWrapper = view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
             view.read("Owner", UUIDCodec.CODEC).ifPresent(value -> this.owner = value);
         });

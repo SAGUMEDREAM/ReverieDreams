@@ -59,3 +59,4 @@ accessible field net/minecraft/client/data/models/ItemModelGenerators SLOT_LEGGI
 accessible field net/minecraft/client/data/models/ItemModelGenerators SLOT_BOOTS Ljava/lang/String;
 accessible field net/minecraft/client/data/models/ItemModelGenerators BLANK_LAYER Lnet/minecraft/client/color/item/ItemTintSource;
 accessible class net/minecraft/commands/synchronization/SuggestionProviders$Wrapper
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties id Lnet/minecraft/resources/ResourceKey;

@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MusicalInstrumentItem extends Item {
+public class MusicalInstrumentItem extends Item implements IBasicPolymerItem {
     public static final Codec<NoteBlockInstrument> NOTE_BLOCK_INSTRUMENT_CODEC = StringRepresentable.fromEnum(NoteBlockInstrument::values);
     public static final BlockPos NONE = new BlockPos(0, 0, 0);
     public static final AttackBlockCallback BLOCK_CALLBACK = (player, world, hand, blockPos, direction) -> {

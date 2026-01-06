@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CrossingChisel extends Item {
+public class CrossingChisel extends Item implements IBasicPolymerItem {
     public static final Integer DEFAULT_VALUE = 16;
 
     public CrossingChisel(Properties settings) {

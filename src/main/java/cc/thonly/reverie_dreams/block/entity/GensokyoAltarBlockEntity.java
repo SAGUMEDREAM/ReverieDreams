@@ -1,15 +1,18 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.polymer.block.GensokyoAltarImpl;
+import cc.thonly.polymer.block.GensokyoAltarInf;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.HashMap;
 
 @Getter
 public class GensokyoAltarBlockEntity extends BlockEntity {
@@ -22,13 +25,13 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
 
     public static void tick(Level world, BlockPos pos, BlockState state, GensokyoAltarBlockEntity blockEntity) {
         if (blockEntity.tick > 5) {
-            GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.POS_TO_MODEL.get(pos.asLong());
+            GensokyoAltarInf.Model altarModel = GensokyoAltarInf.MAPPING.computeIfAbsent((ServerLevel) world, x->new HashMap<>()).get(pos.asLong());
             if (altarModel != null) {
                 altarModel.update();
             }
             blockEntity.tick = 0;
         }
-        GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.POS_TO_MODEL.get(pos.asLong());
+        GensokyoAltarInf.Model altarModel = GensokyoAltarInf.MAPPING.computeIfAbsent((ServerLevel) world, x->new HashMap<>()).get(pos.asLong());
         if (altarModel != null) {
             altarModel.angle += 2f;
             if (altarModel.angle >= 360) {

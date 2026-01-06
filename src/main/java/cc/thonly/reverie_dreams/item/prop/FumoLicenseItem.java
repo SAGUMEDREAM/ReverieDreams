@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.entity.villager.FumoSellerVillager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -15,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class FumoLicenseItem extends Item {
+public class FumoLicenseItem extends Item implements IBasicPolymerItem {
     public FumoLicenseItem(Properties settings) {
         super(settings);
     }

@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
-public class Hakuroken extends SwordItem implements YoumuSwordUsing{
+public class Hakuroken extends SwordItem implements YoumuSwordUsing {
     public static final ToolMaterial HAKUROKEN = new ToolMaterial(RDBlockTags.EMPTY, 1250, 8.0f, 5.5f, 10, RDItemTags.SILVER_BLOCK);
 
     public Hakuroken(float attackDamage, float attackSpeed, Properties settings) {

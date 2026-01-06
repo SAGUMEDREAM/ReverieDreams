@@ -3,15 +3,18 @@ package cc.thonly.reverie_dreams.entity.villager;
 import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.minecraft.util.ValueInput;
 import cc.thonly.minecraft.util.ValueOutput;
+import cc.thonly.reverie_dreams.mixin.accessor.VillagerEntityAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.sgui.api.gui.MerchantGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,12 +35,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.*;
 
 @Slf4j
 @Getter
-public abstract class AbstractSellerEntity extends WanderingTrader {
+public abstract class AbstractSellerEntity extends WanderingTrader implements PolymerEntity {
     public static final int MAX_LEVEL = 5;
     public static final int[] EXPS = {50, 100, 150, 200, 250};
     private static final Gson GSON = new Gson();
@@ -107,6 +111,8 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
     }
 
     public abstract VillagerData getModifyVillagerData(MinecraftServer server);
+
+    public abstract boolean canReset();
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -245,5 +251,24 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
         }
     }
 
-    public abstract boolean canReset();
+    @Override
+    public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
+        PolymerEntity.super.modifyRawTrackedData(data, player, initial);
+        if (initial && !this.level().isClientSide) {
+            MinecraftServer server = this.getServer();
+            assert server != null;
+            VillagerData modifyData = this.getModifyVillagerData(server);
+
+            SynchedEntityData.DataValue<VillagerData> entry = SynchedEntityData.DataValue.create(
+                    VillagerEntityAccessor.getVillagerData(),
+                    modifyData);
+
+            data.add(entry);
+        }
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        return EntityType.VILLAGER;
+    }
 }

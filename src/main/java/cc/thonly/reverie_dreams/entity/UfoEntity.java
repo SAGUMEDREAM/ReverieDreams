@@ -1,7 +1,16 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PolymerHolderEntity;
+import cc.thonly.polymer.entity.TickHolderEntity;
+import cc.thonly.polymer.entity.bil.OverlayEntityHolder;
+import cc.thonly.polymer.entity.bil.OverlayLivingEntityHolder;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
+import cc.thonly.reverie_dreams.util.entity.AnimationHelper;
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.api.AnimatedEntityHolder;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -44,15 +53,17 @@ import java.util.EnumSet;
 import java.util.List;
 
 @Getter
-public class UfoEntity extends Monster implements Enemy {
+public class UfoEntity extends Monster implements Enemy, AnimatedEntity, PolymerHolderEntity, TickHolderEntity {
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING = SynchedEntityData.defineId(UfoEntity.class, EntityDataSerializers.BOOLEAN);
     private static final byte DEFAULT_EXPLOSION_POWER = 1;
     private int explosionPower = 1;
+    private OverlayEntityHolder<UfoEntity, UfoEntity> holder;
 
     public UfoEntity(Level level) {
         super(RDEntityTypes.UFO, level);
         this.xpReward = 5;
         this.moveControl = new GhastMoveControl(this);
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     public UfoEntity(EntityType<? extends Monster> entityType, Level level) {
@@ -184,6 +195,35 @@ public class UfoEntity extends Monster implements Enemy {
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.explosionPower = compoundTag.getByte("ExplosionPower");
+    }
+
+    @Override
+    public void onCreated() {
+        this.holder = new OverlayLivingEntityHolder<>(this, this, PolymerEntityHelper.UFO_MODEL);
+        TickHolderEntity.addTickHolder(this);
+        TickHolderEntity.addElementBind(this, this.holder);
+        EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public void onTick() {
+        if (this.holder == null) {
+            return;
+        }
+        if (this.tickCount % 2 == 0) {
+            AnimationHelper.updateWalkAnimation(this, this.holder);
+            AnimationHelper.updateHurtVariant(this, this.holder);
+        }
+    }
+
+    @Override
+    public LivingEntity getEntity() {
+        return this;
+    }
+
+    @Override
+    public AnimatedEntityHolder getHolder() {
+        return this.holder;
     }
 
     public static void faceMovementDirection(Mob mob) {

@@ -1,9 +1,15 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import cc.thonly.polymer.entity.WheelChairImpl;
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PolymerHolderEntity;
+import cc.thonly.reverie_dreams.entity.holder.WheelChairHolder;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
+import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,16 +31,21 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.WeakHashMap;
 
 @Setter
 @Getter
 @ToString
-public class WheelchairEntity extends PathfinderMob implements PlayerRideableJumping {
+public class WheelchairEntity extends PathfinderMob implements PlayerRideableJumping, PolymerEntity, PolymerHolderEntity {
+    public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
     public String ownerUUID = "";
 
     public WheelchairEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
@@ -44,6 +55,7 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
         if (scaleInstance != null) {
             scaleInstance.setBaseValue(0.25);
         }
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     public WheelchairEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z) {
@@ -81,29 +93,56 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        PolymerEntity polymerEntity = PolymerEntity.get(this);
-        if (polymerEntity instanceof WheelChairImpl impl) {
-            impl.onTrackingStopped(player);
-            impl.onCreated();
-        }
+        onTrackingStopped(player);
+        onCreated();
     }
 
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        PolymerEntity polymerEntity = PolymerEntity.get(this);
-        if (polymerEntity instanceof WheelChairImpl impl) {
-            impl.onTrackingStopped(player);
+        onTrackingStopped(player);
+    }
+
+    @Override
+    public void onCreated() {
+        this.setNoGravity(true);
+        var x = new ItemDisplayElement();
+        var holder = new WheelChairHolder(this);
+        var stack = new ItemStack(RDBlocks.WHEEL_CHAIR);
+        x.setItem(stack);
+        x.setModelTransformation(ItemDisplayContext.HEAD);
+        x.setInvisible(true);
+        x.setTeleportDuration(3);
+        holder.setElement(x);
+        holder.addElement(x);
+        EntityAttachment.ofTicking(holder, this);
+        VirtualEntityUtils.addVirtualPassenger(this, x.getEntityId());
+        ELEMENTS.put(this, x);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        return EntityType.PIG;
+    }
+
+    public void onTrackingStopped(ServerPlayer player) {
+        ItemDisplayElement element = ELEMENTS.get(this);
+        if (element != null) {
+            ElementHolder holder = element.getHolder();
+            if (holder != null) {
+                holder.destroy();
+            }
         }
+        ELEMENTS.remove(this);
     }
 
     @Override
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (attacker != null && attacker.isShiftKeyDown() && this.ownerUUID.equalsIgnoreCase(attacker.getStringUUID())) {
-                ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.WHEEL_CHAIR));
-                world.addFreshEntity(itemEntity);
-                this.discard();
+            ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.WHEEL_CHAIR));
+            world.addFreshEntity(itemEntity);
+            this.discard();
         }
         return super.hurtServer(world, source, amount);
     }

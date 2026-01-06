@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.inf.ILivingEntity;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
@@ -17,7 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class UpgradedHealthItem extends Item {
+public class UpgradedHealthItem extends Item implements IBasicPolymerItem {
     public UpgradedHealthItem(Properties settings) {
         super(settings);
     }

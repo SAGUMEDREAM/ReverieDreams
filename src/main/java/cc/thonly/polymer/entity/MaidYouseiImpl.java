@@ -18,21 +18,6 @@ public record MaidYouseiImpl(MaidYouseiEntity source) implements PlayerPolymerEn
     }
 
     @Override
-    public void onCreated() {
-        var x = new ItemDisplayElement();
-        var holder = new WingHolder(this.source);
-        x.setItem(new ItemStack(RDEntityHolderItems.YOUSEI_WINGS));
-        x.setInvisible(true);
-        x.setTeleportDuration(3);
-        x.setScale(new Vector3f(1.2f));
-        holder.setElement(x);
-        holder.addElement(x);
-        EntityAttachment.ofTicking(holder, this.source);
-        VirtualEntityUtils.addVirtualPassenger(this.source, x.getEntityId());
-        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(this.source, x);
-    }
-
-    @Override
     public LivingEntity getEntity() {
         return this.source;
     }

@@ -1,9 +1,12 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
+import cc.thonly.reverie_dreams.mixin.accessor.RabbitEntityAccessor;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.AgeableMob;
@@ -21,8 +24,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
-public class MoonRabbitEntity extends Rabbit {
+import java.util.List;
+
+public class MoonRabbitEntity extends Rabbit implements PolymerEntity {
     public MoonRabbitEntity(EntityType<? extends Rabbit> entityType, Level world) {
         super(entityType, world);
         this.setVariant(Variant.WHITE);
@@ -83,4 +89,16 @@ public class MoonRabbitEntity extends Rabbit {
         return RDEntityTypes.MOON_RABBIT.create(serverWorld, EntitySpawnReason.BREEDING);
     }
 
+    @Override
+    public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
+        PolymerEntity.super.modifyRawTrackedData(data, player, initial);
+        if (initial && !this.level().isClientSide) {
+            data.add(SynchedEntityData.DataValue.create(RabbitEntityAccessor.getVariant(), Rabbit.Variant.WHITE.id()));
+        }
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        return EntityType.RABBIT;
+    }
 }

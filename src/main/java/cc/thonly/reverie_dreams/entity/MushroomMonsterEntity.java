@@ -1,5 +1,14 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PolymerHolderEntity;
+import cc.thonly.polymer.entity.TickHolderEntity;
+import cc.thonly.polymer.entity.bil.OverlayEntityHolder;
+import cc.thonly.polymer.entity.bil.OverlayLivingEntityHolder;
+import cc.thonly.reverie_dreams.util.entity.AnimationHelper;
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.api.AnimatedEntityHolder;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import lombok.Getter;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -23,12 +32,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
 
 @Getter
-public class MushroomMonsterEntity extends PathfinderMob {
+public class MushroomMonsterEntity extends PathfinderMob implements AnimatedEntity, PolymerHolderEntity, TickHolderEntity {
+    private OverlayEntityHolder<MushroomMonsterEntity, AnimatedEntity> holder;
 
     public MushroomMonsterEntity(EntityType<MushroomMonsterEntity> mushroomMonsterEntityEntityType, Level level) {
         super(mushroomMonsterEntityEntityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.xpReward = 3;
+        PolymerEntityHelper.addEntityHolderModel(this);
     }
 
     @Override
@@ -73,6 +84,34 @@ public class MushroomMonsterEntity extends PathfinderMob {
             ItemEntity itemEntity = new ItemEntity(serverWorld, this.getX(), this.getY(), this.getZ(), stack, 0, 0.1, 0);
             world.addFreshEntity(itemEntity);
         }
+    }
+    @Override
+    public void onCreated() {
+        this.holder = new OverlayLivingEntityHolder<>(this, this, PolymerEntityHelper.MUSHROOM_MONSTER_MODEL);
+        TickHolderEntity.addTickHolder(this);
+        TickHolderEntity.addElementBind(this, this.holder);
+        EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public void onTick() {
+        if (this.holder == null) {
+            return;
+        }
+        if (this.tickCount % 2 == 0) {
+            AnimationHelper.updateWalkAnimation(this, this.holder);
+            AnimationHelper.updateHurtVariant(this, this.holder);
+        }
+    }
+
+    @Override
+    public MushroomMonsterEntity getEntity() {
+        return this;
+    }
+
+    @Override
+    public AnimatedEntityHolder getHolder() {
+        return this.holder;
     }
 
 }

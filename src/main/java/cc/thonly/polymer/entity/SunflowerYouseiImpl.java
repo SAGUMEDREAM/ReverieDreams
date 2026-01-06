@@ -18,23 +18,6 @@ public record SunflowerYouseiImpl(SunflowerYouseiEntity source) implements Playe
     }
 
     @Override
-    public void onCreated() {
-        var entity = this.getEntity();
-        PlayerPolymerEntity.super.onCreated();
-        var x = new ItemDisplayElement();
-        var holder = new WingHolder(this.source);
-        x.setItem(new ItemStack(RDEntityHolderItems.YOUSEI_WINGS));
-        x.setInvisible(true);
-        x.setTeleportDuration(3);
-        x.setScale(new Vector3f(1.2f));
-        holder.setElement(x);
-        holder.addElement(x);
-        EntityAttachment.ofTicking(holder, entity);
-        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
-        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(entity, x);
-    }
-
-    @Override
     public LivingEntity getEntity() {
         return this.source;
     }

@@ -1,22 +1,26 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.polymer.entity.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
+import cc.thonly.reverie_dreams.entity.holder.WingHolder;
 import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
 import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
 import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import eu.pb4.polymer.virtualentity.api.VirtualEntityUtils;
+import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Leashable;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -28,15 +32,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import org.joml.Vector3f;
 
 @Getter
-public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, Yousei {
+public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, Yousei, PlayerPolymerEntity {
     public SunflowerYouseiEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         super(entityType, world, skinType);
         this.xpReward = 5;
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(Items.SUNFLOWER.getDefaultInstance());
         inventory.setMainHand(Items.SUNFLOWER.getDefaultInstance());
+        this.onCreated();
     }
 
     @Override
@@ -94,4 +100,24 @@ public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashabl
         return false;
     }
 
+    @Override
+    public void onCreated() {
+        var entity = this.getEntity();
+        var x = new ItemDisplayElement();
+        var holder = new WingHolder(this);
+        x.setItem(new ItemStack(RDEntityHolderItems.YOUSEI_WINGS));
+        x.setInvisible(true);
+        x.setTeleportDuration(3);
+        x.setScale(new Vector3f(1.2f));
+        holder.setElement(x);
+        holder.addElement(x);
+        EntityAttachment.ofTicking(holder, entity);
+        VirtualEntityUtils.addVirtualPassenger(entity, x.getEntityId());
+        PolymerEntityHelper.POLYMER_PLAYER_ELEMENTS.put(entity, x);
+    }
+
+    @Override
+    public LivingEntity getEntity() {
+        return this;
+    }
 }

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
@@ -24,11 +25,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
-public class TenguCameraItem extends Item {
+public class TenguCameraItem extends Item implements IBasicPolymerItem {
 
     public TenguCameraItem(Properties settings) {
         super(settings);

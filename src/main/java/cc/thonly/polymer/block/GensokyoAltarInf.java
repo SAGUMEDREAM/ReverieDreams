@@ -11,6 +11,7 @@ import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.BlockBoundAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
@@ -26,24 +27,25 @@ import xyz.nucleoid.packettweaker.PacketContext;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
-    public static final Map<Long, Model> POS_TO_MODEL = new HashMap<>();
+public interface GensokyoAltarInf extends FactoryBlock, PolymerTexturedBlock {
+    Map<ServerLevel, Map<Long, GensokyoAltarInf.Model>> MAPPING = new Object2ObjectOpenHashMap<>();
 
     @Override
-    public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-//        return Blocks.BARRIER.defaultBlockState();
-        return Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, 6);
+    default BlockState getPolymerBlockState(BlockState state, PacketContext context) {
+        return Blocks.BARRIER.defaultBlockState();
     }
 
     @Override
-    public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
+    default BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
         return Blocks.ENCHANTING_TABLE.defaultBlockState();
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState state) {
-        Model altarModel = new Model(world, pos, state);
-        POS_TO_MODEL.put(pos.asLong(), altarModel);
+    @Nullable
+    default ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState state) {
+        var altarModel = new Model(world, pos, state);
+        Map<Long, GensokyoAltarInf.Model> longModelMap = MAPPING.computeIfAbsent(world, w -> new HashMap<>());
+        longModelMap.put(pos.asLong(), altarModel);
         return altarModel;
     }
 

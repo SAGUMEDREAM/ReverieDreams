@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.component.GapRecorder;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public class GapBall extends Item {
+public class GapBall extends Item implements IBasicPolymerItem {
 
     public GapBall(Properties settings) {
         super(settings);

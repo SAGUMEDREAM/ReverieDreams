@@ -1,12 +1,13 @@
 package cc.thonly.reverie_dreams.effect;
 
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import eu.pb4.polymer.core.api.other.PolymerPotion;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class BackOfLifeEffect extends MobEffect {
+public class BackOfLifeEffect extends MobEffect implements PolymerPotion {
 
     public BackOfLifeEffect() {
         super(MobEffectCategory.BENEFICIAL, 16262179);
