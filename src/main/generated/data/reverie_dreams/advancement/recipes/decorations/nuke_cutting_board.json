@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:nuke_cutting_board"
+        "recipe": "minecraft:nuke_cutting_board"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:nuke_cutting_board"
+      "minecraft:nuke_cutting_board"
     ]
   }
 }

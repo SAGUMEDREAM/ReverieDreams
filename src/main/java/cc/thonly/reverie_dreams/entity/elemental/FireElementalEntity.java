@@ -74,7 +74,7 @@ public class FireElementalEntity extends BaseNPCLikeEntity implements ElementalM
                     this.addEffect(new MobEffectInstance(MobEffects.POISON, 3 * 20));
                 }
                 if (bl2) {
-                    this.addEffect(new MobEffectInstance(MobEffects.SPEED, 3 * 20));
+                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3 * 20));
                     this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 3 * 20));
                     this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 3 * 20));
                 }

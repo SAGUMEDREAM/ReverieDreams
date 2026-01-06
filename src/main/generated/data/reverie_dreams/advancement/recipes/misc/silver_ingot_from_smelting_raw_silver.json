@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:silver_ingot_from_smelting_raw_silver"
+        "recipe": "minecraft:silver_ingot_from_smelting_raw_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:silver_ingot_from_smelting_raw_silver"
+      "minecraft:silver_ingot_from_smelting_raw_silver"
     ]
   }
 }

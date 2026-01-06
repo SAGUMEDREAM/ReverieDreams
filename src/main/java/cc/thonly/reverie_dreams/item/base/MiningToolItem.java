@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-public abstract class MiningToolItem extends Item {
+public abstract class MiningToolItem extends DiggerItem {
     public static final Set<MiningToolItem> MINING_TOOLS = new ObjectOpenHashSet<>();
     public static final Set<MiningToolItem> PICKAXES = new ObjectOpenHashSet<>();
     public static final Set<MiningToolItem> SWORDS = new ObjectOpenHashSet<>();
@@ -22,18 +23,7 @@ public abstract class MiningToolItem extends Item {
     public static final Set<MiningToolItem> HOES = new ObjectOpenHashSet<>();
 
     public MiningToolItem(ToolMaterial material, float attackDamage, float attackSpeed, Properties settings) {
-        super(material
-                .applySwordProperties(
-                        settings,
-                        attackDamage,
-                        attackSpeed
-                )
-                .tool(material,
-                        RDBlockTags.MIN_TOOL,
-                        attackDamage,
-                        attackSpeed,0.0F
-                )
-        );
+        super(material, RDBlockTags.MIN_TOOL, attackDamage, attackSpeed, settings);
 
         MINING_TOOLS.add(this);
     }

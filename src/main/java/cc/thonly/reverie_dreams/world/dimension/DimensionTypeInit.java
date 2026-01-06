@@ -33,7 +33,6 @@ public class DimensionTypeInit {
                 TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
                 ResourceLocation.fromNamespaceAndPath("minecraft", "overworld"),                                          // effects
                 0.0f,                                   // ambientLight
-                Optional.empty(),                       // cloudHeight
                 new DimensionType.MonsterSettings(      // monsterSettings
                         true,                           // piglinSafe
                         true,                           // hasRaids
@@ -56,7 +55,6 @@ public class DimensionTypeInit {
                 TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
                 ResourceLocation.fromNamespaceAndPath("minecraft", "the_end"), // effects
                 0.0f,                 // ambientLight
-                Optional.empty(),     // cloudHeight
                 new DimensionType.MonsterSettings(
                         false,                           // piglinSafe
                         true,                            // hasRaids

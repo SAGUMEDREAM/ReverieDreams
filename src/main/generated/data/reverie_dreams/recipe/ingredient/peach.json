@@ -13,7 +13,9 @@
   "result": {
     "components": {
       "minecraft:enchantments": {
-        "reverie_dreams:powerful": 1
+        "levels": {
+          "reverie_dreams:powerful": 1
+        }
       }
     },
     "count": 1,

@@ -35,7 +35,7 @@ public class SuggestionProvidersMixin {
             }), builder, EntityType::getKey, EntityType::getDescription);
             SuggestionProvider<SharedSuggestionProvider> suggestionProvider = PROVIDERS_BY_NAME.putIfAbsent(id, provider);
 
-            cir.setReturnValue((SuggestionProvider<S>) new SuggestionProviders.RegisteredSuggestion(id, provider));
+            cir.setReturnValue((SuggestionProvider<S>) new SuggestionProviders.Wrapper(id, provider));
             cir.cancel();
         }
     }

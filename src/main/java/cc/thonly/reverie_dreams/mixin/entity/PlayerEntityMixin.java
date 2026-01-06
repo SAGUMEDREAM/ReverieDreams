@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -19,8 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -133,13 +132,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    protected void writeCustomData(ValueOutput view, CallbackInfo ci) {
-        view.putLong("NonSleepingTime", this.nonSleepingTime);
+    protected void writeCustomData(CompoundTag compoundTag, CallbackInfo ci) {
+        compoundTag.putLong("NonSleepingTime", this.nonSleepingTime);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    protected void readCustomData(ValueInput view, CallbackInfo ci) {
-        this.nonSleepingTime = view.getLongOr("NonSleepingTime", 0L);
+    protected void readCustomData(CompoundTag compoundTag, CallbackInfo ci) {
+        this.nonSleepingTime = compoundTag.getLong("NonSleepingTime");
     }
 
     @Unique

@@ -12,7 +12,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.WeightedList;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
@@ -104,7 +104,7 @@ public class ConfigurationFeatureInit {
                 new TreeConfiguration.TreeConfigurationBuilder(
                         BlockStateProvider.simple(RDWoodBlocks.LEMON.log()),
                         new BendingTrunkPlacer(2, 1, 2, 2, UniformInt.of(1, 1)),
-                        new WeightedStateProvider(WeightedList.<BlockState>builder()
+                        new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                                 .add(RDWoodBlocks.LEMON.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
                                 .add(RDWoodBlocks.LEMON_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
@@ -116,7 +116,7 @@ public class ConfigurationFeatureInit {
                 new TreeConfiguration.TreeConfigurationBuilder(
                         BlockStateProvider.simple(RDWoodBlocks.LEMON.log()),
                         new StraightTrunkPlacer(3, 1, 0),
-                        new WeightedStateProvider(WeightedList.<BlockState>builder()
+                        new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                                 .add(RDWoodBlocks.GINKGO.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
                                 .add(RDWoodBlocks.GINKGO_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
@@ -128,7 +128,7 @@ public class ConfigurationFeatureInit {
                 new TreeConfiguration.TreeConfigurationBuilder(
                         BlockStateProvider.simple(RDWoodBlocks.PEACH.log()),
                         new StraightTrunkPlacer(2, 1, 1),
-                        new WeightedStateProvider(WeightedList.<BlockState>builder()
+                        new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                                 .add(RDWoodBlocks.PEACH.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
                                 .add(RDWoodBlocks.PEACH_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),

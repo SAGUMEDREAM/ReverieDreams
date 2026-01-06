@@ -14,19 +14,19 @@ public class PolymerVillagerProfessionHelper {
         registerOverlay(RDVillagerProfessions.HAWKERS, new PolymerVillagerProfession() {
             @Override
             public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
-                return BuiltInRegistries.VILLAGER_PROFESSION.getValue(VillagerProfession.BUTCHER);
+                return VillagerProfession.BUTCHER;
             }
         });
         registerOverlay(RDVillagerProfessions.PRIEST, new PolymerVillagerProfession() {
             @Override
             public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
-                return BuiltInRegistries.VILLAGER_PROFESSION.getValue(VillagerProfession.CLERIC);
+                return VillagerProfession.CLERIC;
             }
         });
         registerOverlay(RDVillagerProfessions.MONEY_SHOP_CLERK, new PolymerVillagerProfession() {
             @Override
             public VillagerProfession getPolymerReplacement(VillagerProfession object, PacketContext context) {
-                return BuiltInRegistries.VILLAGER_PROFESSION.getValue(VillagerProfession.LIBRARIAN);
+                return VillagerProfession.LIBRARIAN;
             }
         });
     }

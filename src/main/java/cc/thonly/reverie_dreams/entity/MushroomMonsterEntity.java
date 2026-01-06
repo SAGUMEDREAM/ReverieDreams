@@ -47,7 +47,7 @@ public class MushroomMonsterEntity extends PathfinderMob {
     public boolean doHurtTarget(ServerLevel world, Entity target) {
         if (target instanceof LivingEntity) {
             ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.POISON, 10 * 20));
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.CONFUSION, 15 * 20));
         }
         return super.doHurtTarget(world, target);
     }

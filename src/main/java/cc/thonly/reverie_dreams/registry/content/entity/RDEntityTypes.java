@@ -27,9 +27,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.PigVariant;
-import net.minecraft.world.entity.variant.ModelAndTexture;
-import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
@@ -239,12 +236,6 @@ public class RDEntityTypes {
             );
 
     public static void registerEntityTypes() {
-        ServerContentRegistry.IMPL.register(Registries.PIG_VARIANT,
-                ReverieDreams.id("wild_pig"),
-                new PigVariant(
-                        new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
-                        SpawnPrioritySelectors.EMPTY
-                ));
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST),
                 MobCategory.MONSTER,

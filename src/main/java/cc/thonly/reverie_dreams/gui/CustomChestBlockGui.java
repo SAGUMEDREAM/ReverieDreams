@@ -44,7 +44,7 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     @Override
     public void onTick() {
         super.onTick();
-        ServerLevel world = this.player.level();
+        ServerLevel world = this.player.serverLevel();
         if (!(world.getBlockState(this.blockPos).getBlock() instanceof CustomChestBlock) && !(world.getBlockState(this.blockPos).getBlock() instanceof CashBoxBlock)) {
             this.close();
         }

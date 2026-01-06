@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:purple_orb_block"
+        "recipe": "minecraft:purple_orb_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:purple_orb_block"
+      "minecraft:purple_orb_block"
     ]
   }
 }

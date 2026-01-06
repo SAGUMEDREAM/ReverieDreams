@@ -82,7 +82,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
         return this.npcTarget;
     }
 
-    @Inject(method = "followNearbyPlayer", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ExperienceOrb;move(Lnet/minecraft/world/entity/MoverType;Lnet/minecraft/world/phys/Vec3;)V"), cancellable = true)
     public void moveToPlayerTickBefore(CallbackInfo ci) {
         this.moveTowardsTarget(ci);
     }

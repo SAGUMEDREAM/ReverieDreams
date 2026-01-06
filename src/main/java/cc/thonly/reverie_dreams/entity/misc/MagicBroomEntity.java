@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import cc.thonly.minecraft.util.TagValueFunction;
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.polymer.entity.MagicBroomImpl;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.server.PlayerInputManager;
@@ -9,7 +9,6 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -250,7 +249,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view-> {
+        TagValueFunction.write(compoundTag, this.registryAccess(), view-> {
             view.store("Item", ItemStackWrapper.CODEC, this.itemWrapper);
             if (this.owner != null) {
                 view.store("Owner", UUIDCodec.CODEC, this.owner);
@@ -261,7 +260,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        TagValueFunction.ofInput(compoundTag, this.registryAccess(),view-> {
+        TagValueFunction.read(compoundTag, this.registryAccess(), view-> {
             this.itemWrapper = view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
             view.read("Owner", UUIDCodec.CODEC).ifPresent(value -> this.owner = value);
         });

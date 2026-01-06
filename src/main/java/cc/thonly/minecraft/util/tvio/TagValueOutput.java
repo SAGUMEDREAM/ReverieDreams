@@ -1,5 +1,6 @@
-package cc.thonly.minecraft.util;
+package cc.thonly.minecraft.util.tvio;
 
+import cc.thonly.minecraft.util.ValueOutput;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;

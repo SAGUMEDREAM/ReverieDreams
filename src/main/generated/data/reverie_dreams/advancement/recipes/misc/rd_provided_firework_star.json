@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:rd_provided_firework_star"
+        "recipe": "minecraft:rd_provided_firework_star"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:rd_provided_firework_star"
+      "minecraft:rd_provided_firework_star"
     ]
   }
 }

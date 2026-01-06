@@ -26,10 +26,10 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -42,6 +42,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class AdvancementProvider extends FabricAdvancementProvider {
     private static boolean root = true;
@@ -212,7 +213,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
         DisplayInfo displayInfo = new DisplayInfo(new ItemStack(item),
                 RDAdvancements.getTitleComponent(key),
                 RDAdvancements.getDescriptionComponent(key),
-                AdvancementProvider.root ? Optional.of(RDAdvancements.ADVANCEMENT_BACKGROUND).map(ClientAsset::new): Optional.empty(),
+                AdvancementProvider.root ? Optional.of(RDAdvancements.ADVANCEMENT_BACKGROUND) : Optional.empty(),
                 type,
                 true,
                 true,

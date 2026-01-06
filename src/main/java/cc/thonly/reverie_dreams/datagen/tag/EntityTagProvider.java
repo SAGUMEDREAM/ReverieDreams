@@ -6,7 +6,6 @@ import cc.thonly.reverie_dreams.registry.tag.RDEntityTypeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 
@@ -20,14 +19,14 @@ public class EntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        TagAppender<EntityType<?>, EntityType<?>> roleBuilder = valueLookupBuilder(RDEntityTypeTags.NPC_ROLE);
+        var roleBuilder = getOrCreateTagBuilder(RDEntityTypeTags.NPC_ROLE);
 
         RegistryHandlers.NPC_ROLE.values().forEach(role -> roleBuilder.add(role.getEntityType()));
 
-        TagAppender<EntityType<?>, EntityType<?>> undead = valueLookupBuilder(EntityTypeTags.UNDEAD);
+        var undead = getOrCreateTagBuilder(EntityTypeTags.UNDEAD);
         undead.add(RDEntityTypes.GHOST);
 
-        TagAppender<EntityType<?>, EntityType<?>> yokai = valueLookupBuilder(RDEntityTypeTags.YOKAI);
+        var yokai = getOrCreateTagBuilder(RDEntityTypeTags.YOKAI);
         yokai.add(RDEntityTypes.MAID_YOUSEI);
         yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI);
         yokai.add(RDEntityTypes.YOUSEI);

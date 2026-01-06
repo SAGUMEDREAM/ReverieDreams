@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class ArmorItem extends Item {
+public class ArmorItem extends net.minecraft.world.item.ArmorItem {
     public static final List<ArmorItem> HEAD_ITEMS = new ArrayList<>();
     public static final List<ArmorItem> CHEST_ITEMS = new ArrayList<>();
     public static final List<ArmorItem> LEG_ITEMS = new ArrayList<>();
@@ -21,7 +21,7 @@ public class ArmorItem extends Item {
     public static final List<ArmorItem> ITEMS = new ArrayList<>();
 
     public ArmorItem(ArmorMaterial material, ArmorType type, Properties settings) {
-        super(settings.stacksTo(1).humanoidArmor(material, type));
+        super(material, type, settings);
         if (type.equals(ArmorType.HELMET)) {
             HEAD_ITEMS.add(this);
         } else if (type.equals(ArmorType.CHESTPLATE)) {

@@ -63,7 +63,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
                 boolean bl1 = block.equals(Blocks.WATER);
                 boolean bl2 = block.equals(Blocks.LAVA) || block.equals(Blocks.FIRE);
                 if (bl1) {
-                    this.addEffect(new MobEffectInstance(MobEffects.SPEED, 3 * 20));
+                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3 * 20));
                     this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 3 * 20));
                     this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 3 * 20));
                 }
@@ -79,8 +79,8 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
     @Override
     public boolean doHurtTarget(ServerLevel world, Entity target) {
         if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20 * 15, 1));
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20 * 15));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 15, 1));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 15));
         }
         return super.doHurtTarget(world, target);
     }

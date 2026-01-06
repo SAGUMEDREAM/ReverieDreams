@@ -34,7 +34,7 @@ public record ItemColor(Item item, Long color) {
     }
 
     public ItemStack color(ItemStack itemStack) {
-        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color().intValue()));
+        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color().intValue(), true));
         return itemStack;
     }
 

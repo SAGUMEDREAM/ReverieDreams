@@ -10,9 +10,6 @@ import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
-import cc.thonly.reverie_dreams.dialog.DialogFiles;
-import cc.thonly.reverie_dreams.dialog.DialogInit;
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.entity.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
@@ -144,7 +141,6 @@ public class ReverieDreams implements ModInitializer {
         RDVillagerProfessions.registers();
         BiomeModificationInit.init();
         GameRulesInit.init();
-        DialogInit.bootstrap();
         RDCriteriaTriggers.registerCriteria();
 
         // 初始化其他注册内容
@@ -158,7 +154,6 @@ public class ReverieDreams implements ModInitializer {
         RDLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.init();
-        CustomClickActionRegistry.registerActions();
 
         ImageToTextScanner.bootstrap();
         ItemDescriptionManager.bootstrap();
@@ -359,7 +354,6 @@ public class ReverieDreams implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             PlayerInputManager inputManager = PlayerInputManager.getInstance();
             inputManager.reload();
-            DialogPlayer.reload();
         });
         ServerLifecycleEvents.AFTER_SAVE.register((server, flush, force) -> {
             PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
@@ -370,7 +364,6 @@ public class ReverieDreams implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(ParticleTickerManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(PlayerInputManager::tick);
         ServerTickEvents.END_SERVER_TICK.register(DanmakuScriptManager::onTick);
-        ServerTickEvents.END_SERVER_TICK.register(DialogPlayer::tick);
         ServerTickEvents.END_SERVER_TICK.register(SpellcardRenderer::tick);
     }
 
@@ -405,17 +398,6 @@ public class ReverieDreams implements ModInitializer {
             boolean reachable = NetUtil.isUrlAccessible(testUrl);
             if (!reachable) {
                 LOGGER.error("Unable to connect to the Minecraft network, unexpected behavior may occur");
-            }
-        });
-
-        CompletableFuture.runAsync(() -> {
-            boolean contain = DialogFiles.contain("badapple.json");
-            if (!contain) {
-                try {
-                    NetUtil.downloadFile("https://www.otomads.top/reverie_dreams/badapple.json", DialogFiles.PATH.resolve("badapple.json").toFile());
-                } catch (Exception err) {
-                    LOGGER.error("Can't download badapple.json", err);
-                }
             }
         });
     }

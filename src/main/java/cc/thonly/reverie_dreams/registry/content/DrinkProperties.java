@@ -61,27 +61,27 @@ public class DrinkProperties {
                 return;
             }
             if (property.is(DrinkProperties.LOW_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 3 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 3 * 20));
             }
             if (property.is(DrinkProperties.MID_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 9 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 9 * 20));
             }
             if (property.is(DrinkProperties.HIGH_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 27 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 27 * 20));
             }
             if (property.is(DrinkProperties.CAN_ADD_ICE)) {
                 user.setSharedFlagOnFire(false);
                 user.setTicksFrozen(20);
             }
             if (property.is(DrinkProperties.SWEET)) {
-                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 10 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10 * 20));
             }
             if (property.is(DrinkProperties.REFRESHING)) {
-                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 20 * 20));
-                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 20 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 20 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 20));
             }
             if (property.is(DrinkProperties.BITTER)) {
-                user.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20));
+                user.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20));
             }
         });
     }

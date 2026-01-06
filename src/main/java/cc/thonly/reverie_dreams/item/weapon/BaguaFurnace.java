@@ -65,7 +65,7 @@ public class BaguaFurnace extends Item {
                 user.startUsingItem(hand);
                 return InteractionResult.CONSUME;
             }
-            world.playSound((Entity) null, user.getX(), user.getY(), user.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
             SmallFireball fireballEntity = new SmallFireball(serverWorld, user.getX(), user.getEyeY(), user.getZ(), new Vec3(0, 0, 0));
             fireballEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.5f, 1.0F);
             world.addFreshEntity(fireballEntity);

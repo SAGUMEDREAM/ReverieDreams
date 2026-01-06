@@ -1,4 +1,4 @@
-// 1.21.7	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Advancements
+// 1.21.4	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Advancements
 685af1dc6fb8a10305ab80d4813b854079599e31 data/reverie_dreams/advancement/a_celestial_being_descended_to_earth.json
 93642c1e0b73d32d4e47b91354d24ed332638007 data/reverie_dreams/advancement/abandoned_shrine.json
 0def904f6a1202c0624e446f50ee763b11c0b5b8 data/reverie_dreams/advancement/burst.json
@@ -22,5 +22,5 @@ c850e1eba52d441dd182d8be1a080ce682061078 data/reverie_dreams/advancement/psychol
 5ea98a7c1d33c036a5eecfbc731d59f9e4f3befc data/reverie_dreams/advancement/root.json
 3586d6659477d313fcc35063efbc08534ea4f30a data/reverie_dreams/advancement/shiny_coins.json
 d69d78bdf0db7a351a6b97aab2970c97f5e4d4ad data/reverie_dreams/advancement/taking_photo.json
-b7d6a01ade97ff1fac2f832131454b7a0b6af0c3 data/reverie_dreams/advancement/touhou_mystias_izakaya.json
+9e089b1604588e8cdeb3367a53e5cec64a3c91c6 data/reverie_dreams/advancement/touhou_mystias_izakaya.json
 188dcb90b208577df7cb32dc0ff1e597f0c0e5ea data/reverie_dreams/advancement/wood_with_spiritual_power.json

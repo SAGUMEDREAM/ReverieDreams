@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.util.block.CropAgeUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class SweetPotatoCropBlock extends AbstractCropBlock {

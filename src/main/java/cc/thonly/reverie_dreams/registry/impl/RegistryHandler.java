@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.registry.interfaces.Initialization;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.ReloadStep;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -360,7 +361,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
 
     @Override
     public Set<Map.Entry<ResourceKey<T>, T>> entrySet() {
-        return Collections.unmodifiableSet(Util.mapValuesLazy(this.keyToEntry, Holder::value).entrySet());
+        return Collections.unmodifiableSet(Maps.transformValues(this.keyToEntry, Holder::value).entrySet());
     }
 
     @Override

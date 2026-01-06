@@ -3,13 +3,13 @@ package cc.thonly.reverie_dreams.block.entity;
 import cc.thonly.polymer.block.GensokyoAltarImpl;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 
 @Getter
 public class GensokyoAltarBlockEntity extends BlockEntity {
@@ -39,16 +39,16 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput view) {
-        super.saveAdditional(view);
-        ContainerHelper.saveAllItems(view, inventory.items);
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        ContainerHelper.saveAllItems(compoundTag, inventory.items, provider);
     }
 
     @Override
-    protected void loadAdditional(ValueInput view) {
-        super.loadAdditional(view);
+    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
         SimpleContainer inventory = new SimpleContainer(9);
-        ContainerHelper.loadAllItems(view, inventory.items);
+        ContainerHelper.loadAllItems(compoundTag, inventory.items, provider);
         this.inventory = inventory;
     }
 

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:empty_photo"
+        "recipe": "minecraft:empty_photo"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:empty_photo"
+      "minecraft:empty_photo"
     ]
   }
 }

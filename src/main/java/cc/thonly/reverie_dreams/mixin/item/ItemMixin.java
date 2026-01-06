@@ -22,7 +22,6 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -31,7 +30,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureElement;
@@ -39,7 +37,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -68,7 +65,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
             ItemEnchantments enchantments = itemStack.getEnchantments();
             int enchantLevel = enchantments.getLevel(powerful);
             if (enchantLevel >= 1) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 20));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20 * 20));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 20));
                 if (livingEntity instanceof ServerPlayer serverPlayer) {
                     SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_PEACH).trigger(serverPlayer);
@@ -103,12 +100,12 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
     }
 
     @Inject(method = "hurtEnemy", at = @At("TAIL"))
-    public void reverie_dreams$postHitCallback(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfo ci) {
+    public void reverie_dreams$postHitCallback(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> cir) {
         ItemPostHitCallback.EVENT.invoker().postHit(stack, target, attacker);
     }
 
     @Inject(method = "inventoryTick", at = @At("HEAD"))
-    public void reverie_dreams$inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
+    public void reverie_dreams$inventoryTick(ItemStack itemStack, Level level, Entity entity, int i, boolean bl, CallbackInfo ci) {
         if (entity instanceof IPlayerEntity iPlayerEntity) {
             if (itemStack.is(RDItemTags.SILVER_ITEM)) {
                 iPlayerEntity.setNonSleepingTime(0);
@@ -137,7 +134,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
                 cir.cancel();
             } else {
                 level.setBlock(blockPos, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.withPropertiesOf(blockState), Block.UPDATE_KNOWN_SHAPE);
-                level.playSound(null, blockPos, SoundEvents.SHEARS_SNIP, SoundSource.BLOCKS, 1.0f, 1.0f);
+                level.playSound(null, blockPos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0f, 1.0f);
                 itemStack.consume(1, player);
                 cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
                 cir.cancel();
@@ -148,17 +145,17 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
     }
 
     @Inject(method = "appendHoverText", at = @At("HEAD"))
-    public void reverie_dreams$appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type, CallbackInfo ci) {
+    public void reverie_dreams$appendTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag, CallbackInfo ci) {
         Item item = this.asItem();
         if (item instanceof IngredientItem || item instanceof FoodItem) {
             return;
         }
         List<FoodProperty> foodProperties = FoodProperty.getIngredientProperties(item);
         if (!foodProperties.isEmpty()) {
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
+            list.add(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
         }
         for (FoodProperty foodProperty : foodProperties) {
-            textConsumer.accept(Component.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
+            list.add(Component.empty().append(FoodProperty.getDisplayPrefix(itemStack, foodProperty)).append(foodProperty.getTooltip()));
         }
     }
 }

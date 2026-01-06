@@ -41,10 +41,11 @@
     "id": "reverie_dreams:role_card",
     "count": 1,
     "components": {
-      "minecraft:item_name": {
-        "translate": "reverie_dreams.kishinjou_role_card"
+      "minecraft:item_name": "{\"translate\":\"reverie_dreams.kishinjou_role_card\"}",
+      "minecraft:dyed_color": {
+        "rgb": 16761692,
+        "show_in_tooltip": false
       },
-      "minecraft:dyed_color": 16761692,
       "reverie_dreams:role_card_id": "reverie_dreams:kishinjou"
     }
   }

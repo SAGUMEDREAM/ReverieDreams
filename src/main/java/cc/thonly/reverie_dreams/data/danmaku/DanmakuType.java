@@ -125,7 +125,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
 
     public void createItemEntry() {
         DanmakuItem item = new DanmakuItem(this.createItemSettings()
-                .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
+                .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046, true))
                 .durability(120)
         );
         item.type(this);
@@ -144,7 +144,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
             Style style = hoverName.getStyle().withColor(brighten(color, 1.25f));
             Component colored = hoverName.copy().setStyle(style);
             stack.set(DataComponents.ITEM_NAME, colored);
-            stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
+            stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue(), true));
             stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))));
             pairList.add(new Tuple<>(dyeItem, stack));
         }

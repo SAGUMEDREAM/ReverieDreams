@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.registry.content.effect;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

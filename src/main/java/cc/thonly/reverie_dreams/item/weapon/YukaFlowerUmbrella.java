@@ -29,7 +29,7 @@ public class YukaFlowerUmbrella extends SwordItem {
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         super.use(level, player, interactionHand);
         if (!level.isClientSide) {
-            player.addEffect(new MobEffectInstance(MobEffects.SPEED, 15, 4));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 15, 4));
             return InteractionResult.PASS;
         }
         return InteractionResult.SUCCESS;
@@ -54,11 +54,11 @@ public class YukaFlowerUmbrella extends SwordItem {
                         Entity vehicle = player.getVehicle();
                         //noinspection ConditionCoveredByFurtherCondition
                         if (vehicle != null && vehicle instanceof LivingEntity livingVehicle) {
-                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.SPEED, 15, 4));
-                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 15, 2));
+                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 15, 4));
+                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 15, 2));
                         }
-                        player.addEffect(new MobEffectInstance(MobEffects.SPEED, 15, 4));
-                        player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 15, 2));
+                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 15, 4));
+                        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 15, 2));
                     }
                 }
             }

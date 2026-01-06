@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:maid_hairband"
+        "recipe": "minecraft:maid_hairband"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:maid_hairband"
+      "minecraft:maid_hairband"
     ]
   }
 }

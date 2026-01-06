@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class KoishiHatItem extends ArmorItem {
@@ -20,13 +21,12 @@ public class KoishiHatItem extends ArmorItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot slot) {
-        super.inventoryTick(itemStack, serverLevel, entity, slot);
-        if (EquipmentSlotUtil.isArmorSlot(slot) && entity instanceof LivingEntity livingEntity) {
+    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int i, boolean bl) {
+        super.inventoryTick(itemStack, level, entity, i, bl);
+        if (entity instanceof LivingEntity livingEntity && itemStack.equals(livingEntity.getItemBySlot(EquipmentSlot.HEAD))) {
             if (entity.getDeltaMovement().lengthSqr() <= 1 && entity.isShiftKeyDown()) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 10, 0, false, false, false));
             }
         }
     }
-
 }

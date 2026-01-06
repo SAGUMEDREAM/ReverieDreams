@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:anti_collision_barrel"
+        "recipe": "minecraft:anti_collision_barrel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:anti_collision_barrel"
+      "minecraft:anti_collision_barrel"
     ]
   }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:moon_stone_brick_stairs_from_moon_stone_brick_stonecutting"
+        "recipe": "minecraft:moon_stone_brick_stairs_from_moon_stone_brick_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:moon_stone_brick_stairs_from_moon_stone_brick_stonecutting"
+      "minecraft:moon_stone_brick_stairs_from_moon_stone_brick_stonecutting"
     ]
   }
 }

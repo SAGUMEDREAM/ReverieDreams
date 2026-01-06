@@ -75,8 +75,8 @@ public class FumoSellerVillager extends AbstractSellerEntity {
         Registry<VillagerProfession> villagerProfessionRegistry = registryManager.lookupOrThrow(Registries.VILLAGER_PROFESSION);
 
         return new VillagerData(
-                villagerTypeRegistry.getOrThrow(VillagerType.PLAINS),
-                villagerProfessionRegistry.getOrThrow(VillagerProfession.LIBRARIAN),
+                VillagerType.PLAINS,
+                VillagerProfession.LIBRARIAN,
                 2
         );
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:silver_nugget_from_block"
+        "recipe": "minecraft:silver_nugget_from_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:silver_nugget_from_block"
+      "minecraft:silver_nugget_from_block"
     ]
   }
 }

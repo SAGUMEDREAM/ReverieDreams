@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:magic_ice_axe"
+        "recipe": "minecraft:magic_ice_axe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:magic_ice_axe"
+      "minecraft:magic_ice_axe"
     ]
   }
 }

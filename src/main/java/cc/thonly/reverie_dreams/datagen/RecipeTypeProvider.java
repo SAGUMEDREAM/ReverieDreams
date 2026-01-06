@@ -171,7 +171,7 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                 .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.FUUJINROKU
                 .createRecipeBuilder()
-                .itemStack(ItemStackWrapper.of(Items.LEAF_LITTER, 40), ItemStackWrapper.of(Items.STONE, 40))
+                .itemStack(ItemStackWrapper.of(Items.OAK_LEAVES, 40), ItemStackWrapper.of(Items.STONE, 40))
                 .build()
                 .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.CHIREIDEN
@@ -201,7 +201,7 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                 .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.TENKUUSHOU
                 .createRecipeBuilder()
-                .itemStack(ItemStackWrapper.of(Items.GRASS_BLOCK, 29), ItemStackWrapper.of(Items.LEAF_LITTER, 43))
+                .itemStack(ItemStackWrapper.of(Items.GRASS_BLOCK, 29), ItemStackWrapper.of(Items.OAK_LEAVES, 43))
                 .build()
                 .apply(this.gensokyoAltarRecipeFactory);
         RoleCards.KIKEIJUU

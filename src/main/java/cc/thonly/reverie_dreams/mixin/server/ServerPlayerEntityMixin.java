@@ -3,14 +3,14 @@ package cc.thonly.reverie_dreams.mixin.server;
 import cc.thonly.reverie_dreams.world.trading_card.ITradingCardPlayer;
 import cc.thonly.reverie_dreams.world.trading_card.TradingCardManager;
 import com.mojang.authlib.GameProfile;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,8 +22,8 @@ public abstract class ServerPlayerEntityMixin extends Player implements ITrading
     @Unique
     private TradingCardManager tradingCardManager;
 
-    public ServerPlayerEntityMixin(Level world, GameProfile profile) {
-        super(world, profile);
+    public ServerPlayerEntityMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
+        super(level, blockPos, f, gameProfile);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
@@ -33,13 +33,13 @@ public abstract class ServerPlayerEntityMixin extends Player implements ITrading
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    public void read(ValueInput view, CallbackInfo ci) {
-        this.tradingCardManager.read(view);
+    public void read(CompoundTag compoundTag, CallbackInfo ci) {
+        this.tradingCardManager.read(compoundTag);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    public void write(ValueOutput view, CallbackInfo ci) {
-        this.tradingCardManager.write(view);
+    public void write(CompoundTag compoundTag, CallbackInfo ci) {
+        this.tradingCardManager.write(compoundTag);
     }
 
     @Override

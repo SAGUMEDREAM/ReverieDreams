@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -14,8 +15,9 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import java.util.Optional;
 
 public class Priest {
+    @SuppressWarnings("DataFlowIssue")
     public static void registers() {
-        TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.PRIEST, 1, factories -> {
+        TradeOfferHelper.registerVillagerOffers(BuiltInRegistries.VILLAGER_PROFESSION.getValue(RDVillagerProfessions.PRIEST), 1, factories -> {
             factories.add((entity, random) -> new MerchantOffer(
                             new ItemCost(RDItems.POWER, 11),
                             Optional.empty(),
@@ -35,7 +37,7 @@ public class Priest {
                     )
             );
         });
-        TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.PRIEST, 2, factories -> {
+        TradeOfferHelper.registerVillagerOffers(BuiltInRegistries.VILLAGER_PROFESSION.getValue(RDVillagerProfessions.PRIEST), 2, factories -> {
             factories.add((entity, random) -> new MerchantOffer(
                             new ItemCost(RDItems.POWER, 38),
                             Optional.of(new ItemCost(RDItems.COPPER_COIN, 24)),

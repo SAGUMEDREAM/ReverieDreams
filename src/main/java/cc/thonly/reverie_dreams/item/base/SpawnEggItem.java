@@ -29,7 +29,7 @@ import java.util.List;
 @ToString
 public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implements IdentifierGetter {
     public static final List<Item> SPAWN_EGGS = new ArrayList<>(128);
-    public static final DyedItemColor DEFAULT_COLOR = new DyedItemColor(16777215);
+    public static final DyedItemColor DEFAULT_COLOR = new DyedItemColor(16777215, false);
     private final ResourceLocation identifier;
     private long color = -1;
 
@@ -47,7 +47,7 @@ public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implemen
 
     public void setColor(long color) {
         this.color = color;
-        DyedItemColor dyedColorComponent = this.components.getOrDefault(DataComponents.DYED_COLOR, new DyedItemColor(16777215));
+        DyedItemColor dyedColorComponent = this.components.getOrDefault(DataComponents.DYED_COLOR, new DyedItemColor(16777215, false));
         dyedColorComponent.rgb = (int) this.color;
     }
 
@@ -55,9 +55,9 @@ public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implemen
     public ItemStack getDefaultInstance() {
         ItemStack itemStack = super.getDefaultInstance();
         if (this.color != -1) {
-            itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor((int) this.color));
+            itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor((int) this.color, false));
         } else {
-            itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(16777215));
+            itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(16777215, false));
         }
         return itemStack;
     }

@@ -78,7 +78,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
     public ItemStack itemStack() {
         ItemStack itemStack = new ItemStack(RDItems.ROLE_CARD, 1);
         itemStack.set(DataComponents.ITEM_NAME, Component.translatable(this.translationKey()));
-        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color.intValue()));
+        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color.intValue(), false));
         itemStack.set(RDDataComponents.ROLE_CARD_ID, this.getId());
         return itemStack.copy();
     }

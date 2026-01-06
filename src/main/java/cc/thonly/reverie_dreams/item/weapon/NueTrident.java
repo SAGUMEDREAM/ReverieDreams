@@ -29,7 +29,6 @@ import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
-import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -42,16 +41,16 @@ public class NueTrident extends MiningToolItem implements ProjectileItem {
     public static final ToolMaterial NUE_TRIDENT = new ToolMaterial(RDBlockTags.MIN_TOOL, 450, 4.5f, 5.5f, 1, ItemTags.NETHERITE_TOOL_MATERIALS);
 
     public NueTrident(float attackDamage, float attackSpeed, Item.Properties settings) {
-        super(NUE_TRIDENT, attackDamage, attackSpeed, settings.attributes(createAttributeModifiers()).component(DataComponents.TOOL, createToolComponent()).enchantable(1).component(DataComponents.WEAPON, new Weapon(1)).enchantable(1));
+        super(NUE_TRIDENT, attackDamage, attackSpeed, settings.attributes(createAttributeModifiers()).component(DataComponents.TOOL, createToolComponent()).enchantable(1).enchantable(1));
     }
 
     @Override
-    public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity user) {
-        if (!world.isClientSide && user instanceof ServerPlayer player) {
-            boolean b = super.canDestroyBlock(stack, state, world, pos, user);
-            return b && !player.hasInfiniteMaterials();
+    public boolean canAttackBlock(BlockState blockState, Level level, BlockPos blockPos, Player player) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            boolean b = super.canAttackBlock(blockState, level, blockPos, serverPlayer);
+            return b && !serverPlayer.hasInfiniteMaterials();
         }
-        return super.canDestroyBlock(stack, state, world, pos, user);
+        return super.canAttackBlock(blockState, level, blockPos, player);
     }
 
     public static ItemAttributeModifiers createAttributeModifiers() {
@@ -59,7 +58,7 @@ public class NueTrident extends MiningToolItem implements ProjectileItem {
     }
 
     public static Tool createToolComponent() {
-        return new Tool(List.of(), 1.0f, 2, false);
+        return new Tool(List.of(), 1.0f, 2);
     }
 
     @Override

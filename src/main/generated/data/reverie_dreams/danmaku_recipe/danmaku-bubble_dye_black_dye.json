@@ -17,14 +17,13 @@
     "id": "reverie_dreams:danmaku/bubble",
     "count": 1,
     "components": {
-      "minecraft:item_name": {
-        "translate": "item.reverie_dreams.danmaku.bubble",
-        "color": "#2F2F2F"
+      "minecraft:item_name": "{\"color\":\"#2F2F2F\",\"translate\":\"item.reverie_dreams.danmaku.bubble\"}",
+      "minecraft:dyed_color": {
+        "rgb": 2500134
       },
-      "minecraft:dyed_color": 2500134,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:b2fb4721-73a4-4ef8-9743-b087ffa0a349"
+        "cooldown_group": "minecraft:5a13212f-4ea0-4e87-9d19-68da32f2671d"
       }
     }
   },

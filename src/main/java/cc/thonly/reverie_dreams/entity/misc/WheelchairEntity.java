@@ -7,6 +7,7 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,8 +27,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -196,15 +195,15 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        view.putString("OwnerUUID", this.ownerUUID);
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putString("OwnerUUID", this.ownerUUID);
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
-        this.ownerUUID = view.getStringOr("OwnerUUID", "null");
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.ownerUUID = compoundTag.getString("OwnerUUID");
     }
 
     @Override

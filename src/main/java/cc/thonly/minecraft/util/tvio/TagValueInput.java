@@ -1,5 +1,7 @@
-package cc.thonly.minecraft.util;
+package cc.thonly.minecraft.util.tvio;
 
+import cc.thonly.minecraft.util.ValueInput;
+import cc.thonly.minecraft.util.ValueInputContextHelper;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Streams;
 import com.mojang.serialization.Codec;

@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagBuilder;
@@ -25,10 +24,5 @@ public abstract class PointOfInterestTypeProvider extends FabricTagProvider<PoiT
             Optional<ResourceKey<PoiType>> key = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(value);
             return key.orElseGet(() -> ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.parse("none")));
         };
-    }
-
-    protected TagAppender<PoiType, PoiType> valueLookupBuilder(TagKey<PoiType> tag) {
-        TagBuilder tagBuilder = this.getOrCreateRawBuilder(tag);
-        return TagAppender.<PoiType>forBuilder(tagBuilder).map(this.valueToKey);
     }
 }

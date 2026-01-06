@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.util.entity;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.bil.file.loader.AjBlueprintLoader;
 import de.tomalbrc.bil.file.loader.AjModelLoader;
 import de.tomalbrc.bil.file.loader.BbModelLoader;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,7 @@ public class ModelUtil {
     }
 
     public static Model loadAjBlueprint(ResourceLocation id) {
-        return loadModel(id, AjBlueprintLoader::load);
+        return loadModel(id, AjModelLoader::load);
     }
 
 }

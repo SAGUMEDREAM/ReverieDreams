@@ -1,18 +1,19 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.Nullable;
 
 public class NPCRoleFastEntity extends Mob {
-    private ValueInput view;
+    private CompoundTag view;
     private SkinType skinType;
 
     public NPCRoleFastEntity(EntityType<? extends Mob> entityType, Level world) {
@@ -53,9 +54,9 @@ public class NPCRoleFastEntity extends Mob {
     }
 
     @Override
-    public void load(ValueInput view) {
-        super.load(view);
-        this.view = view;
+    public void load(CompoundTag compoundTag) {
+        super.load(compoundTag);
+        this.view = compoundTag;
     }
 
     @Override

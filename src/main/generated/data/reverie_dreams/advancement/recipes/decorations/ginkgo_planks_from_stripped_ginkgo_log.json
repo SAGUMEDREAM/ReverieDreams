@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:ginkgo_planks_from_stripped_ginkgo_log"
+        "recipe": "minecraft:ginkgo_planks_from_stripped_ginkgo_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:ginkgo_planks_from_stripped_ginkgo_log"
+      "minecraft:ginkgo_planks_from_stripped_ginkgo_log"
     ]
   }
 }

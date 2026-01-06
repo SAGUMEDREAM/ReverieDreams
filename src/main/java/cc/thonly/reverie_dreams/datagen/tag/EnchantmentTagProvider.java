@@ -1,17 +1,17 @@
 package cc.thonly.reverie_dreams.datagen.tag;
 
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.KeyTagProvider;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EnchantmentTagProvider extends KeyTagProvider<Enchantment> {
-    public EnchantmentTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
+public class EnchantmentTagProvider extends FabricTagProvider<Enchantment> {
+    public EnchantmentTagProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(packOutput, Registries.ENCHANTMENT, completableFuture);
     }
 

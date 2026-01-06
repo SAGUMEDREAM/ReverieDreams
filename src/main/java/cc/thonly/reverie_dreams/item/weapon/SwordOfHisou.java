@@ -21,7 +21,7 @@ public class SwordOfHisou extends SwordItem {
     }
 
     @Override
-    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = target.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             if (world.isRaining() && serverWorld.random.nextFloat() < 0.3f) {
@@ -33,6 +33,6 @@ public class SwordOfHisou extends SwordItem {
                 serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.WIND_CHARGE_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (serverWorld.getRandom().nextFloat() * 0.4f + 0.8f));
             }
         }
-        super.hurtEnemy(stack, target, attacker);
+        return super.hurtEnemy(stack, target, attacker);
     }
 }

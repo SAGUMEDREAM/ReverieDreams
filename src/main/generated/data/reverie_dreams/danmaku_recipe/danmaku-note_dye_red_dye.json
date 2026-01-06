@@ -17,14 +17,13 @@
     "id": "reverie_dreams:danmaku/note",
     "count": 1,
     "components": {
-      "minecraft:item_name": {
-        "translate": "item.reverie_dreams.danmaku.note",
-        "color": "#FF3D3D"
+      "minecraft:item_name": "{\"color\":\"#FF3D3D\",\"translate\":\"item.reverie_dreams.danmaku.note\"}",
+      "minecraft:dyed_color": {
+        "rgb": 16724273
       },
-      "minecraft:dyed_color": 16724273,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:2df5d3b5-bc9a-4ef3-9583-06b3faf10a3d"
+        "cooldown_group": "minecraft:37f6f525-49cb-4af3-baf3-16879ad11489"
       }
     }
   },

@@ -66,14 +66,13 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
         this.goalSelector.addGoal(1, new NPCAutoPickItemGoal(this));
         this.goalSelector.addGoal(2, new NPCCloseToCropGoal(this, 1));
 
-        this.getNavigation().setCanOpenDoors(true);
         this.getNavigation().setCanFloat(true);
     }
 
     @Override
     public void tick() {
         Level world = this.level();
-        if (!world.isClientSide && world.isBrightOutside()) {
+        if (!world.isClientSide && world.isDay()) {
             this.stopSleeping();
         }
         this.attractNearbyExperienceOrbs();

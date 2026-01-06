@@ -5,10 +5,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -28,11 +27,11 @@ public class TradingCardManager {
         this.entries = new Entries();
     }
 
-    public void read(ValueInput view) {
+    public void read(CompoundTag compoundTag) {
 
     }
 
-    public void write(ValueOutput view) {
+    public void write(CompoundTag compoundTag) {
 
     }
 

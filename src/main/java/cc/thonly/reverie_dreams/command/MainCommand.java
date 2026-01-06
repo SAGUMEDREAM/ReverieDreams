@@ -3,9 +3,6 @@ package cc.thonly.reverie_dreams.command;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.debug.DebugExportWriter;
-import cc.thonly.reverie_dreams.dialog.DialogFiles;
-import cc.thonly.reverie_dreams.dialog.DialogInit;
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
@@ -50,16 +47,6 @@ import java.util.stream.Stream;
 @Slf4j
 public class MainCommand implements CommandInit.CommandRegistration {
 
-    public static class DialogSuggestionProvider implements SuggestionProvider<CommandSourceStack> {
-        @Override
-        public CompletableFuture<Suggestions> getSuggestions(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) throws CommandSyntaxException {
-            for (String string : DialogInit.ARGS_DIALOG.keySet()) {
-                builder.suggest(string);
-            }
-            return builder.buildFuture();
-        }
-    }
-
     @Override
     public void register(CommandDispatcher<CommandSourceStack> dispatcher,
                          CommandBuildContext access,
@@ -78,37 +65,6 @@ public class MainCommand implements CommandInit.CommandRegistration {
                 .then(
                         RegistryHandlers.getSuggestProvider(this::registry)
                 );
-//        var dialog = Commands.literal("dialog")
-//                .then(
-//                        Commands
-//                                .argument("value", StringArgumentType.string())
-//                                .suggests(new DialogSuggestionProvider())
-//                                .executes(this::dialog)
-//                );
-//        var video = Commands.literal("video")
-//                .requires(source -> source.hasPermission(2))
-//                .then(
-//                        Commands.literal("play")
-//                                .then(
-//                                        Commands.argument("target", EntityArgument.entity())
-//                                                .then(
-//                                                        Commands.argument("file", StringArgumentType.string())
-//                                                                .suggests(new DialogFiles.FilesSuggestionProvider())
-//                                                                .executes(this::playVideo)
-//                                                                .then(
-//                                                                        Commands.argument("sound", ResourceLocationArgument.id())
-//                                                                                .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
-//                                                                                .executes(this::playVideo)
-//                                                                )
-//                                                )
-//                                )
-//
-//                )
-//                .then(
-//                        Commands
-//                                .literal("reload")
-//                                .executes(this::reloadVideo)
-//                );
         var about = Commands.literal("about")
                 .executes(this::about);
 
@@ -117,8 +73,6 @@ public class MainCommand implements CommandInit.CommandRegistration {
         root.then(cachedAllSkins);
         root.then(recipe);
         root.then(registry);
-//        root.then(dialog);
-//        root.then(video);
         root.then(about);
 
         dispatcher.register(root);
@@ -187,34 +141,6 @@ public class MainCommand implements CommandInit.CommandRegistration {
                 .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
 
         source.sendSystemMessage(msg);
-        return 1;
-    }
-
-    private int reloadVideo(CommandContext<CommandSourceStack> context) {
-        DialogFiles.reload();
-        context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.reload"), false);
-        return 1;
-    }
-
-    private int playVideo(CommandContext<CommandSourceStack> context) {
-        try {
-            ServerPlayer player = EntityArgument.getPlayer(context, "target");
-            String file = StringArgumentType.getString(context, "file");
-            ResourceLocation soundEventId = null;
-            SoundEvent soundEvent = null;
-            try {
-                soundEventId = ResourceLocationArgument.getId(context, "sound");
-            } catch (Exception ignored) {
-            }
-            if (soundEventId != null) {
-                soundEvent = SoundEvent.createVariableRangeEvent(soundEventId);
-            }
-            context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.reload"), false);
-            DialogPlayer.play(player, file, soundEvent);
-            context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.load.done"), false);
-        } catch (Exception err) {
-            log.error("Can't play video", err);
-        }
         return 1;
     }
 

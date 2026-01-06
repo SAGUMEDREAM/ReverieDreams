@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:ice_scales_block_slab_from_ice_scales_block_stonecutting"
+        "recipe": "minecraft:ice_scales_block_slab_from_ice_scales_block_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:ice_scales_block_slab_from_ice_scales_block_stonecutting"
+      "minecraft:ice_scales_block_slab_from_ice_scales_block_stonecutting"
     ]
   }
 }

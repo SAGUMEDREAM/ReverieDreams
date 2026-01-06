@@ -55,8 +55,9 @@ public class RDVillagerProfessions {
     }
 
     protected static VillagerProfession registerProfession(Registry<VillagerProfession> registry, ResourceKey<VillagerProfession> key, Predicate<Holder<PoiType>> heldWorkstation, Predicate<Holder<PoiType>> acquirableWorkstation, ImmutableSet<Item> gatherableItems, ImmutableSet<Block> secondaryJobSites, @Nullable SoundEvent workSound) {
-        MutableComponent translatable = Component.translatable("entity." + key.location().getNamespace() + ".villager." + key.location().getPath());
-        VillagerProfession villagerProfession = Registry.register(registry, key, new VillagerProfession(translatable, heldWorkstation, acquirableWorkstation, gatherableItems, secondaryJobSites, workSound));
+        String name = "entity." + key.location().getNamespace() + ".villager." + key.location().getPath();
+        MutableComponent translatable = Component.translatable(name);
+        VillagerProfession villagerProfession = Registry.register(registry, key, new VillagerProfession(name, heldWorkstation, acquirableWorkstation, gatherableItems, secondaryJobSites, workSound));
         return villagerProfession;
     }
 }

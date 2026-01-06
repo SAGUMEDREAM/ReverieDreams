@@ -12,14 +12,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Pig;
-import net.minecraft.world.entity.animal.PigVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class WildPigEntity extends Pig {
-    public static final ResourceKey<PigVariant> VARIANT = ResourceKey.create(Registries.PIG_VARIANT, ReverieDreams.id("wild_pig"));
     public WildPigEntity(EntityType<? extends Pig> entityType, Level world) {
         super(entityType, world);
     }

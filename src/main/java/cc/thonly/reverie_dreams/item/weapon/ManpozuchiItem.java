@@ -47,12 +47,12 @@ public class ManpozuchiItem extends PickaxeItem {
     }
 
     @Override
-    public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity user) {
-        if (!world.isClientSide && user instanceof ServerPlayer player) {
-            boolean b = super.canDestroyBlock(stack, state, world, pos, user);
+    public boolean canAttackBlock(BlockState blockState, Level level, BlockPos blockPos, Player player) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            boolean b = super.canAttackBlock(blockState, level, blockPos, player);
             return b && !player.hasInfiniteMaterials();
         }
-        return super.canDestroyBlock(stack, state, world, pos, user);
+        return super.canAttackBlock(blockState, level, blockPos, player);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class ManpozuchiItem extends PickaxeItem {
         return super.use(world, user, hand);
     }
 
-    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (shouldDealAdditionalDamage(attacker)) {
             ServerLevel serverWorld = (ServerLevel) attacker.level();
             attacker.setDeltaMovement(attacker.getDeltaMovement().with(Direction.Axis.Y, 0.009999999776482582));
@@ -146,6 +146,7 @@ public class ManpozuchiItem extends PickaxeItem {
             knockbackNearbyEntities(serverWorld, attacker, target);
         }
 
+        return true;
     }
 
     private Vec3 getCurrentExplosionImpactPos(ServerPlayer player) {

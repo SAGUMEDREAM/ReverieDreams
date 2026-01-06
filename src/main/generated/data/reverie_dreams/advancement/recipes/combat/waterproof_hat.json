@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:waterproof_hat"
+        "recipe": "minecraft:waterproof_hat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:waterproof_hat"
+      "minecraft:waterproof_hat"
     ]
   }
 }

@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.EntityType;
@@ -28,8 +29,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Objects;
@@ -47,7 +46,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
                                 ? (YouseiVariants.REGISTRY.getAny().isPresent() ? YouseiVariants.REGISTRY.getAny().get().value().getSkinType() : YouseiVariants.BLUE.getSkinType())
                                 : Objects.requireNonNull(YouseiVariants.random()).getSkinType()
                 )
-       );
+        );
         this.xpReward = 5;
         this.variant = YouseiVariants.getFromProperty(this.getSkin());
     }
@@ -96,17 +95,22 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
-        String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        String youseiVariantId = null;
+        if (compoundTag.contains("YouseiVariant")) {
+            youseiVariantId = compoundTag.getString("YouseiVariant");
+        } else {
+            youseiVariantId = YouseiVariants.DEFAULT_ID.toString();
+        }
         ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
         this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        view.putString("YouseiVariant", this.variant.getId().toString());
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putString("YouseiVariant", this.variant.getId().toString());
     }
 
     @Override

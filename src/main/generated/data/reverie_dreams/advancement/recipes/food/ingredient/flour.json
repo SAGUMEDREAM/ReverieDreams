@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:ingredient/flour"
+        "recipe": "minecraft:ingredient/flour"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:ingredient/flour"
+      "minecraft:ingredient/flour"
     ]
   }
 }

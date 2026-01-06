@@ -50,5 +50,12 @@ accessible method net/minecraft/world/level/levelgen/NoiseRouterData getFunction
 accessible method net/minecraft/world/level/levelgen/NoiseRouterData postProcess (Lnet/minecraft/world/level/levelgen/DensityFunction;)Lnet/minecraft/world/level/levelgen/DensityFunction;
 accessible method net/minecraft/world/level/levelgen/NoiseRouterData slide (Lnet/minecraft/world/level/levelgen/DensityFunction;IIIIDIID)Lnet/minecraft/world/level/levelgen/DensityFunction;
 accessible method net/minecraft/world/item/trading/MerchantOffer <init> (Lnet/minecraft/world/item/trading/ItemCost;Ljava/util/Optional;Lnet/minecraft/world/item/ItemStack;IIZIIFI)V
-accessible class net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion
-accessible method net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion <init> (Lnet/minecraft/resources/ResourceLocation;Lcom/mojang/brigadier/suggestion/SuggestionProvider;)V
+accessible class net/minecraft/world/entity/monster/Ghast$GhastMoveControl
+accessible class net/minecraft/world/entity/monster/Ghast$RandomFloatAroundGoal
+accessible class net/minecraft/world/entity/monster/Ghast$GhastLookGoal
+accessible field net/minecraft/client/data/models/ItemModelGenerators SLOT_HELMET Ljava/lang/String;
+accessible field net/minecraft/client/data/models/ItemModelGenerators SLOT_CHESTPLATE Ljava/lang/String;
+accessible field net/minecraft/client/data/models/ItemModelGenerators SLOT_LEGGINS Ljava/lang/String;
+accessible field net/minecraft/client/data/models/ItemModelGenerators SLOT_BOOTS Ljava/lang/String;
+accessible field net/minecraft/client/data/models/ItemModelGenerators BLANK_LAYER Lnet/minecraft/client/color/item/ItemTintSource;
+accessible class net/minecraft/commands/synchronization/SuggestionProviders$Wrapper

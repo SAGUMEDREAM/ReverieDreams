@@ -32,10 +32,10 @@ public class Ibukiho extends SwordItem {
             copy.hurtAndBreak(10, user, EquipmentSlot.MAINHAND);
         }
         user.setItemInHand(activeHand, copy);
-        MobEffectInstance strength = new MobEffectInstance(MobEffects.STRENGTH, 60 * 20);
-        MobEffectInstance speed = new MobEffectInstance(MobEffects.SPEED, 60 * 20);
-        MobEffectInstance jumpBoost = new MobEffectInstance(MobEffects.JUMP_BOOST, 60 * 20);
-        MobEffectInstance nausea = new MobEffectInstance(MobEffects.NAUSEA, 60 * 20);
+        MobEffectInstance strength = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60 * 20);
+        MobEffectInstance speed = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60 * 20);
+        MobEffectInstance jumpBoost = new MobEffectInstance(MobEffects.JUMP, 60 * 20);
+        MobEffectInstance nausea = new MobEffectInstance(MobEffects.CONFUSION, 60 * 20);
         user.addEffect(strength);
         user.addEffect(speed);
         user.addEffect(jumpBoost);

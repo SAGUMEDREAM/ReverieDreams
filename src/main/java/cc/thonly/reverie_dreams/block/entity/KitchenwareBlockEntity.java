@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.minecraft.util.TagValueFunction;
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.gui.recipe.gui.KitchenBlockGui;
@@ -260,7 +260,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
         if (this.level != null) {
-            TagValueFunction.ofOutput(compoundTag, this.level.registryAccess(), view->{
+            TagValueFunction.write(compoundTag, this.level.registryAccess(), view->{
                 ContainerHelper.saveAllItems(compoundTag, this.inventory.items, provider);
                 view.putDouble("TickLeft", this.tickLeft);
                 view.putInt("WorkingState", this.workingState.getId());
@@ -273,7 +273,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
         if (this.level != null) {
-            TagValueFunction.ofInput(compoundTag, this.level.registryAccess(), view->{
+            TagValueFunction.read(compoundTag, this.level.registryAccess(), view->{
                 SimpleContainer inventory = new SimpleContainer(6);
                 ContainerHelper.loadAllItems(compoundTag, inventory.items, provider);
                 this.inventory = inventory;

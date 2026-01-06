@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -15,8 +16,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,9 +24,9 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity {
     private static final int PER_INTERVAL_TICK1 = 1;
     private static final int PER_INTERVAL_TICK2 = 5 * 20;
     private final LivingEntity owner;
-    private int livingTick = 0;
-    private int intervalTick1 = 0;
-    private int intervalTick2 = 0;
+    private int livingTick = MAX_TICK;
+    private int intervalTick1 = PER_INTERVAL_TICK1;
+    private int intervalTick2 = PER_INTERVAL_TICK2;
 
     private final float fixedPitch;
     private final float fixedYaw;
@@ -111,17 +110,17 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity {
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput view) {
-        this.livingTick = view.getIntOr("LivingTick", MAX_TICK);
-        this.intervalTick1 = view.getIntOr("IntervalTick1", PER_INTERVAL_TICK1);
-        this.intervalTick1 = view.getIntOr("IntervalTick2", PER_INTERVAL_TICK2);
+    protected void readAdditionalSaveData(CompoundTag compoundTag) {
+        this.livingTick = compoundTag.getInt("LivingTick");
+        this.intervalTick1 = compoundTag.getInt("IntervalTick1");
+        this.intervalTick1 = compoundTag.getInt("IntervalTick2");
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        view.putInt("LivingTick", this.livingTick);
-        view.putInt("IntervalTick1", this.intervalTick1);
-        view.putInt("IntervalTick2", this.intervalTick2);
+    protected void addAdditionalSaveData(CompoundTag compoundTag) {
+        compoundTag.putInt("LivingTick", this.livingTick);
+        compoundTag.putInt("IntervalTick1", this.intervalTick1);
+        compoundTag.putInt("IntervalTick2", this.intervalTick2);
     }
 
 }

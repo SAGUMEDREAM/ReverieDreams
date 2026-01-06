@@ -62,13 +62,13 @@ public class OverlayLivingEntityHolder<E extends LivingEntity, A extends Animate
     }
 
     @Override
-    public void updateElement(ServerPlayer serverPlayer, DisplayWrapper<?> display, @Nullable Pose pose) {
+    protected void updateElement(DisplayWrapper<?> display) {
         display.element().setYaw(this.entity.yBodyRot);
-        super.updateElement(serverPlayer, display, pose);
+        super.updateElement(display);
     }
 
     @Override
-    protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
+    protected void applyPose(Pose pose, DisplayWrapper<?> display) {
         Vector3f translation = pose.translation();
         boolean isHead = display.isHead();
         boolean isDead = this.entity.deathTime > 0;
@@ -85,22 +85,22 @@ public class OverlayLivingEntityHolder<E extends LivingEntity, A extends Animate
                 bodyRotation.rotateX(Mth.DEG_TO_RAD * Mth.lerp(0.5f, this.entity.xRotO, this.entity.getXRot()));
             }
 
-            display.element().setLeftRotation(serverPlayer, bodyRotation.mul(pose.readOnlyLeftRotation()));
+            display.element().setLeftRotation(bodyRotation.mul(pose.readOnlyLeftRotation()));
         } else {
-            display.element().setLeftRotation(serverPlayer, pose.readOnlyLeftRotation());
+            display.element().setLeftRotation(pose.readOnlyLeftRotation());
         }
 
         if (this.entityScale != 1F) {
             translation.mul(this.entityScale);
-            display.element().setScale(serverPlayer, pose.scale().mul(this.entityScale));
+            display.element().setScale(pose.scale().mul(this.entityScale));
         } else {
-            display.element().setScale(serverPlayer, pose.readOnlyScale());
+            display.element().setScale(pose.readOnlyScale());
         }
 
-        display.element().setTranslation(serverPlayer, translation.sub(0, this.dimensions.height() - 0.01f, 0));
-        display.element().setRightRotation(serverPlayer, pose.readOnlyRightRotation());
+        display.element().setTranslation(translation.sub(0, this.dimensions.height() - 0.01f, 0));
+        display.element().setRightRotation(pose.readOnlyRightRotation());
 
-        display.element().startInterpolationIfDirty(serverPlayer);
+        display.element().startInterpolationIfDirty();
     }
 
     @Override
@@ -228,8 +228,8 @@ public class OverlayLivingEntityHolder<E extends LivingEntity, A extends Animate
         this.entityScale = this.entity.getScale() * scalar;
     }
 
-    @Override
-    public SoundSource getSoundSource() {
-        return SoundSource.NEUTRAL;
-    }
+//    @Override
+//    public SoundSource getSoundSource() {
+//        return SoundSource.NEUTRAL;
+//    }
 }

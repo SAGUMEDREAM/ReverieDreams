@@ -5,8 +5,8 @@ import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -38,7 +38,7 @@ public class ReverieDreamsClient implements ClientModInitializer {
     }
 
     public void registerBlockCutout(Block block) {
-        BlockRenderLayerMap.putBlock(block, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.cutout());
     }
 
     public static ResourceLocation id(String id) {

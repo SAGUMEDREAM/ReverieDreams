@@ -7,6 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -89,7 +90,7 @@ public class GoblinEntity extends BaseNPCLikeEntity {
         ItemStack itemStack = new ItemStack(item);
 //        itemStack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         if (itemStack.isDamaged()) {
-            itemStack.hurtAndBreak(itemStack.getMaxDamage() - 50, this, InteractionHand.MAIN_HAND);
+            itemStack.hurtAndBreak(itemStack.getMaxDamage() - 50, this, EquipmentSlot.MAINHAND);
         }
         return itemStack;
     }
@@ -102,7 +103,7 @@ public class GoblinEntity extends BaseNPCLikeEntity {
         Item item = OFFHAND_POOL.get(random.nextInt(OFFHAND_POOL.size()));
         ItemStack itemStack = new ItemStack(item);
         if (itemStack.isDamaged()) {
-            itemStack.hurtAndBreak(itemStack.getMaxDamage() - 50, this, InteractionHand.OFF_HAND);
+            itemStack.hurtAndBreak(itemStack.getMaxDamage() - 50, this, EquipmentSlot.OFFHAND);
         }
         return itemStack;
     }

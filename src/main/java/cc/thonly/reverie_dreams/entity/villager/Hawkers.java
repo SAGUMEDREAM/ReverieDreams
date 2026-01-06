@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 
 import java.util.*;
 
+@SuppressWarnings("DataFlowIssue")
 public class Hawkers {
     public static void registers() {
         Map<Integer, List<VillagerTrades.ItemListing>> hawkers = new HashMap<>();
@@ -25,7 +27,7 @@ public class Hawkers {
         hawkers.put(5, getHawkersLevelFactories2());
         hawkers.forEach((level, list) -> {
 
-            TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.HAWKERS, level, factories -> {
+            TradeOfferHelper.registerVillagerOffers(BuiltInRegistries.VILLAGER_PROFESSION.getValue(RDVillagerProfessions.HAWKERS), level, factories -> {
                 factories.addAll(list);
             });
         });

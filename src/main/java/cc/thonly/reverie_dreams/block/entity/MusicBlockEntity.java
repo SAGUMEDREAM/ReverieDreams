@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.minecraft.util.TagValueFunction;
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -61,7 +61,7 @@ public class MusicBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
         if (this.level != null) {
-            TagValueFunction.ofOutput(compoundTag, this.level.registryAccess(), view-> {
+            TagValueFunction.write(compoundTag, this.level.registryAccess(), view-> {
                 view.putString("Select", this.select == null ? "" : this.select);
             });
         }
@@ -72,7 +72,7 @@ public class MusicBlockEntity extends BlockEntity {
     protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
         if (this.level != null) {
-            TagValueFunction.ofInput(compoundTag, this.level.registryAccess(), view-> {
+            TagValueFunction.read(compoundTag, this.level.registryAccess(), view-> {
                 this.select = view.getStringOr("Select", "");
             });
         }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:bomb_fragment_copy"
+        "recipe": "minecraft:bomb_fragment_copy"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:bomb_fragment_copy"
+      "minecraft:bomb_fragment_copy"
     ]
   }
 }

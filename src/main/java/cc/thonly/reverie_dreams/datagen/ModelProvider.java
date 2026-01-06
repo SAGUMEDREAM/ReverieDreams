@@ -18,11 +18,16 @@ import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.client.color.item.Dye;
+import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.VariantProperties;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.block.model.MultiVariant;
 import net.minecraft.client.renderer.block.model.Variant;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +36,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -132,7 +138,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.ICON, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.FUMO_ICON, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.ROLE_ICON, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateTwoLayerDyedItem(RDItems.SPAWN_EGG);
+        itemModelGenerator.generateItemWithTintedOverlay(RDItems.SPAWN_EGG, new Dye(16777215));
         itemModelGenerator.generateFlatItem(RDItems.DANMAKU, ModelTemplates.FLAT_ITEM);
 
         // 材料
@@ -237,10 +243,10 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.DREAM_CHESTPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_LEGGINGS, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_BOOTS, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_HAT, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_HELMET, true);
-        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_CLOTHING, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, true);
-        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_LEGGINGS, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, true);
-        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_BOOTS, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS, true);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_HAT, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.SLOT_HELMET, true);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_CLOTHING, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.SLOT_CHESTPLATE, true);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_LEGGINGS, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.SLOT_LEGGINS, true);
+        itemModelGenerator.generateTrimmableItem(RDItems.WATER_PROOF_BOOTS, WaterproofArmorMaterial.REGISTRY_KEY, ItemModelGenerators.SLOT_BOOTS, true);
 
         // 符卡
         itemModelGenerator.generateFlatItem(RDItems.DANMAKU_SHAPE_CREATOR, ModelTemplates.FLAT_ITEM);
@@ -340,11 +346,7 @@ public class ModelProvider extends FabricModelProvider {
         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
         ResourceLocation modelId = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
 
-        Variant modelVariant = new Variant(modelId);
-
-        blockStateModelGenerator.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(block, createRotatedVariants(modelVariant))
-        );
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createRotatedVariant(block, modelId));
     }
 
     private void registerGuiItem(ItemModelGenerators itemModelGenerator, Item item) {
@@ -358,8 +360,17 @@ public class ModelProvider extends FabricModelProvider {
                 .filter(type -> !type.isDeleteFromList())
                 .map(DanmakuType::getItem)
                 .toList()) {
-            itemModelGenerator.generateTwoLayerDyedItem(item);
+            generateTwoLayerDyedItem(itemModelGenerator, item);
         }
+    }
+
+    public final void generateTwoLayerDyedItem(ItemModelGenerators itemModelGenerator, Item item) {
+        ResourceLocation resourceLocation = TextureMapping.getItemTexture(item);
+        ResourceLocation resourceLocation2 = TextureMapping.getItemTexture(item, "_overlay");
+        ResourceLocation resourceLocation3 = ModelTemplates.FLAT_ITEM.create(item, TextureMapping.layer0(resourceLocation), itemModelGenerator.modelOutput);
+        ResourceLocation resourceLocation4 = ModelLocationUtils.getModelLocation(item, "_dyed");
+        ModelTemplates.TWO_LAYERED_ITEM.create(resourceLocation4, TextureMapping.layered(resourceLocation, resourceLocation2), itemModelGenerator.modelOutput);
+        itemModelGenerator.itemModelOutput.accept(item, ItemModelUtils.conditional(ItemModelUtils.hasComponent(DataComponents.DYED_COLOR), ItemModelUtils.tintedModel(resourceLocation4, new ItemTintSource[]{ItemModelGenerators.BLANK_LAYER, new Dye(0)}), ItemModelUtils.plainModel(resourceLocation3)));
     }
 
     private void registerSmithingTable(BlockModelGenerators blockStateModelGenerator, Block block) {
@@ -371,7 +382,7 @@ public class ModelProvider extends FabricModelProvider {
                 .put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, "_front"))
                 .put(TextureSlot.EAST, TextureMapping.getBlockTexture(block, "_side"))
                 .put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, "_side"));
-        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(ModelTemplates.CUBE.create(block, textureMap, blockStateModelGenerator.modelOutput))));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelTemplates.CUBE.create(block, textureMap, blockStateModelGenerator.modelOutput)));
 
     }
 

@@ -26,7 +26,7 @@ public class SleepAtNightGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!entity.level().isDarkOutside() || entity.isSleeping()) {
+        if (!entity.level().isNight() || entity.isSleeping()) {
             return false;
         }
 

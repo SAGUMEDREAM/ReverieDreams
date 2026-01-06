@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:cooked_porkchop_from_smelting_ingredient/wild_boar_meat"
+        "recipe": "minecraft:cooked_porkchop_from_smelting_ingredient/wild_boar_meat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:cooked_porkchop_from_smelting_ingredient/wild_boar_meat"
+      "minecraft:cooked_porkchop_from_smelting_ingredient/wild_boar_meat"
     ]
   }
 }

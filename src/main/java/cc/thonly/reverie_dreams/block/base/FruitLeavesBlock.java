@@ -45,7 +45,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
     private Block emptyLeavesBlock;
 
     public FruitLeavesBlock(Properties settings) {
-        super(0.01f, settings.noOcclusion());
+        super(settings.noOcclusion());
         this.registerDefaultState(
                 this.getStateDefinition()
                         .any()
@@ -141,11 +141,6 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable LivingEntity filler, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
-        return false;
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(AGE_PROPERTY);
@@ -154,12 +149,6 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
     @Override
     public MapCodec<? extends LeavesBlock> codec() {
         return CODEC;
-    }
-
-    @Override
-    protected void spawnFallingLeavesParticle(Level world, BlockPos pos, RandomSource random) {
-        ColorParticleOption entityEffectParticleEffect = ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, world.getClientLeafTintColor(pos));
-        ParticleUtils.spawnParticleBelow(world, pos, random, entityEffectParticleEffect);
     }
 
     @Override

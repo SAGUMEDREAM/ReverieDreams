@@ -73,7 +73,7 @@ public enum BlockTypeGroup {
         if (block instanceof AbstractKitchenwareBlock) {
             KITCHENWARE.add(block);
         }
-        if (block instanceof VegetationBlock) {
+        if (block instanceof BushBlock) {
             PLANT.add(block);
         }
         BLOCK.add(block);

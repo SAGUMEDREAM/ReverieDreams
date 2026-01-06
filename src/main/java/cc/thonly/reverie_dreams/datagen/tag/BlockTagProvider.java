@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.ItemLike;
@@ -32,20 +31,20 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        TagAppender<Block, Block> fumo = valueLookupBuilder(RDBlockTags.FUMO);
-        TagAppender<Block, Block> empty = valueLookupBuilder(RDBlockTags.EMPTY);
-        TagAppender<Block, Block> sliver = valueLookupBuilder(RDBlockTags.SILVER);
-        TagAppender<Block, Block> minTools = valueLookupBuilder(RDBlockTags.MIN_TOOL);
-        TagAppender<Block, Block> axeMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE);
-        TagAppender<Block, Block> hoeMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE);
-        TagAppender<Block, Block> pickaxeMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE);
-        TagAppender<Block, Block> shovelMineables = valueLookupBuilder(BlockTags.MINEABLE_WITH_SHOVEL);
-        TagAppender<Block, Block> ores = valueLookupBuilder(ConventionalBlockTags.ORES);
-        TagAppender<Block, Block> villagerJobSites = valueLookupBuilder(ConventionalBlockTags.VILLAGER_JOB_SITES);
-//        ProvidedTagBuilder<Block, Block> villagerJobSites = valueLookupBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
+        var fumo = getOrCreateTagBuilder(RDBlockTags.FUMO);
+        var empty = getOrCreateTagBuilder(RDBlockTags.EMPTY);
+        var sliver = getOrCreateTagBuilder(RDBlockTags.SILVER);
+        var minTools = getOrCreateTagBuilder(RDBlockTags.MIN_TOOL);
+        var axeMineables = getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE);
+        var hoeMineables = getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE);
+        var pickaxeMineables = getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE);
+        var shovelMineables = getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL);
+        var ores = getOrCreateTagBuilder(ConventionalBlockTags.ORES);
+        var villagerJobSites = getOrCreateTagBuilder(ConventionalBlockTags.VILLAGER_JOB_SITES);
+//        ProvidedTagBuilder<Block, Block> villagerJobSites = getOrCreateTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
 
-        TagAppender<Block, Block> logs = valueLookupBuilder(BlockTags.LOGS);
-        TagAppender<Block, Block> planks = valueLookupBuilder(BlockTags.PLANKS);
+        var logs = getOrCreateTagBuilder(BlockTags.LOGS);
+        var planks = getOrCreateTagBuilder(BlockTags.PLANKS);
         for (WoodCreator instance : WoodCreator.INSTANCES) {
             logs.add(instance.log());
             planks.add(instance.planks());
@@ -68,7 +67,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 BlockTags.LEAVES, BlockTypeGroup.LEAVES.blocks()
         );
         blockItemGroups.forEach((tag, list) -> {
-            TagAppender<Block, Block> builder = valueLookupBuilder(tag);
+            var builder = getOrCreateTagBuilder(tag);
             for (ItemLike itemConvertible : list) {
                 if (itemConvertible instanceof Block block) {
                     builder.add(block);

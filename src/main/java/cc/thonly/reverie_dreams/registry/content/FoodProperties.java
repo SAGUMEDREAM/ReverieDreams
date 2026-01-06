@@ -93,10 +93,10 @@ public class FoodProperties {
                 user.setRemainingFireTicks(2 * 20);
             }
             if (property.is(FoodProperties.BIZARRE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 2 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 2 * 20, 1));
             }
             if (property.is(FoodProperties.GOURMET)) {
-                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 25 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 25 * 20, 1));
             }
             if (property.is(FoodProperties.MOUNTAIN_DELICACY)) {
                 user.addEffect(new MobEffectInstance(MobEffects.LUCK, 90 * 20, 1));
@@ -114,7 +114,7 @@ public class FoodProperties {
                 user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 1));
             }
             if (property.is(FoodProperties.SWEET)) {
-                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 35 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 35 * 20));
             }
             if (property.is(FoodProperties.UNBELIEVABLE)) {
                 user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 35 * 20));
@@ -126,13 +126,13 @@ public class FoodProperties {
                 user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 1));
             }
             if (property.is(FoodProperties.POWER_SURGE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 45 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 45 * 20));
             }
             if (property.is(FoodProperties.OCEAN_FLAVOR)) {
                 user.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 30 * 20));
             }
             if (property.is(FoodProperties.DARK_CUISINE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 15 * 20));
                 user.addEffect(new MobEffectInstance(MobEffects.POISON, 10 * 20));
             }
         });

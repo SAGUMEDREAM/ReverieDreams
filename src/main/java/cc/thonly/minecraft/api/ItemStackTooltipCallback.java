@@ -14,9 +14,9 @@ import java.util.function.Consumer;
 public interface ItemStackTooltipCallback {
     Event<ItemStackTooltipCallback> EVENT = EventFactory.createArrayBacked(
             ItemStackTooltipCallback.class,
-            (listeners) -> (itemStack, player, dataComponentType, context, consumer, tooltipFlag) -> {
+            (listeners) -> (itemStack, player, context, consumer, tooltipFlag) -> {
                 for (ItemStackTooltipCallback listener : listeners) {
-                    listener.appendTooltip(itemStack, player, dataComponentType, context, consumer, tooltipFlag);
+                    listener.appendTooltip(itemStack, player, context, consumer, tooltipFlag);
                 }
             }
     );

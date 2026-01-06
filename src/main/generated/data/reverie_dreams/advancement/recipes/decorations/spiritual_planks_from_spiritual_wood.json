@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:spiritual_planks_from_spiritual_wood"
+        "recipe": "minecraft:spiritual_planks_from_spiritual_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:spiritual_planks_from_spiritual_wood"
+      "minecraft:spiritual_planks_from_spiritual_wood"
     ]
   }
 }

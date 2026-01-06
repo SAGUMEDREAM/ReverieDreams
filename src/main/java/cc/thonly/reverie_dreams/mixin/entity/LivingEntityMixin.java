@@ -15,6 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -37,8 +38,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -212,28 +211,28 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     public void processDeathLevel() {
         if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE)) {
             if (this.deathLevel == 1) {
-                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 0));
+                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 0));
             }
             if (this.deathLevel == 2) {
-                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 1));
+                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 1));
             }
             if (this.deathLevel == 3) {
-                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 2));
-                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 0));
+                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 2));
+                this.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20, 0));
             }
             if (this.deathLevel == 3) {
-                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
-                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 1));
+                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 3));
+                this.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0));
             }
             if (this.deathLevel == 3) {
-                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
-                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 2));
+                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 3));
+                this.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20, 2));
                 this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1));
             }
             if (this.deathLevel > 3) {
-                this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 3));
-                this.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20, 2));
+                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 3));
+                this.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20, 2));
                 this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 2));
             }
         } else {
@@ -392,31 +391,33 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
-    public void writeCustomDataToNbt(ValueOutput view, CallbackInfo ci) {
+    public void writeCustomDataToNbt(CompoundTag compoundTag, CallbackInfo ci) {
         RegistryAccess registryManager = this.registryAccess();
-        view.putFloat("MaxHealthModifier", this.maxHealthModifier);
-        view.putInt("DeathCount", this.deathLevel);
-        view.putInt("DeathCountResetTimer", this.deathLevelResetTimer);
-        view.putDouble("ManpozuchiUsingState", this.manpozuchiUsingState);
-        view.putString("KanjuWorld", this.kanjuWorld.dimension().location().toString());
-        view.putLong("KanjuBlockPos", this.kanjuBlockPos.asLong());
+        compoundTag.putFloat("MaxHealthModifier", this.maxHealthModifier);
+        compoundTag.putInt("DeathCount", this.deathLevel);
+        compoundTag.putInt("DeathCountResetTimer", this.deathLevelResetTimer);
+        compoundTag.putDouble("ManpozuchiUsingState", this.manpozuchiUsingState);
+        compoundTag.putString("KanjuWorld", this.kanjuWorld.dimension().location().toString());
+        compoundTag.putLong("KanjuBlockPos", this.kanjuBlockPos.asLong());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
-    public void readCustomDataFromNbt(ValueInput view, CallbackInfo ci) {
+    public void readCustomDataFromNbt(CompoundTag compoundTag, CallbackInfo ci) {
         RegistryAccess registryManager = this.registryAccess();
         MinecraftServer server = this.getServer();
-        this.maxHealthModifier = view.getFloatOr("MaxHealthModifier", 0.0f);
-        this.deathLevel = view.getIntOr("DeathCount", 0);
-        this.deathLevelResetTimer = view.getIntOr("DeathCountResetTimer", 0);
-        this.manpozuchiUsingState = view.getDoubleOr("ManpozuchiUsingState", 0.0);
-        String kanjuWorldStr = view.getStringOr("KanjuWorld", "");
+        this.maxHealthModifier = compoundTag.getFloat("MaxHealthModifier");
+        this.deathLevel = compoundTag.getInt("DeathCount");
+        this.deathLevelResetTimer = compoundTag.getInt("DeathCountResetTimer");
+        this.manpozuchiUsingState = compoundTag.getDouble("ManpozuchiUsingState");
+        String kanjuWorldStr = compoundTag.getString("KanjuWorld");
         if (!kanjuWorldStr.isEmpty()) {
             if (server != null) {
                 this.kanjuWorld = server.getLevel(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(kanjuWorldStr)));
             }
         }
-        this.kanjuBlockPos = BlockPos.of(view.getLongOr("KanjuBlockPos", new BlockPos(0, 0, 0).asLong()));
+        if (compoundTag.contains("KanjuBlockPos")) {
+            this.kanjuBlockPos = BlockPos.of(compoundTag.getLong("KanjuBlockPos"));
+        }
     }
 
     @Override

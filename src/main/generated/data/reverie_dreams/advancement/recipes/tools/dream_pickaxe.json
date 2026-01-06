@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:dream_pickaxe"
+        "recipe": "minecraft:dream_pickaxe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:dream_pickaxe"
+      "minecraft:dream_pickaxe"
     ]
   }
 }

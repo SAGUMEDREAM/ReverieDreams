@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.minecraft.util.TagValueFunction;
-import cc.thonly.minecraft.util.TagValueOutput;
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
+import cc.thonly.minecraft.util.tvio.TagValueOutput;
 import cc.thonly.minecraft.util.ValueInput;
 import cc.thonly.minecraft.util.ValueOutput;
 import cc.thonly.polymer.entity.PlayerPolymerEntity;
@@ -25,7 +25,6 @@ import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import com.mojang.authlib.properties.Property;
-import com.mojang.logging.LogUtils;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -84,7 +83,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @Getter
@@ -198,7 +196,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         RegistryAccess registryManager = this.registryAccess();
-        TagValueFunction.ofInput(compoundTag, registryManager, view -> {
+        TagValueFunction.read(compoundTag, registryManager, view -> {
             this.sit = view.getBooleanOr("IsSit", false);
 
             this.npcState = NPCStates.get(ResourceLocation.parse(view.getStringOr("NPCStateId", NPCState.DEFAULT_ID.toString())));
@@ -236,7 +234,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view -> {
+        TagValueFunction.write(compoundTag, this.registryAccess(), view -> {
             view.putBoolean("IsSit", this.sit);
             view.putString("NpcOwner", this.npcOwner);
             view.putString("NPCStateId", Optional.ofNullable(RegistryHandlers.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());

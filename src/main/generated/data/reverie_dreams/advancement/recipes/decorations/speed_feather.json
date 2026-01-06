@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:speed_feather"
+        "recipe": "minecraft:speed_feather"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:speed_feather"
+      "minecraft:speed_feather"
     ]
   }
 }

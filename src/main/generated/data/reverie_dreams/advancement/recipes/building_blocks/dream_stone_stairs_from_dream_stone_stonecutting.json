@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:dream_stone_stairs_from_dream_stone_stonecutting"
+        "recipe": "minecraft:dream_stone_stairs_from_dream_stone_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:dream_stone_stairs_from_dream_stone_stonecutting"
+      "minecraft:dream_stone_stairs_from_dream_stone_stonecutting"
     ]
   }
 }

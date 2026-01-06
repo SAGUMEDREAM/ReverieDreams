@@ -94,15 +94,29 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation("eu.pb4:polymer-core:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-blocks:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-resource-pack:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-resource-pack-extras:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-autohost:${polymer_version}")
-    modImplementation("eu.pb4:polymer-networking:[${polymer_version}]")
+    modImplementation files("libs/polymer-bundled-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-autohost-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-blocks-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-common-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-core-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-resource-pack-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-resource-pack-extras-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-virtual-entity-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-networking-0.11.9+1.21.4.jar")
+    modImplementation files("libs/polymer/polymer-reg-sync-manipulator-0.11.9+1.21.4.jar")
+//    modImplementation("eu.pb4:polymer-core:[${polymer_version}]")
+//    modImplementation("eu.pb4:polymer-blocks:[${polymer_version}]")
+//    modImplementation("eu.pb4:polymer-resource-pack:[${polymer_version}]")
+//    modImplementation("eu.pb4:polymer-resource-pack-extras:[${polymer_version}]")
+//    modImplementation("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
+//    modImplementation("eu.pb4:polymer-autohost:${polymer_version}")
+//    modImplementation("eu.pb4:polymer-networking:[${polymer_version}]")
+    modApi include("xyz.nucleoid:packet-tweaker:${packet_tweaker_version}") {
+        transitive(false)
+    }
 
-    modImplementation include("eu.pb4:factorytools:[${factorytools_version}]")
+//    modImplementation include("eu.pb4:factorytools:[${factorytools_version}]")
+    modImplementation files('libs/factorytools-0.5.1+1.21.4.jar')
     modImplementation include("eu.pb4:sgui:[${sgui_version}]")
     modImplementation include("xyz.nucleoid:server-translations-api:2.5.1+1.21.5")
     modImplementation include("maven.modrinth:midnightlib:${midnightlib_version}")
@@ -215,6 +229,17 @@ tasks.remapJar {
         // 这里传入你的依赖 jar 列表
         includeDependencyJar(jarFile, [
                 "libs/camera-obscura-1.2.0+1.21.4.jar",
+                "factorytools-0.5.1+1.21.4.jar",
+                "libs/polymer-bundled-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-autohost-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-blocks-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-common-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-core-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-resource-pack-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-resource-pack-extras-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-virtual-entity-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-networking-0.11.9+1.21.4.jar",
+                "libs/polymer/polymer-reg-sync-manipulator-0.11.9+1.21.4.jar"
         ])
     }
 }

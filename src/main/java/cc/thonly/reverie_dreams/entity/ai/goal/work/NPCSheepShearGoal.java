@@ -9,10 +9,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -87,7 +88,7 @@ public class NPCSheepShearGoal extends TargetGoal {
             this.maid.swing(InteractionHand.MAIN_HAND);
             this.targetEntity.shear(world, SoundSource.PLAYERS, itemStack);
             this.targetEntity.gameEvent(GameEvent.SHEAR, this.targetEntity);
-            this.itemStack.hurtAndBreak(1, this.targetEntity, InteractionHand.MAIN_HAND);
+            this.itemStack.hurtAndBreak(1, this.targetEntity, EquipmentSlot.MAINHAND);
         };
     }
 

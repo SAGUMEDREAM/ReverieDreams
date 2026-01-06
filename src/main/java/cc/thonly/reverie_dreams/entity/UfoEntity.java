@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -35,11 +37,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.EnumSet;
 import java.util.List;
 
 @Getter
@@ -51,7 +52,7 @@ public class UfoEntity extends Monster implements Enemy {
     public UfoEntity(Level level) {
         super(RDEntityTypes.UFO, level);
         this.xpReward = 5;
-        this.moveControl = new Ghast.GhastMoveControl(this, false, () -> false);
+        this.moveControl = new GhastMoveControl(this);
     }
 
     public UfoEntity(EntityType<? extends Monster> entityType, Level level) {
@@ -78,8 +79,8 @@ public class UfoEntity extends Monster implements Enemy {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(5, new Ghast.RandomFloatAroundGoal(this));
-        this.goalSelector.addGoal(7, new Ghast.GhastLookGoal(this));
+        this.goalSelector.addGoal(5, new RandomFloatAroundGoal(this));
+        this.goalSelector.addGoal(7, new MobLookGoal(this));
         this.goalSelector.addGoal(7, new ShootGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<Player>(this, Player.class, 16, true, false, (livingEntity, serverLevel) -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0));
         this.goalSelector.addGoal(8, new FloatUpDownGoal(this));
@@ -117,10 +118,10 @@ public class UfoEntity extends Monster implements Enemy {
         return false;
     }
 
-    @Override
-    public void travel(Vec3 vec3) {
-        this.travelFlying(vec3, 0.02f);
-    }
+//    @Override
+//    public void travel(Vec3 vec3) {
+//        this.travelFlying(vec3, 0.02f);
+//    }
 
     @Override
     public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
@@ -141,7 +142,7 @@ public class UfoEntity extends Monster implements Enemy {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 40.0).add(Attributes.FOLLOW_RANGE, 100.0).add(Attributes.CAMERA_DISTANCE, 8.0).add(Attributes.FLYING_SPEED, 0.06);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 40.0).add(Attributes.FOLLOW_RANGE, 100.0).add(Attributes.FLYING_SPEED, 0.06);
     }
 
     @Override
@@ -174,30 +175,15 @@ public class UfoEntity extends Monster implements Enemy {
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput valueOutput) {
-        super.addAdditionalSaveData(valueOutput);
-        valueOutput.putByte("ExplosionPower", (byte)this.explosionPower);
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putByte("ExplosionPower", (byte)this.explosionPower);
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput valueInput) {
-        super.readAdditionalSaveData(valueInput);
-        this.explosionPower = valueInput.getByteOr("ExplosionPower", (byte)1);
-    }
-
-    @Override
-    public boolean supportQuadLeashAsHolder() {
-        return true;
-    }
-
-    @Override
-    public double leashElasticDistance() {
-        return 10.0;
-    }
-
-    @Override
-    public double leashSnapDistance() {
-        return 16.0;
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.explosionPower = compoundTag.getByte("ExplosionPower");
     }
 
     public static void faceMovementDirection(Mob mob) {
@@ -311,4 +297,117 @@ public class UfoEntity extends Monster implements Enemy {
         }
     }
 
+    public static class GhastMoveControl
+            extends MoveControl {
+        private final Monster mob;
+        private int floatDuration;
+
+        public GhastMoveControl(Monster ghast) {
+            super(ghast);
+            this.mob = ghast;
+        }
+
+        @Override
+        public void tick() {
+            if (this.operation != MoveControl.Operation.MOVE_TO) {
+                return;
+            }
+            if (this.floatDuration-- <= 0) {
+                this.floatDuration += this.mob.getRandom().nextInt(5) + 2;
+                Vec3 vec3 = new Vec3(this.wantedX - this.mob.getX(), this.wantedY - this.mob.getY(), this.wantedZ - this.mob.getZ());
+                double d = vec3.length();
+                if (this.canReach(vec3 = vec3.normalize(), Mth.ceil(d))) {
+                    this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(vec3.scale(0.1)));
+                } else {
+                    this.operation = MoveControl.Operation.WAIT;
+                }
+            }
+        }
+
+        private boolean canReach(Vec3 vec3, int i) {
+            AABB aABB = this.mob.getBoundingBox();
+            for (int j = 1; j < i; ++j) {
+                aABB = aABB.move(vec3);
+                if (this.mob.level().noCollision(this.mob, aABB)) continue;
+                return false;
+            }
+            return true;
+        }
+    }
+
+
+    public static class RandomFloatAroundGoal
+            extends Goal {
+        private final Monster mob;
+
+        public RandomFloatAroundGoal(Monster mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            double f;
+            double e;
+            MoveControl moveControl = this.mob.getMoveControl();
+            if (!moveControl.hasWanted()) {
+                return true;
+            }
+            double d = moveControl.getWantedX() - this.mob.getX();
+            double g = d * d + (e = moveControl.getWantedY() - this.mob.getY()) * e + (f = moveControl.getWantedZ() - this.mob.getZ()) * f;
+            return g < 1.0 || g > 3600.0;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return false;
+        }
+
+        @Override
+        public void start() {
+            RandomSource randomSource = this.mob.getRandom();
+            double d = this.mob.getX() + (double)((randomSource.nextFloat() * 2.0f - 1.0f) * 16.0f);
+            double e = this.mob.getY() + (double)((randomSource.nextFloat() * 2.0f - 1.0f) * 16.0f);
+            double f = this.mob.getZ() + (double)((randomSource.nextFloat() * 2.0f - 1.0f) * 16.0f);
+            this.mob.getMoveControl().setWantedPosition(d, e, f, 1.0);
+        }
+    }
+
+    public static class MobLookGoal
+            extends Goal {
+        private final Monster mob;
+
+        public MobLookGoal(Monster mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            return true;
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            if (this.mob.getTarget() == null) {
+                Vec3 vec3 = this.mob.getDeltaMovement();
+                this.mob.setYRot(-((float)Mth.atan2(vec3.x, vec3.z)) * 57.295776f);
+                this.mob.yBodyRot = this.mob.getYRot();
+            } else {
+                LivingEntity livingEntity = this.mob.getTarget();
+                double d = 64.0;
+                if (livingEntity.distanceToSqr(this.mob) < 4096.0) {
+                    double e = livingEntity.getX() - this.mob.getX();
+                    double f = livingEntity.getZ() - this.mob.getZ();
+                    this.mob.setYRot(-((float)Mth.atan2(e, f)) * 57.295776f);
+                    this.mob.yBodyRot = this.mob.getYRot();
+                }
+            }
+        }
+    }
 }

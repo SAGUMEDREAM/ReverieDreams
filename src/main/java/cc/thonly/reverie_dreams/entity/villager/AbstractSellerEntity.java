@@ -1,18 +1,17 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
+import cc.thonly.minecraft.util.ValueInput;
+import cc.thonly.minecraft.util.ValueOutput;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
 import eu.pb4.sgui.api.gui.MerchantGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,8 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.*;
 
@@ -53,7 +50,6 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
 
     public AbstractSellerEntity(EntityType<? extends WanderingTrader> entityType, Level world) {
         super(entityType, world);
-        this.getNavigation().setCanOpenDoors(true);
         this.getNavigation().setCanFloat(true);
     }
 
@@ -167,8 +163,19 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
     }
 
     @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        TagValueFunction.read(compoundTag, this.registryAccess(), this::readAdditionalSaveData);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        TagValueFunction.write(compoundTag, this.registryAccess(), this::addAdditionalSaveData);
+
+    }
+
     protected void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
         view.read("PrevVillagerData", VillagerData.CODEC).ifPresent(villagerData -> {
             this.prev = villagerData;
         });
@@ -178,9 +185,7 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
         });
     }
 
-    @Override
     protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
         view.storeNullable("PrevVillagerData", VillagerData.CODEC, this.prev);
         view.putInt("Level", this.level);
         view.storeNullable("SellInfoData", SellInfo.CODEC, this.sellInfo);

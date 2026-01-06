@@ -25,8 +25,6 @@ public class VanillaCompat {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
             RecipeCompatPatchesImpl.Builder<KitchenRecipe> builder = RecipeCompatPatchesImpl.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
             builder.add(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
-            builder.add(Items.EGG, Items.BROWN_EGG);
-            builder.add(Items.EGG, Items.BLUE_EGG);
         });
         RegistryManagerReloadCallback.EVENT.register(simpleRegistry -> {
             if (!simpleRegistry.equals(RegistryHandlers.FOOD_PROPERTY)) {
@@ -37,10 +35,6 @@ public class VanillaCompat {
             stream.forEach((Consumer<Map.Entry<ResourceLocation, FoodProperty>>) mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> tags = property.getItems();
-                if (property.equals(FoodProperties.RAW)) {
-                    tags.add(Items.BROWN_EGG);
-                    tags.add(Items.BLUE_EGG);
-                }
                 if (property.equals(FoodProperties.VEGETARIAN)) {
                     tags.add(Items.CARROT);
                     tags.add(Items.BEETROOT);

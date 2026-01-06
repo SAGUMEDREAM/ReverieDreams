@@ -26,7 +26,7 @@ public class ExorcismPaperItem extends Item {
         RegistryAccess registryManager = world.registryAccess();
         if (!world.isClientSide) {
             if (entity != null && EntityUtil.isInTag(registryManager, entity, EntityTypeTags.UNDEAD)) {
-                entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, EFFECT_TICK, 100));
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, EFFECT_TICK, 100));
                 entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, EFFECT_TICK, 100));
                 stack.consume(1, user);
                 return InteractionResult.SUCCESS_SERVER;

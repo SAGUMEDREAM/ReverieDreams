@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.dialog.DialogInit;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -29,7 +28,7 @@ public class TouhouHelperItem extends Item {
             ItemStack itemStack = user.getItemInHand(hand);
             user.openItemGui(itemStack, hand);
             user.awardStat(Stats.ITEM_USED.get(this));
-            user.openDialog(Holder.direct(DialogInit.MAIN_HELP));
+
             world.playSound(null, player.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS);
             return InteractionResult.SUCCESS_SERVER;
         }

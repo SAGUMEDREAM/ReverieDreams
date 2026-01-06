@@ -66,7 +66,7 @@ public class WoodCreator extends AbstractBlockCreator {
                 RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion());
 
         this.leaves = RDBlocks.registerSimpleBlock(suffix("leaves"),
-                (settings) -> new TintedParticleLeavesBlock(0.01f, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
+                LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
 
         this.sapling = RDBlocks.registerSimpleBlock(suffix("sapling"),
                 (settings) -> new SaplingBlock(this.saplingGenerator, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING));

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.minecraft.util.TagValueFunction;
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
@@ -131,7 +131,7 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        TagValueFunction.ofInput(compoundTag, this.registryAccess(), view -> {
+        TagValueFunction.read(compoundTag, this.registryAccess(), view -> {
             String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
             ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
             this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
@@ -142,7 +142,7 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view -> {
+        TagValueFunction.write(compoundTag, this.registryAccess(), view -> {
             view.putString("YouseiVariant", this.variant.getId().toString());
         });
     }

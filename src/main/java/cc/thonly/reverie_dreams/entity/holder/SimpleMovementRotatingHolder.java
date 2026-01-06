@@ -22,7 +22,7 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
     }
 
     @Override
-    protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
+    protected void applyPose(Pose pose, DisplayWrapper<?> display) {
         var translation = new Vector3f(0, -0.1f, 0);
         Matrix4f matrix4f = new Matrix4f().translate(translation);
 
@@ -40,17 +40,17 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
                     .rotateLocalX(lastPitch)
                     .rotateLocalY(-lastYaw + Mth.PI);
 
-            display.element().setTransformation(serverPlayer, matrix4f);
-            display.element().startInterpolationIfDirty(serverPlayer);
+            display.element().setTransformation(matrix4f);
+            display.element().startInterpolationIfDirty();
         }
     }
 
     @Override
-    public void updateElement(ServerPlayer serverPlayer, DisplayWrapper<?> display, @Nullable Pose pose) {
+    public void updateElement(DisplayWrapper<?> display, @Nullable Pose pose) {
         if (pose == null) {
-            this.applyPose(serverPlayer, display.getLastPose(serverPlayer), display);
+            this.applyPose(display.getLastPose(), display);
         } else {
-            this.applyPose(serverPlayer, pose, display);
+            this.applyPose(pose, display);
         }
     }
 

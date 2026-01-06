@@ -29,9 +29,9 @@ public class EarphoneItem extends ArmorItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot slot) {
-        super.inventoryTick(itemStack, serverLevel, entity, slot);
-        if (EquipmentSlotUtil.isArmorSlot(slot) && entity instanceof LivingEntity livingEntity) {
+    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int i, boolean bl) {
+        super.inventoryTick(itemStack, level, entity, i, bl);
+        if (entity instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(EquipmentSlot.HEAD).equals(itemStack)) {
             Level world = livingEntity.level();
             if (!world.isClientSide() && world instanceof ServerLevel sWorld && livingEntity instanceof ServerPlayer player) {
                 if (!VEC_3_DS.isEmpty()) {
@@ -62,4 +62,5 @@ public class EarphoneItem extends ArmorItem {
             }
         }
     }
+
 }

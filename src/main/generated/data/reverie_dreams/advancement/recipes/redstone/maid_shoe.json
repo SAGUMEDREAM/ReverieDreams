@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:maid_shoe"
+        "recipe": "minecraft:maid_shoe"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:maid_shoe"
+      "minecraft:maid_shoe"
     ]
   }
 }

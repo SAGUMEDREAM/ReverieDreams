@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -11,21 +10,14 @@ import com.google.common.collect.HashBiMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.dialog.*;
-import net.minecraft.server.dialog.action.StaticAction;
-import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -64,13 +56,13 @@ public class RoleCardItem extends Item {
             Optional<RoleCard> roleCardWrapper = this.getRoleCardComponent(itemStack);
             if (roleCardWrapper.isPresent()) {
                 RoleCard roleCard = roleCardWrapper.get();
-                UUID uuid = UUID.randomUUID();
-                UsingData data = new UsingData(player, serverWorld, context.getClickedPos().above(), itemStack, roleCard);
-
-                USING_DATA_MAP.put(uuid.toString(), data);
-                Dialog selectMenu = getSelectMenu(uuid.toString(), data);
-                player.openDialog(Holder.direct(selectMenu));
-                player.swing(hand);
+                Optional<NPCRole> random = roleCard.random();
+                if (random.isPresent()) {
+                    NPCRole npcRole = random.get();
+                    EntityType<NPCRoleFastEntity> entityType = npcRole.get();
+                    BlockPos offset = context.getClickedPos().offset(0, 1, 0);
+                    entityType.spawn(serverWorld, offset, EntitySpawnReason.SPAWN_ITEM_USE);
+                }
             }
         }
         return super.useOn(context);
@@ -90,50 +82,6 @@ public class RoleCardItem extends Item {
 //        }
 //        textConsumer.accept(Text.translatable("item.tooltip.use"));
 //    }
-
-    public static Dialog getSelectMenu(String uuid, UsingData data) {
-        MultiActionDialog dialog = new MultiActionDialog(
-                new CommonDialogData(
-                        data.getItemStack().getHoverName(),
-                        Optional.empty(),
-                        true, false,
-                        DialogAction.CLOSE,
-                        new ArrayList<>(
-                                List.of(
-                                        new PlainMessage(Component.translatable("dialog.message.select"), 200)
-                                )
-                        ),
-                        new ArrayList<>()
-                ),
-                new ArrayList<>(List.of()),
-                Optional.empty(),
-                1
-        );
-        for (Map.Entry<ResourceLocation, NPCRole> entry : data.id2Role.entrySet()) {
-            ResourceLocation identifier = entry.getKey();
-            NPCRole role = entry.getValue();
-            EntityType<NPCRoleFastEntity> entityType = role.get();
-            CompoundTag element = new CompoundTag();
-            element.putString("session_id", uuid);
-            element.putString("entity_id", identifier.toString());
-            dialog.actions().add(new ActionButton(
-                    new CommonButtonData(Component.empty().append(Component.translatable(entityType.getDescriptionId())), 180),
-                    Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("role/summon"), Optional.of(element))))
-            ));
-        }
-        CompoundTag element = new CompoundTag();
-        element.putString("session_id", uuid);
-        element.putString("entity_id", "random");
-        dialog.actions().add(new ActionButton(
-                new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.random")), 180),
-                Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("role/summon"), Optional.of(element))))
-        ));
-        dialog.actions().add(new ActionButton(
-                new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.exit")), 200),
-                Optional.empty()
-        ));
-        return dialog;
-    }
 
     @Getter
     public static class UsingData {

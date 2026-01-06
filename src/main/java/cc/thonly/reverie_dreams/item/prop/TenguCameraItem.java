@@ -10,6 +10,7 @@ import de.tomalbrc.cameraobscura.render.renderer.CanvasImageRenderer;
 import eu.pb4.mapcanvas.api.core.CanvasImage;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -61,7 +62,7 @@ public class TenguCameraItem extends Item {
             }
             Inventory inventory = player.getInventory();
             ItemStack cunsumeStack = ItemStack.EMPTY;
-            for (ItemStack itemStack : inventory) {
+            for (ItemStack itemStack : inventory.items) {
                 if (itemStack.isEmpty()) {
                     continue;
                 }
@@ -106,7 +107,7 @@ public class TenguCameraItem extends Item {
             List<ItemStack> items = CameraCommand.mapItems(canvasImage, player.level());
             items.forEach((x) -> {
                 if (!player.addItem(x)) {
-                    player.spawnAtLocation(player.level(), x);
+                    player.spawnAtLocation((ServerLevel) player.level(), x);
                 }
 
             });

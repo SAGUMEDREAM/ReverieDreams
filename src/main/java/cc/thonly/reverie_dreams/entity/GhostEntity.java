@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,8 +17,6 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 
 public class GhostEntity extends BaseNPCLikeEntity {
     protected int particleTick = 0;
@@ -64,7 +63,7 @@ public class GhostEntity extends BaseNPCLikeEntity {
                 }
                 this.particleTick = 0;
             }
-            if (world.isBrightOutside()) {
+            if (world.isDay()) {
                 MobEffectInstance currentEffect = this.getEffect(MobEffects.INVISIBILITY);
                 if (currentEffect == null || currentEffect.getDuration() <= 20) {
                     this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 60, 0, false, false));
@@ -97,16 +96,17 @@ public class GhostEntity extends BaseNPCLikeEntity {
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        view.putInt("SurvivalTime", this.survivalTime);
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("SurvivalTime", this.survivalTime);
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
-        this.survivalTime = view.getIntOr("SurvivalTime", 0);
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.survivalTime = compoundTag.getInt("SurvivalTime");
     }
+
 
     @Override
     public KeepInventoryTypes getKeepInventoryType() {

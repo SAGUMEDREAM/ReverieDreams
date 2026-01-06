@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:mystia_grill"
+        "recipe": "minecraft:mystia_grill"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:mystia_grill"
+      "minecraft:mystia_grill"
     ]
   }
 }

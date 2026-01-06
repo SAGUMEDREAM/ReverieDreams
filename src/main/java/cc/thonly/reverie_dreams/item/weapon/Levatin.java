@@ -21,12 +21,12 @@ public class Levatin extends SwordItem {
     }
 
     @Override
-    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!target.level().isClientSide) {
             tryBreakEquipments(target);
         }
 
-        super.hurtEnemy(stack, target, attacker);
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     private void tryBreakEquipments(LivingEntity target) {
@@ -44,7 +44,7 @@ public class Levatin extends SwordItem {
         ItemStack stack = target.getItemBySlot(eSlot);
         if (stack != null && stack.isDamageableItem()) {
             stack.hurtAndBreak(stack.getMaxDamage(), target, eSlot);
-            world.playSound(target, target.blockPosition(), SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS, 1, 1);
+            world.playSound(target, target.blockPosition(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1, 1);
         }
     }
 

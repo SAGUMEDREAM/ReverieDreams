@@ -81,7 +81,7 @@ public class PolymerBlockHelper {
             case TrapDoorBlock ignored -> TrapdoorPolymerBlock.INSTANCE;
             case ButtonBlock ignored -> StateCopyFactoryBlock.BUTTON;
             case PressurePlateBlock ignored -> StateCopyFactoryBlock.PRESSURE_PLATE;
-            case VegetationBlock ignored -> BaseFactoryBlock.SAPLING;
+            case BushBlock ignored -> BaseFactoryBlock.SAPLING;
             case FlowerPotBlock ignored -> new PottedPlantPolymerBlock(id);
             case IronBarsBlock ignored -> StateCopyFactoryBlock.PANE;
             case LanternBlock ignored -> StateCopyFactoryBlock.LANTERN;

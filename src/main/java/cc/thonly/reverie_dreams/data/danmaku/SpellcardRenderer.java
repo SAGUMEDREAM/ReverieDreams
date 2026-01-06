@@ -223,7 +223,7 @@ public class SpellcardRenderer {
 
         Item item = type.getItem();
         itemStack = item.getDefaultInstance();
-        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(color));
+        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(color, false));
         colorStackMap.put(color, itemStack);
         return itemStack;
     }

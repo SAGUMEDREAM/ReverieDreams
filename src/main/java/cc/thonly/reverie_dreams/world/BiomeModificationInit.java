@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.random.Weight;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -229,8 +230,7 @@ public class BiomeModificationInit {
                         BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                         ctx -> ctx.getSpawnSettings().addSpawn(
                                 MobCategory.MONSTER,
-                                new MobSpawnSettings.SpawnerData(RDEntityTypes.MOON_RABBIT, 1, 1),
-                                5
+                                new MobSpawnSettings.SpawnerData(RDEntityTypes.MOON_RABBIT, Weight.of(4), 1, 1)
                         )
                 );
         // UFO

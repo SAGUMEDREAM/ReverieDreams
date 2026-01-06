@@ -26,13 +26,13 @@ public class DeathScytheItem extends SwordItem {
     }
 
     @Override
-    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = target.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             if (ThreadLocalRandom.current().nextFloat() < 0.28f) {
                 attacker.setHealth(attacker.getHealth() + 3);
             }
         }
-        super.hurtEnemy(stack, target, attacker);
+        return  super.hurtEnemy(stack, target, attacker);
     }
 }

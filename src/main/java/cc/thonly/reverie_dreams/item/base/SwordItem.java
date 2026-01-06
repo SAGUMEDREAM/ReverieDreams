@@ -4,9 +4,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 
 
-public class SwordItem extends Item {
+public class SwordItem extends net.minecraft.world.item.SwordItem {
     public SwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Item.Properties settings) {
-        super(settings.sword(material, attackDamage, attackSpeed));
+        super(material, attackDamage, attackSpeed, settings);
     }
 
 }

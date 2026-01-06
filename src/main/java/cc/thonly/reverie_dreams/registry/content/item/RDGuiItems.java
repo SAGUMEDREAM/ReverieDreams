@@ -7,8 +7,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +46,7 @@ public class RDGuiItems {
                 .stacksTo(1)
                 .overrideDescription("")
                 .component(DataComponents.ITEM_NAME, Component.nullToEmpty(""))
-                .component(DataComponents.TOOLTIP_DISPLAY, new TooltipDisplay(
-                                true,
-                                ReferenceSortedSets.emptySet()
-                        )
-                );
+                .component(DataComponents.HIDE_TOOLTIP, Unit.INSTANCE);
     }
 
     public static List<Item> getGuiItemList() {

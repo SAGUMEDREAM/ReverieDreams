@@ -116,8 +116,8 @@ public class TavernVillager extends AbstractSellerEntity {
         Registry<VillagerProfession> villagerProfessionRegistry = registryManager.lookupOrThrow(Registries.VILLAGER_PROFESSION);
 
         return new VillagerData(
-                villagerTypeRegistry.getOrThrow(VillagerType.JUNGLE),
-                villagerProfessionRegistry.getOrThrow(VillagerProfession.CARTOGRAPHER),
+                VillagerType.JUNGLE,
+                VillagerProfession.CARTOGRAPHER,
                 2
         );
     }

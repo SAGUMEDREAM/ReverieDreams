@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import cc.thonly.minecraft.util.TagValueFunction;
+import cc.thonly.minecraft.util.tvio.TagValueFunction;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
@@ -13,7 +13,6 @@ import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -38,11 +37,8 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.BlocksAttacks;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -173,7 +169,7 @@ public class DanmakuEntity extends AbstractArrow {
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        TagValueFunction.ofOutput(compoundTag, this.registryAccess(), view-> {
+        TagValueFunction.write(compoundTag, this.registryAccess(), view-> {
             if (!this.itemStack.isEmpty()) {
                 view.store("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC, this.itemStack.copy());
             }
@@ -187,7 +183,7 @@ public class DanmakuEntity extends AbstractArrow {
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        TagValueFunction.ofInput(compoundTag, this.registryAccess(), view-> {
+        TagValueFunction.read(compoundTag, this.registryAccess(), view-> {
             this.itemStack = view.read("Item", ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC).orElse(ItemStack.EMPTY);
             this.properties = view.read("Properties", DanmakuProperties.CODEC).orElse(DanmakuProperties.ofDefault());
             this.flyAge = view.getIntOr("FlyAge", 0);
@@ -391,31 +387,6 @@ public class DanmakuEntity extends AbstractArrow {
                 boolean isInAttackRange = false;
                 ItemStack activeItem = player.getUseItem();
                 if (!activeItem.isEmpty()) {
-                    BlocksAttacks blocksAttacksComponent = activeItem.get(DataComponents.BLOCKS_ATTACKS);
-                    if (blocksAttacksComponent != null) {
-                        List<BlocksAttacks.DamageReduction> damageReductions = blocksAttacksComponent.damageReductions();
-                        for (BlocksAttacks.DamageReduction damageReduction : damageReductions) {
-                            float blockingAngle = damageReduction.horizontalBlockingAngle();
-
-                            // ① 使用 EyePos，避免高度误差
-                            Vec3 toProjectile = this.position().subtract(player.getEyePosition()).normalize();
-
-                            // ② 只取水平向量，忽略 Y
-                            Vec3 playerLook = player.getViewVector(1.0F);
-                            Vec3 look2D = new Vec3(playerLook.x, 0, playerLook.z).normalize();
-                            Vec3 toProj2D = new Vec3(toProjectile.x, 0, toProjectile.z).normalize();
-
-                            // ③ 点积求角度，clamp 防止 NaN
-                            double dot = Mth.clamp(look2D.dot(toProj2D), -1.0, 1.0);
-                            double angle = Math.toDegrees(Math.acos(dot));
-
-                            // ④ 给一个小容错（比如 +5°）
-                            if (angle <= (blockingAngle / 2.0F) + 5.0F) {
-                                isInAttackRange = true;
-                                break; // 找到一个满足条件的就可以退出循环了
-                            }
-                        }
-                    }
                     if (isInAttackRange) {
                         activeItem.hurtWithoutBreaking(1, player);
                         this.discard(); // 拦截并移除投射物

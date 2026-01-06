@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "reverie_dreams:lemon_planks_from_stripped_lemon_log"
+        "recipe": "minecraft:lemon_planks_from_stripped_lemon_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "reverie_dreams:lemon_planks_from_stripped_lemon_log"
+      "minecraft:lemon_planks_from_stripped_lemon_log"
     ]
   }
 }

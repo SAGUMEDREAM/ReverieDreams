@@ -12,6 +12,7 @@ import lombok.Setter;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -117,7 +118,7 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
                     polymerDanmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
                 }
                 if (!properties.isInfinite()) {
-                    itemStack.hurtAndBreak(1, this.actor, InteractionHand.MAIN_HAND);
+                    itemStack.hurtAndBreak(1, this.actor, EquipmentSlot.MAINHAND);
                     if (itemStack.isDamageableItem() && itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
                         itemStack.shrink(1);
                     }

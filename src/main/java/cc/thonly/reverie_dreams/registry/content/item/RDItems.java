@@ -9,8 +9,11 @@ import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.armor.WaterproofArmor;
+import cc.thonly.reverie_dreams.item.base.ArmorItem;
+import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
 import cc.thonly.reverie_dreams.item.base.*;
+import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.SpellcardItem;
 import cc.thonly.reverie_dreams.item.material.DreamMaterial;
@@ -53,7 +56,6 @@ import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -231,17 +233,16 @@ public class RDItems {
 
     // 防水衣
     public static final Item WATERPROOF_LEATHER = registerItem("waterproof_leather", Item::new, new Item.Properties());
-    public static final Item WATER_PROOF_HAT = registerItem("waterproof_hat", (settings) -> new WaterproofArmor(ArmorType.HELMET, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.HELMET.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
-    public static final Item WATER_PROOF_CLOTHING = registerItem("waterproof_clothing", (settings) -> new WaterproofArmor(ArmorType.CHESTPLATE, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.CHESTPLATE.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
-    public static final Item WATER_PROOF_LEGGINGS = registerItem("waterproof_leggings", (settings) -> new WaterproofArmor(ArmorType.LEGGINGS, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.LEGGINGS.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
-    public static final Item WATER_PROOF_BOOTS = registerItem("waterproof_boots", (settings) -> new WaterproofArmor(ArmorType.BOOTS, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF)).durability(ArmorType.BOOTS.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+    public static final Item WATER_PROOF_HAT = registerItem("waterproof_hat", (settings) -> new WaterproofArmor(ArmorType.HELMET, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF, true)).durability(ArmorType.HELMET.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+    public static final Item WATER_PROOF_CLOTHING = registerItem("waterproof_clothing", (settings) -> new WaterproofArmor(ArmorType.CHESTPLATE, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF, true)).durability(ArmorType.CHESTPLATE.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+    public static final Item WATER_PROOF_LEGGINGS = registerItem("waterproof_leggings", (settings) -> new WaterproofArmor(ArmorType.LEGGINGS, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF, true)).durability(ArmorType.LEGGINGS.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
+    public static final Item WATER_PROOF_BOOTS = registerItem("waterproof_boots", (settings) -> new WaterproofArmor(ArmorType.BOOTS, settings), new Item.Properties().component(DataComponents.DYED_COLOR, new DyedItemColor(0xFF4AA9FF, true)).durability(ArmorType.BOOTS.getDurability(WaterproofArmorMaterial.BASE_DURABILITY)));
 
     // 模板
     public static final Item DANMAKU_SHAPE_CREATOR = registerItem("danmaku_recipe_creator", DanmakuShapeCreatorItem::new, new Item.Properties());
     public static final Item SPELL_CARD_TEMPLATE = registerItem("spell_card_template", SpellCardTemplateItem::new, new Item.Properties());
     public static final Item ROLE_CARD = registerItem("role_card", RoleCardItem::new, new Item.Properties().stacksTo(1)
-            .component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.DYED_COLOR, true))
-            .component(DataComponents.DYED_COLOR, new DyedItemColor(RoleCard.DEFAULT_COLOR.intValue())));
+            .component(DataComponents.DYED_COLOR, new DyedItemColor(RoleCard.DEFAULT_COLOR.intValue(), false)));
     public static final Item ROLE_ARCHIVE = registerItem("role_archive", RoleFollowerArchiveItem::new, new Item.Properties().stacksTo(1));
 
     // 唱片
