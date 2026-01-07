@@ -83,7 +83,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         dropSelf(RDBlocks.MARISA_HAT_BLOCK);
         dropSelf(RDBlocks.ANTI_COLLISION_BARREL);
         dropSelf(RDBlocks.CASH_BOX_BLOCK);
-        dropSelf(RDBlocks.WHEEL_CHAIR);
+//        dropSelf(RDBlocks.WHEEL_CHAIR);
 
         dropSelf(RDBlocks.POINT_BLOCK);
         dropSelf(RDBlocks.POWER_BLOCK);

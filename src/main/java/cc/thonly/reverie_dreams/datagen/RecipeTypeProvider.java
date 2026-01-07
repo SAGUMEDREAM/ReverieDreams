@@ -526,15 +526,15 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                 ),
                 this.ofItem(RDItems.EXORCISM_PAPER, 4)
         ));
-        this.gensokyoAltarRecipeFactory.register(RDItems.YUKA_FLOWER_UMBRELLA, new GensokyoAltarRecipe(
-                this.ofItem(Items.IRON_SWORD),
-                List.of(
-                        this.ofItem(Items.SUNFLOWER, 16), this.ofItem(Items.NETHERITE_INGOT), this.ofItem(Items.WHITE_WOOL, 8),
-                        this.ofItem(Items.ROSE_BUSH, 16), this.ofItem(RDIngredientItems.UDUMBARA, 4),
-                        this.ofItem(Items.FLINT, 1), this.ofItem(Items.BAMBOO, 2), this.ofItem(RDItems.POWER, 36)
-                ),
-                this.ofItem(RDItems.YUKA_FLOWER_UMBRELLA)
-        ));
+//        this.gensokyoAltarRecipeFactory.register(RDItems.YUKA_FLOWER_UMBRELLA, new GensokyoAltarRecipe(
+//                this.ofItem(Items.IRON_SWORD),
+//                List.of(
+//                        this.ofItem(Items.SUNFLOWER, 16), this.ofItem(Items.NETHERITE_INGOT), this.ofItem(Items.WHITE_WOOL, 8),
+//                        this.ofItem(Items.ROSE_BUSH, 16), this.ofItem(RDIngredientItems.UDUMBARA, 4),
+//                        this.ofItem(Items.FLINT, 1), this.ofItem(Items.BAMBOO, 2), this.ofItem(RDItems.POWER, 36)
+//                ),
+//                this.ofItem(RDItems.YUKA_FLOWER_UMBRELLA)
+//        ));
         this.gensokyoAltarRecipeFactory.register(RDItems.SATORI_EYE, new GensokyoAltarRecipe(
                 this.ofItem(Items.ENDER_EYE),
                 List.of(

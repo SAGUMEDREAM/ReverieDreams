@@ -85,7 +85,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         pickaxeMineables.add(RDBlocks.DREAM_CRYSTAL_ORE);
         pickaxeMineables.add(RDBlocks.GENSOKYO_ALTAR);
         pickaxeMineables.add(RDBlocks.ANTI_COLLISION_BARREL);
-        pickaxeMineables.add(RDBlocks.WHEEL_CHAIR);
+//        pickaxeMineables.add(RDBlocks.WHEEL_CHAIR);
 //        pickaxeMineables.add(MIBlocks.COOKTOP);
         RDWoodBlocks.SPIRITUAL.stream().forEach(axeMineables::add);
         RDWoodBlocks.LEMON.stream().forEach(axeMineables::add);

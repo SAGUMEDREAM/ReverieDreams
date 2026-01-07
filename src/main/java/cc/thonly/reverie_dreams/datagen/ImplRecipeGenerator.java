@@ -158,17 +158,17 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('#', Items.IRON_BLOCK)
                 .unlockedBy("has_iron_block", has(Items.IRON_BLOCK))
                 .save(output, getSimpleRecipeName(RDBlocks.ANTI_COLLISION_BARREL));
-        // 轮椅
-        shaped(RecipeCategory.MISC, RDBlocks.WHEEL_CHAIR)
-                .pattern("Z  ")
-                .pattern("X# ")
-                .pattern("YYY")
-                .define('#', Items.IRON_INGOT)
-                .define('X', Items.IRON_BLOCK)
-                .define('Y', Items.RESIN_BRICK)
-                .define('Z', Items.BLACK_WOOL)
-                .unlockedBy("has_iron", has(Items.IRON_INGOT))
-                .save(output, getSimpleRecipeName(RDBlocks.WHEEL_CHAIR));
+//        // 轮椅
+//        shaped(RecipeCategory.MISC, RDBlocks.WHEEL_CHAIR)
+//                .pattern("Z  ")
+//                .pattern("X# ")
+//                .pattern("YYY")
+//                .define('#', Items.IRON_INGOT)
+//                .define('X', Items.IRON_BLOCK)
+//                .define('Y', Items.RESIN_BRICK)
+//                .define('Z', Items.BLACK_WOOL)
+//                .unlockedBy("has_iron", has(Items.IRON_INGOT))
+//                .save(output, getSimpleRecipeName(RDBlocks.WHEEL_CHAIR));
 
         // 木板箱
         shaped(RecipeCategory.MISC, RDBlocks.WOODEN_BOX.chestBlock())

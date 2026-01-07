@@ -84,10 +84,10 @@ public class RDEntityTypes {
             EntityType.Builder.<MagicBroomEntity>of(MagicBroomEntity::new, MobCategory.MISC)
                     .build(of("broom")),
             MagicBroomEntity::createAttributes);
-    public static final EntityType<WheelchairEntity> WHEEL_CHAIR = registerEntityWithSpawnEgg("wheel_chair",
-            EntityType.Builder.<WheelchairEntity>of(WheelchairEntity::new, MobCategory.MISC)
-                    .build(of("wheel_chair")),
-            WheelchairEntity::createAttributes);
+//    public static final EntityType<WheelchairEntity> WHEEL_CHAIR = registerEntityWithSpawnEgg("wheel_chair",
+//            EntityType.Builder.<WheelchairEntity>of(WheelchairEntity::new, MobCategory.MISC)
+//                    .build(of("wheel_chair")),
+//            WheelchairEntity::createAttributes);
     public static final EntityType<ScarecrowEntity> SCARECROW = registerEntityWithSpawnEgg("scarecrow",
             EntityType.Builder.<ScarecrowEntity>of(ScarecrowEntity::new, MobCategory.MISC)
                     .build(of("scarecrow")),

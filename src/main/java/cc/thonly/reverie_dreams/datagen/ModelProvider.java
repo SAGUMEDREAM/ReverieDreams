@@ -95,7 +95,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.family(RDBlocks.DREAM_RED_BLOCK);
         this.registerRotatable(blockStateModelGenerator, RDBlocks.CASH_BOX_BLOCK);
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.ANTI_COLLISION_BARREL);
-        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WHEEL_CHAIR);
+//        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WHEEL_CHAIR);
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WOODEN_BOX.chestBlock());
 
         this.generateCropBlockModel(blockStateModelGenerator);
@@ -194,7 +194,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.HAKUROKEN, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.PAPILIO_PATTERN_FAN, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.HORAI_DAMA_NO_EDA, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.declareCustomModelItem(RDItems.YUKA_FLOWER_UMBRELLA);
+//        itemModelGenerator.declareCustomModelItem(RDItems.YUKA_FLOWER_UMBRELLA);
         itemModelGenerator.generateFlatItem(RDItems.IBUKIHO, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SWORD_OF_HISOU, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAPLE_LEAF_FAN, ModelTemplates.FLAT_HANDHELD_ITEM);

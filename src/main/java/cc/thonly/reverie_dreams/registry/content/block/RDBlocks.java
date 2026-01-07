@@ -69,7 +69,7 @@ public class RDBlocks {
     public static final Block MARISA_HAT_BLOCK = registerBlock("marisa_hat", (settings) -> new MarisaHatBlock(Vec3.ZERO, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL), new Item.Properties().stacksTo(1).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setSwappable(false).build()));
     public static final Block CASH_BOX_BLOCK = registerBlock("cash_box", CashBoxBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS));
     public static final Block ANTI_COLLISION_BARREL = registerBlock("anti_collision_barrel", BasicPolymerModelBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
-    public static final Block WHEEL_CHAIR = registerBlock("wheel_chair", WheelChairBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+//    public static final Block WHEEL_CHAIR = registerBlock("wheel_chair", WheelChairBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final ChestBlockCreator WOODEN_BOX = ChestBlockCreator.create(
             "wooden_box",
             BlockBehaviour.Properties.ofFullCopy(Blocks.CHEST)

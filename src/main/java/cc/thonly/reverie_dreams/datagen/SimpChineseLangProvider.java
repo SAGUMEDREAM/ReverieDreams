@@ -631,7 +631,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         builder.add(RDEntityTypes.FIRE_ELEMENTAL, "火元素", "火元素刷怪蛋");
         builder.add(RDEntityTypes.ICE_ELEMENTAL, "冰元素", "冰元素刷怪蛋");
         builder.add(RDEntityTypes.MAGIC_BROOM, "魔法扫帚", "魔法扫帚刷怪蛋");
-        builder.add(RDEntityTypes.WHEEL_CHAIR, "轮椅", "轮椅刷怪蛋");
+//        builder.add(RDEntityTypes.WHEEL_CHAIR, "轮椅", "轮椅刷怪蛋");
         builder.add(RDEntityTypes.HAIRBALL, "毛玉", "毛玉刷怪蛋");
         builder.add(RDEntityTypes.SCARECROW, "稻草人", "稻草人刷怪蛋");
         builder.add(RDEntityTypes.UFO, "UFO", "UFO刷怪蛋");
@@ -956,7 +956,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.UPGRADED_HEALTH, "残机");
         translationBuilder.add(RDItems.BOMB, "Bomb");
         translationBuilder.add(RDItems.HORAI_DAMA_NO_EDA, "蓬莱玉枝");
-        translationBuilder.add(RDItems.YUKA_FLOWER_UMBRELLA, "花洋伞");
+//        translationBuilder.add(RDItems.YUKA_FLOWER_UMBRELLA, "花洋伞");
         translationBuilder.add(RDItems.CROSSING_CHISEL, "穿墙之凿");
         translationBuilder.add(RDItems.GAP_BALL, "隙间之球");
         translationBuilder.add(RDItems.BAGUA_FURNACE, "八卦炉");
@@ -1128,7 +1128,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDBlocks.MARISA_HAT_BLOCK, "魔理沙的帽子");
         translationBuilder.add(RDBlocks.CASH_BOX_BLOCK, "塞钱箱");
         translationBuilder.add(RDBlocks.ANTI_COLLISION_BARREL, "防撞桶");
-        translationBuilder.add(RDBlocks.WHEEL_CHAIR, "轮椅");
+//        translationBuilder.add(RDBlocks.WHEEL_CHAIR, "轮椅");
         translationBuilder.add(RDBlocks.WOODEN_BOX.chestBlock(), "木板箱");
 
         translationBuilder.add(RDBlocks.DREAM_RED_BLOCK, "网格方块");
