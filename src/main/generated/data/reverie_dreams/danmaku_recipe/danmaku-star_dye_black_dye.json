@@ -23,7 +23,7 @@
       },
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:b6d4c699-3b3a-4c18-8523-7f34d32480dd"
+        "cooldown_group": "minecraft:9fff44c9-823c-49a3-8d3e-d08f15f1eb66"
       }
     }
   },

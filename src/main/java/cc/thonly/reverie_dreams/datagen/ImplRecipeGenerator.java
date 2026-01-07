@@ -96,7 +96,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
 
         // Bomb
         offer1To4Recipe(output, RDItems.BOMB, RDItems.BOMB_FRAGMENT);
-        shaped(RecipeCategory.MISC, RDItems.BOMB_FRAGMENT, 2)
+        shaped(RecipeCategory.MISC, RDItems.BOMB, 2)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")

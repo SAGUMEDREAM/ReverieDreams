@@ -75,6 +75,7 @@ public class RoleSelectGui extends SimpleGui implements GuiCommon {
                         if (!this.isCreativeMode()) {
                             this.itemStack.shrink(1);
                         }
+                        this.close();
                     });
                     this.setSlot(i, element);
                     continue;

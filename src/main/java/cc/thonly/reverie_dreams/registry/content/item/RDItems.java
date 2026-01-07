@@ -153,7 +153,7 @@ public class RDItems {
     public static final Item HAKUROKEN = registerItem("hakuroken", (settings) -> new Hakuroken(2f, 1f - 2.4f, settings), new Item.Properties());
     public static final Item PAPILIO_PATTERN_FAN = registerItem("papilio_pattern_fan", (settings) -> new PapilioPatternFan(1f - 4f, 1f - 2.4f, settings), new Item.Properties());
     public static final Item HORAI_DAMA_NO_EDA = registerItem("horai-dama_no_eda", (settings) -> new HoraiDamaNoEdaItem(0, 0, settings), new Item.Properties());
-    public static final Item YUKA_FLOWER_UMBRELLA = registerItem("yuka_flower_umbrella", (settings) -> new YukaFlowerUmbrella(1f, -2.4f, settings), new Item.Properties());
+//    public static final Item YUKA_FLOWER_UMBRELLA = registerItem("yuka_flower_umbrella", (settings) -> new YukaFlowerUmbrella(1f, -2.4f, settings), new Item.Properties());
     public static final Item MAPLE_LEAF_FAN = registerItem("maple_leaf_fan", (settings) -> new MapleLeafFan(1f, -2.4f, settings), new Item.Properties());
     public static final Item IBUKIHO = registerItem("ibukiho", (settings) -> new Ibukiho(1f, -2.4f, settings), new Item.Properties()
             .useCooldown(130f)
