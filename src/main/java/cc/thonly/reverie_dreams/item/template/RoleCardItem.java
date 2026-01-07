@@ -3,11 +3,13 @@ package cc.thonly.reverie_dreams.item.template;
 import cc.thonly.polymer.item.IBasicPolymerItem;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
+import cc.thonly.reverie_dreams.gui.RoleSelectGui;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import eu.pb4.sgui.api.gui.SimpleGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -36,7 +38,7 @@ public class RoleCardItem extends Item implements IBasicPolymerItem {
         super(settings);
     }
 
-    public Optional<RoleCard> getRoleCardComponent(ItemStack itemStack) {
+    public static Optional<RoleCard> getRoleCardComponent(ItemStack itemStack) {
         ResourceLocation identifier = itemStack.get(RDDataComponents.ROLE_CARD_ID);
         if (identifier == null) {
             return Optional.empty();
@@ -54,17 +56,9 @@ public class RoleCardItem extends Item implements IBasicPolymerItem {
         if (!world.isClientSide() && context.getLevel() instanceof ServerLevel serverWorld && context.getPlayer() instanceof ServerPlayer player) {
             InteractionHand hand = context.getHand();
             ItemStack itemStack = context.getItemInHand();
-            Optional<RoleCard> roleCardWrapper = this.getRoleCardComponent(itemStack);
-            if (roleCardWrapper.isPresent()) {
-                RoleCard roleCard = roleCardWrapper.get();
-                Optional<NPCRole> random = roleCard.random();
-                if (random.isPresent()) {
-                    NPCRole npcRole = random.get();
-                    EntityType<NPCRoleFastEntity> entityType = npcRole.get();
-                    BlockPos offset = context.getClickedPos().offset(0, 1, 0);
-                    entityType.spawn(serverWorld, offset, EntitySpawnReason.SPAWN_ITEM_USE);
-                }
-            }
+            SimpleGui gui = new RoleSelectGui(itemStack, context.getClickedPos(), player);
+            gui.open();
+            player.swing(hand);
         }
         return super.useOn(context);
     }
