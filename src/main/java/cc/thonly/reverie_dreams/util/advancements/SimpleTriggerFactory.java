@@ -3,15 +3,15 @@ package cc.thonly.reverie_dreams.util.advancements;
 import cc.thonly.reverie_dreams.advancement.SimpleTrigger;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Map;
 
 public class SimpleTriggerFactory {
-    private static final Map<ResourceLocation, Tool> CACHED = new Object2ObjectOpenHashMap<>(64);
+    private static final Map<Identifier, Tool> CACHED = new Object2ObjectOpenHashMap<>(64);
 
-    public static Tool create(ResourceLocation location) {
+    public static Tool create(Identifier location) {
         return CACHED.computeIfAbsent(location, x -> new Tool() {
             @Override
             public Criterion<SimpleTrigger.Condition> createCriterion() {
@@ -24,7 +24,7 @@ public class SimpleTriggerFactory {
             }
 
             @Override
-            public ResourceLocation location() {
+            public Identifier location() {
                 return x;
             }
         });
@@ -35,6 +35,6 @@ public class SimpleTriggerFactory {
 
         void trigger(ServerPlayer player);
 
-        ResourceLocation location();
+        Identifier location();
     }
 }

@@ -1,4 +1,16 @@
 {
+  "dye": {
+    "id": "minecraft:white_dye",
+    "count": 4
+  },
+  "core": {
+    "id": "reverie_dreams:danmaku_core",
+    "count": 4
+  },
+  "power": {
+    "id": "reverie_dreams:power",
+    "count": 35
+  },
   "point": {
     "id": "reverie_dreams:point",
     "count": 35
@@ -24,20 +36,8 @@
       "minecraft:dyed_color": 16777215,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:f1f215a7-c8f4-465c-bb99-4cbf962a90b6"
+        "cooldown_group": "minecraft:851cc47c-fcc9-43b6-a72b-246d792d6487"
       }
     }
-  },
-  "dye": {
-    "id": "minecraft:white_dye",
-    "count": 4
-  },
-  "core": {
-    "id": "reverie_dreams:danmaku_core",
-    "count": 4
-  },
-  "power": {
-    "id": "reverie_dreams:power",
-    "count": 35
   }
 }

@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.gui.recipe.display.DisplayView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -16,7 +16,7 @@ import java.lang.reflect.Constructor;
 @Slf4j
 public class RecipeTypeGuiInfo<T extends BasePageGui> {
     private final ItemStack icon;
-    private final ResourceLocation id;
+    private final Identifier id;
     private final Class<T> clazz;
     private final Class<? extends DisplayView> viewClazz;
     private final RecipeTypeGetter registryGetter;

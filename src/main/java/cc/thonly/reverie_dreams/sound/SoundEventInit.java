@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 
@@ -41,7 +41,7 @@ public class SoundEventInit {
     }
 
     public static SoundEvent registerSound(String id) {
-        ResourceLocation identifier = ReverieDreams.id(id);
+        Identifier identifier = ReverieDreams.id(id);
         SoundEvent soundEvent = Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
         SOUND_EVENTS.add(soundEvent);
         return soundEvent;
@@ -51,11 +51,11 @@ public class SoundEventInit {
         return registerReference(ReverieDreams.id(id));
     }
 
-    protected static Holder.Reference<SoundEvent> registerReference(ResourceLocation id) {
+    protected static Holder.Reference<SoundEvent> registerReference(Identifier id) {
         return registerReference(id, id);
     }
 
-    protected static Holder.Reference<SoundEvent> registerReference(ResourceLocation id, ResourceLocation soundId) {
+    protected static Holder.Reference<SoundEvent> registerReference(Identifier id, Identifier soundId) {
         SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(soundId);
         Holder.Reference<SoundEvent> ref = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, soundEvent);
         SOUND_EVENTS.add(ref.value());

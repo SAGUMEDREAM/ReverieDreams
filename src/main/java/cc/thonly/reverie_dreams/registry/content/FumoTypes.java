@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collection;
@@ -79,7 +79,7 @@ public class FumoTypes {
         return register(ReverieDreams.id(name), fumo);
     }
 
-    public static FumoType register(ResourceLocation id, FumoType fumo) {
+    public static FumoType register(Identifier id, FumoType fumo) {
         return RegistryHandlers.register(REGISTRY_KEY, id, fumo.build());
     }
 

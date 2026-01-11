@@ -5,10 +5,10 @@ import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.registry.tag.RDEntityTypeTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.advancements.critereon.DamageSourcePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.EntityTypePredicate;
-import net.minecraft.advancements.critereon.TagPredicate;
+import net.minecraft.advancements.criterion.DamageSourcePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityTypePredicate;
+import net.minecraft.advancements.criterion.TagPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -138,7 +138,7 @@ public class RDEnchantments {
     }
 
     public static ResourceKey<MapCodec<? extends EnchantmentEntityEffect>> toEffectKey(ResourceKey<Enchantment> key) {
-        return ResourceKey.create(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, key.location());
+        return ResourceKey.create(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, key.identifier());
     }
 
     public static List<ItemStack> getEnchantmentBook(HolderLookup.Provider registryAccess, ResourceKey<Enchantment> key) {
@@ -161,6 +161,6 @@ public class RDEnchantments {
     }
 
     public static Holder.Reference<Enchantment> registerEnchantment(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
-        return context.register(key, builder.build(key.location()));
+        return context.register(key, builder.build(key.identifier()));
     }
 }

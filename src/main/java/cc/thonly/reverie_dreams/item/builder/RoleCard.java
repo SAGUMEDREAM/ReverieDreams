@@ -12,12 +12,13 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
+import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
@@ -28,28 +29,28 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, BuiltinObject {
-    public static final Codec<RoleCard> CODEC = Codec.unit(RoleCard::new);
+    public static final Codec<RoleCard> CODEC = UnitCodec.unit(RoleCard::new);
     public static final Long DEFAULT_COLOR = 16777215L;
     @Setter
     @Getter
     private RegistryHandler<RoleCard> owner;
     @Setter
     @Getter
-    private ResourceLocation id;
-    private ResourceLocation itemId;
+    private Identifier id;
+    private Identifier itemId;
     private Long color = DEFAULT_COLOR;
     private final List<NPCRole> entries = new LinkedList<>();
 
     private RoleCard() {
     }
 
-    public RoleCard(ResourceLocation id, Long color, List<NPCRole> roles) {
+    public RoleCard(Identifier id, Long color, List<NPCRole> roles) {
         this.id = id;
         this.color = color;
         this.of(roles);
     }
 
-    public RoleCard(ResourceLocation id, Long color, NPCRole... roles) {
+    public RoleCard(Identifier id, Long color, NPCRole... roles) {
         this.id = id;
         this.color = color;
         this.of(roles);
@@ -94,7 +95,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
     }
 
     public RoleCard build() {
-        this.itemId = ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_role_card");
+        this.itemId = Identifier.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_role_card");
         for (NPCRole entry : this.entries) {
             Item egg = entry.getEgg();
             if (egg instanceof SpawnEggItem eggItem) {

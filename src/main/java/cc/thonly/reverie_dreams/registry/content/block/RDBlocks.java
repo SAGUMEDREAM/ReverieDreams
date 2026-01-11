@@ -13,7 +13,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -95,7 +95,7 @@ public class RDBlocks {
         return block;
     }
 
-    public static Block registerSimpleBlock(ResourceLocation id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings, Item.Properties itemSettings) {
+    public static Block registerSimpleBlock(Identifier id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings, Item.Properties itemSettings) {
         Block block = factory.apply(settings.setId(keyOf(id)).noOcclusion());
         Registry.register(BuiltInRegistries.BLOCK, id, block);
         if (block instanceof MarisaHatBlock hat) {
@@ -109,7 +109,7 @@ public class RDBlocks {
         return registerSimpleBlock(ReverieDreams.id(name), factory, settings, itemSettings);
     }
 
-    public static Block registerSimpleBlock(ResourceLocation id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
+    public static Block registerSimpleBlock(Identifier id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
         return registerSimpleBlock(id, factory, settings, new Item.Properties());
     }
 
@@ -131,7 +131,7 @@ public class RDBlocks {
         return ResourceKey.create(Registries.BLOCK, ReverieDreams.id(id));
     }
 
-    public static ResourceKey<Block> keyOf(ResourceLocation id) {
+    public static ResourceKey<Block> keyOf(Identifier id) {
         return ResourceKey.create(Registries.BLOCK, id);
     }
 

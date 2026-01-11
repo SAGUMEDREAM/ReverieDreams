@@ -18,18 +18,18 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
 public class YukaFlowerUmbrella extends SwordItem {
-    public static final ToolMaterial INSTANCE = new ToolMaterial(RDBlockTags.EMPTY, 800, 7.25f, 5.5f, 10, RDItemTags.SILVER_TOOL_MATERIALS);
+    public static final ToolMaterial INSTANCE = new ToolMaterial(RDBlockTags.EMPTY, 800, 7.0f, 5.5f, 10, RDItemTags.SILVER_TOOL_MATERIALS);
     private static final double SWEEP_RADIUS = 2.5;
 
     public YukaFlowerUmbrella(float attackDamage, float attackSpeed, Properties settings) {
-        super(INSTANCE, attackDamage, attackSpeed, settings);
+        super(INSTANCE, attackDamage, attackSpeed, settings.spear(INSTANCE, 1.15F, 1.2F, 0.4F, 2.5F, 7.0F, 5.5F, 5.1F, 8.75F, 4.6F).fireResistant());
     }
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         super.use(level, player, interactionHand);
         if (!level.isClientSide()) {
-            player.addEffect(new MobEffectInstance(MobEffects.SPEED, 15, 4));
+            player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 0, false, false, true));
             return InteractionResult.PASS;
         }
         return InteractionResult.SUCCESS;
@@ -54,11 +54,11 @@ public class YukaFlowerUmbrella extends SwordItem {
                         Entity vehicle = player.getVehicle();
                         //noinspection ConditionCoveredByFurtherCondition
                         if (vehicle != null && vehicle instanceof LivingEntity livingVehicle) {
-                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.SPEED, 15, 4));
-                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 15, 2));
+                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
+                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
                         }
-                        player.addEffect(new MobEffectInstance(MobEffects.SPEED, 15, 4));
-                        player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 15, 2));
+                        player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
+                        player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
                     }
                 }
             }

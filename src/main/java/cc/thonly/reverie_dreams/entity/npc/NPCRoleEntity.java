@@ -96,7 +96,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
         );
 
         for (ExperienceOrb orb : orbs) {
-            ((IExperienceOrbEntity) (Object) orb).setNPCTarget(this);
+            ((IExperienceOrbEntity) (Object) orb).reverie_dreams$setNPCTarget(this);
         }
     }
 

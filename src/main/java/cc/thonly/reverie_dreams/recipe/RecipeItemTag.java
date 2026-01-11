@@ -8,7 +8,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -20,17 +20,17 @@ import java.util.stream.Stream;
 
 @Slf4j
 public class RecipeItemTag {
-    private static final Map<ResourceLocation, RecipeItemTag> INSTANCES = new ConcurrentHashMap<>();
+    private static final Map<Identifier, RecipeItemTag> INSTANCES = new ConcurrentHashMap<>();
 
     @Getter
-    private final ResourceLocation recipeTagId;
+    private final Identifier recipeTagId;
 
     private final Set<Item> entries = new HashSet<>();
-    private final Set<ResourceLocation> preparingItemIdentifiers = new HashSet<>();
+    private final Set<Identifier> preparingItemIdentifiers = new HashSet<>();
 
     private Set<Item> cachedResolvedEntries = null;
 
-    private RecipeItemTag(ResourceLocation recipeTagId) {
+    private RecipeItemTag(Identifier recipeTagId) {
         this.recipeTagId = recipeTagId;
     }
 
@@ -56,7 +56,7 @@ public class RecipeItemTag {
         return this;
     }
 
-    public synchronized RecipeItemTag addItemIdentifier(ResourceLocation... items) {
+    public synchronized RecipeItemTag addItemIdentifier(Identifier... items) {
         Collections.addAll(preparingItemIdentifiers, items);
         this.invalidateCache();
         return this;
@@ -64,14 +64,14 @@ public class RecipeItemTag {
 
     public synchronized RecipeItemTag addItemIdentifier(String... items) {
         for (String s : items) {
-            this.preparingItemIdentifiers.add(ResourceLocation.parse(s));
+            this.preparingItemIdentifiers.add(Identifier.parse(s));
         }
         this.invalidateCache();
         return this;
     }
 
-    public synchronized RecipeItemTag removeItemIdentifier(ResourceLocation... items) {
-        for (ResourceLocation id : items) {
+    public synchronized RecipeItemTag removeItemIdentifier(Identifier... items) {
+        for (Identifier id : items) {
             this.preparingItemIdentifiers.remove(id);
         }
         this.invalidateCache();
@@ -107,7 +107,7 @@ public class RecipeItemTag {
     public synchronized Set<Item> getEntries() {
         if (this.cachedResolvedEntries == null) {
             Set<Item> result = new HashSet<>(this.entries);
-            for (ResourceLocation id : this.preparingItemIdentifiers) {
+            for (Identifier id : this.preparingItemIdentifiers) {
                 Item item = BuiltInRegistries.ITEM.getValue(id);
                 if (item != Items.AIR) {
                     result.add(item);
@@ -122,11 +122,11 @@ public class RecipeItemTag {
         this.cachedResolvedEntries = null;
     }
 
-    public static RecipeItemTag of(ResourceLocation recipeTagId) {
+    public static RecipeItemTag of(Identifier recipeTagId) {
         return INSTANCES.computeIfAbsent(recipeTagId, RecipeItemTag::new);
     }
 
     public static RecipeItemTag of(ResourceKey<Item> registryKey) {
-        return of(registryKey.location());
+        return of(registryKey.identifier());
     }
 }

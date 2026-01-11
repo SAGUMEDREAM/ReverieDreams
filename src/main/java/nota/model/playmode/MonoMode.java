@@ -28,7 +28,7 @@ public class MonoMode extends ChannelMode {
 			return;
 		}
 		ReverieDreams.getServer().executeIfPossible(()-> {
-			player.playNotifySound(InstrumentUtils.getInstrument(note.getInstrument()), SoundSource.RECORDS, volume, pitch);
+			player.level().playSound(null, player.getX(), player.getY(), player.getZ(),InstrumentUtils.getInstrument(note.getInstrument()), SoundSource.RECORDS, volume, pitch);
 		});
 	}
 }

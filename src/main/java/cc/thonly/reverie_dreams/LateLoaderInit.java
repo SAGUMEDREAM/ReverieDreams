@@ -21,7 +21,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -102,7 +102,7 @@ public class LateLoaderInit implements ModInitializer {
         ResourcePackGenerator.registerEvent();
     }
 
-    public static ResourceLocation id(String name) {
-        return ResourceLocation.fromNamespaceAndPath(POLYMER_MOD_ID, name);
+    public static Identifier id(String name) {
+        return Identifier.fromNamespaceAndPath(POLYMER_MOD_ID, name);
     }
 }

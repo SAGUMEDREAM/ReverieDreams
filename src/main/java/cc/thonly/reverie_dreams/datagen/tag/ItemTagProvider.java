@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagAppender;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -74,6 +74,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         addAll.accept(ItemTags.AXES, ItemTypeGroup.AXES.items());
         addAll.accept(ItemTags.SHOVELS, ItemTypeGroup.SHOVELS.items());
         addAll.accept(ItemTags.HOES, ItemTypeGroup.HOES.items());
+        addAll.accept(ItemTags.SPEARS, ItemTypeGroup.SPEARS.items());
         addAll.accept(ItemTags.TRIDENT_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(RDItems.TENGU_SHIELD));
@@ -216,11 +217,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
     }
 
     private TagAppender<Item, Item> valueLookupFarmerDelight(String name) {
-        return valueLookupBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("farmersdelight", name)));
+        return valueLookupBuilder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("farmersdelight", name)));
     }
 
     private TagAppender<Item, Item> valueLookupCommon(String name) {
-        return valueLookupBuilder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name)));
+        return valueLookupBuilder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name)));
     }
 
 }

@@ -37,11 +37,11 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 
@@ -136,23 +136,23 @@ public class RegistryHandlers {
         }
     }
 
-    public static <T> T registerForBuiltin(RegistryHandler<T> registry, ResourceLocation key, T value) {
+    public static <T> T registerForBuiltin(RegistryHandler<T> registry, Identifier key, T value) {
         register(registry, key, value);
         registry.setBuiltin(key, value);
         return value;
     }
 
-    public static <T> T register(RegistryHandler<T> registry, ResourceLocation key, T value) {
+    public static <T> T register(RegistryHandler<T> registry, Identifier key, T value) {
         registry.register(ResourceKey.create(registry.key(), key), value, RegistrationInfo.BUILT_IN);
         return value;
     }
 
-    public static <T> T set(RegistryHandler<T> registry, ResourceLocation key, T value) {
+    public static <T> T set(RegistryHandler<T> registry, Identifier key, T value) {
         registry.set(ResourceKey.create(registry.key(), key), value, RegistrationInfo.BUILT_IN);
         return value;
     }
 
-    public static <T> RegistryHandler<T> ofEntry(ResourceLocation identifier) {
+    public static <T> RegistryHandler<T> ofEntry(Identifier identifier) {
         return ofEntry(ResourceKey.createRegistryKey(identifier));
     }
 
@@ -165,20 +165,20 @@ public class RegistryHandlers {
         return intrinsicalRegister;
     }
 
-    public static RequiredArgumentBuilder<CommandSourceStack, ResourceLocation> getSuggestProvider(
+    public static RequiredArgumentBuilder<CommandSourceStack, Identifier> getSuggestProvider(
             Command<CommandSourceStack> command
     ) {
         return Commands
-                .argument("registry_key", ResourceLocationArgument.id())
+                .argument("registry_key", IdentifierArgument.id())
                 .suggests((context, builder) -> {
                     for (ResourceKey<? extends Registry<?>> registryKey : RegistryHandlers.ROOT.keySet()) {
-                        builder.suggest(registryKey.location().toString());
+                        builder.suggest(registryKey.identifier().toString());
                     }
                     return builder.buildFuture();
                 })
-                .then(Commands.argument("id", ResourceLocationArgument.id())
+                .then(Commands.argument("id", IdentifierArgument.id())
                         .suggests((context, builder) -> {
-                            ResourceLocation identifier = ResourceLocationArgument.getId(context, "registry_key");
+                            Identifier identifier = IdentifierArgument.getId(context, "registry_key");
                             if (identifier == null) {
                                 return builder.buildFuture();
                             }
@@ -190,7 +190,7 @@ public class RegistryHandlers {
                             }
 
                             RegistryHandler<?> registry = RegistryHandlers.ROOT.get(registryKey);
-                            for (ResourceLocation key : registry.keys()) {
+                            for (Identifier key : registry.keys()) {
                                 builder.suggest(key.toString());
                             }
 
@@ -200,18 +200,18 @@ public class RegistryHandlers {
                 );
     }
 
-    public static <T> RequiredArgumentBuilder<CommandSourceStack, ResourceLocation> getSuggestProvider(
+    public static <T> RequiredArgumentBuilder<CommandSourceStack, Identifier> getSuggestProvider(
             Command<CommandSourceStack> command,
             ResourceKey<Registry<T>> registryKey
     ) {
         return Commands
-                .argument("id", ResourceLocationArgument.id())
+                .argument("id", IdentifierArgument.id())
                 .suggests((context, builder) -> {
                     RegistryHandler<?> registry = ROOT.get(registryKey);
                     if (registry == null) {
                         return builder.buildFuture();
                     }
-                    for (ResourceLocation key : registry.keys()) {
+                    for (Identifier key : registry.keys()) {
                         builder.suggest(key.toString());
                     }
                     return builder.buildFuture();

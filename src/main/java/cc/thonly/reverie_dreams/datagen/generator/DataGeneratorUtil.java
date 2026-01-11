@@ -60,7 +60,7 @@ public class DataGeneratorUtil {
     public static Path getOutput(Path output, String namespace, ResourceKey<?> key, @Nullable List<String> other, String type) {
         Path base = output.resolve(type).resolve(namespace);
         if (key != null) {
-            base = base.resolve(key.location().getPath());
+            base = base.resolve(key.identifier().getPath());
         }
         if (other != null) {
             for (String string : other) {

@@ -33,21 +33,22 @@ accessible field net/minecraft/world/item/component/DyedItemColor rgb I
 accessible field net/minecraft/world/entity/ai/goal/AvoidEntityGoal avoidClass Ljava/lang/Class;
 accessible field net/minecraft/world/entity/LivingEntity lastHurt F
 accessible method net/minecraft/world/entity/animal/Animal playEatingSound ()V
-accessible method net/minecraft/world/entity/animal/Rabbit setVariant (Lnet/minecraft/world/entity/animal/Rabbit$Variant;)V
-accessible class net/minecraft/world/entity/animal/Rabbit$RabbitAvoidEntityGoal
-accessible class net/minecraft/world/entity/animal/Rabbit$RaidGardenGoal
+accessible method net/minecraft/world/entity/animal/rabbit/Rabbit setVariant (Lnet/minecraft/world/entity/animal/rabbit/Rabbit$Variant;)V
+accessible class net/minecraft/world/entity/animal/rabbit/Rabbit$RabbitAvoidEntityGoal
+accessible class net/minecraft/world/entity/animal/rabbit/Rabbit$RaidGardenGoal
 accessible method net/minecraft/world/entity/LivingEntity travelRidden (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/Vec3;)V
-accessible method net/minecraft/world/entity/animal/Bee setHasStung (Z)V
+accessible method net/minecraft/world/entity/animal/bee/Bee setHasStung (Z)V
 accessible class net/minecraft/world/entity/monster/Ghast$GhastShootFireballGoal
-accessible class net/minecraft/world/entity/monster/SpellcasterIllager$IllagerSpell
+accessible class net/minecraft/world/entity/monster/illager/SpellcasterIllager$IllagerSpell
 accessible method net/minecraft/world/entity/decoration/ArmorStand setMarker (Z)V
 accessible field net/minecraft/world/entity/LivingEntity SLEEPING_POS_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
-accessible class net/minecraft/world/entity/npc/WanderingTrader$WanderToPositionGoal
-accessible method net/minecraft/world/entity/npc/WanderingTrader$WanderToPositionGoal <init> (Lnet/minecraft/world/entity/npc/WanderingTrader;Lnet/minecraft/world/entity/npc/WanderingTrader;DD)V
+accessible class net/minecraft/world/entity/npc/wanderingtrader/WanderingTrader$WanderToPositionGoal
+accessible method net/minecraft/world/entity/npc/wanderingtrader/WanderingTrader$WanderToPositionGoal <init> (Lnet/minecraft/world/entity/npc/wanderingtrader/WanderingTrader;Lnet/minecraft/world/entity/npc/wanderingtrader/WanderingTrader;DD)V
 accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
 accessible method net/minecraft/world/level/levelgen/NoiseRouterData getFunction (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/levelgen/DensityFunction;
 accessible method net/minecraft/world/level/levelgen/NoiseRouterData postProcess (Lnet/minecraft/world/level/levelgen/DensityFunction;)Lnet/minecraft/world/level/levelgen/DensityFunction;
 accessible method net/minecraft/world/level/levelgen/NoiseRouterData slide (Lnet/minecraft/world/level/levelgen/DensityFunction;IIIIDIID)Lnet/minecraft/world/level/levelgen/DensityFunction;
 accessible method net/minecraft/world/item/trading/MerchantOffer <init> (Lnet/minecraft/world/item/trading/ItemCost;Ljava/util/Optional;Lnet/minecraft/world/item/ItemStack;IIZIIFI)V
 accessible class net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion
-accessible method net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion <init> (Lnet/minecraft/resources/ResourceLocation;Lcom/mojang/brigadier/suggestion/SuggestionProvider;)V
+accessible method net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion <init> (Lnet/minecraft/resources/Identifier;Lcom/mojang/brigadier/suggestion/SuggestionProvider;)V
+accessible method net/minecraft/world/entity/player/Player playServerSideSound (Lnet/minecraft/sounds/SoundEvent;)V

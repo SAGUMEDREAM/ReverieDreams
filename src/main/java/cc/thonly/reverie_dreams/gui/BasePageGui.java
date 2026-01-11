@@ -11,7 +11,7 @@ import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -50,8 +50,8 @@ public class BasePageGui extends SimpleGui {
         this.recipeGuiInfo = recipeGuiInfo;
         this.recipeTypeInfo = recipeTypeInfo;
         this.entries = new LinkedList<>();
-        Map<ResourceLocation, ?> registryView = this.recipeTypeInfo.getRecipeType().getRegistryView();
-        for (Map.Entry<ResourceLocation, ?> entry : registryView.entrySet()) {
+        Map<Identifier, ?> registryView = this.recipeTypeInfo.getRecipeType().getRegistryView();
+        for (Map.Entry<Identifier, ?> entry : registryView.entrySet()) {
             this.entries.add(new RecipeEntryWrapper<>(entry.getKey(), entry.getValue()));
         }
         this.maxSize = this.entries.size();
@@ -103,7 +103,7 @@ public class BasePageGui extends SimpleGui {
     }
 
     public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();
             applyGui.open();
@@ -111,7 +111,7 @@ public class BasePageGui extends SimpleGui {
     }
 
     public void next(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
             this.displayList.clear();
@@ -119,7 +119,7 @@ public class BasePageGui extends SimpleGui {
     }
 
     public void prev(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
 
         if (this.page > getMinPage()) {
             this.page--;

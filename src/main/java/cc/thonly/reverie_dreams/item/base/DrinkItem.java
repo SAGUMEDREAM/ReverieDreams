@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,7 +33,7 @@ public class DrinkItem extends Item {
     public DrinkItem(List<DrinkProperty> drinkProperties, Properties settings) {
         super(settings.stacksTo(16)
                 .component(DataComponents.CONSUMABLE, Consumables.DEFAULT_DRINK)
-                .component(RDDataComponents.DRINK_PROPERTIES, drinkProperties.stream().map(DrinkProperty::getId).map(ResourceLocation::toString).toList())
+                .component(RDDataComponents.DRINK_PROPERTIES, drinkProperties.stream().map(DrinkProperty::getId).map(Identifier::toString).toList())
                 .usingConvertsTo(Items.GLASS_BOTTLE));
     }
 

@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.TreeGrower;
@@ -42,7 +42,7 @@ public class WoodCreator extends AbstractBlockCreator {
     private Block fenceGate;
     private Block button;
 
-    private WoodCreator(ResourceLocation id, TreeGrower saplingGenerator) {
+    private WoodCreator(Identifier id, TreeGrower saplingGenerator) {
         super(id.getPath(), id);
         this.saplingGenerator = saplingGenerator;
         INSTANCES.add(this);
@@ -194,7 +194,7 @@ public class WoodCreator extends AbstractBlockCreator {
         return new WoodCreator(name, saplingGenerator);
     }
 
-    public static WoodCreator create(ResourceLocation id, TreeGrower saplingGenerator) {
+    public static WoodCreator create(Identifier id, TreeGrower saplingGenerator) {
         return new WoodCreator(id, saplingGenerator);
     }
 }

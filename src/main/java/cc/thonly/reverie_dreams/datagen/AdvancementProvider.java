@@ -25,7 +25,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -223,7 +223,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
     }
 
     public static AdvancementHolder registerAdvancement(Consumer<AdvancementHolder> context, ResourceKey<Advancement> key, Advancement.Builder builder) {
-        AdvancementHolder holder = builder.build(key.location());
+        AdvancementHolder holder = builder.build(key.identifier());
         context.accept(holder);
         return holder;
     }

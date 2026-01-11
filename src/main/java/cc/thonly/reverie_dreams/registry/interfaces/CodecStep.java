@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.registry.interfaces;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public interface CodecStep<T> {
     Codec<List<Item>> ITEMS_CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Codec.list(ResourceLocation.CODEC)
+                    Codec.list(Identifier.CODEC)
                             .fieldOf("values")
                             .forGetter(items -> items.stream()
                                     .map(BuiltInRegistries.ITEM::getKey)

@@ -13,7 +13,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.JukeboxSong;
 
 import java.nio.charset.StandardCharsets;
@@ -29,7 +29,7 @@ public abstract class AbstractJukeboxProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<ResourceLocation, JukeboxSong> identifierJukeboxSongMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, JukeboxSong> identifierJukeboxSongMap = new Object2ObjectOpenHashMap<>();
 
     public AbstractJukeboxProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
@@ -44,7 +44,7 @@ public abstract class AbstractJukeboxProvider implements DataProvider {
         });
     }
 
-    public JukeboxSong add(ResourceLocation id, JukeboxSong song) {
+    public JukeboxSong add(Identifier id, JukeboxSong song) {
         return this.identifierJukeboxSongMap.put(id, song);
     }
 

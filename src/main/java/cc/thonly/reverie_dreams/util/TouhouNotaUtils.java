@@ -8,7 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -160,7 +160,7 @@ public final class TouhouNotaUtils {
         }
 
         EntitySongPlayer esp = new EntitySongPlayer(song);
-        esp.setId(ResourceLocation.parse(UUID.randomUUID().toString()));
+        esp.setId(Identifier.parse(UUID.randomUUID().toString()));
         esp.setEntity(user);
         esp.setDistance(32);
         esp.setRepeatMode(RepeatMode.NONE);

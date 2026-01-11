@@ -18,6 +18,6 @@ public interface IItemStack {
     }
 
 
-    public boolean isFood();
-    public boolean isDrink();
+    public boolean reverie_dreams$isFood();
+    public boolean reverie_dreams$isDrink();
 }

@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,7 +27,7 @@ import java.util.Objects;
 @ToString(callSuper = true)
 public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
     public final RecipeEntryWrapper<DanmakuShapeDrawRecipe> key2ValueEntry;
-    public final ResourceLocation key;
+    public final Identifier key;
     public final DanmakuShapeDrawRecipe value;
     public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.BACK).setSkullOwner(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
@@ -79,7 +79,7 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
     }
 
     public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         this.close();
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();

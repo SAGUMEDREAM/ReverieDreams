@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,11 +31,11 @@ import java.util.*;
 @ToString
 public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<DrinkProperty>, BuiltinObject, Translatable {
     public static final Codec<DrinkProperty> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("registry_key").forGetter(DrinkProperty::getId),
+            Identifier.CODEC.fieldOf("registry_key").forGetter(DrinkProperty::getId),
             ITEMS_CODEC.fieldOf("properties").forGetter(DrinkProperty::getItemList)
     ).apply(instance, DrinkProperty::new));
 
-    private ResourceLocation id;
+    private Identifier id;
     private final MobEffectInstance effectInstance;
     private Set<Item> items = new ObjectOpenHashSet<>();
     private RegistryHandler<DrinkProperty> owner;
@@ -48,7 +48,7 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
         this.effectInstance = effectInstance;
     }
 
-    public DrinkProperty(ResourceLocation id, List<Item> items) {
+    public DrinkProperty(Identifier id, List<Item> items) {
         this();
         this.id = id;
         this.items.addAll(items);
@@ -92,8 +92,8 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
 
     public static List<DrinkProperty> getDrinkProperties(Item item) {
         List<DrinkProperty> list = new ArrayList<>();
-        Set<Map.Entry<ResourceLocation, DrinkProperty>> entries = RegistryHandlers.DRINK_PROPERTY.idEntrySet();
-        for (Map.Entry<ResourceLocation, DrinkProperty> entry : entries) {
+        Set<Map.Entry<Identifier, DrinkProperty>> entries = RegistryHandlers.DRINK_PROPERTY.idEntrySet();
+        for (Map.Entry<Identifier, DrinkProperty> entry : entries) {
             DrinkProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
             if (tags.contains(item)) {
@@ -106,7 +106,7 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
     public static List<DrinkProperty> getFromStrings(List<String> ids) {
         List<DrinkProperty> list = new ArrayList<>();
         for (String id : ids) {
-            ResourceLocation identifier = ResourceLocation.parse(id);
+            Identifier identifier = Identifier.parse(id);
             DrinkProperty foodProperty = RegistryHandlers.DRINK_PROPERTY.getValue(identifier);
             if (foodProperty != null) {
                 list.add(foodProperty);

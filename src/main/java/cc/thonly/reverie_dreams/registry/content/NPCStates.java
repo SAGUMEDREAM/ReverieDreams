@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class NPCStates {
             )
     );
 
-    public static NPCState get(ResourceLocation id) {
+    public static NPCState get(Identifier id) {
         return RegistryHandlers.NPC_STATE.getValue(id);
     }
 
@@ -35,7 +35,7 @@ public class NPCStates {
         return DEFAULT_RAW_ID2STATE.getOrDefault(rawId, RegistryHandlers.NPC_STATE.byId(rawId));
     }
 
-    public static NPCState register(ResourceLocation id, NPCState npcState) {
+    public static NPCState register(Identifier id, NPCState npcState) {
         return RegistryHandlers.register(RegistryHandlers.NPC_STATE, id, npcState);
     }
 

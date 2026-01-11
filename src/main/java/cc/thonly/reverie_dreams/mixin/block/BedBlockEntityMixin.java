@@ -33,12 +33,12 @@ public class BedBlockEntityMixin extends BlockEntity implements IBedBlockEntity 
     }
 
     @Override
-    public void setHasDreamPillow(boolean value) {
+    public void reverie_dreams$setHasDreamPillow(boolean value) {
         this.hasDreamPillow = value;
     }
 
     @Override
-    public boolean hasDreamPillow() {
+    public boolean reverie_dreams$hasDreamPillow() {
         return this.hasDreamPillow;
     }
 }

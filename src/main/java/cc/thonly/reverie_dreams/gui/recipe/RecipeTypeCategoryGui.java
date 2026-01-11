@@ -80,14 +80,14 @@ public class RecipeTypeCategoryGui extends SimpleGui {
     }
 
     public void next(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
         }
     }
 
     public void prev(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
 
         if (this.page > getMinPage()) {
             this.page--;
@@ -121,7 +121,7 @@ public class RecipeTypeCategoryGui extends SimpleGui {
                         .setLore(List.of())
                         .setCallback((slot, click, action) -> {
                             this.close();
-                            this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                            this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             recipeTypeGuiInfo.create(player, () -> new RecipeTypeCategoryGui(player, this.page));
                         });
                 this.setSlot(getGridSlot(slotIndex), icon);

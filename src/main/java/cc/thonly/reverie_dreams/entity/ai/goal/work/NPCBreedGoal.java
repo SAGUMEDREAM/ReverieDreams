@@ -65,9 +65,9 @@ public class NPCBreedGoal extends TargetGoal {
     @Override
     public void start() {
         this.task = ()-> {
-            ((IAnimalEntity)this.targetEntity).eatStackFood(this.maid, InteractionHand.MAIN_HAND, this.maid.getItemInHand(InteractionHand.MAIN_HAND));
+            ((IAnimalEntity)this.targetEntity).reverie_dreams$eatStackFood(this.maid, InteractionHand.MAIN_HAND, this.maid.getItemInHand(InteractionHand.MAIN_HAND));
             this.targetEntity.playEatingSound();
-            ((IAnimalEntity)this.targetEntity).loveEntity(this.maid);
+            ((IAnimalEntity)this.targetEntity).reverie_dreams$loveEntity(this.maid);
         };
     }
 

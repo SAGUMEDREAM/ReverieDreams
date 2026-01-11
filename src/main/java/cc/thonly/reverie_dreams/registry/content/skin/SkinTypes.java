@@ -3,8 +3,7 @@ package cc.thonly.reverie_dreams.registry.content.skin;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public abstract class SkinTypes {
 
@@ -16,7 +15,7 @@ public abstract class SkinTypes {
         return register(ReverieDreams.id(name), skin);
     }
 
-    public static SkinType register(ResourceLocation id, SkinType skin) {
+    public static SkinType register(Identifier id, SkinType skin) {
         return RegistryHandlers.register(RegistryHandlers.SKIN_TYPE, id, skin);
     }
 }

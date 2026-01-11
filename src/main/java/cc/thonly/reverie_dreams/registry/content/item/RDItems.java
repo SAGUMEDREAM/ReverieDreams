@@ -38,7 +38,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
@@ -297,7 +297,7 @@ public class RDItems {
         return registerSimpleItem(id, factory, settings);
     }
 
-    public static Item registerSimpleItem(ResourceLocation id, Function<Item.Properties, Item> factory, Item.Properties settings) {
+    public static Item registerSimpleItem(Identifier id, Function<Item.Properties, Item> factory, Item.Properties settings) {
         Item item = factory.apply(settings.setId(keyOf(id)));
         Registry.register(BuiltInRegistries.ITEM, id, item);
         ItemTypeGroup.join(item);
@@ -309,7 +309,7 @@ public class RDItems {
         return registerSimpleItem(ReverieDreams.id(name), factory, settings);
     }
 
-    public static ResourceKey<Item> keyOf(ResourceLocation id) {
+    public static ResourceKey<Item> keyOf(Identifier id) {
         return ResourceKey.create(Registries.ITEM, id);
     }
 
@@ -318,7 +318,7 @@ public class RDItems {
     }
 
     public static ResourceKey<Item> keyOf(ResourceKey<Block> blockKey) {
-        return ResourceKey.create(Registries.ITEM, blockKey.location());
+        return ResourceKey.create(Registries.ITEM, blockKey.identifier());
     }
 
     public static List<Item> getItemView() {

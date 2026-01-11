@@ -12,7 +12,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -150,21 +150,21 @@ public class FoodProperties {
     }
 
     public static void reload(ResourceManager manager) {
-        Map<ResourceLocation, FoodProperty> map = RegistryHandlers.FOOD_PROPERTY.entrySet().stream()
+        Map<Identifier, FoodProperty> map = RegistryHandlers.FOOD_PROPERTY.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().location(),
+                        entry -> entry.getKey().identifier(),
                         Map.Entry::getValue
                 ));
-        Set<Map.Entry<ResourceLocation, FoodProperty>> entries = map.entrySet();
+        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
         entries.forEach((es) -> es.getValue().getItems().clear());
 
-        Map<ResourceLocation, Resource> resources = manager.listResources("food_property", id ->
+        Map<Identifier, Resource> resources = manager.listResources("food_property", id ->
                 id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
         );
 
-        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
-            ResourceLocation resourceId = entry.getKey();
-            ResourceLocation key = ResourceLocation.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath().replace("food_property/", "").replace(".json", ""));
+        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+            Identifier resourceId = entry.getKey();
+            Identifier key = Identifier.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath().replace("food_property/", "").replace(".json", ""));
             Resource resource = entry.getValue();
             FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(key);
 
@@ -191,7 +191,7 @@ public class FoodProperties {
 
         Map<Item, Set<FoodProperty>> itemIngredientCached = IngredientItem.ITEM_INGREDIENT_CACHED;
         itemIngredientCached.clear();
-        for (Map.Entry<ResourceLocation, FoodProperty> entry : entries) {
+        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
             FoodProperty property = entry.getValue();
             Set<Item> tags = property.getItems();
             for (Item item : tags) {

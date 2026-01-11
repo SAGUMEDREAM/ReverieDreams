@@ -16,7 +16,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.nio.charset.StandardCharsets;
@@ -32,7 +32,7 @@ public abstract class AbstractIngredientProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<ResourceLocation, AbstractIngredientProvider.Factory> identifier2BuilderListMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, AbstractIngredientProvider.Factory> identifier2BuilderListMap = new Object2ObjectOpenHashMap<>();
 
     public AbstractIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
@@ -41,7 +41,7 @@ public abstract class AbstractIngredientProvider implements DataProvider {
     }
 
     public AbstractIngredientProvider.Factory createFactory(FoodProperty property) {
-        ResourceLocation id = property.getId();
+        Identifier id = property.getId();
         if (this.identifier2BuilderListMap.containsKey(id)) {
             return this.identifier2BuilderListMap.get(id);
         }
@@ -70,7 +70,7 @@ public abstract class AbstractIngredientProvider implements DataProvider {
         Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         try {
             for (var entry : this.identifier2BuilderListMap.entrySet()) {
-                ResourceLocation identifier = entry.getKey();
+                Identifier identifier = entry.getKey();
                 AbstractIngredientProvider.Factory factory = entry.getValue();
                 factory.getProperty().setId(identifier);
                 Path generatePath = DataGeneratorUtil.getData(path, ReverieDreams.MOD_ID, "food_property", null);
@@ -96,12 +96,12 @@ public abstract class AbstractIngredientProvider implements DataProvider {
     @Setter
     @Getter
     public static class Factory {
-        private final ResourceLocation id;
+        private final Identifier id;
         private final FoodProperty property;
         private final List<Item> list = new LinkedList<>();
         private boolean done = false;
 
-        protected Factory(ResourceLocation id, FoodProperty property) {
+        protected Factory(Identifier id, FoodProperty property) {
             this.id = id;
             this.property = property;
         }

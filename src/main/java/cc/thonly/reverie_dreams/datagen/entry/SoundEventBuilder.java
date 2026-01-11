@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -17,15 +17,15 @@ import java.util.Map;
 @Setter
 @Getter
 public class SoundEventBuilder {
-    private final ResourceLocation key;
+    private final Identifier key;
     private String subtitle;
     private List<Object> sounds = new LinkedList<>();
 
-    public SoundEventBuilder(ResourceLocation key) {
+    public SoundEventBuilder(Identifier key) {
         this.key = key;
     }
 
-    public SoundEventBuilder setSubtitle(ResourceLocation key) {
+    public SoundEventBuilder setSubtitle(Identifier key) {
         this.subtitle = key.toLanguageKey("sound");
         return this;
     }
@@ -35,7 +35,7 @@ public class SoundEventBuilder {
         return this;
     }
 
-    public SoundEventBuilder addSounds(ResourceLocation key) {
+    public SoundEventBuilder addSounds(Identifier key) {
         this.sounds.add(key.toString());
         return this;
     }
@@ -46,7 +46,7 @@ public class SoundEventBuilder {
         return this;
     }
 
-    public SoundEventBuilder addSoundsByName(ResourceLocation key) {
+    public SoundEventBuilder addSoundsByName(Identifier key) {
         return addSoundsByName(key.toString());
     }
 
@@ -58,7 +58,7 @@ public class SoundEventBuilder {
         return this;
     }
 
-    public SoundEventBuilder addSoundsByName(ResourceLocation key, boolean stream) {
+    public SoundEventBuilder addSoundsByName(Identifier key, boolean stream) {
         return addSoundsByName(key.toString(), stream);
     }
 

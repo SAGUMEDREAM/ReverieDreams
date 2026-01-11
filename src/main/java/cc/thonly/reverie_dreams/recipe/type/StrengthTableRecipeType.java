@@ -22,7 +22,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
@@ -43,7 +43,7 @@ import java.util.Map;
 public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe> {
     private static StrengthTableRecipeType INSTANCE;
     private final Map<String, Integer> automaticRecipeIdCounter = new Object2ObjectOpenHashMap<>();
-    private final LinkedHashMap<ResourceLocation, StrengthTableRecipe> dynamicBuilder = new LinkedHashMap<>();
+    private final LinkedHashMap<Identifier, StrengthTableRecipe> dynamicBuilder = new LinkedHashMap<>();
     private static final float MAX_SPEED = 2.5f;
     private static final int MAX_COUNT = 3;
     private static final float MAX_DAMAGE = 5.5f;
@@ -60,12 +60,12 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     public void reload(ResourceManager manager) {
         this.dynamicBuilder.clear();
         this.automaticRecipeIdCounter.clear();
-        Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
+        Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
             return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
         });
-        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
-            ResourceLocation id = entry.getKey();
-            ResourceLocation registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^strength_table_recipe/", "").replaceAll("\\.json$", ""));
+        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+            Identifier id = entry.getKey();
+            Identifier registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^strength_table_recipe/", "").replaceAll("\\.json$", ""));
             Resource resource = entry.getValue();
             try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
@@ -91,7 +91,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultInstance()), RDDataComponents.DANMAKU_PROPERTIES);
         this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultInstance()), RDDataComponents.DANMAKU_PROPERTIES);
 
-        Map<ResourceLocation, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
+        Map<Identifier, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .collect(
                         LinkedHashMap::new,
@@ -124,7 +124,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                     value = builderByCounter;
                     StrengthTableRecipe strengthTableRecipe = new StrengthTableRecipe(ItemStackWrapper.of(mainItem), ItemStackWrapper.of(offItem), ItemStackWrapper.of(outputStack));
                     strengthTableRecipe.setVirtual(true);
-                    this.dynamicBuilder.put(ResourceLocation.parse(builderByCounter.toLowerCase()), strengthTableRecipe);
+                    this.dynamicBuilder.put(Identifier.parse(builderByCounter.toLowerCase()), strengthTableRecipe);
                 } catch (Exception e) {
                     log.error("Can't register dynamic recipe, id: {} , {}", value, e);
                 }
@@ -220,7 +220,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return ReverieDreams.id(this.getTypeId());
     }
 }

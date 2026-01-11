@@ -9,7 +9,7 @@ import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
 import cc.thonly.reverie_dreams.server.ItemCateManager;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 
@@ -23,7 +23,7 @@ public class ServerResourceHelper {
 
     public static class Listener implements SimpleSynchronousResourceReloadListener {
         @Override
-        public ResourceLocation getFabricId() {
+        public Identifier getFabricId() {
             return ReverieDreams.id("data");
         }
 

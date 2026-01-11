@@ -258,8 +258,10 @@ public class ManpozuchiItem extends PickaxeItem {
         return attacker.fallDistance > 1.5 && !attacker.isFallFlying();
     }
 
+    @SuppressWarnings("deprecation")
     @Nullable
-    public DamageSource getDamageSource(LivingEntity user) {
-        return shouldDealAdditionalDamage(user) ? user.damageSources().mace(user) : super.getDamageSource(user);
+    public DamageSource getItemDamageSource(LivingEntity user) {
+        return shouldDealAdditionalDamage(user) ? user.damageSources().mace(user) : super.getItemDamageSource(user);
     }
+
 }

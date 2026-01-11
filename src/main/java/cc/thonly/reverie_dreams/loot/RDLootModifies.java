@@ -18,13 +18,13 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.skeleton.Stray;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -217,7 +217,7 @@ public class RDLootModifies {
     }
 
     private static void dropCoins(LivingEntity entity, DamageSource damageSource) {
-        ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        Identifier entityId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
         Level world = entity.level();
         if (!(world instanceof ServerLevel serverWorld)) {
             return;
@@ -242,7 +242,7 @@ public class RDLootModifies {
     }
 
     private static void dropPointPower(LivingEntity entity, DamageSource damageSource) {
-        ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        Identifier entityId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
         Level world = entity.level();
         if ((entity instanceof HairballEntity || entity instanceof Monster || entity instanceof Yousei) && world instanceof ServerLevel serverWorld) {
             RandomSource random = RandomSource.create();
@@ -270,7 +270,7 @@ public class RDLootModifies {
     }
 
     private static ResourceKey<LootTable> vanillaKey(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace(path));
+        return ResourceKey.create(Registries.LOOT_TABLE, Identifier.withDefaultNamespace(path));
     }
 
     private static ResourceKey<LootTable> key(String path) {

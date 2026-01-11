@@ -6,7 +6,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 @SuppressWarnings("unchecked")
 public class PairRegistryHandler<K, V> implements Serializable {
     @Getter
-    private final ResourceLocation key;
+    private final Identifier key;
     @Setter
     @Getter
     private ReloadableFactory reloadableFactory = null;
@@ -34,7 +34,7 @@ public class PairRegistryHandler<K, V> implements Serializable {
     @Getter(AccessLevel.PROTECTED)
     private final Map<V, K> entryToKey;
 
-    protected PairRegistryHandler(ResourceLocation key, Class<K> klass, Class<V> vlass) {
+    protected PairRegistryHandler(Identifier key, Class<K> klass, Class<V> vlass) {
         if (key == null) {
             throw new IllegalArgumentException("Registry require a key, but it is null");
         }
@@ -50,28 +50,28 @@ public class PairRegistryHandler<K, V> implements Serializable {
         PairRegistryHandlers.ROOT.put(key, this);
     }
 
-    public static <K, V> PairRegistryHandler<K, V> createRegister(ResourceLocation id, Class<K> klass, Class<V> vlass) {
+    public static <K, V> PairRegistryHandler<K, V> createRegister(Identifier id, Class<K> klass, Class<V> vlass) {
         return new PairRegistryHandler<>(id, klass, vlass);
     }
 
-    public static <K, V> PairRegistryHandler<K, V> of(ResourceLocation id, Class<K> klass, Class<V> vlass) {
+    public static <K, V> PairRegistryHandler<K, V> of(Identifier id, Class<K> klass, Class<V> vlass) {
         return (PairRegistryHandler<K, V>) PairRegistryHandlers.ROOT.computeIfAbsent(id, x -> new PairRegistryHandler<>(id, klass, vlass));
     }
 
     public static <K, V> PairRegistryHandler<K, V> of(Class<K> klass, Class<V> vlass) {
-        Set<Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>>> registries = PairRegistryHandlers.ROOT.entrySet();
-        for (Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>> entry : registries) {
+        Set<Map.Entry<Identifier, PairRegistryHandler<?, ?>>> registries = PairRegistryHandlers.ROOT.entrySet();
+        for (Map.Entry<Identifier, PairRegistryHandler<?, ?>> entry : registries) {
             PairRegistryHandler<?, ?> registry = entry.getValue();
             if (registry.klass == klass && registry.vlass == vlass) {
                 return (PairRegistryHandler<K, V>) registry;
             }
         }
-        return new PairRegistryHandler<>(ResourceLocation.parse(klass.getName().toLowerCase() + "_2_" + vlass.getName().toLowerCase()), klass, vlass);
+        return new PairRegistryHandler<>(Identifier.parse(klass.getName().toLowerCase() + "_2_" + vlass.getName().toLowerCase()), klass, vlass);
     }
 
     public static <K, V> PairRegistryHandler<K, V> ofNullable(Class<K> klass, Class<V> vlass) {
-        Set<Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>>> registries = PairRegistryHandlers.ROOT.entrySet();
-        for (Map.Entry<ResourceLocation, PairRegistryHandler<?, ?>> entry : registries) {
+        Set<Map.Entry<Identifier, PairRegistryHandler<?, ?>>> registries = PairRegistryHandlers.ROOT.entrySet();
+        for (Map.Entry<Identifier, PairRegistryHandler<?, ?>> entry : registries) {
             PairRegistryHandler<?, ?> registry = entry.getValue();
             if (registry.klass == klass && registry.vlass == vlass) {
                 return (PairRegistryHandler<K, V>) registry;

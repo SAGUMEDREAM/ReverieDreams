@@ -8,7 +8,7 @@ import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -21,16 +21,16 @@ import java.util.List;
 
 @Getter
 public class DanmakuPage implements PolydexPage {
-    public static final ResourceLocation id = ReverieDreams.id("recipe/danmaku_table");
+    public static final Identifier id = ReverieDreams.id("recipe/danmaku_table");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
     public static final ItemStack ICON = new GuiElementBuilder(RDBlocks.DANMAKU_CRAFTING_TABLE.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
-    public final ResourceLocation key;
+    public final Identifier key;
     public final DanmakuRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
     private final PolydexStack<?> output;
 
-    public DanmakuPage(ResourceLocation key, DanmakuRecipe value) {
+    public DanmakuPage(Identifier key, DanmakuRecipe value) {
         this.key = key.withPrefix("recipe/");
         this.value = value;
         List<PolydexIngredient<?>> list = new ArrayList<>();
@@ -46,7 +46,7 @@ public class DanmakuPage implements PolydexPage {
     }
 
     @Override
-    public ResourceLocation identifier() {
+    public Identifier identifier() {
         return key;
     }
 

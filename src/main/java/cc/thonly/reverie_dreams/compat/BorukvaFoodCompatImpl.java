@@ -13,7 +13,7 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.opryshok.item.ModItems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -28,7 +28,7 @@ public class BorukvaFoodCompatImpl {
     public static boolean HAS_LOADED = false;
     public static void bootstrap() {
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
-            BETTER_FARMLAND = BuiltInRegistries.BLOCK.getValue(ResourceLocation.fromNamespaceAndPath("borukva-food","better_farmland"));
+            BETTER_FARMLAND = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("borukva-food","better_farmland"));
             HAS_LOADED = true;
         });
         RecipeCompatPatchesCallback.EVENT.register(() -> {
@@ -48,7 +48,7 @@ public class BorukvaFoodCompatImpl {
                 return;
             }
             RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
+            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> items = property.getItems();

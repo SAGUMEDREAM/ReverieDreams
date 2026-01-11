@@ -27,7 +27,7 @@ public abstract class AnimalEntityMixin extends AgeableMob implements IAnimalEnt
 
     @Unique
     @Override
-    public void eatStackFood(LivingEntity livingEntity, InteractionHand hand, ItemStack stack) {
+    public void reverie_dreams$eatStackFood(LivingEntity livingEntity, InteractionHand hand, ItemStack stack) {
         int i = stack.getCount();
         UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
         stack.shrink(1);
@@ -39,7 +39,7 @@ public abstract class AnimalEntityMixin extends AgeableMob implements IAnimalEnt
 
     @Unique
     @Override
-    public void loveEntity(@Nullable LivingEntity entity) {
+    public void reverie_dreams$loveEntity(@Nullable LivingEntity entity) {
         this.inLove = 600;
         this.level().broadcastEntityEvent(this, EntityEvent.IN_LOVE_HEARTS);
     }

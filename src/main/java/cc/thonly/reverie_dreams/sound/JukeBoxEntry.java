@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.sound;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -29,7 +29,7 @@ public class JukeBoxEntry {
     }
 
     private static JukeboxSong createEntry(ResourceKey<JukeboxSong> key, Holder.Reference<SoundEvent> soundEvent, int lengthInSeconds, int comparatorOutput) {
-        return new JukeboxSong(soundEvent, Component.translatable(Util.makeDescriptionId("jukebox_song", key.location())), lengthInSeconds, comparatorOutput);
+        return new JukeboxSong(soundEvent, Component.translatable(Util.makeDescriptionId("jukebox_song", key.identifier())), lengthInSeconds, comparatorOutput);
     }
 
 }

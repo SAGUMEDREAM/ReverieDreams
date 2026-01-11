@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,7 +35,7 @@ public class DanmakuItem extends AbstractDanmakuItem {
         if (properties == null) {
             return;
         }
-        ResourceLocation templateId = properties.getTemplateId();
+        Identifier templateId = properties.getTemplateId();
         DanmakuTrajectory danmakuTrajectory = RegistryHandlers.DANMAKU_TRAJECTORY.getValue(templateId);
 
         if (danmakuTrajectory != null) {

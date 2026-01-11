@@ -1,13 +1,22 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.Musics;
 import net.minecraft.tags.TagKey;
+import net.minecraft.tags.TimelineTags;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.attribute.*;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.timeline.Timeline;
+import net.minecraft.world.timeline.Timelines;
 
 import java.util.Optional;
 import java.util.OptionalLong;
@@ -18,51 +27,68 @@ public class DimensionTypeInit {
     public static final ResourceKey<DimensionType> GENSOKYO = getOrCreateRegistryKey("gensokyo");
 
     public static void bootstrap(BootstrapContext<DimensionType> context) {
+        HolderGetter<Timeline> timeLines = context.lookup(Registries.TIMELINE);
         context.register(DREAM_WORLD, new DimensionType(
-                OptionalLong.empty(),                   // fixedTime
-                true,                                   // hasSkyLight
+                true,
+                true,                               // hasSkyLight
                 false,                                  // hasCeiling
-                false,                                  // ultrawarm
-                true,                                   // natural
                 1.0,                                    // coordinateScale
-                true,                                   // bedWorks
-                true,                                   // respawnAnchorWorks
                 0,                                      // minY
                 256,                                    // height
                 256,                                    // logicalHeight
-                TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
-                ResourceLocation.fromNamespaceAndPath("minecraft", "overworld"),                                          // effects
+                TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
                 0.0f,                                   // ambientLight
-                Optional.empty(),                       // cloudHeight
                 new DimensionType.MonsterSettings(      // monsterSettings
-                        true,                           // piglinSafe
-                        true,                           // hasRaids
-                        UniformInt.of(0, 7),// monsterSpawnLightLevel (UniformIntProvider)
+                        UniformInt.of(0, 7),        // monsterSpawnLightLevel (UniformIntProvider)
                         0                               // monsterSpawnBlockLightLimit
-                )
+                ),
+                DimensionType.Skybox.NONE,
+                DimensionType.CardinalLightType.DEFAULT,
+                EnvironmentAttributeMap.builder()
+                        .set(EnvironmentAttributes.FOG_COLOR, -4138753)
+                        .set(EnvironmentAttributes.SKY_COLOR, OverworldBiomes.calculateSkyColor(0.8F))
+                        .set(EnvironmentAttributes.CLOUD_COLOR, ARGB.white(0.8F))
+                        .set(EnvironmentAttributes.CLOUD_HEIGHT, 192.33F)
+                        .set(EnvironmentAttributes.BACKGROUND_MUSIC, BackgroundMusic.OVERWORLD)
+                        .set(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS)
+                        .set(EnvironmentAttributes.PIGLINS_ZOMBIFY, false)
+                        .set(EnvironmentAttributes.CAN_START_RAID, true)
+                        .set(EnvironmentAttributes.NETHER_PORTAL_SPAWNS_PIGLINS, false)
+                        .set(EnvironmentAttributes.BED_RULE, new BedRule(BedRule.Rule.ALWAYS, BedRule.Rule.NEVER, false, Optional.empty()))
+                        .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, true)
+                        .build(),    // hasRaids,
+                timeLines.getOrThrow(TimelineTags.IN_OVERWORLD)
         ));
         context.register(THE_MOON, new DimensionType(
-                OptionalLong.empty(), // fixedTime 缺省
+                true,             // hasFixedTime
                 true,                 // hasSkyLight
                 false,                // hasCeiling
-                false,                // ultrawarm
-                true,                 // natural
                 1.0,                  // coordinateScale
-                true,                 // bedWorks
-                false,                // respawnAnchorWorks
                 0,                    // minY
                 256,                  // height
                 256,                  // logicalHeight
-                TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
-                ResourceLocation.fromNamespaceAndPath("minecraft", "the_end"), // effects
+                TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
                 0.0f,                 // ambientLight
-                Optional.empty(),     // cloudHeight
                 new DimensionType.MonsterSettings(
-                        false,                           // piglinSafe
-                        true,                            // hasRaids
-                        UniformInt.of(0, 7), // monsterSpawnLightLevel
+                        UniformInt.of(0, 7),        // monsterSpawnLightLevel
                         0                                // monsterSpawnBlockLightLimit
-                )
+                ),
+                DimensionType.Skybox.END,
+                DimensionType.CardinalLightType.DEFAULT,
+                EnvironmentAttributeMap.builder()
+                        .set(EnvironmentAttributes.FOG_COLOR, -15199464)
+                        .set(EnvironmentAttributes.SKY_LIGHT_COLOR, -1736449)
+                        .set(EnvironmentAttributes.SKY_COLOR, -16777216)
+                        .set(EnvironmentAttributes.SKY_LIGHT_FACTOR, 0.0F)
+                        .set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(Musics.END))
+                        .set(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS)
+                        .set(EnvironmentAttributes.PIGLINS_ZOMBIFY, false)
+                        .set(EnvironmentAttributes.CAN_START_RAID, true)
+                        .set(EnvironmentAttributes.NETHER_PORTAL_SPAWNS_PIGLINS, true)
+                        .set(EnvironmentAttributes.BED_RULE, BedRule.CAN_SLEEP_WHEN_DARK)
+                        .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, true)
+                        .build(),
+                timeLines.getOrThrow(TimelineTags.IN_OVERWORLD)
         ));
     }
 
@@ -71,7 +97,7 @@ public class DimensionTypeInit {
     }
 
     public static ResourceKey<DimensionType> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
+        return ResourceKey.create(Registries.DIMENSION_TYPE, Identifier.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 
 }

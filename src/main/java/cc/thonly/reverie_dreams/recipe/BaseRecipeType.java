@@ -10,7 +10,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
 
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 @Slf4j
 @ToString
 public abstract class BaseRecipeType<R extends BaseRecipe> {
-    protected final Map<ResourceLocation, R> registries = new Object2ObjectLinkedOpenHashMap<>();
+    protected final Map<Identifier, R> registries = new Object2ObjectLinkedOpenHashMap<>();
     private int nextRawId = 0;
 
     public abstract void reload(ResourceManager manager);
@@ -35,9 +35,9 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
 
     public abstract String getTypeId();
 
-    public abstract ResourceLocation getId();
+    public abstract Identifier getId();
 
-    public BaseRecipeType<R> add(ResourceLocation id, R recipe) {
+    public BaseRecipeType<R> add(Identifier id, R recipe) {
         if (!this.registries.containsKey(id)) {
             recipe.setRawId(this.nextRawId++);
         } else {
@@ -49,14 +49,14 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
     }
 
     @SuppressWarnings("unchecked")
-    public void add(ResourceLocation key, Object value) {
+    public void add(Identifier key, Object value) {
         this.add(key, (R) value);
     }
 
     public void sort() {
         Map<Item, LinkedList<R>> sign = new LinkedHashMap<>();
-        Map<ResourceLocation, R> all = new LinkedHashMap<>();
-        for (Map.Entry<ResourceLocation, R> recipeEntry : this.registries.entrySet()) {
+        Map<Identifier, R> all = new LinkedHashMap<>();
+        for (Map.Entry<Identifier, R> recipeEntry : this.registries.entrySet()) {
             R recipe = recipeEntry.getValue();
             Item item = recipe.getOutput().getItem();
             LinkedList<R> list = sign.computeIfAbsent(item, i -> new LinkedList<>());
@@ -74,21 +74,21 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
 
     public void assignRawId() {
         int nextId = 0;
-        for (Map.Entry<ResourceLocation, R> next : this.registries.entrySet()) {
+        for (Map.Entry<Identifier, R> next : this.registries.entrySet()) {
             R recipeEntry = next.getValue();
             recipeEntry.setRawId(nextId++);
         }
     }
 
-    public R getRecipeById(ResourceLocation id) {
+    public R getRecipeById(Identifier id) {
         return this.registries.get(id);
     }
 
-    public Map<ResourceLocation, R> getRegistryView() {
+    public Map<Identifier, R> getRegistryView() {
         return new LinkedHashMap<>(this.registries);
     }
 
-    public List<ResourceLocation> keys() {
+    public List<Identifier> keys() {
         return new ArrayList<>(this.registries.keySet());
     }
 
@@ -104,7 +104,7 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
         return this.registries.values().stream();
     }
 
-    public BaseRecipeType<R> remove(ResourceLocation id) {
+    public BaseRecipeType<R> remove(Identifier id) {
         this.registries.remove(id);
         return this;
     }
@@ -117,13 +117,13 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
 
     public JsonElement encode() {
         JsonObject element = new JsonObject();
-        Object2ObjectOpenHashMap<ResourceLocation, R> registries = new Object2ObjectOpenHashMap<>(this.registries);
-        Set<Map.Entry<ResourceLocation, R>> entries = registries.entrySet();
+        Object2ObjectOpenHashMap<Identifier, R> registries = new Object2ObjectOpenHashMap<>(this.registries);
+        Set<Map.Entry<Identifier, R>> entries = registries.entrySet();
         Codec<R> codec = this.getCodec();
         if (codec == null) {
             return element;
         }
-        for (Map.Entry<ResourceLocation, R> entry : entries) {
+        for (Map.Entry<Identifier, R> entry : entries) {
             R value = entry.getValue();
             DataResult<JsonElement> dataResult = codec.encodeStart(JsonOps.INSTANCE, value);
             Optional<JsonElement> result = dataResult.result();
@@ -150,9 +150,9 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
             String key = entry.getKey();
             JsonElement value = entry.getValue();
 
-            ResourceLocation id;
+            Identifier id;
             try {
-                id = ResourceLocation.parse(key);
+                id = Identifier.parse(key);
             } catch (Exception e) {
                 log.error("Can't parse Identifier {}", key, e);
                 continue;

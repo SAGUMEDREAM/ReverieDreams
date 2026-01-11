@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,7 +62,7 @@ public class GapBall extends Item {
             this.stack = stack;
             this.gapRecorders = new ArrayList<>(stack.getOrDefault(RDDataComponents.GAP_RECORDER, new ArrayList<>()));
             while (gapRecorders.size() <= MAX_INDEX) {
-                this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().location().toString(), BlockPos.ZERO, false));
+                this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().identifier().toString(), BlockPos.ZERO, false));
             }
             this.init();
         }
@@ -108,7 +108,7 @@ public class GapBall extends Item {
             super.onTick();
             this.gapRecorders = new ArrayList<>(this.stack.getOrDefault(RDDataComponents.GAP_RECORDER, new ArrayList<>()));
             while (gapRecorders.size() <= MAX_INDEX) {
-                this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().location().toString(), BlockPos.ZERO, false));
+                this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().identifier().toString(), BlockPos.ZERO, false));
             }
             this.updateTeleportSlots();
         }
@@ -135,11 +135,11 @@ public class GapBall extends Item {
 
         public void teleport(int index) {
             GapRecorder recorder = this.gapRecorders.get(index);
-            this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+            this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
             if (recorder != null && recorder.isEnable()) {
                 BlockPos pos = recorder.getValue();
                 MinecraftServer server = this.player.level().getServer();
-                ResourceLocation id = ResourceLocation.parse(recorder.getWorld());
+                Identifier id = Identifier.parse(recorder.getWorld());
                 ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, id);
                 ServerLevel targetWorld = server.getLevel(worldKey);
                 if (targetWorld == null) {
@@ -155,7 +155,7 @@ public class GapBall extends Item {
                         this.player.getXRot(),
                         true);
                 this.player.displayClientMessage(Component.literal("已传送至：" + recorder.getName()), false);
-                this.player.playNotifySound(SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.0f);
+                this.player.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0f, 1.0f);
                 this.player.getCooldowns().addCooldown(this.stack, 3 * 20);
                 this.close();
             } else {
@@ -165,8 +165,8 @@ public class GapBall extends Item {
 
         public void add(int index) {
             BlockPos pos = this.player.blockPosition();
-            GapRecorder recorder = new GapRecorder("位置 " + index, this.getPlayer().level().dimension().location().toString(), pos, true);
-            player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+            GapRecorder recorder = new GapRecorder("位置 " + index, this.getPlayer().level().dimension().identifier().toString(), pos, true);
+            this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
             this.gapRecorders.set(index, recorder);
             this.stack.set(RDDataComponents.GAP_RECORDER, this.gapRecorders);
             this.player.displayClientMessage(Component.literal("已记录当前位置至槽位 " + index), false);
@@ -177,7 +177,7 @@ public class GapBall extends Item {
 
         public void delete(int index) {
             GapRecorder recorder = this.gapRecorders.get(index);
-            player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+            this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
             if (recorder != null) {
                 recorder.setEnable(false);
                 this.stack.set(RDDataComponents.GAP_RECORDER, this.gapRecorders);

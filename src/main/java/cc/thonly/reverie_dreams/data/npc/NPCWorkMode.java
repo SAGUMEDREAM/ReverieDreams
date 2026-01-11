@@ -8,13 +8,14 @@ import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -24,8 +25,8 @@ import java.util.Map;
 @Getter
 @Setter
 public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWorkMode>, BuiltinObject, Translatable {
-    public static final Codec<NPCWorkMode> CODEC = Codec.unit(NPCWorkMode::new);
-    public static final ResourceLocation DEFAULT_ID = ReverieDreams.id("combat");
+    public static final Codec<NPCWorkMode> CODEC = UnitCodec.unit(NPCWorkMode::new);
+    public static final Identifier DEFAULT_ID = ReverieDreams.id("combat");
     private final String type;
     private final Item itemDisplay;
     private RegistryHandler<NPCWorkMode> owner;

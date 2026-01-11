@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.inf;
 
 public interface IBedBlockEntity {
-    void setHasDreamPillow(boolean value);
-    boolean hasDreamPillow();
+    void reverie_dreams$setHasDreamPillow(boolean value);
+    boolean reverie_dreams$hasDreamPillow();
 }

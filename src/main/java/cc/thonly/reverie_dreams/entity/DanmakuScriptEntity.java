@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.entity;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;

@@ -46,7 +46,7 @@ public class FoodDisplayBlock extends BaseEntityBlock {
                 if (!(serverWorld.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity)) {
                     return InteractionResult.PASS;
                 }
-                boolean isFood = ((IItemStack) (Object) isdBlockEntity.getItem().getItemStack()).isFood();
+                boolean isFood = ((IItemStack) (Object) isdBlockEntity.getItem().getItemStack()).reverie_dreams$isFood();
                 if (isFood) {
                     ItemStack contentStack = isdBlockEntity.getItem().getItemStack();
                     Consumable consumableComponent = contentStack.get(DataComponents.CONSUMABLE);

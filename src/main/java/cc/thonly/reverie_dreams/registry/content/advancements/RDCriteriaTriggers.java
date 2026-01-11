@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.advancement.*;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class RDCriteriaTriggers {
 
     }
 
-    public static <T extends CriterionTrigger<?>> T register(ResourceLocation name, T criterionTrigger) {
+    public static <T extends CriterionTrigger<?>> T register(Identifier name, T criterionTrigger) {
         LIST.add(criterionTrigger);
         return (T) Registry.register(BuiltInRegistries.TRIGGER_TYPES, name, criterionTrigger);
     }

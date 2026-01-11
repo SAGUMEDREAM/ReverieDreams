@@ -20,7 +20,7 @@ public class MoneyShopClerk {
         // 等级 1：铜 <-> 银
         TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.MONEY_SHOP_CLERK, 1, factories -> {
             // 铜 → 银
-            factories.add((entity, random) -> new MerchantOffer(
+            factories.add((level, entity, random) -> new MerchantOffer(
                     new ItemCost(RDItems.COPPER_COIN, COPPER_PER_SILVER),
                     Optional.empty(),
                     new ItemStack(RDItems.SILVER_COIN, 1),
@@ -29,7 +29,7 @@ public class MoneyShopClerk {
                     PRICE_MULTIPLIER
             ));
             // 银 → 铜
-            factories.add((entity, random) -> new MerchantOffer(
+            factories.add((level, entity, random) -> new MerchantOffer(
                     new ItemCost(RDItems.SILVER_COIN, 1),
                     Optional.empty(),
                     new ItemStack(RDItems.COPPER_COIN, COPPER_PER_SILVER),
@@ -42,7 +42,7 @@ public class MoneyShopClerk {
         // 等级 2：银 <-> 金
         TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.MONEY_SHOP_CLERK, 2, factories -> {
             // 银 → 金
-            factories.add((entity, random) -> new MerchantOffer(
+            factories.add((level, entity, random) -> new MerchantOffer(
                     new ItemCost(RDItems.SILVER_COIN, SILVER_PER_GOLD),
                     Optional.empty(),
                     new ItemStack(RDItems.GOLD_COIN, 1),
@@ -51,7 +51,7 @@ public class MoneyShopClerk {
                     PRICE_MULTIPLIER
             ));
             // 金 → 银
-            factories.add((entity, random) -> new MerchantOffer(
+            factories.add((level, entity, random) -> new MerchantOffer(
                     new ItemCost(RDItems.GOLD_COIN, 1),
                     Optional.empty(),
                     new ItemStack(RDItems.SILVER_COIN, SILVER_PER_GOLD),

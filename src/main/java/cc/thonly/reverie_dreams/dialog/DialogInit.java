@@ -14,7 +14,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.ItemBody;
@@ -63,16 +63,15 @@ public class DialogInit {
     private static final URI DISCORD_LINK = URI.create("https://discord.gg/8nzjpm8wex");
     public static List<ItemBody> UPGRADE_ITEM_BODIES = new ArrayList<>();
     public static final List<ItemStack> UPGRADE_ITEM = getUpgradeItemList();
-    public static final ResourceKey<Registry<Dialog>> REGISTRY = Registries.DIALOG;
-    public static final ResourceLocation MAIN_HELP_ID = ReverieDreams.id("main_help");
-    public static final ResourceLocation ALTAR_HELP_ID = ReverieDreams.id("altar_help");
-    public static final ResourceLocation CRAFTING_DANMAKU_HELP_ID = ReverieDreams.id("crafting_danmaku_help");
-    public static final ResourceLocation UPGRADE_DANMAKU_HELP_ID = ReverieDreams.id("upgrade_danmaku_help");
-    public static final ResourceLocation GET_FUMO_HELP_ID = ReverieDreams.id("get_fumo_help");
-    public static final ResourceLocation ROLE_HELP_ID = ReverieDreams.id("role_help");
-    public static final ResourceLocation TOUHOU_MYSTIA_HELP_ID = ReverieDreams.id("touhou_mystia_help");
-    public static final ResourceLocation REGISTRIES_ID = ReverieDreams.id("registries");
-    public static final ResourceLocation OTHER_MOD_LIST_ID = ReverieDreams.id("other_mod_list");
+    public static final Identifier MAIN_HELP_ID = ReverieDreams.id("main_help");
+    public static final Identifier ALTAR_HELP_ID = ReverieDreams.id("altar_help");
+    public static final Identifier CRAFTING_DANMAKU_HELP_ID = ReverieDreams.id("crafting_danmaku_help");
+    public static final Identifier UPGRADE_DANMAKU_HELP_ID = ReverieDreams.id("upgrade_danmaku_help");
+    public static final Identifier GET_FUMO_HELP_ID = ReverieDreams.id("get_fumo_help");
+    public static final Identifier ROLE_HELP_ID = ReverieDreams.id("role_help");
+    public static final Identifier TOUHOU_MYSTIA_HELP_ID = ReverieDreams.id("touhou_mystia_help");
+    public static final Identifier REGISTRIES_ID = ReverieDreams.id("registries");
+    public static final Identifier OTHER_MOD_LIST_ID = ReverieDreams.id("other_mod_list");
     public static final MultiActionDialog MAIN_HELP;
     public static final MultiActionDialog ALTAR_HELP;
     public static final MultiActionDialog CRAFTING_DANMAKU_HELP;
@@ -420,10 +419,6 @@ public class DialogInit {
         list.add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.title.mystia.main")), 200),
                 Optional.of(new StaticAction(showPage("TOUHOU_MYSTIA")))
-        ));
-        list.add(new ActionButton(
-                new CommonButtonData(Component.empty().append(Component.translatable("dialog.title.registries")), 200),
-                Optional.of(new StaticAction(showPage("REGISTRIES")))
         ));
         list.add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.title.other_mod_list")), 200),

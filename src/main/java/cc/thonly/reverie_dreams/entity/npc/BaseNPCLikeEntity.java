@@ -5,10 +5,9 @@ import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
-import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCCrossbowAttackGoal;
-import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCDanmakuItemGoal;
-import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
+import cc.thonly.reverie_dreams.entity.ai.goal.AvoidCreeperExplosionEntityGoal;
+import cc.thonly.reverie_dreams.entity.ai.goal.AvoidFireDamageEntityGoal;
+import cc.thonly.reverie_dreams.entity.ai.goal.attack.*;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
@@ -38,7 +37,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundEntityPositionSyncPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
@@ -60,6 +59,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.SpearUseGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -199,8 +199,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
         this.sit = view.getBooleanOr("IsSit", false);
 
-        this.npcState = NPCStates.get(ResourceLocation.parse(view.getStringOr("NPCStateId", NPCState.DEFAULT_ID.toString())));
-        this.workMode = NPCWorkModes.get(ResourceLocation.parse(view.getStringOr("NPCWorkStateId", NPCWorkMode.DEFAULT_ID.toString())));
+        this.npcState = NPCStates.get(Identifier.parse(view.getStringOr("NPCStateId", NPCState.DEFAULT_ID.toString())));
+        this.workMode = NPCWorkModes.get(Identifier.parse(view.getStringOr("NPCWorkStateId", NPCWorkMode.DEFAULT_ID.toString())));
         this.npcOwner = view.getStringOr("NpcOwner", "");
 
         NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
@@ -275,6 +275,9 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(1, new AvoidCreeperExplosionEntityGoal(this, 6.0F, (double)1.0F, 1.2));
+        this.goalSelector.addGoal(1, new AvoidFireDamageEntityGoal(this, 6.0F, (double)1.0F, 1.2));
+        this.goalSelector.addGoal(3, new NPCSpearUseGoal<>(this, 1.0, 1.0, 10.0F, 2.0F));
     }
 
     public void addExperience(int xp) {

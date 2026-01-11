@@ -6,7 +6,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.*;
@@ -70,6 +70,6 @@ public class ChunkGeneratorSettingsInit {
     }
 
     public static ResourceKey<NoiseGeneratorSettings> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.NOISE_SETTINGS, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
+        return ResourceKey.create(Registries.NOISE_SETTINGS, Identifier.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 }

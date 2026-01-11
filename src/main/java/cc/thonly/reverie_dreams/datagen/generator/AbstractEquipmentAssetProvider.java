@@ -15,7 +15,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 
 import java.io.IOException;
@@ -43,18 +43,18 @@ public abstract class AbstractEquipmentAssetProvider implements DataProvider {
     protected abstract void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer);
 
     protected EquipmentClientInfo createHumanoidOnlyModel(String id) {
-        return EquipmentClientInfo.builder().addHumanoidLayers(ResourceLocation.withDefaultNamespace(id)).build();
+        return EquipmentClientInfo.builder().addHumanoidLayers(Identifier.withDefaultNamespace(id)).build();
     }
 
     protected EquipmentClientInfo createHumanoidAndHorseModel(String id) {
-        return EquipmentClientInfo.builder().addHumanoidLayers(ResourceLocation.withDefaultNamespace(id)).addLayers(EquipmentClientInfo.LayerType.HORSE_BODY, EquipmentClientInfo.Layer.leatherDyeable(ResourceLocation.withDefaultNamespace(id), false)).build();
+        return EquipmentClientInfo.builder().addHumanoidLayers(Identifier.withDefaultNamespace(id)).addLayers(EquipmentClientInfo.LayerType.HORSE_BODY, EquipmentClientInfo.Layer.leatherDyeable(Identifier.withDefaultNamespace(id), false)).build();
     }
 
-    protected EquipmentClientInfo createHumanoidOnlyModel(ResourceLocation id) {
+    protected EquipmentClientInfo createHumanoidOnlyModel(Identifier id) {
         return EquipmentClientInfo.builder().addHumanoidLayers(id).build();
     }
 
-    protected EquipmentClientInfo createHumanoidAndHorseModel(ResourceLocation id) {
+    protected EquipmentClientInfo createHumanoidAndHorseModel(Identifier id) {
         return EquipmentClientInfo.builder().addHumanoidLayers(id).addLayers(EquipmentClientInfo.LayerType.HORSE_BODY, EquipmentClientInfo.Layer.leatherDyeable(id, false)).build();
     }
 
@@ -71,7 +71,7 @@ public abstract class AbstractEquipmentAssetProvider implements DataProvider {
                 if (map.putIfAbsent(key, model) != null) {
                     throw new IllegalStateException("Tried to register equipment asset twice for id: " + String.valueOf(key));
                 }
-                ResourceLocation identifier = key.location();
+                Identifier identifier = key.identifier();
                 String namespaceRef = identifier.getNamespace();
                 String pathRef = identifier.getPath();
                 Path generatePath = DataGeneratorUtil.getAssets(path, namespaceRef, "equipment", null);

@@ -21,7 +21,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -547,11 +547,11 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
     }
 
     public void generateKitchenRecipe() {
-        ResourceLocation cookingPot = KitchenRecipeType.KitchenType.COOKING_POT.toId();
-        ResourceLocation grill = KitchenRecipeType.KitchenType.GRILL.toId();
-        ResourceLocation cuttingBoard = KitchenRecipeType.KitchenType.CUTTING_BOARD.toId();
-        ResourceLocation streamer = KitchenRecipeType.KitchenType.STREAMER.toId();
-        ResourceLocation fryingPan = KitchenRecipeType.KitchenType.FRYING_PAN.toId();
+        Identifier cookingPot = KitchenRecipeType.KitchenType.COOKING_POT.toId();
+        Identifier grill = KitchenRecipeType.KitchenType.GRILL.toId();
+        Identifier cuttingBoard = KitchenRecipeType.KitchenType.CUTTING_BOARD.toId();
+        Identifier streamer = KitchenRecipeType.KitchenType.STREAMER.toId();
+        Identifier fryingPan = KitchenRecipeType.KitchenType.FRYING_PAN.toId();
 
         // 煮锅
         this.kitchenRecipeFactory.register(ReverieDreams.id("seafood_miso_soup"), new KitchenRecipe(
@@ -1531,15 +1531,15 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
     public void generateDanmakuRecipe() {
         Stream<DanmakuType> stream = RegistryHandlers.DANMAKU_TYPE.stream();
         stream.forEach(value -> {
-            ResourceLocation key = RegistryHandlers.DANMAKU_TYPE.getKey(value);
+            Identifier key = RegistryHandlers.DANMAKU_TYPE.getKey(value);
             if (!value.isDeleteFromList()) {
                 for (Tuple<Item, ItemStack> pair : value.getColorPairs()) {
                     Item dye = pair.getA();
                     ItemStack result = pair.getB();
                     Item item = result.getItem();
-                    ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
-                    ResourceLocation dyeId = BuiltInRegistries.ITEM.getKey(dye);
-                    ResourceLocation registryKey = ResourceLocation.fromNamespaceAndPath(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
+                    Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
+                    Identifier dyeId = BuiltInRegistries.ITEM.getKey(dye);
+                    Identifier registryKey = Identifier.fromNamespaceAndPath(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
                     DanmakuRecipe recipe = new DanmakuRecipe(
                             new ItemStackWrapper(new ItemStack(dye, 4)),
                             new ItemStackWrapper(new ItemStack(RDItems.DANMAKU_CORE, 4)),

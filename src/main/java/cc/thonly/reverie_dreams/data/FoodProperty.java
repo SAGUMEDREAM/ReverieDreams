@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,11 +31,11 @@ import java.util.stream.Collectors;
 @ToString
 public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodProperty>, BuiltinObject, Translatable {
     public static final Codec<FoodProperty> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("registry_key").forGetter(FoodProperty::getId),
+            Identifier.CODEC.fieldOf("registry_key").forGetter(FoodProperty::getId),
             ITEMS_CODEC.fieldOf("properties").forGetter(FoodProperty::getItemList)
     ).apply(instance, FoodProperty::new));
 
-    private ResourceLocation id;
+    private Identifier id;
     private final MobEffectInstance effectInstance;
     private Set<Item> items = new ObjectOpenHashSet<>();
 
@@ -49,7 +49,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
         this.effectInstance = effectInstance;
     }
 
-    public FoodProperty(ResourceLocation id, List<Item> list) {
+    public FoodProperty(Identifier id, List<Item> list) {
         this();
         this.id = id;
         this.items.addAll(list);
@@ -105,14 +105,14 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
      * @return 包含该 Item 的所有 FoodProperty 列表
      */
     public static List<FoodProperty> getIngredientProperties(Item item) {
-        Map<ResourceLocation, FoodProperty> map = RegistryHandlers.FOOD_PROPERTY.entrySet().stream()
+        Map<Identifier, FoodProperty> map = RegistryHandlers.FOOD_PROPERTY.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().location(),
+                        entry -> entry.getKey().identifier(),
                         Map.Entry::getValue
                 ));
         List<FoodProperty> list = new ArrayList<>();
-        Set<Map.Entry<ResourceLocation, FoodProperty>> entries = map.entrySet();
-        for (Map.Entry<ResourceLocation, FoodProperty> entry : entries) {
+        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
+        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
             FoodProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
             if (tags.contains(item)) {
@@ -142,15 +142,15 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
      * @return 包含该物品的所有 FoodProperty 列表
      */
     public static List<FoodProperty> getFromItemStack(ItemStack itemStack) {
-        Map<ResourceLocation, FoodProperty> map = RegistryHandlers.FOOD_PROPERTY.entrySet().stream()
+        Map<Identifier, FoodProperty> map = RegistryHandlers.FOOD_PROPERTY.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().location(),
+                        entry -> entry.getKey().identifier(),
                         Map.Entry::getValue
                 ));
         List<FoodProperty> list = new ArrayList<>();
         Item item = itemStack.getItem();
-        Set<Map.Entry<ResourceLocation, FoodProperty>> entries = map.entrySet();
-        for (Map.Entry<ResourceLocation, FoodProperty> entry : entries) {
+        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
+        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
             FoodProperty foodProperty = entry.getValue();
             Set<Item> tags = foodProperty.getItems();
             if (tags.contains(item)) {
@@ -169,7 +169,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
     public static List<FoodProperty> getFromStrings(List<String> ids) {
         List<FoodProperty> list = new ArrayList<>();
         for (String id : ids) {
-            ResourceLocation identifier = ResourceLocation.parse(id);
+            Identifier identifier = Identifier.parse(id);
             FoodProperty foodProperty = RegistryHandlers.FOOD_PROPERTY.getValue(identifier);
             if (foodProperty != null) {
                 list.add(foodProperty);

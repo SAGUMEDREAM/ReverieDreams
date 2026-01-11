@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
@@ -16,7 +17,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.Map;
@@ -28,10 +29,10 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     /**
      * 预升级 1.21.9 所用代码
      **/
-    private static final Map<ResourceLocation, MannequinInfo> INFO = new Object2ObjectLinkedOpenHashMap<>();
+    private static final Map<Identifier, MannequinInfo> INFO = new Object2ObjectLinkedOpenHashMap<>();
 
-    private record MannequinInfo(ResourceLocation texture, Optional<ResourceLocation> capeTexture,
-                                 Optional<ResourceLocation> elytraTexture, PlayerSkinType model) {
+    private record MannequinInfo(Identifier texture, Optional<Identifier> capeTexture,
+                                 Optional<Identifier> elytraTexture, PlayerSkinType model) {
 
     }
 
@@ -47,12 +48,12 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
         }
     }
 
-    public static Codec<SkinType> UNIT_CODEC = Codec.unit(SkinType::new);
+    public static Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
     public static Codec<SkinType> CODEC;
 
     @Setter
     @Getter
-    private ResourceLocation id;
+    private Identifier id;
     private String value;
     private String signature;
     @Setter
@@ -67,13 +68,13 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     private SkinType() {
     }
 
-    public SkinType(ResourceLocation id) {
+    public SkinType(Identifier id) {
         this.id = id;
         this.value = "null";
         this.signature = "null";
     }
 
-    public SkinType(ResourceLocation id, String value, String signature) {
+    public SkinType(Identifier id, String value, String signature) {
         this.id = id;
         this.value = value;
         this.signature = signature;
@@ -109,7 +110,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
 
     private void valid() {
         try {
-            ResourceLocation fileId = ReverieDreams.id("entity/player/%s".formatted(this.id.getPath()));
+            Identifier fileId = ReverieDreams.id("entity/player/%s".formatted(this.id.getPath()));
 
         } catch (Exception err) {
             log.error("Can't parse role code", err);
@@ -124,7 +125,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     public Codec<SkinType> getCodec() {
         if (CODEC == null) {
             CODEC = RecordCodecBuilder.create(x->x.group(
-                    ResourceLocation.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
+                    Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
             ).apply(x, RegistryHandlers.SKIN_TYPE::getValue));
         }
         return CODEC;

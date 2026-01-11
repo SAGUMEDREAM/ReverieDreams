@@ -15,7 +15,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
@@ -46,12 +46,12 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
     @Override
     public void reload(ResourceManager manager) {
-        Map<ResourceLocation, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
+        Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
             return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
         });
-        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
-            ResourceLocation id = entry.getKey();
-            ResourceLocation registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^gensokyo_altar_recipe/", "").replaceAll("\\.json$", ""));
+        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+            Identifier id = entry.getKey();
+            Identifier registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^gensokyo_altar_recipe/", "").replaceAll("\\.json$", ""));
             Resource resource = entry.getValue();
             try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
@@ -186,7 +186,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return ReverieDreams.id(this.getTypeId());
     }
 }

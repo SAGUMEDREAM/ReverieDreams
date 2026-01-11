@@ -84,7 +84,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                                             .setCallback(this);
                                     setSlot(i, updated);
                                     INDEX_TO_BUILDER.put(finalCounter, updated);
-                                    player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                                    player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                 }
                             });
 
@@ -97,7 +97,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                             .setCallback(new GuiElementInterface.ItemClickCallback() {
                                 @Override
                                 public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
-                                    player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                                    player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                     DanmakuShapeEditGui.this.apply();
                                     DanmakuShapeEditGui.this.close();
                                 }
@@ -109,7 +109,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                             .setCallback(new GuiElementInterface.ItemClickCallback() {
                                 @Override
                                 public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
-                                    player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                                    player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                     DanmakuShapeEditGui.this.close();
                                 }
                             }));
@@ -182,7 +182,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
         ItemStackWrapper output = first.getOutput();
         ItemStack itemStack = output.clone().getItemStack();
         this.player.displayClientMessage(Component.translatable("item.action.click.shape_recipe.success"), false);
-        this.player.playNotifySound(SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
         this.player.setItemInHand(this.hand, itemStack);
     }
 }

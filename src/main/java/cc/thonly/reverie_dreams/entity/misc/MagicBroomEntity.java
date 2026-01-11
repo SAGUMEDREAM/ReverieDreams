@@ -197,7 +197,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
 
             this.moveRelative(0.245f * speedMultiplier, new Vec3(strafe, vertical, forward));
             this.move(MoverType.SELF, this.getDeltaMovement());
-            this.hasImpulse = true;
+//            this.hasImpulse = true;
         }
     }
 

@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +34,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<ResourceLocation, SoundEventBuilder> identifierSoundEventMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, SoundEventBuilder> identifierSoundEventMap = new Object2ObjectOpenHashMap<>();
 
     public AbstractSoundProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
@@ -49,13 +49,13 @@ public abstract class AbstractSoundProvider implements DataProvider {
         });
     }
 
-    public AbstractSoundProvider add(ResourceLocation id, SoundEventBuilder entry) {
+    public AbstractSoundProvider add(Identifier id, SoundEventBuilder entry) {
         this.identifierSoundEventMap.put(id, entry);
         return this;
     }
 
     public AbstractSoundProvider addWithSoundEvent(SoundEvent soundEvent, @Nullable String soundPath) {
-        ResourceLocation id = soundEvent.location();
+        Identifier id = soundEvent.location();
         SoundEventBuilder entry = new SoundEventBuilder(id);
         entry.setSubtitle(id);
         if (soundPath != null) {
@@ -69,7 +69,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
 
     public AbstractSoundProvider addWithRecords(JukeBoxEntry jukeBoxEntry, @Nullable String soundPath) {
         JukeboxSong ref = jukeBoxEntry.getRef();
-        ResourceLocation id = ref.soundEvent().value().location();
+        Identifier id = ref.soundEvent().value().location();
         SoundEventBuilder entry = new SoundEventBuilder(id);
         entry.setSubtitle(id);
         if (soundPath != null) {
@@ -102,7 +102,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
                 List<SoundEventBuilder> list = entry.getValue();
                 JsonObject object = new JsonObject();
                 for (var builder : list) {
-                    ResourceLocation key = builder.getKey();
+                    Identifier key = builder.getKey();
                     JsonElement element = builder.toJsonElement();
                     object.add(key.getPath(), element);
                 }

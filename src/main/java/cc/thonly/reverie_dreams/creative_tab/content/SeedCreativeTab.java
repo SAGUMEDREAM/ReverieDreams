@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +26,7 @@ public class SeedCreativeTab implements ItemGroupContentHelper {
 
     public static void bootstrap() {
         ItemGroupEvents.modifyEntriesEvent(SeedCreativeTab.ITEM_GROUP_KEY).register(itemGroup -> {
-            for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+            for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
                 CropBlockCreator.Instance instance = view.getValue();
                 Item seed = instance.getSeed();
                 itemGroup.accept(seed);
@@ -41,7 +41,7 @@ public class SeedCreativeTab implements ItemGroupContentHelper {
     }
 
     public static ItemStack getSeedItemIcon() {
-        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             CropBlockCreator.Instance instance = view.getValue();
             return new ItemStack(instance.getSeed());
         }

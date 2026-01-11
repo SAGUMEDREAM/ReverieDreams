@@ -1,8 +1,11 @@
 package cc.thonly.polymer.entity;
 
 import cc.thonly.polymer.PolymerEntityHelper;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.AvatarAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.MannequinAccessor;
 import com.google.common.collect.ImmutableMultimap;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
@@ -23,10 +26,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerPlayerConnection;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import xyz.nucleoid.packettweaker.PacketContext;
@@ -72,21 +72,26 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
 
     default void sendRefreshPacket() {
         var e = this.getEntity();
-       PolymerEntityUtils.refreshEntity(e);
+        PolymerEntityUtils.refreshEntity(e);
     }
 
     @Override
     default void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
+        if (!(this.getEntity() instanceof BaseNPCLikeEntity)) {
+            ReverieDreams.LOGGER.error("%s is not class BaseNPCLikeEntity.class".formatted(this.getEntity()));
+            return;
+        }
+        var e = (BaseNPCLikeEntity) this.getEntity();
         data.removeIf(x -> x.id() >= AvatarAccessor.getPlayerMainHand().id());
         if (initial) {
             data.add(SynchedEntityData.DataValue.create(
                     AvatarAccessor.getPlayerModelParts(),
-                    (byte) (0xFF & ~0x01)
+                    MannequinAccessor.getAllLayers()
             ));
             data.add(SynchedEntityData.DataValue.create(
                     AvatarAccessor.getPlayerMainHand(),
-                    (byte) (PolymerResourcePackUtils.hasMainPack(player) ? 0x3E : 0xFE))
-            );
+                    Avatar.DEFAULT_MAIN_HAND
+            ));
             data.add(SynchedEntityData.DataValue.create(
                     EntityAccessor.getNameVisible(),
                     false
@@ -110,7 +115,11 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
     @Override
     default void onEntityTrackerTick(Set<ServerPlayerConnection> listeners) {
         PolymerEntity.super.onEntityTrackerTick(listeners);
-        var e = this.getEntity();
+        if (!(this.getEntity() instanceof BaseNPCLikeEntity)) {
+            ReverieDreams.LOGGER.error("%s is not class BaseNPCLikeEntity.class".formatted(this.getEntity()));
+            return;
+        }
+        var e = (BaseNPCLikeEntity) this.getEntity();
 
     }
 

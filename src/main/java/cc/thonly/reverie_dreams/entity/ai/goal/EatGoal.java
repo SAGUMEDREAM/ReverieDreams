@@ -54,7 +54,7 @@ public class EatGoal extends Goal {
             return;
         }
         ItemStack stack = maid.getInventory().getItem(slot);
-        if (((IItemStack) (Object) stack).isFood()) {
+        if (((IItemStack) (Object) stack).reverie_dreams$isFood()) {
 
             Vec3 eyePos = maid.getEyePosition();
 
@@ -97,7 +97,7 @@ public class EatGoal extends Goal {
     }
 
     private boolean findFood() {
-        Integer slot = maid.getInventory().findSlot(stack -> ((IItemStack) (Object) stack).isFood());
+        Integer slot = maid.getInventory().findSlot(stack -> ((IItemStack) (Object) stack).reverie_dreams$isFood());
         if (slot == null) {
             this.slot = -1;
             return false;
@@ -114,7 +114,7 @@ public class EatGoal extends Goal {
             return;
         }
         ItemStack stack = maid.getInventory().getItem(slot);
-        if (((IItemStack) (Object) stack).isFood()) {
+        if (((IItemStack) (Object) stack).reverie_dreams$isFood()) {
             DataComponentMap components = stack.getComponents();
             FoodProperties foodComponent = components.get(DataComponents.FOOD);
             if (foodComponent != null) {

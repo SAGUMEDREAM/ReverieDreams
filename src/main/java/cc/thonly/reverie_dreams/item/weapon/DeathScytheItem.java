@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.item.weapon;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -22,7 +22,7 @@ public class DeathScytheItem extends SwordItem {
     private static final double SWEEP_RADIUS = 2.5;
 
     public DeathScytheItem(float attackDamage, float attackSpeed, Properties settings) {
-        super(TOOL_MATERIAL, attackDamage, attackSpeed, settings.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder().add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(ResourceLocation.withDefaultNamespace("base_attack_range"), 5.0f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HAND).build()));
+        super(TOOL_MATERIAL, attackDamage, attackSpeed, settings.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder().add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Identifier.withDefaultNamespace("base_attack_range"), 5.0f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HAND).build()));
     }
 
     @Override

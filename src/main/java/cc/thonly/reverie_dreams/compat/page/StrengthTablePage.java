@@ -8,7 +8,7 @@ import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -22,16 +22,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class StrengthTablePage implements PolydexPage {
-    public static final ResourceLocation id = ReverieDreams.id("recipe/strength_table");
+    public static final Identifier id = ReverieDreams.id("recipe/strength_table");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
     public static final ItemStack ICON = new GuiElementBuilder(RDBlocks.STRENGTH_TABLE.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
-    public final ResourceLocation key;
+    public final Identifier key;
     public final StrengthTableRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
     private final PolydexStack<?> output;
 
-    public StrengthTablePage(ResourceLocation key, StrengthTableRecipe value) {
+    public StrengthTablePage(Identifier key, StrengthTableRecipe value) {
         this.key = key.withPrefix("recipe/");
         this.value = value;
         List<PolydexIngredient<?>> list = new ArrayList<>();
@@ -45,7 +45,7 @@ public class StrengthTablePage implements PolydexPage {
     }
 
     @Override
-    public ResourceLocation identifier() {
+    public Identifier identifier() {
         return key;
     }
 

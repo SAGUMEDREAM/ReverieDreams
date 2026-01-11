@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 
 public class NPCWorkModes {
@@ -21,11 +21,11 @@ public class NPCWorkModes {
         return REGISTRY.byId(rawId);
     }
 
-    public static NPCWorkMode register(ResourceLocation id, NPCWorkMode npcWorkMode) {
+    public static NPCWorkMode register(Identifier id, NPCWorkMode npcWorkMode) {
         return RegistryHandlers.register(REGISTRY, id, npcWorkMode);
     }
 
-    public static NPCWorkMode get(ResourceLocation id) {
+    public static NPCWorkMode get(Identifier id) {
         return REGISTRY.getValue(id);
     }
 

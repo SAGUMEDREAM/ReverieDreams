@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 
@@ -50,9 +50,9 @@ public class RDDataComponents {
                     .persistent(Unit.CODEC)
                     .build()
     );
-    public static final DataComponentType<ResourceLocation> ROLE_CARD_ID = registerComponent("role_card_id",
-            DataComponentType.<ResourceLocation>builder()
-                    .persistent(ResourceLocation.CODEC)
+    public static final DataComponentType<Identifier> ROLE_CARD_ID = registerComponent("role_card_id",
+            DataComponentType.<Identifier>builder()
+                    .persistent(Identifier.CODEC)
                     .build());
     public static final DataComponentType<Integer> MAX_DISTANCE = registerComponent("max_distance",
             DataComponentType.<Integer>builder()

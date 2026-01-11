@@ -12,7 +12,7 @@ import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelElement;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.phys.Vec3;
@@ -105,7 +105,7 @@ public class ResourcePackGenerator {
                         builder.addData(AssetPaths.model(polymerify_namespace, parentId.getPath() + suffix) + ".json",
                                 finalModelAsset);
                         ModelAsset modelAsset = new ModelAsset(
-                                Optional.of(ResourceLocation.fromNamespaceAndPath(polymerify_namespace, parentId.getPath() + suffix)), asset.elements(),
+                                Optional.of(Identifier.fromNamespaceAndPath(polymerify_namespace, parentId.getPath() + suffix)), asset.elements(),
                                 asset.textures(),
                                 asset.display(),
                                 asset.guiLight(),
@@ -121,7 +121,7 @@ public class ResourcePackGenerator {
                     for (var expandable : EXPANDABLE) {
                         if (string.contains(expandable) && string.startsWith("assets/%s/models/block/".formatted(namespace))) {
                             var asset = ModelAsset.fromJson(new String(bytes, StandardCharsets.UTF_8));
-                            return new ModelAsset(asset.parent().map(x -> ResourceLocation.fromNamespaceAndPath(polymerify_namespace, x.getPath())), asset.elements(), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes();
+                            return new ModelAsset(asset.parent().map(x -> Identifier.fromNamespaceAndPath(polymerify_namespace, x.getPath())), asset.elements(), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes();
                         }
                     }
                 }
@@ -130,10 +130,10 @@ public class ResourcePackGenerator {
         }
 
         for (SignBlock signModel : SIGN_MODELS) {
-            ResourceLocation id = BuiltInRegistries.BLOCK.getKey(signModel);
+            Identifier id = BuiltInRegistries.BLOCK.getKey(signModel);
             try {
                 String namespace = id.getNamespace();
-                ResourceLocation signId = ResourceLocation.parse(signModel.type().name().toLowerCase());
+                Identifier signId = Identifier.parse(signModel.type().name().toLowerCase());
                 ModelModifiers.createSignModel(builder, namespace, signId.getPath(), atlas);
             } catch (Exception err) {
                 log.error("Can't read model namespace and id {}", id, err);
@@ -226,7 +226,7 @@ public class ResourcePackGenerator {
                         builder.addData(
                                 AssetPaths.model(modelId) + ".json",
                                 new ModelAsset(
-                                        Optional.of(ResourceLocation.fromNamespaceAndPath(polymerify_namespace, parentId.getPath() + suffix)),
+                                        Optional.of(Identifier.fromNamespaceAndPath(polymerify_namespace, parentId.getPath() + suffix)),
                                         asset.elements(),
                                         asset.textures(),
                                         asset.display(),
@@ -242,7 +242,7 @@ public class ResourcePackGenerator {
                 if (!string.contains("_uvlock_") && string.startsWith(modelPath)) {
                     var asset = ModelAsset.fromJson(new String(bytes, StandardCharsets.UTF_8));
                     return new ModelAsset(
-                            asset.parent().map(x -> ResourceLocation.fromNamespaceAndPath(polymerify_namespace, x.getPath())),
+                            asset.parent().map(x -> Identifier.fromNamespaceAndPath(polymerify_namespace, x.getPath())),
                             asset.elements(),
                             asset.textures(),
                             asset.display(),
@@ -282,7 +282,7 @@ public class ResourcePackGenerator {
 
     public record HolderResource(Block block, String namespace, String modelPath) {
         public static HolderResource of(Block block) {
-            ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(block);
+            Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
             String namespace = blockId.getNamespace();
             String path = blockId.getPath();
             String modelPath = "assets/%s/models/block/%s".formatted(namespace, path);

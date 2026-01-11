@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -30,8 +30,8 @@ public class RecipeCompatPatchesImpl {
 
     public static synchronized void apply(BaseRecipeType<?> recipeType) {
         Builder<?> builder = getOrCreateBuilder(recipeType);
-        Map<ResourceLocation, ?> registries = builder.getRegistries();
-        for (Map.Entry<ResourceLocation, ?> registry : registries.entrySet()) {
+        Map<Identifier, ?> registries = builder.getRegistries();
+        for (Map.Entry<Identifier, ?> registry : registries.entrySet()) {
             log.info("Registered compatibility recipe {}", registry.getKey().toString());
             recipeType.add(registry.getKey(), registry.getValue());
         }
@@ -43,7 +43,7 @@ public class RecipeCompatPatchesImpl {
     public static class Builder<R extends BaseRecipe> {
         public static final Map<BaseRecipeType<?>, Builder<?>> INSTANCE = new Object2ObjectOpenHashMap<>();
         public final BaseRecipeType<R> baseRecipeType;
-        protected final Map<ResourceLocation, BaseRecipe> registries = new Object2ObjectOpenHashMap<>();
+        protected final Map<Identifier, BaseRecipe> registries = new Object2ObjectOpenHashMap<>();
 
         public Builder(BaseRecipeType<R> baseRecipeType) {
             this.baseRecipeType = baseRecipeType;
@@ -72,8 +72,8 @@ public class RecipeCompatPatchesImpl {
 
         public Builder<R> add(ItemPair itemPair) {
             try {
-                Map<ResourceLocation, R> registryView = this.baseRecipeType.getRegistryView();
-                for (Map.Entry<ResourceLocation, R> view : registryView.entrySet()) {
+                Map<Identifier, R> registryView = this.baseRecipeType.getRegistryView();
+                for (Map.Entry<Identifier, R> view : registryView.entrySet()) {
                     R value = view.getValue();
 
                     Object object = cloneWithLombokBuilder(value);
@@ -125,14 +125,14 @@ public class RecipeCompatPatchesImpl {
                             }
                         }
                         if (changed) {
-                            ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(itemPair.compatItem);
-                            ResourceLocation oldId = view.getKey();
-                            ResourceLocation newIdentifier = null;
+                            Identifier itemId = BuiltInRegistries.ITEM.getKey(itemPair.compatItem);
+                            Identifier oldId = view.getKey();
+                            Identifier newIdentifier = null;
                             if (oldId == null) {
-                                oldId = ResourceLocation.parse("unknown_recipe_" + UUID.randomUUID());
+                                oldId = Identifier.parse("unknown_recipe_" + UUID.randomUUID());
                                 newIdentifier = oldId;
                             } else {
-                                newIdentifier = ResourceLocation.parse(oldId.getNamespace() + ":" + oldId.getPath() + "_" + itemId.toString().replaceAll(":", "_"));
+                                newIdentifier = Identifier.parse(oldId.getNamespace() + ":" + oldId.getPath() + "_" + itemId.toString().replaceAll(":", "_"));
                             }
                             this.registries.put(newIdentifier, baseRecipe);
                         }

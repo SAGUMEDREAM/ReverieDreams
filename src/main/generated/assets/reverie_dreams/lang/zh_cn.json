@@ -507,7 +507,7 @@
   "food_property.reverie_dreams.undefined": "未定义",
   "food_property.reverie_dreams.vegetarian": "素食",
   "food_property.reverie_dreams.western_style": "西式",
-  "gamerule.doGhost": "禁止幽灵生成",
+  "gamerule.reverie_dreams.do_ghost": "禁止幽灵生成",
   "gui.npc.info": "§d",
   "gui.npc.info.armor": "§d护甲值: %s",
   "gui.npc.info.auto-pick": "§b自动寻路拾取",

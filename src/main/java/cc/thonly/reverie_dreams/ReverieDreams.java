@@ -45,6 +45,7 @@ import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
+import cc.thonly.reverie_dreams.util.command.PermissionPredicate;
 import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
@@ -73,10 +74,11 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
@@ -342,7 +344,7 @@ public class ReverieDreams implements ModInitializer {
             if (!ReverieDreamsConfiguration.CHECK_UPDATE) {
                 return;
             }
-            if (!player.hasPermissions(2)) {
+            if (!player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
                 return;
             }
             if (ConstantInfo.LATEST_VERSION == null) {
@@ -422,8 +424,8 @@ public class ReverieDreams implements ModInitializer {
         });
     }
 
-    public static ResourceLocation id(String id) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, id);
+    public static Identifier id(String id) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, id);
     }
 
     public static boolean hasModOnClient(ServerPlayer player) {

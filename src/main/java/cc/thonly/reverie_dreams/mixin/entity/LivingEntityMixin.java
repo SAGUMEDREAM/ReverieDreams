@@ -16,7 +16,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -171,7 +171,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                             this.level() == server.overworld()
             ) {
                 IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) bedBlockEntity;
-                if (iBedBlockEntity.hasDreamPillow()) {
+                if (iBedBlockEntity.reverie_dreams$hasDreamPillow()) {
                     this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5));
                     this.teleportTo(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
                             EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
@@ -400,7 +400,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         view.putInt("DeathCount", this.deathLevel);
         view.putInt("DeathCountResetTimer", this.deathLevelResetTimer);
         view.putDouble("ManpozuchiUsingState", this.manpozuchiUsingState);
-        view.putString("KanjuWorld", this.kanjuWorld.dimension().location().toString());
+        view.putString("KanjuWorld", this.kanjuWorld.dimension().identifier().toString());
         view.putLong("KanjuBlockPos", this.kanjuBlockPos.asLong());
     }
 
@@ -415,7 +415,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         String kanjuWorldStr = view.getStringOr("KanjuWorld", "");
         if (!kanjuWorldStr.isEmpty()) {
             if (server != null) {
-                this.kanjuWorld = server.getLevel(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(kanjuWorldStr)));
+                this.kanjuWorld = server.getLevel(ResourceKey.create(Registries.DIMENSION, Identifier.parse(kanjuWorldStr)));
             }
         }
         this.kanjuBlockPos = BlockPos.of(view.getLongOr("KanjuBlockPos", new BlockPos(0, 0, 0).asLong()));

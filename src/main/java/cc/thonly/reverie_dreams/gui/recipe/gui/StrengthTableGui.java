@@ -97,7 +97,7 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
             this.output.setItem(Items.AIR);
         }
         SimpleTriggerFactory.create(SimpleTriggerKeys.DANMAKU_UPGRADE).trigger(this.player);
-        this.player.playNotifySound(SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
     }
 
     @Override

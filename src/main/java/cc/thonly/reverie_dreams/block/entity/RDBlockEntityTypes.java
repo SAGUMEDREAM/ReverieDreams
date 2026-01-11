@@ -7,7 +7,7 @@ import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -52,7 +52,7 @@ public class RDBlockEntityTypes {
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
             Block... blocks
     ) {
-        ResourceLocation id = ReverieDreams.id(name);
+        Identifier id = ReverieDreams.id(name);
         BlockEntityType<T> entityType = FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build();
         Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id, entityType);
         PolymerBlockUtils.registerBlockEntity(entityType);

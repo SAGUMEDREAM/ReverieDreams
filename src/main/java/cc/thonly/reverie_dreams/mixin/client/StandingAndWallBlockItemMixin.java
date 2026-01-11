@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.mixin.client;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import eu.pb4.polymer.core.api.item.PolymerItemUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +20,7 @@ public class StandingAndWallBlockItemMixin {
     public void cancelPolymerItemPlace(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = context.getItemInHand();
         Level level = context.getLevel();
-        ResourceLocation polymerIdentifier = PolymerItemUtils.getPolymerIdentifier(itemStack);
+        Identifier polymerIdentifier = PolymerItemUtils.getPolymerIdentifier(itemStack);
         if (itemStack.getItem() instanceof StandingAndWallBlockItem && polymerIdentifier != null && polymerIdentifier.getNamespace().equals(ReverieDreams.MOD_ID)) {
             if (level.isClientSide()) {
                 cir.setReturnValue(InteractionResult.FAIL);

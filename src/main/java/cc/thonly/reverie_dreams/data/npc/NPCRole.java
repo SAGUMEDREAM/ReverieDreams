@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.data.npc;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
@@ -11,6 +10,7 @@ import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
+import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import lombok.Getter;
@@ -21,7 +21,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -34,10 +34,10 @@ import java.util.List;
 @Setter
 @Getter
 public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, BuiltinObject, Translatable {
-    public static final Codec<NPCRole> CODEC = Codec.unit(NPCRole::new);
+    public static final Codec<NPCRole> CODEC = UnitCodec.unit(NPCRole::new);
     public static final List<Item> NPC_SPAWN_EGG_ITEM_LIST = new LinkedList<>();
 
-    private ResourceLocation id;
+    private Identifier id;
     private SkinType skinType;
     // 构建后属性
     private EntityType<NPCRoleFastEntity> entityType;
@@ -50,7 +50,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     private NPCRole() {
     }
 
-    public NPCRole(ResourceLocation id, SkinType skinType) {
+    public NPCRole(Identifier id, SkinType skinType) {
         this.id = id;
         this.skinType = skinType;
     }
@@ -88,7 +88,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
                     .build(of(this.id));
             EntityType<NPCRoleFastEntity> entityType = registerEntity(this.id, build);;
             FabricDefaultAttributeRegistry.register(entityType, BaseNPCLikeEntity.createAttributes());
-            ResourceLocation spawnEggId = ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
+            Identifier spawnEggId = Identifier.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_spawn_egg");
             Item spawnEgg = registerNPCSpawnEggItem(new SpawnEggItem(spawnEggId, build, new Item.Properties()));
             this.entityType = build;
             this.spawnEgg = spawnEgg;
@@ -104,7 +104,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
         return CODEC;
     }
 
-    protected static <T extends Entity> EntityType<T> registerEntity(ResourceLocation id, EntityType<T> entityType) {
+    protected static <T extends Entity> EntityType<T> registerEntity(Identifier id, EntityType<T> entityType) {
         EntityType<T> entityTypeRef = Registry.register(BuiltInRegistries.ENTITY_TYPE, id, entityType);
         PolymerEntityUtils.registerType(entityTypeRef);
         return entityTypeRef;
@@ -116,7 +116,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
         return (Item) item;
     }
 
-    private static ResourceKey<EntityType<?>> of(ResourceLocation id) {
+    private static ResourceKey<EntityType<?>> of(Identifier id) {
         return ResourceKey.create(Registries.ENTITY_TYPE, id);
     }
 }

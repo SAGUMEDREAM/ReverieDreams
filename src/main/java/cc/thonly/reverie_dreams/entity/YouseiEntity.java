@@ -14,7 +14,7 @@ import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Leashable;
@@ -99,7 +99,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     public void readAdditionalSaveData(ValueInput view) {
         super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
-        ResourceLocation variantId = ResourceLocation.parse(youseiVariantId);
+        Identifier variantId = Identifier.parse(youseiVariantId);
         this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
     }
 
@@ -120,7 +120,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     }
 
     @Override
-    public void setVariantData(ResourceLocation id) {
+    public void setVariantData(Identifier id) {
         this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(id);
         if (this.variant != null) {
             this.skinType = this.variant.getSkinType();
@@ -128,7 +128,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     }
 
     @Override
-    public ResourceLocation getVariantData() {
+    public Identifier getVariantData() {
         return this.variant.getId();
     }
 

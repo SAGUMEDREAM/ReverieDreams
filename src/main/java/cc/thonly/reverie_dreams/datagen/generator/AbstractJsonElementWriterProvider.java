@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -56,7 +56,7 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
 
     protected abstract void configured();
 
-    public void addElement(Type type, ResourceLocation location, String subPath, JsonElement element) {
+    public void addElement(Type type, Identifier location, String subPath, JsonElement element) {
         String relativePath = type.path + location.getNamespace() + "/" + subPath + "/" + location.getPath() + ".json";
         this.path2JsonElement.put(relativePath, element);
     }

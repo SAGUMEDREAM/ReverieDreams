@@ -1,9 +1,9 @@
 {
   "item": "reverie_dreams:food/boiled_fish",
   "values": [
-    "reverie_dreams:sweet",
     "reverie_dreams:meat",
-    "reverie_dreams:fruity",
-    "reverie_dreams:cool"
+    "reverie_dreams:sweet",
+    "reverie_dreams:cool",
+    "reverie_dreams:fruity"
   ]
 }

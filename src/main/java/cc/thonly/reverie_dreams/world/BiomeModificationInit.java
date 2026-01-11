@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.biome.Biomes;
@@ -224,7 +224,7 @@ public class BiomeModificationInit {
                 MobCategory.MONSTER,
                 RDEntityTypes.MOON_RABBIT, 10, 1, 1
         );
-        BiomeModifications.create(ResourceLocation.fromNamespaceAndPath("reverie_dreams", "moon_spawns"))
+        BiomeModifications.create(Identifier.fromNamespaceAndPath("reverie_dreams", "moon_spawns"))
                 .add(ModificationPhase.ADDITIONS,
                         BiomeSelectors.includeByKey(BiomeInit.THE_MOON),
                         ctx -> ctx.getSpawnSettings().addSpawn(

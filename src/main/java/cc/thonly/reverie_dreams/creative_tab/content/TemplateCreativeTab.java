@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,9 +21,9 @@ public class TemplateCreativeTab implements ItemGroupContentHelper {
             .icon(() -> new ItemStack(RDItems.SPELL_CARD_TEMPLATE))
             .title(Component.translatable("item_group.touhou.template"))
             .displayItems((parameters, output) -> {
-                Map<ResourceLocation, ItemStack> registryView = DanmakuTemplates.getRegistryItemStackView();
-                Set<Map.Entry<ResourceLocation, ItemStack>> views = registryView.entrySet();
-                for (Map.Entry<ResourceLocation, ItemStack> view : views) {
+                Map<Identifier, ItemStack> registryView = DanmakuTemplates.getRegistryItemStackView();
+                Set<Map.Entry<Identifier, ItemStack>> views = registryView.entrySet();
+                for (Map.Entry<Identifier, ItemStack> view : views) {
                     ItemStack stack = view.getValue();
                     output.accept(stack.copy());
                 }

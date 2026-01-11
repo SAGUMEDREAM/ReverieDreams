@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.data.danmaku.Pattern;
 import cc.thonly.reverie_dreams.data.danmaku.trajectory.*;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class DanmakuTrajectories {
     public static final DanmakuTrajectory SINGLE = register(ReverieDreams.id("single"), new SingleTrajectory());
@@ -19,7 +19,7 @@ public class DanmakuTrajectories {
     public static final DanmakuTrajectory RING = register(ReverieDreams.id("ring"), new RingTrajectory());
     public static final DanmakuTrajectory CUSTOM = register(ReverieDreams.id("custom"), new CustomTrajectory());
 
-    public static DanmakuTrajectory register(ResourceLocation key, DanmakuTrajectory value) {
+    public static DanmakuTrajectory register(Identifier key, DanmakuTrajectory value) {
         return RegistryHandlers.registerForBuiltin(RegistryHandlers.DANMAKU_TRAJECTORY, key, value);
     }
 

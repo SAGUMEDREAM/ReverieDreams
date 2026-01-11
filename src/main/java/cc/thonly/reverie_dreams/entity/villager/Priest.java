@@ -16,7 +16,7 @@ import java.util.Optional;
 public class Priest {
     public static void registers() {
         TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.PRIEST, 1, factories -> {
-            factories.add((entity, random) -> new MerchantOffer(
+            factories.add((level, entity, random) -> new MerchantOffer(
                             new ItemCost(RDItems.POWER, 11),
                             Optional.empty(),
                             new ItemStack(RDItems.COPPER_COIN, 3),
@@ -25,7 +25,7 @@ public class Priest {
                             0.2f
                     )
             );
-            factories.add((entity, random) -> new MerchantOffer(
+            factories.add((level, entity, random) -> new MerchantOffer(
                             new ItemCost(RDItems.POINT, 12),
                             Optional.empty(),
                             new ItemStack(RDItems.COPPER_COIN, 3),
@@ -36,7 +36,7 @@ public class Priest {
             );
         });
         TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.PRIEST, 2, factories -> {
-            factories.add((entity, random) -> new MerchantOffer(
+            factories.add((level, entity, random) -> new MerchantOffer(
                             new ItemCost(RDItems.POWER, 38),
                             Optional.of(new ItemCost(RDItems.COPPER_COIN, 24)),
                             new ItemStack(RDItems.EXORCISM_PAPER, 6),
@@ -45,7 +45,7 @@ public class Priest {
                             0.2f
                     )
             );
-            factories.add((entity, random) -> {
+            factories.add((level, entity, random) -> {
                 RegistryAccess registryManager = entity.registryAccess();
                 ItemStack woodenSwordStack = Items.WOODEN_SWORD.getDefaultInstance();
                 Registry<Enchantment> lookup = registryManager.lookupOrThrow(Registries.ENCHANTMENT);
@@ -60,7 +60,7 @@ public class Priest {
                         0.13f
                 );
             });
-            factories.add((entity, random) -> {
+            factories.add((level, entity, random) -> {
               return new MerchantOffer(
                       new ItemCost(RDItems.COPPER_COIN, 29),
                         Optional.empty(),

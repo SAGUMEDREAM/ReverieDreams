@@ -15,8 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.PlainMessage;
@@ -44,7 +43,7 @@ public class RoleCardItem extends Item {
     }
 
     public Optional<RoleCard> getRoleCardComponent(ItemStack itemStack) {
-        ResourceLocation identifier = itemStack.get(RDDataComponents.ROLE_CARD_ID);
+        Identifier identifier = itemStack.get(RDDataComponents.ROLE_CARD_ID);
         if (identifier == null) {
             return Optional.empty();
         }
@@ -109,8 +108,8 @@ public class RoleCardItem extends Item {
                 Optional.empty(),
                 1
         );
-        for (Map.Entry<ResourceLocation, NPCRole> entry : data.id2Role.entrySet()) {
-            ResourceLocation identifier = entry.getKey();
+        for (Map.Entry<Identifier, NPCRole> entry : data.id2Role.entrySet()) {
+            Identifier identifier = entry.getKey();
             NPCRole role = entry.getValue();
             EntityType<NPCRoleFastEntity> entityType = role.get();
             CompoundTag element = new CompoundTag();
@@ -142,7 +141,7 @@ public class RoleCardItem extends Item {
         private final ItemStack itemStack;
         private final BlockPos blockPos;
         private final RoleCard roleCard;
-        private final Map<ResourceLocation, NPCRole> id2Role = new Object2ObjectOpenHashMap<>();
+        private final Map<Identifier, NPCRole> id2Role = new Object2ObjectOpenHashMap<>();
         private final List<NPCRole> roleList = new ArrayList<>();
 
         public UsingData(ServerPlayer player, ServerLevel world, BlockPos blockPos, ItemStack itemStack, RoleCard roleCard) {

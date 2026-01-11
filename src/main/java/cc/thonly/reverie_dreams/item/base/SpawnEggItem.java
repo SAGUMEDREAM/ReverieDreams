@@ -9,7 +9,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -32,7 +32,7 @@ import java.util.List;
 public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implements IdentifierGetter {
     public static final List<Item> SPAWN_EGGS = new ArrayList<>(128);
     public static final DyedItemColor DEFAULT_COLOR = new DyedItemColor(16777215);
-    private final ResourceLocation identifier;
+    private final Identifier identifier;
     private long color = -1;
 
     public SpawnEggItem(String identifier, EntityType<? extends Mob> type, Properties settings) {
@@ -41,7 +41,7 @@ public class SpawnEggItem extends net.minecraft.world.item.SpawnEggItem implemen
         SPAWN_EGGS.add(this);
     }
 
-    public SpawnEggItem(ResourceLocation identifier, EntityType<? extends Mob> type, Properties settings) {
+    public SpawnEggItem(Identifier identifier, EntityType<? extends Mob> type, Properties settings) {
         super(settings.component(DataComponents.ENTITY_DATA, TypedEntityData.of(type, new CompoundTag())).setId(ResourceKey.create(Registries.ITEM, identifier)).component(DataComponents.DYED_COLOR, DEFAULT_COLOR));
         this.identifier = identifier;
         SPAWN_EGGS.add(this);

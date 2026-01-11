@@ -8,7 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
 
 import java.util.Optional;
@@ -19,19 +19,19 @@ import java.util.Optional;
 public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfig> {
     public static final Codec<SkinConfig> CODEC = RecordCodecBuilder.create(x -> x.group(
             ModelType.CODEC.fieldOf("type").forGetter(SkinConfig::getType),
-            ResourceLocation.CODEC.optionalFieldOf("cape").forGetter(SkinConfig::getCapeTexture),
-            ResourceLocation.CODEC.optionalFieldOf("elytra").forGetter(SkinConfig::getElytraTexture)
+            Identifier.CODEC.optionalFieldOf("cape").forGetter(SkinConfig::getCapeTexture),
+            Identifier.CODEC.optionalFieldOf("elytra").forGetter(SkinConfig::getElytraTexture)
     ).apply(x, SkinConfig::new));
 
     @Setter
     private SkinType skin;
     private final ModelType type;
-    private final Optional<ResourceLocation> capeTexture;
-    private final Optional<ResourceLocation> elytraTexture;
+    private final Optional<Identifier> capeTexture;
+    private final Optional<Identifier> elytraTexture;
     @Setter
     private RegistryHandler<SkinConfig> owner;
 
-    public SkinConfig(ModelType type, Optional<ResourceLocation> capeTexture, Optional<ResourceLocation> elytraTexture) {
+    public SkinConfig(ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
         this.type = type;
         this.capeTexture = capeTexture;
         this.elytraTexture = elytraTexture;

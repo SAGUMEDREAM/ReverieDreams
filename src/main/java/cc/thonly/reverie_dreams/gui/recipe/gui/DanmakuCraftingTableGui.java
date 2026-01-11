@@ -17,7 +17,7 @@ import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.MenuType;
@@ -116,7 +116,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                 DanmakuRecipe recipeEntry = recipeEntries.getFirst();
                 ItemStackWrapper resultWrapper = recipeEntry.getOutput().copy();
                 ItemStack itemStack = resultWrapper.getItemStack();
-                itemStack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))));
+                itemStack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
 
                 this.setSlot(this.resultSlot, new GuiElementBuilder(itemStack).setCallback(new GuiElementInterface.ItemClickCallback() {
                     @Override

@@ -16,7 +16,7 @@ public class MinecraftProfileTexturesMixin {
     @Mutable
     @Shadow @Final private SignatureState signatureState;
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>", at = @At("RETURN"))
     public void modifySigneState(MinecraftProfileTexture skin, MinecraftProfileTexture cape, MinecraftProfileTexture elytra, SignatureState signatureState, CallbackInfo ci) {
         this.signatureState = SignatureState.SIGNED;
     }

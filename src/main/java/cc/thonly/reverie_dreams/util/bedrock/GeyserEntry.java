@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import org.geysermc.event.subscribe.Subscribe;
@@ -37,11 +37,11 @@ public class GeyserEntry implements EventRegistrar {
     public void onGeyserDefineCustomItemsEvent(GeyserDefineCustomItemsEvent event) {
         for (Map.Entry<ResourceKey<Item>, Item> mapEntry : BuiltInRegistries.ITEM.entrySet()) {
             ResourceKey<Item> key = mapEntry.getKey();
-            if (!key.location().getNamespace().equals(ReverieDreams.MOD_ID)) continue;
+            if (!key.identifier().getNamespace().equals(ReverieDreams.MOD_ID)) continue;
             Item item = mapEntry.getValue();
             if(item instanceof IdentifierGetter) {
                 int id = BuiltInRegistries.ITEM.getId(item);
-                ResourceLocation identifier = ((IdentifierGetter) item).getIdentifier();
+                Identifier identifier = ((IdentifierGetter) item).getIdentifier();
                 NonVanillaCustomItemData.Builder customItemData = NonVanillaCustomItemData.builder()
                         .displayName(Component.translatable(item.getDescriptionId()).getString())
                         .name(Component.translatable(item.getDescriptionId()).getString())

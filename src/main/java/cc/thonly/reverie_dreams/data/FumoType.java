@@ -7,11 +7,12 @@ import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -22,9 +23,9 @@ import net.minecraft.world.phys.Vec3;
 @Setter
 @Getter
 public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, BuiltinObject, Translatable {
-    public static final Codec<FumoType> CODEC = Codec.unit(FumoType::new);
-    private ResourceLocation id;
-    private ResourceLocation registryKey;
+    public static final Codec<FumoType> CODEC = UnitCodec.unit(FumoType::new);
+    private Identifier id;
+    private Identifier registryKey;
     private RegistryHandler<FumoType> owner;
 
     @Setter(AccessLevel.PROTECTED)
@@ -38,9 +39,9 @@ public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, Bu
     private FumoType() {
     }
 
-    public FumoType(ResourceLocation id, Vec3 offset) {
+    public FumoType(Identifier id, Vec3 offset) {
         this.id = id;
-        this.registryKey = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "fumo/" + id.getPath());
+        this.registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), "fumo/" + id.getPath());
         this.offset = offset;
     }
 

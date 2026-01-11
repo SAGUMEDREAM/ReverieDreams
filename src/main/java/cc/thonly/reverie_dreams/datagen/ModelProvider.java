@@ -25,7 +25,7 @@ import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -97,9 +97,9 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateCropBlockModel(BlockModelGenerators blockStateModelGenerator) {
-        Set<Map.Entry<ResourceLocation, CropBlockCreator.Instance>> views = CropBlockCreator.getViews();
-        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : views) {
-            ResourceLocation id = null;
+        Set<Map.Entry<Identifier, CropBlockCreator.Instance>> views = CropBlockCreator.getViews();
+        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : views) {
+            Identifier id = null;
             try {
                 CropBlockCreator.Instance instance = view.getValue();
                 id = instance.getIdentifier();
@@ -337,8 +337,8 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public final void registerRotatable(BlockModelGenerators blockStateModelGenerator, Block block) {
-        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
-        ResourceLocation modelId = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
+        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier modelId = Identifier.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
 
         Variant modelVariant = new Variant(modelId);
 
@@ -377,7 +377,7 @@ public class ModelProvider extends FabricModelProvider {
 
     private void registerFumo(BlockModelGenerators blockStateModelGenerator, FumoType fumoType) {
         Block block = fumoType.block();
-        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
 //        blockStateModelGenerator.blockStateCollector.accept(new BlockModelDefinitionCreator() {
 //            @Override
 //            public Block getBlock() {

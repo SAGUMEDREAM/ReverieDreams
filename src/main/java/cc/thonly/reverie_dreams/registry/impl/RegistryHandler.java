@@ -11,10 +11,10 @@ import com.mojang.serialization.Lifecycle;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.*;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
@@ -31,17 +31,17 @@ import java.util.stream.Stream;
 @SuppressWarnings("deprecation")
 public class RegistryHandler<T> implements WritableRegistry<T> {
     private final ResourceKey<? extends Registry<T>> key;
-    private final Map<ResourceLocation, Holder.Reference<T>> idToEntry;
+    private final Map<Identifier, Holder.Reference<T>> idToEntry;
     private final Map<ResourceKey<T>, Holder.Reference<T>> keyToEntry;
     private final HashBiMap<Integer, Holder.Reference<T>> rawIdToEntry;
     private final Map<T, Holder.Reference<T>> valueToEntry;
     private final Map<ResourceKey<T>, RegistrationInfo> keyToEntryInfo;
     private final List<Initialization<T>> builders = new LinkedList<>();
     private final List<ReloadStep<T>> reloadableSteps = new LinkedList<>();
-    private final Map<ResourceLocation, T> builtins = new Object2ObjectLinkedOpenHashMap<>();
+    private final Map<Identifier, T> builtins = new Object2ObjectLinkedOpenHashMap<>();
     private final Map<TagKey<T>, HolderSet.Named<T>> tags = new Object2ObjectLinkedOpenHashMap<>();
     private final Lifecycle lifecycle;
-    private ResourceLocation defaultId;
+    private Identifier defaultId;
     private boolean frozen = false;
     @Getter
     private boolean reloadable = false;
@@ -97,10 +97,10 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         return new RegistryHandler<>(this.key, this);
     }
 
-    public Set<Map.Entry<ResourceLocation, T>> idEntrySet() {
+    public Set<Map.Entry<Identifier, T>> idEntrySet() {
         return this.entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().location(),
+                        entry -> entry.getKey().identifier(),
                         Map.Entry::getValue
                 )).entrySet();
     }
@@ -130,7 +130,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         return this;
     }
 
-    public RegistryHandler<T> defaultId(ResourceLocation defaultId) {
+    public RegistryHandler<T> defaultId(Identifier defaultId) {
         this.defaultId = defaultId;
         return this;
     }
@@ -149,8 +149,8 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         this.rawIdToEntry.clear();
         this.valueToEntry.clear();
         this.keyToEntryInfo.clear();
-        for (Map.Entry<ResourceLocation, T> ivMapEntry : this.builtins.entrySet()) {
-            ResourceLocation key = ivMapEntry.getKey();
+        for (Map.Entry<Identifier, T> ivMapEntry : this.builtins.entrySet()) {
+            Identifier key = ivMapEntry.getKey();
             T value = ivMapEntry.getValue();
             this.register(ResourceKey.create(this.key, key), value, RegistrationInfo.BUILT_IN);
         }
@@ -159,7 +159,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         }
     }
 
-    public Stream<Map.Entry<ResourceLocation, T>> streamIdToValue() {
+    public Stream<Map.Entry<Identifier, T>> streamIdToValue() {
         return this.idToEntry.entrySet().stream().collect(Collectors.toMap(
                 Map.Entry::getKey,
                 entry -> entry.getValue().value()
@@ -170,7 +170,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         return Map.copyOf(this.rawIdToEntry);
     }
 
-    public Set<ResourceLocation> keys() {
+    public Set<Identifier> keys() {
         return new LinkedHashSet<>(this.idToEntry.keySet());
     }
 
@@ -178,7 +178,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         return new LinkedHashSet<>(this.valueToEntry.keySet());
     }
 
-    public void setBuiltin(ResourceLocation id, T value) {
+    public void setBuiltin(Identifier id, T value) {
         if (this.builtins.containsKey(id) || this.builtins.containsValue(value)) {
             return;
         }
@@ -187,7 +187,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
 
     @Override
     public Holder.Reference<T> register(ResourceKey<T> key, T value, RegistrationInfo info) {
-        ResourceLocation id = key.location();
+        Identifier id = key.identifier();
         Holder.Reference<T> entry = createIntrusiveHolder(value);
         entry.bindKey(key);
         this.idToEntry.put(id, entry);
@@ -210,7 +210,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         if (!this.keyToEntry.containsKey(key)) {
             return this.register(key, value, info);
         }
-        ResourceLocation id = key.location();
+        Identifier id = key.identifier();
         Optional<Holder.Reference<T>> oldEntry = this.get(id);
         if (oldEntry.isEmpty()) {
             log.error("Can't find prev value in registry {}", this.key);
@@ -279,8 +279,8 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     }
 
     @Override
-    public @Nullable ResourceLocation getKey(T value) {
-        for (Map.Entry<ResourceLocation, Holder.Reference<T>> mapEntry : this.idToEntry.entrySet()) {
+    public @Nullable Identifier getKey(T value) {
+        for (Map.Entry<Identifier, Holder.Reference<T>> mapEntry : this.idToEntry.entrySet()) {
             if (mapEntry.getValue().value().equals(value)) {
                 return mapEntry.getKey();
             }
@@ -331,7 +331,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     }
 
     @Override
-    public @Nullable T getValue(@Nullable ResourceLocation id) {
+    public @Nullable T getValue(@Nullable Identifier id) {
         if (id == null) {
             return this.getAny().map(Holder::value).orElse(null);
         }
@@ -354,7 +354,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     }
 
     @Override
-    public Set<ResourceLocation> keySet() {
+    public Set<Identifier> keySet() {
         return Set.copyOf(this.idToEntry.keySet());
     }
 
@@ -374,7 +374,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     }
 
     @Override
-    public boolean containsKey(ResourceLocation id) {
+    public boolean containsKey(Identifier id) {
         return this.idToEntry.containsKey(id);
     }
 
@@ -417,7 +417,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     }
 
     @Override
-    public Optional<Holder.Reference<T>> get(ResourceLocation id) {
+    public Optional<Holder.Reference<T>> get(Identifier id) {
         return Optional.ofNullable(this.idToEntry.get(id));
     }
 
@@ -454,7 +454,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
 
     @Override
     public Optional<Holder.Reference<T>> get(ResourceKey<T> key) {
-        return this.get(key.location());
+        return this.get(key.identifier());
     }
 
     @Override

@@ -13,12 +13,12 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @Setter
 @Getter
 public class NPCState implements CodecStep<NPCState>, OwnerBinding<NPCState>, BuiltinObject, Translatable {
-    public static final ResourceLocation DEFAULT_ID = ReverieDreams.id("normal");
+    public static final Identifier DEFAULT_ID = ReverieDreams.id("normal");
     public static final Codec<NPCState> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.STRING.optionalFieldOf("value", DEFAULT_ID.toString()).forGetter(NPCState::getType)

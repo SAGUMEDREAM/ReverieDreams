@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class CustomCharacterLoader {
                         VirtualZipFS.FileEntry skinConfigFileEntry = virtualZipFS.get(skinConfigPath);
                         String baseName = skinConfigFileEntry.filename()
                                 .replaceFirst("\\.[^.]+$", "");
-                        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, baseName);
+                        Identifier id = Identifier.fromNamespaceAndPath(ReverieDreams.MOD_ID, baseName);
                         JsonElement json = JsonParser.parseString(new String(skinConfigFileEntry.data(), StandardCharsets.UTF_8));
                         DataResult<SkinConfig> parse = SkinConfig.CODEC.parse(JsonOps.INSTANCE, json);
                         Optional<SkinConfig> result = parse.result();

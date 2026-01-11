@@ -13,7 +13,7 @@ import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -51,18 +51,18 @@ public class FruitLeavesImpl implements PolymerBlock, PolymerTexturedBlock, Fact
         private final BlockState state;
         private final Block empty;
         private ItemDisplayElement main;
-        private final ResourceLocation defaultId;
-        private final ResourceLocation modelId;
+        private final Identifier defaultId;
+        private final Identifier modelId;
 
         public Model(ServerLevel world, BlockPos blockPos, BlockState state) {
             this.world = world;
             this.blockPos = blockPos;
             this.empty = FruitLeavesImpl.this.full.getEmptyLeavesBlock();
             this.state = state;
-            ResourceLocation identifier = BuiltInRegistries.BLOCK.getKey(FruitLeavesImpl.this.full);
-            ResourceLocation emptyId = BuiltInRegistries.BLOCK.getKey(this.empty);
-            this.defaultId = ResourceLocation.fromNamespaceAndPath(emptyId.getNamespace(), "block/" + emptyId.getPath());
-            this.modelId = ResourceLocation.fromNamespaceAndPath(identifier.getNamespace(), "block/" + identifier.getPath());
+            Identifier identifier = BuiltInRegistries.BLOCK.getKey(FruitLeavesImpl.this.full);
+            Identifier emptyId = BuiltInRegistries.BLOCK.getKey(this.empty);
+            this.defaultId = Identifier.fromNamespaceAndPath(emptyId.getNamespace(), "block/" + emptyId.getPath());
+            this.modelId = Identifier.fromNamespaceAndPath(identifier.getNamespace(), "block/" + identifier.getPath());
             this.init(state);
         }
 

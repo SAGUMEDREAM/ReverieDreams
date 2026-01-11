@@ -16,7 +16,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -31,8 +31,8 @@ import java.util.Set;
 @Setter
 @Getter
 public final class CropBlockCreator {
-    private static final Map<ResourceLocation, CropBlockCreator.Instance> INSTANCES = new Object2ObjectOpenHashMap<>();
-    private final ResourceLocation identifier;
+    private static final Map<Identifier, CropBlockCreator.Instance> INSTANCES = new Object2ObjectOpenHashMap<>();
+    private final Identifier identifier;
     private Integer maxAge;
     private float seedCompostingLevel = 0.3f;
     private float cropCompostingLevel = 0.6f;
@@ -44,11 +44,11 @@ public final class CropBlockCreator {
     @Setter(value = AccessLevel.PRIVATE)
     private CropBlockCreator.Instance instance;
 
-    private CropBlockCreator(ResourceLocation identifier) {
+    private CropBlockCreator(Identifier identifier) {
         this.identifier = identifier;
     }
 
-    public static CropBlockCreator createCreator(ResourceLocation identifier) {
+    public static CropBlockCreator createCreator(Identifier identifier) {
         return new CropBlockCreator(identifier);
     }
 
@@ -69,7 +69,7 @@ public final class CropBlockCreator {
         Registry.register(BuiltInRegistries.BLOCK, this.identifier, basicCropBlock);
 
         Item seedItem;
-        ResourceLocation seedId = ResourceLocation.fromNamespaceAndPath(this.identifier.getNamespace(), this.identifier.getPath() + "_seeds");
+        Identifier seedId = Identifier.fromNamespaceAndPath(this.identifier.getNamespace(), this.identifier.getPath() + "_seeds");
         seedItem = RDItems.registerSimpleItem(
                 seedId,
                 (settings) -> new BlockItem(
@@ -109,7 +109,7 @@ public final class CropBlockCreator {
         return instance;
     }
 
-    public static Optional<Instance> getInstance(ResourceLocation identifier) {
+    public static Optional<Instance> getInstance(Identifier identifier) {
         return Optional.ofNullable(INSTANCES.get(identifier));
     }
 
@@ -117,7 +117,7 @@ public final class CropBlockCreator {
         return Optional.ofNullable(INSTANCES.get(BuiltInRegistries.BLOCK.getKey(block)));
     }
 
-    public static Set<Map.Entry<ResourceLocation, Instance>> getViews() {
+    public static Set<Map.Entry<Identifier, Instance>> getViews() {
         return INSTANCES.entrySet();
     }
 
@@ -130,7 +130,7 @@ public final class CropBlockCreator {
     @Getter
     @ToString
     public static class Instance {
-        private final ResourceLocation identifier;
+        private final Identifier identifier;
         private final Set<Item> items = new HashSet<>();
         private Item seed;
         private Item product;
@@ -139,11 +139,11 @@ public final class CropBlockCreator {
         private boolean inWater = false;
         private boolean selfSeed = false;
 
-        private Instance(ResourceLocation identifier) {
+        private Instance(Identifier identifier) {
             this.identifier = identifier;
         }
 
-        public static Instance createInstance(ResourceLocation identifier) {
+        public static Instance createInstance(Identifier identifier) {
             return new Instance(identifier);
         }
 

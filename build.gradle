@@ -43,7 +43,12 @@ repositories {
         url 'https://repository.hanbings.io/proxy'
     }
     maven { url = "https://maven.fabricmc.net/" }
-    maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url = "https://maven.quiltmc.org/repository/release/" }
+    maven { url = "https://maven.tomalbrc.de" }
+    maven { url = "https://maven.nucleoid.xyz" }
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.draylar.dev/releases" }
+    maven { url = "https://maven.aliyun.com/nexus/content/groups/public/" }
     maven { url = 'https://maven.nucleoid.xyz' }
     maven { url = "https://api.modrinth.com/maven/" }
     maven {
@@ -98,28 +103,31 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-    modImplementation("eu.pb4:polymer-core:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-blocks:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-resource-pack:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-resource-pack-extras:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
-    modImplementation("eu.pb4:polymer-autohost:${polymer_version}")
-    modImplementation("eu.pb4:polymer-networking:[${polymer_version}]")
+    modImplementation("eu.pb4:polymer-core:[${project.polymer_version}]")
+    modImplementation("eu.pb4:polymer-blocks:[${project.polymer_version}]")
+    modImplementation("eu.pb4:polymer-resource-pack:[${project.polymer_version}]")
+    modImplementation("eu.pb4:polymer-resource-pack-extras:[${project.polymer_version}]")
+    modImplementation("eu.pb4:polymer-virtual-entity:[${project.polymer_version}]")
+    modImplementation("eu.pb4:polymer-autohost:${project.polymer_version}")
+    modImplementation("eu.pb4:polymer-networking:[${project.polymer_version}]")
 
-    modImplementation include("eu.pb4:factorytools:[${factorytools_version}]")
-    modImplementation include("eu.pb4:sgui:[${sgui_version}]")
-    modImplementation include("xyz.nucleoid:server-translations-api:${server_translations_api_version}")
-    modImplementation include("maven.modrinth:midnightlib:${midnightlib_version}")
+    modImplementation include("eu.pb4:factorytools:[${project.factorytools_version}]")
+    modImplementation include("eu.pb4:sgui:[${project.sgui_version}]")
+    modImplementation include("me.lucko:fabric-permissions-api:${project.fabric_permissions_api}")
+//    modImplementation include("xyz.nucleoid:server-translations-api:${project.server_translations_api_version}")
+    modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
 
-    modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
+    implementation include("gg.moonflower:molang-compiler:${project.molang_compiler_version}")
+//    modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
+    modImplementation files("libs/blockbench-import-library-2.0.0+1.21.11.jar")
     modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
 
-    modImplementation files('libs/resourceconfigapi-fabric-1.21.10-3.8.1.jar')
-    modImplementation files('libs/camera-obscura-1.2.2+1.21.9-rc1.jar')
+    modImplementation files('libs/resourceconfigapi-fabric-1.21.11-3.9.2.jar')
+    modImplementation files('libs/camera-obscura-1.2.2+1.21.11.jar')
 
-    modCompileOnly files('libs/eiv-fabric-5.2.0+1.21.10.jar')
+    modCompileOnly files('libs/eiv-fabric-5.2.0+1.21.11.jar')
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')
     modCompileOnly files('libs/borukva-food-0.1.14+1.21.7.jar')
@@ -146,11 +154,12 @@ dependencies {
 //    compileOnly('org.geysermc.geyser:api:2.7.0-SNAPSHOT')
 
     compileOnly 'org.projectlombok:lombok:1.18.34'
-    modCompileOnly 'maven.modrinth:polydex:1.7.0+1.21.9-rc1'
+    modCompileOnly 'maven.modrinth:polydex:1.8.1+1.21.11'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
     implementation include('com.squareup.okhttp3:okhttp:4.12.0')
     implementation include('com.squareup.okio:okio:3.4.0')
+    //noinspection DifferentStdlibGradleVersion
     implementation include('org.jetbrains.kotlin:kotlin-stdlib:1.9.10')
     implementation include('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10')
     implementation include('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10')
@@ -223,7 +232,8 @@ tasks.remapJar {
         def jarFile = archiveFile.get().asFile
         // 这里传入你的依赖 jar 列表
         includeDependencyJar(jarFile, [
-                "libs/camera-obscura-1.2.2+1.21.9-rc1.jar",
+                "libs/camera-obscura-1.2.2+1.21.11.jar",
+                "libs/blockbench-import-library-2.0.0+1.21.11.jar"
         ])
     }
 }

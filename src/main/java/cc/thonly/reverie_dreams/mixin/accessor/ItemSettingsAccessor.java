@@ -4,8 +4,8 @@ import cc.thonly.reverie_dreams.inf.ItemSettingsAccessorImpl;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.resources.DependantName;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
@@ -42,5 +42,5 @@ public interface ItemSettingsAccessor extends FabricItem.Settings, ItemSettingsA
     public DependantName<Item, String> getTranslationKey();
 
     @Accessor("model")
-    public DependantName<Item, ResourceLocation> getModelId();
+    public DependantName<Item, Identifier> getModelId();
 }

@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.compat.page.*;
 import cc.thonly.reverie_dreams.recipe.type.*;
 import eu.pb4.polydex.api.v1.recipe.PolydexEntry;
 import eu.pb4.polydex.api.v1.recipe.PolydexPage;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,8 +27,8 @@ public class PolydexCompatImpl {
     }
 
     private static <T, R extends PolydexPage> void createRecipeView(
-            Map<ResourceLocation, T> view,
-            BiFunction<ResourceLocation, T, R> pageFactory,
+            Map<Identifier, T> view,
+            BiFunction<Identifier, T, R> pageFactory,
             Consumer<PolydexPage> consumer) {
         view.forEach((id, recipe) -> {
             consumer.accept(pageFactory.apply(id, recipe));
@@ -36,7 +36,7 @@ public class PolydexCompatImpl {
     }
 
 
-    private static PolydexEntry ofEntry(ResourceLocation id, ItemStack stack) {
+    private static PolydexEntry ofEntry(Identifier id, ItemStack stack) {
         return PolydexEntry.of(id, stack);
     }
 }

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.mixin.item;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Item.Properties.class)
 public abstract class ItemSettingsMixin {
     @Unique
-    private static final ResourceLocation DEFAULT_KEY = ResourceLocation.parse("minecraft:stone");
+    private static final Identifier DEFAULT_KEY = Identifier.parse("minecraft:stone");
 
     @Shadow
     public abstract <T> Item.Properties component(DataComponentType<T> type, T value);

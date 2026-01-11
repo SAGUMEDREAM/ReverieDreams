@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.List;
 
@@ -208,7 +208,7 @@ public class RoleCards {
         return register(ReverieDreams.id(name), roleCard);
     }
 
-    public static RoleCard register(ResourceLocation key, RoleCard roleCard) {
+    public static RoleCard register(Identifier key, RoleCard roleCard) {
         return RegistryHandlers.register(RegistryHandlers.ROLE_CARD, key, roleCard);
     }
 

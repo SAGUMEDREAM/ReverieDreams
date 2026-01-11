@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -27,6 +28,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerEntity {
@@ -46,6 +50,22 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
+
+    @Inject(method = "playSound",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"),
+            cancellable = true
+    )
+    public void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+        for (StackTraceElement element : stack) {
+            if (element.getClassName().startsWith("cc.thonly")) {
+                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), f, g);
+                ci.cancel();
+                return;
+            }
+        }
+    }
+
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
@@ -78,7 +98,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
             }
             if (this.nonSleepingTime < MAX_NON_SLEEPING_TIME) {
                 this.nonSleepingTime++;
-            } else if (ReverieDreamsConfiguration.ENABLE_GHOST_SPAWN && serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST)){
+            } else if (ReverieDreamsConfiguration.ENABLE_GHOST_SPAWN && serverWorld.getGameRules().get(GameRulesInit.DO_GHOST)){
                 this.trySpawnGhost();
                 this.addEffect(new MobEffectInstance(RDStatusEffects.MENTAL_DISORDER, 20 * 60 * 5));
                 DelayedTask.whenTick(server, () -> this.sleep, 20 * 60 * 2, this::trySpawnGhost, () -> {
@@ -102,7 +122,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
         if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
-        boolean value = serverWorld.getGameRules().getBoolean(GameRulesInit.DO_GHOST);
+        boolean value = serverWorld.getGameRules().get(GameRulesInit.DO_GHOST);
         if (!value) {
             return;
         }
@@ -144,13 +164,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
 
     @Unique
     @Override
-    public void setNonSleepingTime(long time) {
+    public void reverie_dreams$setNonSleepingTime(long time) {
         this.nonSleepingTime = time;
     }
 
     @Unique
     @Override
-    public long getNonSleepingTime() {
+    public long reverie_dreams$getNonSleepingTime() {
         return this.nonSleepingTime;
     }
 

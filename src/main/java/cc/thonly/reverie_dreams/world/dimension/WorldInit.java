@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 
 public class WorldInit {
@@ -24,7 +24,7 @@ public class WorldInit {
     }
 
     public static ResourceKey<Level> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
+        return ResourceKey.create(Registries.DIMENSION, Identifier.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 
     public static ResourceKey<Level> getDreamWorld() {

@@ -14,7 +14,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -38,7 +38,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
         this.addFruityLeavesBlockState(RDWoodBlocks.GINKGO_FRUIT_LEAVES, RDWoodBlocks.GINKGO.leaves());
         this.addFruityLeavesBlockState(RDWoodBlocks.PEACH_FRUIT_LEAVES, RDWoodBlocks.PEACH.leaves());
 
-        this.addElement(Type.ASSETS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.builtInRegistryHolder().key().location(), "blockstates", strToJson(
+        this.addElement(Type.ASSETS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.builtInRegistryHolder().key().identifier(), "blockstates", strToJson(
                 "{\n" +
                         "  \"variants\": {\n" +
                         "    \"axis=x\": {\n" +
@@ -56,7 +56,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
                         "  }\n" +
                         "}"
         ));
-        this.addElement(Type.ASSETS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.builtInRegistryHolder().key().location(), "items", strToJson(
+        this.addElement(Type.ASSETS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.builtInRegistryHolder().key().identifier(), "items", strToJson(
                 "{\n" +
                         "  \"model\": {\n" +
                         "    \"type\": \"minecraft:model\",\n" +
@@ -66,7 +66,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
         ));
         for (Item spawnEgg : SpawnEggItem.SPAWN_EGGS) {
             ResourceKey<Item> key = spawnEgg.builtInRegistryHolder().key();
-            ResourceLocation location = key.location();
+            Identifier location = key.identifier();
             JsonElement element = strToJson("{\n" +
                     "  \"model\": {\n" +
                     "    \"type\": \"minecraft:condition\",\n" +
@@ -97,7 +97,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
     }
 
     void addSixteenDirectionBlockState(Block block) {
-        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier key = BuiltInRegistries.BLOCK.getKey(block);
         JsonElement blockState = this.buildSixteenDirectionBlockState(block);
         JsonElement items = this.buildBlockItem(block);
         this.addElement(Type.ASSETS, key, "blockstates", blockState);
@@ -105,7 +105,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
     }
 
     void addFruityLeavesBlockState(Block block, Block rawBlock) {
-        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier key = BuiltInRegistries.BLOCK.getKey(block);
         JsonElement blockState = this.buildFruityLeavesBlock(block, rawBlock);
         JsonElement items = this.buildBlockItem(block);
         this.addElement(Type.ASSETS, key, "blockstates", blockState);
@@ -113,8 +113,8 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
     }
 
     JsonElement buildFruityLeavesBlock(Block block, Block rawBlock) {
-        ResourceLocation blockKey = BuiltInRegistries.BLOCK.getKey(block);
-        ResourceLocation rawBlockKey = BuiltInRegistries.BLOCK.getKey(rawBlock);
+        Identifier blockKey = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier rawBlockKey = BuiltInRegistries.BLOCK.getKey(rawBlock);
         JsonObject object = new JsonObject();
         JsonObject variants = new JsonObject();
         for (int i = 0; i <= FruitLeavesBlock.MAX_AGE; i++) {
@@ -136,7 +136,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
     }
 
     JsonElement buildSixteenDirectionBlockState(Block block) {
-        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier key = BuiltInRegistries.BLOCK.getKey(block);
         JsonObject object = new JsonObject();
         JsonObject variants = new JsonObject();
 
@@ -170,7 +170,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
     }
 
     JsonElement buildBlockItem(Block block) {
-        ResourceLocation blockKey = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier blockKey = BuiltInRegistries.BLOCK.getKey(block);
         JsonObject object = new JsonObject();
         JsonObject model = new JsonObject();
         model.addProperty("type", "minecraft:model");

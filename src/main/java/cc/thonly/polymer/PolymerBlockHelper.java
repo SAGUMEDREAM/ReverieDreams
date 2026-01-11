@@ -22,7 +22,7 @@ import eu.pb4.polymer.virtualentity.api.BlockWithElementHolder;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -32,7 +32,7 @@ public class PolymerBlockHelper {
         if (ConstantInfo.IS_DATAGEN_MODE) {
             return;
         }
-        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
         PolymerBlock polymerBlock = requestBlockOverlay(block);
         PolymerBlock.registerOverlay(block, polymerBlock);
         if (polymerBlock instanceof BlockWithElementHolder blockWithElementHolder) {
@@ -45,7 +45,7 @@ public class PolymerBlockHelper {
     }
 
     public static PolymerBlock requestBlockOverlay(Block block) {
-        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
         BlockState defaultState = block.defaultBlockState();
 
         LateLoaderInit.LATE_INIT.add(() -> {

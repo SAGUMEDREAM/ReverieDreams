@@ -6,10 +6,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class RDAdvancements {
-    public static final ResourceLocation ADVANCEMENT_BACKGROUND = ResourceLocation.withDefaultNamespace("gui/advancements/backgrounds/stone");
+    public static final Identifier ADVANCEMENT_BACKGROUND = Identifier.withDefaultNamespace("gui/advancements/backgrounds/stone");
     public static final ResourceKey<Advancement> ROOT = getOrCreateKey("root");
     public static final ResourceKey<Advancement> DANMAKU_TABLE = getOrCreateKey("danmaku_table");
     public static final ResourceKey<Advancement> DANMAKU_WARS = getOrCreateKey("danmaku_wars");
@@ -37,7 +37,7 @@ public class RDAdvancements {
     public static final ResourceKey<Advancement> FINE_WINE = getOrCreateKey("fine_wine");
 
     public static String getRootKey() {
-        return ROOT.location().toLanguageKey("title");
+        return ROOT.identifier().toLanguageKey("title");
     }
 
     public static MutableComponent getTitleComponent(ResourceKey<Advancement> key) {
@@ -49,11 +49,11 @@ public class RDAdvancements {
     }
 
     public static String getTitleKey(ResourceKey<Advancement> key) {
-        return key.location().toLanguageKey("title");
+        return key.identifier().toLanguageKey("title");
     }
 
     public static String getDescriptionKey(ResourceKey<Advancement> key) {
-        return key.location().toLanguageKey("description");
+        return key.identifier().toLanguageKey("description");
     }
 
     public static ResourceKey<Advancement> getOrCreateKey(String name) {

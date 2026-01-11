@@ -8,7 +8,7 @@ import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -32,7 +32,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
     private Block slab;
     private Block wall;
 
-    private DecorativeBlockCreator(ResourceLocation id) {
+    private DecorativeBlockCreator(Identifier id) {
         super(id.getPath(), id);
         INSTANCES.add(this);
     }
@@ -76,7 +76,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
     }
 
     public void offerRecipe(RecipeProvider generator, @NotNull Item material) {
-        ResourceLocation id = BuiltInRegistries.ITEM.getKey(material);
+        Identifier id = BuiltInRegistries.ITEM.getKey(material);
         ItemLike start = this.base() == null ? material : this.base();
         if (start != this.block()) {
             generator.shaped(RecipeCategory.DECORATIONS, this.block(), 2)
@@ -121,7 +121,7 @@ public class DecorativeBlockCreator extends AbstractBlockCreator {
         return new DecorativeBlockCreator(name);
     }
 
-    public static DecorativeBlockCreator create(ResourceLocation id) {
+    public static DecorativeBlockCreator create(Identifier id) {
         return new DecorativeBlockCreator(id);
     }
 }

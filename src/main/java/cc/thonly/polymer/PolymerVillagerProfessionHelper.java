@@ -6,7 +6,7 @@ import eu.pb4.polymer.core.api.entity.PolymerVillagerProfession;
 import eu.pb4.polymer.core.api.utils.PolymerSyncedObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 public class PolymerVillagerProfessionHelper {

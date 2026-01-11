@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.item.base;
 
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,7 +23,7 @@ public class FoodItem extends Item {
     }
 
     public FoodItem(List<FoodProperty> foodProperties, Properties settings) {
-        super(settings.component(RDDataComponents.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(ResourceLocation::toString).toList()));
+        super(settings.component(RDDataComponents.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()));
     }
 
     public FoodItem(List<FoodProperty> foodProperties, Integer nutrition, Float saturation, Properties settings) {
@@ -33,7 +33,7 @@ public class FoodItem extends Item {
                                 .saturationModifier(saturation + 2)
                                 .build()
                         )
-                        .component(RDDataComponents.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(ResourceLocation::toString).toList()));
+                        .component(RDDataComponents.FOOD_PROPERTIES, foodProperties.stream().map(FoodProperty::getId).map(Identifier::toString).toList()));
     }
 
     public FoodItem(Integer nutrition, Float saturation, Properties settings) {

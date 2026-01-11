@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -23,7 +23,7 @@ public abstract class PointOfInterestTypeProvider extends FabricTagProvider<PoiT
         super(output, Registries.POINT_OF_INTEREST_TYPE, registriesFuture);
         this.valueToKey = value -> {
             Optional<ResourceKey<PoiType>> key = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(value);
-            return key.orElseGet(() -> ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.parse("none")));
+            return key.orElseGet(() -> ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, Identifier.parse("none")));
         };
     }
 

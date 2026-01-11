@@ -33,35 +33,35 @@ public class ModTemplatePools {
         Holder.Reference<StructureTemplatePool> emptyPool = structurePool.getOrThrow(Pools.EMPTY);
         context.register(ABANDONED_ALTAR, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.ABANDONED_ALTAR.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.ABANDONED_ALTAR.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
         context.register(ABANDONED_TORII, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.ABANDONED_TORII.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.ABANDONED_TORII.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
         context.register(MINI_BAR, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.MINI_BAR.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.MINI_BAR.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
         context.register(OUTER_SHRINE, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.OUTER_SHRINE.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.OUTER_SHRINE.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
         context.register(BAMBOO_FOREST_BBQ_STALL, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.BAMBOO_FOREST_BBQ_STALL.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.BAMBOO_FOREST_BBQ_STALL.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
         context.register(BAMBOO_FOREST_HUT, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.BAMBOO_FOREST_HUT.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.BAMBOO_FOREST_HUT.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
         context.register(SAKURAZUKA, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.SAKURAZUKA.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.SAKURAZUKA.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
         context.register(NETHER_HOT_SPRING, new StructureTemplatePool(
                 emptyPool,
-                List.of(Pair.of(StructurePoolElement.single(ModStructures.NETHER_HOT_SPRING.location().toString()), 1)), StructureTemplatePool.Projection.RIGID)
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.NETHER_HOT_SPRING.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
     }
 

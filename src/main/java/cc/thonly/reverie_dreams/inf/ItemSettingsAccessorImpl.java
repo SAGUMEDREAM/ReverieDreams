@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.inf;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.resources.DependantName;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 
@@ -26,5 +26,5 @@ public interface ItemSettingsAccessorImpl {
 
     DependantName<Item, String> getTranslationKey();
 
-    DependantName<Item, ResourceLocation> getModelId();
+    DependantName<Item, Identifier> getModelId();
 }

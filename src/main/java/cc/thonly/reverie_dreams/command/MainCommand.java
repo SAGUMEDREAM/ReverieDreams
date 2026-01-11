@@ -18,6 +18,7 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
+import cc.thonly.reverie_dreams.util.command.PermissionPredicate;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -31,7 +32,7 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.commands.synchronization.SuggestionProviders;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -40,7 +41,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.level.ServerPlayer;
@@ -78,27 +79,27 @@ public class MainCommand implements CommandInit.CommandRegistration {
         var help = Commands.literal("help")
                 .executes(this::help);
         var get_sc_with_spell_config = Commands.literal("get_spellcard_with_config")
-                .requires(ctx -> ctx.hasPermission(2))
+                .requires(PermissionPredicate.isGameMasters())
                 .then(
                         RegistryHandlers.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
                 );
         var with_food_property = Commands.literal("with_food_property")
-                .requires(ctx -> ctx.hasPermission(2))
+                .requires(PermissionPredicate.isGameMasters())
                 .then(
                         RegistryHandlers.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
                 );
         var with_drink_property = Commands.literal("with_drink_property")
-                .requires(ctx -> ctx.hasPermission(2))
+                .requires(PermissionPredicate.isGameMasters())
                 .then(
                         RegistryHandlers.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("drink_property")))
                 );
         var cachedAllSkins = Commands.literal("start-cached-skins")
-                .requires(ctx -> ctx.hasPermission(2))
+                .requires(PermissionPredicate.isGameMasters())
                 .executes(this::cachedAllSkins);
         var recipe = Commands.literal("recipe")
                 .executes(this::recipe);
         var registry = Commands.literal("registry")
-                .requires(source -> source.hasPermission(2))
+                .requires(PermissionPredicate.isGameMasters())
                 .then(
                         RegistryHandlers.getSuggestProvider(this::registry)
                 );
@@ -109,7 +110,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
                                 .executes(this::dialog)
                 );
         var video = Commands.literal("video")
-                .requires(source -> source.hasPermission(2))
+                .requires(PermissionPredicate.isGameMasters())
                 .then(
                         Commands.literal("play")
                                 .then(
@@ -119,7 +120,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
                                                                 .suggests(new DialogFiles.FilesSuggestionProvider())
                                                                 .executes(this::playVideo)
                                                                 .then(
-                                                                        Commands.argument("sound", ResourceLocationArgument.id())
+                                                                        Commands.argument("sound", IdentifierArgument.id())
                                                                                 .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
                                                                                 .executes(this::playVideo)
                                                                 )
@@ -163,7 +164,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         }
         ServerPlayer player = source.getPlayer();
         assert player != null;
-        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
+        Identifier id = IdentifierArgument.getId(context, "id");
         FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(id);
         if (property == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
@@ -189,7 +190,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         }
         ServerPlayer player = source.getPlayer();
         assert player != null;
-        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
+        Identifier id = IdentifierArgument.getId(context, "id");
         DrinkProperty property = RegistryHandlers.DRINK_PROPERTY.getValue(id);
         if (property == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
@@ -215,7 +216,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         }
         ServerPlayer player = source.getPlayer();
         assert player != null;
-        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
+        Identifier id = IdentifierArgument.getId(context, "id");
 
         SpellCardFrameConfig config = RegistryHandlers.DANMAKU_CONFIG.getValue(id);
         if (config == null) {
@@ -248,8 +249,8 @@ public class MainCommand implements CommandInit.CommandRegistration {
     private int registry(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
 
-        ResourceLocation registryKeyId = ResourceLocationArgument.getId(context, "registry_key");
-        ResourceLocation id = ResourceLocationArgument.getId(context, "id");
+        Identifier registryKeyId = IdentifierArgument.getId(context, "registry_key");
+        Identifier id = IdentifierArgument.getId(context, "id");
 
         ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
         RegistryHandler<?> registry = RegistryHandlers.ROOT.get(registryKey);
@@ -293,10 +294,10 @@ public class MainCommand implements CommandInit.CommandRegistration {
         try {
             ServerPlayer player = EntityArgument.getPlayer(context, "target");
             String file = StringArgumentType.getString(context, "file");
-            ResourceLocation soundEventId = null;
+            Identifier soundEventId = null;
             SoundEvent soundEvent = null;
             try {
-                soundEventId = ResourceLocationArgument.getId(context, "sound");
+                soundEventId = IdentifierArgument.getId(context, "sound");
             } catch (Exception ignored) {
             }
             if (soundEventId != null) {
@@ -340,6 +341,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         return 1;
     }
 
+    @SuppressWarnings("unchecked")
     private int exportRegistries(CommandContext<CommandSourceStack> context) {
         List<String> lines = new LinkedList<>();
         CommandSourceStack source = context.getSource();
@@ -351,12 +353,12 @@ public class MainCommand implements CommandInit.CommandRegistration {
             ResourceKey<? extends Registry<Object>> key = entry.key();
             Registry<Object> registry = entry.value();
 
-            lines.add("===== Registry: " + key.location() + " =====");
+            lines.add("===== Registry: " + key.identifier() + " =====");
             registry.forEach(obj -> {
                 int rawId = registry.getId(obj);
-                ResourceLocation id = registry.getKey(obj);
+                Identifier id = registry.getKey(obj);
                 if (rawId == 97) {
-                    lines.add("!!! Found 97 in " + key.location() + " = " + id);
+                    lines.add("!!! Found 97 in " + key.identifier() + " = " + id);
                 }
             });
         }

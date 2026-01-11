@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
+import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @Getter
 @NoArgsConstructor
 public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBinding<DanmakuTrajectory>, BuiltinObject {
-    public static final Codec<DanmakuTrajectory> CODEC = Codec.unit(DanmakuTrajectory::new);
+    public static final Codec<DanmakuTrajectory> CODEC = UnitCodec.unit(DanmakuTrajectory::new);
     private RegistryHandler<DanmakuTrajectory> owner;
 
     public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack, Double x, Double y, Double z, float pitch, float yaw, float divergence, float offsetDist, IDanmakuItem pThis) {

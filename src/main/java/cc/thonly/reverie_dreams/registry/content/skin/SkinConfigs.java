@@ -10,7 +10,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 
@@ -34,10 +34,10 @@ public class SkinConfigs {
             skin.setConfig(config);
             config.setSkin(skin);
         }
-        Map<ResourceLocation, Resource> resources = manager.listResources("skin_config", id -> id.getPath().endsWith(".json"));
-        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
-            ResourceLocation resourceId = entry.getKey();
-            ResourceLocation key = ResourceLocation.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath()
+        Map<Identifier, Resource> resources = manager.listResources("skin_config", id -> id.getPath().endsWith(".json"));
+        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+            Identifier resourceId = entry.getKey();
+            Identifier key = Identifier.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath()
                     .replace("skin_config/", "")
                     .replace(".json", "")
             );

@@ -13,9 +13,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.gamerules.GameRules;
 
 public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
 
@@ -38,7 +38,7 @@ public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
     private boolean isFoodDisplay(LevelReader world, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity) {
             ItemStackWrapper item = isdBlockEntity.getItem();
-            return ((IItemStack) (Object) item.getItemStack()).isFood();
+            return ((IItemStack) (Object) item.getItemStack()).reverie_dreams$isFood();
         }
         return false;
     }
@@ -66,7 +66,7 @@ public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
     protected void eatBerries() {
         BaseNPCLikeEntity maid = (BaseNPCLikeEntity) this.mob;
         Level world = maid.level();
-        if (getServerLevel(world).getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+        if (getServerLevel(world).getGameRules().get(GameRules.MOB_GRIEFING)) {
             if (isFoodDisplay(world, this.blockPos)) {
                 FoodDisplayBlockEntity displayBlockEntity = (FoodDisplayBlockEntity) world.getBlockEntity(blockPos);
                 ItemStackWrapper item = displayBlockEntity.getItem();

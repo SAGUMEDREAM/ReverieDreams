@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class NPCRoles {
@@ -164,7 +164,7 @@ public class NPCRoles {
 
     public static void bootstrap(RegistryHandler<NPCRole> registry) {
         SkinType.CODEC = RecordCodecBuilder.create(x->x.group(
-                ResourceLocation.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
+                Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
         ).apply(x, RegistryHandlers.SKIN_TYPE::getValue));
     }
 
@@ -176,7 +176,7 @@ public class NPCRoles {
         return registerRole(ReverieDreams.id(name), role);
     }
 
-    public static NPCRole registerRole(ResourceLocation id, NPCRole role) {
+    public static NPCRole registerRole(Identifier id, NPCRole role) {
         NPCRole entry = RegistryHandlers.register(RegistryHandlers.NPC_ROLE, id, role);
         return entry.build();
     }

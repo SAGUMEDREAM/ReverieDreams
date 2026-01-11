@@ -6,7 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.WritableRegistry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +27,7 @@ public abstract class MappedRegistryMixin<T> implements SimpleRegistrySetter, Wr
     @Shadow
     private @Nullable Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
 
-    @Shadow @Final public Map<ResourceLocation, Holder.Reference<T>> byLocation;
+    @Shadow @Final public Map<Identifier, Holder.Reference<T>> byLocation;
 
     @Shadow @Final public Map<T, Holder.Reference<T>> byValue;
 

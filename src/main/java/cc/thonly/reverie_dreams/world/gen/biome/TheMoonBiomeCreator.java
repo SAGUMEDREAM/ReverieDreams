@@ -3,10 +3,16 @@ package cc.thonly.reverie_dreams.world.gen.biome;
 import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.attribute.AmbientMoodSettings;
+import net.minecraft.world.attribute.AmbientParticle;
+import net.minecraft.world.attribute.AmbientSounds;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+
+import java.util.Optional;
 
 public class TheMoonBiomeCreator {
     private static Biome createMoonBiome(BiomeGenerationSettings.Builder builder) {
@@ -16,15 +22,15 @@ public class TheMoonBiomeCreator {
                 .hasPrecipitation(false)
                 .temperature(2.0f)
                 .downfall(0.5F)
+                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 16777215)
+                .setAttribute(EnvironmentAttributes.FOG_COLOR, 10518688)
+                .setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
+                .setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, AmbientParticle.of(ParticleTypes.WHITE_ASH, 0.001F))
+                .setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS)
                 .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0)
-                        .waterFogColor(16777215)
-                        .fogColor(10518688)
-                        .skyColor(0)
                         .foliageColorOverride(16777215)
                         .grassColorOverride(6908265)
-                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.001F))
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .mobSpawnSettings(builder2.build())
                 .generationSettings(builder.build()).build();

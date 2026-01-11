@@ -35,10 +35,10 @@ public class DreamPillowItem extends Item {
             Tuple<Boolean, BlockPos> bedHead = getBedHead(serverWorld, blockPos);
             if (sneaking && bedHead.getA() && serverWorld.getBlockEntity(bedHead.getB()) instanceof BedBlockEntity blockEntity) {
                 IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) blockEntity;
-                if (iBedBlockEntity.hasDreamPillow()) {
+                if (iBedBlockEntity.reverie_dreams$hasDreamPillow()) {
                     return InteractionResult.PASS;
                 } else {
-                    iBedBlockEntity.setHasDreamPillow(true);
+                    iBedBlockEntity.reverie_dreams$setHasDreamPillow(true);
                     itemStack.consume(1, player);
                     return InteractionResult.SUCCESS_SERVER;
                 }

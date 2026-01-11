@@ -15,7 +15,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -30,7 +30,7 @@ public abstract class AbstractCraftingConflictProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<ResourceLocation, CraftingConflict> registries = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, CraftingConflict> registries = new Object2ObjectOpenHashMap<>();
 
     public AbstractCraftingConflictProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
@@ -48,11 +48,11 @@ public abstract class AbstractCraftingConflictProvider implements DataProvider {
 
     protected AbstractCraftingConflictProvider registerEntry(CraftingConflict craftingConflict) {
         var id = BuiltInRegistries.ITEM.getKey(craftingConflict.getItem());
-        id = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/","-"));
+        id = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/","-"));
         return this.registerEntry(id, craftingConflict);
     }
 
-    protected AbstractCraftingConflictProvider registerEntry(ResourceLocation key, CraftingConflict craftingConflict) {
+    protected AbstractCraftingConflictProvider registerEntry(Identifier key, CraftingConflict craftingConflict) {
         this.registries.put(key, craftingConflict);
         return this;
     }
@@ -63,7 +63,7 @@ public abstract class AbstractCraftingConflictProvider implements DataProvider {
         Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         try {
             for (var entry : this.registries.entrySet()) {
-                ResourceLocation key = entry.getKey();
+                Identifier key = entry.getKey();
                 CraftingConflict craftingConflict = entry.getValue();
                 DataResult<JsonElement> result = CraftingConflict.CODEC.encodeStart(JsonOps.INSTANCE, craftingConflict);
                 Optional<JsonElement> optional = result.result();

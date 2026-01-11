@@ -10,7 +10,7 @@ import lombok.Value;
 import lombok.With;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.damagesource.DamageType;
 
 import java.util.function.Supplier;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class DanmakuProperties {
-    public static final ResourceLocation DEFAULT_TEMPLATE_ID = ReverieDreams.id("single");
+    public static final Identifier DEFAULT_TEMPLATE_ID = ReverieDreams.id("single");
     public static final Supplier<DanmakuProperties> EMPTY = () -> new DanmakuProperties(
             DEFAULT_TEMPLATE_ID,
             1,
@@ -33,7 +33,7 @@ public class DanmakuProperties {
             false
     );
 
-    public ResourceLocation templateId;
+    public Identifier templateId;
     public int count;
     public float damage;
     public ResourceKey<DamageType> damageType;
@@ -45,7 +45,7 @@ public class DanmakuProperties {
 
     public static final Codec<DanmakuProperties> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    ResourceLocation.CODEC.fieldOf("templateId").forGetter(DanmakuProperties::getTemplateId),
+                    Identifier.CODEC.fieldOf("templateId").forGetter(DanmakuProperties::getTemplateId),
                     Codec.INT.fieldOf("count").forGetter(DanmakuProperties::getCount),
                     Codec.FLOAT.fieldOf("damage").forGetter(DanmakuProperties::getDamage),
                     ResourceKey.codec(Registries.DAMAGE_TYPE).optionalFieldOf("damage_type", RDDamageTypes.DANMAKU_GENERIC).forGetter(DanmakuProperties::getDamageType),

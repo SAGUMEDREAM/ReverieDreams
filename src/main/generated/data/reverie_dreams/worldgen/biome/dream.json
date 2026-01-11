@@ -1,27 +1,31 @@
 {
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    },
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:white_ash"
+        },
+        "probability": 0.001
+      }
+    ],
+    "minecraft:visual/fog_color": "#c061cb",
+    "minecraft:visual/water_fog_color": "#c061cb"
+  },
   "carvers": [],
   "creature_spawn_probability": 0.07,
   "downfall": 0.5,
   "effects": {
-    "fog_color": 12607947,
-    "foliage_color": 14687012,
-    "grass_color": 15545147,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music_volume": 1.0,
-    "particle": {
-      "options": {
-        "type": "minecraft:white_ash"
-      },
-      "probability": 0.001
-    },
-    "sky_color": 0,
-    "water_color": 15545147,
-    "water_fog_color": 12607947
+    "foliage_color": "#e01b24",
+    "grass_color": "#ed333b",
+    "water_color": "#ed333b"
   },
   "features": [
     [

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.util;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public interface IdentifierGetter {
-    ResourceLocation getIdentifier();
+    Identifier getIdentifier();
 }

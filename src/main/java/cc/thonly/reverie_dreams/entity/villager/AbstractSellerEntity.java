@@ -1,13 +1,9 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
 import eu.pb4.sgui.api.gui.MerchantGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
@@ -25,9 +21,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerData;
-import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.monster.illager.Evoker;
+import net.minecraft.world.entity.monster.illager.Illusioner;
+import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.entity.monster.illager.Vindicator;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.npc.villager.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShovelItem;
@@ -116,6 +117,9 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         Level baseWorld = player.level();
         ItemStack stack = player.getItemInHand(hand);
+        if (ItemUtils.shouldPass(player, hand)) {
+            return InteractionResult.PASS;
+        }
         if (!baseWorld.isClientSide() && baseWorld instanceof ServerLevel world) {
             if (stack.getItem() instanceof ShovelItem && player.isShiftKeyDown() && this.canReset()) {
                 boolean canceled = this.cancel();

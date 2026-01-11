@@ -5,8 +5,8 @@ import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -39,7 +39,7 @@ public class Hawkers {
                 Items.CARROT
         };
         for (Item item : arr) {
-            list.add(((entity, random) -> new MerchantOffer(
+            list.add(((level, entity, random) -> new MerchantOffer(
                     new ItemCost(RDItems.COPPER_COIN, (int) (7 + (1.25 * random.nextIntBetweenInclusive(1, 3)))),
                     Optional.empty(),
                     new ItemStack(item, 2 + random.nextIntBetweenInclusive(1, 2)),
@@ -54,7 +54,7 @@ public class Hawkers {
     private static List<VillagerTrades.ItemListing> getHawkersLevelFactories2() {
         List<VillagerTrades.ItemListing> list = new ArrayList<>();
         for (Item ingredient : RDIngredientItems.INGREDIENTS) {
-            list.add((entity, random) -> {
+            list.add((level, entity, random) -> {
                 List<FoodProperty> ingredientProperties = FoodProperty.getIngredientProperties(ingredient);
                 int val0 = (int) (ingredientProperties.size() * 1.25 * random.nextIntBetweenInclusive(1, 2));
                 return new MerchantOffer(
@@ -78,7 +78,7 @@ public class Hawkers {
         };
         List<VillagerTrades.ItemListing> list = new ArrayList<>();
         for (Item item : arr) {
-            list.add(((entity, random) -> new MerchantOffer(
+            list.add(((level, entity, random) -> new MerchantOffer(
                     new ItemCost(RDItems.COPPER_COIN, (int) (4 + (1.25 * random.nextIntBetweenInclusive(1, 2)))),
                     Optional.empty(),
                     new ItemStack(item, 2 + random.nextIntBetweenInclusive(1, 2)),
@@ -92,10 +92,10 @@ public class Hawkers {
 
     private static List<VillagerTrades.ItemListing> getHawkersLevelFactories4() {
         List<VillagerTrades.ItemListing> list = new ArrayList<>();
-        for (Map.Entry<ResourceLocation, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
+        for (Map.Entry<Identifier, CropBlockCreator.Instance> view : CropBlockCreator.getViews()) {
             CropBlockCreator.Instance instance = view.getValue();
             Item seed = instance.getSeed();
-            list.add((entity, random) -> new MerchantOffer(
+            list.add((level, entity, random) -> new MerchantOffer(
                     new ItemCost(RDItems.COPPER_COIN, 7 + random.nextIntBetweenInclusive(0, 8)),
                     Optional.empty(),
                     new ItemStack(seed, 3 + random.nextIntBetweenInclusive(0, 3)),

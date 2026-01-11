@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.entity.villager;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,9 +24,9 @@ public class RDPointOfInterestTypes extends PoiTypes {
     public static final ResourceKey<PoiType> MONEY_SHOP_CLERK = createKey("money_shop_clerk");
 
     public static void registers() {
-        register(HAWKERS, getBlockStates(RDBlocks.WOODEN_BOX.chestBlock()), 1, 2);
-        register(PRIEST, getBlockStates(RDBlocks.CASH_BOX_BLOCK), 1, 2);
-        register(MONEY_SHOP_CLERK, getBlockStates(Blocks.ENDER_CHEST), 1, 2);
+        var hawkers = register(HAWKERS, getBlockStates(RDBlocks.WOODEN_BOX.chestBlock()), 1, 2);
+        var priest = register(PRIEST, getBlockStates(RDBlocks.CASH_BOX_BLOCK), 1, 2);
+        var moneyShopClerk = register(MONEY_SHOP_CLERK, getBlockStates(Blocks.ENDER_CHEST), 1, 2);
     }
 
     private static Set<BlockState> getBlockStates(Block block) {

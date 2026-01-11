@@ -12,7 +12,7 @@ import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -33,10 +33,10 @@ public class CropHolderImpl implements PolymerTexturedBlock, FactoryBlock {
     }
 
     void parse() {
-        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(this.block);
+        Identifier key = BuiltInRegistries.BLOCK.getKey(this.block);
         for (int index = 0; index <= this.block.getMaxAge(); index++) {
             String modelId = "%s:block/%s_stage%s".formatted(key.getNamespace(), key.getPath(), index);
-            ItemStack model = ItemDisplayElementUtil.getModel(ResourceLocation.parse(modelId));
+            ItemStack model = ItemDisplayElementUtil.getModel(Identifier.parse(modelId));
 //            System.out.println(modelId);
             this.age2itemStackHolder.put(index, model);
         }

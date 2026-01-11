@@ -111,7 +111,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
     public void reverie_dreams$inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
         if (entity instanceof IPlayerEntity iPlayerEntity) {
             if (itemStack.is(RDItemTags.SILVER_ITEM)) {
-                iPlayerEntity.setNonSleepingTime(0);
+                iPlayerEntity.reverie_dreams$setNonSleepingTime(0);
             }
         }
     }

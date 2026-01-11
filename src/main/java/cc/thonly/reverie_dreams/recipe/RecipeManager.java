@@ -9,7 +9,7 @@ import cc.thonly.reverie_dreams.recipe.type.*;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
 
@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Slf4j
 public class RecipeManager {
-    public static final Map<ResourceLocation, BaseRecipeType<?>> RECIPE_TYPES = new Object2ObjectOpenHashMap<>();
+    public static final Map<Identifier, BaseRecipeType<?>> RECIPE_TYPES = new Object2ObjectOpenHashMap<>();
     public static final BaseRecipeType<DanmakuRecipe> DANMAKU_TYPE = registerRecipeType(ReverieDreams.id("danmaku"), new DanmakuRecipeType());
     public static final BaseRecipeType<DanmakuShapeDrawRecipe> DANMAKU_SHAPE_DRAW_TYPE = registerRecipeType(ReverieDreams.id("danmaku_shape_draw"), new DanmakuShapeDrawRecipeType());
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
@@ -30,9 +30,9 @@ public class RecipeManager {
     }
 
     public static BaseRecipe getFromOutput(Item item) {
-        for (Map.Entry<ResourceLocation, BaseRecipeType<?>> recipeTypeEntry : RECIPE_TYPES.entrySet()) {
-            Map<ResourceLocation, ?> registryView = recipeTypeEntry.getValue().getRegistryView();
-            for (Map.Entry<ResourceLocation, ?> recipeEntry : registryView.entrySet()) {
+        for (Map.Entry<Identifier, BaseRecipeType<?>> recipeTypeEntry : RECIPE_TYPES.entrySet()) {
+            Map<Identifier, ?> registryView = recipeTypeEntry.getValue().getRegistryView();
+            for (Map.Entry<Identifier, ?> recipeEntry : registryView.entrySet()) {
                 Object recipeObj = recipeEntry.getValue();
                 ItemStackWrapper wrapper = getOutputReflective(recipeObj);
                 if (wrapper != null && wrapper.getItem() == item) {
@@ -75,7 +75,7 @@ public class RecipeManager {
         });
     }
 
-    public static <R extends BaseRecipe, BR extends BaseRecipeType<R>> BR registerRecipeType(ResourceLocation id, BR recipeType) {
+    public static <R extends BaseRecipe, BR extends BaseRecipeType<R>> BR registerRecipeType(Identifier id, BR recipeType) {
         RegistryHandlers.register(RegistryHandlers.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();

@@ -6,7 +6,7 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.rabbit.Rabbit;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;

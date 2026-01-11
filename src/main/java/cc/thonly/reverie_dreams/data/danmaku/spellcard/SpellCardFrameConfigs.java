@@ -9,7 +9,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 
@@ -26,10 +26,10 @@ public class SpellCardFrameConfigs {
     public static final Map<String, List<List<SpellCardFrameConfig>>> BUILTIN_ITEMS = new Object2ObjectLinkedOpenHashMap<>();
 
     public static void reload(ResourceManager manager) {
-        Map<ResourceLocation, Resource> resources = manager.listResources("danmaku_config", id -> id.getPath().endsWith(".json"));
-        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
-            ResourceLocation resId = entry.getKey();
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
+        Map<Identifier, Resource> resources = manager.listResources("danmaku_config", id -> id.getPath().endsWith(".json"));
+        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+            Identifier resId = entry.getKey();
+            Identifier id = Identifier.fromNamespaceAndPath(
                     resId.getNamespace(),
                     resId.getPath().replace("danmaku_config/", "")
                             .replace(".json", "")

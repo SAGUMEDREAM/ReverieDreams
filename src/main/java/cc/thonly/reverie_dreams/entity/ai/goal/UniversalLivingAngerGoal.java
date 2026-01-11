@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class UniversalLivingAngerGoal<T extends LivingEntity>
 
     @Override
     public boolean canUse() {
-        return net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal.getServerLevel(this.mob).getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER) && this.canStartUniversalAnger();
+        return net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal.getServerLevel(this.mob).getGameRules().get(GameRules.UNIVERSAL_ANGER) && this.canStartUniversalAnger();
     }
 
     private boolean canStartUniversalAnger() {

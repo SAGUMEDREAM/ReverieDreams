@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(WanderingTrader.class)

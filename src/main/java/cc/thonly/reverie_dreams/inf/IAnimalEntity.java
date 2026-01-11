@@ -6,6 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 public interface IAnimalEntity {
-    void eatStackFood(LivingEntity livingEntity, InteractionHand hand, ItemStack stack);
-    void loveEntity(@Nullable LivingEntity entity);
+    void reverie_dreams$eatStackFood(LivingEntity livingEntity, InteractionHand hand, ItemStack stack);
+    void reverie_dreams$loveEntity(@Nullable LivingEntity entity);
 }

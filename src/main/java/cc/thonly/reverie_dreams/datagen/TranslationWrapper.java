@@ -4,7 +4,6 @@ import autovalue.shaded.com.google.errorprone.annotations.CanIgnoreReturnValue;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.StatType;
 import net.minecraft.tags.TagKey;
@@ -104,7 +103,7 @@ public class TranslationWrapper implements ITranslationExporter {
         return this;
     }
 
-    public TranslationWrapper add(ResourceLocation identifier, String value) {
+    public TranslationWrapper add(Identifier identifier, String value) {
         this.translationBuilder.add(identifier, value);
         return this;
     }
@@ -140,15 +139,15 @@ public class TranslationWrapper implements ITranslationExporter {
     }
 
     public TranslationWrapper addAdvancement(ResourceKey<Advancement> key, String name, String description) {
-        String titleKey = key.location().toLanguageKey("title");
-        String descriptionKey = key.location().toLanguageKey("description");
+        String titleKey = key.identifier().toLanguageKey("title");
+        String descriptionKey = key.identifier().toLanguageKey("description");
         this.add(titleKey, name);
         this.add(descriptionKey, description);
         return this;
     }
 
     public TranslationWrapper generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        ResourceLocation key = RegistryHandlers.DANMAKU_TRAJECTORY.getKey(trajectory);
+        Identifier key = RegistryHandlers.DANMAKU_TRAJECTORY.getKey(trajectory);
         if (key == null) {
             log.error("Can't find key of {}", trajectory);
             return this;
@@ -246,17 +245,17 @@ public class TranslationWrapper implements ITranslationExporter {
     }
 
     public String getSoundEventSubtitle(SoundEvent soundEvent) {
-        ResourceLocation id = soundEvent.location();
+        Identifier id = soundEvent.location();
         return id.toLanguageKey("sound");
     }
 
     public String getSoundEventSubtitle(ResourceKey<JukeboxSong> registryKey) {
-        ResourceLocation id = registryKey.location();
+        Identifier id = registryKey.identifier();
         return id.toLanguageKey("sound");
     }
 
     public String getJukeBoxSongDisc(ResourceKey<JukeboxSong> registryKey) {
-        ResourceLocation key = registryKey.location();
+        Identifier key = registryKey.identifier();
         String namespace = key.getNamespace();
         String path = key.getPath().replaceAll("/", ".");
         return key.toLanguageKey("jukebox_song").replaceAll("/",".");

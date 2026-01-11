@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -27,9 +27,9 @@ import java.util.function.Consumer;
 
 public class CustomClickActionRegistry {
     private static final CustomClickActionRegistry IMPl = new CustomClickActionRegistry();
-    private final Map<ResourceLocation, Consumer<ServerboundCustomClickActionPacket>> entries = new Object2ObjectOpenHashMap<>(256);
+    private final Map<Identifier, Consumer<ServerboundCustomClickActionPacket>> entries = new Object2ObjectOpenHashMap<>(256);
 
-    public static void registerCustomAction(ResourceLocation location, Consumer<ServerboundCustomClickActionPacket> consumer) {
+    public static void registerCustomAction(Identifier location, Consumer<ServerboundCustomClickActionPacket> consumer) {
         IMPl.entries.put(location, consumer);
     }
 
@@ -88,7 +88,7 @@ public class CustomClickActionRegistry {
             RoleCardItem.USING_DATA_MAP.remove(sessionId);
             return;
         }
-        ResourceLocation identifier = ResourceLocation.tryParse(entityId);
+        Identifier identifier = Identifier.tryParse(entityId);
         if (identifier == null) {
             return;
         }

@@ -72,13 +72,13 @@ public abstract class ExperienceOrbEntityMixin extends Entity implements IExperi
     }
 
     @Unique
-    public void setNPCTarget(NPCRoleEntity npc) {
+    public void reverie_dreams$setNPCTarget(NPCRoleEntity npc) {
         this.npcTarget = npc;
         this.followingPlayer = null;
     }
 
     @Override
-    public NPCRoleEntity getNPCTarget() {
+    public NPCRoleEntity reverie_dreams$getNPCTarget() {
         return this.npcTarget;
     }
 

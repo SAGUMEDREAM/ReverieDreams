@@ -12,7 +12,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.phoen1x.borukvafoodexotic.item.ModItems;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.util.Map;
@@ -32,7 +32,7 @@ public class BorukvaFoodExoticCompatImpl {
                 return;
             }
             RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<ResourceLocation, FoodProperty>> stream = registry.streamIdToValue();
+            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
             stream.forEach(mapEntry -> {
                 FoodProperty property = mapEntry.getValue();
                 Set<Item> tags = property.getItems();

@@ -19,7 +19,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
@@ -846,7 +846,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
     }
 
     private void offer4To1Recipe(RecipeOutput exporter, Item input, Item export) {
-        ResourceLocation id = BuiltInRegistries.ITEM.getKey(input);
+        Identifier id = BuiltInRegistries.ITEM.getKey(input);
         shaped(RecipeCategory.BUILDING_BLOCKS, export)
                 .pattern("XX")
                 .pattern("XX")
@@ -856,7 +856,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
     }
 
     private void offer1To4Recipe(RecipeOutput exporter, Item input, Item export) {
-        ResourceLocation id = BuiltInRegistries.ITEM.getKey(input);
+        Identifier id = BuiltInRegistries.ITEM.getKey(input);
         shaped(RecipeCategory.BUILDING_BLOCKS, export, 4)
                 .pattern("X")
                 .define('X', input)

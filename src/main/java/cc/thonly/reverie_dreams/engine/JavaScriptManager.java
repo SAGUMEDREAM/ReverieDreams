@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.util.ConstantInfo;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -68,18 +68,18 @@ public class JavaScriptManager {
         }
     }
 
-    public Optional<JavaScriptElement> get(ResourceLocation key) {
+    public Optional<JavaScriptElement> get(Identifier key) {
         return Optional.ofNullable(REGISTRY.getValue(key));
     }
 
     public static void reload(ResourceManager manager) {
-        Map<ResourceLocation, Resource> resources = manager.listResources(DIRNAME, id ->
+        Map<Identifier, Resource> resources = manager.listResources(DIRNAME, id ->
                 id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".js")
         );
-        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
-            ResourceLocation fileId = entry.getKey();
+        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+            Identifier fileId = entry.getKey();
             Resource resource = entry.getValue();
-            ResourceLocation key = ResourceLocation.fromNamespaceAndPath(fileId.getNamespace(), fileId.getPath().replace(DIRNAME + "/", "").replace(".json", ""));
+            Identifier key = Identifier.fromNamespaceAndPath(fileId.getNamespace(), fileId.getPath().replace(DIRNAME + "/", "").replace(".json", ""));
             try (InputStream inputStream = resource.open()) {
                 String src = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
                 RegistryHandlers.register(REGISTRY, key, new JavaScriptElement(src));

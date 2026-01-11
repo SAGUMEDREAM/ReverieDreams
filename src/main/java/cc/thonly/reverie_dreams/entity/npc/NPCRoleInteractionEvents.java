@@ -17,7 +17,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -152,7 +152,7 @@ public class NPCRoleInteractionEvents {
         if (stack.isEmpty()) {
             return NPCInteractResult.PASS;
         }
-        if ((((IItemStack) (Object) stack).isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
+        if ((((IItemStack) (Object) stack).reverie_dreams$isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
             entity.playSound(SoundEvents.GENERIC_EAT.value(), 1.0f, 1.0f);
             ItemStack result = stack.finishUsingItem(world, entity);
             if (!player.hasInfiniteMaterials()) {
@@ -206,7 +206,7 @@ public class NPCRoleInteractionEvents {
             }
 
             @Override
-            public ResourceLocation getId() {
+            public Identifier getId() {
                 return ReverieDreams.id("message/%s".formatted(MESSAGES.size()));
             }
         };
@@ -223,7 +223,7 @@ public class NPCRoleInteractionEvents {
         return registerEvent(ReverieDreams.id(name), callback);
     }
 
-    public static NPCRoleInteractionEvent registerEvent(ResourceLocation eventId, NPCRoleInteractionEvent.InteractionCallback callback) {
+    public static NPCRoleInteractionEvent registerEvent(Identifier eventId, NPCRoleInteractionEvent.InteractionCallback callback) {
         NPCRoleInteractionEvent event = new NPCRoleInteractionEvent(callback);
         return RegistryHandlers.registerForBuiltin(RegistryHandlers.ROLE_INTERACTION_EVENT, eventId, event);
     }

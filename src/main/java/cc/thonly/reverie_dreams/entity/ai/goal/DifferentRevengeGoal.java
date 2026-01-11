@@ -5,7 +5,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +34,7 @@ public class DifferentRevengeGoal extends TargetGoal {
         if (i == this.lastAttackedTime || livingEntity == null) {
             return false;
         }
-        if (livingEntity.getType() == EntityType.PLAYER && HurtByTargetGoal.getServerLevel(this.mob).getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+        if (livingEntity.getType() == EntityType.PLAYER && HurtByTargetGoal.getServerLevel(this.mob).getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
             return false;
         }
         if (livingEntity.getType() == this.mob.getType()) {

@@ -90,14 +90,14 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
                     int val = (int) (base + 7 * 1.5f * world.random.nextDouble());
                     if (base > FaithComponent.MAX_VALUE) {
                         faithComponent.setFaithValue(FaithComponent.MAX_VALUE);
-                        player.playNotifySound(SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 1.0f, 1.0f);
+                        player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                         player.displayClientMessage(Component.translatable("item.action.click.cashbox.fails.full", FaithComponent.MAX_VALUE), true);
                         return InteractionResult.SUCCESS_SERVER;
                     }
                     faithComponent.setFaithValue(val);
                     faithComponent.setDateOfLastPrayer(dayCount);
                     itemStack.consume(world.random.nextIntBetweenInclusive(1, 3), player);
-                    player.playNotifySound(SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                     player.displayClientMessage(Component.translatable("item.action.click.cashbox.success", val), true);
                     return InteractionResult.SUCCESS_SERVER;
                 }

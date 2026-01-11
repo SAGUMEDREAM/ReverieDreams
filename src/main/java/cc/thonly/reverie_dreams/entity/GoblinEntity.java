@@ -4,14 +4,14 @@ import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.golem.IronGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -50,8 +50,8 @@ public class GoblinEntity extends BaseNPCLikeEntity {
     }
 
     private void tryGetGoldenItem() {
-        Set<ResourceLocation> ids = BuiltInRegistries.ITEM.keySet();
-        Set<ResourceLocation> collect = ids.stream().filter(id -> {
+        Set<Identifier> ids = BuiltInRegistries.ITEM.keySet();
+        Set<Identifier> collect = ids.stream().filter(id -> {
                     String path = id.getPath();
                     return path.startsWith("gold_") || path.startsWith("golden_");
                 })

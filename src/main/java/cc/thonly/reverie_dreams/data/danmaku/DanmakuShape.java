@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 @Setter
 @Getter
 public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<DanmakuShape>, Translatable, BuiltinObject {
-    public static final Codec<DanmakuShape> CODEC = Codec.unit(DanmakuShape::new);
+    public static final Codec<DanmakuShape> CODEC = UnitCodec.unit(DanmakuShape::new);
     private RegistryHandler<DanmakuShape> owner;
     private final DanmakuType type;
     private final ItemStack baseItemStack;

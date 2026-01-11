@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.world.gen.ChunkGeneratorSettingsInit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.FixedBiomeSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -59,7 +59,7 @@ public class DimensionInit {
     }
 
     public static ResourceKey<LevelStem> getOrCreateRegistryKey(String name) {
-        return ResourceKey.create(Registries.LEVEL_STEM, ResourceLocation.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
+        return ResourceKey.create(Registries.LEVEL_STEM, Identifier.fromNamespaceAndPath(ReverieDreams.MOD_ID, name));
     }
 
 }

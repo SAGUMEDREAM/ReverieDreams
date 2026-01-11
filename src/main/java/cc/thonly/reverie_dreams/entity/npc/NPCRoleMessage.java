@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -19,8 +19,8 @@ public interface NPCRoleMessage {
         return null;
     }
 
-    default ResourceLocation getId() {
-        return ResourceLocation.parse("empty");
+    default Identifier getId() {
+        return Identifier.parse("empty");
     }
 
 }

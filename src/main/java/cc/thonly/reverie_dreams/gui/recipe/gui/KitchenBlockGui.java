@@ -86,14 +86,14 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 switch (posChar) {
                     case "X" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.EMPTY_SLOT));
                     case "N" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT).setCallback((i, t, sat) -> {
-                        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                         if (this.page < this.maxPage) {
                             this.page++;
                             this.onTick();
                         }
                     }));
                     case "P" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV).setCallback((i, t, sat) -> {
-                        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                         if (this.page > 0) {
                             this.page--;
                             this.onTick();
@@ -165,7 +165,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     }
 
     private void handleCrafting(ItemStack output, List<ItemStackWrapper> inputs, KitchenRecipe recipe) {
-        this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         SimpleContainer inventory = this.blockEntity.getInventory();
         for (int i = 0; i < 5; i++) {
             ItemStack stack = inventory.getItem(i);

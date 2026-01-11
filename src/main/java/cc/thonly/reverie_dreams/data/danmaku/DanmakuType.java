@@ -27,7 +27,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
@@ -42,7 +42,7 @@ import java.util.*;
 public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, Translatable, BuiltinObject {
     public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    ResourceLocation.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
+                    Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
                     ResourceKey.codec(Registries.DAMAGE_TYPE).fieldOf("damage_type").forGetter(DanmakuType::getDamageType),
                     Codec.FLOAT.fieldOf("damage").forGetter(DanmakuType::getDamage),
                     Codec.FLOAT.fieldOf("scale").forGetter(DanmakuType::getScale),
@@ -52,7 +52,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
             ).apply(instance, DanmakuType::getOrCreate)
     );
 
-    private ResourceLocation id;
+    private Identifier id;
     private final ResourceKey<DamageType> damageType;
     private final float damage;
     private final float scale;
@@ -64,7 +64,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private RegistryHandler<DanmakuType> owner;
     private boolean deleteFromList = false;
 
-    public DanmakuType(ResourceLocation id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
         this.id = id;
         this.damageType = damageType;
         this.damage = damage;
@@ -75,7 +75,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.createItemEntry();
     }
 
-    public static DanmakuType getOrCreate(ResourceLocation id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public static DanmakuType getOrCreate(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
         DanmakuType type = RegistryHandlers.DANMAKU_TYPE.getValue(id);
         if (type == null) {
             return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite);
@@ -145,7 +145,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
             Component colored = hoverName.copy().setStyle(style);
             stack.set(DataComponents.ITEM_NAME, colored);
             stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
-            stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))));
+            stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
             pairList.add(new Tuple<>(dyeItem, stack));
         }
         return pairList;
@@ -163,8 +163,8 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         return (r << 16) | (g << 8) | b;
     }
 
-    public ResourceLocation getItemId() {
-        return ResourceLocation.fromNamespaceAndPath(this.id.getNamespace(), "danmaku/" + this.id.getPath());
+    public Identifier getItemId() {
+        return Identifier.fromNamespaceAndPath(this.id.getNamespace(), "danmaku/" + this.id.getPath());
     }
 
     public DanmakuType unlist() {
@@ -176,7 +176,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         return new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, this.getItemId()))
                 .component(RDDataComponents.DANMAKU_PROPERTIES, this.createDanmakuProperties())
-                .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(ResourceLocation.parse(UUID.randomUUID().toString()))))
+                .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
                 .durability(120)
                 .repairable(RDItemTags.POWER_BLOCK);
     }

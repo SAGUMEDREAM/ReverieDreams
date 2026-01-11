@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
@@ -34,11 +34,11 @@ import java.util.stream.Stream;
 @ToString
 public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBinding<CraftingConflict>, BuiltinObject {
     public static final Codec<CraftingConflict> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("item").forGetter((entry) -> BuiltInRegistries.ITEM.getKey(entry.item)),
-            Codec.list(ResourceLocation.CODEC).fieldOf("values").forGetter((entry) -> {
-                List<ResourceLocation> identifiers = new ArrayList<>();
+            Identifier.CODEC.fieldOf("item").forGetter((entry) -> BuiltInRegistries.ITEM.getKey(entry.item)),
+            Codec.list(Identifier.CODEC).fieldOf("values").forGetter((entry) -> {
+                List<Identifier> identifiers = new ArrayList<>();
                 for (FoodProperty foodProperty : entry.foodProperties) {
-                    ResourceLocation id = foodProperty.getId();
+                    Identifier id = foodProperty.getId();
                     identifiers.add(id);
                 }
                 return identifiers;
@@ -46,7 +46,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     ).apply(instance, CraftingConflict::new));
     @Setter
     @Getter
-    private ResourceLocation id;
+    private Identifier id;
     @Getter
     private final Item item;
     private final Set<FoodProperty> foodProperties = new ObjectOpenHashSet<>();
@@ -58,11 +58,11 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
         this.item = Items.AIR;
     }
 
-    public CraftingConflict(ResourceLocation item, List<ResourceLocation> identifiers) {
+    public CraftingConflict(Identifier item, List<Identifier> identifiers) {
         this(BuiltInRegistries.ITEM.getValue(item), identifiers);
     }
 
-    public CraftingConflict(Item item, List<ResourceLocation> identifiers) {
+    public CraftingConflict(Item item, List<Identifier> identifiers) {
         this.item = item;
         for (var identifier : identifiers) {
             FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(identifier);
@@ -73,7 +73,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     }
 
     public static CraftingConflict of(Item item, List<FoodProperty> foodProperties) {
-        List<ResourceLocation> list = foodProperties.stream().map(FoodProperty::getId).toList();
+        List<Identifier> list = foodProperties.stream().map(FoodProperty::getId).toList();
         return new CraftingConflict(item, list);
     }
 
@@ -111,12 +111,12 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     }
 
     public static void reload(ResourceManager manager) {
-        Map<ResourceLocation, Resource> resources = manager.listResources("crafting_conflict", id ->
+        Map<Identifier, Resource> resources = manager.listResources("crafting_conflict", id ->
                 id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
         );
-        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
-            ResourceLocation resId = entry.getKey();
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(resId.getNamespace(), resId.getPath().replace("crafting_conflict/", "").replace(".json", ""));
+        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+            Identifier resId = entry.getKey();
+            Identifier id = Identifier.fromNamespaceAndPath(resId.getNamespace(), resId.getPath().replace("crafting_conflict/", "").replace(".json", ""));
             Resource resource = entry.getValue();
             try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));

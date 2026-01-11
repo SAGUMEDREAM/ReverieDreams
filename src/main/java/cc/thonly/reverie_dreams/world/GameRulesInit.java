@@ -1,16 +1,15 @@
 package cc.thonly.reverie_dreams.world;
 
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
-import net.minecraft.world.level.GameRules;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
 
 public class GameRulesInit {
-    public static final GameRules.Key<GameRules.BooleanValue> DO_GHOST = GameRuleRegistry.register(
-            "doGhost",
-            GameRules.Category.MOBS,
-            GameRuleFactory.createBooleanRule(true)
+    public static final GameRule<Boolean> DO_GHOST = GameRuleBuilder.forBoolean(true)
+            .category(GameRuleCategory.SPAWNING)
+            .buildAndRegister(ReverieDreams.id("do_ghost"));
 
-    );
     public static void init() {
 
     }

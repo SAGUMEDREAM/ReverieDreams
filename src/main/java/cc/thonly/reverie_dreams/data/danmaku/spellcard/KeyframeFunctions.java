@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.data.danmaku.spellcard.function.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 
@@ -72,7 +72,7 @@ public class KeyframeFunctions {
         return ResourceKey.create(KEY, ReverieDreams.id(name));
     }
 
-    public static ResourceKey<KeyframeFunction> key(ResourceLocation location) {
+    public static ResourceKey<KeyframeFunction> key(Identifier location) {
         return ResourceKey.create(KEY, location);
     }
 
@@ -89,7 +89,7 @@ public class KeyframeFunctions {
                                               Map<String, Float> parameters) {
         KeyframeFunctionFactory factory = FUNCTIONS.get(key);
         if (factory == null) {
-            throw new IllegalArgumentException("Unknown keyframe function: " + key.location());
+            throw new IllegalArgumentException("Unknown keyframe function: " + key.identifier());
         }
         return factory.create(parameters);
     }

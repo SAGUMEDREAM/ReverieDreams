@@ -7,7 +7,7 @@ import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.core.WritableRegistry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 
 import java.util.*;
@@ -28,7 +28,7 @@ public class ServerContentRegistry {
         return value;
     }
 
-    public <T> T register(ResourceKey<Registry<T>> registry, ResourceLocation location, T value) {
+    public <T> T register(ResourceKey<Registry<T>> registry, Identifier location, T value) {
         return register(registry, ResourceKey.create(registry, location), value);
     }
 
@@ -77,7 +77,7 @@ public class ServerContentRegistry {
                 if (!a.registryKey().equals(writableRegistry.key())) {
                     continue;
                 }
-                if (writableRegistry.containsKey(a.location())) {
+                if (writableRegistry.containsKey(a.identifier())) {
                     continue;
                 }
                 writableRegistry.register((ResourceKey<T>) a, (T) b, RegistrationInfo.BUILT_IN);

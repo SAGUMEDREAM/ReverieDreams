@@ -16,7 +16,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -33,7 +33,7 @@ public class ItemStackWrapper {
     public static final Gson GSON = new Gson();
     public static final Codec<Item> ITEM_CODEC_ALLOWING_AIR = Codec.STRING.xmap(
             id -> {
-                ResourceLocation identifier = ResourceLocation.tryParse(id);
+                Identifier identifier = Identifier.tryParse(id);
                 if (identifier == null) {
                     return Items.AIR;
                 }

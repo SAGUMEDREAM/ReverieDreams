@@ -1,6 +1,6 @@
 package nota.player;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import nota.Nota;
@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @SuppressWarnings("unused")
 public abstract class SongPlayer {
-	ResourceLocation id = ResourceLocation.parse("noteblock-api:unidentified");
+	Identifier id = Identifier.parse("noteblock-api:unidentified");
 
 	protected Song song;
 	protected Playlist playlist;
@@ -161,7 +161,7 @@ public abstract class SongPlayer {
 	 *
 	 * @return song entity's unique id
 	 */
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return this.id;
 	}
 
@@ -169,7 +169,7 @@ public abstract class SongPlayer {
 	 * Sets unique id for this SongPlayer
 	 *
 	 */
-	public void setId(ResourceLocation id) {
+	public void setId(Identifier id) {
 		this.id = id;
 	}
 

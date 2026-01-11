@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
@@ -32,7 +32,7 @@ public class DanmakuTypes {
     public static final DanmakuType LASER = registerType(ReverieDreams.id("laser"), RDDamageTypes.DANMAKU_GENERIC, 4f, 1.5f, 1.2f, false, false).unlist();
     public static final DanmakuType BIG_LASER = registerType(ReverieDreams.id("big_laser"), RDDamageTypes.DANMAKU_GENERIC, 4f, 1.5f, 1.2f, false, false).unlist();
 
-    public static DanmakuType registerType(ResourceLocation key, ResourceKey<DamageType> damageTypeKey, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public static DanmakuType registerType(Identifier key, ResourceKey<DamageType> damageTypeKey, float damage, float scale, float speed, boolean tile, boolean infinite) {
         return RegistryHandlers.registerForBuiltin(RegistryHandlers.DANMAKU_TYPE, key, new DanmakuType(key, damageTypeKey, damage, scale, speed, tile, infinite));
     }
 
