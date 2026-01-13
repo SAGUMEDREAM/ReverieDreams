@@ -1,7 +1,7 @@
 {
   "item": "reverie_dreams:food/yunshan_cotton_candy",
   "values": [
-    "reverie_dreams:meat",
-    "reverie_dreams:salty"
+    "reverie_dreams:salty",
+    "reverie_dreams:meat"
   ]
 }

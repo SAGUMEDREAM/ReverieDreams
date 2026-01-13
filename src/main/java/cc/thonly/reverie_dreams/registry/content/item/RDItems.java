@@ -192,6 +192,7 @@ public class RDItems {
     public static final Item SILVER_PICKAXE = registerItem("silver_pickaxe", (settings) -> new PickaxeItem(SilverMaterial.INSTANCE, 1.0f, -2.8f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
     public static final Item SILVER_SHOVEL = registerItem("silver_shovel", (settings) -> new ShovelItem(SilverMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
     public static final Item SILVER_HOE = registerItem("silver_hoe", (settings) -> new HoeItem(SilverMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE));
+    public static final Item SILVER_SPEAR = registerItem("silver_spear", Item::new, new Item.Properties().spear(SilverMaterial.INSTANCE, 0.95F, 0.95F, 0.6F, 2.5F, 8.0F, 6.75F, 5.1F, 11.25F, 4.6F));
     public static final Item SILVER_HELMET = registerItem("silver_helmet", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.HELMET, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.HELMET.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
     public static final Item SILVER_CHESTPLATE = registerItem("silver_chestplate", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.CHESTPLATE.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
     public static final Item SILVER_LEGGINGS = registerItem("silver_leggings", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.LEGGINGS, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.LEGGINGS.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
@@ -213,6 +214,7 @@ public class RDItems {
     public static final Item MAGIC_ICE_PICKAXE = registerItem("magic_ice_pickaxe", (settings) -> new PickaxeItem(MagicIceMaterial.INSTANCE, 1.0f, -2.8f, settings), new Item.Properties());
     public static final Item MAGIC_ICE_SHOVEL = registerItem("magic_ice_shovel", (settings) -> new ShovelItem(MagicIceMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Properties());
     public static final Item MAGIC_ICE_HOE = registerItem("magic_ice_hoe", (settings) -> new HoeItem(MagicIceMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Properties());
+    public static final Item MAGIC_ICE_SPEAR = registerItem("magic_ice_spear", Item::new, new Item.Properties().spear(MagicIceMaterial.INSTANCE, 0.95F, 0.95F, 0.6F, 2.5F, 8.0F, 6.75F, 5.1F, 11.25F, 4.6F));
     public static final Item MAGIC_ICE_HELMET = registerItem("magic_ice_helmet", (settings) -> new ArmorItem(MagicIceArmorMaterial.INSTANCE, ArmorType.HELMET, settings), new Item.Properties().durability(ArmorType.HELMET.getDurability(MagicIceArmorMaterial.BASE_DURABILITY)));
     public static final Item MAGIC_ICE_CHESTPLATE = registerItem("magic_ice_chestplate", (settings) -> new ArmorItem(MagicIceArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, settings), new Item.Properties().durability(ArmorType.CHESTPLATE.getDurability(MagicIceArmorMaterial.BASE_DURABILITY)));
     public static final Item MAGIC_ICE_LEGGINGS = registerItem("magic_ice_leggings", (settings) -> new ArmorItem(MagicIceArmorMaterial.INSTANCE, ArmorType.LEGGINGS, settings), new Item.Properties().durability(ArmorType.LEGGINGS.getDurability(MagicIceArmorMaterial.BASE_DURABILITY)));
@@ -224,6 +226,7 @@ public class RDItems {
     public static final Item DREAM_PICKAXE = registerItem("dream_pickaxe", (settings) -> new PickaxeItem(DreamMaterial.INSTANCE, 1.0f, -2.8f, settings), new Item.Properties());
     public static final Item DREAM_SHOVEL = registerItem("dream_shovel", (settings) -> new ShovelItem(DreamMaterial.INSTANCE, 1.5f, -3.0f, settings), new Item.Properties());
     public static final Item DREAM_HOE = registerItem("dream_hoe", (settings) -> new HoeItem(DreamMaterial.INSTANCE, -2.0f, -1.0f, settings), new Item.Properties());
+    public static final Item DREAM_SPEAR = registerItem("dream_spear", Item::new, new Item.Properties().spear(DreamMaterial.INSTANCE, 0.95F, 0.95F, 0.6F, 2.5F, 8.0F, 6.75F, 5.1F, 11.25F, 4.6F));
     public static final Item DREAM_HELMET = registerItem("dream_helmet", (settings) -> new DreamArmorItem(ArmorType.HELMET, settings), new Item.Properties().durability(ArmorType.HELMET.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
     public static final Item DREAM_CHESTPLATE = registerItem("dream_chestplate", (settings) -> new DreamArmorItem(ArmorType.CHESTPLATE, settings), new Item.Properties().durability(ArmorType.CHESTPLATE.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
     public static final Item DREAM_LEGGINGS = registerItem("dream_leggings", (settings) -> new DreamArmorItem(ArmorType.LEGGINGS, settings), new Item.Properties().durability(ArmorType.LEGGINGS.getDurability(DreamArmorMaterial.BASE_DURABILITY)));
@@ -255,7 +258,7 @@ public class RDItems {
     public static final Item BADAPPLE = registerAlbum("bad-apple", AlbumItem::new, new Item.Properties().jukeboxPlayable(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey()));
 
     public static void registerItems() {
-        List<Item> silverItems = new ArrayList<>(List.of(SILVER_SWORD, SILVER_AXE, SILVER_PICKAXE, SILVER_HOE, SILVER_HOE));
+        List<Item> silverItems = new ArrayList<>(List.of(SILVER_SWORD, SILVER_AXE, SILVER_PICKAXE, SILVER_SHOVEL, SILVER_HOE, SILVER_SPEAR));
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.OP_BLOCKS).register(entries -> entries.acceptAll(List.of(BATTLE_STICK.getDefaultInstance(), OWNER_STICK.getDefaultInstance())));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {

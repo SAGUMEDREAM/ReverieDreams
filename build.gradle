@@ -44,6 +44,7 @@ repositories {
     }
     maven { url = "https://maven.fabricmc.net/" }
     maven { url = "https://maven.quiltmc.org/repository/release/" }
+    maven { url 'https://maven.kneelawk.com/releases/' }
     maven { url = "https://maven.tomalbrc.de" }
     maven { url = "https://maven.nucleoid.xyz" }
     maven { url = "https://maven.blamejared.com" }
@@ -113,6 +114,7 @@ dependencies {
     modImplementation("eu.pb4:polymer-autohost:${project.polymer_version}")
     modImplementation("eu.pb4:polymer-networking:[${project.polymer_version}]")
 
+    modImplementation('com.kneelawk.graphlib:graphlib-core-fabric:2.0.3-beta.0.patbox+1.21.11')
     modImplementation include("eu.pb4:factorytools:[${project.factorytools_version}]")
     modImplementation include("eu.pb4:sgui:[${project.sgui_version}]")
     modImplementation include("me.lucko:fabric-permissions-api:${project.fabric_permissions_api}")
@@ -120,13 +122,14 @@ dependencies {
     modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
 
     implementation include("gg.moonflower:molang-compiler:${project.molang_compiler_version}")
-//    modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
-    modImplementation files("libs/blockbench-import-library-2.0.0+1.21.11.jar")
+    modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
     modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
 
     modImplementation files('libs/resourceconfigapi-fabric-1.21.11-3.9.2.jar')
     modImplementation files('libs/camera-obscura-1.2.2+1.21.11.jar')
 
+    modCompileOnly files('libs/create-fly-1.21.11-6.0.9-1.jar')
+    modCompileOnly files('libs/polyfactory-0.10.2+1.21.11.jar')
     modCompileOnly files('libs/eiv-fabric-5.2.0+1.21.11.jar')
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')

@@ -70,7 +70,7 @@ public class BaseFumoBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide()) {
             world.playSound(null, pos, SoundEventInit.randomFumo(), SoundSource.BLOCKS, 1f, 1);
             return InteractionResult.SUCCESS_SERVER;

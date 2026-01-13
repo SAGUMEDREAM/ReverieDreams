@@ -12,6 +12,7 @@ import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -24,6 +25,7 @@ import java.util.Map;
 
 @Getter
 @Setter
+@ToString
 public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWorkMode>, BuiltinObject, Translatable {
     public static final Codec<NPCWorkMode> CODEC = UnitCodec.unit(NPCWorkMode::new);
     public static final Identifier DEFAULT_ID = ReverieDreams.id("combat");
@@ -49,18 +51,23 @@ public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWork
         return Component.translatable(this.translateKey());
     }
 
+    @Deprecated
     public NPCWorkMode getNext() {
         int rawId = RegistryHandlers.NPC_WORK_MODE.getId(this);
         NPCWorkMode npcWorkMode = NPCWorkModes.fromInt(rawId + 1);
         return npcWorkMode == null ? NPCWorkModes.fromInt(0) : npcWorkMode;
     }
 
+    @Deprecated
     public NPCWorkMode getPrevious() {
         int rawId = RegistryHandlers.NPC_WORK_MODE.getId(this);
-        NPCWorkMode npcWorkMode = NPCWorkModes.fromInt(rawId - 1);
-        Map<Integer, Holder.Reference<NPCState>> baseRawToEntry = RegistryHandlers.NPC_STATE.getIdToEntryMap();
-        int maxKey = Collections.max(baseRawToEntry.keySet());
-        return npcWorkMode == null ? NPCWorkModes.fromInt(maxKey) : npcWorkMode;
+
+        if (rawId <= 0) {
+            int maxId = RegistryHandlers.NPC_WORK_MODE.size() - 1;
+            return NPCWorkModes.fromInt(maxId);
+        }
+
+        return NPCWorkModes.fromInt(rawId - 1);
     }
 
     @Override

@@ -224,6 +224,16 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_paper", has(Items.PAPER))
                 .save(output, getSimpleRecipeName(RDItems.EMPTY_PHOTO));
 
+        // 稻草人
+        shaped(RecipeCategory.MISC, RDItems.SCARECROW)
+                .pattern("#A#")
+                .pattern("#X#")
+                .pattern("#A#")
+                .define('A', Items.REDSTONE_TORCH)
+                .define('X', Items.REDSTONE)
+                .define('#', Items.WHEAT)
+        ;
+
         this.generateWoodCreator(RDWoodBlocks.SPIRITUAL);
         shapeless(RecipeCategory.BUILDING_BLOCKS, RDWoodBlocks.SPIRITUAL.strippedLog())
                 .requires(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)
@@ -509,6 +519,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         offerAxeRecipe(output, RDItems.SILVER_AXE, RDItems.SILVER_INGOT);
         offerShovelRecipe(output, RDItems.SILVER_SHOVEL, RDItems.SILVER_INGOT);
         offerHoeRecipe(output, RDItems.SILVER_HOE, RDItems.SILVER_INGOT);
+        offerSpearRecipe(output, RDItems.SILVER_SPEAR, RDItems.SILVER_INGOT);
 
         // 银盔甲
         offerHelmetRecipe(output, RDItems.SILVER_HELMET, RDItems.SILVER_INGOT);
@@ -577,6 +588,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         offerAxeRecipe(output, RDItems.MAGIC_ICE_AXE, RDItems.ICE_SCALES);
         offerShovelRecipe(output, RDItems.MAGIC_ICE_SHOVEL, RDItems.ICE_SCALES);
         offerHoeRecipe(output, RDItems.MAGIC_ICE_HOE, RDItems.ICE_SCALES);
+        offerSpearRecipe(output, RDItems.MAGIC_ICE_SPEAR, RDItems.SILVER_INGOT);
 
         // 冰盔甲
         offerHelmetRecipe(output, RDItems.MAGIC_ICE_HELMET, RDBlocks.MAGIC_ICE_BLOCK.asItem());
@@ -593,6 +605,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         offerAxeRecipe(output, RDItems.DREAM_AXE, RDItems.DREAM_CRYSTAL_FRAGMENT);
         offerShovelRecipe(output, RDItems.DREAM_SHOVEL, RDItems.DREAM_CRYSTAL_FRAGMENT);
         offerHoeRecipe(output, RDItems.DREAM_HOE, RDItems.DREAM_CRYSTAL_FRAGMENT);
+        offerSpearRecipe(output, RDItems.DREAM_SPEAR, RDItems.SILVER_INGOT);
 
         // 梦境水晶盔甲
         offerHelmetRecipe(output, RDItems.DREAM_HELMET, RDItems.DREAM_CRYSTAL_FRAGMENT);
@@ -801,6 +814,17 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .pattern("XX")
                 .pattern(" #")
                 .pattern(" #")
+                .define('X', ingot)
+                .define('#', Items.STICK)
+                .unlockedBy("has_ingot", has(ingot))
+                .save(exporter, getSimpleRecipeName(result));
+    }
+
+    private void offerSpearRecipe(RecipeOutput exporter, Item result, Item ingot) {
+        shaped(RecipeCategory.COMBAT, result)
+                .pattern("  X")
+                .pattern(" # ")
+                .pattern("#  ")
                 .define('X', ingot)
                 .define('#', Items.STICK)
                 .unlockedBy("has_ingot", has(ingot))

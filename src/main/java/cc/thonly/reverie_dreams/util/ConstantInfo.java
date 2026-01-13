@@ -5,6 +5,8 @@ import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.Locale;
 
@@ -22,6 +24,10 @@ public class ConstantInfo {
     private static final boolean HAS_CONNECTOR = isModLoaded("connector");
     private static final boolean HAS_FORGE_API = isModLoaded("kilt");
     private static final boolean HAS_OPTIFINE = isModLoaded("optifabric");
+    private static final boolean HAS_CREATE_FLY = isModLoaded("create");
+    private static final boolean HAS_POLYFACTORY = isModLoaded("polyfactory");
+    public static Block POLYFACTORY_HAND_CRANK = null;
+    public static Block CREATE_FLY_HAND_CRANK = null;
     public static String SYSTEM_LANGUAGE = null;
     public static boolean IS_DATAGEN_MODE = System.getProperty("fabric-api.datagen.output-dir") != null;
     public static String LATEST_VERSION = null;
@@ -57,5 +63,13 @@ public class ConstantInfo {
 
     public static boolean hasOptifine() {
         return HAS_OPTIFINE;
+    }
+
+    public static boolean hasCreateFly() {
+        return HAS_CREATE_FLY;
+    }
+
+    public static boolean hasPolyfactory() {
+        return HAS_POLYFACTORY;
     }
 }

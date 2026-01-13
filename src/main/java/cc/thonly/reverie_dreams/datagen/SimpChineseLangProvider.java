@@ -108,19 +108,21 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(NPCStates.NORMAL.translateKey(), "§b当前模式为: §a正常");
         translationBuilder.add(NPCStates.NO_WALK.translateKey(), "§b当前模式为: §a禁止移动");
         translationBuilder.add(NPCStates.SNAKING.translateKey(), "§b当前模式为: §a潜行");
-        translationBuilder.add(NPCStates.SEATED.translateKey(), "§b当前模式为: §a坐下");
-        translationBuilder.add(NPCStates.WORKING.translateKey(), "§b当前模式为: §a工作中");
+        translationBuilder.add(NPCStates.SEATED.translateKey(), "§a当前模式为:坐下");
+        translationBuilder.add(NPCStates.WORKING.translateKey(), "§a当前模式为:工作中");
         translationBuilder.add("gui.npc.mode.work.originpos", "工作原点位置");
 
         translationBuilder.add("gui.npc.work.button", "模式开关");
         translationBuilder.add("gui.npc.work.mode", "工作模式切换");
-        translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§b当前模式为: §a清理怪物");
-        translationBuilder.add(NPCWorkModes.FARM.translateKey(), "§b当前模式为: §b种植作物");
-        translationBuilder.add(NPCWorkModes.BREED.translateKey(), "§b当前模式为: §c繁殖动物");
-        translationBuilder.add(NPCWorkModes.SMELT.translateKey(), "§b当前模式为: §d烧炼矿物");
-        translationBuilder.add(NPCWorkModes.CHEST_CLASSIFICATION.translateKey(), "§b当前模式为: §e箱子分类");
-        translationBuilder.add(NPCWorkModes.SHEEP_SHEARING.translateKey(), "§b当前模式为: §f剪羊毛");
-        translationBuilder.add(NPCWorkModes.PLAYING_MUSIC.translateKey(), "§b当前模式为: §6演奏音乐");
+        translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§a清理怪物");
+        translationBuilder.add(NPCWorkModes.FARM.translateKey(), "§b种植作物");
+        translationBuilder.add(NPCWorkModes.BREED.translateKey(), "§c繁殖动物");
+        translationBuilder.add(NPCWorkModes.SMELT.translateKey(), "§d烧炼矿物");
+        translationBuilder.add(NPCWorkModes.CHEST_CLASSIFICATION.translateKey(), "§e箱子分类");
+        translationBuilder.add(NPCWorkModes.SHEEP_SHEARING.translateKey(), "§f剪羊毛");
+        translationBuilder.add(NPCWorkModes.PLAYING_MUSIC.translateKey(), "§6演奏音乐");
+        translationBuilder.add("gui.npc.work.mode.create-fly/hand_crank", "§d摇曲柄");
+        translationBuilder.add("gui.npc.work.mode.polyfactory/hand_crank", "§d摇曲柄");
 //        translationBuilder.add("gui.npc.woke.mode.disable", "工作原点位置");
 
         translationBuilder.add("item.reverie_dreams.music.no_files", "§c未找到任何可用的音乐文件！");
@@ -1008,6 +1010,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.SILVER_PICKAXE, "银镐");
         translationBuilder.add(RDItems.SILVER_SHOVEL, "银锹");
         translationBuilder.add(RDItems.SILVER_HOE, "银锄");
+        translationBuilder.add(RDItems.SILVER_SPEAR, "银矛");
         translationBuilder.add(RDItems.SILVER_HELMET, "银头盔");
         translationBuilder.add(RDItems.SILVER_CHESTPLATE, "银胸甲");
         translationBuilder.add(RDItems.SILVER_LEGGINGS, "银护腿");
@@ -1018,6 +1021,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.MAGIC_ICE_PICKAXE, "冰稿");
         translationBuilder.add(RDItems.MAGIC_ICE_SHOVEL, "冰锹");
         translationBuilder.add(RDItems.MAGIC_ICE_HOE, "冰锄");
+        translationBuilder.add(RDItems.MAGIC_ICE_SPEAR, "冰矛");
         translationBuilder.add(RDItems.MAGIC_ICE_HELMET, "冰头盔");
         translationBuilder.add(RDItems.MAGIC_ICE_CHESTPLATE, "冰胸甲");
         translationBuilder.add(RDItems.MAGIC_ICE_LEGGINGS, "冰护腿");
@@ -1033,6 +1037,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.DREAM_PICKAXE, "梦境水晶稿");
         translationBuilder.add(RDItems.DREAM_SHOVEL, "梦境水晶锹");
         translationBuilder.add(RDItems.DREAM_HOE, "梦境水晶锄");
+        translationBuilder.add(RDItems.DREAM_SPEAR, "梦境水晶矛");
         translationBuilder.add(RDItems.DREAM_HELMET, "梦境水晶头盔");
         translationBuilder.add(RDItems.DREAM_CHESTPLATE, "梦境水晶胸甲");
         translationBuilder.add(RDItems.DREAM_LEGGINGS, "梦境水晶护腿");

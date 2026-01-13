@@ -100,6 +100,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 RDItems.SILVER_SHOVEL,
                 RDItems.SILVER_SWORD,
                 RDItems.SILVER_HOE,
+                RDItems.SILVER_SPEAR,
                 RDItems.SILVER_INGOT,
                 RDBlocks.SILVER_BLOCK.asItem(),
                 RDBlocks.SILVER_CHEST_BLOCK.chestBlock().asItem(),

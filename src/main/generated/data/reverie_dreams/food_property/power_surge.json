@@ -2,21 +2,21 @@
   "registry_key": "reverie_dreams:power_surge",
   "properties": {
     "values": [
-      "reverie_dreams:food/fantasy_is_all_the_rage",
       "reverie_dreams:food/fright_adventure",
-      "reverie_dreams:food/hell_thrill_warning",
-      "reverie_dreams:food/screaming_oden",
-      "reverie_dreams:food/giant_tamagoyaki",
-      "reverie_dreams:food/refreshing_pudding",
-      "reverie_dreams:food/golden_crispy_fish_cake",
-      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
-      "reverie_dreams:food/beef_hot_pot",
-      "reverie_dreams:food/beetle_steamed_cake",
       "reverie_dreams:food/burnt_pudding",
-      "reverie_dreams:food/magma",
-      "reverie_dreams:food/strength_soup",
+      "reverie_dreams:food/beetle_steamed_cake",
+      "reverie_dreams:food/refreshing_pudding",
+      "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
+      "reverie_dreams:food/golden_crispy_fish_cake",
       "reverie_dreams:food/assorted_tempura",
-      "reverie_dreams:food/pirate_bacon"
+      "reverie_dreams:food/strength_soup",
+      "reverie_dreams:food/pirate_bacon",
+      "reverie_dreams:food/magma",
+      "reverie_dreams:food/giant_tamagoyaki",
+      "reverie_dreams:food/beef_hot_pot",
+      "reverie_dreams:food/fantasy_is_all_the_rage",
+      "reverie_dreams:food/screaming_oden",
+      "reverie_dreams:food/hell_thrill_warning"
     ]
   }
 }

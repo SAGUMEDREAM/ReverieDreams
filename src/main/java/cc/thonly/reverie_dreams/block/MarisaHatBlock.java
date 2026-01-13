@@ -25,7 +25,7 @@ public class MarisaHatBlock extends BaseFumoBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide()) {
             return InteractionResult.SUCCESS_SERVER;
         }

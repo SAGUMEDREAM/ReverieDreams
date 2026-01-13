@@ -1,5 +1,15 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.12+1.21.11
+* Update for 1.21.11
+* Fixed the missing Scarecrow crafting recipe
+* Added a working mode selection interface
+* Added compatibility and linkage with Create Fly
+* Added compatibility and linkage with PolyFactory
+* Added Spear tools
+* Added AI to the Role to avoid Creeper explosions
+* Now Yuka Flower Umbrella bas on Spear
+
 # 0.4.11+1.21.10
 * Fixed registry not sync
 * Fixed disc translation missing

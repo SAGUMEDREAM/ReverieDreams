@@ -2,25 +2,25 @@
   "registry_key": "reverie_dreams:cool",
   "properties": {
     "values": [
-      "reverie_dreams:food/longyin_peach",
-      "reverie_dreams:food/cats_playing_in_water",
-      "reverie_dreams:food/sakura_pudding",
-      "reverie_dreams:food/luohan_vegetarian",
-      "reverie_dreams:food/maoyu_tricolor_ice_cream",
-      "reverie_dreams:magic_ice",
-      "reverie_dreams:food/flowing_water_noodles",
-      "reverie_dreams:food/taichi_bagua_fish_maw",
       "reverie_dreams:food/the_dream",
-      "reverie_dreams:food/moonlight_over_lotus_pond",
-      "reverie_dreams:food/cold_dish_carving",
-      "reverie_dreams:food/sea_urchin_shingen_pancake",
+      "reverie_dreams:food/luohan_vegetarian",
       "reverie_dreams:ingredient/ficus_microcarpa",
-      "reverie_dreams:food/reversing_the_world",
-      "reverie_dreams:food/vegetable_special",
-      "reverie_dreams:food/gensokyo_star_lotus_ship",
-      "reverie_dreams:food/refreshing_pudding",
       "reverie_dreams:food/burnt_pudding",
-      "reverie_dreams:food/peach_blossom_soup"
+      "reverie_dreams:food/maoyu_tricolor_ice_cream",
+      "reverie_dreams:food/cats_playing_in_water",
+      "reverie_dreams:food/taichi_bagua_fish_maw",
+      "reverie_dreams:food/longyin_peach",
+      "reverie_dreams:food/gensokyo_star_lotus_ship",
+      "reverie_dreams:food/cold_dish_carving",
+      "reverie_dreams:food/moonlight_over_lotus_pond",
+      "reverie_dreams:food/sea_urchin_shingen_pancake",
+      "reverie_dreams:food/reversing_the_world",
+      "reverie_dreams:food/peach_blossom_soup",
+      "reverie_dreams:magic_ice",
+      "reverie_dreams:food/refreshing_pudding",
+      "reverie_dreams:food/vegetable_special",
+      "reverie_dreams:food/sakura_pudding",
+      "reverie_dreams:food/flowing_water_noodles"
     ]
   }
 }

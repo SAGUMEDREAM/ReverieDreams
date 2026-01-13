@@ -214,6 +214,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.SILVER_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SILVER_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SILVER_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateSpear(RDItems.SILVER_SPEAR);
         itemModelGenerator.generateFlatItem(RDItems.SILVER_HELMET, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SILVER_CHESTPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SILVER_LEGGINGS, ModelTemplates.FLAT_ITEM);
@@ -224,6 +225,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.MAGIC_ICE_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAGIC_ICE_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAGIC_ICE_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateSpear(RDItems.MAGIC_ICE_SPEAR);
         itemModelGenerator.generateFlatItem(RDItems.MAGIC_ICE_HELMET, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAGIC_ICE_CHESTPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAGIC_ICE_LEGGINGS, ModelTemplates.FLAT_ITEM);
@@ -233,6 +235,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.DREAM_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateSpear(RDItems.DREAM_SPEAR);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_HELMET, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_CHESTPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.DREAM_LEGGINGS, ModelTemplates.FLAT_ITEM);

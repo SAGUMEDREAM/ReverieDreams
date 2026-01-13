@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.reverie_dreams.compat.ReverieDreamsCompats;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
 import cc.thonly.reverie_dreams.inf.IExperienceOrbEntity;
@@ -8,12 +9,14 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
@@ -65,6 +68,10 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
         this.goalSelector.addGoal(1, new NPCFarmGoal(this));
         this.goalSelector.addGoal(1, new NPCAutoPickItemGoal(this));
         this.goalSelector.addGoal(2, new NPCCloseToCropGoal(this, 1));
+
+        for (Tuple<Integer, Goal> tuple : ReverieDreamsCompats.getCompatGoals(this)) {
+            this.goalSelector.addGoal(tuple.getA(), tuple.getB());
+        }
 
         this.getNavigation().setCanOpenDoors(true);
         this.getNavigation().setCanFloat(true);

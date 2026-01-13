@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
+import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.entity.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
@@ -45,7 +46,6 @@ import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.ConstantInfo;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
-import cc.thonly.reverie_dreams.util.command.PermissionPredicate;
 import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
@@ -92,6 +92,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -119,6 +120,8 @@ public class ReverieDreams implements ModInitializer {
     public void onInitialize() {
         MidnightConfig.init(MOD_ID, ReverieDreamsConfiguration.class);
         LOGGER.info("Loaded " + MOD_NAME);
+        ConstantInfo.POLYFACTORY_HAND_CRANK = Blocks.AIR;
+        ConstantInfo.CREATE_FLY_HAND_CRANK = Blocks.AIR;
 
         // 初始化静态注册表
         SoundEventInit.init();
@@ -362,6 +365,7 @@ public class ReverieDreams implements ModInitializer {
         });
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             PlayerInputManager inputManager = PlayerInputManager.getInstance();
+            NPCFindBlockGoal.EXCLUSIONS.clear();
             inputManager.reload();
             DialogPlayer.reload();
         });
