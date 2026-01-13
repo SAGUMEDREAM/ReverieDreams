@@ -1,5 +1,12 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.12+1.21.10
+* Fixed the missing Scarecrow crafting recipe
+* Added a working mode selection interface
+* Added compatibility and linkage with Create Fly
+* Added compatibility and linkage with PolyFactory
+* Added AI to the Role to avoid Creeper explosions
+
 # 0.4.11+1.21.10
 * Fixed registry not sync
 * Fixed disc translation missing

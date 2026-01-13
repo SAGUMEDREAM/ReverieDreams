@@ -41,7 +41,7 @@ public class MusicBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             MusicBlockEntity blockEntity = (MusicBlockEntity) serverWorld.getBlockEntity(pos);
             if (blockEntity == null) {

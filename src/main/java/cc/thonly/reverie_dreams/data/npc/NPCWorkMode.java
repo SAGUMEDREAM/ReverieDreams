@@ -48,18 +48,23 @@ public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWork
         return Component.translatable(this.translateKey());
     }
 
+    @Deprecated
     public NPCWorkMode getNext() {
         int rawId = RegistryHandlers.NPC_WORK_MODE.getId(this);
         NPCWorkMode npcWorkMode = NPCWorkModes.fromInt(rawId + 1);
         return npcWorkMode == null ? NPCWorkModes.fromInt(0) : npcWorkMode;
     }
 
+    @Deprecated
     public NPCWorkMode getPrevious() {
         int rawId = RegistryHandlers.NPC_WORK_MODE.getId(this);
-        NPCWorkMode npcWorkMode = NPCWorkModes.fromInt(rawId - 1);
-        Map<Integer, Holder.Reference<NPCState>> baseRawToEntry = RegistryHandlers.NPC_STATE.getIdToEntryMap();
-        int maxKey = Collections.max(baseRawToEntry.keySet());
-        return npcWorkMode == null ? NPCWorkModes.fromInt(maxKey) : npcWorkMode;
+
+        if (rawId <= 0) {
+            int maxId = RegistryHandlers.NPC_WORK_MODE.size() - 1;
+            return NPCWorkModes.fromInt(maxId);
+        }
+
+        return NPCWorkModes.fromInt(rawId - 1);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class FoodDisplayBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         ItemStack stack = player.getMainHandItem();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
             if (player.isShiftKeyDown()) {

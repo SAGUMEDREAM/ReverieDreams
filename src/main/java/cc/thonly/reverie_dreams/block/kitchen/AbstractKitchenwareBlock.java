@@ -86,7 +86,7 @@ public class AbstractKitchenwareBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide() && world instanceof ServerLevel) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
             BlockEntity blockEntity = world.getBlockEntity(pos);

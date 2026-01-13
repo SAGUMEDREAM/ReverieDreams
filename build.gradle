@@ -119,6 +119,8 @@ dependencies {
     modImplementation files('libs/resourceconfigapi-fabric-1.21.10-3.8.1.jar')
     modImplementation files('libs/camera-obscura-1.2.2+1.21.9-rc1.jar')
 
+    modCompileOnly files('libs/create-fly-1.21.10-6.0.8-6.jar')
+    modCompileOnly files('libs/polyfactory-0.10.2+1.21.11.jar')
     modCompileOnly files('libs/eiv-fabric-5.2.0+1.21.10.jar')
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')

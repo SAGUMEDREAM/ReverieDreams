@@ -24,7 +24,7 @@ public class StrengthenTableBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             player.swing(player.getUsedItemHand(), true);
             StrengthenTableBlockEntity blockEntity = (StrengthenTableBlockEntity) world.getBlockEntity(pos);

@@ -1212,5 +1212,15 @@
   "title.reverie_dreams.shiny_coins": "閃亮的貨幣",
   "title.reverie_dreams.taking_photo": "不良新聞記者",
   "title.reverie_dreams.touhou_mystias_izakaya": "東方夜雀食堂",
-  "title.reverie_dreams.wood_with_spiritual_power": "靈力的木頭"
+  "title.reverie_dreams.wood_with_spiritual_power": "靈力的木頭",
+  "sound.reverie_dreams.records/badapple": "Bad Apple",
+  "sound.reverie_dreams.records/cookie": "温馨的神社（迫真）",
+  "sound.reverie_dreams.records/glowing_needles_little_people": "Inchlings of the Shining Needle ~ Little Princess : 「Miracle Remix」",
+  "sound.reverie_dreams.records/hr01_01": "蓬莱人形　～ Dolls in Pseudo Paradise. - 蓬莱伝説",
+  "sound.reverie_dreams.records/hr02_08": "莲台野夜行 - 过去的花 ～ Fairy of Flower",
+  "sound.reverie_dreams.records/hr03_01": "ZUN - 童祭　～ Innocent Treasures",
+  "sound.reverie_dreams.records/melodic-taste-nightmare-before-crossroads": "Melodic-Taste-Nightmare-before-Crossroads",
+  "sound.reverie_dreams.records/yv_flower_clock_and_dreams": "Yonder-Voice - 花時計と夢",
+  "gui.npc.work.mode.create-fly/hand_crank": "§d搖動曲柄",
+  "gui.npc.work.mode.polyfactory/hand_crank": "§d搖動曲柄"
 }

@@ -16,6 +16,8 @@ public class NPCWorkModes {
     public static final NPCWorkMode SMELT = register(ReverieDreams.id("smelt"), new NPCWorkMode("smelt", Items.FURNACE));
     public static final NPCWorkMode CHEST_CLASSIFICATION = register(ReverieDreams.id("chest_classification"), new NPCWorkMode("chest_classification", Items.CHEST));
     public static final NPCWorkMode PLAYING_MUSIC = register(ReverieDreams.id("playing_music"), new NPCWorkMode("playing_music", Items.NOTE_BLOCK));
+    public static NPCWorkMode CREATE_FLY_HAND_CRANK;
+    public static NPCWorkMode POLYFACTORY_HAND_CRANK;
 
     public static NPCWorkMode fromInt(Integer rawId) {
         return REGISTRY.byId(rawId);

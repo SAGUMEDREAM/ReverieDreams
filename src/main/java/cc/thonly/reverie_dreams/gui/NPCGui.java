@@ -133,13 +133,10 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcWorkMode = new GuiElementBuilder()
                             .setItem(currentWorkMode.getItemDisplay())
                             .setItemName(Component.translatable("gui.npc.work.mode"))
-                            .setLore(List.of
-                                    (
-                                            this.npcEntity.getNpcState().getTranslateText()
-                                    )
-                            ).setCallback((index, type, action) -> {
-                                this.npcEntity.setWorkMode(type.isRight ? this.npcEntity.getWorkMode().getPrevious() : this.npcEntity.getWorkMode().getNext());
+                            .setCallback((index, type, action) -> {
                                 this.player.playNotifySound(SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                                NPCWorkGui npcWorkGui = new NPCWorkGui(this.player, this.npcEntity);
+                                npcWorkGui.open();
                             });
                     this.builder2index.put(this.npcWorkMode, slotIndex);
                     this.setSlot(slotIndex, this.npcWorkMode);

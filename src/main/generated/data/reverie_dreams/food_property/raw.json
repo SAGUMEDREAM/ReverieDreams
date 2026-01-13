@@ -2,21 +2,21 @@
   "registry_key": "reverie_dreams:raw",
   "properties": {
     "values": [
-      "reverie_dreams:food/failing_sakura_snow",
-      "reverie_dreams:food/the_source_of_life",
       "minecraft:egg",
-      "reverie_dreams:food/gensokyo_star_lotus_ship",
-      "reverie_dreams:food/crisp_cyclone",
-      "reverie_dreams:food/eggs_benedict",
       "reverie_dreams:food/dew_boiled_eggs",
-      "reverie_dreams:food/fantasy_is_all_the_rage",
       "reverie_dreams:food/nigiri_sushi",
-      "reverie_dreams:food/bamboo_tube_roasted_drunken_shrimp",
-      "reverie_dreams:food/cheese_egg",
       "reverie_dreams:food/sashimi_platter",
-      "reverie_dreams:food/vegetable_special",
+      "reverie_dreams:food/bamboo_tube_roasted_drunken_shrimp",
+      "reverie_dreams:food/eel_egg_donburi",
+      "reverie_dreams:food/crisp_cyclone",
       "reverie_dreams:food/beetle_steamed_cake",
-      "reverie_dreams:food/eel_egg_donburi"
+      "reverie_dreams:food/vegetable_special",
+      "reverie_dreams:food/the_source_of_life",
+      "reverie_dreams:food/eggs_benedict",
+      "reverie_dreams:food/failing_sakura_snow",
+      "reverie_dreams:food/cheese_egg",
+      "reverie_dreams:food/fantasy_is_all_the_rage",
+      "reverie_dreams:food/gensokyo_star_lotus_ship"
     ]
   }
 }

@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
+import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.entity.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.entity.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
@@ -360,6 +361,7 @@ public class ReverieDreams implements ModInitializer {
         });
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             PlayerInputManager inputManager = PlayerInputManager.getInstance();
+            NPCFindBlockGoal.EXCLUSIONS.clear();
             inputManager.reload();
             DialogPlayer.reload();
         });

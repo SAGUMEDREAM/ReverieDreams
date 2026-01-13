@@ -116,13 +116,15 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
         translationBuilder.add("gui.npc.work.button", "模式开关");
         translationBuilder.add("gui.npc.work.mode", "工作模式切换");
-        translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§b当前模式为: §a清理怪物");
-        translationBuilder.add(NPCWorkModes.FARM.translateKey(), "§b当前模式为: §b种植作物");
-        translationBuilder.add(NPCWorkModes.BREED.translateKey(), "§b当前模式为: §c繁殖动物");
-        translationBuilder.add(NPCWorkModes.SMELT.translateKey(), "§b当前模式为: §d烧炼矿物");
-        translationBuilder.add(NPCWorkModes.CHEST_CLASSIFICATION.translateKey(), "§b当前模式为: §e箱子分类");
-        translationBuilder.add(NPCWorkModes.SHEEP_SHEARING.translateKey(), "§b当前模式为: §f剪羊毛");
-        translationBuilder.add(NPCWorkModes.PLAYING_MUSIC.translateKey(), "§b当前模式为: §6演奏音乐");
+        translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§a清理怪物");
+        translationBuilder.add(NPCWorkModes.FARM.translateKey(), "§b种植作物");
+        translationBuilder.add(NPCWorkModes.BREED.translateKey(), "§c繁殖动物");
+        translationBuilder.add(NPCWorkModes.SMELT.translateKey(), " §d烧炼矿物");
+        translationBuilder.add(NPCWorkModes.CHEST_CLASSIFICATION.translateKey(), "§e箱子分类");
+        translationBuilder.add(NPCWorkModes.SHEEP_SHEARING.translateKey(), "§f剪羊毛");
+        translationBuilder.add(NPCWorkModes.PLAYING_MUSIC.translateKey(), "§6演奏音乐");
+        translationBuilder.add("gui.npc.work.mode.create-fly/hand_crank", "§d摇曲柄");
+        translationBuilder.add("gui.npc.work.mode.polyfactory/hand_crank", "§d摇曲柄");
 //        translationBuilder.add("gui.npc.woke.mode.disable", "工作原点位置");
 
         translationBuilder.add("item.reverie_dreams.music.no_files", "§c未找到任何可用的音乐文件！");

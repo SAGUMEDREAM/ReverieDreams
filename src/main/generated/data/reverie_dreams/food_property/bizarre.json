@@ -2,20 +2,20 @@
   "registry_key": "reverie_dreams:bizarre",
   "properties": {
     "values": [
-      "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie",
-      "reverie_dreams:food/the_beauty_of_han_palace",
-      "reverie_dreams:food/pseudo_jiritama",
-      "reverie_dreams:food/skinny_horse_dumpling",
-      "reverie_dreams:food/scarlet_devils_cake",
-      "reverie_dreams:food/crisp_cyclone",
-      "reverie_dreams:food/fried_tomato_strips",
       "reverie_dreams:ingredient/cicada_shell",
+      "reverie_dreams:food/stinky_tofu",
+      "reverie_dreams:food/pseudo_jiritama",
       "reverie_dreams:food/hell_thrill_warning",
       "reverie_dreams:food/bamboo_tube_roasted_drunken_shrimp",
-      "reverie_dreams:food/poisonous_garden",
-      "reverie_dreams:food/reversing_the_world",
+      "reverie_dreams:food/crisp_cyclone",
       "reverie_dreams:food/beetle_steamed_cake",
-      "reverie_dreams:food/stinky_tofu"
+      "reverie_dreams:food/fried_tomato_strips",
+      "reverie_dreams:food/the_beauty_of_han_palace",
+      "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie",
+      "reverie_dreams:food/scarlet_devils_cake",
+      "reverie_dreams:food/skinny_horse_dumpling",
+      "reverie_dreams:food/reversing_the_world",
+      "reverie_dreams:food/poisonous_garden"
     ]
   }
 }

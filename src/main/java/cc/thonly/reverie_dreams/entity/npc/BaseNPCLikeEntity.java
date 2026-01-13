@@ -5,6 +5,8 @@ import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.entity.ai.goal.AvoidCreeperExplosionEntityGoal;
+import cc.thonly.reverie_dreams.entity.ai.goal.AvoidFireDamageEntityGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCBowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCCrossbowAttackGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCDanmakuItemGoal;
@@ -275,6 +277,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(1, new AvoidCreeperExplosionEntityGoal(this, 6.0F, (double)1.0F, 1.2));
+        this.goalSelector.addGoal(1, new AvoidFireDamageEntityGoal(this, 6.0F, (double)1.0F, 1.2));
     }
 
     public void addExperience(int xp) {
