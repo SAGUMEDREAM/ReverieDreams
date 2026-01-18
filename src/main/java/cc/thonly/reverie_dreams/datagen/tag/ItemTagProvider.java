@@ -119,6 +119,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             danmaku.add(danmakuType.getItem());
         }
         danmaku.add(RDItems.KNIFE);
+        var danmakuRepairAcceptableItems = getOrCreateTagBuilder(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM);
+        danmakuRepairAcceptableItems.add(RDItems.POWER);
 
         // === 自定义方块 ===
         FabricTagProvider<Item>.FabricTagBuilder planks = getOrCreateTagBuilder(ItemTags.PLANKS);

@@ -1,7 +1,7 @@
 {
   "item": "reverie_dreams:ingredient/sweet_potato",
   "values": [
-    "reverie_dreams:good_with_alcohol",
-    "reverie_dreams:light"
+    "reverie_dreams:light",
+    "reverie_dreams:good_with_alcohol"
   ]
 }

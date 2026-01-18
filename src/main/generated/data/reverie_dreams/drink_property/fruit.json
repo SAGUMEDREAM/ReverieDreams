@@ -2,18 +2,18 @@
   "registry_key": "reverie_dreams:fruit",
   "properties": {
     "values": [
-      "reverie_dreams:drink/fruity_high_ball",
-      "reverie_dreams:drink/komeiji_ice_cream",
-      "reverie_dreams:drink/fruity_sour",
-      "reverie_dreams:drink/plum_wine",
-      "reverie_dreams:drink/daiginjo",
-      "reverie_dreams:drink/negroni",
-      "reverie_dreams:drink/scarlet_devil_mansion_black_tea",
-      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
-      "reverie_dreams:drink/red_grapefruit_juice",
       "reverie_dreams:drink/space_beer",
+      "reverie_dreams:drink/fruity_high_ball",
       "reverie_dreams:drink/drunk_actor",
-      "reverie_dreams:drink/mango_pomelo_sago"
+      "reverie_dreams:drink/mango_pomelo_sago",
+      "reverie_dreams:drink/fruity_sour",
+      "reverie_dreams:drink/scarlet_devil_mansion_black_tea",
+      "reverie_dreams:drink/red_grapefruit_juice",
+      "reverie_dreams:drink/negroni",
+      "reverie_dreams:drink/daiginjo",
+      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
+      "reverie_dreams:drink/komeiji_ice_cream",
+      "reverie_dreams:drink/plum_wine"
     ]
   }
 }

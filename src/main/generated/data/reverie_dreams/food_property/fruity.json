@@ -2,23 +2,23 @@
   "registry_key": "reverie_dreams:fruity",
   "properties": {
     "values": [
-      "reverie_dreams:food/burnt_pudding",
-      "reverie_dreams:ingredient/grape",
-      "reverie_dreams:food/arctic_sweet_shrimp_and_peach_salad",
-      "reverie_dreams:food/yunshan_cotton_candy",
-      "reverie_dreams:food/white_peach_eight_bridge",
       "reverie_dreams:food/ordinary_small_cake",
-      "reverie_dreams:food/the_mars",
-      "reverie_dreams:food/milky_mushroom_soup",
-      "reverie_dreams:food/seven_colored_yokan",
-      "reverie_dreams:ingredient/lemon",
-      "reverie_dreams:food/longyin_peach",
-      "reverie_dreams:food/gloomy_fruit_pie",
       "reverie_dreams:food/braised_pork_with_peach",
+      "reverie_dreams:ingredient/grape",
+      "reverie_dreams:food/gloomy_fruit_pie",
       "reverie_dreams:food/refreshing_pudding",
+      "reverie_dreams:food/longyin_peach",
+      "reverie_dreams:food/the_mars",
+      "reverie_dreams:food/yunshan_cotton_candy",
+      "reverie_dreams:food/arctic_sweet_shrimp_and_peach_salad",
+      "reverie_dreams:food/sakura_pudding",
+      "reverie_dreams:ingredient/lemon",
+      "reverie_dreams:food/burnt_pudding",
+      "reverie_dreams:food/seven_colored_yokan",
       "reverie_dreams:ingredient/peach",
-      "reverie_dreams:food/peach_blossom_soup",
-      "reverie_dreams:food/sakura_pudding"
+      "reverie_dreams:food/white_peach_eight_bridge",
+      "reverie_dreams:food/milky_mushroom_soup",
+      "reverie_dreams:food/peach_blossom_soup"
     ]
   }
 }

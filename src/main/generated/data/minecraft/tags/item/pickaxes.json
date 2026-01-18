@@ -1,8 +1,8 @@
 {
   "values": [
-    "reverie_dreams:dream_pickaxe",
-    "reverie_dreams:magic_ice_pickaxe",
     "reverie_dreams:silver_pickaxe",
-    "reverie_dreams:manpozuchi"
+    "reverie_dreams:manpozuchi",
+    "reverie_dreams:dream_pickaxe",
+    "reverie_dreams:magic_ice_pickaxe"
   ]
 }
