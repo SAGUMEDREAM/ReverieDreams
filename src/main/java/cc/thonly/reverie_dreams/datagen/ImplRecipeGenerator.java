@@ -224,6 +224,16 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_paper", has(Items.PAPER))
                 .save(output, getSimpleRecipeName(RDItems.EMPTY_PHOTO));
 
+        // 稻草人
+        shaped(RecipeCategory.MISC, RDItems.SCARECROW)
+                .pattern("#A#")
+                .pattern("#X#")
+                .pattern("#A#")
+                .define('A', Items.REDSTONE_TORCH)
+                .define('X', Items.REDSTONE)
+                .define('#', Items.WHEAT)
+        ;
+
         this.generateWoodCreator(RDWoodBlocks.SPIRITUAL);
         shapeless(RecipeCategory.BUILDING_BLOCKS, RDWoodBlocks.SPIRITUAL.strippedLog())
                 .requires(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)

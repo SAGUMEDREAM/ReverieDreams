@@ -1,5 +1,9 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.11+1.21.7
+* Fixed lack danmaku repair recipe
+* Fixed lack scarecrow recipe
+
 # 0.4.10+1.21.7
 * Fixed a crash due to missing Kotlin standard library
 * Fixed remap

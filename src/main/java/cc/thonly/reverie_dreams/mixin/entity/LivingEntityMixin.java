@@ -206,6 +206,7 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
         this.fixedPlayerData();
         this.processDeathLevel();
+        this.processDimTeleportTick();
     }
 
     @Unique
@@ -241,6 +242,17 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
 
         if (!this.level().isClientSide()) {
+            this.deathLevelResetTimer++;
+            if (this.deathLevelResetTimer >= 18000) {
+                this.deathLevel = Math.max(0, this.deathLevel - 1);
+                this.deathLevelResetTimer = 0;
+            }
+        }
+    }
+
+    @Unique
+    public void processDimTeleportTick() {
+        if (!this.level().isClientSide()) {
             MinecraftServer server = this.level().getServer();
             Level world = this.level();
             double mobY = this.getY();
@@ -264,14 +276,6 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                         }
                     }
                 }
-            }
-        }
-
-        if (!this.level().isClientSide()) {
-            this.deathLevelResetTimer++;
-            if (this.deathLevelResetTimer >= 18000) {
-                this.deathLevel = Math.max(0, this.deathLevel - 1);
-                this.deathLevelResetTimer = 0;
             }
         }
     }

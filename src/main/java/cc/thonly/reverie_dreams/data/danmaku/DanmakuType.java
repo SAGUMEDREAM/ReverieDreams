@@ -126,6 +126,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     public void createItemEntry() {
         DanmakuItem item = new DanmakuItem(this.createItemSettings()
                 .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
+                .repairable(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM)
                 .durability(120)
         );
         item.type(this);

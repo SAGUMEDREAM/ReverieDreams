@@ -1,9 +1,9 @@
 {
   "item": "reverie_dreams:food/peach_blossom_glaze_roll",
   "values": [
+    "reverie_dreams:mushrooms",
     "reverie_dreams:bizarre",
-    "reverie_dreams:filling",
     "reverie_dreams:meat",
-    "reverie_dreams:mushrooms"
+    "reverie_dreams:filling"
   ]
 }
