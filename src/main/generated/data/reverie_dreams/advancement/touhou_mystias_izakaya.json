@@ -5,46 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "reverie_dreams:extreme_cutting_board"
-          },
-          {
             "items": "reverie_dreams:nuke_steamer"
-          },
-          {
-            "items": "reverie_dreams:grill"
-          },
-          {
-            "items": "reverie_dreams:mystia_steamer"
-          },
-          {
-            "items": "reverie_dreams:steamer"
-          },
-          {
-            "items": "reverie_dreams:extreme_grill"
-          },
-          {
-            "items": "reverie_dreams:super_cooking_pot"
-          },
-          {
-            "items": "reverie_dreams:super_cutting_board"
-          },
-          {
-            "items": "reverie_dreams:super_frying_pan"
-          },
-          {
-            "items": "reverie_dreams:super_grill"
-          },
-          {
-            "items": "reverie_dreams:cutting_board"
-          },
-          {
-            "items": "reverie_dreams:extreme_frying_pan"
-          },
-          {
-            "items": "reverie_dreams:nuke_cooking_pot"
-          },
-          {
-            "items": "reverie_dreams:mystia_grill"
           },
           {
             "items": "reverie_dreams:extreme_cooking_pot"
@@ -53,31 +14,70 @@
             "items": "reverie_dreams:mystia_cutting_board"
           },
           {
-            "items": "reverie_dreams:super_steamer"
-          },
-          {
-            "items": "reverie_dreams:mystia_frying_pan"
-          },
-          {
-            "items": "reverie_dreams:nuke_grill"
-          },
-          {
             "items": "reverie_dreams:cooking_pot"
           },
           {
             "items": "reverie_dreams:mystia_cooking_pot"
           },
           {
-            "items": "reverie_dreams:extreme_steamer"
+            "items": "reverie_dreams:frying_pan"
           },
           {
             "items": "reverie_dreams:nuke_frying_pan"
           },
           {
-            "items": "reverie_dreams:nuke_cutting_board"
+            "items": "reverie_dreams:mystia_frying_pan"
           },
           {
-            "items": "reverie_dreams:frying_pan"
+            "items": "reverie_dreams:super_cutting_board"
+          },
+          {
+            "items": "reverie_dreams:nuke_grill"
+          },
+          {
+            "items": "reverie_dreams:extreme_steamer"
+          },
+          {
+            "items": "reverie_dreams:extreme_cutting_board"
+          },
+          {
+            "items": "reverie_dreams:mystia_steamer"
+          },
+          {
+            "items": "reverie_dreams:mystia_grill"
+          },
+          {
+            "items": "reverie_dreams:super_grill"
+          },
+          {
+            "items": "reverie_dreams:extreme_frying_pan"
+          },
+          {
+            "items": "reverie_dreams:super_steamer"
+          },
+          {
+            "items": "reverie_dreams:steamer"
+          },
+          {
+            "items": "reverie_dreams:extreme_grill"
+          },
+          {
+            "items": "reverie_dreams:nuke_cooking_pot"
+          },
+          {
+            "items": "reverie_dreams:cutting_board"
+          },
+          {
+            "items": "reverie_dreams:super_cooking_pot"
+          },
+          {
+            "items": "reverie_dreams:super_frying_pan"
+          },
+          {
+            "items": "reverie_dreams:grill"
+          },
+          {
+            "items": "reverie_dreams:nuke_cutting_board"
           }
         ]
       },

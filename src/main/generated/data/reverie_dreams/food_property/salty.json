@@ -2,20 +2,20 @@
   "registry_key": "reverie_dreams:salty",
   "properties": {
     "values": [
-      "reverie_dreams:ingredient/cheese",
-      "reverie_dreams:food/tonkotsu_ramen",
-      "reverie_dreams:ingredient/plum",
-      "reverie_dreams:food/pickled_cucumbers",
-      "reverie_dreams:ingredient/black_salt",
-      "reverie_dreams:food/cheese_egg",
-      "reverie_dreams:food/gloomy_fruit_pie",
-      "reverie_dreams:food/mushroom_girls_dance_stew",
-      "reverie_dreams:food/roasted_mushrooms",
-      "reverie_dreams:food/biscay_biscuits",
-      "reverie_dreams:food/all_meat_feast",
-      "reverie_dreams:food/secret_dried_fish",
       "reverie_dreams:food/depressed_cheese_sticks",
-      "reverie_dreams:food/hell_thrill_warning"
+      "reverie_dreams:food/pickled_cucumbers",
+      "reverie_dreams:food/roasted_mushrooms",
+      "reverie_dreams:food/gloomy_fruit_pie",
+      "reverie_dreams:food/all_meat_feast",
+      "reverie_dreams:ingredient/plum",
+      "reverie_dreams:food/tonkotsu_ramen",
+      "reverie_dreams:ingredient/black_salt",
+      "reverie_dreams:food/biscay_biscuits",
+      "reverie_dreams:food/cheese_egg",
+      "reverie_dreams:food/hell_thrill_warning",
+      "reverie_dreams:ingredient/cheese",
+      "reverie_dreams:food/mushroom_girls_dance_stew",
+      "reverie_dreams:food/secret_dried_fish"
     ]
   }
 }

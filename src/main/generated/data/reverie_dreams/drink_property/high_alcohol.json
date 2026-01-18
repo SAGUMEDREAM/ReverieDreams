@@ -2,13 +2,13 @@
   "registry_key": "reverie_dreams:high_alcohol",
   "properties": {
     "values": [
-      "reverie_dreams:drink/heaven_and_earth_are_useless",
-      "reverie_dreams:drink/demonic_coffee",
-      "reverie_dreams:drink/fire_rat_fur",
-      "reverie_dreams:drink/tengu_dance",
-      "reverie_dreams:drink/godfather",
       "reverie_dreams:drink/dawn",
-      "reverie_dreams:drink/demon_slayer"
+      "reverie_dreams:drink/demonic_coffee",
+      "reverie_dreams:drink/tengu_dance",
+      "reverie_dreams:drink/fire_rat_fur",
+      "reverie_dreams:drink/demon_slayer",
+      "reverie_dreams:drink/godfather",
+      "reverie_dreams:drink/heaven_and_earth_are_useless"
     ]
   }
 }

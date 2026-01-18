@@ -68,7 +68,7 @@ public class DimensionTypeInit {
                 256,                  // height
                 256,                  // logicalHeight
                 TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
-                0.0f,                 // ambientLight
+                0.25f,                 // ambientLight
                 new DimensionType.MonsterSettings(
                         UniformInt.of(0, 7),        // monsterSpawnLightLevel
                         0                                // monsterSpawnBlockLightLimit

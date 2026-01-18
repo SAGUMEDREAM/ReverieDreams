@@ -2,14 +2,14 @@
   "registry_key": "reverie_dreams:refreshing",
   "properties": {
     "values": [
-      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
       "reverie_dreams:drink/demonic_coffee",
-      "reverie_dreams:drink/coffee",
-      "reverie_dreams:drink/qi_health",
-      "reverie_dreams:drink/affgado",
       "reverie_dreams:drink/satellite_iced_coffee",
       "reverie_dreams:drink/big_popsicle",
-      "reverie_dreams:drink/scarlet_devil_mansion_black_tea"
+      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
+      "reverie_dreams:drink/scarlet_devil_mansion_black_tea",
+      "reverie_dreams:drink/qi_health",
+      "reverie_dreams:drink/coffee",
+      "reverie_dreams:drink/affgado"
     ]
   }
 }

@@ -121,6 +121,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             danmaku.add(danmakuType.getItem());
         }
         danmaku.add(RDItems.KNIFE);
+        TagAppender<Item, Item> danmakuRepairAcceptableItems = valueLookupBuilder(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM);
+        danmakuRepairAcceptableItems.add(RDItems.POWER.asItem());
 
         // === 自定义方块 ===
         valueLookupBuilder(ItemTags.PLANKS).addAll(WoodCreator.INSTANCES.stream().map(ins -> ins.planks().asItem()));
