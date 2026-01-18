@@ -24,7 +24,7 @@
       "minecraft:dyed_color": 16777215,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:9e384dc5-e602-4bbf-993d-d388c92d9885"
+        "cooldown_group": "minecraft:8d0b315b-5e15-4b33-9ff3-198ac5137f16"
       }
     }
   },

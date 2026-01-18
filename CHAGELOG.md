@@ -1,5 +1,9 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.13+1.21.10
+* Fixed the moon dim light error
+* Fixed lack danmaku repair recipe
+
 # 0.4.12+1.21.10
 * Fixed the missing Scarecrow crafting recipe
 * Added a working mode selection interface

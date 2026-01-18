@@ -55,7 +55,7 @@ public class DimensionTypeInit {
                 256,                  // logicalHeight
                 TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "infiniburn_overworld")), // infiniburn
                 ResourceLocation.fromNamespaceAndPath("minecraft", "the_end"), // effects
-                0.0f,                 // ambientLight
+                0.25f,                 // ambientLight
                 Optional.empty(),     // cloudHeight
                 new DimensionType.MonsterSettings(
                         false,                           // piglinSafe

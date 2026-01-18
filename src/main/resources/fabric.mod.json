@@ -53,7 +53,9 @@
   "suggests": {
     "eiv": "*",
     "polydex": "*",
-    "polydex2eiv": "*"
+    "polydex2eiv": "*",
+    "rei": "*",
+    "polydex2rei": "*"
   },
   "accessWidener": "reverie_dreams.accesswidener"
 }

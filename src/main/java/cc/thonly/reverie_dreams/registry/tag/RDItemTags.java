@@ -28,6 +28,7 @@ public class RDItemTags {
     public static final TagKey<Item> DRINK_ITEM = of("drink_item");
     public static final TagKey<Item> ROLE_TAME_FOOD = of("role_tame_food");
     public static final TagKey<Item> DANMAKU_ITEM = of("danmaku_item");
+    public static final TagKey<Item> DANMAKU_REPAIR_ACCEPTABLE_ITEM = of("danmaku_repair_acceptable");
     public static final TagKey<Item> REPLACEABLE_BLANK_PHOTOS = of("replaceable_blank_photos");
     public static final TagKey<Item> MUSICAL_INSTRUMENTS = of("musical_instruments");
     public static final TagKey<Item> COINS = of("coins");

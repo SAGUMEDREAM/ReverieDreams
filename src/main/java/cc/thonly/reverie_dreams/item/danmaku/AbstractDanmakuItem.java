@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -62,6 +63,11 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
                 this.shoot(serverWorld, user, hand);
             }
             if (!properties.isInfinite()) {
+                Integer cur = itemStack.get(DataComponents.DAMAGE);
+                Integer max = itemStack.get(DataComponents.MAX_DAMAGE);
+                if (cur != null && max != null && cur >= max) {
+                    itemStack.setCount(0);
+                }
                 itemStack.hurtWithoutBreaking(1, user);
                 if (itemStack.isDamageableItem() && itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
                     itemStack.shrink(1);

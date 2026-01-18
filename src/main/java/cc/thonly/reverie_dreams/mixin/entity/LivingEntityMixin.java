@@ -208,6 +208,37 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
         this.fixedPlayerData();
         this.processDeathLevel();
+        this.processDimTeleportTick();
+    }
+
+    @Unique
+    public void processDimTeleportTick() {
+        if (!this.level().isClientSide()) {
+            MinecraftServer server = this.level().getServer();
+            Level world = this.level();
+            double mobY = this.getY();
+            ResourceKey<Level> moonKey = ((IWorld) world).reverie_dreams$getMoonKey();
+            ResourceKey<Level> dreamKey = ((IWorld) world).reverie_dreams$getDreamWorldKey();
+            ResourceKey<Level> registryKey = world.dimension();
+            if (server != null) {
+                ServerLevel moonWorld = server.getLevel(moonKey);
+                ServerLevel dreamWorld = server.getLevel(dreamKey);
+                ServerLevel endWorld = server.getLevel(Level.END);
+                if (moonWorld != null && endWorld != null) {
+                    if (registryKey.equals(Level.END)) {
+                        if (mobY >= endWorld.getHeight()) {
+                            this.teleportTo(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
+                        }
+                    } else if (registryKey.equals(moonKey) || registryKey.equals(dreamKey)) {
+                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1, 0));
+                        if (mobY >= moonWorld.getHeight()) {
+                            this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0));
+                            this.teleportTo(endWorld, this.getX(), endWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Unique
@@ -240,33 +271,6 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             }
         } else {
             this.deathLevel = 0;
-        }
-
-        if (!this.level().isClientSide()) {
-            MinecraftServer server = this.level().getServer();
-            Level world = this.level();
-            double mobY = this.getY();
-            ResourceKey<Level> moonKey = ((IWorld) world).reverie_dreams$getMoonKey();
-            ResourceKey<Level> dreamKey = ((IWorld) world).reverie_dreams$getDreamWorldKey();
-            ResourceKey<Level> registryKey = world.dimension();
-            if (server != null) {
-                ServerLevel moonWorld = server.getLevel(moonKey);
-                ServerLevel dreamWorld = server.getLevel(dreamKey);
-                ServerLevel endWorld = server.getLevel(Level.END);
-                if (moonWorld != null && endWorld != null) {
-                    if (registryKey.equals(Level.END)) {
-                        if (mobY >= endWorld.getHeight()) {
-                            this.teleportTo(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
-                        }
-                    } else if (registryKey.equals(moonKey) || registryKey.equals(dreamKey)) {
-                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1, 0));
-                        if (mobY >= moonWorld.getHeight()) {
-                            this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0));
-                            this.teleportTo(endWorld, this.getX(), endWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
-                        }
-                    }
-                }
-            }
         }
 
         if (!this.level().isClientSide()) {

@@ -198,7 +198,8 @@ public class RDItems {
     public static final Item SILVER_BOOTS = registerItem("silver_boots", (settings) -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.BOOTS, settings), new Item.Properties().component(RDDataComponents.SILVER_ITEM, Unit.INSTANCE).durability(ArmorType.BOOTS.getDurability(SilverArmorMaterial.BASE_DURABILITY)));
 
     // 女仆装备
-    public static final Item KNIFE = registerItem("knife", (settings) -> new Knife(0f, 0f, settings), new Item.Properties().stacksTo(1)
+    public static final Item KNIFE = registerItem("knife", (settings) -> new Knife(0f, 0f, settings), new Item.Properties()
+            .stacksTo(1)
             .component(RDDataComponents.DANMAKU_PROPERTIES, DanmakuProperties.ofDefault().withSpeed(0.5f).withScale(1.8f))
     );
     public static final Item MAID_HAIRBAND = registerItem("maid_hairband", (settings) -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.HELMET, settings), new Item.Properties().durability(ArmorType.HELMET.getDurability(MaidArmorMaterial.BASE_DURABILITY)));

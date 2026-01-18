@@ -34,6 +34,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.UseCooldown;
+import net.minecraft.world.item.enchantment.Repairable;
 
 import java.util.*;
 
@@ -126,6 +127,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     public void createItemEntry() {
         DanmakuItem item = new DanmakuItem(this.createItemSettings()
                 .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
+                .repairable(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM)
                 .durability(120)
         );
         item.type(this);

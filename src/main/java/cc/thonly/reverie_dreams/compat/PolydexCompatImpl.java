@@ -35,7 +35,6 @@ public class PolydexCompatImpl {
         });
     }
 
-
     private static PolydexEntry ofEntry(ResourceLocation id, ItemStack stack) {
         return PolydexEntry.of(id, stack);
     }
