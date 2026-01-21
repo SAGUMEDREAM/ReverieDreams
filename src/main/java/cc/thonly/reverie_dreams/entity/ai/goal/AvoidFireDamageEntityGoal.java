@@ -69,7 +69,7 @@ public class AvoidFireDamageEntityGoal extends Goal {
             return false;
         } else {
             if (!this.mob.isOnFire()) {
-                return true;
+                return false;
             }
             Vec3 vec3 = DefaultRandomPos.getPosAway(this.mob, 16, 7, this.toAvoid.position());
             if (vec3 == null) {
@@ -103,10 +103,8 @@ public class AvoidFireDamageEntityGoal extends Goal {
 
     @Override
     public void tick() {
-        if (this.mob.distanceToSqr(this.toAvoid) < 49.0) {
+        if (this.toAvoid != null && this.mob.distanceToSqr(this.toAvoid) < 49.0) {
             this.mob.getNavigation().setSpeedModifier(this.sprintSpeedModifier);
-        } else {
-            this.mob.getNavigation().setSpeedModifier(this.walkSpeedModifier);
         }
     }
 

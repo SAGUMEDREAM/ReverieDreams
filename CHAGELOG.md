@@ -1,5 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.14+1.21.10
+* Fixed AI not attacking target
+
 # 0.4.13+1.21.10
 * Fixed the moon dim light error
 * Fixed lack danmaku repair recipe

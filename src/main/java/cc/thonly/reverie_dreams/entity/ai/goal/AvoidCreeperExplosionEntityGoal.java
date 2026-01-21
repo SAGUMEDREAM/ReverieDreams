@@ -104,10 +104,8 @@ public class AvoidCreeperExplosionEntityGoal extends Goal {
 
     @Override
     public void tick() {
-        if (this.mob.distanceToSqr(this.toAvoid) < 49.0) {
+        if (this.toAvoid != null && this.mob.distanceToSqr(this.toAvoid) < 49.0) {
             this.mob.getNavigation().setSpeedModifier(this.sprintSpeedModifier);
-        } else {
-            this.mob.getNavigation().setSpeedModifier(this.walkSpeedModifier);
         }
     }
 
