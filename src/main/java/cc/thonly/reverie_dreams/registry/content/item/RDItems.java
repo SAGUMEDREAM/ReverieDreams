@@ -102,7 +102,7 @@ public class RDItems {
     public static final Item YELLOW_ORB = registerItem("yellow_orb", Item::new, new Item.Properties());
     public static final Item GREEN_ORB = registerItem("green_orb", Item::new, new Item.Properties());
     public static final Item PURPLE_ORB = registerItem("purple_orb", Item::new, new Item.Properties());
-    public static final Item YIN_YANG_ORB = registerItem("yin-yang_orb", Item::new, new Item.Properties());
+    public static final Item YIN_YANG_ORB = registerItem("yin-yang_orb", YinYangOrbItem::new, new Item.Properties());
     public static final Item SPEED_FEATHER = registerItem("speed_feather", SpeedFeatherItem::new, new Item.Properties()
             .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     public static final Item DREAM_CRYSTAL_FRAGMENT = registerItem("dream_crystal_fragment", Item::new, new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));

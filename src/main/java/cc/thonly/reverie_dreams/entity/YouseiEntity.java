@@ -84,6 +84,7 @@ public class YouseiEntity extends BaseNPCLikeEntity implements Leashable, Friend
     public void tick() {
         this.skinType = this.variant != null ? this.variant.getSkinType() : YouseiVariants.BLUE.getSkinType();
         super.tick();
+        this.onEntityTick();
     }
 
     @Override

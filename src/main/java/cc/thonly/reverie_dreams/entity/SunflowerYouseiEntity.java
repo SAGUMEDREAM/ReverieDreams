@@ -68,6 +68,12 @@ public class SunflowerYouseiEntity extends BaseNPCLikeEntity implements Leashabl
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        this.onEntityTick();
+    }
+
+    @Override
     public void die(DamageSource damageSource) {
         super.die(damageSource);
         int i = this.random.nextIntBetweenInclusive(1, 9);

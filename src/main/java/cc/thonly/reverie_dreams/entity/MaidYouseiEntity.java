@@ -117,6 +117,7 @@ public class MaidYouseiEntity extends BaseNPCLikeEntity implements Leashable, Fr
     public void tick() {
         this.skinType = this.variant != null ? this.variant.getSkinType() : YouseiVariants.BLUE.getSkinType();
         super.tick();
+        this.onEntityTick();
     }
 
     @Override
