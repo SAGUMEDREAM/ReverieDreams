@@ -627,6 +627,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         builder.add(RDEntityTypes.MAID_YOUSEI, "女仆妖精", "女仆妖精刷怪蛋");
         builder.add(RDEntityTypes.SUNFLOWER_YOUSEI, "向日葵妖精", "向日葵妖精刷怪蛋");
         builder.add(RDEntityTypes.GOBLIN, "哥布林", "哥布林刷怪蛋");
+        builder.add(RDEntityTypes.RABBIT_UNIT, "月兔战士", "月兔战士刷怪蛋");
         builder.add(RDEntityTypes.WATER_ELEMENTAL, "水元素", "水元素刷怪蛋");
         builder.add(RDEntityTypes.FIRE_ELEMENTAL, "火元素", "火元素刷怪蛋");
         builder.add(RDEntityTypes.ICE_ELEMENTAL, "冰元素", "冰元素刷怪蛋");
@@ -978,6 +979,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.GOLD_COIN, "金币");
         translationBuilder.add(RDItems.SPELLCARD, "符卡");
         translationBuilder.add(RDItems.SATORI_EYE, "觉之眼");
+        translationBuilder.add(RDItems.WEAPON_OF_THE_MOON, "月之兵器");
 
         // 武器
         translationBuilder.add(RDItems.HAKUREI_CANE, "博丽御币");

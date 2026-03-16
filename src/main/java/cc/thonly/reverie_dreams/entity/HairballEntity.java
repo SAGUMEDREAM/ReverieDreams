@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -16,15 +16,20 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
 @Getter
 public class HairballEntity extends PathfinderMob {
+    private boolean black = false;
+
     public HairballEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.black = ReverieDreams.RD.nextBoolean();
     }
 
     @Override
@@ -70,4 +75,15 @@ public class HairballEntity extends PathfinderMob {
         return nearby.size() < max;
     }
 
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.black = input.getBooleanOr("Black", false);
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putBoolean("Black", this.black);
+    }
 }

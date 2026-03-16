@@ -13,6 +13,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.SoundEventInit;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
+import eu.pb4.polymer.core.api.other.PolymerPotion;
 import eu.pb4.polymer.core.api.other.PolymerSoundEvent;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
@@ -27,6 +28,9 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.Potions;
+import org.jspecify.annotations.NonNull;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,13 +60,18 @@ public class LateLoaderInit implements ModInitializer {
         }
         for (SoundEvent soundEvent : SoundEventInit.SOUND_EVENTS) {
             PolymerSoundEvent.registerOverlay(soundEvent);
-            RegistrySyncUtils.setServerEntry(BuiltInRegistries.SOUND_EVENT, soundEvent);
+//            RegistrySyncUtils.setServerEntry(BuiltInRegistries.SOUND_EVENT, soundEvent);
         }
         for (Holder<MobEffect> registryEntry : RDStatusEffects.EFFECTS) {
             PolymerStatusEffectHelper.registerOverlay(registryEntry);
         }
         for (Potion potion : RDPotions.POTIONS) {
-            RegistrySyncUtils.setServerEntry(BuiltInRegistries.POTION, potion);
+            PolymerPotion.registerOverlay(potion, new PolymerPotion() {
+                @Override
+                public @NonNull Potion getPolymerReplacement(Potion potion, PacketContext context) {
+                    return Potions.HEALING.value();
+                }
+            });
         }
         for (EntityType<?> entityType : RDEntityTypes.ENTITY_TYPES) {
             PolymerEntityUtils.registerType(entityType);

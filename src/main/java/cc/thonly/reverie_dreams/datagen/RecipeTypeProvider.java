@@ -243,6 +243,17 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
     }
 
     public void generateGensokyoAltarRecipe() {
+        this.gensokyoAltarRecipeFactory.register(RDItems.YIN_YANG_ORB,
+                new GensokyoAltarRecipe(
+                        this.ofItem(Items.DIAMOND),
+                        List.of(
+                                this.ofItem(Items.BLACK_WOOL), this.ofItem(Items.GOLDEN_APPLE), this.ofItem(Items.WHITE_WOOL),
+                                this.ofItem(Items.BLACK_WOOL), this.ofItem(Items.WHITE_WOOL),
+                                this.ofItem(Items.BLACK_WOOL), this.ofItem(Items.GOLDEN_APPLE), this.ofItem(Items.WHITE_WOOL)
+                        ),
+                        this.ofItem(RDItems.YIN_YANG_ORB)
+                )
+        );
         this.gensokyoAltarRecipeFactory.register(RDItems.HORAI_DAMA_NO_EDA,
                 new GensokyoAltarRecipe(
                         this.ofItem(Items.DIAMOND_BLOCK),

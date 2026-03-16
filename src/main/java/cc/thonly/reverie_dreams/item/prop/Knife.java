@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
@@ -28,7 +29,6 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 @SuppressWarnings("unchecked")
 @Setter
@@ -76,7 +76,6 @@ public class Knife extends SwordItem implements IDanmakuItem {
     }
 
     public void spawn(ServerLevel serverWorld, Player user, InteractionHand hand) {
-        Random random = new Random();
         ItemStack heldItemStack = user.getItemInHand(hand);
         ItemStack itemStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY);
         DataComponentMap components = heldItemStack.getComponents();
@@ -111,7 +110,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
         );
         list.add(danmakuEntity);
         for (int i = 0; i < 3; i++) {
-            int i1 = random.nextInt(-5, 5);
+            int i1 = ReverieDreams.RD.nextInt(-5, 5);
             list.add(new DanmakuEntity(
                     (LivingEntity) user,
                     serverWorld,

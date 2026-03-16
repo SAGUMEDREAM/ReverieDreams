@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -31,12 +32,15 @@ public class ChestLootTableProvider extends SimpleFabricLootTableProvider {
         super(dataOutput, registryLookup, LootContextParamSets.CHEST);
     }
 
-    public static final ResourceKey<LootTable> DREAM_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("dream_chest"));
-    public static final ResourceKey<LootTable> OUTER_SHRINE_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("outer_shrine_chest"));
-    public static final ResourceKey<LootTable> ABANDONED_ALTAR_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("abandoned_altar_chest"));
-    public static final ResourceKey<LootTable> MINI_BAR_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("mini_bar_chest"));
-    public static final ResourceKey<LootTable> BAMBOO_FOREST_BBQ_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("bamboo_forest_bbq_chest"));
-    public static final ResourceKey<LootTable> SAKURAZUKA_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ReverieDreams.id("sakurazuka_chest"));
+    public static final ResourceKey<LootTable> DREAM_CHEST = getKey("dream_chest");
+    public static final ResourceKey<LootTable> OUTER_SHRINE_CHEST = getKey("outer_shrine_chest");
+    public static final ResourceKey<LootTable> ABANDONED_ALTAR_CHEST = getKey("abandoned_altar_chest");
+    public static final ResourceKey<LootTable> MINI_BAR_CHEST = getKey("mini_bar_chest");
+    public static final ResourceKey<LootTable> BAMBOO_FOREST_BBQ_CHEST = getKey("bamboo_forest_bbq_chest");
+    public static final ResourceKey<LootTable> SAKURAZUKA_CHEST = getKey("sakurazuka_chest");
+    public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_A = getKey("moon_building_chest_a");
+    public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_B = getKey("moon_building_chest_b");
+    public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_C = getKey("moon_building_chest_c");
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
@@ -158,6 +162,63 @@ public class ChestLootTableProvider extends SimpleFabricLootTableProvider {
                                 .add(LootItem.lootTableItem(RDItems.GOLD_COIN).setWeight(2))
                         )
         );
+        lootTableBiConsumer.accept(MOON_BUILDING_CHEST_A,
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(UniformGenerator.between(7, 10))
+                                .add(LootItem.lootTableItem(Items.GOLDEN_APPLE))
+                                .add(LootItem.lootTableItem(Items.GOLD_INGOT))
+                                .add(LootItem.lootTableItem(Items.PAPER))
+                                .add(LootItem.lootTableItem(RDItems.SILVER_COIN))
+                                .add(LootItem.lootTableItem(RDItems.SILVER_INGOT))
+                                .add(LootItem.lootTableItem(RDItems.COPPER_COIN))
+                                .add(LootItem.lootTableItem(Items.DIAMOND))
+                                .add(LootItem.lootTableItem(Items.WRITABLE_BOOK))
+                                .add(LootItem.lootTableItem(RDItems.SILVER_SWORD))
+                                .add(LootItem.lootTableItem(Items.BREAD))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOONLIGHT_DUMPLINGS))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOONLIGHT_OVER_LOTUS_POND))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOON_CAKE))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOON_LOVERS))
+                                .add(LootItem.lootTableItem(Items.BAMBOO))
+                                .add(LootItem.lootTableItem(Items.BAMBOO_BLOCK))
+                                .add(LootItem.lootTableItem(RDBlocks.MOON_STONE.block()))
+                        )
+        );
+        lootTableBiConsumer.accept(MOON_BUILDING_CHEST_B,
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(UniformGenerator.between(7, 10))
+                                .add(LootItem.lootTableItem(Items.COMPASS))
+                                .add(LootItem.lootTableItem(Items.MAP))
+                                .add(LootItem.lootTableItem(Items.DIAMOND))
+                                .add(LootItem.lootTableItem(Items.GOLD_NUGGET))
+                                .add(LootItem.lootTableItem(Items.BREAD))
+                                .add(LootItem.lootTableItem(RDItems.POWER))
+                                .add(LootItem.lootTableItem(RDItems.POINT))
+                                .add(LootItem.lootTableItem(RDItems.SILVER_SPEAR))
+                                .add(LootItem.lootTableItem(RDItems.RED_ORB))
+                                .add(LootItem.lootTableItem(RDItems.BLUE_ORB))
+                                .add(LootItem.lootTableItem(RDItems.GREEN_ORB))
+                                .add(LootItem.lootTableItem(RDItems.YELLOW_ORB))
+                                .add(LootItem.lootTableItem(RDItems.DREAM_CRYSTAL_FRAGMENT))
+                                .add(LootItem.lootTableItem(Items.BREAD))
+                                .add(LootItem.lootTableItem(Items.WHEAT))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOONLIGHT_DUMPLINGS))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOONLIGHT_OVER_LOTUS_POND))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOON_CAKE))
+                                .add(LootItem.lootTableItem(RDFoodItems.MOON_LOVERS))
+                        )
+        );
+        lootTableBiConsumer.accept(MOON_BUILDING_CHEST_C, LootTable.lootTable());
 
+    }
+
+    public static ResourceKey<LootTable> getKey(String name) {
+        return getKey(ReverieDreams.id("chest/" + name));
+    }
+
+    public static ResourceKey<LootTable> getKey(Identifier identifier) {
+        return ResourceKey.create(Registries.LOOT_TABLE, identifier);
     }
 }

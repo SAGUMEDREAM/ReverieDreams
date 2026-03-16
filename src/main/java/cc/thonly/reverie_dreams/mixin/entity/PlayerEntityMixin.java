@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.entity.GhostEntity;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.inf.IPlayerEntity;
+import cc.thonly.reverie_dreams.item.WingType;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
@@ -29,9 +30,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerEntity {
 
@@ -45,7 +43,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     @Unique
     private boolean sleep = false;
     @Unique
+    private WingType wingType = WingType.NONE;
+    @Unique
     private static final Holder<MobEffect> MENTAL_DISORDER = RDStatusEffects.MENTAL_DISORDER;
+
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
@@ -155,11 +156,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     protected void writeCustomData(ValueOutput view, CallbackInfo ci) {
         view.putLong("NonSleepingTime", this.nonSleepingTime);
+        view.store("WingType", WingType.CODEC, this.wingType);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     protected void readCustomData(ValueInput view, CallbackInfo ci) {
         this.nonSleepingTime = view.getLongOr("NonSleepingTime", 0L);
+        this.wingType = view.read("WingType", WingType.CODEC).orElse(WingType.NONE);
     }
 
     @Unique
@@ -172,6 +175,18 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     @Override
     public long reverie_dreams$getNonSleepingTime() {
         return this.nonSleepingTime;
+    }
+
+    @Unique
+    @Override
+    public void reverie_dreams$setWingType(WingType wingType) {
+        this.wingType = wingType;
+    }
+
+    @Unique
+    @Override
+    public WingType reverie_dreams$getWingType() {
+        return this.wingType;
     }
 
     //    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)

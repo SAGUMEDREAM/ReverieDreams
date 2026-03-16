@@ -188,6 +188,20 @@ public class RDEntityTypes {
                     .add(Attributes.TEMPT_RANGE, 10.0f)
                     .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
     );
+    public static final EntityType<RabbitUnitEntity> RABBIT_UNIT = registerEntityWithSpawnEgg("rabbit_unit",
+            EntityType.Builder.<RabbitUnitEntity>of(RabbitUnitEntity::new, MobCategory.MONSTER)
+                    .build(of("rabbit_unit")),
+            () -> LivingEntity.createLivingAttributes()
+                    .add(Attributes.MAX_HEALTH, 30.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                    .add(Attributes.ATTACK_DAMAGE, 0.5)
+                    .add(Attributes.SCALE, 1.85f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 16.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+    );
     public static final EntityType<WaterElementalEntity> WATER_ELEMENTAL = registerEntityWithSpawnEgg("water_elemental",
             EntityType.Builder.<WaterElementalEntity>of(WaterElementalEntity::new, MobCategory.MONSTER)
                     .build(of("water_elemental")),

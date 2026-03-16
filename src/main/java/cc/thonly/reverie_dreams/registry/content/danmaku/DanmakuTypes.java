@@ -15,7 +15,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
-import java.util.Random;
 
 public class DanmakuTypes {
     public static final DanmakuType AMULET = registerType(ReverieDreams.id("amulet"), RDDamageTypes.DANMAKU_GENERIC, 2f, 1f, 1.2f, false, false);
@@ -51,13 +50,13 @@ public class DanmakuTypes {
 
     public static ItemStack random() {
         List<DanmakuType> values = RegistryHandlers.DANMAKU_TYPE.values().stream().toList();
-        DanmakuType type = values.get(new Random().nextInt(values.size()));
+        DanmakuType type = values.get(ReverieDreams.RD.nextInt(values.size()));
         return random(type);
     }
 
     public static ItemStack random(DanmakuType type) {
         List<Tuple<Item, ItemStack>> colorPair = type.getColorPairs();
-        Tuple<Item, ItemStack> pair = colorPair.get(new Random().nextInt(colorPair.size()));
+        Tuple<Item, ItemStack> pair = colorPair.get(ReverieDreams.RD.nextInt(colorPair.size()));
         return pair.getB().copy();
     }
 

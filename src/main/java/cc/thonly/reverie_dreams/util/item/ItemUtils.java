@@ -28,7 +28,6 @@ public class ItemUtils {
             if (itemStack.getItem() == Items.BARREL) {
                 return true;
             }
-            return true;
         }
         return false;
     }

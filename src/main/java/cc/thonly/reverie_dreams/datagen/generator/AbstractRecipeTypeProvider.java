@@ -172,6 +172,15 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
             return this.register(id, recipe);
         }
 
+        public AbstractRecipeTypeProvider.Factory<R> register(String name, R recipe) {
+            name = name.toLowerCase();
+            Identifier identifier = Identifier.tryParse(name);
+            if (identifier == null) {
+                throw new IllegalArgumentException("%s is an invalid string".formatted(name));
+            }
+            return this.register(identifier, recipe);
+        }
+
         public AbstractRecipeTypeProvider.Factory<R> register(Identifier id, R recipe) {
             Identifier identifier = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/", "-"));
             boolean contains = this.registries.containsKey(id);

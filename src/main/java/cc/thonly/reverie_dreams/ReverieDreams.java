@@ -100,10 +100,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Setter
@@ -112,6 +109,7 @@ public class ReverieDreams implements ModInitializer {
     public static final String MOD_NAME = "Gensokyo: Reverie of Lost Dreams";
     public static final String MOD_ID = "reverie_dreams";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final Random RD = new Random();
     private static MinecraftServer server;
     private static final Set<ServerPlayer> PLAYER_WITH_MOD = new HashSet<>();
     private static final Map<ServerPlayer, String> PLAYER_SIDE_VERSION = new WeakHashMap<>();

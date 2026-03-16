@@ -10,7 +10,6 @@ import net.minecraft.world.entity.Entity;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public class SoundEventInit {
     public static final List<SoundEvent> SOUND_EVENTS = new LinkedList<>();
@@ -35,8 +34,7 @@ public class SoundEventInit {
     }
 
     public static SoundEvent randomFumo() {
-        Random random = new Random();
-        int index = random.nextInt(FUMO_SOUNDS.length);
+        int index = ReverieDreams.RD.nextInt(FUMO_SOUNDS.length);
         return FUMO_SOUNDS[index];
     }
 

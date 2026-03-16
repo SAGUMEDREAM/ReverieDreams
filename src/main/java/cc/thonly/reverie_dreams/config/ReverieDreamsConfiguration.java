@@ -26,7 +26,7 @@ public class ReverieDreamsConfiguration extends MidnightConfig {
 
     @Comment(name = "Enable Yousei Spawning\nToggle to allow Yousei to spawn naturally.")
     @Entry
-    public static boolean ENABLE_YOUSEI_SPAWN = false;
+    public static boolean ENABLE_YOUSEI_SPAWN = true;
 
     @Comment(name="Enable Ghost Spawning\nToggle to allow Yousei to spawn naturally.")
     @Entry

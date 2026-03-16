@@ -29,6 +29,7 @@ public class NPCBowAttackGoal<T extends TamableAnimal> extends Goal {
     private boolean movingToLeft;
     private boolean backward;
     private int combatTicks = -1;
+
     public NPCBowAttackGoal(T actor, double speed, int attackInterval, float range) {
         this.actor = actor;
         this.speed = speed;

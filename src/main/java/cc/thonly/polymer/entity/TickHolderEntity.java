@@ -23,7 +23,7 @@ public interface TickHolderEntity {
 
     static void tick() {
         LIST.removeIf(e -> {
-            LivingEntity entity = e.getEntity();
+            LivingEntity entity = e.getSource();
             if (entity == null || entity.isRemoved()) {
                 ELEMENT_BINDS.remove(entity);
                 return true;
@@ -33,7 +33,7 @@ public interface TickHolderEntity {
         });
     }
 
-    LivingEntity getEntity();
+    LivingEntity getSource();
 
     default void onTick() {
 

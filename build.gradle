@@ -42,6 +42,10 @@ repositories {
     maven {
         url 'https://repository.hanbings.io/proxy'
     }
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
     maven { url = "https://maven.fabricmc.net/" }
     maven { url = "https://maven.quiltmc.org/repository/release/" }
     maven { url 'https://maven.kneelawk.com/releases/' }
@@ -99,7 +103,11 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft "net.minecraft:minecraft:${project.minecraft_version}"
 //    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    mappings loom.officialMojangMappings()
+//    mappings loom.officialMojangMappings()
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.21.11:2025.12.20@zip")
+    }
 //    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
@@ -129,7 +137,7 @@ dependencies {
     modImplementation files('libs/camera-obscura-1.2.2+1.21.11.jar')
 
     modCompileOnly files('libs/create-fly-1.21.11-6.0.9-1.jar')
-    modCompileOnly files('libs/polyfactory-0.10.2+1.21.11.jar')
+    modCompileOnly files('libs/polyfactory-0.10.4+1.21.11.jar')
     modCompileOnly files('libs/eiv-fabric-5.2.0+1.21.11.jar')
     modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
     modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')

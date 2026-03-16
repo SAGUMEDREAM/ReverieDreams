@@ -11,20 +11,22 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.world.entity.LivingEntity;
 
 public class UfoImpl implements AnimatedEntity, PolymerHolderEntity, TickHolderEntity {
-    private final UfoEntity entity;
+    private final UfoEntity source;
     private OverlayEntityHolder<UfoEntity, UfoImpl> holder;
 
-    public UfoImpl(UfoEntity entity) {
-        this.entity = entity;
-        PolymerEntityHelper.addEntityHolderModel(this);
+    public UfoImpl(UfoEntity source) {
+        this.source = source;
+        if (!source.level().isClientSide()) {
+            PolymerEntityHelper.addEntityHolderModel(this);
+        }
     }
 
     @Override
     public void onCreated() {
-        this.holder = new OverlayLivingEntityHolder<>(this.entity, this, PolymerEntityHelper.UFO_MODEL);
+        this.holder = new OverlayLivingEntityHolder<>(this.source, this, PolymerEntityHelper.UFO_MODEL);
         TickHolderEntity.addTickHolder(this);
-        TickHolderEntity.addElementBind(this.entity, this.holder);
-        EntityAttachment.ofTicking(this.holder, this.entity);
+        TickHolderEntity.addElementBind(this.source, this.holder);
+        EntityAttachment.ofTicking(this.holder, this.source);
     }
 
     @Override
@@ -32,15 +34,15 @@ public class UfoImpl implements AnimatedEntity, PolymerHolderEntity, TickHolderE
         if (this.holder == null) {
             return;
         }
-        if (this.entity.tickCount % 2 == 0) {
-            AnimationHelper.updateWalkAnimation(this.entity, this.holder);
-            AnimationHelper.updateHurtVariant(this.entity, this.holder);
+        if (this.source.tickCount % 2 == 0) {
+            AnimationHelper.updateWalkAnimation(this.source, this.holder);
+            AnimationHelper.updateHurtVariant(this.source, this.holder);
         }
     }
 
     @Override
-    public LivingEntity getEntity() {
-        return this.entity;
+    public LivingEntity getSource() {
+        return this.source;
     }
 
     @Override

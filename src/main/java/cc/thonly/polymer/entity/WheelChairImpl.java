@@ -18,18 +18,20 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.WeakHashMap;
 
-public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements PolymerEntity, PolymerHolderEntity {
+public record WheelChairImpl(WheelchairEntity source) implements PolymerEntity, PolymerHolderEntity {
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
     public WheelChairImpl {
-        PolymerEntityHelper.addEntityHolderModel(this);
+        if (!source.level().isClientSide()) {
+            PolymerEntityHelper.addEntityHolderModel(this);
+        }
     }
 
     @Override
     public void onCreated() {
-        this.wheelchairEntity.setNoGravity(true);
+        this.source.setNoGravity(true);
         var x = new ItemDisplayElement();
-        var holder = new WheelChairHolder(this.wheelchairEntity);
+        var holder = new WheelChairHolder(this.source);
         var stack = new ItemStack(RDBlocks.WHEEL_CHAIR);
         x.setItem(stack);
         x.setItemDisplayContext(ItemDisplayContext.HEAD);
@@ -37,9 +39,9 @@ public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements Polym
         x.setTeleportDuration(3);
         holder.setElement(x);
         holder.addElement(x);
-        EntityAttachment.ofTicking(holder, this.wheelchairEntity);
-        VirtualEntityUtils.addVirtualPassenger(this.wheelchairEntity, x.getEntityId());
-        ELEMENTS.put(this.wheelchairEntity, x);
+        EntityAttachment.ofTicking(holder, this.source);
+        VirtualEntityUtils.addVirtualPassenger(this.source, x.getEntityId());
+        ELEMENTS.put(this.source, x);
     }
 
     @Override
@@ -48,13 +50,13 @@ public record WheelChairImpl(WheelchairEntity wheelchairEntity) implements Polym
     }
 
     public void onTrackingStopped(ServerPlayer player) {
-        ItemDisplayElement element = ELEMENTS.get(this.wheelchairEntity);
+        ItemDisplayElement element = ELEMENTS.get(this.source);
         if (element != null) {
             ElementHolder holder = element.getHolder();
             if (holder != null) {
                 holder.destroy();
             }
         }
-        ELEMENTS.remove(this.wheelchairEntity);
+        ELEMENTS.remove(this.source);
     }
 }

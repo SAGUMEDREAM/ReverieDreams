@@ -249,7 +249,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
         this.npcAutoPick.setItem(Items.NETHERITE_SCRAP);
         this.npcAutoPick.setItemName(Component.translatable("gui.npc.info.auto-pick"));
         this.npcAutoPick.setComponent(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, this.npcEntity.isAutoPick());
-        //        System.out.println( this.npcEntity.getNpcState().getId());
+        //        System.out.println( this.source.getNpcState().getId());
         this.builder2index.forEach((builder, index) -> {
             this.setSlot(index, builder);
         });

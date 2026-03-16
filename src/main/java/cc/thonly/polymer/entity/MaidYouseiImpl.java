@@ -14,7 +14,9 @@ import org.joml.Vector3f;
 
 public record MaidYouseiImpl(MaidYouseiEntity source) implements PlayerPolymerEntity {
     public MaidYouseiImpl {
-        PolymerEntityHelper.addEntityHolderModel(this);
+        if (!source.level().isClientSide()) {
+            PolymerEntityHelper.addEntityHolderModel(this);
+        }
     }
 
     @Override

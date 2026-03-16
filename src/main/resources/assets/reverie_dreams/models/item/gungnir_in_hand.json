@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "minecraft:item/spear_in_hand",
   "textures": {
-    "layer0": "reverie_dreams:item/gungnir"
+    "layer0": "reverie_dreams:item/gungnir_in_hand"
   }
 }

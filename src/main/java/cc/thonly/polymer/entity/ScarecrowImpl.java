@@ -10,7 +10,7 @@ import de.tomalbrc.bil.api.AnimatedEntityHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.world.entity.LivingEntity;
 
-public class ScarecrowImpl implements AnimatedEntity, PolymerHolderEntity, TickHolderEntity{
+public class ScarecrowImpl implements AnimatedEntity, PolymerHolderEntity, TickHolderEntity {
     private final ScarecrowEntity entity;
     private OverlayEntityHolder<ScarecrowEntity, ScarecrowImpl> holder;
 
@@ -37,7 +37,7 @@ public class ScarecrowImpl implements AnimatedEntity, PolymerHolderEntity, TickH
         }
     }
     @Override
-    public LivingEntity getEntity() {
+    public LivingEntity getSource() {
         return this.entity;
     }
 

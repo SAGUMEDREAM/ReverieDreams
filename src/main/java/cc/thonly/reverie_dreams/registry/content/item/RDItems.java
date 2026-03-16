@@ -102,7 +102,7 @@ public class RDItems {
     public static final Item YELLOW_ORB = registerItem("yellow_orb", Item::new, new Item.Properties());
     public static final Item GREEN_ORB = registerItem("green_orb", Item::new, new Item.Properties());
     public static final Item PURPLE_ORB = registerItem("purple_orb", Item::new, new Item.Properties());
-    public static final Item YIN_YANG_ORB = registerItem("yin-yang_orb", Item::new, new Item.Properties());
+    public static final Item YIN_YANG_ORB = registerItem("yin-yang_orb", YinYangOrbItem::new, new Item.Properties().stacksTo(1));
     public static final Item SPEED_FEATHER = registerItem("speed_feather", SpeedFeatherItem::new, new Item.Properties()
             .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     public static final Item DREAM_CRYSTAL_FRAGMENT = registerItem("dream_crystal_fragment", Item::new, new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
@@ -138,13 +138,14 @@ public class RDItems {
     public static final Item EXORCISM_PAPER = registerItem("exorcism_paper", ExorcismPaperItem::new, new Item.Properties().stacksTo(16));
     public static final Item SPELLCARD = registerItem("spellcard", SpellcardItem::new, new Item.Properties().stacksTo(1).durability(50));
     public static final Item SATORI_EYE = registerItem("satori_eye", SatoriEye::new, new Item.Properties().stacksTo(1));
+    public static final Item WEAPON_OF_THE_MOON = registerItem("weapon_of_the_moon", WeaponOfTheMoon::new, new Item.Properties().stacksTo(1));
 
     // 武器
     public static final Item HAKUREI_CANE = registerItem("hakurei_cane", (settings) -> new HakureiCane(1f, -2.4f, settings), new Item.Properties());
     public static final Item BAGUA_FURNACE = registerItem("bagua_furnace", BaguaFurnace::new, new Item.Properties().stacksTo(1).durability(200).component(DataComponents.CONSUMABLE, new Consumable(5, ItemUseAnimation.BLOCK, Holder.direct(SoundEvents.FIRECHARGE_USE), false, new ArrayList<>())).repairable(Items.NETHERITE_INGOT));
     public static final Item WIND_BLESSING_CANE = registerItem("wind_blessing_cane", (settings) -> new WindBlessingCane(1f, -2.4f, settings), new Item.Properties());
     public static final Item MAGIC_BROOM = registerItem("magic_broom", (settings) -> new MagicBroom(1f, -2.4f, settings), new Item.Properties());
-    public static final Item GUNGNIR = registerItem("gungnir", (settings) -> new Gungnir(1f, -2.4f, settings), new Item.Properties());
+    public static final Item GUNGNIR = registerItem("gungnir", Gungnir::new, new Item.Properties());
     public static final Item LEVATIN = registerItem("levatin", (settings) -> new Levatin(1f, -2.4f, settings), new Item.Properties());
     public static final Item ROKANKEN = registerItem("rokanken", (settings) -> new Rokanken(2f, 0.5f - 2.4f, settings), new Item.Properties());
     public static final Item HAKUROKEN = registerItem("hakuroken", (settings) -> new Hakuroken(2f, 1f - 2.4f, settings), new Item.Properties());

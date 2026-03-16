@@ -38,7 +38,7 @@ public class MushroomMonsterImpl implements AnimatedEntity, PolymerHolderEntity,
     }
 
     @Override
-    public MushroomMonsterEntity getEntity() {
+    public MushroomMonsterEntity getSource() {
         return this.entity;
     }
 

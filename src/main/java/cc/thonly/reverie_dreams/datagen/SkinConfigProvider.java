@@ -147,5 +147,8 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(MobSkinTypes.WATER_ELEMENTAL, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.FIRE_ELEMENTAL, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.ICE_ELEMENTAL, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.RABBIT_UNIT_0, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.RABBIT_UNIT_1, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.RABBIT_UNIT_2, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
     }
 }

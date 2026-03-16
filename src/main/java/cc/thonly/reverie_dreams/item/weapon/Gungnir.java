@@ -1,11 +1,14 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.reverie_dreams.item.base.SpearItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
+import cc.thonly.reverie_dreams.server.PlayerInputManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -26,16 +29,16 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class Gungnir extends SwordItem implements ProjectileItem {
-    public static final ToolMaterial GUNGNIR = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
+public class Gungnir extends SpearItem implements ProjectileItem {
+    public static final ToolMaterial GUNGNIR = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 5.8f, 11, ItemTags.NETHERITE_TOOL_MATERIALS);
 
-    public Gungnir(float attackDamage, float attackSpeed, Item.Properties settings) {
-        super(GUNGNIR, attackDamage, attackSpeed, settings);
+    public Gungnir(Item.Properties settings) {
+        super(GUNGNIR, 0.95F, 1.3F, 0.5F, 2.6F, 8.0F, 6.75F, 5.1F, 16.25F, 4.8F, settings);
     }
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.BOW;
+        return ItemUseAnimation.TRIDENT;
     }
 
     @Override
@@ -45,28 +48,33 @@ public class Gungnir extends SwordItem implements ProjectileItem {
 
     @Override
     public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
-        if (!(user instanceof Player playerEntity)) {
+        if (!(user instanceof Player player)) {
+            return false;
+        }
+        if (!(PlayerInputManager.isKeyDown((ServerPlayer) player, PlayerInputManager.InputKey.SPRINT) &&
+                PlayerInputManager.isKeyDown((ServerPlayer) player, PlayerInputManager.InputKey.JUMP))
+        ) {
             return false;
         }
         int i = this.getUseDuration(stack, user) - remainingUseTicks;
         if (i < 10) {
             return false;
         }
-        float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, playerEntity);
-        if (f > 0.0f && !playerEntity.isInWaterOrRain()) {
+        float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, player);
+        if (f > 0.0f && !player.isInWaterOrRain()) {
             return false;
         }
         if (stack.nextDamageWillBreak()) {
             return false;
         }
         Holder<SoundEvent> registryEntry = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
-        playerEntity.awardStat(Stats.ITEM_USED.get(this));
+        player.awardStat(Stats.ITEM_USED.get(this));
         if (world instanceof ServerLevel serverWorld) {
-            stack.hurtWithoutBreaking(1, playerEntity);
+            stack.hurtWithoutBreaking(1, player);
             if (f == 0.0f) {
-                ItemStack itemStack = stack.consumeAndReturn(1, playerEntity);
-                ThrownTrident tridentEntity = Projectile.spawnProjectileFromRotation(ThrownTrident::new, serverWorld, itemStack, playerEntity, 0.0f, 2.5f, 1.0f);
-                if (playerEntity.hasInfiniteMaterials()) {
+                ItemStack itemStack = stack.consumeAndReturn(1, player);
+                ThrownTrident tridentEntity = Projectile.spawnProjectileFromRotation(ThrownTrident::new, serverWorld, itemStack, player, 0.0f, 2.5f, 1.0f);
+                if (player.hasInfiniteMaterials()) {
                     tridentEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                 }
                 world.playSound(null, tridentEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
@@ -74,19 +82,19 @@ public class Gungnir extends SwordItem implements ProjectileItem {
             }
         }
         if (f > 0.0f) {
-            float g = playerEntity.getYRot();
-            float h = playerEntity.getXRot();
-            float j = -Mth.sin(g * ((float)Math.PI / 180)) * Mth.cos(h * ((float)Math.PI / 180));
-            float k = -Mth.sin(h * ((float)Math.PI / 180));
-            float l = Mth.cos(g * ((float)Math.PI / 180)) * Mth.cos(h * ((float)Math.PI / 180));
+            float g = player.getYRot();
+            float h = player.getXRot();
+            float j = -Mth.sin(g * ((float) Math.PI / 180)) * Mth.cos(h * ((float) Math.PI / 180));
+            float k = -Mth.sin(h * ((float) Math.PI / 180));
+            float l = Mth.cos(g * ((float) Math.PI / 180)) * Mth.cos(h * ((float) Math.PI / 180));
             float m = Mth.sqrt(j * j + k * k + l * l);
-            playerEntity.push(j *= f / m, k *= f / m, l *= f / m);
-            playerEntity.startAutoSpinAttack(20, 8.0f, stack);
-            if (playerEntity.onGround()) {
+            player.push(j *= f / m, k *= f / m, l *= f / m);
+            player.startAutoSpinAttack(20, 8.0f, stack);
+            if (player.onGround()) {
                 float n = 1.1999999f;
-                playerEntity.move(MoverType.SELF, new Vec3(0.0, 1.1999999284744263, 0.0));
+                player.move(MoverType.SELF, new Vec3(0.0, 1.1999999284744263, 0.0));
             }
-            world.playSound(null, playerEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+            world.playSound(null, player, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             return true;
         }
         return false;

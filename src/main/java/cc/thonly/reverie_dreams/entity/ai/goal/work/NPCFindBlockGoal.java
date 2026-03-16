@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity.ai.goal.work;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+@Slf4j
 public class NPCFindBlockGoal extends Goal {
     public static final Map<ServerLevel, Map<Long, BaseNPCLikeEntity>> EXCLUSIONS = new HashMap<>(8);
     private final BaseNPCLikeEntity roleEntity;
@@ -164,7 +166,7 @@ public class NPCFindBlockGoal extends Goal {
             return;
         } else {
             BlockState blockState = serverLevel.getBlockState(this.currentTarget);
-            if (this.useAction && !blockState.isAir()) {
+            if (this.useAction && this.targetBlock != null && !blockState.isAir() && blockState.is(this.targetBlock)) {
                 BlockPos pos = this.currentTarget;
                 Direction direction = this.roleEntity.getDirection();
                 Vec3 hitVec = Vec3.atCenterOf(pos);
@@ -174,20 +176,24 @@ public class NPCFindBlockGoal extends Goal {
                         pos,
                         false // isInside
                 );
-                this.targetBlock.useItemOn(this.roleEntity.getItemBySlot(EquipmentSlot.MAINHAND),
-                        blockState,
-                        serverLevel,
-                        this.currentTarget,
-                        FakePlayer.get(serverLevel), InteractionHand.MAIN_HAND,
-                        hitResult
-                );
-                this.targetBlock.useWithoutItem(
-                        blockState,
-                        serverLevel,
-                        this.currentTarget,
-                        FakePlayer.get(serverLevel),
-                        hitResult
-                );
+                try {
+                    this.targetBlock.useItemOn(this.roleEntity.getItemBySlot(EquipmentSlot.MAINHAND),
+                            blockState,
+                            serverLevel,
+                            this.currentTarget,
+                            FakePlayer.get(serverLevel), InteractionHand.MAIN_HAND,
+                            hitResult
+                    );
+                    this.targetBlock.useWithoutItem(
+                            blockState,
+                            serverLevel,
+                            this.currentTarget,
+                            FakePlayer.get(serverLevel),
+                            hitResult
+                    );
+                } catch (Exception e) {
+                    log.debug("Error:" ,e);
+                }
                 this.roleEntity.getLookControl().setLookAt(
                         pos.getX(),
                         pos.getY(),
@@ -195,7 +201,7 @@ public class NPCFindBlockGoal extends Goal {
                 );
                 float headYaw = this.roleEntity.getYHeadRot();
                 this.roleEntity.yBodyRot = approachAngle(
-                        this.roleEntity.yBodyRot,
+                        this.roleEntity.yHeadRot,
                         headYaw,
                         10.0F // 每 tick 最大旋转角度
                 );

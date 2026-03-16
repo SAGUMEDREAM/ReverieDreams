@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
@@ -27,7 +28,6 @@ import net.minecraft.world.entity.monster.illager.Pillager;
 import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.npc.villager.*;
-import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -90,8 +90,7 @@ public abstract class AbstractSellerEntity extends WanderingTrader {
 
     public void trade(ItemStackWrapper wrapper) {
         Level world = this.level();
-        Random random = new Random();
-        this.exp += random.nextInt(9, 25);
+        this.exp += ReverieDreams.RD.nextInt(9, 25);
         this.makeSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
         this.sellInfo.sell(this.getVillagerSeed(), wrapper);
         this.tryLevelUp();

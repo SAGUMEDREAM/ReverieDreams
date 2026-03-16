@@ -1,5 +1,19 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.16+1.21.11
+* Fixed ItemStack decode error
+* Fixed a crash that occurred when operating with PolyFactory under certain conditions.
+
+# 0.4.15+1.21.11
+* Added YinYang-Orb recipe and feature
+* Added some building on moon dim
+* Added Spear feature for Gungnir
+* Added loot chest dev command
+* Yousei will not attack players in Spectator Mode or Creative Mode.
+* Fixed can't open villager gui
+* Fixed resulting cracking in use spawn egg on spawner
+* Renamed loot chest key
+
 # 0.4.14+1.21.11
 * Fixed AI not attacking target
 

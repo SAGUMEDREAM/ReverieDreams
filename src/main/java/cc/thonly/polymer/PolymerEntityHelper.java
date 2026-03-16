@@ -2,6 +2,7 @@ package cc.thonly.polymer;
 
 import cc.thonly.polymer.entity.*;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
@@ -23,6 +24,7 @@ public class PolymerEntityHelper {
     public static final List<PolymerHolderEntity> HOLD_RENDER_QUEUE = new LinkedList<>();
     public static final Model YOUSEI_WING_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("yousei_wing"));
     public static final Model HAIRBALL_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("hairball"));
+    public static final Model BLACK_HAIRBALL_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("black_hairball"));
     public static final Model MUSHROOM_MONSTER_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("mushroom_monster"));
     public static final Model UFO_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("ufo"));
     public static final Model SCARECROW_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("scarecrow"));
@@ -52,6 +54,7 @@ public class PolymerEntityHelper {
         registerOverlay(RDEntityTypes.TAVERN_VILLAGER, VillagerImpl::new);
         registerOverlay(RDEntityTypes.SCARECROW, ScarecrowImpl::new);
         registerOverlay(RDEntityTypes.UFO, UfoImpl::new);
+        registerOverlay(RDEntityTypes.RABBIT_UNIT, RoleImpl::new);
 
         for (NPCRole role : RegistryHandlers.NPC_ROLE) {
             registerOverlay(role.getEntityType(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);

@@ -10,10 +10,12 @@ import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.world.entity.LivingEntity;
 import org.joml.Vector3f;
 
-public record RoleImpl(AbstractNPCEntity npcEntity) implements PlayerPolymerEntity {
+public record RoleImpl(AbstractNPCEntity source) implements PlayerPolymerEntity {
 
     public RoleImpl {
-        PolymerEntityHelper.addEntityHolderModel(this);
+        if (!source.level().isClientSide()) {
+            PolymerEntityHelper.addEntityHolderModel(this);
+        }
     }
 
     public void onCreated() {
@@ -31,11 +33,11 @@ public record RoleImpl(AbstractNPCEntity npcEntity) implements PlayerPolymerEnti
 
     @Override
     public LivingEntity getEntity() {
-        return this.npcEntity;
+        return this.source;
     }
 
     @Override
     public Property getSkin() {
-        return this.npcEntity.getSkin();
+        return this.source.getSkin();
     }
 }

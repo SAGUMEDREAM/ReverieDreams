@@ -33,10 +33,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.IdentifierArgument;
+import net.minecraft.commands.arguments.ResourceOrIdArgument;
 import net.minecraft.commands.synchronization.SuggestionProviders;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -48,12 +51,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SeededContainerLoot;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -147,6 +154,13 @@ public class MainCommand implements CommandInit.CommandRegistration {
         root.then(dialog);
         root.then(video);
         root.then(about);
+        if (ConstantInfo.isDevMode()) {
+            var debugGetChest = Commands.literal("debug-chest")
+                    .then(Commands.argument("loot_table", ResourceOrIdArgument.lootTable(access))
+                            .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                            .executes(this::debugFastChestLoot));
+            root.then(debugGetChest);
+        }
 
         dispatcher.register(root);
     }
@@ -155,6 +169,30 @@ public class MainCommand implements CommandInit.CommandRegistration {
         MutableComponent text = Component.translatable("command.touhou.suggest_help");
         context.getSource().sendSuccess(() -> text.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW)), false);
         return 1;
+    }
+
+    private int debugFastChestLoot(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        assert player != null;
+        try {
+            Holder<LootTable> holder = ResourceOrIdArgument.getLootTable(context, "loot_table");
+            holder.unwrapKey().ifPresent(key -> {
+                ItemStack itemStack = Items.CHEST.getDefaultInstance();
+                itemStack.set(DataComponents.CONTAINER_LOOT, new SeededContainerLoot(key, 0L));
+                boolean success = player.getInventory().add(itemStack);
+                if (!success) {
+                    player.drop(itemStack, false);
+                }
+            });
+        } catch (Exception err) {
+            log.error("Error: ", err);
+            return 1;
+        }
+        return 0;
     }
 
     private int withFoodProperties(CommandContext<CommandSourceStack> context) {

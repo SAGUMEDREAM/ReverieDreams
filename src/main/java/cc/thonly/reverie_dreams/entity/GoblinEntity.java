@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
@@ -81,11 +82,10 @@ public class GoblinEntity extends BaseNPCLikeEntity {
     }
 
     public ItemStack getRandomPickaxe() {
-        final Random random = new Random();
         if (PICKAXE_POOL == null || PICKAXE_POOL.isEmpty()) {
             return null;
         }
-        Item item = PICKAXE_POOL.get(random.nextInt(PICKAXE_POOL.size()));
+        Item item = PICKAXE_POOL.get(ReverieDreams.RD.nextInt(PICKAXE_POOL.size()));
         ItemStack itemStack = new ItemStack(item);
 //        itemStack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         if (itemStack.isDamaged()) {
@@ -95,11 +95,10 @@ public class GoblinEntity extends BaseNPCLikeEntity {
     }
 
     public ItemStack getRandomOffHand() {
-        final Random random = new Random();
         if (OFFHAND_POOL == null || OFFHAND_POOL.isEmpty()) {
             return null;
         }
-        Item item = OFFHAND_POOL.get(random.nextInt(OFFHAND_POOL.size()));
+        Item item = OFFHAND_POOL.get(ReverieDreams.RD.nextInt(OFFHAND_POOL.size()));
         ItemStack itemStack = new ItemStack(item);
         if (itemStack.isDamaged()) {
             itemStack.hurtAndBreak(itemStack.getMaxDamage() - 50, this, InteractionHand.OFF_HAND);

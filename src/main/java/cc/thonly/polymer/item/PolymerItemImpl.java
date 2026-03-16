@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.Knife;
 import cc.thonly.reverie_dreams.item.prop.TenguShieldItem;
 import cc.thonly.reverie_dreams.item.weapon.TrumpetGun;
+import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
 import eu.pb4.polymer.core.api.utils.PolymerKeepModel;
@@ -26,6 +27,9 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
 
     @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
+        if (this.item instanceof WeaponOfTheMoon) {
+            return Items.BOW;
+        }
         if (this.item instanceof TrumpetGun || this.item instanceof Knife) {
             return Items.TRIAL_KEY;
         }
@@ -46,10 +50,10 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
         return actionResult.consumesAction();
     }
 
-//    @Override
-//    public boolean isIgnoringBlockInteractionPlaySoundExceptedEntity(BlockState state, ServerPlayer player, InteractionHand hand, ItemStack stack, ServerLevel world, BlockHitResult blockHitResult) {
-//        return this.item instanceof BlockItem;
-//    }
+    @Override
+    public boolean isIgnoringBlockInteractionPlaySoundExceptedEntity(BlockState state, ServerPlayer player, InteractionHand hand, ItemStack stack, ServerLevel world, BlockHitResult blockHitResult) {
+        return this.item instanceof BlockItem;
+    }
 
 //    @Override
 //    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {

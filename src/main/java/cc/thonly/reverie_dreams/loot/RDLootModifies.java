@@ -228,7 +228,6 @@ public class RDLootModifies {
                     RDItems.COPPER_COIN,
                     RDItems.SILVER_COIN,
                     RDItems.SILVER_COIN,
-                    RDItems.GOLD_COIN,
                     RDItems.COPPER_COIN,
                     RDItems.COPPER_COIN,
                     RDItems.COPPER_COIN

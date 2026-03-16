@@ -134,11 +134,11 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         ARROW_ITEMS.add(Items.SPECTRAL_ARROW);
     }
 
-    private final NPCBowAttackGoal<BaseNPCLikeEntity> bowAttackGoal = new NPCBowAttackGoal<>(this, 1.0, 20, 15.0f);
-    private final NPCCrossbowAttackGoal crossBowAttackGoal = new NPCCrossbowAttackGoal(this, 1.0, 20);
-    private final NPCDanmakuItemGoal<BaseNPCLikeEntity> danmakuItemGoal = new NPCDanmakuItemGoal<>(this, 1.0, 20, 15.0f);
+    protected final NPCBowAttackGoal<BaseNPCLikeEntity> bowAttackGoal = new NPCBowAttackGoal<>(this, 1.0, 20, 15.0f);
+    protected final NPCCrossbowAttackGoal crossBowAttackGoal = new NPCCrossbowAttackGoal(this, 1.0, 20);
+    protected final NPCDanmakuItemGoal<BaseNPCLikeEntity> danmakuItemGoal = new NPCDanmakuItemGoal<>(this, 1.0, 20, 15.0f);
 
-    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false) {
+    protected final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false) {
         @Override
         public void stop() {
             super.stop();
@@ -623,6 +623,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
 
+    @SuppressWarnings("ConstantValue")
     protected void updateAttackType() {
         if (this.level() == null || this.level().isClientSide()) {
             return;

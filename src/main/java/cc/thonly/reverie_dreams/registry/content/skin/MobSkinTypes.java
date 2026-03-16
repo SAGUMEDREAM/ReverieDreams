@@ -60,6 +60,15 @@ public class MobSkinTypes extends SkinTypes {
             "ewogICJ0aW1lc3RhbXAiIDogMTc1MDIzMjc0OTgzMCwKICAicHJvZmlsZUlkIiA6ICIwMzQ2N2E0Yzc5ZGU0ZGM5YTQ4NzU5MGY5NmEwODFmMiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTaGFrYVlhbWkiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzQ5MGU0MTFmNWRmZTMyMDM0ZmRlNmY1NzJjMWQ5YTRmNWY4NzYzNzQxN2NlMDYwYzJmMzVjYjQ5Nzk3OTg5NCIKICAgIH0KICB9Cn0=",
             "jdRscFrm1v+t966yex0N/u20LxGC2fomnVUROzOGWBrWDW1dj3Qq5eE03z+9gYBMJbewFLOI40bmp+Z/7MR2NyWBiWXGsvenuw0BhF9Pr6XD5I0qP5kbW73u0W4+c5CPw365XRd9aBJgHF9cnOYJbyt/sREcwW6eVZ9LSbSmHKdFih+UV0t6/7lXyuA0OEaJMD3Wyb79jSvPnk0BtU33DL1qA1PYUoSS+BwRlQbpJoQELNLvHHZbf9bu8G0yrOB/ILiTuH9rOkYhnEfh6DYPHvWUlC/9wamKVqUACI5gAjNliELKCRHcmoTfAAsKkeRzB1zfiSeOZ6sLbP3utAC3t9+7O/vqteQldQNSJNI7QmbpWZPgihzUdhbpvTPrAAGr1hv0OXaZ1Vd1XP36UXZKhpylb9eGrh/rOGvum/R5JqJz6cU68NzrnC0nzdaS6zs5hyc9OhEyP38Zlt5PgVutCQLY5SYE7sOws5FQOckC06WV5zeXH/9OUfNQjZsnKq+7gf7us5OZib7gFA+RBDx90yaFibmIZMLpnTVTPIvTM5s5vnRby3PACtuFjkc9gJN03dvKM/IiFhpOW1gjO6OQXeYKx4FQsW7T7kvudeO27Pdw0LbGOtC/j1VjHQ28KLaLdrwdkzKZpB2bp2IrRUQT7n+4xVB6ZjrbsEX/X79Top8="
     ));
+    public static final SkinType RABBIT_UNIT_0 = register(new SkinType(
+            ReverieDreams.id("rabbit_unit_0")
+    ));
+    public static final SkinType RABBIT_UNIT_1 = register(new SkinType(
+            ReverieDreams.id("rabbit_unit_1")
+    ));
+    public static final SkinType RABBIT_UNIT_2 = register(new SkinType(
+            ReverieDreams.id("rabbit_unit_2")
+    ));
 
     public static void bootstrap(RegistryHandler<SkinType> registry) {
 

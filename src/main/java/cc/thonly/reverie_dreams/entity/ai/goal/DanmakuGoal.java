@@ -90,6 +90,12 @@ public class DanmakuGoal extends Goal {
         if (this.attackTarget == null || !this.attackTarget.isAlive()) {
             return;
         }
+        if (this.attackTarget instanceof Player player) {
+            if (player.isCreative() || player.isSpectator()) {
+                this.attackTarget = null;
+                return;
+            }
+        }
 
         float[] pitchYaw = DanmakuShooter.getPitchYaw(this.self, this.attackTarget);
         this.mob.getLookControl().setLookAt(this.attackTarget);

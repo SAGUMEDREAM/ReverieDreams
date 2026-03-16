@@ -23,11 +23,11 @@ import java.util.*;
 @SuppressWarnings("removal")
 @Slf4j
 public class ResourcePackGenerator {
-    private static final Set<String> EXPANDABLE = Set.of(
+    private static final Set<String> EXPANDABLE = new LinkedHashSet<>(Set.of(
             "wall", "fence", "slab", "stairs", "pressure_plate", "button",
             "glass_pane", "lattice", "bars", "carpet", "chain", "lantern",
             "gensokyo_altar"
-    );
+    ));
     public static final Set<String> NAMESPACES = new LinkedHashSet<>();
     public static final Set<HolderResource> HOLDER_RESOURCES_SET = new LinkedHashSet<>();
     public static final List<SignBlock> SIGN_MODELS = new ArrayList<>();

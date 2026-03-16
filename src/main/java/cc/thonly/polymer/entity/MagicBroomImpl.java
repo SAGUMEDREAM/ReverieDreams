@@ -20,20 +20,23 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.WeakHashMap;
 
-public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements PolymerEntity, PolymerHolderEntity {
+public record MagicBroomImpl(MagicBroomEntity source) implements PolymerEntity, PolymerHolderEntity {
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
     public MagicBroomImpl {
-        PolymerEntityHelper.addEntityHolderModel(this);
+        if (!source.level().isClientSide()) {
+            PolymerEntityHelper.addEntityHolderModel(this);
+        }
+
     }
 
     @Override
     public void onCreated() {
-        this.magicBroomEntity.setNoGravity(true);
+        this.source.setNoGravity(true);
         var x = new ItemDisplayElement();
-        var holder = new MagicBroomHolder(this.magicBroomEntity);
+        var holder = new MagicBroomHolder(this.source);
         var stack = new ItemStack(RDEntityHolderItems.MAGIC_BROOM_DISPLAY);
-        if (this.magicBroomEntity.itemWrapper.getItemStack().hasFoil()) {
+        if (this.source.itemWrapper.getItemStack().hasFoil()) {
             stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         }
         x.setItem(stack);
@@ -43,9 +46,9 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
         x.setScale(new Vector3f(1.2f));
         holder.setElement(x);
         holder.addElement(x);
-        EntityAttachment.ofTicking(holder, this.magicBroomEntity);
-        VirtualEntityUtils.addVirtualPassenger(this.magicBroomEntity, x.getEntityId());
-        ELEMENTS.put(this.magicBroomEntity, x);
+        EntityAttachment.ofTicking(holder, this.source);
+        VirtualEntityUtils.addVirtualPassenger(this.source, x.getEntityId());
+        ELEMENTS.put(this.source, x);
     }
 
     @Override
@@ -54,13 +57,13 @@ public record MagicBroomImpl(MagicBroomEntity magicBroomEntity) implements Polym
     }
 
     public void onTrackingStopped(ServerPlayer player) {
-        ItemDisplayElement element = ELEMENTS.get(this.magicBroomEntity);
+        ItemDisplayElement element = ELEMENTS.get(this.source);
         if (element != null) {
             ElementHolder holder = element.getHolder();
             if (holder != null) {
                 holder.destroy();
             }
         }
-        ELEMENTS.remove(this.magicBroomEntity);
+        ELEMENTS.remove(this.source);
     }
 }

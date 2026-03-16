@@ -175,6 +175,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.GOLD_COIN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SPELLCARD, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SATORI_EYE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.declareCustomModelItem(RDItems.WEAPON_OF_THE_MOON);
 
         // 武器
         itemModelGenerator.generateFlatItem(RDItems.HAKUREI_CANE, ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -182,7 +183,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.WIND_BLESSING_CANE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.MAGIC_BROOM);
         itemModelGenerator.generateFlatItem(RDItems.KNIFE, ModelTemplates.FLAT_HANDHELD_ITEM);
-//        itemModelGenerator.register(ModItems.GUNGNIR, Models.HANDHELD);
+//        itemModelGenerator.generateSpear(RDItems.GUNGNIR);
         itemModelGenerator.generateFlatItem(RDItems.LEVATIN, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.ROKANKEN, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.HAKUROKEN, ModelTemplates.FLAT_HANDHELD_ITEM);

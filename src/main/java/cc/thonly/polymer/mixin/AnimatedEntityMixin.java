@@ -28,7 +28,7 @@ public interface AnimatedEntityMixin {
     @Inject(method = "modifyRawTrackedData", at = @At("HEAD"), cancellable = true)
     public default void onModifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial, CallbackInfo ci) {
         if (this instanceof TickHolderEntity tickHolder) {
-            Entity entity = tickHolder.getEntity();
+            Entity entity = tickHolder.getSource();
             data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.WIDTH, entity.getBbWidth()));
             data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.HEIGHT, entity.getBbHeight()));
         }
@@ -37,7 +37,7 @@ public interface AnimatedEntityMixin {
     @Inject(method = "getShadowRadius", at = @At("HEAD"), cancellable = true)
     public default void onGetShadowRadius(CallbackInfoReturnable<Float> cir) {
         if (this instanceof TickHolderEntity tickHolder) {
-            Entity entity = tickHolder.getEntity();
+            Entity entity = tickHolder.getSource();
             cir.setReturnValue(entity.getBbWidth() * 0.6f);
         }
     }

@@ -10,7 +10,8 @@
         "when": [
           "gui",
           "ground",
-          "fixed"
+          "fixed",
+          "on_shelf"
         ]
       }
     ],
@@ -22,10 +23,11 @@
       },
       "on_true": {
         "type": "minecraft:model",
-        "model": "reverie_dreams:item/gungnir_throwing"
+        "model": "reverie_dreams:item/gungnir_in_hand"
       },
       "property": "minecraft:using_item"
     },
     "property": "minecraft:display_context"
-  }
+  },
+  "swap_animation_scale": 1.95
 }

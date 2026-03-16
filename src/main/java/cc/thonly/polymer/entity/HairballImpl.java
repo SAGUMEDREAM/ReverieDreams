@@ -20,7 +20,7 @@ public class HairballImpl implements AnimatedEntity, PolymerHolderEntity, TickHo
 
     @Override
     public void onCreated() {
-        this.holder = new OverlayLivingEntityHolder<>(this.entity, this, PolymerEntityHelper.HAIRBALL_MODEL);
+        this.holder = new OverlayLivingEntityHolder<>(this.entity, this, this.entity.isBlack() ? PolymerEntityHelper.BLACK_HAIRBALL_MODEL : PolymerEntityHelper.HAIRBALL_MODEL);
         TickHolderEntity.addTickHolder(this);
         TickHolderEntity.addElementBind(this.entity, this.holder);
         EntityAttachment.ofTicking(this.holder, this.entity);
@@ -38,7 +38,7 @@ public class HairballImpl implements AnimatedEntity, PolymerHolderEntity, TickHo
     }
 
     @Override
-    public HairballEntity getEntity() {
+    public HairballEntity getSource() {
         return this.entity;
     }
 

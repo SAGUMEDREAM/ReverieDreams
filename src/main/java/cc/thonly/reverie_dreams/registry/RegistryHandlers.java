@@ -19,6 +19,8 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvents;
+import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariant;
+import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariants;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -113,6 +115,11 @@ public class RegistryHandlers {
             .codec(YouseiVariant.CODEC)
             .defaultId(ReverieDreams.id("blue"))
             .builder(YouseiVariants::bootstrap);
+
+    public static final RegistryHandler<RabbitUnitVariant> RABBIT_UNIT_VARIANT = RegistryHandlers.<RabbitUnitVariant>ofEntry(ReverieDreams.id("rabbit_unit_variant"))
+            .codec(RabbitUnitVariant.CODEC)
+            .defaultId(ReverieDreams.id("blue"))
+            .builder(RabbitUnitVariants::bootstrap);
 
     public static final RegistryHandler<FoodProperty> FOOD_PROPERTY = RegistryHandlers.<FoodProperty>ofEntry(ReverieDreams.id("food_property"))
             .codec(FoodProperty.CODEC)
