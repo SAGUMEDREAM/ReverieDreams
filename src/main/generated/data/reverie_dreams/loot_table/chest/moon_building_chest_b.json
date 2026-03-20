@@ -1,0 +1,91 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:compass"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:map"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:power"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:point"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:silver_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:red_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:blue_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:green_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:yellow_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:dream_crystal_fragment"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moonlight_dumplings"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moonlight_over_lotus_pond"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moon_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moon_lovers"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 10.0,
+        "min": 7.0
+      }
+    }
+  ]
+}

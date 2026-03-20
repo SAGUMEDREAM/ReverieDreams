@@ -1,0 +1,83 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_apple"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:paper"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:silver_coin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:silver_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:copper_coin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:writable_book"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:silver_sword"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moonlight_dumplings"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moonlight_over_lotus_pond"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moon_cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:food/moon_lovers"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bamboo"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bamboo_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:moon_stone"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 10.0,
+        "min": 7.0
+      }
+    }
+  ]
+}
