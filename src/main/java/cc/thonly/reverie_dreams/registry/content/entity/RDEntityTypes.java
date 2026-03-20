@@ -17,6 +17,8 @@ import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.Registry;
@@ -36,6 +38,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @SuppressWarnings({"unchecked", "DataFlowIssue"})
 public class RDEntityTypes {
@@ -253,12 +256,23 @@ public class RDEntityTypes {
             );
 
     public static void registerEntityTypes() {
-        ServerContentRegistry.IMPL.register(Registries.PIG_VARIANT,
-                ReverieDreams.id("wild_pig"),
-                new PigVariant(
-                        new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
-                        SpawnPrioritySelectors.EMPTY
-                ));
+        DynamicRegistrySetupCallback.EVENT.register(dynamicRegistryView -> {
+            Optional<Registry<PigVariant>> pigVariantRegistry = dynamicRegistryView.getOptional(Registries.PIG_VARIANT);
+            if (pigVariantRegistry.isEmpty()) {
+                return;
+            }
+            Registry<PigVariant> pigVariants = pigVariantRegistry.get();
+            Registry.register(pigVariants, ReverieDreams.id("wild_pig"), new PigVariant(
+                    new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
+                    SpawnPrioritySelectors.EMPTY
+            ));
+        });
+//        ServerContentRegistry.IMPL.register(Registries.PIG_VARIANT,
+//                ReverieDreams.id("wild_pig"),
+//                new PigVariant(
+//                        new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
+//                        SpawnPrioritySelectors.EMPTY
+//                ));
         BiomeModifications.addSpawn(
                 BiomeSelectors.tag(ConventionalBiomeTags.IS_FOREST),
                 MobCategory.MONSTER,

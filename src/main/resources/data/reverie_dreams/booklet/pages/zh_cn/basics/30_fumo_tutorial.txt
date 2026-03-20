@@ -1,0 +1,18 @@
+### Section: PageInfo
+title=Fumo玩偶
+icon=reverie_dreams:fumo/cirno
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+<green>Fumo（ふもふも）</>特指由日本 Gift 公司出品、基于同人社团 ANGELTYPE 角色设计的《东方Project》主题毛绒玩偶。
+其核心特征包括：坐姿造型、标志性的呆滞表情（ᗜˬᗜ）、柔软的毛绒触感，以及经授权制作的精致 Q 版形象，是东方圈中极具代表性的疗愈系周边。
+
+在本模组中，大多数 Fumo 可在生存模式下通过价格较高的交易获得。
+放置后，Fumo 会自动朝向玩家当前所在位置，并支持 16 个方向的摆放；右键点击 Fumo 方块时，还会发出对应的 Fumo 声音。
+
+玩家只能通过与 Fumo 商人交易来获取 Fumo。通常情况下，Fumo 商人的交易内容每天都会发生变化。
+
+Fumo 商人可通过使用<yellow><item 'reverie_dreams:fumo_license'></></>对村民右键，将其转变为对应职业。
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:fumo_license'>View the <item 'reverie_dreams:fumo_license'> recipe</><nl>

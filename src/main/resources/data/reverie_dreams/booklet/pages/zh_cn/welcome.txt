@@ -1,0 +1,26 @@
+### Section: PageInfo
+title=<lang 'item.reverie_dreams.guidebook'>
+description=<lang 'item.reverie_dreams.guidebook.desc'>
+icon=reverie_dreams:guidebook
+category=booklet:main_page
+### EndSection: PageInfo
+### Align: Center
+### Header: Welcome
+欢迎游玩梦隐的幻想乡，本页面将帮助您作为游玩本模组的指南导航
+<nl>
+当前版本为 %reverie_dreams:version%
+<nl>
+### Align: Center
+### Header: Basics
+### Category Entries: reverie_dreams:basics
+### Header: Story
+### Category Entries: reverie_dreams:story
+### Header: Other
+### Category Entries: reverie_dreams:others
+### Header: Links
+<u><blue><run_cmd '/touhou recipe'>打开配方管理器</></u>
+
+<u><blue><open_url 'https://qm.qq.com/q/CkrwCz2m5i'>QQ开发/反馈群</></u>
+
+<u><blue><open_url 'https://discord.gg/8nzjpm8wex'>Discord Community</></u>
+

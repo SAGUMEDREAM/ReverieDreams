@@ -29,6 +29,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Deprecated
 public class DialogInit {
     public static final Map<String, Dialog> ARGS_DIALOG = new Object2ObjectLinkedOpenHashMap<>();
     private static final List<String> ALTAR_STR = List.of(

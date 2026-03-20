@@ -1,0 +1,25 @@
+### Section: PageInfo
+title=<lang 'item.reverie_dreams.guidebook'>
+description=<lang 'item.reverie_dreams.guidebook.desc'>
+icon=reverie_dreams:guidebook
+category=booklet:main_page
+### EndSection: PageInfo
+### Align: Center
+### Header: Welcome
+Welcome to the Gensokyo: Reverie of Lost Dreams, this page will help guide you as a handbook for playing this mod
+<nl>
+Current version is %reverie_dreams:version%
+<nl>
+### Align: Center
+### Header: Basics
+### Category Entries: reverie_dreams:basics
+### Header: Story
+### Category Entries: reverie_dreams:story
+### Header: Other
+### Category Entries: reverie_dreams:others
+### Header: Links
+<u><blue><run_cmd '/touhou recipe'>Open Recipe Manager</></u>
+
+<u><blue><open_url 'https://qm.qq.com/q/CkrwCz2m5i'>QQ Development/Feedback Group</></u>
+
+<u><blue><open_url 'https://discord.gg/8nzjpm8wex'>Discord Community</></u>

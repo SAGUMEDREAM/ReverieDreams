@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unchecked")
 public class OverlayLivingEntityHolder<E extends LivingEntity, A extends AnimatedEntity> extends OverlayEntityHolder<E, A> {
     protected final InteractionElement hitboxInteraction;
     protected final CollisionElement collisionElement;
@@ -226,7 +227,6 @@ public class OverlayLivingEntityHolder<E extends LivingEntity, A extends Animate
     public void onSyncedDataUpdated(EntityDataAccessor<?> key, Object object) {
         super.onSyncedDataUpdated(key, object);
         if (key.equals(Constants.DATA_EFFECT_PARTICLES)) {
-            // noinspection unchecked
             this.collisionElement.getDataTracker().set(Constants.DATA_EFFECT_PARTICLES, (List<ParticleOptions>) object);
         }
 
@@ -235,7 +235,6 @@ public class OverlayLivingEntityHolder<E extends LivingEntity, A extends Animate
         }
 
         if (key.equals(EntityTrackedData.CUSTOM_NAME)) {
-            // noinspection unchecked
             this.hitboxInteraction.getDataTracker().set(EntityTrackedData.CUSTOM_NAME, (Optional<Component>) object);
         }
     }

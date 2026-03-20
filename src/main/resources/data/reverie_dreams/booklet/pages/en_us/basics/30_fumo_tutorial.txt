@@ -1,0 +1,18 @@
+### Section: PageInfo
+title=Fumo Plush
+icon=reverie_dreams:fumo/cirno
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+<green>Fumo (ふもふも)</> refers to Touhou Project-themed plush toys produced by the Japanese company Gift, based on character designs from the doujin circle ANGELTYPE.
+Their defining features include a seated pose, the iconic blank expression (ᗜˬᗜ), a soft plush texture, and officially licensed chibi-style designs. They are widely recognized as a signature “healing” merchandise within the Touhou community.
+
+In this mod, most Fumo can be obtained in Survival mode through relatively expensive trades.
+Once placed, a Fumo will automatically face the player's current position and can be oriented in 16 directions. Right-clicking a Fumo will also trigger its unique sound.
+
+Fumo can only be obtained by trading with a Fumo Merchant. In general, the merchant’s available trades will change daily.
+
+A Fumo Merchant can be created by using <yellow><item 'reverie_dreams:fumo_license'></></> on a villager (right-click), converting them into the corresponding profession.
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:fumo_license'>View the <item 'reverie_dreams:fumo_license'> recipe</><nl>

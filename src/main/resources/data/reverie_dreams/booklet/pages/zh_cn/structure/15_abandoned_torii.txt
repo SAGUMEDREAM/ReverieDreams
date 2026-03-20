@@ -1,0 +1,21 @@
+### Section: PageInfo
+title=废弃鸟居
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+### EndSection: PageInfo
+
+### Align: Center
+
+【简要记录】
+
+在一片空地中发现了一座孤立的鸟居。
+
+结构已经老旧，上面布满了藤蔓与风化的痕迹。
+原本的颜色几乎被掩盖，只剩下斑驳的轮廓。
+
+周围没有神社，也没有道路。
+甚至看不出这里曾有过其他建筑的迹象。
+
+它就这样单独立在这里。
+
+像是被遗留下来的——某种边界。

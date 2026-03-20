@@ -37,9 +37,9 @@ public enum Sound {
 	NOTE_BIT("BLOCK_NOTE_BLOCK_BIT"),
 	NOTE_BANJO("BLOCK_NOTE_BLOCK_BANJO");
 
-	String[] versionDependentNames;
+	final String[] versionDependentNames;
 	SoundEvent cached = null;
-	static Map<String, SoundEvent> cachedSoundMap = new HashMap<>();
+	static final Map<String, SoundEvent> cachedSoundMap = new HashMap<>();
 
 	Sound(String... versionDependentNames) {
 		this.versionDependentNames = versionDependentNames;

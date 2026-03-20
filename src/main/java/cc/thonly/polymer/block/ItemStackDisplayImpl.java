@@ -52,10 +52,10 @@ public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWi
             this.block = block;
             this.blockPos = blockPos;
 
-            this.main = ItemDisplayElementUtil.createSimple(initialBlockState.getBlock().asItem());
+            this.main = ItemDisplayElementUtil.createSimple(initialBlockState.getBlock().asItem().getDefaultInstance());
             this.main.setScale(new Vector3f(1.8f));
             this.main.setOffset(new Vec3(0, -0.05, 0));
-            this.item = ItemDisplayElementUtil.createSimple(Items.AIR);
+            this.item = ItemDisplayElementUtil.createSimple(Items.AIR.getDefaultInstance());
             this.item.setScale(new Vector3f(0.5f));
             this.item.setOffset(new Vec3(0, -0.22, 0));
 

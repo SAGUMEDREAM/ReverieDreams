@@ -1,0 +1,20 @@
+### Section: PageInfo
+title=Getting Started
+icon=player_head
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+Gensokyo: Reverie of Lost Dreams is a magic adventure server-side mod that draws inspiration from various high-quality Touhou fan mods and games, bringing a wide range of Touhou Project content into modern Minecraft.
+<nl2>
+To begin your journey, you should first craft the <yellow><item 'reverie_dreams:gensokyo_altar'></>. It is used to create items such as <yellow><item 'reverie_dreams:horai-dama_no_eda'></>, <yellow><item 'reverie_dreams:gungnir'></>, and <yellow><item 'reverie_dreams:hakurei_cane'></>.
+<nl2>
+<red><item 'reverie_dreams:power'></> and <blue><item 'reverie_dreams:point'></> are among the basic crafting materials. They can be obtained by defeating monsters or fairies.
+<nl2>
+From there, you can continue to obtain and craft more items. You may learn more through this guide, or check their recipes via Polydex.
+
+### Align: Center
+<u><blue>
+<polydex 'reverie_dreams:gensokyo_altar'>View the <item 'reverie_dreams:gensokyo_altar'> recipe</><nl>
+<polydex 'reverie_dreams:power'>View the <item 'reverie_dreams:power'> recipe</><nl>
+<polydex 'reverie_dreams:point'>View the <item 'reverie_dreams:point'> recipe</><nl>
+</*>

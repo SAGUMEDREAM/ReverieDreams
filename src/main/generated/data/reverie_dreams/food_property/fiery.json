@@ -2,26 +2,26 @@
   "registry_key": "reverie_dreams:fiery",
   "properties": {
     "values": [
-      "reverie_dreams:food/biscay_biscuits",
-      "reverie_dreams:food/magma",
-      "reverie_dreams:food/beef_hot_pot",
-      "reverie_dreams:food/zhaji",
-      "reverie_dreams:food/mapo_tofu",
-      "reverie_dreams:ingredient/chili",
-      "reverie_dreams:food/game_soup",
-      "reverie_dreams:food/screaming_oden",
-      "reverie_dreams:food/tofu_pot",
       "reverie_dreams:food/strength_soup",
       "reverie_dreams:food/mushroom_girls_dance_stew",
-      "reverie_dreams:food/all_meat_feast",
-      "reverie_dreams:food/roasted_mushrooms",
-      "reverie_dreams:food/hell_thrill_warning",
+      "reverie_dreams:food/beef_hot_pot",
       "reverie_dreams:food/pan_fried_mushroom_meat_roll",
-      "reverie_dreams:food/boiled_fish",
-      "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup",
+      "reverie_dreams:food/mapo_tofu",
+      "reverie_dreams:food/all_meat_feast",
+      "reverie_dreams:ingredient/chili",
+      "reverie_dreams:food/screaming_oden",
       "reverie_dreams:food/hula_soup",
+      "reverie_dreams:food/biscay_biscuits",
+      "reverie_dreams:food/roasted_mushrooms",
+      "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup",
+      "reverie_dreams:food/hell_thrill_warning",
+      "reverie_dreams:food/tofu_pot",
       "reverie_dreams:food/pseudo_jiritama",
-      "reverie_dreams:food/warm_rice_ball"
+      "reverie_dreams:food/warm_rice_ball",
+      "reverie_dreams:food/zhaji",
+      "reverie_dreams:food/game_soup",
+      "reverie_dreams:food/magma",
+      "reverie_dreams:food/boiled_fish"
     ]
   }
 }

@@ -1,0 +1,45 @@
+### Section: PageInfo
+title=Bamboo Grove Barbecue Stand
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+### EndSection: PageInfo
+
+### Align: Center
+
+[Exploration Log]
+
+I discovered this place while lost.
+
+Deep within the bamboo grove is not somewhere one would linger for long.
+Directions become unreliable, and paths are difficult to follow.
+Yet in such a place, there stands a small barbecue stall.
+
+The structure is simple.
+Wooden racks, charcoal tools, and neatly arranged ingredients.
+Everything appears to be in regular use.
+
+The problem is—there is no one here.
+
+No footsteps, no signs of departure.
+The charcoal has already gone out, but the scent of recent use still lingers.
+The ingredients on the table are fresh, as if just prepared.
+
+I did not stay long.
+
+——
+
+[Supplementary Record]
+
+In the following days, I attempted to return to this area at night.
+
+From a distance, a faint glow could be seen.
+As if someone had lit the charcoal.
+
+But when I approached—
+
+there was still no one there.
+
+The stall remained in the same state,
+as though it continues to “operate” every night.
+
+Its method of operation remains unknown.

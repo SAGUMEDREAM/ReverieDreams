@@ -1,0 +1,40 @@
+### Section: PageInfo
+title=东方夜雀食堂
+icon=reverie_dreams:cooking_pot
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+### Align: Center
+《东方夜雀食堂》是一款东方 Project 同人游戏，本 Mod 也将其作为一项独立玩法引入游戏中。
+该系统主要添加了原作中的食材、料理、酒水以及烹饪配方，并对 Minecraft 原版的部分掉落物进行了调整。
+### Align: Left
+在本 Mod 中，大部分食材都拥有对应的农作物来源；部分种子可通过开启宝箱获得，而海产品则需要通过钓鱼或采集获取。
+每种食物都带有不同的 Tag，不同 Tag 会赋予食物不同的效果。
+### Align: Center
+### Header: Cooking
+### Align: Left
+烹饪系统的厨具主要分为五类：<yellow><item 'reverie_dreams:cooking_pot'></>、<yellow><item 'reverie_dreams:cutting_board'></>、<yellow><item 'reverie_dreams:frying_pan'></>、<yellow><item 'reverie_dreams:grill'></>以及<yellow><item 'reverie_dreams:steamer'></>，并均存在对应的升级版本。
+### Align: Center
+当配方输入不恰当或冲突词条时，可能会生成<yellow><item 'reverie_dreams:food/dark_cuisine'></>。
+### Align: Left
+部分配方支持使用与本 Mod 兼容的其他模组物品进行等效替代。
+所有烹饪配方可通过本 Mod 的配方管理器或夜雀食堂维基进行查询。
+
+### Align: Center
+<u><blue>
+<polydex 'reverie_dreams:cooking_pot'>View the <item 'reverie_dreams:cooking_pot'> recipe</><nl>
+<polydex 'reverie_dreams:cutting_board'>View the <item 'reverie_dreams:cutting_board'> recipe</><nl>
+<polydex 'reverie_dreams:frying_pan'>View the <item 'reverie_dreams:frying_pan'> recipe</><nl>
+<polydex 'reverie_dreams:grill'>View the <item 'reverie_dreams:grill'> recipe</><nl>
+<polydex 'reverie_dreams:steamer'>View the <item 'reverie_dreams:steamer'> recipe</><nl>
+<u><blue><polydex 'reverie_dreams:recipe/kitchen' 'category'>View the type of cooking recipe list</>
+</*>
+
+### Header: Alcohol
+### Align: Center
+大多数酒水可通过与酒馆老板交易获得。饮用后会提供不同的效果与增益，且每日可交易的酒水种类可能发生变化。
+### Align: Left
+不过，<yellow><item 'reverie_dreams:drink/green_tea'></>、<yellow><item 'reverie_dreams:drink/fruity_high_ball'></>、<yellow><item 'reverie_dreams:drink/fruity_sour'></>以及<yellow><item 'reverie_dreams:drink/qi'></>始终会出现在售卖列表中。
+### Align: Center
+玩家可以手持木桶对村民右键，将其转职为酒馆老板。
+

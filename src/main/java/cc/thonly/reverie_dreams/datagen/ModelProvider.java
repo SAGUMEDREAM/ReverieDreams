@@ -153,7 +153,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.WATERPROOF_LEATHER, ModelTemplates.FLAT_ITEM);
 
         // 道具
-        itemModelGenerator.generateFlatItem(RDItems.TOUHOU_HELPER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.GUIDEBOOK, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.UPGRADED_HEALTH, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.BOMB, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.CROSSING_CHISEL, ModelTemplates.FLAT_ITEM);

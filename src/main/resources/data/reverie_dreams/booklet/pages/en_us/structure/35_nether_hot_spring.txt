@@ -1,0 +1,34 @@
+### Section: PageInfo
+title=Hell Spring
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+### EndSection: PageInfo
+
+### Align: Center
+
+[Exploration Log]
+
+A hot spring was discovered in a low-lying area.
+
+Steam continuously rises from the surface,
+and the temperature is noticeably higher than the surroundings.
+The water itself is not murky—in fact, it appears unusually clear.
+
+At first glance, it seemed like an ordinary natural hot spring.
+
+That was, until I noticed the arrangement around it.
+
+Several candles are placed sporadically along the edge of the spring.
+Some have already burned out, leaving only hardened wax;
+others are still slowly burning.
+
+The flames are unsteady.
+They flicker slightly under the interference of the steam,
+yet never seem to go out.
+
+No signs of human presence were found.
+
+These candles do not appear to have been placed at random—
+but rather, as if they were intentionally left behind.
+
+I chose not to remain any longer.

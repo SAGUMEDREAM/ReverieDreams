@@ -1,0 +1,31 @@
+### Section: PageInfo
+title=Role Companion
+icon=reverie_dreams:reimu_spawn_egg
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+### Align: Center
+<green>Role Companion (Role)</> is a follower-type entity in this mod, functioning similarly to maid units from the Touhou Little Maid mod.
+
+### Align: Left
+Role Companions possess various abilities, including inventory management, combat, work tasks, and interaction.
+In most cases, each Role Companion requires an owner. Players can tame them by feeding them cake, thereby establishing a master-servant relationship.
+
+### Align: Center
+In Survival mode, players can craft various Touhou Project character cards at the <yellow><item 'reverie_dreams:gensokyo_altar'></></>, which are used to summon the corresponding Role Companions.
+
+### Align: Left
+When a Role Companion dies, it will drop a <yellow><item 'reverie_dreams:role_archive'></></>.
+Players can place this item in the <yellow><item 'reverie_dreams:gensokyo_altar'></></> and surround it with two layers of diamonds in the recipe to revive the character.
+
+### Align: Center
+Other Controls:
+
+### Align: Center
+- Right Click - Trigger daily dialogue
+- Shift + Left Click (empty hand) - Stop attacking target
+- Shift + Right Click - Open inventory
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:role_card'>View the <item 'reverie_dreams:role_card'> recipe</><nl>
+<u><blue><polydex 'reverie_dreams:role_archive'>View the <item 'reverie_dreams:role_archive'> recipe</><nl>

@@ -77,6 +77,9 @@ public class NPCSpearUseGoal<T extends BaseNPCLikeEntity> extends Goal {
     public void tick() {
         if (this.state != null) {
             LivingEntity livingEntity = this.mob.getTarget();
+            if (livingEntity == null) {
+                return;
+            }
             double d = this.mob.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
             Entity entity = this.mob.getRootVehicle();
             float f = 1.0F;

@@ -56,6 +56,7 @@ public class SpellCardFrameConfigs {
         BUILTIN_ITEMS.put("Test2", createTestSpellcardElegant2());
     }
 
+    @SuppressWarnings("deprecation")
     public static List<List<SpellCardFrameConfig>> createTestSpellcardElegant() {
         List<List<SpellCardFrameConfig>> frames = new ArrayList<>();
 

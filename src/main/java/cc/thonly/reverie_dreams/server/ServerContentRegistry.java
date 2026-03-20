@@ -13,6 +13,7 @@ import net.minecraft.util.Tuple;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
+@Deprecated
 public class ServerContentRegistry {
     public static final ServerContentRegistry IMPL = new ServerContentRegistry();
     private final Map<ResourceKey<Registry<Object>>, List<Tuple<ResourceKey<Object>, Object>>> contents = new Object2ObjectOpenHashMap<>(256);

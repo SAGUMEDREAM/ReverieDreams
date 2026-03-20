@@ -42,7 +42,7 @@ public class FumoImpl implements PolymerTexturedBlock, FactoryBlock, BSMMParticl
 
         public Model(BlockState state, Vec3 offsets) {
             this.block = state.getBlock();
-            this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
+            this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem().getDefaultInstance());
             this.main.setDisplaySize(this.getDisplaySizeWidth(), this.getDisplaySizeHeight());
             this.main.setOffset(this.modifyOffset(offsets));
             this.main.setScale(this.getScale());

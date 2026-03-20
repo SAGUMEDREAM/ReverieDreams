@@ -17,6 +17,7 @@ import net.minecraft.world.item.component.WrittenBookContent;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+@Deprecated
 public class TouhouHelperItem extends Item {
 
     public TouhouHelperItem(Properties settings) {

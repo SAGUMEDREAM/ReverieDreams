@@ -57,7 +57,7 @@ public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity 
             if (this.danmakuEntity.getProperties().isTile()) {
                 data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.BILLBOARD, (byte) Display.BillboardConstraints.CENTER.ordinal()));
             } else {
-                data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.TRANSLATION, new Vector3f(0, -0.1f, 0)));
+                data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.TRANSLATION, new Vector3f(0, 0, 0)));
                 data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.INTERPOLATION_DURATION, 2));
                 data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.TELEPORTATION_DURATION, 4));
                 if (sendBase) {

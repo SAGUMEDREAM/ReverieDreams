@@ -39,7 +39,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -60,12 +59,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @Slf4j
 public class MainCommand implements CommandInit.CommandRegistration {
 
+    @Deprecated
     public static class DialogSuggestionProvider implements SuggestionProvider<CommandSourceStack> {
         @Override
         public CompletableFuture<Suggestions> getSuggestions(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) throws CommandSyntaxException {
@@ -110,12 +109,12 @@ public class MainCommand implements CommandInit.CommandRegistration {
                 .then(
                         RegistryHandlers.getSuggestProvider(this::registry)
                 );
-        var dialog = Commands.literal("dialog")
-                .then(
-                        Commands.argument("value", StringArgumentType.string())
-                                .suggests(new DialogSuggestionProvider())
-                                .executes(this::dialog)
-                );
+//        var dialog = Commands.literal("dialog")
+//                .then(
+//                        Commands.argument("value", StringArgumentType.string())
+//                                .suggests(new DialogSuggestionProvider())
+//                                .executes(this::openDialog)
+//                );
         var video = Commands.literal("video")
                 .requires(PermissionPredicate.isGameMasters())
                 .then(
@@ -151,7 +150,7 @@ public class MainCommand implements CommandInit.CommandRegistration {
         root.then(cachedAllSkins);
         root.then(recipe);
         root.then(registry);
-        root.then(dialog);
+//        root.then(dialog);
         root.then(video);
         root.then(about);
         if (ConstantInfo.isDevMode()) {
@@ -365,7 +364,8 @@ public class MainCommand implements CommandInit.CommandRegistration {
         return 1;
     }
 
-    private int dialog(CommandContext<CommandSourceStack> context) {
+    @Deprecated
+    private int openDialog(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         if (!source.isPlayer()) {
             return 0;

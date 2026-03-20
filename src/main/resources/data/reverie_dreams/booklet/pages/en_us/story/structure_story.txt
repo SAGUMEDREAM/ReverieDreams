@@ -1,0 +1,8 @@
+### Section: PageInfo
+title=Structural Story
+icon=minecraft:writable_book
+category=reverie_dreams:story
+### EndSection: PageInfo
+### Align: Center
+### Header: Structure
+### Category Entries: reverie_dreams:structure

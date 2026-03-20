@@ -62,6 +62,7 @@ public class SoundEventBuilder {
         return addSoundsByName(key.toString(), stream);
     }
 
+    @SuppressWarnings("unchecked")
     public JsonElement toJsonElement() {
         JsonObject jsonObject = new JsonObject();
 

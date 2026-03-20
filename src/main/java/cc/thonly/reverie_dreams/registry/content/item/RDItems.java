@@ -112,7 +112,7 @@ public class RDItems {
     public static final Item GOLD_COIN = registerItem("gold_coin", Item::new, new Item.Properties().stacksTo(96));
 
     // 道具
-    public static final Item TOUHOU_HELPER = registerItem("touhou_helper", TouhouHelperItem::new, new Item.Properties()
+    public static final Item GUIDEBOOK = registerItem("guidebook", THGuideBookItem::new, new Item.Properties()
             .stacksTo(1)
             .rarity(Rarity.EPIC)
             .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
@@ -285,6 +285,8 @@ public class RDItems {
             }
             return InteractionResult.PASS;
         });
+
+        BuiltInRegistries.ITEM.addAlias(ReverieDreams.id("touhou_helper"), ReverieDreams.id("guidebook"));
     }
 
     public static Item registerItem(String id, Function<Item.Properties, Item> factory, Item.Properties settings) {

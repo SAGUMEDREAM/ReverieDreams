@@ -1,0 +1,135 @@
+### Section: PageInfo
+title=Mini Tavern
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+
+### EndSection: PageInfo
+
+### Align: Center
+
+【Record: An Unnamed Tavern】
+
+This place isn't marked anywhere.
+
+I stumbled upon it at night.
+
+I was just walking along a path when I saw a dim yellow light in the distance, assuming it was an ordinary house.
+
+Upon closer inspection, I realized it was a very small tavern.
+
+There was no sign at the entrance.
+
+The window was half-open, letting in warm light and intermittent voices.
+
+As I pushed open the door, the bell rang once.
+
+——
+
+【Record: Observations Inside】
+
+The space was smaller than I expected.
+
+The bar took up most of the space, with a few tables scattered around the remaining area.
+
+There weren't many customers.
+
+And no one was making a fuss.
+
+Some people chatted in hushed tones, while others simply sipped their drinks quietly.
+
+The atmosphere wasn't lively, but it wasn't deserted either.
+
+It was the kind of place where—once you sat down, you were tacitly allowed to stay.
+
+—
+【Record: Drinks】
+
+The drinks here are peculiar.
+
+The menu is filled with incomprehensible names, and the recipes aren't listed.
+
+I randomly ordered a drink, but the taste was surprisingly complex.
+
+It wasn't simply "delicious."
+
+It was more like…a feeling that was hard to describe.
+
+Some were invigorating,
+
+while others made you unconsciously quiet down.
+
+I tried asking about the origins of these drinks.
+
+The answer I received was:
+
+"Just some ordinary recipes."
+
+—
+【Record: Owner】
+
+The owner always stood behind the bar.
+
+His age was hard to discern.
+
+His tone was casual, but it always gave the impression that he knew more than he showed.
+
+When I mentioned some rumors, he paused for a moment.
+
+Then he smiled and changed the subject.
+
+“These names don’t sound like things you’d find around here.”
+
+“Have you traveled a lot?”
+
+“Sort of.”
+
+“And these drinks?”
+
+“I learned them on the road.”
+
+He said it casually.
+
+But I wasn’t sure if that was the truth.
+
+—
+【Note: Detail】
+
+There were some decorations hanging on the wall.
+
+Some were ordinary barware,
+
+and some didn’t look like things you’d find here.
+
+I tried to look at one of them a few more times.
+
+The owner noticed.
+
+“Don’t worry about them.”
+
+He said.
+
+“They’re just old stuff.”
+
+—
+【Note: Leaving】
+
+I didn’t stay long.
+
+When I left, the owner didn’t try to stop me.
+
+He just nodded, as he did with everyone who left.
+
+The moment the door closed, the light was shut out behind me.
+
+When I looked back—
+
+The light seemed dimmer than before.
+
+I didn't go back in to check.
+
+—
+【Postscript】
+
+Later, I tried to find this place again.
+
+But I couldn't find it.

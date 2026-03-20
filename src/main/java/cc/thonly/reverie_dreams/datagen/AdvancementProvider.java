@@ -2,10 +2,8 @@ package cc.thonly.reverie_dreams.datagen;
 
 import cc.thonly.reverie_dreams.advancement.*;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
-import cc.thonly.reverie_dreams.block.creator.WoodCreator;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
-import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
@@ -58,7 +56,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 
         AdvancementHolder root = registerAdvancement(context, RDAdvancements.ROOT, Advancement.Builder.advancement()
                 .display(makeDisplayInfo(RDItems.ICON, RDAdvancements.ROOT, AdvancementType.TASK))
-                .addCriterion("get_item", InventoryChangeTrigger.TriggerInstance.hasItems(RDItems.TOUHOU_HELPER))
+                .addCriterion("get_item", InventoryChangeTrigger.TriggerInstance.hasItems(RDItems.GUIDEBOOK))
         );
 
         AdvancementHolder shinyCoins = registerAdvancement(context, RDAdvancements.SHINY_COINS, Advancement.Builder.advancement()

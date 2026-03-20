@@ -1,0 +1,44 @@
+### Section: PageInfo
+title=Compatibility
+icon=minecraft:anvil
+category=reverie_dreams:others
+### EndSection: PageInfo
+
+### Align: Center
+This page lists compatibility information and recommended mod combinations related to this mod.
+
+### Header: Suggestion
+
+The following mods are recommended and can significantly improve gameplay experience or feature completeness:
+
+- <u><open_url 'https://modrinth.com/mod/polydex'>Polydex</u> - Provides basic server-side recipe lookup functionality
+- <u><open_url 'https://modrinth.com/mod/polymer-qol'>Polymer - Quality of Life</u> - Improves overall gameplay experience
+- <u><open_url 'https://modrinth.com/mod/rei'>Roughly Enough Items (REI)</u> - Provides recipe and item list viewing support
+- <u><open_url 'https://modrinth.com/mod/polydex2rei'>Polydex2REI</u> - Adds compatibility between Polydex and REI
+
+### Header: Compat
+
+The following mods have compatibility or integration features with this mod:
+
+- <u><open_url 'https://modrinth.com/mod/create-fly'>Create Fly</u> - Adds crank interaction functionality for role companions
+- <u><open_url 'https://modrinth.com/mod/polyfactory'>PolyFactory</u> - Adds crank interaction functionality for role companions
+
+The following mods provide additional compatible ingredients or recipes for the cooking system:
+
+- <u><open_url 'https://modrinth.com/mod/borukva-food'>Borukva Food</u>
+- <u><open_url 'https://modrinth.com/mod/borukva-food-exotic'>Borukva Food Exotic</u>
+- <u><open_url 'https://modrinth.com/mod/borukva-fish'>Borukva Fish</u>
+- <u><open_url 'https://modrinth.com/mod/farmers-delight-refabricated'>Farmer's Delight Refabricated</u>
+- <u><open_url 'https://modrinth.com/mod/more-delight'>More Delight (for Farmer's Delight)</u>
+- <u><open_url 'https://modrinth.com/mod/oceans-delight-polymer-port'>Ocean's Delight (Polymer Port)</u>
+- <u><open_url 'https://modrinth.com/mod/spanish-delight-refabricated'>Spanish Delight Refabricated</u>
+- <u><open_url 'https://modrinth.com/mod/fishing-101'>Fishing 101</u>
+- <u><open_url 'https://modrinth.com/mod/gone-fishing'>Gone Fishing!</u>
+
+### Header: Conflict
+
+The following mods are incompatible with this mod and are not recommended to be used together:
+
+- <u><open_url 'https://modrinth.com/mod/cardboard'>Cardboard</u>
+- <u><open_url 'https://modrinth.com/mod/silkard'>Silkard</u>
+- <u><open_url 'https://github.com/IzzelAliz/Arclight'>Arclight</u>

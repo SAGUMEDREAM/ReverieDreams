@@ -1,0 +1,45 @@
+### Section: PageInfo
+title=Touhou Mystia's Izakaya
+icon=reverie_dreams:cooking_pot
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+### Align: Center
+Touhou Mystia's Izakaya is a Touhou Project fan game, and this mod introduces it as a standalone gameplay feature.
+This system adds ingredients, dishes, drinks, and cooking recipes from the original game, while also adjusting some vanilla Minecraft drops.
+
+### Align: Left
+In this mod, most ingredients are tied to specific crops; some seeds can be obtained from chests, while seafood must be acquired through fishing or gathering.
+Each food item has different tags, and these tags determine its effects.
+
+### Align: Center
+### Header: Cooking
+### Align: Left
+The cooking system includes five main types of cookware: <yellow><item 'reverie_dreams:cooking_pot'></>, <yellow><item 'reverie_dreams:cutting_board'></>, <yellow><item 'reverie_dreams:frying_pan'></>, <yellow><item 'reverie_dreams:grill'></>, and <yellow><item 'reverie_dreams:steamer'></>, each with upgraded variants.
+
+### Align: Center
+If the recipe input is incorrect or contains conflicting tags, it may produce <yellow><item 'reverie_dreams:food/dark_cuisine'></>.
+
+### Align: Left
+Some recipes support equivalent substitutions using compatible items from other mods.
+All cooking recipes can be viewed through the mod’s recipe manager or the Mystia's Izakaya wiki.
+
+### Align: Center
+<u><blue>
+<polydex 'reverie_dreams:cooking_pot'>View the <item 'reverie_dreams:cooking_pot'> recipe</><nl>
+<polydex 'reverie_dreams:cutting_board'>View the <item 'reverie_dreams:cutting_board'> recipe</><nl>
+<polydex 'reverie_dreams:frying_pan'>View the <item 'reverie_dreams:frying_pan'> recipe</><nl>
+<polydex 'reverie_dreams:grill'>View the <item 'reverie_dreams:grill'> recipe</><nl>
+<polydex 'reverie_dreams:steamer'>View the <item 'reverie_dreams:steamer'> recipe</><nl>
+<u><blue><polydex 'reverie_dreams:recipe/kitchen' 'category'>View the type of cooking recipe list</>
+</*>
+
+### Header: Alcohol
+### Align: Center
+Most drinks can be obtained by trading with the tavern keeper. Drinking them grants various effects and buffs, and the available selection may change daily.
+
+### Align: Left
+However, <yellow><item 'reverie_dreams:drink/green_tea'></>, <yellow><item 'reverie_dreams:drink/fruity_high_ball'></>, <yellow><item 'reverie_dreams:drink/fruity_sour'></>, and <yellow><item 'reverie_dreams:drink/qi'></> will always be available.
+
+### Align: Center
+Players can right-click a villager with a barrel to convert them into a tavern keeper.

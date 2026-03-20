@@ -1,0 +1,23 @@
+### Section: PageInfo
+title=Gensokyo Altar Setup
+icon=reverie_dreams:gensokyo_altar
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+<yellow><item 'reverie_dreams:gensokyo_altar'></> is an essential crafting workstation in this mod, and most items are created using it.
+The altar supports crafting recipes composed of nine items.
+To function properly, the following structure must also be built:
+
+### Image: reverie_dreams:gensokyo_altar_example Example structure of <item 'reverie_dreams:gensokyo_altar'>.
+
+The surrounding pillars of the structure must be made from <yellow><item 'reverie_dreams:stripped_spiritual_log'></>.
+This type of wood can typically be found in <green>Savanna</> biomes.
+
+The top layer logs must be blessed using <item 'reverie_dreams:paper'> with <key 'key.use'>.
+To remove the blessing, use shears with <key 'key.use'>.
+
+Finally, after confirming the recipe is correct, use “empty hand + Shift + right-click” to complete the crafting.
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:gensokyo_altar'>View the <item 'reverie_dreams:gensokyo_altar'> recipe</><nl>
+<u><blue><polydex 'reverie_dreams:recipe/gensokyo_altar' 'category'>View the type of <item 'reverie_dreams:gensokyo_altar'> recipe list</>

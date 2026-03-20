@@ -1,0 +1,24 @@
+### Section: PageInfo
+title=角色伙伴
+icon=reverie_dreams:reimu_spawn_egg
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+### Align: Center
+<green>角色伙伴（Role）</>是本 Mod 中的随从类实体，其功能类似于 Touhou Little Maid 模组中的女仆单位。
+### Align: Left
+角色伙伴具备背包、战斗、工作以及互动等多种功能。通常情况下，每个角色伙伴都需要一位主人，玩家可以通过喂食蛋糕来完成驯服并建立主从关系。
+### Align: Center
+在生存模式下，玩家可以在<yellow><item 'reverie_dreams:gensokyo_altar'></></>中合成各类东方 Project 角色卡，以此召唤对应的角色伙伴。
+### Align: Left
+当角色伙伴死亡时，会掉落<yellow><item 'reverie_dreams:role_archive'></></>。玩家可以在<yellow><item 'reverie_dreams:gensokyo_altar'></></>中摆放该物品，并在配方中围绕两圈钻石，以重新复活对应角色。
+### Align: Center
+其他操作说明：
+### Align: Center
+- 鼠标右键 - 触发日常对话
+- Shift + 鼠标左键（空手） - 停止攻击目标
+- Shift + 鼠标右键 - 打开背包
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:role_card'>View the <item 'reverie_dreams:role_card'> recipe</><nl>
+<u><blue><polydex 'reverie_dreams:role_archive'>View the <item 'reverie_dreams:role_archive'> recipe</><nl>

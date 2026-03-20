@@ -1,0 +1,22 @@
+### Section: PageInfo
+title=Abandoned Torii
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+### EndSection: PageInfo
+
+### Align: Center
+
+[Brief Record]
+
+An isolated torii gate was found standing in an open area.
+
+The structure is aged, covered in vines and weathering.
+Its original color is almost entirely faded, leaving only a mottled outline.
+
+There is no shrine nearby, nor any visible path.
+There are no signs that other buildings ever stood here.
+
+It stands alone, just like this.
+
+As if it were something left behind—
+a boundary of some kind.

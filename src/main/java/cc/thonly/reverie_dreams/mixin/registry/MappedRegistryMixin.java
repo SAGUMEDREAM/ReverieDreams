@@ -39,9 +39,13 @@ public abstract class MappedRegistryMixin<T> implements SimpleRegistrySetter, Wr
         this.frozen = value;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "ConstantValue"})
+    @Deprecated
     @Inject(method = "freeze", at = @At("HEAD"), order = 100)
     public void reverie_dreams$onFreeze(CallbackInfoReturnable<Registry<T>> cir) {
+        if (true) {
+            return;
+        }
         if (this.reverie_dreams$injected) {
             return;
         }

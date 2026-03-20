@@ -1,0 +1,36 @@
+### Section: PageInfo
+title=Bamboo Grove Hut
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+### EndSection: PageInfo
+
+### Align: Center
+
+[Exploration Log]
+
+A small hut was discovered deep within the bamboo grove.
+
+From a distance, a faint light could be seen from within.
+In such an environment where it is easy to lose one’s sense of direction,
+this kind of light stands out unnaturally.
+
+There is a small pond beside the hut.
+The water surface is calm, with several lotus leaves growing upon it.
+They appear to be in good condition, as if carefully tended.
+However, there are no clear signs of recent activity nearby.
+
+The path leading here has long since faded.
+Fallen leaves and new growth have covered everything,
+making the original route nearly impossible to trace.
+
+And yet, the place does not feel abandoned.
+
+Both the plants in the pond and the persistent light within the hut
+maintain a subtle sense of “life.”
+
+I did not enter the hut.
+
+After observing from the outside, I chose to leave.
+
+This place seems to be sustained—
+by some unknown means.

@@ -1,0 +1,86 @@
+### Section: PageInfo
+title=Abandoned Altar
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+### EndSection: PageInfo
+
+### Align: Center
+
+[Exploration Log: Unmarked Ruins]
+
+I discovered it in an area with almost no signs of human activity.
+
+At first, it was just an unusually flat stretch of ground.
+Compared to the chaotic surroundings, it felt unnaturally orderly.
+Following this trace further, I eventually came upon the altar.
+
+——
+
+[Structural Observation]
+
+This structure was clearly man-made.
+
+The arrangement of the stones follows a distinct pattern,
+and the center appears to have been designed to hold certain items.
+The surrounding layout is not random either—it resembles something used for ritual purposes.
+
+But now—
+
+it has all been abandoned.
+
+Dust covers the surface, making it difficult to discern its original color.
+Vines have spread along the კიდges, tightly wrapping parts of the structure.
+Some areas even show signs of minor damage.
+
+It has not been used for a very long time.
+
+——
+
+[Remnants]
+
+A chest still remains beside the altar.
+
+It is not locked.
+
+The contents are disorganized, yet not completely looted.
+Some materials have decayed or lost their function, but a portion remains recognizable—and even usable.
+
+These items appear to have been left behind in a hurry.
+Not intentionally stored, but rather—unable to be taken away in time.
+
+——
+
+[Preliminary Assessment]
+
+Based on its structure and the remnants, this altar likely once served a specific function.
+
+Now, however, it is inactive.
+
+I attempted to place some materials back into position.
+There was no response.
+
+Perhaps certain key steps are missing,
+or perhaps—it requires specific conditions.
+
+——
+
+[Record]
+
+Before leaving, I surveyed the surroundings once more.
+
+There were no additional traces.
+No footprints, and no signs of recent activity.
+
+This place has simply been left behind.
+
+——
+
+[Conclusion]
+
+It is possible that this altar can still be reactivated.
+
+But for now, I lack the necessary information to do so.
+
+I will leave this place for the time being.
+
+(Record ends)

@@ -46,14 +46,14 @@ public class ImplRecipeGenerator extends RecipeProvider {
     @Override
     public void buildRecipes() {
         // 入门书
-        shaped(RecipeCategory.MISC, RDItems.TOUHOU_HELPER)
+        shaped(RecipeCategory.MISC, RDItems.GUIDEBOOK)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
                 .define('X', RDItems.POWER)
                 .define('#', Items.BOOK)
                 .unlockedBy("has_diamond", has(Items.DIAMOND))
-                .save(output, getSimpleRecipeName(RDItems.TOUHOU_HELPER));
+                .save(output, getSimpleRecipeName(RDItems.GUIDEBOOK));
 
         // Point / 块
         offerIngotToBlockRecipe(output, RDItems.POINT, RDBlocks.POINT_BLOCK.asItem());

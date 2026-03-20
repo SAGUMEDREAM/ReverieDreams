@@ -12,7 +12,7 @@ import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
-import cc.thonly.reverie_dreams.dialog.DialogInit;
+//import cc.thonly.reverie_dreams.dialog.DialogInit;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.entity.villager.RDPointOfInterestTypes;
@@ -53,6 +53,8 @@ import cc.thonly.reverie_dreams.world.BiomeModificationInit;
 import cc.thonly.reverie_dreams.world.GameRulesInit;
 import cc.thonly.reverie_dreams.world.WorldGenerationInit;
 import eu.midnightdust.lib.config.MidnightConfig;
+import eu.pb4.placeholders.api.PlaceholderResult;
+import eu.pb4.placeholders.api.Placeholders;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.api.ModInitializer;
@@ -148,7 +150,7 @@ public class ReverieDreams implements ModInitializer {
         RDVillagerProfessions.registers();
         BiomeModificationInit.init();
         GameRulesInit.init();
-        DialogInit.bootstrap();
+//        DialogInit.bootstrap();
         RDCriteriaTriggers.registerCriteria();
 
         // 初始化其他注册内容
@@ -195,6 +197,9 @@ public class ReverieDreams implements ModInitializer {
         }
         CreativeTabs.registerItemGroups();
         ReverieDreamsCompats.init();
+        Placeholders.register(ReverieDreams.id("version"), (ctx, args) -> {
+            return PlaceholderResult.value(ConstantInfo.VERSION);
+        });
     }
 
     private void registerContentEvent() {
@@ -302,17 +307,13 @@ public class ReverieDreams implements ModInitializer {
         PayloadTypeRegistry.playC2S().register(HelloPayload.PACKET_ID, HelloPayload.codec);
         ServerPlayNetworking.registerGlobalReceiver(HelloPayload.PACKET_ID, (payload, context) -> {
             ServerPlayer player = context.player();
-            if (player != null) {
-                PLAYER_WITH_MOD.add(player);
-            }
+            PLAYER_WITH_MOD.add(player);
         });
         PayloadTypeRegistry.playC2S().register(CSVersionPayload.PACKET_ID, CSVersionPayload.codec);
         ServerPlayNetworking.registerGlobalReceiver(CSVersionPayload.PACKET_ID, (payload, context) -> {
             ServerPlayer player = context.player();
             String version = payload.version();
-            if (player != null) {
-                PLAYER_SIDE_VERSION.put(player, version);
-            }
+            PLAYER_SIDE_VERSION.put(player, version);
         });
         ServerPlayConnectionEvents.DISCONNECT.register((playNetworkHandler, server) -> {
             PLAYER_WITH_MOD.remove(playNetworkHandler.player);

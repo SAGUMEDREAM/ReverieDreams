@@ -1,0 +1,19 @@
+### Section: PageInfo
+title=入门指南
+icon=player_head
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+梦隐的幻想乡是一个魔法冒险类的服务端模组，融合了其他优秀东方同人模组及游戏的灵感，为现代 Minecraft 增添了大量东方 Project 的内容。
+<nl2>
+要开始游玩它，首先要制作<yellow><item 'reverie_dreams:gensokyo_altar'></>，它可以制作<yellow><item 'reverie_dreams:horai-dama_no_eda'></>、<yellow><item 'reverie_dreams:gungnir'></>和<yellow><item 'reverie_dreams:hakurei_cane'></>等物品。
+<nl2>
+<red><item 'reverie_dreams:power'></>和<blue><item 'reverie_dreams:point'></>是基本的合成材料之一，它们可以通过击杀怪物或妖精获得。
+<nl2>
+之后，你可以获得并合成更多物品，你可以在本指南中了解更多信息，或者在Polydex中查看它们的配方。
+### Align: Center
+<u><blue>
+<polydex 'reverie_dreams:gensokyo_altar'>View the <item 'reverie_dreams:gensokyo_altar'> recipe</><nl>
+<polydex 'reverie_dreams:power'>View the <item 'reverie_dreams:power'> recipe</><nl>
+<polydex 'reverie_dreams:point'>View the <item 'reverie_dreams:point'> recipe</><nl>
+</*>

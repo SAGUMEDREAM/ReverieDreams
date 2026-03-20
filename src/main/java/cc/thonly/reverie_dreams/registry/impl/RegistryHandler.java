@@ -74,10 +74,11 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         this.parent = parent;
     }
 
+    @SuppressWarnings("ConstantValue")
     public void validate() {
         AtomicInteger next = new AtomicInteger();
         this.keyToEntry.forEach((registryKey, reference) -> {
-            if (registryKey == null)  {
+            if (registryKey == null) {
                 log.error("Can't verify registry key, rawId: {}", next.get());
                 return;
             }
@@ -98,11 +99,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     }
 
     public Set<Map.Entry<Identifier, T>> idEntrySet() {
-        return this.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey().identifier(),
-                        Map.Entry::getValue
-                )).entrySet();
+        return this.entrySet().stream().collect(Collectors.toMap(entry -> entry.getKey().identifier(), Map.Entry::getValue)).entrySet();
     }
 
     public RegistryHandler<T> build() {
@@ -114,12 +111,14 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         return this;
     }
 
-    public RegistryHandler<T> builder(Initialization<T>... initializations) {
+    @SafeVarargs
+    public final RegistryHandler<T> builder(Initialization<T>... initializations) {
         this.builders.addAll(Arrays.asList(initializations));
         return this;
     }
 
-    public RegistryHandler<T> reloadBuilder(ReloadStep<T>... steps) {
+    @SafeVarargs
+    public final RegistryHandler<T> reloadBuilder(ReloadStep<T>... steps) {
         this.reloadableSteps.addAll(Arrays.asList(steps));
         this.reloadable = true;
         return this;
@@ -160,10 +159,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     }
 
     public Stream<Map.Entry<Identifier, T>> streamIdToValue() {
-        return this.idToEntry.entrySet().stream().collect(Collectors.toMap(
-                Map.Entry::getKey,
-                entry -> entry.getValue().value()
-        )).entrySet().stream();
+        return this.idToEntry.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().value())).entrySet().stream();
     }
 
     public Map<Integer, Holder.Reference<T>> getIdToEntryMap() {
@@ -249,7 +245,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
 
     @Override
     public HolderGetter<T> createRegistrationLookup() {
-        return new HolderGetter<T>() {
+        return new HolderGetter<>() {
             public Optional<Holder.Reference<T>> get(ResourceKey<T> key) {
                 return Optional.of(this.getOrThrow(key));
             }
@@ -296,7 +292,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
 
     @Override
     public int getId(@Nullable T value) {
-        Optional<Holder.Reference<T>> entry = this.get(this.getKey(value));
+        @SuppressWarnings("DataFlowIssue") Optional<Holder.Reference<T>> entry = this.get(this.getKey(value));
         if (entry.isEmpty()) {
             return -1;
         }
@@ -432,6 +428,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         return Stream.empty();
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public PendingTags<T> prepareTagReload(TagLoader.LoadResult<T> tags) {
         return null;

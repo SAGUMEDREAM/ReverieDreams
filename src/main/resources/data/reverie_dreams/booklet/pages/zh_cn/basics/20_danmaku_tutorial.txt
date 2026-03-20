@@ -1,0 +1,45 @@
+### Section: PageInfo
+title=弹幕指南
+icon=reverie_dreams:danmaku
+category=reverie_dreams:basics
+### EndSection: PageInfo
+
+### Align: Center
+
+<yellow><item 'reverie_dreams:danmaku'></>指的是 STG 游戏中常见的弹幕机制，即通过大量密集的弹体构成复杂攻击轨迹的表现形式。
+在本模组中，“弹幕”同样沿用这一概念。
+### Align: Left
+玩家需要使用<yellow><item 'reverie_dreams:danmaku_crafting_table'></></>来合成弹幕，其材料摆放如下：
+
+### Align: Center
+- 任意染料 - ×4
+- <item 'reverie_dreams:danmaku_core'> - ×4
+- <item 'reverie_dreams:power'> - ×35
+- <item 'reverie_dreams:point'> - ×35
+- <item 'reverie_dreams:danmaku_recipe_creator'> - ×1
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:danmaku_crafting_table'>View the <item 'reverie_dreams:danmaku_crafting_table'> recipe</></><nl>
+<u><blue><polydex 'reverie_dreams:recipe/danmaku_table' 'category'>View the type of <item 'reverie_dreams:danmaku_crafting_table'> recipe list</>
+
+### Align: Left
+<yellow><item 'reverie_dreams:danmaku_recipe_creator'></>是用于设置弹幕形态的关键工具，也是合成弹幕不可或缺的一部分。
+玩家可以通过右键模板，以点阵方式构建弹幕形态。
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:danmaku_recipe_creator'>View the <item 'reverie_dreams:danmaku_recipe_creator'> recipe</><nl>
+<u><blue><click run_command '/touhou recipe'>View the type of <item 'reverie_dreams:danmaku_recipe_creator'> recipe list</>
+
+### Align: Left
+不同类型的弹幕具有各自的属性，但所有弹幕都可以在<yellow><item 'reverie_dreams:strength_table'></>中进行强化升级。
+目前已定义的升级材料及其对应效果如下：
+
+### Align: Center
+- <item 'minecraft:iron_sword'> - 提升弹幕伤害
+- <item 'minecraft:slime_block'> - 增加单次发射数量
+- <item 'reverie_dreams:speed_feather'> - 提高弹幕射击速度
+- <item 'reverie_dreams:spell_card_template'> - 设置弹幕轨迹
+
+### Align: Center
+<u><blue><polydex 'reverie_dreams:strength_table'>View the <item 'reverie_dreams:strength_table'> recipe</><nl>
+<u><blue><polydex 'reverie_dreams:recipe/strength_table' 'category'>View the type of <item 'reverie_dreams:strength_table'> recipe list</>

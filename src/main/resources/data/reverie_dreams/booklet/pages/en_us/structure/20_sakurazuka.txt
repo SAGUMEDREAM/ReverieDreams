@@ -1,0 +1,38 @@
+### Section: PageInfo
+title=Cherry Blossom Mound
+icon=minecraft:writable_book
+category=reverie_dreams:structure
+### EndSection: PageInfo
+
+### Align: Center
+
+[Exploration Log]
+
+I paused for a while beneath a cherry blossom mound.
+
+It is noticeably quieter here than the surrounding area.
+When the wind passes through, it lifts scattered petals into the air,
+only for them to quickly settle once more.
+The ground shows no signs of disturbance—
+it seems no one has come here for a long time.
+
+And yet, this place does not feel “empty.”
+
+A faint trace of spiritual energy lingers in the air.
+Subtle, yet consistently present.
+It does not feel recent,
+but rather like something that has accumulated over time.
+
+I attempted to locate its source.
+
+There are no visible devices or structures,
+nor any recognizable signs of ritual activity.
+The energy seems dispersed throughout the surroundings—
+clinging to the soil, the roots, even the fallen petals.
+
+Perhaps this is not something that is “happening” now.
+
+But rather, something that once existed here.
+
+The exact cause remains unclear.
+Recorded here for further investigation.

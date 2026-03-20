@@ -106,7 +106,7 @@ public class GensokyoAltarImpl implements FactoryBlock, PolymerTexturedBlock {
         }
 
         public void init(BlockState state) {
-            main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
+            main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem().getDefaultInstance());
             main.setScale(new Vector3f(2f));
             addElement(main);
         }

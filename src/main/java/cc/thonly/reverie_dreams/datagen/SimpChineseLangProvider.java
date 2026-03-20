@@ -85,6 +85,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         this.generateRoleTranslations(wrapperLookup, translationBuilder);
         this.generateRoleCardTranslations(wrapperLookup, translationBuilder);
         this.generateEffectTranslations(wrapperLookup, translationBuilder);
+        this.generateGuideTranslations(wrapperLookup, translationBuilder);
         this.generateDialogTranslations(wrapperLookup, translationBuilder);
         this.generateTestTranslations(wrapperLookup, translationBuilder);
         this.generateAdvancementsTranslations(wrapperLookup, translationBuilder);
@@ -152,6 +153,11 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
         this.generateCommandTranslations(wrapperLookup, translationBuilder);
         this.generateMITranslations(wrapperLookup, translationBuilder);
+    }
+
+    public void generateGuideTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
+        translationBuilder.add("booklet_category.reverie_dreams.basics", "基础知识");
+
     }
 
     public void generateAdvancementsTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
@@ -953,7 +959,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.WATERPROOF_LEATHER, "防水皮革");
 
         // 道具
-        translationBuilder.add(RDItems.TOUHOU_HELPER, "§a夢見る幻想郷§r模组指南");
+        translationBuilder.add(RDItems.GUIDEBOOK, "幻想乡指南");
+        translationBuilder.add("item.reverie_dreams.guidebook.desc", "§a夢見る幻想郷§r使用指南！");
         translationBuilder.add(RDItems.UPGRADED_HEALTH, "残机");
         translationBuilder.add(RDItems.BOMB, "Bomb");
         translationBuilder.add(RDItems.HORAI_DAMA_NO_EDA, "蓬莱玉枝");

@@ -3,10 +3,10 @@
   "properties": {
     "values": [
       "reverie_dreams:food/phoenix",
-      "reverie_dreams:food/boiled_fish",
       "reverie_dreams:food/two_heavens_one_style",
+      "reverie_dreams:food/reversing_the_world",
       "reverie_dreams:food/hula_soup",
-      "reverie_dreams:food/reversing_the_world"
+      "reverie_dreams:food/boiled_fish"
     ]
   }
 }

@@ -99,6 +99,10 @@ fabricApi {
     }
 }
 
+//tasks.withType(JavaCompile).configureEach {
+//    options.compilerArgs += ["-Xlint:deprecation", "-Xlint:unchecked"]
+//}
+
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "net.minecraft:minecraft:${project.minecraft_version}"
@@ -126,12 +130,14 @@ dependencies {
     modImplementation include("eu.pb4:factorytools:[${project.factorytools_version}]")
     modImplementation include("eu.pb4:sgui:[${project.sgui_version}]")
     modImplementation include("me.lucko:fabric-permissions-api:${project.fabric_permissions_api}")
-//    modImplementation include("xyz.nucleoid:server-translations-api:${project.server_translations_api_version}")
+    modImplementation include("xyz.nucleoid:server-translations-api:${project.server_translations_api_version}")
     modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
 
     implementation include("gg.moonflower:molang-compiler:${project.molang_compiler_version}")
     modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
     modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
+    modImplementation include("eu.pb4:booklet:${booklet_version}")
+    modImplementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
 
     modImplementation files('libs/resourceconfigapi-fabric-1.21.11-3.9.2.jar')
     modImplementation files('libs/camera-obscura-1.2.2+1.21.11.jar')

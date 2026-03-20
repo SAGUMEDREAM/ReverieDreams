@@ -1,0 +1,44 @@
+### Section: PageInfo
+title=兼容性
+icon=minecraft:anvil
+category=reverie_dreams:others
+### EndSection: PageInfo
+
+### Align: Center
+本页面用于列出与本模组相关的其他模组兼容情况及推荐搭配。
+
+### Header: Suggestion
+
+以下模组为推荐搭配，可显著提升游戏体验或功能完整性：
+
+- <u><open_url 'https://modrinth.com/mod/polydex'>Polydex</u> - 提供基础的服务端配方查询功能
+- <u><open_url 'https://modrinth.com/mod/polymer-qol'>Polymer - Quality of Life</u> - 优化整体游戏体验
+- <u><open_url 'https://modrinth.com/mod/rei'>Roughly Enough Items (REI)</u> - 提供配方与物品列表查询功能
+- <u><open_url 'https://modrinth.com/mod/polydex2rei'>Polydex2REI</u> - 提供 Polydex 与 REI 之间的兼容支持
+
+### Header: Compat
+
+以下模组与本模组存在兼容内容或联动效果：
+
+- <u><open_url 'https://modrinth.com/mod/create-fly'>Create Fly</u> - 为角色伙伴添加摇曲柄相关功能
+- <u><open_url 'https://modrinth.com/mod/polyfactory'>PolyFactory</u> - 为角色伙伴添加摇曲柄相关功能
+
+以下模组可为烹饪系统提供额外兼容食材或配方支持：
+
+- <u><open_url 'https://modrinth.com/mod/borukva-food'>Borukva Food</u>
+- <u><open_url 'https://modrinth.com/mod/borukva-food-exotic'>Borukva Food Exotic</u>
+- <u><open_url 'https://modrinth.com/mod/borukva-fish'>Borukva Fish</u>
+- <u><open_url 'https://modrinth.com/mod/farmers-delight-refabricated'>Farmer's Delight Refabricated</u>
+- <u><open_url 'https://modrinth.com/mod/more-delight'>More Delight (for Farmer's Delight)</u>
+- <u><open_url 'https://modrinth.com/mod/oceans-delight-polymer-port'>Ocean's Delight (Polymer Port)</u>
+- <u><open_url 'https://modrinth.com/mod/spanish-delight-refabricated'>Spanish Delight Refabricated</u>
+- <u><open_url 'https://modrinth.com/mod/fishing-101'>Fishing 101</u>
+- <u><open_url 'https://modrinth.com/mod/gone-fishing'>Gone Fishing!</u>
+
+### Header: Conflict
+
+以下模组与本模组存在冲突，不建议同时使用：
+
+- <u><open_url 'https://modrinth.com/mod/cardboard'>Cardboard</u>
+- <u><open_url 'https://modrinth.com/mod/silkard'>Silkard</u>
+- <u><open_url 'https://github.com/IzzelAliz/Arclight'>Arclight</u>

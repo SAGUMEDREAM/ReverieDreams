@@ -1,5 +1,17 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.17+1.21.11
+* Fixed Bagua Furnace lost attacking state when chunk unloading
+* Fixed Danmaku Entity offset low
+* Fixed missing loot items in sakurazuka structure
+* Using Booklet API rewrote the GuideBook.
+* Added lunar soldiers (test)
+* Added lunar soldier weapons (test)
+* Added some story in GuideBook
+* The usage of Gungnir has been modified. Now, holding down the right mouse button will initiate a dash by default, and releasing the button during the dash + jump will fire the gun.
+* Updated GuideBook textures
+* The next update will reset the reward chests and add buildings on The Moon.
+
 # 0.4.16+1.21.11
 * Fixed ItemStack decode error
 * Fixed a crash that occurred when operating with PolyFactory under certain conditions.
