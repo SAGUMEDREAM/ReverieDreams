@@ -2,20 +2,16 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:kelp",
-      "count": 1
+      "id": "minecraft:kelp"
     },
     {
-      "id": "reverie_dreams:ingredient/tofu",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tofu"
     },
     {
-      "id": "reverie_dreams:ingredient/trout",
-      "count": 1
+      "id": "reverie_dreams:ingredient/trout"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/zhaji",
-    "count": 1
+    "id": "reverie_dreams:food/zhaji"
   }
 }

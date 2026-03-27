@@ -4,14 +4,22 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RecipeInjectCallback;
+import cc.thonly.reverie_dreams.recipe.crafting.DanmakuDyeRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.*;
 import cc.thonly.reverie_dreams.recipe.type.*;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.ArmorDyeRecipe;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -24,9 +32,19 @@ public class RecipeManager {
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
     public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
+    public static final RecipeSerializer<DanmakuDyeRecipe> DANMAKU_DYE_RECIPE = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ReverieDreams.id("crafting_special_danmakudye"), new CustomRecipe.Serializer<>(DanmakuDyeRecipe::new));
 
     public static void bootstrap() {
 
+    }
+
+    public static <R extends BaseRecipe> SuggestionProvider<CommandSourceStack> getSuggestions(BaseRecipeType<R> type) {
+        return (context, builder) -> {
+            for (Identifier key : type.keys()) {
+                builder.suggest(String.valueOf(key));
+            }
+            return builder.buildFuture();
+        };
     }
 
     public static BaseRecipe getFromOutput(Item item) {

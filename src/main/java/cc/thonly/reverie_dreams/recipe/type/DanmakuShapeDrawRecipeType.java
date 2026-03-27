@@ -122,7 +122,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
             if (itemStackWrapper == null) {
                 continue;
             }
-            if (itemStackWrapper.equals(output)) {
+            if (itemStackWrapper.matches(output)) {
                 results.add(recipe.getShape());
             }
         }

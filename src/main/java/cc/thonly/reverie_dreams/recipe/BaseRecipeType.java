@@ -6,17 +6,22 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.nbt.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
+import com.mojang.serialization.DataResult;
+import net.minecraft.nbt.CompoundTag;
 
 import java.util.*;
 import java.util.stream.Stream;
 
+@SuppressWarnings("UnusedReturnValue")
 @Slf4j
 @ToString
 public abstract class BaseRecipeType<R extends BaseRecipe> {
@@ -115,7 +120,131 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
         return this;
     }
 
-    public JsonElement encode() {
+    public static <R extends BaseRecipe> CompoundTag writeForTag(BaseRecipeType<R> recipeType) {
+        Identifier id = recipeType.getId();
+
+        CompoundTag root = new CompoundTag();
+
+        // 写 type id
+        root.putString("type", id.toString());
+
+        // 写 recipes（你已经实现好的）
+        CompoundTag recipesTag = recipeType.encodeTags();
+
+        // 把 recipes 合并进去（推荐直接放子节点）
+        root.put("data", recipesTag);
+
+        return root;
+    }
+
+    public static <R extends BaseRecipe> Pair<Identifier, List<Pair<Identifier, R>>> readFromTag(BaseRecipeType<R> recipeType, CompoundTag tag) {
+        String typeStr = tag.getStringOr("type", "null");
+        if (typeStr.equals("null")) {
+            return null;
+        }
+        Identifier typeId = Identifier.tryParse(typeStr);
+
+        if (typeId == null) {
+            throw new IllegalArgumentException("Invalid recipe type id: " + typeStr);
+        }
+
+        CompoundTag data = tag.getCompoundOrEmpty("data");
+
+        List<Pair<Identifier, R>> recipes = recipeType.decodeTags(data);
+
+        return Pair.of(typeId, recipes);
+    }
+
+    public CompoundTag encodeTags() {
+        CompoundTag root = new CompoundTag();
+        ListTag list = new ListTag();
+
+        for (Map.Entry<Identifier, R> entry : this.registries.entrySet()) {
+            Identifier id = entry.getKey();
+            R recipe = entry.getValue();
+
+            CompoundTag wrapper = new CompoundTag();
+            wrapper.putString("id", id.toString());
+
+            CompoundTag data = encodeTag(recipe);
+            wrapper.put("data", data);
+
+            list.add(wrapper);
+        }
+
+        root.put("recipes", list);
+        return root;
+    }
+
+    public List<Pair<Identifier, R>> decodeTags(CompoundTag tag) {
+        List<Pair<Identifier, R>> result = new ArrayList<>();
+
+        if (!tag.contains("recipes")) {
+            return result;
+        }
+
+        Optional<ListTag> listOptional = tag.getList("recipes");
+        if (listOptional.isEmpty()) {
+            return result;
+        }
+        ListTag list = listOptional.get();
+        for (int i = 0; i < list.size(); i++) {
+            try {
+                CompoundTag wrapper = list.getCompoundOrEmpty(i);
+
+                String idStr = wrapper.getStringOr("id", "null");
+                if (idStr.equals("null")) {
+                    continue;
+                }
+                Identifier id = Identifier.tryParse(idStr);
+                if (id == null) {
+                    log.error("Invalid recipe id: {}", idStr);
+                    continue;
+                }
+
+                CompoundTag data = wrapper.getCompoundOrEmpty("data");
+                R recipe = decodeTag(data);
+
+                if (recipe != null) {
+                    result.add(Pair.of(id, recipe));
+                }
+            } catch (Exception e) {
+                log.error("Error: ",e);
+            }
+        }
+
+        return result;
+    }
+
+    public CompoundTag encodeTag(R recipe) {
+        Codec<R> codec = this.getCodec();
+
+        DataResult<Tag> result = codec.encodeStart(NbtOps.INSTANCE, recipe);
+
+        return result.resultOrPartial(error -> {
+            log.error("Failed to encode recipe: {}", error);
+        }).map(tag -> {
+            if (tag instanceof CompoundTag compound) {
+                return compound;
+            } else {
+                CompoundTag wrapper = new CompoundTag();
+                wrapper.put("data", tag);
+                return wrapper;
+            }
+        }).orElse(new CompoundTag());
+    }
+
+    public R decodeTag(CompoundTag tag) {
+        Codec<R> codec = this.getCodec();
+
+        DataResult<R> result = codec.parse(NbtOps.INSTANCE, tag);
+
+        return result.resultOrPartial(error -> {
+            log.error("Failed to decode recipe: {}", error);
+        }).orElse(null);
+    }
+
+    public JsonElement encodes() {
         JsonObject element = new JsonObject();
         Object2ObjectOpenHashMap<Identifier, R> registries = new Object2ObjectOpenHashMap<>(this.registries);
         Set<Map.Entry<Identifier, R>> entries = registries.entrySet();
@@ -134,7 +263,7 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
         return element;
     }
 
-    public List<BaseRecipe> decode(JsonElement element) {
+    public List<BaseRecipe> decodes(JsonElement element) {
         List<BaseRecipe> list = new LinkedList<>();
         Codec<R> codec = this.getCodec();
 
@@ -162,7 +291,7 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
             DataResult<R> parseResult = codec.parse(dynamic);
 
             parseResult.resultOrPartial(error -> {
-                log.error("Can't parse {} -> {}", key ,error);
+                log.error("Can't parse {} -> {}", key, error);
             }).ifPresent(r -> {
                 r.setId(id);
                 list.add(r);

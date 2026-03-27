@@ -13,10 +13,12 @@ import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.world.item.ItemStack;
 
 @Setter
 @Getter
+@ToString
 public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<DanmakuShape>, Translatable, BuiltinObject {
     public static final Codec<DanmakuShape> CODEC = UnitCodec.unit(DanmakuShape::new);
     private RegistryHandler<DanmakuShape> owner;

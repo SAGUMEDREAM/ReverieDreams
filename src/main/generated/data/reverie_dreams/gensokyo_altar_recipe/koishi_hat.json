@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:iron_helmet",
-    "count": 1
+    "id": "minecraft:iron_helmet"
   },
   "slots": [
     {
@@ -9,20 +8,17 @@
       "count": 2
     },
     {
-      "id": "minecraft:iron_ingot",
-      "count": 1
+      "id": "minecraft:iron_ingot"
     },
     {
       "id": "minecraft:black_dye",
       "count": 2
     },
     {
-      "id": "minecraft:iron_ingot",
-      "count": 1
+      "id": "minecraft:iron_ingot"
     },
     {
-      "id": "minecraft:iron_ingot",
-      "count": 1
+      "id": "minecraft:iron_ingot"
     },
     {
       "id": "minecraft:yellow_dye",
@@ -38,7 +34,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:koishi_hat",
-    "count": 1
+    "id": "reverie_dreams:koishi_hat"
   }
 }

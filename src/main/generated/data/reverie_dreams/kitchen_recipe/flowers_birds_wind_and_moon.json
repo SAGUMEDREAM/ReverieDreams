@@ -2,21 +2,17 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flowers",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flowers"
     },
     {
-      "id": "reverie_dreams:ingredient/moonflower",
-      "count": 1
+      "id": "reverie_dreams:ingredient/moonflower"
     },
     {
-      "id": "reverie_dreams:ingredient/cream",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cream"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/flowers_birds_wind_and_moon",
-    "count": 1
+    "id": "reverie_dreams:food/flowers_birds_wind_and_moon"
   },
   "cost_time": 9.0
 }

@@ -2,28 +2,22 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     },
     {
-      "id": "reverie_dreams:ingredient/white_radish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/white_radish"
     },
     {
-      "id": "reverie_dreams:ingredient/truffle",
-      "count": 1
+      "id": "reverie_dreams:ingredient/truffle"
     },
     {
-      "id": "minecraft:beef",
-      "count": 1
+      "id": "minecraft:beef"
     },
     {
-      "id": "reverie_dreams:ingredient/wagyu_beef",
-      "count": 1
+      "id": "reverie_dreams:ingredient/wagyu_beef"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/beef_hot_pot",
-    "count": 1
+    "id": "reverie_dreams:food/beef_hot_pot"
   }
 }

@@ -2,25 +2,20 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/ficus_microcarpa",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ficus_microcarpa"
     },
     {
-      "id": "reverie_dreams:ingredient/grape",
-      "count": 1
+      "id": "reverie_dreams:ingredient/grape"
     },
     {
-      "id": "reverie_dreams:ingredient/crab",
-      "count": 1
+      "id": "reverie_dreams:ingredient/crab"
     },
     {
-      "id": "reverie_dreams:ingredient/dew",
-      "count": 1
+      "id": "reverie_dreams:ingredient/dew"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/the_mars",
-    "count": 1
+    "id": "reverie_dreams:food/the_mars"
   },
   "cost_time": 24.0
 }

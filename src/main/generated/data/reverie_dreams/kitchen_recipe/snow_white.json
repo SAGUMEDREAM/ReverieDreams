@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:pufferfish",
-      "count": 1
+      "id": "minecraft:pufferfish"
     },
     {
-      "id": "reverie_dreams:ingredient/hagfish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/hagfish"
     },
     {
-      "id": "minecraft:kelp",
-      "count": 1
+      "id": "minecraft:kelp"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/snow_white",
-    "count": 1
+    "id": "reverie_dreams:food/snow_white"
   },
   "cost_time": 12.0
 }

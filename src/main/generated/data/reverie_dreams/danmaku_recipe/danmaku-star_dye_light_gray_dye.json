@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/star",
-        "count": 1
+        "id": "reverie_dreams:danmaku/star"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/star",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.star",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 7434609,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:2ebc28ea-cda9-4b5e-bfba-7e023aed013e"
+        "cooldown_group": "minecraft:b4980af1-99d5-3c5f-9afb-f58ba5450398"
       }
     }
   }

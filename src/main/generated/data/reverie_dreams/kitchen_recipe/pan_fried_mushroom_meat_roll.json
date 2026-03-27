@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     },
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     },
     {
-      "id": "reverie_dreams:ingredient/truffle",
-      "count": 1
+      "id": "reverie_dreams:ingredient/truffle"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/pan_fried_mushroom_meat_roll",
-    "count": 1
+    "id": "reverie_dreams:food/pan_fried_mushroom_meat_roll"
   },
   "cost_time": 9.0
 }

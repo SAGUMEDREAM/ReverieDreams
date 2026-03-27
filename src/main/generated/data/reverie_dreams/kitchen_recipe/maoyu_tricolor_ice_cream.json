@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/dew",
-      "count": 1
+      "id": "reverie_dreams:ingredient/dew"
     },
     {
-      "id": "reverie_dreams:ingredient/tofu",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tofu"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/maoyu_tricolor_ice_cream",
-    "count": 1
+    "id": "reverie_dreams:food/maoyu_tricolor_ice_cream"
   },
   "cost_time": 8.0
 }

@@ -2,13 +2,11 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/hagfish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/hagfish"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/grilled_hagfish",
-    "count": 1
+    "id": "reverie_dreams:food/grilled_hagfish"
   },
   "cost_time": 7.0
 }

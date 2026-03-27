@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tofu",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tofu"
     },
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     },
     {
-      "id": "minecraft:beef",
-      "count": 1
+      "id": "minecraft:beef"
     },
     {
-      "id": "reverie_dreams:ingredient/onion",
-      "count": 1
+      "id": "reverie_dreams:ingredient/onion"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/maoyu_lava_tofu",
-    "count": 1
+    "id": "reverie_dreams:food/maoyu_lava_tofu"
   },
   "cost_time": 8.0
 }

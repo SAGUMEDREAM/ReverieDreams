@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     },
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     },
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     },
     {
-      "id": "reverie_dreams:ingredient/cheese",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cheese"
     },
     {
-      "id": "minecraft:beef",
-      "count": 1
+      "id": "minecraft:beef"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/hell_thrill_warning",
-    "count": 1
+    "id": "reverie_dreams:food/hell_thrill_warning"
   },
   "cost_time": 12.0
 }

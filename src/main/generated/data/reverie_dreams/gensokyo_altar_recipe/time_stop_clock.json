@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:clock",
-    "count": 1
+    "id": "minecraft:clock"
   },
   "slots": [
     {
@@ -38,7 +37,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:time_stop_clock",
-    "count": 1
+    "id": "reverie_dreams:time_stop_clock"
   }
 }

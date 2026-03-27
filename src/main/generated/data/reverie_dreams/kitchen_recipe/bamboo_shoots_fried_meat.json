@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/bamboo_shoots",
-      "count": 1
+      "id": "reverie_dreams:ingredient/bamboo_shoots"
     },
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/bamboo_shoots_fried_meat",
-    "count": 1
+    "id": "reverie_dreams:food/bamboo_shoots_fried_meat"
   },
   "cost_time": 10.0
 }

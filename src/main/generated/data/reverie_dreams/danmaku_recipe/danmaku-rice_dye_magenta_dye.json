@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/rice",
-        "count": 1
+        "id": "reverie_dreams:danmaku/rice"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/rice",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.rice",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 15082670,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:611b5c97-6619-47da-8bef-5ed7b5a6816c"
+        "cooldown_group": "minecraft:761ce1e8-220d-304a-b44d-9c0549b9b50a"
       }
     }
   }

@@ -233,7 +233,7 @@ public class RDLootModifies {
                     RDItems.COPPER_COIN
             );
             int dropChance = 45;
-            int maxDropCount = 3;
+            int maxDropCount = 5;
             if (random.nextInt(100) < dropChance) {
                 entity.spawnAtLocation(serverWorld, new ItemStack(itemPool.get(random.nextIntBetweenInclusive(0, itemPool.size() - 1)), random.nextInt(maxDropCount + 1) + 1));
             }

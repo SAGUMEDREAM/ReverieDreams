@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tofu",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tofu"
     },
     {
-      "id": "reverie_dreams:ingredient/butter",
-      "count": 1
+      "id": "reverie_dreams:ingredient/butter"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     },
     {
-      "id": "reverie_dreams:ingredient/onion",
-      "count": 1
+      "id": "reverie_dreams:ingredient/onion"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/unconscious_monster_mousse",
-    "count": 1
+    "id": "reverie_dreams:food/unconscious_monster_mousse"
   },
   "cost_time": 8.0
 }

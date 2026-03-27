@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sticky_rice",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sticky_rice"
     },
     {
-      "id": "reverie_dreams:ingredient/sticky_rice",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sticky_rice"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/skinny_horse_dumpling",
-    "count": 1
+    "id": "reverie_dreams:food/skinny_horse_dumpling"
   },
   "cost_time": 9.0
 }

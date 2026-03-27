@@ -2,25 +2,20 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/udumbara",
-      "count": 1
+      "id": "reverie_dreams:ingredient/udumbara"
     },
     {
-      "id": "reverie_dreams:ingredient/cream",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cream"
     },
     {
-      "id": "reverie_dreams:ingredient/grape",
-      "count": 1
+      "id": "reverie_dreams:ingredient/grape"
     },
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/a_little_sweet_poison",
-    "count": 1
+    "id": "reverie_dreams:food/a_little_sweet_poison"
   },
   "cost_time": 10.0
 }

@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     },
     {
-      "id": "reverie_dreams:ingredient/onion",
-      "count": 1
+      "id": "reverie_dreams:ingredient/onion"
     },
     {
-      "id": "reverie_dreams:ingredient/broccoli",
-      "count": 1
+      "id": "reverie_dreams:ingredient/broccoli"
     },
     {
-      "id": "reverie_dreams:ingredient/wild_boar_meat",
-      "count": 1
+      "id": "reverie_dreams:ingredient/wild_boar_meat"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/cat_pizza",
-    "count": 1
+    "id": "reverie_dreams:food/cat_pizza"
   },
   "cost_time": 10.0
 }

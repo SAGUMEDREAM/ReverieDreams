@@ -2,13 +2,11 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/fried_pork_cutlet",
-    "count": 1
+    "id": "reverie_dreams:food/fried_pork_cutlet"
   },
   "cost_time": 7.0
 }

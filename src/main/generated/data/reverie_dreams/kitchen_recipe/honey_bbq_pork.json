@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/honey_bbq_pork",
-    "count": 1
+    "id": "reverie_dreams:food/honey_bbq_pork"
   },
   "cost_time": 7.0
 }

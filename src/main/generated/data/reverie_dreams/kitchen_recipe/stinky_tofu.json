@@ -2,16 +2,13 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tofu",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tofu"
     },
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/stinky_tofu",
-    "count": 1
+    "id": "reverie_dreams:food/stinky_tofu"
   }
 }

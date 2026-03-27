@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:iron_sword",
-    "count": 1
+    "id": "minecraft:iron_sword"
   },
   "slots": [
     {
@@ -21,14 +20,16 @@
       "count": 7
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:air",
+      "count": 0
     },
     {
       "id": "minecraft:stripped_cherry_log",
       "count": 4
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:air",
+      "count": 0
     },
     {
       "id": "reverie_dreams:speed_feather",
@@ -36,7 +37,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:hakuroken",
-    "count": 1
+    "id": "reverie_dreams:hakuroken"
   }
 }

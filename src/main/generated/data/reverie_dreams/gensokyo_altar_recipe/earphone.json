@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:iron_helmet",
-    "count": 1
+    "id": "minecraft:iron_helmet"
   },
   "slots": [
     {
@@ -25,18 +24,19 @@
       "count": 9
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:air",
+      "count": 0
     },
     {
       "id": "minecraft:redstone",
       "count": 18
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:air",
+      "count": 0
     }
   ],
   "output": {
-    "id": "reverie_dreams:earphone",
-    "count": 1
+    "id": "reverie_dreams:earphone"
   }
 }

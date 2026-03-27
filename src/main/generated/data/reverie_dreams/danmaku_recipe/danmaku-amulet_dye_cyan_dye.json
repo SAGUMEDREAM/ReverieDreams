@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/amulet",
-        "count": 1
+        "id": "reverie_dreams:danmaku/amulet"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/amulet",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.amulet",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 1099519,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:a4da9975-8747-44a6-97c2-5f8ad5897d8a"
+        "cooldown_group": "minecraft:eec7d11f-ec35-3f81-be8d-9b2637605fe4"
       }
     }
   }

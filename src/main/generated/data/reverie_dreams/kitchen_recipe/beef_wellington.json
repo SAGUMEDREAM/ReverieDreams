@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/wagyu_beef",
-      "count": 1
+      "id": "reverie_dreams:ingredient/wagyu_beef"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "reverie_dreams:ingredient/butter",
-      "count": 1
+      "id": "reverie_dreams:ingredient/butter"
     },
     {
-      "id": "reverie_dreams:ingredient/truffle",
-      "count": 1
+      "id": "reverie_dreams:ingredient/truffle"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/beef_wellington",
-    "count": 1
+    "id": "reverie_dreams:food/beef_wellington"
   },
   "cost_time": 14.0
 }

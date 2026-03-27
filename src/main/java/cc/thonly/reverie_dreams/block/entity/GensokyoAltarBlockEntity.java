@@ -17,7 +17,7 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
     public int tick = 0;
 
     public GensokyoAltarBlockEntity(BlockPos pos, BlockState state) {
-        super(RDBlockEntityTypes.GENSOKYO_ALTAR_BLOCK_ENTITY, pos, state);
+        super(RDBlockEntityTypes.GENSOKYO_ALTAR, pos, state);
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, GensokyoAltarBlockEntity blockEntity) {

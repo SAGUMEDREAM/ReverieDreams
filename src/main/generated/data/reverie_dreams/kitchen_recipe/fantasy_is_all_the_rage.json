@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/onion",
-      "count": 1
+      "id": "reverie_dreams:ingredient/onion"
     },
     {
-      "id": "reverie_dreams:ingredient/wild_boar_meat",
-      "count": 1
+      "id": "reverie_dreams:ingredient/wild_boar_meat"
     },
     {
-      "id": "minecraft:beef",
-      "count": 1
+      "id": "minecraft:beef"
     },
     {
-      "id": "reverie_dreams:ingredient/truffle",
-      "count": 1
+      "id": "reverie_dreams:ingredient/truffle"
     },
     {
-      "id": "reverie_dreams:ingredient/tomato",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tomato"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/fantasy_is_all_the_rage",
-    "count": 1
+    "id": "reverie_dreams:food/fantasy_is_all_the_rage"
   },
   "cost_time": 18.0
 }

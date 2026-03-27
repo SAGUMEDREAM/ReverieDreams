@@ -18,8 +18,10 @@ import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ReferenceLinkedOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,12 +35,15 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.UseCooldown;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Setter
 @Getter
+@ToString
 public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, Translatable, BuiltinObject {
     public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
@@ -126,6 +131,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     public void createItemEntry() {
         DanmakuItem item = new DanmakuItem(this.createItemSettings()
                 .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
+                .component(DataComponents.TOOLTIP_DISPLAY, new TooltipDisplay(false, new ReferenceLinkedOpenHashSet<>(List.of(DataComponents.DYED_COLOR))))
                 .repairable(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM)
                 .durability(120)
         );
@@ -134,6 +140,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         Registry.register(BuiltInRegistries.ITEM, this.getItemId(), this.item);
     }
 
+    @SuppressWarnings("deprecation")
     public List<Tuple<Item, ItemStack>> getColorPairs() {
         List<Tuple<Item, ItemStack>> pairList = new LinkedList<>();
         ItemStack defaultStack = this.item.getDefaultInstance();
@@ -144,9 +151,11 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
             Component hoverName = stack.getHoverName();
             Style style = hoverName.getStyle().withColor(brighten(color, 1.25f));
             Component colored = hoverName.copy().setStyle(style);
+            String gid = "%s_%s_%s".formatted(stack.getItem().builtInRegistryHolder().key().identifier(), dyeItem.builtInRegistryHolder().key().identifier(), color);
+            UUID uuid = UUID.nameUUIDFromBytes(gid.getBytes(StandardCharsets.UTF_8));
             stack.set(DataComponents.ITEM_NAME, colored);
             stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
-            stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
+            stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(uuid.toString()))));
             pairList.add(new Tuple<>(dyeItem, stack));
         }
         return pairList;
@@ -157,9 +166,9 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         int g = (color >> 8) & 0xFF;
         int b = color & 0xFF;
 
-        r = Math.min(255, (int)(r * factor));
-        g = Math.min(255, (int)(g * factor));
-        b = Math.min(255, (int)(b * factor));
+        r = Math.min(255, (int) (r * factor));
+        g = Math.min(255, (int) (g * factor));
+        b = Math.min(255, (int) (b * factor));
 
         return (r << 16) | (g << 8) | b;
     }

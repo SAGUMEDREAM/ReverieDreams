@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "reverie_dreams:ingredient/bamboo_shoots",
-      "count": 1
+      "id": "reverie_dreams:ingredient/bamboo_shoots"
     },
     {
-      "id": "reverie_dreams:ingredient/butter",
-      "count": 1
+      "id": "reverie_dreams:ingredient/butter"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/eggs_benedict",
-    "count": 1
+    "id": "reverie_dreams:food/eggs_benedict"
   },
   "cost_time": 7.0
 }

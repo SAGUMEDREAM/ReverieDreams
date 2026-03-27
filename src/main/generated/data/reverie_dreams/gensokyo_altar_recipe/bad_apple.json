@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:golden_apple",
-    "count": 1
+    "id": "minecraft:golden_apple"
   },
   "slots": [
     {
@@ -38,7 +37,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:bad_apple",
-    "count": 1
+    "id": "reverie_dreams:bad_apple"
   }
 }

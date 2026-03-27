@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tofu",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tofu"
     },
     {
-      "id": "reverie_dreams:ingredient/cicada_shell",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cicada_shell"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/deep_fried_cicada_shells",
-    "count": 1
+    "id": "reverie_dreams:food/deep_fried_cicada_shells"
   },
   "cost_time": 7.0
 }

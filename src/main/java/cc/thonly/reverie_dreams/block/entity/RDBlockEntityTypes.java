@@ -16,17 +16,17 @@ import java.util.List;
 
 public class RDBlockEntityTypes {
 
-    public static final BlockEntityType<DanmakuCraftingTableBlockEntity> DANMAKU_CRAFTING_TABLE_BLOCK_ENTITY =
+    public static final BlockEntityType<DanmakuCraftingTableBlockEntity> DANMAKU_CRAFTING_TABLE =
             registerBlockEntity("danmaku_crafting_table", DanmakuCraftingTableBlockEntity::new, RDBlocks.DANMAKU_CRAFTING_TABLE);
-    public static final BlockEntityType<StrengthenTableBlockEntity> STRENGTH_TABLE_BLOCK_ENTITY =
+    public static final BlockEntityType<StrengthenTableBlockEntity> STRENGTH_TABLE =
             registerBlockEntity("strength_table", StrengthenTableBlockEntity::new, RDBlocks.STRENGTH_TABLE);
-    public static final BlockEntityType<GensokyoAltarBlockEntity> GENSOKYO_ALTAR_BLOCK_ENTITY =
+    public static final BlockEntityType<GensokyoAltarBlockEntity> GENSOKYO_ALTAR =
             registerBlockEntity("gensokyo_altar", GensokyoAltarBlockEntity::new, RDBlocks.GENSOKYO_ALTAR);
-    public static final BlockEntityType<MusicBlockEntity> MUSIC_BLOCK_ENTITY =
+    public static final BlockEntityType<MusicBlockEntity> MUSIC_BLOCK =
             registerBlockEntity("music_block", MusicBlockEntity::new, RDBlocks.MUSIC_BLOCK);
-    public static final BlockEntityType<CustomChestBlockEntity> CUSTOM_CHEST_BLOCK_ENTITY =
+    public static final BlockEntityType<CustomChestBlockEntity> CUSTOM_CHEST =
             registerBlockEntity("custom_chest_block", CustomChestBlockEntity::new, RDBlocks.CASH_BOX_BLOCK);
-    public static final BlockEntityType<KitchenwareBlockEntity> KITCHENWARE_BLOCK_ENTITY =
+    public static final BlockEntityType<KitchenwareBlockEntity> KITCHENWARE_BLOCK =
             registerBlockEntity("kitchen_block",
                     KitchenwareBlockEntity::new,
                     List.of(
@@ -37,7 +37,7 @@ public class RDBlockEntityTypes {
                             KitchenBlocks.NUKE_COOKING_POT, KitchenBlocks.NUKE_CUTTING_BOARD, KitchenBlocks.NUKE_FRYING_PAN, KitchenBlocks.NUKE_GRILL, KitchenBlocks.NUKE_STEAMER
                     ).toArray(new Block[0])
             );
-    public static final BlockEntityType<FoodDisplayBlockEntity> ITEM_DISPLAY_BLOCK_ENTITY =
+    public static final BlockEntityType<FoodDisplayBlockEntity> FOOD_DISPLAY =
             registerBlockEntity("base_display",
                     FoodDisplayBlockEntity::new,
                     RDBlocks.ITEM_DISPLAY

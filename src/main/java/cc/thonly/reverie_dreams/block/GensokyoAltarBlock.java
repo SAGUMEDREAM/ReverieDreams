@@ -6,7 +6,6 @@ import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
-import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
@@ -153,7 +152,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, RDBlockEntityTypes.GENSOKYO_ALTAR_BLOCK_ENTITY, GensokyoAltarBlockEntity::tick);
+        return createTickerHelper(type, RDBlockEntityTypes.GENSOKYO_ALTAR, GensokyoAltarBlockEntity::tick);
     }
 
     @Override

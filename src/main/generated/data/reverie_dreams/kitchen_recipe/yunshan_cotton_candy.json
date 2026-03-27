@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     },
     {
-      "id": "reverie_dreams:ingredient/peach",
-      "count": 1
+      "id": "reverie_dreams:ingredient/peach"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/yunshan_cotton_candy",
-    "count": 1
+    "id": "reverie_dreams:food/yunshan_cotton_candy"
   },
   "cost_time": 8.0
 }

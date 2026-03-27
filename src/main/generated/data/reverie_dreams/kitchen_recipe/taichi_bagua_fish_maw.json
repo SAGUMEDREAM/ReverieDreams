@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/supreme_tuna",
-      "count": 1
+      "id": "reverie_dreams:ingredient/supreme_tuna"
     },
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     },
     {
-      "id": "reverie_dreams:ingredient/white_radish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/white_radish"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/taichi_bagua_fish_maw",
-    "count": 1
+    "id": "reverie_dreams:food/taichi_bagua_fish_maw"
   },
   "cost_time": 14.0
 }

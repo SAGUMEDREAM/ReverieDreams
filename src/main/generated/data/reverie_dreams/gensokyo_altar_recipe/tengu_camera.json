@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:iron_block",
-    "count": 1
+    "id": "minecraft:iron_block"
   },
   "slots": [
     {
@@ -38,7 +37,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:tengu_camera",
-    "count": 1
+    "id": "reverie_dreams:tengu_camera"
   }
 }

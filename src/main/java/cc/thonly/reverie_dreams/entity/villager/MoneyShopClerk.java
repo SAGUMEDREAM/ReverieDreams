@@ -9,13 +9,14 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import java.util.Optional;
 
 public class MoneyShopClerk {
-    private static final float PRICE_MULTIPLIER = 0.15f;
-    public static final int COPPER_PER_SILVER = 10;
-    public static final int SILVER_PER_GOLD = 20;
+    private static final float PRICE_MULTIPLIER = 0.13f;
+    public static final int COPPER_PER_SILVER = 5;
+    public static final int SILVER_PER_GOLD = 10;
 
     public static int toCopper(int gold, int silver, int copper) {
         return gold * SILVER_PER_GOLD * COPPER_PER_SILVER + silver * COPPER_PER_SILVER + copper;
     }
+
     public static void registers() {
         // 等级 1：铜 <-> 银
         TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.MONEY_SHOP_CLERK, 1, factories -> {

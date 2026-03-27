@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tomato",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tomato"
     },
     {
-      "id": "minecraft:potato",
-      "count": 1
+      "id": "minecraft:potato"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/fried_tomato_strips",
-    "count": 1
+    "id": "reverie_dreams:food/fried_tomato_strips"
   },
   "cost_time": 6.0
 }

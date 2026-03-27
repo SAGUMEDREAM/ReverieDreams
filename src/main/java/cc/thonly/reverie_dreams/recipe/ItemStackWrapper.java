@@ -11,12 +11,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -31,23 +34,26 @@ import java.util.function.Supplier;
 @ToString
 public class ItemStackWrapper {
     public static final Gson GSON = new Gson();
-    public static final Codec<Item> ITEM_CODEC_ALLOWING_AIR = Codec.STRING.xmap(
+    public static final ItemStackWrapper EMPTY = new ItemStackWrapper(ItemStack.EMPTY);
+    public static final ItemStackWrapper ERROR = new ItemStackWrapper(createErrorItem());
+    public static final Codec<Item> ITEM_CODEC = Codec.STRING.xmap(
             id -> {
                 Identifier identifier = Identifier.tryParse(id);
                 if (identifier == null) {
                     return Items.AIR;
                 }
-                Item item = BuiltInRegistries.ITEM.getValue(identifier);
-                if (item == null) {
-                    return Items.AIR;
-                }
-                return item;
+                return BuiltInRegistries.ITEM.getValue(identifier);
             },
             item -> BuiltInRegistries.ITEM.getKey(item).toString()
     );
+    public static final Codec<TagKey<Item>> TAG_KEY_CODEC =
+            Identifier.CODEC.xmap(
+                    id -> TagKey.create(Registries.ITEM, id),
+                    TagKey::location
+            );
     public static final Codec<ItemStack> FLEXIBLE_ITEMSTACK_CODEC = Codec.lazyInitialized(() ->
             RecordCodecBuilder.create(instance -> instance.group(
-                    ITEM_CODEC_ALLOWING_AIR.fieldOf("id").forGetter(ItemStack::getItem),
+                    ITEM_CODEC.fieldOf("id").forGetter(ItemStack::getItem),
                     Codec.INT.optionalFieldOf("count", 0).forGetter(ItemStack::getCount),
                     DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY)
                             .forGetter(stack -> stack.components.asPatch())
@@ -57,26 +63,59 @@ public class ItemStackWrapper {
                 return stack;
             }))
     );
-    public static final Codec<List<ItemStack>> LIST_CODEC = ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC.listOf();
+    public static final Codec<ItemStackWrapper> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ITEM_CODEC.fieldOf("id").forGetter(w -> w.itemStack.getItem()),
+            Codec.INT.optionalFieldOf("count", 1).forGetter(w -> w.itemStack.getCount()),
+            DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY)
+                    .forGetter(w -> w.itemStack.components.asPatch()),
+            TAG_KEY_CODEC.listOf()
+                    .optionalFieldOf("tags", new ArrayList<>())
+                    .forGetter(ItemStackWrapper::getTags)
+    ).apply(instance, (item, count, components, tags) -> {
+        ItemStack stack = new ItemStack(item, count);
+        stack.components.restorePatch(components);
 
-    public static final ItemStackWrapper EMPTY = new ItemStackWrapper(ItemStack.EMPTY);
-    public static final ItemStackWrapper ERROR = new ItemStackWrapper(createErrorItem());
-    public static final Codec<ItemStackWrapper> CODEC =
-            FLEXIBLE_ITEMSTACK_CODEC
-                    .xmap(ItemStackWrapper::new, ItemStackWrapper::getItemStack)
-                    .orElse(EMPTY);
+        return new ItemStackWrapper(stack, tags);
+    }));
+    public static final Codec<List<ItemStackWrapper>> LIST_CODEC = CODEC.listOf();
+    public static final Codec<List<ItemStack>> ITEM_STACK_LIST_CODEC = ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC.listOf();
 
     private final ItemStack itemStack;
+    private final List<TagKey<Item>> tags;
 
     public ItemStackWrapper(ItemStack itemStack) {
         if (itemStack == null) {
             itemStack = ItemStack.EMPTY;
         }
         this.itemStack = itemStack;
+        this.tags = new ArrayList<>();
+    }
+
+    public ItemStackWrapper(ItemStack itemStack, TagKey<Item> tags) {
+        this(itemStack, List.of(tags));
+    }
+
+    public ItemStackWrapper(ItemStack itemStack, List<TagKey<Item>> tags) {
+        if (itemStack == null) {
+            itemStack = ItemStack.EMPTY;
+        }
+        this.itemStack = itemStack;
+        this.tags = new ArrayList<>(tags);
+    }
+
+    @SuppressWarnings("deprecation")
+    private List<TagKey<Item>> getTagKeys(ItemStack itemStack) {
+        Item item = itemStack.getItem();
+        Holder.Reference<Item> itemReference = item.builtInRegistryHolder();
+        Set<TagKey<Item>> tagKeySet = itemReference.tags;
+        if (tagKeySet == null) {
+            return new ArrayList<>();
+        }
+        return tagKeySet.stream().toList();
     }
 
     public boolean isEmpty() {
-        return this == EMPTY || this.itemStack.isEmpty();
+        return (Objects.equals(this, EMPTY) || this.itemStack.isEmpty()) && this.tags.isEmpty();
     }
 
     public static ItemStackWrapper empty() {
@@ -91,16 +130,45 @@ public class ItemStackWrapper {
         return new ItemStackWrapper(itemStack);
     }
 
+    public static ItemStackWrapper of(ItemStack itemStack, List<TagKey<Item>> tagKey) {
+        return new ItemStackWrapper(itemStack, tagKey);
+    }
+
     public static ItemStackWrapper of(Item item) {
         return of(new ItemStack(item));
+    }
+
+    public static ItemStackWrapper of(Item item, List<TagKey<Item>> tagKey) {
+        return of(new ItemStack(item), tagKey);
     }
 
     public static ItemStackWrapper of(Item item, int amount) {
         return of(new ItemStack(item, amount));
     }
 
+    public static ItemStackWrapper of(Item item, int amount, List<TagKey<Item>> tagKey) {
+        return of(new ItemStack(item, amount), tagKey);
+    }
+
     public static ItemStackWrapper of(Item item, int amount, DataComponentPatch components) {
         return of(new ItemStack(BuiltInRegistries.ITEM.wrapAsHolder(item), amount, components));
+    }
+
+    @SafeVarargs
+    public static ItemStackWrapper of(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
+        return of(new ItemStack(BuiltInRegistries.ITEM.wrapAsHolder(item), amount, components), Arrays.stream(tagKey).toList());
+    }
+
+    public static ItemStackWrapper of(TagKey<Item> tagKey) {
+        return new ItemStackWrapper(ItemStack.EMPTY, tagKey);
+    }
+
+    public static ItemStackWrapper of(ItemStack itemStack, TagKey<Item> tagKey) {
+        return new ItemStackWrapper(itemStack, tagKey);
+    }
+
+    public static ItemStackWrapper of(Item item, TagKey<Item> tagKey) {
+        return new ItemStackWrapper(item.getDefaultInstance(), tagKey);
     }
 
     public static ItemStack createErrorItem() {
@@ -137,7 +205,7 @@ public class ItemStackWrapper {
 
     @Override
     public ItemStackWrapper clone() {
-        return new ItemStackWrapper(this.itemStack.copy());
+        return new ItemStackWrapper(this.itemStack.copy(), this.tags);
     }
 
     public Item getItem() {
@@ -148,22 +216,40 @@ public class ItemStackWrapper {
         return this.itemStack.getCount();
     }
 
+    @SuppressWarnings("deprecation")
     public Boolean test(ItemStack other) {
-        return ItemStack.matches(this.itemStack, other);
+        if (ItemStack.matches(this.itemStack, other)) {
+            return true;
+        }
+
+        for (TagKey<Item> tag : this.tags) {
+            Holder.Reference<Item> itemReference = other.getItem().builtInRegistryHolder();
+            Set<TagKey<Item>> tags = itemReference.tags;
+            if (tags == null) {
+                continue;
+            }
+            if (tags.contains(tag)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Boolean greaterThan(ItemStack other) {
-        if (this.itemStack == other) {
-            return true;
-        }
-        if (this.itemStack.isEmpty()) {
-            return true;
-        }
-        if (this.itemStack.getItem() != other.getItem()) {
+        if (other == null || other.isEmpty()) {
             return false;
         }
 
-        return ItemStack.isSameItemSameComponents(this.itemStack, other) && (other.getCount() >= this.itemStack.getCount());
+        if (this.itemStack.isEmpty() && this.tags.isEmpty()) {
+            return true;
+        }
+
+        if (!this.test(other)) {
+            return false;
+        }
+
+        return other.getCount() >= this.itemStack.getCount();
     }
 
     public static ItemStackWrapper findEquivalentKey(Map<ItemStackWrapper, ?> map, ItemStackWrapper key) {
@@ -177,26 +263,48 @@ public class ItemStackWrapper {
 
 
     public boolean matchesAndSufficient(ItemStack other) {
-        if (other == null) return false;
-        if (!other.is(itemStack.getItem())) return false;
-        if (!Objects.equals(other.components, itemStack.components)) return false;
-        return other.getCount() >= itemStack.getCount();
+        return this.greaterThan(other);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof ItemStackWrapper other)) return false;
-        return ItemStack.matches(this.itemStack, other.itemStack);
+
+        return ItemStack.matches(this.itemStack, other.itemStack)
+                && Objects.equals(this.tags, other.tags);
+    }
+
+    public boolean matches(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof ItemStackWrapper other)) {
+            return false;
+        }
+        if (ItemStack.matches(this.itemStack, other.itemStack)) {
+            return true;
+        }
+        for (TagKey<Item> tagA : other.tags) {
+            for (TagKey<Item> tagB : this.tags) {
+                if (Objects.equals(tagA, tagB)) {
+                    if (Objects.equals(this.itemStack.components, other.itemStack.components)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + Item.getId(itemStack.getItem());
-        result = 31 * result + (itemStack.getComponents() != null ? itemStack.getComponents().hashCode() : 0);
-        result = 31 * result + itemStack.getCount();
-        return result;
+        return Objects.hash(
+                this.itemStack.getItem(),
+                this.itemStack.getComponents(),
+                this.itemStack.getCount(),
+                this.tags
+        );
     }
 
     public ItemStack getOrThrow() {

@@ -2,21 +2,17 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/cheese",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cheese"
     },
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     },
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/depressed_cheese_sticks",
-    "count": 1
+    "id": "reverie_dreams:food/depressed_cheese_sticks"
   },
   "cost_time": 6.0
 }

@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/peach",
-      "count": 1
+      "id": "reverie_dreams:ingredient/peach"
     },
     {
-      "id": "reverie_dreams:magic_ice",
-      "count": 1
+      "id": "reverie_dreams:magic_ice"
     },
     {
-      "id": "reverie_dreams:ingredient/shrimp",
-      "count": 1
+      "id": "reverie_dreams:ingredient/shrimp"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/arctic_sweet_shrimp_and_peach_salad",
-    "count": 1
+    "id": "reverie_dreams:food/arctic_sweet_shrimp_and_peach_salad"
   },
   "cost_time": 10.0
 }

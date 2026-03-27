@@ -2,21 +2,17 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/bamboo_shoots",
-      "count": 1
+      "id": "reverie_dreams:ingredient/bamboo_shoots"
     },
     {
-      "id": "reverie_dreams:ingredient/dew",
-      "count": 1
+      "id": "reverie_dreams:ingredient/dew"
     },
     {
-      "id": "reverie_dreams:ingredient/black_pork",
-      "count": 1
+      "id": "reverie_dreams:ingredient/black_pork"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/bamboo_tube_steamed_pork",
-    "count": 1
+    "id": "reverie_dreams:food/bamboo_tube_steamed_pork"
   },
   "cost_time": 9.0
 }

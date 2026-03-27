@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:honey_bottle",
-    "count": 1
+    "id": "minecraft:honey_bottle"
   },
   "slots": [
     {
@@ -13,8 +12,7 @@
       "count": 5
     },
     {
-      "id": "minecraft:sugar",
-      "count": 1
+      "id": "minecraft:sugar"
     },
     {
       "id": "minecraft:redstone",
@@ -38,7 +36,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:ibukiho",
-    "count": 1
+    "id": "reverie_dreams:ibukiho"
   }
 }

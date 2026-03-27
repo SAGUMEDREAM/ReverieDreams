@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/red_beans",
-      "count": 1
+      "id": "reverie_dreams:ingredient/red_beans"
     },
     {
-      "id": "reverie_dreams:ingredient/sticky_rice",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sticky_rice"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/red_bean_daifuku",
-    "count": 1
+    "id": "reverie_dreams:food/red_bean_daifuku"
   },
   "cost_time": 7.0
 }

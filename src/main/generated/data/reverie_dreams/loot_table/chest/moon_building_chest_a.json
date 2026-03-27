@@ -6,27 +6,102 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:golden_apple"
+          "name": "minecraft:bread",
+          "weight": 15
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_ingot"
+          "name": "minecraft:paper",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:paper"
+          "name": "reverie_dreams:silver_ingot",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:silver_coin"
+          "name": "reverie_dreams:silver_coin",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:silver_ingot"
+          "name": "reverie_dreams:copper_coin",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:copper_coin"
+          "name": "minecraft:gold_ingot",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_apple",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 39.0,
+                "min": 20.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "reverie_dreams:silver_boots",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 39.0,
+                "min": 20.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "reverie_dreams:silver_chestplate",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 39.0,
+                "min": 20.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "reverie_dreams:silver_leggings",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 39.0,
+                "min": 20.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "reverie_dreams:silver_helmet",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -34,49 +109,20 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:writable_book"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:silver_sword"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bread"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moonlight_dumplings"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moonlight_over_lotus_pond"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moon_cake"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moon_lovers"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bamboo"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bamboo_block"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:moon_stone"
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 10
         }
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 10.0,
-        "min": 7.0
+        "max": 8.0,
+        "min": 5.0
       }
     }
   ]

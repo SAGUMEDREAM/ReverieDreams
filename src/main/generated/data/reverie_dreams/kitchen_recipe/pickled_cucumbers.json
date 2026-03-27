@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/cucumber",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cucumber"
     },
     {
-      "id": "reverie_dreams:ingredient/black_salt",
-      "count": 1
+      "id": "reverie_dreams:ingredient/black_salt"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/pickled_cucumbers",
-    "count": 1
+    "id": "reverie_dreams:food/pickled_cucumbers"
   },
   "cost_time": 6.0
 }

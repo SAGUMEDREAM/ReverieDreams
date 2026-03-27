@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sweet_potato",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sweet_potato"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/candied_sweet_potato",
-    "count": 1
+    "id": "reverie_dreams:food/candied_sweet_potato"
   },
   "cost_time": 6.0
 }

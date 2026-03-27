@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:iron_sword",
-    "count": 1
+    "id": "minecraft:iron_sword"
   },
   "slots": [
     {
@@ -9,8 +8,7 @@
       "count": 16
     },
     {
-      "id": "minecraft:netherite_ingot",
-      "count": 1
+      "id": "minecraft:netherite_ingot"
     },
     {
       "id": "minecraft:white_wool",
@@ -25,8 +23,7 @@
       "count": 4
     },
     {
-      "id": "minecraft:flint",
-      "count": 1
+      "id": "minecraft:flint"
     },
     {
       "id": "minecraft:bamboo",
@@ -38,7 +35,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:yuka_flower_umbrella",
-    "count": 1
+    "id": "reverie_dreams:yuka_flower_umbrella"
   }
 }

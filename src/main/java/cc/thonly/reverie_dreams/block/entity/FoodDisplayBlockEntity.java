@@ -27,7 +27,7 @@ public class FoodDisplayBlockEntity extends BlockEntity {
     private double yaw = 0.0;
 
     public FoodDisplayBlockEntity(BlockPos pos, BlockState state) {
-        super(RDBlockEntityTypes.ITEM_DISPLAY_BLOCK_ENTITY, pos, state);
+        super(RDBlockEntityTypes.FOOD_DISPLAY, pos, state);
     }
 
     public void update() {

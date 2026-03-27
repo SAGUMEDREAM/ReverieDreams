@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:cocoa_beans",
-      "count": 1
+      "id": "minecraft:cocoa_beans"
     },
     {
-      "id": "reverie_dreams:ingredient/peach",
-      "count": 1
+      "id": "reverie_dreams:ingredient/peach"
     },
     {
-      "id": "reverie_dreams:ingredient/peach",
-      "count": 1
+      "id": "reverie_dreams:ingredient/peach"
     },
     {
-      "id": "reverie_dreams:ingredient/peach",
-      "count": 1
+      "id": "reverie_dreams:ingredient/peach"
     },
     {
-      "id": "reverie_dreams:ingredient/peach",
-      "count": 1
+      "id": "reverie_dreams:ingredient/peach"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/longyin_peach",
-    "count": 1
+    "id": "reverie_dreams:food/longyin_peach"
   },
   "cost_time": 18.0
 }

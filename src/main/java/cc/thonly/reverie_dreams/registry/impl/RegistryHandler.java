@@ -10,6 +10,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.util.Util;
 import net.minecraft.core.*;
@@ -181,6 +182,7 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
         this.builtins.put(id, value);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Holder.Reference<T> register(ResourceKey<T> key, T value, RegistrationInfo info) {
         Identifier id = key.identifier();
@@ -195,7 +197,6 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
             this.builtins.put(id, value);
         }
         if (value instanceof OwnerBinding<?>) {
-            //noinspection unchecked
             OwnerBinding<T> ownerBinding = (OwnerBinding<T>) value;
             ownerBinding.setOwner(this);
         }
@@ -457,5 +458,16 @@ public class RegistryHandler<T> implements WritableRegistry<T> {
     @Override
     public Optional<HolderSet.Named<T>> get(TagKey<T> tag) {
         return Optional.ofNullable(this.tags.get(tag));
+    }
+
+    @Override
+    public String toString() {
+        return "RegistryHandler{" +
+                "key=" + this.key +
+                ", lifecycle=" + this.lifecycle +
+                ", reloadable=" + this.reloadable +
+                ", size=" + this.keys().size() +
+                ", codec=" + this.codec +
+                '}';
     }
 }

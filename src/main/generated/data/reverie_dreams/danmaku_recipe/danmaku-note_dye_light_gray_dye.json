@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/note",
-        "count": 1
+        "id": "reverie_dreams:danmaku/note"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/note",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.note",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 7434609,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:5a14a5ea-234e-4287-a826-0b54c729a43f"
+        "cooldown_group": "minecraft:dea5b177-c07d-393e-8bb0-3e4a1faa1891"
       }
     }
   }

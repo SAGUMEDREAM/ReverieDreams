@@ -2,25 +2,20 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "reverie_dreams:ingredient/black_pork",
-      "count": 1
+      "id": "reverie_dreams:ingredient/black_pork"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     },
     {
-      "id": "reverie_dreams:ingredient/cicada_shell",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cicada_shell"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/beetle_steamed_cake",
-    "count": 1
+    "id": "reverie_dreams:food/beetle_steamed_cake"
   },
   "cost_time": 12.0
 }

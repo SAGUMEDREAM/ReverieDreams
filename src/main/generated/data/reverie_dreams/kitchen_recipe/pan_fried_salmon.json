@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/salmon",
-      "count": 1
+      "id": "reverie_dreams:ingredient/salmon"
     },
     {
-      "id": "reverie_dreams:ingredient/bamboo_shoots",
-      "count": 1
+      "id": "reverie_dreams:ingredient/bamboo_shoots"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/pan_fried_salmon",
-    "count": 1
+    "id": "reverie_dreams:food/pan_fried_salmon"
   },
   "cost_time": 10.0
 }

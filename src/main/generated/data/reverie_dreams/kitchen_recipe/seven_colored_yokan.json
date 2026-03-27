@@ -2,25 +2,20 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "minecraft:kelp",
-      "count": 1
+      "id": "minecraft:kelp"
     },
     {
-      "id": "reverie_dreams:ingredient/grape",
-      "count": 1
+      "id": "reverie_dreams:ingredient/grape"
     },
     {
-      "id": "reverie_dreams:ingredient/dew",
-      "count": 1
+      "id": "reverie_dreams:ingredient/dew"
     },
     {
-      "id": "reverie_dreams:ingredient/udumbara",
-      "count": 1
+      "id": "reverie_dreams:ingredient/udumbara"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/seven_colored_yokan",
-    "count": 1
+    "id": "reverie_dreams:food/seven_colored_yokan"
   },
   "cost_time": 8.0
 }

@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/bullet",
-        "count": 1
+        "id": "reverie_dreams:danmaku/bullet"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/bullet",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.bullet",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 16724273,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:0b1e486b-8781-468a-ae8c-dfa9b67c951b"
+        "cooldown_group": "minecraft:4fd7657e-3043-3956-bb90-fdcf769f8a9e"
       }
     }
   }

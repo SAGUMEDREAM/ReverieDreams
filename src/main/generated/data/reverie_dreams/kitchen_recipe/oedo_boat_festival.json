@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/salmon",
-      "count": 1
+      "id": "reverie_dreams:ingredient/salmon"
     },
     {
-      "id": "reverie_dreams:ingredient/tuna",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tuna"
     },
     {
-      "id": "reverie_dreams:ingredient/supreme_tuna",
-      "count": 1
+      "id": "reverie_dreams:ingredient/supreme_tuna"
     },
     {
-      "id": "reverie_dreams:ingredient/trout",
-      "count": 1
+      "id": "reverie_dreams:ingredient/trout"
     },
     {
-      "id": "reverie_dreams:magic_ice",
-      "count": 1
+      "id": "reverie_dreams:magic_ice"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/oedo_boat_festival",
-    "count": 1
+    "id": "reverie_dreams:food/oedo_boat_festival"
   },
   "cost_time": 24.0
 }

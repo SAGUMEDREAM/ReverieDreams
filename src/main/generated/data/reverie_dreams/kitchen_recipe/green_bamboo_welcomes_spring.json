@@ -2,29 +2,23 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/cucumber",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cucumber"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "reverie_dreams:ingredient/white_radish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/white_radish"
     },
     {
-      "id": "reverie_dreams:ingredient/venison",
-      "count": 1
+      "id": "reverie_dreams:ingredient/venison"
     },
     {
-      "id": "reverie_dreams:ingredient/moonflower",
-      "count": 1
+      "id": "reverie_dreams:ingredient/moonflower"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/green_bamboo_welcomes_spring",
-    "count": 1
+    "id": "reverie_dreams:food/green_bamboo_welcomes_spring"
   },
   "cost_time": 14.0
 }

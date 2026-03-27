@@ -186,9 +186,6 @@ public class RegistryHandlers {
                 .then(Commands.argument("id", IdentifierArgument.id())
                         .suggests((context, builder) -> {
                             Identifier identifier = IdentifierArgument.getId(context, "registry_key");
-                            if (identifier == null) {
-                                return builder.buildFuture();
-                            }
 
                             ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
 

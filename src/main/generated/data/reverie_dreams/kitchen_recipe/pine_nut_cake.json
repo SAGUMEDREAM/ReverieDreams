@@ -2,17 +2,14 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sticky_rice",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sticky_rice"
     },
     {
-      "id": "reverie_dreams:ingredient/pine_nut",
-      "count": 1
+      "id": "reverie_dreams:ingredient/pine_nut"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/pine_nut_cake",
-    "count": 1
+    "id": "reverie_dreams:food/pine_nut_cake"
   },
   "cost_time": 8.0
 }

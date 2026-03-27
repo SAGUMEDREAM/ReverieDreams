@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:pumpkin",
-      "count": 1
+      "id": "minecraft:pumpkin"
     },
     {
-      "id": "reverie_dreams:ingredient/lotus_nuts",
-      "count": 1
+      "id": "reverie_dreams:ingredient/lotus_nuts"
     },
     {
-      "id": "reverie_dreams:ingredient/tuna",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tuna"
     },
     {
-      "id": "reverie_dreams:ingredient/twin_lotus",
-      "count": 1
+      "id": "reverie_dreams:ingredient/twin_lotus"
     },
     {
-      "id": "reverie_dreams:ingredient/moonflower",
-      "count": 1
+      "id": "reverie_dreams:ingredient/moonflower"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/gensokyo_star_lotus_ship",
-    "count": 1
+    "id": "reverie_dreams:food/gensokyo_star_lotus_ship"
   },
   "cost_time": 13.0
 }

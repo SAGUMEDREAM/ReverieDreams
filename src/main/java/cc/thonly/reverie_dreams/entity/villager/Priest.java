@@ -14,6 +14,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import java.util.Optional;
 
 public class Priest {
+    @SuppressWarnings("DataFlowIssue")
     public static void registers() {
         TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.PRIEST, 1, factories -> {
             factories.add((level, entity, random) -> new MerchantOffer(

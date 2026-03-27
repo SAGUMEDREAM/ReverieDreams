@@ -2,12 +2,10 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:kelp",
-      "count": 1
+      "id": "minecraft:kelp"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/rice_ball",
-    "count": 1
+    "id": "reverie_dreams:food/rice_ball"
   }
 }

@@ -2,20 +2,16 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:potato",
-      "count": 1
+      "id": "minecraft:potato"
     },
     {
-      "id": "reverie_dreams:ingredient/onion",
-      "count": 1
+      "id": "reverie_dreams:ingredient/onion"
     },
     {
-      "id": "minecraft:pumpkin",
-      "count": 1
+      "id": "minecraft:pumpkin"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/vegetable_special",
-    "count": 1
+    "id": "reverie_dreams:food/vegetable_special"
   }
 }

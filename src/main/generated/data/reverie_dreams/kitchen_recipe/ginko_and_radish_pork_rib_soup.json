@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     },
     {
-      "id": "reverie_dreams:ingredient/white_radish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/white_radish"
     },
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup",
-    "count": 1
+    "id": "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup"
   },
   "cost_time": 7.0
 }

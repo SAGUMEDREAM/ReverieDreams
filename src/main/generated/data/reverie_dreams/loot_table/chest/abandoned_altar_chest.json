@@ -6,64 +6,146 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone"
+          "name": "minecraft:rotten_flesh",
+          "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:rotten_flesh"
+          "name": "minecraft:bone",
+          "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:string"
+          "name": "minecraft:leather",
+          "weight": 14
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:exorcism_paper"
-        }
-      ],
-      "rolls": {
-        "type": "minecraft:uniform",
-        "max": 3.0,
-        "min": 1.0
-      }
-    },
-    {
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond"
+          "name": "minecraft:string",
+          "weight": 15
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_ingot"
-        }
-      ],
-      "rolls": {
-        "type": "minecraft:uniform",
-        "max": 3.0,
-        "min": 1.0
-      }
-    },
-    {
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:copper_coin"
+          "name": "reverie_dreams:exorcism_paper",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:silver_coin"
+          "name": "reverie_dreams:bomb",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:silver_coin"
+          "name": "minecraft:gold_ingot",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:diamond",
+          "weight": 5
         }
       ],
       "rolls": {
         "type": "minecraft:uniform",
         "max": 4.0,
+        "min": 2.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:copper_coin",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:silver_coin",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:gold_coin",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:point",
+          "weight": 3
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3.0,
+        "min": 1.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:upgraded_health",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:bomb",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stone_sword",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stone_sword",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:enchanted_book",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:bomb_fragment",
+          "weight": 15
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3.0,
         "min": 1.0
       }
     }

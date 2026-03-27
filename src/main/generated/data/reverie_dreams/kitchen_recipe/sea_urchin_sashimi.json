@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sea_urchin",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sea_urchin"
     },
     {
-      "id": "reverie_dreams:ingredient/dew",
-      "count": 1
+      "id": "reverie_dreams:ingredient/dew"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/sea_urchin_sashimi",
-    "count": 1
+    "id": "reverie_dreams:food/sea_urchin_sashimi"
   },
   "cost_time": 8.0
 }

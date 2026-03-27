@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:potato",
-      "count": 1
+      "id": "minecraft:potato"
     },
     {
-      "id": "minecraft:pumpkin",
-      "count": 1
+      "id": "minecraft:pumpkin"
     },
     {
-      "id": "reverie_dreams:ingredient/black_pork",
-      "count": 1
+      "id": "reverie_dreams:ingredient/black_pork"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/game_soup",
-    "count": 1
+    "id": "reverie_dreams:food/game_soup"
   },
   "cost_time": 7.0
 }

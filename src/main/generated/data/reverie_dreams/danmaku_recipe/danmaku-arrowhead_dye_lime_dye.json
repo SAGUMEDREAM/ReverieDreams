@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/arrowhead",
-        "count": 1
+        "id": "reverie_dreams:danmaku/arrowhead"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/arrowhead",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.arrowhead",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 14352166,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:53f8c51d-eb7b-4b17-8013-84a45965c487"
+        "cooldown_group": "minecraft:f5ee8a43-2061-33b7-806e-69b570866bdf"
       }
     }
   }

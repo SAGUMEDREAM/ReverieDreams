@@ -63,18 +63,4 @@ public class MushroomMonsterEntity extends PathfinderMob {
                 .build();
     }
 
-    @Override
-    public void die(DamageSource damageSource) {
-        super.die(damageSource);
-        Level world = this.level();
-        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            RandomSource random = RandomSource.create();
-            int count = random.nextInt(4);
-            Item item = random.nextBoolean() ? Items.RED_MUSHROOM : Items.BROWN_MUSHROOM;
-            ItemStack stack = new ItemStack(item, count);
-            ItemEntity itemEntity = new ItemEntity(serverWorld, this.getX(), this.getY(), this.getZ(), stack, 0, 0.1, 0);
-            world.addFreshEntity(itemEntity);
-        }
-    }
-
 }

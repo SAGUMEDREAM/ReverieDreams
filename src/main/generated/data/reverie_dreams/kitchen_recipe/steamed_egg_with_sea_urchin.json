@@ -2,17 +2,14 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sea_urchin",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sea_urchin"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/steamed_egg_with_sea_urchin",
-    "count": 1
+    "id": "reverie_dreams:food/steamed_egg_with_sea_urchin"
   },
   "cost_time": 7.0
 }

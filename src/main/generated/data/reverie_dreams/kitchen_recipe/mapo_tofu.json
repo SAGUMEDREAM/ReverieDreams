@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tofu",
-      "count": 1
+      "id": "reverie_dreams:ingredient/tofu"
     },
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     },
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/mapo_tofu",
-    "count": 1
+    "id": "reverie_dreams:food/mapo_tofu"
   },
   "cost_time": 6.0
 }

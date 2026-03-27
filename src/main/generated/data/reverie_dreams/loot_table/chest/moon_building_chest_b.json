@@ -6,85 +6,124 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:compass"
+          "name": "minecraft:compass",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:map"
+          "name": "minecraft:map",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond"
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 7.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:point",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget"
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 7.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:power",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bread"
+          "name": "reverie_dreams:silver_spear",
+          "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:power"
+          "name": "reverie_dreams:red_orb",
+          "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:point"
+          "name": "reverie_dreams:blue_orb",
+          "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:silver_spear"
+          "name": "reverie_dreams:green_orb",
+          "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:red_orb"
+          "name": "reverie_dreams:yellow_orb",
+          "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:blue_orb"
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:copper_ingot",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:green_orb"
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:gold_ingot",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:yellow_orb"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:dream_crystal_fragment"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bread"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:wheat"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moonlight_dumplings"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moonlight_over_lotus_pond"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moon_cake"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:food/moon_lovers"
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:diamond",
+          "weight": 3
         }
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 10.0,
-        "min": 7.0
+        "max": 8.0,
+        "min": 5.0
       }
     }
   ]

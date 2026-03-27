@@ -57,7 +57,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     private WorkingState workingState = WorkingState.NONE;
 
     public KitchenwareBlockEntity(BlockPos pos, BlockState state) {
-        super(RDBlockEntityTypes.KITCHENWARE_BLOCK_ENTITY, pos, state);
+        super(RDBlockEntityTypes.KITCHENWARE_BLOCK, pos, state);
         Block block = state.getBlock();
         this.block = (AbstractKitchenwareBlock) block;
         this.recipeType = KitchenBlockType.BLOCK_2_KITCHEN_TYPE.get(block);

@@ -2,25 +2,20 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     },
     {
-      "id": "reverie_dreams:ingredient/lotus_nuts",
-      "count": 1
+      "id": "reverie_dreams:ingredient/lotus_nuts"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "reverie_dreams:ingredient/butter",
-      "count": 1
+      "id": "reverie_dreams:ingredient/butter"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/holy_white_lotus_seed_cake",
-    "count": 1
+    "id": "reverie_dreams:food/holy_white_lotus_seed_cake"
   },
   "cost_time": 10.0
 }

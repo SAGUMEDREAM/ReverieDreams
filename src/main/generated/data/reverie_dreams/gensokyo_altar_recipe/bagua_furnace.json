@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:compass",
-    "count": 1
+    "id": "minecraft:compass"
   },
   "slots": [
     {
@@ -13,8 +12,7 @@
       "count": 12
     },
     {
-      "id": "minecraft:coal_block",
-      "count": 1
+      "id": "minecraft:coal_block"
     },
     {
       "id": "minecraft:netherite_ingot",
@@ -25,8 +23,7 @@
       "count": 16
     },
     {
-      "id": "minecraft:coal_block",
-      "count": 1
+      "id": "minecraft:coal_block"
     },
     {
       "id": "minecraft:iron_ingot",
@@ -38,7 +35,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:bagua_furnace",
-    "count": 1
+    "id": "reverie_dreams:bagua_furnace"
   }
 }

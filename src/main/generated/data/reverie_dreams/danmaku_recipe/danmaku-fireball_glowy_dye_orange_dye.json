@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/fireball_glowy",
-        "count": 1
+        "id": "reverie_dreams:danmaku/fireball_glowy"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/fireball_glowy",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.fireball_glowy",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 16749605,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:f8a45e53-cb98-4678-9b44-c1d8dd93f081"
+        "cooldown_group": "minecraft:3823a3a1-4d2e-3d4a-9d0d-690eba464fb6"
       }
     }
   }

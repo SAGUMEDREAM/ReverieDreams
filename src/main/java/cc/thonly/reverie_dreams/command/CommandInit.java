@@ -8,7 +8,7 @@ import net.minecraft.commands.Commands;
 
 public class CommandInit {
     public static void init() {
-        registerCommand(new MainCommand());
+        registerCommand(new THCommand());
     }
 
     public static void registerCommand(CommandRegistration registry) {

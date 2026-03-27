@@ -102,7 +102,7 @@ public class MusicBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, RDBlockEntityTypes.MUSIC_BLOCK_ENTITY, MusicBlockEntity::tick);
+        return createTickerHelper(type, RDBlockEntityTypes.MUSIC_BLOCK, MusicBlockEntity::tick);
     }
 
     @Override

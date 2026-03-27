@@ -13,6 +13,7 @@ import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBinding<DanmakuTrajectory>, BuiltinObject {
     public static final Codec<DanmakuTrajectory> CODEC = UnitCodec.unit(DanmakuTrajectory::new);
     private RegistryHandler<DanmakuTrajectory> owner;

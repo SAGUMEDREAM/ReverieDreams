@@ -2,25 +2,20 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     },
     {
-      "id": "reverie_dreams:ingredient/udumbara",
-      "count": 1
+      "id": "reverie_dreams:ingredient/udumbara"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     },
     {
-      "id": "reverie_dreams:ingredient/cream",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cream"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/fright_adventure",
-    "count": 1
+    "id": "reverie_dreams:food/fright_adventure"
   },
   "cost_time": 12.0
 }

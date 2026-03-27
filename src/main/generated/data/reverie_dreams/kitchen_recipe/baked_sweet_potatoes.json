@@ -2,13 +2,11 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sweet_potato",
-      "count": 1
+      "id": "reverie_dreams:ingredient/sweet_potato"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/baked_sweet_potatoes",
-    "count": 1
+    "id": "reverie_dreams:food/baked_sweet_potatoes"
   },
   "cost_time": 6.0
 }

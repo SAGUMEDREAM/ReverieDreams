@@ -9,12 +9,10 @@
       "count": 2
     },
     {
-      "id": "minecraft:lead",
-      "count": 1
+      "id": "minecraft:lead"
     },
     {
-      "id": "minecraft:saddle",
-      "count": 1
+      "id": "minecraft:saddle"
     },
     {
       "id": "minecraft:hay_block",
@@ -29,15 +27,14 @@
       "count": 2
     },
     {
-      "id": "minecraft:slime_ball",
-      "count": 1
+      "id": "minecraft:slime_ball"
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:air",
+      "count": 0
     }
   ],
   "output": {
-    "id": "reverie_dreams:magic_broom",
-    "count": 1
+    "id": "reverie_dreams:magic_broom"
   }
 }

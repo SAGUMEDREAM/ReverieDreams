@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     },
     {
-      "id": "reverie_dreams:ingredient/chestnut",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chestnut"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/candied_chestnuts",
-    "count": 1
+    "id": "reverie_dreams:food/candied_chestnuts"
   },
   "cost_time": 6.0
 }

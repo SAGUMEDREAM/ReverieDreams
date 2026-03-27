@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/kunai",
-        "count": 1
+        "id": "reverie_dreams:danmaku/kunai"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/kunai",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.kunai",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 16724273,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:93597a44-7812-48d9-8300-ee920bb97dd9"
+        "cooldown_group": "minecraft:cd1dd188-cd61-3ecd-83a2-ecf79f094777"
       }
     }
   }

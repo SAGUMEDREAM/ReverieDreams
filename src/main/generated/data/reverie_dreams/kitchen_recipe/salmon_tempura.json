@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/salmon",
-      "count": 1
+      "id": "reverie_dreams:ingredient/salmon"
     },
     {
-      "id": "reverie_dreams:ingredient/butter",
-      "count": 1
+      "id": "reverie_dreams:ingredient/butter"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/salmon_tempura",
-    "count": 1
+    "id": "reverie_dreams:food/salmon_tempura"
   },
   "cost_time": 8.0
 }

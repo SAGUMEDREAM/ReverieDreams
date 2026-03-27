@@ -2,21 +2,17 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/venison",
-      "count": 1
+      "id": "reverie_dreams:ingredient/venison"
     },
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     },
     {
-      "id": "reverie_dreams:ingredient/pine_nut",
-      "count": 1
+      "id": "reverie_dreams:ingredient/pine_nut"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/shiraga_sadamatsu",
-    "count": 1
+    "id": "reverie_dreams:food/shiraga_sadamatsu"
   },
   "cost_time": 12.0
 }

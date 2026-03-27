@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/wild_boar_meat",
-      "count": 1
+      "id": "reverie_dreams:ingredient/wild_boar_meat"
     },
     {
-      "id": "minecraft:kelp",
-      "count": 1
+      "id": "minecraft:kelp"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/strength_soup",
-    "count": 1
+    "id": "reverie_dreams:food/strength_soup"
   },
   "cost_time": 7.0
 }

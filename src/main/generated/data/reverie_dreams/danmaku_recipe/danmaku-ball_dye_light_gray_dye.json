@@ -17,17 +17,14 @@
   },
   "material": {
     "id": "reverie_dreams:danmaku_recipe_creator",
-    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/ball",
-        "count": 1
+        "id": "reverie_dreams:danmaku/ball"
       }
     }
   },
   "output": {
     "id": "reverie_dreams:danmaku/ball",
-    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "item.reverie_dreams.danmaku.ball",
@@ -36,7 +33,7 @@
       "minecraft:dyed_color": 7434609,
       "minecraft:use_cooldown": {
         "seconds": 0.5,
-        "cooldown_group": "minecraft:d7e532ee-0b44-46f1-a47e-9f403f0a5b17"
+        "cooldown_group": "minecraft:ff34ade0-66c2-35b3-afda-8aa880b621cf"
       }
     }
   }

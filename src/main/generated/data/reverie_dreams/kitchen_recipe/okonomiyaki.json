@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "reverie_dreams:ingredient/white_radish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/white_radish"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/okonomiyaki",
-    "count": 1
+    "id": "reverie_dreams:food/okonomiyaki"
   },
   "cost_time": 6.0
 }

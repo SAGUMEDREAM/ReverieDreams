@@ -2,12 +2,10 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/white_radish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/white_radish"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/cold_dish_carving",
-    "count": 1
+    "id": "reverie_dreams:food/cold_dish_carving"
   }
 }

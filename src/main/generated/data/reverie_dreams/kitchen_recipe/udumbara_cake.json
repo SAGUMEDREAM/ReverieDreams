@@ -2,17 +2,14 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/udumbara",
-      "count": 1
+      "id": "reverie_dreams:ingredient/udumbara"
     },
     {
-      "id": "reverie_dreams:ingredient/dew",
-      "count": 1
+      "id": "reverie_dreams:ingredient/dew"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/udumbara_cake",
-    "count": 1
+    "id": "reverie_dreams:food/udumbara_cake"
   },
   "cost_time": 7.0
 }

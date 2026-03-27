@@ -118,7 +118,7 @@ public class FoodDisplayBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, RDBlockEntityTypes.ITEM_DISPLAY_BLOCK_ENTITY, FoodDisplayBlockEntity::tick);
+        return createTickerHelper(type, RDBlockEntityTypes.FOOD_DISPLAY, FoodDisplayBlockEntity::tick);
     }
 
 }

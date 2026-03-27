@@ -2,13 +2,11 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/wagyu_beef",
-      "count": 1
+      "id": "reverie_dreams:ingredient/wagyu_beef"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/butter_steak",
-    "count": 1
+    "id": "reverie_dreams:food/butter_steak"
   },
   "cost_time": 7.0
 }

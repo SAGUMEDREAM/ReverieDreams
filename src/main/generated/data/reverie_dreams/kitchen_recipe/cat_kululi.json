@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "minecraft:cocoa_beans",
-      "count": 1
+      "id": "minecraft:cocoa_beans"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/cat_kululi",
-    "count": 1
+    "id": "reverie_dreams:food/cat_kululi"
   },
   "cost_time": 7.0
 }

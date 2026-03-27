@@ -2,21 +2,17 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:cocoa_beans",
-      "count": 1
+      "id": "minecraft:cocoa_beans"
     },
     {
-      "id": "minecraft:pumpkin",
-      "count": 1
+      "id": "minecraft:pumpkin"
     },
     {
-      "id": "reverie_dreams:ingredient/cream",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cream"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/molecular_egg",
-    "count": 1
+    "id": "reverie_dreams:food/molecular_egg"
   },
   "cost_time": 18.0
 }

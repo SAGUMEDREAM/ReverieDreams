@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     },
     {
-      "id": "reverie_dreams:ingredient/black_pork",
-      "count": 1
+      "id": "reverie_dreams:ingredient/black_pork"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/colorful_jade_fried_buns",
-    "count": 1
+    "id": "reverie_dreams:food/colorful_jade_fried_buns"
   },
   "cost_time": 8.0
 }

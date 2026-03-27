@@ -2,17 +2,14 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/ginkgo",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ginkgo"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/poetry_and_ginkgo",
-    "count": 1
+    "id": "reverie_dreams:food/poetry_and_ginkgo"
   },
   "cost_time": 8.0
 }

@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/peach",
-      "count": 1
+      "id": "reverie_dreams:ingredient/peach"
     },
     {
-      "id": "reverie_dreams:ingredient/ficus_microcarpa",
-      "count": 1
+      "id": "reverie_dreams:ingredient/ficus_microcarpa"
     },
     {
-      "id": "reverie_dreams:ingredient/cream",
-      "count": 1
+      "id": "reverie_dreams:ingredient/cream"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:cocoa_beans",
-      "count": 1
+      "id": "minecraft:cocoa_beans"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/cats_playing_in_water",
-    "count": 1
+    "id": "reverie_dreams:food/cats_playing_in_water"
   },
   "cost_time": 12.0
 }

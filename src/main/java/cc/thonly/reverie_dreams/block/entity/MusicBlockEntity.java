@@ -21,7 +21,7 @@ public class MusicBlockEntity extends BlockEntity {
     public boolean isFirst = true;
 
     public MusicBlockEntity(BlockPos pos, BlockState state) {
-        super(RDBlockEntityTypes.MUSIC_BLOCK_ENTITY, pos, state);
+        super(RDBlockEntityTypes.MUSIC_BLOCK, pos, state);
     }
 
     @Nullable

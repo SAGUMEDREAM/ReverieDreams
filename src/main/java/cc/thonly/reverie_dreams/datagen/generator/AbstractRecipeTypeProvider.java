@@ -21,6 +21,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -72,6 +73,22 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
 
     public ItemStackWrapper ofItem(Item item, int amount, DataComponentPatch components) {
         return ItemStackWrapper.of(item, amount, components);
+    }
+    
+    public ItemStackWrapper ofItem(ItemStack item, TagKey<Item> ...tagKey) {
+        return ItemStackWrapper.of(item.getItem(), Arrays.stream(tagKey).toList());
+    }
+
+    public ItemStackWrapper ofItem(Item item, TagKey<Item> ...tagKey) {
+        return ItemStackWrapper.of(item, Arrays.stream(tagKey).toList());
+    }
+
+    public ItemStackWrapper ofItem(Item item, int amount, TagKey<Item> ...tagKey) {
+        return ItemStackWrapper.of(item, amount, Arrays.stream(tagKey).toList());
+    }
+
+    public ItemStackWrapper ofItem(Item item, int amount, DataComponentPatch components, TagKey<Item> ...tagKey) {
+        return ItemStackWrapper.of(item, amount, components, tagKey);
     }
 
     public List<ItemStackWrapper> ofList(Item... items) {

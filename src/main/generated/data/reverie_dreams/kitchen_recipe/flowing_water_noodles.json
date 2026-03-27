@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:bamboo",
-      "count": 1
+      "id": "minecraft:bamboo"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/flowing_water_noodles",
-    "count": 1
+    "id": "reverie_dreams:food/flowing_water_noodles"
   },
   "cost_time": 10.0
 }

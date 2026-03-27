@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     },
     {
-      "id": "reverie_dreams:ingredient/shrimp",
-      "count": 1
+      "id": "reverie_dreams:ingredient/shrimp"
     },
     {
-      "id": "reverie_dreams:ingredient/octopus",
-      "count": 1
+      "id": "reverie_dreams:ingredient/octopus"
     },
     {
-      "id": "reverie_dreams:ingredient/chili",
-      "count": 1
+      "id": "reverie_dreams:ingredient/chili"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/mushroom_girls_dance_stew",
-    "count": 1
+    "id": "reverie_dreams:food/mushroom_girls_dance_stew"
   },
   "cost_time": 14.0
 }

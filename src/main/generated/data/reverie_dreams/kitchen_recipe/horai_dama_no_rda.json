@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "minecraft:bamboo",
-      "count": 1
+      "id": "minecraft:bamboo"
     },
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     },
     {
-      "id": "reverie_dreams:ingredient/salmon",
-      "count": 1
+      "id": "reverie_dreams:ingredient/salmon"
     },
     {
-      "id": "reverie_dreams:ingredient/wagyu_beef",
-      "count": 1
+      "id": "reverie_dreams:ingredient/wagyu_beef"
     },
     {
-      "id": "reverie_dreams:ingredient/venison",
-      "count": 1
+      "id": "reverie_dreams:ingredient/venison"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/horai-dama_no_eda",
-    "count": 1
+    "id": "reverie_dreams:food/horai-dama_no_eda"
   },
   "cost_time": 13.0
 }

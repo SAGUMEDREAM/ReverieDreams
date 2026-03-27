@@ -16,6 +16,7 @@ import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -28,6 +29,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
+@ToString
 public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, BuiltinObject {
     public static final Codec<RoleCard> CODEC = UnitCodec.unit(RoleCard::new);
     public static final Long DEFAULT_COLOR = 16777215L;

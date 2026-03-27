@@ -165,7 +165,7 @@ public class AbstractKitchenwareBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, RDBlockEntityTypes.KITCHENWARE_BLOCK_ENTITY, KitchenwareBlockEntity::tick);
+        return createTickerHelper(type, RDBlockEntityTypes.KITCHENWARE_BLOCK, KitchenwareBlockEntity::tick);
     }
 
 }

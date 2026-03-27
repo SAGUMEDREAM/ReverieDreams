@@ -2,20 +2,16 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:bamboo",
-      "count": 1
+      "id": "minecraft:bamboo"
     },
     {
-      "id": "reverie_dreams:ingredient/shrimp",
-      "count": 1
+      "id": "reverie_dreams:ingredient/shrimp"
     },
     {
-      "id": "reverie_dreams:ingredient/broccoli",
-      "count": 1
+      "id": "reverie_dreams:ingredient/broccoli"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/bamboo_tube_roasted_drunken_shrimp",
-    "count": 1
+    "id": "reverie_dreams:food/bamboo_tube_roasted_drunken_shrimp"
   }
 }

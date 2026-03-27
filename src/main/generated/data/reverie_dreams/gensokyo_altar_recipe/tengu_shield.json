@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:shield",
-    "count": 1
+    "id": "minecraft:shield"
   },
   "slots": [
     {
@@ -38,7 +37,6 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:tengu_shield",
-    "count": 1
+    "id": "reverie_dreams:tengu_shield"
   }
 }

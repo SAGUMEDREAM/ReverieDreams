@@ -2,17 +2,14 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     },
     {
-      "id": "minecraft:porkchop",
-      "count": 1
+      "id": "minecraft:porkchop"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/mushroom_meat_slices",
-    "count": 1
+    "id": "reverie_dreams:food/mushroom_meat_slices"
   },
   "cost_time": 6.0
 }

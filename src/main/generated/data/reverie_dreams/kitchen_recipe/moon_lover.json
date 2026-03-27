@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/butter",
-      "count": 1
+      "id": "reverie_dreams:ingredient/butter"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "reverie_dreams:ingredient/moonflower",
-      "count": 1
+      "id": "reverie_dreams:ingredient/moonflower"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/moon_lovers",
-    "count": 1
+    "id": "reverie_dreams:food/moon_lovers"
   },
   "cost_time": 10.0
 }

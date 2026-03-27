@@ -1,5 +1,13 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.18+1.21.11
+* Rewrite chest loot
+* Moving Mushroom Monster drops to loot
+* Added UFO Loot drops
+* Added Hairball Loot drops
+* Added Item Tags parse in ItemStackWrapper(be like Recipe)
+* Increase Coin drop number
+
 # 0.4.17+1.21.11
 * Fixed Bagua Furnace lost attacking state when chunk unloading
 * Fixed Danmaku Entity offset low

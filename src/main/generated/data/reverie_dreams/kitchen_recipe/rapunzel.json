@@ -2,16 +2,13 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "minecraft:pumpkin",
-      "count": 1
+      "id": "minecraft:pumpkin"
     },
     {
-      "id": "reverie_dreams:ingredient/shrimp",
-      "count": 1
+      "id": "reverie_dreams:ingredient/shrimp"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/rapunzel",
-    "count": 1
+    "id": "reverie_dreams:food/rapunzel"
   }
 }

@@ -2,29 +2,23 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:honey_bottle",
-      "count": 1
+      "id": "minecraft:honey_bottle"
     },
     {
-      "id": "minecraft:potato",
-      "count": 1
+      "id": "minecraft:potato"
     },
     {
-      "id": "reverie_dreams:ingredient/onion",
-      "count": 1
+      "id": "reverie_dreams:ingredient/onion"
     },
     {
-      "id": "reverie_dreams:ingredient/white_radish",
-      "count": 1
+      "id": "reverie_dreams:ingredient/white_radish"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/phoenix",
-    "count": 1
+    "id": "reverie_dreams:food/phoenix"
   },
   "cost_time": 12.0
 }

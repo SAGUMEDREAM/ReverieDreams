@@ -2,25 +2,20 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "reverie_dreams:ingredient/flour",
-      "count": 1
+      "id": "reverie_dreams:ingredient/flour"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/giant_tamagoyaki",
-    "count": 1
+    "id": "reverie_dreams:food/giant_tamagoyaki"
   },
   "cost_time": 12.0
 }

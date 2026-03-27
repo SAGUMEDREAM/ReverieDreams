@@ -1,44 +1,34 @@
 {
   "core": {
-    "id": "minecraft:diamond",
-    "count": 1
+    "id": "minecraft:diamond"
   },
   "slots": [
     {
-      "id": "minecraft:black_wool",
-      "count": 1
+      "id": "minecraft:black_wool"
     },
     {
-      "id": "minecraft:golden_apple",
-      "count": 1
+      "id": "minecraft:golden_apple"
     },
     {
-      "id": "minecraft:white_wool",
-      "count": 1
+      "id": "minecraft:white_wool"
     },
     {
-      "id": "minecraft:black_wool",
-      "count": 1
+      "id": "minecraft:black_wool"
     },
     {
-      "id": "minecraft:white_wool",
-      "count": 1
+      "id": "minecraft:white_wool"
     },
     {
-      "id": "minecraft:black_wool",
-      "count": 1
+      "id": "minecraft:black_wool"
     },
     {
-      "id": "minecraft:golden_apple",
-      "count": 1
+      "id": "minecraft:golden_apple"
     },
     {
-      "id": "minecraft:white_wool",
-      "count": 1
+      "id": "minecraft:white_wool"
     }
   ],
   "output": {
-    "id": "reverie_dreams:yin-yang_orb",
-    "count": 1
+    "id": "reverie_dreams:yin-yang_orb"
   }
 }

@@ -23,6 +23,7 @@ import cc.thonly.reverie_dreams.loot.RDLootModifies;
 import cc.thonly.reverie_dreams.networking.CSVersionPayload;
 import cc.thonly.reverie_dreams.networking.HelloPayload;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
+import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
 import cc.thonly.reverie_dreams.registry.PairRegistryHandlers;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
@@ -156,6 +157,7 @@ public class ReverieDreams implements ModInitializer {
         // 初始化其他注册内容
         CommandInit.init();
         RecipeManager.bootstrap();
+        RecipeWorkbenchRegistry.bootstrap();
         ServerResourceHelper.init();
         RegistryHandlers.bootstrap();
         FoodProperties.registerDefaultItemUsingProperty();
@@ -193,7 +195,7 @@ public class ReverieDreams implements ModInitializer {
             });
         }
         for (ChestBlockCreator chestBlockCreator : ChestBlockCreator.INSTANCES.get(ChestBlockCreator.class).stream().map((ab) -> (ChestBlockCreator) ab).toList()) {
-            RDBlockEntityTypes.CUSTOM_CHEST_BLOCK_ENTITY.addSupportedBlock(chestBlockCreator.chestBlock());
+            RDBlockEntityTypes.CUSTOM_CHEST.addSupportedBlock(chestBlockCreator.chestBlock());
         }
         CreativeTabs.registerItemGroups();
         ReverieDreamsCompats.init();

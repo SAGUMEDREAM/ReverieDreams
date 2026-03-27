@@ -2,25 +2,20 @@
   "recipe_type": "minecraft:streamer",
   "ingredients": [
     {
-      "id": "minecraft:bamboo",
-      "count": 1
+      "id": "minecraft:bamboo"
     },
     {
-      "id": "minecraft:egg",
-      "count": 1
+      "id": "minecraft:egg"
     },
     {
-      "id": "minecraft:kelp",
-      "count": 1
+      "id": "minecraft:kelp"
     },
     {
-      "id": "minecraft:brown_mushroom",
-      "count": 1
+      "id": "minecraft:brown_mushroom"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/bamboo_steamed_egg",
-    "count": 1
+    "id": "reverie_dreams:food/bamboo_steamed_egg"
   },
   "cost_time": 6.0
 }

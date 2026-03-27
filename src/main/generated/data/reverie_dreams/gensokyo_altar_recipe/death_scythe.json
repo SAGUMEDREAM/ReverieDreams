@@ -1,7 +1,6 @@
 {
   "core": {
-    "id": "minecraft:netherite_hoe",
-    "count": 1
+    "id": "minecraft:netherite_hoe"
   },
   "slots": [
     {
@@ -17,8 +16,7 @@
       "count": 8
     },
     {
-      "id": "minecraft:netherite_ingot",
-      "count": 1
+      "id": "minecraft:netherite_ingot"
     },
     {
       "id": "minecraft:diamond",
@@ -33,11 +31,11 @@
       "count": 7
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:air",
+      "count": 0
     }
   ],
   "output": {
-    "id": "reverie_dreams:death_scythe",
-    "count": 1
+    "id": "reverie_dreams:death_scythe"
   }
 }
