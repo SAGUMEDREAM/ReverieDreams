@@ -15,7 +15,6 @@ import java.util.concurrent.CompletableFuture;
  * 1.21.9+
  *
  **/
-
 public class SkinConfigProvider extends AbstractSkinConfigProvider {
 
     public SkinConfigProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {

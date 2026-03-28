@@ -6,6 +6,8 @@ import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.GapRecorder;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.component.tooltip.TooltipManager;
+import cc.thonly.reverie_dreams.data.DrinkProperty;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
@@ -84,14 +86,29 @@ public class RDDataComponents {
                     .persistent(Codec.BOOL)
                     .build()
     );
-    public static final DataComponentType<List<String>> FOOD_PROPERTIES = registerComponent("food_properties",
-            DataComponentType.<List<String>>builder()
-                    .persistent(Codec.list(Codec.STRING))
+    public static final DataComponentType<Unit> FOOD_ITEM_TYPE = registerComponent("food_item_type",
+            DataComponentType.<Unit>builder()
+                    .persistent(Unit.CODEC)
                     .build()
     );
-    public static final DataComponentType<List<String>> DRINK_PROPERTIES = registerComponent("drink_properties",
-            DataComponentType.<List<String>>builder()
-                    .persistent(Codec.list(Codec.STRING))
+    public static final DataComponentType<Unit> INGREDIENT_ITEM_TYPE = registerComponent("ingredient_item_type",
+            DataComponentType.<Unit>builder()
+                    .persistent(Unit.CODEC)
+                    .build()
+    );
+    public static final DataComponentType<Unit> DRINK_ITEM_TYPE = registerComponent("drink_item_type",
+            DataComponentType.<Unit>builder()
+                    .persistent(Unit.CODEC)
+                    .build()
+    );
+    public static final DataComponentType<List<FoodProperty>> FOOD_PROPERTIES = registerComponent("food_properties",
+            DataComponentType.<List<FoodProperty>>builder()
+                    .persistent(FoodProperty.LIST_COMPONENT_CODEC)
+                    .build()
+    );
+    public static final DataComponentType<List<DrinkProperty>> DRINK_PROPERTIES = registerComponent("drink_properties",
+            DataComponentType.<List<DrinkProperty>>builder()
+                    .persistent(DrinkProperty.LIST_COMPONENT_CODEC)
                     .build()
     );
     public static final DataComponentType<Integer> FOOD_BONUS = registerComponent("food_bonus",

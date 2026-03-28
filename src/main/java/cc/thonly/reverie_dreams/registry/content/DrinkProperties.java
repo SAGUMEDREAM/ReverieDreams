@@ -1,16 +1,21 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.DrinkPropertyLoaderCallback;
+import cc.thonly.reverie_dreams.api.DrinkPropertiesLoaderCallback;
+import cc.thonly.reverie_dreams.api.DrinkPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
-import cc.thonly.reverie_dreams.item.base.DrinkItem;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
@@ -18,20 +23,20 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("Convert2MethodRef")
 @Slf4j
 public class DrinkProperties {
+    private static final Map<Item, Set<DrinkProperty>> ITEM_CACHE = new Object2ObjectLinkedOpenHashMap<>();
+    private static final Map<Item, Integer> PRICE_CALCULATION_TABLE = new Object2ObjectOpenHashMap<>();
     public static final DrinkProperty UNDEFINED = register("undefined", () -> new DrinkProperty());
     public static final DrinkProperty ALCOHOL_FREE = register("alcohol-free", () -> new DrinkProperty());
     public static final DrinkProperty LOW_ALCOHOL = register("low_alcohol", () -> new DrinkProperty());
@@ -56,7 +61,7 @@ public class DrinkProperties {
     public static final DrinkProperty MODERN = register("modern", () -> new DrinkProperty());
 
     public static void registerDefaultItemUsingProperty() {
-        DrinkPropertyLoaderCallback.EVENT.register((world, user, property) -> {
+        DrinkPropertyItemUseCallback.EVENT.register((world, user, property) -> {
             if (world.isClientSide()) {
                 return;
             }
@@ -86,6 +91,27 @@ public class DrinkProperties {
         });
     }
 
+    public static List<DrinkProperty> get(ItemStack stack) {
+        List<DrinkProperty> existing = stack.getOrDefault(RDDataComponents.DRINK_PROPERTIES, new ArrayList<>());
+        if (!existing.isEmpty()) {
+            return existing;
+        }
+
+        Set<DrinkProperty> cached = ITEM_CACHE.get(stack.getItem());
+        if (cached == null || cached.isEmpty()) {
+            return List.of();
+        }
+
+        List<DrinkProperty> result = new ArrayList<>(cached);
+        stack.set(RDDataComponents.DRINK_PROPERTIES, result);
+
+        return result;
+    }
+
+    public static Map<Item, Integer> getPriceCalculationTable() {
+        return Map.copyOf(PRICE_CALCULATION_TABLE);
+    }
+
     @SuppressWarnings("unchecked")
     private static <T extends DrinkProperty> T register(String name, Supplier<T> factory) {
         T property = factory.get();
@@ -94,13 +120,9 @@ public class DrinkProperties {
     }
 
     public static void reload(ResourceManager manager) {
-        Map<Identifier, DrinkProperty> map = RegistryHandlers.DRINK_PROPERTY.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey().identifier(),
-                        Map.Entry::getValue
-                ));
-        Set<Map.Entry<Identifier, DrinkProperty>> entries = map.entrySet();
-        entries.forEach((es) -> es.getValue().getItems().clear());
+        ITEM_CACHE.clear();
+        PRICE_CALCULATION_TABLE.clear();
+        List<DrinkProperty.Data> drinkPropertyData = new ArrayList<>();
 
         Map<Identifier, Resource> resources = manager.listResources("drink_property", id ->
                 id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
@@ -121,38 +143,65 @@ public class DrinkProperties {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
-                DataResult<DrinkProperty> result = DrinkProperty.CODEC.parse(input);
+                DataResult<DrinkProperty.Data> result = DrinkProperty.Data.CODEC.parse(input);
 
                 result.resultOrPartial(error -> ReverieDreams.LOGGER.warn("Failed to parse tags for {}: {}", resourceId, error))
-                        .ifPresent(data -> {
-                            property.getItems().addAll(data.getItems());
-                        });
+                        .ifPresent(drinkPropertyData::add);
 
             } catch (IOException e) {
                 ReverieDreams.LOGGER.error("Failed to load drink_property {}: {}", resourceId, e.getMessage(), e);
             }
         }
+        Map<DrinkProperty, Set<Item>> drinkPropertySetMap = new Object2ObjectLinkedOpenHashMap<>();
+        for (DrinkProperty.Data drinkPropertyDatum : drinkPropertyData) {
+            Identifier id = drinkPropertyDatum.id();
+            DrinkProperty property = RegistryHandlers.DRINK_PROPERTY.getValue(id);
+            if (property == null) {
+                log.warn("Unknown food property {}", id);
+                continue;
+            }
+            HashSet<Item> callbackSets = new HashSet<>();
+            DrinkPropertiesLoaderCallback.EVENT.invoker().modify(new DrinkPropertiesLoaderCallback.Context() {
+                @Override
+                public DrinkProperty getProperty() {
+                    return property;
+                }
 
-        Map<Item, Set<DrinkProperty>> itemDrinkPropertyCached = DrinkItem.ITEM_DRINK_CACHED;
-        itemDrinkPropertyCached.clear();
-        for (Map.Entry<Identifier, DrinkProperty> entry : entries) {
-            DrinkProperty property = entry.getValue();
-            Set<Item> tags = property.getItems();
-            for (Item item : tags) {
-                itemDrinkPropertyCached.computeIfAbsent(item, k -> new HashSet<>())
+                @Override
+                public Set<Item> getItems() {
+                    return callbackSets;
+                }
+            });
+            Set<Item> items = drinkPropertySetMap.computeIfAbsent(property, x -> new LinkedHashSet<>());
+            items.addAll(drinkPropertyDatum.items());
+            items.addAll(callbackSets);
+        }
+        drinkPropertySetMap.forEach((property, items) -> {
+            for (Item item : items) {
+                ITEM_CACHE.computeIfAbsent(item, k -> new LinkedHashSet<>())
                         .add(property);
             }
-        }
-        log.info("Ingredients TAG loading completed");
-
-        Map<Item, Integer> priceCalculationTable = DrinkItem.PRICE_CALCULATION_TABLE;
-        priceCalculationTable.clear();
-        for (Map.Entry<Item, Set<DrinkProperty>> entry : itemDrinkPropertyCached.entrySet()) {
+        });
+        ITEM_CACHE.forEach((item, drinkProperties) -> {
             int cost = 8;
-            Item item = entry.getKey();
-            Set<DrinkProperty> drinkProperties = entry.getValue();
             cost += drinkProperties.size() * 2;
-            priceCalculationTable.put(item, cost);
+            PRICE_CALCULATION_TABLE.put(item, cost);
+        });
+        log.info("Ingredients TAG loading completed");
+    }
+
+    public static void registerByPair(Pair<DrinkProperty, Collection<Item>> pair) {
+        DrinkProperty property = pair.key();
+        Collection<Item> itemCollection = pair.value();
+        itemCollection.forEach(item -> ITEM_CACHE.computeIfAbsent(item, x -> new LinkedHashSet<>()).add(property));
+        for (Item item : itemCollection) {
+            Set<DrinkProperty> drinkProperties = ITEM_CACHE.get(item);
+            if (drinkProperties == null) {
+                continue;
+            }
+            int cost = 8;
+            cost += drinkProperties.size() * 2;
+            PRICE_CALCULATION_TABLE.put(item, cost);
         }
     }
 

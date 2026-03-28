@@ -54,7 +54,7 @@ public class RegistryHandlers {
     public static final RegistryHandler<BaseRecipeType<?>> RECIPE_TYPE = RegistryHandlers.<BaseRecipeType<?>>ofEntry(ReverieDreams.id("recipe_type"));
 
     public static final RegistryHandler<DanmakuType> DANMAKU_TYPE = RegistryHandlers.<DanmakuType>ofEntry(ReverieDreams.id("danmaku_type"))
-            .codec(DanmakuType.CODEC)
+            .codec(DanmakuType.COMPONENT_CODEC)
             .builder(DanmakuTypes::bootstrap);
 
     public static final RegistryHandler<DanmakuShape> DANMAKU_SHAPE = RegistryHandlers.<DanmakuShape>ofEntry(ReverieDreams.id("danmaku_shape"))
@@ -122,12 +122,12 @@ public class RegistryHandlers {
             .builder(RabbitUnitVariants::bootstrap);
 
     public static final RegistryHandler<FoodProperty> FOOD_PROPERTY = RegistryHandlers.<FoodProperty>ofEntry(ReverieDreams.id("food_property"))
-            .codec(FoodProperty.CODEC)
+            .codec(FoodProperty.COMPONENT_CODEC)
             .reloadBuilder(FoodProperties::reload)
             .builder(FoodProperties::bootstrap);
 
     public static final RegistryHandler<DrinkProperty> DRINK_PROPERTY = RegistryHandlers.<DrinkProperty>ofEntry(ReverieDreams.id("drink_property"))
-            .codec(DrinkProperty.CODEC)
+            .codec(DrinkProperty.COMPONENT_CODEC)
             .reloadBuilder(DrinkProperties::reload)
             .builder(DrinkProperties::bootstrap);
 

@@ -25,5 +25,5 @@ public interface CodecStep<T> {
     );
 
 
-    public Codec<T> getCodec();
+    Codec<T> getCodec();
 }

@@ -2,16 +2,26 @@
   "registry_key": "reverie_dreams:bitter",
   "properties": {
     "values": [
-      "reverie_dreams:drink/dawn",
-      "reverie_dreams:drink/ordinary_fitness_tea",
-      "reverie_dreams:drink/beer",
-      "reverie_dreams:drink/negroni",
-      "reverie_dreams:drink/satellite_iced_coffee",
-      "reverie_dreams:drink/coffee",
       "reverie_dreams:drink/fruity_high_ball",
+      "reverie_dreams:drink/fruity_sour",
       "reverie_dreams:drink/qi",
+      "reverie_dreams:drink/beer",
       "reverie_dreams:drink/affgado",
-      "reverie_dreams:drink/fruity_sour"
+      "reverie_dreams:drink/negroni",
+      "reverie_dreams:drink/dawn",
+      "reverie_dreams:drink/coffee",
+      "reverie_dreams:drink/ordinary_fitness_tea",
+      "reverie_dreams:drink/satellite_iced_coffee",
+      "reverie_dreams:drink/fruity_high_ball",
+      "reverie_dreams:drink/fruity_sour",
+      "reverie_dreams:drink/qi",
+      "reverie_dreams:drink/beer",
+      "reverie_dreams:drink/affgado",
+      "reverie_dreams:drink/negroni",
+      "reverie_dreams:drink/dawn",
+      "reverie_dreams:drink/coffee",
+      "reverie_dreams:drink/ordinary_fitness_tea",
+      "reverie_dreams:drink/satellite_iced_coffee"
     ]
   }
 }

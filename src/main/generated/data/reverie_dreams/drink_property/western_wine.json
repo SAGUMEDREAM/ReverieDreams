@@ -2,13 +2,20 @@
   "registry_key": "reverie_dreams:western_wine",
   "properties": {
     "values": [
+      "reverie_dreams:drink/fruity_high_ball",
+      "reverie_dreams:drink/scarlet_devil",
       "reverie_dreams:drink/dawn",
       "reverie_dreams:drink/red_mist",
-      "reverie_dreams:drink/demonic_coffee",
-      "reverie_dreams:drink/scarlet_devil",
       "reverie_dreams:drink/negroni",
       "reverie_dreams:drink/godfather",
-      "reverie_dreams:drink/fruity_high_ball"
+      "reverie_dreams:drink/demonic_coffee",
+      "reverie_dreams:drink/fruity_high_ball",
+      "reverie_dreams:drink/scarlet_devil",
+      "reverie_dreams:drink/dawn",
+      "reverie_dreams:drink/red_mist",
+      "reverie_dreams:drink/negroni",
+      "reverie_dreams:drink/godfather",
+      "reverie_dreams:drink/demonic_coffee"
     ]
   }
 }

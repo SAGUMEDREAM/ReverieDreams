@@ -59,6 +59,7 @@ public abstract class AbstractSkinConfigProvider implements DataProvider {
             for (Map.Entry<Identifier, SkinConfig> identifierNPCSkinConfigEntry : this.configList.entrySet()) {
                 Identifier key = identifierNPCSkinConfigEntry.getKey();
                 SkinConfig config = identifierNPCSkinConfigEntry.getValue();
+                config.bindRegistryKey(key);
                 DataResult<JsonElement> result = SkinConfig.CODEC.encodeStart(JsonOps.INSTANCE, config);
                 if (!result.isSuccess()) {
                     continue;

@@ -75,8 +75,8 @@ public class RDItems {
     };
 
     // 调试
-    public static final Item BATTLE_STICK = registerSimpleItem("battle_stick", BattleStickItem::new, new Item.Properties().
-            stacksTo(1)
+    public static final Item BATTLE_STICK = registerSimpleItem("battle_stick", BattleStickItem::new, new Item.Properties()
+            .stacksTo(1)
             .component(RDDataComponents.BATTLE_STICK_RECORDER, BattleStickRecorder.empty()));
     public static final Item OWNER_STICK = registerSimpleItem("owner_stick", OwnerStickItem::new, new Item.Properties()
             .stacksTo(1));

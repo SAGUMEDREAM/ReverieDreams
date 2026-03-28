@@ -1,0 +1,12 @@
+{
+  "recipe_type": "reverie_dreams:frying_pan",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/hagfish"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/fried_hagfish"
+  },
+  "cost_time": 7.0
+}

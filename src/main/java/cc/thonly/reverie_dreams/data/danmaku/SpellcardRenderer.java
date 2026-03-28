@@ -77,6 +77,7 @@ public class SpellcardRenderer {
         this.maxTick = this.searchMaxTick(frames);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public static SpellcardRenderer addRenderer(SpellcardRenderer renderer) {
         TICKER.add(renderer);
         return renderer;

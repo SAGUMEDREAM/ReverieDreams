@@ -2,6 +2,7 @@
   "registry_key": "reverie_dreams:toxic",
   "properties": {
     "values": [
+      "reverie_dreams:ingredient/toon",
       "reverie_dreams:ingredient/toon"
     ]
   }

@@ -218,7 +218,7 @@ public class ItemStackWrapper {
 
     @SuppressWarnings("deprecation")
     public Boolean test(ItemStack other) {
-        if (ItemStack.matches(this.itemStack, other)) {
+        if (ItemStack.isSameItemSameComponents(this.itemStack, other)) {
             return true;
         }
 

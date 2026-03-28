@@ -1,16 +1,19 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.FoodPropertyLoaderCallback;
+import cc.thonly.reverie_dreams.api.FoodPropertiesLoaderCallback;
+import cc.thonly.reverie_dreams.api.FoodPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.item.base.IngredientItem;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
@@ -18,20 +21,19 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("Convert2MethodRef")
 @Slf4j
 public class FoodProperties {
+    private static final Map<Item, Set<FoodProperty>> ITEM_CACHE = new Object2ObjectLinkedOpenHashMap<>();
     public static final FoodProperty UNDEFINED = register("undefined", () -> new FoodProperty());
     public static final FoodProperty MEAT = register("meat", () -> new FoodProperty());
     public static final FoodProperty AQUATIC_PRODUCTS = register("aquatic_products", () -> new FoodProperty());
@@ -80,7 +82,7 @@ public class FoodProperties {
     public static final FoodProperty CURSE = register("curse", () -> new FoodProperty());
 
     public static void registerDefaultItemUsingProperty() {
-        FoodPropertyLoaderCallback.EVENT.register((world, user, property) -> {
+        FoodPropertyItemUseCallback.EVENT.register((world, user, property) -> {
             if (world.isClientSide()) {
                 return;
             }
@@ -149,57 +151,78 @@ public class FoodProperties {
 
     }
 
-    public static void reload(ResourceManager manager) {
-        Map<Identifier, FoodProperty> map = RegistryHandlers.FOOD_PROPERTY.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey().identifier(),
-                        Map.Entry::getValue
-                ));
-        Set<Map.Entry<Identifier, FoodProperty>> entries = map.entrySet();
-        entries.forEach((es) -> es.getValue().getItems().clear());
+    public static Collection<FoodProperty> get(ItemStack stack) {
+        List<FoodProperty> existing = stack.getOrDefault(RDDataComponents.FOOD_PROPERTIES, new ArrayList<>());
+        if (!existing.isEmpty()) {
+            return existing;
+        }
 
+        Set<FoodProperty> cached = ITEM_CACHE.get(stack.getItem());
+        if (cached == null || cached.isEmpty()) {
+            return List.of();
+        }
+
+        List<FoodProperty> result = new ArrayList<>(cached);
+        stack.set(RDDataComponents.FOOD_PROPERTIES, result);
+
+        return result;
+    }
+
+    public static void reload(ResourceManager manager) {
+        ITEM_CACHE.clear();
         Map<Identifier, Resource> resources = manager.listResources("food_property", id ->
                 id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
         );
-
+        List<FoodProperty.Data> foodPropertyData = new ArrayList<>();
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier resourceId = entry.getKey();
-            Identifier key = Identifier.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath().replace("food_property/", "").replace(".json", ""));
             Resource resource = entry.getValue();
-            FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(key);
-
-            if (property == null) {
-                ReverieDreams.LOGGER.warn("Unknown FoodProperty id: {}", resourceId);
-                continue;
-            }
-
             try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
+                DataResult<FoodProperty.Data> result = FoodProperty.Data.CODEC.parse(input);
 
-                DataResult<FoodProperty> result = FoodProperty.CODEC.parse(input);
-
-                result.resultOrPartial(error -> ReverieDreams.LOGGER.warn("Failed to parse tags for {}: {}", resourceId, error))
-                        .ifPresent(data -> {
-                            property.getItems().addAll(data.getItems());
-                        });
-
+                result.resultOrPartial(error -> ReverieDreams.LOGGER.warn("Failed to parse tags for {}: {}", entry.getKey(), error))
+                        .ifPresent(foodPropertyData::add);
             } catch (IOException e) {
-                ReverieDreams.LOGGER.error("Failed to load food_property {}: {}", resourceId, e.getMessage(), e);
+                ReverieDreams.LOGGER.error("Failed to load food_property {}: {}", entry.getKey(), e.getMessage(), e);
             }
         }
+        Map<FoodProperty, Set<Item>> foodPropertySetMap = new Object2ObjectLinkedOpenHashMap<>();
+        for (FoodProperty.Data foodPropertyDatum : foodPropertyData) {
+            Identifier id = foodPropertyDatum.id();
+            FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(id);
+            if (property == null) {
+                log.warn("Unknown food property {}", id);
+                continue;
+            }
+            HashSet<Item> callbackSets = new HashSet<>();
+            FoodPropertiesLoaderCallback.EVENT.invoker().modify(new FoodPropertiesLoaderCallback.Context() {
+                @Override
+                public FoodProperty getProperty() {
+                    return property;
+                }
 
-        Map<Item, Set<FoodProperty>> itemIngredientCached = IngredientItem.ITEM_INGREDIENT_CACHED;
-        itemIngredientCached.clear();
-        for (Map.Entry<Identifier, FoodProperty> entry : entries) {
-            FoodProperty property = entry.getValue();
-            Set<Item> tags = property.getItems();
-            for (Item item : tags) {
-                itemIngredientCached
-                        .computeIfAbsent(item, k -> new HashSet<>())
+                @Override
+                public Set<Item> getItems() {
+                    return callbackSets;
+                }
+            });
+            Set<Item> items = foodPropertySetMap.computeIfAbsent(property, x -> new LinkedHashSet<>());
+            items.addAll(foodPropertyDatum.items());
+            items.addAll(callbackSets);
+        }
+        foodPropertySetMap.forEach((property, items) -> {
+            for (Item item : items) {
+                ITEM_CACHE.computeIfAbsent(item, k -> new LinkedHashSet<>())
                         .add(property);
             }
-        }
-        log.info("Ingredients TAG loading completed");
+        });
+        log.info("Food TAG loading completed");
+    }
+
+    public static void registerByPair(Pair<FoodProperty, Collection<Item>> pair) {
+        FoodProperty property = pair.key();
+        Collection<Item> itemCollection = pair.value();
+        itemCollection.forEach(item -> ITEM_CACHE.computeIfAbsent(item, x -> new LinkedHashSet<>()).add(property));
     }
 }

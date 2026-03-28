@@ -170,7 +170,6 @@ public class ReverieDreams implements ModInitializer {
         KeyframeFunctions.bootstrap();
 
         ImageToTextScanner.bootstrap();
-        ItemDescriptionManager.bootstrap();
         PlayerDataComponentManager.registers();
 
         this.loadCompletableEvent();

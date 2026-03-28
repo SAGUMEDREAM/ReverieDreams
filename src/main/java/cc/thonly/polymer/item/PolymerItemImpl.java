@@ -1,22 +1,28 @@
 package cc.thonly.polymer.item;
 
 import cc.thonly.reverie_dreams.config.ReverieDreamsConfiguration;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.Knife;
 import cc.thonly.reverie_dreams.item.prop.TenguShieldItem;
 import cc.thonly.reverie_dreams.item.weapon.TrumpetGun;
 import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
 import eu.pb4.polymer.core.api.utils.PolymerKeepModel;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.List;
 
 public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, PolymerKeepModel {
     private final Item item;
@@ -55,9 +61,24 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
         return this.item instanceof BlockItem;
     }
 
-//    @Override
-//    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {
-//        out.set(DataComponentTypes.TOOLTIP_DISPLAY, out.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT));
-//    }
+    @Override
+    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {
+        PolymerItem.super.modifyBasePolymerItemStack(out, stack, context);
+        this.modifyForFoodTag(out, stack, context);
+    }
 
+    private void modifyForFoodTag(ItemStack out, ItemStack stack, PacketContext context) {
+        if (stack.has(RDDataComponents.FOOD_ITEM_TYPE)) {
+            FoodProperties foodProps = stack.get(DataComponents.FOOD);
+            if (foodProps == null) {
+                return;
+            }
+            List<FoodProperty> foodProperties = stack.get(RDDataComponents.FOOD_PROPERTIES);
+            if (foodProperties == null || foodProperties.isEmpty()) {
+                return;
+            }
+            int size = foodProperties.size();
+            out.set(DataComponents.FOOD, new FoodProperties(foodProps.nutrition() + size, foodProps.saturation() + size * 1.5f, foodProps.canAlwaysEat()));
+        }
+    }
 }

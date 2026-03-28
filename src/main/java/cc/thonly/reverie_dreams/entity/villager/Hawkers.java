@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.block.creator.CropBlockCreator;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -24,7 +25,6 @@ public class Hawkers {
         hawkers.put(4, getHawkersLevelFactories4());
         hawkers.put(5, getHawkersLevelFactories2());
         hawkers.forEach((level, list) -> {
-
             TradeOfferHelper.registerVillagerOffers(RDVillagerProfessions.HAWKERS, level, factories -> {
                 factories.addAll(list);
             });
@@ -55,7 +55,7 @@ public class Hawkers {
         List<VillagerTrades.ItemListing> list = new ArrayList<>();
         for (Item ingredient : RDIngredientItems.INGREDIENTS) {
             list.add((level, entity, random) -> {
-                List<FoodProperty> ingredientProperties = FoodProperty.getIngredientProperties(ingredient);
+                Collection<FoodProperty> ingredientProperties = FoodProperties.get(ingredient.getDefaultInstance());
                 int val0 = (int) (ingredientProperties.size() * 1.25 * random.nextIntBetweenInclusive(1, 2));
                 return new MerchantOffer(
                         new ItemCost(RDItems.COPPER_COIN, 3 + val0),

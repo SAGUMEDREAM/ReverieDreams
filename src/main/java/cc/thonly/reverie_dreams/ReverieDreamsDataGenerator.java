@@ -4,10 +4,10 @@ import cc.thonly.reverie_dreams.datagen.*;
 import cc.thonly.reverie_dreams.datagen.tag.*;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
-import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
 import cc.thonly.reverie_dreams.world.dimension.DimensionInit;
 import cc.thonly.reverie_dreams.world.dimension.DimensionTypeInit;
 import cc.thonly.reverie_dreams.world.gen.*;
+import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
@@ -15,11 +15,17 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.dimension.LevelStem;
 
+@Slf4j
 public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
+    static boolean DISABLED = false;
 
     @SuppressWarnings("DuplicatedCode")
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+        if (DISABLED) {
+            log.info("Data-driven generation items have been disabled.");
+            return;
+        }
         DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
@@ -44,7 +50,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(JsonElementWriterProvider::new);
 
-        pack.addProvider(IngredientProvider::new);
+        pack.addProvider(FoodIngredientProvider::new);
         pack.addProvider(DrinkProvider::new);
         pack.addProvider(CraftingConflictProvider::new);
     }
@@ -64,6 +70,10 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap);
         builder.add(Registries.DIMENSION_TYPE, DimensionTypeInit::bootstrap);
         builder.add(Registries.LEVEL_STEM, DimensionInit::bootstrap);
+    }
+
+    public static void disablePack() {
+        DISABLED = true;
     }
 
 }

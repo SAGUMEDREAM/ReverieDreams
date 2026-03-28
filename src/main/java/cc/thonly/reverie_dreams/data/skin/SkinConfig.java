@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.data.skin;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -18,13 +19,15 @@ import java.util.Optional;
 @ToString
 public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfig> {
     public static final Codec<SkinConfig> CODEC = RecordCodecBuilder.create(x -> x.group(
+            Identifier.CODEC.fieldOf("registry_key").forGetter(SkinConfig::getRegistryKey),
             ModelType.CODEC.fieldOf("type").forGetter(SkinConfig::getType),
             Identifier.CODEC.optionalFieldOf("cape").forGetter(SkinConfig::getCapeTexture),
             Identifier.CODEC.optionalFieldOf("elytra").forGetter(SkinConfig::getElytraTexture)
     ).apply(x, SkinConfig::new));
 
     @Setter
-    private SkinType skin;
+    private SkinType skin = null;
+    private Identifier registryKey = null;
     private final ModelType type;
     private final Optional<Identifier> capeTexture;
     private final Optional<Identifier> elytraTexture;
@@ -32,6 +35,14 @@ public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfi
     private RegistryHandler<SkinConfig> owner;
 
     public SkinConfig(ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
+        this.registryKey = null;
+        this.type = type;
+        this.capeTexture = capeTexture;
+        this.elytraTexture = elytraTexture;
+    }
+
+    public SkinConfig(Identifier registryKey, ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
+        this.registryKey = registryKey;
         this.type = type;
         this.capeTexture = capeTexture;
         this.elytraTexture = elytraTexture;
@@ -40,6 +51,13 @@ public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfi
     @Override
     public Codec<SkinConfig> getCodec() {
         return CODEC;
+    }
+
+    public void bindRegistryKey(Identifier key) {
+        if (this.registryKey != null) {
+            throw new IllegalCallerException("The registry_key has already been bound.");
+        }
+        this.registryKey = key;
     }
 
     public enum ModelType implements StringRepresentable {

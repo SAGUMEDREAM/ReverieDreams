@@ -267,11 +267,11 @@ public class THCommand implements CommandInit.CommandRegistration {
             source.sendFailure(Component.literal("§cYour hand item is empty."));
             return 0;
         }
-        List<String> strings = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.FOOD_PROPERTIES, new ArrayList<>()));
-        if (!strings.contains(property.getId().toString())) {
-            strings.add(property.getId().toString());
+        List<FoodProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.FOOD_PROPERTIES, new ArrayList<>()));
+        if (!props.contains(property)) {
+            props.add(property);
         }
-        itemStack.set(RDDataComponents.FOOD_PROPERTIES, strings);
+        itemStack.set(RDDataComponents.FOOD_PROPERTIES, props);
         return 1;
     }
 
@@ -293,11 +293,11 @@ public class THCommand implements CommandInit.CommandRegistration {
             source.sendFailure(Component.literal("§cYour hand item is empty."));
             return 0;
         }
-        List<String> strings = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.DRINK_PROPERTIES, new ArrayList<>()));
-        if (!strings.contains(property.getId().toString())) {
-            strings.add(property.getId().toString());
+        List<DrinkProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.DRINK_PROPERTIES, new ArrayList<>()));
+        if (!props.contains(property)) {
+            props.add(property);
         }
-        itemStack.set(RDDataComponents.DRINK_PROPERTIES, strings);
+        itemStack.set(RDDataComponents.DRINK_PROPERTIES, props);
         return 1;
     }
 

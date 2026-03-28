@@ -2,13 +2,20 @@
   "registry_key": "reverie_dreams:bubble",
   "properties": {
     "values": [
-      "reverie_dreams:drink/mojito_burst_ball",
-      "reverie_dreams:drink/ordinary_fitness_tea",
-      "reverie_dreams:drink/moon_rocket",
-      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
-      "reverie_dreams:drink/soda",
       "reverie_dreams:drink/qi",
-      "reverie_dreams:drink/daughter_of_the_sea"
+      "reverie_dreams:drink/moon_rocket",
+      "reverie_dreams:drink/soda",
+      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
+      "reverie_dreams:drink/ordinary_fitness_tea",
+      "reverie_dreams:drink/daughter_of_the_sea",
+      "reverie_dreams:drink/mojito_burst_ball",
+      "reverie_dreams:drink/qi",
+      "reverie_dreams:drink/moon_rocket",
+      "reverie_dreams:drink/soda",
+      "reverie_dreams:drink/iceberg_maple_frozen_lemon",
+      "reverie_dreams:drink/ordinary_fitness_tea",
+      "reverie_dreams:drink/daughter_of_the_sea",
+      "reverie_dreams:drink/mojito_burst_ball"
     ]
   }
 }

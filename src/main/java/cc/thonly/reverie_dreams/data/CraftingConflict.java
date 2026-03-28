@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
@@ -84,14 +85,11 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
         return this.foodProperties.contains(property);
     }
 
-
     public boolean test(ItemStack ingredient) {
         if (!ingredient.getItem().equals(this.item)) {
             return false;
         }
-        List<FoodProperty> properties = new ArrayList<>();
-        properties.addAll(FoodProperty.getFromItemStack(ingredient));
-        properties.addAll(FoodProperty.getFromItemStackComponent(ingredient));
+        List<FoodProperty> properties = new ArrayList<>(FoodProperties.get(ingredient));
         for (FoodProperty ingredientProperty : properties) {
             if (this.foodProperties.contains(ingredientProperty)) {
                 return true;

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.compat;
 
+import cc.thonly.reverie_dreams.api.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
@@ -27,34 +28,27 @@ public class BorukvaFoodExoticCompatImpl {
             builder.add(RDIngredientItems.CHILI, ModItems.PEPPER);
             builder.add(RDFoodItems.VEGETABLE_SPECIAL, ModItems.BROCCOLI);
         });
-        RegistryManagerReloadCallback.EVENT.register(simpleRegistry -> {
-            if (!simpleRegistry.equals(RegistryHandlers.FOOD_PROPERTY)) {
-                return;
+        FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
+            FoodProperty property = ctx.getProperty();
+            Set<Item> items = ctx.getItems();
+            if (property.equals(FoodProperties.FRUITY)) {
+                items.add(ModItems.APRICOT);
+                items.add(ModItems.PEAR);
+                items.add(ModItems.ORANGE);
+                items.add(ModItems.PLUM);
+                items.add(ModItems.KIWI);
+                items.add(ModItems.STRAWBERRY);
             }
-            RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
-            stream.forEach(mapEntry -> {
-                FoodProperty property = mapEntry.getValue();
-                Set<Item> tags = property.getItems();
-                if (property.equals(FoodProperties.FRUITY)) {
-                    tags.add(ModItems.APRICOT);
-                    tags.add(ModItems.PEAR);
-                    tags.add(ModItems.ORANGE);
-                    tags.add(ModItems.PLUM);
-                    tags.add(ModItems.KIWI);
-                    tags.add(ModItems.STRAWBERRY);
-                }
-                if (property.equals(FoodProperties.VEGETARIAN)) {
-                    tags.add(ModItems.PEAS);
-                    tags.add(ModItems.SPINACH);
-                    tags.add(ModItems.GREEN_BEAN);
-                    tags.add(ModItems.BROCCOLI);
-                }
-                if (property.equals(FoodProperties.SPICY)) {
-                    tags.add(ModItems.GARLIC);
-                    tags.add(ModItems.PEPPER);
-                }
-            });
+            if (property.equals(FoodProperties.VEGETARIAN)) {
+                items.add(ModItems.PEAS);
+                items.add(ModItems.SPINACH);
+                items.add(ModItems.GREEN_BEAN);
+                items.add(ModItems.BROCCOLI);
+            }
+            if (property.equals(FoodProperties.SPICY)) {
+                items.add(ModItems.GARLIC);
+                items.add(ModItems.PEPPER);
+            }
         });
     }
 }

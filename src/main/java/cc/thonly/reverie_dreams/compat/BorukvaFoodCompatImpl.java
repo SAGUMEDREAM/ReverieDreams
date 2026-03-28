@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.compat;
 
+import cc.thonly.reverie_dreams.api.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
@@ -26,9 +27,10 @@ import java.util.stream.Stream;
 public class BorukvaFoodCompatImpl {
     public static Block BETTER_FARMLAND = Blocks.AIR;
     public static boolean HAS_LOADED = false;
+
     public static void bootstrap() {
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
-            BETTER_FARMLAND = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("borukva-food","better_farmland"));
+            BETTER_FARMLAND = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("borukva-food", "better_farmland"));
             HAS_LOADED = true;
         });
         RecipeCompatPatchesCallback.EVENT.register(() -> {
@@ -43,45 +45,38 @@ public class BorukvaFoodCompatImpl {
             builder.add(RDIngredientItems.BLACK_SALT, ModItems.SALT);
             builder.add(RDIngredientItems.CHEESE, ModItems.CHEESE);
         });
-        RegistryManagerReloadCallback.EVENT.register(simpleRegistry -> {
-            if (!simpleRegistry.equals(RegistryHandlers.FOOD_PROPERTY)) {
-                return;
+        FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
+            FoodProperty property = ctx.getProperty();
+            Set<Item> items = ctx.getItems();
+            if (property.is(FoodProperties.SWEET)) {
+                items.add(ModItems.GRAPE);
             }
-            RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
-            Stream<Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
-            stream.forEach(mapEntry -> {
-                FoodProperty property = mapEntry.getValue();
-                Set<Item> items = property.getItems();
-                if (property.equals(FoodProperties.SWEET)) {
-                    items.add(ModItems.GRAPE);
-                }
-                if (property.equals(FoodProperties.FRUITY)) {
-                    items.add(ModItems.LEMON);
-                    items.add(ModItems.AVOCADO);
-                    items.add(ModItems.GRAPE);
-                    items.add(ModItems.BLACKCURRANTS);
-                    items.add(ModItems.GOOSEBERRY);
-                }
-                if (property.equals(FoodProperties.FILLING)) {
-                    items.add(ModItems.CORN);
-                }
-                if (property.equals(FoodProperties.VEGETARIAN)) {
-                    items.add(ModItems.ONION);
-                    items.add(ModItems.ENDER_INFECTED_ONION);
-                    items.add(ModItems.TOMATO);
-                    items.add(ModItems.CABBAGE);
-                    items.add(ModItems.CORN);
-                    items.add(ModItems.CUCUMBER);
-                    items.add(ModItems.LETTUCE);
-                }
-                if (property.equals(FoodProperties.UMAMI)) {
-                    items.add(ModItems.ONION);
-                    items.add(ModItems.ENDER_INFECTED_ONION);
-                }
-                if (property.equals(FoodProperties.FIERY)) {
-                    items.add(ModItems.CHILLI_PEPPER);
-                }
-            });
+            if (property.is(FoodProperties.FRUITY)) {
+                items.add(ModItems.LEMON);
+                items.add(ModItems.AVOCADO);
+                items.add(ModItems.GRAPE);
+                items.add(ModItems.BLACKCURRANTS);
+                items.add(ModItems.GOOSEBERRY);
+            }
+            if (property.is(FoodProperties.FILLING)) {
+                items.add(ModItems.CORN);
+            }
+            if (property.is(FoodProperties.VEGETARIAN)) {
+                items.add(ModItems.ONION);
+                items.add(ModItems.ENDER_INFECTED_ONION);
+                items.add(ModItems.TOMATO);
+                items.add(ModItems.CABBAGE);
+                items.add(ModItems.CORN);
+                items.add(ModItems.CUCUMBER);
+                items.add(ModItems.LETTUCE);
+            }
+            if (property.is(FoodProperties.UMAMI)) {
+                items.add(ModItems.ONION);
+                items.add(ModItems.ENDER_INFECTED_ONION);
+            }
+            if (property.is(FoodProperties.FIERY)) {
+                items.add(ModItems.CHILLI_PEPPER);
+            }
         });
     }
 

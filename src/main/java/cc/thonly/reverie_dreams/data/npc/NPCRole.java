@@ -76,6 +76,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
         return this.entityType.getDescriptionId();
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public NPCRole build() {
         if (hasBuilt) {
             return this;

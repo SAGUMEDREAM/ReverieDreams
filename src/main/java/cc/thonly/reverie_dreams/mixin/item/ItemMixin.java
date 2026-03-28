@@ -3,9 +3,6 @@ package cc.thonly.reverie_dreams.mixin.item;
 import cc.thonly.minecraft.api.ItemPostHitCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.inf.IPlayerEntity;
-import cc.thonly.reverie_dreams.item.base.DrinkItem;
-import cc.thonly.reverie_dreams.item.base.FoodItem;
-import cc.thonly.reverie_dreams.item.base.IngredientItem;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
@@ -21,7 +18,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -35,11 +31,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureElement;
+import net.minecraft.world.food.FoodData;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -54,7 +50,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 @Mixin(Item.class)
 public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem {
@@ -86,10 +81,15 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
             return;
         }
         Item item = itemStack.getItem();
-        if (itemStack.has(RDDataComponents.FOOD_PROPERTIES) && (item instanceof FoodItem || itemStack.has(DataComponents.FOOD))) {
+        if (itemStack.has(RDDataComponents.FOOD_PROPERTIES) && (itemStack.has(RDDataComponents.FOOD_ITEM_TYPE)) || itemStack.has(DataComponents.FOOD)) {
+            List<FoodProperty> foodProperties = itemStack.get(RDDataComponents.FOOD_PROPERTIES);
+            assert foodProperties != null;
+            int size = foodProperties.size();
+            FoodData foodData = serverPlayer.getFoodData();
+            foodData.eat(new FoodProperties(size, size * 1.5f, false));
             SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
         }
-        if (itemStack.has(RDDataComponents.DRINK_PROPERTIES) && (item instanceof DrinkItem || itemStack.has(DataComponents.FOOD))) {
+        if (itemStack.has(RDDataComponents.DRINK_PROPERTIES) && (itemStack.has(RDDataComponents.DRINK_ITEM_TYPE) || itemStack.has(DataComponents.FOOD))) {
             SimpleTriggerFactory.create(SimpleTriggerKeys.HAVING_DRINK).trigger(serverPlayer);
         }
     }
@@ -142,21 +142,6 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, FabricItem 
                 cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
                 cir.cancel();
             }
-        }
-    }
-
-    @Inject(method = "appendHoverText", at = @At("HEAD"))
-    public void reverie_dreams$appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type, CallbackInfo ci) {
-        Item item = this.asItem();
-        if (item instanceof IngredientItem || item instanceof FoodItem) {
-            return;
-        }
-        List<FoodProperty> foodProperties = FoodProperty.getIngredientProperties(item);
-        if (!foodProperties.isEmpty()) {
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
-        }
-        for (FoodProperty foodProperty : foodProperties) {
-            textConsumer.accept(Component.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
         }
     }
 }

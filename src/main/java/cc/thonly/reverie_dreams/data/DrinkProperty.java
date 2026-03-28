@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.api.DrinkPropertyLoaderCallback;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.DrinkPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
@@ -30,14 +31,18 @@ import java.util.*;
 @Getter
 @ToString
 public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<DrinkProperty>, BuiltinObject, Translatable {
-    public static final Codec<DrinkProperty> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf("registry_key").forGetter(DrinkProperty::getId),
-            ITEMS_CODEC.fieldOf("properties").forGetter(DrinkProperty::getItemList)
-    ).apply(instance, DrinkProperty::new));
+    public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
+    public static final Codec<DrinkProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryHandlers.DRINK_PROPERTY::getValue, entry -> {
+        Identifier key = RegistryHandlers.DRINK_PROPERTY.getKey(entry);
+        if (key == null) {
+            return UNDEFINED;
+        }
+        return key;
+    }));
+    public static final Codec<List<DrinkProperty>> LIST_COMPONENT_CODEC = Codec.lazyInitialized(COMPONENT_CODEC::listOf);
 
     private Identifier id;
     private final MobEffectInstance effectInstance;
-    private Set<Item> items = new ObjectOpenHashSet<>();
     private RegistryHandler<DrinkProperty> owner;
 
     public DrinkProperty() {
@@ -48,16 +53,10 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
         this.effectInstance = effectInstance;
     }
 
-    public DrinkProperty(Identifier id, List<Item> items) {
-        this();
-        this.id = id;
-        this.items.addAll(items);
-    }
-
     public final void use(ServerLevel world, LivingEntity user) {
         MobEffectInstance effectInstance = new MobEffectInstance(this.effectInstance);
         user.addEffect(effectInstance);
-        DrinkPropertyLoaderCallback.EVENT.invoker().onUse(world, user, this);
+        DrinkPropertyItemUseCallback.EVENT.invoker().onUse(world, user, this);
         this.onUse(world, user);
     }
 
@@ -78,65 +77,15 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
         return this.id.toLanguageKey("drink_property");
     }
 
-    public List<Item> getItemList() {
-        return new ArrayList<>(this.items);
-    }
-
-    public static List<DrinkProperty> getAllProperties(ItemStack itemStack) {
-        Set<DrinkProperty> set = new HashSet<>();
-        set.addAll(getDrinkProperties(itemStack.getItem()));
-        set.addAll(getFromItemStackComponent(itemStack));
-        set.addAll(getFromItemStack(itemStack));
-        return new ArrayList<>(set);
-    }
-
-    public static List<DrinkProperty> getDrinkProperties(Item item) {
-        List<DrinkProperty> list = new ArrayList<>();
-        Set<Map.Entry<Identifier, DrinkProperty>> entries = RegistryHandlers.DRINK_PROPERTY.idEntrySet();
-        for (Map.Entry<Identifier, DrinkProperty> entry : entries) {
-            DrinkProperty foodProperty = entry.getValue();
-            Set<Item> tags = foodProperty.getItems();
-            if (tags.contains(item)) {
-                list.add(foodProperty);
-            }
-        }
-        return list;
-    }
-
-    public static List<DrinkProperty> getFromStrings(List<String> ids) {
-        List<DrinkProperty> list = new ArrayList<>();
-        for (String id : ids) {
-            Identifier identifier = Identifier.parse(id);
-            DrinkProperty foodProperty = RegistryHandlers.DRINK_PROPERTY.getValue(identifier);
-            if (foodProperty != null) {
-                list.add(foodProperty);
-            }
-        }
-        return list;
-    }
-
-    public static List<DrinkProperty> getFromItemStackComponent(ItemStack itemStack) {
-        List<String> ids = itemStack.getOrDefault(RDDataComponents.DRINK_PROPERTIES, new ArrayList<>());
-        return getFromStrings(ids);
-    }
-
-    public static List<DrinkProperty> getFromItemStack(ItemStack itemStack) {
-        List<DrinkProperty> list = new ArrayList<>();
-        Item item = itemStack.getItem();
-        Set<Map.Entry<ResourceKey<DrinkProperty>, DrinkProperty>> entries = RegistryHandlers.DRINK_PROPERTY.entrySet();
-        for (Map.Entry<ResourceKey<DrinkProperty>, DrinkProperty> entry : entries) {
-            DrinkProperty drinkProperty = entry.getValue();
-            Set<Item> tags = drinkProperty.getItems();
-            if (tags.contains(item)) {
-                list.add(drinkProperty);
-            }
-        }
-        return list;
-    }
-
     @Override
     public Codec<DrinkProperty> getCodec() {
-        return CODEC;
+        return COMPONENT_CODEC;
     }
 
+    public record Data(Identifier id, List<Item> items) {
+        public static final Codec<DrinkProperty.Data> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Identifier.CODEC.fieldOf("registry_key").forGetter(Data::id),
+                ITEMS_CODEC.fieldOf("properties").forGetter(Data::items)
+        ).apply(instance, DrinkProperty.Data::new));
+    }
 }

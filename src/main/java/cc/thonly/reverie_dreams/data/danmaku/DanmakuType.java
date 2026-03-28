@@ -45,7 +45,7 @@ import java.util.*;
 @Getter
 @ToString
 public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, Translatable, BuiltinObject {
-    public static final Codec<DanmakuType> CODEC = RecordCodecBuilder.create(instance ->
+    public static final Codec<DanmakuType> COMPONENT_CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
                     ResourceKey.codec(Registries.DAMAGE_TYPE).fieldOf("damage_type").forGetter(DanmakuType::getDamageType),
@@ -207,6 +207,6 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
 
     @Override
     public Codec<DanmakuType> getCodec() {
-        return CODEC;
+        return COMPONENT_CODEC;
     }
 }

@@ -36,35 +36,27 @@ public class SkinConfigs {
         }
         Map<Identifier, Resource> resources = manager.listResources("skin_config", id -> id.getPath().endsWith(".json"));
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier resourceId = entry.getKey();
-            Identifier key = Identifier.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath()
-                    .replace("skin_config/", "")
-                    .replace(".json", "")
-            );
-//            System.out.println(key);
+            Identifier key = entry.getKey();
             Resource resource = entry.getValue();
-            SkinType skin = RegistryHandlers.SKIN_TYPE.getValue(key);
-            if (skin == null) {
-                log.warn("Unknown skin id: {}", resourceId);
-                continue;
-            }
             try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-
                 DataResult<SkinConfig> result = SkinConfig.CODEC.parse(input);
-                result.resultOrPartial(error -> log.warn("Failed to parse Skin Config for {}: {}", resourceId, error))
-                        .ifPresent(data -> {
-                            skin.setConfig(data);
-                            data.setSkin(skin);
-//                            log.info("register skin {} {}", key, data);
-                            RegistryHandlers.register(RegistryHandlers.SKIN_CONFIG, key, data);
+                result.resultOrPartial(error -> log.warn("Failed to parse Skin Config for {}: {}", key, error))
+                        .ifPresent(skinConfig -> {
+                            Identifier registryKey = skinConfig.getRegistryKey();
+                            SkinType skin = RegistryHandlers.SKIN_TYPE.getValue(registryKey);
+                            if (skin == null) {
+                                log.warn("Unknown skin id: {}", registryKey);
+                                return;
+                            }
+                            skin.setConfig(skinConfig);
+                            skinConfig.setSkin(skin);
+                            RegistryHandlers.register(RegistryHandlers.SKIN_CONFIG, key, skinConfig);
                         });
             } catch (IOException e) {
-                log.error("Failed to load Skin Config {}: {}", resourceId, e.getMessage(), e);
+                log.error("Failed to load Skin Config {}: {}", key, e.getMessage(), e);
             }
-
-//            runAllAsync(tasks);
         }
     }
 

@@ -2,11 +2,11 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/hagfish"
+      "id": "minecraft:potato"
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/fried_hagfish"
+    "id": "reverie_dreams:food/potato_croquettes"
   },
   "cost_time": 7.0
 }

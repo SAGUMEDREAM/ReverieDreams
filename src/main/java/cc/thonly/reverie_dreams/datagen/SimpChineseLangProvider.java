@@ -371,7 +371,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.FRIED_PORK_CUTLET, "炸猪排");
         translationBuilder.add(RDFoodItems.FRIED_PORK_SHREDS, "炒肉丝");
         translationBuilder.add(RDFoodItems.FRIED_SHRIMP_TEMPURA, "炸虾天妇罗");
-        translationBuilder.add(RDFoodItems.FRIED_TOFU, "炸豆腐");
+        translationBuilder.add(RDFoodItems.FRIED_TOFU, "油豆腐");
         translationBuilder.add(RDFoodItems.FRIED_TOMATO_STRIPS, "炸番茄条");
         translationBuilder.add(RDFoodItems.FRIGHT_ADVENTURE, "惊吓！大冒险");
         translationBuilder.add(RDFoodItems.GAME_SOUP, "野味杂烩汤");

@@ -4,8 +4,9 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.gui.NPCGui;
 import cc.thonly.reverie_dreams.inf.IItemStack;
-import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
@@ -129,7 +130,7 @@ public class NPCRoleInteractionEvents {
         if (stack.isEmpty()) {
             return NPCInteractResult.PASS;
         }
-        if (entity.canFeed() && (stack.getItem() == Items.POTION || stack.getItem() instanceof DrinkItem drinkItem)) {
+        if (entity.canFeed() && (stack.getItem() == Items.POTION || stack.has(RDDataComponents.DRINK_ITEM_TYPE))) {
             UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
             entity.playSound(SoundEvents.GENERIC_DRINK.value(), 1.0f, 1.0f);
             ItemStack result = stack.finishUsingItem(world, entity);

@@ -37,6 +37,7 @@
     "block.BedBlockMixin",
     "block.CropBlockMixin",
     "block.LilyPadBlockMixin",
+    "booklet.DataGenInitMixin",
     "command.SuggestionProvidersMixin",
     "enchantment.EnchantmentMenuMixin",
     "entity.AnimalEntityMixin",

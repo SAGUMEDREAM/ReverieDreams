@@ -2,12 +2,15 @@ package cc.thonly.reverie_dreams.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
+import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +35,7 @@ public abstract class AbstractDrinkProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, AbstractDrinkProvider.Factory> identifier2BuilderListMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, AbstractDrinkProvider.Factory> id2Builder = new Object2ObjectOpenHashMap<>();
 
     public AbstractDrinkProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
@@ -42,11 +45,11 @@ public abstract class AbstractDrinkProvider implements DataProvider {
 
     public AbstractDrinkProvider.Factory createFactory(DrinkProperty property) {
         Identifier id = property.getId();
-        if (this.identifier2BuilderListMap.containsKey(id)) {
-            return this.identifier2BuilderListMap.get(id);
+        if (this.id2Builder.containsKey(id)) {
+            return this.id2Builder.get(id);
         }
         AbstractDrinkProvider.Factory factory = new AbstractDrinkProvider.Factory(id, property);
-        this.identifier2BuilderListMap.put(id, factory);
+        this.id2Builder.put(id, factory);
         return factory;
     }
 
@@ -61,6 +64,9 @@ public abstract class AbstractDrinkProvider implements DataProvider {
         return CompletableFuture.runAsync(() -> {
             this.configured();
             this.export(writer);
+            for (Factory factory : this.id2Builder.values()) {
+                DrinkProperties.registerByPair(factory.buildForProvider());
+            }
         });
     }
 
@@ -69,13 +75,13 @@ public abstract class AbstractDrinkProvider implements DataProvider {
     public void export(CachedOutput writer) {
         Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         try {
-            for (var entry : this.identifier2BuilderListMap.entrySet()) {
+            for (var entry : this.id2Builder.entrySet()) {
                 Identifier identifier = entry.getKey();
                 AbstractDrinkProvider.Factory factory = entry.getValue();
-                factory.getProperty().setId(identifier);
+                DrinkProperty.Data data = new DrinkProperty.Data(identifier, factory.getList());
                 Path generatePath = DataGeneratorUtil.getData(path, ReverieDreams.MOD_ID, "drink_property", null);
 
-                DataResult<JsonElement> result = DrinkProperty.CODEC.encodeStart(JsonOps.INSTANCE, factory.getProperty());
+                DataResult<JsonElement> result = DrinkProperty.Data.CODEC.encodeStart(JsonOps.INSTANCE, data);
                 Optional<JsonElement> optional = result.result();
 
                 if (optional.isPresent()) {
@@ -99,7 +105,6 @@ public abstract class AbstractDrinkProvider implements DataProvider {
         private final Identifier id;
         private final DrinkProperty property;
         private final List<Item> list = new LinkedList<>();
-        private boolean done = false;
 
         protected Factory(Identifier id, DrinkProperty property) {
             this.id = id;
@@ -117,8 +122,10 @@ public abstract class AbstractDrinkProvider implements DataProvider {
         }
 
         public void build() {
-            this.property.getItems().addAll(this.list);
-            this.done = true;
+        }
+
+        public Pair<DrinkProperty, Collection<Item>> buildForProvider() {
+            return Pair.of(this.property, new HashSet<>(this.list));
         }
 
     }

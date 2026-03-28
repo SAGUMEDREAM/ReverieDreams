@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
-import cc.thonly.reverie_dreams.item.base.DrinkItem;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -11,7 +11,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
@@ -95,7 +94,7 @@ public class TavernVillager extends AbstractSellerEntity {
             ItemStack sellItem = new ItemStack(item, 6);
             ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
 
-            int amount = DrinkItem.PRICE_CALCULATION_TABLE.getOrDefault(item,8) + random.nextInt(2);
+            int amount = DrinkProperties.getPriceCalculationTable().getOrDefault(item, 8) + random.nextInt(2);
             ItemCost first = new ItemCost(RDItems.COPPER_COIN, amount);
             ItemCost second = new ItemCost(Items.GLASS_BOTTLE, 1);
 

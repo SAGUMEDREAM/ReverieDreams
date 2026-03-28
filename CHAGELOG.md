@@ -2,11 +2,18 @@
 
 # 0.4.18+1.21.11
 * Rewrite chest loot
+* Rewrite Food Property and Drink Property Data-driven
 * Moving Mushroom Monster drops to loot
 * Added UFO Loot drops
 * Added Hairball Loot drops
 * Added Item Tags parse in ItemStackWrapper(be like Recipe)
 * Increase Coin drop number
+* Fixed the missing recipes for fried tofu and cola potato pancakes.
+* Fixed word "油豆腐" was corrected to "炸豆腐"
+* Fixed mistake pixel in Cooking Pot
+* Fixed mistake pixel in Cooking Tofu
+* Fixed ItemStackWrapper can't match greater than other item
+* Compat for Appleskin
 
 # 0.4.17+1.21.11
 * Fixed Bagua Furnace lost attacking state when chunk unloading

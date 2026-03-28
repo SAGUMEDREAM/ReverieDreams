@@ -1,0 +1,12 @@
+{
+  "recipe_type": "reverie_dreams:frying_pan",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/tofu"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/fried_tofu"
+  },
+  "cost_time": 7.0
+}

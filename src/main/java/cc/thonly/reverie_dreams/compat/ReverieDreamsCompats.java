@@ -30,6 +30,7 @@ public class ReverieDreamsCompats {
         load("fishing101", "cc.thonly.reverie_dreams.compat.Fishing101CompatImpl");
         load("polyfactory", "cc.thonly.reverie_dreams.compat.PolyFactoryCompatImpl");
         load("create", "cc.thonly.reverie_dreams.compat.CreateFlyCompatImpl");
+        load("appleskin", "cc.thonly.reverie_dreams.compat.AppleskinCompatImpl");
     }
 
     public static List<Tuple<Integer, Goal>> getCompatGoals(BaseNPCLikeEntity npcLikeEntity) {

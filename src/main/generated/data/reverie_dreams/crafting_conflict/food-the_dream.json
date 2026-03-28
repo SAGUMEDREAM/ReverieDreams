@@ -2,7 +2,7 @@
   "item": "reverie_dreams:food/the_dream",
   "values": [
     "reverie_dreams:aquatic_products",
-    "reverie_dreams:meat",
-    "reverie_dreams:good_with_alcohol"
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:meat"
   ]
 }

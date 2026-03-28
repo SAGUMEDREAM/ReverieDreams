@@ -1345,10 +1345,22 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                 this.ofItem(RDFoodItems.BRAISED_EEL),
                 6.0
         ));
-        this.kitchenRecipeFactory.register(ReverieDreams.id("potato_croquettes"), new KitchenRecipe(
+        this.kitchenRecipeFactory.register(ReverieDreams.id("fried_hagfish"), new KitchenRecipe(
                 fryingPan,
                 this.ofList(RDIngredientItems.HAGFISH),
                 this.ofItem(RDFoodItems.FRIED_HAGFISH),
+                7.0
+        ));
+        this.kitchenRecipeFactory.register(ReverieDreams.id("fried_tofu"), new KitchenRecipe(
+                fryingPan,
+                this.ofList(RDIngredientItems.TOFU),
+                this.ofItem(RDFoodItems.FRIED_TOFU),
+                7.0
+        ));
+        this.kitchenRecipeFactory.register(ReverieDreams.id("potato_croquettes"), new KitchenRecipe(
+                fryingPan,
+                this.ofList(Items.POTATO),
+                this.ofItem(RDFoodItems.POTATO_CROQUETTES),
                 7.0
         ));
         this.kitchenRecipeFactory.register(ReverieDreams.id("deep_fried_cicada_shells"), new KitchenRecipe(
@@ -1542,7 +1554,6 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
     public void generateDanmakuRecipe() {
         Stream<DanmakuType> stream = RegistryHandlers.DANMAKU_TYPE.stream();
         stream.forEach(value -> {
-            Identifier key = RegistryHandlers.DANMAKU_TYPE.getKey(value);
             if (!value.isDeleteFromList()) {
                 for (Tuple<Item, ItemStack> pair : value.getColorPairs()) {
                     Item dye = pair.getA();
@@ -1550,7 +1561,8 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                     Item item = result.getItem();
                     Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
                     Identifier dyeId = BuiltInRegistries.ITEM.getKey(dye);
-                    Identifier registryKey = Identifier.fromNamespaceAndPath(itemId.getNamespace(), itemId.getPath() + "_dye_" + dyeId.getPath());
+                    String path = itemId.getPath().replaceAll("/", "_").replaceFirst("danmaku_", "") + "_dye_by_" + dyeId.getPath();
+                    Identifier registryKey = Identifier.fromNamespaceAndPath(itemId.getNamespace(), path);
                     DanmakuRecipe recipe = new DanmakuRecipe(
                             new ItemStackWrapper(new ItemStack(dye, 4)),
                             new ItemStackWrapper(new ItemStack(RDItems.DANMAKU_CORE, 4)),

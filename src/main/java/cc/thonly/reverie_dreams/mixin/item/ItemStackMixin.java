@@ -2,9 +2,7 @@ package cc.thonly.reverie_dreams.mixin.item;
 
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.inf.IItemStack;
-import cc.thonly.reverie_dreams.item.base.DrinkItem;
-import cc.thonly.reverie_dreams.item.base.FoodItem;
-import cc.thonly.reverie_dreams.server.ItemDescriptionManager;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.fabricmc.fabric.api.item.v1.FabricItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentHolder;
@@ -12,7 +10,6 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,7 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -34,8 +30,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin<T> implements IItemStack,
@@ -82,36 +76,15 @@ public abstract class ItemStackMixin<T> implements IItemStack,
         }
     }
 
-    @Inject(method = "getTooltipLines", at = @At("RETURN"), cancellable = true)
-    public void appendTooltip(Item.TooltipContext context, @Nullable Player player, TooltipFlag type, CallbackInfoReturnable<List<Component>> cir) {
-        if (this.isEmpty()) {
-            return;
-        }
-        Item item = this.getItem();
-        List<MutableComponent> texts = ItemDescriptionManager.getDescription(item);
-        try {
-            if (!texts.isEmpty()) {
-                List<Component> textList = cir.getReturnValue();
-                textList.addAll(texts);
-            }
-        } catch (Exception ignored) {
-        }
-    }
-
     @Unique
     @Override
     public boolean reverie_dreams$isFood() {
-        Item item = this.getItem();
-        if (item instanceof FoodItem) {
-            return true;
-        }
-        return this.components.has(DataComponents.FOOD);
+        return this.components.has(DataComponents.FOOD) || this.components.has(RDDataComponents.FOOD_ITEM_TYPE);
     }
 
     @Unique
     @Override
     public boolean reverie_dreams$isDrink() {
-        Item item = this.getItem();
-        return item instanceof DrinkItem;
+        return this.components.has(RDDataComponents.DRINK_ITEM_TYPE);
     }
 }

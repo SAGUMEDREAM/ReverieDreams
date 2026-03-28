@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.compat;
 
+import cc.thonly.reverie_dreams.api.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.RegistryManagerReloadCallback;
@@ -20,7 +21,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-@SuppressWarnings("unchecked")
 public class FarmersdelightCompatImpl {
     public static void bootstrap() {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
@@ -35,29 +35,22 @@ public class FarmersdelightCompatImpl {
             builder.add(Items.BEEF, ModItems.MINCED_BEEF.get());
             builder.add(RDIngredientItems.WAGYU_BEEF, ModItems.MINCED_BEEF.get());
         });
-        RegistryManagerReloadCallback.EVENT.register(simpleRegistry -> {
-            if (!simpleRegistry.equals(RegistryHandlers.FOOD_PROPERTY)) {
-                return;
+        FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
+            FoodProperty property = ctx.getProperty();
+            Set<Item> items = ctx.getItems();
+            if (property.equals(FoodProperties.VEGETARIAN)) {
+                items.add(ModItems.CABBAGE.get());
+                items.add(ModItems.CABBAGE_LEAF.get());
+                items.add(ModItems.TOMATO.get());
+                items.add(ModItems.ONION.get());
             }
-            RegistryHandler<FoodProperty> registry = (RegistryHandler<FoodProperty>) simpleRegistry;
-            Stream<? extends Map.Entry<Identifier, FoodProperty>> stream = registry.streamIdToValue();
-            stream.forEach((Consumer<Map.Entry<Identifier, FoodProperty>>) mapEntry -> {
-                FoodProperty property = mapEntry.getValue();
-                Set<Item> tags = property.getItems();
-                if (property.equals(FoodProperties.VEGETARIAN)) {
-                    tags.add(ModItems.CABBAGE.get());
-                    tags.add(ModItems.CABBAGE_LEAF.get());
-                    tags.add(ModItems.TOMATO.get());
-                    tags.add(ModItems.ONION.get());
-                }
-                if (property.equals(FoodProperties.UMAMI)) {
-                    tags.add(ModItems.ONION.get());
-                }
-                if (property.equals(FoodProperties.AQUATIC_PRODUCTS)) {
-                    tags.add(ModItems.COD_SLICE.get());
-                    tags.add(ModItems.SALMON_SLICE.get());
-                }
-            });
+            if (property.equals(FoodProperties.UMAMI)) {
+                items.add(ModItems.ONION.get());
+            }
+            if (property.equals(FoodProperties.AQUATIC_PRODUCTS)) {
+                items.add(ModItems.COD_SLICE.get());
+                items.add(ModItems.SALMON_SLICE.get());
+            }
         });
     }
 }

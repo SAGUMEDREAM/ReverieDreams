@@ -2,12 +2,14 @@ package cc.thonly.reverie_dreams.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,30 +30,30 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @SuppressWarnings("rawTypes")
-public abstract class AbstractIngredientProvider implements DataProvider {
+public abstract class AbstractFoodIngredientProvider implements DataProvider {
     public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, AbstractIngredientProvider.Factory> identifier2BuilderListMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, AbstractFoodIngredientProvider.Factory> id2Builder = new Object2ObjectOpenHashMap<>();
 
-    public AbstractIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractFoodIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
         this.configured();
     }
 
-    public AbstractIngredientProvider.Factory createFactory(FoodProperty property) {
+    public AbstractFoodIngredientProvider.Factory createFactory(FoodProperty property) {
         Identifier id = property.getId();
-        if (this.identifier2BuilderListMap.containsKey(id)) {
-            return this.identifier2BuilderListMap.get(id);
+        if (this.id2Builder.containsKey(id)) {
+            return this.id2Builder.get(id);
         }
-        AbstractIngredientProvider.Factory factory = new AbstractIngredientProvider.Factory(id, property);
-        this.identifier2BuilderListMap.put(id, factory);
+        AbstractFoodIngredientProvider.Factory factory = new AbstractFoodIngredientProvider.Factory(id, property);
+        this.id2Builder.put(id, factory);
         return factory;
     }
 
-    public AbstractIngredientProvider.Factory createFactory(FoodProperty property, Item... items) {
-        AbstractIngredientProvider.Factory factory = createFactory(property);
+    public AbstractFoodIngredientProvider.Factory createFactory(FoodProperty property, Item... items) {
+        AbstractFoodIngredientProvider.Factory factory = createFactory(property);
         factory.getList().addAll(Arrays.stream(items).toList());
         return factory;
     }
@@ -61,6 +63,9 @@ public abstract class AbstractIngredientProvider implements DataProvider {
         return CompletableFuture.runAsync(() -> {
             this.configured();
             this.export(writer);
+            for (Factory factory : this.id2Builder.values()) {
+                FoodProperties.registerByPair(factory.buildForProvider());
+            }
         });
     }
 
@@ -69,13 +74,13 @@ public abstract class AbstractIngredientProvider implements DataProvider {
     public void export(CachedOutput writer) {
         Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         try {
-            for (var entry : this.identifier2BuilderListMap.entrySet()) {
+            for (var entry : this.id2Builder.entrySet()) {
                 Identifier identifier = entry.getKey();
-                AbstractIngredientProvider.Factory factory = entry.getValue();
-                factory.getProperty().setId(identifier);
+                AbstractFoodIngredientProvider.Factory factory = entry.getValue();
+                FoodProperty.Data data = new FoodProperty.Data(identifier, factory.getList());
                 Path generatePath = DataGeneratorUtil.getData(path, ReverieDreams.MOD_ID, "food_property", null);
 
-                DataResult<JsonElement> result = FoodProperty.CODEC.encodeStart(JsonOps.INSTANCE, factory.getProperty());
+                DataResult<JsonElement> result = FoodProperty.Data.CODEC.encodeStart(JsonOps.INSTANCE, data);
                 Optional<JsonElement> optional = result.result();
 
                 if (optional.isPresent()) {
@@ -99,28 +104,28 @@ public abstract class AbstractIngredientProvider implements DataProvider {
         private final Identifier id;
         private final FoodProperty property;
         private final List<Item> list = new LinkedList<>();
-        private boolean done = false;
 
         protected Factory(Identifier id, FoodProperty property) {
             this.id = id;
             this.property = property;
         }
 
-        public AbstractIngredientProvider.Factory add(Item item) {
+        public AbstractFoodIngredientProvider.Factory add(Item item) {
             this.list.add(item);
             return this;
         }
 
-        public AbstractIngredientProvider.Factory add(Item... item) {
+        public AbstractFoodIngredientProvider.Factory add(Item... item) {
             this.list.addAll(Arrays.stream(item).toList());
             return this;
         }
 
         public void build() {
-            this.property.getItems().addAll(this.list);
-            this.done = true;
         }
 
+        public Pair<FoodProperty, Collection<Item>> buildForProvider() {
+            return Pair.of(this.property, new HashSet<>(this.list));
+        }
     }
 
 

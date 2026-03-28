@@ -10,7 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class SpellCardFrameConfig {
     public static final Codec<SpellCardFrameConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            DanmakuType.CODEC.fieldOf("type").forGetter(SpellCardFrameConfig::getType),
+            DanmakuType.COMPONENT_CODEC.fieldOf("type").forGetter(SpellCardFrameConfig::getType),
             Codec.INT.optionalFieldOf("color", -1).forGetter(SpellCardFrameConfig::getColor),
             Codec.INT.optionalFieldOf("density", 1).forGetter(SpellCardFrameConfig::getDensity),
             Codec.INT.optionalFieldOf("tick_delay", 0).forGetter(SpellCardFrameConfig::getTickDelay),
