@@ -42,7 +42,6 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     // 构建后属性
     private EntityType<NPCRoleFastEntity> entityType;
     private Item spawnEgg;
-//    private Class<? extends BaseNPCLikeEntity> clazz;
     private boolean hasBuilt = false;
 
     private RegistryHandler<NPCRole> owner;;
@@ -85,7 +84,6 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
             EntityType<NPCRoleFastEntity> build = EntityType.Builder.<NPCRoleFastEntity>of(
                             (type, world) -> new NPCRoleFastEntity(type, world, this.skinType),
                             MobCategory.MISC)
-//                    .disableSummon()
                     .build(of(this.id));
             EntityType<NPCRoleFastEntity> entityType = registerEntity(this.id, build);;
             FabricDefaultAttributeRegistry.register(entityType, BaseNPCLikeEntity.createAttributes());

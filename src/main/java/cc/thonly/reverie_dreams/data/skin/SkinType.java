@@ -26,30 +26,10 @@ import java.util.Optional;
 
 @Slf4j
 public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, BuiltinObject, Translatable {
-    /**
-     * 预升级 1.21.9 所用代码
-     **/
-    private static final Map<Identifier, MannequinInfo> INFO = new Object2ObjectLinkedOpenHashMap<>();
-
-    private record MannequinInfo(Identifier texture, Optional<Identifier> capeTexture,
-                                 Optional<Identifier> elytraTexture, PlayerSkinType model) {
-
-    }
-
-    enum PlayerSkinType {
-        SLIM("slim", "slim"),
-        WIDE("wide", "default");
-        private final String name;
-        private final String modelMetadata;
-
-        private PlayerSkinType(final String name, final String modelMetadata) {
-            this.name = name;
-            this.modelMetadata = modelMetadata;
-        }
-    }
-
     public static Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
-    public static Codec<SkinType> CODEC;
+    public static Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(
+            Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
+    ).apply(x, RegistryHandlers.SKIN_TYPE::getValue)));
 
     @Setter
     @Getter
@@ -88,7 +68,6 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     }
 
     public Property get() {
-//        Thread.dumpStack();
         if (this.config == null) {
             log.warn("Unable to get skin properties until data pack is loaded");
             return MobSkinTypes.DEFAULT.get();
@@ -98,14 +77,20 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
             if (skinFromNPCSkin.isPresent()) {
                 log.debug("Fetching {} skin from networking", this.id);
                 this.setProperty(skinFromNPCSkin.get());
-//                System.out.println(skinFromNPCSkin.get());
-//                System.out.println("by network");
             } else {
                 this.setProperty(texture(this.value, this.signature));
-//                System.out.println("by jar");
             }
         }
         return this.property;
+    }
+
+    public void bindConfig(SkinConfig config) {
+        this.config = config;
+    }
+
+    public void unbind() {
+        this.config = null;
+        this.property = null;
     }
 
     private void valid() {
@@ -123,17 +108,12 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
 
     @Override
     public Codec<SkinType> getCodec() {
-        if (CODEC == null) {
-            CODEC = RecordCodecBuilder.create(x->x.group(
-                    Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-            ).apply(x, RegistryHandlers.SKIN_TYPE::getValue));
-        }
         return CODEC;
     }
 
     public static void onReload(ResourceManager manager) {
         for (SkinType skinType : RegistryHandlers.SKIN_TYPE.values()) {
-            skinType.setProperty(null);
+            skinType.unbind();
         }
     }
 }

@@ -14,16 +14,24 @@ import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.function.Function;
 
 @Setter
 @Getter
 @ToString
 public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<DanmakuShape>, Translatable, BuiltinObject {
     public static final Codec<DanmakuShape> CODEC = UnitCodec.unit(DanmakuShape::new);
+    public static final Function<DanmakuType, ItemStack> ITEM_STACK_TEMPLATE = (danmakuType) -> {
+        ItemStack stack = RDItems.DANMAKU_SHAPE_CREATOR.getDefaultInstance();
+        stack.set(RDDataComponents.DANMAKU_SHAPE, ItemStackWrapper.of(danmakuType.getItem()));
+        return stack;
+    };
     private RegistryHandler<DanmakuShape> owner;
     private final DanmakuType type;
-    private final ItemStack baseItemStack;
+    private final Function<Unit, ItemStack> getter;
 
     private DanmakuShape() {
         this(DanmakuTypes.AMULET);
@@ -31,9 +39,7 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
 
     public DanmakuShape(DanmakuType danmakuType) {
         this.type = danmakuType;
-        ItemStack stack = RDItems.DANMAKU_SHAPE_CREATOR.getDefaultInstance();
-        stack.set(RDDataComponents.DANMAKU_SHAPE, ItemStackWrapper.of(danmakuType.getItem()));
-        this.baseItemStack = stack;
+        this.getter = (type) -> ITEM_STACK_TEMPLATE.apply(this.type);
     }
 
     @Override
@@ -41,8 +47,12 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
         return this.type.translateKey();
     }
 
+    public ItemStack getItemStackTemplate() {
+        return this.getter.apply(Unit.INSTANCE);
+    }
+
     public ItemStack getItemStack() {
-        return this.baseItemStack.copy();
+        return this.getter.apply(Unit.INSTANCE);
     }
 
     @Override

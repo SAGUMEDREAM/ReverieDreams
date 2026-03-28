@@ -66,7 +66,7 @@ public class RegistryHandlers {
             .builder(DanmakuTrajectories::bootstrap);
 
     public static final RegistryHandler<SpellCardFrameConfig> DANMAKU_CONFIG = RegistryHandlers.<SpellCardFrameConfig>ofEntry(ReverieDreams.id("danmaku_config"))
-            .codec(SpellCardFrameConfig.CODEC)
+            .codec(SpellCardFrameConfig.COMPONENT_CODEC)
             .reloadBuilder(SpellCardFrameConfigs::reload)
             .builder(SpellCardFrameConfigs::bootstrap);
 

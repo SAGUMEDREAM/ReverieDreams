@@ -122,6 +122,7 @@ public class DanmakuEntity extends AbstractArrow {
         if (livingEntity != null && entityDelta) {
             this.shootFromRotation(livingEntity, pitch, yaw, 0.0F, this.properties.getSpeed(), divergence);
             this.setDeltaMovement(this.getDeltaMovement().subtract(livingEntity.getDeltaMovement()));
+            this.shootFromRotation(pitch, yaw);
         } else {
             this.shootFromRotation(pitch, yaw);
         }

@@ -72,7 +72,7 @@ public class SkinFetcher {
                 }
                 return skinFromFile;
             } catch (IOException e) {
-                log.error("加载皮肤失败: {}", assetPath, e);
+                log.error("Can't load skin: {}", assetPath, e);
             }
         }
         return Optional.empty();

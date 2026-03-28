@@ -33,7 +33,7 @@ public class RDDataComponents {
     );
     public static final DataComponentType<SpellCardFrameConfig> SPELLCARD_FRAME_CONFIG = registerComponent("spellcard_frame",
             DataComponentType.<SpellCardFrameConfig>builder()
-                    .persistent(SpellCardFrameConfig.CODEC)
+                    .persistent(SpellCardFrameConfig.COMPONENT_CODEC)
                     .build());
     public static final DataComponentType<SpellcardRenderer> SPELL_CARD_COMPONENT = registerComponent("spell_card_component",
             DataComponentType.<SpellcardRenderer>builder()

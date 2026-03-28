@@ -37,7 +37,7 @@ public class SpellCardFrameConfigs {
             Resource resource = entry.getValue();
             try (InputStream stream = resource.open()) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                DataResult<SpellCardFrameConfig> result = SpellCardFrameConfig.CODEC.parse(JsonOps.INSTANCE, json);
+                DataResult<SpellCardFrameConfig> result = SpellCardFrameConfig.COMPONENT_CODEC.parse(JsonOps.INSTANCE, json);
                 Optional<SpellCardFrameConfig> optional = result.result();
                 if (optional.isPresent()) {
                     SpellCardFrameConfig danmakuConfig = optional.get();
@@ -64,12 +64,12 @@ public class SpellCardFrameConfigs {
         // 环形缓慢旋转，给玩家时间反应
         List<SpellCardFrameConfig> wave1 = List.of(
                 new SpellCardFrameConfig(DanmakuTypes.RICE)
-                        .withDensity(64)
+                        .withDensity(32)
                         .withTickInterval(6)
                         .withTickDuration(80)
                         .withPitchStartAt(-8, 8)
                         .withYawStartAt(-180, 180)
-                        .withSpeed(0.45f)
+                        .withSpeed(0.8f)
                         .setRandomColor()
         );
         frames.add(wave1);
@@ -85,7 +85,8 @@ public class SpellCardFrameConfigs {
                         .withPitchStartAt(15, 35)
                         .withYawStartAt(-180, 180)
                         .withSpeed(0.6f)
-                        .setRandomColor(),
+                        .setRandomColor()
+                        .async(),
 
                 new SpellCardFrameConfig(DanmakuTypes.BALL)
                         .withDensity(24)
@@ -96,6 +97,7 @@ public class SpellCardFrameConfigs {
                         .withYawStartAt(-180, 180)
                         .withSpeed(0.55f)
                         .setRandomColor()
+                        .async()
         );
         frames.add(wave2);
 
@@ -109,7 +111,7 @@ public class SpellCardFrameConfigs {
                         .withTickDuration(60)
                         .withPitchStartAt(-10, 10)
                         .withYawStartAt(-90, 90)
-                        .withSpeed(0.0f)   // 激光定轴
+                        .withSpeed(0.5f)   // 激光定轴
                         .sync(),
 
                 new SpellCardFrameConfig(DanmakuTypes.BIG_LASER)
@@ -119,7 +121,7 @@ public class SpellCardFrameConfigs {
                         .withTickDuration(50)
                         .withPitchStartAt(0, 0)
                         .withYawStartAt(-45, 45)
-                        .withSpeed(0.0f)
+                        .withSpeed(0.5f)
                         .sync()
         );
         frames.add(wave3);
@@ -152,6 +154,7 @@ public class SpellCardFrameConfigs {
         return frames;
     }
 
+    @SuppressWarnings("deprecation")
     public static List<List<SpellCardFrameConfig>> createTestSpellcardElegant2() {
         List<List<SpellCardFrameConfig>> frames = new ArrayList<>();
 

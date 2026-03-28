@@ -1568,7 +1568,7 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
                             new ItemStackWrapper(new ItemStack(RDItems.DANMAKU_CORE, 4)),
                             new ItemStackWrapper(new ItemStack(RDItems.POWER, 35)),
                             new ItemStackWrapper(new ItemStack(RDItems.POINT, 35)),
-                            new ItemStackWrapper(value.toShape().getItemStack()),
+                            new ItemStackWrapper(value.toShape().getItemStackTemplate()),
                             new ItemStackWrapper(result)
                     );
                     this.danmakuRecipeFactory.register(registryKey, recipe);

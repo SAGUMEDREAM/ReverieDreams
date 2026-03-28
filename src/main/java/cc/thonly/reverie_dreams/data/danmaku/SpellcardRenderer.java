@@ -27,7 +27,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 public class SpellcardRenderer {
     public static final Codec<List<List<SpellCardFrameConfig>>> FRAMES_CODEC =
-            Codec.list(Codec.list(SpellCardFrameConfig.CODEC));
+            Codec.list(Codec.list(SpellCardFrameConfig.COMPONENT_CODEC));
     public static final Codec<SpellcardRenderer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             FRAMES_CODEC.fieldOf("frames").forGetter(SpellcardRenderer::getFrames)
     ).apply(instance, SpellcardRenderer::new));
@@ -77,7 +77,6 @@ public class SpellcardRenderer {
         this.maxTick = this.searchMaxTick(frames);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
     public static SpellcardRenderer addRenderer(SpellcardRenderer renderer) {
         TICKER.add(renderer);
         return renderer;
@@ -121,15 +120,14 @@ public class SpellcardRenderer {
     }
 
     protected void update() {
-        if (this.canceled) {
-            return;
-        }
+        if (this.canceled) return;
 
         this.tick++;
         if (this.tick > this.maxTick) {
             this.cancel();
             return;
         }
+
         if (this.source != null && this.source.isRemoved()) {
             this.cancel();
             return;
@@ -140,52 +138,67 @@ public class SpellcardRenderer {
         for (List<SpellCardFrameConfig> frame : this.frames) {
             for (SpellCardFrameConfig config : frame) {
 
-                int relativeTick = this.tick - config.getTickDelay();
-                if (relativeTick < 0 || relativeTick > config.getTickDuration()) continue;
-                if (relativeTick % config.getTickInterval() != 0) continue;
+                if (spawned >= MAX_SPAWN_PER_TICK) break;
 
-                // ===== 1. 时间归一化 =====
-                float t = relativeTick / (float) config.getTickDuration();
-                t = Math.min(1f, Math.max(0f, t));
+                int delay = config.getTickDelay();
+                int duration = config.getTickDuration();
+                int interval = Math.max(1, config.getTickInterval());
 
-                // ===== 2. 时间函数（中心角）=====
+                // ⏱️ 时间窗口
+                if (this.tick < delay || this.tick > delay + duration) continue;
+
+                int localTick = this.tick - delay;
+
+                // ⏱️ 间隔控制
+                if (localTick % interval != 0) continue;
+
+                int density = Math.max(1, config.getDensity());
+
                 KeyframeFunction pitchFunc = config.getPitchRange().createFunction();
-                KeyframeFunction yawFunc   = config.getYawRange().createFunction();
+                KeyframeFunction yawFunc = config.getYawRange().createFunction();
 
-                float pitchCenter = pitchFunc.sample(t);
-                float yawCenter   = yawFunc.sample(t);
+                // 🎯 当前进度
+                float baseProgress = (float) localTick / (float) duration;
 
-                // ===== 3. density 空间展开 =====
-                int count = Math.max(1, config.getDensity());
+                // 🔥 核心优化：把 density 分摊到 interval
+                int perTick = Math.max(1, density / interval);
 
-                // 这里是关键：定义“展开角度宽度”
-                // 可以之后做成 config 参数
-                float pitchSpread = 0f;     // 通常 pitch 不展开
-                float yawSpread   = 360f;   // 示例：一个完整扇形
+                // 防止极端情况爆炸（很关键）
+                perTick = Math.min(perTick, 8);
 
-                for (int i = 0; i < count && spawned < MAX_SPAWN_PER_TICK; i++) {
+                for (int i = 0; i < perTick; i++) {
+                    if (spawned >= MAX_SPAWN_PER_TICK) break;
 
-                    float factor;
-                    if (count == 1) {
-                        factor = 0f;
+                    float progress;
+
+                    if (config.isSync()) {
+                        // 同步：统一进度
+                        progress = baseProgress;
                     } else {
-                        factor = (i / (float)(count - 1) - 0.5f);
+                        // 异步：均匀错开（无随机数开销）
+                        float offset = ((float) i / (float) perTick);
+                        progress = (baseProgress + offset) % 1.0f;
                     }
 
-                    float pitch = pitchCenter + pitchSpread * factor;
-                    float yaw   = yawCenter   + yawSpread   * factor;
+                    float pitch = pitchFunc.sample(progress);
+                    float yaw = yawFunc.sample(progress);
 
+                    // 🎨 颜色逻辑
                     if (config.isRandomColor()) {
-                        this.spawnDanmaku(config.getType(), config.getSpeed(), pitch, yaw);
+                        spawnDanmaku(config.getType(), config.getSpeed(), pitch, yaw);
                     } else {
-                        this.spawnDanmaku(config.getType(), config.getColor(), pitch, yaw);
+                        int color = config.getColor();
+                        if (color < 0) {
+                            spawnDanmaku(config.getType(), config.getSpeed(), pitch, yaw);
+                        } else {
+                            spawnDanmaku(config.getType(), config.getSpeed(), color, pitch, yaw);
+                        }
                     }
 
                     spawned++;
                 }
-
-                if (spawned >= MAX_SPAWN_PER_TICK) break;
             }
+
             if (spawned >= MAX_SPAWN_PER_TICK) break;
         }
     }
