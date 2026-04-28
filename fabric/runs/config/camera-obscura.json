@@ -1,0 +1,13 @@
+{
+  "renderDistance": 128,
+  "showSystemMessages": false,
+  "renderEntities": false,
+  "renderEntitiesAmount": 20,
+  "fullbright": false,
+  "fov": 70,
+  "biomeBlend": 1,
+  "cameraItem": "minecraft:spyglass",
+  "cameraConsumesItem": true,
+  "cameraConsumeItem": "minecraft:map",
+  "commandPermissionLevel": 2
+}

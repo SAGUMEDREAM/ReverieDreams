@@ -1,0 +1,27 @@
+{
+  "stats": {
+    "minecraft:used": {
+      "minecraft:netherite_helmet": 1,
+      "minecraft:netherite_boots": 1,
+      "minecraft:netherite_leggings": 1,
+      "minecraft:netherite_sword": 11,
+      "minecraft:netherite_chestplate": 1,
+      "reverie_dreams:sunflower_yousei_spawn_egg": 1,
+      "reverie_dreams:yousei_spawn_egg": 2
+    },
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 1009,
+      "minecraft:time_since_rest": 1302,
+      "minecraft:walk_one_cm": 6113,
+      "minecraft:total_world_time": 1354,
+      "minecraft:leave_game": 1,
+      "minecraft:fly_one_cm": 140,
+      "minecraft:damage_taken": 8,
+      "minecraft:sneak_time": 4,
+      "minecraft:play_time": 1302,
+      "minecraft:damage_dealt": 685,
+      "minecraft:time_since_death": 1302
+    }
+  },
+  "DataVersion": 4671
+}

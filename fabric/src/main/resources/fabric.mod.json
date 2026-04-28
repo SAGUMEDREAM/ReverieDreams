@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "reverie_dreams",
+  "version": "${version}",
+  "name": "Gensokyo: Reverie of Lost Dreams",
+  "description": "a server-only mod for the Touhou Project",
+  "authors": [
+    "稀神灵梦"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams",
+    "sources": "https://github.com/SAGUMEDREAM/ReverieDreams/"
+  },
+  "license": "GPL-3.0-or-later",
+  "icon": "assets/reverie_dreams/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "cc.thonly.reverie_dreams.fabric.ReverieDreamsFabric"
+    ],
+    "client": [
+      "cc.thonly.reverie_dreams.fabric.ReverieDreamsFabricClient"
+    ],
+    "fabric-datagen": [
+      "cc.thonly.reverie_dreams.fabric.ReverieDreamsDataGenerator"
+    ]
+  },
+  "mixins": [
+    "reverie_dreams.mixins.json",
+    "reverie_dreams.fabric.mixins.json",
+    "reverie_dreams.fabric.polymer.mixins.json"
+  ],
+  "depends": {
+    "java": "21",
+    "minecraft": "1.21.11",
+    "balm-fabric": "*",
+    "fabricloader": "*",
+    "fabric-api": "*"
+  },
+  "suggests": {
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/8nzjpm8wex"
+      }
+    }
+  },
+  "accessWidener": "reverie_dreams.accesswidener"
+}

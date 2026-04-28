@@ -1,0 +1,64 @@
+package cc.thonly.reverie_dreams.client.renderer.entity;
+
+import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
+import cc.thonly.reverie_dreams.util.LazySupplier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+
+public class YouseiWingLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> extends BaseNPCLikeEntityRenderer<NPCEntity> {
+    private static final LazySupplier<ItemStack> WING_HOLDER = LazySupplier.of(() -> RDEntityHolderItems.YOUSEI_WINGS.createStack());
+    private final ItemModelResolver itemModelResolver;
+
+    public YouseiWingLikeEntityRenderer(EntityRendererProvider.Context context, boolean slim) {
+        super(context, slim);
+        this.itemModelResolver = context.getItemModelResolver();
+    }
+
+    @Override
+    public void extractRenderState(NPCEntity entity, AvatarRenderState state, float partialTick) {
+        super.extractRenderState(entity, state, partialTick);
+        state.bodyRot = entity.yBodyRot;
+        if (state instanceof NPCAvatarRenderState rs) {
+            this.itemModelResolver.updateForLiving(
+                    rs.wingHolderRenderState,
+                    WING_HOLDER.get(),
+                    ItemDisplayContext.GUI, entity
+            );
+        }
+    }
+
+    @Override
+    public void submit(AvatarRenderState state, PoseStack matrices, SubmitNodeCollector nodeCollector, CameraRenderState p_450931_) {
+        matrices.pushPose();
+        matrices.scale(1.2f, 1.2f, 1.2f);
+        matrices.translate(0, 1, 0);
+        matrices.mulPose(Axis.YP.rotationDegrees(-state.bodyRot + 180));
+        if (state instanceof NPCAvatarRenderState rs) {
+            rs.wingHolderRenderState.submit(
+                    matrices,
+                    nodeCollector,
+                    state.lightCoords,
+                    OverlayTexture.NO_OVERLAY,
+                    0
+            );
+        }
+        matrices.popPose();
+        super.submit(state, matrices, nodeCollector, p_450931_);
+    }
+
+    @Override
+    public boolean shouldRender(NPCEntity livingEntity, Frustum camera, double camX, double camY, double camZ) {
+        return true;
+    }
+}

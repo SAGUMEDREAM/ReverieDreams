@@ -1,0 +1,17 @@
+/give @s reverie_dreams:alice_spawn_egg
+/polymer dev protocol-info
+/polymer creative
+/gamemode survival
+/gamemode creative
+/gamemodec
+/gamemode creative
+/gamemode survival
+/time set day
+/gamemode creative
+/gamemode su
+/gamemode survival
+/tp 4259f6ff-a3d2-488b-9a28-0bb2ecbf521c ~ ~10 ~
+/gamemode creative
+/tp 426f582d-6cd0-4b1c-b5bd-685c73ff0c9b
+/tp 426f582d-6cd0-4b1c-b5bd-685c73ff0c9b @s
+/gamemode survival

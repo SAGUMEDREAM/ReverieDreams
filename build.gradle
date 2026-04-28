@@ -1,338 +1,45 @@
-import groovy.json.JsonOutput
-import groovy.json.JsonSlurper
-
 plugins {
-    id 'fabric-loom' version '1.14-SNAPSHOT'
-    id 'maven-publish'
-    id "com.modrinth.minotaur" version "2.+"
-//    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    alias libs.plugins.fabricLoom apply(false)
+    alias libs.plugins.modDevGradle apply(false)
+    alias libs.plugins.curseForgeGradle apply(false)
+    alias libs.plugins.modrinthMinotaur apply(false)
 }
 
-enum RemapJarType {
-    STABLE(""),
-    BETA("beta"),
-    ALPHA("alpha"),
-    ;
-    public final String name;
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'java-library'
 
-    RemapJarType(String name) {
-        this.name = name
-    }
-}
-
-def isLts = false
-def remapJarType = RemapJarType.BETA
-
-version = project.mod_version +
-        "+" + project.minecraft_version +
-        (remapJarType == RemapJarType.STABLE ? "" : "+" + remapJarType.name) +
-        (isLts ? "+lts" : "")
-
-group = project.maven_group
-
-base {
-    archivesName = project.archives_base_name
-}
-
-
-repositories {
-    maven {
-        url 'https://maven.aliyun.com/nexus/content/groups/public'
-    }
-    maven {
-        url 'https://repository.hanbings.io/proxy'
-    }
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
-    }
-    maven { url = "https://maven.fabricmc.net/" }
-    maven { url = "https://maven.quiltmc.org/repository/release/" }
-    maven { url 'https://maven.kneelawk.com/releases/' }
-    maven { url = "https://maven.tomalbrc.de" }
-    maven { url = "https://maven.nucleoid.xyz" }
-    maven { url = "https://maven.blamejared.com" }
-    maven { url = "https://maven.draylar.dev/releases" }
-    maven { url = "https://maven.aliyun.com/nexus/content/groups/public/" }
-    maven { url = 'https://maven.nucleoid.xyz' }
-    maven { url = "https://api.modrinth.com/maven/" }
-    maven {
-        name = "Terraformers"
-        url = "https://maven.terraformersmc.com/"
-    }
-    maven {
-        name = "Infinituum Mod Resources"
-        url = "https://raw.githubusercontent.com/Infinituum17/ModResources/main/maven/"
-    }
-    maven {
-        name = "Ladysnake Mods"
-        url = 'https://maven.ladysnake.org/releases'
-    }
-    maven {
-        name = "Modrinth"
-        url = "https://api.modrinth.com/maven"
-    }
-    maven { url = "https://api.modrinth.com/maven" }
-    maven {
-        name "opencollabRepositoryMavenReleases"
-        url "https://repo.opencollab.dev/maven-releases"
-    }
-    maven {
-        name "opencollabRepositoryMavenSnapshots"
-        url "https://repo.opencollab.dev/maven-snapshots"
-    }
-    maven { url = "https://repo.opencollab.dev/main/" }
-    maven { url = "https://maven.mohistmc.com/" }
-    maven { url = "https://maven.architectury.dev/" }
-    maven { url = "https://cursemaven.com" }
-    maven { url "https://maven.tomalbrc.de" }
-    flatDir {
-        dirs 'libs'
-    }
-    mavenCentral()
-    mavenLocal()
-}
-
-fabricApi {
-    configureDataGeneration {
-        client = true
-    }
-}
-
-//tasks.withType(JavaCompile).configureEach {
-//    options.compilerArgs += ["-Xlint:deprecation", "-Xlint:unchecked"]
-//}
-
-dependencies {
-    minecraft "net.minecraft:minecraft:${project.minecraft_version}"
-    mappings loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.21.11:2025.12.20@zip")
-    }
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-
-    modImplementation("eu.pb4:polymer-core:[${project.polymer_version}]")
-    modImplementation("eu.pb4:polymer-blocks:[${project.polymer_version}]")
-    modImplementation("eu.pb4:polymer-resource-pack:[${project.polymer_version}]")
-    modImplementation("eu.pb4:polymer-resource-pack-extras:[${project.polymer_version}]")
-    modImplementation("eu.pb4:polymer-virtual-entity:[${project.polymer_version}]")
-    modImplementation("eu.pb4:polymer-autohost:${project.polymer_version}")
-    modImplementation("eu.pb4:polymer-networking:[${project.polymer_version}]")
-
-    modImplementation('com.kneelawk.graphlib:graphlib-core-fabric:2.0.3-beta.0.patbox+1.21.11')
-    modImplementation include("eu.pb4:factorytools:[${project.factorytools_version}]")
-    modImplementation include("eu.pb4:sgui:[${project.sgui_version}]")
-    modImplementation include("me.lucko:fabric-permissions-api:${project.fabric_permissions_api}")
-    modImplementation include("xyz.nucleoid:server-translations-api:${project.server_translations_api_version}")
-    modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
-
-    implementation include("gg.moonflower:molang-compiler:${project.molang_compiler_version}")
-    modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
-    modImplementation include("eu.pb4:map-canvas-api:${project.mapcanvas_version}")
-    modImplementation include("eu.pb4:booklet:${booklet_version}")
-    modImplementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
-
-    modImplementation files('libs/resourceconfigapi-fabric-1.21.11-3.9.2.jar')
-    modImplementation files('libs/camera-obscura-1.2.2+1.21.11.jar')
-
-    modCompileOnly files('libs/create-fly-1.21.11-6.0.9-1.jar')
-    modCompileOnly files('libs/polyfactory-0.10.4+1.21.11.jar')
-    modCompileOnly files('libs/eiv-fabric-5.2.0+1.21.11.jar')
-    modCompileOnly files('libs/polydex2eiv-1.0.9.jar')
-    modCompileOnly files('libs/PolyMc-5.7.0-rev.6a41cb5-dirty+1.21.7.jar')
-    modCompileOnly files('libs/borukva-food-0.1.14+1.21.7.jar')
-    modCompileOnly files('libs/borukva-food-exotic-3.10.0+1.21.7.jar')
-    modCompileOnly files('libs/borukva-fish-0.1.9+1.21.8.jar')
-    modCompileOnly files('libs/FarmersDelight-1.21.7-3.2.4+refabricated.jar')
-    modCompileOnly files('libs/farmers-delight-polymer-patch-3.2.3.0+1.21.6.jar')
-    modCompileOnly files('libs/moredelight-25.07.28a-1.21.7-fabric.jar')
-    modCompileOnly files('libs/moredelight-patch-25.07.28a-1.21.7.jar')
-    modCompileOnly files('libs/spanishdelight-1.21.8-1.0.6.jar')
-    modCompileOnly files('libs/spanishdelight-patch-1.21.8-1.0.6.jar')
-    modCompileOnly files('libs/oceansdelight-port-0.1.0+1.21.6.jar')
-    modCompileOnly files('libs/Fishing-101-1.7.1_experimental.jar')
-    modCompileOnly files('libs/go-fish-1.8.0+1.21.6.jar')
-    modCompileOnly files('libs/brewery-0.12.0+1.21.6.jar')
-    modCompileOnly files('libs/polyfactory-0.10.4+1.21.11.jar')
-    modCompileOnly files('libs/appleskin-fabric-mc1.21.11-3.0.8.jar')
-
-    modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
-
-    compileOnly files('libs/geyser-api-2.7.0-SNAPSHOT.jar')
-    compileOnly files('libs/geyser-base-api-1.0.1.jar')
-    compileOnly files('libs/geyser-cumulus-1.1.1.jar')
-    compileOnly files('libs/geyser-events-1.1-SNAPSHOT.jar')
-//    compileOnly('org.geysermc.geyser:api:2.7.0-SNAPSHOT')
-
-    compileOnly 'org.projectlombok:lombok:1.18.34'
-    modCompileOnly 'maven.modrinth:polydex:1.8.1+1.21.11'
-    annotationProcessor 'org.projectlombok:lombok:1.18.34'
-
-    implementation include('com.squareup.okhttp3:okhttp:4.12.0')
-    implementation include('com.squareup.okio:okio:3.4.0')
-    //noinspection DifferentStdlibGradleVersion
-    implementation include('org.jetbrains.kotlin:kotlin-stdlib:1.9.10')
-    implementation include('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10')
-    implementation include('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10')
-    implementation include('com.mohistmc:dynamicenum:0.3')
-    implementation include('org.reflections:reflections:0.10.2')
-
-    compileOnly 'com.google.auto.value:auto-value:1.10.4'
-    annotationProcessor 'com.google.auto.value:auto-value:1.10.4'
-
-    compileOnly 'io.soabase.record-builder:record-builder-core:39'
-    annotationProcessor 'io.soabase.record-builder:record-builder-processor:39'
-
-}
-
-def includeDependencyJar = { File targetJar, List<String> list ->
-
-    def tempDir = new File(buildDir, "tmp/include_jars")
-    tempDir.deleteDir()
-    tempDir.mkdirs()
-
-    // 解压目标 mod jar
-    copy {
-        from zipTree(targetJar)
-        into tempDir
-    }
-
-    // 创建 META-INF/jars 目录
-    def metaDir = new File(tempDir, "META-INF/jars")
-    metaDir.mkdirs()
-
-    // 复制依赖 jar
-    list.each { fil ->
-        copy {
-            from file(fil)
-            into metaDir
+    configurations.configureEach {
+        resolutionStrategy {
+            cacheChangingModulesFor 60, 'seconds'
+            cacheDynamicVersionsFor 60, 'seconds'
         }
     }
 
-    // 修改 fabric.mod.json
-    def jsonFile = new File(tempDir, "fabric.mod.json")
-    if (jsonFile.exists()) {
-        def json = new JsonSlurper().parseText(jsonFile.text)
-        if (!json.containsKey("jars")) {
-            json.jars = []
-        }
+    plugins.withType(JavaPlugin).tap {
+        configureEach {
+            dependencies {
+                implementation('com.squareup.okhttp3:okhttp:4.12.0')
+                implementation('com.squareup.okio:okio:3.4.0')
+                //noinspection DifferentStdlibGradleVersion
+                implementation('org.jetbrains.kotlin:kotlin-stdlib:1.9.10')
+                implementation('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10')
+                implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10')
+                implementation('org.reflections:reflections:0.10.2')
 
-        list.each { fil ->
-            def jarName = "META-INF/jars/${new File(fil).name}"
-            // 避免重复写入
-            if (!json.jars.any { it.file == jarName }) {
-                json.jars << [file: jarName]
+                compileOnly 'org.projectlombok:lombok:1.18.34'
+                annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+                compileOnly 'com.google.auto.value:auto-value:1.10.4'
+                annotationProcessor 'com.google.auto.value:auto-value:1.10.4'
+
+                compileOnly 'io.soabase.record-builder:record-builder-core:39'
+                annotationProcessor 'io.soabase.record-builder:record-builder-processor:39'
             }
         }
-
-        jsonFile.text = JsonOutput.prettyPrint(JsonOutput.toJson(json))
-    } else {
-        throw new GradleException("fabric.mod.json not found in ${targetJar}")
-    }
-
-    // 重新打包 mod jar
-    ant.jar(destfile: targetJar) {
-        fileset(dir: tempDir, includes: "**/*")
-    }
-
-    tempDir.deleteDir()
-}
-
-tasks.remapJar {
-    doLast {
-        def jarFile = archiveFile.get().asFile
-        // 这里传入你的依赖 jar 列表
-        includeDependencyJar(jarFile, [
-                "libs/camera-obscura-1.2.2+1.21.11.jar",
-                "libs/blockbench-import-library-2.0.0+1.21.11.jar"
-        ])
-    }
-}
-
-//tasks.remapSourcesJar {
-//    doLast {
-//        def sourcesJarFile = archiveFile.get().asFile
-//        includeDependencyJar(sourcesJarFile)
-//    }
-//}
-
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": inputs.properties.version
-    }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-    it.options.release = 21
-    options.compilerArgs << "-Xlint:-deprecation"
-    options.compilerArgs += ["-Xlint:none"]
-}
-
-java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
-
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
-
-loom {
-    accessWidenerPath = file("src/main/resources/reverie_dreams.accesswidener")
-    runs {
-        datagen {
-            name = "Data Generation"
-            runDir = "build/datagen"
-            vmArg("-Dfabric-api.datagen")
-            vmArg("-Dfabric-api.datagen.modid=reverie_dreams")
-            vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
-        }
-    }
-}
-
-jar {
-    inputs.property "archivesName", project.base.archivesName
-
-    from("LICENSE") {
-        rename { "${it}_${inputs.properties.archivesName}" }
-    }
-    from("CREDIT") {
-        rename { "CREDIT" }
-    }
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name
-            from components.java
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
-    }
-}
-
-afterEvaluate {
-    downloadAssets {
-        downloadThreads = 4
-    }
-    configurations.runtimeClasspath.forEach { file ->
-        if (file.name.startsWith("sponge-mixin")) {
-            tasks.named("runClient", JavaExec) {
-                jvmArgs("-javaagent:${file.absolutePath}")
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(21)
             }
         }
     }

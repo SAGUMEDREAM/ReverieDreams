@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "reverie_dreams_polymerify",
+  "version": "${version}",
+  "name": "Polymer Patch for Gensokyo: Reverie of Lost Dreams",
+  "description": "a server-only mod for the Touhou Project",
+  "authors": [
+    "稀神灵梦"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams",
+    "sources": "https://github.com/SAGUMEDREAM/ReverieDreams/"
+  },
+  "license": "GPL-3.0-or-later",
+  "icon": "assets/reverie_dreams/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ],
+    "client": [
+    ],
+    "fabric-datagen": [
+    ]
+  },
+  "mixins": [
+  ],
+  "depends": {
+    "java": "21",
+    "minecraft": "1.21.11",
+    "balm-fabric": "*",
+    "fabricloader": "*",
+    "fabric-api": "*",
+    "reverie_dreams": "*",
+    "polymer-core": "*"
+  },
+  "suggests": {
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/8nzjpm8wex"
+      }
+    }
+  },
+  "accessWidener": "reverie_dreams.accesswidener"
+}

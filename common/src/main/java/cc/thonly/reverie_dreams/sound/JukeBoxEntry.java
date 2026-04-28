@@ -1,0 +1,44 @@
+package cc.thonly.reverie_dreams.sound;
+
+import lombok.Getter;
+import lombok.Setter;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.JukeboxSong;
+
+import java.util.Optional;
+
+@Getter
+@Setter
+public class JukeBoxEntry {
+    private final String id;
+    private final ResourceKey<JukeboxSong> jukeboxSongRegistryKey;
+    private final ResourceKey<SoundEvent> soundEventReference;
+    private final int length;
+    private final int output;
+    private JukeboxSong ref;
+
+    public JukeBoxEntry(String id, ResourceKey<JukeboxSong> jukeboxSongRegistryKey, ResourceKey<SoundEvent> soundEventKey, int length, int output) {
+        this.id = id;
+        this.jukeboxSongRegistryKey = jukeboxSongRegistryKey;
+        this.soundEventReference = soundEventKey;
+        this.length = length;
+        this.output = output;
+    }
+
+    public JukeboxSong getRef() {
+        if (this.ref == null) {
+            this.ref = createEntry(this.jukeboxSongRegistryKey, this.soundEventReference, this.length, this.output);
+        }
+        return this.ref;
+    }
+
+    private static JukeboxSong createEntry(ResourceKey<JukeboxSong> key, ResourceKey<SoundEvent> soundEvent, int lengthInSeconds, int comparatorOutput) {
+        return new JukeboxSong(Holder.direct(new SoundEvent(soundEvent.identifier(), Optional.empty())), Component.translatable(Util.makeDescriptionId("jukebox_song", key.identifier())), lengthInSeconds, comparatorOutput);
+    }
+
+}

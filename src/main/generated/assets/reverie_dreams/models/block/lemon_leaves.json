@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "reverie_dreams:block/lemon_leaves"
-  }
-}

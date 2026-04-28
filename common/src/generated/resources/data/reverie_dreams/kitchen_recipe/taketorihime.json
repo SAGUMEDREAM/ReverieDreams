@@ -1,0 +1,24 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "minecraft:bamboo"
+    },
+    {
+      "id": "reverie_dreams:ingredient/bamboo_shoots"
+    },
+    {
+      "id": "reverie_dreams:ingredient/truffle"
+    },
+    {
+      "id": "reverie_dreams:ingredient/ginkgo"
+    },
+    {
+      "id": "reverie_dreams:ingredient/black_pork"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/taketorihime"
+  },
+  "cost_time": 12.0
+}

@@ -1,0 +1,18 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "minecraft:brown_mushroom"
+    },
+    {
+      "id": "reverie_dreams:ingredient/onion"
+    },
+    {
+      "id": "reverie_dreams:ingredient/butter"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/cream_stew"
+  },
+  "cost_time": 7.0
+}

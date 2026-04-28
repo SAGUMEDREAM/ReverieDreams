@@ -1,0 +1,10 @@
+[versions]
+
+[libraries]
+
+[plugins]
+fabricLoom = { id = "fabric-loom", version = "1.15-SNAPSHOT" }
+modDevGradle = { id = "net.neoforged.moddev", version = "2.0.140" }
+forgeGradle = { id = "net.minecraftforge.gradle", version = "[7,8)" }
+curseForgeGradle = { id = "net.darkhax.curseforgegradle", version = "1.1.26" }
+modrinthMinotaur = { id = "com.modrinth.minotaur", version = "2.+" }

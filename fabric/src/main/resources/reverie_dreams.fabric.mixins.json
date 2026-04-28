@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cc.thonly.reverie_dreams.fabric.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FakePlayerNetworkHandlerMixin",
+    "patches.ResourcePackManagerMixin"
+  ],
+  "client": [
+    "client.TextureSlotsMixin",
+    "client.ModelManagerMixin",
+    "client.ModelBakeryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

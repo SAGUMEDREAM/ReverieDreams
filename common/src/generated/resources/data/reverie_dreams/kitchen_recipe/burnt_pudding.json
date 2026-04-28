@@ -1,0 +1,21 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/grape"
+    },
+    {
+      "id": "minecraft:honey_bottle"
+    },
+    {
+      "id": "reverie_dreams:ingredient/lemon"
+    },
+    {
+      "id": "reverie_dreams:ingredient/lemon"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/burnt_pudding"
+  },
+  "cost_time": 8.0
+}

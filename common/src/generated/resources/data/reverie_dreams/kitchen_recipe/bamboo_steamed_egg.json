@@ -1,0 +1,21 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "minecraft:bamboo"
+    },
+    {
+      "id": "minecraft:egg"
+    },
+    {
+      "id": "minecraft:kelp"
+    },
+    {
+      "id": "minecraft:brown_mushroom"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/bamboo_steamed_egg"
+  },
+  "cost_time": 6.0
+}

@@ -1,0 +1,23 @@
+{
+  "stats": {
+    "minecraft:used": {
+      "minecraft:stone": 1,
+      "reverie_dreams:hairball_spawn_egg": 5
+    },
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 974,
+      "minecraft:time_since_rest": 2453,
+      "minecraft:walk_one_cm": 3791,
+      "minecraft:total_world_time": 3077,
+      "minecraft:leave_game": 1,
+      "minecraft:fly_one_cm": 2774,
+      "minecraft:crouch_one_cm": 45,
+      "minecraft:sneak_time": 102,
+      "minecraft:play_time": 2453,
+      "minecraft:damage_dealt": 65,
+      "minecraft:jump": 5,
+      "minecraft:time_since_death": 2453
+    }
+  },
+  "DataVersion": 4671
+}

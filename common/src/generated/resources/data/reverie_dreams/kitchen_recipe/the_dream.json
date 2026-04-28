@@ -1,0 +1,24 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/flowers"
+    },
+    {
+      "id": "reverie_dreams:ingredient/udumbara"
+    },
+    {
+      "id": "reverie_dreams:ingredient/moonflower"
+    },
+    {
+      "id": "reverie_dreams:ingredient/dew"
+    },
+    {
+      "id": "reverie_dreams:ingredient/cream"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/the_dream"
+  },
+  "cost_time": 12.0
+}

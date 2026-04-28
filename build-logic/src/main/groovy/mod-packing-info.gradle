@@ -1,0 +1,25 @@
+enum RemapJarType {
+    STABLE(""),
+    BETA("beta"),
+    ALPHA("alpha"),
+    ;
+    public final String name;
+
+    RemapJarType(String name) {
+        this.name = name
+    }
+}
+
+def isLts = false
+def remapJarType = RemapJarType.BETA
+
+base {
+    archivesName = "%s-%s+%s+%s%s%s".formatted(
+            mod_id,
+            version,
+            project.name == "polymer" ? "fabric+polymerify" : project.name,
+            minecraft_version,
+            (remapJarType == RemapJarType.STABLE ? "" : "+" + remapJarType.name),
+            (isLts ? "+lts" : "")
+    )
+}

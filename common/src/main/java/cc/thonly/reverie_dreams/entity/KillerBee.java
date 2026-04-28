@@ -1,0 +1,52 @@
+package cc.thonly.reverie_dreams.entity;
+
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.bee.Bee;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.animal.turtle.Turtle;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+
+import java.util.Set;
+
+public class KillerBee extends Bee {
+    public KillerBee(EntityType<? extends Bee> entityType, Level world) {
+        super(entityType, world);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        Set<WrappedGoal> goals = this.goalSelector.getAvailableGoals();
+        TemptGoal temptGoal = null;
+
+        for (var prioritizedGoal: goals) {
+            Goal goal = prioritizedGoal.getGoal();
+            if (goal instanceof TemptGoal temptGoalTarget) {
+                temptGoal = temptGoalTarget;
+            }
+        }
+
+        if(temptGoal != null) {
+            this.goalSelector.removeGoal(temptGoal);
+        }
+
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<Player>(this, Player.class, true));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<AbstractVillager>(this, AbstractVillager.class, true));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<IronGolem>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<Turtle>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
+
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.setHasStung(false);
+    }
+
+}

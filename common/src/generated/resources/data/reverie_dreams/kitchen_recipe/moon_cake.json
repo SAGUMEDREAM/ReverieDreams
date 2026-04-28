@@ -1,0 +1,15 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/moonflower"
+    },
+    {
+      "id": "reverie_dreams:ingredient/flour"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/moon_cake"
+  },
+  "cost_time": 10.0
+}

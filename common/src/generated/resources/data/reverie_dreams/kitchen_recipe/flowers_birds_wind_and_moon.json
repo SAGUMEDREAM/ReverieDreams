@@ -1,0 +1,18 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/flowers"
+    },
+    {
+      "id": "reverie_dreams:ingredient/moonflower"
+    },
+    {
+      "id": "reverie_dreams:ingredient/cream"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/flowers_birds_wind_and_moon"
+  },
+  "cost_time": 9.0
+}

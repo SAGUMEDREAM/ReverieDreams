@@ -1,0 +1,27 @@
+{
+  "stats": {
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 1249,
+      "minecraft:time_since_rest": 1268,
+      "minecraft:walk_one_cm": 2845,
+      "minecraft:total_world_time": 1310,
+      "minecraft:leave_game": 1,
+      "minecraft:fly_one_cm": 746,
+      "minecraft:crouch_one_cm": 135,
+      "minecraft:sneak_time": 61,
+      "minecraft:play_time": 1268,
+      "minecraft:damage_dealt": 226,
+      "minecraft:jump": 14,
+      "minecraft:time_since_death": 1268
+    },
+    "minecraft:used": {
+      "minecraft:stone": 4,
+      "minecraft:netherite_sword": 3
+    },
+    "minecraft:picked_up": {
+      "reverie_dreams:power": 4,
+      "reverie_dreams:point": 4
+    }
+  },
+  "DataVersion": 4671
+}

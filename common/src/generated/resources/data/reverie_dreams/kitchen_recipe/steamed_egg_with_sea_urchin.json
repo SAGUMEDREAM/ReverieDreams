@@ -1,0 +1,15 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/sea_urchin"
+    },
+    {
+      "id": "minecraft:egg"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/steamed_egg_with_sea_urchin"
+  },
+  "cost_time": 7.0
+}

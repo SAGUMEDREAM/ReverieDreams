@@ -1,0 +1,21 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "minecraft:cocoa_beans"
+    },
+    {
+      "id": "reverie_dreams:ingredient/tremella"
+    },
+    {
+      "id": "minecraft:pumpkin"
+    },
+    {
+      "id": "reverie_dreams:ingredient/dew"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/the_source_of_life"
+  },
+  "cost_time": 13.0
+}

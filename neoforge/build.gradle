@@ -1,0 +1,79 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
+plugins {
+    id 'multiloader-loader'
+    alias libs.plugins.modDevGradle
+    alias libs.plugins.curseForgeGradle
+    alias libs.plugins.modrinthMinotaur
+}
+
+neoForge {
+    version = neoforge_version
+    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.from(at.absolutePath)
+    }
+
+    parchment {
+        minecraftVersion = minecraft_version
+        mappingsVersion = parchment_mapping_version
+    }
+
+    runs {
+        configureEach {
+            //noinspection GroovyAssignabilityCheck
+            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+            ideName = "NeoForge ${it.name.capitalize()} (${project.path})"
+        }
+
+        client {
+            client()
+        }
+
+        server {
+            server()
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+apply from: rootProject.file('repositories.gradle')
+dependencies {
+    implementation("net.blay09.mods:balm-neoforge:${balm_version}") {
+        changing = balm_version.contains("SNAPSHOT")
+    }
+
+    compileOnly rootProject.files("libs/keine-common-1.21.11-1.0.0.jar")
+    compileOnly rootProject.files("libs/geckolib-common-1.21.11-5.4.5.jar")
+    implementation files("libs/keine-neoforge-1.21.11-1.0.0.jar")
+    implementation files("libs/sgui_balm-neoforge-1.21.11-21.11.0.jar")
+    implementation("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}")
+
+    implementation('com.squareup.okhttp3:okhttp:4.12.0')
+    implementation('com.squareup.okio:okio:3.4.0')
+    //noinspection DifferentStdlibGradleVersion
+    implementation('org.jetbrains.kotlin:kotlin-stdlib:1.9.10')
+    implementation('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10')
+    implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10')
+}
+
+def neoForgeSnapshotUrl = findProperty("neoforge_snapshot_url")
+if (neoForgeSnapshotUrl != null && !neoForgeSnapshotUrl.isBlank()) {
+    repositories {
+        maven {
+            name = 'Maven for NeoForge Snapshots'
+            url = neoForgeSnapshotUrl
+            content {
+                includeModule('net.neoforged', 'neoforge')
+                includeModule('net.neoforged', 'testframework')
+            }
+        }
+    }
+}

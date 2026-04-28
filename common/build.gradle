@@ -1,0 +1,63 @@
+plugins {
+    id 'multiloader-common'
+    alias libs.plugins.modDevGradle
+}
+
+neoForge {
+    neoFormVersion = "1.21.11-20251209.172050"
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.from(at.absolutePath)
+    }
+    parchment {
+        minecraftVersion = minecraft_version
+        mappingsVersion = parchment_mapping_version
+    }
+}
+
+dependencies {
+    compileOnly("org.spongepowered:mixin:${mixin_version}")
+}
+
+apply from: rootProject.file('repositories.gradle')
+dependencies {
+    implementation("net.blay09.mods:balm-common:${balm_version}") {
+        changing = balm_version.endsWith("SNAPSHOT")
+    }
+    implementation ("gg.moonflower:molang-compiler:3.1.1.19")
+    implementation("software.bernie.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
+
+    api files("libs/sgui_balm-common-1.21.11-21.11.0.jar")
+    api files("libs/keine-common-1.21.11-1.0.0.jar")
+//    api files("libs/geckolib-common-1.21.11-5.4.5.jar")
+}
+
+
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonGeneratedResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+sourceSets {
+    generated {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
+artifacts {
+    commonJava sourceSets.main.java.sourceDirectories.singleFile
+    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+    commonGeneratedResources sourceSets.generated.resources.sourceDirectories.singleFile
+}

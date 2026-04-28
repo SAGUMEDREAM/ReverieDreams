@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "reverie_dreams:block/nuke_frying_pan",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "reverie_dreams:block/nuke_frying_pan"
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/nuke_frying_pan",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/nuke_frying_pan",
+      "y": 270
+    }
+  }
+}

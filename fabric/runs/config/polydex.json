@@ -1,0 +1,33 @@
+{
+  "enable_search": true,
+  "enable_language_support_in_search": true,
+  "enable_hover_display": true,
+  "hover_display_update_rate": 4,
+  "hover_display_entity_absorption": true,
+  "default_hover_settings": {
+    "display_type": "polydex:bossbar",
+    "display_mode": "TARGET",
+    "visible_components": {
+      "polydex:fuel": "NEVER",
+      "polydex:armor": "ALWAYS",
+      "polydex:raw_id": "NEVER",
+      "polydex:input": "NEVER",
+      "polydex:effects": "ALWAYS",
+      "polydex:output": "NEVER",
+      "polydex:progress": "ALWAYS",
+      "polydex:name": "ALWAYS",
+      "polydex:health": "ALWAYS",
+      "polydex:mod_source": "NEVER"
+    }
+  },
+  "disabled_hover_information": [],
+  "display_can_show_requirement": {
+    "type": "has_player"
+  },
+  "displayCantMine": true,
+  "displayModSource": true,
+  "displayAdditional": true,
+  "displayMiningProgress": true,
+  "displayEntity": true,
+  "displayEntityHealth": true
+}

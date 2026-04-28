@@ -1,0 +1,24 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/cucumber"
+    },
+    {
+      "id": "minecraft:egg"
+    },
+    {
+      "id": "reverie_dreams:ingredient/white_radish"
+    },
+    {
+      "id": "reverie_dreams:ingredient/venison"
+    },
+    {
+      "id": "reverie_dreams:ingredient/moonflower"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/green_bamboo_welcomes_spring"
+  },
+  "cost_time": 14.0
+}

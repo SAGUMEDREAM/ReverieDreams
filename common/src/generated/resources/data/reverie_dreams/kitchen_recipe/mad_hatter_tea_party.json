@@ -1,0 +1,24 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "minecraft:cocoa_beans"
+    },
+    {
+      "id": "reverie_dreams:ingredient/cream"
+    },
+    {
+      "id": "reverie_dreams:ingredient/flour"
+    },
+    {
+      "id": "minecraft:brown_mushroom_block"
+    },
+    {
+      "id": "reverie_dreams:ingredient/broccoli"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/mad_hatter_tea_party"
+  },
+  "cost_time": 15.0
+}

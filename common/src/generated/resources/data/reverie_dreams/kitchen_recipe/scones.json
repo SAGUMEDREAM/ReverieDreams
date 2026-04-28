@@ -1,0 +1,15 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/butter"
+    },
+    {
+      "id": "reverie_dreams:ingredient/flour"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/scones"
+  },
+  "cost_time": 7.0
+}

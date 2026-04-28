@@ -1,0 +1,18 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/trout"
+    },
+    {
+      "id": "reverie_dreams:ingredient/flour"
+    },
+    {
+      "id": "reverie_dreams:ingredient/peach"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie"
+  },
+  "cost_time": 9.0
+}

@@ -1,0 +1,21 @@
+{
+  "recipe_type": "reverie_dreams:streamer",
+  "ingredients": [
+    {
+      "id": "reverie_dreams:ingredient/ficus_microcarpa"
+    },
+    {
+      "id": "reverie_dreams:ingredient/grape"
+    },
+    {
+      "id": "reverie_dreams:ingredient/crab"
+    },
+    {
+      "id": "reverie_dreams:ingredient/dew"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:food/the_mars"
+  },
+  "cost_time": 24.0
+}

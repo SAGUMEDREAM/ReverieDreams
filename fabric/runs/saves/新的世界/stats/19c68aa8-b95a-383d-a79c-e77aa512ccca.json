@@ -1,0 +1,19 @@
+{
+  "stats": {
+    "minecraft:used": {
+      "reverie_dreams:danmaku/amulet": 1
+    },
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 1890,
+      "minecraft:time_since_rest": 907,
+      "minecraft:walk_one_cm": 390,
+      "minecraft:total_world_time": 1350,
+      "minecraft:leave_game": 1,
+      "minecraft:fly_one_cm": 14449,
+      "minecraft:play_time": 907,
+      "minecraft:jump": 17,
+      "minecraft:time_since_death": 907
+    }
+  },
+  "DataVersion": 4671
+}

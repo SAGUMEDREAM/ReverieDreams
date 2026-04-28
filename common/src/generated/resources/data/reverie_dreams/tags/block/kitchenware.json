@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#reverie_dreams:cooking_top",
+      "required": false
+    },
+    {
+      "id": "#reverie_dreams:cutting_board",
+      "required": false
+    },
+    {
+      "id": "#reverie_dreams:frying_pan",
+      "required": false
+    },
+    {
+      "id": "#reverie_dreams:grill",
+      "required": false
+    },
+    {
+      "id": "#reverie_dreams:steamer",
+      "required": false
+    }
+  ]
+}
