@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.polymer.entity;
 
+import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.fabric.polymer.helper.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.entity.Yousei;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.holder.WingHolder;

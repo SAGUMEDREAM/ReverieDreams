@@ -36,6 +36,8 @@ public class RDEntityRenderers {
 
         // Misc
         registrar.register(RDEntityTypes.ORE_ESP.asHolder(), OreEspRenderer::new);
+        registrar.register(RDEntityTypes.MAGIC_BROOM.asHolder(), MagicBroomRenderer::new);
+        registrar.register(RDEntityTypes.WHEEL_CHAIR.asHolder(), WheelchairRenderer::new);
 
         // NPCLike
         EntityRendererProvider<BaseNPCLikeEntity> slimNpcLikeRendererProvider = context -> new BaseNPCLikeEntityRenderer<>(context, true);

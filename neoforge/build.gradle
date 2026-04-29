@@ -1,4 +1,7 @@
+//file:noinspection GrDeprecatedAPIUsage
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
 
 plugins {
     id 'multiloader-loader'
@@ -49,19 +52,20 @@ dependencies {
     implementation("net.blay09.mods:balm-neoforge:${balm_version}") {
         changing = balm_version.contains("SNAPSHOT")
     }
-
     compileOnly rootProject.files("libs/keine-common-1.21.11-1.0.0.jar")
     compileOnly rootProject.files("libs/geckolib-common-1.21.11-5.4.5.jar")
-    implementation files("libs/keine-neoforge-1.21.11-1.0.0.jar")
-    implementation files("libs/sgui_balm-neoforge-1.21.11-21.11.0.jar")
+    jarJar(implementation("cc.thonly:keine-neoforge:1.21.11-1.0.0"))
+    jarJar(implementation("cc.thonly:sgui_balm-neoforge:1.21.11-21.11.0"))
+//    implementation project(":neoforge").files("libs/keine-neoforge-1.21.11-1.0.0.jar")
+//    implementation project(":neoforge").files("libs/sgui_balm-neoforge-1.21.11-21.11.0.jar")
     implementation("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}")
 
-    implementation('com.squareup.okhttp3:okhttp:4.12.0')
-    implementation('com.squareup.okio:okio:3.4.0')
+    jarJar(implementation('com.squareup.okhttp3:okhttp:4.12.0'))
+    jarJar(implementation('com.squareup.okio:okio:3.4.0'))
     //noinspection DifferentStdlibGradleVersion
-    implementation('org.jetbrains.kotlin:kotlin-stdlib:1.9.10')
-    implementation('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10')
-    implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10')
+    jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib:1.9.10'))
+    jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10'))
+    jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10'))
 }
 
 def neoForgeSnapshotUrl = findProperty("neoforge_snapshot_url")

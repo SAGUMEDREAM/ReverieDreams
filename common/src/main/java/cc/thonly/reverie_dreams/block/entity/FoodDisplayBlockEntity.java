@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.common.MultiPlatformEvents;
+import cc.thonly.reverie_dreams.common.RDMPHooks;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
@@ -36,11 +36,11 @@ public class FoodDisplayBlockEntity extends BlockEntity {
     }
 
     public void update() {
-        MultiPlatformEvents.FoodDisplayBlockEntityUpdater.EVENT.invoker().handle(this);
+        RDMPHooks.FoodDisplayBlockEntityUpdater.EVENT.invoker().handle(this);
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, FoodDisplayBlockEntity blockEntity) {
-        MultiPlatformEvents.FoodDisplayBlockEntityTicker.EVENT.invoker().handle(world, pos, state, blockEntity);
+        RDMPHooks.FoodDisplayBlockEntityTicker.EVENT.invoker().handle(world, pos, state, blockEntity);
     }
 
     @Override

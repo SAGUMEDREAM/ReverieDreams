@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.fabric.polymer.entity;
+package cc.thonly.reverie_dreams.fabric.polymer.entity.inf;
 
 import cc.thonly.reverie_dreams.fabric.polymer.entity.bil.OverlayEntityHolder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;

@@ -6,7 +6,6 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.builder.RoleCard;
@@ -24,10 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.Variant;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
@@ -384,7 +380,7 @@ public class ModelProvider extends FabricModelProvider {
         for (Item item : RegistryHandlers.DANMAKU_TYPE.values()
                 .stream()
                 .filter(type -> !type.isDeleteFromList())
-                .map(DanmakuType::getItem)
+                .map(DanmakuType::getItemHolder)
                 .map(ItemLike::asItem)
                 .toList()) {
             itemModelGenerator.generateTwoLayerDyedItem(item);

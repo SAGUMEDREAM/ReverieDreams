@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
-import cc.thonly.reverie_dreams.client.renderer.entity.state.BaguaFurnaceRendererState;
+import cc.thonly.reverie_dreams.client.renderer.entity.state.BaguaFurnaceRenderState;
 import cc.thonly.reverie_dreams.entity.misc.BaguaFurnaceEntity;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.util.client.RDMthTool;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -12,12 +11,9 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.phys.Vec3;
-import org.joml.Quaternionf;
 
-public class BaguaFurnaceRenderer extends EntityRenderer<BaguaFurnaceEntity, BaguaFurnaceRendererState> {
+public class BaguaFurnaceRenderer extends EntityRenderer<BaguaFurnaceEntity, BaguaFurnaceRenderState> {
     private final ItemModelResolver itemModelResolver;
 
     public BaguaFurnaceRenderer(EntityRendererProvider.Context context) {
@@ -26,7 +22,7 @@ public class BaguaFurnaceRenderer extends EntityRenderer<BaguaFurnaceEntity, Bag
     }
 
     @Override
-    public void extractRenderState(BaguaFurnaceEntity entity, BaguaFurnaceRendererState state, float partialTick) {
+    public void extractRenderState(BaguaFurnaceEntity entity, BaguaFurnaceRenderState state, float partialTick) {
         super.extractRenderState(entity, state, partialTick);
         state.xRot = entity.getInitXRot();
         state.yRot = entity.getInitYRot();
@@ -38,7 +34,7 @@ public class BaguaFurnaceRenderer extends EntityRenderer<BaguaFurnaceEntity, Bag
     }
 
     @Override
-    public void submit(BaguaFurnaceRendererState state, PoseStack matrices, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+    public void submit(BaguaFurnaceRenderState state, PoseStack matrices, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         super.submit(state, matrices, nodeCollector, cameraRenderState);
         matrices.pushPose();
 
@@ -59,7 +55,7 @@ public class BaguaFurnaceRenderer extends EntityRenderer<BaguaFurnaceEntity, Bag
     }
 
     @Override
-    public BaguaFurnaceRendererState createRenderState() {
-        return new BaguaFurnaceRendererState();
+    public BaguaFurnaceRenderState createRenderState() {
+        return new BaguaFurnaceRenderState();
     }
 }

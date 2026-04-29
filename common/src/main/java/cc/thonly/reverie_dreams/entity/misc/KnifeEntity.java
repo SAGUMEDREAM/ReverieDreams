@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 @Setter
 @Getter
 @ToString
-@SuppressWarnings("unchecked")
 public class KnifeEntity extends DanmakuEntity {
 
     public KnifeEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {

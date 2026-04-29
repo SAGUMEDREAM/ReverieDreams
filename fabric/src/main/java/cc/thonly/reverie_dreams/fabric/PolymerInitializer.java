@@ -4,11 +4,11 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
 import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.common.MultiPlatformEvents;
+import cc.thonly.reverie_dreams.common.RDMPHooks;
 import cc.thonly.reverie_dreams.creative_tab.content.ItemGroupContentHelper;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
-import cc.thonly.reverie_dreams.fabric.item.FabricPolymerTHGuideBookItem;
+import cc.thonly.reverie_dreams.fabric.polymer.FabricPolymerTHGuideBookItem;
 import cc.thonly.reverie_dreams.fabric.polymer.ResourcePackGenerator;
 import cc.thonly.reverie_dreams.fabric.polymer.block.GensokyoAltarImpl;
 import cc.thonly.reverie_dreams.fabric.polymer.block.ItemStackDisplayImpl;
@@ -88,7 +88,7 @@ public class PolymerInitializer {
     }
 
     private static void registerPlatformEventImpl() {
-        MultiPlatformEvents.TenguCameraItemUseCallback.EVENT.register((level, player, hand) -> {
+        RDMPHooks.TenguCameraItemUseCallback.EVENT.register((level, player, hand) -> {
             ItemStack stack = player.getItemInHand(hand);
             if (player.isShiftKeyDown()) {
 
@@ -150,7 +150,7 @@ public class PolymerInitializer {
             }
             return InteractionResult.SUCCESS_SERVER;
         });
-        MultiPlatformEvents.FoodDisplayBlockEntityTicker.EVENT.register((world, pos, state, blockEntity) -> {
+        RDMPHooks.FoodDisplayBlockEntityTicker.EVENT.register((world, pos, state, blockEntity) -> {
             if (!(world instanceof ServerLevel serverWorld)) {
                 return;
             }
@@ -161,7 +161,7 @@ public class PolymerInitializer {
                 model.updateItem(state);
             }
         });
-        MultiPlatformEvents.FoodDisplayBlockEntityUpdater.EVENT.register(blockEntity -> {
+        RDMPHooks.FoodDisplayBlockEntityUpdater.EVENT.register(blockEntity -> {
             if (!(blockEntity.getLevel() instanceof ServerLevel serverLevel)) {
                 return;
             }
@@ -174,7 +174,7 @@ public class PolymerInitializer {
                 model.updateItem(blockEntity.getBlockState());
             }
         });
-        MultiPlatformEvents.GensokyoAltarBlockEntityTicker.EVENT.register((world, pos, state, blockEntity) -> {
+        RDMPHooks.GensokyoAltarBlockEntityTicker.EVENT.register((world, pos, state, blockEntity) -> {
             if (blockEntity.tick > 5) {
                 GensokyoAltarImpl.Model altarModel = GensokyoAltarImpl.POS_TO_MODEL.get(pos.asLong());
                 if (altarModel != null) {
@@ -225,7 +225,7 @@ public class PolymerInitializer {
             PolymerItemHelper.registerOverlay(item.value());
         }
         for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
-            PolymerItemHelper.registerOverlay(danmakuType.getItem().asItem());
+            PolymerItemHelper.registerOverlay(danmakuType.getItemHolder().asItem());
         }
         for (Holder<SoundEvent> soundEvent : RDSoundEvents.SOUND_EVENTS) {
             PolymerSoundEvent.registerOverlay(soundEvent.value());

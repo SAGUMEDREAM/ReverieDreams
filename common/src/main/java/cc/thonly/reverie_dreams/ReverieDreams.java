@@ -5,7 +5,7 @@ import cc.thonly.keine.api.KeineRegistries;
 import cc.thonly.keine.api.callback.ServerSavingCallback;
 import cc.thonly.reverie_dreams.api.item.ItemAttackHitCallback;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.common.MultiPlatformEvents;
+import cc.thonly.reverie_dreams.common.RDMPHooks;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
@@ -15,6 +15,7 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
@@ -135,6 +136,14 @@ public class ReverieDreams {
     private static final Set<ServerPlayer> PLAYER_WITH_MOD = new HashSet<>();
     private static final Map<ServerPlayer, String> PLAYER_SIDE_VERSION = new WeakHashMap<>();
 
+    public static boolean hasMod(ServerPlayer player) {
+        return PLAYER_WITH_MOD.contains(player);
+    }
+
+    public static boolean hasModWithVersion(ServerPlayer player) {
+        return hasMod(player) && Objects.equals(PLAYER_SIDE_VERSION.get(player), PlatformContext.VERSION.get());
+    }
+
     public static ReverieDreamsConfiguration config() {
         ReverieDreamsConfiguration activeConfig = Balm.config().getActiveConfig(ReverieDreamsConfiguration.class);
         return activeConfig == null ? new ReverieDreamsConfiguration() : activeConfig;
@@ -209,7 +218,7 @@ public class ReverieDreams {
         BiomeModificationInit.initialize();
 
         // 初始化其他注册内容
-        MultiPlatformEvents.initialize();
+        RDMPHooks.initialize();
         RecipeManager.bootstrap(registrars);
         RecipeWorkbenchRegistry.bootstrap();
         ServerResourceHelper.init();
@@ -233,6 +242,7 @@ public class ReverieDreams {
 
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("danmaku_properties"), DanmakuProperties.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("skin_type"), SkinType.SERIALIZER);
+        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("item_stack_wrapper"), ItemStackWrapper.SERIALIZER);
         lateInit.run();
     }
 

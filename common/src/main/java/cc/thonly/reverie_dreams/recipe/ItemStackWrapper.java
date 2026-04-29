@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.recipe;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -17,9 +18,16 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializer;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -80,6 +88,8 @@ public class ItemStackWrapper {
     }));
     public static final Codec<List<ItemStackWrapper>> LIST_CODEC = CODEC.listOf();
     public static final Codec<List<ItemStack>> ITEM_STACK_LIST_CODEC = ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC.listOf();
+    public static final StreamCodec<RegistryFriendlyByteBuf,ItemStackWrapper> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
+    public static final EntityDataSerializer<ItemStackWrapper> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
 
     private final ItemStack itemStack;
     private final List<TagKey<Item>> tags;
@@ -339,14 +349,36 @@ public class ItemStackWrapper {
         return null;
     }
 
+    public static String toJsonArray(List<ItemStackWrapper> wrappers) {
+        DataResult<JsonElement> dataResult = ItemStackWrapper.LIST_CODEC.encodeStart(JsonOps.INSTANCE, wrappers);
+        Optional<JsonElement> result = dataResult.result();
+        if (result.isPresent()) {
+            JsonElement array = result.get();
+            return GSON.toJson(array);
+        }
+        return null;
+    }
+
     public static Optional<ItemStackWrapper> toWrapper(String json) {
         if (json == null || json.isEmpty()) {
             return Optional.empty();
         }
         JsonElement jsonElement = JsonParser.parseString(json);
-        Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, jsonElement);
+        return toWrapper(jsonElement);
+    }
+
+    public static Optional<ItemStackWrapper> toWrapper(JsonElement element) {
+        Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, element);
         DataResult<ItemStackWrapper> parse = ItemStackWrapper.CODEC.parse(input);
         return parse.result();
+    }
+
+    public static List<ItemStackWrapper> toWrappers(JsonArray array) {
+        List<ItemStackWrapper> list = new ArrayList<>();
+        for (JsonElement element : array) {
+            toWrapper(element).map(list::add);
+        }
+        return list;
     }
 
 

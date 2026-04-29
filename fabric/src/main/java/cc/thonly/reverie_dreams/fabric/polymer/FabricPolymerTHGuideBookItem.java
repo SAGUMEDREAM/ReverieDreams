@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.fabric.item;
+package cc.thonly.reverie_dreams.fabric.polymer;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import eu.pb4.booklet.impl.BookletImplUtil;

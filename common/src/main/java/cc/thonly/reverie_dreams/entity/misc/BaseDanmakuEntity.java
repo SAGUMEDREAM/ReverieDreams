@@ -193,7 +193,7 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
             return;
         }
 
-        if (this.getItemStack().getItem() == DanmakuTypes.NOTE.getItem().asItem()) {
+        if (this.getItemStack().getItem() == DanmakuTypes.NOTE.getItemHolder().asItem()) {
 
             level.playSound(null, this.getOnPos(),
                     SoundEvents.NOTE_BLOCK_BASS.value(),

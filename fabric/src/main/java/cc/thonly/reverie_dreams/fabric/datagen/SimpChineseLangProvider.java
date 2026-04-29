@@ -1329,19 +1329,19 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 //        bulletTranslations.put("star_big", "大星弹");
 //        bulletTranslations.put("star_small", "小星弹");
 
-        translationBuilder.add(DanmakuTypes.AMULET.getItem().asItem(), "札弹");
-        translationBuilder.add(DanmakuTypes.ARROWHEAD.getItem().asItem(), "鳞弹");
-        translationBuilder.add(DanmakuTypes.BALL.getItem().asItem(), "小玉");
-        translationBuilder.add(DanmakuTypes.BUBBLE.getItem().asItem(), "大玉");
-        translationBuilder.add(DanmakuTypes.BULLET.getItem().asItem(), "铳弹");
-        translationBuilder.add(DanmakuTypes.FIREBALL.getItem().asItem(), "火光弹");
-        translationBuilder.add(DanmakuTypes.FIREBALL_GLOWY.getItem().asItem(), "水光弹");
-        translationBuilder.add(DanmakuTypes.KUNAI.getItem().asItem(), "链弹");
-        translationBuilder.add(DanmakuTypes.RICE.getItem().asItem(), "米弹");
-        translationBuilder.add(DanmakuTypes.STAR.getItem().asItem(), "星弹");
-        translationBuilder.add(DanmakuTypes.NOTE.getItem().asItem(), "音符");
-        translationBuilder.add(DanmakuTypes.LASER.getItem().asItem(), "激光");
-        translationBuilder.add(DanmakuTypes.BIG_LASER.getItem().asItem(), "大激光");
+        translationBuilder.add(DanmakuTypes.AMULET.getItemHolder().asItem(), "札弹");
+        translationBuilder.add(DanmakuTypes.ARROWHEAD.getItemHolder().asItem(), "鳞弹");
+        translationBuilder.add(DanmakuTypes.BALL.getItemHolder().asItem(), "小玉");
+        translationBuilder.add(DanmakuTypes.BUBBLE.getItemHolder().asItem(), "大玉");
+        translationBuilder.add(DanmakuTypes.BULLET.getItemHolder().asItem(), "铳弹");
+        translationBuilder.add(DanmakuTypes.FIREBALL.getItemHolder().asItem(), "火光弹");
+        translationBuilder.add(DanmakuTypes.FIREBALL_GLOWY.getItemHolder().asItem(), "水光弹");
+        translationBuilder.add(DanmakuTypes.KUNAI.getItemHolder().asItem(), "链弹");
+        translationBuilder.add(DanmakuTypes.RICE.getItemHolder().asItem(), "米弹");
+        translationBuilder.add(DanmakuTypes.STAR.getItemHolder().asItem(), "星弹");
+        translationBuilder.add(DanmakuTypes.NOTE.getItemHolder().asItem(), "音符");
+        translationBuilder.add(DanmakuTypes.LASER.getItemHolder().asItem(), "激光");
+        translationBuilder.add(DanmakuTypes.BIG_LASER.getItemHolder().asItem(), "大激光");
 
 //        for (IDanmakuItem itemEntry : ModItems.DANMAKU_ITEMS) {
 //            List<BasicDanmakuItemTypeItem> values = itemEntry.getValues();

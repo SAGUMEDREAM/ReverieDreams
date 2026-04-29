@@ -45,6 +45,8 @@ repositories {
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
     maven { url = "https://maven.parchmentmc.org" }
     maven { url = "https://repo.opencollab.dev/main/" }
+    maven { url = "https://raw.githubusercontent.com/SAGUMEDREAM/MyJarRelease/main/" }
+
 
     flatDir {
         dirs 'libs'

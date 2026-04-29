@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.fabric.polymer.entity;
+package cc.thonly.reverie_dreams.fabric.polymer.entity.inf;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.fabric.polymer.helper.PolymerEntityHelper;

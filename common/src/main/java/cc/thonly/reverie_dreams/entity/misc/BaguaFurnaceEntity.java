@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
+import cc.thonly.reverie_dreams.entity.interfaces.BypassHitEntity;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;

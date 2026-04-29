@@ -36,10 +36,10 @@ import org.jspecify.annotations.NonNull;
 @Setter
 @Getter
 @ToString
-public class WheelchairEntity extends PathfinderMob implements PlayerRideableJumping {
+public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
     public String ownerUUID = "";
 
-    public WheelchairEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
+    public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
         AttributeMap attributes = this.getAttributes();
         AttributeInstance scaleInstance = attributes.getInstance(Attributes.SCALE);
@@ -48,12 +48,12 @@ public class WheelchairEntity extends PathfinderMob implements PlayerRideableJum
         }
     }
 
-    public WheelchairEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z) {
+    public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z) {
         this(entityType, world);
         this.setPos(x, y, z);
     }
 
-    public WheelchairEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, String ownerUUID) {
+    public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, String ownerUUID) {
         this(entityType, world, x, y, z);
         this.ownerUUID = ownerUUID;
     }

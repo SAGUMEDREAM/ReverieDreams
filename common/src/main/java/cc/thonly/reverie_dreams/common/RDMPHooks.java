@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Function;
 
-public class MultiPlatformEvents {
+public class RDMPHooks {
 
     @FunctionalInterface
     public interface TenguCameraItemUseCallback {

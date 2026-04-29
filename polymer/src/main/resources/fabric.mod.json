@@ -16,6 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "cc.thonly.reverie_dreams.ReverieDreamsPolymer"
     ],
     "client": [
     ],

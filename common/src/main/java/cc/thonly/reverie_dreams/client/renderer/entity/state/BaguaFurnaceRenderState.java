@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.phys.Vec3;
 
-public class BaguaFurnaceRendererState extends EntityRenderState {
+public class BaguaFurnaceRenderState extends EntityRenderState {
     public ItemStackRenderState itemRenderState = new ItemStackRenderState();
     public float xRot;
     public float yRot;

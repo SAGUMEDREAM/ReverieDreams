@@ -26,7 +26,7 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
     public static final Codec<DanmakuShape> CODEC = UnitCodec.unit(DanmakuShape::new);
     public static final Function<DanmakuType, ItemStack> ITEM_STACK_TEMPLATE = (danmakuType) -> {
         ItemStack stack = RDItems.DANMAKU_SHAPE_CREATOR.createStack();
-        stack.set(RDDataComponents.DANMAKU_SHAPE.value(), ItemStackWrapper.of(danmakuType.getItem()));
+        stack.set(RDDataComponents.DANMAKU_SHAPE.value(), ItemStackWrapper.of(danmakuType.getItemHolder()));
         return stack;
     };
     private RegistryHandler<DanmakuShape> owner;

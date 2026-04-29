@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
-import cc.thonly.reverie_dreams.entity.misc.WheelchairEntity;
+import cc.thonly.reverie_dreams.entity.misc.Wheelchair;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
@@ -32,7 +32,7 @@ public class WheelChairBlock extends ModelBlock {
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide() && player.isShiftKeyDown()) {
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-            world.addFreshEntity(new WheelchairEntity(RDEntityTypes.WHEEL_CHAIR.asHolder().value(), world, pos.getX(), pos.getY(), pos.getZ(), player.getStringUUID()));
+            world.addFreshEntity(new Wheelchair(RDEntityTypes.WHEEL_CHAIR.asHolder().value(), world, pos.getX(), pos.getY(), pos.getZ(), player.getStringUUID()));
             return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.SUCCESS;

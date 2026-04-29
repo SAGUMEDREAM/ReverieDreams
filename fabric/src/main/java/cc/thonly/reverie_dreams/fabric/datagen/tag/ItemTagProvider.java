@@ -53,7 +53,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         BiConsumer<TagKey<Item>, Collection<? extends Item>> addAll = (tag, items) -> valueLookupBuilder(tag).add(items.toArray(Item[]::new));
         Supplier<List<Item>> allDanmakuItemGetter = () -> {
             RegistryHandler<DanmakuType> registry = RegistryHandlers.DANMAKU_TYPE;
-            Stream<Item> itemStream = registry.values().stream().map(DanmakuType::getItem).map(ItemLike::asItem);
+            Stream<Item> itemStream = registry.values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem);
             return itemStream.toList();
         };
         Supplier<List<Item>> allToolGetter = () -> {
@@ -119,7 +119,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         // === 弹幕 ===
         TagAppender<Item, Item> danmaku = valueLookupBuilder(RDItemTags.DANMAKU_ITEM);
         for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
-            danmaku.add(danmakuType.getItem().asItem());
+            danmaku.add(danmakuType.getItemHolder().asItem());
         }
         danmaku.add(RDItems.KNIFE.asItem());
         TagAppender<Item, Item> danmakuRepairAcceptableItems = valueLookupBuilder(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM);

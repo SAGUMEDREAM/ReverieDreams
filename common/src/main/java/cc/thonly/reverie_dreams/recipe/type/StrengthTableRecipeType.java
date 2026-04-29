@@ -83,7 +83,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             }
         }
         List<Item> danmakuItemView = RegistryHandlers.DANMAKU_TYPE
-                .values().stream().map(DanmakuType::getItem).map(ItemLike::asItem).toList();
+                .values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem).toList();
         List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultInstance).toList();
         List<ItemStack> templateStackView = DanmakuTemplates.getRegistryItemStackView().values().stream().map(ItemStack::copy).toList();
 

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.common.MultiPlatformEvents;
+import cc.thonly.reverie_dreams.common.RDMPHooks;
 import com.mojang.logging.LogUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -30,7 +30,7 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, GensokyoAltarBlockEntity blockEntity) {
-        MultiPlatformEvents.GensokyoAltarBlockEntityTicker.EVENT.invoker().handle(world, pos, state, blockEntity);
+        RDMPHooks.GensokyoAltarBlockEntityTicker.EVENT.invoker().handle(world, pos, state, blockEntity);
     }
 
     @Override

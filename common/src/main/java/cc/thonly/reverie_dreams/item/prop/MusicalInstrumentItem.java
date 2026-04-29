@@ -22,7 +22,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -88,7 +87,7 @@ public class MusicalInstrumentItem extends Item {
     public InteractionResult useByEntity(Level world, LivingEntity user, InteractionHand hand) {
         ItemStack itemByMainSlot = user.getItemInHand(InteractionHand.MAIN_HAND);
         ItemStack itemByOffSlot = user.getItemInHand(InteractionHand.OFF_HAND);
-        if (itemByOffSlot.getItem() == DanmakuTypes.NOTE.getItem()) {
+        if (itemByOffSlot.getItem() == DanmakuTypes.NOTE.getItemHolder()) {
             ItemStack baseBullet = itemByOffSlot.copy();
             if (user instanceof Player player) {
                 ItemCooldowns itemCooldownManager = player.getCooldowns();

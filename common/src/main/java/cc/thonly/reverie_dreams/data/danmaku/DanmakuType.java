@@ -62,7 +62,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private final float speed;
     private final boolean tile;
     private final boolean infinite;
-    private DeferredItem item;
+    private DeferredItem itemHolder;
     private BaseDanmakuEntity.HitCallback hitFactory;
     private RegistryHandler<DanmakuType> owner;
     private boolean deleteFromList = false;
@@ -88,7 +88,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
 
     @Override
     public String translateKey() {
-        return this.item.asItem().getDescriptionId();
+        return this.itemHolder.asItem().getDescriptionId();
     }
 
     public DanmakuShape toShape() {
@@ -117,13 +117,13 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
                     return item;
                 }
         );
-        this.item = itemRegistration.asDeferredItem();
+        this.itemHolder = itemRegistration.asDeferredItem();
     }
 
     @SuppressWarnings("deprecation")
     public List<Tuple<Item, ItemStack>> getColorPairs() {
         List<Tuple<Item, ItemStack>> pairList = new LinkedList<>();
-        ItemStack defaultStack = this.item.asItem().getDefaultInstance();
+        ItemStack defaultStack = this.itemHolder.asItem().getDefaultInstance();
         for (Map.Entry<Item, Long> itemLongEntry : ItemColor.getView().entrySet()) {
             Item dyeItem = itemLongEntry.getKey();
             ItemStack stack = defaultStack.copy();

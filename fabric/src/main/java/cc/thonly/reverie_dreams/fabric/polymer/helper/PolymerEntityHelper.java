@@ -3,6 +3,8 @@ package cc.thonly.reverie_dreams.fabric.polymer.helper;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.*;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.PolymerHolderEntity;
+import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.TickHolderEntity;
 import cc.thonly.reverie_dreams.registry.RegistryHandlers;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.fabric.util.ModelUtil;
@@ -11,6 +13,7 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 
@@ -59,20 +62,28 @@ public class PolymerEntityHelper {
             registerOverlay(role.getEntityType().value(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);
         }
 
-        ServerTickEvents.START_SERVER_TICK.register(server -> {
-            if (HOLD_RENDER_QUEUE.isEmpty()) {
-                return;
-            }
-            Iterator<PolymerHolderEntity> iterator = HOLD_RENDER_QUEUE.iterator();
-            while (iterator.hasNext()) {
-                PolymerHolderEntity next = iterator.next();
-                next.onCreated();
-                iterator.remove();
-            }
-        });
-        ServerTickEvents.START_SERVER_TICK.register(server -> {
-            TickHolderEntity.tick();
-        });
+        ServerTickEvents.START_SERVER_TICK.register(PolymerEntityHelper::tickServer);
+    }
+
+    private static void tickServer(MinecraftServer server) {
+        tickEntityCreate(server);
+        tickHolder(server);
+    }
+
+    private static void tickEntityCreate(MinecraftServer server) {
+        if (HOLD_RENDER_QUEUE.isEmpty()) {
+            return;
+        }
+        Iterator<PolymerHolderEntity> iterator = HOLD_RENDER_QUEUE.iterator();
+        while (iterator.hasNext()) {
+            PolymerHolderEntity next = iterator.next();
+            next.onCreated();
+            iterator.remove();
+        }
+    }
+
+    private static void tickHolder(MinecraftServer server) {
+        TickHolderEntity.tick();
     }
 
     public static void addEntityHolderModel(PolymerHolderEntity polymerHolderEntity) {

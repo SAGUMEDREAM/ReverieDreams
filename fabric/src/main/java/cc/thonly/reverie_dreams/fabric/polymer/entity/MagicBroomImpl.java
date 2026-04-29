@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.fabric.polymer.entity;
 
+import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.PolymerHolderEntity;
 import cc.thonly.reverie_dreams.fabric.polymer.helper.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.holder.MagicBroomHolder;
-import cc.thonly.reverie_dreams.entity.misc.MagicBroomEntity;
+import cc.thonly.reverie_dreams.entity.misc.MagicBroom;
 import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
@@ -20,7 +21,8 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.WeakHashMap;
 
-public record MagicBroomImpl(MagicBroomEntity source) implements PolymerEntity, PolymerHolderEntity {
+@SuppressWarnings("resource")
+public record MagicBroomImpl(MagicBroom source) implements PolymerEntity, PolymerHolderEntity {
     public static final WeakHashMap<Entity, ItemDisplayElement> ELEMENTS = new WeakHashMap<>();
 
     public MagicBroomImpl {
@@ -36,7 +38,7 @@ public record MagicBroomImpl(MagicBroomEntity source) implements PolymerEntity, 
         var x = new ItemDisplayElement();
         var holder = new MagicBroomHolder(this.source);
         var stack = new ItemStack(RDEntityHolderItems.MAGIC_BROOM_DISPLAY.asItem());
-        if (this.source.itemWrapper.getItemStack().hasFoil()) {
+        if (this.source.getItemWrapper().getItemStack().hasFoil()) {
             stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         }
         x.setItem(stack);

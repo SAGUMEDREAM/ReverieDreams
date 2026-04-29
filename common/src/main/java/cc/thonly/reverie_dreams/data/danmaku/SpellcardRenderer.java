@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.data.danmaku;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.function.KeyframeFunction;
-import cc.thonly.reverie_dreams.entity.base.FakePlayer;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.mojang.serialization.Codec;
@@ -15,7 +14,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
@@ -257,7 +255,7 @@ public class SpellcardRenderer {
             return itemStack.copy();
         }
 
-        Item item = type.getItem().asItem();
+        Item item = type.getItemHolder().asItem();
         itemStack = item.getDefaultInstance();
         itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(color));
         colorStackMap.put(color, itemStack);

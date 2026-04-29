@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.polymer.mixin;
 
-import cc.thonly.reverie_dreams.fabric.polymer.entity.TickHolderEntity;
+import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.TickHolderEntity;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.api.AnimatedEntityHolder;
 import eu.pb4.polymer.virtualentity.api.tracker.DisplayTrackedData;

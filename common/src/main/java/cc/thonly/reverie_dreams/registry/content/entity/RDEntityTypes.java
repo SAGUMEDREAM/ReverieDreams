@@ -54,8 +54,8 @@ public class RDEntityTypes {
     public static BalmEntityTypeRegistration<KnifeEntity> KNIFE;
     public static BalmEntityTypeRegistration<OreEspEntity> ORE_ESP;
     public static BalmEntityTypeRegistration<FumoSeller> FUMO_SELLER_VILLAGER;
-    public static BalmEntityTypeRegistration<MagicBroomEntity> MAGIC_BROOM;
-    public static BalmEntityTypeRegistration<WheelchairEntity> WHEEL_CHAIR;
+    public static BalmEntityTypeRegistration<MagicBroom> MAGIC_BROOM;
+    public static BalmEntityTypeRegistration<Wheelchair> WHEEL_CHAIR;
     public static BalmEntityTypeRegistration<Scarecrow> SCARECROW;
     public static BalmEntityTypeRegistration<KillerBee> KILLER_BEE;
     public static BalmEntityTypeRegistration<MoonRabbit> MOON_RABBIT;
@@ -96,11 +96,11 @@ public class RDEntityTypes {
                 FumoSeller::createLivingAttributes
         );
         MAGIC_BROOM = registerEntityWithSpawnEgg(registrar, "broom",
-                () -> EntityType.Builder.of(MagicBroomEntity::new, MobCategory.MISC),
-                MagicBroomEntity::createLivingAttributes);
+                () -> EntityType.Builder.of(MagicBroom::new, MobCategory.MISC),
+                MagicBroom::createLivingAttributes);
         WHEEL_CHAIR = registerEntityWithSpawnEgg(registrar, "wheel_chair",
-                () -> EntityType.Builder.of(WheelchairEntity::new, MobCategory.MISC),
-                WheelchairEntity::createLivingAttributes);
+                () -> EntityType.Builder.of(Wheelchair::new, MobCategory.MISC),
+                Wheelchair::createLivingAttributes);
         SCARECROW = registerEntityWithSpawnEgg(registrar, "scarecrow",
                 () -> EntityType.Builder.<Scarecrow>of(Scarecrow::new, MobCategory.MISC),
                 Scarecrow::createLivingAttributes

@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.fabric.polymer.entity;
 
 import cc.thonly.reverie_dreams.entity.UFO;
+import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.PolymerHolderEntity;
+import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.TickHolderEntity;
 import cc.thonly.reverie_dreams.fabric.polymer.helper.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.bil.OverlayEntityHolder;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.bil.OverlayLivingEntityHolder;

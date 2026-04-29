@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,37 +39,53 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
+@SuppressWarnings("resource")
 @Setter
 @Getter
 @ToString
-public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJumping {
-    public ItemStackWrapper itemWrapper = ItemStackWrapper.of(Items.AIR.getDefaultInstance());
+public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
+    public static final EntityDataAccessor<ItemStackWrapper> ITEM_WRAPPER =
+            SynchedEntityData.defineId(MagicBroom.class, ItemStackWrapper.SERIALIZER);
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
     @Nullable
     public UUID owner;
 
-    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world) {
+    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
     }
 
-    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper) {
+    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper) {
         this(entityType, world);
         this.setPos(x, y, z);
-        this.itemWrapper = wrapper;
+        this.setItemWrapper(wrapper);
     }
 
-    public MagicBroomEntity(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, UUID owner) {
+    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, UUID owner) {
         this(entityType, world, x, y, z, wrapper);
         this.owner = owner;
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ITEM_WRAPPER, ItemStackWrapper.of(Items.AIR.getDefaultInstance()));
+    }
+
+    public void setItemWrapper(ItemStackWrapper itemWrapper) {
+        this.getEntityData().set(ITEM_WRAPPER, itemWrapper);
+    }
+
+    public ItemStackWrapper getItemWrapper() {
+        return this.getEntityData().get(ITEM_WRAPPER);
+    }
+
+    @Override
     public Component getName() {
-        if (this.itemWrapper == null || this.itemWrapper.isEmpty()) {
+        if (this.getItemWrapper() == null || this.getItemWrapper().isEmpty()) {
             return super.getName();
         }
-        ItemStack itemStack = this.itemWrapper.getItemStack();
+        ItemStack itemStack = this.getItemWrapper().getItemStack();
         return itemStack.getHoverName();
     }
 
@@ -80,11 +97,6 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     public Component getDisplayName() {
         return this.getName();
-    }
-
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
     }
 
     @Override
@@ -101,7 +113,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
             if (!this.hasEffect(MobEffects.INVISIBILITY)) {
                 this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
             }
-            if (!this.itemWrapper.isEmpty() && this.itemWrapper.getItemStack().isDamageableItem() && this.itemWrapper.getItemStack().getDamageValue() >= this.itemWrapper.getItemStack().getMaxDamage()) {
+            if (!this.getItemWrapper().isEmpty() && this.getItemWrapper().getItemStack().isDamageableItem() && this.getItemWrapper().getItemStack().getDamageValue() >= this.getItemWrapper().getItemStack().getMaxDamage()) {
                 this.hurtServer(world, this.damageSources().magic(), Integer.MAX_VALUE);
             }
         }
@@ -130,8 +142,8 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (attacker != null && attacker.isShiftKeyDown()) {
-            if (!this.itemWrapper.isEmpty()) {
-                ItemStack copiedStack = this.itemWrapper.getItemStack().copy();
+            if (!this.getItemWrapper().isEmpty()) {
+                ItemStack copiedStack = this.getItemWrapper().getItemStack().copy();
                 ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
                 world.addFreshEntity(itemEntity);
                 this.discard();
@@ -175,10 +187,10 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
         this.yBodyRot = this.yHeadRot = this.getYRot();
         this.yBodyRotO = this.yHeadRot;
 
-        if (!this.itemWrapper.isEmpty() && !controllingPlayer.hasInfiniteMaterials() && this.itemWrapper.getItemStack().isDamageableItem()) {
+        if (!this.getItemWrapper().isEmpty() && !controllingPlayer.hasInfiniteMaterials() && this.getItemWrapper().getItemStack().isDamageableItem()) {
             this.damageTick++;
             if (this.damageTick > this.maxDamageTick) {
-                this.itemWrapper.getItemStack().hurtAndBreak(1, this, EquipmentSlot.MAINHAND);
+                this.getItemWrapper().getItemStack().hurtAndBreak(1, this, EquipmentSlot.MAINHAND);
                 this.damageTick = 0;
             }
         }
@@ -220,10 +232,10 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     public void die(DamageSource damageSource) {
         super.die(damageSource);
         Level world = this.level();
-        if (this.itemWrapper.isEmpty()) {
+        if (this.getItemWrapper().isEmpty()) {
             return;
         }
-        ItemStack copiedStack = this.itemWrapper.getItemStack().copy();
+        ItemStack copiedStack = this.getItemWrapper().getItemStack().copy();
         ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
         world.addFreshEntity(itemEntity);
     }
@@ -250,7 +262,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     @Override
     protected void addAdditionalSaveData(ValueOutput view) {
         super.addAdditionalSaveData(view);
-        view.store("Item", ItemStackWrapper.CODEC, this.itemWrapper);
+        view.store("Item", ItemStackWrapper.CODEC, this.getItemWrapper());
         if (this.owner != null) {
             view.store("Owner", UUIDCodec.CODEC, this.owner);
         }
@@ -260,7 +272,7 @@ public class MagicBroomEntity extends PathfinderMob implements PlayerRideableJum
     protected void readAdditionalSaveData(ValueInput view) {
         super.readAdditionalSaveData(view);
         RegistryAccess registryManager = this.registryAccess();
-        this.itemWrapper = view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR));
+        this.setItemWrapper(view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR)));
         view.read("Owner", UUIDCodec.CODEC).ifPresent(value -> this.owner = value);
 
     }

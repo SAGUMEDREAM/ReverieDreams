@@ -9,6 +9,7 @@ import org.intellij.lang.annotations.Pattern;
 public class IReverieDreamsCompats {
     public static void initialize() {
         load("minecraft", "cc.thonly.reverie_dreams.compat.IVanillaCompat");
+        load("jei", "cc.thonly.reverie_dreams.compat.IJeiCompat");
     }
 
 
