@@ -14,7 +14,7 @@ def isLts = false
 def remapJarType = RemapJarType.BETA
 
 base {
-    archivesName = "%s-%s+%s-%s%s%s".formatted(
+    archivesName = "%s-%s+%s+%s%s%s".formatted(
             mod_id,
             project.name == "polymer" ? "fabric+polymerify" : project.name,
             version,
