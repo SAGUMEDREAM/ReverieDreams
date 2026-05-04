@@ -184,9 +184,5 @@ def includeDependencyJar = { File targetJar, List<String> list ->
 
 tasks.remapJar {
     doLast {
-        def jarFile = archiveFile.get().asFile
-        // 这里传入你的依赖 jar 列表
-        includeDependencyJar(jarFile, [
-        ])
     }
 }

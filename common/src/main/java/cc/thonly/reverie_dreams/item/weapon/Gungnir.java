@@ -38,7 +38,7 @@ public class Gungnir extends SpearItem implements ProjectileItem {
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.TRIDENT;
+        return ItemUseAnimation.SPEAR;
     }
 
     @Override
