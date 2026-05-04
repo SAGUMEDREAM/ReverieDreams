@@ -10,7 +10,7 @@ import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariant;
 import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariants;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import lombok.Getter;
 import lombok.Setter;
@@ -131,7 +131,7 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
         super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("UnitVariant", RabbitUnitVariants.DEFAULT_ID.toString());
         Identifier variantId = Identifier.parse(youseiVariantId);
-        this.variant = RegistryHandlers.RABBIT_UNIT_VARIANT.getValue(variantId);
+        this.variant = RegistryImpls.RABBIT_UNIT_VARIANT.getValue(variantId);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
 
     @Override
     public void setVariantData(Identifier id) {
-        this.variant = RegistryHandlers.RABBIT_UNIT_VARIANT.getValue(id);
+        this.variant = RegistryImpls.RABBIT_UNIT_VARIANT.getValue(id);
         if (this.variant != null) {
             this.setSkinType(this.variant.getSkinType());
         }

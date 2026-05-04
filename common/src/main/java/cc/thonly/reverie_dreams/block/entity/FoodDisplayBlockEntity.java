@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.common.RDMPHooks;
+import cc.thonly.reverie_dreams.RDMPHooks;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;

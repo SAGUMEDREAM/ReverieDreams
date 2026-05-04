@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 
 public class WheelchairRenderer extends EntityRenderer<Wheelchair, ItemHolderRenderState> {
@@ -37,9 +38,23 @@ public class WheelchairRenderer extends EntityRenderer<Wheelchair, ItemHolderRen
     @Override
     public void submit(ItemHolderRenderState renderState, PoseStack matrices, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         matrices.pushPose();
+        matrices.translate(0, 0.5, 0);
+        matrices.scale(1, 1, 1);
         matrices.mulPose(Axis.YP.rotationDegrees(-renderState.yRot));
+        renderState.itemRenderState.submit(
+                matrices,
+                nodeCollector,
+                renderState.lightCoords,
+                OverlayTexture.NO_OVERLAY,
+                0
+        );
         matrices.popPose();
         super.submit(renderState, matrices, nodeCollector, cameraRenderState);
+    }
+
+    @Override
+    protected boolean shouldShowName(Wheelchair entity, double distanceToCameraSq) {
+        return false;
     }
 
     @Override

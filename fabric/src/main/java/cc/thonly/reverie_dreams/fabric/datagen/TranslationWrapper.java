@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 import cc.thonly.reverie_dreams.creative_tab.content.ItemGroupContentHelper;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -170,7 +170,7 @@ public class TranslationWrapper implements ITranslationWrapper {
     }
 
     public TranslationWrapper generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        Identifier key = RegistryHandlers.DANMAKU_TRAJECTORY.getKey(trajectory);
+        Identifier key = RegistryImpls.DANMAKU_TRAJECTORY.getKey(trajectory);
         if (key == null) {
             log.error("Can't find key of {}", trajectory);
             return this;

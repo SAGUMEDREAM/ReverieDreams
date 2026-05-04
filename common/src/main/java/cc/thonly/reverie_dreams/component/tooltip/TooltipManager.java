@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.api.item.ItemStackTooltipCallback;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.item.builder.RoleCard;
+import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
 import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;

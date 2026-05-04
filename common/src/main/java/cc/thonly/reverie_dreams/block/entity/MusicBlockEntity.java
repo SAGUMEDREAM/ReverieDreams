@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
+import cc.thonly.reverie_dreams.util.NotaUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -26,7 +26,7 @@ public class MusicBlockEntity extends BlockEntity {
 
     @Nullable
     public SongPlayer getSelfPlayer() {
-        Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(this.level);
+        Map<Long, SongPlayer> blockPos2SongPlayer = NotaUtils.blockMusicPlayCache.get(this.level);
         if (blockPos2SongPlayer == null) return null;
         return blockPos2SongPlayer.get(this.worldPosition.asLong());
     }
@@ -36,17 +36,17 @@ public class MusicBlockEntity extends BlockEntity {
 
         boolean hasRedstone = world.hasNeighborSignal(pos);
 
-        Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.computeIfAbsent(world, w -> new HashMap<>());
+        Map<Long, SongPlayer> blockPos2SongPlayer = NotaUtils.blockMusicPlayCache.computeIfAbsent(world, w -> new HashMap<>());
         SongPlayer songPlayer = blockPos2SongPlayer.get(pos.asLong());
 
         if (hasRedstone && blockEntity.isFirst && blockEntity.select != null) {
             blockEntity.isFirst = false;
-            TouhouNotaUtils.playAt(world, pos, blockEntity.getSelect());
+            NotaUtils.playAt(world, pos, blockEntity.getSelect());
             return;
         }
 
         if (hasRedstone && songPlayer == null) {
-            TouhouNotaUtils.playAt(world, pos, blockEntity.getSelect());
+            NotaUtils.playAt(world, pos, blockEntity.getSelect());
             return;
         }
 
@@ -75,7 +75,7 @@ public class MusicBlockEntity extends BlockEntity {
         }
 
         if (this.level != null && !this.level.isClientSide()) {
-            TouhouNotaUtils.playAt(level, worldPosition, select);
+            NotaUtils.playAt(level, worldPosition, select);
         }
         return filenames.indexOf(select);
     }
@@ -106,6 +106,6 @@ public class MusicBlockEntity extends BlockEntity {
 
 
     public List<String> getFilenames() {
-        return TouhouNotaUtils.getFileNames();
+        return NotaUtils.getFileNames();
     }
 }

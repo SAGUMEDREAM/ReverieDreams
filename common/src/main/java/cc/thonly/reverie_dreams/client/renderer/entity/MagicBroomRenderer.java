@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 
 public class MagicBroomRenderer extends EntityRenderer<MagicBroom, ItemHolderRenderState> {
@@ -28,16 +29,32 @@ public class MagicBroomRenderer extends EntityRenderer<MagicBroom, ItemHolderRen
         renderState.yRot = entity.getYRot();
         renderState.xRotO = entity.xRotO;
         renderState.yRotO = entity.yRotO;
-        this.itemModelResolver.updateForNonLiving(renderState.itemRenderState, renderState.itemStack, ItemDisplayContext.HEAD, entity);
+        this.itemModelResolver.updateForNonLiving(renderState.itemRenderState, renderState.itemStack, ItemDisplayContext.GROUND, entity);
     }
 
     @Override
     public void submit(ItemHolderRenderState renderState, PoseStack matrices, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         matrices.pushPose();
-        matrices.mulPose(Axis.YP.rotationDegrees(-renderState.yRot));
-        matrices.scale(1.2f, 1.2f,1.2f);
+        matrices.translate(0, 0.25, 0);
+
+//        matrices.mulPose(Axis.XP.rotationDegrees(45));
+        matrices.mulPose(Axis.YP.rotationDegrees(-renderState.yBodyRot));
+        matrices.mulPose(Axis.XP.rotationDegrees(90.0f));
+        matrices.scale(1.2f, 1.2f, 1.2f);
+        renderState.itemRenderState.submit(
+                matrices,
+                nodeCollector,
+                renderState.lightCoords,
+                OverlayTexture.NO_OVERLAY,
+                0
+        );
         matrices.popPose();
         super.submit(renderState, matrices, nodeCollector, cameraRenderState);
+    }
+
+    @Override
+    protected boolean shouldShowName(MagicBroom entity, double distanceToCameraSq) {
+        return false;
     }
 
     @Override

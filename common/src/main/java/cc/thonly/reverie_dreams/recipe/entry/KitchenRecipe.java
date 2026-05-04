@@ -31,7 +31,7 @@ public class KitchenRecipe extends BaseRecipe {
     protected final ItemStackWrapper output;
     private final Double costTime;
 
-    public KitchenRecipe(KitchenRecipeType.KitchenType kitchenType, List<ItemStackWrapper> ingredients, ItemStackWrapper output, Number costTime) {
+    public KitchenRecipe(KitchenRecipeType.MappingType kitchenType, List<ItemStackWrapper> ingredients, ItemStackWrapper output, Number costTime) {
         this(kitchenType.toId(), ingredients,output, costTime);
     }
 
@@ -49,7 +49,11 @@ public class KitchenRecipe extends BaseRecipe {
         return new ItemStackWrapper(this.output.getItemStack().copy());
     }
 
-    public KitchenRecipeType.KitchenType getType() {
-        return KitchenRecipeType.KitchenType.getFromId(this.recipeType);
+    public KitchenRecipeType.MappingType getRecipeTypeMapping() {
+        return KitchenRecipeType.MappingType.getFromId(this.recipeType);
+    }
+
+    public KitchenRecipeType.MappingType getType() {
+        return KitchenRecipeType.MappingType.getFromId(this.recipeType);
     }
 }

@@ -125,7 +125,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         Level world = this.level();
-        if (world.isClientSide() || !(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayerEntity)) {
+        if (world.isClientSide() || hand != InteractionHand.MAIN_HAND || !(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayerEntity)) {
             return super.mobInteract(player, hand);
         }
         return NPCRoleInteractionEvents.emit(serverWorld, serverPlayerEntity, hand, this);

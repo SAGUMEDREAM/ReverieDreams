@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.item.base.SpearItem;
-import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
-import cc.thonly.reverie_dreams.server.PlayerInputManager;
+import cc.thonly.reverie_dreams.server.IPlayerInputManager;
+import cc.thonly.reverie_dreams.server.InputKey;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
@@ -54,8 +54,9 @@ public class Gungnir extends SpearItem implements ProjectileItem {
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return false;
         }
-        if (!(PlayerInputManager.isKeyDown(serverPlayer, PlayerInputManager.InputKey.SPRINT) &&
-                PlayerInputManager.isKeyDown(serverPlayer, PlayerInputManager.InputKey.JUMP))
+        IPlayerInputManager inputManager = IPlayerInputManager.polymerAccess();
+        if (!(inputManager.isKeyDown(serverPlayer, InputKey.SPRINT) &&
+                inputManager.isKeyDown(serverPlayer, InputKey.JUMP))
         ) {
             return false;
         }

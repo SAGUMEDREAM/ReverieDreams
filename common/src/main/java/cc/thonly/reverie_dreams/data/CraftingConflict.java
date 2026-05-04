@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -34,7 +34,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @ToString
-public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBinding<CraftingConflict>, BuiltinObject {
+public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBinding<CraftingConflict> {
     public static final Codec<CraftingConflict> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("item").forGetter((entry) -> BuiltInRegistries.ITEM.getKey(entry.item)),
             Codec.list(Identifier.CODEC).fieldOf("values").forGetter((entry) -> {
@@ -54,7 +54,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     private final Set<FoodProperty> foodProperties = new ObjectOpenHashSet<>();
     @Setter
     @Getter
-    private RegistryHandler<CraftingConflict> owner;
+    private RegistryImpl<CraftingConflict> owner;
 
     private CraftingConflict() {
         this.item = Items.AIR;
@@ -67,7 +67,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     public CraftingConflict(Item item, List<Identifier> identifiers) {
         this.item = item;
         for (var identifier : identifiers) {
-            FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(identifier);
+            FoodProperty property = RegistryImpls.FOOD_PROPERTY.getValue(identifier);
             if (property != null) {
                 this.foodProperties.add(property);
             }
@@ -115,7 +115,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
     }
 
     public static void reload(ResourceManager manager) {
-        RegistryHandlers.CRAFTING_CONFLICT.clear();
+        RegistryImpls.CRAFTING_CONFLICT.clear();
         Map<Identifier, Resource> resources = manager.listResources("crafting_conflict", id ->
                 id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
         );
@@ -130,7 +130,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
                 if (optional.isPresent()) {
                     CraftingConflict conflict = optional.get();
                     conflict.setId(id);
-                    RegistryHandlers.register(RegistryHandlers.CRAFTING_CONFLICT, id, conflict); // 注册
+                    RegistryImpls.register(RegistryImpls.CRAFTING_CONFLICT, id, conflict); // 注册
                 } else {
                     ReverieDreams.LOGGER.error("Failed to parse crafting_conflict {}: {}", id, result.error().map(Object::toString).orElse("Unknown error"));
                 }
@@ -140,7 +140,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBindi
         }
     }
 
-    public static void bootstrap(RegistryHandler<CraftingConflict> registry) {
+    public static void bootstrap(RegistryImpl<CraftingConflict> registry) {
 
     }
 }

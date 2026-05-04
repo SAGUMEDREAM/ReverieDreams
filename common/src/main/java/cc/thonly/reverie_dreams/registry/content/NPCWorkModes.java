@@ -2,13 +2,13 @@ package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 
 public class NPCWorkModes {
-    public static final RegistryHandler<NPCWorkMode> REGISTRY = RegistryHandlers.NPC_WORK_MODE;
+    public static final RegistryImpl<NPCWorkMode> REGISTRY = RegistryImpls.NPC_WORK_MODE;
     public static final NPCWorkMode COMBAT = register(ReverieDreams.id("combat"), new NPCWorkMode("combat", Items.IRON_SWORD));
     public static final NPCWorkMode FARM = register(ReverieDreams.id("farm"), new NPCWorkMode("farm", Items.WHEAT_SEEDS));
     public static final NPCWorkMode BREED = register(ReverieDreams.id("breed"), new NPCWorkMode("breed", Items.WHEAT));
@@ -24,14 +24,14 @@ public class NPCWorkModes {
     }
 
     public static NPCWorkMode register(Identifier id, NPCWorkMode npcWorkMode) {
-        return RegistryHandlers.register(REGISTRY, id, npcWorkMode);
+        return RegistryImpls.register(REGISTRY, id, npcWorkMode);
     }
 
     public static NPCWorkMode get(Identifier id) {
         return REGISTRY.getValue(id);
     }
 
-    public static void bootstrap(RegistryHandler<NPCWorkMode> registry) {
+    public static void bootstrap(RegistryImpl<NPCWorkMode> registry) {
 
     }
 

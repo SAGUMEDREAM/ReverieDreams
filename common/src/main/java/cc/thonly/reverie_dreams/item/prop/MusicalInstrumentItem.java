@@ -9,9 +9,10 @@ import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
-import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
+import cc.thonly.reverie_dreams.util.NotaUtils;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.serialization.Codec;
 import net.blay09.mods.balm.platform.event.callback.PlayerCallback;
 import net.minecraft.core.BlockPos;
@@ -40,21 +41,13 @@ public class MusicalInstrumentItem extends Item {
     public static final BlockPos NONE = new BlockPos(0, 0, 0);
     public static final AttackBlockCallback BLOCK_CALLBACK = (player, world, hand, blockPos, direction) -> {
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            ItemStack mainStack = player.getMainHandItem();
-            ItemStack offStack = player.getOffhandItem();
-            ItemStack stack = null;
+            ItemStack stack = ItemUtils.getHandItem(player, itemStack -> itemStack.getItem() instanceof MusicalInstrumentItem);
 
-            if (mainStack.getItem() instanceof MusicalInstrumentItem) {
-                stack = mainStack;
-            } else if (offStack.getItem() instanceof MusicalInstrumentItem) {
-                stack = offStack;
-            }
-
-            if (stack != null && !player.isSpectator() && player.isShiftKeyDown()) {
-                List<String> fileNames = TouhouNotaUtils.getFileNames();
+            if (!stack.isEmpty() && !player.isSpectator() && player.isShiftKeyDown()) {
+                List<String> fileNames = NotaUtils.getFileNames();
                 if (fileNames.isEmpty()) {
                     player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
-                    return InteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS_SERVER;
                 }
 
                 String playingMusic = stack.get(RDDataComponents.PLAYING_MUSIC.value());
@@ -66,7 +59,7 @@ public class MusicalInstrumentItem extends Item {
                 player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", previous), false);
                 player.swing(hand);
 
-                return InteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS_SERVER;
             }
         }
         return InteractionResult.PASS;
@@ -133,7 +126,7 @@ public class MusicalInstrumentItem extends Item {
 
         boolean isSneaking = user.isShiftKeyDown();
         ItemStack itemStack = user.getItemInHand(hand);
-        List<String> fileNames = TouhouNotaUtils.getFileNames();
+        List<String> fileNames = NotaUtils.getFileNames();
         if (fileNames.isEmpty()) {
             if (user instanceof ServerPlayer player) {
                 player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
@@ -158,11 +151,11 @@ public class MusicalInstrumentItem extends Item {
                     player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
                 }
             } else {
-                TouhouNotaUtils.play(user, playingMusic, noteBlockInstrument);
+                NotaUtils.play(user, playingMusic, noteBlockInstrument);
                 if (user instanceof ServerPlayer player && ReverieDreams.getServer() != null) {
                     player.displayClientMessage(Component.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.getSerializedName()), false);
                     ReverieDreams.getServer().executeIfPossible(() -> {
-                        AABB box = player.getBoundingBox().inflate(TouhouNotaUtils.MAX_DISTANCE);
+                        AABB box = player.getBoundingBox().inflate(NotaUtils.MAX_DISTANCE);
                         List<NPCRoleEntity> entities = world.getEntitiesOfClass(
                                 NPCRoleEntity.class,
                                 box,

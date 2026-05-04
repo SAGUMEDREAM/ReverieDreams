@@ -28,7 +28,7 @@ import java.util.Map;
 @Slf4j
 public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     private static KitchenRecipeType INSTANCE;
-    public final Map<KitchenType, Map<Identifier, KitchenRecipe>> kitchenRegistries = new Object2ObjectOpenHashMap<>();
+    public final Map<MappingType, Map<Identifier, KitchenRecipe>> kitchenRegistries = new Object2ObjectOpenHashMap<>();
 
     public KitchenRecipeType() {
         INSTANCE = this;
@@ -67,17 +67,18 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     @Override
     public BaseRecipeType<KitchenRecipe> add(Identifier id, KitchenRecipe recipe) {
         super.add(id, recipe);
-        this.register(recipe.getType(), id, recipe);;
+        this.register(recipe.getType(), id, recipe);
+        ;
         return this;
     }
 
-    public void register(KitchenType type, Identifier key, KitchenRecipe recipe) {
+    public void register(MappingType type, Identifier key, KitchenRecipe recipe) {
         Map<Identifier, KitchenRecipe> registry = this.kitchenRegistries.computeIfAbsent(type, R -> new Object2ObjectOpenHashMap<>());
         recipe.setId(key);
         registry.put(key, recipe);
     }
 
-    public Map<Identifier, KitchenRecipe> getRecipeView(KitchenType type) {
+    public Map<Identifier, KitchenRecipe> getRecipeView(MappingType type) {
         return Map.copyOf(this.kitchenRegistries.getOrDefault(type, new Object2ObjectOpenHashMap<>()));
     }
 
@@ -86,7 +87,7 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
 
     }
 
-    public List<KitchenRecipe> getMatches(KitchenType type, List<ItemStackWrapper> inputs) {
+    public List<KitchenRecipe> getMatches(MappingType type, List<ItemStackWrapper> inputs) {
         List<KitchenRecipe> matches = new ArrayList<>();
         Map<Identifier, KitchenRecipe> registryView = this.getRecipeView(type);
 
@@ -133,27 +134,27 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     }
 
     @Getter
-    public static class KitchenType {
-        private static final Map<Identifier, KitchenType> BY_ID = new Object2ObjectOpenHashMap<>();
+    public static class MappingType {
+        private static final Map<Identifier, MappingType> BY_ID = new Object2ObjectOpenHashMap<>();
 
-        public static final KitchenType COOKING_POT =
-                new KitchenType(ReverieDreams.id("cooking_pot"));
+        public static final MappingType COOKING_POT =
+                new MappingType(ReverieDreams.id("cooking_pot"));
 
-        public static final KitchenType CUTTING_BOARD =
-                new KitchenType(ReverieDreams.id("cutting_board"));
+        public static final MappingType CUTTING_BOARD =
+                new MappingType(ReverieDreams.id("cutting_board"));
 
-        public static final KitchenType FRYING_PAN =
-                new KitchenType(ReverieDreams.id("frying_pan"));
+        public static final MappingType FRYING_PAN =
+                new MappingType(ReverieDreams.id("frying_pan"));
 
-        public static final KitchenType GRILL =
-                new KitchenType(ReverieDreams.id("grill"));
+        public static final MappingType GRILL =
+                new MappingType(ReverieDreams.id("grill"));
 
-        public static final KitchenType STEAMER =
-                new KitchenType(ReverieDreams.id("streamer"));
+        public static final MappingType STEAMER =
+                new MappingType(ReverieDreams.id("steamer"));
 
         private final Identifier id;
 
-        public KitchenType(Identifier id) {
+        public MappingType(Identifier id) {
             this.id = id;
             BY_ID.put(id, this);
         }
@@ -162,8 +163,13 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
             return this.id;
         }
 
-        public static KitchenType getFromId(Identifier id) {
+        public static MappingType getFromId(Identifier id) {
             return BY_ID.get(id);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj == this || (obj instanceof MappingType mappingType && mappingType.id.equals(this.id));
         }
     }
 }

@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -36,6 +37,10 @@ public class GensokyoAltarRecipe extends BaseRecipe {
             this.slots.add(ItemStackWrapper.empty());
         }
         this.output = output;
+    }
+
+    public List<ItemStack> getInputs() {
+        return this.slots.stream().map(ItemStackWrapper::getItemStack).toList();
     }
 
     public List<ItemStackWrapper> getSlots() {

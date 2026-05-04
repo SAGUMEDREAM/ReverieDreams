@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const importA = "D:\\Gradle\\PolymeredTouhouMod\\src\\main\\generated\\assets\\reverie_dreams\\lang\\zh_cn.json";
-const importB = "D:\\Gradle\\PolymeredTouhouMod\\src\\main\\resources\\assets\\reverie_dreams\\lang\\en_us.json";
+const importA = "D:\\Gradle\\ReverieDreams\\common\\src\\generated\\resources\\assets\\reverie_dreams\\lang\\zh_cn.json";
+const importB = "D:\\Gradle\\ReverieDreams\\common\\src\\main\\resources\\assets\\reverie_dreams\\lang\\en_us.json";
 const exportFileName = "missing_in_en_us.json";
 
 function main() {

@@ -1258,5 +1258,17 @@
   "gui.npc.work.mode.polyfactory/hand_crank": "§dTurn Hand Crank",
   "item.reverie_dreams.dream_spear": "Dream Crystal Spear",
   "item.reverie_dreams.magic_ice_spear": "Ice Spear",
-  "item.reverie_dreams.silver_spear": "Silver Spear"
+  "item.reverie_dreams.silver_spear": "Silver Spear",
+  "booklet_category.reverie_dreams.basics": "Basics",
+  "entity.reverie_dreams.rabbit_unit": "Lunar Rabbit Soldier",
+  "item.reverie_dreams.guidebook": "Gensokyo Guidebook",
+  "item.reverie_dreams.guidebook.desc": "§aGensokyo Dream World§r User Guide!",
+  "item.reverie_dreams.rabbit_unit_spawn_egg": "Lunar Rabbit Soldier Spawn Egg",
+  "item.reverie_dreams.weapon_of_the_moon": "Weapon of the Moon",
+  "item_view.information.desc.chest_drop_items": "Obtaining method: Found in treasure chests",
+  "item_view.information.desc.drinks": "Obtaining method: Purchase from tavern keeper",
+  "item_view.information.desc.fishing": "Obtaining method: Fishing",
+  "item_view.information.desc.fumos": "Obtaining method: Purchase from Fumo merchant",
+  "item_view.information.desc.grass_drop_items": "Obtaining method: Break grass",
+  "item_view.information.desc.truffle": "Obtaining method: Break oak / birch / dark oak / spruce logs"
 }

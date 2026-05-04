@@ -67,7 +67,7 @@ public class RecipeWorkbenchRegistry {
             }
             return itemStack;
         }));
-        register("danmaku_crafting_table", () -> new RecipeWorkbench<>("danmaku_crafting_table", RDBlocks.DANMAKU_CRAFTING_TABLE.asBlock(), RecipeManager.DANMAKU_TYPE, (registryAccess, recipeId, self) -> {
+        register("danmaku_crafting_table", () -> new RecipeWorkbench<>("danmaku_crafting_table", RDBlocks.DANMAKU_CRAFTING_TABLE.asBlock(), RecipeManager.DANMAKU, (registryAccess, recipeId, self) -> {
             Block first = self.getBlock().getFirst();
             BaseRecipeType<DanmakuRecipe> recipeType = self.getRecipeType();
             DanmakuRecipe recipeById = recipeType.getRecipeById(recipeId);

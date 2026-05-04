@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +24,7 @@ public class NPCSpawnEggCreativeTab implements ItemGroupContentHelper {
                 .displayItems((parameters, output) -> {
                     output.accept(Items.CAKE);
                     output.accept(RDItems.OWNER_STICK);
-                    Collection<NPCRole> roles = RegistryHandlers.NPC_ROLE.values();
+                    Collection<NPCRole> roles = RegistryImpls.NPC_ROLE.values();
                     for (NPCRole role : roles) {
                         Item egg = role.getEgg().asItem();
                         output.accept(egg.getDefaultInstance());

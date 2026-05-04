@@ -32,6 +32,7 @@ public class CropHolderImpl implements PolymerTexturedBlock, FactoryBlock {
         this.block = block;
     }
 
+    @SuppressWarnings("deprecation")
     void parse() {
         Identifier key = BuiltInRegistries.BLOCK.getKey(this.block);
         for (int index = 0; index <= this.block.getMaxAge(); index++) {

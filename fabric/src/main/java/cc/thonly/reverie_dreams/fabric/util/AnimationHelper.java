@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.fabric.util;
 import cc.thonly.reverie_dreams.util.entity.IAnimationHelper;
 import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.api.Animator;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 public class AnimationHelper implements IAnimationHelper {

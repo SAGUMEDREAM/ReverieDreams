@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractJsonElementWriterProvider;
-import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
+import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
@@ -64,7 +64,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
                         "  }\n" +
                         "}"
         ));
-        for (Item spawnEgg : SpawnEggItem.SPAWN_EGGS) {
+        for (Item spawnEgg : ColoredSpawnEggItem.SPAWN_EGGS) {
             ResourceKey<Item> key = spawnEgg.builtInRegistryHolder().key();
             Identifier location = key.identifier();
             JsonElement element = strToJson("{\n" +

@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.danmaku.spellcard;
 
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -26,12 +26,12 @@ public class SpellCardFrameConfigs {
     public static final Map<String, List<List<SpellCardFrameConfig>>> BUILTIN_ITEMS = new Object2ObjectLinkedOpenHashMap<>();
 
     public static void reload(ResourceManager manager) {
-        Map<Identifier, Resource> resources = manager.listResources("danmaku_config", id -> id.getPath().endsWith(".json"));
+        Map<Identifier, Resource> resources = manager.listResources("spellcard", id -> id.getPath().endsWith(".json"));
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
             Identifier resId = entry.getKey();
             Identifier id = Identifier.fromNamespaceAndPath(
                     resId.getNamespace(),
-                    resId.getPath().replace("danmaku_config/", "")
+                    resId.getPath().replace("spellcard/", "")
                             .replace(".json", "")
             );
             Resource resource = entry.getValue();
@@ -41,7 +41,7 @@ public class SpellCardFrameConfigs {
                 Optional<SpellCardFrameConfig> optional = result.result();
                 if (optional.isPresent()) {
                     SpellCardFrameConfig danmakuConfig = optional.get();
-                    RegistryHandlers.register(RegistryHandlers.DANMAKU_CONFIG, id, danmakuConfig);
+                    RegistryImpls.register(RegistryImpls.DANMAKU_CONFIG, id, danmakuConfig);
                 } else {
                     log.error("Can't parse danmaku config {}", id);
                 }
@@ -51,7 +51,7 @@ public class SpellCardFrameConfigs {
         }
     }
 
-    public static void bootstrap(RegistryHandler<SpellCardFrameConfig> configs) {
+    public static void bootstrap(RegistryImpl<SpellCardFrameConfig> configs) {
         BUILTIN_ITEMS.put("Test", createTestSpellcardElegant());
         BUILTIN_ITEMS.put("Test2", createTestSpellcardElegant2());
     }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.registries.Registries;
@@ -22,7 +22,7 @@ public class RoleCardCreativeTab implements ItemGroupContentHelper {
                     output.accept(Items.CAKE);
                     output.accept(RDItems.OWNER_STICK);
                     output.accept(RDItems.ROLE_CARD);
-                    RegistryHandlers.ROLE_CARD.values().forEach(instance -> output.accept(instance.itemStack()));
+                    RegistryImpls.ROLE_CARD.values().forEach(instance -> output.accept(instance.itemStack()));
                 }));
     }
 }

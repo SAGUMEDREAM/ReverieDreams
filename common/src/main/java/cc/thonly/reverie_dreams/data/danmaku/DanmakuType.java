@@ -4,10 +4,10 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.BaseDanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -64,7 +64,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private final boolean infinite;
     private DeferredItem itemHolder;
     private BaseDanmakuEntity.HitCallback hitFactory;
-    private RegistryHandler<DanmakuType> owner;
+    private RegistryImpl<DanmakuType> owner;
     private boolean deleteFromList = false;
 
     public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
@@ -79,7 +79,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     }
 
     public static DanmakuType getOrCreate(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        DanmakuType type = RegistryHandlers.DANMAKU_TYPE.getValue(id);
+        DanmakuType type = RegistryImpls.DANMAKU_TYPE.getValue(id);
         if (type == null) {
             return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite);
         }
@@ -92,7 +92,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     }
 
     public DanmakuShape toShape() {
-        for (Map.Entry<ResourceKey<DanmakuShape>, DanmakuShape> mapEntry : RegistryHandlers.DANMAKU_SHAPE.entrySet()) {
+        for (Map.Entry<ResourceKey<DanmakuShape>, DanmakuShape> mapEntry : RegistryImpls.DANMAKU_SHAPE.entrySet()) {
             DanmakuShape shape = mapEntry.getValue();
             if (shape.getType() == this) {
                 return shape;

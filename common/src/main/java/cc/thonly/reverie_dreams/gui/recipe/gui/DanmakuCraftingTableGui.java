@@ -65,15 +65,13 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                             .setItem(RDGuiItems.EMPTY_SLOT.asItem()));
                 }
                 if (c == 'X') {
-                    Function<Integer, Function<ItemStack, Boolean>> iffib = index -> {
-                        return switch (index) {
-                            case 0 -> itemStack -> itemStack.getItem() instanceof DyeItem;
-                            case 1 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_CORE;
-                            case 2 -> itemStack -> itemStack.getItem() == RDItems.POWER;
-                            case 3 -> itemStack -> itemStack.getItem() == RDItems.POINT;
-                            case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR;
-                            default -> itemStack -> true;
-                        };
+                    Function<Integer, Function<ItemStack, Boolean>> iffib = index -> switch (index) {
+                        case 0 -> itemStack -> itemStack.getItem() instanceof DyeItem;
+                        case 1 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_CORE;
+                        case 2 -> itemStack -> itemStack.getItem() == RDItems.POWER;
+                        case 3 -> itemStack -> itemStack.getItem() == RDItems.POINT;
+                        case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR;
+                        default -> itemStack -> true;
                     };
                     this.setSlotRedirect(counter, new PredicateSlot(inventory, counter2, 0, 0, iffib.apply(counter2)));
                     counter2++;
@@ -111,7 +109,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
         this.tick++;
         if (this.tick > 2) {
             List<ItemStackWrapper> slots = this.getInputs();
-            List<DanmakuRecipe> recipeEntries = RecipeManager.DANMAKU_TYPE.getMatches(slots);
+            List<DanmakuRecipe> recipeEntries = RecipeManager.DANMAKU.getMatches(slots);
             if (!recipeEntries.isEmpty()) {
                 DanmakuRecipe recipeEntry = recipeEntries.getFirst();
                 ItemStackWrapper resultWrapper = recipeEntry.getOutput().copy();

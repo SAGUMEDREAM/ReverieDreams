@@ -4,9 +4,9 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.item.FoodPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -33,7 +33,9 @@ import java.util.function.Supplier;
 @SuppressWarnings("Convert2MethodRef")
 @Slf4j
 public class FoodProperties {
-    private static final Map<Item, Set<FoodProperty>> ITEM_CACHE = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Map<Item, Set<FoodProperty>> ITEM_CACHE = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Map<FoodProperty, Set<Item>> PROPERTY_CACHE = new Object2ObjectLinkedOpenHashMap<>();
+
     public static final FoodProperty UNDEFINED = register("undefined", () -> new FoodProperty());
     public static final FoodProperty MEAT = register("meat", () -> new FoodProperty());
     public static final FoodProperty AQUATIC_PRODUCTS = register("aquatic_products", () -> new FoodProperty());
@@ -144,10 +146,10 @@ public class FoodProperties {
     private static <T extends FoodProperty> T register(String name, Supplier<T> factory) {
         T property = factory.get();
         property.setId(ReverieDreams.id(name));
-        return (T) RegistryHandlers.registerForBuiltin(RegistryHandlers.FOOD_PROPERTY, ReverieDreams.id(name), property);
+        return (T) RegistryImpls.registerForBuiltin(RegistryImpls.FOOD_PROPERTY, ReverieDreams.id(name), property);
     }
 
-    public static void bootstrap(RegistryHandler<FoodProperty> registry) {
+    public static void bootstrap(RegistryImpl<FoodProperty> registry) {
 
     }
 
@@ -169,7 +171,7 @@ public class FoodProperties {
     }
 
     public static void reload(ResourceManager manager) {
-        ITEM_CACHE.clear();
+        unbound();
         Map<Identifier, Resource> resources = manager.listResources("food_property", id ->
                 id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
         );
@@ -190,7 +192,7 @@ public class FoodProperties {
         Map<FoodProperty, Set<Item>> foodPropertySetMap = new Object2ObjectLinkedOpenHashMap<>();
         for (FoodProperty.Data foodPropertyDatum : foodPropertyData) {
             Identifier id = foodPropertyDatum.id();
-            FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(id);
+            FoodProperty property = RegistryImpls.FOOD_PROPERTY.getValue(id);
             if (property == null) {
                 log.warn("Unknown food property {}", id);
                 continue;
@@ -216,6 +218,7 @@ public class FoodProperties {
                 ITEM_CACHE.computeIfAbsent(item, k -> new LinkedHashSet<>())
                         .add(property);
             }
+            FoodProperties.PROPERTY_CACHE.computeIfAbsent(property, p->new LinkedHashSet<>()).addAll(items);
         });
         log.info("Food TAG loading completed");
     }
@@ -224,5 +227,10 @@ public class FoodProperties {
         FoodProperty property = pair.key();
         Collection<Item> itemCollection = pair.value();
         itemCollection.forEach(item -> ITEM_CACHE.computeIfAbsent(item, x -> new LinkedHashSet<>()).add(property));
+    }
+
+    public static void unbound() {
+        ITEM_CACHE.clear();
+        PROPERTY_CACHE.clear();
     }
 }

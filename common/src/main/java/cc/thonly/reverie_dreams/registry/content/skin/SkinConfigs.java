@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.registry.content.skin;
 
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -24,12 +24,12 @@ import java.util.Optional;
 @Slf4j
 public class SkinConfigs {
 
-    public static void bootstrap(RegistryHandler<SkinConfig> registry) {
+    public static void bootstrap(RegistryImpl<SkinConfig> registry) {
 
     }
 
     public static void reload(ResourceManager manager) {
-        for (SkinType skin : RegistryHandlers.SKIN_TYPE) {
+        for (SkinType skin : RegistryImpls.SKIN_TYPE) {
             SkinConfig config = new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty());
             skin.setConfig(config);
             config.setSkin(skin);
@@ -45,14 +45,14 @@ public class SkinConfigs {
                 result.resultOrPartial(error -> log.warn("Failed to parse Skin Config for {}: {}", key, error))
                         .ifPresent(skinConfig -> {
                             Identifier registryKey = skinConfig.getRegistryKey();
-                            SkinType skin = RegistryHandlers.SKIN_TYPE.getValue(registryKey);
+                            SkinType skin = RegistryImpls.SKIN_TYPE.getValue(registryKey);
                             if (skin == null) {
                                 log.warn("Unknown skin id: {}", registryKey);
                                 return;
                             }
                             skin.setConfig(skinConfig);
                             skinConfig.setSkin(skin);
-                            RegistryHandlers.register(RegistryHandlers.SKIN_CONFIG, key, skinConfig);
+                            RegistryImpls.register(RegistryImpls.SKIN_CONFIG, key, skinConfig);
                         });
             } catch (IOException e) {
                 log.error("Failed to load Skin Config {}: {}", key, e.getMessage(), e);

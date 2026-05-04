@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.util;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public interface LazySupplier<T> {
+public interface LazySupplier<T> extends Supplier<T> {
     T get();
 
     static <T> LazySupplier<T> of(Supplier<T> supplier) {

@@ -10,9 +10,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
+import java.util.function.Predicate;
+
 public class ItemUtils {
     public static boolean isArmorItem(ItemStack stack) {
         return stack.get(DataComponents.EQUIPPABLE) != null;
+    }
+
+    public static ItemStack getHandItem(Player player, Predicate<ItemStack> predicate) {
+        ItemStack main = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack off = player.getItemInHand(InteractionHand.OFF_HAND);
+        if (!main.isEmpty() && predicate.test(main)) {
+            return main;
+        }
+        if (!off.isEmpty() && predicate.test(off)) {
+            return off;
+        }
+        return ItemStack.EMPTY;
     }
 
     public static boolean shouldPass(Player player, InteractionHand hand) {

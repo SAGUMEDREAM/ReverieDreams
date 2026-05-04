@@ -18,7 +18,7 @@ public class PlatformContext {
     public static final LazySupplier<BalmPlatform> PLATFORM = LazySupplier.of(Balm::platform);
     public static final LazySupplier<String> VERSION = LazySupplier.of(() -> Balm.platform().getModInfo(ReverieDreams.MOD_ID).map(ModInfo::versionString).orElse("unknown"));
     @Deprecated
-    public static final Unit MAPPING_RESOLVER = Unit.INSTANCE;
+    public static final LazySupplier<Unit> MAPPING_RESOLVER = LazySupplier.of(Unit.INSTANCE);
     public static final LazySupplier<BalmEnvironment> ENV_TYPE = LazySupplier.of(() -> Balm.platform().physicalSide());
     private static final LazySupplier<Boolean> DEV_ENV = LazySupplier.of(() -> Balm.platform().isDevelopmentEnvironment());
     private static final LazySupplier<Boolean> DEV_MODE = LazySupplier.of(() -> VERSION.get().contains("-dev.") || VERSION.get().contains("alpha") || DEV_ENV.get());

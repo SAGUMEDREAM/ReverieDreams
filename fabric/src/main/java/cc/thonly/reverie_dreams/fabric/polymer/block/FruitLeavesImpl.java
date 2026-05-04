@@ -44,6 +44,7 @@ public class FruitLeavesImpl implements PolymerBlock, PolymerTexturedBlock, Fact
         return new Model(world, pos, initialBlockState);
     }
 
+    @SuppressWarnings("deprecation")
     @Getter
     public class Model extends BlockModel {
         private final ServerLevel world;

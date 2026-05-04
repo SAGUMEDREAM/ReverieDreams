@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -82,7 +82,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                 log.error("Failed to load strength table recipe {}, {}, {}", id, e.getMessage(), e);
             }
         }
-        List<Item> danmakuItemView = RegistryHandlers.DANMAKU_TYPE
+        List<Item> danmakuItemView = RegistryImpls.DANMAKU_TYPE
                 .values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem).toList();
         List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultInstance).toList();
         List<ItemStack> templateStackView = DanmakuTemplates.getRegistryItemStackView().values().stream().map(ItemStack::copy).toList();

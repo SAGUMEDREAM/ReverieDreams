@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.DrinkPropertyItemUseCallback;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -30,8 +30,8 @@ import java.util.*;
 @EqualsAndHashCode
 public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<DrinkProperty>, BuiltinObject, Translatable {
     public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
-    public static final Codec<DrinkProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryHandlers.DRINK_PROPERTY::getValue, entry -> {
-        Identifier key = RegistryHandlers.DRINK_PROPERTY.getKey(entry);
+    public static final Codec<DrinkProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryImpls.DRINK_PROPERTY::getValue, entry -> {
+        Identifier key = RegistryImpls.DRINK_PROPERTY.getKey(entry);
         if (key == null) {
             return UNDEFINED;
         }
@@ -41,7 +41,7 @@ public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<Dri
 
     private Identifier id;
     private final MobEffectInstance effectInstance;
-    private RegistryHandler<DrinkProperty> owner;
+    private RegistryImpl<DrinkProperty> owner;
 
     public DrinkProperty() {
         this(new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY, 1)));

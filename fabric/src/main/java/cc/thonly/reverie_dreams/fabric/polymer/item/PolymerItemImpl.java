@@ -32,7 +32,11 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
     }
 
     @Override
-    public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
+    public Item getPolymerItem(ItemStack itemStack, PacketContext context) {
+        ServerPlayer player = context.getPlayer();
+        if (player != null && ReverieDreams.hasModWithVersion(player)) {
+            return itemStack.getItem();
+        }
         if (this.item instanceof WeaponOfTheMoon) {
             return Items.BOW;
         }

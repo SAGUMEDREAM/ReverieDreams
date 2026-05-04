@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -29,7 +29,7 @@ public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWork
     public static final Identifier DEFAULT_ID = ReverieDreams.id("combat");
     private final String type;
     private final Holder<Item> itemDisplay;
-    private RegistryHandler<NPCWorkMode> owner;
+    private RegistryImpl<NPCWorkMode> owner;
 
     private NPCWorkMode() {
         this.type = null;
@@ -56,17 +56,17 @@ public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWork
 
     @Deprecated
     public NPCWorkMode getNext() {
-        int rawId = RegistryHandlers.NPC_WORK_MODE.getId(this);
+        int rawId = RegistryImpls.NPC_WORK_MODE.getId(this);
         NPCWorkMode npcWorkMode = NPCWorkModes.fromInt(rawId + 1);
         return npcWorkMode == null ? NPCWorkModes.fromInt(0) : npcWorkMode;
     }
 
     @Deprecated
     public NPCWorkMode getPrevious() {
-        int rawId = RegistryHandlers.NPC_WORK_MODE.getId(this);
+        int rawId = RegistryImpls.NPC_WORK_MODE.getId(this);
 
         if (rawId <= 0) {
-            int maxId = RegistryHandlers.NPC_WORK_MODE.size() - 1;
+            int maxId = RegistryImpls.NPC_WORK_MODE.size() - 1;
             return NPCWorkModes.fromInt(maxId);
         }
 

@@ -36,14 +36,37 @@ public class ModStructureSets {
         Holder.Reference<Structure> bambooForestHuyStructure = structureLookup.getOrThrow(ModStructures.BAMBOO_FOREST_HUT);
         Holder.Reference<Structure> sakurazukaStructure = structureLookup.getOrThrow(ModStructures.SAKURAZUKA);
         Holder.Reference<Structure> netherHotSpringStructure = structureLookup.getOrThrow(ModStructures.NETHER_HOT_SPRING);
-        context.register(ABANDONED_ALTAR, new StructureSet(abandonedAltarStructure, new RandomSpreadStructurePlacement(165, 25, RandomSpreadType.LINEAR, 1947319134)));
-        context.register(ABANDONED_TORII, new StructureSet(abandonedToriiStructure, new RandomSpreadStructurePlacement(165, 25, RandomSpreadType.LINEAR, 2134619147)));
-        context.register(MINI_BAR, new StructureSet(miniBarStructure, new RandomSpreadStructurePlacement(165, 25, RandomSpreadType.LINEAR, 889525356)));
-        context.register(OUTER_SHRINE, new StructureSet(outerShrineStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1319720890)));
-        context.register(BAMBOO_FOREST_BBQ_STALL, new StructureSet(bambooForestBBQStallStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
-        context.register(BAMBOO_FOREST_HUT, new StructureSet(bambooForestHuyStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
-        context.register(SAKURAZUKA, new StructureSet(sakurazukaStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
-        context.register(NETHER_HOT_SPRING, new StructureSet(netherHotSpringStructure, new RandomSpreadStructurePlacement(100, 20, RandomSpreadType.LINEAR, 1191649132)));
+        context.register(ABANDONED_ALTAR,
+                new StructureSet(abandonedAltarStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 1947319134)));
+
+        context.register(ABANDONED_TORII,
+                new StructureSet(abandonedToriiStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 2134619147)));
+
+        context.register(MINI_BAR,
+                new StructureSet(miniBarStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 889525356)));
+
+        context.register(OUTER_SHRINE,
+                new StructureSet(outerShrineStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 1319720890)));
+
+        context.register(BAMBOO_FOREST_BBQ_STALL,
+                new StructureSet(bambooForestBBQStallStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 1191649132)));
+
+        context.register(BAMBOO_FOREST_HUT,
+                new StructureSet(bambooForestHuyStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 426890537)));
+
+        context.register(SAKURAZUKA,
+                new StructureSet(sakurazukaStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 140265379)));
+
+        context.register(NETHER_HOT_SPRING,
+                new StructureSet(netherHotSpringStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 756148203)));
     }
 
     public static Holder.Reference<StructureSet> register(BootstrapContext<StructureSet> registry, ResourceKey<StructureSet> registryKey, StructureSet structureSet) {

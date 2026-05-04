@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
+import cc.thonly.reverie_dreams.RDMPHooks;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
@@ -9,13 +10,14 @@ import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
 import cc.thonly.reverie_dreams.item.armor.WaterproofArmor;
-import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
+import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.item.base.*;
-import cc.thonly.reverie_dreams.item.builder.RoleCard;
+import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.SpellcardItem;
 import cc.thonly.reverie_dreams.item.material.DreamMaterial;
 import cc.thonly.reverie_dreams.item.material.MagicIceMaterial;
 import cc.thonly.reverie_dreams.item.material.SilverMaterial;
+import cc.thonly.reverie_dreams.item.other.THGuideBookItem;
 import cc.thonly.reverie_dreams.item.prop.*;
 import cc.thonly.reverie_dreams.item.debug.BattleStickItem;
 import cc.thonly.reverie_dreams.item.debug.OwnerStickItem;
@@ -53,7 +55,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -67,7 +68,6 @@ public class RDItems {
         itemStack.set(DataComponents.ITEM_NAME, Component.literal("§cThis page is not completed"));
         return itemStack;
     };
-    public static Function<Item.Properties, Item> GUIDE_BOOK_FACTORY = Item::new;
 
     // 调试
     public static DeferredItem BATTLE_STICK;
@@ -147,6 +147,7 @@ public class RDItems {
     public static DeferredItem VIOLIN;
     public static DeferredItem KEYBOARD;
     public static DeferredItem TRUMPET;
+
     // 银装备
     public static DeferredItem RAW_SILVER;
     public static DeferredItem SILVER_INGOT;
@@ -217,7 +218,7 @@ public class RDItems {
     public static DeferredItem COOKIE;
     public static DeferredItem BADAPPLE;
 
-    @SuppressWarnings({"resource", "Convert2MethodRef"})
+    @SuppressWarnings({"Convert2MethodRef"})
     public static void initialize(BalmItemRegistrar balmItemRegistrar) {
         // 调试
         BATTLE_STICK = registerSimpleItem(balmItemRegistrar, "battle_stick", props -> new BattleStickItem(props.stacksTo(1).component(RDDataComponents.BATTLE_STICK_RECORDER.value(), BattleStickRecorder.empty())), new Item.Properties());
@@ -227,7 +228,7 @@ public class RDItems {
         ICON = registerCreativeTabIcon(balmItemRegistrar, "icon", Item::new, new Item.Properties());
         FUMO_ICON = registerCreativeTabIcon(balmItemRegistrar, "fumo_icon", Item::new, new Item.Properties());
         ROLE_ICON = registerCreativeTabIcon(balmItemRegistrar, "role_icon", Item::new, new Item.Properties());
-        SPAWN_EGG = registerCreativeTabIcon(balmItemRegistrar, "spawn_egg", Item::new, new Item.Properties().component(DataComponents.DYED_COLOR, SpawnEggItem.DEFAULT_COLOR));
+        SPAWN_EGG = registerCreativeTabIcon(balmItemRegistrar, "spawn_egg", Item::new, new Item.Properties().component(DataComponents.DYED_COLOR, ColoredSpawnEggItem.DEFAULT_COLOR));
         DANMAKU = registerCreativeTabIcon(balmItemRegistrar, "danmaku", Item::new, new Item.Properties());
         MYSTIA_ICON = registerCreativeTabIcon(balmItemRegistrar, "mystia_icon", Item::new, new Item.Properties().stacksTo(1));
 
@@ -251,7 +252,7 @@ public class RDItems {
         GOLD_COIN = registerItem(balmItemRegistrar, "gold_coin", props -> new Item(props.stacksTo(96)), new Item.Properties());
 
         // 道具
-        GUIDEBOOK = registerItem(balmItemRegistrar, "guidebook", props -> GUIDE_BOOK_FACTORY.apply(props.stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
+        GUIDEBOOK = registerItem(balmItemRegistrar, "guidebook", props -> RDMPHooks.GuidebookFactory.EVENT.invoker().create(props.stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
         UPGRADED_HEALTH = registerItem(balmItemRegistrar, "upgraded_health", props -> new UpgradedHealthItem(props), new Item.Properties());
         BOMB = registerItem(balmItemRegistrar, "bomb", props -> new BombItem(props.useCooldown(2.0f)), new Item.Properties());
         CROSSING_CHISEL = registerItem(balmItemRegistrar, "crossing_chisel", props -> new CrossingChisel(props.useCooldown(3.0f).component(RDDataComponents.MAX_DISTANCE.value(), CrossingChisel.DEFAULT_VALUE).stacksTo(1).durability(150)), new Item.Properties());

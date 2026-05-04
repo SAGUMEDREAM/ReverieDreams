@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.fabric.api.ReverieDreamsPolymerBridge;
 import cc.thonly.reverie_dreams.fabric.compat.ReverieDreamsCompats;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import com.mojang.serialization.Lifecycle;
 import eu.pb4.placeholders.api.PlaceholderResult;
@@ -36,11 +36,14 @@ public class ReverieDreamsFabric implements ModInitializer {
         this.setupEarly();
         FabricKeine.loadApiImpl();
         FabricKeine.serverSideOnly();
-        ReverieDreams.REGISTRY_GETTER = resourceKey -> new RegistryHandler<>((ResourceKey<? extends Registry<Object>>) resourceKey, Lifecycle.stable()) {
+        ReverieDreams.REGISTRY_GETTER = resourceKey -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, Lifecycle.stable()) {
         };
-        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, objects) -> new RegistryHandler<>((ResourceKey<? extends Registry<Object>>) resourceKey, (RegistryHandler<Object>) objects) {
+        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, objects) -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, (RegistryImpl<Object>) objects) {
         };
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> cc.thonly.reverie_dreams.api.block.AttackBlockCallback.EVENT.invoker().interact(player, world, hand, pos, direction));
+        if (PlatformContext.hasPolymer()) {
+            ReverieDreamsPolymerBridge.tryReplaceGuidebook();
+        }
         Balm.initializeMod(ReverieDreams.MOD_ID, FabricLoadContext.INSTANCE, registrars -> ReverieDreams.initialize(registrars, () -> {
             ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.forEach(FabricTrackedDataRegistry::register);
             ReverieDreamsPolymerBridge.tryPolymerify();

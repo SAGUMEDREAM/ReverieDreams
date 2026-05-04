@@ -4,18 +4,18 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
 import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.common.RDMPHooks;
+import cc.thonly.reverie_dreams.RDMPHooks;
 import cc.thonly.reverie_dreams.creative_tab.content.ItemGroupContentHelper;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
-import cc.thonly.reverie_dreams.fabric.polymer.FabricPolymerTHGuideBookItem;
+import cc.thonly.reverie_dreams.fabric.polymer.PolymerTHGuideBookItem;
 import cc.thonly.reverie_dreams.fabric.polymer.ResourcePackGenerator;
 import cc.thonly.reverie_dreams.fabric.polymer.block.GensokyoAltarImpl;
 import cc.thonly.reverie_dreams.fabric.polymer.block.ItemStackDisplayImpl;
 import cc.thonly.reverie_dreams.fabric.polymer.helper.*;
-import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
+import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -42,6 +42,7 @@ import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
 import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistration;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
@@ -82,13 +83,20 @@ public class PolymerInitializer {
     public static final String POLYMER_MOD_ID = "reverie_dreams_polymerify";
 
     public static void bootstrap() {
-        RDItems.GUIDE_BOOK_FACTORY = FabricPolymerTHGuideBookItem::new;
+        Balm.networking().allowServerOnly(ReverieDreams.MOD_ID);
         PolymerInitializer.polymerify();
         registerPlatformEventImpl();
     }
 
+    public static void replaceGuidebook() {
+        RDMPHooks.GuidebookFactory.EVENT.register(PolymerTHGuideBookItem::new);
+    }
+
     private static void registerPlatformEventImpl() {
         RDMPHooks.TenguCameraItemUseCallback.EVENT.register((level, player, hand) -> {
+            if (level.isClientSide()) {
+                return InteractionResult.SUCCESS;
+            }
             ItemStack stack = player.getItemInHand(hand);
             if (player.isShiftKeyDown()) {
 
@@ -218,13 +226,13 @@ public class PolymerInitializer {
         for (Holder<Item> item : RDItems.LATE_POLYMERIFY_ITEM_LIST) {
             PolymerItemHelper.registerOverlay(item.value());
         }
-        for (Item spawnEgg : SpawnEggItem.SPAWN_EGGS) {
+        for (Item spawnEgg : ColoredSpawnEggItem.SPAWN_EGGS) {
             PolymerItemHelper.registerOverlay(spawnEgg);
         }
         for (Holder<Item> item : RDGuiItems.GUI_ITEM_LIST) {
             PolymerItemHelper.registerOverlay(item.value());
         }
-        for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
+        for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
             PolymerItemHelper.registerOverlay(danmakuType.getItemHolder().asItem());
         }
         for (Holder<SoundEvent> soundEvent : RDSoundEvents.SOUND_EVENTS) {

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.data;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -14,18 +14,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.core.BalmRegistrar;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.blay09.mods.balm.world.level.block.DeferredBlock;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.phys.Vec3;
 
 @Setter
 @Getter
@@ -34,7 +28,7 @@ public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, Bu
     public static final Codec<FumoType> CODEC = UnitCodec.unit(FumoType::new);
     private Identifier id;
     private Identifier registryKey;
-    private RegistryHandler<FumoType> owner;
+    private RegistryImpl<FumoType> owner;
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.PROTECTED)

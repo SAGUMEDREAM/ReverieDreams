@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.registry.content.danmaku;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -38,7 +38,7 @@ public class DanmakuTemplates {
     }
 
     public static DanmakuTrajectory registerTemplateItem(DanmakuTrajectory entry) {
-        Identifier id = RegistryHandlers.DANMAKU_TRAJECTORY.getKey(entry);
+        Identifier id = RegistryImpls.DANMAKU_TRAJECTORY.getKey(entry);
         assert id != null;
         return registerTemplateItem(id, entry);
     }

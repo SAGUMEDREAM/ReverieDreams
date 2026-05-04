@@ -120,18 +120,17 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
         return this;
     }
 
+    public BaseRecipeType<R> clear() {
+        return this.removeAll();
+    }
+
     public static <R extends BaseRecipe> CompoundTag writeForTag(BaseRecipeType<R> recipeType) {
         Identifier id = recipeType.getId();
 
         CompoundTag root = new CompoundTag();
-
-        // 写 type id
         root.putString("type", id.toString());
 
-        // 写 recipes（你已经实现好的）
         CompoundTag recipesTag = recipeType.encodeTags();
-
-        // 把 recipes 合并进去（推荐直接放子节点）
         root.put("data", recipesTag);
 
         return root;
@@ -156,7 +155,7 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
     }
 
     public CompoundTag encodeTags() {
-        CompoundTag root = new CompoundTag();
+        CompoundTag tag = new CompoundTag();
         ListTag list = new ListTag();
 
         for (Map.Entry<Identifier, R> entry : this.registries.entrySet()) {
@@ -172,8 +171,8 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
             list.add(wrapper);
         }
 
-        root.put("recipes", list);
-        return root;
+        tag.put("recipes", list);
+        return tag;
     }
 
     public List<Pair<Identifier, R>> decodeTags(CompoundTag tag) {

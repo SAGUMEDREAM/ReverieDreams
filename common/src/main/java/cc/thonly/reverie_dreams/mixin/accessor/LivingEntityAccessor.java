@@ -14,4 +14,7 @@ public interface LivingEntityAccessor {
     static EntityDataAccessor<Optional<BlockPos>> getSleepingPosition() {
         throw new UnsupportedOperationException();
     }
+
+    @Accessor("jumping")
+    boolean reverie_dreams$keyJump();
 }

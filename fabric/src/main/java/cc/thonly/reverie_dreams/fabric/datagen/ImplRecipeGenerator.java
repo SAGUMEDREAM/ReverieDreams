@@ -612,7 +612,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         offerAxeRecipe(output, RDItems.MAGIC_ICE_AXE.asItem(), RDItems.ICE_SCALES.asItem());
         offerShovelRecipe(output, RDItems.MAGIC_ICE_SHOVEL.asItem(), RDItems.ICE_SCALES.asItem());
         offerHoeRecipe(output, RDItems.MAGIC_ICE_HOE.asItem(), RDItems.ICE_SCALES.asItem());
-        offerSpearRecipe(output, RDItems.MAGIC_ICE_SPEAR.asItem(), RDItems.SILVER_INGOT.asItem());
+        offerSpearRecipe(output, RDItems.MAGIC_ICE_SPEAR.asItem(), RDItems.ICE_SCALES.asItem());
 
         // 冰盔甲
         offerHelmetRecipe(output, RDItems.MAGIC_ICE_HELMET.asItem(), RDBlocks.MAGIC_ICE_BLOCK.asItem());
@@ -629,7 +629,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         offerAxeRecipe(output, RDItems.DREAM_AXE.asItem(), RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
         offerShovelRecipe(output, RDItems.DREAM_SHOVEL.asItem(), RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
         offerHoeRecipe(output, RDItems.DREAM_HOE.asItem(), RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
-        offerSpearRecipe(output, RDItems.DREAM_SPEAR.asItem(), RDItems.SILVER_INGOT.asItem());
+        offerSpearRecipe(output, RDItems.DREAM_SPEAR.asItem(), RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
 
         // 梦境水晶盔甲
         offerHelmetRecipe(output, RDItems.DREAM_HELMET.asItem(), RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());

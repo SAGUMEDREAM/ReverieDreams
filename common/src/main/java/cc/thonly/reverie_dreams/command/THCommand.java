@@ -14,10 +14,10 @@ import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbench;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
@@ -73,17 +73,17 @@ public class THCommand {
         var get_sc_with_spell_config = Commands.literal("get_spellcard_with_config")
                 .requires(PermissionPredicate.isGameMasters())
                 .then(
-                        RegistryHandlers.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
+                        RegistryImpls.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
                 );
         var with_food_property = Commands.literal("with_food_property")
                 .requires(PermissionPredicate.isGameMasters())
                 .then(
-                        RegistryHandlers.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
+                        RegistryImpls.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
                 );
         var with_drink_property = Commands.literal("with_drink_property")
                 .requires(PermissionPredicate.isGameMasters())
                 .then(
-                        RegistryHandlers.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("drink_property")))
+                        RegistryImpls.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("drink_property")))
                 );
         var cachedAllSkins = Commands.literal("start-cached-skins")
                 .requires(PermissionPredicate.isGameMasters())
@@ -93,7 +93,7 @@ public class THCommand {
         var registry = Commands.literal("registry")
                 .requires(PermissionPredicate.isGameMasters())
                 .then(
-                        RegistryHandlers.getSuggestProvider(this::registry)
+                        RegistryImpls.getSuggestProvider(this::registry)
                 );
 //        var dialog = Commands.literal("dialog")
 //                .then(
@@ -243,7 +243,7 @@ public class THCommand {
         ServerPlayer player = source.getPlayer();
         assert player != null;
         Identifier id = IdentifierArgument.getId(context, "id");
-        FoodProperty property = RegistryHandlers.FOOD_PROPERTY.getValue(id);
+        FoodProperty property = RegistryImpls.FOOD_PROPERTY.getValue(id);
         if (property == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
             return 0;
@@ -269,7 +269,7 @@ public class THCommand {
         ServerPlayer player = source.getPlayer();
         assert player != null;
         Identifier id = IdentifierArgument.getId(context, "id");
-        DrinkProperty property = RegistryHandlers.DRINK_PROPERTY.getValue(id);
+        DrinkProperty property = RegistryImpls.DRINK_PROPERTY.getValue(id);
         if (property == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
             return 0;
@@ -296,7 +296,7 @@ public class THCommand {
         assert player != null;
         Identifier id = IdentifierArgument.getId(context, "id");
 
-        SpellCardFrameConfig config = RegistryHandlers.DANMAKU_CONFIG.getValue(id);
+        SpellCardFrameConfig config = RegistryImpls.DANMAKU_CONFIG.getValue(id);
         if (config == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
             return 0;
@@ -308,7 +308,7 @@ public class THCommand {
     }
 
     private int cachedAllSkins(CommandContext<CommandSourceStack> context) {
-        for (SkinType skinType : RegistryHandlers.SKIN_TYPE) {
+        for (SkinType skinType : RegistryImpls.SKIN_TYPE) {
             try {
                 if (skinType.get() == null) {
                     throw new NullPointerException();
@@ -331,7 +331,7 @@ public class THCommand {
         Identifier id = IdentifierArgument.getId(context, "id");
 
         ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
-        RegistryHandler<?> registry = RegistryHandlers.ROOT.get(registryKey);
+        RegistryImpl<?> registry = RegistryImpls.ROOT.get(registryKey);
         if (registry == null) {
             source.sendFailure(Component.literal("Registry not found: ").append(Component.literal(registryKey.toString())));
             return 0;

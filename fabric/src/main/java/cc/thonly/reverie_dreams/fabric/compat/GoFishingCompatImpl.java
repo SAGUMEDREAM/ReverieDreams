@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import java.util.List;
 import java.util.Set;
 
-@SuppressWarnings("unchecked")
 public class GoFishingCompatImpl {
     public static void bootstrap() {
         FoodPropertiesLoaderCallback.EVENT.register(ctx -> {

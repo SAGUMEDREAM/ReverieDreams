@@ -1,15 +1,14 @@
 package cc.thonly.reverie_dreams.fabric.api;
 
-import cc.thonly.reverie_dreams.fabric.window.SwingNoticeWindow;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
 import java.lang.reflect.Method;
 
 @Slf4j
 public class ReverieDreamsPolymerBridge {
     private static boolean LOADED = false;
+    private static boolean LOADED2 = false;
 
     public static void tryPolymerify() {
         if (LOADED) {
@@ -33,5 +32,24 @@ public class ReverieDreamsPolymerBridge {
             throw new RuntimeException(e);
         }
         LOADED = true;
+    }
+
+    public static void tryReplaceGuidebook() {
+        if (LOADED2) {
+            return;
+        }
+        boolean modLoaded = PlatformContext.hasPolymer();
+        if (!modLoaded) {
+            return;
+        }
+        try {
+            Class<?> clazz = Class.forName("cc.thonly.reverie_dreams.fabric.PolymerInitializer");
+            Method method = clazz.getDeclaredMethod("replaceGuidebook");
+            method.invoke(null);
+        } catch (Exception e) {
+            log.error("Can't load polymer patch", e);
+            throw new RuntimeException(e);
+        }
+        LOADED2 = true;
     }
 }

@@ -15,3 +15,25 @@
 /tp 426f582d-6cd0-4b1c-b5bd-685c73ff0c9b
 /tp 426f582d-6cd0-4b1c-b5bd-685c73ff0c9b @s
 /gamemode survival
+/gamemode creative
+/time set day
+/polymer client-item
+/polymer target-item
+/locate structure reverie_dreams:abandoned_altar
+/locate structure reverie_dreams:abandoned_torii
+/locate structure reverie_dreams:bamboo_forest_bbq_stall
+/locate structure reverie_dreams:bamboo_forest_hut
+/locate structure reverie_dreams:mini_bar
+/locate structure reverie_dreams:nether_hot_spring
+/locate structure reverie_dreams:outer_shrine
+/locate structure reverie_dreams:sakurazuka
+/locate structure reverie_dreams:outer_shrine
+/locate structure reverie_dreams:nether_hot_spring
+/locate structure reverie_dreams:sakurazuka
+/locate structure reverie_dreams:abandoned_altar
+/locate structure reverie_dreams:abandoned_torii
+/locate structure reverie_dreams:bamboo_forest_bbq_stall
+/locate structure reverie_dreams:bamboo_forest_hut
+/locate structure reverie_dreams:mini_bar
+/locate structure reverie_dreams:nether_hot_spring
+/touhou recipe

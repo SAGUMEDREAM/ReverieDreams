@@ -34,6 +34,7 @@ public class AbstractKitchenwareImpl implements FactoryBlock, PolymerTexturedBlo
             init(state);
         }
 
+        @SuppressWarnings("deprecation")
         public void init(BlockState state) {
             this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
             Direction facing = state.getValue(AbstractKitchenwareBlock.FACING);

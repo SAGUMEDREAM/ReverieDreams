@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.engine;
 
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -21,7 +21,7 @@ public class JavaScriptElement implements CodecStep<JavaScriptElement>, OwnerBin
     public static final Codec<JavaScriptElement> CODEC = UnitCodec.unit(JavaScriptElement::new);
     private Identifier id;
     private final String src;
-    private RegistryHandler<JavaScriptElement> owner;
+    private RegistryImpl<JavaScriptElement> owner;
 
     private JavaScriptElement() {
         this("");
@@ -32,8 +32,8 @@ public class JavaScriptElement implements CodecStep<JavaScriptElement>, OwnerBin
     }
 
     @Override
-    public RegistryHandler<JavaScriptElement> getOwner() {
-        return RegistryHandlers.JAVASCRIPT_ELEMENT;
+    public RegistryImpl<JavaScriptElement> getOwner() {
+        return RegistryImpls.JAVASCRIPT_ELEMENT;
     }
 
     @Override

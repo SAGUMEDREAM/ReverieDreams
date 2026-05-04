@@ -12,7 +12,7 @@ import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
@@ -26,11 +26,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.UseRemainder;
@@ -59,7 +57,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
     private final Block block;
     private final KitchenwareBlockEntity blockEntity;
-    private final KitchenRecipeType.KitchenType recipeType;
+    private final KitchenRecipeType.MappingType recipeType;
     private final Map<Integer, GuiElementBuilder> displayed = new HashMap<>();
     private final List<Integer> displayIndexes = new ArrayList<>();
     private int page = 0;
@@ -245,7 +243,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
             builder.setCallback((slotIndex, clickType, actionType) -> {
                 ItemStack itemStack = output.get();
-                for (CraftingConflict conflict : RegistryHandlers.CRAFTING_CONFLICT.values()) {
+                for (CraftingConflict conflict : RegistryImpls.CRAFTING_CONFLICT.values()) {
                     if (conflict.test(itemStack)) {
                         SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_DARK_CUISINE).trigger(this.player);
                         output.set(RDFoodItems.DARK_CUISINE.createStack());

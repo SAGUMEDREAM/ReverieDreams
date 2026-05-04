@@ -1,18 +1,16 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.keine.api.KeineRegistries;
-import cc.thonly.keine.api.registry.EntityAttributeRegistry;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
-import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
-import cc.thonly.reverie_dreams.util.IdentifierGetter;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -51,7 +49,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
     private DeferredItem spawnEgg;
     private boolean hasBuilt = false;
 
-    private RegistryHandler<NPCRole> owner;
+    private RegistryImpl<NPCRole> owner;
 
     private NPCRole() {
     }
@@ -96,7 +94,7 @@ public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, Built
             Holder<EntityType<NPCRoleFastEntity>> entityTypeHolder = entityTypeRegistration.asHolder();
 
             String spawnEggId = this.id.getPath() + "_spawn_egg";
-            DeferredItem spawnEgg = registerNPCSpawnEggItem(spawnEggId, (props) -> new SpawnEggItem(spawnEggId, entityTypeHolder.value(), new Item.Properties()));
+            DeferredItem spawnEgg = registerNPCSpawnEggItem(spawnEggId, (props) -> new ColoredSpawnEggItem(spawnEggId, entityTypeHolder.value(), new Item.Properties()));
             this.entityType = entityTypeHolder;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;

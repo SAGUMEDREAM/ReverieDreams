@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
+@SuppressWarnings("deprecation")
 @Getter
 public class PottedPlantPolymerBlock implements PolymerTexturedBlock, FactoryBlock {
     private final Identifier blockId;

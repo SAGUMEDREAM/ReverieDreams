@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsCompats;
-import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryHandlerImpl;
+import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryImpl;
 import com.mojang.brigadier.CommandDispatcher;
 import net.blay09.mods.balm.Balm;
 import net.blay09.mods.balm.neoforge.platform.runtime.NeoForgeLoadContext;
@@ -43,9 +43,9 @@ public class ReverieDreamsNeoForge {
     }
 
     public void setupApi() {
-        ReverieDreams.REGISTRY_GETTER = resourceKey -> new NeoRegistryHandlerImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey) {
+        ReverieDreams.REGISTRY_GETTER = resourceKey -> new NeoRegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey) {
         };
-        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, handler) -> new NeoRegistryHandlerImpl(resourceKey, handler) {
+        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, handler) -> new NeoRegistryImpl(resourceKey, handler) {
         };
     }
 

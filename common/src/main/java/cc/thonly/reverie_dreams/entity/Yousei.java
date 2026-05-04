@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
@@ -100,7 +100,7 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
         super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
         Identifier variantId = Identifier.parse(youseiVariantId);
-        this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(variantId);
+        this.variant = RegistryImpls.YOUSEI_VARIANT.getValue(variantId);
         if (this.variant != null) {
             this.setSkinType(this.variant.getSkinType());
         }
@@ -124,7 +124,7 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
 
     @Override
     public void setVariantData(Identifier id) {
-        this.variant = RegistryHandlers.YOUSEI_VARIANT.getValue(id);
+        this.variant = RegistryImpls.YOUSEI_VARIANT.getValue(id);
         if (this.variant != null) {
             this.setSkinType(this.variant.getSkinType());
         }

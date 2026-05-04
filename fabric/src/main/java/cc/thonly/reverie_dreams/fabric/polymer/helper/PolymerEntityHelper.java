@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.fabric.polymer.entity.*;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.PolymerHolderEntity;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.TickHolderEntity;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.fabric.util.ModelUtil;
 import de.tomalbrc.bil.core.model.Model;
@@ -58,7 +58,7 @@ public class PolymerEntityHelper {
         registerOverlay(RDEntityTypes.UFO.asHolder().value(), UfoImpl::new);
         registerOverlay(RDEntityTypes.RABBIT_UNIT.asHolder().value(), RoleImpl::new);
 
-        for (NPCRole role : RegistryHandlers.NPC_ROLE) {
+        for (NPCRole role : RegistryImpls.NPC_ROLE) {
             registerOverlay(role.getEntityType().value(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);
         }
 

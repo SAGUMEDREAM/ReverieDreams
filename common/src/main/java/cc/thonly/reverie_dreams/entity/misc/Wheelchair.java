@@ -3,7 +3,10 @@ package cc.thonly.reverie_dreams.entity.misc;
 import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
 import cc.thonly.reverie_dreams.inf.IHolderEntity;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.server.PlayerInputManager;
+import cc.thonly.reverie_dreams.server.IPlayerInputManager;
+import cc.thonly.reverie_dreams.server.InputKey;
+import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,16 +31,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Objects;
+import java.util.UUID;
+
+@SuppressWarnings("resource")
 @Setter
 @Getter
 @ToString
 public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
-    public String ownerUUID = "";
+    @Nullable
+    public UUID owner;
+    public int jumpingPower = 0;
 
     public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
@@ -48,14 +58,16 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
         }
     }
 
-    public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z) {
+    public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z) {
         this(entityType, world);
         this.setPos(x, y, z);
     }
 
-    public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, String ownerUUID) {
+    public Wheelchair(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z, Entity owner) {
         this(entityType, world, x, y, z);
-        this.ownerUUID = ownerUUID;
+        if (owner != null) {
+            this.owner = owner.getUUID();
+        }
     }
 
     @Override
@@ -75,8 +87,10 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
         if (!(this.level() instanceof ServerLevel world)) {
             return;
         }
-        if (!this.hasEffect(MobEffects.INVISIBILITY)) {
-            this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+        if (PlatformContext.hasPolymer()) {
+            if (!this.hasEffect(MobEffects.INVISIBILITY)) {
+                this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+            }
         }
     }
 
@@ -102,10 +116,10 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
-        if (attacker != null && attacker.isShiftKeyDown() && this.ownerUUID.equalsIgnoreCase(attacker.getStringUUID())) {
-                ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.WHEEL_CHAIR));
-                world.addFreshEntity(itemEntity);
-                this.discard();
+        if (attacker != null && attacker.isShiftKeyDown() && Objects.equals(this.owner, attacker.getUUID())) {
+            ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.WHEEL_CHAIR));
+            world.addFreshEntity(itemEntity);
+            this.discard();
         }
         return super.hurtServer(world, source, amount);
     }
@@ -122,6 +136,48 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
     }
 
     @Override
+    public void travel(Vec3 travelVector) {
+        if (PlatformContext.hasPolymer()) {
+            super.travel(travelVector);
+            return;
+        }
+
+        if (!this.isVehicle() || !(this.getControllingPassenger() instanceof Player player)) {
+            super.travel(travelVector);
+            return;
+        }
+
+        this.setNoGravity(true);
+
+        this.setDeltaMovement(this.getDeltaMovement().scale(0.8));
+        Vec3 motion = this.getDeltaMovement();
+
+        float strafe = player.xxa;
+        float forward = player.zza;
+
+        if (forward < 0) forward *= 0.25f;
+
+        float speed = 0.1f * (player.isSprinting() ? 1.8f : 1.0f);
+
+        this.moveRelative(speed, new Vec3(strafe, 0, forward));
+
+        motion = this.getDeltaMovement();
+        motion = motion.add(0, -0.08, 0);
+
+        if (this.jumpingPower > 0 && this.onGround()) {
+            motion = new Vec3(motion.x, 0.42, motion.z);
+            this.jumpingPower = 0;
+        }
+
+        if (player.isShiftKeyDown()) {
+            motion = new Vec3(motion.x, -0.15, motion.z);
+        }
+
+        this.setDeltaMovement(motion);
+        this.move(MoverType.SELF, motion);
+    }
+
+    @Override
     protected void tickRidden(Player controllingPlayer, Vec3 movementInput) {
         super.tickRidden(controllingPlayer, movementInput);
         Vec2 vec2f = this.getControlledRotation(controllingPlayer);
@@ -130,12 +186,13 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
         this.yBodyRot = controllingPlayer.getVisualRotationYInDegrees();
         this.yBodyRotO = this.yBodyRot;
 
-        if (controllingPlayer instanceof ServerPlayer player) {
-            boolean keyLeft = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.LEFT);
-            boolean keyRight = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.RIGHT);
-            boolean keyForward = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.FORWARD);
-            boolean keyBack = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.BACKWARD);
-            boolean keySpeedUp = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.SPRINT);
+        if (PlatformContext.hasPolymer() && controllingPlayer instanceof ServerPlayer player) {
+            IPlayerInputManager inputManager = IPlayerInputManager.polymerAccess();
+            boolean keyLeft = inputManager.isKeyDown(player, InputKey.LEFT);
+            boolean keyRight = inputManager.isKeyDown(player, InputKey.RIGHT);
+            boolean keyForward = inputManager.isKeyDown(player, InputKey.FORWARD);
+            boolean keyBack = inputManager.isKeyDown(player, InputKey.BACKWARD);
+            boolean keySpeedUp = inputManager.isKeyDown(player, InputKey.SPRINT);
 
             float strafe = keyLeft ? 0.5f : (keyRight ? -0.5f : 0);
             float forward = keyForward ? 3 : (keyBack ? -0.5f : 0);
@@ -146,11 +203,6 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
             this.move(MoverType.SELF, this.getDeltaMovement());
 //            this.hasImpulse = true;
         }
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return false;
     }
 
     protected Vec2 getControlledRotation(LivingEntity controllingPassenger) {
@@ -181,6 +233,7 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
             if (!this.level().isClientSide()) {
                 player.startRiding(this);
+                return InteractionResult.SUCCESS_SERVER;
             }
             return InteractionResult.SUCCESS;
         }
@@ -198,25 +251,22 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
     @Override
     protected void addAdditionalSaveData(ValueOutput view) {
         super.addAdditionalSaveData(view);
-        view.putString("OwnerUUID", this.ownerUUID);
+        view.storeNullable("OwnerUUID", UUIDCodec.CODEC, this.owner);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput view) {
         super.readAdditionalSaveData(view);
-        this.ownerUUID = view.getStringOr("OwnerUUID", "null");
+        this.owner = view.read("OwnerUUID", UUIDCodec.CODEC).orElse(null);
     }
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
         Vec3 position = super.getPassengerRidingPosition(entity);
-        position = new Vec3(position.x, position.y - 0.5, position.z);
+        if (PlatformContext.hasPolymer()) {
+            return new Vec3(position.x, position.y - 0.5, position.z);
+        }
         return position;
-    }
-
-    @Override
-    public void onPlayerJump(int strength) {
-
     }
 
     @Override
@@ -225,15 +275,22 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
     }
 
     @Override
+    public void onPlayerJump(int strength) {
+        this.jumpingPower = strength;
+    }
+
+    @Override
     public void handleStartJump(int height) {
         if (this.onGround()) {
             this.push(0, 0.42D, 0);
         }
+        this.jumping = true;
+        this.jumpingPower = height;
     }
-
 
     @Override
     public void handleStopJump() {
-
+        this.jumping = false;
+        this.jumpingPower = 0;
     }
 }

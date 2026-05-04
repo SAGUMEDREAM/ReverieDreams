@@ -3,8 +3,8 @@ package cc.thonly.reverie_dreams.item.template;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
-import cc.thonly.reverie_dreams.item.builder.RoleCard;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.item.base.RoleCard;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -47,7 +47,7 @@ public class RoleCardItem extends Item {
         if (identifier == null) {
             return Optional.empty();
         }
-        RoleCard roleCard = RegistryHandlers.ROLE_CARD.getValue(identifier);
+        RoleCard roleCard = RegistryImpls.ROLE_CARD.getValue(identifier);
         if (roleCard == null) {
             return Optional.empty();
         }

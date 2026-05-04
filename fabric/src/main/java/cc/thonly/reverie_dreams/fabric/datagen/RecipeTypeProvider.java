@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractRecipeTypeProvider;
-import cc.thonly.reverie_dreams.item.builder.RoleCard;
+import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
@@ -11,7 +11,7 @@ import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.RoleCards;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
@@ -36,8 +36,8 @@ import java.util.stream.Stream;
 
 public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
     public final Factory<GensokyoAltarRecipe> gensokyoAltarRecipeFactory = this.getOrCreateFactory(RecipeManager.GENSOKYO_ALTAR, GensokyoAltarRecipe.class);
-    public final Factory<DanmakuRecipe> danmakuRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_TYPE, DanmakuRecipe.class);
-    public final Factory<DanmakuShapeDrawRecipe> danmakuShapeDrawRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_SHAPE_DRAW_TYPE, DanmakuShapeDrawRecipe.class);
+    public final Factory<DanmakuRecipe> danmakuRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU, DanmakuRecipe.class);
+    public final Factory<DanmakuShapeDrawRecipe> danmakuShapeDrawRecipeFactory = this.getOrCreateFactory(RecipeManager.DANMAKU_SHAPE_DRAW, DanmakuShapeDrawRecipe.class);
     public final Factory<KitchenRecipe> kitchenRecipeFactory = this.getOrCreateFactory(RecipeManager.KITCHEN_TYPE, KitchenRecipe.class);
 
     public RecipeTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
@@ -583,11 +583,11 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
     }
 
     public void generateKitchenRecipe() {
-        Identifier cookingPot = KitchenRecipeType.KitchenType.COOKING_POT.toId();
-        Identifier grill = KitchenRecipeType.KitchenType.GRILL.toId();
-        Identifier cuttingBoard = KitchenRecipeType.KitchenType.CUTTING_BOARD.toId();
-        Identifier streamer = KitchenRecipeType.KitchenType.STEAMER.toId();
-        Identifier fryingPan = KitchenRecipeType.KitchenType.FRYING_PAN.toId();
+        Identifier cookingPot = KitchenRecipeType.MappingType.COOKING_POT.toId();
+        Identifier grill = KitchenRecipeType.MappingType.GRILL.toId();
+        Identifier cuttingBoard = KitchenRecipeType.MappingType.CUTTING_BOARD.toId();
+        Identifier streamer = KitchenRecipeType.MappingType.STEAMER.toId();
+        Identifier fryingPan = KitchenRecipeType.MappingType.FRYING_PAN.toId();
 
         // 煮锅
         this.kitchenRecipeFactory.register(ReverieDreams.id("seafood_miso_soup"), new KitchenRecipe(
@@ -1577,7 +1577,7 @@ public class RecipeTypeProvider extends AbstractRecipeTypeProvider {
     }
 
     public void generateDanmakuRecipe() {
-        Stream<DanmakuType> stream = RegistryHandlers.DANMAKU_TYPE.stream();
+        Stream<DanmakuType> stream = RegistryImpls.DANMAKU_TYPE.stream();
         stream.forEach(value -> {
             if (!value.isDeleteFromList()) {
                 for (Tuple<Item, ItemStack> pair : value.getColorPairs()) {

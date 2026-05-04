@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -26,7 +26,7 @@ public class NPCState implements CodecStep<NPCState>, OwnerBinding<NPCState>, Bu
     );
 
     private final String type;
-    private RegistryHandler<NPCState> owner;
+    private RegistryImpl<NPCState> owner;
 
     private NPCState() {
         this.type = "null";
@@ -46,8 +46,8 @@ public class NPCState implements CodecStep<NPCState>, OwnerBinding<NPCState>, Bu
     }
 
     @Override
-    public RegistryHandler<NPCState> getOwner() {
-        return RegistryHandlers.NPC_STATE;
+    public RegistryImpl<NPCState> getOwner() {
+        return RegistryImpls.NPC_STATE;
     }
 
     @Override

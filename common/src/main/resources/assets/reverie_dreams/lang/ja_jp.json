@@ -1226,5 +1226,17 @@
   "gui.npc.work.mode.polyfactory/hand_crank": "§dハンドクランクを回す",
   "item.reverie_dreams.dream_spear": "夢境のクリスタルスピア",
   "item.reverie_dreams.magic_ice_spear": "氷のスピア",
-  "item.reverie_dreams.silver_spear": "シルバースピア"
+  "item.reverie_dreams.silver_spear": "シルバースピア",
+  "booklet_category.reverie_dreams.basics": "基本知識",
+  "entity.reverie_dreams.rabbit_unit": "月兎戦士",
+  "item.reverie_dreams.guidebook": "幻想郷ガイドブック",
+  "item.reverie_dreams.guidebook.desc": "§a夢見る幻想郷§rの使用ガイド！",
+  "item.reverie_dreams.rabbit_unit_spawn_egg": "月兎戦士のスポーンエッグ",
+  "item.reverie_dreams.weapon_of_the_moon": "月の兵器",
+  "item_view.information.desc.chest_drop_items": "入手方法：宝箱から入手",
+  "item_view.information.desc.drinks": "入手方法：酒場の店主から購入",
+  "item_view.information.desc.fishing": "入手方法：釣り",
+  "item_view.information.desc.fumos": "入手方法：Fumo商人から購入",
+  "item_view.information.desc.grass_drop_items": "入手方法：草を破壊",
+  "item_view.information.desc.truffle": "入手方法：オーク／シラカバ／ダークオーク／トウヒの原木を破壊"
 }

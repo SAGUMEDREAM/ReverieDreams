@@ -7,12 +7,15 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
 public class RDIngredientItems {
-    public static final List<DeferredItem> INGREDIENTS = new LinkedList<>();
+    public static final List<DeferredItem> INGREDIENTS = new ArrayList<>();
+    public static final List<DeferredItem> FISHING = new ArrayList<>();
 
     public static DeferredItem BAMBOO_SHOOTS;
     public static DeferredItem BLACK_PORK;
@@ -115,6 +118,7 @@ public class RDIngredientItems {
         WHITE_RADISH = registerIngredient(balmItemRegistrar, "ingredient/white_radish", ingredientFactory(), new Item.Properties());
         WILD_BOAR_MEAT = registerIngredient(balmItemRegistrar, "ingredient/wild_boar_meat", ingredientFactory(), new Item.Properties());
 
+        FISHING.addAll(Arrays.asList(SHRIMP, CRAB, SALMON, TROUT, TUNA, SUPREME_TUNA));
     }
 
     public static DeferredItem registerIngredient(BalmItemRegistrar balmItemRegistrar, String name, Function<Item.Properties, Item> factory, Item.Properties settings) {

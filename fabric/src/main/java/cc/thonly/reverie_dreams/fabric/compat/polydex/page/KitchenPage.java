@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -96,7 +95,7 @@ public class KitchenPage implements PolydexPage {
         } else if (s.equals("P")) {
             MinecraftServer server = ReverieDreams.getServer();
             if (server !=null) {
-                KitchenRecipeType.KitchenType type = this.value.getType();
+                KitchenRecipeType.MappingType type = this.value.getType();
                 List<Block> blocks = KitchenBlockType.getMatchBlocks(server.registryAccess(), type);
                 if (blocks.isEmpty()) {
                     return Items.AIR.getDefaultInstance();

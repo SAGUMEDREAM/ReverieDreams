@@ -8,6 +8,15 @@
       ],
       "height": 16,
       "ascent": 12
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/danmaku_crafting_table.png",
+      "chars": [
+        "\u53bb"
+      ],
+      "height": 168,
+      "ascent": 0
     }
   ]
 }

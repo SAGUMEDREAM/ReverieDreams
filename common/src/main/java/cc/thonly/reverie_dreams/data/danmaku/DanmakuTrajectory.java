@@ -1,10 +1,8 @@
 package cc.thonly.reverie_dreams.data.danmaku;
 
-import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -17,7 +15,6 @@ import lombok.ToString;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Setter
@@ -26,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @ToString
 public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBinding<DanmakuTrajectory>, BuiltinObject {
     public static final Codec<DanmakuTrajectory> CODEC = UnitCodec.unit(DanmakuTrajectory::new);
-    private RegistryHandler<DanmakuTrajectory> owner;
+    private RegistryImpl<DanmakuTrajectory> owner;
 
     public void run(ServerLevel world, @Nullable LivingEntity livingEntity, ItemStack stack, double x, double y, double z, float xRot, float yRot, float divergence, float offsetDist, IDanmakuItem pThis) {
 

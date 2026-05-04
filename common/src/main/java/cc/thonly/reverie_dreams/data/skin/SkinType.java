@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.data.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -31,7 +31,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     public static Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
     public static Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(
             Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-    ).apply(x, RegistryHandlers.SKIN_TYPE::getValue)));
+    ).apply(x, RegistryImpls.SKIN_TYPE::getValue)));
     public static final StreamCodec<RegistryFriendlyByteBuf, SkinType> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
     public static final EntityDataSerializer<SkinType> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
 
@@ -47,7 +47,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     private SkinConfig config;
     @Getter
     @Setter
-    private RegistryHandler<SkinType> owner;
+    private RegistryImpl<SkinType> owner;
     @Setter
     @Getter
     private boolean slim;
@@ -125,7 +125,7 @@ public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, Bu
     }
 
     public static void onReload(ResourceManager manager) {
-        for (SkinType skinType : RegistryHandlers.SKIN_TYPE.values()) {
+        for (SkinType skinType : RegistryImpls.SKIN_TYPE.values()) {
             skinType.unbind();
         }
     }

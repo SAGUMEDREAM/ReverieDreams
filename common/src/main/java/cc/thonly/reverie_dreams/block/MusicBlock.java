@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.util.TouhouNotaUtils;
+import cc.thonly.reverie_dreams.util.NotaUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -57,7 +57,7 @@ public class MusicBlock extends BaseEntityBlock {
                 player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
                 return InteractionResult.PASS;
             } else if (world.hasNeighborSignal(pos)){
-                TouhouNotaUtils.playAt(world, pos, blockEntity.getSelect());
+                NotaUtils.playAt(world, pos, blockEntity.getSelect());
             }
             player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", blockEntity.getSelect()), false);
             return InteractionResult.SUCCESS_SERVER;
@@ -72,7 +72,7 @@ public class MusicBlock extends BaseEntityBlock {
             SongPlayer selfPlayer = musicBlockEntity.getSelfPlayer();
             if (selfPlayer != null) {
                 selfPlayer.setPlaying(false);
-                Map<Long, SongPlayer> blockPos2SongPlayer = TouhouNotaUtils.blockMusicPlayCache.get(world);
+                Map<Long, SongPlayer> blockPos2SongPlayer = NotaUtils.blockMusicPlayCache.get(world);
                 if (blockPos2SongPlayer != null) {
                     blockPos2SongPlayer.remove(pos.asLong());
                 }
@@ -94,7 +94,7 @@ public class MusicBlock extends BaseEntityBlock {
             if (hasPower) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof MusicBlockEntity musicBlockEntity) {
-                    TouhouNotaUtils.playAt(world, pos, musicBlockEntity.getSelect());
+                    NotaUtils.playAt(world, pos, musicBlockEntity.getSelect());
                 }
             }
         }

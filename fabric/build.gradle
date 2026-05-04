@@ -22,9 +22,9 @@ dependencies {
     modImplementation("net.blay09.mods:balm-fabric:${balm_version}") {
         changing = balm_version.contains("SNAPSHOT")
     }
-    modImplementation("software.bernie.geckolib:geckolib-fabric-${minecraft_version}:${geckolib_version}")
-    compileOnly rootProject.files("libs/keine-common-1.21.11-1.0.0.jar")
-    modImplementation files("libs/keine-fabric-1.21.11-1.0.0.jar")
+    compileOnly("cc.thonly:keine-common:1.21.11-1.0.0")
+    modImplementation include("cc.thonly:keine-fabric:1.21.11-1.0.0")
+    modImplementation include("software.bernie.geckolib:geckolib-fabric-${minecraft_version}:${geckolib_version}")
     modImplementation include("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
     modImplementation include("xyz.nucleoid:server-translations-api:${server_translations_api_version}")
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
@@ -48,7 +48,13 @@ dependencies {
     modImplementation("eu.pb4:factorytools:[${factorytools_version}]")
     modImplementation("de.tomalbrc:blockbench-import-library:${bil_version}")
     modImplementation("eu.pb4:booklet:${booklet_version}")
+    modImplementation include("eu.pb4:sgui:[${sgui_version}]")
     modImplementation files('libs/camera-obscura-1.2.2+1.21.11.jar')
+
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
+//    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
+    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
 
     modCompileOnly files('libs/create-fly-1.21.11-6.0.9-1.jar')
     modCompileOnly files('libs/polyfactory-0.10.4+1.21.11.jar')

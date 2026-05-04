@@ -47,7 +47,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     public static final int OUTPUT_SLOT = 5;
     private SimpleContainer inventory = new SimpleContainer(6);
     @Nullable
-    private KitchenRecipeType.KitchenType recipeType;
+    private KitchenRecipeType.MappingType recipeType;
     private Identifier recipeId;
     private ItemStackWrapper preOutput = DEFAULT_WRAPPER_FACTORY.get();
     private Double tickLeft = 0.0;
@@ -157,7 +157,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
 
     }
 
-    public KitchenRecipeType.@Nullable KitchenType getRecipeType() {
+    public KitchenRecipeType.@Nullable MappingType getRecipeType() {
         if (this.recipeType != null) {
             return this.recipeType;
         }

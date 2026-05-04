@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.data.skin;
 
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import com.mojang.serialization.Codec;
@@ -31,7 +31,7 @@ public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfi
     private final Optional<Identifier> capeTexture;
     private final Optional<Identifier> elytraTexture;
     @Setter
-    private RegistryHandler<SkinConfig> owner;
+    private RegistryImpl<SkinConfig> owner;
 
     public SkinConfig(ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
         this.registryKey = null;

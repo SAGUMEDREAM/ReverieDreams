@@ -3,7 +3,9 @@ package cc.thonly.reverie_dreams.entity.misc;
 import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
 import cc.thonly.reverie_dreams.inf.IHolderEntity;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.server.PlayerInputManager;
+import cc.thonly.reverie_dreams.server.IPlayerInputManager;
+import cc.thonly.reverie_dreams.server.InputKey;
+import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,8 +48,10 @@ import java.util.UUID;
 public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     public static final EntityDataAccessor<ItemStackWrapper> ITEM_WRAPPER =
             SynchedEntityData.defineId(MagicBroom.class, ItemStackWrapper.SERIALIZER);
+    private float FCMP_THRE = 1e-4f;
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
+    public int jumpingPower = 0;
     @Nullable
     public UUID owner;
 
@@ -55,13 +59,13 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
         super(entityType, world);
     }
 
-    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper) {
+    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z, ItemStackWrapper wrapper) {
         this(entityType, world);
         this.setPos(x, y, z);
         this.setItemWrapper(wrapper);
     }
 
-    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, int x, int y, int z, ItemStackWrapper wrapper, UUID owner) {
+    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z, ItemStackWrapper wrapper, UUID owner) {
         this(entityType, world, x, y, z, wrapper);
         this.owner = owner;
     }
@@ -109,9 +113,13 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     public void tick() {
         super.tick();
         if (this.level() instanceof ServerLevel world) {
+            this.fallDistance = 0;
+            this.jumpingPower -= 1;
             this.setNoGravity(this.isVehicle());
-            if (!this.hasEffect(MobEffects.INVISIBILITY)) {
-                this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+            if (PlatformContext.hasPolymer()) {
+                if (!this.hasEffect(MobEffects.INVISIBILITY)) {
+                    this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+                }
             }
             if (!this.getItemWrapper().isEmpty() && this.getItemWrapper().getItemStack().isDamageableItem() && this.getItemWrapper().getItemStack().getDamageValue() >= this.getItemWrapper().getItemStack().getMaxDamage()) {
                 this.hurtServer(world, this.damageSources().magic(), Integer.MAX_VALUE);
@@ -180,6 +188,46 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     }
 
     @Override
+    public void travel(Vec3 travelVector) {
+        if (PlatformContext.hasPolymer()) {
+            super.travel(travelVector);
+            return;
+        }
+        if (this.isVehicle() && this.getControllingPassenger() instanceof Player player) {
+
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.8));
+            float strafe = player.xxa * 0.5f;
+            float forward = player.zza;
+
+            if (forward <= 0.0f) {
+                forward *= 0.25f;
+            }
+            float vertical = 0;
+            boolean sprint = player.isSprinting();
+            boolean sneak = player.isShiftKeyDown();
+
+            float speed = 0.15f * (sprint ? 1.8f : 1.0f);
+
+            if (forward != 0) {
+                vertical = -player.getXRot() / 90f + 0.05f;
+            }
+
+//            if (this.jumpingPower > 0) {
+//                vertical += 0.6f;
+//            }
+
+            if (sneak) vertical -= 0.6f;
+
+            this.moveRelative(speed, new Vec3(strafe, vertical, forward));
+            this.move(MoverType.SELF, this.getDeltaMovement());
+
+            return;
+        }
+
+        super.travel(travelVector);
+    }
+
+    @Override
     protected void tickRidden(Player controllingPlayer, Vec3 movementInput) {
         super.tickRidden(controllingPlayer, movementInput);
         Vec2 vec2f = this.getControlledRotation(controllingPlayer);
@@ -195,12 +243,13 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
             }
         }
 
-        if (controllingPlayer instanceof ServerPlayer player) {
-            boolean keyLeft = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.LEFT);
-            boolean keyRight = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.RIGHT);
-            boolean keyForward = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.FORWARD);
-            boolean keyBack = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.BACKWARD);
-            boolean keySpeedUp = PlayerInputManager.isKeyDown(player, PlayerInputManager.InputKey.SPRINT);
+        if (PlatformContext.hasPolymer() && controllingPlayer instanceof ServerPlayer player) {
+            IPlayerInputManager inputManager = IPlayerInputManager.polymerAccess();
+            boolean keyLeft = inputManager.isKeyDown(player, InputKey.LEFT);
+            boolean keyRight = inputManager.isKeyDown(player, InputKey.RIGHT);
+            boolean keyForward = inputManager.isKeyDown(player, InputKey.FORWARD);
+            boolean keyBack = inputManager.isKeyDown(player, InputKey.BACKWARD);
+            boolean keySpeedUp = inputManager.isKeyDown(player, InputKey.SPRINT);
 
             float strafe = keyLeft ? 0.5f : (keyRight ? -0.5f : 0);
             float vertical = keyForward ? -(player.getXRot() - 10) / 22.5f : 0;
@@ -212,6 +261,11 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
             this.move(MoverType.SELF, this.getDeltaMovement());
 //            this.hasImpulse = true;
         }
+    }
+
+    @Override
+    public boolean canControlVehicle() {
+        return true;
     }
 
     protected Vec2 getControlledRotation(LivingEntity controllingPassenger) {
@@ -245,6 +299,7 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
             if (!this.level().isClientSide()) {
                 player.startRiding(this);
+                return InteractionResult.SUCCESS_SERVER;
             }
             return InteractionResult.SUCCESS;
         }
@@ -280,13 +335,10 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
         Vec3 position = super.getPassengerRidingPosition(entity);
-        position = new Vec3(position.x, position.y - 1, position.z);
-        return position;
-    }
-
-    @Override
-    public void onPlayerJump(int strength) {
-
+        if (PlatformContext.hasPolymer()) {
+            return new Vec3(position.x, position.y - 1, position.z);
+        }
+        return new Vec3(position.x, position.y - 0.6, position.z);
     }
 
     @Override
@@ -295,12 +347,17 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     }
 
     @Override
-    public void handleStartJump(int height) {
+    public void onPlayerJump(int strength) {
+        this.jumpingPower = strength;
+    }
 
+    @Override
+    public void handleStartJump(int height) {
+        this.jumpingPower = height;
     }
 
     @Override
     public void handleStopJump() {
-
+        this.jumpingPower = 0;
     }
 }

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.interfaces.SimpleVariant;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -21,7 +21,7 @@ public class RabbitUnitVariant implements CodecStep<RabbitUnitVariant>, OwnerBin
     private Identifier id;
     private int number;
     private SkinType skinType;
-    private RegistryHandler<RabbitUnitVariant> owner;
+    private RegistryImpl<RabbitUnitVariant> owner;
 
     private RabbitUnitVariant() {
     }

@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -29,7 +29,7 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
         stack.set(RDDataComponents.DANMAKU_SHAPE.value(), ItemStackWrapper.of(danmakuType.getItemHolder()));
         return stack;
     };
-    private RegistryHandler<DanmakuShape> owner;
+    private RegistryImpl<DanmakuShape> owner;
     private final DanmakuType type;
     private final Function<Unit, ItemStack> getter;
 

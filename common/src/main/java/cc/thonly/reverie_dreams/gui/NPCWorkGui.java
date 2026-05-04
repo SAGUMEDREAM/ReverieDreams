@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.gui;
 
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.network.chat.Component;
@@ -28,7 +28,7 @@ public class NPCWorkGui extends SimpleGui implements GuiCommon {
     public void init() {
         this.setTitle(Component.translatable("gui.npc.work.mode"));
         NPCWorkMode workMode = this.npcEntity.getWorkMode();
-        Iterator<NPCWorkMode> iterator = RegistryHandlers.NPC_WORK_MODE.iterator();
+        Iterator<NPCWorkMode> iterator = RegistryImpls.NPC_WORK_MODE.iterator();
         for (int i = 0; i < this.size; i++) {
             if (!iterator.hasNext()) {
                 break;

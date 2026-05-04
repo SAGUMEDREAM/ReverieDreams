@@ -8,8 +8,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
 public record SyncEntityPacket(int entityId, CompoundTag tag) implements CustomPacketPayload {
-    public static final Identifier payload = ReverieDreams.id("sync_entity");
-    public static final CustomPacketPayload.Type<SyncEntityPacket> PACKET_ID = new CustomPacketPayload.Type<>(payload);
+    public static final Identifier ID = ReverieDreams.id("sync_entity");
+    public static final CustomPacketPayload.Type<SyncEntityPacket> PACKET_ID = new CustomPacketPayload.Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncEntityPacket> CODEC = StreamCodec.ofMember(SyncEntityPacket::write, SyncEntityPacket::read);
 
     public static SyncEntityPacket read(RegistryFriendlyByteBuf buf) {

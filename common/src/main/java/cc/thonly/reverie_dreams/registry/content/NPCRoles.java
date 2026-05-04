@@ -3,9 +3,9 @@ package cc.thonly.reverie_dreams.registry.content;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.Identifier;
 
@@ -162,10 +162,10 @@ public class NPCRoles {
 
     // ...
 
-    public static void bootstrap(RegistryHandler<NPCRole> registry) {
+    public static void bootstrap(RegistryImpl<NPCRole> registry) {
         SkinType.CODEC = RecordCodecBuilder.create(x->x.group(
                 Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-        ).apply(x, RegistryHandlers.SKIN_TYPE::getValue));
+        ).apply(x, RegistryImpls.SKIN_TYPE::getValue));
     }
 
     public static NPCRole registerRole(NPCRole role) {
@@ -177,7 +177,7 @@ public class NPCRoles {
     }
 
     public static NPCRole registerRole(Identifier id, NPCRole role) {
-        NPCRole entry = RegistryHandlers.register(RegistryHandlers.NPC_ROLE, id, role);
+        NPCRole entry = RegistryImpls.register(RegistryImpls.NPC_ROLE, id, role);
         return entry.build();
     }
 }

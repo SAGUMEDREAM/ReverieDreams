@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -16,7 +16,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.tag.FarmersDelightCommonItemTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -52,7 +52,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         // === 基础工具方法 ===
         BiConsumer<TagKey<Item>, Collection<? extends Item>> addAll = (tag, items) -> valueLookupBuilder(tag).add(items.toArray(Item[]::new));
         Supplier<List<Item>> allDanmakuItemGetter = () -> {
-            RegistryHandler<DanmakuType> registry = RegistryHandlers.DANMAKU_TYPE;
+            RegistryImpl<DanmakuType> registry = RegistryImpls.DANMAKU_TYPE;
             Stream<Item> itemStream = registry.values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem);
             return itemStream.toList();
         };
@@ -118,7 +118,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         // === 弹幕 ===
         TagAppender<Item, Item> danmaku = valueLookupBuilder(RDItemTags.DANMAKU_ITEM);
-        for (DanmakuType danmakuType : RegistryHandlers.DANMAKU_TYPE) {
+        for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
             danmaku.add(danmakuType.getItemHolder().asItem());
         }
         danmaku.add(RDItems.KNIFE.asItem());

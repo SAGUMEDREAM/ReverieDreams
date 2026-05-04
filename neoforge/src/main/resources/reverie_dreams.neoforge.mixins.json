@@ -12,7 +12,9 @@
     "RegistryDataLoaderMixin",
     "RegistryHandlerMixin",
     "accessor.CreativeModeTabAccessor",
-    "event.ServerPlayerGameModeMixin"
+    "event.ServerPlayerGameModeMixin",
+    "rei.ClientREIPluginMixin",
+    "rei.CommonREIPluginMixin"
   ],
   "client": [
   ],

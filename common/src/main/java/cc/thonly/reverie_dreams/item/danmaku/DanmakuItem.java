@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.item.danmaku;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -36,7 +36,7 @@ public class DanmakuItem extends AbstractDanmakuItem {
             return;
         }
         Identifier templateId = properties.templateId();
-        DanmakuTrajectory danmakuTrajectory = RegistryHandlers.DANMAKU_TRAJECTORY.getValue(templateId);
+        DanmakuTrajectory danmakuTrajectory = RegistryImpls.DANMAKU_TRAJECTORY.getValue(templateId);
 
         if (danmakuTrajectory != null) {
             danmakuTrajectory.run(serverWorld,

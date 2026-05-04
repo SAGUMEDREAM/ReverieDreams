@@ -83,6 +83,13 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("message.reverie_dreams.update", "检测到模组更新，最新版本 %s");
         translationBuilder.add(RDGameRules.DO_GHOST.value().getDescriptionId(), "禁止幽灵生成");
 
+        translationBuilder.add("item_view.information.desc.chest_drop_items", "获取方式：开启宝箱获得");
+        translationBuilder.add("item_view.information.desc.grass_drop_items", "获取方式：破坏草获得");
+        translationBuilder.add("item_view.information.desc.fumos", "获取方式：可在 Fumo 商人处购买");
+        translationBuilder.add("item_view.information.desc.drinks", "获取方式：酒馆老板处可购买");
+        translationBuilder.add("item_view.information.desc.fishing", "获取方式：通过钓鱼获得");
+        translationBuilder.add("item_view.information.desc.truffle", "获取方式：破坏橡木/白桦/深色橡木/云杉原木获得");
+
         this.generateItemTranslations(wrapperLookup, translationBuilder);
         this.generateBlockTranslations(wrapperLookup, translationBuilder);
         this.generateFumoTranslations(wrapperLookup, translationBuilder);

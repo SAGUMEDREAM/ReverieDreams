@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.client.renderer.entity.*;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.blay09.mods.balm.client.renderer.entity.BalmEntityRendererRegistrar;
 import net.minecraft.client.renderer.entity.BeeRenderer;
@@ -15,7 +15,7 @@ import net.minecraft.world.entity.EntityType;
 public class RDEntityRenderers {
     public static void initialize(BalmEntityRendererRegistrar registrar) {
         // EmptyRenderer
-        for (NPCRole npcRole : RegistryHandlers.NPC_ROLE) {
+        for (NPCRole npcRole : RegistryImpls.NPC_ROLE) {
             Holder<EntityType<NPCRoleFastEntity>> entityType = npcRole.getEntityType();
             registrar.register(entityType, EmptyRenderer::new);
         }

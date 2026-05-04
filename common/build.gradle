@@ -24,12 +24,17 @@ dependencies {
     implementation("net.blay09.mods:balm-common:${balm_version}") {
         changing = balm_version.endsWith("SNAPSHOT")
     }
-    implementation ("gg.moonflower:molang-compiler:3.1.1.19")
+    implementation("gg.moonflower:molang-compiler:3.1.1.19")
     implementation("software.bernie.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
 
-    api files("libs/sgui_balm-common-1.21.11-21.11.0.jar")
-    api files("libs/keine-common-1.21.11-1.0.0.jar")
-//    api files("libs/geckolib-common-1.21.11-5.4.5.jar")
+    api("cc.thonly:sgui_balm-common:1.21.11-21.11.0")
+    api("cc.thonly:keine-common:1.21.11-1.0.0")
+    compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-common:${jei_version}")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+
+//    compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
+//    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rei_version}")
 }
 
 

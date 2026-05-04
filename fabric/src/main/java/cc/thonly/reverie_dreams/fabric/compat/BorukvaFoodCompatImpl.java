@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.Blocks;
 
 import java.util.Set;
 
-@SuppressWarnings("unchecked")
 public class BorukvaFoodCompatImpl {
     public static Block BETTER_FARMLAND = Blocks.AIR;
     public static boolean HAS_LOADED = false;

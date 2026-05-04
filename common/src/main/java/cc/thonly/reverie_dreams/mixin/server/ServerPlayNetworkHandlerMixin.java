@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
-import cc.thonly.reverie_dreams.server.PlayerInputManager;
+import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManager;
 import cc.thonly.reverie_dreams.util.PairWrapper;
 import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
 import net.minecraft.network.protocol.game.ServerboundPlayerInputPacket;
@@ -20,12 +20,14 @@ public abstract class ServerPlayNetworkHandlerMixin {
     @Inject(method = "handlePlayerInput", at = @At("TAIL"))
     public void onPlayerInput(ServerboundPlayerInputPacket packet, CallbackInfo ci) {
         ServerPlayer player = this.getPlayer();
-        PlayerInputManager.TICK_PLAYER_QUEUE.add(new PairWrapper<>(player, packet));
+//        System.out.println(packet);
+        ServerPlayerInputManager.TICK_PLAYER_QUEUE.add(new PairWrapper<>(player, packet));
     }
 
     @Inject(method = "handlePlayerCommand", at = @At("TAIL"))
     public void onClientCommand(ServerboundPlayerCommandPacket packet, CallbackInfo ci) {
         ServerPlayer player = this.getPlayer();
-        PlayerInputManager.TICK_PLAYER_QUEUE.add(new PairWrapper<>(player, packet));
+//        System.out.println(packet);
+        ServerPlayerInputManager.TICK_PLAYER_QUEUE.add(new PairWrapper<>(player, packet));
     }
 }

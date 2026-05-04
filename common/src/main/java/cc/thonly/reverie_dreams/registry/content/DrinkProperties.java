@@ -4,9 +4,9 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.registry.DrinkPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.item.DrinkPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -34,8 +34,9 @@ import java.util.function.Supplier;
 @SuppressWarnings("Convert2MethodRef")
 @Slf4j
 public class DrinkProperties {
-    private static final Map<Item, Set<DrinkProperty>> ITEM_CACHE = new Object2ObjectLinkedOpenHashMap<>();
-    private static final Map<Item, Integer> PRICE_CALCULATION_TABLE = new Object2ObjectOpenHashMap<>();
+    public static final Map<Item, Set<DrinkProperty>> ITEM_CACHE = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Map<DrinkProperty, Set<Item>> PROPERTY_CACHE = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Map<Item, Integer> PRICE_CALCULATION_TABLE = new Object2ObjectOpenHashMap<>();
     public static final DrinkProperty UNDEFINED = register("undefined", () -> new DrinkProperty());
     public static final DrinkProperty ALCOHOL_FREE = register("alcohol-free", () -> new DrinkProperty());
     public static final DrinkProperty LOW_ALCOHOL = register("low_alcohol", () -> new DrinkProperty());
@@ -115,12 +116,11 @@ public class DrinkProperties {
     private static <T extends DrinkProperty> T register(String name, Supplier<T> factory) {
         T property = factory.get();
         property.setId(ReverieDreams.id(name));
-        return (T) RegistryHandlers.registerForBuiltin(RegistryHandlers.DRINK_PROPERTY, ReverieDreams.id(name), property);
+        return (T) RegistryImpls.registerForBuiltin(RegistryImpls.DRINK_PROPERTY, ReverieDreams.id(name), property);
     }
 
     public static void reload(ResourceManager manager) {
-        ITEM_CACHE.clear();
-        PRICE_CALCULATION_TABLE.clear();
+        unbound();
         List<DrinkProperty.Data> drinkPropertyData = new ArrayList<>();
 
         Map<Identifier, Resource> resources = manager.listResources("drink_property", id ->
@@ -131,7 +131,7 @@ public class DrinkProperties {
             Identifier resourceId = entry.getKey();
             Identifier key = Identifier.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath().replace("drink_property/", "").replace(".json", ""));
             Resource resource = entry.getValue();
-            DrinkProperty property = RegistryHandlers.DRINK_PROPERTY.getValue(key);
+            DrinkProperty property = RegistryImpls.DRINK_PROPERTY.getValue(key);
 
             if (property == null) {
                 ReverieDreams.LOGGER.warn("Unknown DrinkProperty id: {}", resourceId);
@@ -154,7 +154,7 @@ public class DrinkProperties {
         Map<DrinkProperty, Set<Item>> drinkPropertySetMap = new Object2ObjectLinkedOpenHashMap<>();
         for (DrinkProperty.Data drinkPropertyDatum : drinkPropertyData) {
             Identifier id = drinkPropertyDatum.id();
-            DrinkProperty property = RegistryHandlers.DRINK_PROPERTY.getValue(id);
+            DrinkProperty property = RegistryImpls.DRINK_PROPERTY.getValue(id);
             if (property == null) {
                 log.warn("Unknown food property {}", id);
                 continue;
@@ -180,6 +180,7 @@ public class DrinkProperties {
                 ITEM_CACHE.computeIfAbsent(item, k -> new LinkedHashSet<>())
                         .add(property);
             }
+            PROPERTY_CACHE.computeIfAbsent(property, p -> new LinkedHashSet<>()).addAll(items);
         });
         ITEM_CACHE.forEach((item, drinkProperties) -> {
             int cost = 8;
@@ -187,6 +188,12 @@ public class DrinkProperties {
             PRICE_CALCULATION_TABLE.put(item, cost);
         });
         log.info("Ingredients TAG loading completed");
+    }
+
+    public static void unbound() {
+        ITEM_CACHE.clear();
+        PROPERTY_CACHE.clear();
+        PRICE_CALCULATION_TABLE.clear();
     }
 
     public static void registerByPair(Pair<DrinkProperty, Collection<Item>> pair) {
@@ -204,7 +211,7 @@ public class DrinkProperties {
         }
     }
 
-    public static void bootstrap(RegistryHandler<DrinkProperty> registry) {
+    public static void bootstrap(RegistryImpl<DrinkProperty> registry) {
 
     }
 }

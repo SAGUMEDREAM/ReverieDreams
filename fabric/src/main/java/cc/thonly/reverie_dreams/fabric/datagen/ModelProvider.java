@@ -8,9 +8,9 @@ import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.item.builder.RoleCard;
+import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.mixin.accessor.BlockModelGeneratorsAccessor;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
@@ -377,7 +377,7 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateDanmakuItemModels(ItemModelGenerators itemModelGenerator) {
-        for (Item item : RegistryHandlers.DANMAKU_TYPE.values()
+        for (Item item : RegistryImpls.DANMAKU_TYPE.values()
                 .stream()
                 .filter(type -> !type.isDeleteFromList())
                 .map(DanmakuType::getItemHolder)

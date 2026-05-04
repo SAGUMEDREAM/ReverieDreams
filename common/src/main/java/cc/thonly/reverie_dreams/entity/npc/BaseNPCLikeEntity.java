@@ -14,7 +14,7 @@ import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerEntityAccessor;
 import cc.thonly.reverie_dreams.networking.payload.SyncEntityPacket;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -237,8 +237,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         view.putBoolean("IsSwing", this.swinging);
         view.putBoolean("IsSit", this.sit);
         view.putString("NpcOwner", this.npcOwner);
-        view.putString("NPCStateId", Optional.ofNullable(RegistryHandlers.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
-        view.putString("NPCWorkStateId", Optional.ofNullable(RegistryHandlers.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
+        view.putString("NPCStateId", Optional.ofNullable(RegistryImpls.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
+        view.putString("NPCWorkStateId", Optional.ofNullable(RegistryImpls.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
         view.putFloat("FoodNutrition", this.nutrition);
         view.putFloat("FoodSaturation", this.saturation);
         view.putFloat("FoodExhaustionLevel", this.exhaustionLevel);
@@ -715,16 +715,16 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     public NPCState getNextState() {
         if (this.isSleeping()) return this.npcState;
-        int rawId = RegistryHandlers.NPC_STATE.getId(this.npcState);
+        int rawId = RegistryImpls.NPC_STATE.getId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId + 1);
         return next != null ? next : NPCStates.fromInt(0);
     }
 
     public NPCState getPreviousState() {
         if (this.isSleeping()) return this.npcState;
-        int rawId = RegistryHandlers.NPC_STATE.getId(this.npcState);
+        int rawId = RegistryImpls.NPC_STATE.getId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId - 1);
-        Map<Integer, Holder.Reference<NPCState>> rawToEntry = RegistryHandlers.NPC_STATE.getIdToEntryMap();
+        Map<Integer, Holder.Reference<NPCState>> rawToEntry = RegistryImpls.NPC_STATE.getIdToEntryMap();
         int maxKey = Collections.max(rawToEntry.keySet());
         return next != null ? next : NPCStates.fromInt(maxKey);
     }

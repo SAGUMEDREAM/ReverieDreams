@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.FoodPropertyItemUseCallback;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
@@ -31,8 +31,8 @@ import java.util.*;
 @EqualsAndHashCode
 public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodProperty>, BuiltinObject, Translatable {
     public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
-    public static final Codec<FoodProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryHandlers.FOOD_PROPERTY::getValue, entry -> {
-        Identifier key = RegistryHandlers.FOOD_PROPERTY.getKey(entry);
+    public static final Codec<FoodProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryImpls.FOOD_PROPERTY::getValue, entry -> {
+        Identifier key = RegistryImpls.FOOD_PROPERTY.getKey(entry);
         if (key == null) {
             return UNDEFINED;
         }
@@ -43,7 +43,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
     private Identifier id;
     private final MobEffectInstance effectInstance;
 
-    private RegistryHandler<FoodProperty> owner;
+    private RegistryImpl<FoodProperty> owner;
 
     public FoodProperty() {
         this.effectInstance = new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY, 1));
@@ -65,7 +65,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodP
     }
 
     public static String getDisplayPrefix(ItemStack itemStack, FoodProperty foodProperty) {
-        for (CraftingConflict conflict : RegistryHandlers.CRAFTING_CONFLICT.values()) {
+        for (CraftingConflict conflict : RegistryImpls.CRAFTING_CONFLICT.values()) {
             if (conflict.test(itemStack, foodProperty)) {
                 return "§c-";
             }

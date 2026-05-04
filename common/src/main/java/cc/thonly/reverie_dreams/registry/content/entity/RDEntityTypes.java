@@ -12,7 +12,7 @@ import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.entity.villager.FumoSeller;
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
-import cc.thonly.reverie_dreams.item.base.SpawnEggItem;
+import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -96,10 +96,10 @@ public class RDEntityTypes {
                 FumoSeller::createLivingAttributes
         );
         MAGIC_BROOM = registerEntityWithSpawnEgg(registrar, "broom",
-                () -> EntityType.Builder.of(MagicBroom::new, MobCategory.MISC),
+                () -> EntityType.Builder.<MagicBroom>of(MagicBroom::new, MobCategory.MISC).sized(0.8f, 1f).ridingOffset(1f),
                 MagicBroom::createLivingAttributes);
         WHEEL_CHAIR = registerEntityWithSpawnEgg(registrar, "wheel_chair",
-                () -> EntityType.Builder.of(Wheelchair::new, MobCategory.MISC),
+                () -> EntityType.Builder.<Wheelchair>of(Wheelchair::new, MobCategory.MISC).ridingOffset(0.4f),
                 Wheelchair::createLivingAttributes);
         SCARECROW = registerEntityWithSpawnEgg(registrar, "scarecrow",
                 () -> EntityType.Builder.<Scarecrow>of(Scarecrow::new, MobCategory.MISC),
@@ -290,7 +290,7 @@ public class RDEntityTypes {
 
     public static <T extends Entity> BalmItemRegistration registerSpawnEggItem(String eggName, BalmEntityTypeRegistration<T> entityTypeRegistration) {
         BalmItemRegistrar itemRegistrar = ReverieDreams.getItemRegistrar();
-        BalmItemRegistration itemRegistration = itemRegistrar.register(eggName, props -> new SpawnEggItem(eggName, (EntityType<? extends Mob>) entityTypeRegistration.asHolder().value(), props));
+        BalmItemRegistration itemRegistration = itemRegistrar.register(eggName, props -> new ColoredSpawnEggItem(eggName, (EntityType<? extends Mob>) entityTypeRegistration.asHolder().value(), props));
         SPAWN_EGG_ITEM_LIST.add(itemRegistration.asDeferredItem());
         return itemRegistration;
     }

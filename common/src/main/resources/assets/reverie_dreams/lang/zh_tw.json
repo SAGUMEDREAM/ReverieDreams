@@ -1226,5 +1226,17 @@
   "gui.npc.work.mode.polyfactory/hand_crank": "§d搖動曲柄",
   "item.reverie_dreams.dream_spear": "夢境水晶矛",
   "item.reverie_dreams.magic_ice_spear": "冰霜長矛",
-  "item.reverie_dreams.silver_spear": "銀製長矛"
+  "item.reverie_dreams.silver_spear": "銀製長矛",
+  "booklet_category.reverie_dreams.basics": "基礎知識",
+  "entity.reverie_dreams.rabbit_unit": "月兔戰士",
+  "item.reverie_dreams.guidebook": "幻想鄉指南",
+  "item.reverie_dreams.guidebook.desc": "§a夢想中的幻想鄉§r使用說明！",
+  "item.reverie_dreams.rabbit_unit_spawn_egg": "月兔戰士生成蛋",
+  "item.reverie_dreams.weapon_of_the_moon": "月之兵器",
+  "item_view.information.desc.chest_drop_items": "取得方式：從寶箱獲得",
+  "item_view.information.desc.drinks": "取得方式：可向酒館老闆購買",
+  "item_view.information.desc.fishing": "取得方式：釣魚",
+  "item_view.information.desc.fumos": "取得方式：向 Fumo 商人購買",
+  "item_view.information.desc.grass_drop_items": "取得方式：破壞草",
+  "item_view.information.desc.truffle": "取得方式：破壞橡木／樺木／深色橡木／雲杉原木"
 }

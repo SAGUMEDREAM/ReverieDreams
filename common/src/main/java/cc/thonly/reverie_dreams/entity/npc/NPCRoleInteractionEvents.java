@@ -4,10 +4,10 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.gui.NPCGui;
 import cc.thonly.reverie_dreams.inf.IItemStack;
-import cc.thonly.reverie_dreams.registry.RegistryHandlers;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryHandler;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
@@ -171,13 +171,13 @@ public class NPCRoleInteractionEvents {
         return NPCInteractResult.PASS;
     });
 
-    public static void bootstrap(RegistryHandler<NPCRoleInteractionEvent> registry) {
+    public static void bootstrap(RegistryImpl<NPCRoleInteractionEvent> registry) {
 
     }
 
     public static InteractionResult emit(ServerLevel world, ServerPlayer player, InteractionHand hand, NPCRoleEntity entity) {
         ItemStack itemStack = player.getItemInHand(hand);
-        for (NPCRoleInteractionEvent event : RegistryHandlers.ROLE_INTERACTION_EVENT) {
+        for (NPCRoleInteractionEvent event : RegistryImpls.ROLE_INTERACTION_EVENT) {
             int i = 0;
             NPCInteractResult interact = null;
             try {
@@ -195,7 +195,7 @@ public class NPCRoleInteractionEvents {
                 log.error("Role Interaction event {} triggering failed", interact != null ? interact.name() : i, err);
             }
         }
-        return InteractionResult.CONSUME;
+        return InteractionResult.PASS;
     }
 
     public static NPCRoleMessage registerMessage(MutableComponent mutableText) {
@@ -225,6 +225,6 @@ public class NPCRoleInteractionEvents {
 
     public static NPCRoleInteractionEvent registerEvent(Identifier eventId, NPCRoleInteractionEvent.InteractionCallback callback) {
         NPCRoleInteractionEvent event = new NPCRoleInteractionEvent(callback);
-        return RegistryHandlers.registerForBuiltin(RegistryHandlers.ROLE_INTERACTION_EVENT, eventId, event);
+        return RegistryImpls.registerForBuiltin(RegistryImpls.ROLE_INTERACTION_EVENT, eventId, event);
     }
 }

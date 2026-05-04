@@ -1,2 +1,14 @@
 {
+  "booklet_category.reverie_dreams.basics": "基础知识",
+  "entity.reverie_dreams.rabbit_unit": "月兔战士",
+  "item.reverie_dreams.guidebook": "幻想乡指南",
+  "item.reverie_dreams.guidebook.desc": "§a夢見る幻想郷§r使用指南！",
+  "item.reverie_dreams.rabbit_unit_spawn_egg": "月兔战士刷怪蛋",
+  "item.reverie_dreams.weapon_of_the_moon": "月之兵器",
+  "item_view.information.desc.chest_drop_items": "获取方式：开启宝箱获得",
+  "item_view.information.desc.drinks": "获取方式：酒馆老板处可购买",
+  "item_view.information.desc.fishing": "获取方式：通过钓鱼获得",
+  "item_view.information.desc.fumos": "获取方式：可在 Fumo 商人处购买",
+  "item_view.information.desc.grass_drop_items": "获取方式：破坏草获得",
+  "item_view.information.desc.truffle": "获取方式：破坏橡木/白桦/深色橡木/云杉原木获得"
 }
