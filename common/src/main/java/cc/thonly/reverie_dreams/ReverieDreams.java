@@ -456,7 +456,7 @@ public class ReverieDreams {
             mutableText.append(" §r[");
             mutableText.append(Component.translatable("item.action.click.left").setStyle(Style.EMPTY.withClickEvent(new ClickEvent.OpenUrl(URI.create("https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams")))));
             mutableText.append("§r]");
-            player.displayClientMessage(mutableText, false);
+            player.sendSystemMessage(mutableText, false);
         });
         LivingEntityCallback.Death.Before.EVENT.register((entity, damageSource) -> {
             return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE);

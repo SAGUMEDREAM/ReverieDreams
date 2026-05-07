@@ -17,11 +17,6 @@ neoForge {
         accessTransformers.from(at.absolutePath)
     }
 
-    parchment {
-        minecraftVersion = minecraft_version
-        mappingsVersion = parchment_mapping_version
-    }
-
     runs {
         configureEach {
             //noinspection GroovyAssignabilityCheck
@@ -52,17 +47,17 @@ dependencies {
     implementation("net.blay09.mods:balm-neoforge:${balm_version}") {
         changing = balm_version.contains("SNAPSHOT")
     }
-    compileOnly("cc.thonly:keine-common:1.21.11-1.0.0")
-    compileOnly("software.bernie.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
+    compileOnly("cc.thonly:keine-common:${keine_version}")
+    compileOnly("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-//    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
-    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
-    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+//    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+//    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 
-    jarJar(implementation("cc.thonly:keine-neoforge:1.21.11-1.0.0"))
-    jarJar(implementation("cc.thonly:sgui_balm-neoforge:1.21.11-21.11.0"))
-    jarJar(implementation("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))
+    jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))
+    jarJar(implementation("cc.thonly:sgui-neoforge:${sgui_common_version}"))
+    jarJar(implementation("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))
 
     jarJar(implementation('com.squareup.okhttp3:okhttp:4.12.0'))
     jarJar(implementation('com.squareup.okio:okio:3.4.0'))

@@ -1,5 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.5.0+26.1.2
+* Update for 26.1.2
+
 # 0.4.18+1.21.11
 
 * Rewrite chest loot

@@ -40,8 +40,8 @@
     "reverie_dreams.fabric.polymer.mixins.json"
   ],
   "depends": {
-    "java": "21",
-    "minecraft": "1.21.11",
+    "java": "25",
+    "minecraft": "26.1.2",
     "balm-fabric": "*",
     "fabricloader": "*",
     "fabric-api": "*"

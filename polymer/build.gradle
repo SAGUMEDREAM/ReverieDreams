@@ -12,46 +12,41 @@ plugins {
 apply from: rootProject.file('repositories.gradle')
 dependencies {
     minecraft "net.minecraft:minecraft:${minecraft_version}"
-    mappings loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:${parchment_version}:${parchment_mapping_version}")
-    }
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
-    api project.files("/libs/keine-common-1.21.11-21.11.0.jar")
+    compileOnly("cc.thonly:keine-common:26.1.2-1.0.3")
 
-    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
-    modImplementation("net.blay09.mods:balm-fabric:${balm_version}") {
+    compileOnly("net.fabricmc:fabric-loader:${fabric_loader_version}")
+    compileOnly("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+    compileOnly("net.blay09.mods:balm-fabric:${balm_version}") {
         changing = balm_version.contains("SNAPSHOT")
     }
-    modImplementation include("eu.pb4:polymer-autohost:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-blocks:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-common:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-core:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-networking:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-reg-sync-manipulator:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-resource-pack-extras:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-resource-pack:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-sound-patcher:[${polymer_version}]")
-    modImplementation include("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
-    modImplementation include("eu.pb4:factorytools:[${factorytools_version}]")
-    modImplementation include("eu.pb4:sgui:[${sgui_version}]")
-    modImplementation include("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
-    modImplementation include("xyz.nucleoid:server-translations-api:${server_translations_api_version}")
-    modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+    compileOnly include("eu.pb4:polymer-autohost:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-blocks:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-common:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-core:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-networking:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-reg-sync-manipulator:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-resource-pack-extras:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-resource-pack:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-sound-patcher:[${polymer_version}]")
+    compileOnly include("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
+    compileOnly include("eu.pb4:factorytools:[${factorytools_version}]")
+    compileOnly include("eu.pb4:sgui:[${sgui_fabric_version}]")
+    compileOnly include("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
+    compileOnly include("xyz.nucleoid:server-translations-api:${server_translations_api_version}")
+    compileOnly("com.terraformersmc:modmenu:${modmenu_version}")
+    compileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modImplementation include("de.tomalbrc:blockbench-import-library:${bil_version}")
-    modImplementation include("eu.pb4:booklet:${booklet_version}")
-    modImplementation include("eu.pb4:map-canvas-api:${mapcanvas_version}")
-    modImplementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
+    compileOnly include("de.tomalbrc:blockbench-import-library:${bil_version}")
+    compileOnly include("eu.pb4:booklet:${booklet_version}")
+    compileOnly include("eu.pb4:map-canvas-api:${mapcanvas_version}")
+    compileOnly include("eu.pb4:placeholder-api:${placeholder_api_version}")
 
-    modImplementation project(":fabric").files('libs/camera-obscura-1.2.2+1.21.11.jar')
+    compileOnly project(":fabric").files('libs/camera-obscura-1.2.2+1.21.11.jar')
     include("gg.moonflower:molang-compiler:3.1.1.19")
 
     compileOnly(project(":common"))
-    compileOnly(project(path: ":fabric", configuration: 'namedElements'))
 }
 
 tasks.processResources {
@@ -151,7 +146,7 @@ def includeDependencyJar = { File targetJar, List<String> list ->
     tempDir.deleteDir()
 }
 
-tasks.remapJar {
+tasks.jar {
     doLast {
         def jarFile = archiveFile.get().asFile
         // 这里传入你的依赖 jar 列表
@@ -163,7 +158,7 @@ tasks.remapJar {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    it.options.release = 21
+    it.options.release = 25
     options.compilerArgs << "-Xlint:-deprecation"
     options.compilerArgs += ["-Xlint:none"]
 }

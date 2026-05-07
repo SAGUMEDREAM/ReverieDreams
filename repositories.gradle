@@ -27,7 +27,13 @@ repositories {
             includeGroup("software.bernie.geckolib")
         }
     }
-
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupAndSubgroups('com.geckolib')
+        }
+    }
     maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
     maven { url = 'https://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url = "https://maven.fabricmc.net/" }
