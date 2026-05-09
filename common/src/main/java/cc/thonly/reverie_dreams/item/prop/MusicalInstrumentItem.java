@@ -40,13 +40,13 @@ public class MusicalInstrumentItem extends Item {
     public static final Codec<NoteBlockInstrument> NOTE_BLOCK_INSTRUMENT_CODEC = StringRepresentable.fromEnum(NoteBlockInstrument::values);
     public static final BlockPos NONE = new BlockPos(0, 0, 0);
     public static final AttackBlockCallback BLOCK_CALLBACK = (player, world, hand, blockPos, direction) -> {
-        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayer) {
             ItemStack stack = ItemUtils.getHandItem(player, itemStack -> itemStack.getItem() instanceof MusicalInstrumentItem);
 
-            if (!stack.isEmpty() && !player.isSpectator() && player.isShiftKeyDown()) {
+            if (!stack.isEmpty() && !serverPlayer.isSpectator() && serverPlayer.isShiftKeyDown()) {
                 List<String> fileNames = NotaUtils.getFileNames();
                 if (fileNames.isEmpty()) {
-                    player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
+                    serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
                     return InteractionResult.SUCCESS_SERVER;
                 }
 
@@ -56,8 +56,8 @@ public class MusicalInstrumentItem extends Item {
 
                 String previous = fileNames.get(index);
                 stack.set(RDDataComponents.PLAYING_MUSIC.value(), previous);
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", previous), false);
-                player.swing(hand);
+                serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.switch_music", previous), false);
+                serverPlayer.swing(hand);
 
                 return InteractionResult.SUCCESS_SERVER;
             }
@@ -129,7 +129,7 @@ public class MusicalInstrumentItem extends Item {
         List<String> fileNames = NotaUtils.getFileNames();
         if (fileNames.isEmpty()) {
             if (user instanceof ServerPlayer player) {
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
+                player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
             }
             return InteractionResult.FAIL;
         }
@@ -143,17 +143,17 @@ public class MusicalInstrumentItem extends Item {
             String next = fileNames.get(index);
             itemStack.set(RDDataComponents.PLAYING_MUSIC.value(), next);
             if (user instanceof ServerPlayer player) {
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", next), false);
+                player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.switch_music", next), false);
             }
         } else {
             if (playingMusic == null) {
                 if (user instanceof ServerPlayer player) {
-                    player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
+                    player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
                 }
             } else {
                 NotaUtils.play(user, playingMusic, noteBlockInstrument);
                 if (user instanceof ServerPlayer player && ReverieDreams.getServer() != null) {
-                    player.displayClientMessage(Component.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.getSerializedName()), false);
+                    player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.getSerializedName()), false);
                     ReverieDreams.getServer().executeIfPossible(() -> {
                         AABB box = player.getBoundingBox().inflate(NotaUtils.MAX_DISTANCE);
                         List<NPCRoleEntity> entities = world.getEntitiesOfClass(

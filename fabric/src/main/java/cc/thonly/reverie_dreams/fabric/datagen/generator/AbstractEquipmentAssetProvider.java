@@ -9,7 +9,7 @@ import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
@@ -31,11 +31,11 @@ import java.util.function.BiConsumer;
 @Slf4j
 @Environment(value = EnvType.CLIENT)
 public abstract class AbstractEquipmentAssetProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public AbstractEquipmentAssetProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractEquipmentAssetProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }

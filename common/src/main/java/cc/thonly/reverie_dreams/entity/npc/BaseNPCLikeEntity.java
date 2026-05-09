@@ -157,8 +157,6 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             BaseNPCLikeEntity.this.setAggressive(true);
         }
     };
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.NEAREST_BED);
-    private static final ImmutableList<SensorType<? extends Sensor<? super BaseNPCLikeEntity>>> SENSORS = ImmutableList.of();
 
     public BaseNPCLikeEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world);
@@ -169,10 +167,6 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     public BaseNPCLikeEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         this(entityType, world);
         this.setSkinType(skinType);;
-    }
-
-    protected Brain.Provider<BaseNPCLikeEntity> brainProvider() {
-        return Brain.provider(MEMORY_MODULES, SENSORS);
     }
 
     public void init() {
@@ -186,8 +180,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.setTame(false, false);
         this.setCanPickUpLoot(true);
 
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0f);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0f);
+        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 16.0f);
+        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, -1.0f);
     }
 
     @Override
@@ -329,7 +323,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         if (itemStack.getItem() instanceof CrossbowItem) {
             ChargedProjectiles chargedProjectilesComponent = itemStack.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
             if (chargedProjectilesComponent != null) {
-                for (ItemStack projStack : chargedProjectilesComponent.getItems()) {
+                for (ItemStack projStack : chargedProjectilesComponent.itemCopies()) {
                     Projectile projectile = this.createArrowProjectile(projStack, 3.15f, itemStack);
                     shoot(target, projStack, projectile);
                     shoot(target, projStack, projectile);

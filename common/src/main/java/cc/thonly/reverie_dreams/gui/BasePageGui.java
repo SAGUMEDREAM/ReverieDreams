@@ -9,12 +9,14 @@ import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import eu.pb4.sgui.api.gui.SlotBasedGui;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
@@ -90,19 +92,19 @@ public class BasePageGui extends SimpleGui {
     }
 
     @Override
-    public boolean onAnyClick(int index, ClickType type, net.minecraft.world.inventory.ClickType action) {
+    public boolean onAnyClick(int index, ClickType type, ContainerInput action) {
         this.updated = true;
         return super.onAnyClick(index, type, action);
     }
 
-    public void clickIcon(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void clickIcon(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         int iconIndex = this.page * PER_PAGE_SIZE + index;
         if (this.maxSize > iconIndex) {
 
         }
     }
 
-    public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();
@@ -110,7 +112,7 @@ public class BasePageGui extends SimpleGui {
         }
     }
 
-    public void next(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void next(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
@@ -118,7 +120,7 @@ public class BasePageGui extends SimpleGui {
         }
     }
 
-    public void prev(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void prev(int index, ClickType clickType, ContainerInput action, SlotBasedGui slotBasedGui) {
         this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
 
         if (this.page > getMinPage()) {

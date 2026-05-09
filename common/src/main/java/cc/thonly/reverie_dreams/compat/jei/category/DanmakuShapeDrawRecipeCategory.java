@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.util.item.DataComponentInitializersAccess;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -21,7 +22,7 @@ public class DanmakuShapeDrawRecipeCategory implements IRecipeCategory<DanmakuSh
     private final IDrawable icon;
 
     public DanmakuShapeDrawRecipeCategory(IGuiHelper helper) {
-        this.title = RDItems.DANMAKU_SHAPE_CREATOR.asItem().getName();
+        this.title = DataComponentInitializersAccess.getNameByNonEmpty(RDItems.DANMAKU_SHAPE_CREATOR);
         this.helper = helper;
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, RDItems.DANMAKU_SHAPE_CREATOR.createStack());
     }

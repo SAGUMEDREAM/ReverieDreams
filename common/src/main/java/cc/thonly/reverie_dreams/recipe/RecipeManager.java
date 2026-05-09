@@ -45,7 +45,7 @@ public class RecipeManager {
 
     public static void bootstrap(BalmRegistrars registrars) {
         BalmRegistrar.Scoped<RecipeSerializer<?>> recipeSerializerScoped = registrars.registrar(Registries.RECIPE_SERIALIZER);
-        DANMAKU_DYE_RECIPE = registerRecipeSerializer(recipeSerializerScoped, "crafting_special_danmakudye", key -> new CustomRecipe.Serializer<>(DanmakuDyeRecipe::new));
+        DANMAKU_DYE_RECIPE = registerRecipeSerializer(recipeSerializerScoped, "crafting_special_danmakudye", key -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

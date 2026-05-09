@@ -1,18 +1,18 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import cc.thonly.reverie_dreams.inf.ItemSettingsAccessorImpl;
-import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentInitializers;
 import net.minecraft.resources.DependantName;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(Item.Properties.class)
-public interface ItemSettingsAccessor extends ItemSettingsAccessorImpl {
+public interface ItemSettingsAccessor {
     @Accessor("BLOCK_DESCRIPTION_ID")
     public static DependantName<Item, String> BLOCK_PREFIXED_TRANSLATION_KEY() {
         throw new UnsupportedOperationException();
@@ -23,12 +23,12 @@ public interface ItemSettingsAccessor extends ItemSettingsAccessorImpl {
         throw new UnsupportedOperationException();
     }
 
-    @Accessor("components")
-    public DataComponentMap.Builder getComponents();
+    @Accessor("componentInitializer")
+    public DataComponentInitializers.Initializer<Item> getComponentInitializers();
 
     @Accessor("craftingRemainingItem")
     @Nullable
-    public Item getRecipeRemainder();
+    public ItemStackTemplate getRecipeRemainder();
 
     @Accessor("requiredFeatures")
     public FeatureFlagSet getRequiredFeatures();

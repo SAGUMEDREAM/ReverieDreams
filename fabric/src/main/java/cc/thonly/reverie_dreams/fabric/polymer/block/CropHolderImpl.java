@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.fabric.polymer.block;
 
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.util.LazyItemStack;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
@@ -15,29 +16,29 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.Map;
 
 public class CropHolderImpl implements PolymerTexturedBlock, FactoryBlock {
     private final AbstractCropBlock block;
-    private final Map<Integer, ItemStack> age2itemStackHolder = new Object2ObjectLinkedOpenHashMap<>();
+    private final Map<Integer, LazyItemStack> age2itemStackHolder = new Object2ObjectLinkedOpenHashMap<>();
 
     public CropHolderImpl(AbstractCropBlock block) {
         this.block = block;
     }
 
-    @SuppressWarnings("deprecation")
     void parse() {
         Identifier key = BuiltInRegistries.BLOCK.getKey(this.block);
         for (int index = 0; index <= this.block.getMaxAge(); index++) {
             String modelId = "%s:block/%s_stage%s".formatted(key.getNamespace(), key.getPath(), index);
-            ItemStack model = ItemDisplayElementUtil.getModel(Identifier.parse(modelId));
+            LazyItemStack model = ItemDisplayElementUtil.getModel(Identifier.parse(modelId));
 //            System.out.println(modelId);
             this.age2itemStackHolder.put(index, model);
         }
@@ -84,7 +85,7 @@ public class CropHolderImpl implements PolymerTexturedBlock, FactoryBlock {
 
         protected void updateItem(BlockState state) {
             int age = state.getValue(CropHolderImpl.this.block.getAgeProperty());
-            this.main.setItem(CropHolderImpl.this.age2itemStackHolder.getOrDefault(age, new ItemStack(Items.BARRIER)));
+            this.main.setItem(CropHolderImpl.this.age2itemStackHolder.getOrDefault(age, new LazyItemStack(() -> new ItemStack(Items.BARRIER))).get());
         }
 
         @Override

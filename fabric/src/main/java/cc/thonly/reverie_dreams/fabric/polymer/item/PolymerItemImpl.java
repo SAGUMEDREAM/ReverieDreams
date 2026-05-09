@@ -10,8 +10,10 @@ import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
-import eu.pb4.polymer.core.api.utils.PolymerKeepModel;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.Connection;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -20,11 +22,12 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.List;
+import java.util.Objects;
 
-public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, PolymerKeepModel {
+public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded {
     private final Item item;
 
     public PolymerItemImpl(Item item) {
@@ -33,10 +36,10 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
 
     @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext context) {
-        ServerPlayer player = context.getPlayer();
-        if (player != null && ReverieDreams.hasModWithVersion(player)) {
-            return itemStack.getItem();
-        }
+//        ServerPlayer player = context.getPlayer();
+//        if (player != null && ReverieDreams.hasModWithVersion(player)) {
+//            return itemStack.getItem();
+//        }
         if (this.item instanceof WeaponOfTheMoon) {
             return Items.BOW;
         }
@@ -66,12 +69,12 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded, Polym
     }
 
     @Override
-    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {
-        PolymerItem.super.modifyBasePolymerItemStack(out, stack, context);
-        this.modifyForFoodTag(out, stack, context);
+    public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context, HolderLookup.Provider lookup) {
+        PolymerItem.super.modifyBasePolymerItemStack(out, stack, context, lookup);
+        this.modifyForFoodTag(out, stack, context, lookup);
     }
 
-    private void modifyForFoodTag(ItemStack out, ItemStack stack, PacketContext context) {
+    private void modifyForFoodTag(ItemStack out, ItemStack stack, PacketContext context, HolderLookup.Provider lookup) {
         if (stack.has(RDDataComponents.FOOD_ITEM_TYPE.value())) {
             FoodProperties foodProps = stack.get(DataComponents.FOOD);
             if (foodProps == null) {

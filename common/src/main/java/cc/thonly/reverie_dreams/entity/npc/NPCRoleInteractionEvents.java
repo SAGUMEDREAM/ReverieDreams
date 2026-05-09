@@ -71,7 +71,7 @@ public class NPCRoleInteractionEvents {
                         world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, SoundSource.HOSTILE);
                     }
             );
-            player.displayClientMessage(body, false);
+            player.sendSystemMessage(body, false);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;

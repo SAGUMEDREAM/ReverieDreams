@@ -45,7 +45,7 @@ public class ReverieDreamsClient {
     public static final Logger LOGGER = LoggerFactory.getLogger(ReverieDreams.MOD_ID);
 
     public static void initialize(BalmClientRegistrars registrars, Runnable lateInit) {
-        registrars.blockRenderTypes(RDBlockRenderTypes::initialize);
+//        registrars.blockRenderTypes(RDBlockRenderTypes::initialize);
         registrars.blockEntityRenderers(RDBlockEntityRenderers::initialize);
         registrars.entityRenderers(RDEntityRenderers::initialize);
         ReverieDreamsClient.initializeClientEvent(registrars);

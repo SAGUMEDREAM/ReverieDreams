@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;
 import lombok.Getter;
@@ -33,11 +34,11 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
     }
 
     public void init() {
-        this.setSlotRedirect(0, new Slot(this.blockEntity.getInventory(), 0, 0, 0));
-        this.setSlotRedirect(1, new Slot(this.blockEntity.getInventory(), 1, 0, 0));
+        this.setSlot(0, new Slot(this.blockEntity.getInventory(), 0, 0, 0));
+        this.setSlot(1, new Slot(this.blockEntity.getInventory(), 1, 0, 0));
         this.output = new GuiElementBuilder()
                 .setItem(Items.AIR)
-                .setCallback((index, type, action) -> click()
+                .setCallback((index, type, action, basedGui) -> click()
                 );
         this.setSlot(2, this.output);
     }
@@ -62,9 +63,8 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
         if (entry != null) {
             ItemStackWrapper outputItemWrapper = entry.getOutput();
             this.output = new GuiElementBuilder()
-                    .setCallback((index, type, action) -> click());
-            IGuiElementBuilderAccessor outputAccessor = (IGuiElementBuilderAccessor) this.output;
-            outputAccessor.reverie_dreams$setItemStack(outputItemWrapper.getItemStack().copy());
+                    .setCallback((index, type, action, basedGui) -> click());
+            GuiElementBuilderSetter.setter(this.output, outputItemWrapper.getItemStack().copy());
         } else {
             this.output = new GuiElementBuilder().setItem(Items.AIR);
         }
@@ -105,10 +105,8 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
+    public void close() {
+        super.close();
         this.blockEntity.setChanged();
     }
-
-
 }

@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.inf.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemWrapper;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import lombok.Setter;
@@ -89,7 +90,7 @@ public class FoodDisplayBlock extends BaseEntityBlock {
                         isdBlockEntity.setChanged();
                     } else {
                         ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
-                        isdBlockEntity.setItem(ItemStackWrapper.empty());
+                        isdBlockEntity.setItem(ItemWrapper.empty().build());
                         serverWorld.addFreshEntity(itemEntity);
                         isdBlockEntity.update();
                     }
@@ -110,7 +111,7 @@ public class FoodDisplayBlock extends BaseEntityBlock {
             ItemStackWrapper item = isdBlockEntity.getItem();
             if (!item.isEmpty()) {
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
-                isdBlockEntity.setItem(ItemStackWrapper.empty());
+                isdBlockEntity.setItem(ItemWrapper.empty().build());
                 serverWorld.addFreshEntity(itemEntity);
             }
         }

@@ -28,7 +28,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -53,7 +53,7 @@ public interface PlayerPolymerEntity extends PolymerEntity, PolymerHolderEntity 
 
     @Override
     default void onBeforeSpawnPacket(ServerPlayer player, Consumer<Packet<?>> packetConsumer) {
-        var packet = PolymerEntityUtils.createMutablePlayerListPacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER));
+        var packet = PolymerEntityUtils.createMutablePlayerInfoUpdatePacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER));
         var profile = new GameProfile((this.getEntity()).getUUID(), "", new PropertyMap(ImmutableMultimap.of("textures", this.getSkin())));
         packet.entries().add(new ClientboundPlayerInfoUpdatePacket.Entry(
                 profile.id(),

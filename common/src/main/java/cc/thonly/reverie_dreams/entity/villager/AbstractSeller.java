@@ -254,7 +254,7 @@ public abstract class AbstractSeller extends WanderingTrader {
     public long getVillagerSeed() {
         UUID uuid = this.getUUID();
         Level world = this.level();
-        long day = world.getDayTime() / 24000L;
+        long day = world.getGameTime() / 24000L;
         long mostSigBits = uuid.getMostSignificantBits();
         long leastSigBits = uuid.getLeastSignificantBits();
         return mostSigBits + leastSigBits + day;
@@ -296,11 +296,13 @@ public abstract class AbstractSeller extends WanderingTrader {
             this.self.getSessions().add(this);
         }
 
+
         @Override
-        public void onClose() {
-            super.onClose();
+        public void close() {
+            super.close();
             this.self.getSessions().remove(this);
         }
+
     }
 
     public abstract boolean canReset();

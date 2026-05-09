@@ -6,10 +6,12 @@ import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import eu.pb4.sgui.api.gui.SlotBasedGui;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
@@ -28,8 +30,8 @@ public class RecipeTypeCategoryGui extends SimpleGui {
     public static final int PER_PAGE_SIZE = 5 * 9;
 
     public final List<GuiElementBuilder> recipeElements = new LinkedList<>();
-    public final GuiElementBuilder next = new GuiElementBuilder().setItem(Items.PLAYER_HEAD).setSkullOwner(PlayerHeadInfo.GUI_NEXT_PAGE).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
-    public final GuiElementBuilder prev = new GuiElementBuilder().setItem(Items.PLAYER_HEAD).setSkullOwner(PlayerHeadInfo.GUI_PREVIOUS_PAGE).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
+    public final GuiElementBuilder next = new GuiElementBuilder().setItem(Items.PLAYER_HEAD).setProfile(PlayerHeadInfo.GUI_NEXT_PAGE).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
+    public final GuiElementBuilder prev = new GuiElementBuilder().setItem(Items.PLAYER_HEAD).setProfile(PlayerHeadInfo.GUI_PREVIOUS_PAGE).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
     public int page = 0;
 
     public RecipeTypeCategoryGui(ServerPlayer player) {
@@ -72,21 +74,21 @@ public class RecipeTypeCategoryGui extends SimpleGui {
         }
     }
 
-    public void clickIcon(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void clickIcon(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         int iconIndex = this.page * PER_PAGE_SIZE + index;
         if (RecipeTypeCategoryManager.CATEGORY_ENTRIES.size() > iconIndex) {
             RecipeTypeGuiInfo<? extends BasePageGui> info = RecipeTypeCategoryManager.CATEGORY_ENTRIES.get(iconIndex);
         }
     }
 
-    public void next(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void next(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
         }
     }
 
-    public void prev(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void prev(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
 
         if (this.page > getMinPage()) {
@@ -119,7 +121,7 @@ public class RecipeTypeCategoryGui extends SimpleGui {
                         .setItem(recipeTypeGuiInfo.getIcon().getItem())
                         .setItemName(Component.translatable(recipeTypeGuiInfo.getId().toLanguageKey()))
                         .setLore(List.of())
-                        .setCallback((slot, click, action) -> {
+                        .setCallback((slot, click, input, basedGui) -> {
                             this.close();
                             this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             recipeTypeGuiInfo.create(player, () -> new RecipeTypeCategoryGui(player, this.page));

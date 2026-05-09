@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
+import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,10 +28,9 @@ public interface DisplayView {
 
 
     default GuiElementBuilder getGuiElementBuilder(ItemStackWrapper recipe) {
-        GuiElementBuilder guiElementBuilder = new GuiElementBuilder();
-        IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) guiElementBuilder;
-        accessor.reverie_dreams$setItemStack(recipe.getItemStack());
-        return guiElementBuilder;
+        GuiElementBuilder builder = new GuiElementBuilder();
+        GuiElementBuilderSetter.setter(builder, recipe.getItemStack());
+        return builder;
     }
 
     default String[][] getGrid() {

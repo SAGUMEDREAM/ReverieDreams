@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.util.entity;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import software.bernie.geckolib.animation.RawAnimation;
+import com.geckolib.animation.RawAnimation;
 
 import java.util.Map;
 

@@ -264,7 +264,19 @@ public class RDItems {
         CURSED_DECOY_DOLl = registerItem(balmItemRegistrar, "cursed_decoy_doll", props -> new CursedDecoyDollItem(props), new Item.Properties());
         VAISRAVANAS_PAGODA = registerItem(balmItemRegistrar, "vaisravanas_pagoda", props -> new VaisravanasPagodaItem(props.stacksTo(1).durability(250).repairable(RDItemTags.VAISRAVANAS_PAGODA)), new Item.Properties());
         DREAM_PILLOW = registerItem(balmItemRegistrar, "dream_pillow", props -> new DreamPillowItem(props.durability(4)), new Item.Properties());
-        TENGU_SHIELD = registerItem(balmItemRegistrar, "tengu_shield", props -> new TenguShieldItem(props.stacksTo(1).durability(600).repairable(ItemTags.IRON_TOOL_MATERIALS).equippableUnswappable(EquipmentSlot.OFFHAND).component(DataComponents.BLOCKS_ATTACKS, new BlocksAttacks(0.25F, 1.0F, List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)), new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD), Optional.of(SoundEvents.SHIELD_BLOCK), Optional.of(SoundEvents.SHIELD_BREAK))).component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)), new Item.Properties());
+        TENGU_SHIELD = registerItem(balmItemRegistrar, "tengu_shield", props -> new TenguShieldItem(props.stacksTo(1).durability(600).repairable(ItemTags.IRON_TOOL_MATERIALS).equippableUnswappable(EquipmentSlot.OFFHAND)
+                .delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(
+                        0.25F,
+                        1.0F,
+                        List.of(new BlocksAttacks.DamageReduction(90.0F,
+                                Optional.empty()
+                                , 0.0F, 1.0F)
+                        ),
+                        new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                        Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                        Optional.of(SoundEvents.SHIELD_BLOCK),
+                        Optional.of(SoundEvents.SHIELD_BREAK)))
+                .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)), new Item.Properties());
         TENGU_CAMERA = registerItem(balmItemRegistrar, "tengu_camera", props -> new TenguCameraItem(props.stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR)), new Item.Properties());
         HIMEKAIDOU_HATATES_PHONE = registerItem(balmItemRegistrar, "himekaidou_hatates_phone", props -> new HimekaidouHatatesPhone(props.component(RDDataComponents.FOV.value(), 75).stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR)), new Item.Properties());
         BAD_APPLE = registerItem(balmItemRegistrar, "bad_apple", props -> new BadAppleItem(props.food(Foods.GOLDEN_APPLE).stacksTo(16).rarity(Rarity.EPIC)), new Item.Properties());

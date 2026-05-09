@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
 import eu.pb4.factorytools.api.resourcepack.ModelModifiers;
 import eu.pb4.polymer.resourcepack.api.AssetPaths;
+import eu.pb4.polymer.resourcepack.api.PackResource;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.api.ResourcePackBuilder;
 import eu.pb4.polymer.resourcepack.extras.api.format.atlas.AtlasAsset;
@@ -116,12 +117,16 @@ public class ResourcePackGenerator {
                 }
             }
 
-            builder.addWriteConverter(((string, bytes) -> {
+            builder.addResourceConverter(((string, bytes) -> {
                 if (!string.contains("_uvlock_")) {
                     for (var expandable : EXPANDABLE) {
                         if (string.contains(expandable) && string.startsWith("assets/%s/models/block/".formatted(namespace))) {
-                            var asset = ModelAsset.fromJson(new String(bytes, StandardCharsets.UTF_8));
-                            return new ModelAsset(asset.parent().map(x -> Identifier.fromNamespaceAndPath(polymerify_namespace, x.getPath())), asset.elements(), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes();
+                            String modelJsonStr = bytes.asString();
+                            if (modelJsonStr == null) {
+                                return bytes;
+                            }
+                            var asset = ModelAsset.fromJson(modelJsonStr);
+                            return PackResource.of(new ModelAsset(asset.parent().map(x -> Identifier.fromNamespaceAndPath(polymerify_namespace, x.getPath())), asset.elements(), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
                         }
                     }
                 }
@@ -144,7 +149,7 @@ public class ResourcePackGenerator {
     }
 
     private static void buildCustomHolder(ResourcePackBuilder builder) {
-        builder.forEachFile(((path, bytes) -> {
+        builder.forEachResource(((path, bytes) -> {
             for (HolderResource holderResource : HOLDER_RESOURCES_SET) {
                 var namespace = holderResource.namespace();
                 var modelPath = holderResource.modelPath();
@@ -152,7 +157,11 @@ public class ResourcePackGenerator {
                 if (path.startsWith(modelPath)) {
                     double size = 0.08;
                     final var expansion = new Vec3(size, size, size);
-                    var asset = ModelAsset.fromJson(new String(bytes, StandardCharsets.UTF_8));
+                    String modelJsonStr = bytes.asString();
+                    if (modelJsonStr == null) {
+                        continue;
+                    }
+                    var asset = ModelAsset.fromJson(modelJsonStr);
                     if (asset.parent().isPresent()) {
                         var parentId = asset.parent().get();
                         var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
@@ -238,17 +247,21 @@ public class ResourcePackGenerator {
                 }
             }
 
-            builder.addWriteConverter(((string, bytes) -> {
+            builder.addResourceConverter(((string, bytes) -> {
                 if (!string.contains("_uvlock_") && string.startsWith(modelPath)) {
-                    var asset = ModelAsset.fromJson(new String(bytes, StandardCharsets.UTF_8));
-                    return new ModelAsset(
+                    String modelJsonStr = bytes.asString();
+                    if (modelJsonStr == null) {
+                        return bytes;
+                    }
+                    var asset = ModelAsset.fromJson(modelJsonStr);
+                    return PackResource.of(new ModelAsset(
                             asset.parent().map(x -> Identifier.fromNamespaceAndPath(polymerify_namespace, x.getPath())),
                             asset.elements(),
                             asset.textures(),
                             asset.display(),
                             asset.guiLight(),
                             asset.ambientOcclusion()
-                    ).toBytes();
+                    ).toBytes());
                 }
                 return bytes;
             }));

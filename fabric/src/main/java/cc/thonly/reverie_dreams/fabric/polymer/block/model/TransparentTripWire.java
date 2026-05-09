@@ -5,10 +5,10 @@ import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.core.api.block.PolymerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 public interface TransparentTripWire extends PolymerBlock, PolymerTexturedBlock {
-    BlockState TRANSPARENT_TRIPWIRE = PolymerBlockResourceUtils.requestEmpty(BlockModelType.TRIPWIRE_BLOCK);
+    BlockState TRANSPARENT_TRIPWIRE = PolymerBlockResourceUtils.requestEmpty(BlockModelType.TRIPWIRE);
     @Override
     default BlockState getPolymerBlockState(BlockState state, PacketContext context) {
         return TRANSPARENT_TRIPWIRE;

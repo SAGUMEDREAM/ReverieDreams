@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 @Pseudo
 @Mixin(value = PolymerBlockUtils.class)
 public class PolymerBlockUtilsMixin {
-    @Inject(method = "getBlockStateSafely(Leu/pb4/polymer/core/api/block/PolymerBlock;Lnet/minecraft/world/level/block/state/BlockState;ILxyz/nucleoid/packettweaker/PacketContext;)Lnet/minecraft/world/level/block/state/BlockState;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getBlockBreakBlockStateSafely", at = @At("HEAD"), cancellable = true)
     private static void check(PolymerBlock block, BlockState blockState, int maxDistance, PacketContext context, CallbackInfoReturnable<BlockState> cir) {
         BlockState out = block.getPolymerBlockState(blockState, context);
         if (out == null) {

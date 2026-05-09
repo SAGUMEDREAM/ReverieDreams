@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.recipe;
 
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,51 +17,24 @@ import lombok.ToString;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializer;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.*;
 import java.util.function.Supplier;
 
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "ClassCanBeRecord"})
 @Getter
 @Setter
 @ToString
-public class ItemStackWrapper {
-    public static final Gson GSON = new Gson();
-    public static final ItemStackWrapper EMPTY = new ItemStackWrapper(ItemStack.EMPTY);
-    public static final ItemStackWrapper ERROR = new ItemStackWrapper(createErrorItem());
-    public static final Codec<Item> ITEM_CODEC = Codec.STRING.xmap(
-            id -> {
-                Identifier identifier = Identifier.tryParse(id);
-                if (identifier == null) {
-                    return Items.AIR;
-                }
-                return BuiltInRegistries.ITEM.getValue(identifier);
-            },
-            item -> BuiltInRegistries.ITEM.getKey(item).toString()
-    );
-    public static final Codec<TagKey<Item>> TAG_KEY_CODEC =
-            Identifier.CODEC.xmap(
-                    id -> TagKey.create(Registries.ITEM, id),
-                    TagKey::location
-            );
+@Deprecated
+public class ItemStackWrapper implements ItemWrapper {
     public static final Codec<ItemStack> FLEXIBLE_ITEMSTACK_CODEC = Codec.lazyInitialized(() ->
             RecordCodecBuilder.create(instance -> instance.group(
                     ITEM_CODEC.fieldOf("id").forGetter(ItemStack::getItem),
@@ -88,11 +63,15 @@ public class ItemStackWrapper {
     }));
     public static final Codec<List<ItemStackWrapper>> LIST_CODEC = CODEC.listOf();
     public static final Codec<List<ItemStack>> ITEM_STACK_LIST_CODEC = ItemStackWrapper.FLEXIBLE_ITEMSTACK_CODEC.listOf();
-    public static final StreamCodec<RegistryFriendlyByteBuf,ItemStackWrapper> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
+    public static final StreamCodec<RegistryFriendlyByteBuf, ItemStackWrapper> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
     public static final EntityDataSerializer<ItemStackWrapper> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
 
     private final ItemStack itemStack;
     private final List<TagKey<Item>> tags;
+
+    public ItemStackWrapper(ItemStackTemplate template) {
+        this(template.create());
+    }
 
     public ItemStackWrapper(ItemStack itemStack) {
         if (itemStack == null) {
@@ -103,7 +82,7 @@ public class ItemStackWrapper {
     }
 
     public ItemStackWrapper(ItemStack itemStack, TagKey<Item> tags) {
-        this(itemStack, List.of(tags));
+        this(itemStack, new ArrayList<>(Collections.singletonList(tags)));
     }
 
     public ItemStackWrapper(ItemStack itemStack, List<TagKey<Item>> tags) {
@@ -126,15 +105,7 @@ public class ItemStackWrapper {
     }
 
     public boolean isEmpty() {
-        return (Objects.equals(this, EMPTY) || this.itemStack.isEmpty()) && this.tags.isEmpty();
-    }
-
-    public static ItemStackWrapper empty() {
-        return EMPTY;
-    }
-
-    public static ItemStackWrapper error() {
-        return ERROR;
+        return this.itemStack.isEmpty() && this.tags.isEmpty();
     }
 
     public static ItemStackWrapper of(ItemStack itemStack) {
@@ -190,24 +161,16 @@ public class ItemStackWrapper {
         return new ItemStackWrapper(item.getDefaultInstance(), tagKey);
     }
 
-    public static ItemStack createErrorItem() {
-        ItemStack stack = Items.WHITE_DYE.getDefaultInstance();
-        stack.set(DataComponents.ITEM_MODEL, BuiltInRegistries.ITEM.getKey(Items.BARRIER));
-        stack.set(DataComponents.ITEM_NAME, Component.literal("§cError Item"));
-        stack.set(DataComponents.LORE, new ItemLore(
-                new ArrayList<>(List.of(Component.literal("§cThis item failed to be serialized")))
-        ));
-        return stack;
-    }
-
     public ItemStackWrapper copy() {
         return this.clone();
     }
 
+    @Override
     public <T> T get(DataComponentType<T> type) {
         return this.itemStack.get(type);
     }
 
+    @Override
     public <T> T getOrCreate(DataComponentType<T> type, Supplier<T> supplier) {
         T val = this.get(type);
         if (val == null) {
@@ -218,25 +181,33 @@ public class ItemStackWrapper {
         return val;
     }
 
+    @Override
     public <T> T getOrDefault(DataComponentType<T> type, T value) {
         return this.itemStack.getOrDefault(type, value);
     }
 
     @Override
-    public ItemStackWrapper clone() {
-        return new ItemStackWrapper(this.itemStack.copy(), this.tags);
+    public <T> T set(DataComponentType<T> type, T value) {
+        return this.itemStack.set(type, value);
     }
 
+    @Override
+    public ItemStackWrapper clone() {
+        return new ItemStackWrapper(this.itemStack, this.tags);
+    }
+
+    @Override
     public Item getItem() {
         return this.itemStack.getItem();
     }
 
-    public Integer getCount() {
-        return this.itemStack.getCount();
+    @Override
+    public int getCount() {
+        return this.itemStack.count();
     }
 
     @SuppressWarnings("deprecation")
-    public Boolean test(ItemStack other) {
+    public boolean test(ItemStack other) {
         if (ItemStack.isSameItemSameComponents(this.itemStack, other)) {
             return true;
         }
@@ -268,7 +239,7 @@ public class ItemStackWrapper {
             return false;
         }
 
-        return other.getCount() >= this.itemStack.getCount();
+        return other.getCount() >= this.itemStack.count();
     }
 
     public static ItemStackWrapper findEquivalentKey(Map<ItemStackWrapper, ?> map, ItemStackWrapper key) {

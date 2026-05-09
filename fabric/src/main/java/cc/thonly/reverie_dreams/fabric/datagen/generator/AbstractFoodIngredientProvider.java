@@ -14,7 +14,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -32,12 +32,12 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @SuppressWarnings("rawTypes")
 public abstract class AbstractFoodIngredientProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, Factory> id2Builder = new Object2ObjectOpenHashMap<>();
 
-    public AbstractFoodIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractFoodIngredientProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
         this.configured();

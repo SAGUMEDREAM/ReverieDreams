@@ -73,7 +73,7 @@ public class PolymerBlockHelper {
             case FenceGateBlock ignored -> StateCopyFactoryBlock.FENCE_GATE;
             case FenceBlock ignored -> StateCopyFactoryBlock.FENCE;
             case WallBlock ignored -> StateCopyFactoryBlock.WALL;
-            case LeavesBlock ignored -> RealSingleStatePolymerBlock.of(block, BlockModelType.TRANSPARENT_BLOCK);
+            case LeavesBlock ignored -> RealSingleStatePolymerBlock.of(block, BlockModelType.LEAVES);
             case WallSignBlock ignored -> StateCopyFactoryBlock.WALL_SIGN;
             case CeilingHangingSignBlock ignored -> StateCopyFactoryBlock.HANGING_SIGN;
             case WallHangingSignBlock ignored -> StateCopyFactoryBlock.HANGING_WALL_SIGN;

@@ -88,7 +88,7 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
 
     @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
-        return floor.getBlock() instanceof FarmBlock;
+        return floor.getBlock() instanceof FarmlandBlock;
     }
 
     @Override
@@ -145,7 +145,7 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
     }
 
     protected int getGrowthAmount(Level world) {
-        return Mth.nextInt(world.random, 1, 3);
+        return Mth.nextInt(world.getRandom(), 1, 3);
     }
 
     public BlockState withAge(int age) {
@@ -166,7 +166,7 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
                 if (blockState.is(Blocks.FARMLAND)) {
                     g = 1.0f;
-                    if (blockState.getValue(FarmBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(FarmlandBlock.MOISTURE) > 0) {
                         g = 3.0f;
                     }
                 }

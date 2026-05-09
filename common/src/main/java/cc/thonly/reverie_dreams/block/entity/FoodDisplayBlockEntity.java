@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.RDMPHooks;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemWrapper;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
@@ -28,7 +29,7 @@ import java.util.Optional;
 @Setter
 @Getter
 public class FoodDisplayBlockEntity extends BlockEntity {
-    private ItemStackWrapper item = ItemStackWrapper.empty();
+    private ItemStackWrapper item = ItemWrapper.empty().build();
     private float yaw = 0;
 
     public FoodDisplayBlockEntity(BlockPos pos, BlockState state) {

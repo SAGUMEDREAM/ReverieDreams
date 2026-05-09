@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.recipe.entry;
 
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
+import cc.thonly.reverie_dreams.recipe.ItemStackTemplateWrapper;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import com.mojang.serialization.Codec;
@@ -22,20 +23,20 @@ import java.util.List;
 public class KitchenRecipe extends BaseRecipe {
     public static final Codec<KitchenRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("recipe_type").forGetter(KitchenRecipe::getRecipeType),
-            Codec.list(ItemStackWrapper.CODEC).fieldOf("ingredients").forGetter(KitchenRecipe::getIngredients),
-            ItemStackWrapper.CODEC.fieldOf("output").forGetter(KitchenRecipe::getOutput),
+            Codec.list(ItemStackTemplateWrapper.CODEC).fieldOf("ingredients").forGetter(KitchenRecipe::getIngredients),
+            ItemStackTemplateWrapper.CODEC.fieldOf("output").forGetter(KitchenRecipe::getOutput),
             Codec.DOUBLE.optionalFieldOf("cost_time", 5.0).forGetter(KitchenRecipe::getCostTime)
     ).apply(instance, KitchenRecipe::new));
     protected final Identifier recipeType;
-    protected final List<ItemStackWrapper> ingredients;
-    protected final ItemStackWrapper output;
+    protected final List<ItemStackTemplateWrapper> ingredients;
+    protected final ItemStackTemplateWrapper output;
     private final Double costTime;
 
-    public KitchenRecipe(KitchenRecipeType.MappingType kitchenType, List<ItemStackWrapper> ingredients, ItemStackWrapper output, Number costTime) {
+    public KitchenRecipe(KitchenRecipeType.MappingType kitchenType, List<ItemStackTemplateWrapper> ingredients, ItemStackTemplateWrapper output, Number costTime) {
         this(kitchenType.toId(), ingredients,output, costTime);
     }
 
-    public KitchenRecipe(Identifier recipeType, List<ItemStackWrapper> ingredients, ItemStackWrapper output, Number costTime) {
+    public KitchenRecipe(Identifier recipeType, List<ItemStackTemplateWrapper> ingredients, ItemStackTemplateWrapper output, Number costTime) {
         this.recipeType = recipeType;
         this.ingredients = ingredients;
         this.output = output;
@@ -45,8 +46,8 @@ public class KitchenRecipe extends BaseRecipe {
         }
     }
 
-    public ItemStackWrapper getOutput() {
-        return new ItemStackWrapper(this.output.getItemStack().copy());
+    public ItemStackTemplateWrapper getOutput() {
+        return new ItemStackTemplateWrapper(this.output.getTemplate());
     }
 
     public KitchenRecipeType.MappingType getRecipeTypeMapping() {

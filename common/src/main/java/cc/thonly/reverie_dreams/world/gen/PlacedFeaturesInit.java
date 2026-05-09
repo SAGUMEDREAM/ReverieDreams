@@ -8,6 +8,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -81,21 +82,32 @@ public class PlacedFeaturesInit {
                 Modifiers.modifiersCount(7, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))
         ));
 
-        context.register(UDUMBARA_FLOWER_KEY, new PlacedFeature(
-                registryLookup.getOrThrow(ConfigurationFeatureInit.UDUMBARA_FLOWER_KEY),
-                List.of(
-                        RarityFilter.onAverageOnceEvery(5),
-                        InSquarePlacement.spread(),
-                        PlacementUtils.HEIGHTMAP,
-                        BiomeFilter.biome()
+        context.register(UDUMBARA_FLOWER_KEY,
+                new PlacedFeature(
+                        registryLookup.getOrThrow(
+                                ConfigurationFeatureInit.UDUMBARA_FLOWER_KEY
+                        ),
+                        List.of(
+                                RarityFilter.onAverageOnceEvery(5),
+                                CountPlacement.of(32),
+                                InSquarePlacement.spread(),
+                                RandomOffsetPlacement.vertical(
+                                        ConstantInt.of(2)
+                                ),
+                                PlacementUtils.HEIGHTMAP,
+                                BiomeFilter.biome()
+                        )
                 )
-        ));
-
+        );
         context.register(TREMELLA_KEY, new PlacedFeature(
                 registryLookup.getOrThrow(ConfigurationFeatureInit.TREMELLA_KEY),
                 List.of(
                         RarityFilter.onAverageOnceEvery(6),
+                        CountPlacement.of(32),
                         InSquarePlacement.spread(),
+                        RandomOffsetPlacement.vertical(
+                                ConstantInt.of(2)
+                        ),
                         PlacementUtils.HEIGHTMAP,
                         BiomeFilter.biome()
                 )

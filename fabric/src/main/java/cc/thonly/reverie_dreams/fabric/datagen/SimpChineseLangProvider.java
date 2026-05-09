@@ -22,18 +22,19 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.world.RDGameRules;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import org.jspecify.annotations.NonNull;
 
+import java.io.DataOutput;
 import java.util.concurrent.CompletableFuture;
 
 public class SimpChineseLangProvider extends FabricLanguageProvider implements ITranslationWrapper {
 
-    public SimpChineseLangProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public SimpChineseLangProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, "zh_cn", registryLookup);
     }
 
@@ -336,7 +337,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.BAMBOO_STEAMED_EGG.asItem(), "竹筒蒸蛋");
         translationBuilder.add(RDFoodItems.BAMBOO_TUBE_ROASTED_DRUNKEN_SHRIMP.asItem(), "竹筒烧醉虾");
         translationBuilder.add(RDFoodItems.BAMBOO_TUBE_STEAMED_PORK.asItem(), "竹筒粉蒸肉");
-        translationBuilder.add(RDFoodItems.BEAR_PAW.asItem(), "熊掌");
+        translationBuilder.add(RDFoodItems.BEAR_PAW.asItem(), "赛熊掌");
         translationBuilder.add(RDFoodItems.BEEF_HOT_POT.asItem(), "牛肉鸳鸯火锅");
         translationBuilder.add(RDFoodItems.BEEF_RICE.asItem().asItem(), "牛肉盖浇饭");
         translationBuilder.add(RDFoodItems.BEEF_WELLINGTON.asItem(), "惠灵顿牛排");
@@ -362,7 +363,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.CRISP_CYCLONE.asItem(), "脆旋风");
         translationBuilder.add(RDFoodItems.DARK_CUISINE.asItem(), "黑暗物质");
         translationBuilder.add(RDFoodItems.DEEP_FRIED_CICADA_SHELLS.asItem(), "炸蝉蜕");
-        translationBuilder.add(RDFoodItems.DEPRESSED_CHEESE_STICKS.asItem(), "忧郁芝士条");
+        translationBuilder.add(RDFoodItems.DEPRESSED_CHEESE_STICKS.asItem(), "丧气芝士条");
         translationBuilder.add(RDFoodItems.DEW_BOILED_EGGS.asItem(), "露水煮蛋");
         translationBuilder.add(RDFoodItems.DORAYAKI.asItem(), "铜锣烧");
         translationBuilder.add(RDFoodItems.DUMPLING.asItem(), "饺子");
@@ -381,7 +382,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.FRIED_TOFU.asItem(), "油豆腐");
         translationBuilder.add(RDFoodItems.FRIED_TOMATO_STRIPS.asItem(), "炸番茄条");
         translationBuilder.add(RDFoodItems.FRIGHT_ADVENTURE.asItem(), "惊吓！大冒险");
-        translationBuilder.add(RDFoodItems.GAME_SOUP.asItem(), "野味杂烩汤");
+        translationBuilder.add(RDFoodItems.GAME_SOUP.asItem(), "野味加农");
         translationBuilder.add(RDFoodItems.GENSOKYO_BUDDHA_JUMPS_OVER_THE_WALL.asItem(), "幻想佛跳墙");
         translationBuilder.add(RDFoodItems.GENSOKYO_STAR_LOTUS_SHIP.asItem(), "幻想星莲船");
         translationBuilder.add(RDFoodItems.GIANT_TAMAGOYAKI.asItem(), "巨人玉子烧");
@@ -400,7 +401,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.HONEY_BBQ_PORK.asItem(), "蜜汁叉烧");
         translationBuilder.add(RDFoodItems.HORAI_DAMA_NO_EDA.asItem(), "蓬莱玉枝");
         translationBuilder.add(RDFoodItems.HOT_WAFFLES.asItem(), "热华夫饼");
-        translationBuilder.add(RDFoodItems.HULA_SOUP.asItem(), "呼啦汤");
+        translationBuilder.add(RDFoodItems.HULA_SOUP.asItem(), "胡辣汤");
         translationBuilder.add(RDFoodItems.LION_HEAD.asItem(), "狮子头");
         translationBuilder.add(RDFoodItems.LONGYIN_PEACH.asItem(), "龙吟桃子");
         translationBuilder.add(RDFoodItems.LOOKING_UP_AT_THE_CEILING_FRUIT_PIE.asItem(), "仰望天花板派");
@@ -408,8 +409,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.LUOHAN_VEGETARIAN.asItem(), "罗汉上素");
         translationBuilder.add(RDFoodItems.MAD_HATTER_TEA_PARTY.asItem(), "疯帽子茶会");
         translationBuilder.add(RDFoodItems.MAGMA.asItem(), "岩浆");
-        translationBuilder.add(RDFoodItems.MAOYU_LAVA_TOFU.asItem(), "茂羽岩浆豆腐");
-        translationBuilder.add(RDFoodItems.MAOYU_TRICOLOR_ICE_CREAM.asItem(), "茂羽三色冰淇淋");
+        translationBuilder.add(RDFoodItems.MAOYU_LAVA_TOFU.asItem(), "毛玉岩浆豆腐");
+        translationBuilder.add(RDFoodItems.MAOYU_TRICOLOR_ICE_CREAM.asItem(), "毛玉三色冰淇淋");
         translationBuilder.add(RDFoodItems.MAPO_TOFU.asItem(), "麻婆豆腐");
         translationBuilder.add(RDFoodItems.MILKY_MUSHROOM_SOUP.asItem(), "奶香蘑菇汤");
         translationBuilder.add(RDFoodItems.MOCHI.asItem(), "麻薯");
@@ -420,7 +421,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.MOON_LOVERS.asItem(), "月之恋人");
         translationBuilder.add(RDFoodItems.MUSHROOM_GIRLS_DANCE_STEW.asItem(), "蘑女的舞踏烩");
         translationBuilder.add(RDFoodItems.MUSHROOM_MEAT_SLICES.asItem(), "香菇肉片");
-        translationBuilder.add(RDFoodItems.NIGIRI_SUSHI.asItem(), "握寿司");
+        translationBuilder.add(RDFoodItems.NIGIRI_SUSHI.asItem(), "手握寿司");
         translationBuilder.add(RDFoodItems.OEDO_BOAT_FESTIVAL.asItem(), "大江户船祭");
         translationBuilder.add(RDFoodItems.OKONOMIYAKI.asItem(), "御好烧");
         translationBuilder.add(RDFoodItems.ONE_HIT_KILL.asItem(), "一击必杀");
@@ -488,7 +489,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDFoodItems.WARM_RICE_BALL.asItem(), "温热饭团");
         translationBuilder.add(RDFoodItems.WHITE_PEACH_EIGHT_BRIDGE.asItem(), "白桃八桥");
         translationBuilder.add(RDFoodItems.YUNSHAN_COTTON_CANDY.asItem(), "云山棉花糖");
-        translationBuilder.add(RDFoodItems.ZHAJI.asItem(), "炸脊");
+        translationBuilder.add(RDFoodItems.ZHAJI.asItem(), "杂炊");
 
         translationBuilder.add(RDDrinkItems.GREEN_TEA.asItem(), "绿茶");
         translationBuilder.add(RDDrinkItems.FRUITY_HIGH_BALL.asItem(), "果味High Ball");

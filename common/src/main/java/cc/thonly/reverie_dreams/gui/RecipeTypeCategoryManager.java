@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -91,14 +92,13 @@ public class RecipeTypeCategoryManager {
                         GuiElementBuilder icon = new GuiElementBuilder()
                                 .setItem(key2ValueEntry.getValue().getOutput().getItem())
                                 .setItemName(key2ValueEntry.getValue().getOutput().getItemStack().getHoverName())
-                                .setCallback((slot, click, action) -> {
+                                .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
                                     gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                     SimpleGui view = new DanmakuTableDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
-                        IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                        accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                        GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().getItemStack());
                         gui.setSlot(gui.getGridSlot(slotIndex), icon);
                     })
             ));
@@ -110,14 +110,13 @@ public class RecipeTypeCategoryManager {
                         GuiElementBuilder icon = new GuiElementBuilder()
                                 .setItem(key2ValueEntry.getValue().getOutput().getItem())
                                 .setItemName(key2ValueEntry.getValue().getOutput().getItemStack().getHoverName())
-                                .setCallback((slot, click, action) -> {
+                                .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
                                     gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                     SimpleGui view = new DanmakuShapeDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
-                        IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                        accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                        GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().getItemStack());
                         gui.setSlot(gui.getGridSlot(slotIndex), icon);
                     })
             ));
@@ -129,14 +128,13 @@ public class RecipeTypeCategoryManager {
                         GuiElementBuilder icon = new GuiElementBuilder()
                                 .setItem(key2ValueEntry.getValue().getOutput().getItem())
                                 .setItemName(key2ValueEntry.getValue().getOutput().getItemStack().getHoverName())
-                                .setCallback((slot, click, action) -> {
+                                .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
                                     gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                     SimpleGui view = new GensokyoAltarDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
-                        IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                        accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                        GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().getItemStack());
                         gui.setSlot(gui.getGridSlot(slotIndex), icon);
                     })
             ));
@@ -148,14 +146,13 @@ public class RecipeTypeCategoryManager {
                         GuiElementBuilder icon = new GuiElementBuilder()
                                 .setItem(key2ValueEntry.getValue().getOutput().getItem())
                                 .setItemName(key2ValueEntry.getValue().getOutput().getItemStack().getHoverName())
-                                .setCallback((slot, click, action) -> {
+                                .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
                                     gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                     SimpleGui view = new StrengthTableDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
-                        IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                        accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                        GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().getItemStack());
                         gui.setSlot(gui.getGridSlot(slotIndex), icon);
                     })
             ));
@@ -167,14 +164,13 @@ public class RecipeTypeCategoryManager {
                         GuiElementBuilder icon = new GuiElementBuilder()
                                 .setItem(key2ValueEntry.getValue().getOutput().getItem())
                                 .setItemName(key2ValueEntry.getValue().getOutput().getItemStack().getHoverName())
-                                .setCallback((slot, click, action) -> {
+                                .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
                                     gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                     SimpleGui view = new KitchenBlockDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
-                        IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) icon;
-                        accessor.reverie_dreams$setItemStack(key2ValueEntry.getValue().getOutput().getItemStack());
+                        GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().getItemStack());
                         gui.setSlot(gui.getGridSlot(slotIndex), icon);
                     })
             ));

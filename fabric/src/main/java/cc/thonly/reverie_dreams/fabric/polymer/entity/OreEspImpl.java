@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.polymer.entity;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import net.minecraft.world.entity.EntityType;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 public record OreEspImpl(OreEspEntity oreEspEntity) implements PolymerEntity {
     @Override

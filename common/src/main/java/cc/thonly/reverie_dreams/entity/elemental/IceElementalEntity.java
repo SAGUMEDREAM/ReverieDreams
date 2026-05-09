@@ -136,7 +136,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
         int light = world.getRawBrightness(pos, 0);
 
         // 世界时间（0~23999，0~12000 白天，12000~23999 夜晚）
-        long timeOfDay = serverWorld.getDayTime() % 24000L;
+        long timeOfDay = serverWorld.getGameTime() % 24000L;
         boolean isNight = timeOfDay >= 13000 && timeOfDay <= 23000; // 晚上时间段
 
         return isNight && light <= 7;

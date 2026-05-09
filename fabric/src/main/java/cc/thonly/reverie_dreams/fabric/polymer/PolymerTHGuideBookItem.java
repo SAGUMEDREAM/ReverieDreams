@@ -17,7 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
+import xyz.nucleoid.server.translations.api.LocalizationTarget;
 
 import java.util.function.Consumer;
 
@@ -39,9 +40,9 @@ public class PolymerTHGuideBookItem extends Item {
 
     @Override
     public Component getName(ItemStack stack) {
-        var ctx = PacketContext.get();
+        var ctx = LocalizationTarget.forPacket();
 
-        var page = BookletImplUtil.getPage(GUIDE_PAGE_ID, ctx != null && ctx.getClientOptions() != null ? ctx.getClientOptions().language() : "en_us");
+        var page = BookletImplUtil.getPage(GUIDE_PAGE_ID, ctx != null && ctx.getLanguageCode() != null ? ctx.getLanguageCode() : "en_us");
         if (page != null) {
             return page.info().getExternalTitle();
         }
@@ -51,9 +52,9 @@ public class PolymerTHGuideBookItem extends Item {
     @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
-        var ctx = PacketContext.get();
+        var ctx = LocalizationTarget.forPacket();
 
-        var page = BookletImplUtil.getPage(GUIDE_PAGE_ID, ctx != null && ctx.getClientOptions() != null ? ctx.getClientOptions().language() : "en_us");
+        var page = BookletImplUtil.getPage(GUIDE_PAGE_ID, ctx != null && ctx.getLanguageCode() != null ? ctx.getLanguageCode() : "en_us");
         if (page != null && page.info().description().isPresent()) {
             tooltipAdder.accept(Component.empty().append(page.info().description().orElseThrow()).withStyle(ChatFormatting.GRAY));
         }

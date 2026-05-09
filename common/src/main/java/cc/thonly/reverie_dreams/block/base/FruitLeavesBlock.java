@@ -86,7 +86,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
             Integer age = state.getValue(AGE_PROPERTY);
             RandomSource random = world.getRandom();
             if (age >= MAX_AGE) {
-                world.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
+                world.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0f, 0.8f + world.getRandom().nextFloat() * 0.4f);
 
                 // 优化合适掉落位置
                 double resultY = pos.getY();
@@ -216,7 +216,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
                 if (blockState.is(Blocks.FARMLAND)) {
                     g = 1.0f;
-                    if (blockState.getValue(FarmBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(FarmlandBlock.MOISTURE) > 0) {
                         g = 3.0f;
                     }
                 }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen;
 
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagAppender;
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 public class PointOfInterestTypeProvider extends cc.thonly.reverie_dreams.fabric.datagen.generator.PointOfInterestTypeProvider {
 
 
-    public PointOfInterestTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public PointOfInterestTypeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

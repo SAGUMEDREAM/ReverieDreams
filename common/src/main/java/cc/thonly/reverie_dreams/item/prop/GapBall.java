@@ -46,6 +46,7 @@ public class GapBall extends Item {
         return InteractionResult.SUCCESS;
     }
 
+    @SuppressWarnings("resource")
     public static class GapGUI extends SimpleGui {
         public static final String[][] GRID = {
                 {"X", "X", "I", "I", "I", "I", "I", "X", "X"},
@@ -120,7 +121,10 @@ public class GapBall extends Item {
                 int slot = 0 * 9 + col;
 
                 GapRecorder recorder = this.gapRecorders.get(index);
-                boolean hasTarget = recorder != null && recorder.isEnable();
+                if (recorder == null) {
+                    return;
+                }
+                boolean hasTarget = recorder.isEnable();
                 Item item = hasTarget ? Items.ENDER_EYE : Items.BARRIER;
 
                 this.setSlot(slot, new GuiElementBuilder(item)
@@ -143,7 +147,7 @@ public class GapBall extends Item {
                 ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, id);
                 ServerLevel targetWorld = server.getLevel(worldKey);
                 if (targetWorld == null) {
-                    this.player.displayClientMessage(Component.literal("目标世界不存在: " + id), false);
+                    this.player.sendSystemMessage(Component.literal("目标世界不存在: " + id), false);
                     return;
                 }
                 this.player.teleportTo(targetWorld,
@@ -154,12 +158,12 @@ public class GapBall extends Item {
                         this.player.getYRot(),
                         this.player.getXRot(),
                         true);
-                this.player.displayClientMessage(Component.literal("已传送至：" + recorder.getName()), false);
+                this.player.sendSystemMessage(Component.literal("已传送至：" + recorder.getName()), false);
                 this.player.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0f, 1.0f);
                 this.player.getCooldowns().addCooldown(this.stack, 3 * 20);
                 this.close();
             } else {
-                this.player.displayClientMessage(Component.literal("目标位置不存在。"), false);
+                this.player.sendSystemMessage(Component.literal("目标位置不存在。"), false);
             }
         }
 
@@ -169,7 +173,7 @@ public class GapBall extends Item {
             this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
             this.gapRecorders.set(index, recorder);
             this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
-            this.player.displayClientMessage(Component.literal("已记录当前位置至槽位 " + index), false);
+            this.player.sendSystemMessage(Component.literal("已记录当前位置至槽位 " + index), false);
             this.init();
             this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
             this.player.getInventory().setChanged();
@@ -181,7 +185,7 @@ public class GapBall extends Item {
             if (recorder != null) {
                 recorder.setEnable(false);
                 this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
-                this.player.displayClientMessage(Component.literal("已清除槽位 " + index), false);
+                this.player.sendSystemMessage(Component.literal("已清除槽位 " + index), false);
                 this.init();
             }
             this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
@@ -189,8 +193,8 @@ public class GapBall extends Item {
         }
 
         @Override
-        public void onClose() {
-            super.onClose();
+        public void close() {
+            super.close();
             this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
             this.player.getInventory().setChanged();
         }

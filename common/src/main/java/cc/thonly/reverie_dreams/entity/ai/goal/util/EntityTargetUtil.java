@@ -9,6 +9,7 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import java.util.Objects;
 
 public class EntityTargetUtil {
+    @SuppressWarnings("deprecation")
     public static boolean canAttack(Entity target, BaseNPCLikeEntity maid) {
         if (target instanceof BaseNPCLikeEntity otherMaid && Objects.equals(otherMaid.getOwnerUuid(), maid.getOwnerUuid()))
             return false;

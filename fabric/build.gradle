@@ -45,33 +45,33 @@ dependencies {
     implementation("de.tomalbrc:blockbench-import-library:${bil_version}")
     implementation("eu.pb4:booklet:${booklet_version}")
     implementation include("eu.pb4:sgui:[${sgui_fabric_version}]")
-    implementation files('libs/camera-obscura-1.2.2+1.21.11.jar')
+    implementation files('libs/camera-obscura-1.2.3+26.1.jar')
+//    implementation files('libs/camera-obscura-2.0.0-beta.1+26.1-release.jar')
 
     compileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 //    compileOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
 //    runtimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
 
-    compileOnly files('libs/create-fly-1.21.11-6.0.9-1.jar')
-    compileOnly files('libs/polyfactory-0.10.4+1.21.11.jar')
-    compileOnly files('libs/eiv-fabric-5.2.0+1.21.11.jar')
+    compileOnly ("maven.modrinth:polydex:${polydex_version}")
+    compileOnly files('libs/create-fly-26.1-pre-2-6.0.9-1.jar')
+    compileOnly files('libs/polyfactory-0.11.0+26.1.jar')
+    compileOnly files('libs/eiv-fabric-7.0.0+26.1.jar')
     compileOnly files('libs/polydex2eiv-1.0.9.jar')
     compileOnly files('libs/borukva-food-0.1.14+1.21.7.jar')
     compileOnly files('libs/borukva-food-exotic-3.10.0+1.21.7.jar')
     compileOnly files('libs/borukva-fish-0.1.9+1.21.8.jar')
-    compileOnly files('libs/FarmersDelight-1.21.7-3.2.4+refabricated.jar')
-    compileOnly files('libs/farmers-delight-polymer-patch-3.2.3.0+1.21.6.jar')
-    compileOnly files('libs/moredelight-25.07.28a-1.21.7-fabric.jar')
+    compileOnly files('libs/FarmersDelight-26.1-3.6.4+refabricated.jar')
+    compileOnly files('libs/farmers-delight-polymer-patch-3.6.0.0+26.1.jar')
+    compileOnly files('libs/moredelight-26.05.02-26.1-fabric.jar')
     compileOnly files('libs/moredelight-patch-25.07.28a-1.21.7.jar')
     compileOnly files('libs/spanishdelight-1.21.8-1.0.6.jar')
     compileOnly files('libs/spanishdelight-patch-1.21.8-1.0.6.jar')
     compileOnly files('libs/oceansdelight-port-0.1.0+1.21.6.jar')
     compileOnly files('libs/Fishing-101-1.7.1_experimental.jar')
     compileOnly files('libs/go-fish-1.8.0+1.21.6.jar')
-    compileOnly files('libs/brewery-0.12.0+1.21.6.jar')
-    compileOnly files('libs/polyfactory-0.10.4+1.21.11.jar')
-    compileOnly files('libs/appleskin-fabric-mc1.21.11-3.0.8.jar')
-    compileOnly 'maven.modrinth:polydex:1.8.1+1.21.11'
+    compileOnly files('libs/brewery-0.15.0+26.1.jar')
+    compileOnly files('libs/appleskin-fabric-mc26.1-3.0.9.jar')
 
     implementation include('com.squareup.okhttp3:okhttp:4.12.0')
     implementation include('com.squareup.okio:okio:3.4.0')
@@ -95,9 +95,9 @@ loom {
         accessWidenerPath.set(aw)
     }
 
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
+//    mixin {
+//        defaultRefmapName.set("${mod_id}.refmap.json")
+//    }
 
     runs {
         client {

@@ -18,13 +18,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.net.Proxy;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 @Slf4j
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void init(Thread thread, LevelStorageSource.LevelStorageAccess levelStorageAccess, PackRepository packRepository, WorldStem worldStem, Proxy proxy, DataFixer dataFixer, Services services, LevelLoadListener levelLoadListener, CallbackInfo ci) {
+    public void init(Thread serverThread, LevelStorageSource.LevelStorageAccess storageSource, PackRepository packRepository, WorldStem worldStem, Optional gameRules, Proxy proxy, DataFixer fixerUpper, Services services, LevelLoadListener levelLoadListener, boolean propagatesCrashes, CallbackInfo ci) {
         MinecraftServer minecraftServer = (MinecraftServer) (Object) this;
         ReverieDreams.setServer(minecraftServer);
         PlayerDataComponentManager.getInstance().onLoad(minecraftServer);

@@ -157,18 +157,28 @@ public class ConfigurationFeatureInit {
         ));
 
         // 花
-        context.register(UDUMBARA_FLOWER_KEY, new ConfiguredFeature<>(Feature.FLOWER,
-                new RandomPatchConfiguration(32, 4, 1,
-                        PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                                new SimpleBlockConfiguration(BlockStateProvider.simple(RDWoodBlocks.UDUMBARA_FLOWER.asBlock())))
+        context.register(
+                UDUMBARA_FLOWER_KEY,
+                new ConfiguredFeature<>(
+                        Feature.SIMPLE_BLOCK,
+                        new SimpleBlockConfiguration(
+                                BlockStateProvider.simple(
+                                        RDWoodBlocks.UDUMBARA_FLOWER.defaultBlockState()
+                                )
+                        )
                 )
-        ));
-        context.register(TREMELLA_KEY, new ConfiguredFeature<>(Feature.FLOWER,
-                new RandomPatchConfiguration(32, 5, 2,
-                        PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                                new SimpleBlockConfiguration(BlockStateProvider.simple(RDWoodBlocks.TREMELLA.asBlock())))
+        );
+        context.register(
+                TREMELLA_KEY,
+                new ConfiguredFeature<>(
+                        Feature.SIMPLE_BLOCK,
+                        new SimpleBlockConfiguration(
+                                BlockStateProvider.simple(
+                                        RDWoodBlocks.TREMELLA.defaultBlockState()
+                                )
+                        )
                 )
-        ));
+        );
 
         // 世界生成
         context.register(CRATER_SMALL_KEY, new ConfiguredFeature<>(

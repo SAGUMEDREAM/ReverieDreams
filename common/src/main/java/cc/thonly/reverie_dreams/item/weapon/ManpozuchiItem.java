@@ -123,18 +123,17 @@ public class ManpozuchiItem extends PickaxeItem {
             ServerLevel serverWorld = (ServerLevel) attacker.level();
             attacker.setDeltaMovement(attacker.getDeltaMovement().with(Direction.Axis.Y, 0.009999999776482582));
 
-            ServerPlayer serverPlayerEntity = null;
+            ServerPlayer serverPlayer = null;
             if (attacker instanceof ServerPlayer) {
-                serverPlayerEntity = (ServerPlayer) attacker;
-                serverPlayerEntity.currentImpulseImpactPos = this.getCurrentExplosionImpactPos(serverPlayerEntity);
-                serverPlayerEntity.setIgnoreFallDamageFromCurrentImpulse(true);
-                serverPlayerEntity.connection.send(new ClientboundSetEntityMotionPacket(serverPlayerEntity));
+                serverPlayer = (ServerPlayer) attacker;
+                serverPlayer.currentImpulseImpactPos = this.getCurrentExplosionImpactPos(serverPlayer);
+                serverPlayer.setIgnoreFallDamageFromCurrentImpulse(true, Vec3.ZERO);
+                serverPlayer.connection.send(new ClientboundSetEntityMotionPacket(serverPlayer));
             }
 
             if (target.onGround()) {
                 if (attacker instanceof ServerPlayer) {
-                    serverPlayerEntity = (ServerPlayer) attacker;
-                    serverPlayerEntity.setSpawnExtraParticlesOnFall(true);
+                    serverPlayer.setSpawnExtraParticlesOnFall(true);
                 }
 
                 SoundEvent soundEvent = attacker.fallDistance > 5.0 ? SoundEvents.MACE_SMASH_GROUND_HEAVY : SoundEvents.MACE_SMASH_GROUND;

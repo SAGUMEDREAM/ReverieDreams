@@ -10,8 +10,8 @@ import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
@@ -37,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class BlockLootTableProvider extends FabricBlockLootTableProvider {
+public class BlockLootTableProvider extends FabricBlockLootSubProvider {
     private final Function<WoodBundle, Void> woodBundleLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
             if (block instanceof DoorBlock) {
@@ -71,7 +71,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         return null;
     };
 
-    public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public BlockLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
@@ -189,19 +189,19 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                     ));
             lootTableBuilder.withPool(
                     LootPool.lootPool()
-                            .conditionally(condition.build())
+                            .when(condition.build())
                             .setRolls(ConstantValue.exactly(1))
                             .add(baseSeedEntry)
             );
             lootTableBuilder.withPool(
                     LootPool.lootPool()
-                            .conditionally(condition.build())
+                            .when(condition.build())
                             .setRolls(ConstantValue.exactly(1))
                             .add(productEntry)
             );
             lootTableBuilder.withPool(
                     LootPool.lootPool()
-                            .conditionally(condition.build())
+                            .when(condition.build())
                             .setRolls(ConstantValue.exactly(1))
                             .add(seedEntry)
             );

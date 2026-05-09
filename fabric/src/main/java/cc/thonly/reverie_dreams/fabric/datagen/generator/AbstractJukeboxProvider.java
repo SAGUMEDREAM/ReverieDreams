@@ -8,7 +8,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
@@ -26,12 +26,12 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public abstract class AbstractJukeboxProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, JukeboxSong> identifierJukeboxSongMap = new Object2ObjectOpenHashMap<>();
 
-    public AbstractJukeboxProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractJukeboxProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }

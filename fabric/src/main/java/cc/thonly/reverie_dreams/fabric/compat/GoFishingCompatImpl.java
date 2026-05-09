@@ -9,44 +9,45 @@ import net.minecraft.world.item.Item;
 import java.util.List;
 import java.util.Set;
 
+@Deprecated
 public class GoFishingCompatImpl {
     public static void bootstrap() {
-        FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
-            FoodProperty property = ctx.getProperty();
-            Set<Item> items = ctx.getItems();
-            if (property.is(FoodProperties.AQUATIC_PRODUCTS)) {
-                items.addAll(List.of(
-                        GoFishItems.ICICLE_FISH,
-                        GoFishItems.SNOWBALL_FISH,
-                        GoFishItems.SLIMEFISH,
-                        GoFishItems.LILYFISH,
-                        GoFishItems.SEAWEED_EEL,
-                        GoFishItems.TERRAFISH,
-                        GoFishItems.CARROT_CARP,
-                        GoFishItems.OAKFISH,
-                        GoFishItems.LUNARFISH,
-                        GoFishItems.GALAXY_STARFISH,
-                        GoFishItems.STARRY_SALMON,
-                        GoFishItems.NEBULA_SWORDFISH,
-                        GoFishItems.RAINY_BASS,
-                        GoFishItems.THUNDERING_BASS,
-                        GoFishItems.CLOUDY_CRAB,
-                        GoFishItems.BLIZZARD_BASS,
-                        GoFishItems.MATRIX_FISH,
-                        GoFishItems.CHARFISH,
-                        GoFishItems.GILDED_BLACKSTONE_CARP,
-                        GoFishItems.SMOKEY_SALMON,
-                        GoFishItems.SOUL_SALMON,
-                        GoFishItems.MAGMA_COD,
-                        GoFishItems.BASALT_BASS,
-                        GoFishItems.OBSIDIAN_HALIBUT,
-                        GoFishItems.ENDFISH,
-                        GoFishItems.CHORUS_COD,
-                        GoFishItems.DRAGONFISH,
-                        GoFishItems.OMEGA_FLOATER,
-                        GoFishItems.PORTAL_PUFFER
-                ));
-            }
-        });
+//        FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
+//            FoodProperty property = ctx.getProperty();
+//            Set<Item> items = ctx.getItems();
+//            if (property.is(FoodProperties.AQUATIC_PRODUCTS)) {
+//                items.addAll(List.of(
+//                        GoFishItems.ICICLE_FISH,
+//                        GoFishItems.SNOWBALL_FISH,
+//                        GoFishItems.SLIMEFISH,
+//                        GoFishItems.LILYFISH,
+//                        GoFishItems.SEAWEED_EEL,
+//                        GoFishItems.TERRAFISH,
+//                        GoFishItems.CARROT_CARP,
+//                        GoFishItems.OAKFISH,
+//                        GoFishItems.LUNARFISH,
+//                        GoFishItems.GALAXY_STARFISH,
+//                        GoFishItems.STARRY_SALMON,
+//                        GoFishItems.NEBULA_SWORDFISH,
+//                        GoFishItems.RAINY_BASS,
+//                        GoFishItems.THUNDERING_BASS,
+//                        GoFishItems.CLOUDY_CRAB,
+//                        GoFishItems.BLIZZARD_BASS,
+//                        GoFishItems.MATRIX_FISH,
+//                        GoFishItems.CHARFISH,
+//                        GoFishItems.GILDED_BLACKSTONE_CARP,
+//                        GoFishItems.SMOKEY_SALMON,
+//                        GoFishItems.SOUL_SALMON,
+//                        GoFishItems.MAGMA_COD,
+//                        GoFishItems.BASALT_BASS,
+//                        GoFishItems.OBSIDIAN_HALIBUT,
+//                        GoFishItems.ENDFISH,
+//                        GoFishItems.CHORUS_COD,
+//                        GoFishItems.DRAGONFISH,
+//                        GoFishItems.OMEGA_FLOATER,
+//                        GoFishItems.PORTAL_PUFFER
+//                ));
+//            }
+//        });
     }
 }

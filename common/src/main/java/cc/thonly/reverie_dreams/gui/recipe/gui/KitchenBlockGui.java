@@ -19,6 +19,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.component.DataComponents;
@@ -83,20 +84,22 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
                 switch (posChar) {
                     case "X" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.EMPTY_SLOT.createStack()));
-                    case "N" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setCallback((i, t, sat) -> {
-                        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                        if (this.page < this.maxPage) {
-                            this.page++;
-                            this.onTick();
-                        }
-                    }));
-                    case "P" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV.createStack()).setCallback((i, t, sat) -> {
-                        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                        if (this.page > 0) {
-                            this.page--;
-                            this.onTick();
-                        }
-                    }));
+                    case "N" ->
+                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setCallback((i, t, sat, sbg) -> {
+                                this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                if (this.page < this.maxPage) {
+                                    this.page++;
+                                    this.onTick();
+                                }
+                            }));
+                    case "P" ->
+                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV.createStack()).setCallback((i, t, sat, sbg) -> {
+                                this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                if (this.page > 0) {
+                                    this.page--;
+                                    this.onTick();
+                                }
+                            }));
                     case "Z" -> {
                         GuiElementBuilder guiElementBuilder = new GuiElementBuilder().setItem(Items.AIR);
                         this.displayed.put(index, guiElementBuilder);
@@ -106,7 +109,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                     default -> {
                         Integer invIndex = CHAR2INDEX.get(posChar);
                         if (invIndex != null) {
-                            this.setSlotRedirect(index, new Slot(this.blockEntity.getInventory(), invIndex, 0, 0));
+                            this.setSlot(index, new Slot(this.blockEntity.getInventory(), invIndex, 0, 0));
                         }
                     }
                 }
@@ -173,7 +176,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             if (!stack.isEmpty()) {
                 UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
                 if (useRemainderComponent != null) {
-                    ItemStack itemStack = useRemainderComponent.convertInto();
+                    ItemStack itemStack = useRemainderComponent.convertInto().create();
                     this.blockEntity.throwItem((ServerLevel) blockEntity.getLevel(), itemStack);
                 }
                 stack.shrink(1);
@@ -225,8 +228,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
         // 清空旧显示
         for (GuiElementBuilder builder : this.displayed.values()) {
-            IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) builder;
-            accessor.reverie_dreams$setItemStack(RDGuiItems.EMPTY_SLOT.createStack());
+            GuiElementBuilderSetter.setter(builder, RDGuiItems.EMPTY_SLOT.createStack());
         }
 
         int i = 0;
@@ -238,10 +240,9 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             AtomicReference<ItemStack> output = new AtomicReference<>(outputShow);
 
             GuiElementBuilder builder = entry.getValue();
-            IGuiElementBuilderAccessor accessor = (IGuiElementBuilderAccessor) builder;
-            accessor.reverie_dreams$setItemStack(outputShow);
+            GuiElementBuilderSetter.setter(builder, outputShow);
 
-            builder.setCallback((slotIndex, clickType, actionType) -> {
+            builder.setCallback((slotIndex, clickType, actionType, slotBasedGui) -> {
                 ItemStack itemStack = output.get();
                 for (CraftingConflict conflict : RegistryImpls.CRAFTING_CONFLICT.values()) {
                     if (conflict.test(itemStack)) {
@@ -269,8 +270,9 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     }
 
     @Override
-    public void onClose() {
+    public void close() {
+        super.close();
         this.blockEntity.setChanged();
-        super.onClose();
     }
+
 }

@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.fabric.polymer.block;
 
 import com.mojang.math.Axis;
 import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.util.LazyItemStack;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
@@ -17,13 +18,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 @SuppressWarnings("deprecation")
 @Getter
 public class PottedPlantPolymerBlock implements PolymerTexturedBlock, FactoryBlock {
     private final Identifier blockId;
-    private final ItemStack MODEL;
+    private final LazyItemStack MODEL;
 
     public PottedPlantPolymerBlock(Identifier blockId) {
         this(blockId, false);

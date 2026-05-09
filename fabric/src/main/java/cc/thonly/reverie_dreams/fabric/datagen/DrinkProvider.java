@@ -3,13 +3,13 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractDrinkProvider;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 
 import java.util.concurrent.CompletableFuture;
 
 public class DrinkProvider extends AbstractDrinkProvider {
-    public DrinkProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public DrinkProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

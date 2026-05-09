@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -15,6 +16,7 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -22,12 +24,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("Convert2MethodRef")
@@ -170,6 +174,25 @@ public class FoodProperties {
         return result;
     }
 
+    public static Collection<FoodProperty> get(ItemStackTemplate template) {
+        Holder<Item> item = template.item();
+        List<FoodProperty> existing = template.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>());
+        if (!existing.isEmpty()) {
+            return existing;
+        }
+
+        Set<FoodProperty> cached = ITEM_CACHE.get(item.value());
+        if (cached == null || cached.isEmpty()) {
+            return List.of();
+        }
+
+        List<FoodProperty> result = new ArrayList<>(cached);
+        ItemStackTemplateHelper.modify(template, (template1, modifier) -> {
+            modifier.set(RDDataComponents.FOOD_PROPERTIES.value(), result);
+        });
+        return result;
+    }
+
     public static void reload(ResourceManager manager) {
         unbound();
         Map<Identifier, Resource> resources = manager.listResources("food_property", id ->
@@ -218,7 +241,7 @@ public class FoodProperties {
                 ITEM_CACHE.computeIfAbsent(item, k -> new LinkedHashSet<>())
                         .add(property);
             }
-            FoodProperties.PROPERTY_CACHE.computeIfAbsent(property, p->new LinkedHashSet<>()).addAll(items);
+            FoodProperties.PROPERTY_CACHE.computeIfAbsent(property, p -> new LinkedHashSet<>()).addAll(items);
         });
         log.info("Food TAG loading completed");
     }

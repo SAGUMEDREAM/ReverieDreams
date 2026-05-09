@@ -1,9 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.*;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,7 +13,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.blay09.mods.balm.world.item.DeferredItem;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
@@ -26,6 +24,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -40,113 +39,117 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class AbstractRecipeTypeProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, Factory<?>> identifierFactoryMap = new Object2ObjectOpenHashMap<>();
 
-    public AbstractRecipeTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractRecipeTypeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
 
-    public ItemStackWrapper ofEmpty() {
-        return ItemStackWrapper.empty();
+    public ItemStackTemplateWrapper ofEmpty() {
+        return ItemWrapper.empty();
     }
 
-    public ItemStackWrapper ofItem(ItemStack item) {
-        return ItemStackWrapper.of(item);
+    public ItemStackTemplateWrapper ofItem(ItemStack item) {
+        return ItemStackTemplateWrapper.of(item.getItem());
     }
 
-    public ItemStackWrapper ofItem(ItemLike item) {
-        return ItemStackWrapper.of(item.asItem());
+    public ItemStackTemplateWrapper ofItem(ItemStackTemplate item) {
+        return ItemStackTemplateWrapper.of(item);
     }
 
-    public ItemStackWrapper ofItem(DeferredItem item) {
-        return ItemStackWrapper.of(item.asItem());
+    public ItemStackTemplateWrapper ofItem(ItemLike item) {
+        return ItemStackTemplateWrapper.of(item.asItem());
     }
 
-    public ItemStackWrapper ofItem(Item item) {
-        return ItemStackWrapper.of(item);
+    public ItemStackTemplateWrapper ofItem(DeferredItem item) {
+        return ItemStackTemplateWrapper.of(item.asItem());
     }
 
-    public ItemStackWrapper ofItem(Block block) {
-        return ItemStackWrapper.of(block.asItem());
+    public ItemStackTemplateWrapper ofItem(Item item) {
+        return ItemStackTemplateWrapper.of(item);
     }
 
-    public ItemStackWrapper ofItem(Block block, int amount) {
-        return ItemStackWrapper.of(block.asItem(), amount);
+    public ItemStackTemplateWrapper ofItem(Block block) {
+        return ItemStackTemplateWrapper.of(block.asItem());
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount) {
-        return ItemStackWrapper.of(item, amount);
+    public ItemStackTemplateWrapper ofItem(Block block, int amount) {
+        return ItemStackTemplateWrapper.of(block.asItem(), amount);
     }
 
-    public ItemStackWrapper ofItem(ItemLike item, int amount) {
-        return ItemStackWrapper.of(item.asItem(), amount);
+    public ItemStackTemplateWrapper ofItem(Item item, int amount) {
+        return ItemStackTemplateWrapper.of(item, amount);
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount, DataComponentPatch components) {
-        return ItemStackWrapper.of(item, amount, components);
+    public ItemStackTemplateWrapper ofItem(ItemLike item, int amount) {
+        return ItemStackTemplateWrapper.of(item.asItem(), amount);
     }
 
-    public ItemStackWrapper ofItem(ItemStack item, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item.getItem(), Arrays.stream(tagKey).toList());
+    public ItemStackTemplateWrapper ofItem(Item item, int amount, DataComponentPatch components) {
+        return ItemStackTemplateWrapper.of(item, amount, components);
     }
 
-    public ItemStackWrapper ofItem(Item item, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item, Arrays.stream(tagKey).toList());
+    public ItemStackTemplateWrapper ofItem(ItemStack item, TagKey<Item>... tagKey) {
+        return ItemStackTemplateWrapper.of(item.getItem(), Arrays.stream(tagKey).toList());
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item, amount, Arrays.stream(tagKey).toList());
+    public ItemStackTemplateWrapper ofItem(Item item, TagKey<Item>... tagKey) {
+        return ItemStackTemplateWrapper.of(item, Arrays.stream(tagKey).toList());
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item, amount, components, tagKey);
+    public ItemStackTemplateWrapper ofItem(Item item, int amount, TagKey<Item>... tagKey) {
+        return ItemStackTemplateWrapper.of(item, amount, Arrays.stream(tagKey).toList());
     }
 
-    public List<ItemStackWrapper> ofList(Item... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public ItemStackTemplateWrapper ofItem(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
+        return ItemStackTemplateWrapper.of(item, amount, components, tagKey);
+    }
+
+    public List<ItemStackTemplateWrapper> ofList(Item... items) {
+        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
         for (Item item : items) {
             wrappers.add(this.ofItem(item));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(ItemLike... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<ItemStackTemplateWrapper> ofList(ItemLike... items) {
+        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
         for (ItemLike item : items) {
             wrappers.add(this.ofItem(item.asItem()));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(Holder<Item>... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<ItemStackTemplateWrapper> ofList(Holder<Item>... items) {
+        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
         for (Holder<Item> item : items) {
             wrappers.add(this.ofItem(item.value()));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(DeferredItem... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<ItemStackTemplateWrapper> ofList(DeferredItem... items) {
+        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
         for (DeferredItem item : items) {
             wrappers.add(this.ofItem(item.asItem()));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(ItemStack... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<ItemStackTemplateWrapper> ofList(ItemStack... items) {
+        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
         for (ItemStack stack : items) {
             wrappers.add(this.ofItem(stack));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(ItemStackWrapper... stackRecipeWrappers) {
+    public List<ItemStackTemplateWrapper> ofList(ItemStackTemplateWrapper... stackRecipeWrappers) {
         return new LinkedList<>(Arrays.asList(stackRecipeWrappers));
     }
 

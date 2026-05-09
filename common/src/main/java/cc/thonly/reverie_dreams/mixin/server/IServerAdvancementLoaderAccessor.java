@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Map;
 
 @Mixin(ServerAdvancementManager.class)
-public interface IServerAdvancementLoaderAccessor extends cc.thonly.reverie_dreams.inf.IServerAdvancementLoaderAccessor {
+public interface IServerAdvancementLoaderAccessor {
     @Accessor("advancements")
     public Map<Identifier, AdvancementHolder> getAdvancements();
 }

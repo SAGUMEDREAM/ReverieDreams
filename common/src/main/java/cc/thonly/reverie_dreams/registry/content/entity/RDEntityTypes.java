@@ -13,6 +13,7 @@ import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.entity.villager.FumoSeller;
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
+import cc.thonly.reverie_dreams.mixin.accessor.PigVariantAccessor;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -21,6 +22,7 @@ import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistration;
 import net.blay09.mods.balm.world.item.BalmItemRegistrar;
 import net.blay09.mods.balm.world.item.BalmItemRegistration;
 import net.blay09.mods.balm.world.item.DeferredItem;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -258,10 +260,10 @@ public class RDEntityTypes {
             if (PlatformContext.isForgeLike()) {
                 KeineAPI.getApi().unfreeze(pigVariants);
             }
-            Registry.register(pigVariants, ReverieDreams.id("wild_pig"), new PigVariant(
+            Registry.register(pigVariants, ReverieDreams.id("wild_pig"), PigVariantAccessor.invokeStaticInit(
                     new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
-                    SpawnPrioritySelectors.EMPTY
-            ));
+                    new ClientAsset.ResourceTexture(ReverieDreams.id("entity/pig/wild_pig"), ReverieDreams.id("entity/pig/wild_pig")))
+            );
         });
     }
 

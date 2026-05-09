@@ -9,6 +9,7 @@ import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
@@ -50,12 +51,12 @@ public class GensokyoAltarGui extends SimpleGui {
                     continue;
                 }
                 if (pos.equalsIgnoreCase("I")) {
-                    this.setSlotRedirect(index, new Slot(blockEntity.getInventory(), invSlot, 0, 0));
+                    this.setSlot(index, new Slot(blockEntity.getInventory(), invSlot, 0, 0));
                     invSlot++;
                     continue;
                 }
                 if (pos.equalsIgnoreCase("E")) {
-                    this.setSlotRedirect(index, new Slot(blockEntity.getInventory(), 8, 0, 0));
+                    this.setSlot(index, new Slot(blockEntity.getInventory(), 8, 0, 0));
                 }
             }
         }
@@ -72,7 +73,7 @@ public class GensokyoAltarGui extends SimpleGui {
     }
 
     @Override
-    public boolean onAnyClick(int index, ClickType type, net.minecraft.world.inventory.ClickType action) {
+    public boolean onAnyClick(int index, ClickType type, ContainerInput action) {
         if (this.blockEntity.getLevel() != null) {
             this.blockEntity.getLevel().sendBlockUpdated(
                     this.pos,
@@ -97,8 +98,8 @@ public class GensokyoAltarGui extends SimpleGui {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
+    public void close() {
+        super.close();
         if (this.blockEntity.getLevel() != null) {
             this.blockEntity.getLevel().sendBlockUpdated(
                     this.pos,
@@ -115,4 +116,5 @@ public class GensokyoAltarGui extends SimpleGui {
             this.blockEntity.setChanged();
         }
     }
+
 }

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 
+@SuppressWarnings("resource")
 public class Levatin extends SwordItem {
     public static final ToolMaterial LEVATIN = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
 
@@ -34,7 +35,7 @@ public class Levatin extends SwordItem {
             return;
 
         ServerLevel world = (ServerLevel) target.level();
-        int i = world.random.nextIntBetweenInclusive(0, EquipmentSlot.values().length - 1);
+        int i = world.getRandom().nextIntBetweenInclusive(0, EquipmentSlot.values().length - 1);
         breakSlot(target, EquipmentSlot.values()[i]);
     }
 
@@ -42,7 +43,7 @@ public class Levatin extends SwordItem {
         ServerLevel world = (ServerLevel) target.level();
 
         ItemStack stack = target.getItemBySlot(eSlot);
-        if (stack != null && stack.isDamageableItem()) {
+        if (stack.isDamageableItem()) {
             stack.hurtAndBreak(stack.getMaxDamage(), target, eSlot);
             world.playSound(target, target.blockPosition(), SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS, 1, 1);
         }

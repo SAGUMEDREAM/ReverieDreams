@@ -7,6 +7,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -42,7 +43,7 @@ public class MusicBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
+        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayer) {
             MusicBlockEntity blockEntity = (MusicBlockEntity) serverWorld.getBlockEntity(pos);
             if (blockEntity == null) {
                 return InteractionResult.FAIL;
@@ -50,16 +51,16 @@ public class MusicBlock extends BaseEntityBlock {
             int index = -1;
             index = player.isShiftKeyDown() ? blockEntity.next() : blockEntity.prev();
             if (blockEntity.getFilenames().isEmpty()) {
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
+                serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
                 return InteractionResult.PASS;
             }
             if (index == -1) {
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
+                serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
                 return InteractionResult.PASS;
             } else if (world.hasNeighborSignal(pos)){
                 NotaUtils.playAt(world, pos, blockEntity.getSelect());
             }
-            player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", blockEntity.getSelect()), false);
+            serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.switch_music", blockEntity.getSelect()), false);
             return InteractionResult.SUCCESS_SERVER;
         }
         return super.useWithoutItem(state, world, pos, player, hit);

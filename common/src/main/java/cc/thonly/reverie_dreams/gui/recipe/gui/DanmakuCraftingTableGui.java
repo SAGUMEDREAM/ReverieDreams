@@ -10,9 +10,10 @@ import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.PredicateSlot;
 import eu.pb4.sgui.api.ClickType;
+import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import eu.pb4.sgui.api.elements.GuiElementInterface;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import eu.pb4.sgui.api.gui.SlotBasedGui;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -20,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
@@ -73,7 +75,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                         case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR;
                         default -> itemStack -> true;
                     };
-                    this.setSlotRedirect(counter, new PredicateSlot(inventory, counter2, 0, 0, iffib.apply(counter2)));
+                    this.setSlot(counter, new PredicateSlot(inventory, counter2, 0, 0, iffib.apply(counter2)));
                     counter2++;
                 }
                 if (c == 'E') {
@@ -116,9 +118,9 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                 ItemStack itemStack = resultWrapper.getItemStack();
                 itemStack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
 
-                this.setSlot(this.resultSlot, new GuiElementBuilder(itemStack).setCallback(new GuiElementInterface.ItemClickCallback() {
+                this.setSlot(this.resultSlot, new GuiElementBuilder(itemStack).setCallback(new GuiElement.ClickCallback() {
                     @Override
-                    public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType slotActionType) {
+                    public void click(int i, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
                         for (ItemStackWrapper countRecipeSlot : List.of(recipeEntry.getDye(), recipeEntry.getCore(), recipeEntry.getPower(), recipeEntry.getPoint(), recipeEntry.getMaterial())) {
                             if (countRecipeSlot.getItem() != Items.AIR) {
                                 Item item = countRecipeSlot.getItem();
@@ -147,8 +149,8 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
+    public void close() {
+        super.close();
         this.blockEntity.setChanged();
     }
 }

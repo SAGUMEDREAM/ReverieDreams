@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.phys.Vec3;
 
 public class EatGoal extends Goal {
@@ -60,11 +61,11 @@ public class EatGoal extends Goal {
 
             //干饭粒子
             world.sendParticles(
-                    new ItemParticleOption(ParticleTypes.ITEM, stack), // 粒子类型 + 物品
+                    new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(stack)), // 粒子类型 + 物品
                     eyePos.x + maid.getLookAngle().x / 3.0, eyePos.y, eyePos.z + maid.getLookAngle().x / 3.0,
                     2,
-                    world.random.nextGaussian() * 0.05, world.random.nextGaussian() * 0.05, world.random.nextGaussian() * 0.05
-                    , world.random.nextGaussian() * 0.05
+                    world.getRandom().nextGaussian() * 0.05, world.getRandom().nextGaussian() * 0.05, world.getRandom().nextGaussian() * 0.05
+                    , world.getRandom().nextGaussian() * 0.05
             );
             //干饭声音
             if (dealyTick % 3 == 0) {
@@ -77,7 +78,7 @@ public class EatGoal extends Goal {
                         SoundEvents.GENERIC_EAT,
                         SoundSource.AMBIENT,
                         0.5F,
-                        Mth.randomBetween(world.random, 0.9F, 1.0F)
+                        Mth.randomBetween(world.getRandom(), 0.9F, 1.0F)
                 );
             }
         } else findFood();
@@ -131,7 +132,7 @@ public class EatGoal extends Goal {
                         SoundEvents.PLAYER_BURP,
                         SoundSource.AMBIENT,
                         0.5F,
-                        Mth.randomBetween(world.random, 0.9F, 1.0F)
+                        Mth.randomBetween(world.getRandom(), 0.9F, 1.0F)
                 );
             }
         }

@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 public class FruitLeavesImpl implements PolymerBlock, PolymerTexturedBlock, FactoryBlock {
     private final FruitLeavesBlock full;
@@ -90,7 +90,7 @@ public class FruitLeavesImpl implements PolymerBlock, PolymerTexturedBlock, Fact
 
         public ItemDisplayElement getElement(BlockState state) {
             int age = state.getValue(FruitLeavesBlock.AGE_PROPERTY);
-            return age <= 2 ? new ItemDisplayElement(ItemDisplayElementUtil.getModel(this.defaultId)) : new ItemDisplayElement(ItemDisplayElementUtil.getModel(this.modelId));
+            return age <= 2 ? new ItemDisplayElement(ItemDisplayElementUtil.getModel(this.defaultId).get()) : new ItemDisplayElement(ItemDisplayElementUtil.getModel(this.modelId).get());
         }
     }
 }

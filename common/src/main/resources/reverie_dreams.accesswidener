@@ -1,9 +1,8 @@
 classTweaker v1 official
 accessible class net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion
 accessible class net/minecraft/core/component/DataComponentPatch$PatchKey
-accessible class net/minecraft/network/protocol/game/ServerboundInteractPacket$Action
-accessible class net/minecraft/resources/RegistryDataLoader$Loader
-accessible class net/minecraft/resources/RegistryDataLoader$LoadingFunction
+accessible class net/minecraft/core/component/DataComponentInitializers$Initializer
+accessible class net/minecraft/core/component/DataComponentInitializers$InitializerEntry
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
 accessible class net/minecraft/world/entity/animal/rabbit/Rabbit$RabbitAvoidEntityGoal
 accessible class net/minecraft/world/entity/animal/rabbit/Rabbit$RaidGardenGoal
@@ -28,7 +27,6 @@ accessible field net/minecraft/world/entity/LivingEntity SLEEPING_POS_ID Lnet/mi
 accessible field net/minecraft/world/entity/LivingEntity lastHurt F
 accessible field net/minecraft/world/entity/ai/goal/AvoidEntityGoal avoidClass Ljava/lang/Class;
 accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
-accessible field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
 accessible field net/minecraft/world/item/ItemStack components Lnet/minecraft/core/component/PatchedDataComponentMap;
 accessible field net/minecraft/world/item/component/DyedItemColor rgb I
 accessible field net/minecraft/world/item/crafting/Ingredient values Lnet/minecraft/core/HolderSet;

@@ -113,7 +113,7 @@ public class TreasureHuntingRod extends SwordItem {
                             SoundEvents.NOTE_BLOCK_PLING.value(),
                             SoundSource.PLAYERS, 1.0f, 1.0f);
                 } else {
-                    player.displayClientMessage(Component.translatable("message.treasure_hunting_rod.not_found"), false);
+                    player.sendSystemMessage(Component.translatable("message.treasure_hunting_rod.not_found"), false);
                 }
 
                 // 伤害和冷却

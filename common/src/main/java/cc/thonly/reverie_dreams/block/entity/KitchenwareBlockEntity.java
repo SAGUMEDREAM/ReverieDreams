@@ -3,7 +3,9 @@ package cc.thonly.reverie_dreams.block.entity;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.gui.recipe.gui.KitchenBlockGui;
+import cc.thonly.reverie_dreams.recipe.ItemStackTemplateWrapper;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemWrapper;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.util.entity.PlayerHelper;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -42,14 +45,14 @@ import java.util.function.Supplier;
 @Getter
 @ToString
 public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContainer {
-    public static final Supplier<ItemStackWrapper> DEFAULT_WRAPPER_FACTORY = ItemStackWrapper::empty;
+    public static final Supplier<ItemStackTemplateWrapper> DEFAULT_WRAPPER_FACTORY = ItemWrapper::empty;
     public static final Map<UUID, Set<KitchenBlockGui<?>>> SESSIONS = new Object2ObjectOpenHashMap<>();
     public static final int OUTPUT_SLOT = 5;
     private SimpleContainer inventory = new SimpleContainer(6);
     @Nullable
     private KitchenRecipeType.MappingType recipeType;
     private Identifier recipeId;
-    private ItemStackWrapper preOutput = DEFAULT_WRAPPER_FACTORY.get();
+    private ItemStackWrapper preOutput = DEFAULT_WRAPPER_FACTORY.get().build();
     private Double tickLeft = 0.0;
     private DoubleUnaryOperator bonusOperator;
     private UUID uuid = UUID.randomUUID();
@@ -145,7 +148,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
                     blockEntity.inventory.setItem(OUTPUT_SLOT, RDFoodItems.DARK_CUISINE.createStack().copy());
                 }
             }
-            blockEntity.preOutput = DEFAULT_WRAPPER_FACTORY.get();
+            blockEntity.preOutput = DEFAULT_WRAPPER_FACTORY.get().build();
 
             List<ServerPlayer> nearbyPlayers = PlayerHelper.getNearbyPlayers(serverWorld, blockEntity.worldPosition, 16);
             for (ServerPlayer player : nearbyPlayers) {

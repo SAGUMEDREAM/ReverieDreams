@@ -3,6 +3,8 @@ package cc.thonly.reverie_dreams.fabric;
 import cc.thonly.reverie_dreams.fabric.datagen.*;
 import cc.thonly.reverie_dreams.fabric.datagen.tag.*;
 import cc.thonly.reverie_dreams.registry.content.*;
+import cc.thonly.reverie_dreams.registry.content.villager.RDTradeSets;
+import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.world.dimension.*;
 import cc.thonly.reverie_dreams.world.gen.*;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(SimpChineseLangProvider::new);
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(BlockTagProvider::new);
+        pack.addProvider(VillagerTradeTagProvider::new);
         pack.addProvider(PointOfInterestTypeProvider::new);
         pack.addProvider(EntityTagProvider::new);
         pack.addProvider(DamageTypeTagProvider::new);
@@ -57,6 +60,8 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
     @Override
     public void buildRegistry(@NonNull RegistrySetBuilder builder) {
         DataGeneratorEntrypoint.super.buildRegistry(builder);
+        builder.add(Registries.VILLAGER_TRADE, RDVillagerTrades::bootstrap);
+        builder.add(Registries.TRADE_SET, RDTradeSets::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
         builder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);

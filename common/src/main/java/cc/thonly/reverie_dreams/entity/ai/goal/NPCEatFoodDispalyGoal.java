@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inf.IItemStack;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -69,6 +70,7 @@ public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
         if (getServerLevel(world).getGameRules().get(GameRules.MOB_GRIEFING)) {
             if (isFoodDisplay(world, this.blockPos)) {
                 FoodDisplayBlockEntity displayBlockEntity = (FoodDisplayBlockEntity) world.getBlockEntity(blockPos);
+                //noinspection DataFlowIssue
                 ItemStackWrapper item = displayBlockEntity.getItem();
                 DataComponentMap components = item.getItemStack().getComponents();
                 FoodProperties foodComponent = components.get(DataComponents.FOOD);
@@ -78,8 +80,7 @@ public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
                     int saturationValue = Math.round(foodComponent.saturation());
                     maid.setNutrition(maid.getNutrition() + nutritionValue);
                     maid.setSaturation(maid.getSaturation() + saturationValue);
-                    //displayBlockEntity.setItem(new ItemStackRecipeWrapper(new ItemStack(Blocks.AIR)));
-                    displayBlockEntity.setItem(ItemStackWrapper.empty());
+                    displayBlockEntity.setItem(ItemWrapper.empty().build());
                     world.playSound(
                             null,
                             maid.getX(),
@@ -88,7 +89,7 @@ public class NPCEatFoodDispalyGoal extends MoveToBlockGoal {
                             SoundEvents.PLAYER_BURP,
                             SoundSource.AMBIENT,
                             0.5F,
-                            Mth.randomBetween(world.random, 0.9F, 1.0F)
+                            Mth.randomBetween(world.getRandom(), 0.9F, 1.0F)
                     );
                 }
             }

@@ -34,7 +34,7 @@ public class TemplateCreativeTab implements ItemGroupContentHelper {
                         if (shape.getType().isDeleteFromList()) {
                             continue;
                         }
-                        output.accept(shape.getItemStack());
+                        output.accept(shape.getItemStackOrThrow());
                     }
                 }));
     }

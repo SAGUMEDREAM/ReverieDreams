@@ -65,7 +65,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
             ServerLevel serverWorld = (ServerLevel) world;
             if (player.isShiftKeyDown()) {
                 if (!b) {
-                    serverPlayer.displayClientMessage(Component.translatable("message.gensokyo_altar.miss_structure"), false);
+                    serverPlayer.sendSystemMessage(Component.translatable("message.gensokyo_altar.miss_structure"), false);
                     return InteractionResult.SUCCESS_SERVER;
                 }
                 SimpleContainer inventory = blockEntity.getInventory();
@@ -85,7 +85,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
                     blockEntity.setChanged();
                     SimpleTriggerFactory.create(SimpleTriggerKeys.GENSOKYO_ALTAR_CRAFTING).trigger(serverPlayer);
                 } else {
-                    serverPlayer.displayClientMessage(Component.translatable("message.gensokyo_altar.miss_recipe"), false);
+                    serverPlayer.sendSystemMessage(Component.translatable("message.gensokyo_altar.miss_recipe"), false);
                 }
             } else {
                 GensokyoAltarGui gui = new GensokyoAltarGui(serverPlayer, state, world, pos);

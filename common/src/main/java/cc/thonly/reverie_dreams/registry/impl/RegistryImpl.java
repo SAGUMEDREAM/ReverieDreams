@@ -12,6 +12,7 @@ import com.mojang.serialization.Lifecycle;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.util.Util;
 import net.minecraft.core.*;
 import net.minecraft.resources.ResourceKey;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -273,10 +275,18 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
     }
 
     @Override
-    public void bindTag(TagKey<T> tag, List<Holder<T>> registryEntries) {
-        HolderSet.Named<T> entryListNamed = NamedAccessor.callNew(this, tag);
-        this.tags.put(tag, entryListNamed);
-        entryListNamed.contents = new ArrayList<>(registryEntries);
+    public DataComponentLookup<T> componentLookup() {
+        return null;
+    }
+
+    @Override
+    public void bindTags(Map<TagKey<T>, List<Holder<T>>> pendingTags) {
+        pendingTags.forEach((tag, registryEntries) -> {
+            HolderSet.Named<T> entryListNamed = NamedAccessor.callNew(this, tag);
+            this.tags.put(tag, entryListNamed);
+            entryListNamed.contents = new ArrayList<>(registryEntries);
+        });
+
     }
 
     @Override

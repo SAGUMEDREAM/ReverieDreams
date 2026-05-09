@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.item.base;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.mixin.accessor.DyedItemColorAccessor;
 import cc.thonly.reverie_dreams.util.IdentifierGetter;
+import cc.thonly.reverie_dreams.util.item.DataComponentInitializersAccess;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,22 +28,25 @@ import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Setter
 @Getter
 @ToString
-public class ColoredSpawnEggItem extends SpawnEggItem implements IdentifierGetter {
+public class ColoredSpawnEggItem extends SpawnEggItem {
     public static final List<Item> SPAWN_EGGS = new ArrayList<>(128);
     public static final DyedItemColor DEFAULT_COLOR = new DyedItemColor(16777215);
-    private final Identifier identifier;
+    private final Identifier itemId;
+    private final ResourceKey<Item> itemKey;
     private long color = -1;
 
-    public ColoredSpawnEggItem(String identifier, EntityType<? extends Mob> type, Properties settings) {
+    public ColoredSpawnEggItem(String name, EntityType<? extends Mob> type, Properties settings) {
         super(settings.component(DataComponents.ENTITY_DATA, TypedEntityData.of(type, new CompoundTag()))
-                .setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(identifier)))
+                .setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(name)))
                 .component(DataComponents.DYED_COLOR, DEFAULT_COLOR)
         );
-        this.identifier = ReverieDreams.id(identifier);
+        this.itemId = ReverieDreams.id(name);
+        this.itemKey = ResourceKey.create(Registries.ITEM, this.itemId);
         SPAWN_EGGS.add(this);
     }
 
@@ -51,15 +55,16 @@ public class ColoredSpawnEggItem extends SpawnEggItem implements IdentifierGette
                 .setId(ResourceKey.create(Registries.ITEM, identifier))
                 .component(DataComponents.DYED_COLOR, DEFAULT_COLOR)
         );
-        this.identifier = identifier;
+        this.itemId = identifier;
+        this.itemKey = ResourceKey.create(Registries.ITEM, this.itemId);
         SPAWN_EGGS.add(this);
     }
 
     public void setColor(long color) {
         this.color = color;
-        DyedItemColor dyedColorComponent = this.components.getOrDefault(DataComponents.DYED_COLOR, new DyedItemColor(16777215));
-        DyedItemColorAccessor dyedItemColorAccessor = (DyedItemColorAccessor) (Object) dyedColorComponent;
-        dyedItemColorAccessor.setRgb((int) this.color);
+        DataComponentInitializersAccess.modifyEntry(this.itemKey, modifier -> {
+            modifier.set(DataComponents.DYED_COLOR, new DyedItemColor(16777215));
+        });
     }
 
     @Override

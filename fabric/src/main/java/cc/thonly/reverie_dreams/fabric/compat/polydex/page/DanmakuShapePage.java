@@ -7,8 +7,8 @@ import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import eu.pb4.polydex.api.v1.recipe.*;
+import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import eu.pb4.sgui.api.elements.GuiElementInterface;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -69,13 +69,13 @@ public class DanmakuShapePage implements PolydexPage {
         };
         for (int row = 0; row < views.length; row++) {
             for (int col = 0; col < views[row].length; col++) {
-                GuiElementBuilder viewStack = getViewStack(views[row][col], (i, clickType, slotActionType) -> runnable.run());
+                GuiElementBuilder viewStack = getViewStack(views[row][col], (i, clickType, slotActionType, basedGui) -> runnable.run());
                 layout.set(col, row, viewStack);
             }
         }
     }
 
-    private GuiElementBuilder getViewStack(String s, GuiElementInterface.ItemClickCallback callback) {
+    private GuiElementBuilder getViewStack(String s, GuiElement.ClickCallback callback) {
         if (s.equalsIgnoreCase("X")) {
             return new GuiElementBuilder(RDGuiItems.EMPTY_SLOT.asItem());
         }

@@ -10,12 +10,14 @@ import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.util.UnitCodec;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.function.Function;
 
@@ -24,14 +26,14 @@ import java.util.function.Function;
 @ToString
 public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<DanmakuShape>, Translatable, BuiltinObject {
     public static final Codec<DanmakuShape> CODEC = UnitCodec.unit(DanmakuShape::new);
-    public static final Function<DanmakuType, ItemStack> ITEM_STACK_TEMPLATE = (danmakuType) -> {
-        ItemStack stack = RDItems.DANMAKU_SHAPE_CREATOR.createStack();
-        stack.set(RDDataComponents.DANMAKU_SHAPE.value(), ItemStackWrapper.of(danmakuType.getItemHolder()));
-        return stack;
+    public static final Function<DanmakuType, ItemStackTemplate> ITEM_STACK_TEMPLATE = (danmakuType) -> {
+        return ItemStackTemplateHelper.create(RDItems.DANMAKU_SHAPE_CREATOR.asItem(), (template1, modifier) -> {
+            modifier.set(RDDataComponents.DANMAKU_SHAPE.value(), ItemStackWrapper.of(danmakuType.getItemHolder()));
+        });
     };
     private RegistryImpl<DanmakuShape> owner;
     private final DanmakuType type;
-    private final Function<Unit, ItemStack> getter;
+    private final Function<Unit, ItemStackTemplate> getter;
 
     private DanmakuShape() {
         this(DanmakuTypes.AMULET);
@@ -47,12 +49,12 @@ public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<Danma
         return this.type.translateKey();
     }
 
-    public ItemStack getItemStackTemplate() {
+    public ItemStackTemplate getItemStackTemplate() {
         return this.getter.apply(Unit.INSTANCE);
     }
 
-    public ItemStack getItemStack() {
-        return this.getter.apply(Unit.INSTANCE);
+    public ItemStack getItemStackOrThrow() {
+        return this.getter.apply(Unit.INSTANCE).create();
     }
 
     @Override

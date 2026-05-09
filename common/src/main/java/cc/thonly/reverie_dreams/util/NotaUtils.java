@@ -146,7 +146,7 @@ public final class NotaUtils {
         } catch (Exception e) {
             log.error("读取音乐失败: {}", playingMusic, e);
             if (user instanceof ServerPlayer player) {
-                player.displayClientMessage(Component.literal("§c无法读取音乐：" + playingMusic), false);
+                player.sendSystemMessage(Component.literal("§c无法读取音乐：" + playingMusic), false);
             }
             return;
         }

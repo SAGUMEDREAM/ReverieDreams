@@ -4,7 +4,7 @@ import cc.thonly.keine.neoforge.NeoForgeKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
-import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsCompats;
+import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
 import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryImpl;
 import com.mojang.brigadier.CommandDispatcher;
 import net.blay09.mods.balm.Balm;
@@ -54,7 +54,7 @@ public class ReverieDreamsNeoForge {
         event.enqueueWork(() -> {
             ReverieDreams.LATE_INIT.forEach(Runnable::run);
             ReverieDreams.LATE_INIT.clear();
-            ReverieDreamsCompats.initialize();
+            ReverieDreamsNeoForgeCompats.initialize();
         });
     }
 

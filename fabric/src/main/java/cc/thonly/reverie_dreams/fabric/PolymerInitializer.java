@@ -33,7 +33,7 @@ import eu.pb4.mapcanvas.api.core.CanvasImage;
 import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
+import eu.pb4.polymer.core.api.item.PolymerCreativeModeTabUtils;
 import eu.pb4.polymer.core.api.other.PolymerComponent;
 import eu.pb4.polymer.core.api.other.PolymerPotion;
 import eu.pb4.polymer.core.api.other.PolymerSoundEvent;
@@ -69,7 +69,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jspecify.annotations.NonNull;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.Iterator;
 import java.util.List;
@@ -261,7 +261,7 @@ public class PolymerInitializer {
         for (Tuple<ResourceKey<CreativeModeTab>, Function<CreativeModeTab.Builder, CreativeModeTab.Builder>> tuple : ItemGroupContentHelper.FABRIC_LATE_INIT) {
             ResourceKey<CreativeModeTab> key = tuple.getA();
             Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction = tuple.getB();
-            PolymerItemGroupUtils.registerPolymerItemGroup(key, builderFunction.apply(ItemGroupContentHelper.builder()).build());
+            PolymerCreativeModeTabUtils.registerPolymerCreativeModeTab(key, builderFunction.apply(ItemGroupContentHelper.builder()).build());
         }
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.RECIPE_SERIALIZER, RecipeManager.DANMAKU_DYE_RECIPE.value());
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.HAWKERS_KEY));

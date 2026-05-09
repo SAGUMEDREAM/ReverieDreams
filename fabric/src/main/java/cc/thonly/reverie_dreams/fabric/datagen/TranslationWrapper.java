@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistration;
 import net.blay09.mods.balm.world.item.DeferredItem;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -70,7 +70,7 @@ public class TranslationWrapper implements ITranslationWrapper {
 
     public TranslationWrapper add(ResourceKey<CreativeModeTab> registryKey, String value) {
         Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction = ItemGroupContentHelper.REGISTRIES.get(registryKey);
-        CreativeModeTab.Builder builder = builderFunction.apply(FabricItemGroup.builder());
+        CreativeModeTab.Builder builder = builderFunction.apply(FabricCreativeModeTab.builder());
         if (builder != null) {
             this.add(builder.build(), value);
             return this;

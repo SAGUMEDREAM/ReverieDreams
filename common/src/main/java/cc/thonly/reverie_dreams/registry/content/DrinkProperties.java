@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -16,6 +17,7 @@ import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -23,6 +25,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -105,6 +108,25 @@ public class DrinkProperties {
         List<DrinkProperty> result = new ArrayList<>(cached);
         stack.set(RDDataComponents.DRINK_PROPERTIES.value(), result);
 
+        return result;
+    }
+
+    public static Collection<DrinkProperty> get(ItemStackTemplate template) {
+        Holder<Item> item = template.item();
+        List<DrinkProperty> existing = template.getOrDefault(RDDataComponents.DRINK_PROPERTIES.value(), new ArrayList<>());
+        if (!existing.isEmpty()) {
+            return existing;
+        }
+
+        Set<DrinkProperty> cached = ITEM_CACHE.get(item.value());
+        if (cached == null || cached.isEmpty()) {
+            return List.of();
+        }
+
+        List<DrinkProperty> result = new ArrayList<>(cached);
+        ItemStackTemplateHelper.modify(template, (source, modifier) -> {
+            modifier.set(RDDataComponents.DRINK_PROPERTIES.value(), result);
+        });
         return result;
     }
 

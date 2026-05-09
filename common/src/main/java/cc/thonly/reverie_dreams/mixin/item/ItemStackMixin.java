@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.inf.IItemStack;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentHolder;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -38,20 +39,27 @@ import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin<T> implements IItemStack,
-        DataComponentHolder{
+        DataComponentHolder {
     @Shadow
     public abstract Item getItem();
 
     @Shadow
     public abstract boolean isEmpty();
 
-    @Shadow public abstract void consume(int amount, @Nullable LivingEntity entity);
+    @Shadow
+    public abstract void consume(int amount, @Nullable LivingEntity entity);
 
-    @Shadow public abstract DataComponentMap getComponents();
+    @Shadow
+    public abstract DataComponentMap getComponents();
 
-    @Shadow @Final public PatchedDataComponentMap components;
+    @Shadow
+    @Final
+    public PatchedDataComponentMap components;
 
-    @Shadow @Final @Deprecated private @Nullable Item item;
+    @Shadow
+    @Final
+    @Deprecated
+    private @Nullable Holder<Item> item;
 
     @Inject(method = "interactLivingEntity", at = @At("HEAD"), cancellable = true)
     public void useOnVillager(Player user, LivingEntity entity, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
@@ -80,7 +88,7 @@ public abstract class ItemStackMixin<T> implements IItemStack,
         }
     }
 
-    @Inject(method = "addDetailsToTooltip", at= @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getItem()Lnet/minecraft/world/item/Item;", ordinal = 0))
+    @Inject(method = "addDetailsToTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getItem()Lnet/minecraft/world/item/Item;", ordinal = 0))
     public void appendTooltipCallback(Item.TooltipContext context, TooltipDisplay displayComponent, Player player, TooltipFlag type, Consumer<Component> textConsumer, CallbackInfo ci) {
         ItemStack itemStack = (ItemStack) (Object) this;
         ItemStackTooltipCallback.EVENT.invoker().appendTooltip(itemStack, context, displayComponent, player, textConsumer, type);

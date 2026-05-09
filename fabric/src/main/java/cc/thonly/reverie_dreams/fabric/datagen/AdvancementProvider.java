@@ -16,7 +16,7 @@ import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.world.dimension.WorldInit;
 import cc.thonly.reverie_dreams.world.gen.ModStructures;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -30,6 +30,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -42,7 +43,7 @@ import java.util.function.Consumer;
 
 public class AdvancementProvider extends FabricAdvancementProvider {
     private static boolean root = true;
-    public AdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public AdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 
@@ -206,7 +207,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
     }
 
     public static DisplayInfo makeDisplayInfo(ItemLike item, ResourceKey<Advancement> key, AdvancementType type) {
-        DisplayInfo displayInfo = new DisplayInfo(new ItemStack(item),
+        DisplayInfo displayInfo = new DisplayInfo(new ItemStackTemplate(item.asItem()),
                 RDAdvancements.getTitleComponent(key),
                 RDAdvancements.getDescriptionComponent(key),
                 AdvancementProvider.root ? Optional.of(RDAdvancements.ADVANCEMENT_BACKGROUND).map(ClientAsset.ResourceTexture::new): Optional.empty(),

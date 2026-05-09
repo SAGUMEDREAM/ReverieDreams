@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractEquipmentAssetProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
@@ -14,7 +14,7 @@ import java.util.function.BiConsumer;
 
 public class EquipmentAssetProvider extends AbstractEquipmentAssetProvider {
 
-    public EquipmentAssetProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public EquipmentAssetProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

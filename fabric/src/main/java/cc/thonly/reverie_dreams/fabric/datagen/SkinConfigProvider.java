@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractSkinConfigProvider;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 
 import java.util.Optional;
@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  **/
 public class SkinConfigProvider extends AbstractSkinConfigProvider {
 
-    public SkinConfigProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public SkinConfigProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

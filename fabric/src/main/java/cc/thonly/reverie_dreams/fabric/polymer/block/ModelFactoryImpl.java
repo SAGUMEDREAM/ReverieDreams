@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import xyz.nucleoid.packettweaker.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 public class ModelFactoryImpl implements PolymerTexturedBlock, FactoryBlock, BSMMParticleBlock {
     private final ModelBlock block;

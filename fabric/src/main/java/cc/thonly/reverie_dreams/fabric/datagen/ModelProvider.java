@@ -19,7 +19,7 @@ import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.blay09.mods.balm.world.item.DeferredItem;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
@@ -46,7 +46,7 @@ public class ModelProvider extends FabricModelProvider {
     private final Map<Block, TexturedModel> uniqueModels = ImmutableMap.<Block, TexturedModel>builder()
             .build();
 
-    public ModelProvider(FabricDataOutput output) {
+    public ModelProvider(FabricPackOutput output) {
         super(output);
     }
 

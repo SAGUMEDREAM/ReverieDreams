@@ -81,26 +81,26 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
             if (cal > 0) {
                 PlayerComponent<FaithComponent> faithComponents = playerDataComponentManager.getOrCreatePlayerComponent(serverPlayer, FaithComponent.class);
                 FaithComponent faithComponent = faithComponents.get();
-                long timeOfDay = world.getDayTime();
+                long timeOfDay = world.getGameTime();
                 long dayCount = timeOfDay / 24000;
                 long dateOfLastPrayer = faithComponent.getDateOfLastPrayer();
                 if (dayCount != dateOfLastPrayer) {
                     int base = faithComponent.getFaithValue() + cal;
-                    int val = (int) (base + 7 * 1.5f * world.random.nextDouble());
+                    int val = (int) (base + 7 * 1.5f * world.getRandom().nextDouble());
                     if (base > FaithComponent.MAX_VALUE) {
                         faithComponent.setFaithValue(FaithComponent.MAX_VALUE);
                         player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-                        player.displayClientMessage(Component.translatable("item.action.click.cashbox.fails.full", FaithComponent.MAX_VALUE), true);
+                        serverPlayer.sendSystemMessage(Component.translatable("item.action.click.cashbox.fails.full", FaithComponent.MAX_VALUE), true);
                         return InteractionResult.SUCCESS_SERVER;
                     }
                     faithComponent.setFaithValue(val);
                     faithComponent.setDateOfLastPrayer(dayCount);
-                    itemStack.consume(world.random.nextIntBetweenInclusive(1, 3), player);
+                    itemStack.consume(world.getRandom().nextIntBetweenInclusive(1, 3), player);
                     player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-                    player.displayClientMessage(Component.translatable("item.action.click.cashbox.success", val), true);
+                    serverPlayer.sendSystemMessage(Component.translatable("item.action.click.cashbox.success", val), true);
                     return InteractionResult.SUCCESS_SERVER;
                 }
-                player.displayClientMessage(Component.translatable("item.action.click.cashbox.fails.used"), true);
+                serverPlayer.sendSystemMessage(Component.translatable("item.action.click.cashbox.fails.used"), true);
                 return InteractionResult.SUCCESS_SERVER;
             } else {
                 SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer, (inventory, index, x, y) -> new PredicateSlot(inventory, index, x, y, (stack) -> CustomChestBlockGui.COIN_ITEMS.contains(stack.getItem())));

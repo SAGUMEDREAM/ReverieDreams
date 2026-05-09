@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.MushroomMonster;
 import cc.thonly.reverie_dreams.entity.Scarecrow;
 import net.minecraft.resources.Identifier;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import com.geckolib.model.DefaultedEntityGeoModel;
 
 public class MushroomMonsterModel extends DefaultedEntityGeoModel<MushroomMonster> {
     public static final Identifier NORMAL = ReverieDreams.id("mushroom_monster");

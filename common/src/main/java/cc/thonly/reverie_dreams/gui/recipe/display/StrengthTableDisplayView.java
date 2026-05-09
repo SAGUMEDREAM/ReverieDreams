@@ -7,12 +7,14 @@ import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.AnvilInputGui;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import eu.pb4.sgui.api.gui.SlotBasedGui;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.inventory.ContainerInput;
 
 @Getter
 @Slf4j
@@ -39,12 +41,12 @@ public class StrengthTableDisplayView extends AnvilInputGui implements DisplayVi
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
-        this.back(0,null,null);
+    public void close() {
+        super.close();
+        this.back(0,null,null, null);
     }
 
-    public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         this.close();
         if (this.prevGuiCallback != null) {

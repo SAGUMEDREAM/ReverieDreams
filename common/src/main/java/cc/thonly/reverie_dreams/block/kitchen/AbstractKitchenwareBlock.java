@@ -94,7 +94,7 @@ public class AbstractKitchenwareBlock extends BaseEntityBlock {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof KitchenwareBlockEntity kitchenwareBlockEntity) {
                 if (kitchenwareBlockEntity.isWorking()) {
-                    serverPlayer.displayClientMessage(Component.translatable("block.feedback.working"), false);
+                    serverPlayer.sendSystemMessage(Component.translatable("block.feedback.working"), false);
                     return InteractionResult.SUCCESS_SERVER;
                 }
                 UUID uuid = kitchenwareBlockEntity.getUuid();

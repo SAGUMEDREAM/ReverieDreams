@@ -1,108 +1,88 @@
 package cc.thonly.reverie_dreams.registry.content.villager.offer;
 
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
-import cc.thonly.reverie_dreams.util.ListMaker;
-import net.blay09.mods.balm.world.entity.npc.villager.BalmVillagerTradeRegistrar;
-import net.minecraft.world.entity.npc.villager.VillagerProfession;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
-import net.minecraft.world.item.ItemStack;
+import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
+import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.ItemCost;
-import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.TradeCost;
+import net.minecraft.world.item.trading.VillagerTrade;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.*;
 
 public class MystiaModOffers {
-    public static void registers(BalmVillagerTradeRegistrar tradeRegistrar) {
 
+    public static void makeOffers(RDVillagerTrades.PreparingTradeInfo builder) {
         // BUTCHER Lv.2
-        tradeRegistrar.registerTrade(
-                VillagerProfession.BUTCHER,
-                2,
-                ListMaker.of(() -> List.of(
-                        (VillagerTrades.ItemListing) (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 6),
-                                new ItemStack(RDIngredientItems.VENISON.asItem(), 5),
-                                4, 10, 0.05f
-                        )
-                )).toArray(new VillagerTrades.ItemListing[0])
-        );
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.BUTCHER_LEVEL_2,
+                    "butcher_level_%s_result_item_%s",
+                    2,
+                    RDIngredientItems.VENISON
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(Items.EMERALD, ConstantValue.exactly(6)),
+                    Optional.empty(),
+                    new ItemStackTemplate(RDIngredientItems.VENISON.asItem()),
+                    4,
+                    10,
+                    0.05f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(5)).build()
+                    )
+            ));
+        }
 
         // BUTCHER Lv.3
-        tradeRegistrar.registerTrade(
-                VillagerProfession.BUTCHER,
-                3,
-                ListMaker.of(() -> List.of(
-                        (VillagerTrades.ItemListing) (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 10),
-                                new ItemStack(RDIngredientItems.WAGYU_BEEF.asItem(), 6),
-                                4, 10, 0.05f
-                        ),
-                        (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 8),
-                                new ItemStack(RDIngredientItems.WILD_BOAR_MEAT.asItem(), 5),
-                                4, 10, 0.05f
-                        )
-                )).toArray(new VillagerTrades.ItemListing[0])
-        );
+        // wagyu
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.BUTCHER_LEVEL_3,
+                    "butcher_level_%s_result_item_%s",
+                    3,
+                    RDIngredientItems.WAGYU_BEEF
+            );
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(Items.EMERALD, ConstantValue.exactly(10)),
+                    Optional.empty(),
+                    new ItemStackTemplate(RDIngredientItems.WAGYU_BEEF.asItem()),
+                    4,
+                    10,
+                    0.05f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(6)).build()
+                    )
+            ));
+        }
 
-        // FARMER Lv.2
-        tradeRegistrar.registerTrade(
-                VillagerProfession.FARMER,
-                2,
-                ListMaker.of(() -> List.of(
-                        (VillagerTrades.ItemListing) (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 2),
-                                new ItemStack(RDIngredientItems.STICKY_RICE.asItem(), 4),
-                                6, 3, 0.04f
-                        ),
-                        (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 3),
-                                new ItemStack(RDIngredientItems.PLUM.asItem(), 4),
-                                6, 3, 0.04f
-                        ),
-                        (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 7),
-                                new ItemStack(RDIngredientItems.PINE_NUT.asItem(), 3),
-                                6, 3, 0.04f
-                        )
-                )).toArray(new VillagerTrades.ItemListing[0])
-        );
+        // boar
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.BUTCHER_LEVEL_3,
+                    "butcher_level_%s_result_item_%s",
+                    3,
+                    RDIngredientItems.WILD_BOAR_MEAT
+            );
 
-        // FARMER Lv.3
-        tradeRegistrar.registerTrade(
-                VillagerProfession.FARMER,
-                3,
-                ListMaker.of(() -> List.of(
-                        (VillagerTrades.ItemListing) (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 4),
-                                new ItemStack(RDIngredientItems.CHESTNUT.asItem(), 5),
-                                5, 5, 0.05f
-                        ),
-                        (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 5),
-                                new ItemStack(RDIngredientItems.PLUM.asItem(), 6),
-                                5, 5, 0.05f
-                        )
-                )).toArray(new VillagerTrades.ItemListing[0])
-        );
-
-        // FARMER Lv.4
-        tradeRegistrar.registerTrade(
-                VillagerProfession.FARMER,
-                4,
-                ListMaker.of(() -> List.of(
-                        (VillagerTrades.ItemListing) (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 11),
-                                new ItemStack(RDIngredientItems.PUFF_YO_FRUIT.asItem(), 4),
-                                3, 10, 0.05f
-                        ),
-                        (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(Items.EMERALD, 15),
-                                new ItemStack(RDIngredientItems.FICUS_MICROCARPA.asItem(), 3),
-                                2, 15, 0.05f
-                        )
-                )).toArray(new VillagerTrades.ItemListing[0])
-        );
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(Items.EMERALD, ConstantValue.exactly(8)),
+                    Optional.empty(),
+                    new ItemStackTemplate(RDIngredientItems.WILD_BOAR_MEAT.asItem()),
+                    4,
+                    10,
+                    0.05f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(5)).build()
+                    )
+            ));
+        }
     }
 }

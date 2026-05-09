@@ -2,7 +2,9 @@ package cc.thonly.reverie_dreams.item.base;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.recipe.ItemStackTemplateWrapper;
 import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.recipe.ItemWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -12,6 +14,7 @@ import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.util.UnitCodec;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,11 +24,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.DyedItemColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 @ToString
@@ -77,12 +82,14 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
         return this.of(Arrays.asList(roles));
     }
 
-    public ItemStack itemStack() {
-        ItemStack itemStack = new ItemStack(RDItems.ROLE_CARD.asItem(), 1);
-        itemStack.set(DataComponents.ITEM_NAME, Component.translatable(this.translationKey()));
-        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color.intValue()));
-        itemStack.set(RDDataComponents.ROLE_CARD_ID.value(), this.getId());
-        return itemStack.copy();
+    public ItemStackTemplate itemStack() {
+        ItemStackTemplate template = new ItemStackTemplate(RDItems.ROLE_CARD.asItem(), 1);
+        ItemStackTemplateHelper.modify(template, (template1, modifier) -> {
+            modifier.set(DataComponents.ITEM_NAME, Component.translatable(this.translationKey()));
+            modifier.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color.intValue()));
+            modifier.set(RDDataComponents.ROLE_CARD_ID.value(), this.getId());
+        });
+        return template;
     }
 
     public Stream<NPCRole> stream() {
@@ -132,13 +139,13 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
         private static final int[] POWER_INDEXES = new int[]{4, 6, 7};
         private static final int[] EMPTY_INDEXES = new int[]{2, 5};
         private final RoleCard roleCard;
-        private final List<ItemStackWrapper> itemStackWrappers;
+        private final List<ItemStackTemplateWrapper> itemWrappers;
         private GensokyoAltarRecipe result;
         private int plus = 0;
 
         public RecipeBuilder(RoleCard roleCard) {
             this.roleCard = roleCard;
-            this.itemStackWrappers = new ArrayList<>();
+            this.itemWrappers = new ArrayList<>();
         }
 
         public RecipeBuilder plus() {
@@ -150,40 +157,40 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
             return this;
         }
 
-        public RecipeBuilder itemStack(ItemStackWrapper... recipeWrappers) {
-            Collections.addAll(this.itemStackWrappers, recipeWrappers);
+        public RecipeBuilder itemStack(ItemStackTemplateWrapper... recipeWrappers) {
+            Collections.addAll(this.itemWrappers, recipeWrappers);
             return this;
         }
 
-        public RecipeBuilder itemStack(List<ItemStackWrapper> recipeWrappers) {
-            this.itemStackWrappers.addAll(recipeWrappers);
+        public RecipeBuilder itemStack(List<ItemStackTemplateWrapper> recipeWrappers) {
+            this.itemWrappers.addAll(recipeWrappers);
             return this;
         }
 
         public RecipeBuilder build() {
-            List<ItemStackWrapper> wrappers = new ArrayList<>();
+            List<ItemStackTemplateWrapper> wrappers = new ArrayList<>();
             for (int i = 0; i < 8; i++) {
-                wrappers.add(ItemStackWrapper.empty());
+                wrappers.add(ItemWrapper.empty());
             }
             for (int i = 0; i < POINT_INDEXES.length; i++) {
                 int pointIndex = POINT_INDEXES[i];
-                wrappers.set(pointIndex, ItemStackWrapper.of(RDItems.POINT, 14 + i + this.plus));
+                wrappers.set(pointIndex, ItemStackTemplateWrapper.of(RDItems.POINT, 14 + i + this.plus));
             }
             for (int i = 0; i < POWER_INDEXES.length; i++) {
                 int powerIndex = POWER_INDEXES[i];
-                wrappers.set(powerIndex, ItemStackWrapper.of(RDItems.POWER, 18 + i + this.plus));
+                wrappers.set(powerIndex, ItemStackTemplateWrapper.of(RDItems.POWER, 18 + i + this.plus));
             }
             PrimitiveIterator.OfInt iterator = Arrays.stream(EMPTY_INDEXES).iterator();
-            for (ItemStackWrapper itemStackWrapper : this.itemStackWrappers) {
+            for (ItemStackTemplateWrapper itemStackWrapper : this.itemWrappers) {
                 if (!iterator.hasNext()) continue;
                 Integer next = iterator.next();
                 wrappers.set(next, itemStackWrapper);
             }
 
             this.result = new GensokyoAltarRecipe(
-                    ItemStackWrapper.of(RDItems.ROLE_CARD.createStack()),
+                    ItemStackTemplateWrapper.of(RDItems.ROLE_CARD),
                     wrappers,
-                    ItemStackWrapper.of(this.roleCard.itemStack())
+                    ItemStackTemplateWrapper.of(this.roleCard.itemStack())
             );
             return this;
         }

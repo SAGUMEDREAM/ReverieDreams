@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.polymer.mixin;
 import cc.thonly.reverie_dreams.fabric.polymer.entity.inf.TickHolderEntity;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.api.AnimatedEntityHolder;
-import eu.pb4.polymer.virtualentity.api.tracker.DisplayTrackedData;
+import eu.pb4.polymer.virtualentity.api.data.DisplayEntityData;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -31,8 +31,8 @@ public interface AnimatedEntityMixin {
     public default void onModifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial, CallbackInfo ci) {
         if (this instanceof TickHolderEntity tickHolder) {
             Entity entity = tickHolder.getSource();
-            data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.WIDTH, entity.getBbWidth()));
-            data.add(SynchedEntityData.DataValue.create(DisplayTrackedData.HEIGHT, entity.getBbHeight()));
+            data.add(SynchedEntityData.DataValue.create(DisplayEntityData.WIDTH, entity.getBbWidth()));
+            data.add(SynchedEntityData.DataValue.create(DisplayEntityData.HEIGHT, entity.getBbHeight()));
         }
     }
 
