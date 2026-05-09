@@ -2,6 +2,9 @@
 
 # 0.5.0+26.1.2
 * Update for 26.1.2
+* Added sound to TenguCamera
+* This merges bug fixes from versions 0.4.19+1.21.11
+* Removed all collaborations that were not updated to module 26.1
 
 # 0.4.18+1.21.11
 
