@@ -11,7 +11,7 @@ enum RemapJarType {
 }
 
 def isLts = false
-def remapJarType = RemapJarType.BETA
+def remapJarType = RemapJarType.STABLE
 
 base {
     archivesName = "%s-%s+%s-%s%s%s".formatted(

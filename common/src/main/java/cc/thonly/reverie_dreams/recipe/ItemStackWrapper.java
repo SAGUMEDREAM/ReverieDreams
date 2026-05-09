@@ -235,24 +235,27 @@ public class ItemStackWrapper {
         return this.itemStack.getCount();
     }
 
+    public boolean test(ItemStack other) {
+        return this.test(ItemStackWrapper.of(other));
+    }
+
     @SuppressWarnings("deprecation")
-    public Boolean test(ItemStack other) {
-        if (ItemStack.isSameItemSameComponents(this.itemStack, other)) {
-            return true;
+    public boolean test(ItemStackWrapper other) {
+        if (!ItemStack.isSameItem(this.itemStack, other.itemStack)) {
+            for (TagKey<Item> tag : this.tags) {
+                Holder.Reference<Item> itemReference = other.itemStack.getItem().builtInRegistryHolder();
+                Set<TagKey<Item>> tags = itemReference.tags;
+                if (tags != null && tags.contains(tag)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        for (TagKey<Item> tag : this.tags) {
-            Holder.Reference<Item> itemReference = other.getItem().builtInRegistryHolder();
-            Set<TagKey<Item>> tags = itemReference.tags;
-            if (tags == null) {
-                continue;
-            }
-            if (tags.contains(tag)) {
-                return true;
-            }
+        if (!this.itemStack.getComponentsPatch().isEmpty()) {
+            return this.isSameItemSameComponents(this.itemStack, other.itemStack);
         }
-
-        return false;
+        return true;
     }
 
     public Boolean greaterThan(ItemStack other) {
@@ -271,9 +274,17 @@ public class ItemStackWrapper {
         return other.getCount() >= this.itemStack.getCount();
     }
 
+    private boolean isSameItemSameComponents(ItemStack a, ItemStack b) {
+        if (!a.is(b.getItem())) {
+            return false;
+        } else {
+            return (a.isEmpty() && b.isEmpty()) || Objects.equals(a.components.asPatch(), b.components.asPatch());
+        }
+    }
+
     public static ItemStackWrapper findEquivalentKey(Map<ItemStackWrapper, ?> map, ItemStackWrapper key) {
         for (ItemStackWrapper candidate : map.keySet()) {
-            if (candidate.test(key.getItemStack())) {
+            if (candidate.test(ItemStackWrapper.of(key.getItemStack()))) {
                 return candidate;
             }
         }

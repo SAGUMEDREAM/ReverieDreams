@@ -5,11 +5,13 @@ import cc.thonly.reverie_dreams.networking.payload.StartScreenshotPacket;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.SessionManager;
+import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import lombok.extern.slf4j.Slf4j;
 import net.blay09.mods.balm.Balm;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
@@ -66,6 +68,7 @@ public class TenguCameraItem extends Item {
             UUID sessionId = UUID.randomUUID();
             SessionManager.startSession(serverPlayer.getUUID(), sessionId);
             Balm.networking().sendTo(serverPlayer, new StartScreenshotPacket(sessionId));
+            level.playSound(null, player.blockPosition(), RDSoundEvents.PHOTO.value(), SoundSource.PLAYERS);
             return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.SUCCESS;

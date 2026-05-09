@@ -67,10 +67,10 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                 if (c == 'X') {
                     Function<Integer, Function<ItemStack, Boolean>> iffib = index -> switch (index) {
                         case 0 -> itemStack -> itemStack.getItem() instanceof DyeItem;
-                        case 1 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_CORE;
-                        case 2 -> itemStack -> itemStack.getItem() == RDItems.POWER;
-                        case 3 -> itemStack -> itemStack.getItem() == RDItems.POINT;
-                        case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR;
+                        case 1 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_CORE.asItem();
+                        case 2 -> itemStack -> itemStack.getItem() == RDItems.POWER.asItem();
+                        case 3 -> itemStack -> itemStack.getItem() == RDItems.POINT.asItem();
+                        case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR.asItem();
                         default -> itemStack -> true;
                     };
                     this.setSlotRedirect(counter, new PredicateSlot(inventory, counter2, 0, 0, iffib.apply(counter2)));
@@ -128,10 +128,13 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                         }
                         DanmakuCraftingTableGui.this.player.addItem(itemStack.copy());
                         DanmakuCraftingTableGui.this.setSlot(DanmakuCraftingTableGui.this.resultSlot, new GuiElementBuilder()
-                                .setItem(RDGuiItems.PROGRESS_TO_RESULT.asItem())
+                                .setItem(Items.AIR)
                         );
                     }
                 }));
+            } else {
+                DanmakuCraftingTableGui.this.setSlot(this.resultSlot, new GuiElementBuilder()
+                        .setItem(Items.AIR));
             }
             this.tick = 0;
         }

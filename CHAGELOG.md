@@ -1,5 +1,12 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.19+1.21.11
+* Fixed Danmaku Crafting Table can't craft item
+* Fixed can't craft some item in kitchen blocks
+* Fixed gensokyo altar block and item sync in client
+* Fixed crafting food tag is error
+* End dev in 1.21.11
+
 # 0.4.18+1.21.11
 
 * Rewrite chest loot

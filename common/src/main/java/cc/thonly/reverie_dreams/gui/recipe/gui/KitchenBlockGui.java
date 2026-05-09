@@ -13,9 +13,11 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
@@ -116,6 +118,8 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
     private ItemStackWrapper buildFoodTags(KitchenRecipe recipe, ItemStackWrapper output, List<ItemStackWrapper> inputs) {
         ItemStack base = output.getItemStack().copy();
+        FoodProperties.get(base);
+        inputs = new ArrayList<>(inputs.stream().filter(wrapper -> !wrapper.getItemStack().is(RDItemTags.FOOD_ITEM)).toList());
 
         List<ItemStackWrapper> ingredients = recipe.getIngredients();
 
@@ -155,12 +159,6 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
         List<FoodProperty> resultTags = new ArrayList<>(temp);
         base.set(RDDataComponents.FOOD_PROPERTIES.value(), resultTags);
-
-        if (resultTags.size() >= 5) {
-            SimpleTriggerFactory
-                    .create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG)
-                    .trigger(this.player);
-        }
 
         return new ItemStackWrapper(base.copy());
     }
@@ -250,6 +248,11 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                     }
                 }
                 SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING).trigger(this.player);
+                if (itemStack.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>()).size() >= 5) {
+                    SimpleTriggerFactory
+                            .create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG)
+                            .trigger(this.player);
+                }
                 handleCrafting(output.get(), inputs, recipe);
             });
 
