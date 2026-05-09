@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "minecraft:beef"
+      "id": "minecraft:beef",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/onion"
+      "id": "reverie_dreams:ingredient/onion",
+      "count": 1
     },
     {
-      "id": "minecraft:pumpkin"
+      "id": "minecraft:pumpkin",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/energy_string"
+    "id": "reverie_dreams:food/energy_string",
+    "count": 1
   },
   "cost_time": 12.0
 }

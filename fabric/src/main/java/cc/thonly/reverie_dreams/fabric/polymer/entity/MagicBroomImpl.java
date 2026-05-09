@@ -38,7 +38,7 @@ public record MagicBroomImpl(MagicBroom source) implements PolymerEntity, Polyme
         var x = new ItemDisplayElement();
         var holder = new MagicBroomHolder(this.source);
         var stack = new ItemStack(RDEntityHolderItems.MAGIC_BROOM_DISPLAY.asItem());
-        if (this.source.getItemWrapper().getItemStack().hasFoil()) {
+        if (this.source.getIngredientStack().build().hasFoil()) {
             stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         }
         x.setItem(stack);

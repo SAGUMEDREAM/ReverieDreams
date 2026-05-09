@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:copper_sword"
+    "id": "minecraft:copper_sword",
+    "count": 1
   },
   "slots": [
     {
@@ -37,6 +38,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:sword_of_hisou"
+    "id": "reverie_dreams:sword_of_hisou",
+    "count": 1
   }
 }

@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:compass"
+    "id": "minecraft:compass",
+    "count": 1
   },
   "slots": [
     {
@@ -12,14 +13,16 @@
       "count": 6
     },
     {
-      "id": "minecraft:redstone_block"
+      "id": "minecraft:redstone_block",
+      "count": 1
     },
     {
       "id": "minecraft:magenta_dye",
       "count": 2
     },
     {
-      "id": "minecraft:copper_ingot"
+      "id": "minecraft:copper_ingot",
+      "count": 1
     },
     {
       "id": "minecraft:copper_ingot",
@@ -35,6 +38,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:gap_ball"
+    "id": "reverie_dreams:gap_ball",
+    "count": 1
   }
 }

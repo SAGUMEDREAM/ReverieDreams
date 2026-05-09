@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import cc.thonly.reverie_dreams.util.NotaUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
-import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;

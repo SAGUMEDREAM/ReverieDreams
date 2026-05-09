@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.server.nota;
 
+import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import net.blay09.mods.balm.platform.event.callback.ServerLifecycleCallback;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
-import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

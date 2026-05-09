@@ -6,6 +6,10 @@ import java.util.function.Supplier;
 public interface LazySupplier<T> extends Supplier<T> {
     T get();
 
+    default void unbound() {
+
+    }
+
     static <T> LazySupplier<T> of(Supplier<T> supplier) {
         return new Impl<>(supplier);
     }
@@ -44,6 +48,11 @@ public interface LazySupplier<T> extends Supplier<T> {
                 this.supplier = null;
             }
             return this.value;
+        }
+
+        @Override
+        public void unbound() {
+            this.initialized = false;
         }
     }
 }

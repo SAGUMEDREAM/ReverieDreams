@@ -43,7 +43,7 @@ public class GensokyoAltarPage implements PolydexPage {
             list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class GensokyoAltarPage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
@@ -82,15 +82,15 @@ public class GensokyoAltarPage implements PolydexPage {
         if (s.equals("X")) {
             return RDGuiItems.EMPTY_SLOT.createStack();
         } else if (s.equals("C")) {
-            return this.value.getCore().getItemStack().copy();
+            return this.value.getCore().build().copy();
         } else if (s.equals("I")) {
             int i = input.get();
             input.incrementAndGet();
             if (i < this.value.getSlots().size()) {
-                return this.value.getSlots().get(i).getItemStack().copy();
+                return this.value.getSlots().get(i).build().copy();
             }
         } else if (s.equals("O")) {
-            return this.value.getOutput().getItemStack().copy();
+            return this.value.getOutput().build().copy();
         } else if (s.equals("T")) {
             return RDGuiItems.PROGRESS_TO_RESULT.createStack();
         }

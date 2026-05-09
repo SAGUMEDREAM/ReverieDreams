@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.template;
 
 import cc.thonly.reverie_dreams.gui.DanmakuShapeEditGui;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,7 +37,7 @@ public class DanmakuShapeCreatorItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        ItemStackWrapper itemStackWrapper = stack.get(RDDataComponents.DANMAKU_SHAPE.value());
+        IngredientStack itemStackWrapper = stack.get(RDDataComponents.DANMAKU_SHAPE.value());
         return itemStackWrapper != null;
     }
 }

@@ -2,11 +2,6 @@ package cc.thonly.reverie_dreams.creative_tab;
 
 import cc.thonly.reverie_dreams.creative_tab.content.*;
 import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
-import net.minecraft.world.item.CreativeModeTab;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 
 public class CreativeTabs {
     public static void initialize(BalmCreativeModeTabRegistrar registrar) {

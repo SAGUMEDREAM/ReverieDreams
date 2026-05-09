@@ -22,7 +22,17 @@ import org.jspecify.annotations.Nullable;
 
 @Getter
 public class GensokyoAltarBlockEntity extends BlockEntity {
-    private SimpleContainer inventory = new SimpleContainer(9);
+    private SimpleContainer inventory = new SimpleContainer(9) {
+        @Override
+        public void setChanged() {
+            super.setChanged();
+            GensokyoAltarBlockEntity.this.setChanged();
+
+            if (level != null && !level.isClientSide()) {
+                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+            }
+        }
+    };
     public int tick = 0;
 
     public GensokyoAltarBlockEntity(BlockPos pos, BlockState state) {
@@ -42,7 +52,17 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
-        SimpleContainer inventory = new SimpleContainer(9);
+        SimpleContainer inventory = new SimpleContainer(9) {
+            @Override
+            public void setChanged() {
+                super.setChanged();
+                GensokyoAltarBlockEntity.this.setChanged();
+
+                if (level != null && !level.isClientSide()) {
+                    level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+                }
+            }
+        };
         ContainerHelper.loadAllItems(view, inventory.getItems());
         this.inventory = inventory;
     }

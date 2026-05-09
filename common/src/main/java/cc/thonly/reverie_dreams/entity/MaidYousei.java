@@ -75,9 +75,9 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
             final float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
             for (Float v : List.of(0.3f, 0.5f, 0.7f)) {
                 DelayedTask.repeat(server, 2, v, () -> {
-                    ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI);
+                    ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI).create();
                     DanmakuShooter.StackModifier modifier = origin -> {
-                        ItemStack stack0 = DanmakuTypes.random(DanmakuTypes.KUNAI);
+                        ItemStack stack0 = DanmakuTypes.random(DanmakuTypes.KUNAI).create();
                         DanmakuProperties properties = stack0.get(RDDataComponents.DANMAKU_PROPERTIES.value());
                         if (properties != null) {
                             origin.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.withSpeed(2.2f));

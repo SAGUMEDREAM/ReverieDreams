@@ -53,7 +53,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Mixin(Item.class)
 public abstract class ItemMixin implements FeatureElement, ItemLike {

@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.*;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
@@ -49,107 +50,107 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
         this.future = future;
     }
 
-    public ItemStackTemplateWrapper ofEmpty() {
-        return ItemWrapper.empty();
+    public IngredientStack ofEmpty() {
+        return IngredientStack.empty();
     }
 
-    public ItemStackTemplateWrapper ofItem(ItemStack item) {
-        return ItemStackTemplateWrapper.of(item.getItem());
+    public IngredientStack ofItem(ItemStack item) {
+        return IngredientStack.of(item.getItem());
     }
 
-    public ItemStackTemplateWrapper ofItem(ItemStackTemplate item) {
-        return ItemStackTemplateWrapper.of(item);
+    public IngredientStack ofItem(ItemStackTemplate item) {
+        return IngredientStack.of(item);
     }
 
-    public ItemStackTemplateWrapper ofItem(ItemLike item) {
-        return ItemStackTemplateWrapper.of(item.asItem());
+    public IngredientStack ofItem(ItemLike item) {
+        return IngredientStack.of(item.asItem());
     }
 
-    public ItemStackTemplateWrapper ofItem(DeferredItem item) {
-        return ItemStackTemplateWrapper.of(item.asItem());
+    public IngredientStack ofItem(DeferredItem item) {
+        return IngredientStack.of(item.asItem());
     }
 
-    public ItemStackTemplateWrapper ofItem(Item item) {
-        return ItemStackTemplateWrapper.of(item);
+    public IngredientStack ofItem(Item item) {
+        return IngredientStack.of(item);
     }
 
-    public ItemStackTemplateWrapper ofItem(Block block) {
-        return ItemStackTemplateWrapper.of(block.asItem());
+    public IngredientStack ofItem(Block block) {
+        return IngredientStack.of(block.asItem());
     }
 
-    public ItemStackTemplateWrapper ofItem(Block block, int amount) {
-        return ItemStackTemplateWrapper.of(block.asItem(), amount);
+    public IngredientStack ofItem(Block block, int amount) {
+        return IngredientStack.of(block.asItem(), amount);
     }
 
-    public ItemStackTemplateWrapper ofItem(Item item, int amount) {
-        return ItemStackTemplateWrapper.of(item, amount);
+    public IngredientStack ofItem(Item item, int amount) {
+        return IngredientStack.of(item, amount);
     }
 
-    public ItemStackTemplateWrapper ofItem(ItemLike item, int amount) {
-        return ItemStackTemplateWrapper.of(item.asItem(), amount);
+    public IngredientStack ofItem(ItemLike item, int amount) {
+        return IngredientStack.of(item.asItem(), amount);
     }
 
-    public ItemStackTemplateWrapper ofItem(Item item, int amount, DataComponentPatch components) {
-        return ItemStackTemplateWrapper.of(item, amount, components);
+    public IngredientStack ofItem(Item item, int amount, DataComponentPatch components) {
+        return IngredientStack.of(item, amount, components);
     }
 
-    public ItemStackTemplateWrapper ofItem(ItemStack item, TagKey<Item>... tagKey) {
-        return ItemStackTemplateWrapper.of(item.getItem(), Arrays.stream(tagKey).toList());
+    public IngredientStack ofItem(ItemStack item, TagKey<Item>... tagKey) {
+        return IngredientStack.of(item.getItem(), Arrays.stream(tagKey).toList());
     }
 
-    public ItemStackTemplateWrapper ofItem(Item item, TagKey<Item>... tagKey) {
-        return ItemStackTemplateWrapper.of(item, Arrays.stream(tagKey).toList());
+    public IngredientStack ofItem(Item item, TagKey<Item>... tagKey) {
+        return IngredientStack.of(item, Arrays.stream(tagKey).toList());
     }
 
-    public ItemStackTemplateWrapper ofItem(Item item, int amount, TagKey<Item>... tagKey) {
-        return ItemStackTemplateWrapper.of(item, amount, Arrays.stream(tagKey).toList());
+    public IngredientStack ofItem(Item item, int amount, TagKey<Item>... tagKey) {
+        return IngredientStack.of(item, amount, Arrays.stream(tagKey).toList());
     }
 
-    public ItemStackTemplateWrapper ofItem(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
-        return ItemStackTemplateWrapper.of(item, amount, components, tagKey);
+    public IngredientStack ofItem(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
+        return IngredientStack.of(item, amount, components, tagKey);
     }
 
-    public List<ItemStackTemplateWrapper> ofList(Item... items) {
-        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(Item... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (Item item : items) {
             wrappers.add(this.ofItem(item));
         }
         return wrappers;
     }
 
-    public List<ItemStackTemplateWrapper> ofList(ItemLike... items) {
-        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(ItemLike... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (ItemLike item : items) {
             wrappers.add(this.ofItem(item.asItem()));
         }
         return wrappers;
     }
 
-    public List<ItemStackTemplateWrapper> ofList(Holder<Item>... items) {
-        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(Holder<Item>... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (Holder<Item> item : items) {
             wrappers.add(this.ofItem(item.value()));
         }
         return wrappers;
     }
 
-    public List<ItemStackTemplateWrapper> ofList(DeferredItem... items) {
-        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(DeferredItem... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (DeferredItem item : items) {
             wrappers.add(this.ofItem(item.asItem()));
         }
         return wrappers;
     }
 
-    public List<ItemStackTemplateWrapper> ofList(ItemStack... items) {
-        LinkedList<ItemStackTemplateWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(ItemStack... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (ItemStack stack : items) {
             wrappers.add(this.ofItem(stack));
         }
         return wrappers;
     }
 
-    public List<ItemStackTemplateWrapper> ofList(ItemStackTemplateWrapper... stackRecipeWrappers) {
+    public List<IngredientStack> ofList(IngredientStack... stackRecipeWrappers) {
         return new LinkedList<>(Arrays.asList(stackRecipeWrappers));
     }
 

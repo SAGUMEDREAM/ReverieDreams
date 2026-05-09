@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "reverie_dreams:role_card"
+    "id": "reverie_dreams:role_card",
+    "count": 1
   },
   "slots": [
     {
@@ -24,7 +25,8 @@
       "count": 18
     },
     {
-      "id": "minecraft:iron_sword"
+      "id": "minecraft:iron_sword",
+      "count": 1
     },
     {
       "id": "reverie_dreams:power",
@@ -37,6 +39,7 @@
   ],
   "output": {
     "id": "reverie_dreams:role_card",
+    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "reverie_dreams.youyoumu_role_card"

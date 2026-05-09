@@ -1,15 +1,18 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.data.FumoType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.npc.villager.*;
-import net.minecraft.world.entity.npc.wanderingtrader.*;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.npc.villager.VillagerData;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerType;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -55,7 +58,7 @@ public class FumoSeller extends AbstractSeller {
         for (FumoType fumo : selectedFumos) {
             Item item = fumo.item();
             ItemStack sellItem = new ItemStack(item);
-            ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
+            IngredientStack wrapper = IngredientStack.of(sellItem);
 
             int emeraldAmount = 31 + random.nextInt(14);
             ItemCost first = new ItemCost(Items.EMERALD, emeraldAmount);

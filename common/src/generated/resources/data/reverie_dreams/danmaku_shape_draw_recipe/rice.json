@@ -51,9 +51,11 @@
   ],
   "result": {
     "id": "reverie_dreams:danmaku_recipe_creator",
+    "count": 1,
     "components": {
       "reverie_dreams:shape": {
-        "id": "reverie_dreams:danmaku/rice"
+        "id": "reverie_dreams:danmaku/rice",
+        "count": 1
       }
     }
   }

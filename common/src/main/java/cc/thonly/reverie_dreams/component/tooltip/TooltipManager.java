@@ -4,13 +4,13 @@ import cc.thonly.reverie_dreams.api.item.ItemStackTooltipCallback;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
 import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -19,7 +19,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 public class TooltipManager {
     public static void bootstrap() {
@@ -40,8 +42,8 @@ public class TooltipManager {
             if (!(stack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
                 return;
             }
-            ItemStackWrapper itemStackWrapper = stack.getOrDefault(RDDataComponents.DANMAKU_SHAPE.value(), ItemStackWrapper.of(Items.AIR));
-            ItemStack itemStack = itemStackWrapper.getItemStack();
+            IngredientStack ingredientStack = stack.getOrDefault(RDDataComponents.DANMAKU_SHAPE.value(), IngredientStack.of(Items.AIR));
+            ItemStack itemStack = ingredientStack.getLazyStack();
             textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {

@@ -44,7 +44,7 @@ public class KitchenPage implements PolydexPage {
             list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class KitchenPage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
@@ -83,12 +83,12 @@ public class KitchenPage implements PolydexPage {
         if (s.equals("X")) {
             return RDGuiItems.EMPTY_SLOT.createStack();
         } else if (s.equals("O")) {
-            return this.value.getOutput().getItemStack();
+            return this.value.getOutput().build();
         } else if (s.equals("I")) {
             int i = input.get();
             input.incrementAndGet();
             if (i + 1 <= this.value.getIngredients().size()) {
-                return this.value.getIngredients().get(i).getItemStack();
+                return this.value.getIngredients().get(i).build();
             }
         } else if (s.equals("T")) {
             return RDGuiItems.PROGRESS_TO_RESULT.createStack();

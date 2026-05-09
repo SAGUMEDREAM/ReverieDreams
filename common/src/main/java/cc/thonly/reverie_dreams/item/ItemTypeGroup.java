@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.item;
 
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
+import cc.thonly.reverie_dreams.item.base.CustomSpear;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import lombok.Getter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.AxeItem;
@@ -50,11 +50,10 @@ public enum ItemTypeGroup {
         if (item instanceof ArmorItem) {
             ARMOR.add(item);
         }
-        if (item.asItem().getDefaultInstance().has(DataComponents.KINETIC_WEAPON)) {
+        if (item instanceof CustomSpear) {
             SPEARS.add(item);
         }
     }
-
 
     public void add(Item item) {
         this.entries.add(item);

@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesImpl;
 import cc.thonly.reverie_dreams.api.recipe.RecipeInjectCallback;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.networking.payload.RecipeManagerSyncPacket;
 import cc.thonly.reverie_dreams.recipe.crafting.DanmakuDyeRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.*;
@@ -23,7 +24,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -97,7 +97,7 @@ public class RecipeManager {
             Map<Identifier, ?> registryView = recipeTypeEntry.getValue().getRegistryView();
             for (Map.Entry<Identifier, ?> recipeEntry : registryView.entrySet()) {
                 Object recipeObj = recipeEntry.getValue();
-                ItemStackWrapper wrapper = getOutputReflective(recipeObj);
+                IngredientStack wrapper = getOutputReflective(recipeObj);
                 if (wrapper != null && wrapper.getItem() == item) {
                     return (BaseRecipe) recipeObj;
                 }
@@ -106,12 +106,12 @@ public class RecipeManager {
         return null;
     }
 
-    public static ItemStackWrapper getOutputReflective(Object recipeObj) {
+    public static IngredientStack getOutputReflective(Object recipeObj) {
         try {
             Method method = recipeObj.getClass().getMethod("getOutput");
             Object result = method.invoke(recipeObj);
 
-            if (result instanceof ItemStackWrapper wrapper) {
+            if (result instanceof IngredientStack wrapper) {
                 return wrapper;
             }
         } catch (Exception e) {

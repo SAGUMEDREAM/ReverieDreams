@@ -2,8 +2,7 @@ package cc.thonly.reverie_dreams.gui.recipe.gui;
 
 import cc.thonly.reverie_dreams.block.entity.StrengthenTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -53,18 +52,18 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
 //        this.inputText = this.getInput();
         ItemStack mainStack = this.blockEntity.getInventory().getItem(0).copy();
         ItemStack offStack = this.blockEntity.getInventory().getItem(1).copy();
-        ItemStackWrapper mainSlot = new ItemStackWrapper(mainStack);
-        ItemStackWrapper offSlot = new ItemStackWrapper(offStack);
+        IngredientStack mainSlot = new IngredientStack(mainStack);
+        IngredientStack offSlot = new IngredientStack(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
         if (entries.isEmpty()) {
             return;
         }
         StrengthTableRecipe entry = entries.getFirst();
         if (entry != null) {
-            ItemStackWrapper outputItemWrapper = entry.getOutput();
+            IngredientStack outputItemWrapper = entry.getOutput();
             this.output = new GuiElementBuilder()
                     .setCallback((index, type, action, basedGui) -> click());
-            GuiElementBuilderSetter.setter(this.output, outputItemWrapper.getItemStack().copy());
+            GuiElementBuilderSetter.setter(this.output, outputItemWrapper.getLazyStack().copy());
         } else {
             this.output = new GuiElementBuilder().setItem(Items.AIR);
         }
@@ -75,21 +74,21 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
         if (this.blockEntity == null) return;
         ItemStack mainStack = this.blockEntity.getInventory().getItem(0);
         ItemStack offStack = this.blockEntity.getInventory().getItem(1);
-        ItemStackWrapper mainSlot = new ItemStackWrapper(mainStack);
-        ItemStackWrapper offSlot = new ItemStackWrapper(offStack);
+        IngredientStack mainSlot = new IngredientStack(mainStack);
+        IngredientStack offSlot = new IngredientStack(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
         if (entries.isEmpty()) {
             return;
         }
         StrengthTableRecipe entry = entries.getFirst();
         if (entry != null) {
-            ItemStackWrapper mainItem = entry.getMainItem();
-            ItemStackWrapper offItem = entry.getOffItem();
-            ItemStackWrapper resultItem = entry.getOutput();
+            IngredientStack mainItem = entry.getMainItem();
+            IngredientStack offItem = entry.getOffItem();
+            IngredientStack resultItem = entry.getOutput();
 
             this.blockEntity.getInventory().removeItem(0, mainItem.getCount());
             this.blockEntity.getInventory().removeItem(1, offItem.getCount());
-            ItemStack itemStack = resultItem.getItemStack().copy();
+            ItemStack itemStack = resultItem.getLazyStack().copy();
 //            itemStack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(this.inputText));
             this.player.addItem(itemStack);
         } else {

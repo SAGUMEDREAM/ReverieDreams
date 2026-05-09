@@ -2,23 +2,29 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/hagfish"
+      "id": "reverie_dreams:ingredient/hagfish",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/tofu"
+      "id": "reverie_dreams:ingredient/tofu",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/crab"
+      "id": "reverie_dreams:ingredient/crab",
+      "count": 1
     },
     {
-      "id": "minecraft:bamboo"
+      "id": "minecraft:bamboo",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/dew"
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/the_beauty_of_han_palace"
+    "id": "reverie_dreams:food/the_beauty_of_han_palace",
+    "count": 1
   },
   "cost_time": 12.0
 }

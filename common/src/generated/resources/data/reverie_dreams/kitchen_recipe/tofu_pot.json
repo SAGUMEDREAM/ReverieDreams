@@ -2,10 +2,12 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tofu"
+      "id": "reverie_dreams:ingredient/tofu",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/tofu_pot"
+    "id": "reverie_dreams:food/tofu_pot",
+    "count": 1
   }
 }

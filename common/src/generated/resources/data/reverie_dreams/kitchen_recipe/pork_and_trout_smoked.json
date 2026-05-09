@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/trout"
+      "id": "reverie_dreams:ingredient/trout",
+      "count": 1
     },
     {
-      "id": "minecraft:porkchop"
+      "id": "minecraft:porkchop",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/pork_and_trout_smoked"
+    "id": "reverie_dreams:food/pork_and_trout_smoked",
+    "count": 1
   },
   "cost_time": 7.0
 }

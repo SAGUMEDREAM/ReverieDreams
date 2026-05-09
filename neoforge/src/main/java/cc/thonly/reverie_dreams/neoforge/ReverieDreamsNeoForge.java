@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -26,9 +27,9 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 @Mod(ReverieDreams.MOD_ID)
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ReverieDreamsNeoForge {
-    public ReverieDreamsNeoForge(IEventBus modEventBus) {
+    public ReverieDreamsNeoForge(ModContainer modContainer, IEventBus modEventBus) {
         NeoForgeKeine.loadApiImpl();
-        final var context = new NeoForgeLoadContext(modEventBus);
+        final var context = new NeoForgeLoadContext(modContainer, modEventBus);
         setupApi();
         Balm.initializeMod(ReverieDreams.MOD_ID, context, registrars -> {
             ReverieDreams.initialize(registrars, () -> {

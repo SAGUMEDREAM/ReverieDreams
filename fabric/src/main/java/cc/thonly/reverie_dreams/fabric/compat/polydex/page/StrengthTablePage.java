@@ -41,7 +41,7 @@ public class StrengthTablePage implements PolydexPage {
             list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class StrengthTablePage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
@@ -84,11 +84,11 @@ public class StrengthTablePage implements PolydexPage {
             int i = input.get();
             input.incrementAndGet();
             if (i == 0) {
-                return this.value.getMainItem().getItemStack().copy();
+                return this.value.getMainItem().build().copy();
             } else if (i == 1) {
-                return this.value.getOffItem().getItemStack().copy();
+                return this.value.getOffItem().build().copy();
             } else if (i == 2) {
-                return this.value.getOutput().getItemStack().copy();
+                return this.value.getOutput().build().copy();
             }
         } else if (s.equals("T")) {
             return RDGuiItems.PROGRESS_TO_RESULT.createStack();

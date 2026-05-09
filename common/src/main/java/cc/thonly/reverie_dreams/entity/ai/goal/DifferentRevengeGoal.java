@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;

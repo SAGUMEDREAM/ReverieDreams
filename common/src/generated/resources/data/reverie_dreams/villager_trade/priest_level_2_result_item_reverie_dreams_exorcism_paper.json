@@ -1,0 +1,22 @@
+{
+  "additional_wants": {
+    "count": 24.0,
+    "id": "reverie_dreams:copper_coin"
+  },
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "count": 6.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "gives": {
+    "id": "reverie_dreams:exorcism_paper"
+  },
+  "reputation_discount": 0.2,
+  "wants": {
+    "count": 38.0,
+    "id": "reverie_dreams:power"
+  },
+  "xp": 5.0
+}

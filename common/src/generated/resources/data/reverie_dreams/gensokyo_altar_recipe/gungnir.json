@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:diamond_axe"
+    "id": "minecraft:diamond_axe",
+    "count": 1
   },
   "slots": [
     {
@@ -32,11 +33,11 @@
       "count": 6
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     }
   ],
   "output": {
-    "id": "reverie_dreams:gungnir"
+    "id": "reverie_dreams:gungnir",
+    "count": 1
   }
 }

@@ -38,11 +38,11 @@ public class ItemBlockCreativeTab implements ItemGroupContentHelper {
                         List<ItemStack> books = RDEnchantments.getEnchantmentBook(registryAccess, key);
                         books.forEach(output::accept);
                     }
-                    output.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION));
-                    output.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION_INF));
-                    output.accept(RDPotions.createStack(RDPotions.MENTAL_DISORDER_POTION));
-                    output.accept(RDPotions.createStack(RDPotions.BACK_OF_LIFE_POTION));
-                    output.accept(RDPotions.createStack(RDPotions.KANJU_KUSURI_POTION));
+                    output.accept(RDPotions.createStackTemplate(RDPotions.ELIXIR_OF_LIFE_POTION).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.ELIXIR_OF_LIFE_POTION_INF).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.MENTAL_DISORDER_POTION).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.BACK_OF_LIFE_POTION).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.KANJU_KUSURI_POTION).create());
 
                     // 方块
                     for (Holder<Block> blockHolder : RDBlocks.BLOCKS) {

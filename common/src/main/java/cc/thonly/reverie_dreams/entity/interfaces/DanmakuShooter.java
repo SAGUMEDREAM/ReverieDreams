@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 @FunctionalInterface
 public interface DanmakuShooter {
     DanmakuShooter DEFAULT = (self, target, world) -> {
-        ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY);
+        ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY).create();
         float[] pitchYaw = getPitchYaw(self, target);
         spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 1.0f, 0f, 0.35f);
         spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 1.05f, 0f, 0.35f);

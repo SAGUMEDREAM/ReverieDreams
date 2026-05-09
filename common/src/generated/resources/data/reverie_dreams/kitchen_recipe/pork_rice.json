@@ -2,11 +2,13 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:porkchop"
+      "id": "minecraft:porkchop",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/pork_rice"
+    "id": "reverie_dreams:food/pork_rice",
+    "count": 1
   },
   "cost_time": 7.0
 }

@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.server.nota.utils;
 
+import cc.thonly.reverie_dreams.server.nota.model.Sound;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import cc.thonly.reverie_dreams.server.nota.model.Sound;
 
 /**
  * Various methods for working with instruments

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.type.GensokyoAltarRecipeType;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
@@ -80,7 +80,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
                         }
                     }
                     inventory.clearContent();
-                    inventory.setItem(8, craft.getOutput().getItemStack().copy());
+                    inventory.setItem(8, craft.getOutput().getLazyStack().copy());
                     world.playSound(null, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS);
                     blockEntity.setChanged();
                     SimpleTriggerFactory.create(SimpleTriggerKeys.GENSOKYO_ALTAR_CRAFTING).trigger(serverPlayer);
@@ -112,15 +112,15 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
 
     protected GensokyoAltarRecipe tryCraft(SimpleContainer inventory, BlockPos pos) {
         List<GensokyoAltarRecipe> matches = GensokyoAltarRecipeType.getInstance().getMatches(List.of(
-                new ItemStackWrapper(inventory.getItem(0)),
-                new ItemStackWrapper(inventory.getItem(1)),
-                new ItemStackWrapper(inventory.getItem(2)),
-                new ItemStackWrapper(inventory.getItem(3)),
-                new ItemStackWrapper(inventory.getItem(4)),
-                new ItemStackWrapper(inventory.getItem(5)),
-                new ItemStackWrapper(inventory.getItem(6)),
-                new ItemStackWrapper(inventory.getItem(7)),
-                new ItemStackWrapper(inventory.getItem(8))
+                new IngredientStack(inventory.getItem(0)),
+                new IngredientStack(inventory.getItem(1)),
+                new IngredientStack(inventory.getItem(2)),
+                new IngredientStack(inventory.getItem(3)),
+                new IngredientStack(inventory.getItem(4)),
+                new IngredientStack(inventory.getItem(5)),
+                new IngredientStack(inventory.getItem(6)),
+                new IngredientStack(inventory.getItem(7)),
+                new IngredientStack(inventory.getItem(8))
         ));
         if (matches.isEmpty()) {
             return null;

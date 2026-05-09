@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.gui;
 
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.mixin.accessor.GuiElementBuilderAccessor;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -123,12 +123,12 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
     private void readData() {
         DanmakuShapeDrawRecipeType recipeType = DanmakuShapeDrawRecipeType.getInstance();
         ItemStack source = this.source;
-        ItemStackWrapper itemStackWrapper = source.get(RDDataComponents.DANMAKU_SHAPE.value());
-        if (itemStackWrapper == null) {
+        IngredientStack ingredientStack = source.get(RDDataComponents.DANMAKU_SHAPE.value());
+        if (ingredientStack == null) {
             return;
         }
 
-        List<List<List<Boolean>>> shapesByOutput = recipeType.getShapesByOutput(itemStackWrapper);
+        List<List<List<Boolean>>> shapesByOutput = recipeType.getShapesByOutput(ingredientStack);
         if (shapesByOutput.isEmpty()) return;
 
         List<List<Boolean>> shapeToShow = shapesByOutput.getFirst();
@@ -179,8 +179,8 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
             return;
         }
         DanmakuShapeDrawRecipe first = matches.getFirst();
-        ItemStackWrapper output = first.getOutput();
-        ItemStack itemStack = output.clone().getItemStack();
+        IngredientStack output = first.getOutput();
+        ItemStack itemStack = output.build();
         this.player.sendSystemMessage(Component.translatable("item.action.click.shape_recipe.success"), false);
         this.player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
         this.player.setItemInHand(this.hand, itemStack);

@@ -43,4 +43,7 @@ subprojects {
             }
         }
     }
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs += ["-Xlint:-removal", "-Xlint:-dep-ann"]
+    }
 }

@@ -8,10 +8,11 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.Map;
 import java.util.Set;
@@ -24,11 +25,11 @@ public class TemplateCreativeTab implements ItemGroupContentHelper {
                 .icon(() -> new ItemStack(RDItems.SPELL_CARD_TEMPLATE.asItem()))
                 .title(Component.translatable("item_group.touhou.template"))
                 .displayItems((parameters, output) -> {
-                    Map<Identifier, ItemStack> registryView = DanmakuTemplates.getRegistryItemStackView();
-                    Set<Map.Entry<Identifier, ItemStack>> views = registryView.entrySet();
-                    for (Map.Entry<Identifier, ItemStack> view : views) {
-                        ItemStack stack = view.getValue();
-                        output.accept(stack.copy());
+                    Map<Identifier, ItemStackTemplate> registryView = DanmakuTemplates.getRegistryItemStackView();
+                    Set<Map.Entry<Identifier, ItemStackTemplate>> views = registryView.entrySet();
+                    for (Map.Entry<Identifier, ItemStackTemplate> view : views) {
+                        ItemStackTemplate stack = view.getValue();
+                        output.accept(stack.create());
                     }
                     for (DanmakuShape shape : RegistryImpls.DANMAKU_SHAPE) {
                         if (shape.getType().isDeleteFromList()) {

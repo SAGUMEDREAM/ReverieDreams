@@ -1,6 +1,6 @@
 //package cc.thonly.reverie_dreams.util.item;
 //
-//import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+//import cc.thonly.reverie_dreams.item.ItemStackWrapper;
 //import me.shedaniel.rei.api.common.entry.EntryIngredient;
 //import me.shedaniel.rei.api.common.entry.EntryStack;
 //import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;

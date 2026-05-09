@@ -2,20 +2,25 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:pufferfish"
+      "id": "minecraft:pufferfish",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/plum"
+      "id": "reverie_dreams:ingredient/plum",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/hagfish"
+      "id": "reverie_dreams:ingredient/hagfish",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/ginkgo"
+      "id": "reverie_dreams:ingredient/ginkgo",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/poisonous_garden"
+    "id": "reverie_dreams:food/poisonous_garden",
+    "count": 1
   },
   "cost_time": 8.0
 }

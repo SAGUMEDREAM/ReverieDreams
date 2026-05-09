@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:iron_sword"
+    "id": "minecraft:iron_sword",
+    "count": 1
   },
   "slots": [
     {
@@ -20,23 +21,21 @@
       "count": 6
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
       "id": "minecraft:stripped_cherry_log",
       "count": 4
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     }
   ],
   "output": {
-    "id": "reverie_dreams:rokanken"
+    "id": "reverie_dreams:rokanken",
+    "count": 1
   }
 }

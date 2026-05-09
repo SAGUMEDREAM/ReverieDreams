@@ -2,11 +2,13 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:beef"
+      "id": "minecraft:beef",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/lion_head"
+    "id": "reverie_dreams:food/lion_head",
+    "count": 1
   },
   "cost_time": 7.0
 }

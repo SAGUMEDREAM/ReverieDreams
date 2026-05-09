@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/peach"
+      "id": "reverie_dreams:ingredient/peach",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:magic_ice"
+      "id": "reverie_dreams:magic_ice",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/dew"
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/peach_blossom_soup"
+    "id": "reverie_dreams:food/peach_blossom_soup",
+    "count": 1
   },
   "cost_time": 8.0
 }

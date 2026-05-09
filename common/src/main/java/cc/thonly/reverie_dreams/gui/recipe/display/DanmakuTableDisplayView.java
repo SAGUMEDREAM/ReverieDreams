@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.gui.recipe.display;
 
 import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
@@ -46,14 +46,14 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
 
     @Override
     public void init() {
-        this.setTitle(this.key2ValueEntry.getValue().getOutput().getItemStack().getHoverName());
-        List<ItemStackWrapper> inputs = new LinkedList<>();
+        this.setTitle(this.key2ValueEntry.getValue().getOutput().build().getHoverName());
+        List<IngredientStack> inputs = new LinkedList<>();
         inputs.add(this.value.getDye());
         inputs.add(this.value.getCore());
         inputs.add(this.value.getPower());
         inputs.add(this.value.getPoint());
         inputs.add(this.value.getMaterial());
-        Iterator<ItemStackWrapper> slotIterator = inputs.iterator();
+        Iterator<IngredientStack> slotIterator = inputs.iterator();
 
         String[][] grid = this.getGrid();
         for (int row = 0; row < grid.length; row++) {
@@ -76,12 +76,12 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
                 }
                 if (c.equalsIgnoreCase("I")) {
                     if(slotIterator.hasNext()) {
-                        ItemStackWrapper next = slotIterator.next();
+                        IngredientStack next = slotIterator.next();
                         this.setSlot(slot, this.getGuiElementBuilder(next));
                     }
                 }
                 if (c.equalsIgnoreCase("O")) {
-                    ItemStackWrapper output = this.value.getOutput();
+                    IngredientStack output = this.value.getOutput();
                     this.setSlot(slot, this.getGuiElementBuilder(output));
                 }
             }

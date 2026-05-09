@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.villager.offer;
 
-import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -18,7 +18,10 @@ import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class HawkerOffers {
     public static final String TEMPLATE = RDVillagerTrades.HAWKERS_LEVEL_TEMPLATE;

@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:mace"
+    "id": "minecraft:mace",
+    "count": 1
   },
   "slots": [
     {
@@ -8,7 +9,8 @@
       "count": 2
     },
     {
-      "id": "minecraft:end_rod"
+      "id": "minecraft:end_rod",
+      "count": 1
     },
     {
       "id": "minecraft:iron_ingot",
@@ -36,6 +38,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:manpozuchi"
+    "id": "reverie_dreams:manpozuchi",
+    "count": 1
   }
 }

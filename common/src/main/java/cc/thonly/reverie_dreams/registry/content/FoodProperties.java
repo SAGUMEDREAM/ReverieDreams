@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.item.FoodPropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -31,7 +31,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("Convert2MethodRef")
@@ -176,7 +175,7 @@ public class FoodProperties {
 
     public static Collection<FoodProperty> get(ItemStackTemplate template) {
         Holder<Item> item = template.item();
-        List<FoodProperty> existing = template.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>());
+        List<FoodProperty> existing = ItemStackTemplateHelper.getOrDefault(template, RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>());
         if (!existing.isEmpty()) {
             return existing;
         }

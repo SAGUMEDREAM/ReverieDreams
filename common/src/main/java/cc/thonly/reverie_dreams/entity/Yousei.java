@@ -57,7 +57,7 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new DanmakuGoal(this, (self, target, world) -> {
-            ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY);
+            ItemStack stack = DanmakuTypes.random(DanmakuTypes.FIREBALL_GLOWY).create();
             final MinecraftServer server = world.getServer();
             final float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
 

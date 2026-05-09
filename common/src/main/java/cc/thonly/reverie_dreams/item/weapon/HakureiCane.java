@@ -36,7 +36,7 @@ public class HakureiCane extends SwordItem {
             DanmakuEntity center = DanmakuTrajectory.spawnByItemStack(serverWorld,
                     user,
                     user.getX(), user.getY(), user.getZ(),
-                    DanmakuTypes.withColor(DanmakuTypes.AMULET, ItemColor.RED),
+                    DanmakuTypes.withColor(DanmakuTypes.AMULET, ItemColor.RED).create(),
                     pitch, yaw,
                     0.0f, 0.8f);
             center.setDanmakuProperties(center.getDanmakuProperties().withSpeed(2.0f));

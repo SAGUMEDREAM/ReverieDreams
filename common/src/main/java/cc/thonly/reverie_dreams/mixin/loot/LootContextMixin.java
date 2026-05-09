@@ -19,8 +19,6 @@ import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 @Mixin(LootContext.class)
 public abstract class LootContextMixin implements ILootContext {

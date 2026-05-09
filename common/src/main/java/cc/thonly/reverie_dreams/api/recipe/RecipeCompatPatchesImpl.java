@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.api.recipe;
 
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeItemTag;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
@@ -14,6 +14,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -98,11 +99,11 @@ public class RecipeCompatPatchesImpl {
                             field.setAccessible(true);
                             Object fieldValue = field.get(value);
 
-                            if (fieldValue instanceof ItemStackWrapper wrapper && wrapper.getItem().equals(itemPair.targetItem)) {
+                            if (fieldValue instanceof IngredientStack wrapper && wrapper.getItem().equals(itemPair.targetItem)) {
                                 if (wrapper.getItem().equals(itemPair.compatItem)) {
                                     continue;
                                 }
-                                field.set(object, new ItemStackWrapper(new ItemStack(itemPair.targetItem, wrapper.getCount())));
+                                field.set(object, new IngredientStack(new ItemStack(itemPair.targetItem, wrapper.getCount())));
                                 changed = true;
                             }
                             if (fieldValue instanceof List<?> list) {
@@ -110,21 +111,21 @@ public class RecipeCompatPatchesImpl {
                                     continue;
                                 }
                                 Object first = list.getFirst();
-                                if (!(first instanceof ItemStackWrapper)) {
+                                if (!(first instanceof IngredientStack)) {
                                     continue;
                                 }
 
-                                List<ItemStackWrapper> wrappers = new ArrayList<>();
+                                List<IngredientStack> wrappers = new ArrayList<>();
                                 boolean listChanged = false;
 
-                                for (ItemStackWrapper wrapper : (List<ItemStackWrapper>) list) {
+                                for (IngredientStack wrapper : (List<IngredientStack>) list) {
                                     if (itemPair.targetItem.equals(itemPair.compatItem)) {
                                         wrappers.add(wrapper);
                                         continue;
                                     }
 
                                     if (wrapper.getItem().equals(itemPair.targetItem)) {
-                                        wrappers.add(ItemStackWrapper.of(new ItemStack(itemPair.compatItem, wrapper.getCount())));
+                                        wrappers.add(IngredientStack.of(new ItemStackTemplate(itemPair.compatItem, wrapper.getCount())));
                                         listChanged = true;
                                     } else {
                                         wrappers.add(wrapper);

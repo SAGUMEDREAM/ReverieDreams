@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.blay09.mods.balm.world.item.BalmItemRegistrar;
 import net.blay09.mods.balm.world.item.DeferredItem;
-import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;

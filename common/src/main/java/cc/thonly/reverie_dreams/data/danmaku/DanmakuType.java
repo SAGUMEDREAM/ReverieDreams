@@ -13,6 +13,7 @@ import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
 import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
 import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ReferenceLinkedOpenHashSet;
@@ -26,18 +27,21 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.UseCooldown;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 @Setter
 @Getter
@@ -120,25 +124,27 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
         this.itemHolder = itemRegistration.asDeferredItem();
     }
 
-    @SuppressWarnings("deprecation")
-    public List<Tuple<Item, ItemStack>> getColorPairs() {
-        List<Tuple<Item, ItemStack>> pairList = new LinkedList<>();
-        ItemStack defaultStack = this.itemHolder.asItem().getDefaultInstance();
+    @SuppressWarnings({"deprecation", "OptionalGetWithoutIsPresent"})
+    public Supplier<List<Tuple<Item, ItemStackTemplate>>> getColorPairs() {
+        List<Tuple<Item, ItemStackTemplate>> pairList = new LinkedList<>();
+        ItemStackTemplate defaultStack = new ItemStackTemplate(this.itemHolder.asItem());
         for (Map.Entry<Item, Long> itemLongEntry : ItemColor.getView().entrySet()) {
             Item dyeItem = itemLongEntry.getKey();
-            ItemStack stack = defaultStack.copy();
+            ItemStackTemplate template = new ItemStackTemplate(defaultStack.item(), defaultStack.count(), defaultStack.components());
             int color = itemLongEntry.getValue().intValue();
-            Component hoverName = stack.getHoverName();
+            Component hoverName = ItemStackTemplateHelper.getHoverName(template);
             Style style = hoverName.getStyle().withColor(brighten(color, 1.25f));
             Component colored = hoverName.copy().setStyle(style);
-            String gid = "%s_%s_%s".formatted(stack.getItem().builtInRegistryHolder().key().identifier(), dyeItem.builtInRegistryHolder().key().identifier(), color);
+            String gid = "%s_%s_%s".formatted(template.item().unwrapKey().get().identifier(), dyeItem.builtInRegistryHolder().key().identifier(), color);
             UUID uuid = UUID.nameUUIDFromBytes(gid.getBytes(StandardCharsets.UTF_8));
-            stack.set(DataComponents.ITEM_NAME, colored);
-            stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
-            stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(uuid.toString()))));
-            pairList.add(new Tuple<>(dyeItem, stack));
+            ItemStackTemplateHelper.modify(template, (old, modifier) -> {
+                modifier.set(DataComponents.ITEM_NAME, colored);
+                modifier.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
+                modifier.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(uuid.toString()))));
+            });
+            pairList.add(new Tuple<>(dyeItem, template));
         }
-        return pairList;
+        return () -> pairList;
     }
 
     private int brighten(int color, float factor) {

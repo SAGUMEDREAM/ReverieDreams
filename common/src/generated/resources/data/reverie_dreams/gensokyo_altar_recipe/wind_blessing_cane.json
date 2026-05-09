@@ -1,11 +1,11 @@
 {
   "core": {
-    "id": "minecraft:wooden_sword"
+    "id": "minecraft:wooden_sword",
+    "count": 1
   },
   "slots": [
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
       "id": "minecraft:paper",
@@ -24,11 +24,11 @@
       "count": 5
     },
     {
-      "id": "minecraft:stick"
+      "id": "minecraft:stick",
+      "count": 1
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
       "id": "minecraft:paper",
@@ -36,6 +36,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:wind_blessing_cane"
+    "id": "reverie_dreams:wind_blessing_cane",
+    "count": 1
   }
 }

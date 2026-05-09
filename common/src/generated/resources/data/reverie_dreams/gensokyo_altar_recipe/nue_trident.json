@@ -1,39 +1,41 @@
 {
   "core": {
-    "id": "minecraft:trident"
+    "id": "minecraft:trident",
+    "count": 1
   },
   "slots": [
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
-      "id": "minecraft:compass"
+      "id": "minecraft:compass",
+      "count": 1
     },
     {
-      "id": "minecraft:heart_of_the_sea"
+      "id": "minecraft:heart_of_the_sea",
+      "count": 1
     },
     {
       "id": "minecraft:cod",
       "count": 3
     },
     {
-      "id": "minecraft:netherite_ingot"
+      "id": "minecraft:netherite_ingot",
+      "count": 1
     },
     {
       "id": "minecraft:oak_log",
       "count": 8
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     }
   ],
   "output": {
-    "id": "reverie_dreams:nue_trident"
+    "id": "reverie_dreams:nue_trident",
+    "count": 1
   }
 }

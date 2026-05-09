@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "reverie_dreams:dream_stone",
   "result": {
-    "count": 1,
     "id": "reverie_dreams:dream_stone_stairs"
   }
 }

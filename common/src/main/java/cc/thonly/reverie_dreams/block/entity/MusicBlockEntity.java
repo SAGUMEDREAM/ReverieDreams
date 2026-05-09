@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
+import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import cc.thonly.reverie_dreams.util.NotaUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -8,7 +9,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;

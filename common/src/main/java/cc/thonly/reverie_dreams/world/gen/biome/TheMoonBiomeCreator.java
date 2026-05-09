@@ -3,16 +3,16 @@ package cc.thonly.reverie_dreams.world.gen.biome;
 import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.attribute.AmbientMoodSettings;
 import net.minecraft.world.attribute.AmbientParticle;
 import net.minecraft.world.attribute.AmbientSounds;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-
-import java.util.Optional;
 
 public class TheMoonBiomeCreator {
     private static Biome createMoonBiome(BiomeGenerationSettings.Builder builder) {

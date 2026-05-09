@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.gui.recipe.display;
 
 import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
@@ -31,7 +31,6 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
     public final RecipeEntryWrapper<GensokyoAltarRecipe> key2ValueEntry;
     public final Identifier key;
     public final GensokyoAltarRecipe value;
-    @SuppressWarnings("deprecation")
     public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.BACK.asItem()).setProfileSkinTexture(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
 
@@ -46,9 +45,9 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
 
     @Override
     public void init() {
-        this.setTitle(this.key2ValueEntry.getValue().getOutput().getItemStack().getHoverName());
-        List<ItemStackWrapper> inputs = new LinkedList<>(this.value.getSlots());
-        Iterator<ItemStackWrapper> slotIterator = inputs.iterator();
+        this.setTitle(this.key2ValueEntry.getValue().getOutput().build().getHoverName());
+        List<IngredientStack> inputs = new LinkedList<>(this.value.getSlots());
+        Iterator<IngredientStack> slotIterator = inputs.iterator();
 
         String[][] grid = this.getGrid();
         for (int row = 0; row < grid.length; row++) {
@@ -67,19 +66,19 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
                     this.setSlot(slot, this.back);
                 }
                 if (c.equalsIgnoreCase("C")) {
-                    ItemStackWrapper core = this.value.getCore();
+                    IngredientStack core = this.value.getCore();
                     if(core != null) {
                         this.setSlot(slot, this.getGuiElementBuilder(core));
                     }
                 }
                 if (c.equalsIgnoreCase("I")) {
                     if(slotIterator.hasNext()) {
-                        ItemStackWrapper next = slotIterator.next();
+                        IngredientStack next = slotIterator.next();
                         this.setSlot(slot, this.getGuiElementBuilder(next));
                     }
                 }
                 if (c.equalsIgnoreCase("O")) {
-                    ItemStackWrapper output = this.value.getOutput();
+                    IngredientStack output = this.value.getOutput();
                     this.setSlot(slot, this.getGuiElementBuilder(output));
                 }
             }

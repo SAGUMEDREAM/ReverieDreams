@@ -5,8 +5,8 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 
 public class RDAdvancements {
     public static final Identifier ADVANCEMENT_BACKGROUND = Identifier.withDefaultNamespace("gui/advancements/backgrounds/stone");

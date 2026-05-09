@@ -69,14 +69,14 @@ public class StrengthTableRecipeCategory implements IRecipeCategory<StrengthTabl
 
         builder.addSlot(RecipeIngredientRole.INPUT, 0, 9)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getMainItem().getItemStack().copy());
+                .add(recipe.getMainItem().build().copy());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 18, 9)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOffItem().getItemStack().copy());
+                .add(recipe.getOffItem().build().copy());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 9)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOutput().getItemStack().copy());
+                .add(recipe.getOutput().build().copy());
     }
 }

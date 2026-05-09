@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.recipe;
 
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
@@ -11,12 +12,13 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
-import com.mojang.serialization.DataResult;
-import net.minecraft.nbt.CompoundTag;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -32,9 +34,9 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
 
     public abstract void bootstrap();
 
-    public abstract List<R> getMatches(List<ItemStackWrapper> wrappers);
+    public abstract List<R> getMatches(List<IngredientStack> stackList);
 
-    public abstract Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe);
+    public abstract Boolean isMatch(IngredientStack input, IngredientStack recipe);
 
     public abstract Codec<R> getCodec();
 
@@ -83,6 +85,15 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
             R recipeEntry = next.getValue();
             recipeEntry.setRawId(nextId++);
         }
+    }
+
+    public Identifier getRecipeKey(R recipe) {
+        for (Map.Entry<Identifier, R> entry : this.registries.entrySet()) {
+            if (Objects.equals(entry.getValue(), recipe)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public R getRecipeById(Identifier id) {

@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.compat;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import lombok.extern.slf4j.Slf4j;
-import org.intellij.lang.annotations.Language;
 import org.intellij.lang.annotations.Pattern;
 
 @Slf4j

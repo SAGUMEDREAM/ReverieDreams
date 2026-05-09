@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -15,7 +16,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.UseCooldown;
 
 import java.io.IOException;
@@ -54,9 +54,8 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
 
                 result.resultOrPartial(error -> log.error("Failed to load danmaku recipe {}, {}", id, error))
                         .ifPresent(recipe -> {
+                            recipe.getOutput().set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
                             this.add(registryKey, recipe);
-                            ItemStack itemStack = recipe.getOutput().getItemStack();
-                            itemStack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
                         });
             } catch (IOException e) {
                 log.error("Failed to load danmaku recipe {}, {}, {}", id, e.getMessage(), e);
@@ -70,35 +69,36 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
     }
 
     @Override
-    public List<DanmakuRecipe> getMatches(List<ItemStackWrapper> wrappers) {
+    public List<DanmakuRecipe> getMatches(List<IngredientStack> wrappers) {
         if (wrappers.size() < 5) {
             return List.of();
         }
 
-        ItemStackWrapper dyeSlot = wrappers.get(0);
-        ItemStackWrapper coreSlot = wrappers.get(1);
-        ItemStackWrapper powerSlot = wrappers.get(2);
-        ItemStackWrapper pointSlot = wrappers.get(3);
-        ItemStackWrapper materialSlot = wrappers.get(4);
+        IngredientStack dyeSlot = wrappers.get(0);
+        IngredientStack coreSlot = wrappers.get(1);
+        IngredientStack powerSlot = wrappers.get(2);
+        IngredientStack pointSlot = wrappers.get(3);
+        IngredientStack materialSlot = wrappers.get(4);
 
         List<DanmakuRecipe> matches = new ArrayList<>();
-        for (DanmakuRecipe recipe : stream().toList()) {
+        for (DanmakuRecipe recipe : this.stream().toList()) {
+//            System.out.println("Matching recipe key: " + this.getRecipeKey(recipe));
 //            System.out.println("Matching recipe: " + recipe);
-//            System.out.println("input dyeSlot:      " + dyeSlot.getItemStack());
-//            System.out.println("recipe.getDye():    " + recipe.getDye().getItemStack());
-//            System.out.println("dye compare:        " + recipe.getDye().greaterThan(dyeSlot.getItemStack()));
+//            System.out.println("input dyeSlot:      " + dyeSlot.build());
+//            System.out.println("recipe.getDye():    " + ItemComparatorView.of(recipe.getDye().build()));
+//            System.out.println("dye compare:        " + ItemComparatorView.of(recipe.getDye()).greaterThan(dyeSlot));
 //
-//            System.out.println("core compare:       " + recipe.getCore().greaterThan(coreSlot.getItemStack()));
-//            System.out.println("point compare:      " + recipe.getPoint().greaterThan(pointSlot.getItemStack()));
-//            System.out.println("power compare:      " + recipe.getPower().greaterThan(powerSlot.getItemStack()));
-//            System.out.println("material compare:   " + recipe.getMaterial().greaterThan(materialSlot.getItemStack()));
+//            System.out.println("core compare:       " + ItemComparatorView.of(recipe.getCore()).greaterThan(coreSlot));
+//            System.out.println("point compare:      " + ItemComparatorView.of(recipe.getPoint()).greaterThan(pointSlot));
+//            System.out.println("power compare:      " + ItemComparatorView.of(recipe.getPower()).greaterThan(powerSlot));
+//            System.out.println("material compare:   " + ItemComparatorView.of(recipe.getMaterial()).greaterThan(materialSlot));
 //            System.out.println("-----------------------------");
             if (
-                    recipe.getDye().greaterThan(dyeSlot.getItemStack()) &&
-                            recipe.getCore().greaterThan(coreSlot.getItemStack()) &&
-                            recipe.getPoint().greaterThan(pointSlot.getItemStack()) &&
-                            recipe.getPower().greaterThan(powerSlot.getItemStack()) &&
-                            recipe.getMaterial().greaterThan(materialSlot.getItemStack())
+                    ItemComparatorView.of(recipe.getDye()).greaterThan(dyeSlot) &&
+                            ItemComparatorView.of(recipe.getCore()).greaterThan(coreSlot) &&
+                            ItemComparatorView.of(recipe.getPoint()).greaterThan(pointSlot) &&
+                            ItemComparatorView.of(recipe.getPower()).greaterThan(powerSlot) &&
+                            ItemComparatorView.of(recipe.getMaterial()).greaterThan(materialSlot)
             ) {
                 matches.add(recipe);
             }
@@ -107,7 +107,7 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
     }
 
     @Override
-    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
+    public Boolean isMatch(IngredientStack input, IngredientStack recipe) {
         return false;
     }
 

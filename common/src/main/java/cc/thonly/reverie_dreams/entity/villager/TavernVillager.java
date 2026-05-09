@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
@@ -9,8 +9,6 @@ import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.villager.Villager;
@@ -67,7 +65,7 @@ public class TavernVillager extends AbstractSeller {
             int amount = pair.getB();
 
             ItemStack sellItem = new ItemStack(item, 6);
-            ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
+            IngredientStack wrapper = IngredientStack.of(sellItem);
 
             ItemCost first = new ItemCost(RDItems.COPPER_COIN, amount);
             ItemCost second = new ItemCost(Items.GLASS_BOTTLE, 1);
@@ -95,7 +93,7 @@ public class TavernVillager extends AbstractSeller {
 
         for (Item item : selectedDrinks) {
             ItemStack sellItem = new ItemStack(item, 6);
-            ItemStackWrapper wrapper = ItemStackWrapper.of(sellItem);
+            IngredientStack wrapper = IngredientStack.of(sellItem);
 
             int amount = DrinkProperties.getPriceCalculationTable().getOrDefault(item, 8) + random.nextInt(2);
             ItemCost first = new ItemCost(RDItems.COPPER_COIN, amount);

@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/trout"
+      "id": "reverie_dreams:ingredient/trout",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     },
     {
-      "id": "minecraft:honey_bottle"
+      "id": "minecraft:honey_bottle",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/golden_crispy_fish_cake"
+    "id": "reverie_dreams:food/golden_crispy_fish_cake",
+    "count": 1
   },
   "cost_time": 9.0
 }

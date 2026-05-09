@@ -92,7 +92,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
                     if (invIndex < recipe.getSlots().size()) {
                         builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                                 .setBackground(slot, -1, -1)
-                                .add(recipe.getSlots().get(invIndex).getItemStack());
+                                .add(recipe.getSlots().get(invIndex).build());
                     } else {
                         builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                                 .setBackground(slot, -1, -1);
@@ -107,7 +107,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
 
                     builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                             .setBackground(slot, -1, -1)
-                            .add(recipe.getCore().getItemStack());
+                            .add(recipe.getCore().build());
 
                     continue;
                 }
@@ -116,6 +116,6 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, coreX + 18 * 6, coreY)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOutput().getItemStack().copy());
+                .add(recipe.getOutput().build().copy());
     }
 }

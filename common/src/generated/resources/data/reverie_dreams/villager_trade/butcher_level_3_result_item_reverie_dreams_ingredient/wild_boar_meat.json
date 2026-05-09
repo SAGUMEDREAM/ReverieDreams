@@ -1,0 +1,18 @@
+{
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "count": 5.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "gives": {
+    "id": "reverie_dreams:ingredient/wild_boar_meat"
+  },
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 8.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

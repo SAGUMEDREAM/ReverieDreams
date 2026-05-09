@@ -44,7 +44,7 @@ public class IClientRecipes {
 
     public List<KitchenRecipe> getKitchenRecipeTypeList(KitchenRecipeType.MappingType mappingType) {
         return getRecipeTypeList(RecipeManager.KITCHEN_TYPE).stream()
-                .filter(recipe -> Objects.equals(recipe.getRecipeTypeMapping(),mappingType))
+                .filter(recipe -> Objects.equals(recipe.getType(),mappingType))
                 .toList();
     }
 

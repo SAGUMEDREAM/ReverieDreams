@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sticky_rice"
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/pine_nut"
+      "id": "reverie_dreams:ingredient/pine_nut",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/pine_nut_cake"
+    "id": "reverie_dreams:food/pine_nut_cake",
+    "count": 1
   },
   "cost_time": 8.0
 }

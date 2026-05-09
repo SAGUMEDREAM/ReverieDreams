@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/lemon"
+      "id": "reverie_dreams:ingredient/lemon",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/grape"
+      "id": "reverie_dreams:ingredient/grape",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/cheese"
+      "id": "reverie_dreams:ingredient/cheese",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/gloomy_fruit_pie"
+    "id": "reverie_dreams:food/gloomy_fruit_pie",
+    "count": 1
   },
   "cost_time": 8.0
 }

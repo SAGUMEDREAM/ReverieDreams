@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/peach"
+      "id": "reverie_dreams:ingredient/peach",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/red_beans"
+      "id": "reverie_dreams:ingredient/red_beans",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/ficus_microcarpa"
+      "id": "reverie_dreams:ingredient/ficus_microcarpa",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/peach_blossom_glaze_roll"
+    "id": "reverie_dreams:food/peach_blossom_glaze_roll",
+    "count": 1
   },
   "cost_time": 8.0
 }

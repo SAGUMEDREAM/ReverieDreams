@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.api.entity;
 
-import cc.thonly.reverie_dreams.api.item.DrinkPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import net.blay09.mods.balm.platform.event.Event;
 import net.blay09.mods.balm.platform.event.EventFactory;

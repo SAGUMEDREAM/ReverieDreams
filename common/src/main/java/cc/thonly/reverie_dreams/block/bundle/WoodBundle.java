@@ -1,8 +1,6 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
 import cc.thonly.keine.api.KeineRegistries;
-import cc.thonly.keine.api.registry.FuelRegistry;
-import cc.thonly.keine.api.registry.StrippableBlockRegistry;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import lombok.Getter;

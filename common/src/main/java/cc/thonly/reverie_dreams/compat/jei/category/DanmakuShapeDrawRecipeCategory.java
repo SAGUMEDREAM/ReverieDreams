@@ -94,6 +94,6 @@ public class DanmakuShapeDrawRecipeCategory implements IRecipeCategory<DanmakuSh
         // 右边输出
         builder.addSlot(RecipeIngredientRole.OUTPUT, startX + gridWidth + 8 - 4, startY + 36 + 9)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOutput().getItemStack().copy());
+                .add(recipe.getOutput().build());
     }
 }

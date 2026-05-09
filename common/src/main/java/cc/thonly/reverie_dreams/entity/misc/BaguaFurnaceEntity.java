@@ -83,7 +83,7 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity {
 
         if (this.intervalTick1 <= 0) {
             if (!this.level().isClientSide()) {
-                ItemStack stack = DanmakuTypes.random(DanmakuTypes.BIG_LASER);
+                ItemStack stack = DanmakuTypes.random(DanmakuTypes.BIG_LASER).create();
                 DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
                 if (properties != null) {
                     stack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.withSpeed(2f));

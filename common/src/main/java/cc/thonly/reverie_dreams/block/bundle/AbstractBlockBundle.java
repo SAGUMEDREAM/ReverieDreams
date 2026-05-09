@@ -6,7 +6,6 @@ import lombok.Getter;
 import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
 import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.Block;
 
 import java.util.Collection;
 import java.util.List;

@@ -2,13 +2,16 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/white_radish"
+      "id": "reverie_dreams:ingredient/white_radish",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/tofu"
+      "id": "reverie_dreams:ingredient/tofu",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/cold_tofu"
+    "id": "reverie_dreams:food/cold_tofu",
+    "count": 1
   }
 }

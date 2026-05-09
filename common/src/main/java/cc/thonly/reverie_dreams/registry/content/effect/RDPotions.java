@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.registry.content.effect;
 
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import net.blay09.mods.balm.core.BalmRegistrar;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -27,8 +29,12 @@ public class RDPotions {
         KANJU_KUSURI_POTION = registerPotion(scoped, "kanju_kusuri", new Potion("kanju_kusuri", new MobEffectInstance(RDStatusEffects.KANJU_KUSURI, 3600, 0)));
     }
 
-    public static ItemStack createStack(Holder<Potion> potion) {
-        return PotionContents.createItemStack(Items.POTION, potion);
+    public static ItemStackTemplate createStackTemplate(Holder<Potion> potion) {
+        ItemStackTemplate template = ItemStackTemplateHelper.create(Items.POTION);
+        ItemStackTemplateHelper.modify(template, (old, modifier) -> {
+            modifier.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
+        });
+        return template;
     }
 
     public static Holder<Potion> registerPotion(BalmRegistrar.Scoped<Potion> scoped, String id, Potion potion) {

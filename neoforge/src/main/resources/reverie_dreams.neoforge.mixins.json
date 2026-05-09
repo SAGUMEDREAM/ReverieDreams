@@ -5,16 +5,13 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "CommonHooksMixin",
-    "CreativeModeTabMixin",
     "EventHooksMixin",
     "FakePlayerMixin",
     "NeoForgeBalmHooksMixin",
     "RegistryDataLoaderMixin",
     "RegistryHandlerMixin",
     "accessor.CreativeModeTabAccessor",
-    "event.ServerPlayerGameModeMixin",
-    "rei.ClientREIPluginMixin",
-    "rei.CommonREIPluginMixin"
+    "event.ServerPlayerGameModeMixin"
   ],
   "client": [
   ],

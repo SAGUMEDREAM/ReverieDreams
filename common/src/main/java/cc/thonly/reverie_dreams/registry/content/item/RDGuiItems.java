@@ -1,14 +1,10 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
 import cc.thonly.reverie_dreams.item.other.GuiSlotItem;
-import it.unimi.dsi.fastutil.objects.ReferenceSortedSets;
 import net.blay09.mods.balm.world.item.BalmItemRegistrar;
 import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.ArrayList;
 import java.util.List;

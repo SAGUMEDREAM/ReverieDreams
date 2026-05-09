@@ -1,16 +1,5 @@
 package cc.thonly.reverie_dreams.client.registry;
 
-import cc.thonly.reverie_dreams.block.BlockTypeGroup;
-import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
-import cc.thonly.reverie_dreams.data.FumoType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-//import net.blay09.mods.balm.client.renderer.chunk.BalmBlockRenderTypeRegistrar;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-import net.minecraft.resources.Identifier;
-
-import java.util.Map;
-
 //@SuppressWarnings("deprecation")
 public class RDBlockRenderTypes {
 //    public static void initialize(BalmBlockRenderTypeRegistrar registrar) {

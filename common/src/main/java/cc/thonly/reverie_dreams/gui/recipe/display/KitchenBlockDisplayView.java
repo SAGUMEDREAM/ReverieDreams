@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.gui.recipe.display;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 @Getter
 @Slf4j
 @ToString(callSuper = true)
@@ -50,10 +49,10 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
 
     @Override
     public void init() {
-        this.setTitle(this.key2ValueEntry.getValue().getOutput().getItemStack().getHoverName());
-        List<ItemStackWrapper> ingredients = this.value.getIngredients();
-        List<ItemStackWrapper> inputs = new LinkedList<>(ingredients);
-        Iterator<ItemStackWrapper> slotIterator = inputs.iterator();
+        this.setTitle(this.key2ValueEntry.getValue().getOutput().build().getHoverName());
+        List<IngredientStack> ingredients = this.value.getIngredients();
+        List<IngredientStack> inputs = new LinkedList<>(ingredients);
+        Iterator<IngredientStack> slotIterator = inputs.iterator();
 
         String[][] grid = this.getGrid();
         for (int row = 0; row < grid.length; row++) {
@@ -84,12 +83,12 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
                 }
                 if (c.equalsIgnoreCase("I")) {
                     if (slotIterator.hasNext()) {
-                        ItemStackWrapper next = slotIterator.next();
+                        IngredientStack next = slotIterator.next();
                         this.setSlot(slot, this.getGuiElementBuilder(next));
                     }
                 }
                 if (c.equalsIgnoreCase("O")) {
-                    ItemStackWrapper output = this.value.getOutput();
+                    IngredientStack output = this.value.getOutput();
                     this.setSlot(slot, this.getGuiElementBuilder(output));
                 }
             }

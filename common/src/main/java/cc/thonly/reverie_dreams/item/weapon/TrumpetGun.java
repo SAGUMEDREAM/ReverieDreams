@@ -31,7 +31,7 @@ public class TrumpetGun extends Item implements IDanmakuItem {
             float pitch = user.getXRot();
             float yaw = user.getYRot();
             DelayedTask.repeat(world.getServer(), 3, 2, () -> {
-                DanmakuEntity entity = DanmakuTrajectory.spawnByItemStack(serverWorld, user, user.getX(), user.getY(), user.getZ(), DanmakuTypes.random(DanmakuTypes.BULLET), pitch, yaw, 0.0f, 1.5f);
+                DanmakuEntity entity = DanmakuTrajectory.spawnByItemStack(serverWorld, user, user.getX(), user.getY(), user.getZ(), DanmakuTypes.random(DanmakuTypes.BULLET).create(), pitch, yaw, 0.0f, 1.5f);
                 world.playSound(null, user.getOnPos(), RDSoundEvents.FIRE.value(), SoundSource.HOSTILE, 1.0f, 1.0f);
             });
             ItemCooldowns itemCooldownManager = player.getCooldowns();

@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.advancements;
 
-import cc.thonly.reverie_dreams.advancement.*;
+import cc.thonly.reverie_dreams.advancement.SimpleTrigger;
+import cc.thonly.reverie_dreams.advancement.UseItemTrigger;
 import net.blay09.mods.balm.core.BalmRegistrar;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;

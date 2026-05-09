@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.RDMPHooks;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.recipe.ItemWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
@@ -29,7 +28,7 @@ import java.util.Optional;
 @Setter
 @Getter
 public class FoodDisplayBlockEntity extends BlockEntity {
-    private ItemStackWrapper item = ItemWrapper.empty().build();
+    private IngredientStack item = IngredientStack.empty();
     private float yaw = 0;
 
     public FoodDisplayBlockEntity(BlockPos pos, BlockState state) {
@@ -47,7 +46,7 @@ public class FoodDisplayBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
-        Optional<ItemStackWrapper> itemOptional = view.read("Item", ItemStackWrapper.CODEC);
+        Optional<IngredientStack> itemOptional = view.read("Item", IngredientStack.CODEC);
         itemOptional.ifPresent(wrapper -> this.item = wrapper);
         this.yaw = view.getFloatOr("Yaw", 0);
     }
@@ -55,10 +54,10 @@ public class FoodDisplayBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(ValueOutput view) {
         super.saveAdditional(view);
-        DataResult<JsonElement> dataResult = ItemStackWrapper.CODEC.encodeStart(JsonOps.INSTANCE, this.item);
+        DataResult<JsonElement> dataResult = IngredientStack.CODEC.encodeStart(JsonOps.INSTANCE, this.item);
         Optional<JsonElement> result = dataResult.result();
         if (result.isPresent()) {
-            view.store("Item", ItemStackWrapper.CODEC, this.item);
+            view.store("Item", IngredientStack.CODEC, this.item);
         }
         view.putDouble("Yaw", this.yaw);
     }

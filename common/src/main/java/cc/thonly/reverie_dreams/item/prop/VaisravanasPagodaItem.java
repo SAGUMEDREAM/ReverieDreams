@@ -29,7 +29,7 @@ public class VaisravanasPagodaItem extends Item {
             float pitch = user.getXRot();
             float yaw = user.getYRot();
             for (int i = 0; i < 3; i++) {
-                ItemStack isd = DanmakuTypes.random(DanmakuTypes.LASER);
+                ItemStack isd = DanmakuTypes.random(DanmakuTypes.LASER).create();
                 DanmakuProperties properties = isd.get(RDDataComponents.DANMAKU_PROPERTIES.value());
                 if (properties != null) {
                     isd.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.withSpeed(1.7f));

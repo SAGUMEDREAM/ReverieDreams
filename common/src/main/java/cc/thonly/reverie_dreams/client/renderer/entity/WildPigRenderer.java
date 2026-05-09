@@ -3,9 +3,6 @@ package cc.thonly.reverie_dreams.client.renderer.entity;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
-
-import java.util.Map;
-
 import net.minecraft.client.model.AdultAndBabyModelPair;
 import net.minecraft.client.model.animal.pig.BabyPigModel;
 import net.minecraft.client.model.animal.pig.ColdPigModel;
@@ -26,7 +23,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.pig.Pig;
 import net.minecraft.world.entity.animal.pig.PigVariant;
-import net.minecraft.world.level.Level;
+
+import java.util.Map;
 
 public class WildPigRenderer extends MobRenderer<Pig, PigRenderState, PigModel> {
     private final Map<PigVariant.ModelType, AdultAndBabyModelPair<PigModel>> models;

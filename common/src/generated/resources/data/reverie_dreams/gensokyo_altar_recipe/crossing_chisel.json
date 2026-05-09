@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:golden_hoe"
+    "id": "minecraft:golden_hoe",
+    "count": 1
   },
   "slots": [
     {
@@ -8,7 +9,8 @@
       "count": 2
     },
     {
-      "id": "minecraft:gold_block"
+      "id": "minecraft:gold_block",
+      "count": 1
     },
     {
       "id": "minecraft:ender_pearl",
@@ -27,7 +29,8 @@
       "count": 8
     },
     {
-      "id": "minecraft:gold_block"
+      "id": "minecraft:gold_block",
+      "count": 1
     },
     {
       "id": "minecraft:ender_pearl",
@@ -35,6 +38,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:crossing_chisel"
+    "id": "reverie_dreams:crossing_chisel",
+    "count": 1
   }
 }

@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -87,16 +88,17 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
 
     }
 
-    public List<KitchenRecipe> getMatches(MappingType type, List<ItemStackWrapper> inputs) {
+    public List<KitchenRecipe> getMatches(MappingType type, List<IngredientStack> inputs) {
         List<KitchenRecipe> matches = new ArrayList<>();
         Map<Identifier, KitchenRecipe> registryView = this.getRecipeView(type);
 
         for (KitchenRecipe recipe : registryView.values()) {
-            List<ItemStackWrapper> ingredients = recipe.getIngredients();
-
+            List<IngredientStack> ingredients = recipe.getIngredients();
             boolean allMatched = ingredients.stream().allMatch(ingredient ->
                     inputs.stream().anyMatch(input ->
-                            ingredient.greaterThan(input.getItemStack())
+                            {
+                                return ItemComparatorView.of(ingredient).greaterThan(input);
+                            }
                     )
             );
 
@@ -104,17 +106,16 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
                 matches.add(recipe);
             }
         }
-
         return matches;
     }
 
     @Override
-    public List<KitchenRecipe> getMatches(List<ItemStackWrapper> list) {
+    public List<KitchenRecipe> getMatches(List<IngredientStack> list) {
         return List.of();
     }
 
     @Override
-    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
+    public Boolean isMatch(IngredientStack input, IngredientStack recipe) {
         return false;
     }
 

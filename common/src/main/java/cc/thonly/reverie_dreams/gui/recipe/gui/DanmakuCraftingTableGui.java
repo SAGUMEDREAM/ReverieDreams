@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.gui.recipe.gui;
 
 import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -69,10 +69,10 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                 if (c == 'X') {
                     Function<Integer, Function<ItemStack, Boolean>> iffib = index -> switch (index) {
                         case 0 -> itemStack -> itemStack.getItem() instanceof DyeItem;
-                        case 1 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_CORE;
-                        case 2 -> itemStack -> itemStack.getItem() == RDItems.POWER;
-                        case 3 -> itemStack -> itemStack.getItem() == RDItems.POINT;
-                        case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR;
+                        case 1 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_CORE.asItem();
+                        case 2 -> itemStack -> itemStack.getItem() == RDItems.POWER.asItem();
+                        case 3 -> itemStack -> itemStack.getItem() == RDItems.POINT.asItem();
+                        case 4 -> itemStack -> itemStack.getItem() == RDItems.DANMAKU_SHAPE_CREATOR.asItem();
                         default -> itemStack -> true;
                     };
                     this.setSlot(counter, new PredicateSlot(inventory, counter2, 0, 0, iffib.apply(counter2)));
@@ -110,18 +110,18 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
 
         this.tick++;
         if (this.tick > 2) {
-            List<ItemStackWrapper> slots = this.getInputs();
+            List<IngredientStack> slots = this.getInputs();
             List<DanmakuRecipe> recipeEntries = RecipeManager.DANMAKU.getMatches(slots);
             if (!recipeEntries.isEmpty()) {
                 DanmakuRecipe recipeEntry = recipeEntries.getFirst();
-                ItemStackWrapper resultWrapper = recipeEntry.getOutput().copy();
-                ItemStack itemStack = resultWrapper.getItemStack();
+                IngredientStack resultStack = recipeEntry.getOutput().copy();
+                ItemStack itemStack = resultStack.build();
                 itemStack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
 
                 this.setSlot(this.resultSlot, new GuiElementBuilder(itemStack).setCallback(new GuiElement.ClickCallback() {
                     @Override
                     public void click(int i, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
-                        for (ItemStackWrapper countRecipeSlot : List.of(recipeEntry.getDye(), recipeEntry.getCore(), recipeEntry.getPower(), recipeEntry.getPoint(), recipeEntry.getMaterial())) {
+                        for (IngredientStack countRecipeSlot : List.of(recipeEntry.getDye(), recipeEntry.getCore(), recipeEntry.getPower(), recipeEntry.getPoint(), recipeEntry.getMaterial())) {
                             if (countRecipeSlot.getItem() != Items.AIR) {
                                 Item item = countRecipeSlot.getItem();
                                 int count = countRecipeSlot.getCount();
@@ -134,16 +134,18 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                         );
                     }
                 }));
+            } else {
+                this.setSlot(this.resultSlot, new GuiElementBuilder(ItemStack.EMPTY));
             }
             this.tick = 0;
         }
     }
 
-    private List<ItemStackWrapper> getInputs() {
-        List<ItemStackWrapper> countRecipeSlotList = new LinkedList<>();
+    private List<IngredientStack> getInputs() {
+        List<IngredientStack> countRecipeSlotList = new LinkedList<>();
         for (int i = 0; i < 5; i++) {
             ItemStack itemStack = this.blockEntity.getInventory().getItem(i);
-            countRecipeSlotList.add(new ItemStackWrapper(itemStack));
+            countRecipeSlotList.add(new IngredientStack(itemStack));
         }
         return countRecipeSlotList;
     }

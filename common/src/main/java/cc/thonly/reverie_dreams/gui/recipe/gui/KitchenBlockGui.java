@@ -5,17 +5,18 @@ import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.data.CraftingConflict;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
@@ -117,58 +118,75 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         }
     }
 
-    private ItemStackWrapper buildFoodTags(KitchenRecipe recipe, ItemStackWrapper output, List<ItemStackWrapper> inputs) {
-        ItemStack base = output.getItemStack().copy();
+    private IngredientStack buildFoodTags(KitchenRecipe recipe, IngredientStack output, List<IngredientStack> inputs) {
+        ItemStack base = output.build();
+        FoodProperties.get(base);
+        inputs = new ArrayList<>(inputs.stream().filter(ingredientStack -> !ingredientStack.is(RDItemTags.FOOD_ITEM)).toList());
 
-        List<ItemStackWrapper> ingredients = recipe.getIngredients();
+        List<IngredientStack> ingredients = recipe.getIngredients();
 
-        // 🔑 用来标记“哪些 input 已经被匹配掉”
-        List<ItemStackWrapper> remainingInputs = new ArrayList<>(inputs);
+        List<IngredientStack> remainingInputs = new ArrayList<>(inputs);
 
-        // ① 一对一匹配并移除（关键逻辑）
-        for (ItemStackWrapper ingredient : ingredients) {
-            ItemStack ingredientStack = ingredient.getItemStack();
+        for (IngredientStack ingredient : ingredients) {
+            ItemStack ingredientStack = ingredient.build();
 
-            Iterator<ItemStackWrapper> iterator = remainingInputs.iterator();
+            Iterator<IngredientStack> iterator = remainingInputs.iterator();
+
             while (iterator.hasNext()) {
-                ItemStackWrapper input = iterator.next();
-                ItemStack inputStack = input.getItemStack();
+                IngredientStack input = iterator.next();
+                ItemStack inputStack = input.build();
 
                 if (ItemStack.isSameItemSameComponents(inputStack, ingredientStack)) {
-                    // ✅ 找到一个匹配 → 消耗掉
                     iterator.remove();
-                    break; // ⚠️ 只匹配一次！
+                    break;
                 }
             }
         }
 
-        // ② 剩下的就是“额外输入”
         Set<FoodProperty> temp = new LinkedHashSet<>();
 
-        // base 已有词条
-        List<FoodProperty> baseTags = base.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), List.of());
+        List<FoodProperty> baseTagsRaw = base.getOrDefault(
+                RDDataComponents.FOOD_PROPERTIES.value(),
+                List.of()
+        );
+
+        List<FoodProperty> baseTags = new ArrayList<>(baseTagsRaw);
+
         temp.addAll(baseTags);
 
-        // ③ 只处理剩余输入的词条
-        for (ItemStackWrapper input : remainingInputs) {
-            ItemStack stack = input.getItemStack();
-            List<FoodProperty> props = stack.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), List.of());
+        for (IngredientStack input : remainingInputs) {
+            ItemStack stack = input.build();
+
+            List<FoodProperty> props = stack.getOrDefault(
+                    RDDataComponents.FOOD_PROPERTIES.value(),
+                    List.of()
+            );
+
+            System.out.println("   + Adding Props From Input: " + stack.getItem());
+            System.out.println("     Props -> " + props);
+
             temp.addAll(props);
         }
 
         List<FoodProperty> resultTags = new ArrayList<>(temp);
-        base.set(RDDataComponents.FOOD_PROPERTIES.value(), resultTags);
 
-        if (resultTags.size() >= 5) {
-            SimpleTriggerFactory
-                    .create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG)
-                    .trigger(this.player);
+        System.out.println("\n▶ Result Tags: " + resultTags);
+
+        // ❗ 对比是否发生变化
+        if (!resultTags.equals(baseTags)) {
+            System.out.println("⚠️ Tags CHANGED -> applying set()");
+            base.set(RDDataComponents.FOOD_PROPERTIES.value(), resultTags);
+        } else {
+            System.out.println("✔ Tags unchanged, skip set()");
         }
 
-        return new ItemStackWrapper(base.copy());
+        System.out.println("▶ Final Components: " + base.getComponents());
+        System.out.println("===== [buildFoodTags] END =====\n");
+
+        return new IngredientStack(base.copy());
     }
 
-    private void handleCrafting(ItemStack output, List<ItemStackWrapper> inputs, KitchenRecipe recipe) {
+    private void handleCrafting(ItemStack output, List<IngredientStack> inputs, KitchenRecipe recipe) {
         this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
         SimpleContainer inventory = this.blockEntity.getInventory();
         for (int i = 0; i < 5; i++) {
@@ -182,7 +200,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 stack.shrink(1);
             }
         }
-        this.blockEntity.setOutput(new ItemStackWrapper(output.copy()), recipe.getCostTime() * 20.0 + 20 * 0.25 * inputs.size());
+        this.blockEntity.setOutput(new IngredientStack(output.copy()), recipe.getCostTime() * 20.0 + 20 * 0.25 * inputs.size());
         Set<KitchenBlockGui<?>> session = KitchenwareBlockEntity.SESSIONS.computeIfAbsent(this.blockEntity.getUuid(), (map) -> new WeakHashSet<>());
         for (KitchenBlockGui<?> gui : session) {
             if (gui.isOpen()) {
@@ -214,11 +232,11 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             return;
         }
 
-        KitchenRecipeType kitchenRecipeType = getRecipeTypeInstance();
+        KitchenRecipeType kitchenRecipeType = this.getRecipeTypeInstance();
         SimpleContainer inventory = this.blockEntity.getInventory();
-        List<ItemStackWrapper> inputs = new ArrayList<>();
+        List<IngredientStack> inputs = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            inputs.add(new ItemStackWrapper(inventory.getItem(i).copy()));
+            inputs.add(new IngredientStack(inventory.getItem(i).copy()));
         }
 
         List<KitchenRecipe> matches = kitchenRecipeType.getMatches(this.recipeType, inputs);
@@ -236,7 +254,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             if (i >= pageRecipes.size()) break;
 
             KitchenRecipe recipe = pageRecipes.get(i);
-            ItemStack outputShow = this.buildFoodTags(recipe, new ItemStackWrapper(recipe.getOutput().getItemStack().copy()), inputs).getItemStack();
+            ItemStack outputShow = this.buildFoodTags(recipe, new IngredientStack(recipe.getOutput().build()), inputs).build();
             AtomicReference<ItemStack> output = new AtomicReference<>(outputShow);
 
             GuiElementBuilder builder = entry.getValue();
@@ -249,6 +267,11 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                         SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_DARK_CUISINE).trigger(this.player);
                         output.set(RDFoodItems.DARK_CUISINE.createStack());
                     }
+                }
+                if (outputShow.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), List.of()).size() >= 5) {
+                    SimpleTriggerFactory
+                            .create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG)
+                            .trigger(this.player);
                 }
                 SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING).trigger(this.player);
                 handleCrafting(output.get(), inputs, recipe);

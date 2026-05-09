@@ -13,13 +13,14 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DanmakuTemplates {
     private static final Map<Identifier, DanmakuTrajectory> TEMPLATES = new Object2ObjectLinkedOpenHashMap<>();
-    private static final Map<Identifier, ItemStack> TEMPLATE_ITEM_STACKS = new Object2ObjectLinkedOpenHashMap<>();
+    private static final Map<Identifier, ItemStackTemplate> TEMPLATE_ITEM_STACKS = new Object2ObjectLinkedOpenHashMap<>();
     static {
         ReverieDreams.LATE_INIT.add(() -> {
             var simple = registerTemplateItem(DanmakuTrajectories.SINGLE);
@@ -46,20 +47,20 @@ public class DanmakuTemplates {
     public static DanmakuTrajectory registerTemplateItem(Identifier key, DanmakuTrajectory entry) {
         assert key != null;
         TEMPLATES.put(key, entry);
-        TEMPLATE_ITEM_STACKS.put(key, createItemStack(key));
+        TEMPLATE_ITEM_STACKS.put(key, createItemStackTemplate(key));
         return entry;
     }
 
-    public static ItemStack createItemStack(Identifier key) {
+    public static ItemStackTemplate createItemStackTemplate(Identifier key) {
         Holder<Item> entry = BuiltInRegistries.ITEM.wrapAsHolder(RDItems.SPELL_CARD_TEMPLATE.asItem());
-        return new ItemStack(entry, 1, DataComponentPatch.builder().set(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault().withTemplateId(key)).build());
+        return new ItemStackTemplate(entry, 1, DataComponentPatch.builder().set(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault().withTemplateId(key)).build());
     }
 
     public static Map<Identifier, DanmakuTrajectory> getRegistryView() {
         return new LinkedHashMap<>(TEMPLATES);
     }
 
-    public static Map<Identifier, ItemStack> getRegistryItemStackView() {
+    public static Map<Identifier, ItemStackTemplate> getRegistryItemStackView() {
         return new LinkedHashMap<>(TEMPLATE_ITEM_STACKS);
     }
 }

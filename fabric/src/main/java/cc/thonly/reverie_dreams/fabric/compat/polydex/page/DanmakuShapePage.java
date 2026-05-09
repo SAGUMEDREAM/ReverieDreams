@@ -36,7 +36,7 @@ public class DanmakuShapePage implements PolydexPage {
         this.key = key.withPrefix("recipe/");
         this.value = value;
         this.ingredients = List.of(PolydexIngredient.of(Ingredient.of(RDGuiItems.ENABLE)));
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class DanmakuShapePage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class DanmakuShapePage implements PolydexPage {
             return new GuiElementBuilder(RDGuiItems.EMPTY_SLOT.asItem());
         }
         if (s.equalsIgnoreCase("E")) {
-            return new GuiElementBuilder(this.value.getOutput().getItemStack().copy())
+            return new GuiElementBuilder(this.value.getOutput().build().copy())
                     .setCallback(callback)
                     .setLore(List.of(Component.empty().append(Component.translatable("item.tooltip.recipe.no_compat"))));
         }

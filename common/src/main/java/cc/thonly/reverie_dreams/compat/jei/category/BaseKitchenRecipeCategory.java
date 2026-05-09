@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.compat.jei.category;
 
 import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
@@ -63,8 +63,8 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
     public void setRecipe(IRecipeLayoutBuilder builder, KitchenRecipe recipe, IFocusGroup focuses) {
         IDrawable slot = this.helper.getSlotDrawable();
 
-        List<ItemStackWrapper> ingredients = recipe.getIngredients();
-        ItemStackWrapper output = recipe.getOutput();
+        List<IngredientStack> ingredients = recipe.getIngredients();
+        IngredientStack output = recipe.getOutput();
 
         int startX = 18 * 2;
         int y = 0;
@@ -75,13 +75,13 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
                     .setBackground(slot, -1, -1);
 
             if (i < ingredients.size()) {
-                slotBuilder.add(ingredients.get(i).getItemStack().copy());
+                slotBuilder.add(ingredients.get(i).build());
             }
         }
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, startX + 6 * 18, y)
                 .setBackground(slot, -1, -1)
-                .add(output.getItemStack().copy());
+                .add(output.build().copy());
     }
 
     public static IDrawable createIcon(IGuiHelper helper, ItemStack itemStack) {

@@ -101,7 +101,7 @@ public class MusicalInstrumentItem extends Item {
 
                 float speed = 0.7f + random.nextFloat() * 0.2f;
 
-                ItemStack randomStack = DanmakuTypes.random(DanmakuTypes.NOTE);
+                ItemStack randomStack = DanmakuTypes.random(DanmakuTypes.NOTE).create();
                 DanmakuProperties properties = baseBullet.get(RDDataComponents.DANMAKU_PROPERTIES.value());
                 if (properties != null) {
                     randomStack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties);

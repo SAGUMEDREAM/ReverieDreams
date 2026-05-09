@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.server.nota.player;
 
-import net.minecraft.world.entity.player.Player;
 import cc.thonly.reverie_dreams.server.nota.model.Playlist;
 import cc.thonly.reverie_dreams.server.nota.model.Song;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * SongPlayer playing only in specified distance

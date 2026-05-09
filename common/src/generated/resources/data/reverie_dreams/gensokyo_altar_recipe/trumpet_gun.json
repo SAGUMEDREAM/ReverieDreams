@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:crossbow"
+    "id": "minecraft:crossbow",
+    "count": 1
   },
   "slots": [
     {
@@ -24,7 +25,8 @@
       "count": 5
     },
     {
-      "id": "minecraft:honeycomb"
+      "id": "minecraft:honeycomb",
+      "count": 1
     },
     {
       "id": "minecraft:iron_nugget",
@@ -36,6 +38,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:trumpet_gun"
+    "id": "reverie_dreams:trumpet_gun",
+    "count": 1
   }
 }

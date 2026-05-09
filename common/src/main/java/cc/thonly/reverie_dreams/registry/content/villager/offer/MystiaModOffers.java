@@ -11,7 +11,8 @@ import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class MystiaModOffers {
 

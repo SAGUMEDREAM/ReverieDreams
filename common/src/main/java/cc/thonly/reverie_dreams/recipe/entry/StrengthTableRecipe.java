@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.recipe.entry;
 
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.type.StrengthTableRecipeType;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -12,6 +12,7 @@ import lombok.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
@@ -24,55 +25,55 @@ import java.util.List;
 public class StrengthTableRecipe extends BaseRecipe {
     public static final Codec<StrengthTableRecipe> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    ItemStackWrapper.CODEC.fieldOf("main_item").forGetter(StrengthTableRecipe::getMainItem),
-                    ItemStackWrapper.CODEC.fieldOf("off_item").forGetter(StrengthTableRecipe::getOffItem),
-                    ItemStackWrapper.CODEC.fieldOf("output").forGetter(StrengthTableRecipe::getOutput)
+                    IngredientStack.CODEC.fieldOf("main_item").forGetter(StrengthTableRecipe::getMainItem),
+                    IngredientStack.CODEC.fieldOf("off_item").forGetter(StrengthTableRecipe::getOffItem),
+                    IngredientStack.CODEC.fieldOf("output").forGetter(StrengthTableRecipe::getOutput)
             ).apply(instance, StrengthTableRecipe::new)
     );
-    private final ItemStackWrapper mainItem;
-    private final ItemStackWrapper offItem;
-    private final ItemStackWrapper output;
+    private final IngredientStack mainItem;
+    private final IngredientStack offItem;
+    private final IngredientStack output;
 
-    public ItemStackWrapper getOutput() {
-        return new ItemStackWrapper(this.output.getItemStack().copy());
+    @Override
+    public IngredientStack getOutput() {
+        return new IngredientStack(this.output.getLazyStack());
     }
 
     @SuppressWarnings("deprecation")
     public static List<StrengthTableRecipe> createRecipeList() {
         List<StrengthTableRecipe> recipeList = new ArrayList<>();
 
-        List<ItemStack> danmakuItems = BuiltInRegistries.ITEM.stream()
+        List<ItemStackTemplate> danmakuItems = BuiltInRegistries.ITEM.stream()
                 .filter(item -> item.builtInRegistryHolder().is(RDItemTags.DANMAKU_ITEM))
-                .map(Item::getDefaultInstance)
+                .map(ItemStackTemplate::new)
                 .toList();
 
-        List<ItemStack> materials = new ArrayList<>(DanmakuTemplates.getRegistryItemStackView()
+        List<ItemStackTemplate> materials = new ArrayList<>(DanmakuTemplates.getRegistryItemStackView()
                 .values()
                 .stream()
-                .map(ItemStack::copy)
                 .toList());
 
-        materials.add(RDItems.SPEED_FEATHER.createStack());
-        materials.add(Items.SLIME_BLOCK.getDefaultInstance());
-        materials.add(Items.IRON_SWORD.getDefaultInstance());
+        materials.add(new ItemStackTemplate(RDItems.SPEED_FEATHER.asItem()));
+        materials.add(new ItemStackTemplate(Items.SLIME_BLOCK));
+        materials.add(new ItemStackTemplate(Items.IRON_SWORD));
 
         StrengthTableRecipeType type = StrengthTableRecipeType.getInstance();
 
-        for (ItemStack main : danmakuItems) {
-            for (ItemStack off : materials) {
+        for (ItemStackTemplate main : danmakuItems) {
+            for (ItemStackTemplate off : materials) {
 
-                ItemStackWrapper mainWrapper = ItemStackWrapper.of(main.copy());
-                ItemStackWrapper offWrapper = ItemStackWrapper.of(off.copy());
+                IngredientStack mainWrapper = IngredientStack.of(main);
+                IngredientStack offWrapper = IngredientStack.of(off);
 
-                ItemStackWrapper output = type.tryGetOutput(mainWrapper, offWrapper);
+                IngredientStack output = type.tryGetOutput(mainWrapper, offWrapper);
 
                 if (output != null) {
-                    ItemStackWrapper mainView = mainWrapper.clone();
-                    ItemStackWrapper offView = offWrapper.clone();
-                    ItemStackWrapper outputView = output.clone();
+                    IngredientStack mainView = mainWrapper.clone();
+                    IngredientStack offView = offWrapper.clone();
+                    IngredientStack outputView = output.clone();
 
-                    mainView.getItemStack().setCount(1);
-                    offView.getItemStack().setCount(1);
+                    mainView.setCount(1);
+                    offView.setCount(1);
 
                     recipeList.add(new StrengthTableRecipe(mainView, offView, outputView));
                 }

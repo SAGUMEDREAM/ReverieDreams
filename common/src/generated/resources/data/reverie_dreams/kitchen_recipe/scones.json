@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/butter"
+      "id": "reverie_dreams:ingredient/butter",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/scones"
+    "id": "reverie_dreams:food/scones",
+    "count": 1
   },
   "cost_time": 7.0
 }

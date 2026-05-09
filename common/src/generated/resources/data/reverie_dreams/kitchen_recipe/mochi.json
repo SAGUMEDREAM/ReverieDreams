@@ -2,11 +2,13 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sticky_rice"
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/mochi"
+    "id": "reverie_dreams:food/mochi",
+    "count": 1
   },
   "cost_time": 7.0
 }

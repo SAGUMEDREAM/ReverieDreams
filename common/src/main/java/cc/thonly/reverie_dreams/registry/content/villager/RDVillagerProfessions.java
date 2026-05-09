@@ -1,13 +1,8 @@
 package cc.thonly.reverie_dreams.registry.content.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.HawkerOffers;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.MoneyShopClerkOffers;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.MystiaModOffers;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.PriestOffers;
 import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.blay09.mods.balm.Balm;
 import net.blay09.mods.balm.core.BalmRegistrar;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;

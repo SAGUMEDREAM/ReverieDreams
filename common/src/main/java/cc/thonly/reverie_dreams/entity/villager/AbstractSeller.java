@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
 import eu.pb4.sgui.api.gui.MerchantGui;
@@ -12,8 +11,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.blay09.mods.balm.Balm;
 import net.blay09.mods.balm.platform.BalmSafeClientAccess;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -30,13 +27,15 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.monster.illager.Illusioner;
 import net.minecraft.world.entity.monster.illager.Pillager;
 import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.entity.npc.villager.*;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +46,10 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @SuppressWarnings("resource")
 @Slf4j
@@ -123,7 +125,7 @@ public abstract class AbstractSeller extends WanderingTrader {
         }
     }
 
-    public void trade(ItemStackWrapper wrapper) {
+    public void trade(IngredientStack wrapper) {
         Level world = this.level();
         this.exp += ReverieDreams.RD.nextInt(9, 25);
         this.makeSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
@@ -285,7 +287,7 @@ public abstract class AbstractSeller extends WanderingTrader {
         @Override
         public boolean onTrade(MerchantOffer offer) {
             MerchantOffer copied = offer.copy();
-            this.self.trade(ItemStackWrapper.of(copied.assemble()));
+            this.self.trade(IngredientStack.of(copied.assemble()));
             this.self.notifyTrade(copied);
             return super.onTrade(offer);
         }

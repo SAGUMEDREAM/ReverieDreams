@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.registry.content.component;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.GapRecorder;
@@ -10,16 +9,14 @@ import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import com.mojang.serialization.Codec;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import net.blay09.mods.balm.core.component.BalmDataComponentTypeRegistrar;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -36,7 +33,7 @@ public class RDDataComponents {
     public static Holder<DataComponentType<DanmakuProperties>> DANMAKU_PROPERTIES;
     public static Holder<DataComponentType<SpellCardFrameConfig>> SPELLCARD_FRAME_CONFIG;
     public static Holder<DataComponentType<SpellcardRenderer>> SPELL_CARD_COMPONENT;
-    public static Holder<DataComponentType<ItemStackWrapper>> DANMAKU_SHAPE;
+    public static Holder<DataComponentType<IngredientStack>> DANMAKU_SHAPE;
     public static Holder<DataComponentType<Integer>> FOV;
     public static Holder<DataComponentType<Unit>> SILVER_ITEM;
     public static Holder<DataComponentType<Identifier>> ROLE_CARD_ID;
@@ -58,7 +55,7 @@ public class RDDataComponents {
         DANMAKU_PROPERTIES = registerComponent(registrar, "danmaku_properties", DanmakuProperties.CODEC);
         SPELLCARD_FRAME_CONFIG = registerComponent(registrar, "spellcard_frame", SpellCardFrameConfig.COMPONENT_CODEC);
         SPELL_CARD_COMPONENT = registerComponent(registrar, "spell_card_component", SpellcardRenderer.CODEC);
-        DANMAKU_SHAPE = registerComponent(registrar, "shape", ItemStackWrapper.CODEC);
+        DANMAKU_SHAPE = registerComponent(registrar, "shape", IngredientStack.CODEC);
         FOV = registerComponent(registrar, "fov", Codec.INT);
         SILVER_ITEM = registerComponent(registrar, "silver_item", Unit.CODEC);
         ROLE_CARD_ID = registerComponent(registrar, "role_card_id", Identifier.CODEC);

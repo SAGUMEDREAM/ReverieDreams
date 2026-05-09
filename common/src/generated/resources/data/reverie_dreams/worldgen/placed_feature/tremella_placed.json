@@ -6,7 +6,16 @@
       "chance": 6
     },
     {
+      "type": "minecraft:count",
+      "count": 32
+    },
+    {
       "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": 0,
+      "y_spread": 2
     },
     {
       "type": "minecraft:heightmap",

@@ -15,17 +15,18 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
-import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
-import cc.thonly.reverie_dreams.networking.payload.ScreenshotMapPacket;
-import cc.thonly.reverie_dreams.recipe.*;
-import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
-import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
+import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
 import cc.thonly.reverie_dreams.loot.RDLootModifies;
 import cc.thonly.reverie_dreams.networking.payload.CSVersionPacket;
 import cc.thonly.reverie_dreams.networking.payload.HelloPacket;
+import cc.thonly.reverie_dreams.networking.payload.ScreenshotMapPacket;
+import cc.thonly.reverie_dreams.recipe.RecipeManager;
+import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
 import cc.thonly.reverie_dreams.registry.PairRegistryImpls;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.ServerResourceHelper;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
@@ -38,8 +39,9 @@ import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.*;
+import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
+import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.ServerResourceHelper;
 import cc.thonly.reverie_dreams.server.*;
 import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManager;
 import cc.thonly.reverie_dreams.server.nota.Nota;
@@ -49,9 +51,9 @@ import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.CardboardWarning;
+import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.PhotoScreenshotMaker;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
@@ -69,7 +71,10 @@ import net.blay09.mods.balm.platform.event.callback.*;
 import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistrar;
 import net.blay09.mods.balm.world.item.BalmItemRegistrar;
 import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
-import net.minecraft.core.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -158,6 +163,7 @@ public class ReverieDreams {
         return keineRegistries;
     }
 
+    @SuppressWarnings("deprecation")
     public static void initialize(BalmRegistrars registrars, Runnable lateInit) {
         keineRegistries = KeineAPI.getApi().get(MOD_ID);
         Balm.config().registerConfig(ReverieDreamsConfiguration.class);
@@ -235,7 +241,7 @@ public class ReverieDreams {
 
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("danmaku_properties"), DanmakuProperties.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("skin_type"), SkinType.SERIALIZER);
-        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("item_stack_wrapper"), ItemStackWrapper.SERIALIZER);
+        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("ingredient_stack"), IngredientStack.SERIALIZER);
         lateInit.run();
     }
 
@@ -484,7 +490,7 @@ public class ReverieDreams {
     }
 
     private static void loadCompletableEvent(BalmRegistrars registrars) {
-        CompletableFuture.runAsync(ItemStackCheckUtils::test);
+//        CompletableFuture.runAsync(ItemStackCheckUtils::test);
 
         CompletableFuture.runAsync(() -> {
             ModrinthAPI.Entry latest = ModrinthAPI.get();

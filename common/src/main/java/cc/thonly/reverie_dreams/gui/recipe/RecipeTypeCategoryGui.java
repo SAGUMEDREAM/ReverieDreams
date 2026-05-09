@@ -10,7 +10,6 @@ import eu.pb4.sgui.api.gui.SlotBasedGui;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
@@ -118,7 +117,7 @@ public class RecipeTypeCategoryGui extends SimpleGui {
             if (recipeIndex < RecipeTypeCategoryManager.CATEGORY_ENTRIES.size()) {
                 RecipeTypeGuiInfo<? extends BasePageGui> recipeTypeGuiInfo = RecipeTypeCategoryManager.CATEGORY_ENTRIES.get(recipeIndex + this.page * PER_PAGE_SIZE);
                 GuiElementBuilder icon = new GuiElementBuilder()
-                        .setItem(recipeTypeGuiInfo.getIcon().getItem())
+                        .setItem(recipeTypeGuiInfo.getIcon().create().getItem())
                         .setItemName(Component.translatable(recipeTypeGuiInfo.getId().toLanguageKey()))
                         .setLore(List.of())
                         .setCallback((slot, click, input, basedGui) -> {

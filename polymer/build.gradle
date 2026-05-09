@@ -63,7 +63,6 @@ loom {
 
     mixin {
         defaultRefmapName.set("${mod_id}.polymer.refmap.json")
-        useLegacyMixinAp = false
     }
 
     runs {

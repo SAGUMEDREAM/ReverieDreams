@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.advancement.UseItemTrigger;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.ChatFormatting;

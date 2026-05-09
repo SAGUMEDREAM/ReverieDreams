@@ -9,18 +9,17 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.trading.TradeSet;
 import net.minecraft.world.item.trading.TradeSets;
 import net.minecraft.world.item.trading.VillagerTrade;
-import net.minecraft.world.item.trading.VillagerTrades;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
-import java.util.*;
-import java.util.function.BiConsumer;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 public class RDTradeSets {
     public static final ResourceKey<TradeSet> HAWKERS_LEVEL_1 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
@@ -65,13 +64,20 @@ public class RDTradeSets {
             TagKey<VillagerTrade> tradeTag,
             NumberProvider numberProvider
     ) {
+        Identifier id = resourceKey.identifier().withPrefix("trade_set/");
+        Identifier finalId = id.getNamespace().equals(Identifier.DEFAULT_NAMESPACE)
+                ? ReverieDreams.id(id.getPath())
+                : id;
+        ResourceKey<TradeSet> finalResourceKey = resourceKey.identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE)
+                ? key(finalId)
+                : resourceKey;
         return context.register(
-                resourceKey,
+                finalResourceKey,
                 new TradeSet(
                         context.lookup(Registries.VILLAGER_TRADE).getOrThrow(tradeTag),
                         numberProvider,
                         false,
-                        Optional.of(resourceKey.identifier().withPrefix("trade_set/"))
+                        Optional.of(finalId)
                 )
         );
     }

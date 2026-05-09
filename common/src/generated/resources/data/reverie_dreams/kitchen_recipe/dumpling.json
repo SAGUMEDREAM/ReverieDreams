@@ -2,10 +2,12 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/dumpling"
+    "id": "reverie_dreams:food/dumpling",
+    "count": 1
   }
 }

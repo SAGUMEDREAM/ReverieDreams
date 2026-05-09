@@ -2,20 +2,25 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sea_urchin"
+      "id": "reverie_dreams:ingredient/sea_urchin",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/tuna"
+      "id": "reverie_dreams:ingredient/tuna",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/tremella"
+      "id": "reverie_dreams:ingredient/tremella",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/dew"
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/sea_urchin_shingen_pancake"
+    "id": "reverie_dreams:food/sea_urchin_shingen_pancake",
+    "count": 1
   },
   "cost_time": 12.0
 }

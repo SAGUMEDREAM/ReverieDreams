@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.fabric.polymer.block;
 
 import cc.thonly.reverie_dreams.fabric.polymer.block.model.TransparentFlatTripWire;
 import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
@@ -69,11 +69,11 @@ public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWi
                 this.blockEntity = itemStackDisplayBlockEntity;
             }
 
-            ItemStackWrapper item;
-            if (this.blockEntity != null && !ItemStack.matches(this.blockEntity.getItem().getItemStack(), this.item.getItem())) {
+            IngredientStack item;
+            if (this.blockEntity != null && !ItemStack.matches(this.blockEntity.getItem().build(), this.item.getItem())) {
                 removeElement(this.item);
                 item = this.blockEntity.getItem();
-                this.item.setItem(item.getItemStack().copy());
+                this.item.setItem(item.build());
                 this.item.setOffset(new Vec3(0, -0.22, 0));
                 this.item.setRotation((float) 0, this.blockEntity.getYaw() + 180);
                 addElement(this.item);

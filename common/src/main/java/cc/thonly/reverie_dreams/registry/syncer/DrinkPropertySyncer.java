@@ -2,12 +2,9 @@ package cc.thonly.reverie_dreams.registry.syncer;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.registry.DrinkPropertiesLoaderCallback;
-import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
-import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import com.mojang.serialization.Codec;

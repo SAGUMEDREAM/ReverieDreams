@@ -2,9 +2,7 @@ package cc.thonly.reverie_dreams.item.base;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.recipe.ItemStackTemplateWrapper;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.recipe.ItemWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -23,14 +21,12 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.DyedItemColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 @ToString
@@ -82,7 +78,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
         return this.of(Arrays.asList(roles));
     }
 
-    public ItemStackTemplate itemStack() {
+    public ItemStackTemplate getTemplate() {
         ItemStackTemplate template = new ItemStackTemplate(RDItems.ROLE_CARD.asItem(), 1);
         ItemStackTemplateHelper.modify(template, (template1, modifier) -> {
             modifier.set(DataComponents.ITEM_NAME, Component.translatable(this.translationKey()));
@@ -139,7 +135,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
         private static final int[] POWER_INDEXES = new int[]{4, 6, 7};
         private static final int[] EMPTY_INDEXES = new int[]{2, 5};
         private final RoleCard roleCard;
-        private final List<ItemStackTemplateWrapper> itemWrappers;
+        private final List<IngredientStack> itemWrappers;
         private GensokyoAltarRecipe result;
         private int plus = 0;
 
@@ -157,40 +153,40 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
             return this;
         }
 
-        public RecipeBuilder itemStack(ItemStackTemplateWrapper... recipeWrappers) {
+        public RecipeBuilder itemStack(IngredientStack... recipeWrappers) {
             Collections.addAll(this.itemWrappers, recipeWrappers);
             return this;
         }
 
-        public RecipeBuilder itemStack(List<ItemStackTemplateWrapper> recipeWrappers) {
+        public RecipeBuilder itemStack(List<IngredientStack> recipeWrappers) {
             this.itemWrappers.addAll(recipeWrappers);
             return this;
         }
 
         public RecipeBuilder build() {
-            List<ItemStackTemplateWrapper> wrappers = new ArrayList<>();
+            List<IngredientStack> wrappers = new ArrayList<>();
             for (int i = 0; i < 8; i++) {
-                wrappers.add(ItemWrapper.empty());
+                wrappers.add(IngredientStack.empty());
             }
             for (int i = 0; i < POINT_INDEXES.length; i++) {
                 int pointIndex = POINT_INDEXES[i];
-                wrappers.set(pointIndex, ItemStackTemplateWrapper.of(RDItems.POINT, 14 + i + this.plus));
+                wrappers.set(pointIndex, IngredientStack.of(RDItems.POINT, 14 + i + this.plus));
             }
             for (int i = 0; i < POWER_INDEXES.length; i++) {
                 int powerIndex = POWER_INDEXES[i];
-                wrappers.set(powerIndex, ItemStackTemplateWrapper.of(RDItems.POWER, 18 + i + this.plus));
+                wrappers.set(powerIndex, IngredientStack.of(RDItems.POWER, 18 + i + this.plus));
             }
             PrimitiveIterator.OfInt iterator = Arrays.stream(EMPTY_INDEXES).iterator();
-            for (ItemStackTemplateWrapper itemStackWrapper : this.itemWrappers) {
+            for (IngredientStack itemStackWrapper : this.itemWrappers) {
                 if (!iterator.hasNext()) continue;
                 Integer next = iterator.next();
                 wrappers.set(next, itemStackWrapper);
             }
 
             this.result = new GensokyoAltarRecipe(
-                    ItemStackTemplateWrapper.of(RDItems.ROLE_CARD),
+                    IngredientStack.of(RDItems.ROLE_CARD),
                     wrappers,
-                    ItemStackTemplateWrapper.of(this.roleCard.itemStack())
+                    IngredientStack.of(this.roleCard.getTemplate())
             );
             return this;
         }

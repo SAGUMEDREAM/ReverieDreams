@@ -3,8 +3,7 @@ package cc.thonly.reverie_dreams.block;
 import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.inf.IItemStack;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.recipe.ItemWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,9 +55,9 @@ public class FoodDisplayBlock extends BaseEntityBlock {
                 if (!(serverWorld.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity)) {
                     return InteractionResult.PASS;
                 }
-                boolean isFood = ((IItemStack) (Object) isdBlockEntity.getItem().getItemStack()).reverie_dreams$isFood();
+                boolean isFood = ((IItemStack) (Object) isdBlockEntity.getItem().build()).reverie_dreams$isFood();
                 if (isFood) {
-                    ItemStack contentStack = isdBlockEntity.getItem().getItemStack();
+                    ItemStack contentStack = isdBlockEntity.getItem().build();
                     Consumable consumableComponent = contentStack.get(DataComponents.CONSUMABLE);
                     UseRemainder useRemainderComponent = contentStack.get(DataComponents.USE_REMAINDER);
                     contentStack.finishUsingItem(serverWorld, player);
@@ -69,7 +68,7 @@ public class FoodDisplayBlock extends BaseEntityBlock {
                     contentStack.consume(1, player);
                     if (useRemainderComponent != null && !player.hasInfiniteMaterials()) {
                         ItemStack itemStack = useRemainderComponent.convertIntoRemainder(contentStack, contentStack.getCount(), player.hasInfiniteMaterials(), player::handleExtraItemsCreatedOnUse);
-                        isdBlockEntity.setItem(ItemStackWrapper.of(itemStack));
+                        isdBlockEntity.setItem(IngredientStack.of(itemStack));
                     }
                     isdBlockEntity.update();
                     serverWorld.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
@@ -79,18 +78,18 @@ public class FoodDisplayBlock extends BaseEntityBlock {
                 }
             } else {
                 if (serverWorld.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity) {
-                    ItemStackWrapper item = isdBlockEntity.getItem();
+                    IngredientStack item = isdBlockEntity.getItem();
                     if (!stack.isEmpty() && item.isEmpty()) {
-                        ItemStackWrapper itemStackWrapper = ItemStackWrapper.of(stack.copy());
-                        itemStackWrapper.getItemStack().setCount(1);
+                        IngredientStack ingredientStack = IngredientStack.of(stack.copy());
+                        ingredientStack.setCount(1);
                         stack.consume(1, player);
-                        isdBlockEntity.setItem(itemStackWrapper);
+                        isdBlockEntity.setItem(ingredientStack);
                         isdBlockEntity.setYaw(player.getYRot());
                         isdBlockEntity.update();
                         isdBlockEntity.setChanged();
                     } else {
-                        ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
-                        isdBlockEntity.setItem(ItemWrapper.empty().build());
+                        ItemEntity itemEntity = new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), item.build(), 0, 0.2, 0);
+                        isdBlockEntity.setItem(IngredientStack.empty());
                         serverWorld.addFreshEntity(itemEntity);
                         isdBlockEntity.update();
                     }
@@ -108,10 +107,10 @@ public class FoodDisplayBlock extends BaseEntityBlock {
     @Override
     public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld && world.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity) {
-            ItemStackWrapper item = isdBlockEntity.getItem();
+            IngredientStack item = isdBlockEntity.getItem();
             if (!item.isEmpty()) {
-                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), item.getItemStack(), 0, 0.2, 0);
-                isdBlockEntity.setItem(ItemWrapper.empty().build());
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), item.build(), 0, 0.2, 0);
+                isdBlockEntity.setItem(IngredientStack.empty());
                 serverWorld.addFreshEntity(itemEntity);
             }
         }

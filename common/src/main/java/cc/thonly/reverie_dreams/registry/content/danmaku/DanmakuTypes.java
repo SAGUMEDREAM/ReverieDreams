@@ -7,12 +7,13 @@ import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.List;
 
@@ -36,10 +37,10 @@ public class DanmakuTypes {
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public static ItemStack withColor(DanmakuType type, ItemColor color) {
-        List<Tuple<Item, ItemStack>> colorPair = type.getColorPairs();
-        Tuple<Item, ItemStack> result = new Tuple<>(null, null);
-        for (Tuple<Item, ItemStack> pair : colorPair) {
+    public static ItemStackTemplate withColor(DanmakuType type, ItemColor color) {
+        List<Tuple<Item, ItemStackTemplate>> colorPair = type.getColorPairs().get();
+        Tuple<Item, ItemStackTemplate> result = new Tuple<>(null, null);
+        for (Tuple<Item, ItemStackTemplate> pair : colorPair) {
             if (pair.getA() == color.item()) {
                 result = pair;
                 break;
@@ -48,24 +49,24 @@ public class DanmakuTypes {
         return result.getB();
     }
 
-    public static ItemStack random() {
+    public static ItemStackTemplate random() {
         List<DanmakuType> values = RegistryImpls.DANMAKU_TYPE.values().stream().toList();
         DanmakuType type = values.get(ReverieDreams.RD.nextInt(values.size()));
         return random(type);
     }
 
-    public static ItemStack random(DanmakuType type) {
-        List<Tuple<Item, ItemStack>> colorPair = type.getColorPairs();
-        Tuple<Item, ItemStack> pair = colorPair.get(ReverieDreams.RD.nextInt(colorPair.size()));
-        return pair.getB().copy();
+    public static ItemStackTemplate random(DanmakuType type) {
+        List<Tuple<Item, ItemStackTemplate>> colorPair = type.getColorPairs().get();
+        Tuple<Item, ItemStackTemplate> pair = colorPair.get(ReverieDreams.RD.nextInt(colorPair.size()));
+        return pair.getB();
     }
 
-    public static List<ItemStack> allColor() {
-        ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
+    public static List<ItemStackTemplate> allColor() {
+        ImmutableList.Builder<ItemStackTemplate> builder = ImmutableList.builder();
         List<DanmakuType> typeList = RegistryImpls.DANMAKU_TYPE.values().stream().filter(type -> !type.isDeleteFromList()).toList();
         for (DanmakuType danmakuType : typeList) {
-            List<Tuple<Item, ItemStack>> colorPair = danmakuType.getColorPairs();
-            for (Tuple<Item, ItemStack> pair : colorPair) {
+            List<Tuple<Item, ItemStackTemplate>> colorPair = danmakuType.getColorPairs().get();
+            for (Tuple<Item, ItemStackTemplate> pair : colorPair) {
                 builder.add(pair.getB());
             }
         }

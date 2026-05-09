@@ -10,7 +10,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class KitchenBlockType {
     public static final Map<TagKey<Block>, KitchenRecipeType.MappingType> VALUES = new Object2ObjectOpenHashMap<>();

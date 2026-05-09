@@ -15,11 +15,12 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import net.blay09.mods.balm.platform.event.callback.LivingEntityCallback;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.skeleton.Stray;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -178,12 +180,13 @@ public class RDLootModifies {
                         .setRolls(ConstantValue.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(0.4f));
                 for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
-                    ItemStack itemStack = entry.getValue();
-                    DanmakuProperties properties = itemStack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                    ItemStackTemplate template = entry.getValue();
+                    DanmakuProperties properties = ItemStackTemplateHelper.get(template, RDDataComponents.DANMAKU_PROPERTIES.value());
                     if (properties==null) continue;
-                    poolBuilder.add(LootItem.lootTableItem(itemStack.getItem())
-                            .apply(SetComponentsFunction.setComponent(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.clone()))
-                            .setWeight(6));
+                    poolBuilder.add(LootItem.lootTableItem(template.item().value()).setWeight(6))
+                            .apply(
+                                    SetComponentsFunction.setComponent(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.clone())
+                            );
                 }
                 lootTableBuilder.withPool(poolBuilder);
             }

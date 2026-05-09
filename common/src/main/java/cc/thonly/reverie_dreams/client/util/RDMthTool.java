@@ -3,9 +3,9 @@ package cc.thonly.reverie_dreams.client.util;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.world.phys.Vec3;
-import org.joml.*;
-
-import java.lang.Math;
+import org.joml.Quaternionf;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 
 public class RDMthTool {
 

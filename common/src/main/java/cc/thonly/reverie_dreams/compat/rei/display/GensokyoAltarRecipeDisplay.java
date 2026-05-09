@@ -2,7 +2,7 @@
 //
 //import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
 //import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-//import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+//import cc.thonly.reverie_dreams.item.ItemStackWrapper;
 //import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 //import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 //import com.mojang.serialization.codecs.RecordCodecBuilder;

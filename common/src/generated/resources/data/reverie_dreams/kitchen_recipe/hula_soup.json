@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/chili"
+      "id": "reverie_dreams:ingredient/chili",
+      "count": 1
     },
     {
-      "id": "minecraft:beef"
+      "id": "minecraft:beef",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/tofu"
+      "id": "reverie_dreams:ingredient/tofu",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/hula_soup"
+    "id": "reverie_dreams:food/hula_soup",
+    "count": 1
   },
   "cost_time": 8.0
 }

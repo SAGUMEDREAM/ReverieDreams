@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams;
 
 import cc.thonly.reverie_dreams.client.registry.RDBlockEntityRenderers;
-import cc.thonly.reverie_dreams.client.registry.RDBlockRenderTypes;
 import cc.thonly.reverie_dreams.client.registry.RDEntityRenderers;
 import cc.thonly.reverie_dreams.client.util.PhotoScreenshotHelper;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;

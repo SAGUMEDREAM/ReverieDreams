@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:diamond_block"
+    "id": "minecraft:diamond_block",
+    "count": 1
   },
   "slots": [
     {
@@ -16,19 +17,18 @@
       "count": 10
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
       "id": "reverie_dreams:green_orb",
       "count": 10
     },
     {
-      "id": "minecraft:stick"
+      "id": "minecraft:stick",
+      "count": 1
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
       "id": "reverie_dreams:purple_orb",
@@ -36,6 +36,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:horai-dama_no_eda"
+    "id": "reverie_dreams:horai-dama_no_eda",
+    "count": 1
   }
 }

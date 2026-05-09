@@ -10,6 +10,11 @@
         "texture": "reverie_dreams:magic_ice"
       }
     ],
+    "humanoid_baby": [
+      {
+        "texture": "reverie_dreams:magic_ice"
+      }
+    ],
     "horse_body": [
       {
         "texture": "reverie_dreams:magic_ice"

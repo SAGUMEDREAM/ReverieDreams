@@ -2,20 +2,25 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/supreme_tuna"
+      "id": "reverie_dreams:ingredient/supreme_tuna",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/twin_lotus"
+      "id": "reverie_dreams:ingredient/twin_lotus",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/lotus_nuts"
+      "id": "reverie_dreams:ingredient/lotus_nuts",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/dew"
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/lotus_fish_rice_bowl"
+    "id": "reverie_dreams:food/lotus_fish_rice_bowl",
+    "count": 1
   },
   "cost_time": 11.0
 }

@@ -1,18 +1,19 @@
 {
   "core": {
-    "id": "minecraft:netherite_hoe"
+    "id": "minecraft:netherite_hoe",
+    "count": 1
   },
   "slots": [
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
       "id": "minecraft:gold_ingot",
       "count": 5
     },
     {
-      "id": "minecraft:netherite_ingot"
+      "id": "minecraft:netherite_ingot",
+      "count": 1
     },
     {
       "id": "minecraft:redstone",
@@ -36,6 +37,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:levatin"
+    "id": "reverie_dreams:levatin",
+    "count": 1
   }
 }

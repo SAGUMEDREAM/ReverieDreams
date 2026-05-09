@@ -70,26 +70,26 @@ public class DanmakuCraftingTableRecipeCategory implements IRecipeCategory<Danma
 
         builder.addSlot(RecipeIngredientRole.INPUT, 0, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getDye().getItemStack().copy());
+                .add(recipe.getDye().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 36, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getCore().getItemStack().copy());
+                .add(recipe.getCore().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 72, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getPower().getItemStack().copy());
+                .add(recipe.getPower().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 108, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getPoint().getItemStack().copy());
+                .add(recipe.getPoint().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 144, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getMaterial().getItemStack().copy());
+                .add(recipe.getMaterial().build());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 72, 36)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOutput().getItemStack().copy());
+                .add(recipe.getOutput().build());
     }
 }

@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/trout"
+      "id": "reverie_dreams:ingredient/trout",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/peach"
+      "id": "reverie_dreams:ingredient/peach",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie"
+    "id": "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie",
+    "count": 1
   },
   "cost_time": 9.0
 }

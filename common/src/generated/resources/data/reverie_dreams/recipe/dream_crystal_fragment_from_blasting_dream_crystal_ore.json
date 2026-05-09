@@ -1,6 +1,6 @@
 {
   "type": "minecraft:blasting",
-  "category": "misc",
+  "category": "blocks",
   "cookingtime": 250,
   "experience": 0.7,
   "group": "dream_ingot",

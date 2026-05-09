@@ -50,7 +50,7 @@ public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, Fri
 //        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
 
         this.goalSelector.addGoal(3, new DanmakuGoal(this, (self, target, world) -> {
-            ItemStack stack = DanmakuTypes.random(DanmakuTypes.BUBBLE);
+            ItemStack stack = DanmakuTypes.random(DanmakuTypes.BUBBLE).create();
             float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
             DelayedTask.repeat(world.getServer(), 2, 0.8f, () -> {
                 DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);

@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "reverie_dreams:ice_scales_block",
   "result": {
-    "count": 1,
     "id": "reverie_dreams:ice_scales_block_stairs"
   }
 }

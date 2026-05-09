@@ -1,11 +1,11 @@
 {
   "core": {
-    "id": "minecraft:iron_ingot"
+    "id": "minecraft:iron_ingot",
+    "count": 1
   },
   "slots": [
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     },
     {
       "id": "minecraft:blue_wool",
@@ -28,14 +28,15 @@
       "count": 5
     },
     {
-      "id": "minecraft:cherry_sapling"
+      "id": "minecraft:cherry_sapling",
+      "count": 1
     },
     {
-      "id": "minecraft:air",
-      "count": 0
+      "id": "minecraft:air"
     }
   ],
   "output": {
-    "id": "reverie_dreams:papilio_pattern_fan"
+    "id": "reverie_dreams:papilio_pattern_fan",
+    "count": 1
   }
 }

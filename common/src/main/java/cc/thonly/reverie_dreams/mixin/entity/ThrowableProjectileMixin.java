@@ -6,7 +6,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ThrowableProjectile.class)
 public abstract class ThrowableProjectileMixin extends Projectile implements IThrowableProjectile {

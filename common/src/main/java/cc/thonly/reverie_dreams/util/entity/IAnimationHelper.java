@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.util.entity;
 
-import net.minecraft.world.entity.Entity;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.constant.dataticket.DataTicket;
+import net.minecraft.world.entity.Entity;
 
 public interface IAnimationHelper {
     static boolean isActuallyMoving(Entity entity) {

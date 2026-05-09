@@ -56,7 +56,7 @@ dependencies {
 //    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 
     jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))
-    jarJar(implementation("cc.thonly:sgui-neoforge:${sgui_common_version}"))
+    jarJar(implementation("cc.thonly:sgui-neoforge:${sgui_forgelike_version}"))
     jarJar(implementation("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))
 
     jarJar(implementation('com.squareup.okhttp3:okhttp:4.12.0'))

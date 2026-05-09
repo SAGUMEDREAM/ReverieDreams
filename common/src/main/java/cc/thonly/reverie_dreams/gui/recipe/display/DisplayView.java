@@ -1,8 +1,7 @@
 package cc.thonly.reverie_dreams.gui.recipe.display;
 
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
-import cc.thonly.reverie_dreams.inf.IGuiElementBuilderAccessor;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -27,9 +26,9 @@ public interface DisplayView {
     }
 
 
-    default GuiElementBuilder getGuiElementBuilder(ItemStackWrapper recipe) {
+    default GuiElementBuilder getGuiElementBuilder(IngredientStack recipe) {
         GuiElementBuilder builder = new GuiElementBuilder();
-        GuiElementBuilderSetter.setter(builder, recipe.getItemStack());
+        GuiElementBuilderSetter.setter(builder, recipe.build());
         return builder;
     }
 

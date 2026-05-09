@@ -1,0 +1,18 @@
+{
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "count": 6.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "gives": {
+    "id": "reverie_dreams:ingredient/wagyu_beef"
+  },
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 10.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

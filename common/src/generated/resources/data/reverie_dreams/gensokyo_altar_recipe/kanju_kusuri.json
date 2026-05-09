@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:glass_bottle"
+    "id": "minecraft:glass_bottle",
+    "count": 1
   },
   "slots": [
     {
@@ -20,7 +21,8 @@
       "count": 8
     },
     {
-      "id": "minecraft:golden_apple"
+      "id": "minecraft:golden_apple",
+      "count": 1
     },
     {
       "id": "minecraft:golden_carrot",
@@ -31,11 +33,13 @@
       "count": 4
     },
     {
-      "id": "minecraft:ender_pearl"
+      "id": "minecraft:ender_pearl",
+      "count": 1
     }
   ],
   "output": {
     "id": "minecraft:potion",
+    "count": 1,
     "components": {
       "minecraft:potion_contents": {
         "potion": "reverie_dreams:kanju_kusuri"

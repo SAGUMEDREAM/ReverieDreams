@@ -2,20 +2,25 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "minecraft:cocoa_beans"
+      "id": "minecraft:cocoa_beans",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/tremella"
+      "id": "reverie_dreams:ingredient/tremella",
+      "count": 1
     },
     {
-      "id": "minecraft:pumpkin"
+      "id": "minecraft:pumpkin",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/dew"
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/the_source_of_life"
+    "id": "reverie_dreams:food/the_source_of_life",
+    "count": 1
   },
   "cost_time": 13.0
 }

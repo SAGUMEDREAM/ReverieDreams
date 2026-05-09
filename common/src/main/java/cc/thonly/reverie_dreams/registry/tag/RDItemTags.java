@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 
 public class RDItemTags {
     public static final TagKey<Item> EMPTY = of("empty");

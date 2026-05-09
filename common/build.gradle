@@ -23,7 +23,7 @@ dependencies {
     implementation("gg.moonflower:molang-compiler:3.1.1.19")
     implementation("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
 
-    api("cc.thonly:sgui-common:${sgui_common_version}")
+    api("cc.thonly:sgui-common:${sgui_forgelike_version}")
     api("cc.thonly:keine-common:${keine_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-common:${jei_version}")

@@ -4,7 +4,10 @@ import cc.thonly.reverie_dreams.server.IPlayerInputManager;
 import cc.thonly.reverie_dreams.server.InputKey;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class PlayerInputManager implements IPlayerInputManager {
     private static PlayerInputManager INSTANCE;

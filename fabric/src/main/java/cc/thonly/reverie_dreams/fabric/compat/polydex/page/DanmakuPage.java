@@ -42,7 +42,7 @@ public class DanmakuPage implements PolydexPage {
             list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class DanmakuPage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
@@ -80,19 +80,19 @@ public class DanmakuPage implements PolydexPage {
         if (s.equals("X")) {
             return RDGuiItems.EMPTY_SLOT.createStack();
         } else if (s.equals("A")) {
-            return this.value.getDye().getItemStack().copy();
+            return this.value.getDye().build().copy();
         } else if (s.equals("S")) {
-            return this.value.getCore().getItemStack().copy();
+            return this.value.getCore().build().copy();
         } else if (s.equals("D")) {
-            return this.value.getPower().getItemStack().copy();
+            return this.value.getPower().build().copy();
         } else if (s.equals("F")) {
-            return this.value.getPoint().getItemStack().copy();
+            return this.value.getPoint().build().copy();
         } else if (s.equals("G")) {
-            return this.value.getMaterial().getItemStack().copy();
+            return this.value.getMaterial().build().copy();
         } else if (s.equals("T")) {
             return RDGuiItems.PROGRESS_TO_RESULT_DOWN.createStack();
         } else if (s.equals("O")) {
-            return this.value.getOutput().getItemStack().copy();
+            return this.value.getOutput().build().copy();
         }
         return Items.AIR.getDefaultInstance();
     }

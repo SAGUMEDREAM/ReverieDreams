@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 @Slf4j
+@Deprecated
 public class ItemStackCheckUtils {
     private static final Gson GSON = new Gson();
     public static void test() {

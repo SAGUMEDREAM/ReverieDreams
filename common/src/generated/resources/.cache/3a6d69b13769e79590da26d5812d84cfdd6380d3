@@ -1,5 +1,0 @@
-// 1.21.11	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Tags for minecraft:damage_type
-0894c4287900e0825edd78bc2f72cecca172aa1d data/minecraft/tags/damage_type/bypasses_armor.json
-78862c4cba78f4f947ee1cc15d07111a88323c9d data/minecraft/tags/damage_type/is_projectile.json
-bf1aa46d19c93c2e770024369571ab5fe3572ddd data/minecraft/tags/damage_type/no_knockback.json
-78862c4cba78f4f947ee1cc15d07111a88323c9d data/reverie_dreams/tags/damage_type/danmaku_hit.json

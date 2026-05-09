@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.ItemLore;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class DanmakuCreativeTab implements ItemGroupContentHelper {
                 .icon(() -> new ItemStack(RDItems.DANMAKU.asItem()))
                 .title(Component.translatable("item_group.touhou.bullet"))
                 .displayItems((parameters, output) -> {
-                    List<ItemStack> color = DanmakuTypes.allColor();
+                    List<ItemStack> color = DanmakuTypes.allColor().stream().map(ItemStackTemplate::create).toList();
                     color.forEach(output::accept);
                     SpellCardFrameConfigs.BUILTIN_ITEMS.forEach((s, frames) -> {
                         ItemStack itemStack = new ItemStack(RDItems.SPELLCARD.asItem());

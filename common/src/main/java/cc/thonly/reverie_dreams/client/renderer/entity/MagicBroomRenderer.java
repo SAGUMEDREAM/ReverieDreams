@@ -23,7 +23,7 @@ public class MagicBroomRenderer extends EntityRenderer<MagicBroom, ItemHolderRen
     @Override
     public void extractRenderState(MagicBroom entity, ItemHolderRenderState renderState, float partialTick) {
         super.extractRenderState(entity, renderState, partialTick);
-        renderState.itemStack = entity.getItemWrapper().getItemStack();
+        renderState.itemStack = entity.getIngredientStack().build();
         renderState.yBodyRot = entity.yBodyRot;
         renderState.xRot = entity.getXRot();
         renderState.yRot = entity.getYRot();

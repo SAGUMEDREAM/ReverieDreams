@@ -36,7 +36,7 @@ public class FoodDisplayBlockEntityRenderer implements BlockEntityRenderer<FoodD
             state.bobOffset = (float) Math.sin((be.getLevel().getGameTime() + partialTick) * 0.1f) * 0.05f;
         }
         if (!be.getItem().isEmpty()) {
-            this.itemModelResolver.updateForTopItem(state.itemRenderState, state.itemStackWrapper.getItemStack(), ItemDisplayContext.GROUND, be.getLevel(), null, (int) (be.getBlockPos().asLong()));
+            this.itemModelResolver.updateForTopItem(state.itemRenderState, state.itemStackWrapper.build(), ItemDisplayContext.GROUND, be.getLevel(), null, (int) (be.getBlockPos().asLong()));
         }
     }
 

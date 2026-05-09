@@ -2,12 +2,11 @@ package cc.thonly.reverie_dreams.sound;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.JukeboxSong;
 
 import java.util.Optional;

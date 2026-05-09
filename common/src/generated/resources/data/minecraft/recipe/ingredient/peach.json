@@ -11,12 +11,6 @@
     "XXX"
   ],
   "result": {
-    "components": {
-      "minecraft:enchantments": {
-        "reverie_dreams:powerful": 1
-      }
-    },
-    "count": 1,
     "id": "reverie_dreams:ingredient/peach"
   }
 }

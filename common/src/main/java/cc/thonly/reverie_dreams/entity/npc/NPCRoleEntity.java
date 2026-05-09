@@ -38,7 +38,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new NPCEatFoodDispalyGoal(this, 1, 15, 1));
+        this.goalSelector.addGoal(1, new NPCEatFoodDisplayGoal(this, 1, 15, 1));
         this.goalSelector.addGoal(2, new EatGoal(this));
         this.goalSelector.addGoal(3, new SleepAtNightGoal(this, 1.0));
 

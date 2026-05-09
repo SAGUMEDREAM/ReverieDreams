@@ -2,11 +2,13 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "minecraft:porkchop"
+      "id": "minecraft:porkchop",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/grilled_pork_rice_balls"
+    "id": "reverie_dreams:food/grilled_pork_rice_balls",
+    "count": 1
   },
   "cost_time": 6.0
 }

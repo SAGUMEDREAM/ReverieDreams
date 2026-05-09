@@ -1,0 +1,18 @@
+{
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "count": 5.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "gives": {
+    "id": "reverie_dreams:copper_coin"
+  },
+  "max_uses": 16.0,
+  "reputation_discount": 0.13,
+  "wants": {
+    "id": "reverie_dreams:silver_coin"
+  },
+  "xp": 2.0
+}

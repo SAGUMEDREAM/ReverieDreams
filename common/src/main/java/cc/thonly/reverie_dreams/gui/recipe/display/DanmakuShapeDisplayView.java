@@ -7,7 +7,6 @@ import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import eu.pb4.sgui.api.gui.BaseSlotGui;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import eu.pb4.sgui.api.gui.SlotBasedGui;
 import lombok.Getter;
@@ -45,7 +44,7 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
 
     @Override
     public void init() {
-        this.setTitle(this.key2ValueEntry.getValue().getOutput().getItemStack().getHoverName());
+        this.setTitle(this.key2ValueEntry.getValue().getOutput().build().getHoverName());
         int counter = 0;
         int counter2 = 0;
         List<List<Boolean>> shape = this.value.getShape();
@@ -73,7 +72,7 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
                     this.setSlot(counter, this.back);
                 }
                 if (Objects.equals(c, "D")) {
-                    this.setSlot(counter, new GuiElementBuilder(this.value.getOutput().getItemStack()));
+                    this.setSlot(counter, new GuiElementBuilder());
                 }
                 counter++;
             }

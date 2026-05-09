@@ -1,10 +1,8 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
 import cc.thonly.reverie_dreams.client.renderer.entity.state.ItemHolderRenderState;
-import cc.thonly.reverie_dreams.entity.misc.MagicBroom;
 import cc.thonly.reverie_dreams.entity.misc.Wheelchair;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;

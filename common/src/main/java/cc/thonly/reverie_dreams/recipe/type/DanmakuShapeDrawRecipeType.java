@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import com.google.gson.JsonElement;
@@ -112,17 +113,17 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
         return matches;
     }
 
-    public List<List<List<Boolean>>> getShapesByOutput(ItemStackWrapper output) {
+    public List<List<List<Boolean>>> getShapesByOutput(IngredientStack output) {
         List<List<List<Boolean>>> results = new ArrayList<>();
 
         for (DanmakuShapeDrawRecipe recipe : stream().toList()) {
-            ItemStackWrapper outputWrapper = recipe.getOutput();
-            ItemStack itemStack = outputWrapper.getItemStack();
-            ItemStackWrapper itemStackWrapper = itemStack.get(RDDataComponents.DANMAKU_SHAPE.value());
-            if (itemStackWrapper == null) {
+            IngredientStack outputStack = recipe.getOutput();
+            ItemStack itemStack = outputStack.build();
+            IngredientStack ingredientStack = itemStack.get(RDDataComponents.DANMAKU_SHAPE.value());
+            if (ingredientStack == null) {
                 continue;
             }
-            if (itemStackWrapper.matches(output)) {
+            if (ItemComparatorView.of(ingredientStack).matches(output)) {
                 results.add(recipe.getShape());
             }
         }
@@ -132,12 +133,12 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
 
 
     @Override
-    public List<DanmakuShapeDrawRecipe> getMatches(List<ItemStackWrapper> wrappers) {
+    public List<DanmakuShapeDrawRecipe> getMatches(List<IngredientStack> wrappers) {
         return List.of();
     }
 
     @Override
-    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
+    public Boolean isMatch(IngredientStack input, IngredientStack recipe) {
         return false;
     }
 
