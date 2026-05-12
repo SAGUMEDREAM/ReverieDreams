@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.RDMPHooks;
+import cc.thonly.reverie_dreams.RDCommonEvents;
 import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
@@ -36,11 +37,11 @@ public class FoodDisplayBlockEntity extends BlockEntity {
     }
 
     public void update() {
-        RDMPHooks.FoodDisplayBlockEntityUpdater.EVENT.invoker().handle(this);
+        RDCommonEvents.FoodDisplayBlockEntityUpdater.EVENT.invoker().handle(this);
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, FoodDisplayBlockEntity blockEntity) {
-        RDMPHooks.FoodDisplayBlockEntityTicker.EVENT.invoker().handle(world, pos, state, blockEntity);
+        RDCommonEvents.FoodDisplayBlockEntityTicker.EVENT.invoker().handle(world, pos, state, blockEntity);
     }
 
     @Override

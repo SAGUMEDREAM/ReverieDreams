@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.server.nota.model;
 
-import cc.thonly.reverie_dreams.server.nota.Nota;
+import cc.thonly.reverie_dreams.api.nota.NotaAPI;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -135,7 +135,7 @@ public enum Sound {
     }
 
     private SoundEvent bullshit(Holder.Reference<SoundEvent> reference) {
-        return Nota.getAPI().getServer().registryAccess().lookupOrThrow(Registries.SOUND_EVENT).getValue(reference.key());
+        return NotaAPI.getAPI().getServer().registryAccess().lookupOrThrow(Registries.SOUND_EVENT).getValue(reference.key());
     }
 
     /**

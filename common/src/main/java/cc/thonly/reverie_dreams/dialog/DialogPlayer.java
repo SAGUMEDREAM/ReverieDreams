@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +12,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.ServerTickRateManager;
 import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.PlainMessage;
@@ -25,53 +22,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+@SuppressWarnings("resource")
 @Slf4j
 @Getter
 public class DialogPlayer {
-    public static final Map<String, DialogPlayer> INSTANCES = new Object2ObjectOpenHashMap<>();
-    public static final Map<String, String> FILENAME2UID = new Object2ObjectOpenHashMap<>();
-    public static final Map<String, Boolean> LOADED = new Object2ObjectOpenHashMap<>();
-
-    public static synchronized DialogPlayer play(ServerPlayer player, String filename, @Nullable SoundEvent soundEvent) {
-        if (DialogFiles.contain(filename)) {
-            DialogFiles.Entry entry = DialogFiles.getEntry(filename);
-            ;
-            if (!LOADED.getOrDefault(filename, false)) {
-                LOADED.put(filename, true);
-                String uid = UUID.randomUUID().toString();
-                FILENAME2UID.put(filename, uid);
-                entry = DialogFiles.add(new DialogFiles.Entry(filename, uid));
-            }
-            if (entry == null) {
-                return null;
-            }
-            DialogPlayer dialogPlayer = new DialogPlayer(player, entry, soundEvent);
-            dialogPlayer.start();
-            return dialogPlayer;
-        }
-        return null;
-    }
-
-    public static void reload() {
-        LOADED.clear();
-        FILENAME2UID.clear();
-        INSTANCES.clear();
-        DialogFiles.reload();
-    }
-
-    public static synchronized void tick(MinecraftServer server) {
-        ServerTickRateManager tickManager = server.tickRateManager();
-        if (!tickManager.isFrozen()) {
-            for (Map.Entry<String, DialogPlayer> entry : INSTANCES.entrySet()) {
-                entry.getValue().tick();
-            }
-        }
-    }
-
-    public static DialogPlayer getInstance(String uuid) {
-        return INSTANCES.get(uuid);
-    }
-
     private final ServerPlayer player;
     private final String uuid;
     private LinkedList<LinkedList<String>> source = new LinkedList<>();
@@ -86,7 +40,7 @@ public class DialogPlayer {
         this.player = player;
         this.uuid = this.player.getUUID().toString();
         this.parse(fileId);
-        INSTANCES.put(this.uuid, this);
+        DialogPlayerManager.PLAYER_INSTANCES.put(this.uuid, this);
     }
 
     public DialogPlayer(ServerPlayer player, DialogFiles.Entry entry) {
@@ -164,7 +118,7 @@ public class DialogPlayer {
 
     public synchronized void tick() {
         if (this.player.hasDisconnected()) {
-            INSTANCES.remove(this.uuid);
+            DialogPlayerManager.PLAYER_INSTANCES.remove(this.uuid);
             return;
         }
         if (this.iterator == null) {
@@ -206,16 +160,16 @@ public class DialogPlayer {
                 mutableText.append(Component.literal(line + "\n"));
             }
             result.common().body().add(
-                    new PlainMessage(mutableText, 1024)
+                    new PlainMessage(mutableText, 512)
             );
             this.player.openDialog(Holder.direct(result));
         } else {
-            INSTANCES.remove(this.uuid);
+            DialogPlayerManager.PLAYER_INSTANCES.remove(this.uuid);
 //            System.out.println("removed");
         }
     }
 
     public void remove() {
-        INSTANCES.remove(this.uuid);
+        DialogPlayerManager.PLAYER_INSTANCES.remove(this.uuid);
     }
 }

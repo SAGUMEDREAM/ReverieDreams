@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
+import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;

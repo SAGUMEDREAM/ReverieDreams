@@ -1,12 +1,8 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
+import cc.thonly.reverie_dreams.api.dialog.DialogApi;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,9 +25,9 @@ public class BadAppleItem extends Item {
         if (!world.isClientSide() && user instanceof ServerPlayer serverPlayer) {
             ResourceKey<SoundEvent> key = JukeboxSongInit.BAD_APPLE.getSoundEventKey();
             if (key != null) {
-                DialogPlayer.play(serverPlayer, FILE_NAME, new SoundEvent(key.identifier(), Optional.empty()));
+                DialogApi.play(serverPlayer, FILE_NAME, new SoundEvent(key.identifier(), Optional.empty()));
             } else {
-                DialogPlayer.play(serverPlayer, FILE_NAME, null);
+                DialogApi.play(serverPlayer, FILE_NAME, null);
             }
         }
         return super.finishUsingItem(stack, world, user);

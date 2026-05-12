@@ -1,13 +1,9 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -24,7 +20,7 @@ import net.minecraft.world.item.Items;
 @Getter
 @Setter
 @ToString
-public class NPCWorkMode implements CodecStep<NPCWorkMode>, OwnerBinding<NPCWorkMode>, BuiltinObject, Translatable {
+public class NPCWorkMode implements CodecStep<NPCWorkMode>, RegistryEntryOwnerBindable<NPCWorkMode>, BuiltinObject, RegistryEntryTranslatable {
     public static final Codec<NPCWorkMode> CODEC = UnitCodec.unit(NPCWorkMode::new);
     public static final Identifier DEFAULT_ID = ReverieDreams.id("combat");
     private final String type;

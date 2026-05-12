@@ -45,7 +45,7 @@ public class RecipeCompatPatchesImpl {
     @Setter
     public static class Builder<R extends BaseRecipe> {
         public static final Map<BaseRecipeType<?>, Builder<?>> INSTANCE = new Object2ObjectOpenHashMap<>();
-        public final BaseRecipeType<R> baseRecipeType;
+        protected final BaseRecipeType<R> baseRecipeType;
         protected final Map<Identifier, BaseRecipe> registries = new Object2ObjectOpenHashMap<>();
 
         public Builder(BaseRecipeType<R> baseRecipeType) {

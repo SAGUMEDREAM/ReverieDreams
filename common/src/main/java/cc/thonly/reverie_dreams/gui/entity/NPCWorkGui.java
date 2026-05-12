@@ -51,8 +51,8 @@ public class NPCWorkGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onManualClose() {
+        super.onManualClose();
         NPCGui npcGui = new NPCGui(this.player, this.npcEntity);
         npcGui.open();
     }

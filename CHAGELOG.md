@@ -3,7 +3,15 @@
 # 0.5.1+26.1.2
 * Fixed villager not open gui for two time.
 * Fixed Bad Apple Item is missing sound
-* Fixed the SpawnPlacement failure.
+* Fixed the SpawnPlacement failure
+* Fixed the dialog video shows offsets
+* Added Fast Recipe Book to make fast to craft kitchen recipe
+* Added showcase in kitchen block
+* Added Rail Controller Block to control minecart
+* Added Signal Rails to test minecart's name to emit redstone
+* Added Signal Delayer to delay redstone signal in tick
+* Added Remote Server Block to send specify signal
+* Added Remote Client Block to receive specify signal
 * Now trumpet sound is trumpet
 * Updated Nota
 
@@ -522,7 +530,7 @@
 
 * This update marks the final version for Minecraft **1.21.5**. Future development will shift to **1.21.7**.
 * The mod is now **playable in survival**
-* All recipe types are now fully implemented**, including Danmaku, cooking, and role cards
+* All recipe typeInstance are now fully implemented**, including Danmaku, cooking, and role cards
 * All `Danmaku` and `Danmaku Templates` are now unified as a **single item instance**, with **color changeable via dye**
 * All color variants of fairies (except the main type) are now implemented as **singleton entities**
 * **Fairies** and **mushrooms** now **naturally spawn** in the world

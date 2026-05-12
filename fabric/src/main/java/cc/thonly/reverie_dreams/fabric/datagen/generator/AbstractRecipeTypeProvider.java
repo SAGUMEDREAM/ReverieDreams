@@ -2,7 +2,8 @@ package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.recipe.*;
+import cc.thonly.reverie_dreams.recipe.BaseRecipe;
+import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,11 +18,13 @@ import net.blay09.mods.balm.world.item.DeferredItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,11 +46,32 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
     public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, Factory<?>> identifierFactoryMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, Factory<?>> idFactories = new Object2ObjectOpenHashMap<>();
+    private HolderLookup.Provider provider;
 
     public AbstractRecipeTypeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
+    }
+
+    public HolderLookup.Provider provider() {
+        if (this.provider == null) {
+            try {
+                this.provider = this.future.get();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return this.provider;
+    }
+
+    public <T> HolderLookup<T> lookup(ResourceKey<? extends Registry<T>> key) {
+        try {
+            HolderLookup.Provider provider = this.future.get();
+            return provider.lookupOrThrow(key);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public IngredientStack ofEmpty() {
@@ -156,11 +180,11 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
 
     public synchronized <R extends BaseRecipe> Factory<R> getOrCreateFactory(BaseRecipeType<R> recipeType, Class<R> rClass) {
         Identifier id = recipeType.getId();
-        if (this.identifierFactoryMap.containsKey(id)) {
-            return (Factory<R>) this.identifierFactoryMap.get(id);
+        if (this.idFactories.containsKey(id)) {
+            return (Factory<R>) this.idFactories.get(id);
         }
         Factory<R> factory = new Factory<>(recipeType, rClass);
-        this.identifierFactoryMap.put(id, factory);
+        this.idFactories.put(id, factory);
         return factory;
     }
 
@@ -177,7 +201,7 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
     public void export(CachedOutput cachedOutput) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
-            for (Map.Entry<Identifier, Factory<?>> entry : identifierFactoryMap.entrySet()) {
+            for (Map.Entry<Identifier, Factory<?>> entry : idFactories.entrySet()) {
                 Factory<?> factory = entry.getValue();
                 Codec codec = factory.getCodec();
                 BaseRecipeType<?> recipeType = factory.getRecipeType();

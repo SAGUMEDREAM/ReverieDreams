@@ -15,7 +15,7 @@ Each food item has different tags, and these tags determine its effects.
 ### Align: Center
 ### Header: Cooking
 ### Align: Left
-The cooking system includes five main types of cookware: <yellow><item 'reverie_dreams:cooking_pot'></>, <yellow><item 'reverie_dreams:cutting_board'></>, <yellow><item 'reverie_dreams:frying_pan'></>, <yellow><item 'reverie_dreams:grill'></>, and <yellow><item 'reverie_dreams:steamer'></>, each with upgraded variants.
+The cooking system includes five main typeInstance of cookware: <yellow><item 'reverie_dreams:cooking_pot'></>, <yellow><item 'reverie_dreams:cutting_board'></>, <yellow><item 'reverie_dreams:frying_pan'></>, <yellow><item 'reverie_dreams:grill'></>, and <yellow><item 'reverie_dreams:steamer'></>, each with upgraded variants.
 
 ### Align: Center
 If the recipe input is incorrect or contains conflicting tags, it may produce <yellow><item 'reverie_dreams:food/dark_cuisine'></>.

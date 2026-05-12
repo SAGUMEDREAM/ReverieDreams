@@ -65,8 +65,8 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onManualClose() {
+        super.onManualClose();
         this.chestBlockEntity.setChanged();
     }
 

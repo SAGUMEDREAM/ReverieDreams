@@ -18,9 +18,4 @@ public interface RecipeCompatPatchesCallback {
             }
     );
 
-    class Helper {
-        public <R extends BaseRecipe> RecipeCompatPatchesImpl.Builder<R> recipeAccess(BaseRecipeType<R> recipeType) {
-            return RecipeCompatPatchesImpl.getOrCreateBuilder(recipeType);
-        }
-    }
 }

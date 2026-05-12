@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.dialog.DialogApi;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
 import cc.thonly.reverie_dreams.mixin.accessor.ItemCooldownsAccessor;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
@@ -15,10 +15,10 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbench;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.command.PermissionPredicate;
@@ -349,7 +349,7 @@ public class THCommand {
             return 0;
         }
 
-        if (value instanceof Translatable translatable) {
+        if (value instanceof RegistryEntryTranslatable translatable) {
             msg.append(Component.literal("Translation: ").withStyle(ChatFormatting.GRAY))
                     .append(Component.translatable(translatable.translateKey()).withStyle(ChatFormatting.WHITE))
                     .append(Component.literal("\n"));
@@ -382,7 +382,7 @@ public class THCommand {
                 soundEvent = SoundEvent.createVariableRangeEvent(soundEventId);
             }
             context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.reload"), false);
-            DialogPlayer.play(player, file, soundEvent);
+            DialogApi.play(player, file, soundEvent);
             context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.load.done"), false);
         } catch (Exception err) {
             log.error("Can't play video", err);

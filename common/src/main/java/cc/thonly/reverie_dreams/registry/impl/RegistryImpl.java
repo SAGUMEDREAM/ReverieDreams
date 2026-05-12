@@ -4,8 +4,8 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.mixin.accessor.NamedAccessor;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.Initialization;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.ReloadStep;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.RegistryReloadStep;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
@@ -40,7 +40,7 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
     private final Map<T, Holder.Reference<T>> valueToEntry;
     private final Map<ResourceKey<T>, RegistrationInfo> keyToEntryInfo;
     private final List<Initialization<T>> builders = new LinkedList<>();
-    private final List<ReloadStep<T>> reloadableSteps = new LinkedList<>();
+    private final List<RegistryReloadStep<T>> reloadableSteps = new LinkedList<>();
     private final Map<Identifier, T> builtins = new Object2ObjectLinkedOpenHashMap<>();
     private final Map<TagKey<T>, HolderSet.Named<T>> tags = new Object2ObjectLinkedOpenHashMap<>();
     private final Lifecycle lifecycle;
@@ -147,7 +147,7 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
     }
 
     @SafeVarargs
-    public final RegistryImpl<T> reloadBuilder(ReloadStep<T>... steps) {
+    public final RegistryImpl<T> reloadBuilder(RegistryReloadStep<T>... steps) {
         this.reloadableSteps.addAll(Arrays.asList(steps));
         this.reloadable = true;
         return this;
@@ -191,7 +191,7 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
             T value = ivMapEntry.getValue();
             this.register(ResourceKey.create(this.key, key), value, RegistrationInfo.BUILT_IN);
         }
-        for (ReloadStep<T> step : this.reloadableSteps) {
+        for (RegistryReloadStep<T> step : this.reloadableSteps) {
             step.reload(manager);
         }
     }
@@ -237,8 +237,8 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
         if (value instanceof BuiltinObject) {
             this.builtins.put(id, value);
         }
-        if (value instanceof OwnerBinding<?>) {
-            OwnerBinding<T> ownerBinding = (OwnerBinding<T>) value;
+        if (value instanceof RegistryEntryOwnerBindable<?>) {
+            RegistryEntryOwnerBindable<T> ownerBinding = (RegistryEntryOwnerBindable<T>) value;
             ownerBinding.setOwner(this);
         }
         return entry;

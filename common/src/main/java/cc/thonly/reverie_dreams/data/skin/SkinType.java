@@ -1,13 +1,9 @@
 package cc.thonly.reverie_dreams.data.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import com.mojang.authlib.properties.Property;
@@ -27,7 +23,7 @@ import java.util.Optional;
 
 
 @Slf4j
-public class SkinType implements CodecStep<SkinType>, OwnerBinding<SkinType>, BuiltinObject, Translatable {
+public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable<SkinType>, BuiltinObject, RegistryEntryTranslatable {
     public static Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
     public static Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(
             Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)

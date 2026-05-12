@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.api.entity.ExperienceOrbEntityDataModifier;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

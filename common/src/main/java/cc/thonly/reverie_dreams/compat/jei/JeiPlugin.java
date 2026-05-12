@@ -50,11 +50,11 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipes(JeiRecipeTypes.DANMAKU_SHAPE_DRAW, recipes.getRecipeTypeList(RecipeManager.DANMAKU_SHAPE_DRAW));
         registry.addRecipes(JeiRecipeTypes.GENSOKYO_ALTAR, recipes.getRecipeTypeList(RecipeManager.GENSOKYO_ALTAR));
         registry.addRecipes(JeiRecipeTypes.STRENGTH_TABLE, StrengthTableRecipe.createRecipeList());
-        registry.addRecipes(JeiRecipeTypes.COOKING_POT, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.COOKING_POT));
-        registry.addRecipes(JeiRecipeTypes.CUTTING_BOARD, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.CUTTING_BOARD));
-        registry.addRecipes(JeiRecipeTypes.FRYING_PAN, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.FRYING_PAN));
-        registry.addRecipes(JeiRecipeTypes.GRILL, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.GRILL));
-        registry.addRecipes(JeiRecipeTypes.STEAMER, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.STEAMER));
+        registry.addRecipes(JeiRecipeTypes.COOKING_POT, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.COOKING_POT));
+        registry.addRecipes(JeiRecipeTypes.CUTTING_BOARD, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.CUTTING_BOARD));
+        registry.addRecipes(JeiRecipeTypes.FRYING_PAN, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.FRYING_PAN));
+        registry.addRecipes(JeiRecipeTypes.GRILL, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.GRILL));
+        registry.addRecipes(JeiRecipeTypes.STEAMER, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.STEAMER));
 
         ItemViewItemInfo.registerItemInfo((items, component) -> {
             registry.addIngredientInfo(items.stream().map(Item::getDefaultInstance).toList(), VanillaTypes.ITEM_STACK, component);

@@ -95,7 +95,7 @@ public class KitchenPage implements PolydexPage {
         } else if (s.equals("P")) {
             MinecraftServer server = ReverieDreams.getServer();
             if (server !=null) {
-                KitchenRecipeType.MappingType type = this.value.getType();
+                KitchenRecipeType.TypeInstance type = this.value.getTypeInstance();
                 List<Block> blocks = KitchenBlockType.getMatchBlocks(server.registryAccess(), type);
                 if (blocks.isEmpty()) {
                     return Items.AIR.getDefaultInstance();

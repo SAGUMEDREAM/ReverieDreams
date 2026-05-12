@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
 import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
@@ -8,7 +9,6 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.AvoidCreeperExplosionEntityGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.AvoidFireDamageEntityGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.*;
-import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;

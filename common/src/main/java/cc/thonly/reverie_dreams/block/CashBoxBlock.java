@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.block;
 
+import cc.thonly.reverie_dreams.api.player.PlayerComponentManager;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.gui.container.CustomChestBlockGui;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.server.PlayerDataComponentManager;
 import cc.thonly.reverie_dreams.server.player.FaithComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.util.PredicateSlot;
@@ -22,6 +22,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -75,11 +76,11 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
             if (!(world.getBlockEntity(pos) instanceof CustomChestBlockEntity chestBlockEntity)) {
                 return InteractionResult.FAIL;
             }
-            PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
+            PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
             int cal = calValue(itemStack);
             if (cal > 0) {
-                PlayerComponent<FaithComponent> faithComponents = playerDataComponentManager.getOrCreatePlayerComponent(serverPlayer, FaithComponent.class);
+                PlayerComponent<FaithComponent> faithComponents = playerComponentManager.getOrCreatePlayerComponent(serverPlayer, FaithComponent.class);
                 FaithComponent faithComponent = faithComponents.get();
                 long timeOfDay = world.getGameTime();
                 long dayCount = timeOfDay / 24000;
@@ -95,6 +96,7 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
                     }
                     faithComponent.setFaithValue(val);
                     faithComponent.setDateOfLastPrayer(dayCount);
+                    faithComponent.markDirty();
                     itemStack.consume(world.getRandom().nextIntBetweenInclusive(1, 3), player);
                     player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                     serverPlayer.sendSystemMessage(Component.translatable("item.action.click.cashbox.success", val), true);
@@ -103,7 +105,7 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
                 serverPlayer.sendSystemMessage(Component.translatable("item.action.click.cashbox.fails.used"), true);
                 return InteractionResult.SUCCESS_SERVER;
             } else {
-                SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer, (inventory, index, x, y) -> new PredicateSlot(inventory, index, x, y, (stack) -> CustomChestBlockGui.COIN_ITEMS.contains(stack.getItem())));
+                SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer, (inventory, index, x, y) -> new PredicateSlot(inventory, index, x, y, (stack) -> CustomChestBlockGui.COIN_ITEMS.stream().map(ItemLike::asItem).toList().contains(stack.getItem())));
                 chestGui.open();
                 return InteractionResult.SUCCESS_SERVER;
             }
@@ -113,13 +115,13 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
 
     protected static int calValue(ItemStack itemStack) {
         int cal = 0;
-        if (itemStack.getItem() == RDItems.COPPER_COIN) {
+        if (itemStack.getItem() == RDItems.COPPER_COIN.asItem()) {
             cal += 1;
         }
-        if (itemStack.getItem() == RDItems.SILVER_COIN) {
+        if (itemStack.getItem() == RDItems.SILVER_COIN.asItem()) {
             cal += 3;
         }
-        if (itemStack.getItem() == RDItems.GOLD_COIN) {
+        if (itemStack.getItem() == RDItems.GOLD_COIN.asItem()) {
             cal += 8;
         }
         return cal;

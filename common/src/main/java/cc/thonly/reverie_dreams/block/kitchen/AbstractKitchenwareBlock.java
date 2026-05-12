@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block.kitchen;
 
 import cc.thonly.reverie_dreams.block.entity.KitchenwareBlockEntity;
-import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.gui.recipe.gui.KitchenBlockGui;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import com.mojang.serialization.MapCodec;

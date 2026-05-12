@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.server;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
+import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
@@ -121,7 +122,7 @@ public class CustomClickActionRegistry {
             return;
         }
         String uid = uidOptional.get();
-        for (Map.Entry<String, DialogPlayer> entry : DialogPlayer.INSTANCES.entrySet()) {
+        for (Map.Entry<String, DialogPlayer> entry : DialogPlayerManager.PLAYER_INSTANCES.entrySet()) {
             DialogPlayer dialogPlayer = entry.getValue();
             ServerPlayer player = dialogPlayer.getPlayer();
             if (player.getStringUUID().equals(uid)) {

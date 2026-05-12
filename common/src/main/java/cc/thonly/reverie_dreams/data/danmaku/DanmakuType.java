@@ -4,14 +4,10 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.BaseDanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
@@ -44,7 +40,7 @@ import java.util.function.Supplier;
 @Setter
 @Getter
 @ToString
-public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, Translatable, BuiltinObject {
+public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBindable<DanmakuType>, RegistryEntryTranslatable, BuiltinObject {
     public static final Codec<DanmakuType> COMPONENT_CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),

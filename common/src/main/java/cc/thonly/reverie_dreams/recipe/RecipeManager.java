@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesImpl;
+import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeInjectCallback;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.networking.payload.RecipeManagerSyncPacket;

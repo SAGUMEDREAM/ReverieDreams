@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
@@ -89,7 +89,7 @@ public class RecipeWorkbenchRegistry {
     }
 
     public static <R extends BaseRecipe> void register(String name, Supplier<RecipeWorkbench<R>> value) {
-        ReverieDreams.LATE_INIT.add(() -> VALUES.put(name, value.get()));
+        ReverieDreams.COMMON_LATE_INIT.add(() -> VALUES.put(name, value.get()));
     }
 
     public static Set<Map.Entry<String, RecipeWorkbench<?>>> entries() {

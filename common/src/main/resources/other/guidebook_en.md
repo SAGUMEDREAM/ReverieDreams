@@ -235,7 +235,7 @@ Each food item has different **Tags**, and different Tags grant different effect
 
 #### Kitchen Tool System
 
-The cooking system has **five types** of kitchen tools, each with an **upgraded version**:
+The cooking system has **five typeInstance** of kitchen tools, each with an **upgraded version**:
 
 | Tool | Purpose |
 |------|---------|

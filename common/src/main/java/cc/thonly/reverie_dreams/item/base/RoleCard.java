@@ -4,13 +4,13 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
@@ -30,7 +30,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 @ToString
-public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, BuiltinObject {
+public class RoleCard implements CodecStep<RoleCard>, RegistryEntryOwnerBindable<RoleCard>, BuiltinObject {
     public static final Codec<RoleCard> CODEC = UnitCodec.unit(RoleCard::new);
     public static final Long DEFAULT_COLOR = 16777215L;
     @Setter
@@ -100,7 +100,7 @@ public class RoleCard implements CodecStep<RoleCard>, OwnerBinding<RoleCard>, Bu
 
     public RoleCard build() {
         this.itemId = Identifier.fromNamespaceAndPath(this.id.getNamespace(), this.id.getPath() + "_role_card");
-        ReverieDreams.LATE_INIT.add(() -> {
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
             for (NPCRole entry : this.entries) {
                 Item egg = entry.getEgg().asItem();
                 if (egg instanceof ColoredSpawnEggItem eggItem) {

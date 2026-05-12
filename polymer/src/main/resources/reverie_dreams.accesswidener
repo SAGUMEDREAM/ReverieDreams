@@ -1,0 +1,56 @@
+classTweaker v1 official
+accessible class net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion
+accessible class net/minecraft/core/component/DataComponentPatch$PatchKey
+accessible class net/minecraft/core/component/DataComponentInitializers$Initializer
+accessible class net/minecraft/core/component/DataComponentInitializers$InitializerEntry
+accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
+accessible class net/minecraft/world/entity/animal/rabbit/Rabbit$RabbitAvoidEntityGoal
+accessible class net/minecraft/world/entity/animal/rabbit/Rabbit$RaidGardenGoal
+accessible class net/minecraft/world/entity/monster/Ghast$GhastShootFireballGoal
+accessible class net/minecraft/world/entity/monster/illager/SpellcasterIllager$IllagerSpell
+accessible class net/minecraft/world/entity/npc/wanderingtrader/WanderingTrader$WanderToPositionGoal
+accessible class net/minecraft/world/entity/raid/Raid$RaiderType
+accessible class net/minecraft/world/inventory/ArmorSlot
+accessible field net/minecraft/core/Holder$Reference tags Ljava/util/Set;
+accessible field net/minecraft/core/Holder$Reference value Ljava/lang/Object;
+accessible field net/minecraft/core/HolderSet$Named contents Ljava/util/List;
+accessible field net/minecraft/core/MappedRegistry byId Lit/unimi/dsi/fastutil/objects/ObjectList;
+accessible field net/minecraft/core/MappedRegistry byKey Ljava/util/Map;
+accessible field net/minecraft/core/MappedRegistry byLocation Ljava/util/Map;
+accessible field net/minecraft/core/MappedRegistry byValue Ljava/util/Map;
+accessible field net/minecraft/core/MappedRegistry frozenTags Ljava/util/Map;
+accessible field net/minecraft/core/MappedRegistry registrationInfos Ljava/util/Map;
+accessible field net/minecraft/core/MappedRegistry toId Lit/unimi/dsi/fastutil/objects/Reference2IntMap;
+accessible field net/minecraft/core/component/DataComponentPatch map Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;
+accessible field net/minecraft/data/recipes/RecipeProvider output Lnet/minecraft/data/recipes/RecipeOutput;
+accessible field net/minecraft/world/entity/LivingEntity SLEEPING_POS_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
+accessible field net/minecraft/world/entity/LivingEntity lastHurt F
+accessible field net/minecraft/world/entity/ai/goal/AvoidEntityGoal avoidClass Ljava/lang/Class;
+accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
+accessible field net/minecraft/world/item/ItemStack components Lnet/minecraft/core/component/PatchedDataComponentMap;
+accessible field net/minecraft/world/item/component/DyedItemColor rgb I
+accessible field net/minecraft/world/item/crafting/Ingredient values Lnet/minecraft/core/HolderSet;
+accessible method net/minecraft/client/model/geom/ModelLayers register (Ljava/lang/String;)Lnet/minecraft/client/model/geom/ModelLayerLocation;
+accessible method net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion <init> (Lnet/minecraft/resources/Identifier;Lcom/mojang/brigadier/suggestion/SuggestionProvider;)V
+accessible method net/minecraft/core/Holder$Reference bindKey (Lnet/minecraft/resources/ResourceKey;)V
+accessible method net/minecraft/core/component/DataComponentPatch$PatchKey <init> (Lnet/minecraft/core/component/DataComponentType;Z)V
+accessible method net/minecraft/core/component/DataComponentPatch$PatchKey removed ()Z
+accessible method net/minecraft/core/component/DataComponentPatch$PatchKey type ()Lnet/minecraft/core/component/DataComponentType;
+accessible method net/minecraft/server/level/ServerEntity sendDirtyEntityData ()V
+accessible method net/minecraft/world/entity/LivingEntity travelRidden (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/Vec3;)V
+accessible method net/minecraft/world/entity/animal/Animal playEatingSound ()V
+accessible method net/minecraft/world/entity/animal/bee/Bee setHasStung (Z)V
+accessible method net/minecraft/world/entity/animal/rabbit/Rabbit setVariant (Lnet/minecraft/world/entity/animal/rabbit/Rabbit$Variant;)V
+accessible method net/minecraft/world/entity/decoration/ArmorStand setMarker (Z)V
+accessible method net/minecraft/world/entity/npc/wanderingtrader/WanderingTrader$WanderToPositionGoal <init> (Lnet/minecraft/world/entity/npc/wanderingtrader/WanderingTrader;Lnet/minecraft/world/entity/npc/wanderingtrader/WanderingTrader;DD)V
+accessible method net/minecraft/world/entity/player/Player playServerSideSound (Lnet/minecraft/sounds/SoundEvent;)V
+accessible method net/minecraft/world/item/ProjectileWeaponItem draw (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)Ljava/util/List;
+accessible method net/minecraft/world/item/component/DyedItemColor rgb ()I
+accessible method net/minecraft/world/item/trading/MerchantOffer <init> (Lnet/minecraft/world/item/trading/ItemCost;Ljava/util/Optional;Lnet/minecraft/world/item/ItemStack;IIZIIFI)V
+accessible method net/minecraft/world/level/block/state/BlockBehaviour useItemOn (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;
+accessible method net/minecraft/world/level/block/state/BlockBehaviour useWithoutItem (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;
+accessible method net/minecraft/world/level/levelgen/NoiseRouterData getFunction (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible method net/minecraft/world/level/levelgen/NoiseRouterData postProcess (Lnet/minecraft/world/level/levelgen/DensityFunction;)Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible method net/minecraft/world/level/levelgen/NoiseRouterData slide (Lnet/minecraft/world/level/levelgen/DensityFunction;IIIIDIID)Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible method net/minecraft/world/entity/projectile/ThrowableProjectile handleFirstTickBubbleColumn ()V
+mutable field net/minecraft/world/item/component/DyedItemColor rgb I

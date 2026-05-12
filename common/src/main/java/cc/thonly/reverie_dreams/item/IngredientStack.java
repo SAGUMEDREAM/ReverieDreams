@@ -92,7 +92,6 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
     public static final StreamCodec<RegistryFriendlyByteBuf, IngredientStack> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
     public static final EntityDataSerializer<IngredientStack> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
 
-
     private Holder<Item> item;
     private int count;
     private DataComponentPatch components;
@@ -359,7 +358,7 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
     }
 
     public boolean isEmpty() {
-        return this.item.value() == Items.AIR && this.count <= 0 && this.tags.isEmpty();
+        return this.item.is(Items.AIR.builtInRegistryHolder()) && this.count <= 0 && this.tags.isEmpty();
     }
 
     public DataComponentPatch getComponents() {

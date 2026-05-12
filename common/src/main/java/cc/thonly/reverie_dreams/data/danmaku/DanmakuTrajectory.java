@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.data.danmaku;
 
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 @Getter
 @NoArgsConstructor
 @ToString
-public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, OwnerBinding<DanmakuTrajectory>, BuiltinObject {
+public class DanmakuTrajectory implements CodecStep<DanmakuTrajectory>, RegistryEntryOwnerBindable<DanmakuTrajectory>, BuiltinObject {
     public static final Codec<DanmakuTrajectory> CODEC = UnitCodec.unit(DanmakuTrajectory::new);
     private RegistryImpl<DanmakuTrajectory> owner;
 

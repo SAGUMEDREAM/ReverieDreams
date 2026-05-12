@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
+import cc.thonly.reverie_dreams.api.block.CustomMatureBlock;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.api.block.CustomMatureBlock;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

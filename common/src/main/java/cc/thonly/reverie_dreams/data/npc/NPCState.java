@@ -1,12 +1,8 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -17,7 +13,7 @@ import net.minecraft.resources.Identifier;
 
 @Setter
 @Getter
-public class NPCState implements CodecStep<NPCState>, OwnerBinding<NPCState>, BuiltinObject, Translatable {
+public class NPCState implements CodecStep<NPCState>, RegistryEntryOwnerBindable<NPCState>, BuiltinObject, RegistryEntryTranslatable {
     public static final Identifier DEFAULT_ID = ReverieDreams.id("normal");
     public static final Codec<NPCState> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(

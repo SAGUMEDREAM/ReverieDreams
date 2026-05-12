@@ -45,7 +45,7 @@ public class RDPointOfInterestTypes extends PoiTypes {
             Entry entry = entrySuppler.get();
             return new PoiType(entry.states, entry.ticketCount, entry.searchDistance);
         });
-        ReverieDreams.LATE_INIT.add(() -> holder.value().matchingStates().forEach(state -> {
+        ReverieDreams.COMMON_LATE_INIT.add(() -> holder.value().matchingStates().forEach(state -> {
             if (TYPE_BY_STATE.containsKey(state)) {
                 return;
             }

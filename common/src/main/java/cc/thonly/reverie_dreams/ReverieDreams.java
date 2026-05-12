@@ -2,10 +2,13 @@ package cc.thonly.reverie_dreams;
 
 import cc.thonly.keine.api.KeineAPI;
 import cc.thonly.keine.api.KeineRegistries;
+import cc.thonly.keine.api.callback.AttackBlockCallback;
 import cc.thonly.keine.api.callback.ItemAttackHitCallback;
 import cc.thonly.keine.api.callback.ServerSavingCallback;
-import cc.thonly.keine.api.callback.AttackBlockCallback;
-import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.api.dialog.DialogApi;
+import cc.thonly.reverie_dreams.api.player.PlayerComponentManager;
+import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
@@ -13,22 +16,24 @@ import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
+import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
 import cc.thonly.reverie_dreams.loot.RDLootModifies;
-import cc.thonly.reverie_dreams.networking.payload.CSVersionPacket;
+import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
 import cc.thonly.reverie_dreams.networking.payload.HelloPacket;
+import cc.thonly.reverie_dreams.networking.payload.PlayerJoinVersionPacket;
 import cc.thonly.reverie_dreams.networking.payload.ScreenshotMapPacket;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
-import cc.thonly.reverie_dreams.registry.PairRegistryImpls;
+import cc.thonly.reverie_dreams.registry.BiRegistryImpls;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.ServerResourceHelper;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
+import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
@@ -42,8 +47,10 @@ import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.server.*;
-import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManager;
+import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
+import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.server.nota.Nota;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
@@ -52,7 +59,6 @@ import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.CardboardWarning;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
-import cc.thonly.reverie_dreams.util.PhotoScreenshotMaker;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
@@ -86,6 +92,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -106,7 +113,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -119,10 +129,11 @@ public class ReverieDreams {
     public static final String MOD_ID = "reverie_dreams";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final Random RD = new Random();
-    public static final List<Runnable> LATE_INIT = new ArrayList<>();
+    public static final List<Runnable> COMMON_LATE_INIT = new ArrayList<>();
     public static final List<Runnable> BUS_LATE_INIT = new ArrayList<>();
     public static final List<Runnable> LATE_INIT_CLIENT = new ArrayList<>();
     public static final Map<Identifier, EntityDataSerializer<?>> ENTITY_DATA_SERIALIZER_REGISTRY = new Object2ObjectLinkedOpenHashMap<>();
+    public static final List<Block> SERVER_SIDE_BLOCKS = List.of(Blocks.NOTE_BLOCK, Blocks.TRIPWIRE);
     public static Function<ResourceKey<? extends Registry<?>>, RegistryImpl<?>> REGISTRY_GETTER = null;
     public static BiFunction<ResourceKey<? extends Registry<?>>, RegistryImpl<?>, RegistryImpl<?>> REGISTRY_SHADOWER = null;
     private static KeineRegistries keineRegistries;
@@ -130,16 +141,7 @@ public class ReverieDreams {
     private static BalmItemRegistrar ITEM_REGISTRAR;
     private static BalmEntityTypeRegistrar ENTITY_TYPE_REGISTRAR;
     private static MinecraftServer server;
-    private static final Set<ServerPlayer> PLAYER_WITH_MOD = new HashSet<>();
-    private static final Map<ServerPlayer, String> PLAYER_SIDE_VERSION = new WeakHashMap<>();
-
-    public static boolean hasMod(ServerPlayer player) {
-        return PLAYER_WITH_MOD.contains(player);
-    }
-
-    public static boolean hasModWithVersion(ServerPlayer player) {
-        return hasMod(player) && Objects.equals(PLAYER_SIDE_VERSION.get(player), PlatformContext.VERSION.get());
-    }
+    private static boolean loadDone;
 
     public static ReverieDreamsConfiguration config() {
         ReverieDreamsConfiguration activeConfig = Balm.config().getActiveConfig(ReverieDreamsConfiguration.class);
@@ -162,7 +164,10 @@ public class ReverieDreams {
         return keineRegistries;
     }
 
-    @SuppressWarnings("deprecation")
+    public static boolean hasLoadDone() {
+        return loadDone;
+    }
+
     public static void initialize(BalmRegistrars registrars, Runnable lateInit) {
         keineRegistries = KeineAPI.getApi().get(MOD_ID);
         Balm.config().registerConfig(ReverieDreamsConfiguration.class);
@@ -175,7 +180,7 @@ public class ReverieDreams {
             LOGGER.warn("=====================================================");
         }
         if (PlatformContext.hasOptifine()) {
-            LOGGER.warn("Are you kidding me? Install Optifine?!");
+            LOGGER.warn("You installed Optifine?!");
         }
         LOGGER.info("Loaded " + MOD_NAME);
         PlatformContext.FABRIC_POLYFACTORY_HAND_CRANK = Blocks.AIR;
@@ -216,14 +221,14 @@ public class ReverieDreams {
         BiomeModificationInit.initialize();
 
         // 初始化其他注册内容
-        RDMPHooks.initialize();
+        RDCommonEvents.initialize();
         RecipeManager.bootstrap(registrars);
         RecipeWorkbenchRegistry.bootstrap();
         ServerResourceHelper.init();
         RegistryImpls.bootstrap();
         FoodProperties.registerDefaultItemUsingProperty();
         DrinkProperties.registerDefaultItemUsingProperty();
-        PairRegistryImpls.bootstrap();
+        BiRegistryImpls.bootstrap();
         RDLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.init();
@@ -231,7 +236,7 @@ public class ReverieDreams {
         KeyframeFunctions.bootstrap();
 
         ImageToTextScanner.bootstrap();
-        PlayerDataComponentManager.registers();
+        PlayerComponentRegistry.registerDefaultComponents();
 
         loadCompletableEvent(registrars);
         registerNetworkingEvent(registrars);
@@ -242,6 +247,7 @@ public class ReverieDreams {
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("skin_type"), SkinType.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("ingredient_stack"), IngredientStack.SERIALIZER);
         lateInit.run();
+        loadDone = true;
     }
 
     @SuppressWarnings("resource")
@@ -361,32 +367,6 @@ public class ReverieDreams {
             }
             return InteractionResult.SUCCESS;
         });
-        // Yuka伞攻击(1.21.11-)
-//        ItemAttackHitCallback.EVENT.register((stack, target, attacker) -> {
-//            Level level = attacker.level();
-//            if (level instanceof ServerLevel world && stack.getItem() instanceof YukaFlowerUmbrella) {
-//                double speed = attacker.getDeltaMovement().length();
-//                Entity vehicle = attacker.getVehicle();
-//                if (vehicle != null) {
-//                    double length = vehicle.getDeltaMovement().length();
-//                    if (speed > length) {
-//                        speed = length;
-//                    }
-//                }
-//                MinecraftServer server = level.getServer();
-//                float damageValue = (float) (48f * speed);
-//                DelayedTask.create(server, 1, () -> {
-//                    target.hurtTime = 0;
-//                    if (target.getHealth() - damageValue >= 0) {
-//                        target.setHealth(target.getHealth() - damageValue);
-//                    } else {
-//                        target.setHealth(0);
-//                    }
-//                    target.hurtTime = 0;
-//                });
-//            }
-//            return true;
-//        });
 
     }
 
@@ -396,36 +376,31 @@ public class ReverieDreams {
                 HelloPacket.PACKET_ID,
                 HelloPacket.class,
                 HelloPacket.CODEC,
-                (player, payload) -> {
-                    PLAYER_WITH_MOD.add(player);
-                }
+                ServerNetworkingHandlers::onReceiveHelloPacket
         );
         networking.registerServerboundPacket(
-                CSVersionPacket.PACKET_ID,
-                CSVersionPacket.class,
-                CSVersionPacket.CODEC,
-                (player, payload) -> {
-                    String version = payload.version();
-                    PLAYER_SIDE_VERSION.put(player, version);
-                }
+                PlayerJoinVersionPacket.PACKET_ID,
+                PlayerJoinVersionPacket.class,
+                PlayerJoinVersionPacket.CODEC,
+                ServerNetworkingHandlers::onReceiveHelloPacket
         );
         networking.registerServerboundPacket(
                 ScreenshotMapPacket.PACKET_ID,
                 ScreenshotMapPacket.class,
                 ScreenshotMapPacket.CODEC,
-                PhotoScreenshotMaker::handle
+                ServerNetworkingHandlers::onReceiveScreenshotMapPacket
         );
         ServerPlayerCallback.Leave.EVENT.register((player) -> {
-            PLAYER_WITH_MOD.remove(player);
-            PLAYER_SIDE_VERSION.remove(player);
+            ServerNetworkingHandlers.PLAYER_WITH_MOD.remove(player);
+            ServerNetworkingHandlers.PLAYER_SIDE_VERSION.remove(player);
         });
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "resource"})
     private static void registerServerEvents(BalmRegistrars registrars) {
         ServerPlayerCallback.Join.EVENT.register(player -> {
-            PlayerDataComponentManager componentManager = PlayerDataComponentManager.getInstance();
-            for (Map.Entry<Class<PlayerComponent<? extends PlayerComponent>>, PlayerComponentInitializer<?>> mapEntry : PlayerDataComponentManager.getComponents()) {
+            PlayerComponentManager componentManager = PlayerComponentManager.serverAccess();
+            for (Map.Entry<Class<PlayerComponent<? extends PlayerComponent>>, PlayerComponentInitializer<?>> mapEntry : PlayerComponentRegistry.getComponents()) {
                 Class<PlayerComponent<? extends PlayerComponent>> key = mapEntry.getKey();
                 componentManager.getOrCreatePlayerComponent(player, key);
             }
@@ -435,12 +410,12 @@ public class ReverieDreams {
             RecipeManager.startSyncRecipe(List.of(player));
         });
         ServerPlayerCallback.Leave.EVENT.register((player) -> {
-            PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
-            playerDataComponentManager.saveAll();
+            PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
+            playerComponentManager.saveAll();
         });
         ServerLifecycleCallback.Reloaded.EVENT.register(server -> {
-            PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
-            playerDataComponentManager.onLoad(server);
+            PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
+            playerComponentManager.onLoad(server);
         });
         ServerLifecycleCallback.Reloaded.EVENT.register(server -> {
             RegistryImpls.startSyncRegistry(server.getPlayerList().getPlayers());
@@ -464,27 +439,35 @@ public class ReverieDreams {
             player.sendSystemMessage(mutableText, false);
         });
         LivingEntityCallback.Death.Before.EVENT.register((entity, damageSource) -> {
+            if (damageSource.is(RDDamageTypeTags.DANMAKU_HIT)) {
+                entity.level().playSound(null, entity.getOnPos(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL, 0.32F, 1.0F);
+            }
+            return true;
+        });
+        LivingEntityCallback.Death.Before.EVENT.register((entity, damageSource) -> {
             return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE);
         });
         ServerLifecycleCallback.Started.EVENT.register(server -> {
-            IPlayerInputManager polymerAccess = IPlayerInputManager.polymerAccess();
+            PlayerInputManagerAccess polymerAccess = PlayerInputManagerAccess.polymerAccess();
             polymerAccess.reload();
-            IPlayerInputManager inputManager = IPlayerInputManager.access();
+            PlayerInputManagerAccess inputManager = PlayerInputManagerAccess.access();
             inputManager.reload();
             NPCFindBlockGoal.EXCLUSIONS.clear();
-            DialogPlayer.reload();
+            DialogApi.reload();
             SessionManager.clear();
+            RemoteSignalManager.access().reloadAll(server);
         });
         ServerSavingCallback.AFTER.register((server, flush, force) -> {
-            PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
-            playerDataComponentManager.saveAll();
+            PlayerComponentManager componentManager = PlayerComponentManager.serverAccess();
+            componentManager.saveAll();
+            RemoteSignalManager.access().saveAll(server);
         });
         ServerTickCallback.AFTER.register(DelayedTask::tick);
-        ServerTickCallback.AFTER.register(PlayerDataComponentManager::tick);
+        ServerTickCallback.AFTER.register(ServerPlayerComponentManager::tickByServer);
         ServerTickCallback.AFTER.register(ParticleTickerManager::tick);
-        ServerTickCallback.AFTER.register(ServerPlayerInputManager::tick);
+        ServerTickCallback.AFTER.register(ServerPlayerInputManagerAccess::tick);
         ServerTickCallback.AFTER.register(DanmakuScriptManager::onTick);
-        ServerTickCallback.AFTER.register(DialogPlayer::tick);
+        ServerTickCallback.AFTER.register(DialogPlayerManager::tick);
         ServerTickCallback.AFTER.register(SpellcardRenderer::tick);
     }
 
@@ -508,9 +491,9 @@ public class ReverieDreams {
                 LOGGER.info("A newer version is available: {}", versionNumber);
                 PlatformContext.LATEST_VERSION = versionNumber;
             } else if (cmp < 0) {
-                LOGGER.info("You're using a newer version than latest: {}", PlatformContext.VERSION);
+                LOGGER.info("You're using a newer version than latest: {}", PlatformContext.VERSION.get());
             } else {
-                LOGGER.info("You're using the latest version: {}", PlatformContext.VERSION);
+                LOGGER.info("You're using the latest version: {}", PlatformContext.VERSION.get());
             }
         });
 
@@ -544,7 +527,7 @@ public class ReverieDreams {
 
     public static boolean hasModOnClient(ServerPlayer player) {
         if (player == null) return false;
-        return PLAYER_WITH_MOD.contains(player);
+        return ServerNetworkingHandlers.PLAYER_WITH_MOD.contains(player);
     }
 
     public static void setServer(MinecraftServer server) {

@@ -46,7 +46,11 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(EquipmentAssetProvider::new);
         pack.addProvider(JukeboxProvider::new);
         pack.addProvider(SoundProvider::new);
-        pack.addProvider(RecipeTypeProvider::new);
+        pack.addProvider(CustomRecipeTypeProvider::new);
+        pack.addProvider(DanmakuRecipeProvider::new);
+        pack.addProvider(ShapeDrawRecipeProvider::new);
+        pack.addProvider(GensokyoAltarRecipeProvider::new);
+        pack.addProvider(KitchenRecipeProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
         pack.addProvider(SkinConfigProvider::new);
         pack.addProvider(AdvancementProvider::new);

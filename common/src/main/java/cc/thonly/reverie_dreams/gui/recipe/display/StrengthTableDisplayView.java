@@ -41,8 +41,8 @@ public class StrengthTableDisplayView extends AnvilInputGui implements DisplayVi
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onManualClose() {
+        super.onManualClose();
         this.back(0,null,null, null);
     }
 

@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.item;
 
-import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;
 import lombok.ToString;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;

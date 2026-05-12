@@ -2,13 +2,9 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.callback.DrinkPropertyItemUseCallback;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.EqualsAndHashCode;
@@ -28,7 +24,7 @@ import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class DrinkProperty implements CodecStep<DrinkProperty>, OwnerBinding<DrinkProperty>, BuiltinObject, Translatable {
+public class DrinkProperty implements CodecStep<DrinkProperty>, RegistryEntryOwnerBindable<DrinkProperty>, BuiltinObject, RegistryEntryTranslatable {
     public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
     public static final Codec<DrinkProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryImpls.DRINK_PROPERTY::getValue, entry -> {
         Identifier key = RegistryImpls.DRINK_PROPERTY.getKey(entry);

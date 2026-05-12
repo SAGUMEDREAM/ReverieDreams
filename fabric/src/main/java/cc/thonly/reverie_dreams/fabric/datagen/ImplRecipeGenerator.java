@@ -20,13 +20,14 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
@@ -39,7 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 public class ImplRecipeGenerator extends RecipeProvider {
     public static ImmutableList<ItemLike> SILVER = ImmutableList.of(RDBlocks.SILVER_ORE.asItem(), RDBlocks.DEEPSLATE_SILVER_ORE.asItem(), RDItems.RAW_SILVER);
@@ -238,9 +238,22 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('A', Items.REDSTONE_TORCH)
                 .define('X', Items.REDSTONE)
                 .define('#', Items.WHEAT)
-        ;
+                .unlockedBy("has_wheat", has(Items.WHEAT))
+                .save(output, getSimpleRecipeName(RDItems.SCARECROW));
 
-        this.generateWoodBundle(RDWoodBlocks.SPIRITUAL_BUNDLE);
+        // 快速食谱
+        shaped(RecipeCategory.MISC, RDItems.FAST_RECIPE_BOOK)
+                .pattern("FRP")
+                .pattern("RXR")
+                .pattern("PRP")
+                .define('X', Items.BOOK)
+                .define('R', Items.REDSTONE)
+                .define('F', Items.FEATHER)
+                .define('P', RDItems.POWER)
+                .unlockedBy("has_book", has(Items.BOOK))
+                .save(output, getSimpleRecipeName(RDItems.FAST_RECIPE_BOOK));
+
+        this.buildWoodBundle(RDWoodBlocks.SPIRITUAL_BUNDLE);
         shapeless(RecipeCategory.BUILDING_BLOCKS, RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog())
                 .requires(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)
                 .unlockedBy("has_blessed_spiritual_log", has(RDWoodBlocks.BLESSED_SPIRITUAL_LOG))
@@ -257,12 +270,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         ItemStackTemplate peachStack = new ItemStackTemplate(RDIngredientItems.PEACH.asItem());
         HolderLookup.RegistryLookup<Enchantment> enchantmentRegistryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         Holder.Reference<Enchantment> powerful = enchantmentRegistryLookup.getOrThrow(RDEnchantments.POWERFUL);
-        ItemStackTemplateHelper.modify(peachStack, new BiConsumer<ItemStackTemplate, ItemStackTemplateHelper.Modifier>() {
-            @Override
-            public void accept(ItemStackTemplate template, ItemStackTemplateHelper.Modifier modifier) {
-                modifier.enchant(powerful, 1);
-            }
-        });
+        ItemStackTemplateHelper.modify(peachStack, (template, modifier) -> modifier.enchant(powerful, 1));
         shapedItemStack(RecipeCategory.MISC, peachStack)
                 .pattern("XXX")
                 .pattern("X#X")
@@ -272,23 +280,25 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_gold_nugget", has(Items.GOLD_NUGGET))
                 .save(output, getSimpleRecipeName(RDIngredientItems.PEACH));
 
-        this.generateWoodBundle(RDWoodBlocks.LEMON_BUNDLE);
-        this.generateWoodBundle(RDWoodBlocks.GINKGO_BUNDLE);
-        this.generateDecorativeBlock();
+        this.buildWoodBundle(RDWoodBlocks.LEMON_BUNDLE);
+        this.buildWoodBundle(RDWoodBlocks.GINKGO_BUNDLE);
+        this.buildDecorativeBlock();
 
-        this.generateWorkBlock();
-        this.generateOrb();
-        this.generateSilver();
-        this.generateMaid();
-        this.generateMagicIce();
-        this.generateDream();
-        this.generateMusicBlock();
-        this.generateIngredient();
-        this.generateMIPlant2Ingredient();
-        this.generateMICookRecipe();
+        this.buildWorkBlock();
+        this.buildOrb();
+        this.buildSilver();
+        this.buildMaid();
+        this.buildMagicIce();
+        this.buildDream();
+        this.buildMusicBlock();
+        this.buildIngredient();
+        this.buildPlant2Ingredient();
+        this.buildBaseKitchenBlockRecipe();
+        this.buildKitchenBlockUpgradeRecipes();
+        this.buildRedstones();
     }
 
-    private void generateWoodBundle(WoodBundle creator) {
+    private void buildWoodBundle(WoodBundle creator) {
         HolderGetter<Item> itemImpl = this.registries.lookupOrThrow(Registries.ITEM);
         Block log = creator.log().asBlock();
         Block wood = creator.wood().asBlock();
@@ -376,7 +386,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .save(output);
     }
 
-    private void generateIngredient() {
+    private void buildIngredient() {
         shaped(RecipeCategory.FOOD, RDIngredientItems.CHEESE)
                 .pattern("##")
                 .pattern("##")
@@ -422,7 +432,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         oreSmelting(List.of(RDIngredientItems.BLACK_PORK, RDIngredientItems.WILD_BOAR_MEAT), RecipeCategory.MISC, CookingBookCategory.FOOD, Items.COOKED_PORKCHOP, 0.7F, 160, "food");
     }
 
-    private void generateDecorativeBlock() {
+    private void buildDecorativeBlock() {
         this.offerDecorativeBlockBundleRecipe(RDBlocks.ICE_SCALES, RDItems.ICE_SCALES);
         this.offerDecorativeBlockBundleRecipe(RDBlocks.DREAM_STONE, RDBlocks.DREAM_STONE.block());
         this.offerDecorativeBlockBundleRecipe(RDBlocks.DREAM_STONE_BRICK, RDBlocks.DREAM_STONE_BRICK.block());
@@ -450,7 +460,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         this.wall(RecipeCategory.BUILDING_BLOCKS, bundle.wall(), material);
     }
 
-    private void generateMusicBlock() {
+    private void buildMusicBlock() {
         // 音乐盒
         shaped(RecipeCategory.REDSTONE, RDBlocks.MUSIC_BLOCK)
                 .pattern("XXX")
@@ -495,7 +505,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .save(output, getSimpleRecipeName(RDItems.TRUMPET));
     }
 
-    private void generateWorkBlock() {
+    private void buildWorkBlock() {
         // 弹幕工作台
         shaped(RecipeCategory.DECORATIONS, RDBlocks.DANMAKU_CRAFTING_TABLE)
                 .pattern("XXX")
@@ -526,7 +536,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .save(output, getSimpleRecipeName(RDBlocks.STRENGTH_TABLE));
     }
 
-    private void generateOrb() {
+    private void buildOrb() {
         // 宝玉 / 宝玉块
         offerIngotToBlockRecipe(output, RDItems.RED_ORB.asItem(), RDBlocks.RED_ORB_BLOCK.asItem());
         offerBlockToIngotRecipe(output, RDBlocks.RED_ORB_BLOCK.asItem(), RDItems.RED_ORB.asItem());
@@ -545,7 +555,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
 
     }
 
-    private void generateSilver() {
+    private void buildSilver() {
         // 银武器/工具
         offerSwordRecipe(output, RDItems.SILVER_SWORD.asItem(), RDItems.SILVER_INGOT.asItem());
         offerPickaxeRecipe(output, RDItems.SILVER_PICKAXE.asItem(), RDItems.SILVER_INGOT.asItem());
@@ -581,7 +591,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
 
     }
 
-    private void generateMaid() {
+    private void buildMaid() {
         Map<Item, Item> itemItemMap = new HashMap<>(
                 Map.of(
                         RDItems.SILVER_HELMET.asItem(), RDItems.MAID_HAIRBAND.asItem(),
@@ -604,7 +614,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         }
     }
 
-    private void generateMagicIce() {
+    private void buildMagicIce() {
         oreSmelting(List.of(RDBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.ICE_SCALES, 0.7F, 140, "silver_ingot");
         oreBlasting(List.of(RDBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.ICE_SCALES, 0.7F, 70, "silver_ingot");
         // 魔法冰
@@ -631,7 +641,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
 
     }
 
-    private void generateDream() {
+    private void buildDream() {
         // 梦境水晶武器/工具
         offerSwordRecipe(output, RDItems.DREAM_SWORD.asItem(), RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
         offerPickaxeRecipe(output, RDItems.DREAM_PICKAXE.asItem(), RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
@@ -668,7 +678,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
 
     }
 
-    private void generateMIPlant2Ingredient() {
+    private void buildPlant2Ingredient() {
         shaped(RecipeCategory.FOOD, RDIngredientItems.UDUMBARA)
                 .pattern("#")
                 .define('#', RDWoodBlocks.UDUMBARA_FLOWER)
@@ -681,7 +691,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .save(output, getSimpleRecipeName(RDIngredientItems.TREMELLA));
     }
 
-    private void generateMICookRecipe() {
+    private void buildBaseKitchenBlockRecipe() {
         // 厨具
         shaped(RecipeCategory.DECORATIONS, KitchenBlocks.COOKING_POT)
                 .pattern(" Y ")
@@ -733,20 +743,9 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('Y', Items.QUARTZ)
                 .unlockedBy("always", has(Items.AIR))
                 .save(output, getSimpleRecipeName(RDBlocks.FOOD_DISPLAY));
-
-        this.offerMIUpgradeRecipes();
-//        // 能量罩
-//        createShaped(RecipeCategory.DECORATIONS, MIBlocks.COOKTOP)
-//                .pattern("YYY")
-//                .pattern("YXY")
-//                .pattern("YYY")
-//                .input('X', Items.FURNACE)
-//                .input('Y', Items.BRICKS)
-//                .criterion("always", conditionsFromItem(Items.AIR))
-//                .offerTo(exporter, getRecipeName(MIBlocks.COOKTOP));
     }
 
-    private void offerMIUpgradeRecipes() {
+    private void buildKitchenBlockUpgradeRecipes() {
         Map<Block, Block> mystiaUpgrade = new Object2ObjectOpenHashMap<>();
         mystiaUpgrade.put(KitchenBlocks.COOKING_POT.asBlock(), KitchenBlocks.MYSTIA_COOKING_POT.asBlock());
         mystiaUpgrade.put(KitchenBlocks.CUTTING_BOARD.asBlock(), KitchenBlocks.MYSTIA_CUTTING_BOARD.asBlock());
@@ -778,8 +777,58 @@ public class ImplRecipeGenerator extends RecipeProvider {
         nukeUpgrade.put(KitchenBlocks.GRILL.asBlock(), KitchenBlocks.NUKE_GRILL.asBlock());
         nukeUpgrade.put(KitchenBlocks.STEAMER.asBlock(), KitchenBlocks.NUKE_STEAMER.asBlock());
         this.offerUpgradeRecipes(nukeUpgrade, Items.NETHER_BRICKS);
+    }
 
-
+    private void buildRedstones() {
+        shaped(RecipeCategory.REDSTONE, RDBlocks.RAIL_CONTROLLER_BLOCK)
+                .pattern(" X ")
+                .pattern("Y#Y")
+                .pattern(" X ")
+                .define('X', Items.REDSTONE)
+                .define('Y', Items.LEVER)
+                .define('#', Items.RAIL)
+                .unlockedBy("has_rail", has(Items.RAIL))
+                .save(this.output, getSimpleRecipeName(RDBlocks.RAIL_CONTROLLER_BLOCK));
+        shaped(RecipeCategory.REDSTONE, RDBlocks.SIGNAL_RAIL_BLOCK)
+                .pattern("XYX")
+                .pattern("X#X")
+                .pattern("XXX")
+                .define('X', Items.REDSTONE)
+                .define('Y', ItemTags.SIGNS)
+                .define('#', Items.RAIL)
+                .unlockedBy("has_rail", has(Items.RAIL))
+                .save(this.output, getSimpleRecipeName(RDBlocks.SIGNAL_RAIL_BLOCK));
+        shaped(RecipeCategory.REDSTONE, RDBlocks.SIGNAL_DELAYER_BLOCK)
+                .pattern("###")
+                .pattern("XYX")
+                .pattern("###")
+                .define('X', Items.REDSTONE)
+                .define('Y', Items.CLOCK)
+                .define('#', Items.COBBLESTONE)
+                .unlockedBy("has_rail", has(Items.CLOCK))
+                .save(this.output, getSimpleRecipeName(RDBlocks.SIGNAL_DELAYER_BLOCK));
+        shaped(RecipeCategory.REDSTONE, RDBlocks.REMOTE_CLIENT)
+                .pattern("#X#")
+                .pattern("###")
+                .define('X', Items.REDSTONE)
+                .define('#', Items.IRON_INGOT)
+                .unlockedBy("has_rail", has(Items.REDSTONE))
+                .save(this.output, getSimpleRecipeName(RDBlocks.REMOTE_CLIENT));
+        shaped(RecipeCategory.REDSTONE, RDBlocks.REMOTE_SERVER)
+                .pattern("#X#")
+                .pattern("###")
+                .define('X', Items.REDSTONE_TORCH)
+                .define('#', Items.IRON_INGOT)
+                .unlockedBy("has_rail", has(Items.REDSTONE_TORCH))
+                .save(this.output, getSimpleRecipeName(RDBlocks.REMOTE_SERVER));
+        shaped(RecipeCategory.REDSTONE, RDBlocks.SPEAKER)
+                .pattern("X#")
+                .pattern("#Y")
+                .define('X', Items.NOTE_BLOCK)
+                .define('Y', Items.REDSTONE)
+                .define('#', Items.IRON_INGOT)
+                .unlockedBy("has_rail", has(Items.NOTE_BLOCK))
+                .save(this.output, getSimpleRecipeName(RDBlocks.SPEAKER));
     }
 
     private void offerUpgradeRecipes(Map<Block, Block> blockBlockMap, Item upgradeMaterial) {

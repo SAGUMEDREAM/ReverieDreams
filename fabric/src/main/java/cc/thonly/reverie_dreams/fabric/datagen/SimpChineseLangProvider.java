@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.creative_tab.content.*;
-import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
@@ -19,6 +18,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.world.RDGameRules;
@@ -1241,6 +1241,13 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.sapling().asBlock(), "桃木树苗");
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.planks().asBlock(), "桃木木板");
         translationBuilder.add(RDWoodBlocks.PEACH_FRUIT_LEAVES.asBlock(), "桃果树叶");
+
+        translationBuilder.add(RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock(), "控制铁轨");
+        translationBuilder.add(RDBlocks.SIGNAL_RAIL_BLOCK.asBlock(), "信号铁轨");
+        translationBuilder.add(RDBlocks.SIGNAL_DELAYER_BLOCK.asBlock(), "信号延迟器");
+        translationBuilder.add(RDBlocks.REMOTE_CLIENT.asBlock(), "远程信号接收端");
+        translationBuilder.add(RDBlocks.REMOTE_SERVER.asBlock(), "远程信号发送端");
+        translationBuilder.add(RDBlocks.SPEAKER.asBlock(), "广播器");
     }
 
     public void generateFumoTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {

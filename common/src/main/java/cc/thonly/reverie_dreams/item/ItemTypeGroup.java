@@ -5,7 +5,6 @@ import cc.thonly.reverie_dreams.item.base.CustomSpear;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import lombok.Getter;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;

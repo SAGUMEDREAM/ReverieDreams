@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.data.danmaku;
 
 import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
@@ -24,7 +24,7 @@ import java.util.function.Function;
 @Setter
 @Getter
 @ToString
-public class DanmakuShape implements CodecStep<DanmakuShape>, OwnerBinding<DanmakuShape>, Translatable, BuiltinObject {
+public class DanmakuShape implements CodecStep<DanmakuShape>, RegistryEntryOwnerBindable<DanmakuShape>, RegistryEntryTranslatable, BuiltinObject {
     public static final Codec<DanmakuShape> CODEC = UnitCodec.unit(DanmakuShape::new);
     public static final Function<DanmakuType, ItemStackTemplate> ITEM_STACK_TEMPLATE = (danmakuType) -> {
         return ItemStackTemplateHelper.create(RDItems.DANMAKU_SHAPE_CREATOR.asItem(), (template1, modifier) -> {

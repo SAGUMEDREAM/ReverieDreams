@@ -16,6 +16,7 @@ public abstract class BaseRecipe {
     private Identifier id;
     private Integer rawId;
     private boolean isVirtual;
+
     public abstract IngredientStack getOutput();
 
     public static <T extends BaseRecipe> StreamCodec<RegistryFriendlyByteBuf, T> forStreamCodec(Codec<T> codec) {

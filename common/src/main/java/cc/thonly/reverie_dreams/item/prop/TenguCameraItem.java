@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.RDMPHooks;
+import cc.thonly.reverie_dreams.RDCommonEvents;
 import cc.thonly.reverie_dreams.networking.payload.StartScreenshotPacket;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
@@ -75,7 +75,7 @@ public class TenguCameraItem extends Item {
     }
 
     public InteractionResult useByPolymer(Level level, Player player, InteractionHand hand) {
-        return RDMPHooks.TenguCameraItemUseCallback.EVENT.invoker().handle(level, player, hand);
+        return RDCommonEvents.TenguCameraItemUseCallback.EVENT.invoker().handle(level, player, hand);
     }
 
 }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.server.nota.player;
 
-import cc.thonly.reverie_dreams.server.nota.Nota;
+import cc.thonly.reverie_dreams.api.nota.NotaAPI;
 import cc.thonly.reverie_dreams.server.nota.model.Layer;
 import cc.thonly.reverie_dreams.server.nota.model.Note;
 import cc.thonly.reverie_dreams.server.nota.model.Playlist;
@@ -48,7 +48,7 @@ public class PositionSongPlayer extends RangeSongPlayer {
 			return; // not in same world
 		}
 
-		byte playerVolume = Nota.getPlayerVolume(player);
+		byte playerVolume = NotaAPI.getPlayerVolume(player);
 
 		for(Layer layer : song.getLayerHashMap().values()) {
 			Note note = layer.getNote(tick);

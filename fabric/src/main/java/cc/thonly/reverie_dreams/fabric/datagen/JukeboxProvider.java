@@ -17,7 +17,7 @@ public class JukeboxProvider extends AbstractJukeboxProvider {
     @Override
     public void configured() {
         for (JukeBoxEntry entry : JukeboxSongInit.ENTRIES) {
-            this.add(ReverieDreams.id(entry.getId()), entry.getRef());
+            this.add(ReverieDreams.id(entry.getId()), entry.getEntryByProvider());
         }
     }
 }

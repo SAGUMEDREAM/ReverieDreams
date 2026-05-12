@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
-import cc.thonly.reverie_dreams.util.sound.SoundEventPlayer;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
@@ -71,7 +71,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setItem(Items.NAME_TAG)
                             .setItemName(Component.translatable("gui.npc.info"))
                             .setCallback((index, type, action, basedGui) -> {
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
                     this.builder2index.put(this.npcName, slotIndex);
                     this.setSlot(slotIndex, this.npcName);
@@ -81,7 +81,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setItem(Items.COOKED_CHICKEN)
                             .setItemName(Component.translatable("gui.npc.info"))
                             .setCallback((index, type, action, basedGui) -> {
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
                     this.builder2index.put(this.npcFood, slotIndex);
                     this.setSlot(slotIndex, this.npcFood);
@@ -91,7 +91,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setItem(Items.GOLDEN_APPLE)
                             .setItemName(Component.translatable("gui.npc.info"))
                             .setCallback((index, type, action, basedGui) -> {
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
                     this.builder2index.put(this.npcHealth, slotIndex);
                     this.setSlot(slotIndex, this.npcHealth);
@@ -101,7 +101,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setItem(Items.IRON_HELMET)
                             .setItemName(Component.translatable("gui.npc.info", getRoleName().getString()))
                             .setCallback((index, type, action, basedGui) -> {
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
                     this.builder2index.put(this.npcArmor, slotIndex);
                     this.setSlot(slotIndex, this.npcArmor);
@@ -122,7 +122,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             )
                             .setCallback((index, type, action, basedGui) -> {
                                 this.npcEntity.setNpcState(type.isRight ? this.npcEntity.getPreviousState() : this.npcEntity.getNextState());
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             })
                     ;
                     this.builder2index.put(this.npcMode, slotIndex);
@@ -135,7 +135,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setItem(currentWorkMode.getItemDisplay().value())
                             .setItemName(Component.translatable("gui.npc.work.mode"))
                             .setCallback((index, type, action, basedGui) -> {
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                 NPCWorkGui npcWorkGui = new NPCWorkGui(this.player, this.npcEntity);
                                 npcWorkGui.open();
                             });
@@ -152,11 +152,11 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setCallback((index, type, action, basedGui) -> {
                                 int experienceAmount = this.npcEntity.getStoredExperience();
                                 if (experienceAmount > 0) {
-                                    SoundEventPlayer.playUISound(this.player, SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                                    SoundEventPlayUtils.playUISound(this.player, SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                                 }
                                 this.player.giveExperiencePoints(experienceAmount);
                                 this.npcEntity.setStoredExperience(0);
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
                     this.builder2index.put(this.npcXp, slotIndex);
                     this.setSlot(slotIndex, this.npcXp);
@@ -168,7 +168,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             .setComponent(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, this.npcEntity.isAutoPick())
                             .setCallback((index, type, action, basedGui) -> {
                                 this.npcEntity.setAutoPick(!this.npcEntity.isAutoPick());
-                                SoundEventPlayer.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
                     this.builder2index.put(this.npcAutoPick, slotIndex);
                     this.setSlot(slotIndex, this.npcAutoPick);
@@ -265,8 +265,8 @@ public class NPCGui extends SimpleGui implements GuiCommon {
 
 
     @Override
-    public void close() {
-        super.close();
+    public void onManualClose() {
+        super.onManualClose();
         this.npcEntity.setPaused(false);
     }
 

@@ -70,7 +70,7 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
                 if (c.equalsIgnoreCase("P")) {
                     ServerPlayer player = this.player;
                     RegistryAccess registryAccess = player.registryAccess();
-                    List<Block> matchBlocks = KitchenBlockType.getMatchBlocks(registryAccess, this.value.getType());
+                    List<Block> matchBlocks = KitchenBlockType.getMatchBlocks(registryAccess, this.value.getTypeInstance());
                     if (!matchBlocks.isEmpty()) {
                         this.setSlot(slot, new GuiElementBuilder(matchBlocks.getFirst().asItem()));
                     }

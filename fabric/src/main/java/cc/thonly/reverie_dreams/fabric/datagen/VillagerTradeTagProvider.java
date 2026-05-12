@@ -13,10 +13,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.trading.VillagerTrade;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 
 public class VillagerTradeTagProvider extends FabricTagsProvider<VillagerTrade> {
     public VillagerTradeTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {

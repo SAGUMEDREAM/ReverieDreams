@@ -6,6 +6,8 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
+import cc.thonly.reverie_dreams.block.props.RemoteClientBlock;
+import cc.thonly.reverie_dreams.block.props.RemoteServerBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
@@ -22,7 +24,9 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -32,6 +36,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jspecify.annotations.NonNull;
 
@@ -39,7 +44,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static net.minecraft.client.data.models.BlockModelGenerators.createRotatedVariants;
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
+import static net.minecraft.client.data.models.BlockModelGenerators.Y_ROT_90;
+import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
 @Slf4j
 public class ModelProvider extends FabricModelProvider {
@@ -93,6 +100,13 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.ANTI_COLLISION_BARREL.asBlock());
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WHEEL_CHAIR.asBlock());
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WOODEN_BOX.chestBlock().asBlock());
+
+        this.createControllerRails(blockStateModelGenerator, RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock());
+        this.createSignalRails(blockStateModelGenerator, RDBlocks.SIGNAL_RAIL_BLOCK.asBlock());
+        this.createSignalDelayer(blockStateModelGenerator, RDBlocks.SIGNAL_DELAYER_BLOCK.asBlock(), TexturedModel.ORIENTABLE_ONLY_TOP);
+        this.createSignalCS(blockStateModelGenerator, RDBlocks.REMOTE_CLIENT.asBlock());
+        this.createSignalCS(blockStateModelGenerator, RDBlocks.REMOTE_SERVER.asBlock());
+        blockStateModelGenerator.createTrivialCube(RDBlocks.SPEAKER.asBlock());
 
         this.generateCropBlockModel(blockStateModelGenerator);
         this.generateKitchenBlock(blockStateModelGenerator);
@@ -354,22 +368,6 @@ public class ModelProvider extends FabricModelProvider {
                         .dispatch(block, BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block)))
                         .with(BlockModelGeneratorsAccessor.getRotationHorizontalFacing())
                 );
-//        blockStateModelGenerator.blockStateOutput.accept(
-//                MultiVariantGenerator.multiVariant(block)
-//                        .with(
-//                                PropertyDispatch.property(AbstractKitchenwareBlock.FACING)
-//                                        .select(Direction.NORTH, Variant.variant().with(VariantProperties.MODEL, modelId))
-//                                        .select(Direction.SOUTH, Variant.variant()
-//                                                .with(VariantProperties.MODEL, modelId)
-//                                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
-//                                        .select(Direction.WEST, Variant.variant()
-//                                                .with(VariantProperties.MODEL, modelId)
-//                                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
-//                                        .select(Direction.EAST, Variant.variant()
-//                                                .with(VariantProperties.MODEL, modelId)
-//                                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-//                        )
-//        );
     }
 
     private void registerGuiItem(ItemModelGenerators itemModelGenerator, Item item) {
@@ -472,6 +470,101 @@ public class ModelProvider extends FabricModelProvider {
     private void registerFamily(BlockModelGenerators generator, BlockFamily family) {
         TexturedModel texturedModel = this.uniqueModels.getOrDefault(family.getBaseBlock(), TexturedModel.CUBE.get(family.getBaseBlock()));
         generator.new BlockFamilyProvider(texturedModel.getMapping()).fullBlock(family.getBaseBlock(), texturedModel.getTemplate()).generateFor(family);
+    }
+
+    private void createSignalCS(BlockModelGenerators generators, Block block) {
+        MultiVariant off = plainVariant(TexturedModel.CUBE.create(block, generators.modelOutput));
+        MultiVariant on = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.CUBE_ALL, TextureMapping::cube));
+        if (block instanceof RemoteServerBlock) {
+            generators.blockStateOutput
+                    .accept(MultiVariantGenerator.dispatch(block).with(createBooleanModelDispatch(BlockStateProperties.OCCUPIED, on, off)));
+        }
+        if (block instanceof RemoteClientBlock) {
+            generators.blockStateOutput
+                    .accept(MultiVariantGenerator.dispatch(block).with(createBooleanModelDispatch(BlockStateProperties.POWERED, on, off)));
+        }
+    }
+
+    private void createSignalDelayer(BlockModelGenerators generators, Block block, TexturedModel.Provider provider) {
+        MultiVariant normal = plainVariant(provider.create(block, generators.modelOutput));
+
+        var frontOn = TextureMapping.getBlockTexture(block, "_front_on");
+        MultiVariant powered = plainVariant(provider.get(block)
+                .updateTextures(texture -> texture.put(TextureSlot.FRONT, frontOn))
+                .createWithSuffix(block, "_on", generators.modelOutput));
+
+        generators.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block)
+                        .with(PropertyDispatch.initial(BlockStateProperties.POWERED, BlockStateProperties.OCCUPIED).generate((hasPowered, hasOccupied) -> {
+                            if (hasPowered) {
+                                return powered;
+                            } else {
+                                return normal;
+                            }
+                        }))
+                        .with(BlockModelGeneratorsAccessor.getRotationFacing())
+        );
+    }
+
+
+    private void createSignalRails(BlockModelGenerators generators, Block block) {
+        MultiVariant multiVariant = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant2 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant3 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        MultiVariant multiVariant4 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant5 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant6 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        generators.registerSimpleFlatItemModel(block);
+        generators.blockStateOutput
+                .accept(
+                        MultiVariantGenerator.dispatch(block)
+                                .with(PropertyDispatch.initial(BlockStateProperties.POWERED, BlockStateProperties.RAIL_SHAPE_STRAIGHT)
+                                        .generate((powered, railShape) -> {
+                                            return switch (railShape) {
+                                                case NORTH_SOUTH -> powered ? multiVariant4 : multiVariant;
+                                                case EAST_WEST ->
+                                                        (powered ? multiVariant4 : multiVariant).with(Y_ROT_90);
+                                                case ASCENDING_EAST ->
+                                                        (powered ? multiVariant5 : multiVariant2).with(Y_ROT_90);
+                                                case ASCENDING_WEST ->
+                                                        (powered ? multiVariant6 : multiVariant3).with(Y_ROT_90);
+                                                case ASCENDING_NORTH -> powered ? multiVariant5 : multiVariant2;
+                                                case ASCENDING_SOUTH -> powered ? multiVariant6 : multiVariant3;
+                                                default ->
+                                                        throw new UnsupportedOperationException("Fix you generator!");
+                                            };
+                                        }))
+                );
+    }
+
+    private void createControllerRails(BlockModelGenerators generators, Block block) {
+        MultiVariant multiVariant = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant2 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant3 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        MultiVariant multiVariant4 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant5 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant6 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        generators.registerSimpleFlatItemModel(block);
+        generators.blockStateOutput
+                .accept(
+                        MultiVariantGenerator.dispatch(block)
+                                .with(PropertyDispatch.initial(BlockStateProperties.POWERED, BlockStateProperties.OCCUPIED, BlockStateProperties.RAIL_SHAPE_STRAIGHT)
+                                        .generate((powered, occupied, railShape) -> {
+                                            return switch (railShape) {
+                                                case NORTH_SOUTH -> occupied ? multiVariant4 : multiVariant;
+                                                case EAST_WEST ->
+                                                        (occupied ? multiVariant4 : multiVariant).with(Y_ROT_90);
+                                                case ASCENDING_EAST ->
+                                                        (occupied ? multiVariant5 : multiVariant2).with(Y_ROT_90);
+                                                case ASCENDING_WEST ->
+                                                        (occupied ? multiVariant6 : multiVariant3).with(Y_ROT_90);
+                                                case ASCENDING_NORTH -> occupied ? multiVariant5 : multiVariant2;
+                                                case ASCENDING_SOUTH -> occupied ? multiVariant6 : multiVariant3;
+                                                default ->
+                                                        throw new UnsupportedOperationException("Fix you generator!");
+                                            };
+                                        }))
+                );
     }
 
     @Override

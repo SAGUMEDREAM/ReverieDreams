@@ -28,7 +28,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
     private final IDrawable icon;
     private final IDrawable arrow;
 
-    public BaseKitchenRecipeCategory(IGuiHelper helper, Function<IGuiHelper, IDrawable> icon, KitchenRecipeType.MappingType kitchenType) {
+    public BaseKitchenRecipeCategory(IGuiHelper helper, Function<IGuiHelper, IDrawable> icon, KitchenRecipeType.TypeInstance kitchenType) {
         this.helper = helper;
         this.icon = icon.apply(helper);
         this.arrow = helper.createDrawableIngredient(
@@ -90,7 +90,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
     public static class CookingPotImpl extends BaseKitchenRecipeCategory {
         public CookingPotImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.COOKING_POT.createStack()), KitchenRecipeType.MappingType.COOKING_POT);
+            super(helper, h -> createIcon(h, KitchenBlocks.COOKING_POT.createStack()), KitchenRecipeType.TypeInstance.COOKING_POT);
         }
 
         @Override
@@ -106,7 +106,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
     public static class CuttingBoardImpl extends BaseKitchenRecipeCategory {
         public CuttingBoardImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.CUTTING_BOARD.createStack()), KitchenRecipeType.MappingType.CUTTING_BOARD);
+            super(helper, h -> createIcon(h, KitchenBlocks.CUTTING_BOARD.createStack()), KitchenRecipeType.TypeInstance.CUTTING_BOARD);
         }
 
         @Override
@@ -122,7 +122,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
     public static class FryingPanImpl extends BaseKitchenRecipeCategory {
         public FryingPanImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.FRYING_PAN.createStack()), KitchenRecipeType.MappingType.FRYING_PAN);
+            super(helper, h -> createIcon(h, KitchenBlocks.FRYING_PAN.createStack()), KitchenRecipeType.TypeInstance.FRYING_PAN);
         }
 
         @Override
@@ -138,7 +138,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
     public static class GrillImpl extends BaseKitchenRecipeCategory {
         public GrillImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.GRILL.createStack()), KitchenRecipeType.MappingType.GRILL);
+            super(helper, h -> createIcon(h, KitchenBlocks.GRILL.createStack()), KitchenRecipeType.TypeInstance.GRILL);
         }
 
         @Override
@@ -154,7 +154,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
     public static class SteamerImpl extends BaseKitchenRecipeCategory {
         public SteamerImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.STEAMER.createStack()), KitchenRecipeType.MappingType.STEAMER);
+            super(helper, h -> createIcon(h, KitchenBlocks.STEAMER.createStack()), KitchenRecipeType.TypeInstance.STEAMER);
         }
 
         @Override

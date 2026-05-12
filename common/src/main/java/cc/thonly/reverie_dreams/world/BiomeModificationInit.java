@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 public class BiomeModificationInit {
     public static void initialize() {
         addSpawnPlacements();
-        ReverieDreams.LATE_INIT.add(() -> {
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
             addBlock();
             addFlower();
             addTree();

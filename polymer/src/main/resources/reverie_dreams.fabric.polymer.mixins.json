@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cc.thonly.reverie_dreams.polymer.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AnimatedEntityMixin",
+    "ElementUpdateListenerMixin",
+    "PolymerBlockUtilsMixin",
+    "PolymerNetworkingMixin",
+    "item.CameraItemMixin"
+  ],
+  "client": [
+    "client.AbstractBlockMixin",
+    "client.NoteBlockMixin",
+    "client.StandingAndWallBlockItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

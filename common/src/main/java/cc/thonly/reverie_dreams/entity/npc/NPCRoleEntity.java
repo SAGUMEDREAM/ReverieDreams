@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.reverie_dreams.api.entity.ExperienceOrbEntityDataModifier;
 import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
-import cc.thonly.reverie_dreams.api.entity.ExperienceOrbEntityDataModifier;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import lombok.Getter;
 import lombok.Setter;

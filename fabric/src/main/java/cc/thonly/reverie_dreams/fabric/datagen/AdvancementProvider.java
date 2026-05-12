@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.datagen;
 
-import cc.thonly.reverie_dreams.advancement.*;
+import cc.thonly.reverie_dreams.advancement.UseItemTrigger;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
@@ -29,7 +29,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;

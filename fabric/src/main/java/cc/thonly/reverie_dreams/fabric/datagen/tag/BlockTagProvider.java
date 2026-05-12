@@ -153,5 +153,16 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .addOptionalTag(RDBlockTags.STEAMER);
 
         valueLookupBuilder(RDBlockTags.TRUFFLE_DROPABLE).add(Blocks.OAK_LOG, Blocks.BIRCH_LOG, Blocks.DARK_OAK_BUTTON, Blocks.SPRUCE_LOG);
+        valueLookupBuilder(BlockTags.RAILS)
+                .add(RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock())
+                .add(RDBlocks.SIGNAL_RAIL_BLOCK.asBlock());
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock())
+                .add(RDBlocks.SIGNAL_RAIL_BLOCK.asBlock())
+                .add(RDBlocks.SIGNAL_DELAYER_BLOCK.asBlock())
+                .add(RDBlocks.REMOTE_CLIENT.asBlock())
+                .add(RDBlocks.REMOTE_SERVER.asBlock());
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE)
+                .add(RDBlocks.SPEAKER.asBlock());
     }
 }

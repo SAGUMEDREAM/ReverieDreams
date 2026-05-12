@@ -2,12 +2,12 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.AccessLevel;
@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 @Setter
 @Getter
 @ToString
-public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, BuiltinObject, Translatable {
+public class FumoType implements CodecStep<FumoType>, RegistryEntryOwnerBindable<FumoType>, BuiltinObject, RegistryEntryTranslatable {
     public static final Codec<FumoType> CODEC = UnitCodec.unit(FumoType::new);
     private Identifier id;
     private Identifier registryKey;
@@ -56,7 +56,7 @@ public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, Bu
 
     public String translateKey() {
         if (this.block == null) {
-            return Translatable.super.translateKey();
+            return RegistryEntryTranslatable.super.translateKey();
         }
         return this.block.asBlock().getDescriptionId();
     }

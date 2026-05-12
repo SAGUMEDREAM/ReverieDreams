@@ -1,15 +1,13 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.misc.BaseDanmakuEntity;
-import cc.thonly.reverie_dreams.api.entity.BedBlockEntityDataModifier;
+import cc.thonly.reverie_dreams.api.entity.BedBlockEntityDreamPillow;
 import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
 import cc.thonly.reverie_dreams.api.level.IWorld;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -176,7 +174,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
                             this.level().getBlockEntity(bedHead.getB()) instanceof BedBlockEntity bedBlockEntity &&
                             this.level() == server.overworld()
             ) {
-                BedBlockEntityDataModifier bedBlockEntityDataModifier = (BedBlockEntityDataModifier) bedBlockEntity;
+                BedBlockEntityDreamPillow bedBlockEntityDataModifier = (BedBlockEntityDreamPillow) bedBlockEntity;
                 if (bedBlockEntityDataModifier.reverie_dreams$hasDreamPillow()) {
                     this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5));
                     this.teleportTo(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
@@ -298,7 +296,6 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         boolean deathInElixir = this.triggerDeathInElixir(world, source, amount, cir);
         boolean deathInKanju = this.triggerDeathInKanju(world, source, amount, cir);
         if (!deathInElixir && !deathInKanju) {
-            this.triggerDeathByDanmakuEntity(world, source, amount, cir);
             if ((this.getHealth() - amount <= 0f)) {
                 IWorld iWorld = (IWorld) world;
                 ResourceKey<Level> dreamWorldKey = iWorld.reverie_dreams$getDreamWorldKey();
@@ -340,17 +337,6 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
                 this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20));
             }
         }
-    }
-
-    @SuppressWarnings("UnusedReturnValue")
-    @Unique
-    public boolean triggerDeathByDanmakuEntity(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if ((this.getHealth() - amount <= 0f) && source.getDirectEntity() instanceof BaseDanmakuEntity) {
-            Entity self = (Entity) this;
-            world.playSound(null, self.getOnPos(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL, 0.32F, 1.0F);
-            return true;
-        }
-        return false;
     }
 
     @Unique

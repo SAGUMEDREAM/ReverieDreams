@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 
 public record RegistryImpSyncPacket(Identifier registryKey,
                                     CompoundTag data
-                                          ) implements CustomPacketPayload {
+) implements CustomPacketPayload {
     public static final Identifier ID = ReverieDreams.id("registry_impl_sync");
     public static final Type<RegistryImpSyncPacket> PACKET_ID = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, RegistryImpSyncPacket> CODEC = StreamCodec.ofMember(RegistryImpSyncPacket::write, RegistryImpSyncPacket::read);

@@ -11,27 +11,19 @@ import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
 import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.blay09.mods.balm.platform.event.Event;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public class InitTooltips {
     public static void bootstrap() {
@@ -111,27 +103,24 @@ public class InitTooltips {
             }
         });
         event.register((stack, tooltipContext, tooltipDisplay, player, textConsumer, tooltipFlag) -> {
-            if (!stack.is(RDItems.FAST_RECIPE_BOOK)) {
+            if (!stack.has(RDDataComponents.RECIPE_MEMORY.value())) {
                 return;
             }
-            Identifier recipeId = stack.get(RDDataComponents.RECIPE_MEMORY.value());
-            if (recipeId == null) {
+            KitchenRecipe.IdEntry recipeIdEntry = stack.get(RDDataComponents.RECIPE_MEMORY.value());
+            if (recipeIdEntry == null) {
                 return;
             }
-            KitchenRecipe recipeById = RecipeManager.KITCHEN_TYPE.getRecipeById(recipeId);
-            if (recipeById == null) {
-                return;
-            }
-            MutableComponent component = Component.empty();
-            component.append(Component.translatable(recipeById.getType().toTranslateKey()));
-            component.append(" | ");
-            ItemStack lazyStack = recipeById.getOutput().getLazyStack();
-            for (IngredientStack ingredient : recipeById.getIngredients()) {
-                component.append(ingredient.getLazyStack().getHoverName()).append(" ");
-            }
-            component.append("-> ").append(lazyStack.getHoverName());
-            textConsumer.accept(component);
-
+            recipeIdEntry.map((key, recipe) -> {
+                MutableComponent component = Component.empty();
+                component.append(Component.translatable(recipe.getTypeInstance().toTranslateKey()));
+                component.append(" | ");
+                ItemStack lazyStack = recipe.getOutput().getLazyStack();
+                for (IngredientStack ingredient : recipe.getIngredients()) {
+                    component.append(ingredient.getLazyStack().getHoverName()).append(" ");
+                }
+                component.append("-> ").append(lazyStack.getHoverName());
+                textConsumer.accept(component);
+            });
         });
     }
 

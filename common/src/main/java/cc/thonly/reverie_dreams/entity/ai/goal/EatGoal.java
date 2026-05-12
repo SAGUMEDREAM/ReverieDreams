@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;

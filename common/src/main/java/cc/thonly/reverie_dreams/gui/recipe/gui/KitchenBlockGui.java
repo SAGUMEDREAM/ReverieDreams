@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.gui.recipe.gui;
 import cc.thonly.reverie_dreams.block.entity.KitchenwareBlockEntity;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.data.CraftingConflict;
-import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
@@ -12,15 +11,14 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
-import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.component.DataComponents;
@@ -59,7 +57,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
     private final Block block;
     private final KitchenwareBlockEntity blockEntity;
-    private final KitchenRecipeType.MappingType recipeType;
+    private final KitchenRecipeType.TypeInstance recipeType;
     private final Map<Integer, GuiElementBuilder> displayed = new HashMap<>();
     private final List<Integer> displayIndexes = new ArrayList<>();
     private int page = 0;
@@ -69,7 +67,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         super(MenuType.GENERIC_9x6, player, false);
         this.block = block;
         this.blockEntity = blockEntity;
-        this.recipeType = blockEntity.getRecipeType();
+        this.recipeType = blockEntity.getTypeInstance();
         this.init();
     }
 
@@ -116,74 +114,6 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 }
             }
         }
-    }
-
-    private IngredientStack buildFoodTags(KitchenRecipe recipe, IngredientStack output, List<IngredientStack> inputs) {
-        ItemStack base = output.build();
-        FoodProperties.get(base);
-        inputs = new ArrayList<>(inputs.stream().filter(ingredientStack -> !ingredientStack.is(RDItemTags.FOOD_ITEM)).toList());
-
-        List<IngredientStack> ingredients = recipe.getIngredients();
-
-        List<IngredientStack> remainingInputs = new ArrayList<>(inputs);
-
-        for (IngredientStack ingredient : ingredients) {
-            ItemStack ingredientStack = ingredient.build();
-
-            Iterator<IngredientStack> iterator = remainingInputs.iterator();
-
-            while (iterator.hasNext()) {
-                IngredientStack input = iterator.next();
-                ItemStack inputStack = input.build();
-
-                if (ItemStack.isSameItemSameComponents(inputStack, ingredientStack)) {
-                    iterator.remove();
-                    break;
-                }
-            }
-        }
-
-        Set<FoodProperty> temp = new LinkedHashSet<>();
-
-        List<FoodProperty> baseTagsRaw = base.getOrDefault(
-                RDDataComponents.FOOD_PROPERTIES.value(),
-                List.of()
-        );
-
-        List<FoodProperty> baseTags = new ArrayList<>(baseTagsRaw);
-
-        temp.addAll(baseTags);
-
-        for (IngredientStack input : remainingInputs) {
-            ItemStack stack = input.build();
-
-            List<FoodProperty> props = stack.getOrDefault(
-                    RDDataComponents.FOOD_PROPERTIES.value(),
-                    List.of()
-            );
-
-            System.out.println("   + Adding Props From Input: " + stack.getItem());
-            System.out.println("     Props -> " + props);
-
-            temp.addAll(props);
-        }
-
-        List<FoodProperty> resultTags = new ArrayList<>(temp);
-
-        System.out.println("\n▶ Result Tags: " + resultTags);
-
-        // ❗ 对比是否发生变化
-        if (!resultTags.equals(baseTags)) {
-            System.out.println("⚠️ Tags CHANGED -> applying set()");
-            base.set(RDDataComponents.FOOD_PROPERTIES.value(), resultTags);
-        } else {
-            System.out.println("✔ Tags unchanged, skip set()");
-        }
-
-        System.out.println("▶ Final Components: " + base.getComponents());
-        System.out.println("===== [buildFoodTags] END =====\n");
-
-        return new IngredientStack(base.copy());
     }
 
     private void handleCrafting(ItemStack output, List<IngredientStack> inputs, KitchenRecipe recipe) {
@@ -254,7 +184,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             if (i >= pageRecipes.size()) break;
 
             KitchenRecipe recipe = pageRecipes.get(i);
-            ItemStack outputShow = this.buildFoodTags(recipe, new IngredientStack(recipe.getOutput().build()), inputs).build();
+            ItemStack outputShow = ItemUtils.buildFoodTags(recipe, new IngredientStack(recipe.getOutput().build()), inputs).build();
             AtomicReference<ItemStack> output = new AtomicReference<>(outputShow);
 
             GuiElementBuilder builder = entry.getValue();
@@ -293,8 +223,8 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onManualClose() {
+        super.onManualClose();
         this.blockEntity.setChanged();
     }
 

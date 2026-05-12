@@ -161,7 +161,14 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
             dropSelf(fumo.block());
         }
 
-        this.generateMI();
+        this.generateTHMystiaModLoot();
+
+        dropSelf(RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock());
+        dropSelf(RDBlocks.SIGNAL_RAIL_BLOCK.asBlock());
+        dropSelf(RDBlocks.SIGNAL_DELAYER_BLOCK.asBlock());
+        dropSelf(RDBlocks.REMOTE_CLIENT.asBlock());
+        dropSelf(RDBlocks.REMOTE_SERVER.asBlock());
+        dropSelf(RDBlocks.SPEAKER.asBlock());
     }
 
     void generateCropLoot(CropBlockBundle.Entry entry) {
@@ -210,7 +217,7 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
     }
 
 
-    public void generateMI() {
+    public void generateTHMystiaModLoot() {
         for (Block block : AbstractKitchenwareBlock.KITCHENWARE_BLOCKS) {
             dropSelf(block);
         }

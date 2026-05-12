@@ -32,7 +32,7 @@ Players can right-click the template to construct danmaku patterns in a grid-bas
 <u><blue><click run_command '/touhou recipe'>View the type of <item 'reverie_dreams:danmaku_recipe_creator'> recipe list</>
 
 ### Align: Left
-Different types of danmaku have their own unique properties, but all can be upgraded using the <yellow><item 'reverie_dreams:strength_table'></>.
+Different typeInstance of danmaku have their own unique properties, but all can be upgraded using the <yellow><item 'reverie_dreams:strength_table'></>.
 The following upgrade materials and their effects are currently defined:
 
 ### Align: Center

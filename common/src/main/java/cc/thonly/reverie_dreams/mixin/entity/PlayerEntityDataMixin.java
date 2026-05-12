@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
 import cc.thonly.reverie_dreams.entity.Ghost;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
-import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
 import cc.thonly.reverie_dreams.item.WingType;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.server.DelayedTask;

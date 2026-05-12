@@ -68,7 +68,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
     }
 
     public AbstractSoundProvider addWithRecords(JukeBoxEntry jukeBoxEntry, @Nullable String soundPath) {
-        JukeboxSong ref = jukeBoxEntry.getRef();
+        JukeboxSong ref = jukeBoxEntry.getEntryByProvider();
         Identifier id = ref.soundEvent().value().location();
         SoundEventBuilder entry = new SoundEventBuilder(id);
         entry.setSubtitle(id);

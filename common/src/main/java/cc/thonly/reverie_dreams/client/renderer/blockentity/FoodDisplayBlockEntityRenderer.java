@@ -30,13 +30,13 @@ public class FoodDisplayBlockEntityRenderer implements BlockEntityRenderer<FoodD
     @Override
     public void extractRenderState(FoodDisplayBlockEntity be, FoodDisplayBlockEntityRenderState state, float partialTick, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(be, state, partialTick, cameraPosition, breakProgress);
-        state.itemStackWrapper = be.getItem();
+        state.ingredientStack = be.getItem();
         state.yaw = be.getYaw();
         if (be.getLevel() != null) {
             state.bobOffset = (float) Math.sin((be.getLevel().getGameTime() + partialTick) * 0.1f) * 0.05f;
         }
         if (!be.getItem().isEmpty()) {
-            this.itemModelResolver.updateForTopItem(state.itemRenderState, state.itemStackWrapper.build(), ItemDisplayContext.GROUND, be.getLevel(), null, (int) (be.getBlockPos().asLong()));
+            this.itemModelResolver.updateForTopItem(state.itemRenderState, state.ingredientStack.build(), ItemDisplayContext.GROUND, be.getLevel(), null, (int) (be.getBlockPos().asLong()));
         }
     }
 
@@ -46,7 +46,7 @@ public class FoodDisplayBlockEntityRenderer implements BlockEntityRenderer<FoodD
                        SubmitNodeCollector nodeCollector,
                        CameraRenderState cameraRenderState
     ) {
-        if (state.itemStackWrapper.isEmpty()) {
+        if (state.ingredientStack.isEmpty()) {
             return;
         }
         poseStack.pushPose();

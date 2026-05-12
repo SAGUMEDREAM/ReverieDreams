@@ -24,6 +24,7 @@
     ]
   },
   "mixins": [
+    "reverie_dreams.fabric.polymer.mixins.json"
   ],
   "depends": {
     "java": "25",

@@ -2,13 +2,9 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.EqualsAndHashCode;
@@ -29,7 +25,7 @@ import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class FoodProperty implements CodecStep<FoodProperty>, OwnerBinding<FoodProperty>, BuiltinObject, Translatable {
+public class FoodProperty implements CodecStep<FoodProperty>, RegistryEntryOwnerBindable<FoodProperty>, BuiltinObject, RegistryEntryTranslatable {
     public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
     public static final Codec<FoodProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryImpls.FOOD_PROPERTY::getValue, entry -> {
         Identifier key = RegistryImpls.FOOD_PROPERTY.getKey(entry);

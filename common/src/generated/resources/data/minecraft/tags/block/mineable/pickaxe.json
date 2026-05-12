@@ -24,6 +24,11 @@
     "reverie_dreams:moon_stone_stairs",
     "reverie_dreams:moon_stone_brick",
     "reverie_dreams:moon_stone_brick_slab",
-    "reverie_dreams:moon_stone_brick_stairs"
+    "reverie_dreams:moon_stone_brick_stairs",
+    "reverie_dreams:rail_controller_block",
+    "reverie_dreams:signal_rails",
+    "reverie_dreams:signal_delayer",
+    "reverie_dreams:remote_client",
+    "reverie_dreams:remote_server"
   ]
 }

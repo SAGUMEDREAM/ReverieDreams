@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCInteractResult;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 
 @Setter
 @Getter
-public class NPCRoleInteractionEvent implements CodecStep<NPCRoleInteractionEvent>, OwnerBinding<NPCRoleInteractionEvent>, BuiltinObject {
+public class NPCRoleInteractionEvent implements CodecStep<NPCRoleInteractionEvent>, RegistryEntryOwnerBindable<NPCRoleInteractionEvent>, BuiltinObject {
     public static final Codec<NPCRoleInteractionEvent> CODEC = UnitCodec.unit(NPCRoleInteractionEvent::new);
     private Identifier id;
     private RegistryImpl<NPCRoleInteractionEvent> owner;

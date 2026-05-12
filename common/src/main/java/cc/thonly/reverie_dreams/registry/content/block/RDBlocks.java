@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import cc.thonly.reverie_dreams.block.bundle.ChestBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
+import cc.thonly.reverie_dreams.block.props.*;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.PlatformContext;
@@ -77,6 +78,13 @@ public class RDBlocks {
 
     public static DeferredBlock FOOD_DISPLAY;
     public static DeferredBlock BLACK_SALT_BLOCK;
+
+    public static DeferredBlock RAIL_CONTROLLER_BLOCK;
+    public static DeferredBlock SIGNAL_RAIL_BLOCK;
+    public static DeferredBlock SIGNAL_DELAYER_BLOCK;
+    public static DeferredBlock REMOTE_CLIENT;
+    public static DeferredBlock REMOTE_SERVER;
+    public static DeferredBlock SPEAKER;
 
 
     public static void initialize(BalmBlockRegistrar registrar) {
@@ -195,13 +203,55 @@ public class RDBlocks {
                 BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
         );
 
+        RAIL_CONTROLLER_BLOCK = registerSimpleBlock(
+                registrar,
+                "rail_controller_block",
+                RailControllerBlock::new,
+                BlockBehaviour.Properties.ofFullCopy(Blocks.RAIL).noOcclusion()
+        );
+
+        SIGNAL_RAIL_BLOCK = registerSimpleBlock(
+                registrar,
+                "signal_rails",
+                SignalRailBlock::new,
+                BlockBehaviour.Properties.ofFullCopy(Blocks.DETECTOR_RAIL).noOcclusion()
+        );
+
+        SIGNAL_DELAYER_BLOCK = registerSimpleBlock(
+                registrar,
+                "signal_delayer",
+                SignalDelayerBlock::new,
+                BlockBehaviour.Properties.ofFullCopy(Blocks.OBSERVER).noOcclusion()
+        );
+
+        REMOTE_CLIENT = registerSimpleBlock(
+                registrar,
+                "remote_client",
+                RemoteClientBlock::new,
+                BlockBehaviour.Properties.ofFullCopy(Blocks.OBSERVER).noOcclusion()
+        );
+
+        REMOTE_SERVER = registerSimpleBlock(
+                registrar,
+                "remote_server",
+                RemoteServerBlock::new,
+                BlockBehaviour.Properties.ofFullCopy(Blocks.OBSERVER).noOcclusion()
+        );
+
+        SPEAKER = registerSimpleBlock(
+                registrar,
+                "speaker",
+                SpeakerBlock::new,
+                BlockBehaviour.Properties.ofFullCopy(Blocks.NOTE_BLOCK).noOcclusion()
+        );
+
         DREAM_STONE_BRICK.base(DREAM_STONE.block());
         MOON_STONE_BRICK.base(MOON_STONE.block());
     }
 
     public static DeferredBlock registerSimpleBlock(DeferredBlock block) {
         HOLDERS.add(block);
-        ReverieDreams.LATE_INIT.add(() -> BlockTypeGroup.join(block.asBlock()));
+        ReverieDreams.COMMON_LATE_INIT.add(() -> BlockTypeGroup.join(block.asBlock()));
         return block;
     }
 

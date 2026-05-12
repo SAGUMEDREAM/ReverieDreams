@@ -6,11 +6,11 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.Translatable;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -37,7 +37,7 @@ import java.util.function.Supplier;
 @Slf4j
 @Setter
 @Getter
-public class NPCRole implements CodecStep<NPCRole>, OwnerBinding<NPCRole>, BuiltinObject, Translatable {
+public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<NPCRole>, BuiltinObject, RegistryEntryTranslatable {
     public static final Codec<NPCRole> CODEC = UnitCodec.unit(NPCRole::new);
     public static final List<Holder<EntityType<NPCRoleFastEntity>>> ENTITIES = new ArrayList<>();
     public static final List<DeferredItem> NPC_SPAWN_EGG_ITEM_LIST = new ArrayList<>();

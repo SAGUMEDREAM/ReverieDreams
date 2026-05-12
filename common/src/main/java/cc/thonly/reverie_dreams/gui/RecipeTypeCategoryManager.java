@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.LinkedList;
@@ -83,7 +82,7 @@ public class RecipeTypeCategoryManager {
 
     @SuppressWarnings("unchecked")
     public static void registerCategories() {
-        ReverieDreams.LATE_INIT.add(() -> {
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
             addCategoryType(new RecipeTypeGuiInfo<>(new ItemStackTemplate(RDItems.POWER.asItem()), DANMAKU_TABLE_ICON, BasePageGui.class,
                     DanmakuTableDisplayView.class,
                     DanmakuRecipeType::getInstance,

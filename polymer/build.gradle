@@ -13,40 +13,41 @@ apply from: rootProject.file('repositories.gradle')
 dependencies {
     minecraft "net.minecraft:minecraft:${minecraft_version}"
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
-    compileOnly("cc.thonly:keine-common:26.1.2-1.0.3")
+    implementation("cc.thonly:keine-common:26.1.2-1.0.3")
 
-    compileOnly("net.fabricmc:fabric-loader:${fabric_loader_version}")
-    compileOnly("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
-    compileOnly("net.blay09.mods:balm-fabric:${balm_version}") {
+    implementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+    implementation("net.blay09.mods:balm-fabric:${balm_version}") {
         changing = balm_version.contains("SNAPSHOT")
     }
-    compileOnly include("eu.pb4:polymer-autohost:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-blocks:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-common:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-core:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-networking:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-reg-sync-manipulator:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-resource-pack-extras:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-resource-pack:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-sound-patcher:[${polymer_version}]")
-    compileOnly include("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
-    compileOnly include("eu.pb4:factorytools:[${factorytools_version}]")
-    compileOnly include("eu.pb4:sgui:[${sgui_fabric_version}]")
-    compileOnly include("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
-    compileOnly include("xyz.nucleoid:server-translations-api:${server_translations_api_version}")
-    compileOnly("com.terraformersmc:modmenu:${modmenu_version}")
-    compileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+    implementation include("eu.pb4:polymer-autohost:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-blocks:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-common:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-core:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-networking:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-reg-sync-manipulator:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-resource-pack-extras:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-resource-pack:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-sound-patcher:[${polymer_version}]")
+    implementation include("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
+    implementation include("eu.pb4:factorytools:[${factorytools_version}]")
+    implementation include("eu.pb4:sgui:[${sgui_fabric_version}]")
+    implementation include("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
+    implementation include("xyz.nucleoid:server-translations-api:${server_translations_api_version}")
+    implementation("com.terraformersmc:modmenu:${modmenu_version}")
+    implementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    compileOnly include("de.tomalbrc:blockbench-import-library:${bil_version}")
-    compileOnly include("eu.pb4:booklet:${booklet_version}")
-    compileOnly include("eu.pb4:map-canvas-api:${mapcanvas_version}")
-    compileOnly include("eu.pb4:placeholder-api:${placeholder_api_version}")
+    implementation include("de.tomalbrc:blockbench-import-library:${bil_version}")
+    implementation include("eu.pb4:booklet:${booklet_version}")
+    implementation include("eu.pb4:map-canvas-api:${mapcanvas_version}")
+    implementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
 
-    compileOnly project(":fabric").files('libs/camera-obscura-1.2.2+1.21.11.jar')
-    include("gg.moonflower:molang-compiler:3.1.1.19")
+    implementation project(":fabric").files('libs/camera-obscura-1.2.3+26.1.jar')
+    implementation include("gg.moonflower:molang-compiler:3.1.1.19")
 
-    compileOnly(project(":common"))
+    implementation(project(":common"))
+    compileOnly(project(":fabric"))
 }
 
 tasks.processResources {

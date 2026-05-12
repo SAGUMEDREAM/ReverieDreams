@@ -234,6 +234,10 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         kitchenware.addOptionalTag(RDItemTags.GRILL);
         kitchenware.addOptionalTag(RDItemTags.STEAMER);
 
+        valueLookupBuilder(ItemTags.RAILS)
+                .add(RDBlocks.RAIL_CONTROLLER_BLOCK.asItem())
+                .add(RDBlocks.SIGNAL_RAIL_BLOCK.asItem());
+
         // === 模组兼容扩展 ===
         this.configureCompat(wrapperLookup);
     }

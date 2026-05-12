@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -33,7 +33,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @ToString
-public class CraftingConflict implements CodecStep<CraftingConflict>, OwnerBinding<CraftingConflict> {
+public class CraftingConflict implements CodecStep<CraftingConflict>, RegistryEntryOwnerBindable<CraftingConflict> {
     public static final Codec<CraftingConflict> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("item").forGetter((entry) -> BuiltInRegistries.ITEM.getKey(entry.item)),
             Codec.list(Identifier.CODEC).fieldOf("values").forGetter((entry) -> {

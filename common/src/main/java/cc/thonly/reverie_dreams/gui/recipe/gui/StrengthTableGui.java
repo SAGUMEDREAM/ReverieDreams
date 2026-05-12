@@ -104,8 +104,8 @@ public class StrengthTableGui extends AnvilInputGui implements GuiCommon {
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onManualClose() {
+        super.onManualClose();
         this.blockEntity.setChanged();
     }
 }

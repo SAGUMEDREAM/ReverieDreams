@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
+import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
+import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.server.IPlayerInputManager;
 import cc.thonly.reverie_dreams.server.InputKey;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
@@ -244,7 +244,7 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
         }
 
         if (PlatformContext.hasPolymer() && controllingPlayer instanceof ServerPlayer player) {
-            IPlayerInputManager inputManager = IPlayerInputManager.polymerAccess();
+            PlayerInputManagerAccess inputManager = PlayerInputManagerAccess.polymerAccess();
             boolean keyLeft = inputManager.isKeyDown(player, InputKey.LEFT);
             boolean keyRight = inputManager.isKeyDown(player, InputKey.RIGHT);
             boolean keyForward = inputManager.isKeyDown(player, InputKey.FORWARD);

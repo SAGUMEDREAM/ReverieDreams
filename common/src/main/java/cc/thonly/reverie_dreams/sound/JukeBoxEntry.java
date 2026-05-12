@@ -29,11 +29,15 @@ public class JukeBoxEntry {
         this.output = output;
     }
 
-    public JukeboxSong getRef() {
+    public JukeboxSong getEntryByProvider() {
         if (this.ref == null) {
             this.ref = createEntry(this.jukeboxSongKey, this.soundEventKey, this.length, this.output);
         }
         return this.ref;
+    }
+
+    public SoundEvent getSoundEvent() {
+        return new SoundEvent(this.soundEventKey.identifier(), Optional.empty());
     }
 
     private static JukeboxSong createEntry(ResourceKey<JukeboxSong> key, ResourceKey<SoundEvent> soundEvent, int lengthInSeconds, int comparatorOutput) {

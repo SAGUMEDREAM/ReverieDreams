@@ -102,7 +102,7 @@ public final class CropBlockBundle {
             Block block = blockRegistration.asBlockLike().asBlock();
             ((AbstractCropBlock) block).setSeed(seedItem.asItem());
         } else {
-            ReverieDreams.LATE_INIT.add(() -> {
+            ReverieDreams.COMMON_LATE_INIT.add(() -> {
                 Block block = blockRegistration.asBlockLike().asBlock();
                 ((AbstractCropBlock) block).setSeed(seedItem.asItem());
             });

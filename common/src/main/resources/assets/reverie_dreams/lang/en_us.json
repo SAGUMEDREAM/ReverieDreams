@@ -1270,5 +1270,11 @@
   "item_view.information.desc.fishing": "Obtaining method: Fishing",
   "item_view.information.desc.fumos": "Obtaining method: Purchase from Fumo merchant",
   "item_view.information.desc.grass_drop_items": "Obtaining method: Break grass",
-  "item_view.information.desc.truffle": "Obtaining method: Break oak / birch / dark oak / spruce logs"
+  "item_view.information.desc.truffle": "Obtaining method: Break oak / birch / dark oak / spruce logs",
+  "block.reverie_dreams.rail_controller_block": "Controller Rail",
+  "block.reverie_dreams.remote_client": "Remote Client",
+  "block.reverie_dreams.remote_server": "Remote Server",
+  "block.reverie_dreams.signal_delayer": "Signal Delayer",
+  "block.reverie_dreams.signal_rails": "Signal Rail",
+  "block.reverie_dreams.speaker": "Speaker"
 }

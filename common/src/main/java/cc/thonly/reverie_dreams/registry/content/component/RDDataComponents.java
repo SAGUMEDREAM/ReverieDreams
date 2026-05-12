@@ -11,6 +11,7 @@ import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
+import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import com.mojang.serialization.Codec;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,7 @@ public class RDDataComponents {
     public static Holder<DataComponentType<List<FoodProperty>>> FOOD_PROPERTIES;
     public static Holder<DataComponentType<List<DrinkProperty>>> DRINK_PROPERTIES;
     public static Holder<DataComponentType<Integer>> FOOD_BONUS;
-    public static Holder<DataComponentType<Identifier>> RECIPE_MEMORY;
+    public static Holder<DataComponentType<KitchenRecipe.IdEntry>> RECIPE_MEMORY;
 
     public static void initialize(BalmDataComponentTypeRegistrar registrar) {
         DANMAKU_PROPERTIES = registerComponent(registrar, "danmaku_properties", DanmakuProperties.CODEC);
@@ -73,7 +74,7 @@ public class RDDataComponents {
         FOOD_PROPERTIES = registerComponent(registrar, "food_properties", FoodProperty.LIST_COMPONENT_CODEC);
         DRINK_PROPERTIES = registerComponent(registrar, "drink_properties", DrinkProperty.LIST_COMPONENT_CODEC);
         FOOD_BONUS = registerComponent(registrar, "food_bonus", Codec.INT);
-        RECIPE_MEMORY = registerComponent(registrar, "recipe_memory", Identifier.CODEC);
+        RECIPE_MEMORY = registerComponent(registrar, "recipe_memory", KitchenRecipe.IdEntry.CODEC);
 
         InitTooltips.bootstrap();
     }

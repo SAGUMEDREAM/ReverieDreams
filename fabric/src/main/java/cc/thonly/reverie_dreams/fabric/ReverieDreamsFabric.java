@@ -3,6 +3,8 @@ package cc.thonly.reverie_dreams.fabric;
 import cc.thonly.keine.fabric.FabricKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
+import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
+import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.fabric.api.ReverieDreamsPolymerBridge;
@@ -34,22 +36,16 @@ public class ReverieDreamsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         this.setupEarly();
-        FabricKeine.loadApiImpl();
-        FabricKeine.serverSideOnly();
-        ReverieDreams.REGISTRY_GETTER = resourceKey -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, Lifecycle.stable()) {
-
-        };
-        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, objects) -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, (RegistryImpl<Object>) objects) {
-        };
+        this.setupApi();
         if (PlatformContext.hasPolymer()) {
-            ReverieDreamsPolymerBridge.tryReplaceGuidebook();
+            ReverieDreamsPolymerBridge.tryPreloadPolymer();
         }
         Balm.initializeMod(ReverieDreams.MOD_ID, FabricLoadContext.INSTANCE, registrars -> ReverieDreams.initialize(registrars, () -> {
             ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.forEach(FabricEntityDataRegistry::register);
             ReverieDreamsPolymerBridge.tryPolymerify();
             ReverieDreamsFabricCompats.initialize();
-            ReverieDreams.LATE_INIT.forEach(Runnable::run);
-            ReverieDreams.LATE_INIT.clear();
+            ReverieDreams.COMMON_LATE_INIT.forEach(Runnable::run);
+            ReverieDreams.COMMON_LATE_INIT.clear();
             ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
             ReverieDreams.BUS_LATE_INIT.clear();
             ReverieDreamsPluginLoader.run();
@@ -59,6 +55,21 @@ public class ReverieDreamsFabric implements ModInitializer {
             CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register(BaseCreativeTab::busInvoker);
             Placeholders.registerCommon(ReverieDreams.id("version"), (ctx, args) -> PlaceholderResult.value(PlatformContext.VERSION.get()));
         }));
+    }
+
+    public void setupApi() {
+        FabricKeine.loadApiImpl();
+        ReverieDreams.REGISTRY_GETTER = resourceKey -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, Lifecycle.stable()) {
+
+        };
+        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, objects) -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, (RegistryImpl<Object>) objects) {
+        };
+        ReverieDreamsExtensionEvents.SCAN_EVENT.register(this::loadPlugins);
+    }
+
+    public List<ReverieDreamsPlugin> loadPlugins() {
+        return FabricLoader.getInstance()
+                .getEntrypoints("reverie_dreams:extension", ReverieDreamsPlugin.class);
     }
 
     private void setupEarly() {

@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.block.Block;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +30,7 @@ import java.util.Map;
 @Slf4j
 public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     private static KitchenRecipeType INSTANCE;
-    public final Map<MappingType, Map<Identifier, KitchenRecipe>> kitchenRegistries = new Object2ObjectOpenHashMap<>();
+    public final Map<TypeInstance, Map<Identifier, KitchenRecipe>> kitchenRegistries = new Object2ObjectOpenHashMap<>();
 
     public KitchenRecipeType() {
         INSTANCE = this;
@@ -68,18 +69,18 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     @Override
     public BaseRecipeType<KitchenRecipe> add(Identifier id, KitchenRecipe recipe) {
         super.add(id, recipe);
-        this.register(recipe.getType(), id, recipe);
+        this.register(recipe.getTypeInstance(), id, recipe);
         ;
         return this;
     }
 
-    public void register(MappingType type, Identifier key, KitchenRecipe recipe) {
+    public void register(TypeInstance type, Identifier key, KitchenRecipe recipe) {
         Map<Identifier, KitchenRecipe> registry = this.kitchenRegistries.computeIfAbsent(type, R -> new Object2ObjectOpenHashMap<>());
         recipe.setId(key);
         registry.put(key, recipe);
     }
 
-    public Map<Identifier, KitchenRecipe> getRecipeView(MappingType type) {
+    public Map<Identifier, KitchenRecipe> getRecipeView(TypeInstance type) {
         return Map.copyOf(this.kitchenRegistries.getOrDefault(type, new Object2ObjectOpenHashMap<>()));
     }
 
@@ -88,7 +89,17 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
 
     }
 
-    public List<KitchenRecipe> getMatches(MappingType type, List<IngredientStack> inputs) {
+    public boolean isMatches(KitchenRecipe recipe, List<IngredientStack> inputs) {
+        List<IngredientStack> ingredients = recipe.getIngredients();
+
+        return ingredients.stream().allMatch(ingredient ->
+                inputs.stream().anyMatch(input ->
+                        ItemComparatorView.of(ingredient).greaterThan(input)
+                )
+        );
+    }
+
+    public List<KitchenRecipe> getMatches(TypeInstance type, List<IngredientStack> inputs) {
         List<KitchenRecipe> matches = new ArrayList<>();
         Map<Identifier, KitchenRecipe> registryView = this.getRecipeView(type);
 
@@ -134,25 +145,25 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
         return ReverieDreams.id(this.getTypeId());
     }
 
-    public record MappingType(Identifier id) {
-        private static final Map<Identifier, MappingType> BY_ID = new Object2ObjectOpenHashMap<>();
+    public record TypeInstance(Identifier id) {
+        private static final Map<Identifier, TypeInstance> BY_ID = new Object2ObjectOpenHashMap<>();
 
-        public static final MappingType COOKING_POT =
-                new MappingType(ReverieDreams.id("cooking_pot"));
+        public static final TypeInstance COOKING_POT =
+                new TypeInstance(ReverieDreams.id("cooking_pot"));
 
-        public static final MappingType CUTTING_BOARD =
-                new MappingType(ReverieDreams.id("cutting_board"));
+        public static final TypeInstance CUTTING_BOARD =
+                new TypeInstance(ReverieDreams.id("cutting_board"));
 
-        public static final MappingType FRYING_PAN =
-                new MappingType(ReverieDreams.id("frying_pan"));
+        public static final TypeInstance FRYING_PAN =
+                new TypeInstance(ReverieDreams.id("frying_pan"));
 
-        public static final MappingType GRILL =
-                new MappingType(ReverieDreams.id("grill"));
+        public static final TypeInstance GRILL =
+                new TypeInstance(ReverieDreams.id("grill"));
 
-        public static final MappingType STEAMER =
-                new MappingType(ReverieDreams.id("steamer"));
+        public static final TypeInstance STEAMER =
+                new TypeInstance(ReverieDreams.id("steamer"));
 
-        public MappingType(Identifier id) {
+        public TypeInstance(Identifier id) {
             this.id = id;
             BY_ID.put(id, this);
         }
@@ -180,13 +191,32 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
             return this.id;
         }
 
-        public static MappingType getFromId(Identifier id) {
+        public Block defaultBlock() {
+            if (this == COOKING_POT) {
+                return KitchenBlocks.COOKING_POT.asBlock();
+            }
+            if (this == CUTTING_BOARD) {
+                return KitchenBlocks.CUTTING_BOARD.asBlock();
+            }
+            if (this == FRYING_PAN) {
+                return KitchenBlocks.FRYING_PAN.asBlock();
+            }
+            if (this == GRILL) {
+                return KitchenBlocks.GRILL.asBlock();
+            }
+            if (this == STEAMER) {
+                return KitchenBlocks.STEAMER.asBlock();
+            }
+            return null;
+        }
+
+        public static TypeInstance getFromId(Identifier id) {
             return BY_ID.get(id);
         }
 
         @Override
         public boolean equals(Object obj) {
-            return obj == this || (obj instanceof MappingType(Identifier id1) && id1.equals(this.id));
+            return obj == this || (obj instanceof TypeInstance(Identifier id1) && id1.equals(this.id));
         }
     }
 }
