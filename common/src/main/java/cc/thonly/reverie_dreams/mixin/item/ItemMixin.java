@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.api.item.ItemAttackHitCallback;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.inf.IPlayerEntity;
+import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
@@ -115,16 +114,11 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
         }
     }
 
-    @Inject(method = "hurtEnemy", at = @At("TAIL"))
-    public void reverie_dreams$postHitCallback(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfo ci) {
-        ItemAttackHitCallback.EVENT.invoker().postHit(stack, target, attacker);
-    }
-
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     public void reverie_dreams$inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
-        if (entity instanceof IPlayerEntity iPlayerEntity) {
+        if (entity instanceof PlayerEntityDataModifier playerEntityDataModifier) {
             if (itemStack.is(RDItemTags.SILVER_ITEM)) {
-                iPlayerEntity.reverie_dreams$setNonSleepingTime(0);
+                playerEntityDataModifier.reverie_dreams$setNonSleepingTime(0);
             }
         }
     }

@@ -1,14 +1,5 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
-import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import net.macck209.fishing101.registries.ItemRegistry;
-import net.minecraft.world.item.Item;
-
-import java.util.List;
-import java.util.Set;
-
 @Deprecated
 //@SuppressWarnings("unchecked")
 public class Fishing101CompatImpl {

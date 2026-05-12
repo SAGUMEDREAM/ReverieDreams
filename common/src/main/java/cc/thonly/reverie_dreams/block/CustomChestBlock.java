@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
-import cc.thonly.reverie_dreams.gui.CustomChestBlockGui;
+import cc.thonly.reverie_dreams.gui.container.CustomChestBlockGui;
 import com.mojang.serialization.MapCodec;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;

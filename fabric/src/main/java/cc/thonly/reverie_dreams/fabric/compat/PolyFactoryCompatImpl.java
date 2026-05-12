@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.entity.CompatGoalAddedCallback;
+import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;

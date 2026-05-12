@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.effect;
 
-import cc.thonly.reverie_dreams.inf.ILivingEntity;
+import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -20,7 +20,7 @@ public class KanjuKusuriEffect extends MobEffect {
     @Override
     public void onEffectStarted(LivingEntity entity, int amplifier) {
         super.onEffectStarted(entity, amplifier);
-        ILivingEntity iLivingEntity  = (ILivingEntity) entity;
+        LivingEntityDataModifier iLivingEntity  = (LivingEntityDataModifier) entity;
         if (entity.level() instanceof ServerLevel) {
             iLivingEntity.reverie_dreams$setKanju((ServerLevel) entity.level(), entity.blockPosition());
         }

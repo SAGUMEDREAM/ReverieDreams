@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.syncer;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
+import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;

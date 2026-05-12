@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
-import cc.thonly.reverie_dreams.inf.SimpleRegistrySetter;
+import cc.thonly.reverie_dreams.api.registry.SimpleRegistryFrozenModifier;
 import cc.thonly.reverie_dreams.server.ServerContentRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Map;
 
 @Mixin(MappedRegistry.class)
-public abstract class MappedRegistryMixin<T> implements SimpleRegistrySetter, WritableRegistry<T> {
+public abstract class MappedRegistryMixin<T> implements SimpleRegistryFrozenModifier, WritableRegistry<T> {
 
     @Shadow
     private boolean frozen;

@@ -34,6 +34,10 @@ public class NBSDecoderPlus extends NBSDecoder {
         instrumentToByteMap.put(NoteBlockInstrument.BIT, (byte) 13);
         instrumentToByteMap.put(NoteBlockInstrument.BANJO, (byte) 14);
         instrumentToByteMap.put(NoteBlockInstrument.PLING, (byte) 15);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET, (byte) 16);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET_EXPOSED, (byte) 17);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET_OXIDIZED, (byte) 18);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET_WEATHERED, (byte) 19);
     }
 
     public static Song parse(File songFile, NoteBlockInstrument instrument) {

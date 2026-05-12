@@ -29,7 +29,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import org.jspecify.annotations.NonNull;
 
-import java.io.DataOutput;
 import java.util.concurrent.CompletableFuture;
 
 public class SimpChineseLangProvider extends FabricLanguageProvider implements ITranslationWrapper {
@@ -994,7 +993,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.GOLD_COIN.asItem(), "金币");
         translationBuilder.add(RDItems.SPELLCARD.asItem(), "符卡");
         translationBuilder.add(RDItems.SATORI_EYE.asItem(), "觉之眼");
-        translationBuilder.add(RDItems.WEAPON_OF_THE_MOON.asItem(), "月之兵器");
+        translationBuilder.add(RDItems.FAST_RECIPE_BOOK.asItem(), "快速食谱");
 
         // 武器
         translationBuilder.add(RDItems.HAKUREI_CANE.asItem(), "博丽御币");
@@ -1017,6 +1016,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.KEYBOARD.asItem(), "键盘");
         translationBuilder.add(RDItems.TRUMPET.asItem(), "小号");
         translationBuilder.add(RDItems.DEATH_SCYTHE.asItem(), "死神镰刀");
+        translationBuilder.add(RDItems.WEAPON_OF_THE_MOON.asItem(), "月之兵器");
 
         // 工具矿物类
         translationBuilder.add(RDItems.RAW_SILVER.asItem(), "生银矿");
@@ -1114,14 +1114,14 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     public void generateDiscTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationWrapper builder = ITranslationWrapper.ofWrapper(wrapperLookup, translationBuilder);
 
-        builder.generateJukeBox(JukeboxSongInit.HR01_01.getJukeboxSongRegistryKey(), "蓬莱人形　～ Dolls in Pseudo Paradise. - 蓬莱伝説");
-        builder.generateJukeBox(JukeboxSongInit.HR02_08.getJukeboxSongRegistryKey(), "莲台野夜行 - 过去的花 ～ Fairy of Flower");
-        builder.generateJukeBox(JukeboxSongInit.HR03_01.getJukeboxSongRegistryKey(), "ZUN - 童祭　～ Innocent Treasures");
-        builder.generateJukeBox(JukeboxSongInit.MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS.getJukeboxSongRegistryKey(), "Melodic-Taste-Nightmare-before-Crossroads");
-        builder.generateJukeBox(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS.getJukeboxSongRegistryKey(), "Yonder-Voice - 花時計と夢");
-        builder.generateJukeBox(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongRegistryKey(), "Inchlings of the Shining Needle ~ Little Princess : 「Miracle Remix」");
-        builder.generateJukeBox(JukeboxSongInit.COOKIE.getJukeboxSongRegistryKey(), "温馨的神社（迫真）");
-        builder.generateJukeBox(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey(), "Bad Apple");
+        builder.generateJukeBox(JukeboxSongInit.HR01_01.getJukeboxSongKey(), "蓬莱人形　～ Dolls in Pseudo Paradise. - 蓬莱伝説");
+        builder.generateJukeBox(JukeboxSongInit.HR02_08.getJukeboxSongKey(), "莲台野夜行 - 过去的花 ～ Fairy of Flower");
+        builder.generateJukeBox(JukeboxSongInit.HR03_01.getJukeboxSongKey(), "ZUN - 童祭　～ Innocent Treasures");
+        builder.generateJukeBox(JukeboxSongInit.MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS.getJukeboxSongKey(), "Melodic-Taste-Nightmare-before-Crossroads");
+        builder.generateJukeBox(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS.getJukeboxSongKey(), "Yonder-Voice - 花時計と夢");
+        builder.generateJukeBox(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongKey(), "Inchlings of the Shining Needle ~ Little Princess : 「Miracle Remix」");
+        builder.generateJukeBox(JukeboxSongInit.COOKIE.getJukeboxSongKey(), "温馨的神社（迫真）");
+        builder.generateJukeBox(JukeboxSongInit.BAD_APPLE.getJukeboxSongKey(), "Bad Apple");
     }
 
     public void generateBlockTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {

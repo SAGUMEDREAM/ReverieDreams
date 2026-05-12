@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -49,6 +50,7 @@ public class KitchenwareCreativeTab implements ItemGroupContentHelper {
                     output.accept(KitchenBlocks.NUKE_STEAMER);
 
                     output.accept(RDBlocks.FOOD_DISPLAY);
+                    output.accept(RDItems.FAST_RECIPE_BOOK);
                 })
         );
 

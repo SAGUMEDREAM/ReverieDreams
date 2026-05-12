@@ -1,5 +1,12 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.5.1+26.1.2
+* Fixed villager not open gui for two time.
+* Fixed Bad Apple Item is missing sound
+* Fixed the SpawnPlacement failure.
+* Now trumpet sound is trumpet
+* Updated Nota
+
 # 0.5.0+26.1.2
 * Update for 26.1.2
 * Added sound to TenguCamera
@@ -7,7 +14,6 @@
 * Removed all collaborations that were not updated to module 26.1
 
 # 0.4.18+1.21.11
-
 * Rewrite chest loot
 * Rewrite Food Property and Drink Property Data-driven
 * Moving Mushroom Monster drops to loot

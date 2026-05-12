@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.api.entity.CompatGoalAddedCallback;
+import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
-import cc.thonly.reverie_dreams.inf.IExperienceOrbEntity;
+import cc.thonly.reverie_dreams.api.entity.ExperienceOrbEntityDataModifier;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import lombok.Getter;
 import lombok.Setter;
@@ -103,7 +103,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
         );
 
         for (ExperienceOrb orb : orbs) {
-            ((IExperienceOrbEntity) (Object) orb).reverie_dreams$setNPCTarget(this);
+            ((ExperienceOrbEntityDataModifier) (Object) orb).reverie_dreams$setNPCTarget(this);
         }
     }
 

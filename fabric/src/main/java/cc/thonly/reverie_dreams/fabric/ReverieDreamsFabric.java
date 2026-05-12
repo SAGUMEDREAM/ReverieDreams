@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.fabric;
 
 import cc.thonly.keine.fabric.FabricKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.fabric.api.ReverieDreamsPolymerBridge;
@@ -17,7 +18,6 @@ import net.blay09.mods.balm.fabric.platform.runtime.FabricLoadContext;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
@@ -41,7 +41,6 @@ public class ReverieDreamsFabric implements ModInitializer {
         };
         ReverieDreams.REGISTRY_SHADOWER = (resourceKey, objects) -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, (RegistryImpl<Object>) objects) {
         };
-        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> cc.thonly.reverie_dreams.api.block.AttackBlockCallback.EVENT.invoker().interact(player, world, hand, pos, direction));
         if (PlatformContext.hasPolymer()) {
             ReverieDreamsPolymerBridge.tryReplaceGuidebook();
         }
@@ -53,6 +52,7 @@ public class ReverieDreamsFabric implements ModInitializer {
             ReverieDreams.LATE_INIT.clear();
             ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
             ReverieDreams.BUS_LATE_INIT.clear();
+            ReverieDreamsPluginLoader.run();
             CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
                 CommandInit.initialize(dispatcher, registryAccess);
             });

@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
-import cc.thonly.reverie_dreams.gui.NPCGui;
-import cc.thonly.reverie_dreams.inf.IItemStack;
+import cc.thonly.reverie_dreams.gui.entity.NPCGui;
+import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -152,7 +152,7 @@ public class NPCRoleInteractionEvents {
         if (stack.isEmpty()) {
             return NPCInteractResult.PASS;
         }
-        if ((((IItemStack) (Object) stack).reverie_dreams$isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
+        if ((((ItemStackHelper) (Object) stack).reverie_dreams$isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
             entity.playSound(SoundEvents.GENERIC_EAT.value(), 1.0f, 1.0f);
             ItemStack result = stack.finishUsingItem(world, entity);
             if (!player.hasInfiniteMaterials()) {

@@ -22,6 +22,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -46,10 +48,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @SuppressWarnings("resource")
 @Slf4j
@@ -190,17 +189,21 @@ public abstract class AbstractSeller extends WanderingTrader {
                 player.swing(hand);
                 return InteractionResult.SUCCESS_SERVER;
             }
-            if (this.sessions.isEmpty()) {
-                ServerPlayer serverPlayer = (ServerPlayer) player;
-
-                this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
-                this.getNavigation().stop();
-
-                SellerGui sellerGui = new SellerGui(serverPlayer, this);
-                sellerGui.open();
-                player.swing(hand);
-                return InteractionResult.SUCCESS_SERVER;
+            Iterator<SellerGui> iterator = this.sessions.iterator();
+            while (iterator.hasNext()) {
+                SellerGui next = iterator.next();
+                next.close();
+                iterator.remove();
             }
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+
+            this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
+            this.getNavigation().stop();
+
+            SellerGui sellerGui = new SellerGui(serverPlayer, this);
+            sellerGui.open();
+            player.swing(hand);
+            return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.SUCCESS;
     }
@@ -211,9 +214,6 @@ public abstract class AbstractSeller extends WanderingTrader {
 
     @Override
     public void aiStep() {
-        if (!this.level().isClientSide() && !this.sessions.isEmpty()) {
-            return;
-        }
         super.aiStep();
     }
 
@@ -298,13 +298,11 @@ public abstract class AbstractSeller extends WanderingTrader {
             this.self.getSessions().add(this);
         }
 
-
         @Override
-        public void close() {
-            super.close();
-            this.self.getSessions().remove(this);
+        public void onTick() {
+            super.onTick();
+            this.self.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 20, false, false));
         }
-
     }
 
     public abstract boolean canReset();

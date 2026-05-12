@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.loot;
 
-import cc.thonly.reverie_dreams.inf.ILootContext;
+import cc.thonly.reverie_dreams.api.loot.LootContextModifier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Mixin(LootContext.class)
-public abstract class LootContextMixin implements ILootContext {
+public abstract class LootContextMixin implements LootContextModifier {
     @Unique
     private ResourceKey<LootTable> reverie_dreams$lootTableId = null;
 

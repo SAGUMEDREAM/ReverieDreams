@@ -8,10 +8,10 @@ import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
@@ -32,7 +32,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -40,7 +39,6 @@ import net.minecraft.world.item.component.UseCooldown;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 @Setter

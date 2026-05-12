@@ -45,6 +45,7 @@ public class KitchenRecipe extends BaseRecipe {
         }
     }
 
+    @Override
     public IngredientStack getOutput() {
         return this.output.copy();
     }

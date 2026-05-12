@@ -1,19 +1,5 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
-import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
-import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesCallback;
-import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesImpl;
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
-import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
-import com.phoen1x.borukvafoodexotic.item.ModItems;
-import net.minecraft.world.item.Item;
-
-import java.util.Set;
-
 @Deprecated
 //@SuppressWarnings("unchecked")
 public class BorukvaFoodExoticCompatImpl {

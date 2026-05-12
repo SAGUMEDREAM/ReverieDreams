@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.misc.BaseDanmakuEntity;
-import cc.thonly.reverie_dreams.inf.IBedBlockEntity;
-import cc.thonly.reverie_dreams.inf.ILivingEntity;
-import cc.thonly.reverie_dreams.inf.IWorld;
+import cc.thonly.reverie_dreams.api.entity.BedBlockEntityDataModifier;
+import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
+import cc.thonly.reverie_dreams.api.level.IWorld;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
@@ -59,7 +59,7 @@ import java.util.stream.Stream;
 
 @SuppressWarnings({"AddedMixinMembersNamePattern", "resource"})
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements ILivingEntity {
+public abstract class LivingEntityMixin extends Entity implements LivingEntityDataModifier {
     @Shadow
     public abstract boolean hasEffect(Holder<MobEffect> effect);
 
@@ -176,8 +176,8 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
                             this.level().getBlockEntity(bedHead.getB()) instanceof BedBlockEntity bedBlockEntity &&
                             this.level() == server.overworld()
             ) {
-                IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) bedBlockEntity;
-                if (iBedBlockEntity.reverie_dreams$hasDreamPillow()) {
+                BedBlockEntityDataModifier bedBlockEntityDataModifier = (BedBlockEntityDataModifier) bedBlockEntity;
+                if (bedBlockEntityDataModifier.reverie_dreams$hasDreamPillow()) {
                     this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5));
                     this.teleportTo(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
                             EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.gui.DanmakuShapeEditGui;
+import cc.thonly.reverie_dreams.gui.item.DanmakuShapeEditGui;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import eu.pb4.sgui.api.gui.SimpleGui;

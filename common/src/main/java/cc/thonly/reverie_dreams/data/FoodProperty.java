@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.FoodPropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.Translatable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.EqualsAndHashCode;

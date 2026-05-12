@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.neoforge;
 
 import cc.thonly.keine.neoforge.NeoForgeKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
@@ -55,6 +56,7 @@ public class ReverieDreamsNeoForge {
         event.enqueueWork(() -> {
             ReverieDreams.LATE_INIT.forEach(Runnable::run);
             ReverieDreams.LATE_INIT.clear();
+            ReverieDreamsPluginLoader.run();
             ReverieDreamsNeoForgeCompats.initialize();
         });
     }

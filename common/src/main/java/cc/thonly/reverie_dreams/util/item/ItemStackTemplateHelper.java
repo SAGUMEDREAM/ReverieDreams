@@ -1,14 +1,12 @@
 package cc.thonly.reverie_dreams.util.item;
 
-import cc.thonly.reverie_dreams.inf.IItemStackTemplateModifier;
+import cc.thonly.reverie_dreams.api.item.ItemStackTemplateModifier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -117,7 +115,7 @@ public class ItemStackTemplateHelper {
 
         @Override
         public <T> void set(DataComponentType<T> type, T object) {
-            IItemStackTemplateModifier accessor = IItemStackTemplateModifier.of(this.template);
+            ItemStackTemplateModifier accessor = ItemStackTemplateModifier.of(this.template);
             DataComponentPatch components = template.components();
             DataComponentPatch.Builder builder = DataComponentPatch.builder();
             for (Map.Entry<DataComponentType<?>, Optional<?>> entry : components.entrySet()) {
@@ -134,7 +132,7 @@ public class ItemStackTemplateHelper {
 
         @Override
         public void setCount(int count) {
-            IItemStackTemplateModifier accessor = IItemStackTemplateModifier.of(this.template);
+            ItemStackTemplateModifier accessor = ItemStackTemplateModifier.of(this.template);
             if (accessor != null) {
                 accessor.reverie_dreams$setCount(count);
             }
@@ -142,7 +140,7 @@ public class ItemStackTemplateHelper {
 
         @Override
         public void replace(DataComponentPatch.Builder builder) {
-            IItemStackTemplateModifier accessor = IItemStackTemplateModifier.of(this.template);
+            ItemStackTemplateModifier accessor = ItemStackTemplateModifier.of(this.template);
             if (accessor != null) {
                 accessor.reverie_dreams$setComponents(builder.build());
             }
@@ -150,7 +148,7 @@ public class ItemStackTemplateHelper {
 
         @Override
         public void replace(DataComponentPatch patch) {
-            IItemStackTemplateModifier accessor = IItemStackTemplateModifier.of(this.template);
+            ItemStackTemplateModifier accessor = ItemStackTemplateModifier.of(this.template);
             if (accessor != null) {
                 accessor.reverie_dreams$setComponents(patch);
             }

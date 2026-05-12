@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.inf.IItemStack;
+import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
@@ -55,7 +55,7 @@ public class FoodDisplayBlock extends BaseEntityBlock {
                 if (!(serverWorld.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity)) {
                     return InteractionResult.PASS;
                 }
-                boolean isFood = ((IItemStack) (Object) isdBlockEntity.getItem().build()).reverie_dreams$isFood();
+                boolean isFood = ((ItemStackHelper) (Object) isdBlockEntity.getItem().build()).reverie_dreams$isFood();
                 if (isFood) {
                     ItemStack contentStack = isdBlockEntity.getItem().build();
                     Consumable consumableComponent = contentStack.get(DataComponents.CONSUMABLE);

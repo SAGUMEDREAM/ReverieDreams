@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeInfo;
 import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayer;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -59,7 +60,6 @@ public class BasePageGui extends SimpleGui {
         this.prevGuiCallback = prevGuiCallback;
         this.init();
         this.setTitle(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")));
-
     }
 
     public void init() {
@@ -104,7 +104,7 @@ public class BasePageGui extends SimpleGui {
     }
 
     public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+        SoundEventPlayer.playUISound(this.player, 1.0f, 1.0f);
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();
             applyGui.open();
@@ -112,7 +112,7 @@ public class BasePageGui extends SimpleGui {
     }
 
     public void next(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+        SoundEventPlayer.playUISound(this.player, 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
             this.displayList.clear();
@@ -120,7 +120,7 @@ public class BasePageGui extends SimpleGui {
     }
 
     public void prev(int index, ClickType clickType, ContainerInput action, SlotBasedGui slotBasedGui) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+        SoundEventPlayer.playUISound(this.player, 1.0f, 1.0f);
 
         if (this.page > getMinPage()) {
             this.page--;

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.inf.IItemStack;
+import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -55,7 +55,7 @@ public class EatGoal extends Goal {
             return;
         }
         ItemStack stack = maid.getInventory().getItem(slot);
-        if (((IItemStack) (Object) stack).reverie_dreams$isFood()) {
+        if (((ItemStackHelper) (Object) stack).reverie_dreams$isFood()) {
 
             Vec3 eyePos = maid.getEyePosition();
 
@@ -98,7 +98,7 @@ public class EatGoal extends Goal {
     }
 
     private boolean findFood() {
-        Integer slot = maid.getInventory().findSlot(stack -> ((IItemStack) (Object) stack).reverie_dreams$isFood());
+        Integer slot = maid.getInventory().findSlot(stack -> ((ItemStackHelper) (Object) stack).reverie_dreams$isFood());
         if (slot == null) {
             this.slot = -1;
             return false;
@@ -115,7 +115,7 @@ public class EatGoal extends Goal {
             return;
         }
         ItemStack stack = maid.getInventory().getItem(slot);
-        if (((IItemStack) (Object) stack).reverie_dreams$isFood()) {
+        if (((ItemStackHelper) (Object) stack).reverie_dreams$isFood()) {
             DataComponentMap components = stack.getComponents();
             FoodProperties foodComponent = components.get(DataComponents.FOOD);
             if (foodComponent != null) {

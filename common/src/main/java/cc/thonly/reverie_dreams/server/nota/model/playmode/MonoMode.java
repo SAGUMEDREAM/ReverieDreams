@@ -15,20 +15,19 @@ import net.minecraft.world.entity.player.Player;
  */
 public class MonoMode extends ChannelMode {
 
-	@Override
-	public synchronized void play(Player player, BlockPos pos, Song song, Layer layer, Note note, float volume, boolean doTranspose) {
-		float pitch;
-		if(doTranspose) {
-			pitch = NoteUtils.getPitchTransposed(note);
-		}
-		else {
-			pitch = NoteUtils.getPitchInOctave(note);
-		}
-		if (ReverieDreams.getServer() == null) {
-			return;
-		}
-		ReverieDreams.getServer().executeIfPossible(()-> {
-			player.level().playSound(null, player.getX(), player.getY(), player.getZ(),InstrumentUtils.getInstrument(note.getInstrument()), SoundSource.RECORDS, volume, pitch);
-		});
-	}
+    @Override
+    public synchronized void play(Player player, BlockPos pos, Song song, Layer layer, Note note, float volume, boolean doTranspose) {
+        float pitch;
+        if (doTranspose) {
+            pitch = NoteUtils.getPitchTransposed(note);
+        } else {
+            pitch = NoteUtils.getPitchInOctave(note);
+        }
+        if (ReverieDreams.getServer() == null) {
+            return;
+        }
+        ReverieDreams.getServer().executeIfPossible(() -> {
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), InstrumentUtils.getInstrument(note.getInstrument()), SoundSource.RECORDS, volume, pitch);
+        });
+    }
 }

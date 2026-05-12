@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.inf.ILivingEntity;
+import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -69,7 +69,7 @@ public class ManpozuchiItem extends PickaxeItem {
             if (attributeInstance == null) {
                 return InteractionResult.PASS;
             }
-            ILivingEntity lePlayerImpl = (ILivingEntity) entity;
+            LivingEntityDataModifier lePlayerImpl = (LivingEntityDataModifier) entity;
             double state = lePlayerImpl.reverie_dreams$getManpozuchiUsingState();
             if (state >= 0.2) {
                 attributeInstance.setBaseValue(state);
@@ -100,7 +100,7 @@ public class ManpozuchiItem extends PickaxeItem {
             if (attributeInstance == null) {
                 return InteractionResult.PASS;
             }
-            ILivingEntity lePlayerImpl = (ILivingEntity) player;
+            LivingEntityDataModifier lePlayerImpl = (LivingEntityDataModifier) player;
             double state = lePlayerImpl.reverie_dreams$getManpozuchiUsingState();
             if (state >= 0.2) {
                 attributeInstance.setBaseValue(state);

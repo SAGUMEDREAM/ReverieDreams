@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.fabric;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
+import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.RDMPHooks;
@@ -216,7 +216,7 @@ public class PolymerInitializer {
 
     @SuppressWarnings("rawtypes")
     public static void polymerify() {
-        PolymerEntityGetter.EVENT.register(PolymerEntity::get);
+        PolymerEntityGetterCallback.EVENT.register(PolymerEntity::get);
         for (Holder<Block> holder : RDBlocks.HOLDERS) {
             PolymerBlockHelper.registerOverlay(holder.value());
         }

@@ -26,6 +26,7 @@ import java.util.UUID;
 @Slf4j
 @SuppressWarnings("unchecked")
 public class RecipeCompatPatchesImpl {
+
     public static synchronized <R extends BaseRecipe> Builder<R> getOrCreateBuilder(BaseRecipeType<R> baseRecipeType) {
         return (Builder<R>) Builder.INSTANCE.computeIfAbsent(baseRecipeType, (x) -> new Builder<>(baseRecipeType));
     }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
-import cc.thonly.reverie_dreams.inf.IHolderEntity;
+import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
+import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.server.IPlayerInputManager;
 import cc.thonly.reverie_dreams.server.InputKey;
@@ -96,8 +96,8 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.getPolymerEntity(this);
-        if (polymerEntity instanceof IHolderEntity impl) {
+        Object polymerEntity = PolymerEntityGetterCallback.getPolymerEntity(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity impl) {
             impl.onTrackingStopped(player);
             impl.onCreated();
         }
@@ -106,8 +106,8 @@ public class Wheelchair extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.getPolymerEntity(this);
-        if (polymerEntity instanceof IHolderEntity impl) {
+        Object polymerEntity = PolymerEntityGetterCallback.getPolymerEntity(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity impl) {
             impl.onTrackingStopped(player);
         }
     }

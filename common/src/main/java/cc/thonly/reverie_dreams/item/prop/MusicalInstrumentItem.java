@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
+import cc.thonly.keine.api.callback.AttackBlockCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.block.AttackBlockCallback;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;

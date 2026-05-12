@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.base;
 
-import cc.thonly.reverie_dreams.inf.IMatureBlock;
+import cc.thonly.reverie_dreams.api.block.CustomMatureBlock;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public abstract class AbstractCropBlock extends VegetationBlock implements BonemealableBlock, IMatureBlock {
+public abstract class AbstractCropBlock extends VegetationBlock implements BonemealableBlock, CustomMatureBlock {
     protected List<VoxelShape> shapes = new ArrayList<>(List.of(
             Block.box(0, 0, 0, 16, 4, 16),
             Block.box(0, 0, 0, 16, 8, 16)

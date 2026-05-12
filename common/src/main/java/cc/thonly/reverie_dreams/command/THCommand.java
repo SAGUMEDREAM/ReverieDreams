@@ -18,7 +18,7 @@ import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.registry.Translatable;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.command.PermissionPredicate;
@@ -134,7 +134,7 @@ public class THCommand {
         root.then(with_food_property);
         root.then(with_drink_property);
         root.then(cachedAllSkins);
-        root.then(recipe);
+//        root.then(recipe);
         root.then(registry);
 //        root.then(dialog);
         root.then(video);

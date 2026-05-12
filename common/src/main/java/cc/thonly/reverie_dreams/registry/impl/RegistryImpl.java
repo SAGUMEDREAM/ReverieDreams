@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.registry.impl;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.mixin.accessor.NamedAccessor;
-import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.interfaces.Initialization;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.interfaces.ReloadStep;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.Initialization;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.ReloadStep;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;

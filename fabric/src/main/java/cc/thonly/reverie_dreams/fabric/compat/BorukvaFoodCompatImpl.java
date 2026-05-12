@@ -1,22 +1,8 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
-import cc.thonly.reverie_dreams.api.registry.FoodPropertiesLoaderCallback;
-import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesCallback;
-import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesImpl;
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
-import com.opryshok.item.ModItems;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-import java.util.Set;
 @Deprecated
 public class BorukvaFoodCompatImpl {
     public static Block BETTER_FARMLAND = Blocks.AIR;

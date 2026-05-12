@@ -118,7 +118,7 @@ public class RDItems {
     public static DeferredItem EXORCISM_PAPER;
     public static DeferredItem SPELLCARD;
     public static DeferredItem SATORI_EYE;
-    public static DeferredItem WEAPON_OF_THE_MOON;
+    public static DeferredItem FAST_RECIPE_BOOK;
 
     // 武器
     public static DeferredItem HAKUREI_CANE;
@@ -134,6 +134,7 @@ public class RDItems {
     public static DeferredItem YUKA_FLOWER_UMBRELLA;
     public static DeferredItem MAPLE_LEAF_FAN;
     public static DeferredItem IBUKIHO;
+    public static DeferredItem WEAPON_OF_THE_MOON;
 
     public static DeferredItem SWORD_OF_HISOU;
     public static DeferredItem MANPOZUCHI;
@@ -282,6 +283,7 @@ public class RDItems {
         SPELLCARD = registerItem(balmItemRegistrar, "spellcard", props -> new SpellcardItem(props.stacksTo(1).durability(50)), new Item.Properties());
         SATORI_EYE = registerItem(balmItemRegistrar, "satori_eye", props -> new SatoriEye(props.stacksTo(1)), new Item.Properties());
         WEAPON_OF_THE_MOON = registerItem(balmItemRegistrar, "weapon_of_the_moon", props -> new WeaponOfTheMoon(props.stacksTo(1)), new Item.Properties());
+        FAST_RECIPE_BOOK = registerItem(balmItemRegistrar, "fast_book_item", FastRecipeBook::new, new Item.Properties());
 
         // 武器
         HAKUREI_CANE = registerItem(balmItemRegistrar, "hakurei_cane", props -> new HakureiCane(1f, -2.4f, props), new Item.Properties());
@@ -305,7 +307,7 @@ public class RDItems {
         DEATH_SCYTHE = registerItem(balmItemRegistrar, "death_scythe", props -> new DeathScytheItem(1f, -2.8f, props), new Item.Properties());
         VIOLIN = registerItem(balmItemRegistrar, "violin", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.FLUTE)), new Item.Properties());
         KEYBOARD = registerItem(balmItemRegistrar, "keyboard", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.PLING)), new Item.Properties());
-        TRUMPET = registerItem(balmItemRegistrar, "trumpet", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.DIDGERIDOO)), new Item.Properties());
+        TRUMPET = registerItem(balmItemRegistrar, "trumpet", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.TRUMPET)), new Item.Properties());
 
         // 银装备
         RAW_SILVER = registerItem(balmItemRegistrar, "raw_silver", props -> new Item(props), new Item.Properties());
@@ -368,14 +370,14 @@ public class RDItems {
         ROLE_ARCHIVE = registerItem(balmItemRegistrar, "role_archive", props -> new RoleFollowerArchiveItem(props.stacksTo(1)), new Item.Properties());
 
         // 唱片
-        HR01_01 = registerAlbum(balmItemRegistrar, "hr01_01", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.HR01_01.getJukeboxSongRegistryKey())), new Item.Properties());
-        HR02_08 = registerAlbum(balmItemRegistrar, "hr02_08", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.HR02_08.getJukeboxSongRegistryKey())), new Item.Properties());
-        HR03_01 = registerAlbum(balmItemRegistrar, "hr03_01", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.HR03_01.getJukeboxSongRegistryKey())), new Item.Properties());
-        MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS = registerAlbum(balmItemRegistrar, "melodic-taste-nightmare-before-crossroads", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS.getJukeboxSongRegistryKey())), new Item.Properties());
-        YV_FLOWER_CLOCK_AND_DREAMS = registerAlbum(balmItemRegistrar, "yv_flower_clock_and_dreams", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS.getJukeboxSongRegistryKey())), new Item.Properties());
-        GLOWING_NEEDLES_LITTLE_PEOPLE = registerAlbum(balmItemRegistrar, "glowing_needles_little_people", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongRegistryKey())), new Item.Properties());
-        COOKIE = registerAlbum(balmItemRegistrar, "cookie", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.COOKIE.getJukeboxSongRegistryKey())), new Item.Properties());
-        BADAPPLE = registerAlbum(balmItemRegistrar, "bad-apple", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.BAD_APPLE.getJukeboxSongRegistryKey())), new Item.Properties());
+        HR01_01 = registerAlbum(balmItemRegistrar, "hr01_01", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.HR01_01.getJukeboxSongKey())), new Item.Properties());
+        HR02_08 = registerAlbum(balmItemRegistrar, "hr02_08", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.HR02_08.getJukeboxSongKey())), new Item.Properties());
+        HR03_01 = registerAlbum(balmItemRegistrar, "hr03_01", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.HR03_01.getJukeboxSongKey())), new Item.Properties());
+        MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS = registerAlbum(balmItemRegistrar, "melodic-taste-nightmare-before-crossroads", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.MELODIC_TASTE_NIGHTMARE_BEFORE_CROSSROADS.getJukeboxSongKey())), new Item.Properties());
+        YV_FLOWER_CLOCK_AND_DREAMS = registerAlbum(balmItemRegistrar, "yv_flower_clock_and_dreams", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.YV_FLOWER_CLOCK_AND_DREAMS.getJukeboxSongKey())), new Item.Properties());
+        GLOWING_NEEDLES_LITTLE_PEOPLE = registerAlbum(balmItemRegistrar, "glowing_needles_little_people", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongKey())), new Item.Properties());
+        COOKIE = registerAlbum(balmItemRegistrar, "cookie", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.COOKIE.getJukeboxSongKey())), new Item.Properties());
+        BADAPPLE = registerAlbum(balmItemRegistrar, "bad-apple", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.BAD_APPLE.getJukeboxSongKey())), new Item.Properties());
     }
 
     public static DeferredItem registerItem(BalmItemRegistrar balmItemRegistrar, String id, Function<Item.Properties, Item> factory, Item.Properties settings) {

@@ -89,7 +89,7 @@ public class PlacedFeaturesInit {
                         ),
                         List.of(
                                 RarityFilter.onAverageOnceEvery(5),
-                                CountPlacement.of(32),
+                                CountPlacement.of(8),
                                 InSquarePlacement.spread(),
                                 RandomOffsetPlacement.vertical(
                                         ConstantInt.of(2)
@@ -103,7 +103,7 @@ public class PlacedFeaturesInit {
                 registryLookup.getOrThrow(ConfigurationFeatureInit.TREMELLA_KEY),
                 List.of(
                         RarityFilter.onAverageOnceEvery(6),
-                        CountPlacement.of(32),
+                        CountPlacement.of(16),
                         InSquarePlacement.spread(),
                         RandomOffsetPlacement.vertical(
                                 ConstantInt.of(2)

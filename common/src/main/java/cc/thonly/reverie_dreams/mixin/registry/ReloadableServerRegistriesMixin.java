@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
-import cc.thonly.reverie_dreams.inf.ILootTable;
+import cc.thonly.reverie_dreams.api.loot.LootTableIdSetter;
 import cc.thonly.reverie_dreams.mixin.accessor.HolderReferenceAccessor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
@@ -30,8 +30,8 @@ public class ReloadableServerRegistriesMixin {
             if (lootTableResourceKey == null || lootTable == null) {
                 return;
             }
-            ILootTable iLootTable = (ILootTable) lootTable;
-            iLootTable.reverie_dreams$setLootTableId(lootTableResourceKey);
+            LootTableIdSetter lootTableIdSetter = (LootTableIdSetter) lootTable;
+            lootTableIdSetter.reverie_dreams$setLootTableId(lootTableResourceKey);
         });
     }
 }

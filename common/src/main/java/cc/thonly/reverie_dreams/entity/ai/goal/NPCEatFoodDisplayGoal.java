@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.block.entity.FoodDisplayBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.inf.IItemStack;
+import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
@@ -38,7 +38,7 @@ public class NPCEatFoodDisplayGoal extends MoveToBlockGoal {
     private boolean isFoodDisplay(LevelReader world, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof FoodDisplayBlockEntity isdBlockEntity) {
             IngredientStack item = isdBlockEntity.getItem();
-            return ((IItemStack) (Object) item.build()).reverie_dreams$isFood();
+            return ((ItemStackHelper) (Object) item.build()).reverie_dreams$isFood();
         }
         return false;
     }

@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -12,7 +13,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
@@ -134,8 +134,7 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
         return ReverieDreams.id(this.getTypeId());
     }
 
-    @Getter
-    public static class MappingType {
+    public record MappingType(Identifier id) {
         private static final Map<Identifier, MappingType> BY_ID = new Object2ObjectOpenHashMap<>();
 
         public static final MappingType COOKING_POT =
@@ -153,11 +152,28 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
         public static final MappingType STEAMER =
                 new MappingType(ReverieDreams.id("steamer"));
 
-        private final Identifier id;
-
         public MappingType(Identifier id) {
             this.id = id;
             BY_ID.put(id, this);
+        }
+
+        public String toTranslateKey() {
+            if (this == COOKING_POT) {
+                return "block.reverie_dreams.cooking_pot";
+            }
+            if (this == CUTTING_BOARD) {
+                return "block.reverie_dreams.cutting_board";
+            }
+            if (this == FRYING_PAN) {
+                return "block.reverie_dreams.frying_pan";
+            }
+            if (this == GRILL) {
+                return "block.reverie_dreams.grill";
+            }
+            if (this == STEAMER) {
+                return "block.reverie_dreams.steamer";
+            }
+            return "unknown";
         }
 
         public Identifier toId() {
@@ -170,7 +186,7 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
 
         @Override
         public boolean equals(Object obj) {
-            return obj == this || (obj instanceof MappingType mappingType && mappingType.id.equals(this.id));
+            return obj == this || (obj instanceof MappingType(Identifier id1) && id1.equals(this.id));
         }
     }
 }

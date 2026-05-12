@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.DrinkPropertyItemUseCallback;
-import cc.thonly.reverie_dreams.api.registry.DrinkPropertiesLoaderCallback;
+import cc.thonly.reverie_dreams.api.item.callback.DrinkPropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.registry.callback.DrinkPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;

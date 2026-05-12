@@ -15,23 +15,23 @@ import java.util.Optional;
 @Setter
 public class JukeBoxEntry {
     private final String id;
-    private final ResourceKey<JukeboxSong> jukeboxSongRegistryKey;
-    private final ResourceKey<SoundEvent> soundEventReference;
+    private final ResourceKey<JukeboxSong> jukeboxSongKey;
+    private final ResourceKey<SoundEvent> soundEventKey;
     private final int length;
     private final int output;
     private JukeboxSong ref;
 
-    public JukeBoxEntry(String id, ResourceKey<JukeboxSong> jukeboxSongRegistryKey, ResourceKey<SoundEvent> soundEventKey, int length, int output) {
+    public JukeBoxEntry(String id, ResourceKey<JukeboxSong> jukeboxSongKey, ResourceKey<SoundEvent> soundEventKey, int length, int output) {
         this.id = id;
-        this.jukeboxSongRegistryKey = jukeboxSongRegistryKey;
-        this.soundEventReference = soundEventKey;
+        this.jukeboxSongKey = jukeboxSongKey;
+        this.soundEventKey = soundEventKey;
         this.length = length;
         this.output = output;
     }
 
     public JukeboxSong getRef() {
         if (this.ref == null) {
-            this.ref = createEntry(this.jukeboxSongRegistryKey, this.soundEventReference, this.length, this.output);
+            this.ref = createEntry(this.jukeboxSongKey, this.soundEventKey, this.length, this.output);
         }
         return this.ref;
     }

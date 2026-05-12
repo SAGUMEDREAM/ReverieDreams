@@ -14,6 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
+
 @SuppressWarnings("resource")
 public class BadAppleItem extends Item {
     public static final String FILE_NAME = "badapple.json";
@@ -25,12 +27,9 @@ public class BadAppleItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
         if (!world.isClientSide() && user instanceof ServerPlayer serverPlayer) {
-            ServerLevel level = serverPlayer.level();
-            ResourceKey<SoundEvent> soundEventReference = JukeboxSongInit.BAD_APPLE.getSoundEventReference();
-            if (soundEventReference != null) {
-                RegistryAccess registryAccess = level.registryAccess();
-                Registry<SoundEvent> soundEvents = registryAccess.lookupOrThrow(Registries.SOUND_EVENT);
-                DialogPlayer.play(serverPlayer, FILE_NAME, soundEvents.getValue(soundEventReference));
+            ResourceKey<SoundEvent> key = JukeboxSongInit.BAD_APPLE.getSoundEventKey();
+            if (key != null) {
+                DialogPlayer.play(serverPlayer, FILE_NAME, new SoundEvent(key.identifier(), Optional.empty()));
             } else {
                 DialogPlayer.play(serverPlayer, FILE_NAME, null);
             }

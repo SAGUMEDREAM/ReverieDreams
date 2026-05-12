@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.skin;
 
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;

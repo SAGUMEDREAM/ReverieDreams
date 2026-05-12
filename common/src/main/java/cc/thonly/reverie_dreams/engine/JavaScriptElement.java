@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.engine;
 
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.OwnerBinding;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;

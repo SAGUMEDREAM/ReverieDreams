@@ -178,6 +178,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.SPELLCARD.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SATORI_EYE.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.WEAPON_OF_THE_MOON.asItem());
+        itemModelGenerator.generateFlatItem(RDItems.FAST_RECIPE_BOOK.asItem(), ModelTemplates.FLAT_ITEM);
 
         // 武器
         itemModelGenerator.generateFlatItem(RDItems.HAKUREI_CANE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);

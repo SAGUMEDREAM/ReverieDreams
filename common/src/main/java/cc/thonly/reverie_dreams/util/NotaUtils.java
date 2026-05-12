@@ -173,7 +173,7 @@ public final class NotaUtils {
             ItemStack handStack = user.getMainHandItem();
             ItemStack offStack = user.getOffhandItem();
             return !(handStack.getItem() instanceof MusicalInstrumentItem) && !(offStack.getItem() instanceof MusicalInstrumentItem);
-        }, 2, () -> {
+        }, 3, () -> {
             esp.setPlaying(false);
             id2SongCache.remove(id);
         }, () -> {
@@ -181,7 +181,7 @@ public final class NotaUtils {
                 ServerLevel serverWorld = (ServerLevel) user.level();
                 ParticleOptions particleEffect = ParticleTypes.NOTE;
 
-                Vec3 frontVec = user.getViewVector(1.0F);
+                Vec3 frontVec = user.getViewVector(1.66F);
 
                 double px = user.getX() + frontVec.x * 0.5;
                 double py = user.getY() + user.getEyeHeight() - 0.1;

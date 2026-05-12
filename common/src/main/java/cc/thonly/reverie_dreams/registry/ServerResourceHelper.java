@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.registry.RegistryManagerReloadCallback;
+import cc.thonly.reverie_dreams.api.registry.callback.RegistryManagerReloadCallback;
 import cc.thonly.reverie_dreams.data.CustomCharacterLoader;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;

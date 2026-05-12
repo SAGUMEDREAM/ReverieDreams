@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.GapRecorder;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
-import cc.thonly.reverie_dreams.component.tooltip.TooltipManager;
+import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
@@ -50,6 +50,7 @@ public class RDDataComponents {
     public static Holder<DataComponentType<List<FoodProperty>>> FOOD_PROPERTIES;
     public static Holder<DataComponentType<List<DrinkProperty>>> DRINK_PROPERTIES;
     public static Holder<DataComponentType<Integer>> FOOD_BONUS;
+    public static Holder<DataComponentType<Identifier>> RECIPE_MEMORY;
 
     public static void initialize(BalmDataComponentTypeRegistrar registrar) {
         DANMAKU_PROPERTIES = registerComponent(registrar, "danmaku_properties", DanmakuProperties.CODEC);
@@ -72,8 +73,9 @@ public class RDDataComponents {
         FOOD_PROPERTIES = registerComponent(registrar, "food_properties", FoodProperty.LIST_COMPONENT_CODEC);
         DRINK_PROPERTIES = registerComponent(registrar, "drink_properties", DrinkProperty.LIST_COMPONENT_CODEC);
         FOOD_BONUS = registerComponent(registrar, "food_bonus", Codec.INT);
+        RECIPE_MEMORY = registerComponent(registrar, "recipe_memory", Identifier.CODEC);
 
-        TooltipManager.bootstrap();
+        InitTooltips.bootstrap();
     }
 
     @SuppressWarnings("rawtypes")

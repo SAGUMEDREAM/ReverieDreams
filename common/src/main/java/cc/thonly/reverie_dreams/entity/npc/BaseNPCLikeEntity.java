@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
+import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.AvoidCreeperExplosionEntityGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.AvoidFireDamageEntityGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.*;
-import cc.thonly.reverie_dreams.inf.IHolderEntity;
+import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
@@ -545,8 +545,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.get(this);
-        if (polymerEntity instanceof IHolderEntity playerPolymerEntity) {
+        Object polymerEntity = PolymerEntityGetterCallback.get(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity playerPolymerEntity) {
             playerPolymerEntity.onCreated();
         }
     }
@@ -554,8 +554,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.get(this);
-        if (polymerEntity instanceof IHolderEntity playerPolymerEntity) {
+        Object polymerEntity = PolymerEntityGetterCallback.get(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity playerPolymerEntity) {
             playerPolymerEntity.onTrackingStopped(player);
         }
     }

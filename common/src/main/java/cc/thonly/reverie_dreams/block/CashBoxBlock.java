@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
-import cc.thonly.reverie_dreams.gui.CustomChestBlockGui;
+import cc.thonly.reverie_dreams.gui.container.CustomChestBlockGui;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.PlayerDataComponentManager;
 import cc.thonly.reverie_dreams.server.player.FaithComponent;

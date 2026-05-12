@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.inf.IItemStackTemplateModifier;
+import cc.thonly.reverie_dreams.api.item.ItemStackTemplateModifier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.world.item.Item;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ItemStackTemplate.class)
-public class ItemStackTemplateMixin implements IItemStackTemplateModifier {
+public class ItemStackTemplateMixin implements ItemStackTemplateModifier {
 
     @Mutable
     @Shadow
