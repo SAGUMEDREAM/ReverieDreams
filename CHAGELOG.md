@@ -1,5 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.20+1.21.11
+* Fixed the issue of SpawnPlacements being ineffective
+
 # 0.4.19+1.21.11
 * Fixed Danmaku Crafting Table can't craft item
 * Fixed can't craft some item in kitchen blocks

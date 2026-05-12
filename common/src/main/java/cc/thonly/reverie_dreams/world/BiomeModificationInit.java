@@ -27,6 +27,7 @@ import java.util.function.Supplier;
 
 public class BiomeModificationInit {
     public static void initialize() {
+        addSpawnPlacements();
         ReverieDreams.LATE_INIT.add(() -> {
             addBlock();
             addFlower();
@@ -34,6 +35,72 @@ public class BiomeModificationInit {
             addEntity();
             addStructure();
         });
+    }
+
+    public static void addSpawnPlacements() {
+        RDEntityTypes.YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entityType, world, reason, pos, random) -> {
+            if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
+            if (world.getRawBrightness(pos, 0) <= 8) return false;
+            if (!world.getBlockState(pos).isAir()) return false;
+
+            int nearby = world.getEntitiesOfClass(
+                    RDEntityTypes.YOUSEI.asHolder().value().getBaseClass(),
+                    new AABB(
+                            pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
+                            pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                    )
+            ).size();
+
+            if (nearby > 2) return false;
+            return random.nextFloat() < 0.6f;
+        });
+        RDEntityTypes.SUNFLOWER_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new Supplier<SpawnPlacements.SpawnPredicate<SunflowerYousei>>() {
+            @Override
+            public SpawnPlacements.SpawnPredicate<SunflowerYousei> get() {
+                return (entityType, world, reason, pos, random) -> {
+                    // 原本条件
+                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
+                    if (world.getRawBrightness(pos, 0) <= 8) return false;
+                    if (!world.getBlockState(pos).isAir()) return false;
+
+                    // 检测周围是否已有太多该实体
+                    int nearbyCount = world.getEntitiesOfClass(
+                            RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value().getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
+                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                            )
+                    ).size();
+
+                    return nearbyCount < 3; // 附近 16x8x16 范围内少于 3 个才允许生成
+                };
+            }
+        });
+        RDEntityTypes.HAIRBALL.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> Hairball::checkSpawnRules
+        );
+        RDEntityTypes.GOBLIN.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entity, world, reason, pos, random) ->
+                        world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) &&
+                                world.getRawBrightness(pos, 0) > 8 &&
+                                world.getBlockState(pos).isAir()
+        );
+        RDEntityTypes.ICE_ELEMENTAL.withSpawnPlacement(
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> IceElementalEntity::canSpawn
+        );
+        RDEntityTypes.UFO.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> UFO::checkSpawnRules
+        );
+        RDEntityTypes.MOON_RABBIT.withSpawnPlacement(
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> (entity, world, reason, pos, random) -> {
+                    return world.getBlockState(pos.above()).isAir();
+                }
+        );
     }
 
     public static void addTree() {
@@ -141,22 +208,6 @@ public class BiomeModificationInit {
                             2
                     )
             );
-            RDEntityTypes.YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entityType, world, reason, pos, random) -> {
-                if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
-                if (world.getRawBrightness(pos, 0) <= 8) return false;
-                if (!world.getBlockState(pos).isAir()) return false;
-
-                int nearby = world.getEntitiesOfClass(
-                        RDEntityTypes.YOUSEI.asHolder().value().getBaseClass(),
-                        new AABB(
-                                pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
-                                pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
-                        )
-                ).size();
-
-                if (nearby > 2) return false;
-                return random.nextFloat() < 0.6f;
-            });
             // 向日葵妖精
             Balm.biomeModifications().modifyBiome(ReverieDreams.id("sunflower_yousei_spawn_dream"),
                     BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_PLAINS),
@@ -172,28 +223,6 @@ public class BiomeModificationInit {
                             1
                     )
             );
-            RDEntityTypes.SUNFLOWER_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new Supplier<SpawnPlacements.SpawnPredicate<SunflowerYousei>>() {
-                @Override
-                public SpawnPlacements.SpawnPredicate<SunflowerYousei> get() {
-                    return (entityType, world, reason, pos, random) -> {
-                        // 原本条件
-                        if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
-                        if (world.getRawBrightness(pos, 0) <= 8) return false;
-                        if (!world.getBlockState(pos).isAir()) return false;
-
-                        // 检测周围是否已有太多该实体
-                        int nearbyCount = world.getEntitiesOfClass(
-                                RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value().getBaseClass(),
-                                new AABB(
-                                        pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
-                                        pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
-                                )
-                        ).size();
-
-                        return nearbyCount < 3; // 附近 16x8x16 范围内少于 3 个才允许生成
-                    };
-                }
-            });
             // 女仆妖精
             Balm.biomeModifications().modifyBiome(ReverieDreams.id("maid_yousei_spawn_dark_forest"),
                     BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_PLAINS),
@@ -219,9 +248,6 @@ public class BiomeModificationInit {
                         10
                 )
         );
-        RDEntityTypes.HAIRBALL.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> Hairball::checkSpawnRules
-        );
 
         // 哥布林
         Balm.biomeModifications().modifyBiome(ReverieDreams.id("goblin_spawn_desert"),
@@ -231,12 +257,6 @@ public class BiomeModificationInit {
                         new MobSpawnSettings.SpawnerData(RDEntityTypes.GOBLIN.asHolder().value(), 1, 1),
                         50 / 5
                 )
-        );
-        RDEntityTypes.GOBLIN.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entity, world, reason, pos, random) ->
-                        world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) &&
-                                world.getRawBrightness(pos, 0) > 8 &&
-                                world.getBlockState(pos).isAir()
         );
         // 蘑菇怪
         Balm.biomeModifications().modifyBiome(ReverieDreams.id("mushroom_spawn_mushroom"),
@@ -285,11 +305,6 @@ public class BiomeModificationInit {
                         10
                 )
         );
-        RDEntityTypes.ICE_ELEMENTAL.withSpawnPlacement(
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> IceElementalEntity::canSpawn
-        );
         // 月兔
         Balm.biomeModifications().modifyBiome(
                 ReverieDreams.id("moon_rabbit_spawn"),
@@ -300,13 +315,6 @@ public class BiomeModificationInit {
                         10
                 )
         );
-//        RDEntityTypes.MOON_RABBIT.withSpawnPlacement(
-//                SpawnPlacementTypes.ON_GROUND,
-//                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-//                () -> (entity, world, reason, pos, random) -> {
-//                    return world.getBlockState(pos.above()).isAir();
-//                }
-//        );
 //        RDEntityTypes.MOON_RABBIT.withSpawnPlacement(
 //                SpawnPlacementTypes.ON_GROUND,
 //                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -324,10 +332,6 @@ public class BiomeModificationInit {
                         new MobSpawnSettings.SpawnerData(RDEntityTypes.UFO.asHolder().value(), 1, 2),
                         3
                 )
-        );
-        RDEntityTypes.UFO.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> UFO::checkSpawnRules
         );
     }
 
