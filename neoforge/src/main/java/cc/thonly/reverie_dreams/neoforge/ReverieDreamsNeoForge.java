@@ -54,6 +54,8 @@ public class ReverieDreamsNeoForge {
         event.enqueueWork(() -> {
             ReverieDreams.LATE_INIT.forEach(Runnable::run);
             ReverieDreams.LATE_INIT.clear();
+            ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
+            ReverieDreams.BUS_LATE_INIT.clear();
             ReverieDreamsCompats.initialize();
         });
     }

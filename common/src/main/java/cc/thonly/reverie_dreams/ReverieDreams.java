@@ -6,6 +6,7 @@ import cc.thonly.keine.api.callback.ServerSavingCallback;
 import cc.thonly.reverie_dreams.api.block.AttackBlockCallback;
 import cc.thonly.reverie_dreams.api.item.ItemAttackHitCallback;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.client.util.PhotoScreenshotHelper;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
@@ -16,14 +17,13 @@ import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
-import cc.thonly.reverie_dreams.networking.payload.ScreenshotMapPacket;
+import cc.thonly.reverie_dreams.mixin.accessor.EntityAccessor;
+import cc.thonly.reverie_dreams.networking.payload.*;
 import cc.thonly.reverie_dreams.recipe.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.loot.RDLootModifies;
-import cc.thonly.reverie_dreams.networking.payload.CSVersionPacket;
-import cc.thonly.reverie_dreams.networking.payload.HelloPacket;
 import cc.thonly.reverie_dreams.registry.PairRegistryImpls;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
@@ -40,6 +40,7 @@ import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.ServerResourceHelper;
+import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import cc.thonly.reverie_dreams.server.*;
 import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManager;
 import cc.thonly.reverie_dreams.server.nota.Nota;
@@ -59,18 +60,24 @@ import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
 import cc.thonly.reverie_dreams.world.RDGameRules;
 import cc.thonly.reverie_dreams.world.WorldGenerationInit;
+import com.mojang.blaze3d.platform.NativeImage;
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.core.BalmRegistrar;
 import net.blay09.mods.balm.core.BalmRegistrars;
 import net.blay09.mods.balm.network.BalmNetworking;
 import net.blay09.mods.balm.platform.event.callback.*;
 import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistrar;
 import net.blay09.mods.balm.world.item.BalmItemRegistrar;
 import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -83,6 +90,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSources;
@@ -93,10 +101,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -356,37 +367,118 @@ public class ReverieDreams {
             }
             return InteractionResult.SUCCESS;
         });
-        // Yuka伞攻击(1.21.11-)
-//        ItemAttackHitCallback.EVENT.register((stack, target, attacker) -> {
-//            Level level = attacker.level();
-//            if (level instanceof ServerLevel world && stack.getItem() instanceof YukaFlowerUmbrella) {
-//                double speed = attacker.getDeltaMovement().length();
-//                Entity vehicle = attacker.getVehicle();
-//                if (vehicle != null) {
-//                    double length = vehicle.getDeltaMovement().length();
-//                    if (speed > length) {
-//                        speed = length;
-//                    }
-//                }
-//                MinecraftServer server = level.getServer();
-//                float damageValue = (float) (48f * speed);
-//                DelayedTask.create(server, 1, () -> {
-//                    target.hurtTime = 0;
-//                    if (target.getHealth() - damageValue >= 0) {
-//                        target.setHealth(target.getHealth() - damageValue);
-//                    } else {
-//                        target.setHealth(0);
-//                    }
-//                    target.hurtTime = 0;
-//                });
-//            }
-//            return true;
-//        });
-
     }
 
     private static void registerNetworkingEvent(BalmRegistrars registrars) {
         BalmNetworking networking = Balm.networking();
+        registerClientboundPackets(networking);
+        registerServerboundPackets(networking);
+    }
+
+    @SuppressWarnings({"unchecked", "resource"})
+    public static void registerClientboundPackets(BalmNetworking networking) {
+        networking.registerClientboundPacket(
+                RecipeManagerSyncPacket.PACKET_ID,
+                RecipeManagerSyncPacket.class,
+                RecipeManagerSyncPacket.CODEC,
+                (player, payload) -> PlatformContext.safeByClientSyncAccess(() -> {
+                    Identifier typeId = payload.typeId();
+                    CompoundTag data = payload.data();
+                    try {
+                        BaseRecipeType<BaseRecipe> recipeType = (BaseRecipeType<BaseRecipe>) RecipeManager.RECIPE_TYPES.get(typeId);
+                        if (recipeType == null) return;
+                        Pair<Identifier, List<Pair<Identifier, BaseRecipe>>> pair = BaseRecipeType.readFromTag(recipeType, data);
+                        if (pair == null) {
+                            return;
+                        }
+                        recipeType.clear();
+                        List<Pair<Identifier, BaseRecipe>> list = pair.value();
+                        list.forEach(recipePair -> {
+                            Identifier key = recipePair.key();
+                            BaseRecipe recipe = recipePair.value();
+                            recipeType.add(key, recipe);
+                        });
+                    } catch (Exception e) {
+                        logger().error("Can't sync server recipes {}: ", typeId, e);
+                    }
+                })
+        );
+        networking.registerClientboundPacket(
+                RegistryImpSyncPacket.PACKET_ID,
+                RegistryImpSyncPacket.class,
+                RegistryImpSyncPacket.CODEC, (player, payload) -> PlatformContext.safeByClientSyncAccess(() -> {
+                    Identifier registryKey = payload.registryKey();
+                    CompoundTag data = payload.data();
+                    try {
+                        RegistryImpl<Object> registry = RegistryImpls.ofEntry(registryKey);
+                        if (registry == null) {
+                            return;
+                        }
+                        if (!registry.isSyncToClient()) {
+                            return;
+                        }
+                        RegistrySyncer<Object, Object> syncer = registry.getSyncer();
+                        List<RegistrySyncer.Entry<Object>> entries = syncer.readToEntries(data);
+                        RegistrySyncer.ClientReloadListener<Object, Object> clientReloadListener = syncer.getClientReloadListener();
+                        clientReloadListener.preProcessing(registry);
+                        for (RegistrySyncer.Entry<Object> entry : entries) {
+                            Identifier key = entry.key();
+                            Object value = entry.value();
+                            Object updated = clientReloadListener.update(key, registry.getValue(key), value);
+                            registry.set(registry.createKey(key), updated, RegistrationInfo.BUILT_IN);
+                        }
+                        clientReloadListener.afterProcessing(registry);
+                    } catch (Exception e) {
+                        logger().error("Can't sync server registry: {}", registryKey, e);
+                    }
+                })
+        );
+        networking.registerClientboundPacket(
+                SyncEntityPacket.PACKET_ID,
+                SyncEntityPacket.class,
+                SyncEntityPacket.CODEC,
+                (player, packet) -> PlatformContext.safeByClientAccess(() -> {
+                    Level level = player.level();
+                    if (!level.isClientSide()) {
+                        return;
+                    }
+                    int entityId = packet.entityId();
+                    CompoundTag tag = packet.tag();
+                    Entity entity = level.getEntity(entityId);
+                    if (entity instanceof EntityAccessor accessor) {
+                        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(LOGGER)) {
+                            ValueInput valueInput = TagValueInput.create(scopedCollector, entity.registryAccess(), tag);
+                            accessor.reverie_dreams$readAdditionalSaveData(valueInput);
+                        } catch (Exception e) {
+                            LOGGER.error("Error:", e);
+                        }
+                    }
+                })
+        );
+        networking.registerClientboundPacket(
+                StartScreenshotPacket.PACKET_ID,
+                StartScreenshotPacket.class,
+                StartScreenshotPacket.CODEC,
+                (player, packet) -> PlatformContext.safeByClientSyncAccess(() -> {
+                    Minecraft mc = Minecraft.getInstance();
+                    LocalPlayer localPlayer = mc.player;
+                    if (localPlayer == null) {
+                        return;
+                    }
+                    ItemStack stack = ItemUtils.getHandItem(player, itemStack -> itemStack.getItem() instanceof TenguCameraItem);
+                    int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
+                    CompletableFuture<NativeImage> future = PhotoScreenshotHelper.getClientImage();
+                    future.thenAccept(clientImage -> {
+                        NativeImage resizedImage = PhotoScreenshotHelper.resizeImage(clientImage);
+                        NativeImage rescaledImage = PhotoScreenshotHelper.rescaleImage(resizedImage, fov);
+                        byte[] imageBytes = PhotoScreenshotHelper.getImageBytes(rescaledImage);
+                        Balm.networking().sendToServer(new ScreenshotMapPacket(packet.sessionId(), imageBytes));
+                    });
+                })
+        );
+    }
+
+    private static void registerServerboundPackets(BalmNetworking networking) {
         networking.registerServerboundPacket(
                 HelloPacket.PACKET_ID,
                 HelloPacket.class,
@@ -410,10 +502,6 @@ public class ReverieDreams {
                 ScreenshotMapPacket.CODEC,
                 PhotoScreenshotMaker::handle
         );
-        ServerPlayerCallback.Leave.EVENT.register((player) -> {
-            PLAYER_WITH_MOD.remove(player);
-            PLAYER_SIDE_VERSION.remove(player);
-        });
     }
 
     @SuppressWarnings("rawtypes")
@@ -426,12 +514,14 @@ public class ReverieDreams {
             }
         });
         ServerPlayerCallback.Join.EVENT.register(player -> {
-            RegistryImpls.startSyncRegistry(server.getPlayerList().getPlayers());
+            RegistryImpls.startSyncRegistry(List.of(player));
             RecipeManager.startSyncRecipe(List.of(player));
         });
         ServerPlayerCallback.Leave.EVENT.register((player) -> {
             PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
             playerDataComponentManager.saveAll();
+            PLAYER_WITH_MOD.remove(player);
+            PLAYER_SIDE_VERSION.remove(player);
         });
         ServerLifecycleCallback.Reloaded.EVENT.register(server -> {
             PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();

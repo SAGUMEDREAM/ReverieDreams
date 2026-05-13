@@ -6,6 +6,7 @@ import net.blay09.mods.balm.platform.BalmEnvironment;
 import net.blay09.mods.balm.platform.BalmPlatform;
 import net.blay09.mods.balm.platform.LoaderPlatforms;
 import net.blay09.mods.balm.platform.ModInfo;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.Block;
 
@@ -37,6 +38,19 @@ public class PlatformContext {
     static {
         Locale locale = Locale.getDefault();
         PlatformContext.SYSTEM_LANGUAGE = (locale.getLanguage() + "_" + locale.getCountry()).toLowerCase();
+    }
+
+    public static void safeByClientAccess(Runnable action) {
+        if (!isClientSide()) {
+            return;
+        }
+        action.run();
+    }
+    public static void safeByClientSyncAccess(Runnable action) {
+        if (!isClientSide()) {
+            return;
+        }
+        Minecraft.getInstance().execute(action);
     }
 
     public static boolean isFabric() {

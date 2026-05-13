@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.world;
 import cc.thonly.keine.tag.ConventionalBiomeTags;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.Hairball;
+import cc.thonly.reverie_dreams.entity.MaidYousei;
 import cc.thonly.reverie_dreams.entity.SunflowerYousei;
 import cc.thonly.reverie_dreams.entity.UFO;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
@@ -57,6 +58,28 @@ public class BiomeModificationInit {
         RDEntityTypes.SUNFLOWER_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new Supplier<SpawnPlacements.SpawnPredicate<SunflowerYousei>>() {
             @Override
             public SpawnPlacements.SpawnPredicate<SunflowerYousei> get() {
+                return (entityType, world, reason, pos, random) -> {
+                    // 原本条件
+                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
+                    if (world.getRawBrightness(pos, 0) <= 8) return false;
+                    if (!world.getBlockState(pos).isAir()) return false;
+
+                    // 检测周围是否已有太多该实体
+                    int nearbyCount = world.getEntitiesOfClass(
+                            RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value().getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
+                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                            )
+                    ).size();
+
+                    return nearbyCount < 3; // 附近 16x8x16 范围内少于 3 个才允许生成
+                };
+            }
+        });
+        RDEntityTypes.MAID_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new Supplier<SpawnPlacements.SpawnPredicate<MaidYousei>>() {
+            @Override
+            public SpawnPlacements.SpawnPredicate<MaidYousei> get() {
                 return (entityType, world, reason, pos, random) -> {
                     // 原本条件
                     if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;

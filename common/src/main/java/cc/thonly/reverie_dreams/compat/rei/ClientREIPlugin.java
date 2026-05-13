@@ -35,6 +35,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class ClientREIPlugin implements REIClientPlugin {
+
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new DanmakuCraftingTableRecipeCategory());
@@ -54,8 +55,8 @@ public class ClientREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-//        IDisplayRegisterView view = IDisplayRegisterView.getClientRecipeRegisters(registry);
-//        DisplayImpls.register(view);
+        IDisplayRegisterView view = IDisplayRegisterView.getClientRecipeRegisters(registry);
+        DisplayImpls.register(view);
 
         ItemViewItemInfo.registerItemInfo((items, component) -> {
             registry.add(DefaultInformationDisplay.createFromEntries(

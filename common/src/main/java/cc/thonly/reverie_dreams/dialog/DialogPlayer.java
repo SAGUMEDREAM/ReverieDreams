@@ -206,7 +206,7 @@ public class DialogPlayer {
                 mutableText.append(Component.literal(line + "\n"));
             }
             result.common().body().add(
-                    new PlainMessage(mutableText, 1024)
+                    new PlainMessage(mutableText, 512)
             );
             this.player.openDialog(Holder.direct(result));
         } else {

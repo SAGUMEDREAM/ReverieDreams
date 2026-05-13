@@ -22,7 +22,7 @@ public class CommonREIPlugin implements REICommonPlugin {
     @Override
     public void registerDisplays(ServerDisplayRegistry registry) {
         IDisplayRegisterView view = IDisplayRegisterView.getRecipeRegisters(registry);
-        DisplayImpls.register(view);
+//        DisplayImpls.register(view);
 
     }
 

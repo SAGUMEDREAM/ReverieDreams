@@ -22,6 +22,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -103,7 +104,7 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
                 player.displayClientMessage(Component.translatable("item.action.click.cashbox.fails.used"), true);
                 return InteractionResult.SUCCESS_SERVER;
             } else {
-                SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer, (inventory, index, x, y) -> new PredicateSlot(inventory, index, x, y, (stack) -> CustomChestBlockGui.COIN_ITEMS.contains(stack.getItem())));
+                SimpleGui chestGui = new CustomChestBlockGui(this, chestBlockEntity, serverPlayer, (inventory, index, x, y) -> new PredicateSlot(inventory, index, x, y, (stack) -> CustomChestBlockGui.COIN_ITEMS.stream().map(ItemLike::asItem).toList().contains(stack.getItem())));
                 chestGui.open();
                 return InteractionResult.SUCCESS_SERVER;
             }
@@ -113,13 +114,13 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
 
     protected static int calValue(ItemStack itemStack) {
         int cal = 0;
-        if (itemStack.getItem() == RDItems.COPPER_COIN) {
+        if (itemStack.getItem() == RDItems.COPPER_COIN.asItem()) {
             cal += 1;
         }
-        if (itemStack.getItem() == RDItems.SILVER_COIN) {
+        if (itemStack.getItem() == RDItems.SILVER_COIN.asItem()) {
             cal += 3;
         }
-        if (itemStack.getItem() == RDItems.GOLD_COIN) {
+        if (itemStack.getItem() == RDItems.GOLD_COIN.asItem()) {
             cal += 8;
         }
         return cal;

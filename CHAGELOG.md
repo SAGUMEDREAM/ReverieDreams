@@ -1,5 +1,12 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.21.1.21.11
+* Fixed the dialog video shows offsets
+* Fixed recipe not sync to client
+* Fixed REI not displaying recipe pages
+* Cash Box not matches item
+* Fixed a bug that prevented access to the game on the dedicated server.
+
 # 0.4.20+1.21.11
 * Fixed the issue of SpawnPlacements being ineffective
 

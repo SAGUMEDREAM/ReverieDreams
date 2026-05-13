@@ -5,6 +5,47 @@ plugins {
     alias libs.plugins.modrinthMinotaur apply(false)
 }
 
+tasks.register("jarCommon") {
+    group = "dev"
+    description = "build Common jars"
+    dependsOn(":common:jar")
+}
+tasks.register("buildAll") {
+    group = "dev"
+    description = "build Fabric + NeoForge + Polymer"
+    dependsOn(":fabric:build", ":neoforge:build", ":polymer:build")
+}
+tasks.register("jarAll") {
+    group = "dev"
+    description = "build Fabric + NeoForge + Polymer jars"
+    dependsOn(":fabric:remapJar", ":neoforge:jar", ":polymer:remapJar")
+}
+tasks.register("datagen") {
+    group = "dev"
+    description = "Run Fabric data generation"
+    dependsOn(":fabric:runData")
+}
+tasks.register("runClientFabric") {
+    group = "dev"
+    description = "Run Fabric Minecraft Client"
+    dependsOn(":fabric:runClient")
+}
+tasks.register("runClientNeoforge") {
+    group = "dev"
+    description = "Run NeoForge Minecraft Client"
+    dependsOn(":neoforge:runClient")
+}
+tasks.register("runServerNeoforge") {
+    group = "dev"
+    description = "Run NeoForge Minecraft Client"
+    dependsOn(":neoforge:runServer")
+}
+tasks.register("runServerFabric") {
+    group = "dev"
+    description = "Run Fabric Minecraft Client"
+    dependsOn(":fabric:runServer")
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'java-library'
