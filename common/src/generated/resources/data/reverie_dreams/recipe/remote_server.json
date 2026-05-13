@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "minecraft:iron_ingot",
+    "X": "minecraft:redstone_torch"
+  },
+  "pattern": [
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "id": "reverie_dreams:remote_server"
+  }
+}

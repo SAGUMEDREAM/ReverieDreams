@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "minecraft:cobblestone",
+    "X": "minecraft:redstone",
+    "Y": "minecraft:clock"
+  },
+  "pattern": [
+    "###",
+    "XYX",
+    "###"
+  ],
+  "result": {
+    "id": "reverie_dreams:signal_delayer"
+  }
+}

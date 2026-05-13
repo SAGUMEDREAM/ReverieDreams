@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "minecraft:rail",
+    "X": "minecraft:redstone",
+    "Y": "minecraft:lever"
+  },
+  "pattern": [
+    " X ",
+    "Y#Y",
+    " X "
+  ],
+  "result": {
+    "id": "reverie_dreams:rail_controller_block"
+  }
+}

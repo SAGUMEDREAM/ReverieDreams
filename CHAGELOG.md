@@ -12,6 +12,7 @@
 * Added Signal Delayer to delay redstone signal in tick
 * Added Remote Server Block to send specify signal
 * Added Remote Client Block to receive specify signal
+* Fixed a bug that prevented access to the game on the dedicated server.
 * Now trumpet sound is trumpet
 * Updated Nota
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:wheat",
+    "A": "minecraft:redstone_torch",
+    "X": "minecraft:redstone"
+  },
+  "pattern": [
+    "#A#",
+    "#X#",
+    "#A#"
+  ],
+  "result": {
+    "id": "reverie_dreams:scarecrow"
+  }
+}

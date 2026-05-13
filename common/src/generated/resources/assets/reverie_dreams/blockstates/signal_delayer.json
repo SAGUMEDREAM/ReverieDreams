@@ -1,0 +1,96 @@
+{
+  "variants": {
+    "facing=down,occupied=false,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "x": 90
+    },
+    "facing=down,occupied=false,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "x": 90
+    },
+    "facing=down,occupied=true,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "x": 90
+    },
+    "facing=down,occupied=true,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "x": 90
+    },
+    "facing=east,occupied=false,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "y": 90
+    },
+    "facing=east,occupied=false,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "y": 90
+    },
+    "facing=east,occupied=true,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "y": 90
+    },
+    "facing=east,occupied=true,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "y": 90
+    },
+    "facing=north,occupied=false,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer"
+    },
+    "facing=north,occupied=false,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on"
+    },
+    "facing=north,occupied=true,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer"
+    },
+    "facing=north,occupied=true,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on"
+    },
+    "facing=south,occupied=false,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "y": 180
+    },
+    "facing=south,occupied=false,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "y": 180
+    },
+    "facing=south,occupied=true,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "y": 180
+    },
+    "facing=south,occupied=true,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "y": 180
+    },
+    "facing=up,occupied=false,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "x": 270
+    },
+    "facing=up,occupied=false,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "x": 270
+    },
+    "facing=up,occupied=true,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "x": 270
+    },
+    "facing=up,occupied=true,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "x": 270
+    },
+    "facing=west,occupied=false,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "y": 270
+    },
+    "facing=west,occupied=false,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "y": 270
+    },
+    "facing=west,occupied=true,powered=false": {
+      "model": "reverie_dreams:block/signal_delayer",
+      "y": 270
+    },
+    "facing=west,occupied=true,powered=true": {
+      "model": "reverie_dreams:block/signal_delayer_on",
+      "y": 270
+    }
+  }
+}

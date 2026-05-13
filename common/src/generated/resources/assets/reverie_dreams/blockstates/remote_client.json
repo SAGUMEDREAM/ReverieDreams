@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "reverie_dreams:block/remote_client"
+    },
+    "powered=true": {
+      "model": "reverie_dreams:block/remote_client_on"
+    }
+  }
+}
