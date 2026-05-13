@@ -5,6 +5,8 @@
 * Fixed Bad Apple Item is missing sound
 * Fixed the SpawnPlacement failure
 * Fixed the dialog video shows offsets
+* Fixed a bug that prevented access to the game on the dedicated server.
+* Fixed Cash Box not matches item
 * Added Fast Recipe Book to make fast to craft kitchen recipe
 * Added showcase in kitchen block
 * Added Rail Controller Block to control minecart
@@ -12,7 +14,6 @@
 * Added Signal Delayer to delay redstone signal in tick
 * Added Remote Server Block to send specify signal
 * Added Remote Client Block to receive specify signal
-* Fixed a bug that prevented access to the game on the dedicated server.
 * Now trumpet sound is trumpet
 * Updated Nota
 
