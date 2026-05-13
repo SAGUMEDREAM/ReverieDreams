@@ -93,7 +93,7 @@ public class RegistryImpls {
             .builder(SkinConfigs::bootstrap);
 
     public static final RegistryImpl<NPCRole> NPC_ROLE = RegistryImpls.<NPCRole>ofEntry(ReverieDreams.id("npc_role"))
-            .codec(NPCRole.CODEC)
+            .codec(NPCRole.BY_REGISTRY)
             .builder(NPCRoles::bootstrap);
 
     public static final RegistryImpl<RoleCard> ROLE_CARD = RegistryImpls.<RoleCard>ofEntry(ReverieDreams.id("role_card"))

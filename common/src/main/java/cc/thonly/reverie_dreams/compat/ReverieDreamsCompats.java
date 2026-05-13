@@ -6,9 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.intellij.lang.annotations.Pattern;
 
 @Slf4j
-public class IReverieDreamsCompats {
+public class ReverieDreamsCompats {
     public static void initialize() {
-        load("minecraft", "cc.thonly.reverie_dreams.compat.IVanillaCompat");
+        load("minecraft", "cc.thonly.reverie_dreams.compat.VanillaCompat");
     }
 
     public static void load(String modId,

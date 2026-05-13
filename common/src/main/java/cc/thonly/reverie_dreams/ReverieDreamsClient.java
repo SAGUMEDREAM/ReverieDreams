@@ -25,7 +25,7 @@ public class ReverieDreamsClient {
         registrars.blockEntityRenderers(RDBlockEntityRenderers::initialize);
         registrars.entityRenderers(RDEntityRenderers::initialize);
         ReverieDreamsClient.initializeClientEvent(registrars);
-        ReverieDreamsClient.initializeNetworking(registrars);
+//        ReverieDreamsClient.initializeNetworking(registrars);
         ReverieDreams.LATE_INIT_CLIENT.forEach(Runnable::run);
         ReverieDreams.LATE_INIT_CLIENT.clear();
         lateInit.run();

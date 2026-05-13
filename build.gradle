@@ -5,9 +5,19 @@ plugins {
     alias libs.plugins.modrinthMinotaur apply(false)
 }
 
+tasks.register("jarCommon") {
+    group = "dev"
+    description = "build Common jars"
+    dependsOn(":common:jar")
+}
 tasks.register("buildAll") {
     group = "dev"
-    description = "Build Fabric + NeoForge + Polymer jars"
+    description = "build Fabric + NeoForge + Polymer"
+    dependsOn(":fabric:build", ":neoforge:build", ":polymer:build")
+}
+tasks.register("jarAll") {
+    group = "dev"
+    description = "build Fabric + NeoForge + Polymer jars"
     dependsOn(":fabric:jar", ":neoforge:jar", ":polymer:jar")
 }
 tasks.register("datagen") {
@@ -28,12 +38,12 @@ tasks.register("runClientNeoforge") {
 tasks.register("runServerNeoforge") {
     group = "dev"
     description = "Run Fabric Minecraft Client"
-    dependsOn(":fabric:runServer")
+    dependsOn(":neoforge:runServer")
 }
 tasks.register("runServerFabric") {
     group = "dev"
     description = "Run NeoForge Minecraft Client"
-    dependsOn(":neoforge:runServer")
+    dependsOn(":fabric:runServer")
 }
 
 subprojects {

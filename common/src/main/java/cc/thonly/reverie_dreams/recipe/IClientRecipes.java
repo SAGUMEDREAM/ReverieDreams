@@ -1,8 +1,5 @@
-package cc.thonly.reverie_dreams.compat;
+package cc.thonly.reverie_dreams.recipe;
 
-import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import lombok.Getter;

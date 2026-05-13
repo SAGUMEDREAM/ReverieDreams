@@ -12,7 +12,7 @@ import net.minecraft.world.item.Items;
 
 import java.util.Set;
 
-public class IVanillaCompat {
+public class VanillaCompat {
     public static void bootstrap() {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
             RecipeCompatPatchesImpl.Builder<KitchenRecipe> builder = RecipeCompatPatchesImpl.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);

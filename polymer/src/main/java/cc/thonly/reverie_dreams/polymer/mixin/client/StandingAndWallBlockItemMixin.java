@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.context.UseOnContext;
@@ -42,7 +43,7 @@ public class StandingAndWallBlockItemMixin {
             Class<?> clazz = Class.forName("eu.pb4.polymer.core.api.item.PolymerItemUtils");
             reverie_dreams$_polymerItemUtils = clazz;
             reverie_dreams$_getPolymerIdentifier =
-                    clazz.getDeclaredMethod("getPolymerIdentifier", ItemStack.class);
+                    clazz.getDeclaredMethod("getPolymerIdentifier", ItemInstance.class);
         } catch (Exception e) {
             log.error("Failed to init Polymer reflection", e);
         }

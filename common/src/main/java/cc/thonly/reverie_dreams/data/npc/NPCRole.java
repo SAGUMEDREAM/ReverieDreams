@@ -1,16 +1,14 @@
 package cc.thonly.reverie_dreams.data.npc;
 
-import cc.thonly.keine.api.KeineRegistries;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
-import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
-import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.registry.*;
+import cc.thonly.reverie_dreams.registry.content.NPCRoles;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.util.LazySupplier;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -23,6 +21,10 @@ import net.blay09.mods.balm.world.item.BalmItemRegistration;
 import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
@@ -31,19 +33,37 @@ import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Slf4j
-@Setter
 @Getter
 public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<NPCRole>, BuiltinObject, RegistryEntryTranslatable {
-    public static final Codec<NPCRole> CODEC = UnitCodec.unit(NPCRole::new);
+    private static final LazySupplier<NPCRole> UNIT_ROLE = LazySupplier.of(NPCRole::new);
+    public static final Codec<NPCRole> BY_REGISTRY = Codec.lazyInitialized(() -> {
+        return Identifier.CODEC.xmap(id -> {
+                    NPCRole value = RegistryImpls.NPC_ROLE.getValue(id);
+                    return Objects.requireNonNullElse(value, empty());
+                },
+                role -> {
+                    Identifier key = RegistryImpls.NPC_ROLE.getKey(role);
+                    if (key == null) {
+                        key = NPCRoles.REIMU.getId();
+                    }
+                    return key;
+                }
+        );
+    });
+    public static final StreamCodec<RegistryFriendlyByteBuf, NPCRole> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(BY_REGISTRY);
+    public static final EntityDataSerializer<NPCRole> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
     public static final List<Holder<EntityType<NPCRoleFastEntity>>> ENTITIES = new ArrayList<>();
     public static final List<DeferredItem> NPC_SPAWN_EGG_ITEM_LIST = new ArrayList<>();
 
     private Identifier id;
     private SkinType skinType;
+    @Setter
+    private Supplier<EntityType.Builder<NPCRoleFastEntity>> builder;
     // 构建后属性
     private Holder<EntityType<NPCRoleFastEntity>> entityType;
     private DeferredItem spawnEgg;
@@ -54,9 +74,22 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
     private NPCRole() {
     }
 
+    public NPCRole(Identifier id, SkinType skinType, Supplier<EntityType.Builder<NPCRoleFastEntity>> builder) {
+        this(id, skinType);
+        this.builder = builder;
+    }
+
     public NPCRole(Identifier id, SkinType skinType) {
         this.id = id;
         this.skinType = skinType;
+    }
+
+    public boolean isVirtual() {
+        return Objects.equals(this, empty());
+    }
+
+    public boolean isCustom() {
+        return this.builder != null;
     }
 
     public boolean isPresent() {
@@ -85,8 +118,7 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
             return this;
         }
         try {
-            KeineRegistries keineRegistries = ReverieDreams.getKeineRegistries();
-            Supplier<EntityType.Builder<NPCRoleFastEntity>> builderSupplier = () -> EntityType.Builder.of(
+            Supplier<EntityType.Builder<NPCRoleFastEntity>> builderSupplier = this.isCustom() ? this.builder : () -> EntityType.Builder.of(
                     (type, world) -> new NPCRoleFastEntity(type, world, this.skinType),
                     MobCategory.MISC);
             BalmEntityTypeRegistration<NPCRoleFastEntity> entityTypeRegistration = registerEntity(this.id.getPath(), builderSupplier);
@@ -106,7 +138,16 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
 
     @Override
     public Codec<NPCRole> getCodec() {
-        return CODEC;
+        return BY_REGISTRY;
+    }
+
+    @Override
+    public void setOwner(RegistryImpl<NPCRole> owner) {
+        this.owner = owner;
+    }
+
+    public static NPCRole empty() {
+        return UNIT_ROLE.get();
     }
 
     protected static BalmEntityTypeRegistration<NPCRoleFastEntity> registerEntity(

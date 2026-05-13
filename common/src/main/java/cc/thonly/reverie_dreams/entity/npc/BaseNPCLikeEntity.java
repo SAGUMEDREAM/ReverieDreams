@@ -216,7 +216,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.storedExperience = view.getIntOr("ExperienceAmount", 0);
         this.goodwill = view.getIntOr("GoodWIll", 100);
 
-        this.readSkinData(view);
+        view.read("Skin", SkinType.CODEC).ifPresent(this::setSkinType);
         this.updateAttackType();
     }
 
@@ -244,7 +244,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
         view.putInt("ExperienceAmount", this.storedExperience);
         view.putInt("GoodWill", this.goodwill);
-        this.writeSkinData(view);
+        view.store("Skin", SkinType.CODEC, this.getSkinType());
     }
 
     @Override
@@ -271,14 +271,6 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         } catch (Exception any) {
             return new CompoundTag();
         }
-    }
-
-    public void writeSkinData(ValueOutput view) {
-        view.store("Skin", SkinType.CODEC, this.getSkinType());
-    }
-
-    public void readSkinData(ValueInput view) {
-        view.read("Skin", SkinType.CODEC).ifPresent(this::setSkinType);
     }
 
     @Override

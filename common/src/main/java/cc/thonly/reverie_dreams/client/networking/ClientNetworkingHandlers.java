@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
+import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.blaze3d.platform.NativeImage;
 import it.unimi.dsi.fastutil.Pair;
@@ -41,6 +42,15 @@ import java.util.concurrent.CompletableFuture;
 public class ClientNetworkingHandlers {
     public static void onReceive() {
 
+    }
+
+    public static void safeHandleClient(Runnable task) {
+        if (!PlatformContext.isClientSide()) return;
+        clientThreadBySync(task);
+    }
+
+    private static void clientThreadBySync(Runnable action) {
+        Minecraft.getInstance().execute(action);
     }
 
     @SuppressWarnings("unchecked")

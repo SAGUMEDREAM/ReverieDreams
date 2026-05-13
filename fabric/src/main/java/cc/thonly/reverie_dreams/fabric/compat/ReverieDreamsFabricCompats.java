@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
-import cc.thonly.reverie_dreams.compat.IReverieDreamsCompats;
+import cc.thonly.reverie_dreams.compat.ReverieDreamsCompats;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ReverieDreamsFabricCompats extends IReverieDreamsCompats {
+public class ReverieDreamsFabricCompats extends ReverieDreamsCompats {
     public static void initialize() {
-        IReverieDreamsCompats.initialize();
+        ReverieDreamsCompats.initialize();
         load("polydex", "cc.thonly.reverie_dreams.fabric.compat.PolydexCompatImpl");
         load("polydex2eiv", "cc.thonly.reverie_dreams.fabric.compat.Polydex2EIVCompatImpl");
 //        load("borukva-food", "cc.thonly.reverie_dreams.fabric.compat.BorukvaFoodCompatImpl");

@@ -88,6 +88,7 @@ public class RecipeManager {
             }
             for (RecipeManagerSyncPacket payload : payloads) {
                 Balm.networking().sendTo(player, payload);
+                System.out.println("send recipe to %s".formatted(player));
             }
         }
     }

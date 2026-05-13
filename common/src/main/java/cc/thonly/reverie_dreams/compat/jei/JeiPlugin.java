@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.compat.jei;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.kitchen.*;
-import cc.thonly.reverie_dreams.compat.IClientRecipes;
+import cc.thonly.reverie_dreams.recipe.IClientRecipes;
 import cc.thonly.reverie_dreams.compat.ItemViewItemInfo;
 import cc.thonly.reverie_dreams.compat.jei.category.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;

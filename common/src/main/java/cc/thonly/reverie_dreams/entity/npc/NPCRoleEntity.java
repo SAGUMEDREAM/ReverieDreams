@@ -2,11 +2,17 @@ package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.api.entity.ExperienceOrbEntityDataModifier;
 import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.content.NPCRoles;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;
@@ -21,15 +27,26 @@ import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.List;
+import java.util.Objects;
 
+@SuppressWarnings("resource")
 @Getter
 @Setter
 public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
+    public static final EntityDataAccessor<NPCRole> ROLE_TYPE = SynchedEntityData.defineId(NPCRoleEntity.class, NPCRole.SERIALIZER);
 
     public NPCRoleEntity(EntityType<? extends NPCRoleEntity> entityType, Level world) {
         super(entityType, world);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ROLE_TYPE, NPCRole.empty());
     }
 
     @Override
@@ -129,6 +146,37 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
             return super.mobInteract(player, hand);
         }
         return NPCRoleInteractionEvents.emit(serverWorld, serverPlayerEntity, hand, this);
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput view) {
+        super.readAdditionalSaveData(view);
+        view.read("RoleType", NPCRole.BY_REGISTRY).ifPresent(this::setRoleType);
+        this.updateRoleData();
+    }
+
+    private void updateRoleData() {
+        if (this.getRoleType().isVirtual()) {
+            SkinType skinType = this.getSkinType();
+            List<NPCRole> list = RegistryImpls.NPC_ROLE.stream().filter(role -> Objects.equals(skinType, role.getSkinType())).toList();
+            if (!list.isEmpty()) {
+                this.setRoleType(list.getFirst());
+            }
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(ValueOutput view) {
+        super.addAdditionalSaveData(view);
+        view.store("RoleType", NPCRole.BY_REGISTRY, this.getRoleType());
+    }
+
+    public NPCRole getRoleType() {
+        return this.getEntityData().get(ROLE_TYPE);
+    }
+
+    public void setRoleType(NPCRole roleType) {
+        this.getEntityData().set(ROLE_TYPE, roleType);
     }
 
     @Override

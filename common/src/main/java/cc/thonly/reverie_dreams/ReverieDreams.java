@@ -8,6 +8,9 @@ import cc.thonly.keine.api.callback.ServerSavingCallback;
 import cc.thonly.reverie_dreams.api.dialog.DialogApi;
 import cc.thonly.reverie_dreams.api.player.PlayerComponentManager;
 import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
+import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.networking.payload.*;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
@@ -23,9 +26,6 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
 import cc.thonly.reverie_dreams.loot.RDLootModifies;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
-import cc.thonly.reverie_dreams.networking.payload.HelloPacket;
-import cc.thonly.reverie_dreams.networking.payload.PlayerJoinVersionPacket;
-import cc.thonly.reverie_dreams.networking.payload.ScreenshotMapPacket;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
 import cc.thonly.reverie_dreams.registry.BiRegistryImpls;
@@ -245,6 +245,7 @@ public class ReverieDreams {
 
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("danmaku_properties"), DanmakuProperties.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("skin_type"), SkinType.SERIALIZER);
+        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("role_type"), NPCRole.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("ingredient_stack"), IngredientStack.SERIALIZER);
         lateInit.run();
         loadDone = true;
@@ -372,6 +373,47 @@ public class ReverieDreams {
 
     private static void registerNetworkingEvent(BalmRegistrars registrars) {
         BalmNetworking networking = Balm.networking();
+        registerClientboundPackets(networking);
+        registerServerboundPackets(networking);
+    }
+
+    public static void registerClientboundPackets(BalmNetworking networking) {
+        networking.registerClientboundPacket(
+                RecipeManagerSyncPacket.PACKET_ID,
+                RecipeManagerSyncPacket.class,
+                RecipeManagerSyncPacket.CODEC,
+                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceiveRecipeManagerSyncPacket(player, packet))
+        );
+
+        networking.registerClientboundPacket(
+                RegistryImpSyncPacket.PACKET_ID,
+                RegistryImpSyncPacket.class,
+                RegistryImpSyncPacket.CODEC,
+                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceiveRegistryImpSyncPacket(player, packet))
+        );
+
+        networking.registerClientboundPacket(
+                SyncEntityPacket.PACKET_ID,
+                SyncEntityPacket.class,
+                SyncEntityPacket.CODEC,
+                ClientNetworkingHandlers::onReceiveSyncEntityPacket
+        );
+
+        networking.registerClientboundPacket(
+                StartScreenshotPacket.PACKET_ID,
+                StartScreenshotPacket.class,
+                StartScreenshotPacket.CODEC,
+                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceiveStartScreenshotPacket(player, packet))
+        );
+
+        networking.registerClientboundPacket(
+                PlayerComponentUpdatePacket.PACKET_ID,
+                PlayerComponentUpdatePacket.class,
+                PlayerComponentUpdatePacket.CODEC,
+                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceivePlayerComponentUpdatePacket(player, packet))
+        );
+    }
+    public static void registerServerboundPackets(BalmNetworking networking) {
         networking.registerServerboundPacket(
                 HelloPacket.PACKET_ID,
                 HelloPacket.class,
@@ -390,10 +432,6 @@ public class ReverieDreams {
                 ScreenshotMapPacket.CODEC,
                 ServerNetworkingHandlers::onReceiveScreenshotMapPacket
         );
-        ServerPlayerCallback.Leave.EVENT.register((player) -> {
-            ServerNetworkingHandlers.PLAYER_WITH_MOD.remove(player);
-            ServerNetworkingHandlers.PLAYER_SIDE_VERSION.remove(player);
-        });
     }
 
     @SuppressWarnings({"rawtypes", "resource"})
@@ -406,7 +444,7 @@ public class ReverieDreams {
             }
         });
         ServerPlayerCallback.Join.EVENT.register(player -> {
-            RegistryImpls.startSyncRegistry(server.getPlayerList().getPlayers());
+            RegistryImpls.startSyncRegistry(List.of(player));
             RecipeManager.startSyncRecipe(List.of(player));
         });
         ServerPlayerCallback.Leave.EVENT.register((player) -> {
@@ -461,6 +499,10 @@ public class ReverieDreams {
             PlayerComponentManager componentManager = PlayerComponentManager.serverAccess();
             componentManager.saveAll();
             RemoteSignalManager.access().saveAll(server);
+        });
+        ServerPlayerCallback.Leave.EVENT.register((player) -> {
+            ServerNetworkingHandlers.PLAYER_WITH_MOD.remove(player);
+            ServerNetworkingHandlers.PLAYER_SIDE_VERSION.remove(player);
         });
         ServerTickCallback.AFTER.register(DelayedTask::tick);
         ServerTickCallback.AFTER.register(ServerPlayerComponentManager::tickByServer);
