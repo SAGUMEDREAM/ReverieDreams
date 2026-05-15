@@ -89,7 +89,7 @@ public class KeyframeFunctions {
                                               Map<String, Float> parameters) {
         KeyframeFunctionFactory factory = FUNCTIONS.get(key);
         if (factory == null) {
-            throw new IllegalArgumentException("Unknown keyframe function: " + key.identifier());
+            throw new NullPointerException("Unknown keyframe function: " + key.identifier());
         }
         return factory.create(parameters);
     }

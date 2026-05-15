@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class ItemStackDisplayImpl implements FactoryBlock, TransparentFlatTripWire {
     public static final Map<ServerLevel, Map<Long, Model>> MAPPING = new Object2ObjectOpenHashMap<>();
-    public static final Map<Long, Model> POS_TO_MODEL = new HashMap<>();
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {

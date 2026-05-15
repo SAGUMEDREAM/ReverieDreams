@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.block;
 
 import cc.thonly.keine.api.KeineRegistries;
-import cc.thonly.keine.api.registry.StrippableBlockRegistry;
+import cc.thonly.keine.api.registry.impl.StrippableBlockRegistry;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.FertilizableFlowerBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;

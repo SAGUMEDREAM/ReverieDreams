@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.RDCommonEvents;
 import cc.thonly.reverie_dreams.networking.payload.StartScreenshotPacket;
+import cc.thonly.reverie_dreams.proxy.PlatformProxies;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.SessionManager;
@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -75,7 +76,8 @@ public class TenguCameraItem extends Item {
     }
 
     public InteractionResult useByPolymer(Level level, Player player, InteractionHand hand) {
-        return RDCommonEvents.TenguCameraItemUseCallback.EVENT.invoker().handle(level, player, hand);
+        Optional<InteractionResult> interactionResult = PlatformProxies.TENGU_CAMERA_ITEM_USE.map(method -> method.handle(level, player, hand));
+        return interactionResult.orElse(InteractionResult.PASS);
     }
 
 }

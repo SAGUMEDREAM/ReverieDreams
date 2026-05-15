@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
-import cc.thonly.reverie_dreams.RDCommonEvents;
+import cc.thonly.reverie_dreams.proxy.GuidebookFactory;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
@@ -250,7 +250,7 @@ public class RDItems {
         GOLD_COIN = registerItem(balmItemRegistrar, "gold_coin", props -> new Item(props.stacksTo(96)), new Item.Properties());
 
         // 道具
-        GUIDEBOOK = registerItem(balmItemRegistrar, "guidebook", props -> RDCommonEvents.GuidebookFactory.EVENT.invoker().create(props.stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
+        GUIDEBOOK = registerItem(balmItemRegistrar, "guidebook", props -> GuidebookFactory.EVENT.invoker().create(props.stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
         UPGRADED_HEALTH = registerItem(balmItemRegistrar, "upgraded_health", props -> new UpgradedHealthItem(props), new Item.Properties());
         BOMB = registerItem(balmItemRegistrar, "bomb", props -> new BombItem(props.useCooldown(2.0f)), new Item.Properties());
         CROSSING_CHISEL = registerItem(balmItemRegistrar, "crossing_chisel", props -> new CrossingChisel(props.useCooldown(3.0f).component(RDDataComponents.MAX_DISTANCE.value(), CrossingChisel.DEFAULT_VALUE).stacksTo(1).durability(150)), new Item.Properties());

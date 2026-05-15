@@ -25,16 +25,16 @@ import java.util.Map;
 
 public record TrapdoorPolymerBlock() implements FactoryBlock, PolymerTexturedBlock, BSMMParticleBlock {
     public static final TrapdoorPolymerBlock INSTANCE = new TrapdoorPolymerBlock();
-    private static final Map<Direction, BlockState> STATES_REGULAR = Util.makeEnumMap(Direction.class, x -> PolymerBlockResourceUtils.requestEmpty(BlockModelType.valueOf(switch (x) {
+    private static final Map<Direction, BlockState> STATES_REGULAR = Util.makeEnumMap(Direction.class, x -> PolymerBlockResourceUtils.requestEmpty(BlockModelType.valueOf("TRAPDOOR_" + switch (x) {
         case UP -> "BOTTOM";
         case DOWN -> "TOP";
         default -> x.getSerializedName().toUpperCase(Locale.ROOT);
-    } + "_TRAPDOOR")));
-    private static final Map<Direction, BlockState> STATES_WATERLOGGED = Util.makeEnumMap(Direction.class, x -> PolymerBlockResourceUtils.requestEmpty(BlockModelType.valueOf(switch (x) {
+    })));
+    private static final Map<Direction, BlockState> STATES_WATERLOGGED = Util.makeEnumMap(Direction.class, x -> PolymerBlockResourceUtils.requestEmpty(BlockModelType.valueOf("TRAPDOOR_" + switch (x) {
         case UP -> "BOTTOM";
         case DOWN -> "TOP";
         default -> x.getSerializedName().toUpperCase(Locale.ROOT);
-    } + "_TRAPDOOR_WATERLOGGED")));
+    } + "_WATERLOGGED")));
 
     @Override
     public BlockState getPolymerBlockState(BlockState blockState, PacketContext packetContext) {

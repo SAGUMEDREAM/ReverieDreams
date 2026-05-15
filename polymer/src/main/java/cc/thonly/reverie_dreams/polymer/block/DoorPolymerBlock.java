@@ -26,11 +26,11 @@ import java.util.Map;
 
 public record DoorPolymerBlock() implements FactoryBlock, PolymerTexturedBlock, BSMMParticleBlock {
     public static final DoorPolymerBlock INSTANCE = new DoorPolymerBlock();
-    private static final Map<Direction, BlockState> STATES_REGULAR = Util.makeEnumMap(Direction.class, x -> PolymerBlockResourceUtils.requestEmpty(BlockModelType.valueOf(switch (x) {
+    private static final Map<Direction, BlockState> STATES_REGULAR = Util.makeEnumMap(Direction.class, x -> PolymerBlockResourceUtils.requestEmpty(BlockModelType.valueOf("TRAPDOOR_" + switch (x) {
         case UP -> "BOTTOM";
         case DOWN -> "TOP";
         default -> x.getSerializedName().toUpperCase(Locale.ROOT);
-    } + "_TRAPDOOR")));
+    })));
 
     @Override
     public BlockState getPolymerBlockState(BlockState blockState, PacketContext packetContext) {

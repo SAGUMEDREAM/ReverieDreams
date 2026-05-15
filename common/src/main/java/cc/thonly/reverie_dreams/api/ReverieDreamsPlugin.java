@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.api;
 
 import cc.thonly.keine.api.loot.LootTableSource;
-import cc.thonly.keine.registry.DynamicRegistryView;
+import cc.thonly.keine.api.registry.DynamicRegistryView;
 import cc.thonly.reverie_dreams.api.entity.entry.RoleGoalEntry;
 import cc.thonly.reverie_dreams.api.player.PlayerComponentContextRegistry;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatContext;

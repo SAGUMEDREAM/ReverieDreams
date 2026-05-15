@@ -11,6 +11,7 @@ import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.networking.payload.*;
+import cc.thonly.reverie_dreams.proxy.PlatformProxies;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
@@ -221,7 +222,7 @@ public class ReverieDreams {
         BiomeModificationInit.initialize();
 
         // 初始化其他注册内容
-        RDCommonEvents.initialize();
+        PlatformProxies.initialize();
         RecipeManager.bootstrap(registrars);
         RecipeWorkbenchRegistry.bootstrap();
         ServerResourceHelper.init();
