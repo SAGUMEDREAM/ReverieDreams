@@ -5,8 +5,12 @@ import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
 import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
 import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.RDMPHooks;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.creative_tab.content.ItemGroupContentHelper;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.fabric.mixin.FabricEntityDataRegistryImplAccessor;
+import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.fabric.polymer.PolymerTHGuideBookItem;
 import cc.thonly.reverie_dreams.fabric.polymer.ResourcePackGenerator;
@@ -69,6 +73,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jspecify.annotations.NonNull;
+import software.bernie.geckolib.GeckoLibConstants;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.Iterator;
@@ -263,10 +268,16 @@ public class PolymerInitializer {
             Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction = tuple.getB();
             PolymerItemGroupUtils.registerPolymerItemGroup(key, builderFunction.apply(ItemGroupContentHelper.builder()).build());
         }
+        PolymerComponent.registerDataComponent(GeckoLibConstants.STACK_ANIMATABLE_ID_COMPONENT.get());
+
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.RECIPE_SERIALIZER, RecipeManager.DANMAKU_DYE_RECIPE.value());
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.HAWKERS_KEY));
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.PRIEST_KEY));
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.MONEY_SHOP_CLERK_KEY));
+
+        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), ItemStackWrapper.SERIALIZER);
+        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), DanmakuProperties.SERIALIZER);
+        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), SkinType.SERIALIZER);
 
         PolymerEntityHelper.bootstrap();
         PolymerVillagerProfessionHelper.bootstrap();

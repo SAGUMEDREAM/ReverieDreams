@@ -1,5 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.22+1.21.11
+* Fixed Polymer patch compatibility issues
+
 # 0.4.21.1.21.11
 * Fixed the dialog video shows offsets
 * Fixed recipe not sync to client
