@@ -64,11 +64,11 @@ public class ServerNetworkingHandlers {
         player.getInventory().add(mapItem);
     }
 
-    public static boolean hasMod(ServerPlayer player) {
+    public static boolean hasModOnClient(ServerPlayer player) {
         return PLAYER_WITH_MOD.contains(player);
     }
 
     public static boolean hasModWithVersion(ServerPlayer player) {
-        return hasMod(player) && Objects.equals(PLAYER_SIDE_VERSION.get(player), PlatformContext.VERSION.get());
+        return hasModOnClient(player) && Objects.equals(PLAYER_SIDE_VERSION.get(player), PlatformContext.VERSION.get());
     }
 }

@@ -76,7 +76,7 @@ public class RDDataComponents {
         FOOD_BONUS = registerComponent(registrar, "food_bonus", Codec.INT);
         RECIPE_MEMORY = registerComponent(registrar, "recipe_memory", KitchenRecipe.IdEntry.CODEC);
 
-        InitTooltips.bootstrap();
+
     }
 
     @SuppressWarnings("rawtypes")

@@ -80,11 +80,11 @@ subprojects {
         }
         java {
             toolchain {
-                languageVersion = JavaLanguageVersion.of(25)
+                languageVersion = JavaLanguageVersion.of(java_version)
             }
         }
     }
     tasks.withType(JavaCompile).configureEach {
-        options.compilerArgs += ["-Xlint:-removal", "-Xlint:-dep-ann"]
+        options.compilerArgs += ["-parameters", "-Xlint:-removal", "-Xlint:-dep-ann"]
     }
 }

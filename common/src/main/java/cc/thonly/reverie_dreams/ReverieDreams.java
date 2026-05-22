@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.api.dialog.DialogApi;
 import cc.thonly.reverie_dreams.api.player.PlayerComponentManager;
 import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
+import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.networking.payload.*;
 import cc.thonly.reverie_dreams.proxy.PlatformProxies;
@@ -235,6 +236,7 @@ public class ReverieDreams {
         DanmakuTemplates.init();
         CustomClickActionRegistry.registerActions();
         KeyframeFunctions.bootstrap();
+        InitTooltips.bootstrap();
 
         ImageToTextScanner.bootstrap();
         PlayerComponentRegistry.registerDefaultComponents();
@@ -566,11 +568,6 @@ public class ReverieDreams {
 
     public static Identifier id(String id) {
         return Identifier.fromNamespaceAndPath(MOD_ID, id);
-    }
-
-    public static boolean hasModOnClient(ServerPlayer player) {
-        if (player == null) return false;
-        return ServerNetworkingHandlers.PLAYER_WITH_MOD.contains(player);
     }
 
     public static void setServer(MinecraftServer server) {

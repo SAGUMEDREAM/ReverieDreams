@@ -66,7 +66,7 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
         for (Map.Entry<Identifier, R> recipeEntry : this.registries.entrySet()) {
             R recipe = recipeEntry.getValue();
             Item item = recipe.getOutput().getItem();
-            LinkedList<R> list = sign.computeIfAbsent(item, i -> new LinkedList<>());
+            LinkedList<R> list = sign.computeIfAbsent(item, _ -> new LinkedList<>());
             list.add(recipe);
         }
         for (Map.Entry<Item, LinkedList<R>> linkEntry : sign.entrySet()) {

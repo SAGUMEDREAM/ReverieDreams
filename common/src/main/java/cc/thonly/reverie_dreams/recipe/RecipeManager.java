@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 @Slf4j
@@ -124,17 +125,21 @@ public class RecipeManager {
     public static void onReload(ResourceManager manager) {
         RecipeCompatPatchesImpl.Builder.INSTANCE.clear();
         RECIPE_TYPES.forEach((key, recipeType) -> {
+            long startTime = System.currentTimeMillis();
             try {
                 recipeType.removeAll();
                 recipeType.reload(manager);
+                RecipeInjectCallback.EVENT.invoker().onLoad(recipeType);
+                RecipeCompatPatchesImpl.removeAll(recipeType);
+                RecipeCompatPatchesCallback.EVENT.invoker().onLoad();
                 recipeType.sort();
                 recipeType.assignRawId();
-                RecipeCompatPatchesCallback.EVENT.invoker().onLoad();
-                RecipeInjectCallback.EVENT.invoker().onLoad(recipeType);
-                log.info("Reloaded Recipe Type {}", key.toString());
                 RecipeCompatPatchesImpl.apply(recipeType);
             } catch (Exception e) {
                 log.error("Can't reload recipes {}, {}", key, e);
+            } finally {
+                long endTime = System.currentTimeMillis();
+                log.info("Reloaded Recipe Type {}, it took {}ms", key.toString(), endTime - startTime);
             }
         });
     }
@@ -143,7 +148,9 @@ public class RecipeManager {
         RegistryImpls.register(RegistryImpls.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();
-        assert id == recipeType.getId();
+        if (!Objects.equals(id, recipeType.getId()))  {
+            throw new IllegalArgumentException("RecipeType id must be equal registry id, %s != %s".formatted(recipeType.getId(), id));
+        }
         return recipeType;
     }
 }

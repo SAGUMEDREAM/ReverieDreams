@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.compat.polydex.page;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.recipe.display.DanmakuShapeDisplayView;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
-import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
+import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import eu.pb4.polydex.api.v1.recipe.*;
@@ -57,7 +57,7 @@ public class DanmakuShapePage implements PolydexPage {
     @Override
     public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity, PageBuilder layout) {
         Runnable runnable = ()-> {
-            DanmakuShapeDisplayView view = new DanmakuShapeDisplayView(serverPlayerEntity, RecipeEntryWrapper.of(this.key, this.value), null);
+            DanmakuShapeDisplayView view = new DanmakuShapeDisplayView(serverPlayerEntity, RecipeKeyEntry.of(this.key, this.value), null);
             view.open();
         };
         String[][] views = {

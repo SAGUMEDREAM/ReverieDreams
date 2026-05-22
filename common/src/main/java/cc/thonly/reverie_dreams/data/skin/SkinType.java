@@ -68,7 +68,7 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
 
     @Override
     public String translateKey() {
-        Property property = this.get();
+        Property property = this.getProperty();
         return property.name() + "|" + this.id;
     }
 
@@ -76,10 +76,10 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
         return Identifier.fromNamespaceAndPath(this.id.getNamespace(), "entity/player/skin/%s".formatted(this.id.getPath()));
     }
 
-    public Property get() {
+    public Property getProperty() {
         if (this.config == null) {
             log.warn("Unable to get skin properties until data pack is loaded");
-            return MobSkinTypes.DEFAULT.get();
+            return MobSkinTypes.DEFAULT.getProperty();
         }
         if (this.property == null) {
             Optional<Property> skinFromNPCSkin = SkinFetcher.getSkinFromNPCSkin(this.config);

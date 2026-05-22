@@ -31,10 +31,16 @@ public class RecipeCompatPatchesImpl {
         return (Builder<R>) Builder.INSTANCE.computeIfAbsent(baseRecipeType, (x) -> new Builder<>(baseRecipeType));
     }
 
+    public static synchronized void removeAll(BaseRecipeType<?> recipeType) {
+        Builder<?> builder = getOrCreateBuilder(recipeType);
+        Map<Identifier, BaseRecipe> registries = builder.getRegistries();
+        registries.clear();
+    }
+
     public static synchronized void apply(BaseRecipeType<?> recipeType) {
         Builder<?> builder = getOrCreateBuilder(recipeType);
-        Map<Identifier, ?> registries = builder.getRegistries();
-        for (Map.Entry<Identifier, ?> registry : registries.entrySet()) {
+        Map<Identifier, BaseRecipe> registries = builder.getRegistries();
+        for (Map.Entry<Identifier, BaseRecipe> registry : registries.entrySet()) {
             log.info("Registered compatibility recipe {}", registry.getKey().toString());
             recipeType.add(registry.getKey(), registry.getValue());
         }
@@ -43,114 +49,116 @@ public class RecipeCompatPatchesImpl {
     @Accessors(chain = true)
     @Getter
     @Setter
-    public static class Builder<R extends BaseRecipe> {
+    public static class Builder<Recipe extends BaseRecipe> {
         public static final Map<BaseRecipeType<?>, Builder<?>> INSTANCE = new Object2ObjectOpenHashMap<>();
-        protected final BaseRecipeType<R> baseRecipeType;
+        protected final BaseRecipeType<Recipe> baseRecipeType;
         protected final Map<Identifier, BaseRecipe> registries = new Object2ObjectOpenHashMap<>();
 
-        public Builder(BaseRecipeType<R> baseRecipeType) {
+        public Builder(BaseRecipeType<Recipe> baseRecipeType) {
             this.baseRecipeType = baseRecipeType;
         }
 
-        public Builder<R> add(Item targetItem, DeferredItem compatItem) {
-            return this.add(new ItemPair(targetItem, compatItem.asItem()));
+        public Builder<Recipe> add(Item targetItem, DeferredItem compatItem) {
+            return this.add(new ItemTuple(targetItem, compatItem.asItem()));
         }
 
-        public Builder<R> add(DeferredItem targetItem, Item compatItem) {
-            return this.add(new ItemPair(targetItem.asItem(), compatItem));
+        public Builder<Recipe> add(DeferredItem targetItem, Item compatItem) {
+            return this.add(new ItemTuple(targetItem.asItem(), compatItem));
         }
 
-        public Builder<R> add(DeferredItem targetItem, DeferredItem compatItem) {
-            return this.add(new ItemPair(targetItem.asItem(), compatItem.asItem()));
+        public Builder<Recipe> add(DeferredItem targetItem, DeferredItem compatItem) {
+            return this.add(new ItemTuple(targetItem.asItem(), compatItem.asItem()));
         }
 
-        public Builder<R> add(Item targetItem, Item compatItem) {
-            return this.add(new ItemPair(targetItem, compatItem));
+        public Builder<Recipe> add(Item targetItem, Item compatItem) {
+            return this.add(new ItemTuple(targetItem, compatItem));
         }
 
-        public Builder<R> add(Item targetItem, List<Item> compatItems) {
-            compatItems.forEach(item -> this.add(new ItemPair(targetItem, item)));
+        public Builder<Recipe> add(Item targetItem, List<Item> compatItems) {
+            compatItems.forEach(item -> this.add(new ItemTuple(targetItem, item)));
             return this;
         }
 
-        public Builder<R> add(Item targetItem, Item... compatItems) {
+        public Builder<Recipe> add(Item targetItem, Item... compatItems) {
             for (Item item : compatItems) {
-                this.add(new ItemPair(targetItem, item));
+                this.add(new ItemTuple(targetItem, item));
             }
             return this;
         }
 
-        public Builder<R> add(Item targetItem, RecipeItemTag tagEntry) {
+        public Builder<Recipe> add(Item targetItem, RecipeItemTag tagEntry) {
             tagEntry.forEach((item -> this.add(targetItem, item)));
             return this;
         }
 
-        public Builder<R> add(ItemPair itemPair) {
+        public Builder<Recipe> add(ItemTuple itemTuple) {
             try {
-                Map<Identifier, R> registryView = this.baseRecipeType.getRegistryView();
-                for (Map.Entry<Identifier, R> view : registryView.entrySet()) {
-                    R value = view.getValue();
+                Map<Identifier, Recipe> registryView = this.baseRecipeType.getRegistryView();
+                for (Map.Entry<Identifier, Recipe> view : registryView.entrySet()) {
+                    Recipe recipe = view.getValue();
 
-                    Object object = cloneWithLombokBuilder(value);
-                    if (object instanceof BaseRecipe baseRecipe) {
-                        Class<? extends BaseRecipe> brClass = baseRecipe.getClass();
-                        Field[] declaredFields = brClass.getDeclaredFields();
-                        boolean changed = false;
-                        for (Field field : declaredFields) {
-                            field.setAccessible(true);
-                            Object fieldValue = field.get(value);
+                    Object object = this.cloneWithLombokBuilder(recipe);
+                    if (!(object instanceof BaseRecipe baseRecipe)) {
+                        continue;
+                    }
 
-                            if (fieldValue instanceof IngredientStack wrapper && wrapper.getItem().equals(itemPair.targetItem)) {
-                                if (wrapper.getItem().equals(itemPair.compatItem)) {
+                    Class<? extends BaseRecipe> brClass = baseRecipe.getClass();
+                    Field[] declaredFields = brClass.getDeclaredFields();
+                    boolean changed = false;
+                    for (Field field : declaredFields) {
+                        field.setAccessible(true);
+                        Object fieldValue = field.get(recipe);
+
+                        if (fieldValue instanceof IngredientStack wrapper && wrapper.getItem().equals(itemTuple.targetItem)) {
+                            if (wrapper.getItem().equals(itemTuple.compatItem)) {
+                                continue;
+                            }
+                            field.set(object, new IngredientStack(new ItemStack(itemTuple.targetItem, wrapper.getCount())));
+                            changed = true;
+                        }
+                        if (fieldValue instanceof List<?> list) {
+                            if (list.isEmpty()) {
+                                continue;
+                            }
+                            Object first = list.getFirst();
+                            if (!(first instanceof IngredientStack)) {
+                                continue;
+                            }
+
+                            List<IngredientStack> wrappers = new ArrayList<>();
+                            boolean listChanged = false;
+
+                            for (IngredientStack wrapper : (List<IngredientStack>) list) {
+                                if (itemTuple.targetItem.equals(itemTuple.compatItem)) {
+                                    wrappers.add(wrapper);
                                     continue;
                                 }
-                                field.set(object, new IngredientStack(new ItemStack(itemPair.targetItem, wrapper.getCount())));
+
+                                if (wrapper.getItem().equals(itemTuple.targetItem)) {
+                                    wrappers.add(IngredientStack.of(new ItemStackTemplate(itemTuple.compatItem, wrapper.getCount())));
+                                    listChanged = true;
+                                } else {
+                                    wrappers.add(wrapper);
+                                }
+                            }
+
+                            if (listChanged) {
+                                field.set(object, wrappers);
                                 changed = true;
                             }
-                            if (fieldValue instanceof List<?> list) {
-                                if (list.isEmpty()) {
-                                    continue;
-                                }
-                                Object first = list.getFirst();
-                                if (!(first instanceof IngredientStack)) {
-                                    continue;
-                                }
-
-                                List<IngredientStack> wrappers = new ArrayList<>();
-                                boolean listChanged = false;
-
-                                for (IngredientStack wrapper : (List<IngredientStack>) list) {
-                                    if (itemPair.targetItem.equals(itemPair.compatItem)) {
-                                        wrappers.add(wrapper);
-                                        continue;
-                                    }
-
-                                    if (wrapper.getItem().equals(itemPair.targetItem)) {
-                                        wrappers.add(IngredientStack.of(new ItemStackTemplate(itemPair.compatItem, wrapper.getCount())));
-                                        listChanged = true;
-                                    } else {
-                                        wrappers.add(wrapper);
-                                    }
-                                }
-
-                                if (listChanged) {
-                                    field.set(object, wrappers);
-                                    changed = true;
-                                }
-                            }
                         }
-                        if (changed) {
-                            Identifier itemId = BuiltInRegistries.ITEM.getKey(itemPair.compatItem);
-                            Identifier oldId = view.getKey();
-                            Identifier newIdentifier = null;
-                            if (oldId == null) {
-                                oldId = Identifier.parse("unknown_recipe_" + UUID.randomUUID());
-                                newIdentifier = oldId;
-                            } else {
-                                newIdentifier = Identifier.parse(oldId.getNamespace() + ":" + oldId.getPath() + "_" + itemId.toString().replaceAll(":", "_"));
-                            }
-                            this.registries.put(newIdentifier, baseRecipe);
+                    }
+                    if (changed) {
+                        Identifier itemId = BuiltInRegistries.ITEM.getKey(itemTuple.compatItem);
+                        Identifier oldId = view.getKey();
+                        Identifier newIdentifier = null;
+                        if (oldId == null) {
+                            oldId = Identifier.parse("unknown_recipe_" + UUID.randomUUID());
+                            newIdentifier = oldId;
+                        } else {
+                            newIdentifier = Identifier.parse(oldId.getNamespace() + ":" + oldId.getPath() + "_" + itemId.toString().replaceAll(":", "_"));
                         }
+                        this.registries.put(newIdentifier, baseRecipe);
                     }
                 }
             } catch (Exception e) {
@@ -172,7 +180,7 @@ public class RecipeCompatPatchesImpl {
         }
     }
 
-    public record ItemPair(Item targetItem, Item compatItem) {
+    public record ItemTuple(Item targetItem, Item compatItem) {
     }
 
 }

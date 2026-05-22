@@ -310,7 +310,7 @@ public class THCommand {
     private int cachedAllSkins(CommandContext<CommandSourceStack> context) {
         for (SkinType skinType : RegistryImpls.SKIN_TYPE) {
             try {
-                if (skinType.get() == null) {
+                if (skinType.getProperty() == null) {
                     throw new NullPointerException();
                 }
             } catch (Exception e) {

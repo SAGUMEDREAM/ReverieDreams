@@ -26,6 +26,16 @@ public class VanillaCompat {
             if (property.equals(FoodProperties.RAW)) {
                 items.add(Items.BROWN_EGG);
                 items.add(Items.BLUE_EGG);
+                items.add(Items.TURTLE_EGG);
+                items.add(Items.SNIFFER_EGG);
+            }
+            if (property.is(FoodProperties.GOURMET)) {
+                items.add(Items.TURTLE_EGG);
+                items.add(Items.SNIFFER_EGG);
+            }
+            if (property.is(FoodProperties.AQUATIC_PRODUCTS)) {
+                items.add(Items.TURTLE_EGG);
+                items.add(Items.SNIFFER_EGG);
             }
             if (property.equals(FoodProperties.VEGETARIAN)) {
                 items.add(Items.CARROT);

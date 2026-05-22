@@ -46,7 +46,7 @@ public class YouseiVariants {
     }
 
     public static YouseiVariant getFromProperty(Property property) {
-        List<YouseiVariant> list = RegistryImpls.YOUSEI_VARIANT.values().stream().filter(variant -> variant.getSkinType().get() == property).toList();
+        List<YouseiVariant> list = RegistryImpls.YOUSEI_VARIANT.values().stream().filter(variant -> variant.getSkinType().getProperty() == property).toList();
         return list.isEmpty() ? null : list.getFirst();
     }
 }

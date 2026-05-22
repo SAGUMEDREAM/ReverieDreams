@@ -7,7 +7,9 @@ import cc.thonly.reverie_dreams.item.prop.Knife;
 import cc.thonly.reverie_dreams.item.prop.TenguShieldItem;
 import cc.thonly.reverie_dreams.item.weapon.TrumpetGun;
 import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
+import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import eu.pb4.polymer.common.api.PolymerCommonUtils;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
 import net.minecraft.core.HolderLookup;
@@ -36,10 +38,10 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded {
 
     @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext context) {
-//        ServerPlayer player = context.getPlayer();
-//        if (player != null && ReverieDreams.hasModWithVersion(player)) {
-//            return itemStack.getItem();
-//        }
+        ServerPlayer player = PolymerCommonUtils.getPlayer(context);
+        if (ServerNetworkingHandlers.hasModOnClient(player) && ServerNetworkingHandlers.hasModWithVersion(player)) {
+            return itemStack.getItem();
+        }
         if (this.item instanceof WeaponOfTheMoon) {
             return Items.BOW;
         }

@@ -46,7 +46,7 @@ public class RabbitUnitVariants {
     }
 
     public static RabbitUnitVariant getFromProperty(Property property) {
-        List<RabbitUnitVariant> list = RegistryImpls.RABBIT_UNIT_VARIANT.values().stream().filter(variant -> variant.getSkinType().get() == property).toList();
+        List<RabbitUnitVariant> list = RegistryImpls.RABBIT_UNIT_VARIANT.values().stream().filter(variant -> variant.getSkinType().getProperty() == property).toList();
         return list.isEmpty() ? null : list.getFirst();
     }
 }

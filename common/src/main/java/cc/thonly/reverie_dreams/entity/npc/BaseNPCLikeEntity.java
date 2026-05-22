@@ -1038,6 +1038,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         return this.level().getPlayerByUUID(UUID.fromString(this.npcOwner));
     }
 
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     public @Nullable UUID getOwnerUuid() {
         if (this.npcOwner.equalsIgnoreCase("")) return null;
@@ -1056,7 +1057,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     @Override
     public Property getSkin() {
-        return this.getSkinType().get();
+        return this.getSkinType().getProperty();
     }
 
     public void setSkinType(SkinType type) {

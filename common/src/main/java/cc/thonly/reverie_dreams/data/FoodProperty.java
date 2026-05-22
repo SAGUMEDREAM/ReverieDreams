@@ -20,11 +20,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
 public class FoodProperty implements CodecStep<FoodProperty>, RegistryEntryOwnerBindable<FoodProperty>, BuiltinObject, RegistryEntryTranslatable {
     public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
     public static final Codec<FoodProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryImpls.FOOD_PROPERTY::getValue, entry -> {
@@ -71,6 +71,19 @@ public class FoodProperty implements CodecStep<FoodProperty>, RegistryEntryOwner
 
     public Boolean is(FoodProperty property) {
         return this == property || this.getId().equals(property.getId()) || this.hashCode() == property.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof FoodProperty property)) {
+            return false;
+        }
+        return this.is(property);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
     }
 
     public Component getTooltip() {

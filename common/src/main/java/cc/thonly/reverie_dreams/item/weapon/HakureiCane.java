@@ -39,11 +39,11 @@ public class HakureiCane extends SwordItem {
                     DanmakuTypes.withColor(DanmakuTypes.AMULET, ItemColor.RED).create(),
                     pitch, yaw,
                     0.0f, 0.8f);
-            center.setDanmakuProperties(center.getDanmakuProperties().withSpeed(2.0f));
+            center.setDanmakuProperties(center.getDanmakuProperties().withSpeed(2.4f));
             center.playSound(RDSoundEvents.FIRE.value(), 1.0f, 1.0f);
 
             ItemCooldowns itemCooldownManager = player.getCooldowns();
-            itemCooldownManager.addCooldown(stack, 20);
+            itemCooldownManager.addCooldown(stack, 10);
             if (!player.hasInfiniteMaterials()) {
                 stack.hurtWithoutBreaking(1, player);
             }

@@ -18,109 +18,132 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import net.blay09.mods.balm.platform.event.Event;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class InitTooltips {
     public static void bootstrap() {
         Event<ItemStackTooltipCallback> event = getEvent();
-        event.register((stack, context, displayComponent, player, textConsumer, tooltipFlag) -> {
-            if (!(stack.getItem() instanceof AbstractDanmakuItem abstractDanmakuItem)) {
-                return;
+        event.register(InitTooltips::appendDanmakuTooltip);
+        event.register(InitTooltips::appendDanmakuShapeTooltip);
+        event.register(InitTooltips::appendDrinkItemTooltip);
+        event.register(InitTooltips::appendTagFoodTooltip);
+        event.register(InitTooltips::appendFumoLicenseTooltip);
+        event.register(InitTooltips::appendRoleCardItemTooltip);
+        event.register(InitTooltips::appendDanmakuPropertiesTooltip);
+        event.register(InitTooltips::appendFastRecipeBookTooltip);
+    }
+
+    public static void appendDanmakuTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!(itemStack.getItem() instanceof AbstractDanmakuItem abstractDanmakuItem)) {
+            return;
+        }
+        DanmakuProperties properties = itemStack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+        if (properties != null) {
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(properties.damage())));
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(properties.speed())));
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.count")).append(String.valueOf(properties.count())));
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId().toLanguageKey())));
+        }
+    }
+
+    public static void appendDanmakuShapeTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!(itemStack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
+            return;
+        }
+        IngredientStack ingredientStack = itemStack.getOrDefault(RDDataComponents.DANMAKU_SHAPE.value(), IngredientStack.of(Items.AIR));
+        ItemStack lazyStack = ingredientStack.getLazyStack();
+        consumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(lazyStack.getHoverName()));
+
+    }
+
+    public static void appendDrinkItemTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!(itemStack.has(RDDataComponents.DRINK_ITEM_TYPE.value()))) {
+            return;
+        }
+        List<DrinkProperty> allProperties = DrinkProperties.get(itemStack);
+        if (!allProperties.isEmpty()) {
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
+            for (DrinkProperty property : allProperties) {
+                consumer.accept(Component.empty().append("§b+").append(Component.translatable(property.translateKey())));
             }
-            DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
-            if (properties != null) {
-                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(properties.damage())));
-                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(properties.speed())));
-                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.count")).append(String.valueOf(properties.count())));
-                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId().toLanguageKey())));
+        }
+    }
+
+    public static void appendTagFoodTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+//            if (!(itemStack.has(RDDataComponents.FOOD_ITEM_TYPE.value()) || itemStack.has(RDDataComponents.INGREDIENT_ITEM_TYPE.value()))) {
+//                return;
+//            }
+        Collection<FoodProperty> foodProperties = FoodProperties.get(itemStack);
+        if (!foodProperties.isEmpty()) {
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
+            for (FoodProperty foodProperty : foodProperties) {
+                consumer.accept(Component.empty().append(FoodProperty.getDisplayPrefix(itemStack, foodProperty)).append(foodProperty.getTooltip()));
             }
-        });
-        event.register((stack, context, displayComponent, player, textConsumer, tooltipFlag) -> {
-            if (!(stack.getItem() instanceof DanmakuShapeCreatorItem danmakuShapeCreatorItem)) {
-                return;
+        }
+    }
+
+    public static void appendFumoLicenseTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!(itemStack.getItem() instanceof FumoLicenseItem)) {
+            return;
+        }
+        consumer.accept(Component.translatable("item.tooltip.use.villager"));
+    }
+
+    public static void appendRoleCardItemTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!(itemStack.getItem() instanceof RoleCardItem roleCardItem)) {
+            return;
+        }
+        Optional<RoleCard> roleCardComponent = roleCardItem.getRoleCardComponent(itemStack);
+        if (roleCardComponent.isEmpty()) {
+            consumer.accept(Component.translatable("item.disabled"));
+            return;
+        }
+        if (roleCardComponent.get().isEmpty()) {
+            consumer.accept(Component.translatable("item.disabled"));
+            return;
+        }
+        consumer.accept(Component.translatable("item.tooltip.use"));
+    }
+
+    public static void appendDanmakuPropertiesTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!(itemStack.getItem() instanceof SpellCardTemplateItem spellCardTemplateItem)) {
+            return;
+        }
+        DanmakuProperties properties = itemStack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+        if (properties != null) {
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId().toLanguageKey())));
+        }
+    }
+
+    public static void appendFastRecipeBookTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!itemStack.has(RDDataComponents.RECIPE_MEMORY.value())) {
+            return;
+        }
+        KitchenRecipe.IdEntry recipeIdEntry = itemStack.get(RDDataComponents.RECIPE_MEMORY.value());
+        if (recipeIdEntry == null) {
+            return;
+        }
+        recipeIdEntry.map((key, recipe) -> {
+            MutableComponent component = Component.empty();
+            component.append(Component.translatable(recipe.getTypeInstance().toTranslateKey()));
+            component.append(" | ");
+            ItemStack lazyStack = recipe.getOutput().getLazyStack();
+            for (IngredientStack ingredient : recipe.getIngredients()) {
+                component.append(ingredient.getLazyStack().getHoverName()).append(" ");
             }
-            IngredientStack ingredientStack = stack.getOrDefault(RDDataComponents.DANMAKU_SHAPE.value(), IngredientStack.of(Items.AIR));
-            ItemStack itemStack = ingredientStack.getLazyStack();
-            textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.shape")).append(itemStack.getHoverName()));
-        });
-        event.register((stack, context, displayComponent, player, textConsumer, tooltipFlag) -> {
-            if (!(stack.has(RDDataComponents.DRINK_ITEM_TYPE.value()))) {
-                return;
-            }
-            List<DrinkProperty> allProperties = DrinkProperties.get(stack);
-            if (!allProperties.isEmpty()) {
-                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
-                for (DrinkProperty property : allProperties) {
-                    textConsumer.accept(Component.empty().append("§b+").append(Component.translatable(property.translateKey())));
-                }
-            }
-        });
-        event.register((stack, context, displayComponent, player, textConsumer, tooltipFlag) -> {
-            if (!(stack.has(RDDataComponents.FOOD_ITEM_TYPE.value()) || stack.has(RDDataComponents.INGREDIENT_ITEM_TYPE.value()))) {
-                return;
-            }
-            Collection<FoodProperty> foodProperties = FoodProperties.get(stack);
-            if (!foodProperties.isEmpty()) {
-                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));
-                for (FoodProperty foodProperty : foodProperties) {
-                    textConsumer.accept(Component.empty().append(FoodProperty.getDisplayPrefix(stack, foodProperty)).append(foodProperty.getTooltip()));
-                }
-            }
-        });
-        event.register((stack, context, displayComponent, player, textConsumer, tooltipFlag) -> {
-            if (!(stack.getItem() instanceof FumoLicenseItem)) {
-                return;
-            }
-            textConsumer.accept(Component.translatable("item.tooltip.use.villager"));
-        });
-        event.register((stack, context, displayComponent, player, textConsumer, tooltipFlag) -> {
-            if (!(stack.getItem() instanceof RoleCardItem roleCardItem)) {
-                return;
-            }
-            Optional<RoleCard> roleCardComponent = roleCardItem.getRoleCardComponent(stack);
-            if (roleCardComponent.isEmpty()) {
-                textConsumer.accept(Component.translatable("item.disabled"));
-                return;
-            }
-            if (roleCardComponent.get().isEmpty()) {
-                textConsumer.accept(Component.translatable("item.disabled"));
-                return;
-            }
-            textConsumer.accept(Component.translatable("item.tooltip.use"));
-        });
-        event.register((stack, context, displayComponent, player, textConsumer, tooltipFlag) -> {
-            if (!(stack.getItem() instanceof SpellCardTemplateItem spellCardTemplateItem)) {
-                return;
-            }
-            DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
-            if (properties != null) {
-                textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId().toLanguageKey())));
-            }
-        });
-        event.register((stack, tooltipContext, tooltipDisplay, player, textConsumer, tooltipFlag) -> {
-            if (!stack.has(RDDataComponents.RECIPE_MEMORY.value())) {
-                return;
-            }
-            KitchenRecipe.IdEntry recipeIdEntry = stack.get(RDDataComponents.RECIPE_MEMORY.value());
-            if (recipeIdEntry == null) {
-                return;
-            }
-            recipeIdEntry.map((key, recipe) -> {
-                MutableComponent component = Component.empty();
-                component.append(Component.translatable(recipe.getTypeInstance().toTranslateKey()));
-                component.append(" | ");
-                ItemStack lazyStack = recipe.getOutput().getLazyStack();
-                for (IngredientStack ingredient : recipe.getIngredients()) {
-                    component.append(ingredient.getLazyStack().getHoverName()).append(" ");
-                }
-                component.append("-> ").append(lazyStack.getHoverName());
-                textConsumer.accept(component);
-            });
+            component.append("-> ").append(lazyStack.getHoverName());
+            component.append(" | %ss".formatted(recipe.getCostTime()));
+            consumer.accept(component);
         });
     }
 
