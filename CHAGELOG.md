@@ -1,5 +1,10 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.23+1.21.11
+* Fixed the dirty pixel issue
+* Fixed the issue where monsters were always firing bullets at the player's feet.
+* Fixed the issue where food tags wouldn't appear on items without tags.
+
 # 0.4.22+1.21.11
 * Fixed Polymer patch compatibility issues
 

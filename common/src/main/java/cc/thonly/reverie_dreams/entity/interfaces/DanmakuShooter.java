@@ -35,7 +35,7 @@ public interface DanmakuShooter {
 
     static float[] getPitchYaw(Entity self, Entity target) {
         double dx = target.getX() - self.getX();
-        double dy = target.getY() - self.getEyeY();
+        double dy = target.getY() - self.getEyeY() + 0.45;
         double dz = target.getZ() - self.getZ();
 
         double horizontalDistance = Math.sqrt(dx * dx + dz * dz);

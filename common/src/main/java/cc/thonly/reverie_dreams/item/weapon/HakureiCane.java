@@ -43,7 +43,7 @@ public class HakureiCane extends SwordItem {
             center.playSound(RDSoundEvents.FIRE.value(), 1.0f, 1.0f);
 
             ItemCooldowns itemCooldownManager = player.getCooldowns();
-            itemCooldownManager.addCooldown(stack, 20);
+            itemCooldownManager.addCooldown(stack, 10);
             if (!player.hasInfiniteMaterials()) {
                 stack.hurtWithoutBreaking(1, player);
             }

@@ -57,9 +57,9 @@ public class TooltipManager {
             }
         });
         event.register((stack, context, displayComponent, player, textConsumer, type) -> {
-            if (!(stack.has(RDDataComponents.FOOD_ITEM_TYPE.value()) || stack.has(RDDataComponents.INGREDIENT_ITEM_TYPE.value()))) {
-                return;
-            }
+//            if (!(stack.has(RDDataComponents.FOOD_ITEM_TYPE.value()) || stack.has(RDDataComponents.INGREDIENT_ITEM_TYPE.value()))) {
+//                return;
+//            }
             Collection<FoodProperty> foodProperties = FoodProperties.get(stack);
             if (!foodProperties.isEmpty()) {
                 textConsumer.accept(Component.empty().append(Component.translatable("item.tooltip.food_properties")));

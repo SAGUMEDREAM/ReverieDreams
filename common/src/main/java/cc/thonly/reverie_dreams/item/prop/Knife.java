@@ -75,13 +75,13 @@ public class Knife extends SwordItem implements IDanmakuItem {
         this.spawn(serverWorld, user, hand);
     }
 
+    @SuppressWarnings("rawtypes")
     public void spawn(ServerLevel serverWorld, Player user, InteractionHand hand) {
         ItemStack heldItemStack = user.getItemInHand(hand);
         ItemStack itemStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY.asItem());
         DataComponentMap components = heldItemStack.getComponents();
         Iterator<TypedDataComponent<?>> iterator = components.stream().iterator();
         while (iterator.hasNext()) {
-            @SuppressWarnings("rawtypes")
             TypedDataComponent next = iterator.next();
             if (next.type() == DataComponents.ITEM_MODEL) {
                 continue;
@@ -102,6 +102,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
                 yaw,
                 0.4f
         );
+        danmakuEntity.setDanmakuProperties(properties);
         list.add(danmakuEntity);
         for (int i = 0; i < 3; i++) {
             int i1 = ReverieDreams.RD.nextInt(-5, 5);
