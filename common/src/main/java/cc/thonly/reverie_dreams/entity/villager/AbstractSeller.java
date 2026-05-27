@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
-import eu.pb4.sgui.api.gui.MerchantGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +21,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -260,49 +257,6 @@ public abstract class AbstractSeller extends WanderingTrader {
         long mostSigBits = uuid.getMostSignificantBits();
         long leastSigBits = uuid.getLeastSignificantBits();
         return mostSigBits + leastSigBits + day;
-    }
-
-    @Getter
-    public static class SellerGui extends MerchantGui {
-        private final AbstractSeller self;
-
-        public SellerGui(ServerPlayer player, AbstractSeller self) {
-            super(player, false);
-            this.self = self;
-            this.init();
-        }
-
-        public void init() {
-            this.setTitle(this.self.getName());
-            List<MerchantOffer> villagerOffers = this.self.getVillagerOffers();
-            for (MerchantOffer offer : villagerOffers) {
-                this.addTrade(offer);
-            }
-            if (villagerOffers.isEmpty()) {
-                this.self.discard();
-                this.close();
-            }
-        }
-
-        @Override
-        public boolean onTrade(MerchantOffer offer) {
-            MerchantOffer copied = offer.copy();
-            this.self.trade(IngredientStack.of(copied.assemble()));
-            this.self.notifyTrade(copied);
-            return super.onTrade(offer);
-        }
-
-        @Override
-        public void onOpen() {
-            super.onOpen();
-            this.self.getSessions().add(this);
-        }
-
-        @Override
-        public void onTick() {
-            super.onTick();
-            this.self.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 20, false, false));
-        }
     }
 
     public abstract boolean canReset();

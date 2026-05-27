@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
-public interface DialogApi {
+public interface DialogAPI {
     // 播放 Dialog 视频
     static DialogPlayer play(ServerPlayer player, String filename, @Nullable SoundEvent soundEvent) {
         return DialogPlayerManager.play(player, filename, soundEvent);

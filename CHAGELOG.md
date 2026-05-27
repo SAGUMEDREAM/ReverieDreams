@@ -1,5 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.5.5+26.1.2
+* Now allow midi device control Note Instrument
+
 # 0.5.3+26.1.2
 * Fixed the dirty pixel issue
 * Fixed the issue where monsters were always firing bullets at the player's feet.

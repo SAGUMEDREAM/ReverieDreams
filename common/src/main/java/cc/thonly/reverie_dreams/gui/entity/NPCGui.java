@@ -26,13 +26,21 @@ import java.util.List;
 import java.util.Map;
 
 public class NPCGui extends SimpleGui implements GuiCommon {
-    public static final String[][] GRID = {
+    public static final String[][] GRID_OLD = {
             {"I", "I", "I", "I", "I", "I", "X", "Q", "W"},
             {"I", "I", "I", "I", "I", "I", "X", "E", "R"},
             {"I", "I", "I", "I", "I", "I", "X", "T", "Y"},
             {"X", "X", "X", "X", "X", "X", "X", "U", "O"},
             {"/", "*", "-", "+", "I", "I", "X", "P", "M"},
             {"X", "X", "X", "X", "X", "X", "X", "N", "B"},
+    };
+    public static final String[][] GRID = {
+            {"/", "A1", "I", "I", "I", "I", "X", "Q", "W"},
+            {"*", "A2", "I", "I", "I", "I", "X", "E", "R"},
+            {"-", "A3", "I", "I", "I", "I", "X", "T", "Y"},
+            {"+", "A4", "I", "I", "I", "I", "X", "U", "O"},
+            {"X", "X", "X", "X", "I", "I", "X", "P", "M"},
+            {"I", "I", "X", "X", "X", "X", "X", "N", "B"},
     };
     private final Map<GuiElementBuilder, Integer> builder2index = new HashMap<>();
     private final ServerPlayer player;
@@ -65,6 +73,22 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                 if (posChar.equalsIgnoreCase("X")) {
                     this.setSlot(slotIndex, new GuiElementBuilder()
                             .setItem(RDGuiItems.EMPTY_SLOT.asItem()));
+                }
+                if (posChar.equalsIgnoreCase("A1")) {
+                    this.setSlot(slotIndex, new GuiElementBuilder()
+                            .setItem(RDGuiItems.HEAD_SLOT.asItem()));
+                }
+                if (posChar.equalsIgnoreCase("A2")) {
+                    this.setSlot(slotIndex, new GuiElementBuilder()
+                            .setItem(RDGuiItems.CHEST_SLOT.asItem()));
+                }
+                if (posChar.equalsIgnoreCase("A3")) {
+                    this.setSlot(slotIndex, new GuiElementBuilder()
+                            .setItem(RDGuiItems.LEG_SLOT.asItem()));
+                }
+                if (posChar.equalsIgnoreCase("A4")) {
+                    this.setSlot(slotIndex, new GuiElementBuilder()
+                            .setItem(RDGuiItems.FEET_SLOT.asItem()));
                 }
                 if (posChar.equalsIgnoreCase("Q")) {
                     this.npcName = new GuiElementBuilder()
@@ -175,25 +199,37 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                 }
 
                 if (posChar.equalsIgnoreCase("I")) {
-                    this.setSlot(
-                            slotIndex,
-                            new Slot(this.npcEntity.getInventory(), inventory_index, 0, 0)
-                    );
-                    inventory_index++;
+                    // 如果是最后一行的第 0 列 / 第 1 列，分别绑定主手与副手
+                    if (row == GRID.length - 1 && col == 0) {
+                        this.setSlot(
+                                slotIndex,
+                                new Slot(this.npcEntity.getInventory(), NPCInventoryImpl.MAIN_HAND, 0, 0)
+                        );
+                    } else if (row == GRID.length - 1 && col == 1) {
+                        this.setSlot(
+                                slotIndex,
+                                new Slot(this.npcEntity.getInventory(), NPCInventoryImpl.OFF_HAND, 0, 0)
+                        );
+                    } else {
+                        // 普通背包格，从 inventory_index 顺序分配
+                        this.setSlot(
+                                slotIndex,
+                                new Slot(this.npcEntity.getInventory(), inventory_index, 0, 0)
+                        );
+                        inventory_index++;
+                    }
                 }
                 if (posChar.equalsIgnoreCase("/")) {
                     this.setSlot(
                             slotIndex,
                             new ArmorSlot(this.npcEntity.getInventory(), this.npcEntity, EquipmentSlot.HEAD, NPCInventoryImpl.HEAD, 0, 0, InventoryMenu.EMPTY_ARMOR_SLOT_HELMET)
                     );
-                    inventory_index++;
                 }
                 if (posChar.equalsIgnoreCase("*")) {
                     this.setSlot(
                             slotIndex,
                             new ArmorSlot(this.npcEntity.getInventory(), this.npcEntity, EquipmentSlot.CHEST, NPCInventoryImpl.CHEST, 0, 0, InventoryMenu.EMPTY_ARMOR_SLOT_CHESTPLATE)
                     );
-                    inventory_index++;
                 }
 
                 if (posChar.equalsIgnoreCase("-")) {
@@ -201,14 +237,12 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                             slotIndex,
                             new ArmorSlot(this.npcEntity.getInventory(), this.npcEntity, EquipmentSlot.LEGS, NPCInventoryImpl.LEGS, 0, 0, InventoryMenu.EMPTY_ARMOR_SLOT_LEGGINGS)
                     );
-                    inventory_index++;
                 }
                 if (posChar.equalsIgnoreCase("+")) {
                     this.setSlot(
                             slotIndex,
                             new ArmorSlot(this.npcEntity.getInventory(), this.npcEntity, EquipmentSlot.FEET, NPCInventoryImpl.FEET, 0, 0, InventoryMenu.EMPTY_ARMOR_SLOT_BOOTS)
                     );
-                    inventory_index++;
                 }
             }
         }

@@ -5,9 +5,6 @@ import cc.thonly.keine.api.KeineRegistries;
 import cc.thonly.keine.api.callback.AttackBlockCallback;
 import cc.thonly.keine.api.callback.ItemAttackHitCallback;
 import cc.thonly.keine.api.callback.ServerSavingCallback;
-import cc.thonly.reverie_dreams.api.dialog.DialogApi;
-import cc.thonly.reverie_dreams.api.player.PlayerComponentManager;
-import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
 import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
@@ -22,10 +19,8 @@ import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
-import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
 import cc.thonly.reverie_dreams.loot.RDLootModifies;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
@@ -49,20 +44,17 @@ import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.server.*;
 import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
 import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.server.nota.Nota;
-import cc.thonly.reverie_dreams.server.player.PlayerComponent;
-import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.CardboardWarning;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
+import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
@@ -78,43 +70,18 @@ import net.blay09.mods.balm.platform.event.callback.*;
 import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistrar;
 import net.blay09.mods.balm.world.item.BalmItemRegistrar;
 import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.permissions.Permissions;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSources;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -254,124 +221,15 @@ public class ReverieDreams {
         loadDone = true;
     }
 
-    @SuppressWarnings("resource")
     private static void registerContentEvent(BalmRegistrars registrars) {
-        // 银质物品对亡灵伤害
-        LivingEntityCallback.Damage.Before.EVENT.register((entity, damageSource, damageAmount) -> {
-            Entity directEntity = damageSource.getDirectEntity();
-            if (!(directEntity instanceof LivingEntity attacker)) {
-                return damageAmount;
-            }
-            if (attacker.level().isClientSide()) {
-                return damageAmount;
-            }
-            ItemStack itemInHand = attacker.getItemInHand(InteractionHand.MAIN_HAND);
-            if (!itemInHand.has(RDDataComponents.SILVER_ITEM.value())) {
-                return damageAmount;
-            }
-            return damageAmount + 2;
-        });
-        // 催熟睡莲
-        BlockCallback.Use.EVENT.register((player, level, hand, hitResult) -> {
-            if (!level.isClientSide()) {
-                ItemStack stack = player.getItemInHand(hand);
-                BlockPos pos = hitResult.getBlockPos();
-                BlockState state = level.getBlockState(pos);
-                Block block = state.getBlock();
-
-                if (block instanceof LeavesBlock && state.getValue(LeavesBlock.WATERLOGGED)) {
-                    if (stack.getItem() == Items.LILY_PAD) {
-                        stack.consume(1, player);
-
-                        if (!player.hasInfiniteMaterials()) {
-                            player.addItem(new ItemStack(RDIngredientItems.DEW.asItem(), 1));
-                        }
-
-                        player.swing(hand);
-
-                        return InteractionEventResult.SUCCESS_SERVER;
-                    }
-                }
-            }
-
-            return InteractionEventResult.DEFAULT;
-        });
-        // 银质物品对亡灵伤害
-        ItemAttackHitCallback.EVENT.register((stack, target, attacker) -> {
-            MinecraftServer server = target.level().getServer();
-            if (server != null && target.level() instanceof ServerLevel serverWorld && stack.has(RDDataComponents.SILVER_ITEM.value())) {
-                RegistryAccess.Frozen registryAccess = server.registryAccess();
-                Registry<EntityType<?>> entityTypes = registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
-                DamageSources damageSources = attacker.damageSources();
-                for (Holder<EntityType<?>> iterateEntry : entityTypes.getTagOrEmpty(EntityTypeTags.UNDEAD)) {
-                    EntityType<?> value = iterateEntry.value();
-                    if (target.getType() == value) {
-                        target.lastHurt = 0;
-                        target.hurtServer(serverWorld, damageSources.magic(), 2);
-                        target.lastHurt = 0;
-                        break;
-                    }
-                }
-
-            }
-            return true;
-        });
-        // 月伤
-        ItemAttackHitCallback.EVENT.register((stack, target, attacker) -> {
-            MinecraftServer server = target.level().getServer();
-            ItemStack itemStack = attacker.getItemInHand(InteractionHand.MAIN_HAND);
-            if (server != null && !itemStack.isEmpty()) {
-                RegistryAccess registryAccess = target.registryAccess();
-                Registry<Enchantment> enchantments = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
-                Holder.Reference<Enchantment> moonDamage = enchantments.getOrThrow(RDEnchantments.MOON_DAMAGE);
-                int itemEnchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(moonDamage, itemStack);
-                if (itemEnchantmentLevel != 0) {
-                    DelayedTask.create(server, 1, () -> {
-                        target.hurtTime = 0;
-                        if (target.getHealth() - itemEnchantmentLevel >= 0) {
-                            target.setHealth(target.getHealth() - itemEnchantmentLevel);
-                        }
-                        target.lastHurt = 0;
-                    });
-                }
-            }
-            return true;
-        });
-        // 银制品秒杀鬼魂
-        ItemAttackHitCallback.EVENT.register((stack, target, attacker) -> {
-            MinecraftServer server = target.level().getServer();
-            if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST && stack.getItem() == RDItems.ROKANKEN) {
-                DamageSources damageSources = attacker.damageSources();
-                target.lastHurt = 0;
-                target.hurtServer(serverWorld, damageSources.magic(), Integer.MAX_VALUE);
-            }
-            return true;
-        });
-        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-            ItemStack stack = ItemUtils.getHandItem(player, itemStack -> itemStack.getItem() instanceof TenguCameraItem);
-            if (stack.isEmpty()) {
-                return InteractionResult.PASS;
-            }
-            if (!player.isShiftKeyDown()) {
-                return InteractionResult.PASS;
-            }
-            if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
-                int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
-                int newFov = fov - 1;
-                if (newFov < 30) newFov = 30;
-                if (newFov > 110) newFov = 110;
-
-                stack.set(RDDataComponents.FOV.value(), newFov);
-
-                serverPlayer.sendSystemMessage(
-                        Component.literal("§aFov: " + newFov),
-                        true
-                );
-                return InteractionResult.SUCCESS_SERVER;
-            }
-            return InteractionResult.SUCCESS;
-        });
-
+        LivingEntityCallback.Damage.Before.EVENT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
+        BlockCallback.Use.EVENT.register(CommonEventHandlers::onItemUsingByLilyPad);
+        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitBySilverWeapon);
+        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByMoonEnchantment);
+        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByInstantKillGhost);
+        AttackBlockCallback.EVENT.register(CommonEventHandlers::onAttackingBlockChangeCameraFov);
+        AttackBlockCallback.EVENT.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
+        PlayerCallback.Attack.Before.EVENT.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
     }
 
     private static void registerNetworkingEvent(BalmRegistrars registrars) {
@@ -424,6 +282,12 @@ public class ReverieDreams {
                 ServerNetworkingHandlers::onReceiveHelloPacket
         );
         networking.registerServerboundPacket(
+                PlayerMidiNotePacket.PACKET_ID,
+                PlayerMidiNotePacket.class,
+                PlayerMidiNotePacket.CODEC,
+                ServerNetworkingHandlers::onReceivePlayerMidiNotePacket
+        );
+        networking.registerServerboundPacket(
                 PlayerJoinVersionPacket.PACKET_ID,
                 PlayerJoinVersionPacket.class,
                 PlayerJoinVersionPacket.CODEC,
@@ -437,76 +301,17 @@ public class ReverieDreams {
         );
     }
 
-    @SuppressWarnings({"rawtypes", "resource"})
     private static void registerServerEvents(BalmRegistrars registrars) {
-        ServerPlayerCallback.Join.EVENT.register(player -> {
-            PlayerComponentManager componentManager = PlayerComponentManager.serverAccess();
-            for (Map.Entry<Class<PlayerComponent<? extends PlayerComponent>>, PlayerComponentInitializer<?>> mapEntry : PlayerComponentRegistry.getComponents()) {
-                Class<PlayerComponent<? extends PlayerComponent>> key = mapEntry.getKey();
-                componentManager.getOrCreatePlayerComponent(player, key);
-            }
-        });
-        ServerPlayerCallback.Join.EVENT.register(player -> {
-            RegistryImpls.startSyncRegistry(List.of(player));
-            RecipeManager.startSyncRecipe(List.of(player));
-        });
-        ServerPlayerCallback.Leave.EVENT.register((player) -> {
-            PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
-            playerComponentManager.saveAll();
-        });
-        ServerLifecycleCallback.Reloaded.EVENT.register(server -> {
-            PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
-            playerComponentManager.onLoad(server);
-        });
-        ServerLifecycleCallback.Reloaded.EVENT.register(server -> {
-            RegistryImpls.startSyncRegistry(server.getPlayerList().getPlayers());
-            RecipeManager.startSyncRecipe(server.getPlayerList().getPlayers());
-        });
-        ServerPlayerCallback.Join.EVENT.register(player -> {
-            if (!ReverieDreams.config().checkUpdate) {
-                return;
-            }
-            if (!player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
-                return;
-            }
-            if (PlatformContext.LATEST_VERSION == null) {
-                return;
-            }
-            MutableComponent mutableText = Component.empty();
-            mutableText.append(Component.translatable("message.reverie_dreams.update", PlatformContext.LATEST_VERSION));
-            mutableText.append(" §r[");
-            mutableText.append(Component.translatable("item.action.click.left").setStyle(Style.EMPTY.withClickEvent(new ClickEvent.OpenUrl(URI.create("https://modrinth.com/mod/gensokyo-reverie-of-lost-dreams")))));
-            mutableText.append("§r]");
-            player.sendSystemMessage(mutableText, false);
-        });
-        LivingEntityCallback.Death.Before.EVENT.register((entity, damageSource) -> {
-            if (damageSource.is(RDDamageTypeTags.DANMAKU_HIT)) {
-                entity.level().playSound(null, entity.getOnPos(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL, 0.32F, 1.0F);
-            }
-            return true;
-        });
-        LivingEntityCallback.Death.Before.EVENT.register((entity, damageSource) -> {
-            return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE);
-        });
-        ServerLifecycleCallback.Started.EVENT.register(server -> {
-            PlayerInputManagerAccess polymerAccess = PlayerInputManagerAccess.polymerAccess();
-            polymerAccess.reload();
-            PlayerInputManagerAccess inputManager = PlayerInputManagerAccess.access();
-            inputManager.reload();
-            NPCFindBlockGoal.EXCLUSIONS.clear();
-            DialogApi.reload();
-            SessionManager.clear();
-            RemoteSignalManager.access().reloadAll(server);
-        });
-        ServerSavingCallback.AFTER.register((server, flush, force) -> {
-            PlayerComponentManager componentManager = PlayerComponentManager.serverAccess();
-            componentManager.saveAll();
-            RemoteSignalManager.access().saveAll(server);
-        });
-        ServerPlayerCallback.Leave.EVENT.register((player) -> {
-            ServerNetworkingHandlers.PLAYER_WITH_MOD.remove(player);
-            ServerNetworkingHandlers.PLAYER_SIDE_VERSION.remove(player);
-        });
+        LivingEntityCallback.Death.Before.EVENT.register(ServerEventHandlers::onLivingEntityDeathByDanmaku);
+        LivingEntityCallback.Death.Before.EVENT.register(ServerEventHandlers::onLivingEntityDeathByElixirOfLife);
+        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByModUpdateCheck);
+        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByCreateComponent);
+        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinBySync);
+        ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
+        ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
+        ServerLifecycleCallback.Started.EVENT.register(ServerEventHandlers::onServerStarted);
+        ServerLifecycleCallback.Reloaded.EVENT.register(ServerEventHandlers::onServerReloaded);
+        ServerSavingCallback.AFTER.register(ServerEventHandlers::onServerSavingAfter);
         ServerTickCallback.AFTER.register(DelayedTask::tick);
         ServerTickCallback.AFTER.register(ServerPlayerComponentManager::tickByServer);
         ServerTickCallback.AFTER.register(ParticleTickerManager::tick);
@@ -517,8 +322,7 @@ public class ReverieDreams {
     }
 
     private static void loadCompletableEvent(BalmRegistrars registrars) {
-//        CompletableFuture.runAsync(ItemStackCheckUtils::test);
-
+        CompletableFuture.runAsync(ItemStackCheckUtils::test);
         CompletableFuture.runAsync(() -> {
             ModrinthAPI.Entry latest = ModrinthAPI.get();
             if (latest == null) {

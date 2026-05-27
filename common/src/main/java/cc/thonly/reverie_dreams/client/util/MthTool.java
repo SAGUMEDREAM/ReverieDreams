@@ -7,7 +7,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
-public class RDMthTool {
+public class MthTool {
 
     public static void rotateToDir(PoseStack poseStack, Vec3 dir) {
         Vec3 n = dir.normalize();
@@ -95,7 +95,7 @@ public class RDMthTool {
         double t1 = 1.0 - 2.0 * (x * x + y * y);
         double rotX = Math.toDegrees(Math.atan2(t0, t1));
 
-        // Y (pitch) -- clamp to avoid NaN from rounding errors
+        // Y (note) -- clamp to avoid NaN from rounding errors
         double t2 = 2.0 * (w * y - z * x);
         t2 = Math.max(-1.0, Math.min(1.0, t2));
         double rotY = Math.toDegrees(Math.asin(t2));

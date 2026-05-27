@@ -2,14 +2,22 @@ package cc.thonly.reverie_dreams.networking;
 
 import cc.thonly.reverie_dreams.networking.payload.HelloPacket;
 import cc.thonly.reverie_dreams.networking.payload.PlayerJoinVersionPacket;
+import cc.thonly.reverie_dreams.networking.payload.PlayerMidiNotePacket;
 import cc.thonly.reverie_dreams.networking.payload.ScreenshotMapPacket;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.SessionManager;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
@@ -62,6 +70,39 @@ public class ServerNetworkingHandlers {
         ItemStack mapItem = new ItemStack(Items.FILLED_MAP);
         mapItem.set(DataComponents.MAP_ID, freeMapId);
         player.getInventory().add(mapItem);
+    }
+
+    public static void onReceivePlayerMidiNotePacket(ServerPlayer player, PlayerMidiNotePacket packet) {
+        ItemStack itemStack = player.getItemBySlot(packet.slot());
+        if (!(itemStack.is(RDItemTags.MUSICAL_INSTRUMENTS) && itemStack.has(RDDataComponents.NOTE_TYPE.value()))) {
+            return;
+        }
+        if (!packet.press()) {
+            return;
+        }
+        NoteBlockInstrument noteBlockInstrument = itemStack.get(RDDataComponents.NOTE_TYPE.value());
+        if (noteBlockInstrument == null) {
+            return;
+        }
+        Holder<SoundEvent> soundEventHolder = noteBlockInstrument.getSoundEvent();
+        SoundEvent soundEvent = soundEventHolder.value();
+        ServerLevel level = player.level();
+        float volume = packet.volume();
+        int note = packet.note();
+        level.playSound(
+                null,
+                player.getX(),
+                player.getEyeY(),
+                player.getZ(),
+                soundEvent,
+                SoundSource.RECORDS,
+                volume,
+                noteToPitch(note)
+        );
+    }
+
+    public static float noteToPitch(int note) {
+        return (float) Math.pow(2.0, (note - 12) / 12.0);
     }
 
     public static boolean hasModOnClient(ServerPlayer player) {

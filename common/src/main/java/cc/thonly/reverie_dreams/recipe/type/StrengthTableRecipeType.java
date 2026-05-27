@@ -12,6 +12,7 @@ import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -85,13 +87,13 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         }
         List<Item> danmakuItemView = RegistryImpls.DANMAKU_TYPE
                 .values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem).toList();
-        List<ItemStack> danmakuItemStackView = danmakuItemView.stream().map(Item::getDefaultInstance).toList();
-        List<ItemStack> templateStackView = DanmakuTemplates.getRegistryItemStackView().values().stream().map(ItemStackTemplate::create).toList();
+        List<ItemStackTemplate> danmakuItemStackView = danmakuItemView.stream().map(ItemStackTemplate::new).toList();
+        List<ItemStackTemplate> templateStackView = DanmakuTemplates.getRegistryItemStackView().values().stream().toList();
 
         this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, RDDataComponents.DANMAKU_PROPERTIES.value());
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(RDItems.SPEED_FEATHER.createStack()), RDDataComponents.DANMAKU_PROPERTIES.value());
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.SLIME_BLOCK.getDefaultInstance()), RDDataComponents.DANMAKU_PROPERTIES.value());
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(Items.IRON_SWORD.getDefaultInstance()), RDDataComponents.DANMAKU_PROPERTIES.value());
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(RDItems.SPEED_FEATHER.asItem())), RDDataComponents.DANMAKU_PROPERTIES.value());
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(Items.SLIME_BLOCK)), RDDataComponents.DANMAKU_PROPERTIES.value());
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(Items.IRON_SWORD)), RDDataComponents.DANMAKU_PROPERTIES.value());
 
         Map<Identifier, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
@@ -104,24 +106,26 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     }
 
     @SuppressWarnings("rawtypes")
-    private void registerAutomaticDynamic(List<ItemStack> main, List<ItemStack> off, DataComponentType componentType) {
-        ItemStack[] mainItems = main.toArray(new ItemStack[0]);
-        ItemStack[] offItems = off.toArray(new ItemStack[0]);
+    private void registerAutomaticDynamic(List<ItemStackTemplate> main, List<ItemStackTemplate> off, DataComponentType componentType) {
+        ItemStackTemplate[] mainItems = main.toArray(new ItemStackTemplate[0]);
+        ItemStackTemplate[] offItems = off.toArray(new ItemStackTemplate[0]);
 
-        for (ItemStack mainItem : mainItems) {
-            for (ItemStack offItem : offItems) {
+        for (ItemStackTemplate mainItem : mainItems) {
+            for (ItemStackTemplate offItem : offItems) {
                 String value = null;
                 try {
-                    String mainItemIdStr = BuiltInRegistries.ITEM.getKey(mainItem.getItem()).getPath();
-                    String offItemIdStr = BuiltInRegistries.ITEM.getKey(offItem.getItem()).getPath();
+                    String mainItemIdStr = BuiltInRegistries.ITEM.getKey(mainItem.item().value()).getPath();
+                    String offItemIdStr = BuiltInRegistries.ITEM.getKey(offItem.item().value()).getPath();
                     String builder = mainItemIdStr + offItemIdStr;
                     Integer num = this.automaticRecipeIdCounter.computeIfAbsent(builder, (x) -> 0);
                     String builderByCounter = builder + "_" + num;
                     this.automaticRecipeIdCounter.put(builder, ++num);
-                    ItemStack outputStack = mainItem.copy();
+                    ItemStackTemplate outputStack = new ItemStackTemplate(mainItem.item(), mainItem.count(), mainItem.components());
                     Object object = offItem.get(componentType);
                     if (object != null) {
-                        outputStack.set(componentType, object);
+                        ItemStackTemplateHelper.modify(outputStack, (template, modifier) -> {
+                            modifier.set(componentType, object);
+                        });
                     }
                     value = builderByCounter;
                     StrengthTableRecipe strengthTableRecipe = new StrengthTableRecipe(IngredientStack.of(mainItem), IngredientStack.of(offItem), IngredientStack.of(outputStack));

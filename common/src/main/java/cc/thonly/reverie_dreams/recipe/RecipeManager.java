@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesImpl;
+import cc.thonly.reverie_dreams.api.recipe.Builder;
+import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeInjectCallback;
 import cc.thonly.reverie_dreams.item.IngredientStack;
@@ -123,18 +124,18 @@ public class RecipeManager {
     }
 
     public static void onReload(ResourceManager manager) {
-        RecipeCompatPatchesImpl.Builder.INSTANCE.clear();
+        Builder.INSTANCE.clear();
         RECIPE_TYPES.forEach((key, recipeType) -> {
             long startTime = System.currentTimeMillis();
             try {
                 recipeType.removeAll();
                 recipeType.reload(manager);
                 RecipeInjectCallback.EVENT.invoker().onLoad(recipeType);
-                RecipeCompatPatchesImpl.removeAll(recipeType);
+                RecipeCompatPatches.removeAll(recipeType);
                 RecipeCompatPatchesCallback.EVENT.invoker().onLoad();
                 recipeType.sort();
                 recipeType.assignRawId();
-                RecipeCompatPatchesImpl.apply(recipeType);
+                RecipeCompatPatches.apply(recipeType);
             } catch (Exception e) {
                 log.error("Can't reload recipes {}, {}", key, e);
             } finally {

@@ -1,6 +1,9 @@
 package cc.thonly.reverie_dreams.util.sound;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,12 +24,15 @@ public class SoundEventPlayUtils {
 
     public static void playUISound(Player player, SoundEvent event, float volume, float pitch) {
         Level level = player.level();
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), event, SoundSource.UI, volume, pitch);
+        if (player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSoundPacket(Holder.direct(event), SoundSource.UI, player.getX(), player.getY(), player.getZ(), volume, pitch, 0L));
+        }
     }
 
     public static void playUISound(Player player, float volume, float pitch) {
-        Level level = player.level();
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.UI, volume, pitch);
+        if (player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSoundPacket(SoundEvents.UI_BUTTON_CLICK, SoundSource.UI, player.getX(), player.getY(), player.getZ(), volume, pitch, 0L));
+        }
     }
 
     public static void playSound(Level level, BlockPos pos, SoundEvent event, SoundSource source) {

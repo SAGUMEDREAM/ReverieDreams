@@ -16,13 +16,23 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.Objects;
+import java.util.function.Function;
+
 @SuppressWarnings("deprecation")
 @Getter
 @Setter
 @ToString
 public class NPCWorkMode implements CodecStep<NPCWorkMode>, RegistryEntryOwnerBindable<NPCWorkMode>, BuiltinObject, RegistryEntryTranslatable {
-    public static final Codec<NPCWorkMode> CODEC = UnitCodec.unit(NPCWorkMode::new);
     public static final Identifier DEFAULT_ID = ReverieDreams.id("combat");
+    public static final Codec<NPCWorkMode> CODEC = Codec.lazyInitialized(() -> Codec.STRING.xmap(id -> {
+        for (NPCWorkMode npcWorkMode : RegistryImpls.NPC_WORK_MODE) {
+            if (Objects.equals(npcWorkMode.type, id)) {
+                return npcWorkMode;
+            }
+        }
+        return new NPCWorkMode();
+    }, mode -> mode.type == null ? DEFAULT_ID.toString() : mode.type));
     private final String type;
     private final Holder<Item> itemDisplay;
     private RegistryImpl<NPCWorkMode> owner;
@@ -72,5 +82,16 @@ public class NPCWorkMode implements CodecStep<NPCWorkMode>, RegistryEntryOwnerBi
     @Override
     public Codec<NPCWorkMode> getCodec() {
         return CODEC;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return true;
+        }
+        if (!(obj instanceof NPCWorkMode other)) {
+            return false;
+        }
+        return Objects.equals(this.type, other.type);
     }
 }

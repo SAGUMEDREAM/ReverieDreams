@@ -4,5 +4,6 @@ import net.minecraft.server.level.ServerPlayer;
 
 public interface CommonPolymerHolderEntity {
     void onCreated();
+
     void onTrackingStopped(ServerPlayer player);
 }

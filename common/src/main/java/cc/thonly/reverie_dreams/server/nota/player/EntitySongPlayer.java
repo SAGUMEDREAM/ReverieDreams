@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.server.nota.model.Song;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "resource", "LombokGetterMayBeUsed", "LombokSetterMayBeUsed"})
 public class EntitySongPlayer extends RangeSongPlayer {
 
 	private Entity entity;

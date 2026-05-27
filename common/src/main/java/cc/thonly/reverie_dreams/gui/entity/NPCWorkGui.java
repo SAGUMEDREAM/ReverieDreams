@@ -4,6 +4,9 @@ import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
+import cc.thonly.reverie_dreams.util.NotaUtils;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.network.chat.Component;
@@ -41,9 +44,12 @@ public class NPCWorkGui extends SimpleGui implements GuiCommon {
             if (workMode.equals(next)) {
                 builder.glow();
             }
-            builder.setCallback((index, clickType, clickType1, slotGuiInterface) -> {
+            builder.setCallback((index, clickType, input, slotGuiInterface) -> {
                 this.npcEntity.setWorkMode(next);
-                this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                if (NotaUtils.isPlaying(this.npcEntity)) {
+                    NotaUtils.stop(this.npcEntity);
+                }
+                SoundEventPlayUtils.playUISound(player, 1.0f, 1.0f);
                 this.init();
             });
             this.setSlot(i, builder);

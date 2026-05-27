@@ -57,7 +57,7 @@ public class Note {
 	}
 
 	/**
-	 * Returns note pitch.
+	 * Returns note note.
 	 * 100 = 1 key
 	 * 1200 = 1 octave
 	 *
@@ -68,11 +68,11 @@ public class Note {
 	}
 
 	/**
-	 * Sets note pitch.
+	 * Sets note note.
 	 * 100 = 1 key
 	 * 1200 = 1 octave
 	 *
-	 * @param pitch note pitch
+	 * @param pitch note note
 	 */
 	public void setPitch(short pitch) {
 		this.pitch = pitch;

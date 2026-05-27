@@ -15,6 +15,10 @@ public class RDGuiItems {
     public static DeferredItem PREV;
     public static DeferredItem BACK;
     public static DeferredItem EMPTY_SLOT;
+    public static DeferredItem HEAD_SLOT;
+    public static DeferredItem CHEST_SLOT;
+    public static DeferredItem LEG_SLOT;
+    public static DeferredItem FEET_SLOT;
     public static DeferredItem ENABLE;
     public static DeferredItem DISABLE;
     public static DeferredItem DONE;
@@ -29,6 +33,10 @@ public class RDGuiItems {
         PREV = registerItem(registrar, "sgui/elements/prev");
         BACK = registerItem(registrar, "sgui/elements/back_slot");
         EMPTY_SLOT = registerItem(registrar, "sgui/elements/empty_slot");
+        HEAD_SLOT = registerItem(registrar, "sgui/elements/head_slot");
+        CHEST_SLOT = registerItem(registrar, "sgui/elements/chest_slot");
+        LEG_SLOT = registerItem(registrar, "sgui/elements/leg_slot");
+        FEET_SLOT = registerItem(registrar, "sgui/elements/feet_slot");
         ENABLE = registerItem(registrar, "sgui/elements/enable");
         DISABLE = registerItem(registrar, "sgui/elements/disable");
         DONE = registerItem(registrar, "sgui/elements/done");

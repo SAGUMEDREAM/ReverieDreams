@@ -119,7 +119,7 @@ public class NBSDecoder {
 					if(nbsversion >= 4) {
 						velocity = dataInputStream.readByte(); // note block velocity
 						panning = 200 - dataInputStream.readUnsignedByte(); // note panning, 0 is right in nbs format
-						pitch = readShort(dataInputStream); // note block pitch
+						pitch = readShort(dataInputStream); // note block note
 					}
 
 					if(panning != 100) {
@@ -167,7 +167,7 @@ public class NBSDecoder {
 			for(int index = 0; index < customAmnt; index++) {
 				customInstrumentsArray[index] = new CustomInstrument((byte) index,
 						readString(dataInputStream), readString(dataInputStream));
-				dataInputStream.readByte();//pitch
+				dataInputStream.readByte();//note
 				dataInputStream.readByte();//key
 			}
 

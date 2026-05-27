@@ -19,6 +19,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -40,7 +41,7 @@ public final class NotaUtils {
     public static final Path PATH = Paths.get(STR_PATH);
     public static final Map<String, SongPlayer> id2SongCache = new HashMap<>();
     public static final Map<Level, Map<Long, SongPlayer>> blockMusicPlayCache = new HashMap<>();
-    public static int MAX_DISTANCE = 32;
+    public static int MAX_DISTANCE = 64;
 
     static {
         try {
@@ -138,44 +139,52 @@ public final class NotaUtils {
         playingMusic = playingMusic.replaceAll(" ", "_");
         playingMusic = playingMusic.toLowerCase();
         MinecraftServer server = user.level().getServer();
-        assert server != null;
+        if (server == null) {
+            return;
+        }
         PlayerList playerManager = server.getPlayerList();
         Song song;
         try {
             song = NBSDecoderPlus.parse(getFilePath(filename).toFile(), noteBlockInstrument);
         } catch (Exception e) {
-            log.error("读取音乐失败: {}", playingMusic, e);
+            log.error("Can't read NBS: {}", playingMusic, e);
             if (user instanceof ServerPlayer player) {
                 player.sendSystemMessage(Component.literal("§c无法读取音乐：" + playingMusic), false);
             }
             return;
         }
 
-        String id = "music_" + user.getStringUUID();
+        String playId = getPlayId(user);
 
-        SongPlayer prev = id2SongCache.get(id);
+        SongPlayer prev = id2SongCache.get(playId);
         if (prev != null) {
             prev.setPlaying(false);
-            id2SongCache.remove(id);
+            id2SongCache.remove(playId);
         }
 
         EntitySongPlayer esp = new EntitySongPlayer(song);
         esp.setId(Identifier.parse(UUID.randomUUID().toString()));
         esp.setEntity(user);
-        esp.setDistance(32);
+        esp.setDistance(MAX_DISTANCE);
         esp.setRepeatMode(RepeatMode.NONE);
         for (var sPlayer : playerManager.getPlayers()) {
             esp.addPlayer(sPlayer);
         }
         esp.setPlaying(true);
-        id2SongCache.put(id, esp);
+        id2SongCache.put(playId, esp);
         DelayedTask.whenTick(server, () -> {
             ItemStack handStack = user.getMainHandItem();
             ItemStack offStack = user.getOffhandItem();
-            return !(handStack.getItem() instanceof MusicalInstrumentItem) && !(offStack.getItem() instanceof MusicalInstrumentItem);
+            ItemStack headStack = user.getItemBySlot(EquipmentSlot.HEAD);
+            if (!esp.isPlaying()) {
+                return false;
+            }
+            return !(headStack.getItem() instanceof MusicalInstrumentItem)
+                    && !(handStack.getItem() instanceof MusicalInstrumentItem)
+                    && !(offStack.getItem() instanceof MusicalInstrumentItem);
         }, 3, () -> {
             esp.setPlaying(false);
-            id2SongCache.remove(id);
+            id2SongCache.remove(playId);
         }, () -> {
             if (esp.isPlaying()) {
                 ServerLevel serverWorld = (ServerLevel) user.level();
@@ -196,6 +205,26 @@ public final class NotaUtils {
                 );
             }
         });
+    }
+
+    public static void stop(LivingEntity entity) {
+        Level level = entity.level();
+        MinecraftServer server = level.getServer();
+        if (server == null || level.isClientSide()) {
+            return;
+        }
+        String playId = getPlayId(entity);
+        SongPlayer songPlayer = id2SongCache.get(playId);
+        songPlayer.destroy();
+        id2SongCache.remove(playId);
+    }
+
+    public static boolean isPlaying(LivingEntity entity) {
+        return id2SongCache.containsKey(getPlayId(entity));
+    }
+
+    public static String getPlayId(LivingEntity entity) {
+        return "music_" + entity.getStringUUID();
     }
 
     public static List<String> getFileNames() {

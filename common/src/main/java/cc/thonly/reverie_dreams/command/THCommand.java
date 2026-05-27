@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.dialog.DialogApi;
+import cc.thonly.reverie_dreams.api.dialog.DialogAPI;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
@@ -250,7 +250,7 @@ public class THCommand {
         }
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (itemStack.isEmpty()) {
-            source.sendFailure(Component.literal("§cYour hand item is empty."));
+            source.sendFailure(Component.literal("§cYour slot item is empty."));
             return 0;
         }
         List<FoodProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>()));
@@ -276,7 +276,7 @@ public class THCommand {
         }
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (itemStack.isEmpty()) {
-            source.sendFailure(Component.literal("§cYour hand item is empty."));
+            source.sendFailure(Component.literal("§cYour slot item is empty."));
             return 0;
         }
         List<DrinkProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.DRINK_PROPERTIES.value(), new ArrayList<>()));
@@ -382,7 +382,7 @@ public class THCommand {
                 soundEvent = SoundEvent.createVariableRangeEvent(soundEventId);
             }
             context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.reload"), false);
-            DialogApi.play(player, file, soundEvent);
+            DialogAPI.play(player, file, soundEvent);
             context.getSource().sendSuccess(() -> Component.translatable("command.touhou.video.load.done"), false);
         } catch (Exception err) {
             log.error("Can't play video", err);
