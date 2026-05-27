@@ -282,12 +282,28 @@ public abstract class AbstractSeller extends WanderingTrader {
             }
         }
 
+        public boolean canTrade(MerchantOffer offer) {
+            return offer.getUses() < offer.getMaxUses();
+        }
+
         @Override
         public boolean onTrade(MerchantOffer offer) {
-            MerchantOffer copied = offer.copy();
-            this.self.trade(ItemStackWrapper.of(copied.assemble()));
-            this.self.notifyTrade(copied);
-            return super.onTrade(offer);
+            if (offer.getUses() >= offer.getMaxUses()) {
+                return false;
+            }
+
+            MerchantOffer before = offer.copy();
+
+            boolean success = super.onTrade(offer);
+
+            if (!success) {
+                return false;
+            }
+
+            this.self.trade(ItemStackWrapper.of(before.assemble()));
+            this.self.notifyTrade(before);
+
+            return true;
         }
 
         @Override

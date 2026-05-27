@@ -1,5 +1,8 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.24+1.21.11
+* Fixed an issue where some villagers in the module could farm experience.
+
 # 0.4.23+1.21.11
 * Fixed the dirty pixel issue
 * Fixed the issue where monsters were always firing bullets at the player's feet.

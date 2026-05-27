@@ -97,7 +97,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
         List<DanmakuEntity> list = new ArrayList<>();
         DanmakuEntity danmakuEntity = DanmakuEntity.create(
                 serverWorld, user, stack.copy(),
-                user.getX(), user.getY(), user.getZ(),
+                user.getX(), user.getEyeY(), user.getZ(),
                 pitch,
                 yaw,
                 0.4f
@@ -108,7 +108,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
             int i1 = ReverieDreams.RD.nextInt(-5, 5);
             list.add(DanmakuEntity.create(
                     serverWorld, user, stack.copy(),
-                    user.getX(), user.getY(), user.getZ(),
+                    user.getX(), user.getEyeY(), user.getZ(),
                     pitch + i1 / 1.5f,
                     yaw + i1,
                     0.4f
