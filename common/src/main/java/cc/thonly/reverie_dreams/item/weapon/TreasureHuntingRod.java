@@ -100,7 +100,7 @@ public class TreasureHuntingRod extends SwordItem {
                             "message.treasure_hunting_rod.find", roundedDistance, dx, dy, dz
                     ).append(" ").append(Component.translatable(closestOreBlock.getDescriptionId()));
 
-//                    entity.sendMessage(message, false);
+                    ((ServerPlayer) user).sendSystemMessage(message, false);
                     OreEspEntity oreEspEntity = RDEntityTypes.ORE_ESP.asHolder().value().create(world, EntitySpawnReason.EVENT);
                     if (oreEspEntity != null) {
                         ((BlockDisplayAccessor) oreEspEntity).reverie_dreams$setBlockState(world.getBlockState(closestOrePos));

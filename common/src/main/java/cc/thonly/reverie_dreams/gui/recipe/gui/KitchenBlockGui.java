@@ -85,20 +85,22 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
                 switch (posChar) {
                     case "X" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.EMPTY_SLOT.createStack()));
-                    case "N" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setCallback((i, t, sat) -> {
-                        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                        if (this.page < this.maxPage) {
-                            this.page++;
-                            this.onTick();
-                        }
-                    }));
-                    case "P" -> this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV.createStack()).setCallback((i, t, sat) -> {
-                        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                        if (this.page > 0) {
-                            this.page--;
-                            this.onTick();
-                        }
-                    }));
+                    case "N" ->
+                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setCallback((i, t, sat) -> {
+                                this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                if (this.page < this.maxPage) {
+                                    this.page++;
+                                    this.onTick();
+                                }
+                            }));
+                    case "P" ->
+                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV.createStack()).setCallback((i, t, sat) -> {
+                                this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                if (this.page > 0) {
+                                    this.page--;
+                                    this.onTick();
+                                }
+                            }));
                     case "Z" -> {
                         GuiElementBuilder guiElementBuilder = new GuiElementBuilder().setItem(Items.AIR);
                         this.displayed.put(index, guiElementBuilder);
@@ -116,49 +118,86 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
         }
     }
 
-    private ItemStackWrapper buildFoodTags(KitchenRecipe recipe, ItemStackWrapper output, List<ItemStackWrapper> inputs) {
-        ItemStack base = output.getItemStack().copy();
+    public ItemStackWrapper buildFoodTags(KitchenRecipe recipe,
+                                          ItemStackWrapper output,
+                                          List<ItemStackWrapper> inputs) {
+
+        ItemStack base = output.getItemStack();
         FoodProperties.get(base);
-        inputs = new ArrayList<>(inputs.stream().filter(wrapper -> !wrapper.getItemStack().is(RDItemTags.FOOD_ITEM)).toList());
+
+        // ❗过滤掉“纯食材容器类”（你原本的逻辑保留）
+        List<ItemStackWrapper> filteredInputs = inputs.stream()
+                                                      .filter(ingredientStack -> !ingredientStack.getItemStack().is(RDItemTags.FOOD_ITEM))
+                                                      .toList();
 
         List<ItemStackWrapper> ingredients = recipe.getIngredients();
 
-        // 🔑 用来标记“哪些 input 已经被匹配掉”
-        List<ItemStackWrapper> remainingInputs = new ArrayList<>(inputs);
+        // =============================
+        // ✅ 核心修复：使用“标记消耗”而不是 remove
+        // =============================
 
-        // ① 一对一匹配并移除（关键逻辑）
+        boolean[] used = new boolean[filteredInputs.size()];
+
+        // 1️⃣ 标记哪些 input 被配方消耗
         for (ItemStackWrapper ingredient : ingredients) {
-            ItemStack ingredientStack = ingredient.getItemStack();
 
-            Iterator<ItemStackWrapper> iterator = remainingInputs.iterator();
-            while (iterator.hasNext()) {
-                ItemStackWrapper input = iterator.next();
-                ItemStack inputStack = input.getItemStack();
+            for (int i = 0; i < filteredInputs.size(); i++) {
+                if (used[i])
+                    continue;
 
-                if (ItemStack.isSameItemSameComponents(inputStack, ingredientStack)) {
-                    // ✅ 找到一个匹配 → 消耗掉
-                    iterator.remove();
-                    break; // ⚠️ 只匹配一次！
+                ItemStackWrapper input = filteredInputs.get(i);
+
+                // ✅ 关键：不要用 build() 做强匹配
+                // 👉 这里只按“物品类型”匹配，避免误伤 black_pork
+                if (input.getItem() == ingredient.getItem()) {
+                    used[i] = true;
+                    break;
                 }
             }
         }
 
-        // ② 剩下的就是“额外输入”
+        // 2️⃣ 收集“剩余材料”（额外食材，比如 black_pork）
+        List<ItemStackWrapper> remainingInputs = new ArrayList<>();
+        for (int i = 0; i < filteredInputs.size(); i++) {
+            if (!used[i]) {
+                remainingInputs.add(filteredInputs.get(i));
+            }
+        }
+
+        // =============================
+        // ✅ FoodProperty 合并逻辑
+        // =============================
+
         Set<FoodProperty> temp = new LinkedHashSet<>();
 
-        // base 已有词条
-        List<FoodProperty> baseTags = base.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), List.of());
+        // base 原始 tag
+        List<FoodProperty> baseTags = new ArrayList<>(
+                base.getOrDefault(
+                        RDDataComponents.FOOD_PROPERTIES.value(),
+                        List.of()
+                )
+        );
+
         temp.addAll(baseTags);
 
-        // ③ 只处理剩余输入的词条
+        // 3️⃣ 合并“额外材料”的 food tag
         for (ItemStackWrapper input : remainingInputs) {
             ItemStack stack = input.getItemStack();
-            List<FoodProperty> props = stack.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), List.of());
+
+            List<FoodProperty> props = stack.getOrDefault(
+                    RDDataComponents.FOOD_PROPERTIES.value(),
+                    List.of()
+            );
+
             temp.addAll(props);
         }
 
         List<FoodProperty> resultTags = new ArrayList<>(temp);
-        base.set(RDDataComponents.FOOD_PROPERTIES.value(), resultTags);
+
+        // 4️⃣ 只有变化时才写回
+        if (!resultTags.equals(baseTags)) {
+            base.set(RDDataComponents.FOOD_PROPERTIES.value(), resultTags);
+        }
 
         return new ItemStackWrapper(base.copy());
     }
@@ -229,7 +268,8 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
         int i = 0;
         for (Map.Entry<Integer, GuiElementBuilder> entry : this.displayed.entrySet()) {
-            if (i >= pageRecipes.size()) break;
+            if (i >= pageRecipes.size())
+                break;
 
             KitchenRecipe recipe = pageRecipes.get(i);
             ItemStack outputShow = this.buildFoodTags(recipe, new ItemStackWrapper(recipe.getOutput().getItemStack().copy()), inputs).getItemStack();

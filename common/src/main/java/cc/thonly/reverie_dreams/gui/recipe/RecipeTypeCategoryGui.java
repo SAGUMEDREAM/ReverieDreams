@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class RecipeTypeCategoryGui extends SimpleGui {
     public static final String[][] GRID = {
             {"X", "X", "X", "X", "X", "X", "X", "X", "X"},

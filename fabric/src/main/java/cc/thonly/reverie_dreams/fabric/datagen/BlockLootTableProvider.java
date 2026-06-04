@@ -40,17 +40,17 @@ import java.util.stream.Stream;
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     private final Function<WoodBundle, Void> woodBundleLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
-            if (block instanceof DoorBlock) {
+            if (block.asBlock() instanceof DoorBlock) {
                 LootTable.Builder builder = this.createDoorTable(block.asBlock());
                 this.add(block.asBlock(), builder);
                 return;
             }
-            if (block instanceof LeavesBlock) {
+            if (block.asBlock() instanceof LeavesBlock) {
                 LootTable.Builder builder = this.createLeavesDrops(block.asBlock(), creator.sapling().asBlock(), 0.2f);
                 this.add(block.asBlock(), builder);
                 return;
             }
-            if (block instanceof SlabBlock) {
+            if (block.asBlock() instanceof SlabBlock) {
                 LootTable.Builder builder = this.createSlabItemTable(block.asBlock());
                 this.add(block.asBlock(), builder);
                 return;
@@ -61,7 +61,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     };
     private final Function<DecorativeBlockBundle, Void> decorativeBlockBundleLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
-            if (block instanceof SlabBlock) {
+            if (block.asBlock() instanceof SlabBlock) {
                 LootTable.Builder builder = this.createSlabItemTable(block.asBlock());
                 this.add(block.asBlock(), builder);
                 return;

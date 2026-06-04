@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "planks",
+  "ingredients": [
+    "reverie_dreams:stripped_peach_log"
+  ],
+  "result": {
+    "count": 4,
+    "id": "reverie_dreams:peach_planks"
+  }
+}

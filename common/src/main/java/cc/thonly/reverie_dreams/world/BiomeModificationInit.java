@@ -16,6 +16,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
@@ -123,6 +125,18 @@ public class BiomeModificationInit {
                 () -> (entity, world, reason, pos, random) -> {
                     return world.getBlockState(pos.above()).isAir();
                 }
+        );
+        RDEntityTypes.WILD_PIG.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Animal::checkAnimalSpawnRules
+        );
+        RDEntityTypes.KILLER_BEE.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Animal::checkAnimalSpawnRules
+        );
+        RDEntityTypes.MUSHROOM_MONSTER.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Monster::checkMonsterSpawnRules
         );
     }
 

@@ -1,5 +1,13 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.4.25+1.21.11
+* Fixed crash when rendering moon rabbit
+* Fixed build food tags
+* Fixed the issue of missing generic tags for bullet damage types
+* Fixed can't craft peach planks
+* Fixed can't load mod when using JAVA 25
+* Fixed not register some entities spawn placement
+
 # 0.4.24+1.21.11
 * Fixed an issue where some villagers in the module could farm experience.
 

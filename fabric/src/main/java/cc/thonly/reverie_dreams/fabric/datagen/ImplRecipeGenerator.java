@@ -237,6 +237,9 @@ public class ImplRecipeGenerator extends RecipeProvider {
         ;
 
         this.generateWoodBundle(RDWoodBlocks.SPIRITUAL_BUNDLE);
+        this.generateWoodBundle(RDWoodBlocks.LEMON_BUNDLE);
+        this.generateWoodBundle(RDWoodBlocks.GINKGO_BUNDLE);
+        this.generateWoodBundle(RDWoodBlocks.PEACH_BUNDLE);
         shapeless(RecipeCategory.BUILDING_BLOCKS, RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog())
                 .requires(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)
                 .unlockedBy("has_blessed_spiritual_log", has(RDWoodBlocks.BLESSED_SPIRITUAL_LOG))
@@ -263,8 +266,6 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_gold_nugget", has(Items.GOLD_NUGGET))
                 .save(output, getSimpleRecipeName(RDIngredientItems.PEACH));
 
-        this.generateWoodBundle(RDWoodBlocks.LEMON_BUNDLE);
-        this.generateWoodBundle(RDWoodBlocks.GINKGO_BUNDLE);
         this.generateDecorativeBlock();
 
         this.generateWorkBlock();

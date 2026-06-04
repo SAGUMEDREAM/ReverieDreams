@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.blay09.mods.balm.client.renderer.entity.BalmEntityRendererRegistrar;
 import net.minecraft.client.renderer.entity.BeeRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.RabbitRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 
@@ -51,6 +52,7 @@ public class RDEntityRenderers {
         registrar.register(RDEntityTypes.SUNFLOWER_YOUSEI.asHolder(), slimYouseiWingLikeRendererProvider);
         registrar.register(RDEntityTypes.GOBLIN.asHolder(), wideNpcLikeRendererProvider);
         registrar.register(RDEntityTypes.RABBIT_UNIT.asHolder(), slimNpcLikeRendererProvider);
+        registrar.register(RDEntityTypes.MOON_RABBIT.asHolder(), RabbitRenderer::new);
         registrar.register(RDEntityTypes.WATER_ELEMENTAL.asHolder(), wideNpcLikeRendererProvider);
         registrar.register(RDEntityTypes.FIRE_ELEMENTAL.asHolder(), wideNpcLikeRendererProvider);
         registrar.register(RDEntityTypes.ICE_ELEMENTAL.asHolder(), wideNpcLikeRendererProvider);
