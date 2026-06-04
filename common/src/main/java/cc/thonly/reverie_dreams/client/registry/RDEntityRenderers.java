@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.blay09.mods.balm.client.renderer.entity.BalmEntityRendererRegistrar;
 import net.minecraft.client.renderer.entity.BeeRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.RabbitRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 
@@ -33,6 +34,7 @@ public class RDEntityRenderers {
         registrar.register(RDEntityTypes.MUSHROOM_MONSTER.asHolder(), MushroomMonsterRenderer::new);
         registrar.register(RDEntityTypes.FUMO_SELLER_VILLAGER.asHolder(), VillagerSellerRenderer::new);
         registrar.register(RDEntityTypes.TAVERN_VILLAGER.asHolder(), VillagerSellerRenderer::new);
+        registrar.register(RDEntityTypes.MOON_RABBIT.asHolder(), RabbitRenderer::new);
 
         // Misc
         registrar.register(RDEntityTypes.ORE_ESP.asHolder(), OreEspRenderer::new);
@@ -54,5 +56,6 @@ public class RDEntityRenderers {
         registrar.register(RDEntityTypes.WATER_ELEMENTAL.asHolder(), wideNpcLikeRendererProvider);
         registrar.register(RDEntityTypes.FIRE_ELEMENTAL.asHolder(), wideNpcLikeRendererProvider);
         registrar.register(RDEntityTypes.ICE_ELEMENTAL.asHolder(), wideNpcLikeRendererProvider);
+        registrar.register(RDEntityTypes.ONI.asHolder(), wideNpcLikeRendererProvider);
     }
 }

@@ -57,6 +57,7 @@ public class PolymerEntityHelper {
         registerOverlay(RDEntityTypes.SCARECROW.asHolder().value(), ScarecrowImpl::new);
         registerOverlay(RDEntityTypes.UFO.asHolder().value(), UfoImpl::new);
         registerOverlay(RDEntityTypes.RABBIT_UNIT.asHolder().value(), RoleImpl::new);
+        registerOverlay(RDEntityTypes.ONI.asHolder().value(), RoleImpl::new);
 
         for (NPCRole role : RegistryImpls.NPC_ROLE) {
             registerOverlay(role.getEntityType().value(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);

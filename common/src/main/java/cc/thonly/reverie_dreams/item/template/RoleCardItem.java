@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -117,7 +117,7 @@ public class RoleCardItem extends Item {
             element.putString("entity_id", identifier.toString());
             dialog.actions().add(new ActionButton(
                     new CommonButtonData(Component.empty().append(Component.translatable(entityType.getDescriptionId())), 180),
-                    Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("role/summon"), Optional.of(element))))
+                    Optional.of(new StaticAction(new ClickEvent.Custom(CustomClickActionRegistry.ROLE_SUMMON_KEY, Optional.of(element))))
             ));
         }
         CompoundTag element = new CompoundTag();
@@ -125,7 +125,7 @@ public class RoleCardItem extends Item {
         element.putString("entity_id", "random");
         dialog.actions().add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.random")), 180),
-                Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("role/summon"), Optional.of(element))))
+                Optional.of(new StaticAction(new ClickEvent.Custom(CustomClickActionRegistry.ROLE_SUMMON_KEY, Optional.of(element))))
         ));
         dialog.actions().add(new ActionButton(
                 new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.exit")), 200),

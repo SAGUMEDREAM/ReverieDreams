@@ -254,6 +254,9 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .save(output, getSimpleRecipeName(RDItems.FAST_RECIPE_BOOK));
 
         this.buildWoodBundle(RDWoodBlocks.SPIRITUAL_BUNDLE);
+        this.buildWoodBundle(RDWoodBlocks.LEMON_BUNDLE);
+        this.buildWoodBundle(RDWoodBlocks.GINKGO_BUNDLE);
+        this.buildWoodBundle(RDWoodBlocks.PEACH_BUNDLE);
         shapeless(RecipeCategory.BUILDING_BLOCKS, RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog())
                 .requires(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)
                 .unlockedBy("has_blessed_spiritual_log", has(RDWoodBlocks.BLESSED_SPIRITUAL_LOG))
@@ -279,9 +282,6 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('#', RDIngredientItems.PEACH)
                 .unlockedBy("has_gold_nugget", has(Items.GOLD_NUGGET))
                 .save(output, getSimpleRecipeName(RDIngredientItems.PEACH));
-
-        this.buildWoodBundle(RDWoodBlocks.LEMON_BUNDLE);
-        this.buildWoodBundle(RDWoodBlocks.GINKGO_BUNDLE);
         this.buildDecorativeBlock();
 
         this.buildWorkBlock();
@@ -336,6 +336,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .group("planks")
                 .unlockedBy("has_wood", has(wood))
                 .save(output, getConversionRecipeName(planks, wood));
+
         // 去皮木 -> 木板（shapeless）
         ShapelessRecipeBuilder.shapeless(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
                 .requires(strippedLog)
@@ -346,7 +347,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(itemImpl, RecipeCategory.DECORATIONS, planks, 4)
                 .requires(strippedWood)
                 .group("planks")
-                .unlockedBy("has_wood", has(wood))
+                .unlockedBy("has_wood", has(strippedWood))
                 .save(output, getConversionRecipeName(planks, strippedWood));
 
         // 木板 -> 楼梯

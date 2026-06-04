@@ -30,6 +30,7 @@ public class RangedAttackUtil {
     }
 
     public static boolean isWeaponOfTheMoonInHand(BaseNPCLikeEntity npc) {
+//        System.out.println("is weapon = %s".formatted(npc.getInventory().getMainHand().getItem() instanceof WeaponOfTheMoon));
         return npc.getInventory().getMainHand().getItem() instanceof WeaponOfTheMoon;
     }
 

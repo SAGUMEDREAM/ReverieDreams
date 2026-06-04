@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
-import cc.thonly.reverie_dreams.api.recipe.Builder;
+import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
@@ -17,7 +17,7 @@ import java.util.Set;
 public class MoreDelightCompatImpl {
     public static void bootstrap() {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
-            Builder<KitchenRecipe> builder = RecipeCompatPatches.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
+            PatchBuilder<KitchenRecipe> builder = RecipeCompatPatches.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
             builder.add(ItemRegistry.DICED_POTATOES, Items.POTATO);
         });
         FoodPropertiesLoaderCallback.EVENT.register(ctx -> {

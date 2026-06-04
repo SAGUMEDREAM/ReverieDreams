@@ -11,18 +11,18 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class RecipeCompatPatches {
 
-    public static synchronized <R extends BaseRecipe> Builder<R> getOrCreateBuilder(BaseRecipeType<R> baseRecipeType) {
-        return (Builder<R>) Builder.INSTANCE.computeIfAbsent(baseRecipeType, (x) -> new Builder<>(baseRecipeType));
+    public static synchronized <R extends BaseRecipe> PatchBuilder<R> getOrCreateBuilder(BaseRecipeType<R> baseRecipeType) {
+        return (PatchBuilder<R>) PatchBuilder.INSTANCE.computeIfAbsent(baseRecipeType, (x) -> new PatchBuilder<>(baseRecipeType));
     }
 
     public static synchronized void removeAll(BaseRecipeType<?> recipeType) {
-        Builder<?> builder = getOrCreateBuilder(recipeType);
+        PatchBuilder<?> builder = getOrCreateBuilder(recipeType);
         Map<Identifier, BaseRecipe> registries = builder.getRegistries();
         registries.clear();
     }
 
     public static synchronized void apply(BaseRecipeType<?> recipeType) {
-        Builder<?> builder = getOrCreateBuilder(recipeType);
+        PatchBuilder<?> builder = getOrCreateBuilder(recipeType);
         Map<Identifier, BaseRecipe> registries = builder.getRegistries();
         for (Map.Entry<Identifier, BaseRecipe> registry : registries.entrySet()) {
             log.info("Registered compatibility recipe {}", registry.getKey().toString());

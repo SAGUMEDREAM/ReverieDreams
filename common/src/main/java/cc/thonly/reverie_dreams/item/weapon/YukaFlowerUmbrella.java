@@ -42,7 +42,7 @@ public class YukaFlowerUmbrella extends SwordItem {
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.BLOCK;
+        return ItemUseAnimation.SPEAR;
     }
 
     static {

@@ -27,6 +27,12 @@ public class RDVillagerTradeTags {
     public static final TagKey<VillagerTrade> BUTCHER_LEVEL_3 = VillagerTradeTags.BUTCHER_LEVEL_3;
     public static final TagKey<VillagerTrade> BUTCHER_LEVEL_4 = VillagerTradeTags.BUTCHER_LEVEL_4;
     public static final TagKey<VillagerTrade> BUTCHER_LEVEL_5 = VillagerTradeTags.BUTCHER_LEVEL_5;
+    public static final TagKey<VillagerTrade> FARMER_LEVEL_1 = VillagerTradeTags.FARMER_LEVEL_1;
+    public static final TagKey<VillagerTrade> FARMER_LEVEL_2 = VillagerTradeTags.FARMER_LEVEL_2;
+    public static final TagKey<VillagerTrade> FARMER_LEVEL_3 = VillagerTradeTags.FARMER_LEVEL_3;
+    public static final TagKey<VillagerTrade> FARMER_LEVEL_4 = VillagerTradeTags.FARMER_LEVEL_4;
+    public static final TagKey<VillagerTrade> FARMER_LEVEL_5 = VillagerTradeTags.FARMER_LEVEL_5;
+
 
     private static TagKey<VillagerTrade> of(String id) {
         return TagKey.create(Registries.VILLAGER_TRADE, ReverieDreams.id(id));

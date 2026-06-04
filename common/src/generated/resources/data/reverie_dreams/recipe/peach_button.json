@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    "reverie_dreams:peach_planks"
+  ],
+  "result": {
+    "id": "reverie_dreams:peach_button"
+  }
+}

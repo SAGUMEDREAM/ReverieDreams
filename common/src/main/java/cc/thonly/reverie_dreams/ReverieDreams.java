@@ -200,8 +200,8 @@ public class ReverieDreams {
         BiRegistryImpls.bootstrap();
         RDLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
-        DanmakuTemplates.init();
-        CustomClickActionRegistry.registerActions();
+        DanmakuTemplates.initialize();
+        CustomClickActionRegistry.initialize();
         KeyframeFunctions.bootstrap();
         InitTooltips.bootstrap();
 
@@ -222,10 +222,14 @@ public class ReverieDreams {
     }
 
     private static void registerContentEvent(BalmRegistrars registrars) {
+        LivingEntityCallback.Death.Before.EVENT.register(CommonEventHandlers::onLivingEntityDeathByDanmaku);
+        LivingEntityCallback.Death.Before.EVENT.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
         LivingEntityCallback.Damage.Before.EVENT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
         BlockCallback.Use.EVENT.register(CommonEventHandlers::onItemUsingByLilyPad);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitBySilverWeapon);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByMoonEnchantment);
+        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByFrozenEnchantment);
+        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByChargeEnchantment);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByInstantKillGhost);
         AttackBlockCallback.EVENT.register(CommonEventHandlers::onAttackingBlockChangeCameraFov);
         AttackBlockCallback.EVENT.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
@@ -302,8 +306,6 @@ public class ReverieDreams {
     }
 
     private static void registerServerEvents(BalmRegistrars registrars) {
-        LivingEntityCallback.Death.Before.EVENT.register(ServerEventHandlers::onLivingEntityDeathByDanmaku);
-        LivingEntityCallback.Death.Before.EVENT.register(ServerEventHandlers::onLivingEntityDeathByElixirOfLife);
         ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByModUpdateCheck);
         ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByCreateComponent);
         ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinBySync);

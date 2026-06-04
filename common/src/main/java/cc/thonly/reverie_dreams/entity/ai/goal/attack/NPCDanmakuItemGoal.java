@@ -110,11 +110,11 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
                     return;
                 }
                 Item item = itemStack.getItem();
-                if (!(item instanceof AbstractDanmakuItem polymerDanmakuItem)) {
+                if (!(item instanceof AbstractDanmakuItem danmakuItem)) {
                     return;
                 }
                 for (int i = 0; i < properties.count(); i++) {
-                    polymerDanmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
+                    danmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
                 }
                 if (!properties.infinite()) {
                     itemStack.hurtAndBreak(1, this.actor, InteractionHand.MAIN_HAND);
@@ -123,6 +123,7 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
                     }
                 }
 
+                this.actor.swing(InteractionHand.MAIN_HAND);
                 world.playSound(null, this.actor.getX(), this.actor.getY(), this.actor.getZ(), RDSoundEvents.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
             }
             this.resetCooldown();

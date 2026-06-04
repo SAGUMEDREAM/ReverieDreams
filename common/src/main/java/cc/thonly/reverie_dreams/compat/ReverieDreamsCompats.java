@@ -5,6 +5,8 @@ import cc.thonly.reverie_dreams.util.PlatformContext;
 import lombok.extern.slf4j.Slf4j;
 import org.intellij.lang.annotations.Pattern;
 
+import java.lang.reflect.Method;
+
 @Slf4j
 public class ReverieDreamsCompats {
     public static void initialize() {
@@ -18,8 +20,10 @@ public class ReverieDreamsCompats {
 
         try {
             Class<?> clazz = Class.forName(compatClassName);
-            clazz.getMethod("bootstrap").invoke(null);
-            ReverieDreams.LOGGER.info("Loaded Compat for {}", modId);
+            Method bootstrap = clazz.getMethod("bootstrap");
+            bootstrap.setAccessible(true);
+            bootstrap.invoke(null);
+            log.info("Loaded Compat for {}", modId);
         } catch (Throwable e) {
             log.warn("Can't load compat plugin {}", compatClassName, e);
         }

@@ -7,6 +7,12 @@ repositories {
 //        }
 //    }
     maven {
+        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+        content {
+            includeGroup "com.klikli_dev"
+        }
+    }
+    maven {
         name = 'Twelve Iterations'
         url = 'https://maven.twelveiterations.com/repository/maven-public/'
         content {

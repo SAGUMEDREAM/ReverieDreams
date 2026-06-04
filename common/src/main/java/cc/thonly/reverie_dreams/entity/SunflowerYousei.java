@@ -10,6 +10,7 @@ import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import lombok.Getter;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,7 +37,7 @@ public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, Fri
         this.xpReward = 5;
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(Items.SUNFLOWER.getDefaultInstance());
-        inventory.setMainHand(Items.SUNFLOWER.getDefaultInstance());
+        inventory.setMainHand(RDItems.SUNFLOWER.asItem().getDefaultInstance());
     }
 
     @Override
@@ -78,6 +79,11 @@ public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, Fri
             ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), itemStack);
             world.addFreshEntity(itemEntity);
         }
+    }
+
+    @Override
+    public KeepInventoryTypes getKeepInventoryType() {
+        return KeepInventoryTypes.ONLY_ARMOR;
     }
 
     @Override

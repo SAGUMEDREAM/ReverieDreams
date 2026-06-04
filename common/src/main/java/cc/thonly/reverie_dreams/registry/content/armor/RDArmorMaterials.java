@@ -10,6 +10,8 @@ public class RDArmorMaterials {
         register(MagicIceArmorMaterial.class);
         register(EarphoneArmorMaterial.class);
         register(KoishiHatArmorMaterial.class);
+        register(LowGravityBootArmorMaterial.class);
+        register(CrownOfTheUnderworldArmorMaterial.class);
         register(MaidArmorMaterial.class);
         register(DreamArmorMaterial.class);
     }

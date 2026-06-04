@@ -1,12 +1,15 @@
 package cc.thonly.reverie_dreams.gui.item;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.mixin.accessor.GuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -14,7 +17,10 @@ import eu.pb4.sgui.api.gui.SimpleGui;
 import eu.pb4.sgui.api.gui.SlotBasedGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
@@ -22,6 +28,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +60,15 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
             this.shape.add(booleans);
         }
         this.hand = hand;
-        this.setTitle(source.getHoverName());
+        this.setTitle(
+                Component.empty()
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub005")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(source.getHoverName())
+        );
         this.init();
     }
 
@@ -65,7 +80,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
             for (int x = 0; x < grid[y].length; x++) {
                 char c = grid[y][x];
                 if (c == 'A') {
-                    this.setSlot(counter, RDGuiItems.EMPTY_SLOT.createStack());
+                    this.setSlot(counter, new ItemStack(Items.AIR));
                 }
                 if (c == 'X') {
                     final int shapeY = counter2 / 6;
@@ -73,9 +88,9 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
 
                     int finalCounter = counter2;
                     GuiElementBuilder builder = new GuiElementBuilder(getItemForState(shape.get(shapeY).get(shapeX)))
-                            .setCallback(new  GuiElement.ClickCallback() {
+                            .setCallback(new GuiElement.ClickCallback() {
                                 @Override
-                                public void click(int i, ClickType clickType, ContainerInput slotActionType, SlotBasedGui slotGuiInterface) {
+                                public void click(int i, ClickType clickType, ContainerInput input, SlotBasedGui slotGuiInterface) {
                                     boolean current = shape.get(shapeY).get(shapeX);
                                     boolean next = !current;
 
@@ -85,7 +100,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                                             .setCallback(this);
                                     setSlot(i, updated);
                                     INDEX_TO_BUILDER.put(finalCounter, updated);
-                                    player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    SoundEventPlayUtils.playUISound(player, 1.0f, 1.0f);
                                 }
                             });
 
@@ -94,25 +109,19 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                     counter2++;
                 }
                 if (c == 'S') {
-                    this.setSlot(counter, new GuiElementBuilder(RDGuiItems.DONE.createStack())
-                            .setCallback(new  GuiElement.ClickCallback() {
-                                @Override
-                                public void click(int i, ClickType clickType, ContainerInput slotActionType, SlotBasedGui slotBasedGui) {
-                                    player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                                    DanmakuShapeEditGui.this.apply();
-                                    DanmakuShapeEditGui.this.close();
-                                }
+                    this.setSlot(counter, new GuiElementBuilder(Items.AIR)
+                            .setCallback((i, clickType, input, slotBasedGui) -> {
+                                SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
+                                DanmakuShapeEditGui.this.apply();
+                                DanmakuShapeEditGui.this.close();
                             })
                     );
                 }
                 if (c == 'E') {
-                    this.setSlot(counter, new GuiElementBuilder(RDGuiItems.CLOSE.createStack())
-                            .setCallback(new GuiElement.ClickCallback() {
-                                @Override
-                                public void click(int i, ClickType clickType, ContainerInput slotActionType, SlotBasedGui slotBasedGui) {
-                                    player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                                    DanmakuShapeEditGui.this.close();
-                                }
+                    this.setSlot(counter, new GuiElementBuilder(Items.AIR)
+                            .setCallback((i, clickType, input, slotBasedGui) -> {
+                                SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
+                                DanmakuShapeEditGui.this.close();
                             }));
                 }
                 counter++;
@@ -183,7 +192,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
         IngredientStack output = first.getOutput();
         ItemStack itemStack = output.build();
         this.player.sendSystemMessage(Component.translatable("item.action.click.shape_recipe.success"), false);
-        this.player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.player.setItemInHand(this.hand, itemStack);
     }
 }

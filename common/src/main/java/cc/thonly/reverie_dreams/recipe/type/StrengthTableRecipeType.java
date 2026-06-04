@@ -121,7 +121,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                     String builderByCounter = builder + "_" + num;
                     this.automaticRecipeIdCounter.put(builder, ++num);
                     ItemStackTemplate outputStack = new ItemStackTemplate(mainItem.item(), mainItem.count(), mainItem.components());
-                    Object object = offItem.get(componentType);
+                    Object object = ItemStackTemplateHelper.get(offItem, componentType);
                     if (object != null) {
                         ItemStackTemplateHelper.modify(outputStack, (template, modifier) -> {
                             modifier.set(componentType, object);

@@ -346,6 +346,33 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                 ),
                 this.ofItem(RDItems.SATORI_EYE)
         ));
+        this.factory.register(RDItems.LOW_GRAVITY_BOOT, new GensokyoAltarRecipe(
+                this.ofItem(Items.IRON_BOOTS),
+                List.of(
+                        this.ofItem(Items.FEATHER, 3), this.ofItem(Items.FEATHER, 3), this.ofItem(Items.FEATHER, 3),
+                        this.ofItem(RDItems.POWER, 20), this.ofItem(RDItems.POINT, 20),
+                        this.ofItem(Items.FEATHER, 3), this.ofItem(Items.FEATHER, 3), this.ofItem(Items.FEATHER, 3)
+                ),
+                this.ofItem(RDItems.LOW_GRAVITY_BOOT)
+        ));
+        this.factory.register(RDItems.CROWN_OF_THE_UNDERWORLD, new GensokyoAltarRecipe(
+                this.ofItem(Items.GOLDEN_HELMET),
+                List.of(
+                        this.ofItem(Items.CHERRY_LEAVES, 11), this.ofItem(Items.CHERRY_LEAVES, 11), this.ofItem(Items.CHERRY_LEAVES, 11),
+                        this.ofItem(RDItems.POWER, 20), this.ofItem(RDItems.POWER, 20),
+                        this.ofItem(RDItems.POWER, 20), this.ofItem(Items.WITHER_SKELETON_SKULL, 3), this.ofItem(RDItems.POWER, 20)
+                ),
+                this.ofItem(RDItems.CROWN_OF_THE_UNDERWORLD)
+        ));
+        this.factory.register(RDItems.CROWN_OF_THE_UNDERWORLD, new GensokyoAltarRecipe(
+                this.ofItem(Items.GOLDEN_HELMET),
+                List.of(
+                        this.ofItem(Items.CHERRY_LEAVES, 11), this.ofItem(Items.CHERRY_LEAVES, 11), this.ofItem(Items.CHERRY_LEAVES, 11),
+                        this.ofItem(RDItems.POWER, 20), this.ofItem(RDItems.POWER, 20),
+                        this.ofItem(RDItems.POWER, 20), this.ofItem(Items.WITHER_SKELETON_SKULL, 3), this.ofItem(RDItems.POWER, 20)
+                ),
+                this.ofItem(RDItems.CROWN_OF_THE_UNDERWORLD)
+        ));
     }
 
     private void configuredRoleCardRecipe() {

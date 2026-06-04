@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.registry.content.block;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
+import cc.thonly.reverie_dreams.block.base.PaneBlock;
 import cc.thonly.reverie_dreams.block.bundle.ChestBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.props.*;
@@ -24,8 +25,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -76,6 +79,8 @@ public class RDBlocks {
 
     public static ChestBlockBundle WOODEN_BOX;
 
+//    public static DeferredBlock PAPER_WINDOW;
+
     public static DeferredBlock FOOD_DISPLAY;
     public static DeferredBlock BLACK_SALT_BLOCK;
 
@@ -106,7 +111,7 @@ public class RDBlocks {
 
         MAGIC_ICE_BLOCK = registerBlock(registrar, "magic_ice",
                 Block::new,
-                BlockBehaviour.Properties.ofFullCopy(Blocks.BLUE_ICE));
+                BlockBehaviour.Properties.ofFullCopy(Blocks.BLUE_ICE).noOcclusion());
 
         POINT_BLOCK = registerBlock(registrar, "point_block",
                 Block::new,
@@ -190,6 +195,11 @@ public class RDBlocks {
                 "wooden_box",
                 BlockBehaviour.Properties.ofFullCopy(Blocks.CHEST).noOcclusion()
         ).build(registrar);
+
+//        PAPER_WINDOW = registerBlock(registrar, "paper_window",
+//                PaneBlock::new,
+//                BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(0.8F).sound(SoundType.WOOL).noOcclusion()
+//        );
 
         FOOD_DISPLAY = registerSimpleBlock(registrar,
                 "display",

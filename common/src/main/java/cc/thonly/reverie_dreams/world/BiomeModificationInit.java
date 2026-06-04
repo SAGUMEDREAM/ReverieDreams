@@ -8,13 +8,15 @@ import cc.thonly.reverie_dreams.entity.UFO;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.util.biome.BiomePredicateTool;
-import cc.thonly.reverie_dreams.world.gen.BiomeInit;
+import cc.thonly.reverie_dreams.world.gen.RDBiomes;
 import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
 import net.blay09.mods.balm.Balm;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
@@ -39,9 +41,12 @@ public class BiomeModificationInit {
 
     public static void addSpawnPlacements() {
         RDEntityTypes.YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entityType, world, reason, pos, random) -> {
-            if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
-            if (world.getRawBrightness(pos, 0) <= 8) return false;
-            if (!world.getBlockState(pos).isAir()) return false;
+            if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK))
+                return false;
+            if (world.getRawBrightness(pos, 0) <= 8)
+                return false;
+            if (!world.getBlockState(pos).isAir())
+                return false;
 
             int nearby = world.getEntitiesOfClass(
                     RDEntityTypes.YOUSEI.asHolder().value().getBaseClass(),
@@ -51,7 +56,28 @@ public class BiomeModificationInit {
                     )
             ).size();
 
-            if (nearby > 2) return false;
+            if (nearby > 2)
+                return false;
+            return random.nextFloat() < 0.6f;
+        });
+        RDEntityTypes.MAID_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entityType, world, reason, pos, random) -> {
+            if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK))
+                return false;
+            if (world.getRawBrightness(pos, 0) <= 8)
+                return false;
+            if (!world.getBlockState(pos).isAir())
+                return false;
+
+            int nearby = world.getEntitiesOfClass(
+                    RDEntityTypes.MAID_YOUSEI.asHolder().value().getBaseClass(),
+                    new AABB(
+                            pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
+                            pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                    )
+            ).size();
+
+            if (nearby > 2)
+                return false;
             return random.nextFloat() < 0.6f;
         });
         RDEntityTypes.SUNFLOWER_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new Supplier<SpawnPlacements.SpawnPredicate<SunflowerYousei>>() {
@@ -59,9 +85,12 @@ public class BiomeModificationInit {
             public SpawnPlacements.SpawnPredicate<SunflowerYousei> get() {
                 return (entityType, world, reason, pos, random) -> {
                     // 原本条件
-                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
-                    if (world.getRawBrightness(pos, 0) <= 8) return false;
-                    if (!world.getBlockState(pos).isAir()) return false;
+                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK))
+                        return false;
+                    if (world.getRawBrightness(pos, 0) <= 8)
+                        return false;
+                    if (!world.getBlockState(pos).isAir())
+                        return false;
 
                     // 检测周围是否已有太多该实体
                     int nearbyCount = world.getEntitiesOfClass(
@@ -93,6 +122,45 @@ public class BiomeModificationInit {
         RDEntityTypes.UFO.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 () -> UFO::checkSpawnRules
+        );
+        RDEntityTypes.WILD_PIG.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Animal::checkAnimalSpawnRules
+        );
+        RDEntityTypes.KILLER_BEE.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Animal::checkAnimalSpawnRules
+        );
+        RDEntityTypes.MUSHROOM_MONSTER.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Monster::checkMonsterSpawnRules
+        );
+        RDEntityTypes.MOON_RABBIT.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Monster::checkMonsterSpawnRules
+        );
+        RDEntityTypes.ONI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> (entityType, world, reason, pos, random) -> {
+                    if (world.getBlockState(pos.below()).is(Blocks.AIR))
+                        return false;
+                    if (world.getRawBrightness(pos, 0) <= 8)
+                        return false;
+                    if (!world.getBlockState(pos).isAir())
+                        return false;
+
+                    int nearby = world.getEntitiesOfClass(
+                            RDEntityTypes.ONI.asHolder().value().getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 16, pos.getY() - 8, pos.getZ() - 16,
+                                    pos.getX() + 16, pos.getY() + 8, pos.getZ() + 16
+                            )
+                    ).size();
+
+                    if (nearby > 2)
+                        return false;
+                    return random.nextFloat() < 0.6f;
+                }
         );
     }
 
@@ -301,7 +369,7 @@ public class BiomeModificationInit {
         // 月兔
         Balm.biomeModifications().modifyBiome(
                 ReverieDreams.id("moon_rabbit_spawn"),
-                BiomePredicateTool.includeByKey(BiomeInit.THE_MOON),
+                BiomePredicateTool.includeByKey(RDBiomes.THE_MOON),
                 (biome, builder) -> builder.addSpawn(
                         MobCategory.MONSTER,
                         new MobSpawnSettings.SpawnerData(RDEntityTypes.MOON_RABBIT.asHolder().value(), 1, 1),
@@ -331,6 +399,25 @@ public class BiomeModificationInit {
                         MobCategory.MONSTER,
                         new MobSpawnSettings.SpawnerData(RDEntityTypes.UFO.asHolder().value(), 1, 2),
                         3
+                )
+        );
+        // Oni
+        Balm.biomeModifications().modifyBiome(
+                ReverieDreams.id("oni_spawn_dark_forest"),
+                BiomePredicateTool.tag(ConventionalBiomeTags.IS_DARK_FOREST),
+                (biome, builder) -> builder.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(RDEntityTypes.ONI.asHolder().value(), 1, 2),
+                        2
+                )
+        );
+        Balm.biomeModifications().modifyBiome(
+                ReverieDreams.id("oni_spawn_desert"),
+                BiomePredicateTool.tag(ConventionalBiomeTags.IS_DESERT),
+                (biome, builder) -> builder.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(RDEntityTypes.ONI.asHolder().value(), 1, 2),
+                        2
                 )
         );
     }

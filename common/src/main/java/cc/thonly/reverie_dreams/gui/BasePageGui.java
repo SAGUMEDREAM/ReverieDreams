@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.gui;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.gui.recipe.GuiStackBuilder;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
@@ -12,7 +13,10 @@ import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import eu.pb4.sgui.api.gui.SlotBasedGui;
 import lombok.Getter;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.ContainerInput;
@@ -34,9 +38,9 @@ public class BasePageGui extends SimpleGui {
             {"P", "W", "W", "W", "B", "W", "W", "W", "N"},
     };
     public static final int PER_PAGE_SIZE = 5 * 9;
-    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiItems.BACK.createStack()).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
-    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
-    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.createStack()).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
+    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiItems.CLOSE.asItem()).setCallback(this::back);
+    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.asItem()).setCallback(this::next);
+    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.asItem()).setCallback(this::prev);
     public int page = 0;
     public final int maxSize;
     public final List<GuiElementBuilder> displayList = new LinkedList<>();
@@ -58,11 +62,18 @@ public class BasePageGui extends SimpleGui {
         this.maxSize = this.entries.size();
         this.prevGuiCallback = prevGuiCallback;
         this.init();
-        this.setTitle(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")));
     }
 
     public void init() {
-        this.setTitle(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")));
+        this.setTitle(
+                Component.empty()
+                         .append(Component.translatable("space.-8"))
+                         .append(Component.literal("\ub007")
+                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                         .append(Component.translatable("space.-168"))
+                         .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
+        );
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
                 String c = GRID[row][col];
@@ -81,9 +92,6 @@ public class BasePageGui extends SimpleGui {
                 }
                 if (c.equalsIgnoreCase("P")) {
                     this.setSlot(slot, this.prev);
-                }
-                if (c.equalsIgnoreCase("W")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiItems.EMPTY_SLOT.asItem()));
                 }
             }
         }
@@ -141,7 +149,15 @@ public class BasePageGui extends SimpleGui {
         if (!this.updated) return;
         this.updated = false;
 
-        this.setTitle(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")));
+        this.setTitle(
+                Component.empty()
+                         .append(Component.translatable("space.-8"))
+                         .append(Component.literal("\ub007")
+                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                         .append(Component.translatable("space.-168"))
+                         .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
+        );
         int start = this.page * PER_PAGE_SIZE;
 
         for (int i = 0; i < PER_PAGE_SIZE; i++) {

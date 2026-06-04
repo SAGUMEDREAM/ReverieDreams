@@ -69,6 +69,15 @@ public class MobSkinTypes extends SkinTypes {
     public static final SkinType RABBIT_UNIT_2 = register(new SkinType(
             ReverieDreams.id("rabbit_unit_2")
     ));
+    public static final SkinType ONI_GREEN = register(new SkinType(
+            ReverieDreams.id("oni_green")
+    ));
+    public static final SkinType ONI_ORANGE = register(new SkinType(
+            ReverieDreams.id("oni_orange")
+    ));
+    public static final SkinType ONI_RED = register(new SkinType(
+            ReverieDreams.id("oni_red")
+    ));
 
     public static void bootstrap(RegistryImpl<SkinType> registry) {
         MobSkinTypes.DEFAULT.setSlim(false);
@@ -76,5 +85,8 @@ public class MobSkinTypes extends SkinTypes {
         MobSkinTypes.WATER_ELEMENTAL.setSlim(false);
         MobSkinTypes.FIRE_ELEMENTAL.setSlim(false);
         MobSkinTypes.ICE_ELEMENTAL.setSlim(false);
+        MobSkinTypes.ONI_GREEN.setSlim(false);
+        MobSkinTypes.ONI_ORANGE.setSlim(false);
+        MobSkinTypes.ONI_RED.setSlim(false);
     }
 }

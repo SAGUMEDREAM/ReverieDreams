@@ -2,6 +2,26 @@
 
 # 0.5.5+26.1.2
 * Now allow midi device control Note Instrument
+* Fixed a bug where some villagers could farm experience
+* Fixed the issue of missing generic tags for bullet damage types
+* Fixed the issue where Magic Ice could see through blocks
+* Fixed Kanju not triggering
+* Fixed crash when rendering moon rabbit
+* Fixed leaves will drop self
+* Fixed can't craft peach planks
+* Fixed not register some entities spawn placement
+* Two characters with the same master will no longer fight each other if they accidentally injure each other.
+* Added reverse and reset functionality to FastRecipeBook
+* Added catapult functionality to Papilio Pattern Fan
+* Added Charge Enchantment
+* Added Frozen Enchantment
+* Added Sunflower Weapon(mob only)
+* Added Oni
+* Readd command "/touhou recipe"
+* Enhanced HakureiCane's bullet hell attack.
+* Enhanced to Rokanken
+* Updated the appearance of two katana
+* Rewrote all GUI not be placeholder item with font bitmap
 
 # 0.5.3+26.1.2
 * Fixed the dirty pixel issue

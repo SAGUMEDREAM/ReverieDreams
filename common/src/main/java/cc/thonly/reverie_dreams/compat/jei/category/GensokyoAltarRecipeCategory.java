@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.compat.jei.category;
 
 import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
-import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
+import cc.thonly.reverie_dreams.gui.block.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;

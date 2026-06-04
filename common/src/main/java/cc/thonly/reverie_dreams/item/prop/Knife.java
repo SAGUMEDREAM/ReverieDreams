@@ -63,7 +63,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
             if (!properties.infinite()) {
                 itemStack.hurtWithoutBreaking(1, user);
             }
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), RDSoundEvents.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
+            world.playSound(null, user.getX(), user.getEyeY(), user.getZ(), RDSoundEvents.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
             return InteractionResult.SUCCESS_SERVER;
         }
         user.awardStat(Stats.ITEM_USED.get(this));
@@ -107,7 +107,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
             int i1 = ReverieDreams.RD.nextInt(-5, 5);
             list.add(DanmakuEntity.create(
                     serverWorld, user, stack.copy(),
-                    user.getX(), user.getY(), user.getZ(),
+                    user.getX(), user.getEyeY(), user.getZ(),
                     pitch + i1 / 1.5f,
                     yaw + i1,
                     0.4f

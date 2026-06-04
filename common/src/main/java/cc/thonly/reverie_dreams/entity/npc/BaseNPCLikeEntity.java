@@ -161,7 +161,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     public BaseNPCLikeEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         this(entityType, world);
-        this.setSkinType(skinType);;
+        this.setSkinType(skinType);
+        ;
     }
 
     public void init() {
@@ -389,6 +390,18 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             List<ItemStack> stacks = List.of(
                     this.inventory.getMainHand(),
                     this.inventory.getOffHand(),
+                    this.inventory.getHead(),
+                    this.inventory.getChest(),
+                    this.inventory.getLegs(),
+                    this.inventory.getFeet()
+            );
+            for (ItemStack stack : stacks) {
+                ItemStack copiedStack = stack.copy();
+                ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
+                world.addFreshEntity(itemEntity);
+            }
+        } else if (keepInventoryType == KeepInventoryTypes.ONLY_ARMOR) {
+            List<ItemStack> stacks = List.of(
                     this.inventory.getHead(),
                     this.inventory.getChest(),
                     this.inventory.getLegs(),
@@ -1038,11 +1051,23 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         return this.level().getPlayerByUUID(UUID.fromString(this.npcOwner));
     }
 
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Deprecated
     public @Nullable UUID getOwnerUuid() {
         if (this.npcOwner.equalsIgnoreCase("")) return null;
-        return UUID.fromString(this.npcOwner);
+        try {
+            return UUID.fromString(this.npcOwner);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean isAlliedTo(BaseNPCLikeEntity other) {
+        if (!this.isTame() || !other.isTame()) {
+            return false;
+        }
+        if (this.getOwnerUuid() == null || other.getOwnerUuid() == null) {
+            return false;
+        }
+        return Objects.equals(this.getOwnerUuid(), other.getOwnerUuid());
     }
 
     @Override

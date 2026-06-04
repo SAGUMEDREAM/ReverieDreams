@@ -22,6 +22,7 @@ dependencies {
     }
     implementation("gg.moonflower:molang-compiler:3.1.1.19")
     implementation("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
+    compileOnly("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}") { transitive = false }
 
     api("cc.thonly:sgui-common:${sgui_forgelike_version}")
     api("cc.thonly:keine-common:${keine_version}")

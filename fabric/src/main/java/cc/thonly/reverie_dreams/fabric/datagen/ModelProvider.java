@@ -193,6 +193,9 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.SATORI_EYE.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.WEAPON_OF_THE_MOON.asItem());
         itemModelGenerator.generateFlatItem(RDItems.FAST_RECIPE_BOOK.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.LOW_GRAVITY_BOOT.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.declareCustomModelItem(RDItems.SUNFLOWER.asItem());
 
         // 武器
         itemModelGenerator.generateFlatItem(RDItems.HAKUREI_CANE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -202,8 +205,10 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.KNIFE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
 //        itemModelGenerator.generateSpear(RDItems.GUNGNIR);
         itemModelGenerator.generateFlatItem(RDItems.LEVATIN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(RDItems.ROKANKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(RDItems.HAKUROKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.declareCustomModelItem(RDItems.ROKANKEN.asItem());
+        itemModelGenerator.declareCustomModelItem(RDItems.HAKUROKEN.asItem());
+//        itemModelGenerator.generateFlatItem(RDItems.ROKANKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+//        itemModelGenerator.generateFlatItem(RDItems.HAKUROKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.PAPILIO_PATTERN_FAN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.HORAI_DAMA_NO_EDA.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.YUKA_FLOWER_UMBRELLA.asItem());
@@ -217,6 +222,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.declareCustomModelItem(RDItems.VIOLIN.asItem());
         itemModelGenerator.declareCustomModelItem(RDItems.KEYBOARD.asItem());
         itemModelGenerator.declareCustomModelItem(RDItems.TRUMPET.asItem());
+        itemModelGenerator.declareCustomModelItem(RDItems.IRON_BAR.asItem());
         itemModelGenerator.generateFlatItem(RDItems.DEATH_SCYTHE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAID_HAIRBAND.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAID_UPPER_SKIRT.asItem(), ModelTemplates.FLAT_ITEM);

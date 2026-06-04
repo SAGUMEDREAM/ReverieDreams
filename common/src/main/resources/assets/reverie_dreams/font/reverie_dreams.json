@@ -11,12 +11,75 @@
     },
     {
       "type": "bitmap",
+      "file": "reverie_dreams:gui/npc_inv.png",
+      "chars": [
+        "\ub000"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
       "file": "reverie_dreams:gui/danmaku_crafting_table.png",
       "chars": [
-        "\u53bb"
+        "\ub001"
       ],
-      "height": 168,
-      "ascent": 0
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/gensokyo_altar.png",
+      "chars": [
+        "\ub002"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/kitchen_block.png",
+      "chars": [
+        "\ub003"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/strength_table.png",
+      "chars": [
+        "\ub004"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/danmaku_shape_editor.png",
+      "chars": [
+        "\ub005"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/fast_recipe_book.png",
+      "chars": [
+        "\ub006"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/recipe_manager.png",
+      "chars": [
+        "\ub007"
+      ],
+      "height": 256,
+      "ascent": 13
     }
   ]
 }

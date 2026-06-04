@@ -51,6 +51,7 @@ public class WeaponOfTheMoon extends Item {
     }
 
     public void tryShoot(LivingEntity owner, ServerLevel world, @Nullable InteractionHand hand, float d) {
+//        System.out.println("shoot");
         if (owner instanceof Player player && hand != null) {
             ItemStack offStack = player.getItemInHand(InteractionHand.OFF_HAND);
             if (!offStack.is(Items.COPPER_NUGGET) && !player.isCreative()) {
@@ -79,11 +80,14 @@ public class WeaponOfTheMoon extends Item {
         if (!level.isClientSide() && level instanceof ServerLevel world) {
             ItemStack itemStack = player.getItemInHand(hand);
             this.tryShoot(player, world, hand);
+            float pitchKick = -1.5F;
+            float yawKick = (world.getRandom().nextFloat() - 0.5F) * 2.0F;
+            player.turn(pitchKick, yawKick);
             player.awardStat(Stats.ITEM_USED.get(this));
             RDCriteriaTriggers.USE_ITEM.value().trigger((ServerPlayer) player, itemStack);
-            return InteractionResult.CONSUME;
+            return InteractionResult.FAIL;
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResult.FAIL;
     }
 
     @Override

@@ -42,6 +42,12 @@ public class RDTradeSets {
     public static final ResourceKey<TradeSet> BUTCHER_LEVEL_3 = TradeSets.BUTCHER_LEVEL_3;
     public static final ResourceKey<TradeSet> BUTCHER_LEVEL_4 = TradeSets.BUTCHER_LEVEL_4;
     public static final ResourceKey<TradeSet> BUTCHER_LEVEL_5 = TradeSets.BUTCHER_LEVEL_5;
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_1 = TradeSets.FARMER_LEVEL_1;
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_2 = TradeSets.FARMER_LEVEL_2;
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_3 = TradeSets.FARMER_LEVEL_3;
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_4 = TradeSets.FARMER_LEVEL_4;
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_5 = TradeSets.FARMER_LEVEL_5;
+
 
     public static void bootstrap(BootstrapContext<TradeSet> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);

@@ -347,7 +347,18 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         if (this.kanjuWorld instanceof ServerLevel serverWorld && this.hasEffect(RDStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
+            this.hurtServer(serverWorld, this.damageSources().magic(), 0.0001F);
             this.teleportTo(serverWorld, this.kanjuBlockPos.getX(), this.kanjuBlockPos.getY(), this.kanjuBlockPos.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
+            SoundEvent hurtSound = getHurtSound(source);
+            SoundEvent deathSound = getDeathSound();
+            if (hurtSound != null) {
+                world.playSound(null, this.getOnPos(), hurtSound, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            }
+            if (deathSound != null) {
+                world.playSound(null, this.getOnPos(), deathSound, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            }
+            world.playSound(null, this.getOnPos(), SoundEvents.TOTEM_USE, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            cir.cancel();
             return true;
         }
         return false;

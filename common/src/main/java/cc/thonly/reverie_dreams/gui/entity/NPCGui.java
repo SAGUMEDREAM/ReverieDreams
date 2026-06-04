@@ -1,19 +1,25 @@
 package cc.thonly.reverie_dreams.gui.entity;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.inventory.ArmorSlot;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -35,10 +41,10 @@ public class NPCGui extends SimpleGui implements GuiCommon {
             {"X", "X", "X", "X", "X", "X", "X", "N", "B"},
     };
     public static final String[][] GRID = {
-            {"/", "A1", "I", "I", "I", "I", "X", "Q", "W"},
-            {"*", "A2", "I", "I", "I", "I", "X", "E", "R"},
-            {"-", "A3", "I", "I", "I", "I", "X", "T", "Y"},
-            {"+", "A4", "I", "I", "I", "I", "X", "U", "O"},
+            {"/", "X", "I", "I", "I", "I", "X", "Q", "W"},
+            {"*", "X", "I", "I", "I", "I", "X", "E", "R"},
+            {"-", "X", "I", "I", "I", "I", "X", "T", "Y"},
+            {"+", "X", "I", "I", "I", "I", "X", "U", "O"},
             {"X", "X", "X", "X", "I", "I", "X", "P", "M"},
             {"I", "I", "X", "X", "X", "X", "X", "N", "B"},
     };
@@ -65,35 +71,43 @@ public class NPCGui extends SimpleGui implements GuiCommon {
     public void init() {
         int inventory_index = 0;
 
-        this.setTitle(getRoleName());
+        this.setTitle(Component.empty()
+                .append(Component.translatable("space.-8"))
+                .append(Component.literal("\ub000")
+                        .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                .append(Component.translatable("space.-168"))
+                .append(getRoleName()));
+
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
                 int slotIndex = row * 9 + col;
                 String posChar = GRID[row][col];
-                if (posChar.equalsIgnoreCase("X")) {
-                    this.setSlot(slotIndex, new GuiElementBuilder()
-                            .setItem(RDGuiItems.EMPTY_SLOT.asItem()));
-                }
-                if (posChar.equalsIgnoreCase("A1")) {
-                    this.setSlot(slotIndex, new GuiElementBuilder()
-                            .setItem(RDGuiItems.HEAD_SLOT.asItem()));
-                }
-                if (posChar.equalsIgnoreCase("A2")) {
-                    this.setSlot(slotIndex, new GuiElementBuilder()
-                            .setItem(RDGuiItems.CHEST_SLOT.asItem()));
-                }
-                if (posChar.equalsIgnoreCase("A3")) {
-                    this.setSlot(slotIndex, new GuiElementBuilder()
-                            .setItem(RDGuiItems.LEG_SLOT.asItem()));
-                }
-                if (posChar.equalsIgnoreCase("A4")) {
-                    this.setSlot(slotIndex, new GuiElementBuilder()
-                            .setItem(RDGuiItems.FEET_SLOT.asItem()));
-                }
+//                if (posChar.equalsIgnoreCase("X")) {
+//                    this.setSlot(slotIndex, new GuiElementBuilder()
+//                            .setItem(RDGuiItems.EMPTY_SLOT.asItem()));
+//                }
+//                if (posChar.equalsIgnoreCase("A1")) {
+//                    this.setSlot(slotIndex, new GuiElementBuilder()
+//                            .setItem(RDGuiItems.HEAD_SLOT.asItem()));
+//                }
+//                if (posChar.equalsIgnoreCase("A2")) {
+//                    this.setSlot(slotIndex, new GuiElementBuilder()
+//                            .setItem(RDGuiItems.CHEST_SLOT.asItem()));
+//                }
+//                if (posChar.equalsIgnoreCase("A3")) {
+//                    this.setSlot(slotIndex, new GuiElementBuilder()
+//                            .setItem(RDGuiItems.LEG_SLOT.asItem()));
+//                }
+//                if (posChar.equalsIgnoreCase("A4")) {
+//                    this.setSlot(slotIndex, new GuiElementBuilder()
+//                            .setItem(RDGuiItems.FEET_SLOT.asItem()));
+//                }
                 if (posChar.equalsIgnoreCase("Q")) {
                     this.npcName = new GuiElementBuilder()
                             .setItem(Items.NAME_TAG)
                             .setItemName(Component.translatable("gui.npc.info"))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setCallback((index, type, action, basedGui) -> {
                                 SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
@@ -104,6 +118,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcFood = new GuiElementBuilder()
                             .setItem(Items.COOKED_CHICKEN)
                             .setItemName(Component.translatable("gui.npc.info"))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setCallback((index, type, action, basedGui) -> {
                                 SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
@@ -114,6 +129,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcHealth = new GuiElementBuilder()
                             .setItem(Items.GOLDEN_APPLE)
                             .setItemName(Component.translatable("gui.npc.info"))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setCallback((index, type, action, basedGui) -> {
                                 SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
@@ -124,6 +140,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcArmor = new GuiElementBuilder()
                             .setItem(Items.IRON_HELMET)
                             .setItemName(Component.translatable("gui.npc.info", getRoleName().getString()))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setCallback((index, type, action, basedGui) -> {
                                 SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                             });
@@ -136,6 +153,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcMode = new GuiElementBuilder()
                             .setItem(Items.DIAMOND)
                             .setItemName(Component.translatable("gui.npc.work.button"))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setLore(List.of
                                     (
                                             this.npcEntity.getNpcState().getTranslateText(),
@@ -158,6 +176,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcWorkMode = new GuiElementBuilder()
                             .setItem(currentWorkMode.getItemDisplay().value())
                             .setItemName(Component.translatable("gui.npc.work.mode"))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setCallback((index, type, action, basedGui) -> {
                                 SoundEventPlayUtils.playUISound(this.player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
                                 NPCWorkGui npcWorkGui = new NPCWorkGui(this.player, this.npcEntity);
@@ -170,6 +189,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcXp = new GuiElementBuilder()
                             .setItem(Items.EXPERIENCE_BOTTLE)
                             .setItemName(Component.translatable("gui.npc.info.xp", this.npcEntity.getStoredExperience()))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setLore(List.of(
                                     Component.translatable("gui.npc.info.xp.button")
                             ))
@@ -189,6 +209,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                     this.npcAutoPick = new GuiElementBuilder()
                             .setItem(Items.NETHERITE_SCRAP)
                             .setName(Component.translatable("gui.npc.info.auto-pick"))
+                            .setComponent(RDDataComponents.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setComponent(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, this.npcEntity.isAutoPick())
                             .setCallback((index, type, action, basedGui) -> {
                                 this.npcEntity.setAutoPick(!this.npcEntity.isAutoPick());

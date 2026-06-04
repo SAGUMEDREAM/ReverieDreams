@@ -11,6 +11,7 @@ accessible class net/minecraft/world/entity/monster/illager/SpellcasterIllager$I
 accessible class net/minecraft/world/entity/npc/wanderingtrader/WanderingTrader$WanderToPositionGoal
 accessible class net/minecraft/world/entity/raid/Raid$RaiderType
 accessible class net/minecraft/world/inventory/ArmorSlot
+accessible class net/minecraft/world/effect/HealOrHarmMobEffect
 accessible field net/minecraft/core/Holder$Reference tags Ljava/util/Set;
 accessible field net/minecraft/core/Holder$Reference value Ljava/lang/Object;
 accessible field net/minecraft/core/HolderSet$Named contents Ljava/util/List;

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.StrengthenTableBlockEntity;
-import cc.thonly.reverie_dreams.gui.recipe.gui.StrengthTableGui;
+import cc.thonly.reverie_dreams.gui.block.StrengthTableGui;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;

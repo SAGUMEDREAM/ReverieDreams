@@ -1,0 +1,27 @@
+{
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "count": {
+        "type": "minecraft:uniform",
+        "max": 4.0,
+        "min": 3.0
+      },
+      "function": "minecraft:set_count"
+    }
+  ],
+  "gives": {
+    "id": "reverie_dreams:ingredient/trout"
+  },
+  "max_uses": 11.0,
+  "reputation_discount": 0.2,
+  "wants": {
+    "count": {
+      "type": "minecraft:uniform",
+      "max": 3.0,
+      "min": 3.0
+    },
+    "id": "reverie_dreams:copper_coin"
+  },
+  "xp": 5.0
+}

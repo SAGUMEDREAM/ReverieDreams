@@ -7,8 +7,9 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import org.jetbrains.annotations.ApiStatus;
 
-@Deprecated
+@ApiStatus.Experimental
 public class IGeoEntityRenderer<
         T extends Entity & GeoAnimatable,
         R extends EntityRenderState & GeoRenderState

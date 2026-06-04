@@ -23,7 +23,7 @@ public class DamageTypeTagProvider extends KeyTagProvider<DamageType> {
 
         this.tag(DamageTypeTags.NO_KNOCKBACK).add(RDDamageTypes.DANMAKU_GENERIC).add(RDDamageTypes.DANMAKU_REAL);
         this.tag(DamageTypeTags.BYPASSES_ARMOR).add(RDDamageTypes.DANMAKU_REAL);
-        this.tag(DamageTypeTags.IS_PROJECTILE).add(RDDamageTypes.DANMAKU_REAL).add(RDDamageTypes.DANMAKU_REAL);
-        this.tag(RDDamageTypeTags.DANMAKU_HIT).add(RDDamageTypes.DANMAKU_REAL).add(RDDamageTypes.DANMAKU_REAL);
+        this.tag(DamageTypeTags.IS_PROJECTILE).add(RDDamageTypes.DANMAKU_GENERIC).add(RDDamageTypes.DANMAKU_REAL);
+        this.tag(RDDamageTypeTags.DANMAKU_HIT).add(RDDamageTypes.DANMAKU_GENERIC).add(RDDamageTypes.DANMAKU_REAL);
     }
 }

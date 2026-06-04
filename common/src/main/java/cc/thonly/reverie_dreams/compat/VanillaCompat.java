@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.compat;
 
-import cc.thonly.reverie_dreams.api.recipe.Builder;
+import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class VanillaCompat {
     public static void bootstrap() {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
-            Builder<KitchenRecipe> builder = RecipeCompatPatches.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
+            PatchBuilder<KitchenRecipe> builder = RecipeCompatPatches.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
             builder.add(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
             builder.add(Items.EGG, Items.BROWN_EGG);
             builder.add(Items.EGG, Items.BLUE_EGG);

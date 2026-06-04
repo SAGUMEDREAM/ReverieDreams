@@ -44,6 +44,8 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
     public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_A = getKey("moon_building_chest_a");
     public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_B = getKey("moon_building_chest_b");
     public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_C = getKey("moon_building_chest_c");
+    public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_LEFT_A = getKey("moon_building_chest_left_a");
+    public static final ResourceKey<LootTable> MOON_BUILDING_CHEST_LEFT_B = getKey("moon_building_chest_left_b");
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
@@ -222,25 +224,21 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 
                         .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(8))
                         .add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(5))
-                        .add(
-                                LootItem.lootTableItem(RDItems.SILVER_BOOTS)
-                                        .setWeight(3)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
+                        .add(LootItem.lootTableItem(RDItems.SILVER_BOOTS)
+                                .setWeight(3)
+                                .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
                         )
-                        .add(
-                                LootItem.lootTableItem(RDItems.SILVER_CHESTPLATE)
-                                        .setWeight(3)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
+                        .add(LootItem.lootTableItem(RDItems.SILVER_CHESTPLATE)
+                                .setWeight(3)
+                                .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
                         )
-                        .add(
-                                LootItem.lootTableItem(RDItems.SILVER_LEGGINGS)
-                                        .setWeight(3)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
+                        .add(LootItem.lootTableItem(RDItems.SILVER_LEGGINGS)
+                                .setWeight(3)
+                                .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
                         )
-                        .add(
-                                LootItem.lootTableItem(RDItems.SILVER_HELMET)
-                                        .setWeight(3)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
+                        .add(LootItem.lootTableItem(RDItems.SILVER_HELMET)
+                                .setWeight(3)
+                                .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(20.0F, 39.0F)))
                         )
                         .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(1))
                         .add(LootItem.lootTableItem(Items.BOOK)
@@ -274,6 +272,40 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
         );
 
         output.accept(MOON_BUILDING_CHEST_C, LootTable.lootTable());
+        output.accept(MOON_BUILDING_CHEST_LEFT_A, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(UniformGenerator.between(2, 3))
+                        .add(LootItem.lootTableItem(Items.IRON_INGOT)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 6))))
+                        .add(LootItem.lootTableItem(Items.GOLD_INGOT)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 5))))
+                        .add(LootItem.lootTableItem(Items.COOKED_BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(4, 10))))
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(UniformGenerator.between(1, 2))
+                        .add(LootItem.lootTableItem(RDItems.LOW_GRAVITY_BOOT) // 跳跃辅助🔥
+                                .setWeight(10))
+                        .add(LootItem.lootTableItem(Items.LANTERN) // 照明/标记
+                                .setWeight(8)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1,6))))
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(RDItems.DANMAKU_SHAPE_CREATOR)
+                                .setWeight(6)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1,2))))
+                        .add(LootItem.lootTableItem(Items.BOOK)
+                                .apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
+                                .setWeight(8))
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(UniformGenerator.between(1, 2))
+                        .add(LootItem.lootTableItem(Items.ENDER_PEARL))
+                        .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET))
+                )
+        );
+        output.accept(MOON_BUILDING_CHEST_LEFT_B, LootTable.lootTable());
     }
 
     public static ResourceKey<LootTable> getKey(String name) {

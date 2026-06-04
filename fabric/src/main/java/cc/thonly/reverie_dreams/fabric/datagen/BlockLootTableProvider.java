@@ -38,24 +38,24 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class BlockLootTableProvider extends FabricBlockLootSubProvider {
+    protected static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
     private final Function<WoodBundle, Void> woodBundleLootFunction = (creator) -> {
-        creator.stream().forEach((block -> {
+        creator.stream().forEach((deferredBlock -> {
+            Block block = deferredBlock.asBlock();
             if (block instanceof DoorBlock) {
-                LootTable.Builder builder = this.createDoorTable(block.asBlock());
-                this.add(block.asBlock(), builder);
+                LootTable.Builder builder = this.createDoorTable(block);
+                this.add(block, builder);
+                return;
+            } else if (block instanceof LeavesBlock) {
+                LootTable.Builder builder = this.createLeavesDrops(block, creator.sapling().asBlock(), NORMAL_LEAVES_SAPLING_CHANCES);
+                this.add(block, builder);
+                return;
+            } else if (block instanceof SlabBlock) {
+                LootTable.Builder builder = this.createSlabItemTable(block);
+                this.add(block, builder);
                 return;
             }
-            if (block instanceof LeavesBlock) {
-                LootTable.Builder builder = this.createLeavesDrops(block.asBlock(), creator.sapling().asBlock(), 0.2f);
-                this.add(block.asBlock(), builder);
-                return;
-            }
-            if (block instanceof SlabBlock) {
-                LootTable.Builder builder = this.createSlabItemTable(block.asBlock());
-                this.add(block.asBlock(), builder);
-                return;
-            }
-            this.dropSelf(block.asBlock());
+            this.dropSelf(block);
         }));
         return null;
     };
@@ -105,19 +105,19 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
             for (Item item : itemList) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.25f))
-                        .add(LootItem.lootTableItem(item));
+                                                .setRolls(ConstantValue.exactly(1))
+                                                .when(LootItemRandomChanceCondition.randomChance(0.25f))
+                                                .add(LootItem.lootTableItem(item));
                 builder.withPool(pool);
             }
 
             LootPool.Builder fallbackPool = LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1))
-                    .add(LootItem.lootTableItem(RDItems.RED_ORB).setWeight(1))
-                    .add(LootItem.lootTableItem(RDItems.BLUE_ORB).setWeight(1))
-                    .add(LootItem.lootTableItem(RDItems.YELLOW_ORB).setWeight(1))
-                    .add(LootItem.lootTableItem(RDItems.GREEN_ORB).setWeight(1))
-                    .add(LootItem.lootTableItem(RDItems.PURPLE_ORB).setWeight(1));
+                                                    .setRolls(ConstantValue.exactly(1))
+                                                    .add(LootItem.lootTableItem(RDItems.RED_ORB).setWeight(1))
+                                                    .add(LootItem.lootTableItem(RDItems.BLUE_ORB).setWeight(1))
+                                                    .add(LootItem.lootTableItem(RDItems.YELLOW_ORB).setWeight(1))
+                                                    .add(LootItem.lootTableItem(RDItems.GREEN_ORB).setWeight(1))
+                                                    .add(LootItem.lootTableItem(RDItems.PURPLE_ORB).setWeight(1));
             builder.withPool(fallbackPool);
 
             return builder;
@@ -136,15 +136,15 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
             for (Item item : itemList) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.25f))
-                        .add(LootItem.lootTableItem(item));
+                                                .setRolls(ConstantValue.exactly(1))
+                                                .when(LootItemRandomChanceCondition.randomChance(0.25f))
+                                                .add(LootItem.lootTableItem(item));
                 builder.withPool(pool);
             }
 
             LootPool.Builder fallbackPool = LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1))
-                    .add(LootItem.lootTableItem(RDItems.DREAM_CRYSTAL_FRAGMENT).setWeight(1));
+                                                    .setRolls(ConstantValue.exactly(1))
+                                                    .add(LootItem.lootTableItem(RDItems.DREAM_CRYSTAL_FRAGMENT).setWeight(1));
             builder.withPool(fallbackPool);
 
             return builder;
@@ -183,17 +183,17 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 //                LootTable.Builder lootTableBuilder = provider.cropDrops(this.cropBlock, this.product, this.seed, condition);
             LootTable.Builder lootTableBuilder = LootTable.lootTable();
             LootPoolSingletonContainer.Builder<?> productEntry = LootItem.lootTableItem(entry.getProduct())
-                    .apply(SetItemCountFunction.setCount(
-                            UniformGenerator.between(1.0f, 3.0f)
-                    ));
+                                                                         .apply(SetItemCountFunction.setCount(
+                                                                                 UniformGenerator.between(1.0f, 3.0f)
+                                                                         ));
             LootPoolSingletonContainer.Builder<?> seedEntry = LootItem.lootTableItem(entry.getSeed())
-                    .apply(SetItemCountFunction.setCount(
-                            UniformGenerator.between(1.0f, 2.0f)
-                    ));
+                                                                      .apply(SetItemCountFunction.setCount(
+                                                                              UniformGenerator.between(1.0f, 2.0f)
+                                                                      ));
             LootPoolSingletonContainer.Builder<?> baseSeedEntry = LootItem.lootTableItem(entry.getSeed())
-                    .apply(SetItemCountFunction.setCount(
-                            ConstantValue.exactly(1)
-                    ));
+                                                                          .apply(SetItemCountFunction.setCount(
+                                                                                  ConstantValue.exactly(1)
+                                                                          ));
             lootTableBuilder.withPool(
                     LootPool.lootPool()
                             .when(condition.build())

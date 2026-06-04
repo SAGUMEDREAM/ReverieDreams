@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import de.tomalbrc.cameraobscura.ModConfig;
 import de.tomalbrc.cameraobscura.command.CameraCommand;
 import de.tomalbrc.cameraobscura.render.renderer.CanvasImageRenderer;
@@ -96,7 +97,7 @@ public class TenguCameraItemUseImpl implements TenguCameraItemUse {
 
     private void finalizeTenguCamera(CanvasImage canvasImage, ServerPlayer player) {
         if (player != null && !player.isRemoved()) {
-            player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0F, 1.0F);
+            SoundEventPlayUtils.playSound(player, SoundEvents.SPYGLASS_STOP_USING, SoundSource.NEUTRAL, 1.0f, 1.0f);
             List<ItemStack> items = CameraCommand.mapItems(canvasImage, player.level());
             items.forEach((x) -> {
                 if (!player.addItem(x)) {

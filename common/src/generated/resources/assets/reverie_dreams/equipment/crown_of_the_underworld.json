@@ -1,0 +1,24 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "reverie_dreams:crown_of_the_underworld"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "reverie_dreams:crown_of_the_underworld"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "reverie_dreams:crown_of_the_underworld"
+      }
+    ],
+    "horse_body": [
+      {
+        "texture": "reverie_dreams:crown_of_the_underworld"
+      }
+    ]
+  }
+}

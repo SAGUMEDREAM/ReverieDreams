@@ -19,10 +19,7 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleInteractionEvents;
-import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariant;
-import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariants;
-import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
-import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
+import cc.thonly.reverie_dreams.entity.variant.*;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.networking.payload.RegistryImpSyncPacket;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
@@ -60,91 +57,115 @@ public class RegistryImpls {
     public static final Map<ResourceKey<? extends Registry<?>>, RegistryImpl<?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
     public static final RegistryImpl<BaseRecipeType<?>> RECIPE_TYPE = RegistryImpls.<BaseRecipeType<?>>ofEntry(ReverieDreams.id("recipe_type"));
 
-    public static final RegistryImpl<DanmakuType> DANMAKU_TYPE = RegistryImpls.<DanmakuType>ofEntry(ReverieDreams.id("danmaku_type"))
-            .codec(DanmakuType.COMPONENT_CODEC)
-            .builder(DanmakuTypes::bootstrap);
+    public static final RegistryImpl<DanmakuType> DANMAKU_TYPE =
+            RegistryImpls.<DanmakuType>ofEntry(ReverieDreams.id("danmaku_type"))
+                         .codec(DanmakuType.COMPONENT_CODEC)
+                         .builder(DanmakuTypes::bootstrap);
 
-    public static final RegistryImpl<DanmakuShape> DANMAKU_SHAPE = RegistryImpls.<DanmakuShape>ofEntry(ReverieDreams.id("danmaku_shape"))
-            .codec(DanmakuShape.CODEC)
-            .builder(DanmakuShapes::bootstrap);
+    public static final RegistryImpl<DanmakuShape> DANMAKU_SHAPE =
+            RegistryImpls.<DanmakuShape>ofEntry(ReverieDreams.id("danmaku_shape"))
+                         .codec(DanmakuShape.CODEC)
+                         .builder(DanmakuShapes::bootstrap);
 
-    public static final RegistryImpl<DanmakuTrajectory> DANMAKU_TRAJECTORY = RegistryImpls.<DanmakuTrajectory>ofEntry(ReverieDreams.id("danmaku_trajectory"))
-            .codec(DanmakuTrajectory.CODEC)
-            .builder(DanmakuTrajectories::bootstrap);
+    public static final RegistryImpl<DanmakuTrajectory> DANMAKU_TRAJECTORY =
+            RegistryImpls.<DanmakuTrajectory>ofEntry(ReverieDreams.id("danmaku_trajectory"))
+                         .codec(DanmakuTrajectory.CODEC)
+                         .builder(DanmakuTrajectories::bootstrap);
 
-    public static final RegistryImpl<SpellCardFrameConfig> DANMAKU_CONFIG = RegistryImpls.<SpellCardFrameConfig>ofEntry(ReverieDreams.id("danmaku_config"))
-            .codec(SpellCardFrameConfig.COMPONENT_CODEC)
-            .reloadBuilder(SpellCardFrameConfigs::reload)
-            .builder(SpellCardFrameConfigs::bootstrap);
+    public static final RegistryImpl<SpellCardFrameConfig> DANMAKU_CONFIG =
+            RegistryImpls.<SpellCardFrameConfig>ofEntry(ReverieDreams.id("danmaku_config"))
+                         .codec(SpellCardFrameConfig.COMPONENT_CODEC)
+                         .reloadBuilder(SpellCardFrameConfigs::reload)
+                         .builder(SpellCardFrameConfigs::bootstrap);
 
-    public static final RegistryImpl<JavaScriptElement> JAVASCRIPT_ELEMENT = RegistryImpls.<JavaScriptElement>ofEntry(ReverieDreams.id("javascript_element"))
-            .codec(JavaScriptElement.CODEC)
-            .reloadBuilder(JavaScriptManager::reload)
-            .builder(JavaScriptManager::bootstrap);
+    public static final RegistryImpl<JavaScriptElement> JAVASCRIPT_ELEMENT =
+            RegistryImpls.<JavaScriptElement>ofEntry(ReverieDreams.id("javascript_element"))
+                         .codec(JavaScriptElement.CODEC)
+                         .reloadBuilder(JavaScriptManager::reload)
+                         .builder(JavaScriptManager::bootstrap);
 
-    public static final RegistryImpl<SkinType> SKIN_TYPE = RegistryImpls.<SkinType>ofEntry(ReverieDreams.id("skin_type"))
-            .codec(SkinType.UNIT_CODEC)
-            .reloadBuilder(SkinType::onReload)
-            .builder(GensokyoSkinTypes::bootstrap, MobSkinTypes::bootstrap);
+    public static final RegistryImpl<SkinType> SKIN_TYPE =
+            RegistryImpls.<SkinType>ofEntry(ReverieDreams.id("skin_type"))
+                         .codec(SkinType.UNIT_CODEC)
+                         .reloadBuilder(SkinType::onReload)
+                         .builder(GensokyoSkinTypes::bootstrap, MobSkinTypes::bootstrap);
 
-    public static final RegistryImpl<SkinConfig> SKIN_CONFIG = RegistryImpls.<SkinConfig>ofEntry(ReverieDreams.id("skin_config"))
-            .codec(SkinConfig.CODEC)
-            .reloadBuilder(SkinConfigs::reload)
-            .builder(SkinConfigs::bootstrap);
+    public static final RegistryImpl<SkinConfig> SKIN_CONFIG =
+            RegistryImpls.<SkinConfig>ofEntry(ReverieDreams.id("skin_config"))
+                         .codec(SkinConfig.CODEC)
+                         .reloadBuilder(SkinConfigs::reload)
+                         .builder(SkinConfigs::bootstrap);
 
-    public static final RegistryImpl<NPCRole> NPC_ROLE = RegistryImpls.<NPCRole>ofEntry(ReverieDreams.id("npc_role"))
-            .codec(NPCRole.BY_REGISTRY)
-            .builder(NPCRoles::bootstrap);
+    public static final RegistryImpl<NPCRole> NPC_ROLE =
+            RegistryImpls.<NPCRole>ofEntry(ReverieDreams.id("npc_role"))
+                         .codec(NPCRole.BY_REGISTRY)
+                         .builder(NPCRoles::bootstrap);
 
-    public static final RegistryImpl<RoleCard> ROLE_CARD = RegistryImpls.<RoleCard>ofEntry(ReverieDreams.id("role_card"))
-            .codec(RoleCard.CODEC)
-            .builder(RoleCards::bootstrap);
+    public static final RegistryImpl<RoleCard> ROLE_CARD =
+            RegistryImpls.<RoleCard>ofEntry(ReverieDreams.id("role_card"))
+                         .codec(RoleCard.CODEC)
+                         .builder(RoleCards::bootstrap);
 
-    public static final RegistryImpl<NPCRoleInteractionEvent> ROLE_INTERACTION_EVENT = RegistryImpls.<NPCRoleInteractionEvent>ofEntry(ReverieDreams.id("interaction_event"))
-            .codec(NPCRoleInteractionEvent.CODEC)
-            .builder(NPCRoleInteractionEvents::bootstrap);
+    public static final RegistryImpl<NPCRoleInteractionEvent> ROLE_INTERACTION_EVENT =
+            RegistryImpls.<NPCRoleInteractionEvent>ofEntry(ReverieDreams.id("interaction_event"))
+                         .codec(NPCRoleInteractionEvent.CODEC)
+                         .builder(NPCRoleInteractionEvents::bootstrap);
 
-    public static final RegistryImpl<NPCState> NPC_STATE = RegistryImpls.<NPCState>ofEntry(ReverieDreams.id("npc_state"))
-            .codec(NPCState.CODEC)
-            .defaultId(NPCState.DEFAULT_ID)
-            .builder(NPCStates::bootstrap);
+    public static final RegistryImpl<NPCState> NPC_STATE =
+            RegistryImpls.<NPCState>ofEntry(ReverieDreams.id("npc_state"))
+                         .codec(NPCState.CODEC)
+                         .defaultId(NPCState.DEFAULT_ID)
+                         .builder(NPCStates::bootstrap);
 
-    public static final RegistryImpl<NPCWorkMode> NPC_WORK_MODE = RegistryImpls.<NPCWorkMode>ofEntry(ReverieDreams.id("npc_work_mode"))
-            .codec(NPCWorkMode.CODEC)
-            .defaultId(NPCWorkMode.DEFAULT_ID)
-            .builder(NPCWorkModes::bootstrap);
+    public static final RegistryImpl<NPCWorkMode> NPC_WORK_MODE =
+            RegistryImpls.<NPCWorkMode>ofEntry(ReverieDreams.id("npc_work_mode"))
+                         .codec(NPCWorkMode.CODEC)
+                         .defaultId(NPCWorkMode.DEFAULT_ID)
+                         .builder(NPCWorkModes::bootstrap);
 
-    public static final RegistryImpl<FumoType> FUMO = RegistryImpls.<FumoType>ofEntry(ReverieDreams.id("fumo"))
-            .codec(FumoType.CODEC)
-            .builder(FumoTypes::bootstrap);
+    public static final RegistryImpl<FumoType> FUMO =
+            RegistryImpls.<FumoType>ofEntry(ReverieDreams.id("fumo"))
+                         .codec(FumoType.CODEC)
+                         .builder(FumoTypes::bootstrap);
 
-    public static final RegistryImpl<YouseiVariant> YOUSEI_VARIANT = RegistryImpls.<YouseiVariant>ofEntry(ReverieDreams.id("yousei_variant"))
-            .codec(YouseiVariant.CODEC)
-            .defaultId(ReverieDreams.id("blue"))
-            .builder(YouseiVariants::bootstrap);
+    public static final RegistryImpl<YouseiVariant> YOUSEI_VARIANT =
+            RegistryImpls.<YouseiVariant>ofEntry(ReverieDreams.id("yousei_variant"))
+                         .codec(YouseiVariant.CODEC)
+                         .defaultId(ReverieDreams.id("blue"))
+                         .builder(YouseiVariants::bootstrap);
 
-    public static final RegistryImpl<RabbitUnitVariant> RABBIT_UNIT_VARIANT = RegistryImpls.<RabbitUnitVariant>ofEntry(ReverieDreams.id("rabbit_unit_variant"))
-            .codec(RabbitUnitVariant.CODEC)
-            .defaultId(ReverieDreams.id("blue"))
-            .builder(RabbitUnitVariants::bootstrap);
+    public static final RegistryImpl<RabbitUnitVariant> RABBIT_UNIT_VARIANT =
+            RegistryImpls.<RabbitUnitVariant>ofEntry(ReverieDreams.id("rabbit_unit_variant"))
+                         .codec(RabbitUnitVariant.CODEC)
+                         .defaultId(ReverieDreams.id("blue"))
+                         .builder(RabbitUnitVariants::bootstrap);
 
-    public static final RegistryImpl<FoodProperty> FOOD_PROPERTY = RegistryImpls.<FoodProperty>ofEntry(ReverieDreams.id("food_property"))
-            .codec(FoodProperty.COMPONENT_CODEC)
-            .reloadBuilder(FoodProperties::reload)
-            .builder(FoodProperties::bootstrap)
-            .syncToClient(RegistrySyncers.FOOD_PROPERTY);
+    public static final RegistryImpl<OniVariant> ONI_VARIANT =
+            RegistryImpls.<OniVariant>ofEntry(ReverieDreams.id("oni_variant"))
+                         .codec(OniVariant.CODEC)
+                         .defaultId(ReverieDreams.id("blue"))
+                         .builder(OniVariants::bootstrap);
 
-    public static final RegistryImpl<DrinkProperty> DRINK_PROPERTY = RegistryImpls.<DrinkProperty>ofEntry(ReverieDreams.id("drink_property"))
-            .codec(DrinkProperty.COMPONENT_CODEC)
-            .reloadBuilder(DrinkProperties::reload)
-            .builder(DrinkProperties::bootstrap)
-            .syncToClient(RegistrySyncers.DRINK_PROPERTY);
+    public static final RegistryImpl<FoodProperty> FOOD_PROPERTY =
+            RegistryImpls.<FoodProperty>ofEntry(ReverieDreams.id("food_property"))
+                         .codec(FoodProperty.COMPONENT_CODEC)
+                         .reloadBuilder(FoodProperties::reload)
+                         .builder(FoodProperties::bootstrap)
+                         .syncToClient(RegistrySyncers.FOOD_PROPERTY);
 
-    public static final RegistryImpl<CraftingConflict> CRAFTING_CONFLICT = RegistryImpls.<CraftingConflict>ofEntry(ReverieDreams.id("crafting_conflict"))
-            .codec(CraftingConflict.CODEC)
-            .reloadBuilder(CraftingConflict::reload)
-            .builder(CraftingConflict::bootstrap)
-            .syncToClient(RegistrySyncers.CRAFTING_CONFLICT);
+    public static final RegistryImpl<DrinkProperty> DRINK_PROPERTY =
+            RegistryImpls.<DrinkProperty>ofEntry(ReverieDreams.id("drink_property"))
+                         .codec(DrinkProperty.COMPONENT_CODEC)
+                         .reloadBuilder(DrinkProperties::reload)
+                         .builder(DrinkProperties::bootstrap)
+                         .syncToClient(RegistrySyncers.DRINK_PROPERTY);
+
+    public static final RegistryImpl<CraftingConflict> CRAFTING_CONFLICT =
+            RegistryImpls.<CraftingConflict>ofEntry(ReverieDreams.id("crafting_conflict"))
+                         .codec(CraftingConflict.CODEC)
+                         .reloadBuilder(CraftingConflict::reload)
+                         .builder(CraftingConflict::bootstrap)
+                         .syncToClient(RegistrySyncers.CRAFTING_CONFLICT);
 
     public static void bootstrap() {
         for (var entry : ROOT.entrySet()) {
@@ -190,7 +211,8 @@ public class RegistryImpls {
             Identifier key = mapEntry.getKey();
             RegistryImpl<?> registry = mapEntry.getValue();
 
-            if (key == null || registry == null) continue;
+            if (key == null || registry == null)
+                continue;
 
             RegistrySyncer syncer = registry.getSyncer();
 
@@ -257,23 +279,23 @@ public class RegistryImpls {
                     return builder.buildFuture();
                 })
                 .then(Commands.argument("id", IdentifierArgument.id())
-                        .suggests((context, builder) -> {
-                            Identifier identifier = IdentifierArgument.getId(context, "registry_key");
+                              .suggests((context, builder) -> {
+                                  Identifier identifier = IdentifierArgument.getId(context, "registry_key");
 
-                            ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
+                                  ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
 
-                            if (!RegistryImpls.ROOT.containsKey(registryKey)) {
-                                return builder.buildFuture();
-                            }
+                                  if (!RegistryImpls.ROOT.containsKey(registryKey)) {
+                                      return builder.buildFuture();
+                                  }
 
-                            RegistryImpl<?> registry = RegistryImpls.ROOT.get(registryKey);
-                            for (Identifier key : registry.keys()) {
-                                builder.suggest(key.toString());
-                            }
+                                  RegistryImpl<?> registry = RegistryImpls.ROOT.get(registryKey);
+                                  for (Identifier key : registry.keys()) {
+                                      builder.suggest(key.toString());
+                                  }
 
-                            return builder.buildFuture();
-                        })
-                        .executes(command)
+                                  return builder.buildFuture();
+                              })
+                              .executes(command)
                 );
     }
 

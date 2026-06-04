@@ -32,6 +32,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -92,6 +93,14 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
             this.setTarget(null);
         }
         super.tick();
+    }
+
+    @Override
+    public void setTarget(@Nullable LivingEntity target) {
+        if (target instanceof RabbitUnit) {
+            return;
+        }
+        super.setTarget(target);
     }
 
     @SuppressWarnings("ConstantValue")

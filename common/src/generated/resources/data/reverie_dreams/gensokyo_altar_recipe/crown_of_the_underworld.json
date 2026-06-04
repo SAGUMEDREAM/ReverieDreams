@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:golden_helmet",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:cherry_leaves",
+      "count": 11
+    },
+    {
+      "id": "minecraft:cherry_leaves",
+      "count": 11
+    },
+    {
+      "id": "minecraft:cherry_leaves",
+      "count": 11
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 20
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 20
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 20
+    },
+    {
+      "id": "minecraft:wither_skeleton_skull",
+      "count": 3
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 20
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:crown_of_the_underworld",
+    "count": 1
+  }
+}

@@ -30,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@SuppressWarnings("resource")
 @Mixin(Player.class)
 public abstract class PlayerEntityDataMixin extends LivingEntity implements PlayerEntityDataModifier {
 
@@ -56,11 +57,11 @@ public abstract class PlayerEntityDataMixin extends LivingEntity implements Play
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"),
             cancellable = true
     )
-    public void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+    public void playSound(SoundEvent sound, float f, float g, CallbackInfo ci) {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         for (StackTraceElement element : stack) {
             if (element.getClassName().startsWith("cc.thonly")) {
-                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), f, g);
+                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), sound, this.getSoundSource(), f, g);
                 ci.cancel();
                 return;
             }

@@ -30,6 +30,7 @@
     "accessor.ItemCooldownsAccessor",
     "accessor.ItemEntityAccessor",
     "accessor.ItemSettingsAccessor",
+    "accessor.LevelAccessor",
     "accessor.LivingEntityAccessor",
     "accessor.MannequinAccessor",
     "accessor.NamedAccessor",
@@ -52,6 +53,7 @@
     "block.CropBlockMixin",
     "block.LilyPadBlockMixin",
     "command.SuggestionProvidersMixin",
+    "effect.HealOrHarmMobEffectMixin",
     "enchantment.EnchantmentMenuMixin",
     "entity.AbstractMinecartMixin",
     "entity.AnimalEntityMixin",
@@ -59,6 +61,7 @@
     "entity.ExperienceOrbEntityDataModifierMixin",
     "entity.LivingEntityMixin",
     "entity.MinecartMixin",
+    "entity.MobMixin",
     "entity.PlayerEntityDataMixin",
     "entity.ThrowableProjectileMixin",
     "entity.VillagerEntityMixin",
@@ -88,6 +91,7 @@
     "client.GameRendererMixin",
     "client.MinecraftClientMixin",
     "client.MultiPlayerGameModeMixin",
+    "client.NoDialogWarningMixin",
     "client.TradedItemMixin"
   ],
   "injectors": {

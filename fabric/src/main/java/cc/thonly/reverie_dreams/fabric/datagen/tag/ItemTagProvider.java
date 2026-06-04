@@ -79,6 +79,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         addAll.accept(ItemTags.TRIDENT_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(RDItems.TENGU_SHIELD.asItem()));
+        addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(RDItems.IRON_BAR.asItem()));
         addAll.accept(ConventionalItemTags.SHIELD_TOOLS, List.of(RDItems.TENGU_SHIELD.asItem()));
 
         // === 盔甲类 Tag ===
@@ -109,9 +110,11 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 RDBlocks.DEEPSLATE_SILVER_ORE.asItem()
         );
         valueLookupBuilder(RDItemTags.SILVER_ARMOR).add(RDItems.SILVER_HELMET.asItem(), RDItems.SILVER_CHESTPLATE.asItem(), RDItems.SILVER_LEGGINGS.asItem(), RDItems.SILVER_BOOTS.asItem());
+        valueLookupBuilder(RDItemTags.IRON_BAR_MATERIALS).add(Items.IRON_BLOCK);
         valueLookupBuilder(RDItemTags.SILVER_TOOL_MATERIALS).add(RDItems.SILVER_INGOT.asItem());
         valueLookupBuilder(RDItemTags.MAGIC_ICE_ARMOR).add(RDItems.MAGIC_ICE_HELMET.asItem(), RDItems.MAGIC_ICE_CHESTPLATE.asItem(), RDItems.MAGIC_ICE_LEGGINGS.asItem(), RDItems.MAGIC_ICE_BOOTS.asItem());
         valueLookupBuilder(RDItemTags.MAGIC_ICE_TOOL_MATERIALS).add(RDItems.ICE_SCALES.asItem());
+        valueLookupBuilder(RDItemTags.MAGIC_ICE_WEAPON).add(RDItems.MAGIC_ICE_AXE.asItem()).add(RDItems.MAGIC_ICE_PICKAXE.asItem()).add(RDItems.MAGIC_ICE_HOE.asItem()).add(RDItems.MAGIC_ICE_SHOVEL.asItem()).add(RDItems.MAGIC_ICE_SWORD.asItem());
         valueLookupBuilder(RDItemTags.MAID_ARMOR).add(RDItems.MAID_HAIRBAND.asItem(), RDItems.MAID_UPPER_SKIRT.asItem(), RDItems.MAID_LOWER_SKIRT.asItem(), RDItems.MAID_SHOE.asItem());
         valueLookupBuilder(RDItemTags.DREAM_ARMOR).add(RDItems.DREAM_HELMET.asItem()).add(RDItems.DREAM_CHESTPLATE.asItem()).add(RDItems.DREAM_LEGGINGS.asItem()).add(RDItems.DREAM_BOOTS.asItem());
         valueLookupBuilder(RDItemTags.DREAM_TOOL_MATERIALS).add(RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
@@ -153,7 +156,8 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         valueLookupBuilder(RDItemTags.REPLACEABLE_BLANK_PHOTOS).add(RDItems.EMPTY_PHOTO.asItem());
 
         valueLookupBuilder(RDItemTags.MUSICAL_INSTRUMENTS).add(RDItems.KEYBOARD.asItem(), RDItems.VIOLIN.asItem(), RDItems.TRUMPET.asItem());
-        valueLookupBuilder(RDItemTags.COINS).add(RDItems.COPPER_COIN.asItem(), RDItems.SILVER_COIN.asItem(), RDItems.GOLD_COIN.asItem());
+        valueLookupBuilder(RDItemTags.COIN).add(RDItems.COPPER_COIN.asItem(), RDItems.SILVER_COIN.asItem(), RDItems.GOLD_COIN.asItem());
+        valueLookupBuilder(RDItemTags.COMMON_COIN).addOptionalTag(RDItemTags.COIN);
 
         // === 方块物品分类 ===
         Map<TagKey<Item>, Collection<? extends ItemLike>> blockItemGroups = Map.of(

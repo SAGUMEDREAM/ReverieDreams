@@ -1,15 +1,12 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
+import cc.thonly.reverie_dreams.item.armor.*;
 import cc.thonly.reverie_dreams.proxy.GuidebookFactory;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.armor.*;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
-import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
-import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
-import cc.thonly.reverie_dreams.item.armor.KoishiHatItem;
-import cc.thonly.reverie_dreams.item.armor.WaterproofArmor;
 import cc.thonly.reverie_dreams.item.base.*;
 import cc.thonly.reverie_dreams.item.danmaku.SpellcardItem;
 import cc.thonly.reverie_dreams.item.debug.BattleStickItem;
@@ -40,13 +37,13 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.BlocksAttacks;
-import net.minecraft.world.item.component.Consumable;
-import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -119,6 +116,9 @@ public class RDItems {
     public static DeferredItem SPELLCARD;
     public static DeferredItem SATORI_EYE;
     public static DeferredItem FAST_RECIPE_BOOK;
+    public static DeferredItem LOW_GRAVITY_BOOT;
+    public static DeferredItem CROWN_OF_THE_UNDERWORLD;
+    public static DeferredItem SUNFLOWER;
 
     // 武器
     public static DeferredItem HAKUREI_CANE;
@@ -135,7 +135,6 @@ public class RDItems {
     public static DeferredItem MAPLE_LEAF_FAN;
     public static DeferredItem IBUKIHO;
     public static DeferredItem WEAPON_OF_THE_MOON;
-
     public static DeferredItem SWORD_OF_HISOU;
     public static DeferredItem MANPOZUCHI;
     public static DeferredItem NUE_TRIDENT;
@@ -145,6 +144,7 @@ public class RDItems {
     public static DeferredItem VIOLIN;
     public static DeferredItem KEYBOARD;
     public static DeferredItem TRUMPET;
+    public static DeferredItem IRON_BAR;
 
     // 银装备
     public static DeferredItem RAW_SILVER;
@@ -226,14 +226,18 @@ public class RDItems {
         ICON = registerCreativeTabIcon(balmItemRegistrar, "icon", Item::new, new Item.Properties());
         FUMO_ICON = registerCreativeTabIcon(balmItemRegistrar, "fumo_icon", Item::new, new Item.Properties());
         ROLE_ICON = registerCreativeTabIcon(balmItemRegistrar, "role_icon", Item::new, new Item.Properties());
-        SPAWN_EGG = registerCreativeTabIcon(balmItemRegistrar, "spawn_egg", Item::new, new Item.Properties().component(DataComponents.DYED_COLOR, ColoredSpawnEggItem.DEFAULT_COLOR));
+        SPAWN_EGG = registerCreativeTabIcon(balmItemRegistrar, "spawn_egg", Item::new, new Item.Properties()
+                .component(DataComponents.DYED_COLOR, ColoredSpawnEggItem.DEFAULT_COLOR));
         DANMAKU = registerCreativeTabIcon(balmItemRegistrar, "danmaku", Item::new, new Item.Properties());
-        MYSTIA_ICON = registerCreativeTabIcon(balmItemRegistrar, "mystia_icon", Item::new, new Item.Properties().stacksTo(1));
+        MYSTIA_ICON = registerCreativeTabIcon(balmItemRegistrar, "mystia_icon", Item::new, new Item.Properties()
+                .stacksTo(1));
 
         // 材料
         POINT = registerItem(balmItemRegistrar, "point", props -> new Item(props), new Item.Properties());
         POWER = registerItem(balmItemRegistrar, "power", props -> new Item(props), new Item.Properties());
-        DANMAKU_CORE = registerItem(balmItemRegistrar, "danmaku_core", props -> new Item(props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
+        DANMAKU_CORE = registerItem(balmItemRegistrar, "danmaku_core", props -> new Item(props
+                .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
+        ), new Item.Properties());
         UPGRADED_HEALTH_FRAGMENT = registerItem(balmItemRegistrar, "upgraded_health_fragment", props -> new Item(props), new Item.Properties());
         BOMB_FRAGMENT = registerItem(balmItemRegistrar, "bomb_fragment", props -> new Item(props), new Item.Properties());
         RED_ORB = registerItem(balmItemRegistrar, "red_orb", props -> new Item(props), new Item.Properties());
@@ -242,8 +246,10 @@ public class RDItems {
         GREEN_ORB = registerItem(balmItemRegistrar, "green_orb", props -> new Item(props), new Item.Properties());
         PURPLE_ORB = registerItem(balmItemRegistrar, "purple_orb", props -> new Item(props), new Item.Properties());
         YIN_YANG_ORB = registerItem(balmItemRegistrar, "yin-yang_orb", props -> new YinYangOrbItem(props.stacksTo(1)), new Item.Properties());
-        SPEED_FEATHER = registerItem(balmItemRegistrar, "speed_feather", props -> new SpeedFeatherItem(props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
-        DREAM_CRYSTAL_FRAGMENT = registerItem(balmItemRegistrar, "dream_crystal_fragment", props -> new Item(props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
+        SPEED_FEATHER = registerItem(balmItemRegistrar, "speed_feather", props -> new SpeedFeatherItem(props
+                .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
+        DREAM_CRYSTAL_FRAGMENT = registerItem(balmItemRegistrar, "dream_crystal_fragment", props -> new Item(props
+                .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
         EMPTY_PHOTO = registerItem(balmItemRegistrar, "empty_photo", props -> new Item(props), new Item.Properties());
         COPPER_COIN = registerItem(balmItemRegistrar, "copper_coin", props -> new Item(props.stacksTo(96)), new Item.Properties());
         SILVER_COIN = registerItem(balmItemRegistrar, "silver_coin", props -> new Item(props.stacksTo(96)), new Item.Properties());
@@ -260,9 +266,15 @@ public class RDItems {
         KOISHI_HAT = registerItem(balmItemRegistrar, "koishi_hat", props -> new KoishiHatItem(props.durability(ArmorType.HELMET.getDurability(KoishiHatArmorMaterial.BASE_DURABILITY))), new Item.Properties());
         FUMO_LICENSE = registerItem(balmItemRegistrar, "fumo_license", props -> new FumoLicenseItem(props), new Item.Properties());
         CURSED_DECOY_DOLl = registerItem(balmItemRegistrar, "cursed_decoy_doll", props -> new CursedDecoyDollItem(props), new Item.Properties());
-        VAISRAVANAS_PAGODA = registerItem(balmItemRegistrar, "vaisravanas_pagoda", props -> new VaisravanasPagodaItem(props.stacksTo(1).durability(250).repairable(RDItemTags.VAISRAVANAS_PAGODA)), new Item.Properties());
-        DREAM_PILLOW = registerItem(balmItemRegistrar, "dream_pillow", props -> new DreamPillowItem(props.durability(4)), new Item.Properties());
-        TENGU_SHIELD = registerItem(balmItemRegistrar, "tengu_shield", props -> new TenguShieldItem(props.stacksTo(1).durability(600).repairable(ItemTags.IRON_TOOL_MATERIALS).equippableUnswappable(EquipmentSlot.OFFHAND)
+        VAISRAVANAS_PAGODA = registerItem(balmItemRegistrar, "vaisravanas_pagoda", props -> new VaisravanasPagodaItem(props
+                .stacksTo(1)
+                .durability(250).repairable(RDItemTags.VAISRAVANAS_PAGODA)), new Item.Properties());
+        DREAM_PILLOW = registerItem(balmItemRegistrar, "dream_pillow", props -> new DreamPillowItem(props
+                .durability(4)), new Item.Properties());
+        TENGU_SHIELD = registerItem(balmItemRegistrar, "tengu_shield", props -> new TenguShieldItem(props
+                .stacksTo(1)
+                .durability(600)
+                .repairable(ItemTags.IRON_TOOL_MATERIALS).equippableUnswappable(EquipmentSlot.OFFHAND)
                 .delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(
                         0.25F,
                         1.0F,
@@ -284,6 +296,9 @@ public class RDItems {
         SATORI_EYE = registerItem(balmItemRegistrar, "satori_eye", props -> new SatoriEye(props.stacksTo(1)), new Item.Properties());
         WEAPON_OF_THE_MOON = registerItem(balmItemRegistrar, "weapon_of_the_moon", props -> new WeaponOfTheMoon(props.stacksTo(1)), new Item.Properties());
         FAST_RECIPE_BOOK = registerItem(balmItemRegistrar, "fast_book_item", FastRecipeBook::new, new Item.Properties());
+        LOW_GRAVITY_BOOT = registerItem(balmItemRegistrar, "low_gravity_boot", LowGravityBootItem::new, new Item.Properties());
+        CROWN_OF_THE_UNDERWORLD = registerItem(balmItemRegistrar, "crown_of_the_underworld", CrownOfTheUnderworldItem::new, new Item.Properties());
+        SUNFLOWER = registerItem(balmItemRegistrar, "sunflower", props -> new Sunflower(props.stacksTo(1).durability(256).repairable(RDItemTags.POWER_BLOCK)), new Item.Properties());
 
         // 武器
         HAKUREI_CANE = registerItem(balmItemRegistrar, "hakurei_cane", props -> new HakureiCane(1f, -2.4f, props), new Item.Properties());
@@ -292,7 +307,7 @@ public class RDItems {
         MAGIC_BROOM = registerItem(balmItemRegistrar, "magic_broom", props -> new MagicBroom(1f, -2.4f, props), new Item.Properties());
         GUNGNIR = registerItem(balmItemRegistrar, "gungnir", props -> new Gungnir(props), new Item.Properties());
         LEVATIN = registerItem(balmItemRegistrar, "levatin", props -> new Levatin(1f, -2.4f, props), new Item.Properties());
-        ROKANKEN = registerItem(balmItemRegistrar, "rokanken", props -> new Rokanken(2f, 0.5f - 2.4f, props), new Item.Properties());
+        ROKANKEN = registerItem(balmItemRegistrar, "rokanken", props -> new Rokanken(2f, 0.5f - 2.4f, props.attributes(ItemAttributeModifiers.builder().add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Identifier.withDefaultNamespace("weapon_range"), 4, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HAND).add(Attributes.BLOCK_INTERACTION_RANGE, new AttributeModifier(Identifier.withDefaultNamespace("block_range"), 3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HAND).build())), new Item.Properties());
         HAKUROKEN = registerItem(balmItemRegistrar, "hakuroken", props -> new Hakuroken(2f, 1f - 2.4f, props), new Item.Properties());
         PAPILIO_PATTERN_FAN = registerItem(balmItemRegistrar, "papilio_pattern_fan", props -> new PapilioPatternFan(1f - 4f, 1f - 2.4f, props), new Item.Properties());
         HORAI_DAMA_NO_EDA = registerItem(balmItemRegistrar, "horai-dama_no_eda", props -> new HoraiDamaNoEdaItem(0, 0, props), new Item.Properties());
@@ -308,6 +323,7 @@ public class RDItems {
         VIOLIN = registerItem(balmItemRegistrar, "violin", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.FLUTE)), new Item.Properties());
         KEYBOARD = registerItem(balmItemRegistrar, "keyboard", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.PLING)), new Item.Properties());
         TRUMPET = registerItem(balmItemRegistrar, "trumpet", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.TRUMPET)), new Item.Properties());
+        IRON_BAR = registerItem(balmItemRegistrar, "iron_bar", props -> new IronBarItem(props.stacksTo(1).component(DataComponents.TOOL, new Tool(List.of(), 1.0F, 2, false)).durability(400).repairable(RDItemTags.IRON_BAR_MATERIALS).attributes(ItemAttributeModifiers.builder().add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 8, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, 1 - 1 - 3.3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build()).enchantable(15)), new Item.Properties());
 
         // 银装备
         RAW_SILVER = registerItem(balmItemRegistrar, "raw_silver", props -> new Item(props), new Item.Properties());

@@ -34,7 +34,7 @@ public class StrengthTableRecipe extends BaseRecipe {
 
     @Override
     public IngredientStack getOutput() {
-        return new IngredientStack(this.output.getLazyStack());
+        return this.output.copy();
     }
 
     @SuppressWarnings("deprecation")

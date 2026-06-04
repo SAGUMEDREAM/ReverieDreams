@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
-import cc.thonly.reverie_dreams.gui.recipe.gui.KitchenBlockGui;
+import cc.thonly.reverie_dreams.gui.block.KitchenBlockGui;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
@@ -25,7 +25,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -61,7 +60,6 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     private SimpleContainer inventory = new SimpleContainer(6);
     @Nullable
     private KitchenRecipeType.TypeInstance recipeType;
-    private Identifier recipeId;
     private IngredientStack preOutput = DEFAULT_WRAPPER_FACTORY.get();
     private Double tickLeft = 0.0;
     private DoubleUnaryOperator bonusOperator;
@@ -74,14 +72,18 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
         Block block = state.getBlock();
         this.block = (AbstractKitchenwareBlock) block;
         this.bonusOperator = this.block.getBonusOperator();
+        this.recipeType = this.getTypeInstance();
     }
 
     public static void tick(Level world, BlockPos blockPos, BlockState state, KitchenwareBlockEntity self) {
         KitchenwareBlockEntity blockEntity = self.get();
-        if (blockEntity.recipeType == null) {
+        KitchenRecipeType.TypeInstance typeInstance = blockEntity.getTypeInstance();
+        if (typeInstance == null) {
             return;
         }
-        if (world.isClientSide() || self.recipeType == null) return;
+        if (world.isClientSide()) {
+            return;
+        }
         ServerLevel serverWorld = (ServerLevel) world;
         BlockPos pos = self.getBlockPos();
         if (self.preOutput != null && !self.preOutput.isEmpty()) {

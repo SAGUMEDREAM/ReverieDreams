@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:iron_boots",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:feather",
+      "count": 3
+    },
+    {
+      "id": "minecraft:feather",
+      "count": 3
+    },
+    {
+      "id": "minecraft:feather",
+      "count": 3
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 20
+    },
+    {
+      "id": "reverie_dreams:point",
+      "count": 20
+    },
+    {
+      "id": "minecraft:feather",
+      "count": 3
+    },
+    {
+      "id": "minecraft:feather",
+      "count": 3
+    },
+    {
+      "id": "minecraft:feather",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:low_gravity_boot",
+    "count": 1
+  }
+}

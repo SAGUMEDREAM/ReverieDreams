@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.gui.item;
 import cc.thonly.reverie_dreams.component.GapRecorder;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
@@ -14,6 +15,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Relative;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -118,7 +120,7 @@ public class GapGui extends SimpleGui {
 
     public void teleport(int index) {
         GapRecorder recorder = this.gapRecorders.get(index);
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (recorder != null && recorder.isEnable()) {
             BlockPos pos = recorder.getValue();
             MinecraftServer server = this.player.level().getServer();
@@ -138,7 +140,8 @@ public class GapGui extends SimpleGui {
                     this.player.getXRot(),
                     true);
             this.player.sendSystemMessage(Component.literal("已传送至：" + recorder.getName()), false);
-            this.player.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0f, 1.0f);
+            SoundEventPlayUtils.playSound(player, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
             this.player.getCooldowns().addCooldown(this.stack, 3 * 20);
             this.close();
         } else {
@@ -149,7 +152,7 @@ public class GapGui extends SimpleGui {
     public void add(int index) {
         BlockPos pos = this.player.blockPosition();
         GapRecorder recorder = new GapRecorder("位置 " + index, this.getPlayer().level().dimension().identifier().toString(), pos, true);
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.gapRecorders.set(index, recorder);
         this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
         this.player.sendSystemMessage(Component.literal("已记录当前位置至槽位 " + index), false);
@@ -160,7 +163,7 @@ public class GapGui extends SimpleGui {
 
     public void delete(int index) {
         GapRecorder recorder = this.gapRecorders.get(index);
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (recorder != null) {
             recorder.setEnable(false);
             this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);

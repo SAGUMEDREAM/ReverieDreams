@@ -45,6 +45,8 @@ public class RDEnchantments {
     public static final ResourceKey<Enchantment> MOON_DAMAGE = getOrCreateKey("moon_damage");
     public static final ResourceKey<Enchantment> DANMAKU_PROTECTION = getOrCreateKey("danmaku_protection");
     public static final ResourceKey<Enchantment> POWERFUL = getOrCreateKey("powerful");
+    public static final ResourceKey<Enchantment> FROZEN = getOrCreateKey("frozen");
+    public static final ResourceKey<Enchantment> CHARGE = getOrCreateKey("charge");
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         HolderGetter<Item> itemLookup = context.lookup(Registries.ITEM);
@@ -108,7 +110,6 @@ public class RDEnchantments {
                                 DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(RDDamageTypeTags.DANMAKU_HIT)))
                         )
         );
-
         registerEnchantment(
                 context,
                 POWERFUL,
@@ -124,7 +125,36 @@ public class RDEnchantments {
                         )
                 )
         );
-
+        registerEnchantment(
+                context,
+                FROZEN,
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ItemTags.FIRE_ASPECT_ENCHANTABLE),
+                                10,
+                                3,
+                                Enchantment.dynamicCost(10, 20),
+                                Enchantment.dynamicCost(60, 20),
+                                4,
+                                EquipmentSlotGroup.HAND
+                        )
+                )
+        );
+        registerEnchantment(
+                context,
+                CHARGE,
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ItemTags.SWORDS),
+                                6,
+                                2,
+                                Enchantment.dynamicCost(9, 21),
+                                Enchantment.dynamicCost(60, 20),
+                                6,
+                                EquipmentSlotGroup.HAND
+                        )
+                )
+        );
     }
 
     public static <T extends EnchantmentEntityEffect> MapCodec<T> registerEnchantment(ResourceKey<Enchantment> key, MapCodec<T> codec) {

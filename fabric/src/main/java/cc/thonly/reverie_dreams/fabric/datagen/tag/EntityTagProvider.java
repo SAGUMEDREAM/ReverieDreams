@@ -35,5 +35,7 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
         yokai.add(RDEntityTypes.HAIRBALL.asHolder().value());
         yokai.add(RDEntityTypes.GHOST.asHolder().value());
         yokai.add(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value());
+        yokai.add(RDEntityTypes.MAID_YOUSEI.asHolder().value());
+        yokai.add(RDEntityTypes.ONI.asHolder().value());
     }
 }

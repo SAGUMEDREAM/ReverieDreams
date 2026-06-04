@@ -23,6 +23,7 @@ public class ModTemplatePools {
     public static final ResourceKey<StructureTemplatePool> SAKURAZUKA = getOrCreateRegistryKey("sakurazuka");
     public static final ResourceKey<StructureTemplatePool> OUTER_SHRINE = getOrCreateRegistryKey("outer_shrine");
     public static final ResourceKey<StructureTemplatePool> NETHER_HOT_SPRING = getOrCreateRegistryKey("nether_hot_spring");
+    public static final ResourceKey<StructureTemplatePool> SMALL_SHRINE = getOrCreateRegistryKey("small_shrine");
 
     public static void init() {
 
@@ -63,6 +64,10 @@ public class ModTemplatePools {
                 emptyPool,
                 List.of(Pair.of(StructurePoolElement.single(ModStructures.NETHER_HOT_SPRING.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID)
         );
+        context.register(SMALL_SHRINE, new StructureTemplatePool(
+                emptyPool,
+                List.of(Pair.of(StructurePoolElement.single(ModStructures.SMALL_SHRINE.identifier().toString()),1 )), StructureTemplatePool.Projection.RIGID
+        ));
     }
 
     public static Holder.Reference<StructureTemplatePool> register(BootstrapContext<StructureTemplatePool> registry, ResourceKey<StructureTemplatePool> registryKey, StructureTemplatePool structurePool) {

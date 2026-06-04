@@ -34,7 +34,7 @@
         "Name": "reverie_dreams:spiritual_leaves",
         "Properties": {
           "distance": "7",
-          "persistent": "false",
+          "persistent": "true",
           "waterlogged": "false"
         }
       }
@@ -48,7 +48,7 @@
     },
     "trunk_placer": {
       "type": "minecraft:straight_trunk_placer",
-      "base_height": 4,
+      "base_height": 5,
       "height_rand_a": 2,
       "height_rand_b": 1
     },

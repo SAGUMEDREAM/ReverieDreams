@@ -15,6 +15,7 @@ import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -97,14 +98,4 @@ public class ServerEventHandlers {
         RecipeManager.startSyncRecipe(server.getPlayerList().getPlayers());
     }
 
-    public static boolean onLivingEntityDeathByElixirOfLife(LivingEntity entity, DamageSource damageSource) {
-        return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE);
-    }
-
-    public static boolean onLivingEntityDeathByDanmaku(LivingEntity entity, DamageSource damageSource) {
-        if (damageSource.is(RDDamageTypeTags.DANMAKU_HIT)) {
-            entity.level().playSound(null, entity.getOnPos(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL, 0.32F, 1.0F);
-        }
-        return true;
-    }
 }

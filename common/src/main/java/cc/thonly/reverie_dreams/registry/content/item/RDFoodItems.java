@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.function.Function;
 
 public class RDFoodItems {
-
     public static final List<DeferredItem> FOOD_ITEMS = new LinkedList<>();
 
     // 食物

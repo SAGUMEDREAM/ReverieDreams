@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.dialog;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -95,7 +96,8 @@ public class DialogPlayer {
     }
 
     public synchronized void next(int frame) {
-        if (iterator == null) return;
+        if (iterator == null)
+            return;
         int moved = 0;
         while (moved < frame && iterator.hasNext()) {
             iterator.next();
@@ -108,7 +110,8 @@ public class DialogPlayer {
     }
 
     public synchronized void previous(int frame) {
-        if (this.iterator == null) return;
+        if (this.iterator == null)
+            return;
         int moved = 0;
         while (moved < frame && this.iterator.hasPrevious()) {
             this.iterator.previous();
@@ -149,7 +152,7 @@ public class DialogPlayer {
                 ),
                 new ActionButton(
                         new CommonButtonData(Component.empty().append(Component.translatable("dialog.text.back")), 200),
-                        Optional.of(new StaticAction(new ClickEvent.Custom(ReverieDreams.id("stop/dialog_video"), Optional.of(nbtCompound))))
+                        Optional.of(new StaticAction(new ClickEvent.Custom(CustomClickActionRegistry.STOP_DIALOG_VIDEO_KEY, Optional.of(nbtCompound))))
                 )
         );
 

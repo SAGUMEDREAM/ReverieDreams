@@ -88,7 +88,7 @@ public abstract class AbstractEquipmentAssetProvider implements DataProvider {
                         Files.createDirectories(output.getParent());
                         writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
                     } catch (IOException e) {
-                        log.error("Can't generate equipment asset {}", identifier.toString());
+                        log.error("Can't generate equipment asset {}", identifier, e);
                     }
                 }
             });

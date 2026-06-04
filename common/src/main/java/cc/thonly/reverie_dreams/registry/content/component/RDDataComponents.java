@@ -52,6 +52,7 @@ public class RDDataComponents {
     public static Holder<DataComponentType<List<DrinkProperty>>> DRINK_PROPERTIES;
     public static Holder<DataComponentType<Integer>> FOOD_BONUS;
     public static Holder<DataComponentType<KitchenRecipe.IdEntry>> RECIPE_MEMORY;
+    public static Holder<DataComponentType<Unit>> SHOW_ONLY;
 
     public static void initialize(BalmDataComponentTypeRegistrar registrar) {
         DANMAKU_PROPERTIES = registerComponent(registrar, "danmaku_properties", DanmakuProperties.CODEC);
@@ -75,7 +76,7 @@ public class RDDataComponents {
         DRINK_PROPERTIES = registerComponent(registrar, "drink_properties", DrinkProperty.LIST_COMPONENT_CODEC);
         FOOD_BONUS = registerComponent(registrar, "food_bonus", Codec.INT);
         RECIPE_MEMORY = registerComponent(registrar, "recipe_memory", KitchenRecipe.IdEntry.CODEC);
-
+        SHOW_ONLY = registerComponent(registrar, "show_only", Unit.CODEC);
 
     }
 

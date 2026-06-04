@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.gui;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGetter;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
 import cc.thonly.reverie_dreams.gui.recipe.display.*;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.*;
@@ -12,8 +14,10 @@ import cc.thonly.reverie_dreams.recipe.type.*;
 import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -93,7 +97,7 @@ public class RecipeTypeCategoryManager {
                                 .setItemName(key2ValueEntry.getValue().getOutput().build().getHoverName())
                                 .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
-                                    gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    SoundEventPlayUtils.playUISound(gui.getPlayer(), 1.0f, 1.0f);
                                     SimpleGui view = new DanmakuTableDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
@@ -111,7 +115,7 @@ public class RecipeTypeCategoryManager {
                                 .setItemName(key2ValueEntry.getValue().getOutput().build().getHoverName())
                                 .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
-                                    gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    SoundEventPlayUtils.playUISound(gui.getPlayer(), 1.0f, 1.0f);
                                     SimpleGui view = new DanmakuShapeDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
@@ -129,7 +133,7 @@ public class RecipeTypeCategoryManager {
                                 .setItemName(key2ValueEntry.getValue().getOutput().build().getHoverName())
                                 .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
-                                    gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    SoundEventPlayUtils.playUISound(gui.getPlayer(), 1.0f, 1.0f);
                                     SimpleGui view = new GensokyoAltarDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
@@ -142,16 +146,22 @@ public class RecipeTypeCategoryManager {
                     StrengthTableRecipeType::getInstance,
                     ((gui, slotIndex) -> {
                         RecipeKeyEntry<StrengthTableRecipe> key2ValueEntry = (RecipeKeyEntry<StrengthTableRecipe>) gui.getEntries().get(slotIndex + gui.getPage() * BasePageGui.PER_PAGE_SIZE);
+                        StrengthTableRecipe recipe = key2ValueEntry.value;
+                        IngredientStack output = recipe.getOutput();
+                        DanmakuType type = DanmakuTypes.fromItem(output.build());
+                        if (type != null && type.isDeleteFromList()) {
+                            return;
+                        }
                         GuiElementBuilder icon = new GuiElementBuilder()
-                                .setItem(key2ValueEntry.getValue().getOutput().getItem())
-                                .setItemName(key2ValueEntry.getValue().getOutput().build().getHoverName())
+                                .setItem(recipe.getOutput().getItem())
+                                .setItemName(recipe.getOutput().build().getHoverName())
                                 .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
-                                    gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    SoundEventPlayUtils.playUISound(gui.getPlayer(), 1.0f, 1.0f);
                                     SimpleGui view = new StrengthTableDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
-                        GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().build());
+                        GuiElementBuilderSetter.setter(icon, recipe.getOutput().build());
                         gui.setSlot(gui.getGridSlot(slotIndex), icon);
                     })
             ));
@@ -165,7 +175,7 @@ public class RecipeTypeCategoryManager {
                                 .setItemName(key2ValueEntry.getValue().getOutput().build().getHoverName())
                                 .setCallback((slot, click, action, basedGui) -> {
                                     gui.close();
-                                    gui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    SoundEventPlayUtils.playUISound(gui.getPlayer(), 1.0f, 1.0f);
                                     SimpleGui view = new KitchenBlockDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });

@@ -55,6 +55,7 @@ dependencies {
 //    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 //    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 
+    implementation("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") { transitive = false }
     jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))
     jarJar(implementation("cc.thonly:sgui-neoforge:${sgui_forgelike_version}"))
     jarJar(implementation("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))

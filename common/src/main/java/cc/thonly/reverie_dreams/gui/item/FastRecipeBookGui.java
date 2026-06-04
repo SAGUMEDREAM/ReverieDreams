@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.gui.item;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
@@ -9,16 +10,21 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
+import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.blay09.mods.balm.world.level.block.DeferredBlock;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import java.util.*;
@@ -38,8 +44,9 @@ public class FastRecipeBookGui extends SimpleGui {
     private final List<KitchenRecipe> data = new ArrayList<>();
     private int page = 0;
     private int maxPage = -1;
+    private ClickType updateClickType = ClickType.MOUSE_LEFT;
     private boolean updateNext = false;
-    private DeferredBlock selectWork = null;
+    private DeferredBlock selectWorkType = null;
 
     public FastRecipeBookGui(ServerPlayer player, ItemStack itemStack) {
         super(MenuType.GENERIC_9x6, player, false);
@@ -47,8 +54,25 @@ public class FastRecipeBookGui extends SimpleGui {
         this.init();
     }
 
+    public MutableComponent updateTitle() {
+        KitchenRecipe.IdEntry idEntry = this.itemStack.get(RDDataComponents.RECIPE_MEMORY.value());
+        MutableComponent titleComponent = Component.empty()
+                .append(Component.translatable("space.-8"))
+                .append(Component.literal("\ub006")
+                        .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                .append(Component.translatable("space.-168"))
+                .append(RDItems.FAST_RECIPE_BOOK.createStack().getItemName());
+        if (idEntry != null && !idEntry.isEmpty()) {
+            KitchenRecipe kitchenRecipe = idEntry.recipeOrThrow();
+            titleComponent.append("：")
+                    .append(kitchenRecipe.getOutput().buildTemplate().create().getHoverName());
+        }
+        return titleComponent;
+    }
+
     public void init() {
-        this.setTitle(RDItems.FAST_RECIPE_BOOK.createStack().getItemName());
+        this.setTitle(this.updateTitle());
         Map<Identifier, KitchenRecipe> registryView = RecipeManager.KITCHEN_TYPE.getRegistryView();
         this.data.addAll(registryView.values());
 
@@ -65,39 +89,44 @@ public class FastRecipeBookGui extends SimpleGui {
                     this.setSlot(slot, this.prev);
                 }
                 if (c.equalsIgnoreCase("W")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiItems.EMPTY_SLOT.asItem()));
+                    this.setSlot(slot, new GuiElementBuilder().setItem(Items.AIR));
                 }
                 if (c.equalsIgnoreCase("A")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.COOKING_POT.asItem()).setCallback(() -> {
-                        this.selectWork = KitchenBlocks.COOKING_POT;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.COOKING_POT.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = KitchenBlocks.COOKING_POT;
+                        this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("B")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.CUTTING_BOARD.asItem()).setCallback(() -> {
-                        this.selectWork = KitchenBlocks.CUTTING_BOARD;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.CUTTING_BOARD.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = KitchenBlocks.CUTTING_BOARD;
+                        this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("C")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.FRYING_PAN.asItem()).setCallback(() -> {
-                        this.selectWork = KitchenBlocks.FRYING_PAN;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.FRYING_PAN.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = KitchenBlocks.FRYING_PAN;
+                        this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("D")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.GRILL.asItem()).setCallback(() -> {
-                        this.selectWork = KitchenBlocks.GRILL;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.GRILL.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = KitchenBlocks.GRILL;
+                        this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("E")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.STEAMER.asItem()).setCallback(() -> {
-                        this.selectWork = KitchenBlocks.STEAMER;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.STEAMER.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = KitchenBlocks.STEAMER;
+                        this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
@@ -125,6 +154,14 @@ public class FastRecipeBookGui extends SimpleGui {
                         BuiltInRegistries.ITEM.getKey(recipe.getOutput().getItem()).toString()
                 ))
                 .toList();
+        if (this.updateClickType.isRight) {
+            data = data.stream()
+                    .sorted(Comparator.comparing(
+                            (KitchenRecipe recipe) ->
+                                    BuiltInRegistries.ITEM.getKey(recipe.getOutput().getItem()).toString()
+                    ).reversed())
+                    .toList();
+        }
         int end = Math.min(start + pageSize, data.size());
         this.maxPage = this.computeMaxPage(data);
         this.page = Math.min(this.page, this.maxPage);
@@ -188,6 +225,8 @@ public class FastRecipeBookGui extends SimpleGui {
 
             list.add(builder);
         }
+        this.maxPage = this.computeMaxPage(data);
+        this.page = Math.min(this.page, this.maxPage);
 
         return list;
     }
@@ -198,7 +237,16 @@ public class FastRecipeBookGui extends SimpleGui {
         if (!this.updateNext) {
             return;
         }
-        List<GuiElementBuilder> contents = this.selectWork == null ? this.getPageContents(this.page) : this.getPageContents(this.page, this.selectWork);
+        List<GuiElementBuilder> contents = new ArrayList<>();
+        boolean typeNull = this.selectWorkType == null;
+        boolean shift = this.updateClickType.shift;
+        if (typeNull) {
+            contents = this.getPageContents(this.page);
+        } else if (shift) {
+            contents = this.getPageContents(this.page);
+        } else {
+            contents = this.getPageContents(this.page, this.selectWorkType);
+        }
 
         int index = 0;
 
@@ -217,6 +265,7 @@ public class FastRecipeBookGui extends SimpleGui {
                 }
             }
         }
+        this.setTitle(this.updateTitle());
         this.updateNext = false;
     }
 

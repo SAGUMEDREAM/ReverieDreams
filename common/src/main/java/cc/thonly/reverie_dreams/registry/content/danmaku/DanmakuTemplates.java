@@ -33,7 +33,7 @@ public class DanmakuTemplates {
         });
     }
 
-    public static void init() {
+    public static void initialize() {
 
     }
 

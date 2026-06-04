@@ -3,14 +3,19 @@ package cc.thonly.reverie_dreams.util.item;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.TypedDataComponent;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class GuiElementBuilderSetter {
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static void setter(GuiElementBuilder builder, Item item) {
+        builder.setItem(item);
+    }
+
     public static void setter(GuiElementBuilder builder, ItemStack itemStack) {
         builder.setItem(itemStack.getItem());
         builder.setCount(itemStack.getCount());

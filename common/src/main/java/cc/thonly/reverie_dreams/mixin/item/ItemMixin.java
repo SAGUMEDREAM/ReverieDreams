@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -78,11 +79,20 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
     }
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
-    public void reverie_dreams$finishEatFood(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+    public void reverie_dreams$finishEatFood(ItemStack itemStack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir) {
         if (level.isClientSide()) {
             return;
         }
+        this.reverie_dreams$finishFoodItem(itemStack, level, entity, cir);
+        this.reverie_dreams$finishDrinkItem(itemStack, level, entity, cir);
+    }
+
+    @Unique
+    private void reverie_dreams$finishFoodItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
         if (!(livingEntity instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+        if (itemStack.is(RDItemTags.INGREDIENT_ITEM)) {
             return;
         }
         FoodProperties.get(itemStack);
@@ -95,6 +105,13 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
             FoodData foodData = serverPlayer.getFoodData();
             foodData.eat(new net.minecraft.world.food.FoodProperties(size, size * 1.5f, false));
             SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
+        }
+    }
+
+    @Unique
+    private void reverie_dreams$finishDrinkItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+        if (!(livingEntity instanceof ServerPlayer serverPlayer)) {
+            return;
         }
         DrinkProperties.get(itemStack);
         if (itemStack.has(RDDataComponents.DRINK_PROPERTIES.value()) && (itemStack.has(RDDataComponents.DRINK_ITEM_TYPE.value()) || itemStack.has(DataComponents.FOOD))) {

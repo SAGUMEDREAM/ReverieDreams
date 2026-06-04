@@ -2,14 +2,20 @@ package cc.thonly.reverie_dreams;
 
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
+import cc.thonly.reverie_dreams.mixin.accessor.LevelAccessor;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.NotaUtils;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import net.blay09.mods.balm.platform.event.callback.InteractionEventResult;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
@@ -17,11 +23,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,7 +50,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.List;
 
-@SuppressWarnings("resource")
+@SuppressWarnings({"resource", "SameReturnValue"})
 public class CommonEventHandlers {
     // 银质物品对亡灵伤害
     public static float onModifyingLivingEntityDamageByUndeadSilverDamage(LivingEntity entity, DamageSource damageSource, float damageAmount) {
@@ -80,31 +91,117 @@ public class CommonEventHandlers {
 
     // 月伤附魔攻击效果
     public static boolean onPostHitByMoonEnchantment(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        MinecraftServer server = target.level().getServer();
-        ItemStack itemStack = attacker.getItemInHand(InteractionHand.MAIN_HAND);
-        if (server != null && !itemStack.isEmpty()) {
-            RegistryAccess registryAccess = target.registryAccess();
+        Level world = target.level();
+        if (world.isClientSide()) {
+            return true;
+        }
+        ServerLevel level = (ServerLevel) target.level();
+        RegistryAccess registryAccess = level.registryAccess();
+        long overworldClockTime = level.getOverworldClockTime();
+        long timeOfDay = overworldClockTime % 24000;
+        boolean isNight = timeOfDay >= 13000 && timeOfDay <= 23000;
+        if (!isNight) {
+            return true;
+        }
+        if (!stack.isEmpty()) {
             Registry<Enchantment> enchantments = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
             Holder.Reference<Enchantment> moonDamage = enchantments.getOrThrow(RDEnchantments.MOON_DAMAGE);
-            int itemEnchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(moonDamage, itemStack);
+            int itemEnchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(moonDamage, stack);
             if (itemEnchantmentLevel != 0) {
-                DelayedTask.create(server, 1, () -> {
-                    target.hurtTime = 0;
-                    if (target.getHealth() - itemEnchantmentLevel >= 0) {
-                        target.setHealth(target.getHealth() - itemEnchantmentLevel);
-                    }
-                    target.lastHurt = 0;
-                });
+                var invulnerableTime = target.invulnerableTime;
+                var hurtTime = target.hurtTime;
+                var lastHurt = target.lastHurt;
+                target.invulnerableTime = 0;
+                target.hurtTime = 0;
+                target.lastHurt = 0;
+                target.hurtServer(level, attacker.damageSources().magic(), itemEnchantmentLevel);
+                target.invulnerableTime = invulnerableTime;
+                target.hurtTime = hurtTime;
+                target.lastHurt = lastHurt;
             }
         }
         return true;
     }
 
+    public static boolean onPostByFrozenEnchantment(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        Level world = target.level();
+        if (world.isClientSide()) {
+            return true;
+        }
+        ServerLevel level = (ServerLevel) target.level();
+        RegistryAccess registryAccess = level.registryAccess();
+        if (!stack.isEmpty()) {
+            Registry<Enchantment> enchantments = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
+            Holder.Reference<Enchantment> frozen = enchantments.getOrThrow(RDEnchantments.FROZEN);
+            int itemEnchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(frozen, stack);
+            boolean iceWeapon = stack.is(RDItemTags.MAGIC_ICE_TOOL_MATERIALS);
+            if (iceWeapon) {
+                itemEnchantmentLevel += 1;
+            }
+            if (itemEnchantmentLevel != 0) {
+                var invulnerableTime = target.invulnerableTime;
+                var hurtTime = target.hurtTime;
+                var lastHurt = target.lastHurt;
+                target.invulnerableTime = 0;
+                target.hurtTime = 0;
+                target.lastHurt = 0;
+                target.setTicksFrozen(40 * itemEnchantmentLevel);
+                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40 * itemEnchantmentLevel, 0, false, false));
+//                    target.hurtServer((ServerLevel) target.level(), attacker.damageSources().freeze(), itemEnchantmentLevel);
+                target.invulnerableTime = invulnerableTime;
+                target.hurtTime = hurtTime;
+                target.lastHurt = lastHurt;
+            }
+        }
+        return true;
+    }
+    // 冲刺附魔
+    public static boolean onPostByChargeEnchantment(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        Level world = target.level();
+        if (world.isClientSide()) {
+            return true;
+        }
+        ServerLevel level = (ServerLevel) target.level();
+        RegistryAccess registryAccess = level.registryAccess();
+        if (!stack.isEmpty()) {
+            Registry<Enchantment> enchantments = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
+            Holder.Reference<Enchantment> charge = enchantments.getOrThrow(RDEnchantments.CHARGE);
+            int itemEnchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(charge, stack);
+            float attackStrength = attacker instanceof Player player
+                    ? player.getAttackStrengthScale(0.5f)
+                    : 1.0f;
+            if (attackStrength < 0.9f) {
+                return true;
+            }
+            if (stack.is(RDItems.ROKANKEN)) {
+                return true;
+            }
+            if (itemEnchantmentLevel != 0) {
+                var look = attacker.getLookAngle();
+
+                double forwardStrength = 0.34 + 0.2 * itemEnchantmentLevel;
+                double yBoost = 0.05 + 0.015 * itemEnchantmentLevel;
+
+                attacker.push(
+                        look.x * forwardStrength,
+                        yBoost,
+                        look.z * forwardStrength
+                );
+
+                attacker.hurtMarked = true;
+                attacker.fallDistance = 0;
+                SoundEventPlayUtils.playSound(level, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.NEUTRAL);
+            }
+        }
+        return true;
+    }
     // 银制品秒杀鬼魂
     public static boolean onPostHitByInstantKillGhost(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         MinecraftServer server = target.level().getServer();
         if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST && stack.getItem() == RDItems.ROKANKEN) {
             DamageSources damageSources = attacker.damageSources();
+            target.invulnerableTime = 0;
+            target.hurtTime = 0;
             target.lastHurt = 0;
             target.hurtServer(serverWorld, damageSources.magic(), Integer.MAX_VALUE);
         }
@@ -136,6 +233,7 @@ public class CommonEventHandlers {
 
         return InteractionEventResult.DEFAULT;
     }
+
     public static InteractionResult onAttackingBlockChangeCameraFov(Player player, Level world, InteractionHand hand, BlockPos pos, Direction direction) {
         ItemStack stack = ItemUtils.getHandItem(player, itemStack -> itemStack.getItem() instanceof TenguCameraItem);
         if (stack.isEmpty()) {
@@ -147,8 +245,10 @@ public class CommonEventHandlers {
         if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
             int newFov = fov - 1;
-            if (newFov < 30) newFov = 30;
-            if (newFov > 110) newFov = 110;
+            if (newFov < 30)
+                newFov = 30;
+            if (newFov > 110)
+                newFov = 110;
 
             stack.set(RDDataComponents.FOV.value(), newFov);
 
@@ -194,6 +294,18 @@ public class CommonEventHandlers {
 
     public static boolean onChangingMusicalInstrumentMusic(Player player, Entity target) {
         onChangingMusicalInstrumentMusic(player, player.level(), InteractionHand.MAIN_HAND, BlockPos.ZERO, player.getMotionDirection());
+        return true;
+    }
+
+    public static boolean onLivingEntityDeathByElixirOfLife(LivingEntity entity, DamageSource damageSource) {
+        return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE);
+    }
+
+    public static boolean onLivingEntityDeathByDanmaku(LivingEntity entity, DamageSource damageSource) {
+        if (damageSource.is(RDDamageTypeTags.DANMAKU_HIT)) {
+//            System.out.println("biu");
+            SoundEventPlayUtils.playSound(entity.level(), entity.getX(), entity.getY(), entity.getZ(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL);
+        }
         return true;
     }
 

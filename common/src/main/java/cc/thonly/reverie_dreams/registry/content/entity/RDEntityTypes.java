@@ -74,6 +74,7 @@ public class RDEntityTypes {
     public static BalmEntityTypeRegistration<MushroomMonster> MUSHROOM_MONSTER;
     public static BalmEntityTypeRegistration<WildPig> WILD_PIG;
     public static BalmEntityTypeRegistration<TavernVillager> TAVERN_VILLAGER;
+    public static BalmEntityTypeRegistration<Oni> ONI;
 
     public static void initialize(BalmEntityTypeRegistrar registrar) {
         NPC_ROLE = registerEntity(registrar, "base_character",
@@ -81,7 +82,7 @@ public class RDEntityTypes {
                 BaseNPCLikeEntity::createLivingAttributes);
         DANMAKU = registerEntity(registrar, "danmaku_bullet",
                 () -> EntityType.Builder.<DanmakuEntity>of(DanmakuEntity::new, MobCategory.MISC)
-                        .sized(0.5f, 0.5f)
+                                        .sized(0.5f, 0.5f)
 //                        .clientTrackingRange(DANMAKU_RANGE)
 //                        .updateInterval(DANMAKU_RATE)
         );
@@ -93,7 +94,7 @@ public class RDEntityTypes {
                 () -> EntityType.Builder.of(OreEspEntity::new, MobCategory.MISC));
         FUMO_SELLER_VILLAGER = registerEntityWithSpawnEgg(registrar, "fumo_seller_villager",
                 () -> EntityType.Builder.<FumoSeller>of(FumoSeller::new, MobCategory.MISC)
-                        .sized(0.6f, 1.95f).eyeHeight(1.62f).clientTrackingRange(10),
+                                        .sized(0.6f, 1.95f).eyeHeight(1.62f).clientTrackingRange(10),
                 FumoSeller::createLivingAttributes
         );
         MAGIC_BROOM = registerEntityWithSpawnEgg(registrar, "broom",
@@ -109,100 +110,100 @@ public class RDEntityTypes {
         KILLER_BEE = registerEntityWithSpawnEgg(registrar, "killer_bee",
                 () -> EntityType.Builder.of(KillerBee::new, MobCategory.MONSTER),
                 () -> Animal.createAnimalAttributes()
-                        .add(Attributes.MAX_HEALTH, 10.0)
-                        .add(Attributes.FLYING_SPEED, 0.6f)
-                        .add(Attributes.MOVEMENT_SPEED, 0.3f)
-                        .add(Attributes.ATTACK_DAMAGE, 2.0)
-                        .add(Attributes.SCALE, 1.5f)
+                            .add(Attributes.MAX_HEALTH, 10.0)
+                            .add(Attributes.FLYING_SPEED, 0.6f)
+                            .add(Attributes.MOVEMENT_SPEED, 0.3f)
+                            .add(Attributes.ATTACK_DAMAGE, 2.0)
+                            .add(Attributes.SCALE, 1.5f)
         );
         MOON_RABBIT = registerEntityWithSpawnEgg(registrar, "moon_rabbit",
                 () -> EntityType.Builder.of(MoonRabbit::new, MobCategory.MONSTER),
                 () -> LivingEntity.createLivingAttributes()
-                        .add(Attributes.MAX_HEALTH, 18.0)
-                        .add(Attributes.MOVEMENT_SPEED, 0.12)
-                        .add(Attributes.ATTACK_DAMAGE, 3)
-                        .add(Attributes.SCALE, 1.2f)
-                        .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                        .add(Attributes.FOLLOW_RANGE, 8.0)
-                        .add(Attributes.TEMPT_RANGE, 10.0)
-                        .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                                  .add(Attributes.MAX_HEALTH, 18.0)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.12)
+                                  .add(Attributes.ATTACK_DAMAGE, 3)
+                                  .add(Attributes.SCALE, 1.2f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                                  .add(Attributes.FOLLOW_RANGE, 8.0)
+                                  .add(Attributes.TEMPT_RANGE, 10.0)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         GHOST = registerEntityWithSpawnEgg(registrar, "ghost",
                 () -> EntityType.Builder.of(Ghost::new, MobCategory.MONSTER),
                 () -> LivingEntity.createLivingAttributes()
-                        .add(Attributes.MAX_HEALTH, 20.0)
-                        .add(Attributes.MOVEMENT_SPEED, 0.1)
-                        .add(Attributes.ATTACK_DAMAGE, 3)
-                        .add(Attributes.SCALE, 0.8f)
-                        .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                        .add(Attributes.FOLLOW_RANGE, 8.0)
-                        .add(Attributes.TEMPT_RANGE, 10.0)
-                        .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                                  .add(Attributes.MAX_HEALTH, 20.0)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.1)
+                                  .add(Attributes.ATTACK_DAMAGE, 3)
+                                  .add(Attributes.SCALE, 0.8f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                                  .add(Attributes.FOLLOW_RANGE, 8.0)
+                                  .add(Attributes.TEMPT_RANGE, 10.0)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         YOUSEI = registerEntityWithSpawnEgg(registrar, "yousei",
                 () -> EntityType.Builder.of(Yousei::new, MobCategory.MONSTER),
                 () -> LivingEntity.createLivingAttributes()
-                        .add(Attributes.MAX_HEALTH, 25.0)
-                        .add(Attributes.FLYING_SPEED, 0.8f)
-                        .add(Attributes.MOVEMENT_SPEED, 0.15f)
-                        .add(Attributes.ATTACK_DAMAGE, 0.5)
-                        .add(Attributes.SCALE, 1.8f)
-                        .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                        .add(Attributes.FOLLOW_RANGE, 16.0)
-                        .add(Attributes.TEMPT_RANGE, 10.0)
-                        .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                                  .add(Attributes.MAX_HEALTH, 25.0)
+                                  .add(Attributes.FLYING_SPEED, 0.8f)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                                  .add(Attributes.ATTACK_DAMAGE, 0.5)
+                                  .add(Attributes.SCALE, 1.8f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                                  .add(Attributes.FOLLOW_RANGE, 16.0)
+                                  .add(Attributes.TEMPT_RANGE, 10.0)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         MAID_YOUSEI = registerEntityWithSpawnEgg(registrar, "maid_yousei",
                 () -> EntityType.Builder.of(MaidYousei::new, MobCategory.MONSTER),
                 () -> LivingEntity.createLivingAttributes()
-                        .add(Attributes.MAX_HEALTH, 25.0)
-                        .add(Attributes.FLYING_SPEED, 0.8f)
-                        .add(Attributes.MOVEMENT_SPEED, 0.15f)
-                        .add(Attributes.ATTACK_DAMAGE, 0.5)
-                        .add(Attributes.SCALE, 1.8f)
-                        .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                        .add(Attributes.FOLLOW_RANGE, 16.0)
-                        .add(Attributes.TEMPT_RANGE, 10.0)
-                        .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                                  .add(Attributes.MAX_HEALTH, 25.0)
+                                  .add(Attributes.FLYING_SPEED, 0.8f)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                                  .add(Attributes.ATTACK_DAMAGE, 0.5)
+                                  .add(Attributes.SCALE, 1.8f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                                  .add(Attributes.FOLLOW_RANGE, 16.0)
+                                  .add(Attributes.TEMPT_RANGE, 10.0)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         SUNFLOWER_YOUSEI = registerEntityWithSpawnEgg(registrar, "sunflower_yousei",
                 () -> EntityType.Builder.of((type, world) -> new SunflowerYousei(type, world, MobSkinTypes.SUNFLOWER_YOUSEI), MobCategory.MONSTER),
                 () -> LivingEntity.createLivingAttributes()
-                        .add(Attributes.MAX_HEALTH, 30.0)
-                        .add(Attributes.FLYING_SPEED, 0.8f)
-                        .add(Attributes.MOVEMENT_SPEED, 0.15f)
-                        .add(Attributes.ATTACK_DAMAGE, 0.5)
-                        .add(Attributes.SCALE, 0.6f)
-                        .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                        .add(Attributes.FOLLOW_RANGE, 16.0)
-                        .add(Attributes.TEMPT_RANGE, 10.0)
-                        .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                                  .add(Attributes.MAX_HEALTH, 30.0)
+                                  .add(Attributes.FLYING_SPEED, 0.8f)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                                  .add(Attributes.ATTACK_DAMAGE, 0.5)
+                                  .add(Attributes.SCALE, 0.6f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                                  .add(Attributes.FOLLOW_RANGE, 16.0)
+                                  .add(Attributes.TEMPT_RANGE, 10.0)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         GOBLIN = registerEntityWithSpawnEgg(registrar, "goblin",
                 () -> EntityType.Builder.of(Goblin::new, MobCategory.MONSTER),
                 () -> LivingEntity.createLivingAttributes()
-                        .add(Attributes.MAX_HEALTH, 30.0)
-                        .add(Attributes.FLYING_SPEED, 0.8f)
-                        .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                        .add(Attributes.ATTACK_DAMAGE, 1f)
-                        .add(Attributes.SCALE, 1f)
-                        .add(Attributes.KNOCKBACK_RESISTANCE, 0.1f)
-                        .add(Attributes.FOLLOW_RANGE, 16.0f)
-                        .add(Attributes.TEMPT_RANGE, 10.0f)
-                        .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                                  .add(Attributes.MAX_HEALTH, 30.0)
+                                  .add(Attributes.FLYING_SPEED, 0.8f)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                                  .add(Attributes.ATTACK_DAMAGE, 1f)
+                                  .add(Attributes.SCALE, 1f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1f)
+                                  .add(Attributes.FOLLOW_RANGE, 16.0f)
+                                  .add(Attributes.TEMPT_RANGE, 10.0f)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         RABBIT_UNIT = registerEntityWithSpawnEgg(registrar, "rabbit_unit",
                 () -> EntityType.Builder.of(RabbitUnit::new, MobCategory.MONSTER),
                 () -> LivingEntity.createLivingAttributes()
-                        .add(Attributes.MAX_HEALTH, 30.0)
-                        .add(Attributes.FLYING_SPEED, 0.8f)
-                        .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                        .add(Attributes.ATTACK_DAMAGE, 0.5)
-                        .add(Attributes.SCALE, 1.85f)
-                        .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                        .add(Attributes.FOLLOW_RANGE, 16.0)
-                        .add(Attributes.TEMPT_RANGE, 10.0)
-                        .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                                  .add(Attributes.MAX_HEALTH, 30.0)
+                                  .add(Attributes.FLYING_SPEED, 0.8f)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                                  .add(Attributes.ATTACK_DAMAGE, 0.5)
+                                  .add(Attributes.SCALE, 1.85f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                                  .add(Attributes.FOLLOW_RANGE, 16.0)
+                                  .add(Attributes.TEMPT_RANGE, 10.0)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         WATER_ELEMENTAL = registerEntityWithSpawnEgg(registrar, "water_elemental",
                 () -> EntityType.Builder.of(WaterElementalEntity::new, MobCategory.MONSTER),
@@ -230,13 +231,13 @@ public class RDEntityTypes {
         );
         WILD_PIG = registerEntityWithSpawnEgg(registrar, "wild_pig",
                 () -> EntityType.Builder.of(WildPig::new, MobCategory.MONSTER)
-                        .sized(0.9F, 0.9F),
+                                        .sized(0.9F, 0.9F),
                 () -> {
                     AttributeSupplier.Builder builder = Animal.createAnimalAttributes()
-                            .add(Attributes.MAX_HEALTH, 20.0)
-                            .add(Attributes.FLYING_SPEED, 0.6f)
-                            .add(Attributes.MOVEMENT_SPEED, 0.3f)
-                            .add(Attributes.ATTACK_DAMAGE, 2.0);
+                                                              .add(Attributes.MAX_HEALTH, 20.0)
+                                                              .add(Attributes.FLYING_SPEED, 0.6f)
+                                                              .add(Attributes.MOVEMENT_SPEED, 0.3f)
+                                                              .add(Attributes.ATTACK_DAMAGE, 2.0);
                     if (PlatformContext.hasPolymer()) {
                         builder.add(Attributes.SCALE, 1.5f);
                     }
@@ -245,10 +246,23 @@ public class RDEntityTypes {
         );
         TAVERN_VILLAGER = registerEntityWithSpawnEgg(registrar, "tavern_villager",
                 () -> EntityType.Builder.<TavernVillager>of(TavernVillager::new, MobCategory.MISC)
-                        .sized(0.6f, 1.95f)
-                        .eyeHeight(1.62f)
-                        .clientTrackingRange(10),
+                                        .sized(0.6f, 1.95f)
+                                        .eyeHeight(1.62f)
+                                        .clientTrackingRange(10),
                 TavernVillager::createLivingAttributes
+        );
+        ONI = registerEntityWithSpawnEgg(registrar, "oni",
+                () -> EntityType.Builder.of(Oni::new, MobCategory.MONSTER),
+                () -> LivingEntity.createLivingAttributes()
+                                  .add(Attributes.MAX_HEALTH, 25.0)
+                                  .add(Attributes.FLYING_SPEED, 0.8f)
+                                  .add(Attributes.MOVEMENT_SPEED, 0.22f)
+                                  .add(Attributes.ATTACK_DAMAGE, 0.5)
+                                  .add(Attributes.SCALE, 1.85f)
+                                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                                  .add(Attributes.FOLLOW_RANGE, 16.0)
+                                  .add(Attributes.TEMPT_RANGE, 10.0)
+                                  .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
         );
         DynamicRegistrySetupCallback.EVENT.register(dynamicRegistryView -> {
             Optional<Registry<PigVariant>> pigVariantRegistry = dynamicRegistryView.getOptional(Registries.PIG_VARIANT);

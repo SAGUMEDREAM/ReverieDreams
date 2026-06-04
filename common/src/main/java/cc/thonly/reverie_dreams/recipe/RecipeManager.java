@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.recipe.Builder;
+import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeInjectCallback;
@@ -90,7 +90,7 @@ public class RecipeManager {
             }
             for (RecipeManagerSyncPacket payload : payloads) {
                 Balm.networking().sendTo(player, payload);
-                System.out.println("send recipe to %s".formatted(player));
+//                System.out.println("send recipe to %s".formatted(player));
             }
         }
     }
@@ -124,7 +124,7 @@ public class RecipeManager {
     }
 
     public static void onReload(ResourceManager manager) {
-        Builder.INSTANCE.clear();
+        PatchBuilder.INSTANCE.clear();
         RECIPE_TYPES.forEach((key, recipeType) -> {
             long startTime = System.currentTimeMillis();
             try {
@@ -135,9 +135,13 @@ public class RecipeManager {
                 RecipeCompatPatchesCallback.EVENT.invoker().onLoad();
                 recipeType.sort();
                 recipeType.assignRawId();
+                long patchesStartTime = System.currentTimeMillis();
+                log.info("Start load compatibility recipes");
                 RecipeCompatPatches.apply(recipeType);
+                long patchesEndTime = System.currentTimeMillis();
+                log.info("Finished load compatibility recipes, is took {}ms", patchesEndTime - patchesStartTime);
             } catch (Exception e) {
-                log.error("Can't reload recipes {}, {}", key, e);
+                log.error("Can't reload recipes {}", key, e);
             } finally {
                 long endTime = System.currentTimeMillis();
                 log.info("Reloaded Recipe Type {}, it took {}ms", key.toString(), endTime - startTime);

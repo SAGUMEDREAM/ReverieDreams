@@ -63,6 +63,7 @@ public interface DanmakuShooter {
                     yaw,
                     divergence
             );
+            danmakuEntity.setDanmakuProperties(properties.copy());
             world.addFreshEntity(danmakuEntity);
             return danmakuEntity;
         }
@@ -74,6 +75,7 @@ public interface DanmakuShooter {
                     yaw,
                     divergence
             );
+            danmakuEntity.setDanmakuProperties(properties.copy());
             world.addFreshEntity(danmakuEntity);
             return danmakuEntity;
         }

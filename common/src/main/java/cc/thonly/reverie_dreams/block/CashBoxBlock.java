@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.player.FaithComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.util.PredicateSlot;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import com.mojang.serialization.MapCodec;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
@@ -90,7 +92,7 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
                     int val = (int) (base + 7 * 1.5f * world.getRandom().nextDouble());
                     if (base > FaithComponent.MAX_VALUE) {
                         faithComponent.setFaithValue(FaithComponent.MAX_VALUE);
-                        player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                        SoundEventPlayUtils.playSound(player, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.NEUTRAL, 1.0f, 1.0f);
                         serverPlayer.sendSystemMessage(Component.translatable("item.action.click.cashbox.fails.full", FaithComponent.MAX_VALUE), true);
                         return InteractionResult.SUCCESS_SERVER;
                     }
@@ -98,7 +100,7 @@ public class CashBoxBlock extends HorizontalDirectionalBlock implements EntityBl
                     faithComponent.setDateOfLastPrayer(dayCount);
                     faithComponent.markDirty();
                     itemStack.consume(world.getRandom().nextIntBetweenInclusive(1, 3), player);
-                    player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                    SoundEventPlayUtils.playSound(player, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     serverPlayer.sendSystemMessage(Component.translatable("item.action.click.cashbox.success", val), true);
                     return InteractionResult.SUCCESS_SERVER;
                 }

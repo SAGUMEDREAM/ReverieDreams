@@ -2,7 +2,7 @@
 //
 //import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
 //import cc.thonly.reverie_dreams.compat.rei.display.GensokyoAltarRecipeDisplay;
-//import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
+//import cc.thonly.reverie_dreams.gui.block.GensokyoAltarGui;
 //import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 //import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 //import me.shedaniel.math.Point;

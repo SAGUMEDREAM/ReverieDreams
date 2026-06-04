@@ -21,6 +21,7 @@ public class ModStructureSets {
     public static final ResourceKey<StructureSet> SAKURAZUKA = getOrCreateRegistryKey("sakurazuka");
     public static final ResourceKey<StructureSet> OUTER_SHRINE = getOrCreateRegistryKey("outer_shrine");
     public static final ResourceKey<StructureSet> NETHER_HOT_SPRING = getOrCreateRegistryKey("nether_hot_spring");
+    public static final ResourceKey<StructureSet> SMALL_SHRINE = getOrCreateRegistryKey("small_shrine");
 
     public static void init() {
 
@@ -36,6 +37,8 @@ public class ModStructureSets {
         Holder.Reference<Structure> bambooForestHuyStructure = structureLookup.getOrThrow(ModStructures.BAMBOO_FOREST_HUT);
         Holder.Reference<Structure> sakurazukaStructure = structureLookup.getOrThrow(ModStructures.SAKURAZUKA);
         Holder.Reference<Structure> netherHotSpringStructure = structureLookup.getOrThrow(ModStructures.NETHER_HOT_SPRING);
+        Holder.Reference<Structure> smallShrineStructure = structureLookup.getOrThrow(ModStructures.SMALL_SHRINE);
+
         context.register(ABANDONED_ALTAR,
                 new StructureSet(abandonedAltarStructure,
                         new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 1947319134)));
@@ -67,6 +70,10 @@ public class ModStructureSets {
         context.register(NETHER_HOT_SPRING,
                 new StructureSet(netherHotSpringStructure,
                         new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 756148203)));
+
+        context.register(SMALL_SHRINE,
+                new StructureSet(smallShrineStructure,
+                        new RandomSpreadStructurePlacement(40, 10, RandomSpreadType.LINEAR, 319980603)));
     }
 
     public static Holder.Reference<StructureSet> register(BootstrapContext<StructureSet> registry, ResourceKey<StructureSet> registryKey, StructureSet structureSet) {

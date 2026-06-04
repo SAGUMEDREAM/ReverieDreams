@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 
 public class RecipeCompatContext {
-    public <R extends BaseRecipe> Builder<R> recipeAccess(BaseRecipeType<R> recipeType) {
+    public <R extends BaseRecipe> PatchBuilder<R> recipeAccess(BaseRecipeType<R> recipeType) {
         return RecipeCompatPatches.getOrCreateBuilder(recipeType);
     }
 }

@@ -33,14 +33,14 @@ import java.util.function.Consumer;
 public class InitTooltips {
     public static void bootstrap() {
         Event<ItemStackTooltipCallback> event = getEvent();
-        event.register(InitTooltips::appendDanmakuTooltip);
-        event.register(InitTooltips::appendDanmakuShapeTooltip);
-        event.register(InitTooltips::appendDrinkItemTooltip);
-        event.register(InitTooltips::appendTagFoodTooltip);
-        event.register(InitTooltips::appendFumoLicenseTooltip);
-        event.register(InitTooltips::appendRoleCardItemTooltip);
-        event.register(InitTooltips::appendDanmakuPropertiesTooltip);
-        event.register(InitTooltips::appendFastRecipeBookTooltip);
+        registerTooltip(InitTooltips::appendDanmakuTooltip);
+        registerTooltip(InitTooltips::appendDanmakuShapeTooltip);
+        registerTooltip(InitTooltips::appendDrinkItemTooltip);
+        registerTooltip(InitTooltips::appendTagFoodTooltip);
+        registerTooltip(InitTooltips::appendFumoLicenseTooltip);
+        registerTooltip(InitTooltips::appendRoleCardItemTooltip);
+        registerTooltip(InitTooltips::appendDanmakuPropertiesTooltip);
+        registerTooltip(InitTooltips::appendFastRecipeBookTooltip);
     }
 
     public static void appendDanmakuTooltip(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
@@ -145,6 +145,24 @@ public class InitTooltips {
             component.append(" | %ss".formatted(recipe.getCostTime()));
             consumer.accept(component);
         });
+    }
+
+    public static void registerTooltip(ItemStackTooltipCallback callback) {
+        Event<ItemStackTooltipCallback> event = getEvent();
+        event.register((itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag) -> {
+            invokeBypassShowOnly(callback, itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag);
+        });
+    }
+
+    public static boolean isShowOnly(ItemStack itemStack) {
+        return itemStack.has(RDDataComponents.SHOW_ONLY.value());
+    }
+
+    private static void invokeBypassShowOnly(ItemStackTooltipCallback callback, ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (isShowOnly(itemStack)) {
+            return;
+        }
+        callback.appendTooltip(itemStack, context, display, player, consumer, flag);
     }
 
     public static Event<ItemStackTooltipCallback> getEvent() {

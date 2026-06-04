@@ -116,7 +116,7 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
         if (!PlatformContext.hasPolymer()) {
             super.tick();
         }
-        this.b$fabric_tick();
+        this.b$polymer_tick();
         if (!this.level().isClientSide()) {
             if (!this.onGround()) {
                 this.entityData.set(ROLL, (float) (this.entityData.get(ROLL) - Mth.DEG_TO_RAD * this.getDeltaMovement().lengthSqr() * 15) % Mth.TWO_PI);
@@ -131,7 +131,7 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
         frozenParticles(this, this.level());
     }
 
-    public void b$fabric_tick() {
+    public void b$polymer_tick() {
         if (!PlatformContext.hasPolymer()) {
             return;
         }

@@ -45,28 +45,22 @@ public class HawkerOffers {
                     List.of(SetItemCountFunction.setCount(UniformGenerator.between(3, 4)).build())
             ));
         }
-        // Level 2
+
+        // Level 1 - 2
         for (DeferredItem ingredient : RDIngredientItems.INGREDIENTS) {
             Item item = ingredient.asItem();
-            ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_2, TEMPLATE, 2, item);
-            Collection<FoodProperty> ingredientProperties = FoodProperties.get(new ItemStackTemplate(ingredient.asItem()));
-            int base = ingredientProperties.size();
-            int min = (int) (base * 1.25 * 1);
-            int max = (int) (base * 1.25 * 2);
-            builder.add(key, new VillagerTrade(
-                    new TradeCost(RDItems.COPPER_COIN,
-                            UniformGenerator.between(3 + min, 3 + max)
-                    ),
-                    Optional.empty(),
-                    new ItemStackTemplate(ingredient.asItem()),
-                    11,
-                    5,
-                    0.2f,
-                    Optional.empty(),
-                    List.of(
-                            SetItemCountFunction.setCount(UniformGenerator.between(3, 4)).build()
-                    )
-            ));
+            {
+                ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_1, TEMPLATE, 1, item);
+                makeCommon(builder, ingredient, key);
+            }
+            {
+                ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_2, TEMPLATE, 2, item);
+                makeCommon(builder, ingredient, key);
+            }
+            {
+                ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_3, TEMPLATE, 3, item);
+                makeCommon(builder, ingredient, key);
+            }
         }
         // Level 3
         Item[] arr3 = new Item[]{
@@ -115,24 +109,28 @@ public class HawkerOffers {
         for (DeferredItem ingredient : RDIngredientItems.INGREDIENTS) {
             Item item = ingredient.asItem();
             ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_5, TEMPLATE, 5, item);
-            Collection<FoodProperty> ingredientProperties = FoodProperties.get(new ItemStackTemplate(ingredient.asItem()));
-            int base = ingredientProperties.size();
-            int min = (int) (base * 1.25 * 1);
-            int max = (int) (base * 1.25 * 2);
-            builder.add(key, new VillagerTrade(
-                    new TradeCost(RDItems.COPPER_COIN,
-                            UniformGenerator.between(3 + min, 3 + max)
-                    ),
-                    Optional.empty(),
-                    new ItemStackTemplate(ingredient.asItem()),
-                    11,
-                    5,
-                    0.2f,
-                    Optional.empty(),
-                    List.of(
-                            SetItemCountFunction.setCount(UniformGenerator.between(3, 4)).build()
-                    )
-            ));
+            makeCommon(builder, ingredient, key);
         }
+    }
+
+    private static void makeCommon(RDVillagerTrades.PreparingTradeInfo builder, DeferredItem ingredient, ResourceKey<VillagerTrade> key) {
+        Collection<FoodProperty> ingredientProperties = FoodProperties.get(new ItemStackTemplate(ingredient.asItem()));
+        int base = ingredientProperties.size();
+        int min = (int) (base * 1.25 * 1);
+        int max = (int) (base * 1.25 * 2);
+        builder.add(key, new VillagerTrade(
+                new TradeCost(RDItems.COPPER_COIN,
+                        UniformGenerator.between(3 + min, 3 + max)
+                ),
+                Optional.empty(),
+                new ItemStackTemplate(ingredient.asItem()),
+                11,
+                5,
+                0.2f,
+                Optional.empty(),
+                List.of(
+                        SetItemCountFunction.setCount(UniformGenerator.between(3, 4)).build()
+                )
+        ));
     }
 }

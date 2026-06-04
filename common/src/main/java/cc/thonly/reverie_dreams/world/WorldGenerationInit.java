@@ -13,7 +13,7 @@ public class WorldGenerationInit {
         ChunkGenerationInit.init();
         ChunkGeneratorSettingsInit.init();
         WorldInit.init();
-        BiomeInit.init();
+        RDBiomes.init();
         ModStructures.init();
         ModStructureSets.init();
         ModTemplatePools.init();

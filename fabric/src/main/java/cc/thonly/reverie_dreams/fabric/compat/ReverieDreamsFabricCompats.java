@@ -23,6 +23,4 @@ public class ReverieDreamsFabricCompats extends ReverieDreamsCompats {
         load("appleskin", "cc.thonly.reverie_dreams.fabric.compat.AppleskinCompatImpl");
     }
 
-
-
 }

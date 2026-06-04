@@ -24,6 +24,8 @@ public class EnchantmentTagProvider extends KeyTagProvider<Enchantment> {
                 .add(RDEnchantments.MOON_DAMAGE)
                 .add(RDEnchantments.DANMAKU_PROTECTION)
                 .add(RDEnchantments.POWERFUL)
+                .add(RDEnchantments.FROZEN)
+                .add(RDEnchantments.CHARGE)
         ;
     }
 }

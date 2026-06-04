@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
-import cc.thonly.reverie_dreams.api.recipe.Builder;
+import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
@@ -18,7 +18,7 @@ import java.util.Set;
 public class FarmersdelightCompatImpl {
     public static void bootstrap() {
         RecipeCompatPatchesCallback.EVENT.register(() -> {
-            Builder<KitchenRecipe> builder = RecipeCompatPatches.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
+            PatchBuilder<KitchenRecipe> builder = RecipeCompatPatches.getOrCreateBuilder(RecipeManager.KITCHEN_TYPE);
             builder.add(RDIngredientItems.TOMATO, ModItems.TOMATO.get());
             builder.add(RDIngredientItems.ONION, ModItems.ONION.get());
             builder.add(Items.PORKCHOP, ModItems.BACON.get());

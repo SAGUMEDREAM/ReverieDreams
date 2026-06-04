@@ -6,8 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 
-public class
-ModStructureTypes {
+public class ModStructureTypes {
 
     public static void init() {
 

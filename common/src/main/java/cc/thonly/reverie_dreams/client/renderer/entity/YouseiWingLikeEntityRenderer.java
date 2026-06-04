@@ -29,7 +29,7 @@ public class YouseiWingLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> e
     public void extractRenderState(NPCEntity entity, AvatarRenderState state, float partialTick) {
         super.extractRenderState(entity, state, partialTick);
         state.bodyRot = entity.yBodyRot;
-        if (state instanceof NPCAvatarRenderState rs) {
+        if (state instanceof NPCAvatarRenderState rs && entity.isAlive()) {
             this.itemModelResolver.updateForLiving(
                     rs.wingHolderRenderState,
                     WING_HOLDER.get(),

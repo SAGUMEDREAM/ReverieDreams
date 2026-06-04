@@ -22,6 +22,8 @@ public class EquipmentAssetProvider extends AbstractEquipmentAssetProvider {
     protected void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer) {
         consumer.accept(EarphoneArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("earphone")));
         consumer.accept(KoishiHatArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("koishi_hat")));
+        consumer.accept(LowGravityBootArmorMaterial.REGISTRY_KEY,createHumanoidAndHorseModel(ReverieDreams.id("low_gravity_boot")));
+        consumer.accept(CrownOfTheUnderworldArmorMaterial.REGISTRY_KEY,createHumanoidAndHorseModel(ReverieDreams.id("crown_of_the_underworld")));
         consumer.accept(SilverArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("silver")));
         consumer.accept(MagicIceArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("magic_ice")));
         consumer.accept(MaidArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("maid")));

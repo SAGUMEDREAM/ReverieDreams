@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.world.gen.BiomeInit;
+import cc.thonly.reverie_dreams.world.gen.RDBiomes;
 import cc.thonly.reverie_dreams.world.gen.ChunkGeneratorSettingsInit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -30,7 +30,7 @@ public class DimensionInit {
 
         var dreamWorldConfig = new FlatLevelGeneratorSettings(
                 Optional.empty(),
-                biomeLookup.getOrThrow(BiomeInit.DREAM),
+                biomeLookup.getOrThrow(RDBiomes.DREAM),
                 new ArrayList<>()
         );
         dreamWorldConfig.setDecoration();
@@ -48,7 +48,7 @@ public class DimensionInit {
                 dimensionTypeLookup.getOrThrow(DimensionTypeInit.THE_MOON),
                 new NoiseBasedChunkGenerator(
                         new FixedBiomeSource(
-                                biomeLookup.getOrThrow(BiomeInit.THE_MOON)
+                                biomeLookup.getOrThrow(RDBiomes.THE_MOON)
                         ),
                         chunkGeneratorSettingsLookup.getOrThrow(ChunkGeneratorSettingsInit.MOON)
                 )

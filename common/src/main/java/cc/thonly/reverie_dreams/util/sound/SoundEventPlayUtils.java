@@ -7,6 +7,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
@@ -35,7 +37,15 @@ public class SoundEventPlayUtils {
         }
     }
 
+    public static void playSound(Level level, Entity entity, SoundEvent event, SoundSource source) {
+        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), event, source);
+    }
+
     public static void playSound(Level level, BlockPos pos, SoundEvent event, SoundSource source) {
         level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), event, source);
+    }
+
+    public static void playSound(Level level, double x, double y, double z, SoundEvent event, SoundSource source) {
+        level.playSound(null, x, y, z, event, source);
     }
 }

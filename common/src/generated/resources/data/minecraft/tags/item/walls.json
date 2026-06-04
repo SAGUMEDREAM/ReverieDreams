@@ -1,9 +1,9 @@
 {
   "values": [
-    "reverie_dreams:moon_stone_brick_wall",
-    "reverie_dreams:moon_stone_wall",
     "reverie_dreams:dream_stone_brick_wall",
     "reverie_dreams:ice_scales_block_wall",
+    "reverie_dreams:moon_stone_brick_wall",
+    "reverie_dreams:moon_stone_wall",
     "reverie_dreams:dream_stone_wall"
   ]
 }

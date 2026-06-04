@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
+import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
 import cc.thonly.reverie_dreams.gui.entity.NPCGui;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
@@ -12,6 +13,7 @@ import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -37,42 +39,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("UnusedReturnValue")
 @Slf4j
 public class NPCRoleInteractionEvents {
     public static final List<NPCRoleMessage> MESSAGES = new ArrayList<>();
 
     static {
-        registerMessage(Component.translatable("npc.event.send_message.0"));
-        registerMessage(Component.translatable("npc.event.send_message.1"));
-        registerMessage(Component.translatable("npc.event.send_message.2"));
-        registerMessage(Component.translatable("npc.event.send_message.3"));
-        registerMessage(Component.translatable("npc.event.send_message.4"));
-        registerMessage(Component.translatable("npc.event.send_message.5"));
-        registerMessage(Component.translatable("npc.event.send_message.6"));
-        registerMessage(Component.translatable("npc.event.send_message.7"));
-        registerMessage(Component.translatable("npc.event.send_message.8"));
-        registerMessage(Component.translatable("npc.event.send_message.9"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.0"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.1"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.2"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.3"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.4"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.5"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.6"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.7"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.8"));
+        registerGeneralMessage(Component.translatable("npc.event.send_message.9"));
     }
 
     public static final NPCRoleInteractionEvent MESSAGE = registerEvent("message", (world, player, stack, hand, entity) -> {
         if (stack.isEmpty() && !player.isShiftKeyDown() && entity.isTame()) {
-            if (MESSAGES.isEmpty()) {
-                return NPCInteractResult.PASS;
-            }
-            RandomSource random = RandomSource.create();
-            NPCRoleMessage npcRoleMessage = MESSAGES.get(random.nextIntBetweenInclusive(0, MESSAGES.size() - 1));
-            MutableComponent message = npcRoleMessage.getMessage(world, player, stack, hand, entity);
-            MutableComponent body = Component.empty();
-            body.append(entity.getName());
-            body.append(": ");
-            body.append(message);
-            Optional.ofNullable(npcRoleMessage.getSoundEvent()).ifPresent(
-                    (soundEvent) -> {
-                        world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, SoundSource.HOSTILE);
-                    }
-            );
-            player.sendSystemMessage(body, false);
-            return NPCInteractResult.SUCCESS;
+            return handleChat(world, player, stack, hand, entity);
         }
         return NPCInteractResult.PASS;
     });
@@ -98,7 +85,7 @@ public class NPCRoleInteractionEvents {
                 entity.setHealth(health + 2);
             }
             player.swing(hand);
-            player.playSound(RDSoundEvents.UP.value(), 1.0f, 1.0f);
+            SoundEventPlayUtils.playSound(player, RDSoundEvents.UP.value(), SoundSource.NEUTRAL, 1.0f, 1.0f);
             stack.consume(1, player);
             return NPCInteractResult.SUCCESS;
         }
@@ -198,7 +185,7 @@ public class NPCRoleInteractionEvents {
         return InteractionResult.PASS;
     }
 
-    public static NPCRoleMessage registerMessage(MutableComponent mutableText) {
+    public static NPCRoleMessage registerGeneralMessage(MutableComponent mutableText) {
         NPCRoleMessage npcRoleMessage = new NPCRoleMessage() {
             @Override
             public @NotNull MutableComponent getMessage(ServerLevel world, ServerPlayer player, ItemStack stack, InteractionHand hand, BaseNPCLikeEntity entity) {
@@ -214,7 +201,45 @@ public class NPCRoleInteractionEvents {
         return npcRoleMessage;
     }
 
-    public static NPCRoleMessage registerMessage(NPCRoleMessage message) {
+    private static NPCInteractResult handleChat(ServerLevel world, ServerPlayer player, ItemStack stack, InteractionHand hand, BaseNPCLikeEntity entity) {
+        if (ReverieDreams.config().enableAIReplacesGeneralChat) {
+            return handleAIChat(world, player, stack, hand, entity);
+        }
+        return handleGenericChat(world, player, stack, hand, entity);
+    }
+
+    private static NPCInteractResult handleAIChat(ServerLevel world, ServerPlayer player, ItemStack stack, InteractionHand hand, BaseNPCLikeEntity entity) {
+        if (ReverieDreams.config().apiKey.isEmpty() || ReverieDreams.config().apiUrl.isEmpty()) {
+            return handleGenericChat(world, player, stack, hand, entity);
+        }
+        if (entity instanceof ChatAIEntity chatAIEntity) {
+            chatAIEntity.openChatAIGUI(player);
+            return NPCInteractResult.SUCCESS;
+        }
+        return handleGenericChat(world, player, stack, hand, entity);
+    }
+
+    private static NPCInteractResult handleGenericChat(ServerLevel world, ServerPlayer player, ItemStack stack, InteractionHand hand, BaseNPCLikeEntity entity) {
+        if (MESSAGES.isEmpty()) {
+            return NPCInteractResult.PASS;
+        }
+        RandomSource random = RandomSource.create();
+        NPCRoleMessage npcRoleMessage = MESSAGES.get(random.nextIntBetweenInclusive(0, MESSAGES.size() - 1));
+        MutableComponent message = npcRoleMessage.getMessage(world, player, stack, hand, entity);
+        MutableComponent body = Component.empty();
+        body.append(entity.getName());
+        body.append(": ");
+        body.append(message);
+        Optional.ofNullable(npcRoleMessage.getSoundEvent()).ifPresent(
+                (soundEvent) -> {
+                    world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, SoundSource.HOSTILE);
+                }
+        );
+        player.sendSystemMessage(body, false);
+        return NPCInteractResult.SUCCESS;
+    }
+
+    public static NPCRoleMessage registerGeneralMessage(NPCRoleMessage message) {
         MESSAGES.add(message);
         return message;
     }

@@ -61,7 +61,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
         AdvancementHolder shinyCoins = registerAdvancement(context, RDAdvancements.SHINY_COINS, Advancement.Builder.advancement()
                 .parent(root)
                 .display(makeDisplayInfo(RDItems.GOLD_COIN, RDAdvancements.SHINY_COINS, AdvancementType.TASK))
-                .addCriterion("get_coin", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(itemLookup, RDItemTags.COINS)))
+                .addCriterion("get_coin", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(itemLookup, RDItemTags.COIN)))
         );
 
         AdvancementHolder fumofumo = registerAdvancement(context, RDAdvancements.FUMOFUMO, Advancement.Builder.advancement()

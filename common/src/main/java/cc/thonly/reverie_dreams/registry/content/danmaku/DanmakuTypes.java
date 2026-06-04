@@ -12,10 +12,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class DanmakuTypes {
     public static final DanmakuType AMULET = registerType(ReverieDreams.id("amulet"), RDDamageTypes.DANMAKU_GENERIC, 2f, 1f, 1.2f, false, false);
     public static final DanmakuType ARROWHEAD = registerType(ReverieDreams.id("arrowhead"), RDDamageTypes.DANMAKU_REAL, 2f, 1f, 1.2f, false, false);
@@ -33,6 +35,16 @@ public class DanmakuTypes {
 
     public static DanmakuType registerType(Identifier key, ResourceKey<DamageType> damageTypeKey, float damage, float scale, float speed, boolean tile, boolean infinite) {
         return RegistryImpls.registerForBuiltin(RegistryImpls.DANMAKU_TYPE, key, new DanmakuType(key, damageTypeKey, damage, scale, speed, tile, infinite));
+    }
+
+    public static DanmakuType fromItem(ItemStack itemStack) {
+        Item item = itemStack.getItem();
+        for (DanmakuType type : RegistryImpls.DANMAKU_TYPE.values()) {
+            if (type.getItemHolder().is(item.builtInRegistryHolder())) {
+                return type;
+            }
+        }
+        return null;
     }
 
     @SuppressWarnings("DataFlowIssue")

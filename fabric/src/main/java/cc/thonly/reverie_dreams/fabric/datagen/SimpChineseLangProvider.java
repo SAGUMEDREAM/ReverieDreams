@@ -122,8 +122,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(NPCStates.NORMAL.translateKey(), "§b当前模式为: §a正常");
         translationBuilder.add(NPCStates.NO_WALK.translateKey(), "§b当前模式为: §a禁止移动");
         translationBuilder.add(NPCStates.SNAKING.translateKey(), "§b当前模式为: §a潜行");
-        translationBuilder.add(NPCStates.SEATED.translateKey(), "§a当前模式为:坐下");
-        translationBuilder.add(NPCStates.WORKING.translateKey(), "§a当前模式为:工作中");
+        translationBuilder.add(NPCStates.SEATED.translateKey(), "§b当前模式为: §a坐下");
+        translationBuilder.add(NPCStates.WORKING.translateKey(), "§b当前模式为: §a工作中");
         translationBuilder.add("gui.npc.mode.work.originpos", "工作原点位置");
 
         translationBuilder.add("gui.npc.work.button", "模式开关");
@@ -163,9 +163,28 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.addEnchantment(RDEnchantments.MOON_DAMAGE, "月伤");
         translationBuilder.addEnchantment(RDEnchantments.DANMAKU_PROTECTION, "弹幕保护");
         translationBuilder.addEnchantment(RDEnchantments.POWERFUL, "威力");
+        translationBuilder.addEnchantment(RDEnchantments.FROZEN, "冰封");
+        translationBuilder.addEnchantment(RDEnchantments.CHARGE, "冲锋");
 
         this.generateCommandTranslations(wrapperLookup, translationBuilder);
         this.generateMITranslations(wrapperLookup, translationBuilder);
+        this.generateConfigTranslations(wrapperLookup, translationBuilder);
+    }
+
+    public void generateConfigTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
+        translationBuilder.add("reverie_dreams.configuration.configVersion", "Configuration File Version");
+        translationBuilder.add("reverie_dreams.configuration.checkUpdate", "Enable Update Checker");
+        translationBuilder.add("reverie_dreams.configuration.debugMode", "Enable Debug Mode");
+        translationBuilder.add("reverie_dreams.configuration.enableDanmakuGlow", "Enable Glow Effect for Danmaku Items");
+        translationBuilder.add("reverie_dreams.configuration.maxUpgradedHealthValue", "Maximum Upgraded Health");
+        translationBuilder.add("reverie_dreams.configuration.enableYouseiSpawn", "Enable Yousei Spawning");
+        translationBuilder.add("reverie_dreams.configuration.enableGhostSpawn", "Enable Ghost Spawning");
+        translationBuilder.add("reverie_dreams.configuration.enableAIReplacesGeneralChat", "Enable AI chat to replace interaction");
+        translationBuilder.add("reverie_dreams.configuration.apiUrl", "AI Chat API URL");
+        translationBuilder.add("reverie_dreams.configuration.apiKey", "AI Chat API KEY");
+        translationBuilder.add("reverie_dreams.configuration.model", "AI Chat Model");
+        translationBuilder.add("reverie_dreams.configuration.chatType", "AI Chat Type");
+
     }
 
     public void generateGuideTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
@@ -994,6 +1013,9 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.SPELLCARD.asItem(), "符卡");
         translationBuilder.add(RDItems.SATORI_EYE.asItem(), "觉之眼");
         translationBuilder.add(RDItems.FAST_RECIPE_BOOK.asItem(), "快速食谱");
+        translationBuilder.add(RDItems.LOW_GRAVITY_BOOT.asItem(), "低重力靴子");
+        translationBuilder.add(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), "冥界之冠");
+        translationBuilder.add(RDItems.SUNFLOWER.asItem(), "自然之力");
 
         // 武器
         translationBuilder.add(RDItems.HAKUREI_CANE.asItem(), "博丽御币");
@@ -1015,6 +1037,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.VIOLIN.asItem(), "小提琴");
         translationBuilder.add(RDItems.KEYBOARD.asItem(), "键盘");
         translationBuilder.add(RDItems.TRUMPET.asItem(), "小号");
+        translationBuilder.add(RDItems.IRON_BAR.asItem(), "铁棒");
         translationBuilder.add(RDItems.DEATH_SCYTHE.asItem(), "死神镰刀");
         translationBuilder.add(RDItems.WEAPON_OF_THE_MOON.asItem(), "月之兵器");
 

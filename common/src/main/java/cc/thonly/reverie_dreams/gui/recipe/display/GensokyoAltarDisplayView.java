@@ -1,11 +1,14 @@
 package cc.thonly.reverie_dreams.gui.recipe.display;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -13,7 +16,10 @@ import eu.pb4.sgui.api.gui.SlotBasedGui;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -31,11 +37,11 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
     public final RecipeKeyEntry<GensokyoAltarRecipe> key2ValueEntry;
     public final Identifier key;
     public final GensokyoAltarRecipe value;
-    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.BACK.asItem()).setProfileSkinTexture(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
+    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.CLOSE.asItem()).setProfileSkinTexture(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
 
     public GensokyoAltarDisplayView(ServerPlayer player, RecipeKeyEntry<GensokyoAltarRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
-        super(MenuType.GENERIC_9x6, player, false);
+        super(MenuType.GENERIC_9x5, player, false);
         this.key2ValueEntry = key2ValueEntry;
         this.key = this.key2ValueEntry.getKey();
         this.value = this.key2ValueEntry.getValue();
@@ -45,7 +51,15 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
 
     @Override
     public void init() {
-        this.setTitle(this.key2ValueEntry.getValue().getOutput().build().getHoverName());
+        this.setTitle(
+                Component.empty()
+                         .append(Component.translatable("space.-8"))
+                         .append(Component.literal("\ub002")
+                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                         .append(Component.translatable("space.-168"))
+                         .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName())
+        );
         List<IngredientStack> inputs = new LinkedList<>(this.value.getSlots());
         Iterator<IngredientStack> slotIterator = inputs.iterator();
 
@@ -54,14 +68,6 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
             for (int col = 0; col < grid[row].length; col++) {
                 String c = grid[row][col];
                 int slot = row * 9 + col;
-                if (c.equalsIgnoreCase("X")) {
-                    GuiElementBuilder builder = new GuiElementBuilder(RDGuiItems.EMPTY_SLOT.asItem());
-                    this.setSlot(slot, builder);
-                }
-                if (c.equalsIgnoreCase("T")) {
-                    GuiElementBuilder builder = new GuiElementBuilder(RDGuiItems.PROGRESS_TO_RESULT.asItem());
-                    this.setSlot(slot, builder);
-                }
                 if (c.equalsIgnoreCase("B")) {
                     this.setSlot(slot, this.back);
                 }
@@ -86,7 +92,7 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
     }
 
     public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.close();
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();
@@ -97,12 +103,11 @@ public class GensokyoAltarDisplayView extends SimpleGui implements DisplayView {
     @Override
     public String[][] getGrid() {
         return new String[][]{
-                {"B", "X", "X", "X", "X", "X", "X", "X", "X"},
                 {"X", "X", "I", "X", "I", "X", "I", "X", "X"},
                 {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
                 {"X", "X", "I", "X", "C", "X", "I", "T", "O"},
                 {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
-                {"X", "X", "I", "X", "I", "X", "I", "X", "X"},
+                {"X", "X", "I", "X", "I", "X", "I", "X", "B"},
         };
     }
 }

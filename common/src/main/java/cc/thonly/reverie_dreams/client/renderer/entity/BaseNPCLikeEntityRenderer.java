@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
+import cc.thonly.reverie_dreams.client.renderer.entity.layers.WingLayer;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;

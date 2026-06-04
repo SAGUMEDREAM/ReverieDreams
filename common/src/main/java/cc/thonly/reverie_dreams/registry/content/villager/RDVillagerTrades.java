@@ -1,10 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.HawkerOffers;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.MoneyShopClerkOffers;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.MystiaModOffers;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.PriestOffers;
+import cc.thonly.reverie_dreams.registry.content.villager.offer.*;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -58,7 +55,6 @@ public class RDVillagerTrades {
         REGISTRIES.add(PreparingTradeInfo.make(items, enchantments).register(PriestOffers::makeOffers).build());
         REGISTRIES.add(PreparingTradeInfo.make(items, enchantments).register(MoneyShopClerkOffers::makeOffers).build());
         REGISTRIES.add(PreparingTradeInfo.make(items, enchantments).register(MystiaModOffers::makeOffers).build());
-
         return List.copyOf(REGISTRIES);
     }
 

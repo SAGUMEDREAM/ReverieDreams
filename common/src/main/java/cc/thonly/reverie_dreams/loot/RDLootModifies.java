@@ -15,8 +15,12 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import net.blay09.mods.balm.platform.event.callback.LivingEntityCallback;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -47,6 +51,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+@SuppressWarnings("resource")
 public class RDLootModifies {
     public static final ResourceKey<LootTable> VILLAGE_WEAPONSMITH_CHEST = BuiltInLootTables.VILLAGE_WEAPONSMITH;
     public static final ResourceKey<LootTable> END_CITY_TREASURE_CHEST = BuiltInLootTables.END_CITY_TREASURE;
@@ -233,14 +238,21 @@ public class RDLootModifies {
         }
         if (entity instanceof Yousei || entity instanceof Goblin) {
             RandomSource random = RandomSource.create();
-            List<Item> itemPool = List.of(
+            RegistryAccess registryAccess = entity.registryAccess();
+            Registry<Item> items = registryAccess.lookupOrThrow(Registries.ITEM);
+            Iterable<Holder<Item>> commonCoins = items.getTagOrEmpty(RDItemTags.COMMON_COIN);
+            List<Item> itemPool = new ArrayList<>();
+            for (Holder<Item> commonCoin : commonCoins) {
+                itemPool.add(commonCoin.value());
+            }
+            itemPool.addAll(List.of(
                     RDItems.COPPER_COIN.asItem(),
                     RDItems.SILVER_COIN.asItem(),
                     RDItems.SILVER_COIN.asItem(),
                     RDItems.COPPER_COIN.asItem(),
                     RDItems.COPPER_COIN.asItem(),
                     RDItems.COPPER_COIN.asItem()
-            );
+            ));
             int dropChance = 45;
             int maxDropCount = 5;
             if (random.nextInt(100) < dropChance) {
@@ -251,6 +263,7 @@ public class RDLootModifies {
 
     private static void dropPointPower(LivingEntity entity, DamageSource damageSource) {
         Identifier entityId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        RegistryAccess registryAccess = entity.registryAccess();
         Level world = entity.level();
         if ((entity instanceof Hairball || entity instanceof Monster || entity instanceof Yousei) && world instanceof ServerLevel serverWorld) {
             RandomSource random = RandomSource.create();
@@ -267,6 +280,7 @@ public class RDLootModifies {
 
     private static void dropIceScales(LivingEntity entity, DamageSource damageSource) {
         Level world = entity.level();
+        RegistryAccess registryAccess = entity.registryAccess();
         if (world instanceof ServerLevel serverWorld && entity instanceof Stray) {
             RandomSource random = RandomSource.create();
             int dropChance = 45;

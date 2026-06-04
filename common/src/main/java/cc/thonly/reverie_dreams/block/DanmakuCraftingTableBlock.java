@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block;
 
 import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
-import cc.thonly.reverie_dreams.gui.recipe.gui.DanmakuCraftingTableGui;
+import cc.thonly.reverie_dreams.gui.block.DanmakuCraftingTableGui;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;

@@ -134,7 +134,7 @@ public class THCommand {
         root.then(with_food_property);
         root.then(with_drink_property);
         root.then(cachedAllSkins);
-//        root.then(recipe);
+        root.then(recipe);
         root.then(registry);
 //        root.then(dialog);
         root.then(video);

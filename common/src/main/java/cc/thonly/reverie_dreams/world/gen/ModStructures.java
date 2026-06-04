@@ -29,6 +29,7 @@ public class ModStructures {
     public static final ResourceKey<Structure> SAKURAZUKA = getOrCreateRegistryKey("sakurazuka");
     public static final ResourceKey<Structure> OUTER_SHRINE = getOrCreateRegistryKey("outer_shrine");
     public static final ResourceKey<Structure> NETHER_HOT_SPRING = getOrCreateRegistryKey("nether_hot_spring");
+    public static final ResourceKey<Structure> SMALL_SHRINE = getOrCreateRegistryKey("small_shrine");
 
     public static void init() {
 
@@ -37,22 +38,22 @@ public class ModStructures {
     public static void bootstrap(BootstrapContext<Structure> context) {
         HolderGetter<Biome> biomeLookup = context.lookup(Registries.BIOME);
         HolderGetter<StructureTemplatePool> structurePoolLookup = context.lookup(Registries.TEMPLATE_POOL);
-        Structure.StructureSettings. Builder forest = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_FOREST));
+        Structure.StructureSettings.Builder forest = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_FOREST));
         forest.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
-        Structure.StructureSettings. Builder plains = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_PLAINS));
+              .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+        Structure.StructureSettings.Builder plains = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_PLAINS));
         plains.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
-        Structure.StructureSettings. Builder hill = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_HILL));
+              .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+        Structure.StructureSettings.Builder hill = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_HILL));
         hill.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
-        Structure.StructureSettings. Builder taiga = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_TAIGA));
+            .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+        Structure.StructureSettings.Builder taiga = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_TAIGA));
         taiga.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
-        Structure.StructureSettings. Builder bambooForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BAMBOO_JUNGLE)));
-        Structure.StructureSettings. Builder cherryForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.CHERRY_GROVE)));
-        Structure.StructureSettings. Builder basaltDeltas = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BASALT_DELTAS)));
-        Structure.StructureSettings. Builder netherWastes = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.NETHER_WASTES)));
+             .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+        Structure.StructureSettings.Builder bambooForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BAMBOO_JUNGLE)));
+        Structure.StructureSettings.Builder cherryForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.CHERRY_GROVE)));
+        Structure.StructureSettings.Builder basaltDeltas = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BASALT_DELTAS)));
+        Structure.StructureSettings.Builder netherWastes = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.NETHER_WASTES)));
 
         context.register(
                 ABANDONED_ALTAR,
@@ -85,6 +86,10 @@ public class ModStructures {
         context.register(
                 NETHER_HOT_SPRING,
                 new JigsawStructure(forest.build(), structurePoolLookup.getOrThrow(ModTemplatePools.NETHER_HOT_SPRING), 1, ConstantHeight.of(VerticalAnchor.absolute(0)), false, Heightmap.Types.WORLD_SURFACE_WG)
+        );
+        context.register(
+                SMALL_SHRINE,
+                new JigsawStructure(forest.build(), structurePoolLookup.getOrThrow(ModTemplatePools.SMALL_SHRINE), 1, ConstantHeight.of(VerticalAnchor.absolute(0)), false, Heightmap.Types.WORLD_SURFACE_WG)
         );
     }
 

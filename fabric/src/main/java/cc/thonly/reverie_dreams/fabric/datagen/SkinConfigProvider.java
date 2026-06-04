@@ -149,5 +149,8 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(MobSkinTypes.RABBIT_UNIT_0, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.RABBIT_UNIT_1, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.RABBIT_UNIT_2, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.ONI_GREEN, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.ONI_ORANGE, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.ONI_RED, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
     }
 }

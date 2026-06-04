@@ -20,6 +20,7 @@ public class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_PATTERN));
         entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
         entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
+        entries.addAll(registries.lookupOrThrow(Registries.PAINTING_VARIANT));
 
         entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
         entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_CARVER));

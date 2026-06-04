@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.fabric;
 import cc.thonly.reverie_dreams.fabric.datagen.*;
 import cc.thonly.reverie_dreams.fabric.datagen.tag.*;
 import cc.thonly.reverie_dreams.registry.content.*;
+import cc.thonly.reverie_dreams.registry.content.painting.RDPaintingVariants;
 import cc.thonly.reverie_dreams.registry.content.villager.RDTradeSets;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.world.dimension.*;
@@ -67,12 +68,14 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.VILLAGER_TRADE, RDVillagerTrades::bootstrap);
         builder.add(Registries.TRADE_SET, RDTradeSets::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
+        builder.add(Registries.PAINTING_VARIANT, RDPaintingVariants::bootstrap);
+
         builder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);
         builder.add(Registries.CONFIGURED_CARVER, ConfigurationCarverInit::bootstrap);
         builder.add(Registries.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);
         builder.add(Registries.NOISE_SETTINGS, ChunkGeneratorSettingsInit::bootstrap);
-        builder.add(Registries.BIOME, BiomeInit::bootstrap);
+        builder.add(Registries.BIOME, RDBiomes::bootstrap);
         builder.add(Registries.STRUCTURE, ModStructures::bootstrap);
         builder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
         builder.add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap);

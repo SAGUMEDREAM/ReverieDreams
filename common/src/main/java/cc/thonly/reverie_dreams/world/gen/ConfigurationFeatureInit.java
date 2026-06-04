@@ -99,8 +99,8 @@ public class ConfigurationFeatureInit {
         context.register(SPIRITUAL_TREE_KEY, new ConfiguredFeature<>(Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
                         BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL_BUNDLE.log().asBlock()),
-                        new StraightTrunkPlacer(4, 2, 1),
-                        BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL_BUNDLE.leaves().asBlock()),
+                        new StraightTrunkPlacer(5, 2, 1),
+                        BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL_BUNDLE.leaves().asBlock().defaultBlockState().setValue(LeavesBlock.DISTANCE, 7).setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false)),
                         new BlobFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()

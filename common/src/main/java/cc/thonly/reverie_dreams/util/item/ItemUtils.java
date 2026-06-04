@@ -27,42 +27,68 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
     private static Field _FIELD_COUNT = null;
     private static Field _FIELD_COMPONENTS = null;
 
-    public static IngredientStack buildFoodTags(KitchenRecipe recipe, IngredientStack output, List<IngredientStack> inputs) {
+    public static IngredientStack buildFoodTags(KitchenRecipe recipe,
+                                                IngredientStack output,
+                                                List<IngredientStack> inputs) {
+
         ItemStack base = output.build();
         FoodProperties.get(base);
-        inputs = new ArrayList<>(inputs.stream().filter(ingredientStack -> !ingredientStack.is(RDItemTags.FOOD_ITEM)).toList());
+
+        // ❗过滤掉“纯食材容器类”（你原本的逻辑保留）
+        List<IngredientStack> filteredInputs = inputs.stream()
+                .filter(ingredientStack -> !ingredientStack.is(RDItemTags.FOOD_ITEM))
+                .toList();
 
         List<IngredientStack> ingredients = recipe.getIngredients();
 
-        List<IngredientStack> remainingInputs = new ArrayList<>(inputs);
+        // =============================
+        // ✅ 核心修复：使用“标记消耗”而不是 remove
+        // =============================
 
+        boolean[] used = new boolean[filteredInputs.size()];
+
+        // 1️⃣ 标记哪些 input 被配方消耗
         for (IngredientStack ingredient : ingredients) {
-            ItemStack ingredientStack = ingredient.build();
 
-            Iterator<IngredientStack> iterator = remainingInputs.iterator();
+            for (int i = 0; i < filteredInputs.size(); i++) {
+                if (used[i]) continue;
 
-            while (iterator.hasNext()) {
-                IngredientStack input = iterator.next();
-                ItemStack inputStack = input.build();
+                IngredientStack input = filteredInputs.get(i);
 
-                if (ItemStack.isSameItemSameComponents(inputStack, ingredientStack)) {
-                    iterator.remove();
+                // ✅ 关键：不要用 build() 做强匹配
+                // 👉 这里只按“物品类型”匹配，避免误伤 black_pork
+                if (input.asItem() == ingredient.asItem()) {
+                    used[i] = true;
                     break;
                 }
             }
         }
 
+        // 2️⃣ 收集“剩余材料”（额外食材，比如 black_pork）
+        List<IngredientStack> remainingInputs = new ArrayList<>();
+        for (int i = 0; i < filteredInputs.size(); i++) {
+            if (!used[i]) {
+                remainingInputs.add(filteredInputs.get(i));
+            }
+        }
+
+        // =============================
+        // ✅ FoodProperty 合并逻辑
+        // =============================
+
         Set<FoodProperty> temp = new LinkedHashSet<>();
 
-        List<FoodProperty> baseTagsRaw = base.getOrDefault(
-                RDDataComponents.FOOD_PROPERTIES.value(),
-                List.of()
+        // base 原始 tag
+        List<FoodProperty> baseTags = new ArrayList<>(
+                base.getOrDefault(
+                        RDDataComponents.FOOD_PROPERTIES.value(),
+                        List.of()
+                )
         );
-
-        List<FoodProperty> baseTags = new ArrayList<>(baseTagsRaw);
 
         temp.addAll(baseTags);
 
+        // 3️⃣ 合并“额外材料”的 food tag
         for (IngredientStack input : remainingInputs) {
             ItemStack stack = input.build();
 
@@ -76,6 +102,7 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
 
         List<FoodProperty> resultTags = new ArrayList<>(temp);
 
+        // 4️⃣ 只有变化时才写回
         if (!resultTags.equals(baseTags)) {
             base.set(RDDataComponents.FOOD_PROPERTIES.value(), resultTags);
         }

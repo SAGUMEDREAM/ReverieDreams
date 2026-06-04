@@ -1,18 +1,28 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.ExperienceOrbEntityDataModifier;
 import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
+import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.openai.AIMessage;
+import cc.thonly.reverie_dreams.openai.ChatAIData;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.NPCRoles;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.server.ChatAIManager;
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;
@@ -24,23 +34,26 @@ import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
+@Slf4j
 @SuppressWarnings("resource")
 @Getter
 @Setter
-public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
+public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable, ChatAIEntity<NPCRoleEntity> {
     public static final EntityDataAccessor<NPCRole> ROLE_TYPE = SynchedEntityData.defineId(NPCRoleEntity.class, NPCRole.SERIALIZER);
+    private ChatAIData chatAIData;
 
     public NPCRoleEntity(EntityType<? extends NPCRoleEntity> entityType, Level world) {
         super(entityType, world);
+        this.chatAIData = new ChatAIData(new HashMap<>());
     }
 
     @Override
@@ -76,7 +89,7 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
         this.targetSelector.addGoal(1, new NPCBreedGoal(this));
         this.targetSelector.addGoal(1, new NPCSheepShearGoal(this));
         this.targetSelector.addGoal(2, new NPCAttackWithOwnerGoal(this));
-        this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
+        this.targetSelector.addGoal(3, new NPCHurtByTargetGoal(this).setAlertOthers());
 
         this.goalSelector.addGoal(1, new NPCOpenDoorGoal(this));
         this.goalSelector.addGoal(1, new NPCOpenSilverChestGoal(this));
@@ -110,7 +123,8 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     }
 
     public void attractNearbyExperienceOrbs() {
-        if (this.level().isClientSide()) return; // 只在服务端处理
+        if (this.level().isClientSide())
+            return; // 只在服务端处理
 
         double radius = 7.0;
         List<ExperienceOrb> orbs = this.level().getEntitiesOfClass(
@@ -149,10 +163,106 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     }
 
     @Override
+    public List<AIMessage> getChatHistory(ServerPlayer player) {
+        UUID uid = player.getUUID();
+        return this.chatAIData.getHistories().getOrDefault(uid, new ArrayList<>());
+    }
+
+    @Override
+    public void clearChatHistory() {
+        this.chatAIData.getHistories().clear();
+    }
+
+    @Override
+    public void clearChatHistory(ServerPlayer player) {
+        this.chatAIData.getHistories().remove(player.getUUID());
+    }
+
+    @Override
+    public CompletableFuture<Void> send(ServerPlayer player, String msg) {
+        UUID uid = player.getUUID();
+
+        List<AIMessage> history = this.chatAIData.getHistories()
+                                                 .computeIfAbsent(uid, _ -> new ArrayList<>());
+
+        if (history.isEmpty()) {
+            history.add(new AIMessage(
+                    "system",
+                    getStartPrompt(this, player)
+            ));
+        }
+
+        AIMessage userMsg = new AIMessage("user", msg);
+        history.add(userMsg);
+
+        MinecraftServer server = ReverieDreams.getServer();
+        if (server == null) return CompletableFuture.completedFuture(null);
+
+        return CompletableFuture.supplyAsync(() -> {
+            return this.callChatAI(history, player, msg);
+
+        }).thenAccept(reply -> {
+            if (reply != null) {
+                server.execute(() -> {
+                    player.sendSystemMessage(
+                            Component.empty()
+                                     .append("<")
+                                     .append(this.getDisplayName())
+                                     .append("> ")
+                                     .append(reply.getContent())
+                    );
+
+                    history.add(reply);
+                    if (history.size() > 40) {
+                        history.remove(1);
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public String submitData(ServerPlayer player, NPCRoleEntity entity) {
+        Map<String, String> kw = new LinkedHashMap<>();
+        kw.put("Health", "%s/%s".formatted(this.getHealth(), this.getMaxHealth()));
+        kw.put("Nutrition", "%s/20".formatted(this.getNutrition()));
+        kw.put("Saturation", "%s/20".formatted(this.getSaturation()));
+        kw.put("StoredExperience", "%s".formatted(this.getStoredExperience()));
+        kw.put("Goodwill", "%s".formatted(this.getGoodwill()));
+        LivingEntity owner = this.getOwner();
+        if (owner != null) {
+            kw.put("Owner", "%s".formatted(owner.getPlainTextName()));
+        }
+        return ChatAIEntity.GSON.toJson(kw);
+    }
+
+    @Override
+    public void handleCommand(String msg) {
+        // noop
+    }
+
+    @Override
+    public void openChatAIGUI(ServerPlayer player) {
+        ChatAIEntity<NPCRoleEntity> chatAIEntity = ChatAIManager.of(this);
+        Holder<Dialog> holder = ChatAIManager.buildDialog(player, chatAIEntity);
+        if (holder != null) {
+            player.openDialog(holder);
+        }
+    }
+
+    @Override
     public void readAdditionalSaveData(ValueInput view) {
         super.readAdditionalSaveData(view);
         view.read("RoleType", NPCRole.BY_REGISTRY).ifPresent(this::setRoleType);
         this.updateRoleData();
+        view.read("ChatAIData", ChatAIData.CODEC).ifPresent(data -> this.chatAIData = data);
+    }
+
+    @Override
+    public void addAdditionalSaveData(ValueOutput view) {
+        super.addAdditionalSaveData(view);
+        view.store("RoleType", NPCRole.BY_REGISTRY, this.getRoleType());
+        view.store("ChatAIData", ChatAIData.CODEC, this.chatAIData);
     }
 
     private void updateRoleData() {
@@ -163,12 +273,6 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
                 this.setRoleType(list.getFirst());
             }
         }
-    }
-
-    @Override
-    public void addAdditionalSaveData(ValueOutput view) {
-        super.addAdditionalSaveData(view);
-        view.store("RoleType", NPCRole.BY_REGISTRY, this.getRoleType());
     }
 
     public NPCRole getRoleType() {
@@ -203,4 +307,5 @@ public class NPCRoleEntity extends BaseNPCLikeEntity implements Leashable {
     public Boolean consumeHunger() {
         return true;
     }
+
 }
