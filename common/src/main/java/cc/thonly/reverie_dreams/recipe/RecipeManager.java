@@ -89,8 +89,9 @@ public class RecipeManager {
                 continue;
             }
             for (RecipeManagerSyncPacket payload : payloads) {
+                Identifier key = payload.typeId();
                 Balm.networking().sendTo(player, payload);
-//                System.out.println("send recipe to %s".formatted(player));
+                log.info("Send recipe type registry {} to {}", key, player.getPlainTextName());
             }
         }
     }
@@ -153,7 +154,7 @@ public class RecipeManager {
         RegistryImpls.register(RegistryImpls.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();
-        if (!Objects.equals(id, recipeType.getId()))  {
+        if (!Objects.equals(id, recipeType.getId())) {
             throw new IllegalArgumentException("RecipeType id must be equal registry id, %s != %s".formatted(recipeType.getId(), id));
         }
         return recipeType;

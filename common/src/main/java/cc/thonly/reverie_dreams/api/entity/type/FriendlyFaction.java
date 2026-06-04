@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.entity.interfaces;
+package cc.thonly.reverie_dreams.api.entity.type;
 
 import net.minecraft.world.entity.Entity;
 

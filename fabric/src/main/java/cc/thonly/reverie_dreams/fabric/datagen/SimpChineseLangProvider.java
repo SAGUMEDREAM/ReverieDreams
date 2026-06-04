@@ -671,6 +671,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         builder.add(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value(), "蘑菇", "蘑菇刷怪蛋");
         builder.add(RDEntityTypes.WILD_PIG.asHolder().value(), "野猪", "野猪刷怪蛋");
         builder.add(RDEntityTypes.TAVERN_VILLAGER.asHolder().value(), "酒馆老板", "酒馆老板刷怪蛋");
+        builder.add(RDEntityTypes.ONI.asHolder().value(), "鬼", "鬼刷怪蛋");
 
         var registry = wrapperLookup.lookupOrThrow(Registries.VILLAGER_PROFESSION);
         VillagerProfession hawkers = registry.getOrThrow(RDVillagerProfessions.HAWKERS_KEY).value();

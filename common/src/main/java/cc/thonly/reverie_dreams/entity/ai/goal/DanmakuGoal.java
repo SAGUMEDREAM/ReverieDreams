@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
+import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

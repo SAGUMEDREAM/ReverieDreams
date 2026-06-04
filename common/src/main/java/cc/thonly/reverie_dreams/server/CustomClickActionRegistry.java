@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.dialog.DialogPlayer;
 import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
-import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;

@@ -1,10 +1,9 @@
 package cc.thonly.reverie_dreams.server;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.openai.AIMessage;
 import cc.thonly.reverie_dreams.server.dialog.*;
-import net.blay09.mods.balm.Balm;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

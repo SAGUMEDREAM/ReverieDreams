@@ -1,5 +1,9 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.5.6+26.1.2
+* Fixed SkinType call loop crash
+* Complete the en_us translation
+
 # 0.5.5+26.1.2
 * Now allow midi device control Note Instrument
 * Fixed a bug where some villagers could farm experience

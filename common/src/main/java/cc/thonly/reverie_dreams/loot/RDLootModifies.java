@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.Goblin;
 import cc.thonly.reverie_dreams.entity.Hairball;
-import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
+import cc.thonly.reverie_dreams.api.entity.type.Yousei;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;

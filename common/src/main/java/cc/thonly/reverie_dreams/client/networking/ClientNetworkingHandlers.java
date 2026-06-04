@@ -45,7 +45,8 @@ public class ClientNetworkingHandlers {
     }
 
     public static void safeHandleClient(Runnable task) {
-        if (!PlatformContext.isClientSide()) return;
+        if (!PlatformContext.isClientSide())
+            return;
         clientThreadBySync(task);
     }
 
@@ -59,7 +60,8 @@ public class ClientNetworkingHandlers {
         CompoundTag data = packet.data();
         try {
             BaseRecipeType<BaseRecipe> recipeType = (BaseRecipeType<BaseRecipe>) RecipeManager.RECIPE_TYPES.get(typeId);
-            if (recipeType == null) return;
+            if (recipeType == null)
+                return;
             Pair<Identifier, List<Pair<Identifier, BaseRecipe>>> pair = BaseRecipeType.readFromTag(recipeType, data);
             if (pair == null) {
                 return;
@@ -71,6 +73,7 @@ public class ClientNetworkingHandlers {
                 BaseRecipe recipe = recipePair.value();
                 recipeType.add(key, recipe);
             });
+            log.info("Load recipe type {} from server", packet.typeId());
         } catch (Exception e) {
             log.error("Can't sync server recipes {}: ", typeId, e);
         }

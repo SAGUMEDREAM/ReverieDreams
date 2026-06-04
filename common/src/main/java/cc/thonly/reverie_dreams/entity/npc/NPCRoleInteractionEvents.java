@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
-import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.gui.entity.NPCGui;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;

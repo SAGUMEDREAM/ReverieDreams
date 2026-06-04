@@ -7,13 +7,12 @@ import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.*;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.*;
-import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.openai.AIMessage;
 import cc.thonly.reverie_dreams.openai.ChatAIData;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.ChatAIManager;
-import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +40,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 
 @Slf4j
 @SuppressWarnings("resource")

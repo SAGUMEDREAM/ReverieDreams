@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.entity.interfaces.SimpleVariant;
+import cc.thonly.reverie_dreams.api.entity.type.SimpleVariant;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.CodecStep;
 import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.openai.impl;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.openai.AIMessage;
 import cc.thonly.reverie_dreams.openai.ChatProvider;
 import cc.thonly.reverie_dreams.server.ChatAIManager;

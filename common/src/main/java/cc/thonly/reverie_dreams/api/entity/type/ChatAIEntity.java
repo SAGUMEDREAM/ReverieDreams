@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.entity.interfaces;
+package cc.thonly.reverie_dreams.api.entity.type;
 
 import cc.thonly.reverie_dreams.openai.AIMessage;
 import cc.thonly.reverie_dreams.openai.ChatProvider;
@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.server.ChatAIManager;
 import com.google.gson.Gson;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import okhttp3.*;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

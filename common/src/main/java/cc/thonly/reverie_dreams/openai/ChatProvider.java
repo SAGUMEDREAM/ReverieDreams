@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.openai;
 
-import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import com.google.gson.Gson;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;

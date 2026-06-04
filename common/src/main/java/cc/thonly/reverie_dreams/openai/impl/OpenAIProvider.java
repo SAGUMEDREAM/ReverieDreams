@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.openai.impl;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.interfaces.ChatAIEntity;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.openai.AIMessage;
 import cc.thonly.reverie_dreams.openai.ChatProvider;
 import cc.thonly.reverie_dreams.server.ChatAIManager;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings("unchecked")
 @Slf4j
