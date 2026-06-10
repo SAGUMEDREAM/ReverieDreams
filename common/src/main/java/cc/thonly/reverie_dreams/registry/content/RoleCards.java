@@ -1,12 +1,25 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
+import cc.thonly.reverie_dreams.item.template.RoleCardItem;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RoleCards {
     public static final RoleCard PROTAGONIST_GROUP = register(new RoleCard(ReverieDreams.id("protagonist_group"),
@@ -214,5 +227,64 @@ public class RoleCards {
 
     public static void bootstrap(RegistryImpl<RoleCard> registry) {
 
+    }
+
+    public static void handleRoleCardDialog(ServerPlayer player, ServerboundCustomClickActionPacket packet) {
+        Optional<Tag> payload = packet.payload();
+        if (payload.isEmpty()) {
+            return;
+        }
+        Tag element = payload.get();
+        if (!(element instanceof CompoundTag compound)) {
+            return;
+        }
+        Optional<String> siOptional = compound.getString("session_id");
+        Optional<String> eiOptional = compound.getString("entity_id");
+        if (siOptional.isEmpty()) {
+            return;
+        }
+        if (eiOptional.isEmpty()) {
+            return;
+        }
+        String sessionId = siOptional.get();
+        String entityId = eiOptional.get();
+        RoleCardItem.UsingData usingData = RoleCardItem.USING_DATA_MAP.get(sessionId);
+        if (usingData == null) {
+            return;
+        }
+        if (entityId.equals("random")) {
+            RoleCard roleCard = usingData.getRoleCard();
+            Optional<NPCRole> roleWrapper = roleCard.random();
+            if (roleWrapper.isPresent()) {
+                ServerPlayer serverPlayer = usingData.getPlayer();
+                ServerLevel world = usingData.getWorld();
+                ItemStack itemStack = usingData.getItemStack();
+                NPCRole role = roleWrapper.get();
+                itemStack.consume(1, serverPlayer);
+                EntityType<NPCRoleFastEntity> entityType = role.get().value();
+                entityType.spawn(world, usingData.getBlockPos(), EntitySpawnReason.SPAWN_ITEM_USE);
+
+                world.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.BUCKET_FILL, serverPlayer.getSoundSource(), 2.0f, 1.0f);
+            }
+            RoleCardItem.USING_DATA_MAP.remove(sessionId);
+            return;
+        }
+        Identifier identifier = Identifier.tryParse(entityId);
+        if (identifier == null) {
+            return;
+        }
+        NPCRole role = usingData.getId2Role().get(identifier);
+        if (role == null) {
+            return;
+        }
+        ServerPlayer serverPlayer = usingData.getPlayer();
+        ServerLevel world = usingData.getWorld();
+        ItemStack itemStack = usingData.getItemStack();
+        itemStack.consume(1, serverPlayer);
+        EntityType<NPCRoleFastEntity> entityType = role.get().value();
+        entityType.spawn(world, usingData.getBlockPos(), EntitySpawnReason.SPAWN_ITEM_USE);
+
+        world.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.BUCKET_FILL, serverPlayer.getSoundSource(), 2.0f, 1.0f);
+        RoleCardItem.USING_DATA_MAP.remove(sessionId);
     }
 }

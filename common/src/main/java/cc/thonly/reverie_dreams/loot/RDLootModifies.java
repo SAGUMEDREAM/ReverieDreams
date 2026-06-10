@@ -281,7 +281,7 @@ public class RDLootModifies {
     private static void dropIceScales(LivingEntity entity, DamageSource damageSource) {
         Level world = entity.level();
         RegistryAccess registryAccess = entity.registryAccess();
-        if (world instanceof ServerLevel serverWorld && entity instanceof Stray) {
+        if (world instanceof ServerLevel serverWorld && (entity instanceof Stray)) {
             RandomSource random = RandomSource.create();
             int dropChance = 45;
             int maxDropCount = 3;

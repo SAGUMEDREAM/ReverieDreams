@@ -78,7 +78,6 @@ public class CustomCharacterLoader {
                         Path tempFile = Files.createTempFile(id.getPath(), "_%s".formatted(LocalDateTime.now().hashCode()));
                         Files.write(tempFile, bytes);
                         File file = tempFile.toFile();
-                        System.out.println(skinConfig.getType());
                         SkinFetcher.getSkinFromFile(file, skinConfig.getType() == SkinConfig.ModelType.SLIM);
                         RegistryImpls.set(RegistryImpls.SKIN_TYPE, id, skinType);
                         RegistryImpls.set(RegistryImpls.SKIN_CONFIG, id, skinConfig);

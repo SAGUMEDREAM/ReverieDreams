@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.api.registry.callback.RegistryManagerReloadCallb
 import cc.thonly.reverie_dreams.data.CustomCharacterLoader;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.server.BookPageManager;
 import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
 import cc.thonly.reverie_dreams.server.ItemCateManager;
 import net.blay09.mods.balm.Balm;
@@ -47,7 +48,7 @@ public class ServerResourceHelper {
                     CookingInputRecipeManager.getInstance().clearItems();
                     ItemCateManager.getInstance().clearTags();
                     CustomCharacterLoader.reload();
-
+                    BookPageManager.getInstance().reload();
                 }, applyExecutor);
     }
 }

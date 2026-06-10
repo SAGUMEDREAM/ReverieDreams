@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("ALL")
 public class DialogBuilder {
-    static int cnt = 0;
+    static int NEXT_ID = 0;
     Identifier key;
     CommonDialogDataBuilder common = new CommonDialogDataBuilder();
     ActionButtonBuilder actions = new ActionButtonBuilder();
@@ -47,6 +47,16 @@ public class DialogBuilder {
         return this;
     }
 
+    public DialogBuilder replaceCommonBuilder(CommonDialogDataBuilder builder) {
+        this.common = builder;
+        return this;
+    }
+
+    public DialogBuilder replaceActionsBuilder(ActionButtonBuilder builder) {
+        this.actions = builder;
+        return this;
+    }
+
     public DialogBuilder exitAction(Component label, int width, Optional<Action> action) {
         this.exitAction = Optional.ofNullable(new ActionButton(new CommonButtonData(label, width), action));
         return this;
@@ -59,7 +69,7 @@ public class DialogBuilder {
 
     public Supplier<DialogEntry> build() {
         if (this.key == null) {
-            this.key = Identifier.withDefaultNamespace(String.valueOf("default_dialog_id_" + ++cnt));
+            this.key = Identifier.withDefaultNamespace(String.valueOf("default_dialog_id_" + ++NEXT_ID));
         }
         return () -> new DialogEntry(this.key, new MultiActionDialog(
                 this.common.build(),

@@ -340,9 +340,10 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
         return ref != null && ref.isBound() ? Optional.of(ref.key()) : Optional.empty();
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public int getId(@Nullable T value) {
-        @SuppressWarnings("DataFlowIssue") Optional<Holder.Reference<T>> entry = this.get(this.getKey(value));
+        Optional<Holder.Reference<T>> entry = this.get(this.getKey(value));
         if (entry.isEmpty()) {
             return -1;
         }

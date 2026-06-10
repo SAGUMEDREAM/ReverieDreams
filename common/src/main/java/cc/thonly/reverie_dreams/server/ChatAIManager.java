@@ -6,12 +6,16 @@ import cc.thonly.reverie_dreams.openai.AIMessage;
 import cc.thonly.reverie_dreams.server.dialog.*;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.dialog.Input;
 import net.minecraft.server.dialog.action.Action;
 import net.minecraft.server.dialog.input.TextInput;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 
@@ -19,9 +23,63 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @SuppressWarnings("unchecked")
 public class ChatAIManager {
+
+    @SuppressWarnings("rawtypes")
+    public static void handleChat(ServerPlayer player, ServerboundCustomClickActionPacket packet) {
+        MinecraftServer server = ReverieDreams.getServer();
+        if (server == null) {
+//            System.out.println(0);
+            return;
+        }
+        Optional<Tag> payload = packet.payload();
+        if (payload.isEmpty()) {
+//            System.out.println(1);
+            return;
+        }
+        Tag element = payload.get();
+        if (!(element instanceof CompoundTag compound)) {
+//            System.out.println(2);
+            return;
+        }
+        String player_uuid = compound.getStringOr("player_uuid", "");
+        String entity_uuid = compound.getStringOr("entity_uuid", "");
+        String userInput = compound.getStringOr("user_input", "");
+        if (userInput.isEmpty() || player_uuid.isEmpty() || entity_uuid.isEmpty()) {
+//            System.out.println(3);
+            return;
+        }
+        ServerPlayer serverPlayer = server.getPlayerList().getPlayer(UUID.fromString(player_uuid));
+        if (player == null || player.hasDisconnected()) {
+//            System.out.println(4);
+            return;
+        }
+        if (serverPlayer==null) {
+            return;
+        }
+        if (!serverPlayer.equals(player) || serverPlayer.hasDisconnected()) {
+            return;
+        }
+        ChatAIEntity chatAIEntity = null;
+        for (ServerLevel level : server.getAllLevels()) {
+            Entity entity = level.getEntity(UUID.fromString(entity_uuid));
+            if (!(entity instanceof ChatAIEntity aiEntity)) {
+                continue;
+            }
+//            System.out.println(5);
+            chatAIEntity = aiEntity;
+            break;
+        }
+        if (chatAIEntity == null) {
+//            System.out.println(6);
+            return;
+        }
+//        System.out.println(7);
+        chatAIEntity.send(player, chatAIEntity.encapsulateUserInputContent(player, userInput));
+    }
 
     public static <T extends Entity> ChatAIEntity<T> of(T entity) {
         if (entity instanceof ChatAIEntity<?> chatAIEntity) {

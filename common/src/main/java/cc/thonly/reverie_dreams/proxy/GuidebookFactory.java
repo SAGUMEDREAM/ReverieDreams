@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.proxy;
 
-import cc.thonly.reverie_dreams.item.other.THGuideBookItem;
+import cc.thonly.reverie_dreams.item.other.UrlTHGuideBookItem;
 import net.blay09.mods.balm.platform.event.Event;
 import net.blay09.mods.balm.platform.event.EventFactory;
 import net.minecraft.world.item.Item;
@@ -14,7 +14,7 @@ public interface GuidebookFactory {
                     Item result = listener.create(props);
                     if (result != null) return result;
                 }
-                return new THGuideBookItem(props);
+                return new UrlTHGuideBookItem(props);
             }
     );
 

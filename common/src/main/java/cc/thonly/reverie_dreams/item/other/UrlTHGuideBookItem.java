@@ -12,9 +12,9 @@ import net.minecraft.world.level.Level;
 
 import java.net.URI;
 
-public class THGuideBookItem extends Item {
+public class UrlTHGuideBookItem extends Item {
     public static final URI GUIDE_URI = URI.create("https://reverie-dreams-docs.thonly.cc/");
-    public THGuideBookItem(Properties properties) {
+    public UrlTHGuideBookItem(Properties properties) {
         super(properties);
     }
 
