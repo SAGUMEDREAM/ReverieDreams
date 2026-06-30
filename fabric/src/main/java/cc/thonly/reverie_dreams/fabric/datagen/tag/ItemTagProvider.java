@@ -3,15 +3,19 @@ package cc.thonly.reverie_dreams.fabric.datagen.tag;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
+import cc.thonly.reverie_dreams.block.crop.TomatoCropBlock;
+import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
@@ -32,10 +36,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -248,19 +249,56 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
 
     protected void configureCompat(HolderLookup.Provider wrapperLookup) {
-        // Farmer'delight
         TagAppender<Item, Item> onion = valueLookupCommon("crops/onion");
         TagAppender<Item, Item> tomatoCrop = valueLookupCommon("crops/tomato");
         TagAppender<Item, Item> cabbage = valueLookupCommon("crops/cabbage");
+        TagAppender<Item, Item> chillPepper = valueLookupCommon("crops/chillpepper");
         TagAppender<Item, Item> rawSalmon = valueLookupCommon("foods/raw_salmon");
         TagAppender<Item, Item> rawFish = valueLookupCommon("foods/raw_fish");
+        TagAppender<Item, Item> rawBeef = valueLookupCommon("foods/raw_beef");
+        TagAppender<Item, Item> rawPork = valueLookupCommon("foods/raw_pork");
         TagAppender<Item, Item> tomatoFood = valueLookupCommon("foods/tomato");
+        TagAppender<Item, Item> vegetable = valueLookupCommon("foods/vegetable");
+        TagAppender<Item, Item> soup = valueLookupCommon("foods/soup");
+        TagAppender<Item, Item> fruit = valueLookupCommon("foods/fruit");
+        TagAppender<Item, Item> tofu = valueLookupCommon("foods/tofu");
+        TagAppender<Item, Item> chiliPepperSeed = valueLookupCommon("seeds/chilipepper");
+        TagAppender<Item, Item> tomatoSeed = valueLookupCommon("seeds/tomato");
 
         onion.add(RDIngredientItems.ONION.asItem());
         tomatoCrop.add(RDIngredientItems.TOMATO.asItem());
+        chillPepper.add(RDIngredientItems.CHILI.asItem());
         rawSalmon.add(RDIngredientItems.SALMON.asItem());
+        rawBeef.add(RDIngredientItems.WAGYU_BEEF.asItem());
         rawFish.add(RDIngredientItems.SALMON.asItem(), RDIngredientItems.HAGFISH.asItem(), RDIngredientItems.TUNA.asItem(), RDIngredientItems.SUPREME_TUNA.asItem());
         tomatoFood.add(RDIngredientItems.TOMATO.asItem());
+        rawPork.add(RDIngredientItems.BLACK_PORK.asItem())
+               .add(RDIngredientItems.WILD_BOAR_MEAT.asItem());
+
+        soup.add(RDFoodItems.GAME_SOUP.asItem())
+            .add(RDFoodItems.HULA_SOUP.asItem())
+            .add(RDFoodItems.MILKY_MUSHROOM_SOUP.asItem())
+            .add(RDFoodItems.PEACH_BLOSSOM_SOUP.asItem())
+            .add(RDFoodItems.REAL_SEAFOOD_MISO_SOUP.asItem())
+            .add(RDFoodItems.SEAFOOD_MISO_SOUP.asItem())
+            .add(RDFoodItems.STRENGTH_SOUP.asItem())
+            .add(RDFoodItems.GINKGO_AND_RADISH_PORK_RIB_SOUP.asItem());
+        fruit.add(RDIngredientItems.FICUS_MICROCARPA.asItem())
+             .add(RDIngredientItems.GRAPE.asItem())
+             .add(RDIngredientItems.PLUM.asItem())
+             .add(RDIngredientItems.PUFF_YO_FRUIT.asItem())
+             .add(RDIngredientItems.PEACH.asItem())
+             .add(RDIngredientItems.LEMON.asItem());
+        tofu.add(RDIngredientItems.TOFU.asItem());
+        chiliPepperSeed.add(RDCropBlocks.CHILL.getSeed().asItem());
+        tomatoSeed.add(RDCropBlocks.TOMATO.getSeed().asItem());
+        FoodProperties.PROPERTY_CACHE.forEach((property, items) -> {
+            if (property.is(FoodProperties.VEGETARIAN)) {
+                for (Item item : items) {
+                    vegetable.addOptional(item);
+                }
+            }
+        });
 
         TagAppender<Item, Item> meals = valueLookupFarmerDelight("meals");
         meals.add(

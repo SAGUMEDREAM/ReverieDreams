@@ -21,6 +21,7 @@ public class ReverieDreamsFabricCompats extends ReverieDreamsCompats {
         load("polyfactory", "cc.thonly.reverie_dreams.fabric.compat.PolyFactoryCompatImpl");
         load("create", "cc.thonly.reverie_dreams.fabric.compat.CreateFlyCompatImpl");
         load("appleskin", "cc.thonly.reverie_dreams.fabric.compat.AppleskinCompatImpl");
+        load("kaleidoscope_cookery", "cc.thonly.reverie_dreams.fabric.compat.KaleidoscopeCompatImpl");
     }
 
 }

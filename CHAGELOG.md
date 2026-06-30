@@ -1,5 +1,12 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+
+# 0.5.7+26.1.2
+* Fixed compat for moredelight
+* Added compat for KaleidoScope
+* Added compat for RRV
+* Added more common compat tag
+
 # 0.5.6+26.1.2
 * Fixed SkinType call loop crash
 * Complete the en_us translation

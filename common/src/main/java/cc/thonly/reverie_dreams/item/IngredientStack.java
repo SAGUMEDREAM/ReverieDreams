@@ -47,19 +47,13 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
                 return BuiltInRegistries.ITEM.getKey(item);
             }
     ));
-    public static final Codec<TagKey<Item>> TAG_KEY_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(
-            id -> TagKey.create(Registries.ITEM, id),
-            TagKey::location
-    ));
     public static final MapCodec<IngredientStack> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ITEM_CODEC.fieldOf("id").forGetter(IngredientStack::typeHolder),
             Codec.INT.optionalFieldOf("count", 0).forGetter(IngredientStack::getCount),
             DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY)
-                    .forGetter(IngredientStack::getComponents),
-            TAG_KEY_CODEC.listOf().optionalFieldOf("tags", new ArrayList<>()).forGetter(IngredientStack::getTags)
-    ).apply(instance, (item, count, components, tagKeys) -> {
+                                    .forGetter(IngredientStack::getComponents)
+    ).apply(instance, (item, count, components) -> {
         IngredientStack stack = new IngredientStack(item, count, components);
-        stack.addTag(tagKeys);
         return stack;
     }));
     public static final Codec<IngredientStack> CODEC = MAP_CODEC.codec();
@@ -74,18 +68,8 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
             DataComponentPatch.STREAM_CODEC,
             IngredientStack::getComponents,
 
-            ByteBufCodecs.collection(
-                    ArrayList::new,
-                    ByteBufCodecs.STRING_UTF8.map(
-                            id -> TagKey.create(Registries.ITEM, Identifier.parse(id)),
-                            key -> key.location().toString()
-                    )
-            ),
-            IngredientStack::getTags,
-
-            (item, count, components, tags) -> {
+            (item, count, components) -> {
                 IngredientStack stack = new IngredientStack(item, count, components);
-                stack.addTag(tags);
                 return stack;
             }
     );
@@ -95,14 +79,12 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
     private Holder<Item> item;
     private int count;
     private DataComponentPatch components;
-    private final List<TagKey<Item>> tags;
     private final LazySupplier<ItemStack> lazyStack = LazySupplier.of(this::build);
 
     public IngredientStack() {
         this.item = Items.AIR.builtInRegistryHolder();
         this.count = 0;
         this.components = DataComponentPatch.EMPTY;
-        this.tags = new ArrayList<>();
     }
 
     public IngredientStack(ItemStack itemStack) {
@@ -137,7 +119,6 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         this.item = item;
         this.count = count;
         this.components = components;
-        this.tags = new ArrayList<>();
     }
 
     public static IngredientStack empty() {
@@ -152,20 +133,8 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         return of(item.asItem());
     }
 
-    public static IngredientStack of(ItemStack itemStack, List<TagKey<Item>> tagKey) {
-        IngredientStack ingredientStack = new IngredientStack(itemStack);
-        ingredientStack.addTag(tagKey);
-        return ingredientStack;
-    }
-
     public static IngredientStack of(Item item) {
         return new IngredientStack(item);
-    }
-
-    public static IngredientStack of(Item item, List<TagKey<Item>> tagKey) {
-        IngredientStack stack = new IngredientStack(item);
-        stack.addTag(tagKey);
-        return stack;
     }
 
     public static IngredientStack of(ItemLike item, int amount) {
@@ -176,64 +145,21 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         return new IngredientStack(item, amount);
     }
 
-    public static IngredientStack of(Item item, int amount, List<TagKey<Item>> tagKey) {
-        return of(new ItemStack(item, amount), tagKey);
-    }
-
     public static IngredientStack of(Item item, int amount, DataComponentPatch components) {
         return new IngredientStack(BuiltInRegistries.ITEM.wrapAsHolder(item), amount, components);
-    }
-
-    @SafeVarargs
-    public static IngredientStack of(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
-        IngredientStack stack = new IngredientStack(BuiltInRegistries.ITEM.wrapAsHolder(item), amount, components);
-        stack.addTag(Arrays.stream(tagKey).toList());
-        return stack;
-    }
-
-    public static IngredientStack of(TagKey<Item> tagKey) {
-        IngredientStack stack = new IngredientStack();
-        stack.addTag(tagKey);
-        return stack;
     }
 
     public static IngredientStack of(ItemStack itemStack) {
         return new IngredientStack(itemStack);
     }
 
-    public static IngredientStack of(ItemStack itemStack, TagKey<Item> tagKey) {
-        IngredientStack stack = new IngredientStack(itemStack);
-        stack.addTag(tagKey);
-        return stack;
-    }
-
-    public static IngredientStack of(ItemStackTemplate template, TagKey<Item> tagKey) {
-        IngredientStack stack = new IngredientStack(template);
-        stack.addTag(tagKey);
-        return stack;
-    }
-
-    public static IngredientStack of(Item item, TagKey<Item> tagKey) {
-        IngredientStack stack = new IngredientStack(item);
-        stack.addTag(tagKey);
-        return stack;
-    }
-
-    public void addTag(TagKey<Item> tag) {
-        this.tags.add(tag);
-    }
-
-    public void addTag(List<TagKey<Item>> tags) {
-        this.tags.addAll(tags);
-    }
-
-    public List<TagKey<Item>> getTags() {
-        return this.tags;
+    public boolean is(IngredientStack stack) {
+        return this.equals(stack);
     }
 
     @Override
     public boolean is(TagKey<Item> tag) {
-        return this.tags.contains(tag);
+        return this.item.value().builtInRegistryHolder().is(tag);
     }
 
     @Override
@@ -263,11 +189,16 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof IngredientStack other)) return false;
-        if (this.item != other.item) return false;
-        if (this.count != other.count) return false;
-        if (this.isEmpty() && other.isEmpty()) return true;
+        if (this == obj)
+            return true;
+        if (!(obj instanceof IngredientStack other))
+            return false;
+        if (this.item != other.item)
+            return false;
+        if (this.count != other.count)
+            return false;
+        if (this.isEmpty() && other.isEmpty())
+            return true;
         return Objects.equals(this.components, other.components) || this.hashCode() == other.hashCode() || super.equals(obj);
     }
 
@@ -276,8 +207,7 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         return Objects.hash(
                 this.item,
                 this.components,
-                this.count,
-                this.tags
+                this.count
         );
     }
 
@@ -347,7 +277,6 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
 
     public IngredientStack copy() {
         IngredientStack stack = new IngredientStack(this.item, this.count, this.components);
-        this.tags().forEach(stack::addTag);
         return stack;
     }
 
@@ -358,7 +287,7 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
     }
 
     public boolean isEmpty() {
-        return this.item.is(Items.AIR.builtInRegistryHolder()) && this.count <= 0 && this.tags.isEmpty();
+        return this.item.is(Items.AIR.builtInRegistryHolder()) && this.count <= 0;
     }
 
     public DataComponentPatch getComponents() {
@@ -401,7 +330,10 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
     }
 
     public Stream<TagKey<Item>> tags() {
-        return this.tags.stream();
+        if (this.item.value().builtInRegistryHolder().tags == null) {
+            return Stream.empty();
+        }
+        return this.item.value().builtInRegistryHolder().tags();
     }
 
     public static Tag encodeArray(RegistryAccess access, List<IngredientStack> stacks) {
@@ -435,9 +367,9 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         );
 
         return result.resultOrPartial(error -> {
-                    throw new RuntimeException("Failed to encode IngredientStack: " + error);
-                }).map(tag -> (CompoundTag) tag)
-                .orElseGet(CompoundTag::new);
+                         throw new RuntimeException("Failed to encode IngredientStack: " + error);
+                     }).map(tag -> (CompoundTag) tag)
+                     .orElseGet(CompoundTag::new);
     }
 
     public static IngredientStack decode(RegistryAccess access, CompoundTag tag) {

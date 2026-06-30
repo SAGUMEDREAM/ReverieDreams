@@ -50,10 +50,14 @@ dependencies {
     compileOnly("cc.thonly:keine-common:${keine_version}")
     compileOnly("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
-
-//    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 //    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
+//    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
+    compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-fa26.1.x.jar"))
+    compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-neo26.1.x.jar"))
 
     implementation("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") { transitive = false }
     jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))

@@ -12,11 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.fabricmc.fabric.impl.registry.sync.DynamicRegistriesImpl;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.dimension.LevelStem;
 import org.jspecify.annotations.NonNull;
 
+@SuppressWarnings("UnstableApiUsage")
 @Slf4j
 public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
     static boolean DISABLED = false;
@@ -28,7 +30,10 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
             log.info("Data-driven generation items have been disabled.");
             return;
         }
-        DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
+        if (!DynamicRegistriesImpl.DYNAMIC_REGISTRY_KEYS.contains(Registries.LEVEL_STEM)) {
+            DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
+        }
+
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(SimpChineseLangProvider::new);

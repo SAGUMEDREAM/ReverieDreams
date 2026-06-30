@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.other;
 
+import cc.thonly.reverie_dreams.api.registry.BookPageManager;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.server.BookPageManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;

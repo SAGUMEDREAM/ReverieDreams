@@ -10,6 +10,7 @@
     "LevelSummaryMixin",
     "ServerboundInteractPacketMixin",
     "ServerCommonNetworkHandlerMixin",
+    "WorldLoaderMixin",
     "accessor.AbstractBlockSettingsAccessor",
     "accessor.AnimalAccessor",
     "accessor.AvatarAccessor",
@@ -27,6 +28,7 @@
     "accessor.GenerationShapeConfigAccessor",
     "accessor.GuiElementBuilderAccessor",
     "accessor.HolderReferenceAccessor",
+    "accessor.HolderSetDirectAccessor",
     "accessor.ItemCooldownsAccessor",
     "accessor.ItemEntityAccessor",
     "accessor.ItemSettingsAccessor",
@@ -38,6 +40,7 @@
     "accessor.PigVariantAccessor",
     "accessor.ProjectileAccessor",
     "accessor.RabbitEntityAccessor",
+    "accessor.RecipeManagerAccessor",
     "accessor.RecipeProviderAccessor",
     "accessor.ResourceAccessor",
     "accessor.ServerChunkLoadingManagerAccessor",
@@ -74,6 +77,7 @@
     "loot.LootTableIdSetterMixin",
     "registry.DynamicRegistryManagerMixin",
     "registry.MappedRegistryMixin",
+    "registry.RecipeManagerMixin",
     "registry.ReloadableServerRegistriesMixin",
     "server.IServerAdvancementLoaderAccessor",
     "server.MinecraftServerMixin",
@@ -87,12 +91,14 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractSoundInstanceAccessor",
+    "client.BaseNPCLikeEntityRendererMixin",
     "client.EntityRenderDispatcherMixin",
     "client.GameRendererMixin",
     "client.MinecraftClientMixin",
     "client.MultiPlayerGameModeMixin",
     "client.NoDialogWarningMixin",
-    "client.TradedItemMixin"
+    "client.TradedItemMixin",
+    "rrv.RecipeViewScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

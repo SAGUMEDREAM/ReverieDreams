@@ -6,6 +6,16 @@ repositories {
 //            includeGroup 'net.blay09.mods'
 //        }
 //    }
+    maven{
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        url = "https://repo.momirealms.net/releases/"
+    }
+    maven {
+        name = "Cassian's Maven"
+        url = uri("https://maven.cassian.cc")
+    }
     maven {
         url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
         content {

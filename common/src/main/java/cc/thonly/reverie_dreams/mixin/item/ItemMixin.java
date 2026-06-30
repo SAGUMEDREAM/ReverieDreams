@@ -102,9 +102,11 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
                 property.use((ServerLevel) level, serverPlayer);
             });
             int size = foodProperties.size();
-            FoodData foodData = serverPlayer.getFoodData();
-            foodData.eat(new net.minecraft.world.food.FoodProperties(size, size * 1.5f, false));
-            SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
+            if (size != 0) {
+                FoodData foodData = serverPlayer.getFoodData();
+                foodData.eat(new net.minecraft.world.food.FoodProperties(size, size * 1.5f, false));
+                SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
+            }
         }
     }
 

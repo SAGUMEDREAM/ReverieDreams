@@ -19,6 +19,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
+import cc.thonly.reverie_dreams.server.BookPageManagerImpl;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.world.RDGameRules;
@@ -184,12 +185,147 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("reverie_dreams.configuration.apiKey", "AI Chat API KEY");
         translationBuilder.add("reverie_dreams.configuration.model", "AI Chat Model");
         translationBuilder.add("reverie_dreams.configuration.chatType", "AI Chat Type");
-
     }
 
     public void generateGuideTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        translationBuilder.add("booklet_category.reverie_dreams.basics", "基础知识");
+        translationBuilder.add("book_page.reverie_dreams.root.title", "梦隐的幻想乡指南");
+        translationBuilder.add("book_page.reverie_dreams.root.description", "欢迎游玩梦隐的幻想乡，本页面将帮助您作为游玩本模组的指南导航");
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.BASIC_GETTING_STARTED), "入门指南");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.BASIC_GETTING_STARTED), """
+                梦隐的幻想乡是一个魔法冒险类的服务端模组，融合了其他优秀东方同人模组及游戏的灵感，为现代 Minecraft 增添了大量东方 Project 的内容。
+                
+                要开始游玩它，首先要制作§e幻想乡祭坛§r，它可以制作§e蓬莱玉枝§r、§e神枪冈格尼尔§r和§e博丽御币§r等物品。
+                
+                - §ePower§r和§bPoint§r是基本的合成材料之一，它们可以通过击杀怪物或妖精获得。
+                
+                之后，你可以获得并合成更多物品，你可以在本指南中了解更多信息，或者在Polydex中查看它们的配方。
+                """);
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.BASIC_GENSOKYO_ALTAR), "幻想乡祭坛摆放");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.BASIC_GENSOKYO_ALTAR), """
+                §e幻想乡工作台§r是本模组中重要的合成工作方块，大部分物品都需要通过它进行合成。
+                该祭坛支持由九种物品组成的合成配方结构。
+                要使其正常工作，还需要搭建如下结构：
+                
+                该结构四周的柱子需使用：§e去皮绳文杉木§r，这种树通常可以在§a热带草原§r中找到。
+                顶层木头需要使用'纸'对其进行右键祝福。
+                如需解除祝福状态，可使用剪刀右键取消祝福。
+                最后，在确认配方无误后，使用“空手 + Shift + 右键”完成合成。
+                """);
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.BASIC_DANMAKU_TUTORIAL), "弹幕指南");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.BASIC_DANMAKU_TUTORIAL), """
+                §e弹幕§r指的是 STG 游戏中常见的弹幕机制，即通过大量密集的弹体构成复杂攻击轨迹的表现形式。
+                在本模组中，“弹幕”同样沿用这一概念。
+                
+                玩家需要使用§e弹幕工作台§r来合成弹幕，其材料摆放如下：
+                
+                - 任意染料 ×4
+                - 弹幕核心 ×4
+                - Power ×35
+                - Point ×35
+                - 弹幕创作模板 ×1
+                
+                §e弹幕创作模板§r是用于设置弹幕形态的关键工具，也是合成弹幕不可或缺的一部分。
+                玩家可以通过右键模板，以点阵方式构建弹幕形态。
+                
+                不同类型的弹幕具有各自的属性，但所有弹幕都可以在§e强化台§r中进行强化升级。
+                目前已定义的升级材料及其对应效果如下：
+                
+                - 铁剑 - 提升弹幕伤害
+                - 粘液块 - 增加单次发射数量
+                - 速度羽毛 - 提高弹幕射击速度
+                - 符卡模板 - 设置弹幕轨迹
+                
+                """);
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.BASIC_FUMO_TUTORIAL), "Fumo玩偶");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.BASIC_FUMO_TUTORIAL), """
+                §aFumo（ふもふも）§r特指由日本 Gift 公司出品、基于同人社团 ANGELTYPE 角色设计的《东方Project》主题毛绒玩偶。
+                其核心特征包括：坐姿造型、标志性的呆滞表情（ᗜˬᗜ）、柔软的毛绒触感，以及经授权制作的精致 Q 版形象，是东方圈中极具代表性的疗愈系周边。
+                
+                在本模组中，大多数 Fumo 可在生存模式下通过价格较高的交易获得。
+                放置后，Fumo 会自动朝向玩家当前所在位置，并支持 16 个方向的摆放；右键点击 Fumo 方块时，还会发出对应的 Fumo 声音。
+                
+                玩家只能通过与 Fumo 商人交易来获取 Fumo。通常情况下，Fumo 商人的交易内容每天都会发生变化。
+                
+                Fumo 商人可通过使用§bFumo销售许可§r对村民右键，将其转变为对应职业。
+                
+                """);
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.BASIC_ROLE_AND_PARTNER), "角色伙伴");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.BASIC_ROLE_AND_PARTNER), """
+                §a角色伙伴（Role）§r是本 Mod 中的随从类实体，其功能类似于 Touhou Little Maid 模组中的女仆单位。
+                
+                角色伙伴具备背包、战斗、工作以及互动等多种功能。通常情况下，每个角色伙伴都需要一位主人，玩家可以通过喂食蛋糕来完成驯服并建立主从关系。
+                
+                在生存模式下，玩家可以在§e幻想乡工作台§r中合成各类东方 Project 角色卡，以此召唤对应的角色伙伴。
+                
+                当角色伙伴死亡时，会掉落§e角色存档卡§r。玩家可以在§e幻想乡工作台§r中摆放该物品，并在配方中围绕两圈钻石，以重新复活对应角色。
+                
+                其他操作说明：
+                - 鼠标右键 - 触发日常对话
+                - Shift + 鼠标左键（空手） - 停止攻击目标
+                - Shift + 鼠标右键 - 打开背包
+                
+                """);
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.BASIC_TOUHOU_MYSTIA), "东方夜雀食堂");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.BASIC_TOUHOU_MYSTIA), """
+                §a《东方夜雀食堂》§r是一款东方 Project 同人游戏，本 Mod 也将其作为一项独立玩法引入游戏中。
+                该系统主要添加了原作中的食材、料理、酒水以及烹饪配方，并对 Minecraft 原版的部分掉落物进行了调整。
+                
+                在本 Mod 中，大部分食材都拥有对应的农作物来源；部分种子可通过开启宝箱获得，而海产品则需要通过钓鱼或采集获取。
+                每种食物都带有不同的 Tag，不同 Tag 会赋予食物不同的效果。
+                
+                -- 烹饪 --
+                
+                烹饪系统的厨具主要分为五类：§e煮锅§r、§e料理台§r、§e油锅§r、§e烧烤架§r以及§e蒸锅§r，并均存在对应的升级版本。
+                
+                当配方输入不恰当或冲突词条时，可能会生成§e黑暗物质§r。
+                
+                部分配方支持使用与本 Mod 兼容的其他模组物品进行等效替代。
+                所有烹饪配方可通过本 Mod 的配方管理器或夜雀食堂维基进行查询。
+                
+                -- 酒水 --
+                
+                大多数酒水可通过与酒馆老板交易获得。饮用后会提供不同的效果与增益，且每日可交易的酒水种类可能发生变化。
+                
+                不过，§e绿茶§r、§e果味High Ball§r、§e果味Sour§r以及§e淇§r始终会出现在售卖列表中。
+                
+                玩家可以手持木桶对村民右键，将其转职为酒馆老板。
+                """);
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.OTHER_COMPAT), "Mod 兼容");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.OTHER_COMPAT), """
+        §f本页面用于列出与本模组相关的其他模组兼容情况及推荐搭配。
 
+        Suggestion
+        
+        以下模组为推荐搭配，可显著提升游戏体验或功能完整性：
+
+        - Polydex ：提供基础的服务端配方查询功能
+        - Polymer ：优化整体游戏体验
+        - JEI ：提供配方与物品列表查询功能
+        - REI ：提供配方与物品列表查询功能
+        - RRV ：提供配方与物品列表查询功能
+        
+        -- 兼容 --
+        
+        以下模组与本模组存在兼容内容或联动效果：
+
+        - Create Fly ：为角色伙伴添加摇曲柄相关功能
+        - PolyFactory ：为角色伙伴添加摇曲柄相关功能
+        - Polymer Patch For Gensokyo: Reverie of Lost Dreams ：为仅服务端运行环境添加了支持
+        
+        以下模组可为烹饪系统提供额外兼容食材或配方支持：
+
+        - Borukva Food
+        - Borukva Food Exotic
+        - Borukva Fish
+        - Farmer's Delight Refabricated
+        - More Delight
+        - Ocean's Delight (Polymer Port)
+        - Spanish Delight Refabricated
+        - Fishing 101
+        - Gone Fishing!
+        - 森罗物语
+        
+        """);
     }
 
     public void generateAdvancementsTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {

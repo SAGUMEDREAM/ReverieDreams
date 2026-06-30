@@ -10,6 +10,7 @@ import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
 import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.networking.payload.*;
 import cc.thonly.reverie_dreams.proxy.PlatformProxies;
+import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
@@ -28,10 +29,6 @@ import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
 import cc.thonly.reverie_dreams.registry.BiRegistryImpls;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.ServerResourceHelper;
-import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
-import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
 import cc.thonly.reverie_dreams.registry.content.block.*;
@@ -202,6 +199,7 @@ public class ReverieDreams {
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.initialize();
         CustomClickActionRegistry.initialize();
+        DefaultBookPages.initialize();
         KeyframeFunctions.bootstrap();
         InitTooltips.bootstrap();
 
@@ -312,6 +310,7 @@ public class ReverieDreams {
         ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
         ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
         ServerLifecycleCallback.Started.EVENT.register(ServerEventHandlers::onServerStarted);
+        ServerLifecycleCallback.Reloading.EVENT.register(ServerEventHandlers::onServerReloading);
         ServerLifecycleCallback.Reloaded.EVENT.register(ServerEventHandlers::onServerReloaded);
         ServerSavingCallback.AFTER.register(ServerEventHandlers::onServerSavingAfter);
         ServerTickCallback.AFTER.register(DelayedTask::tick);

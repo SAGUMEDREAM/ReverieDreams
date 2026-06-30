@@ -60,11 +60,11 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer && world.getBlockEntity(pos) instanceof GensokyoAltarBlockEntity blockEntity) {
-            boolean b = canUse(world, pos);
+            boolean hasStructure = testStructure(world, pos);
             player.swing(player.getUsedItemHand(), true);
             ServerLevel serverWorld = (ServerLevel) world;
             if (player.isShiftKeyDown()) {
-                if (!b) {
+                if (!hasStructure) {
                     serverPlayer.sendSystemMessage(Component.translatable("message.gensokyo_altar.miss_structure"), false);
                     return InteractionResult.SUCCESS_SERVER;
                 }
@@ -128,7 +128,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
         return matches.getFirst();
     }
 
-    public boolean canUse(Level world, BlockPos center) {
+    public boolean testStructure(Level world, BlockPos center) {
         Block blockType = RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().asBlock();
         Block topBlockType = RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asBlock();
 
@@ -139,17 +139,21 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
             for (int i = 0; i < OFFSETS.length; i++) {
                 int[] offset = OFFSETS[i];
 
-                if (i == 8) continue;
+                if (i == 8)
+                    continue;
 
                 BlockPos checkPos = center.offset(offset[0], dy, offset[1]);
                 Block blockAtPos = world.getBlockState(checkPos).getBlock();
 
                 if (isTopLayer) {
                     if (blockAtPos != topBlockType) {
+//                        System.out.println("e1");
                         return false;
                     }
                 } else {
                     if (blockAtPos != blockType) {
+//                        System.out.println("chest=%s at=%s, test=%s".formatted(checkPos, blockAtPos, blockType));
+//                        System.out.println("e2");
                         return false;
                     }
                 }

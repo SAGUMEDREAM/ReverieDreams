@@ -32,6 +32,6 @@ public class DialogBodyFactory {
     }
 
     public PlainMessage plainMessage(Component contents) {
-        return new PlainMessage(contents, 180);
+        return new PlainMessage(contents, 280);
     }
 }

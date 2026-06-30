@@ -26,12 +26,17 @@ dependencies {
 
     api("cc.thonly:sgui-common:${sgui_forgelike_version}")
     api("cc.thonly:keine-common:${keine_version}")
+    api(project(":common").files("/libs/sparkle-morpher-1.0.3-fa26.1.x.jar"))
+    api(project(":common").files("/libs/sparkle-morpher-1.0.3-neo26.1.x.jar"))
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-common:${jei_version}")
+    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}+${minecraft_version}")
+    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
+
 //    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 
-//    compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
-//    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rei_version}")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rei_version}")
 }
 
 

@@ -25,7 +25,7 @@ public class RecipeCompatPatches {
         PatchBuilder<?> builder = getOrCreateBuilder(recipeType);
         Map<Identifier, BaseRecipe> registries = builder.getRegistries();
         for (Map.Entry<Identifier, BaseRecipe> registry : registries.entrySet()) {
-            log.info("Registered compatibility recipe {}", registry.getKey().toString());
+            log.debug("Registered compatibility recipe {}", registry.getKey().toString());
             recipeType.add(registry.getKey(), registry.getValue());
         }
     }

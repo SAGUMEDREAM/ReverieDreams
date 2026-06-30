@@ -13,7 +13,7 @@ import cc.thonly.reverie_dreams.api.recipe.callback.RecipeInjectCallback;
 import cc.thonly.reverie_dreams.api.registry.RegistryImplContext;
 import cc.thonly.reverie_dreams.api.registry.callback.DrinkPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
-import cc.thonly.reverie_dreams.api.registry.callback.RegistryManagerReloadCallback;
+import cc.thonly.reverie_dreams.api.registry.callback.RegistryImplReloadCallback;
 import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RawIdTypeRegistryImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -119,7 +119,7 @@ public class ReverieDreamsPluginLoader {
                 () -> DrinkPropertiesLoaderCallback.EVENT.register(plugin::registerDrinkPropertyCompat));
 
         register(PluginHook.REGISTRY_IMPL_RELOAD,
-                () -> RegistryManagerReloadCallback.EVENT.register(plugin::registerRecipeLoadCallback));
+                () -> RegistryImplReloadCallback.EVENT.register(plugin::registerRecipeLoadCallback));
 
         register(PluginHook.RECIPE_REGISTER,
                 () -> RecipeInjectCallback.EVENT.register(plugin::registerRecipeLoadCallback));

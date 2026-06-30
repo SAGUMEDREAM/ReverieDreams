@@ -11,6 +11,7 @@ import java.util.List;
 
 public class RDGuiItems {
     public static final List<Holder<Item>> GUI_ITEM_LIST = new ArrayList<>();
+    public static DeferredItem EMPTY_ITEM;
     public static DeferredItem NEXT;
     public static DeferredItem PREV;
     public static DeferredItem BACK;
@@ -29,6 +30,7 @@ public class RDGuiItems {
     public static DeferredItem PROGRESS_TO_RESULT_DOWN;
 
     public static void initialize(BalmItemRegistrar registrar) {
+        EMPTY_ITEM = registerItem(registrar, "sgui/elements/empty_item");
         NEXT = registerItem(registrar, "sgui/elements/next");
         PREV = registerItem(registrar, "sgui/elements/prev");
         BACK = registerItem(registrar, "sgui/elements/back_slot");

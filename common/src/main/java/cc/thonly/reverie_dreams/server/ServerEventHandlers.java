@@ -9,23 +9,17 @@ import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.ReloadableServerResources;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
 
 import java.net.URI;
 import java.util.List;
@@ -91,11 +85,18 @@ public class ServerEventHandlers {
         RemoteSignalManager.access().saveAll(server);
     }
 
+    public static void onServerReloading(MinecraftServer server, ReloadableServerResources reloadableServerResources) {
+        server.execute(() -> {
+        });
+    }
+
     public static void onServerReloaded(MinecraftServer server) {
-        PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
-        playerComponentManager.onLoad(server);
-        RegistryImpls.startSyncRegistry(server.getPlayerList().getPlayers());
-        RecipeManager.startSyncRecipe(server.getPlayerList().getPlayers());
+        server.execute(() -> {
+            PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
+            playerComponentManager.onLoad(server);
+            RegistryImpls.startSyncRegistry(server.getPlayerList().getPlayers());
+            RecipeManager.startSyncRecipe(server.getPlayerList().getPlayers());
+        });
     }
 
 }

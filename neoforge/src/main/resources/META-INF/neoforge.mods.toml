@@ -11,6 +11,7 @@ logoFile = "/assets/reverie_dreams/icon.png"
 credits = "${credits}"
 authors = "稀神灵梦"
 description = '''A modern Minecraft version of the Touhou Project mod'''
+rrv_client = "cc.thonly.reverie_dreams.compat.rrv.RRVPlugin"
 [[mixins]]
 config = "reverie_dreams.mixins.json"
 [[mixins]]

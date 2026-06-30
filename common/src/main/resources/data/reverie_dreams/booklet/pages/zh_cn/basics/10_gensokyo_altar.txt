@@ -9,7 +9,7 @@ category=reverie_dreams:basics
 要使其正常工作，还需要搭建如下结构：
 ### Image: reverie_dreams:gensokyo_altar_example Example structure of <item 'reverie_dreams:gensokyo_altar'>.
 该结构四周的柱子需使用：<yellow><item 'reverie_dreams:stripped_spiritual_log'></>，这种树通常可以在<green>热带草原</>中找到。
-顶层木头需要使用<item 'reverie_dreams:paper'>对其进行<key 'key.use'>祝福。
+顶层木头需要使用<item 'minecraft:paper'>对其进行<key 'key.use'>祝福。
 如需解除祝福状态，可使用剪刀<key 'key.use'>取消祝福。
 最后，在确认配方无误后，使用“空手 + Shift + 右键”完成合成。
 

@@ -5,13 +5,13 @@ import net.blay09.mods.balm.platform.event.Event;
 import net.blay09.mods.balm.platform.event.EventFactory;
 
 @FunctionalInterface
-public interface RegistryManagerReloadCallback {
+public interface RegistryImplReloadCallback {
     void onLoad(RegistryImpl<?> registry);
 
-    Event<RegistryManagerReloadCallback> EVENT = EventFactory.createArrayBacked(
-            RegistryManagerReloadCallback.class,
+    Event<RegistryImplReloadCallback> EVENT = EventFactory.createArrayBacked(
+            RegistryImplReloadCallback.class,
             (listeners) -> (registry) -> {
-                for (RegistryManagerReloadCallback callback : listeners) {
+                for (RegistryImplReloadCallback callback : listeners) {
                     callback.onLoad(registry);
                 }
             }

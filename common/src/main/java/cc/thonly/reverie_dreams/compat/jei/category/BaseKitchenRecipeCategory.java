@@ -44,7 +44,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
     @Override
     public int getWidth() {
-        return 18 * 10; // 180（安全一点）
+        return 18 * 10; // 180
     }
 
     @Override

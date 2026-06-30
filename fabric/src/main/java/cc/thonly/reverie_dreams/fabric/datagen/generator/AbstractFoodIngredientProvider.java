@@ -127,6 +127,12 @@ public abstract class AbstractFoodIngredientProvider implements DataProvider {
         }
 
         public void build() {
+            Set<Item> items = FoodProperties.PROPERTY_CACHE.computeIfAbsent(this.property, _ -> new LinkedHashSet<>());
+            items.addAll(this.list);
+            for (Item item : this.list) {
+                Set<FoodProperty> foodProperties = FoodProperties.ITEM_CACHE.computeIfAbsent(item, _ -> new LinkedHashSet<>());
+                foodProperties.add(this.property);
+            }
         }
 
         public Pair<FoodProperty, Collection<Item>> buildForProvider() {

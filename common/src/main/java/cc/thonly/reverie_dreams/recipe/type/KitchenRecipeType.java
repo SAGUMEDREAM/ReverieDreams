@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
@@ -166,6 +167,10 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
         public TypeInstance(Identifier id) {
             this.id = id;
             BY_ID.put(id, this);
+        }
+
+        public boolean is(TypeInstance other) {
+            return Objects.equals(this.id, other.id);
         }
 
         public String toTranslateKey() {

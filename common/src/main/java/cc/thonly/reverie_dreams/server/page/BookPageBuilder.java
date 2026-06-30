@@ -3,6 +3,8 @@ package cc.thonly.reverie_dreams.server.page;
 import cc.thonly.reverie_dreams.server.dialog.ActionButtonBuilder;
 import cc.thonly.reverie_dreams.server.dialog.CommonDialogDataBuilder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 
 import java.util.function.Consumer;
@@ -13,6 +15,7 @@ public class BookPageBuilder {
     RegistryAccess registryAccess;
     CommonDialogDataBuilder common = new CommonDialogDataBuilder();
     ActionButtonBuilder actions = new ActionButtonBuilder();
+    Identifier prev = null;
 
     protected BookPageBuilder(RegistryAccess registryAccess) {
         this.registryAccess = registryAccess;
@@ -20,6 +23,11 @@ public class BookPageBuilder {
 
     public BookPageBuilder key(Identifier key) {
         this.key = key;
+        return this;
+    }
+
+    public BookPageBuilder prev(Identifier prev) {
+        this.prev = prev;
         return this;
     }
 
@@ -37,7 +45,23 @@ public class BookPageBuilder {
         return this.key;
     }
 
+    public MutableComponent getTitleKey(Identifier registryKey) {
+        return Component.empty().append(Component.translatable(this.getTitleLangKey()));
+    }
+
+    public MutableComponent getContentKey(Identifier registryKey) {
+        return Component.empty().append(Component.translatable(this.getContentLangKey()));
+    }
+
+    public String getTitleLangKey() {
+        return this.key.toLanguageKey() + ".title";
+    }
+
+    public String getContentLangKey() {
+        return this.key.toLanguageKey() + ".content";
+    }
+
     public BookPage build() {
-        return new BookPage(this.key, this.registryAccess, this.common, this.actions);
+        return new BookPage(this.key, this.registryAccess, this.common, this.actions, this.prev);
     }
 }

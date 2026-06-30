@@ -45,8 +45,11 @@ public class FastRecipeBook extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
+        if (context.getLevel().isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
         this.useOnKitchenBlock(context);
-        return InteractionResult.SUCCESS;
+        return super.useOn(context);
     }
 
     public void useOnKitchenBlock(UseOnContext context) {

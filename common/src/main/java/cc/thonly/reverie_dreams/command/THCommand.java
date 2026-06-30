@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.dialog.DialogAPI;
+import cc.thonly.reverie_dreams.api.registry.BookPageManager;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
@@ -69,32 +70,32 @@ public class THCommand {
     ) {
         var root = Commands.literal("touhou");
         var help = Commands.literal("help")
-                .executes(this::help);
+                           .executes(this::help);
         var get_sc_with_spell_config = Commands.literal("get_spellcard_with_config")
-                .requires(PermissionPredicate.isGameMasters())
-                .then(
-                        RegistryImpls.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
-                );
+                                               .requires(PermissionPredicate.isGameMasters())
+                                               .then(
+                                                       RegistryImpls.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
+                                               );
         var with_food_property = Commands.literal("with_food_property")
-                .requires(PermissionPredicate.isGameMasters())
-                .then(
-                        RegistryImpls.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
-                );
+                                         .requires(PermissionPredicate.isGameMasters())
+                                         .then(
+                                                 RegistryImpls.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
+                                         );
         var with_drink_property = Commands.literal("with_drink_property")
-                .requires(PermissionPredicate.isGameMasters())
-                .then(
-                        RegistryImpls.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("drink_property")))
-                );
+                                          .requires(PermissionPredicate.isGameMasters())
+                                          .then(
+                                                  RegistryImpls.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("drink_property")))
+                                          );
         var cachedAllSkins = Commands.literal("start-cached-skins")
-                .requires(PermissionPredicate.isGameMasters())
-                .executes(this::cachedAllSkins);
+                                     .requires(PermissionPredicate.isGameMasters())
+                                     .executes(this::cachedAllSkins);
         var recipe = Commands.literal("recipe")
-                .executes(this::recipe);
+                             .executes(this::recipe);
         var registry = Commands.literal("registry")
-                .requires(PermissionPredicate.isGameMasters())
-                .then(
-                        RegistryImpls.getSuggestProvider(this::registry)
-                );
+                               .requires(PermissionPredicate.isGameMasters())
+                               .then(
+                                       RegistryImpls.getSuggestProvider(this::registry)
+                               );
 //        var dialog = Commands.literal("dialog")
 //                .then(
 //                        Commands.argument("value", StringArgumentType.string())
@@ -102,31 +103,37 @@ public class THCommand {
 //                                .executes(this::openDialog)
 //                );
         var video = Commands.literal("video")
-                .requires(PermissionPredicate.isGameMasters())
-                .then(
-                        Commands.literal("play")
-                                .then(
-                                        Commands.argument("target", EntityArgument.entity())
-                                                .then(
-                                                        Commands.argument("file", StringArgumentType.string())
-                                                                .suggests(new DialogFiles.FilesSuggestionProvider())
-                                                                .executes(this::playVideo)
-                                                                .then(
-                                                                        Commands.argument("sound", IdentifierArgument.id())
-                                                                                .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
-                                                                                .executes(this::playVideo)
-                                                                )
-                                                )
-                                )
+                            .requires(PermissionPredicate.isGameMasters())
+                            .then(
+                                    Commands.literal("play")
+                                            .then(
+                                                    Commands.argument("target", EntityArgument.entity())
+                                                            .then(
+                                                                    Commands.argument("file", StringArgumentType.string())
+                                                                            .suggests(new DialogFiles.FilesSuggestionProvider())
+                                                                            .executes(this::playVideo)
+                                                                            .then(
+                                                                                    Commands.argument("sound", IdentifierArgument.id())
+                                                                                            .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
+                                                                                            .executes(this::playVideo)
+                                                                            )
+                                                            )
+                                            )
 
-                )
-                .then(
-                        Commands
-                                .literal("reload")
-                                .executes(this::reloadVideo)
-                );
+                            )
+                            .then(
+                                    Commands
+                                            .literal("reload")
+                                            .executes(this::reloadVideo)
+                            );
+        var loadRootPage = Commands.literal("load_root_guide_page")
+                                   .requires(PermissionPredicate.isGameMasters())
+                                   .then(
+                                           Commands.argument("namespace", StringArgumentType.string())
+                                                   .executes(this::loadRootPage)
+                                   );
         var about = Commands.literal("about")
-                .executes(this::about);
+                            .executes(this::about);
 
         root.executes(this::run);
         root.then(help);
@@ -137,35 +144,57 @@ public class THCommand {
         root.then(recipe);
         root.then(registry);
 //        root.then(dialog);
+        root.then(loadRootPage);
         root.then(video);
         root.then(about);
         if (PlatformContext.isDevMode()) {
             var debugGetChest = Commands.literal("debug_get_loot_with_chest")
-                    .then(Commands.argument("loot_table", ResourceOrIdArgument.lootTable(CommandBuildContext.simple(registryAccess, FeatureFlagSet.of())))
-                            .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                            .executes(this::debugFastChestLoot));
+                                        .then(Commands.argument("loot_table", ResourceOrIdArgument.lootTable(CommandBuildContext.simple(registryAccess, FeatureFlagSet.of())))
+                                                      .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                                                      .executes(this::debugFastChestLoot));
             root.then(debugGetChest);
             var debugGetRecipeWithBlock = Commands.literal("debug_get_recipe_with_block")
-                    .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
+                                                  .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
             for (Map.Entry<String, RecipeWorkbench<?>> mapEntry : RecipeWorkbenchRegistry.entries()) {
                 String key = mapEntry.getKey();
                 RecipeWorkbench<?> entry = mapEntry.getValue();
                 debugGetRecipeWithBlock.then(
                         Commands.literal(key).then(Commands.argument("recipe_id", IdentifierArgument.id())
-                                .suggests(RecipeManager.getSuggestions(entry.getRecipeType()))
-                                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                                .executes((context) -> this.debugFastRecipeBlock(entry, context))
+                                                           .suggests(RecipeManager.getSuggestions(entry.getRecipeType()))
+                                                           .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                                                           .executes((context) -> this.debugFastRecipeBlock(entry, context))
                         )
                 );
             }
             root.then(debugGetRecipeWithBlock);
             var debugResetItemCd = Commands.literal("debug_reset_item_using_time")
-                    .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
+                                           .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
             debugResetItemCd.executes(this::resetItemCd);
             root.then(debugResetItemCd);
         }
 
         return root;
+    }
+
+    private int loadRootPage(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        String namespace = StringArgumentType.getString(context, "namespace");
+        if (namespace == null) {
+            return 0;
+        }
+        if (player == null) {
+            return 0;
+        }
+        try {
+            BookPageManager.getInstance().openRoot(namespace, player);
+        } catch (Exception e) {
+            log.error("Error: ", e);
+        }
+        return 1;
     }
 
     private int run(CommandContext<CommandSourceStack> context) {
@@ -339,9 +368,9 @@ public class THCommand {
 
         Object value = registry.getValue(id);
         MutableComponent msg = Component.literal("")
-                .append(Component.literal("=== ").withStyle(ChatFormatting.GOLD))
-                .append(Component.literal(ResourceKey.create(registryKey, id).toString()).withStyle(ChatFormatting.YELLOW))
-                .append(Component.literal(" ===\n").withStyle(ChatFormatting.GOLD));
+                                        .append(Component.literal("=== ").withStyle(ChatFormatting.GOLD))
+                                        .append(Component.literal(ResourceKey.create(registryKey, id).toString()).withStyle(ChatFormatting.YELLOW))
+                                        .append(Component.literal(" ===\n").withStyle(ChatFormatting.GOLD));
 
         if (value == null) {
             msg.append(Component.literal("No entry found for this ID.").withStyle(ChatFormatting.RED));
@@ -351,12 +380,12 @@ public class THCommand {
 
         if (value instanceof RegistryEntryTranslatable translatable) {
             msg.append(Component.literal("Translation: ").withStyle(ChatFormatting.GRAY))
-                    .append(Component.translatable(translatable.translateKey()).withStyle(ChatFormatting.WHITE))
-                    .append(Component.literal("\n"));
+               .append(Component.translatable(translatable.translateKey()).withStyle(ChatFormatting.WHITE))
+               .append(Component.literal("\n"));
         }
 
         msg.append(Component.literal("Object: ").withStyle(ChatFormatting.GRAY))
-                .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
+           .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
 
         source.sendSystemMessage(msg);
         return 1;

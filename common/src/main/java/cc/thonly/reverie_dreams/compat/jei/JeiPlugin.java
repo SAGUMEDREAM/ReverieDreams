@@ -91,7 +91,6 @@ public class JeiPlugin implements IModPlugin {
         for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
             DeferredItem itemHolder = danmakuType.getItemHolder();
             registry.registerSubtypeInterpreter(itemHolder.asItem(), (stack, context) -> {
-
                 var color = stack.get(DataComponents.DYED_COLOR);
                 if (color == null) {
                     return "default";

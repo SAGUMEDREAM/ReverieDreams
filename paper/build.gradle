@@ -1,0 +1,42 @@
+//file:noinspection VulnerableLibrariesLocal
+plugins {
+    id 'java-library'
+    id 'xyz.jpenilla.run-paper' version '3.0.2'
+}
+
+apply from: rootProject.file('repositories.gradle')
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:${paper_api_version}"
+    compileOnly "net.momirealms:craft-engine-core:${craft_engine_version}"
+    compileOnly "net.momirealms:craft-engine-bukkit:${craft_engine_version}"
+    compileOnly("net.momirealms:craft-engine-adventure:${craft_engine_version}")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(Integer.parseInt("${java_version}"))
+    }
+}
+
+tasks {
+    runServer {
+        minecraftVersion("26.1.2")
+        jvmArgs "-Xms2G", "-Xmx2G", "-Dcom.mojang.eula.agree=true"
+    }
+
+    processResources {
+        def props = [
+                version: project.version,
+                description: project.description
+        ]
+
+        filesMatching('paper-plugin.yml') {
+            expand(props)
+        }
+    }
+}

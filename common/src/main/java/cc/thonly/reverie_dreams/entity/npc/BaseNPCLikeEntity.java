@@ -85,7 +85,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-@SuppressWarnings("resource")
+@SuppressWarnings({"resource", "SpellCheckingInspection"})
 @Getter
 @Setter
 public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements RangedAttackMob, NPCSettings {
@@ -162,7 +162,6 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     public BaseNPCLikeEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         this(entityType, world);
         this.setSkinType(skinType);
-        ;
     }
 
     public void init() {
@@ -194,7 +193,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
         this.npcState = NPCStates.get(Identifier.parse(view.getStringOr("NPCStateId", NPCState.DEFAULT_ID.toString())));
         this.workMode = NPCWorkModes.get(Identifier.parse(view.getStringOr("NPCWorkStateId", NPCWorkMode.DEFAULT_ID.toString())));
-        this.npcOwner = view.getStringOr("NpcOwner", "");
+        this.npcOwner = view.getStringOr("NPCOwner", view.getStringOr("NpcOwner", ""));
 
         NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
         ContainerHelper.loadAllItems(view, inventory.getItems());
@@ -226,7 +225,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super.addAdditionalSaveData(view);
         view.putBoolean("IsSwing", this.swinging);
         view.putBoolean("IsSit", this.sit);
-        view.putString("NpcOwner", this.npcOwner);
+        view.putString("NPCOwner", this.npcOwner);
         view.putString("NPCStateId", Optional.ofNullable(RegistryImpls.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
         view.putString("NPCWorkStateId", Optional.ofNullable(RegistryImpls.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
         view.putFloat("FoodNutrition", this.nutrition);
@@ -791,7 +790,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.updateWorking();
         this.updateName();
         this.fixPitchYaw();
-        this.neoForgePacketUpdate();
+//        this.neoForgePacketUpdate();
         this.updateAttackTick++;
         if (this.updateAttackTick > this.maxUpdateAttackTick) {
             this.updateAttackType();

@@ -48,7 +48,6 @@ public class RDTradeSets {
     public static final ResourceKey<TradeSet> FARMER_LEVEL_4 = TradeSets.FARMER_LEVEL_4;
     public static final ResourceKey<TradeSet> FARMER_LEVEL_5 = TradeSets.FARMER_LEVEL_5;
 
-
     public static void bootstrap(BootstrapContext<TradeSet> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);

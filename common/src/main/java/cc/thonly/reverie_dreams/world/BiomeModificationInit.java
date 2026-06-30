@@ -127,6 +127,10 @@ public class BiomeModificationInit {
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 () -> Animal::checkAnimalSpawnRules
         );
+        RDEntityTypes.HAIRBALL.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                () -> Mob::checkMobSpawnRules
+        );
         RDEntityTypes.KILLER_BEE.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 () -> Animal::checkAnimalSpawnRules

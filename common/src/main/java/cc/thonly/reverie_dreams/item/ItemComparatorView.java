@@ -37,13 +37,15 @@ public interface ItemComparatorView {
 
     ItemStack stack();
 
-    List<TagKey<Item>> tags();
-
     static ItemComparatorView of(IngredientStack stack) {
         if (!stack.areComponentsBound()) {
             throw new RuntimeException("Component not bound");
         }
         return new StackComparatorViewImpl(stack);
+    }
+
+    static ItemComparatorView of(IngredientStackSet set) {
+        return new StackSetComparatorViewImpl(set);
     }
 
     static ItemComparatorView of(ItemStack stack) {

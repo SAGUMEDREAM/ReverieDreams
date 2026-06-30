@@ -45,6 +45,9 @@ tasks.register("runServerFabric") {
     description = "Run NeoForge Minecraft Client"
     dependsOn(":fabric:runServer")
 }
+tasks.register("runServerPaper") {
+    group = "dev"
+}
 
 subprojects {
     apply plugin: 'java'

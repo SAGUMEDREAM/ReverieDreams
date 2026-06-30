@@ -20,6 +20,10 @@ public class VanillaCompat {
             builder.add(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
             builder.add(Items.EGG, Items.BROWN_EGG);
             builder.add(Items.EGG, Items.BLUE_EGG);
+            builder.add(Items.BEEF, Items.COOKED_BEEF);
+            builder.add(Items.CHICKEN, Items.COOKED_CHICKEN);
+            builder.add(Items.MUTTON, Items.COOKED_MUTTON);
+            builder.add(Items.PORKCHOP, Items.COOKED_PORKCHOP);
         });
         FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
             FoodProperty property = ctx.getProperty();
@@ -47,8 +51,11 @@ public class VanillaCompat {
             }
             if (property.equals(FoodProperties.MEAT)) {
                 items.add(Items.CHICKEN);
+                items.add(Items.COOKED_CHICKEN);
                 items.add(Items.RABBIT);
+                items.add(Items.COOKED_RABBIT);
                 items.add(Items.MUTTON);
+                items.add(Items.COOKED_MUTTON);
             }
             if (property.equals(FoodProperties.FRUITY)) {
                 items.add(Items.APPLE);

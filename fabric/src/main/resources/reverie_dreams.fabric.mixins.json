@@ -7,9 +7,22 @@
     "FabricBalmHooksMixin",
     "FakePlayerNetworkHandlerMixin",
     "RemotePlayerModListMixin",
+    "accessor.CookingPotRecipeAccessor",
+    "accessor.CuttingBoardRecipeAccessor",
+    "accessor.PotRecipeAccessor",
+    "accessor.SingleItemRecipeAccessor",
+    "accessor.StockpotRecipeAccessor",
+    "accessor.TeapotRecipeAccessor",
+    "farmersdelight.CookingPotRecipeMixin",
+    "farmersdelight.CuttingBoardRecipeMixin",
+    "kaleidoscopecookery.PotRecipeMixin",
+    "kaleidoscopecookery.SingleItemRecipeMixin",
+    "kaleidoscopecookery.StockpotRecipeMixin",
+    "kaleidoscopecookery.TeapotRecipeMixin",
     "patches.ResourcePackManagerMixin"
   ],
   "client": [
+    "client.EntityRenderDispatcherMixin",
     "client.ModelBakeryMixin",
     "client.ModelManagerMixin",
     "client.TextureSlotsMixin"

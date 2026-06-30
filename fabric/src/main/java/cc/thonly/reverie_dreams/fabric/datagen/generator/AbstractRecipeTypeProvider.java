@@ -118,22 +118,6 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
         return IngredientStack.of(item, amount, components);
     }
 
-    public IngredientStack ofItem(ItemStack item, TagKey<Item>... tagKey) {
-        return IngredientStack.of(item.getItem(), Arrays.stream(tagKey).toList());
-    }
-
-    public IngredientStack ofItem(Item item, TagKey<Item>... tagKey) {
-        return IngredientStack.of(item, Arrays.stream(tagKey).toList());
-    }
-
-    public IngredientStack ofItem(Item item, int amount, TagKey<Item>... tagKey) {
-        return IngredientStack.of(item, amount, Arrays.stream(tagKey).toList());
-    }
-
-    public IngredientStack ofItem(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
-        return IngredientStack.of(item, amount, components, tagKey);
-    }
-
     public List<IngredientStack> ofList(Item... items) {
         LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (Item item : items) {

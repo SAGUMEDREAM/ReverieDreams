@@ -27,11 +27,14 @@
     "jei_mod_plugin": [
       "cc.thonly.reverie_dreams.compat.jei.JeiPlugin"
     ],
-    "//rei_client": [
+    "rei_client": [
       "cc.thonly.reverie_dreams.compat.rei.ClientREIPlugin"
     ],
-    "//rei_common": [
+    "rei_common": [
       "cc.thonly.reverie_dreams.compat.rei.CommonREIPlugin"
+    ],
+    "rrv_client": [
+      "cc.thonly.reverie_dreams.compat.rrv.RRVPlugin"
     ]
   },
   "mixins": [
