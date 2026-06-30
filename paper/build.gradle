@@ -15,6 +15,11 @@ dependencies {
     compileOnly "net.momirealms:craft-engine-core:${craft_engine_version}"
     compileOnly "net.momirealms:craft-engine-bukkit:${craft_engine_version}"
     compileOnly("net.momirealms:craft-engine-adventure:${craft_engine_version}")
+    compileOnly("net.momirealms:sparrow-nbt:${sparrow_nbt_version}")
+    compileOnly("net.momirealms:sparrow-nbt-adventure:${sparrow_nbt_version}")
+    compileOnly("net.momirealms:sparrow-nbt-codec:${sparrow_nbt_version}")
+    compileOnly("net.momirealms:sparrow-util:${sparrow_util_version}")
+    compileOnly("net.momirealms:sparrow-reflection:${sparrow_reflection_version}")
 }
 
 java {
