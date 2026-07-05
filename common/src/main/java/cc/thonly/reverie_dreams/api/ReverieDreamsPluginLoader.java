@@ -16,6 +16,7 @@ import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallba
 import cc.thonly.reverie_dreams.api.registry.callback.RegistryImplReloadCallback;
 import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RawIdTypeRegistryImpl;
+import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import lombok.extern.slf4j.Slf4j;
 import net.blay09.mods.balm.platform.event.Event;
 import net.minecraft.resources.Identifier;
@@ -41,6 +42,7 @@ public class ReverieDreamsPluginLoader {
         REPLACEABLE_RECIPE,
         PLAYER_COMPONENT_REGISTRY,
         REGISTRY_IMPL_REGISTER,
+        SKIN_CLASSES_REGISTER,
         DYNAMIC_REGISTRY_IMPL_REGISTER,
         LOOT_TABLES_LOADED,
         LOOT_TABLE_REPLACE,
@@ -57,8 +59,8 @@ public class ReverieDreamsPluginLoader {
 
     public static Optional<ReverieDreamsPlugin> getPlugin(String modId) {
         return PLUGINS.stream()
-                .filter(p -> p.getModId().equals(modId))
-                .findFirst();
+                      .filter(p -> p.getModId().equals(modId))
+                      .findFirst();
     }
 
     public static Event<ReverieDreamsExtensionEvents.EntryPoint> getEvent() {
@@ -70,7 +72,8 @@ public class ReverieDreamsPluginLoader {
         ReverieDreamsExtensionEvents.SCAN_EVENT.invoker().registerPlugin();
 
         for (ReverieDreamsPlugin plugin : PLUGINS) {
-            if (!plugin.isEnabled()) continue;
+            if (!plugin.isEnabled())
+                continue;
             registerPluginHooks(plugin);
         }
 
@@ -142,6 +145,9 @@ public class ReverieDreamsPluginLoader {
 
         register(PluginHook.REGISTRY_IMPL_REGISTER,
                 () -> plugin.registerPost(RegistryImplContext.getContext()));
+
+        register(PluginHook.SKIN_CLASSES_REGISTER,
+                () -> plugin.registerSkinClasses(SkinFetcher::registerScanClasses));
 
         register(PluginHook.DYNAMIC_REGISTRY_IMPL_REGISTER,
                 () -> DynamicRegistrySetupCallback.EVENT.register(plugin::registerDynamicRegistries));

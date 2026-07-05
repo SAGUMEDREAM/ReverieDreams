@@ -138,6 +138,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(NPCWorkModes.PLAYING_MUSIC.translateKey(), "§6演奏音乐");
         translationBuilder.add("gui.npc.work.mode.create-fly/hand_crank", "§d摇曲柄");
         translationBuilder.add("gui.npc.work.mode.polyfactory/hand_crank", "§d摇曲柄");
+        translationBuilder.add("gui.reverie_dreams.progress", "进度");
 //        translationBuilder.add("gui.npc.woke.mode.disable", "工作原点位置");
 
         translationBuilder.add("item.reverie_dreams.music.no_files", "§c未找到任何可用的音乐文件！");
@@ -159,6 +160,10 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("death.attack.danmaku", "%1$s 满身疮痍");
         translationBuilder.add("death.attack.danmaku.player", "%1$s 与 %2$s 对战的过程中满身疮痍");
         translationBuilder.add("death.attack.danmaku.item", "%1$s 被 %2$s 在对战的过程中使用 %3$s 被打的满身疮痍");
+
+        translationBuilder.add("config.jade.plugin_reverie_dreams.kitchenware_data_provider", "厨具信息");
+        translationBuilder.add("config.jade.plugin_reverie_dreams.music_block_data_provider", "播放信息");
+        translationBuilder.add("config.jade.plugin_reverie_dreams.gensokyo_altar_data_provider", "合成信息");
 
         translationBuilder.addEnchantment(RDEnchantments.EXTERMINATION, "退治");
         translationBuilder.addEnchantment(RDEnchantments.MOON_DAMAGE, "月伤");
@@ -292,40 +297,40 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
                 """);
         translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.OTHER_COMPAT), "Mod 兼容");
         translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.OTHER_COMPAT), """
-        §f本页面用于列出与本模组相关的其他模组兼容情况及推荐搭配。
-
-        Suggestion
-        
-        以下模组为推荐搭配，可显著提升游戏体验或功能完整性：
-
-        - Polydex ：提供基础的服务端配方查询功能
-        - Polymer ：优化整体游戏体验
-        - JEI ：提供配方与物品列表查询功能
-        - REI ：提供配方与物品列表查询功能
-        - RRV ：提供配方与物品列表查询功能
-        
-        -- 兼容 --
-        
-        以下模组与本模组存在兼容内容或联动效果：
-
-        - Create Fly ：为角色伙伴添加摇曲柄相关功能
-        - PolyFactory ：为角色伙伴添加摇曲柄相关功能
-        - Polymer Patch For Gensokyo: Reverie of Lost Dreams ：为仅服务端运行环境添加了支持
-        
-        以下模组可为烹饪系统提供额外兼容食材或配方支持：
-
-        - Borukva Food
-        - Borukva Food Exotic
-        - Borukva Fish
-        - Farmer's Delight Refabricated
-        - More Delight
-        - Ocean's Delight (Polymer Port)
-        - Spanish Delight Refabricated
-        - Fishing 101
-        - Gone Fishing!
-        - 森罗物语
-        
-        """);
+                §f本页面用于列出与本模组相关的其他模组兼容情况及推荐搭配。
+                
+                Suggestion
+                
+                以下模组为推荐搭配，可显著提升游戏体验或功能完整性：
+                
+                - Polydex ：提供基础的服务端配方查询功能
+                - Polymer ：优化整体游戏体验
+                - JEI ：提供配方与物品列表查询功能
+                - REI ：提供配方与物品列表查询功能
+                - RRV ：提供配方与物品列表查询功能
+                
+                -- 兼容 --
+                
+                以下模组与本模组存在兼容内容或联动效果：
+                
+                - Create Fly ：为角色伙伴添加摇曲柄相关功能
+                - PolyFactory ：为角色伙伴添加摇曲柄相关功能
+                - Polymer Patch For Gensokyo: Reverie of Lost Dreams ：为仅服务端运行环境添加了支持
+                
+                以下模组可为烹饪系统提供额外兼容食材或配方支持：
+                
+                - Borukva Food
+                - Borukva Food Exotic
+                - Borukva Fish
+                - Farmer's Delight Refabricated
+                - More Delight
+                - Ocean's Delight (Polymer Port)
+                - Spanish Delight Refabricated
+                - Fishing 101
+                - Gone Fishing!
+                - 森罗物语
+                
+                """);
     }
 
     public void generateAdvancementsTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {

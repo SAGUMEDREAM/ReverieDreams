@@ -105,9 +105,6 @@ public class BiomeModificationInit {
                 };
             }
         });
-        RDEntityTypes.HAIRBALL.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> Hairball::checkSpawnRules
-        );
         RDEntityTypes.GOBLIN.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entity, world, reason, pos, random) ->
                         world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) &&

@@ -30,6 +30,9 @@ dependencies {
     }
     implementation include("eu.pb4:map-canvas-api:${mapcanvas_version}")
     implementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
+    implementation("maven.modrinth:jade:${jade_version}+fabric")
+    runtimeOnly("squeek.appleskin:appleskin-fabric:${appleskin_version}")
+    implementation("squeek.appleskin:appleskin-fabric:${appleskin_version}:api")
 
     // Polymer
     compileOnly("eu.pb4:polymer-autohost:[${polymer_version}]")
@@ -58,7 +61,7 @@ dependencies {
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}+${minecraft_version}")
 //    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}+${minecraft_version}")
 
-    compileOnly ("maven.modrinth:polydex:${polydex_version}")
+    compileOnly("maven.modrinth:polydex:${polydex_version}")
     compileOnly files('libs/create-fly-26.1-pre-2-6.0.9-1.jar')
     compileOnly files('libs/polyfactory-0.11.0+26.1.jar')
     compileOnly files('libs/eiv-fabric-7.0.0+26.1.jar')
@@ -76,7 +79,6 @@ dependencies {
     compileOnly files('libs/Fishing-101-1.7.1_experimental.jar')
     compileOnly files('libs/go-fish-1.8.0+1.21.6.jar')
     compileOnly files('libs/brewery-0.15.0+26.1.jar')
-    compileOnly files('libs/appleskin-fabric-mc26.1-3.0.9.jar')
     compileOnly files('libs/kaleidoscope_cookery-1.3.0.9-fabric+mc26.1.2.jar')
 
     implementation include('com.squareup.okhttp3:okhttp:4.12.0')

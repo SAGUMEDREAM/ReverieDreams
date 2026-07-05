@@ -12,6 +12,7 @@ public class RDItemTags {
     public static final TagKey<Item> ORB_BLOCK = of("orb");
     public static final TagKey<Item> ARMOR = of("armor");
     public static final TagKey<Item> IRON_BAR_MATERIALS = of("iron_bar_materials");
+    public static final TagKey<Item> COMMON_SILVER_ORE = of_c("ores/silver");
     public static final TagKey<Item> SILVER_ITEM = of("silver_item");
     public static final TagKey<Item> SILVER_ARMOR = of("silver_armor");
     public static final TagKey<Item> SILVER_TOOL_MATERIALS = of("silver_tool_materials");

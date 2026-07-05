@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.registry;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.registry.BookPageManager;
 import cc.thonly.reverie_dreams.api.registry.callback.RegistryImplReloadCallback;
-import cc.thonly.reverie_dreams.data.CustomCharacterLoader;
+import cc.thonly.reverie_dreams.data.CustomSkinLoader;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
@@ -45,9 +45,9 @@ public class ServerResourceHelper {
 
                         registry.validate();
                     }
+                    CustomSkinLoader.getInstance().onReload(rm);
                     CookingInputRecipeManager.getInstance().clearItems();
                     ItemCateManager.getInstance().clearTags();
-                    CustomCharacterLoader.reload();
                     BookPageManager.getInstance().reload();
                 });
     }

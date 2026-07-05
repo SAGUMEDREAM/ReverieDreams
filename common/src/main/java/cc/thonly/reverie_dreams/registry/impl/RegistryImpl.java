@@ -273,6 +273,37 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
         return entry;
     }
 
+    public void unregister(ResourceKey<T> key) {
+        Identifier id = key.identifier();
+
+        Holder.Reference<T> entry = this.keyToEntry.remove(key);
+        if (entry == null) {
+            log.warn("Attempted to unregister non-existing key {}", key);
+            return;
+        }
+
+        // 1. id map
+        this.idToEntry.remove(id);
+
+        // 2. value map
+        T value = entry.value();
+        this.valueToEntry.remove(value);
+
+        // 3. raw id map
+        Integer rawId = this.rawIdToEntry.inverse().get(entry);
+        if (rawId != null) {
+            this.rawIdToEntry.remove(rawId);
+        }
+
+        // 4. info map
+        this.keyToEntryInfo.remove(key);
+
+        // 5. builtins
+        this.builtins.remove(id);
+
+        log.debug("Unregistered registry entry {}", id);
+    }
+
     @Override
     public DataComponentLookup<T> componentLookup() {
         return null;

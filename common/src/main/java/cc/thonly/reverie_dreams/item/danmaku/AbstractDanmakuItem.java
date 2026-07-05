@@ -28,6 +28,7 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
         super(settings.stacksTo(1));
     }
 
+    @SuppressWarnings("RedundantCast")
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide()) {

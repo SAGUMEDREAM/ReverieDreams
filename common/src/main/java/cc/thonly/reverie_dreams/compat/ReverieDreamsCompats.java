@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.compat;
 
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.util.YsmModType;
 import lombok.extern.slf4j.Slf4j;
 import org.intellij.lang.annotations.Pattern;
 
@@ -13,10 +14,10 @@ public class ReverieDreamsCompats {
 
     public static void initialize() {
         load("minecraft", "cc.thonly.reverie_dreams.compat.VanillaCompat");
-        if (!(HAS_ANY_YSM)) {
+        if (YsmModType.installed()) {
             load("yes_steve_model", "cc.thonly.reverie_dreams.compat.ysm.OYSMCompat");
         }
-        if (!(HAS_ANY_YSM)) {
+        if (YsmModType.installed()) {
             load("sparkle_morpher", "cc.thonly.reverie_dreams.compat.ysm.SparkleMorpherCompats");
         }
     }

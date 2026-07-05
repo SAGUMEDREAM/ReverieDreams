@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.compat.ysm;
 
 import cc.thonly.reverie_dreams.client.CapturedEntity;
 import cc.thonly.reverie_dreams.compat.ReverieDreamsCompats;
+import cc.thonly.reverie_dreams.util.YsmModType;
 import com.micaftic.morpher.YesSteveModel;
 import com.micaftic.morpher.client.renderer.CustomFishingHookRenderer;
 import com.micaftic.morpher.client.renderer.CustomProjectileRenderer;
@@ -24,7 +25,7 @@ import org.jspecify.annotations.Nullable;
 @Slf4j
 public class SparkleMorpherCompats {
     public static void bootstrap() {
-        ReverieDreamsCompats.HAS_ANY_YSM = true;
+        YsmModType.setType(YsmModType.Type.SPARKLE_MORPHER);
         try {
 //            ReverieDreamsCompats.SPARKLE_MORPHER_YSM_SUBMIT = SparkleMorpherCompats.class.getDeclaredMethod("submit", CapturedEntity.class, EntityRenderer.class, EntityRenderState.class, PoseStack.class, SubmitNodeCollector.class, CameraRenderState.class);
         } catch (Exception e) {

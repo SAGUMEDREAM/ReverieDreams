@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public interface ReverieDreamsPlugin {
 
@@ -89,6 +90,11 @@ public interface ReverieDreamsPlugin {
 
     // 注册完成后调用（向注册表追加或调整内容）
     default void registerPost(RegistryImplContext context) {
+
+    }
+
+    // 注册自定义皮肤旁加载 Jar 包
+    default void registerSkinClasses(Consumer<Class<?>> ctx) {
 
     }
 

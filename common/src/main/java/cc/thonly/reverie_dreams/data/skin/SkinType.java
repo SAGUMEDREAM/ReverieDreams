@@ -17,13 +17,14 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.Optional;
 
 
 @Slf4j
-public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable<SkinType>, BuiltinObject, RegistryEntryTranslatable {
+public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable<SkinType>, RegistryEntryTranslatable {
     public static Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
     public static Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(
             Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)

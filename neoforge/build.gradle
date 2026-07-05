@@ -60,6 +60,10 @@ dependencies {
     compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-neo26.1.x.jar"))
 
     implementation("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") { transitive = false }
+    implementation("maven.modrinth:jade:${jade_version}+neoforge")
+    runtimeOnly("squeek.appleskin:appleskin-neoforge:${appleskin_version}")
+    implementation("squeek.appleskin:appleskin-neoforge:${appleskin_version}:api")
+
     jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))
     jarJar(implementation("cc.thonly:sgui-neoforge:${sgui_forgelike_version}"))
     jarJar(implementation("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))

@@ -4,8 +4,12 @@
 # 0.5.7+26.1.2
 * Fixed compat for moredelight
 * Added compat for KaleidoScope
+* Added compat for NeoMystiasIzakaya
+* Added compat for Jade
+* Added compat for AppleSkin
 * Added compat for RRV
 * Added more common compat tag
+* Readd Guidebook
 
 # 0.5.6+26.1.2
 * Fixed SkinType call loop crash

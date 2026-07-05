@@ -150,6 +150,8 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(Items.CAKE)
                 .add(RDFoodItems.ORDINARY_SMALL_CAKE.asItem())
                 .add(RDFoodItems.SCARLET_DEVILS_CAKE.asItem());
+        valueLookupBuilder(ConventionalItemTags.ORES).add(RDItems.RAW_SILVER.asItem());
+        valueLookupBuilder(RDItemTags.COMMON_SILVER_ORE).add(RDItems.RAW_SILVER.asItem());
 
         // === 兼容物品 ===
         valueLookupBuilder(ConventionalItemTags.FOODS).addAll(RDFoodItems.FOOD_ITEMS.stream().map(ItemLike::asItem).toList());

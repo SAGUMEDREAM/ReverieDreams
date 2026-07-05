@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.compat.ReverieDreamsCompats;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import lombok.extern.slf4j.Slf4j;
 
+@SuppressWarnings("SpellCheckingInspection")
 @Slf4j
 public class ReverieDreamsNeoForgeCompats extends ReverieDreamsCompats {
     public static void initialize() {

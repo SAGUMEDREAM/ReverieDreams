@@ -35,6 +35,12 @@
     ],
     "rrv_client": [
       "cc.thonly.reverie_dreams.compat.rrv.RRVPlugin"
+    ],
+    "jade": [
+      "cc.thonly.reverie_dreams.fabric.compat.jade.JadePlugin"
+    ],
+    "appleskin": [
+      "cc.thonly.reverie_dreams.fabric.compat.AppleSkinEventHandler"
     ]
   },
   "mixins": [

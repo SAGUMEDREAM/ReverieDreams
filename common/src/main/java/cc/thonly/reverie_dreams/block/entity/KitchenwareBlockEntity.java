@@ -62,6 +62,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     private KitchenRecipeType.TypeInstance recipeType;
     private IngredientStack preOutput = DEFAULT_WRAPPER_FACTORY.get();
     private Double tickLeft = 0.0;
+    private Double tickMax = 0.0;
     private DoubleUnaryOperator bonusOperator;
     private UUID uuid = UUID.randomUUID();
     private final AbstractKitchenwareBlock block;
@@ -92,6 +93,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
             serverWorld.sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 1, 0, 0.5, 0, 0.1);
             if (self.tickLeft <= 0.0) {
                 self.tickLeft = 0.0;
+                self.tickMax = 1.0;
                 self.workingState = WorkingState.NONE;
                 self.handleOutput();
             }
@@ -133,6 +135,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     public void setOutput(IngredientStack ingredientStack, Double time) {
         this.setPreOutput(ingredientStack);
         this.setTickLeft(time);
+        this.setTickMax(time);
         this.setChanged();
     }
 
@@ -232,6 +235,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     protected void saveAdditional(ValueOutput view) {
         super.saveAdditional(view);
         ContainerHelper.saveAllItems(view, this.inventory.getItems());
+        view.putDouble("TickMax", this.tickMax);
         view.putDouble("TickLeft", this.tickLeft);
         view.putInt("WorkingState", this.workingState.getId());
         view.storeNullable("PreOutput", IngredientStack.CODEC, this.preOutput);
@@ -243,9 +247,16 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
         SimpleContainer inventory = new SimpleContainer(6);
         ContainerHelper.loadAllItems(view, inventory.getItems());
         this.inventory = inventory;
-        this.tickLeft = view.getDoubleOr("TickLeft", 0.0);
+        this.tickMax = view.getDoubleOr("TickMax", view.getIntOr("TotalCookingTime", 0));
+        this.tickLeft = view.getDoubleOr("TickLeft", view.getIntOr("CookingTime", 0));
         this.workingState = WorkingState.getFromInt(view.getIntOr("WorkingState", 0));
-        view.read("PreOutput", IngredientStack.CODEC).ifPresent(preOutput -> this.preOutput = preOutput);
+        Optional<IngredientStack> preOutputOptional = view.read("PreOutput", IngredientStack.CODEC);
+        if (preOutputOptional.isPresent()) {
+            preOutputOptional.ifPresent(preOutput -> this.preOutput = preOutput);
+        } else {
+            ItemStack target = view.read("cooking", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+            this.preOutput = IngredientStack.of(target);
+        }
     }
 
     public KitchenwareBlockEntity get() {

@@ -88,6 +88,7 @@ public class RegistryImpls {
             RegistryImpls.<SkinType>ofEntry(ReverieDreams.id("skin_type"))
                          .codec(SkinType.UNIT_CODEC)
                          .reloadBuilder(SkinType::onReload)
+                         .syncToClient(RegistrySyncers.CUSTOM_SKIN)
                          .builder(GensokyoSkinTypes::bootstrap, MobSkinTypes::bootstrap);
 
     public static final RegistryImpl<SkinConfig> SKIN_CONFIG =

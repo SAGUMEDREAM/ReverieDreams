@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
+import cc.thonly.reverie_dreams.neoforge.compat.AppleSkinEventHandler;
 import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
 import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryImpl;
 import com.mojang.brigadier.CommandDispatcher;
@@ -24,6 +25,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -96,7 +98,8 @@ public class ReverieDreamsNeoForge {
             for (var ann : scanData.getAnnotations()) {
 
                 if (!ann.annotationType().getClassName()
-                        .equals(ReverieDreamsExtension.class.getName())) continue;
+                        .equals(ReverieDreamsExtension.class.getName()))
+                    continue;
 
                 try {
                     Class<?> clazz = Class.forName(ann.clazz().getClassName());
