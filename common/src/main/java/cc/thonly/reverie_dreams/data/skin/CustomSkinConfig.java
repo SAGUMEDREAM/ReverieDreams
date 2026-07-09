@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Util;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.*;
 
@@ -18,7 +21,8 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
             Identifier.CODEC.fieldOf("id").forGetter(CustomSkinConfig::getId),
             SkinConfig.ModelType.CODEC.optionalFieldOf("model_type", SkinConfig.ModelType.WIDE).forGetter(CustomSkinConfig::getType),
             Identifier.CODEC.optionalFieldOf("cape_texture").forGetter(CustomSkinConfig::getCapeTexture),
-            Identifier.CODEC.optionalFieldOf("elytra_texture").forGetter(CustomSkinConfig::getElytraTexture)
+            Identifier.CODEC.optionalFieldOf("elytra_texture").forGetter(CustomSkinConfig::getElytraTexture),
+            CodecStep.ITEM_CODEC.optionalFieldOf("icon", Items.VILLAGER_SPAWN_EGG).forGetter(CustomSkinConfig::getIcon)
     ).apply(x, CustomSkinConfig::new)));
     @Getter
     private final Identifier id;
@@ -29,6 +33,8 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
     @Getter
     private final Optional<Identifier> elytraTexture;
     @Getter
+    private Item icon = Items.VILLAGER_SPAWN_EGG;
+    @Getter
     private SkinType value;
 
     public CustomSkinConfig(Identifier id, SkinConfig.ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
@@ -36,6 +42,14 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
         this.type = type;
         this.capeTexture = capeTexture;
         this.elytraTexture = elytraTexture;
+    }
+
+    public CustomSkinConfig(Identifier id, SkinConfig.ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture, Item icon) {
+        this.id = id;
+        this.type = type;
+        this.capeTexture = capeTexture;
+        this.elytraTexture = elytraTexture;
+        this.icon = icon;
     }
 
     public SkinType value() {
@@ -47,7 +61,7 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
             log.error("Duplicate key {}", this.id);
             return reference.get().value();
         }
-        SkinType skinType = new CustomType(this.id);
+        SkinType skinType = new CustomType(this.id, this.icon);
         SkinConfig skinConfig = new SkinConfig(this.type, this.capeTexture, this.elytraTexture);
         skinType.bindConfig(skinConfig);
         skinConfig.bindRegistryKey(this.id);
@@ -64,9 +78,16 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
         return Identifier.fromNamespaceAndPath(this.id.getNamespace(), "entity/player/skin/%s".formatted(this.id.getPath()));
     }
 
+    @Getter
     public static class CustomType extends SkinType {
-        public CustomType(Identifier id) {
+        final Item icon;
+        public CustomType(Identifier id, Item icon) {
             super(id);
+            this.icon = icon;
+        }
+
+        public String getDescriptionId() {
+            return Util.makeDescriptionId("entity", this.getId());
         }
     }
 

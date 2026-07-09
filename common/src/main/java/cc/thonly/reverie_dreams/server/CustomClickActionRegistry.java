@@ -22,13 +22,18 @@ public class CustomClickActionRegistry {
     public static final Identifier CHAT_KEY = ReverieDreams.id("role/chat");
     public static final Identifier PAGE_GOTO_KEY = ReverieDreams.id("page/goto");
     public static final Identifier PAGE_BACK_KEY = ReverieDreams.id("page/back");
+    public static final Identifier MODIFY_CUSTOM_SKIN_KEY = ReverieDreams.id("modify_custum_skin");
     public static final Holder<BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket>> ROLE_SUMMON = registerCustomAction(ROLE_SUMMON_KEY, RoleCards::handleRoleCardDialog);
     public static final Holder<BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket>> STOP_DIALOG_VIDEO = registerCustomAction(STOP_DIALOG_VIDEO_KEY, DialogPlayerManager::handleStopVideoDialog);
     public static final Holder<BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket>> CHAT = registerCustomAction(CHAT_KEY, ChatAIManager::handleChat);
     public static final Holder<BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket>> PAGE_GOTO = registerCustomAction(PAGE_GOTO_KEY, BookPageManagerImpl::handlePageGoto);
     public static final Holder<BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket>> PAGE_BACK = registerCustomAction(PAGE_BACK_KEY, BookPageManagerImpl::handlePageBack);
+    public static final Holder<BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket>> MODIFY_CUSTOM_SKIN = registerCustomAction(MODIFY_CUSTOM_SKIN_KEY, CustomSkinSelectorHandlers::handleAction);
 
     public static Holder<BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket>> registerCustomAction(Identifier location, BiConsumer<ServerPlayer, ServerboundCustomClickActionPacket> consumer) {
+        if (REGISTRY.containsKey(location)) {
+            throw new RuntimeException("Duplicated Key %s".formatted(location));
+        }
         REGISTRY.put(location, consumer);
         return Holder.direct(consumer);
     }

@@ -117,7 +117,7 @@ public class ChatAIManager {
                 if (chatHistory.size() <= 1) {
                     common.addTextBody(" ");
                 }
-                common.addTextBody("Input Your Text:");
+                common.addTextBody(Component.translatable("gui.reverie_dreams.input_request"));
                 common.input((inputs, inputFactory) -> {
                     Input user_input = inputFactory.textInput("user_input", 200, Component.empty(), true, "", 256, new TextInput.MultilineOptions(Optional.of(64), Optional.of(64)));
                     inputs.add(user_input);
@@ -131,9 +131,9 @@ public class ChatAIManager {
                 compoundTag.putString("player_uuid", player.getStringUUID());
                 compoundTag.putString("entity_uuid", entity.getStringUUID());
                 Action sendMsg = actionBuilder.customAll(CustomClickActionRegistry.CHAT_KEY, compoundTag);
-                actions.addButton(Component.literal("Send"), 180, Optional.of(sendMsg));
+                actions.addButton(Component.translatable("gui.reverie_dreams.send"), 180, Optional.of(sendMsg));
             });
-            builder.exitAction(Component.literal("Close"), 180, Optional.empty());
+            builder.exitAction(Component.translatable("gui.reverie_dreams.close"), 180, Optional.empty());
         }).get().buildOrThrow();
         return dialogEntry.get();
     }

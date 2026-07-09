@@ -26,8 +26,8 @@ public abstract class SkinTypes {
         return RegistryImpls.registerForBuiltin(RegistryImpls.SKIN_TYPE, id, skin);
     }
 
-    public static Collection<SkinType> getCustomTypes() {
-        List<SkinType> list = new ArrayList<>();
+    public static Collection<CustomSkinConfig.CustomType> getCustomTypes() {
+        List<CustomSkinConfig.CustomType> list = new ArrayList<>();
         for (Map.Entry<ResourceKey<SkinType>, SkinType> entry : RegistryImpls.SKIN_TYPE.entrySet()) {
             SkinType type = entry.getValue();
             if (type instanceof CustomSkinConfig.CustomType customType) {

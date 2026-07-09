@@ -116,7 +116,7 @@ public class BookPageManagerImpl implements BookPageManager {
             });
             builder.actions(action -> {
                 ActionBuilder actionBuilder = action.actionBuilder();
-                action.addButton(Component.literal("Close"), Optional.empty(), 180, Optional.empty());
+                action.addButton(Component.literal("gui.reverie_dreams.close"), Optional.empty(), 180, Optional.empty());
             });
         });
         DialogBuilder dialogBuilder = dialogBuilderLazy.get();
@@ -161,6 +161,7 @@ public class BookPageManagerImpl implements BookPageManager {
 
     @Override
     public void reload() {
+        this.pageItems.clear();
         this.registry.clear();
         INITIALIZERS.forEach(consumer -> consumer.accept(this));
         this.registry.forEach((id, func) -> {

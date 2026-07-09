@@ -11,6 +11,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -31,6 +32,7 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
     ).apply(x, RegistryImpls.SKIN_TYPE::getValue)));
     public static final StreamCodec<RegistryFriendlyByteBuf, SkinType> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
     public static final EntityDataSerializer<SkinType> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
+    public static final Identifier RECOVERY = ReverieDreams.id("recovery");
 
     @Setter
     @Getter
@@ -44,6 +46,7 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
     private SkinConfig config;
     @Getter
     @Setter
+    @ToString.Exclude
     private RegistryImpl<SkinType> owner;
     @Setter
     @Getter
@@ -117,6 +120,16 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
 
     private static Property texture(String value, String signature) {
         return new Property("textures", value, signature);
+    }
+
+    @Override
+    public String toString() {
+        return "SkinType{" +
+                "id=" + id +
+                ", value='" + value + '\'' +
+                ", signature='" + signature + '\'' +
+                ", slim=" + slim +
+                '}';
     }
 
     @Override

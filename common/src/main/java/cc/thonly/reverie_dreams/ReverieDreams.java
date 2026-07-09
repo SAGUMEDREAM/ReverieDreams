@@ -135,7 +135,7 @@ public class ReverieDreams {
     }
 
     public static void initialize(BalmRegistrars registrars, Runnable lateInit) {
-        keineRegistries = KeineAPI.getApi().get(MOD_ID);
+        keineRegistries = KeineAPI.getApi().getRegistries(MOD_ID);
         Balm.config().registerConfig(ReverieDreamsConfiguration.class);
         CardboardWarning.checkAndAnnounce();
         if (PlatformContext.isDevMode()) {

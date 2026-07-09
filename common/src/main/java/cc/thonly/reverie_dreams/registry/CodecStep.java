@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface CodecStep<T> {
+    Codec<Item> ITEM_CODEC = Identifier.CODEC.xmap(
+            BuiltInRegistries.ITEM::getValue,
+            BuiltInRegistries.ITEM::getKey
+    );
     Codec<List<Item>> ITEMS_CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.list(Identifier.CODEC)

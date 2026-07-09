@@ -112,12 +112,9 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("gui.npc.info.uuid", "§d通用唯一识别码: %s");
         translationBuilder.add("gui.npc.info.health", "§d生命值: %s/%s");
         translationBuilder.add("gui.npc.info.armor", "§d护甲值: %s");
-
         translationBuilder.add("gui.npc.info.xp", "§a经验存储：%s");
         translationBuilder.add("gui.npc.info.xp.button", "§f点击取出");
-
         translationBuilder.add("gui.npc.info.auto-pick", "§b自动寻路拾取");
-
         translationBuilder.add("gui.npc.mode.null", "§b当前模式为: §c序列化错误");
         translationBuilder.add(NPCStates.FOLLOW.translateKey(), "§b当前模式为: §a跟随");
         translationBuilder.add(NPCStates.NORMAL.translateKey(), "§b当前模式为: §a正常");
@@ -126,7 +123,6 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(NPCStates.SEATED.translateKey(), "§b当前模式为: §a坐下");
         translationBuilder.add(NPCStates.WORKING.translateKey(), "§b当前模式为: §a工作中");
         translationBuilder.add("gui.npc.mode.work.originpos", "工作原点位置");
-
         translationBuilder.add("gui.npc.work.button", "模式开关");
         translationBuilder.add("gui.npc.work.mode", "工作模式切换");
         translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§a清理怪物");
@@ -139,6 +135,10 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("gui.npc.work.mode.create-fly/hand_crank", "§d摇曲柄");
         translationBuilder.add("gui.npc.work.mode.polyfactory/hand_crank", "§d摇曲柄");
         translationBuilder.add("gui.reverie_dreams.progress", "进度");
+        translationBuilder.add("gui.reverie_dreams.close", "关闭");
+        translationBuilder.add("gui.reverie_dreams.input_request", "请输入内容：");
+        translationBuilder.add("gui.reverie_dreams.send", "发送");
+        translationBuilder.add("gui.reverie_dreams.custom_skin_selector.title", "第三方皮肤选择");
 //        translationBuilder.add("gui.npc.woke.mode.disable", "工作原点位置");
 
         translationBuilder.add("item.reverie_dreams.music.no_files", "§c未找到任何可用的音乐文件！");
@@ -1158,6 +1158,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.LOW_GRAVITY_BOOT.asItem(), "低重力靴子");
         translationBuilder.add(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), "冥界之冠");
         translationBuilder.add(RDItems.SUNFLOWER.asItem(), "自然之力");
+        translationBuilder.add(RDItems.CUSTOM_SKIN_SELECTOR.asItem(), "自定义皮肤更换工具");
 
         // 武器
         translationBuilder.add(RDItems.HAKUREI_CANE.asItem(), "博丽御币");

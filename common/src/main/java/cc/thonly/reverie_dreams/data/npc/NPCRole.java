@@ -126,7 +126,7 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
             Holder<EntityType<NPCRoleFastEntity>> entityTypeHolder = entityTypeRegistration.asHolder();
 
             String spawnEggId = this.id.getPath() + "_spawn_egg";
-            DeferredItem spawnEgg = registerNPCSpawnEggItem(spawnEggId, (props) -> new ColoredSpawnEggItem(spawnEggId, entityTypeHolder.value(), new Item.Properties()));
+            DeferredItem spawnEgg = registerNPCSpawnEggItem(spawnEggId, (_) -> new ColoredSpawnEggItem(spawnEggId, entityTypeHolder.value(), new Item.Properties()));
             this.entityType = entityTypeHolder;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;

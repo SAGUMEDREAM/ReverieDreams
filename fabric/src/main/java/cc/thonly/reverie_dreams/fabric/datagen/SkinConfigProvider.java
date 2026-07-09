@@ -136,6 +136,7 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(GensokyoSkinTypes.SUNNY, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.LUNAR, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
 
+        this.addConfig(MobSkinTypes.UNDEFINED, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.DEFAULT, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.GHOST, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.YOUSEI01, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));

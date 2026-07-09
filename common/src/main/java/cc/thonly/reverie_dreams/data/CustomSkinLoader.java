@@ -2,11 +2,15 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.CustomSkinConfig;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.RegistrationInfo;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -31,7 +35,11 @@ public class CustomSkinLoader {
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
                 DataResult<CustomSkinConfig> result = CustomSkinConfig.CODEC.parse(input);
                 result.resultOrPartial(error -> ReverieDreams.LOGGER.warn("Failed to parse tags for {}: {}", resourceId, error))
-                      .ifPresent(CustomSkinConfig::value);
+                      .ifPresent(config -> {
+                          SkinType value = config.value();
+                          RegistryImpl<SkinType> registry = RegistryImpls.SKIN_TYPE;
+                          RegistryImpls.SKIN_TYPE.register(registry.createKey(value.getId()), value, RegistrationInfo.BUILT_IN);
+                      });
             } catch (Exception e) {
                 ReverieDreams.LOGGER.error("Failed to load custom_skin_config {}: {}", resourceId, e.getMessage(), e);
             }

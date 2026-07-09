@@ -119,6 +119,7 @@ public class RDItems {
     public static DeferredItem LOW_GRAVITY_BOOT;
     public static DeferredItem CROWN_OF_THE_UNDERWORLD;
     public static DeferredItem SUNFLOWER;
+    public static DeferredItem CUSTOM_SKIN_SELECTOR;
 
     // 武器
     public static DeferredItem HAKUREI_CANE;
@@ -299,6 +300,7 @@ public class RDItems {
         LOW_GRAVITY_BOOT = registerItem(balmItemRegistrar, "low_gravity_boot", LowGravityBootItem::new, new Item.Properties());
         CROWN_OF_THE_UNDERWORLD = registerItem(balmItemRegistrar, "crown_of_the_underworld", CrownOfTheUnderworldItem::new, new Item.Properties());
         SUNFLOWER = registerItem(balmItemRegistrar, "sunflower", props -> new Sunflower(props.stacksTo(1).durability(256).repairable(RDItemTags.POWER_BLOCK)), new Item.Properties());
+        CUSTOM_SKIN_SELECTOR = registerSimpleItem(balmItemRegistrar, "custom_skin_selector", props -> new CustomSkinSelectorItem(props.stacksTo(1)), new Item.Properties());
 
         // 武器
         HAKUREI_CANE = registerItem(balmItemRegistrar, "hakurei_cane", props -> new HakureiCane(1f, -2.4f, props), new Item.Properties());

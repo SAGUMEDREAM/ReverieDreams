@@ -30,6 +30,7 @@ public class SkinConfig implements CodecStep<SkinConfig>, RegistryEntryOwnerBind
     private final ModelType type;
     private final Optional<Identifier> capeTexture;
     private final Optional<Identifier> elytraTexture;
+    @ToString.Exclude
     @Setter
     private RegistryImpl<SkinConfig> owner;
 

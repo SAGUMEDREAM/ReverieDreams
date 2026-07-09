@@ -196,6 +196,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.LOW_GRAVITY_BOOT.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.SUNFLOWER.asItem());
+        itemModelGenerator.generateFlatItem(RDItems.CUSTOM_SKIN_SELECTOR.asItem(), ModelTemplates.FLAT_ITEM);
 
         // 武器
         itemModelGenerator.generateFlatItem(RDItems.HAKUREI_CANE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);

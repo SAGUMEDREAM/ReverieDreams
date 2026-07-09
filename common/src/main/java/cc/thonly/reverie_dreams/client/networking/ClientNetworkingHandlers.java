@@ -25,6 +25,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
@@ -98,7 +99,12 @@ public class ClientNetworkingHandlers {
                 Identifier key = entry.key();
                 Object value = entry.value();
                 Object updated = clientReloadListener.update(key, registry.getValue(key), value);
-                registry.set(registry.createKey(key), updated, RegistrationInfo.BUILT_IN);
+                ResourceKey<Object> resourceKey = registry.createKey(key);
+                registry.unregister(resourceKey);
+                if (updated == null) {
+                    continue;
+                }
+                registry.set(resourceKey, updated, RegistrationInfo.BUILT_IN);
             }
             clientReloadListener.afterProcessing(registry);
         } catch (Exception e) {
