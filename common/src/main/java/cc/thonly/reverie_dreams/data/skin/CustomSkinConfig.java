@@ -12,7 +12,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-import java.util.*;
+import java.util.Optional;
 
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType"})
 @Slf4j
@@ -57,7 +57,7 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
             return this.value;
         }
         Optional<Holder.Reference<SkinType>> reference = RegistryImpls.SKIN_TYPE.get(this.id);
-        if (reference.isPresent()) {
+        if (reference.isPresent() && (reference.get().value() instanceof CustomSkinConfig.CustomType)) {
             log.error("Duplicate key {}", this.id);
             return reference.get().value();
         }

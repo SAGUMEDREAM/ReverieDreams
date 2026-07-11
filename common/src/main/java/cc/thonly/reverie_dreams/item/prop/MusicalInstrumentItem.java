@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.keine.api.callback.AttackBlockCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
@@ -12,10 +11,7 @@ import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.NotaUtils;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.serialization.Codec;
-import net.blay09.mods.balm.platform.event.callback.PlayerCallback;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.phys.AABB;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Random;
@@ -47,7 +42,7 @@ public class MusicalInstrumentItem extends Item {
     public InteractionResult useByEntity(Level world, LivingEntity user, InteractionHand hand) {
         ItemStack itemByMainSlot = user.getItemInHand(InteractionHand.MAIN_HAND);
         ItemStack itemByOffSlot = user.getItemInHand(InteractionHand.OFF_HAND);
-        if (itemByOffSlot.getItem() == DanmakuTypes.NOTE.getItemHolder()) {
+        if (itemByOffSlot.getItem() == DanmakuTypes.NOTE.getItemHolder().asItem()) {
             ItemStack baseBullet = itemByOffSlot.copy();
             if (user instanceof Player player) {
                 ItemCooldowns itemCooldownManager = player.getCooldowns();

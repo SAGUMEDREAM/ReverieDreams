@@ -18,6 +18,7 @@ import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("resource")
 public class NPCOpenSilverChestGoal extends Goal {
     private final BaseNPCLikeEntity roleEntity;
     @Nullable
@@ -29,6 +30,7 @@ public class NPCOpenSilverChestGoal extends Goal {
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
+    @SuppressWarnings("deprecation")
     private List<BlockPos> findSilverChestBlockPosList() {
         List<BlockPos> blockPosList = new LinkedList<>();
         Level world = this.roleEntity.level();
@@ -49,7 +51,7 @@ public class NPCOpenSilverChestGoal extends Goal {
             for (int y = box.minY(); y <= box.maxY(); y++) {
                 for (int z = box.minZ(); z <= box.maxZ(); z++) {
                     pos.set(x, y, z);
-                    if (!(world.getBlockState(pos).getBlock() == RDBlocks.SILVER_CHEST_BLOCK.getChestBlock())) {
+                    if (!(world.getBlockState(pos).getBlock().builtInRegistryHolder().is(RDBlocks.SILVER_CHEST_BLOCK.getChestBlock()))) {
                         continue;
                     }
                     if (world.getBlockEntity(pos) instanceof CustomChestBlockEntity customChestBlockEntity) {

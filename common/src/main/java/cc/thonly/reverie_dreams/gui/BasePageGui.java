@@ -38,9 +38,9 @@ public class BasePageGui extends SimpleGui {
             {"P", "W", "W", "W", "B", "W", "W", "W", "N"},
     };
     public static final int PER_PAGE_SIZE = 5 * 9;
-    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiItems.CLOSE.asItem()).setCallback(this::back);
-    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.asItem()).setCallback(this::next);
-    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.asItem()).setCallback(this::prev);
+    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiItems.CLOSE.value()).setCallback(this::back);
+    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.value()).setCallback(this::next);
+    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.value()).setCallback(this::prev);
     public int page = 0;
     public final int maxSize;
     public final List<GuiElementBuilder> displayList = new LinkedList<>();

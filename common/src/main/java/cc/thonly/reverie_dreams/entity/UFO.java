@@ -55,7 +55,7 @@ public class UFO extends Monster implements Enemy, GeoEntity {
     private int explosionPower = 1;
 
     public UFO(Level level) {
-        super(RDEntityTypes.UFO.asHolder().value(), level);
+        super(RDEntityTypes.UFO.value(), level);
         this.xpReward = 5;
         this.moveControl = new Ghast.GhastMoveControl(this, false, () -> false);
     }

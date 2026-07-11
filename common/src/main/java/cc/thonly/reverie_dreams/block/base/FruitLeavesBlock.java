@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.block.base;
 
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
+import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
-import net.blay09.mods.balm.world.item.DeferredItem;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -42,8 +42,8 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
     public static final List<FruitLeavesBlock> FRUIT_LEAVES_BLOCKS = new ArrayList<>();
     public static final int MAX_AGE = 3;
     public static final IntegerProperty AGE_PROPERTY = IntegerProperty.create("fruit_age", 0, MAX_AGE);
-    private DeferredItem output;
-    private DeferredBlock emptyLeavesBlock;
+    private ItemDelegate output;
+    private BlockDelegate emptyLeavesBlock;
 
     public FruitLeavesBlock(Properties settings) {
         super(0.01f, settings.noOcclusion());
@@ -57,7 +57,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
         BlockTypeGroup.FRUIT_LEAVES.add(this);
     }
 
-    public FruitLeavesBlock(DeferredItem output, DeferredBlock emptyLeavesBlock, Properties settings) {
+    public FruitLeavesBlock(ItemDelegate output, BlockDelegate emptyLeavesBlock, Properties settings) {
         this(settings);
         this.emptyLeavesBlock = emptyLeavesBlock;
         this.output = output;

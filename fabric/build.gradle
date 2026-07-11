@@ -15,9 +15,7 @@ dependencies {
     minecraft "net.minecraft:minecraft:${minecraft_version}"
     implementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
     implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
-    implementation("net.blay09.mods:balm-fabric:${balm_version}") {
-        changing = balm_version.contains("SNAPSHOT")
-    }
+    implementation("dev.architectury:architectury-fabric:${architectury_api_version}")
     compileOnly("cc.thonly:keine-common:${keine_version}")
     implementation include("cc.thonly:keine-fabric:${keine_version}")
     implementation include("com.geckolib:geckolib-fabric-${minecraft_version}:${geckolib_version}")
@@ -50,7 +48,6 @@ dependencies {
     compileOnly("eu.pb4:booklet:${booklet_version}")
     compileOnly files('libs/camera-obscura-1.2.3+26.1.jar')
     compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-fa26.1.x.jar"))
-    compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-neo26.1.x.jar"))
     implementation include("eu.pb4:sgui:[${sgui_fabric_version}]")
 //    implementation files('libs/camera-obscura-2.0.0-beta.1+26.1-release.jar')
 
@@ -88,6 +85,8 @@ dependencies {
     implementation include('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10')
     implementation include('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10')
     implementation include('org.reflections:reflections:0.10.2')
+    implementation include("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+    implementation include("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3")
 }
 
 tasks.withType(JavaCompile).configureEach {

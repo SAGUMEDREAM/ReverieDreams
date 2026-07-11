@@ -5,7 +5,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -22,7 +21,7 @@ public abstract class FakePlayerMixin extends ServerPlayer {
 
     @SuppressWarnings("ConstantValue")
     @Inject(method = "isFakePlayer", at = @At("HEAD"), cancellable = true)
-    public void testFakePlayer(CallbackInfoReturnable<Boolean> cir) {
+    public void reverie_dreams$isFakePlayer(CallbackInfoReturnable<Boolean> cir) {
         Object pThis = this;
         if (pThis instanceof cc.thonly.reverie_dreams.entity.base.FakePlayer) {
             cir.setReturnValue(true);

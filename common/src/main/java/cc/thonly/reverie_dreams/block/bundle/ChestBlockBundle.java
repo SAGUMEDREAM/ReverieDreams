@@ -3,9 +3,8 @@ package cc.thonly.reverie_dreams.block.bundle;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.CustomChestBlock;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
 import lombok.Getter;
-import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.Collection;
@@ -14,7 +13,7 @@ import java.util.List;
 @Getter
 public class ChestBlockBundle extends AbstractBlockBundle {
     private final BlockBehaviour.Properties settings;
-    private DeferredBlock chestBlock;
+    private BlockDelegate chestBlock;
 
     public ChestBlockBundle(String name, BlockBehaviour.Properties settings) {
         super(name, ReverieDreams.id(name));
@@ -25,18 +24,18 @@ public class ChestBlockBundle extends AbstractBlockBundle {
         return new ChestBlockBundle(name, settings);
     }
 
-    public DeferredBlock chestBlock() {
+    public BlockDelegate chestBlock() {
         return this.chestBlock;
     }
 
     @Override
-    protected Collection<DeferredBlock> stream() {
+    protected Collection<BlockDelegate> stream() {
         return List.of(this.chestBlock());
     }
 
     @Override
-    public ChestBlockBundle build(BalmBlockRegistrar registrar) {
-        this.chestBlock = RDBlocks.registerBlock(registrar, this.getName(), CustomChestBlock::new, this.settings.noOcclusion());
+    public ChestBlockBundle build() {
+        this.chestBlock = RDBlocks.registerBlock(this.getName(), CustomChestBlock::new, this.settings.noOcclusion());
         return this;
     }
 }

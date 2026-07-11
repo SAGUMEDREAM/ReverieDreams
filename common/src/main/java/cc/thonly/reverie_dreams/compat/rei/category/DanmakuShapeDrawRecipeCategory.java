@@ -56,7 +56,7 @@ public class DanmakuShapeDrawRecipeCategory implements DisplayCategory<DanmakuSh
                                         gridStartY + y * slotSize,
                                         slotSize,
                                         slotSize))
-                                .entries(state ? REIItemUtils.getItem(RDGuiItems.ENABLE) : REIItemUtils.getItem(RDGuiItems.DISABLE))
+                                .entries(state ? REIItemUtils.getItem(RDGuiItems.ENABLE.asItem()) : REIItemUtils.getItem(RDGuiItems.DISABLE.asItem()))
                                 .markInput()
                 );
             }

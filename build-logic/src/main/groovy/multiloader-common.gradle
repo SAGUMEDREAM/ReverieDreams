@@ -88,8 +88,7 @@ processResources {
             "issues"           : issues,
             "sources"          : sources,
             "neoforge_version" : neoforge_version,
-            "minecraft_version": minecraft_version,
-            "balm_version"     : balm_version,
+            "minecraft_version": minecraft_version
     ]
 
     def jsonExpandProps = expandProps.collectEntries {

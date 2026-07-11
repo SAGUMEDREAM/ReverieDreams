@@ -16,13 +16,13 @@ public record PlayerComponentUpdatePacket(UUID playerUUID,
     public static final Type<PlayerComponentUpdatePacket> PACKET_ID = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, PlayerComponentUpdatePacket> CODEC = StreamCodec.ofMember(PlayerComponentUpdatePacket::write, PlayerComponentUpdatePacket::read);
 
-    private static PlayerComponentUpdatePacket read(RegistryFriendlyByteBuf buf) {
+    public static PlayerComponentUpdatePacket read(RegistryFriendlyByteBuf buf) {
         UUID uuid = buf.readUUID();
         CompoundTag compoundTag = buf.readNbt();
         return new PlayerComponentUpdatePacket(uuid, compoundTag);
     }
 
-    private void write(RegistryFriendlyByteBuf buf) {
+    public void write(RegistryFriendlyByteBuf buf) {
         buf.writeUUID(this.playerUUID);
         buf.writeNbt(this.data);
     }

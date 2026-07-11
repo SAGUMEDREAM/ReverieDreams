@@ -17,9 +17,9 @@ import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.blaze3d.platform.NativeImage;
+import dev.architectury.networking.NetworkManager;
 import it.unimi.dsi.fastutil.Pair;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.RegistrationInfo;
@@ -143,7 +143,7 @@ public class ClientNetworkingHandlers {
             NativeImage resizedImage = PhotoScreenshotHelper.resizeImage(clientImage);
             NativeImage rescaledImage = PhotoScreenshotHelper.rescaleImage(resizedImage, fov);
             byte[] imageBytes = PhotoScreenshotHelper.getImageBytes(rescaledImage);
-            Balm.networking().sendToServer(new ScreenshotMapPacket(packet.sessionId(), imageBytes));
+            NetworkManager.sendToServer(new ScreenshotMapPacket(packet.sessionId(), imageBytes));
         });
     }
 

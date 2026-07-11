@@ -19,7 +19,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.RecipeType;
 
 import java.util.*;
 import java.util.stream.Stream;

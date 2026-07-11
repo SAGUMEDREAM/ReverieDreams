@@ -17,9 +17,7 @@ dependencies {
 
     implementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
     implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
-    implementation("net.blay09.mods:balm-fabric:${balm_version}") {
-        changing = balm_version.contains("SNAPSHOT")
-    }
+    implementation("dev.architectury:architectury-fabric:${architectury_api_version}")
     implementation include("eu.pb4:polymer-autohost:[${polymer_version}]")
     implementation include("eu.pb4:polymer-blocks:[${polymer_version}]")
     implementation include("eu.pb4:polymer-common:[${polymer_version}]")

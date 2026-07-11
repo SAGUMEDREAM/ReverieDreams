@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
-import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
 import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
 import cc.thonly.reverie_dreams.api.entity.type.VariantData;
+import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
+import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;

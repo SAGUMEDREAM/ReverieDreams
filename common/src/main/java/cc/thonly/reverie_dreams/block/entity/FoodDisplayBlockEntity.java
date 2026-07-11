@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.proxy.FoodDisplayBlockEntityUpdater;
 import cc.thonly.reverie_dreams.proxy.PlatformProxies;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import com.google.gson.JsonElement;

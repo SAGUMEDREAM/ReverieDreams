@@ -14,13 +14,13 @@ public record RegistryImpSyncPacket(Identifier registryKey,
     public static final Type<RegistryImpSyncPacket> PACKET_ID = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, RegistryImpSyncPacket> CODEC = StreamCodec.ofMember(RegistryImpSyncPacket::write, RegistryImpSyncPacket::read);
 
-    private static RegistryImpSyncPacket read(RegistryFriendlyByteBuf buf) {
+    public static RegistryImpSyncPacket read(RegistryFriendlyByteBuf buf) {
         Identifier typeId = buf.readIdentifier();
         CompoundTag compoundTag = buf.readNbt();
         return new RegistryImpSyncPacket(typeId, compoundTag);
     }
 
-    private void write(RegistryFriendlyByteBuf buf) {
+    public void write(RegistryFriendlyByteBuf buf) {
         buf.writeIdentifier(this.registryKey());
         buf.writeNbt(this.data);
     }

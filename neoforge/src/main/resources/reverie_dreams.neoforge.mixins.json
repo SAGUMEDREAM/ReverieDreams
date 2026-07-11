@@ -7,7 +7,6 @@
     "CommonHooksMixin",
     "EventHooksMixin",
     "FakePlayerMixin",
-    "NeoForgeBalmHooksMixin",
     "RegistryDataLoaderMixin",
     "RegistryHandlerMixin",
     "accessor.CreativeModeTabAccessor",

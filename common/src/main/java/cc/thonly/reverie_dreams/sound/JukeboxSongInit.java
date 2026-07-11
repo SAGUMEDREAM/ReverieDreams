@@ -8,6 +8,7 @@ import net.minecraft.world.item.JukeboxSong;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("SameParameterValue")
 public class JukeboxSongInit {
     public static final List<JukeBoxEntry> ENTRIES = new LinkedList<>();
     public static final JukeBoxEntry HR01_01 = createJukeBoxEntry("records/hr01_01", 233, 6);

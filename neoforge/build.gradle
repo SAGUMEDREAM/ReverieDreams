@@ -44,9 +44,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 apply from: rootProject.file('repositories.gradle')
 dependencies {
-    implementation("net.blay09.mods:balm-neoforge:${balm_version}") {
-        changing = balm_version.contains("SNAPSHOT")
-    }
+    implementation("dev.architectury:architectury-neoforge:${architectury_api_version}")
     compileOnly("cc.thonly:keine-common:${keine_version}")
     compileOnly("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
@@ -56,7 +54,6 @@ dependencies {
 //    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
 //    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
-    compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-fa26.1.x.jar"))
     compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-neo26.1.x.jar"))
 
     implementation("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") { transitive = false }
@@ -64,6 +61,7 @@ dependencies {
     runtimeOnly("squeek.appleskin:appleskin-neoforge:${appleskin_version}")
     implementation("squeek.appleskin:appleskin-neoforge:${appleskin_version}:api")
 
+    jarJar(implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"))
     jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))
     jarJar(implementation("cc.thonly:sgui-neoforge:${sgui_forgelike_version}"))
     jarJar(implementation("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))
@@ -74,6 +72,8 @@ dependencies {
     jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib:1.9.10'))
     jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10'))
     jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10'))
+    jarJar(implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3"))
+    jarJar(implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3"))
 }
 
 def neoForgeSnapshotUrl = findProperty("neoforge_snapshot_url")

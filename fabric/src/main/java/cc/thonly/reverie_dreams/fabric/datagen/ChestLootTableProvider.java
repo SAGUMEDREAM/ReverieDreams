@@ -6,7 +6,6 @@ import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.world.gen.feature.DreamTrialRoom;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
@@ -164,7 +163,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
         var miniBarPool = LootPool.lootPool().setRolls(UniformGenerator.between(4, 6))
                 .add(LootItem.lootTableItem(RDItems.POINT).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 7))))
                 .add(LootItem.lootTableItem(Items.EMERALD).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))));
-        for (DeferredItem drinkItem : RDDrinkItems.DRINK_ITEMS) {
+        for (var drinkItem : RDDrinkItems.DRINK_ITEMS) {
             miniBarPool.add(LootItem.lootTableItem(drinkItem).setWeight(10));
         }
         output.accept(MINI_BAR_CHEST, LootTable.lootTable().withPool(miniBarPool));
@@ -173,12 +172,12 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
         // 🍖 BAMBOO BBQ
         // =========================
         var foodPool = LootPool.lootPool().setRolls(UniformGenerator.between(2, 4));
-        for (DeferredItem i : RDFoodItems.FOOD_ITEMS) {
+        for (var i : RDFoodItems.FOOD_ITEMS) {
             foodPool.add(LootItem.lootTableItem(i).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
         }
 
         var ingredientPool = LootPool.lootPool().setRolls(UniformGenerator.between(1, 3));
-        for (DeferredItem i : RDIngredientItems.INGREDIENTS) {
+        for (var i : RDIngredientItems.INGREDIENTS) {
             ingredientPool.add(LootItem.lootTableItem(i).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
         }
 

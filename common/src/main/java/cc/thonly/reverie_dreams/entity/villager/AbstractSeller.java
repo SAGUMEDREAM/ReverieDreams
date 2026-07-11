@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.proxy.SafeClientAccess;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
@@ -8,8 +9,6 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.platform.BalmSafeClientAccess;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -154,8 +153,9 @@ public abstract class AbstractSeller extends WanderingTrader {
                 this.villagerDataCache = modifyVillagerData;
                 return modifyVillagerData;
             }
-            BalmSafeClientAccess clientAccess = Balm.safeClientAccess();
-            Player clientPlayer = clientAccess.getClientPlayer();
+
+            SafeClientAccess safeClientAccess = SafeClientAccess.safeClientAccess();
+            Player clientPlayer = safeClientAccess.getClientPlayer();
             if (clientPlayer != null) {
                 RegistryAccess registryAccess = clientPlayer.registryAccess();
                 VillagerData modifyVillagerData = this.getModifyVillagerData(registryAccess);

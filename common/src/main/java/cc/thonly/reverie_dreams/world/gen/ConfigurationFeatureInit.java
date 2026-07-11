@@ -2,12 +2,12 @@ package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
+import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.world.gen.feature.*;
-import net.blay09.mods.balm.core.BalmRegistrar;
-import net.blay09.mods.balm.core.BalmRegistrars;
-import net.minecraft.core.Holder;
+import com.mojang.serialization.Codec;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -35,6 +35,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class ConfigurationFeatureInit {
     // 主世界
@@ -62,21 +63,50 @@ public class ConfigurationFeatureInit {
     public static final ResourceKey<ConfiguredFeature<?, ?>> DREAM_FLOATING_ISLAND_KEY = getOrCreateRegistryKey("dream_floating_island");
 
     // 梦境世界
-    public static Holder<Feature<CraterFeatureConfig>> CRATER;
-    public static Holder<Feature<DreamGridFeatureConfig>> DREAM_GRID;
-    public static Holder<Feature<DreamTrialRoomConfig>> DREAM_TRIAL_ROOM;
-    public static Holder<Feature<FloatingSphereFeatureConfig>> FLOATING_SPHERE;
-    public static Holder<Feature<NoneFeatureConfiguration>> DREAM_FLOATING_ISLAND;
-
+    public static final RegistrySupplier<Feature<CraterFeatureConfig>> CRATER =
+            registerFeature(
+                    "crater",
+                    CraterFeature::new,
+                    CraterFeatureConfig.CODEC
+            );
+    public static final RegistrySupplier<Feature<DreamGridFeatureConfig>> DREAM_GRID =
+            registerFeature(
+                    "dream_world_grid",
+                    DreamGridFeature::new,
+                    DreamGridFeatureConfig.CODEC
+            );
+    public static final RegistrySupplier<Feature<DreamTrialRoomConfig>> DREAM_TRIAL_ROOM =
+            registerFeature(
+                    "dream_trial_room",
+                    DreamTrialRoom::new,
+                    DreamTrialRoomConfig.CODEC
+            );
+    public static final RegistrySupplier<Feature<FloatingSphereFeatureConfig>> FLOATING_SPHERE =
+            registerFeature(
+                    "floating_sphere",
+                    FloatingSphereFeature::new,
+                    FloatingSphereFeatureConfig.CODEC
+            );
+    public static final RegistrySupplier<Feature<NoneFeatureConfiguration>> DREAM_FLOATING_ISLAND =
+            registerFeature(
+                    "dream_floating_island",
+                    FloatingIslandFeature::new,
+                    NoneFeatureConfiguration.CODEC
+            );
     // 主世界结构
-    @SuppressWarnings("unchecked")
-    public static void init(BalmRegistrars registrars) {
-        BalmRegistrar.Scoped<Feature<?>> scoped = registrars.registrar(Registries.FEATURE);
-        CRATER = (Holder<Feature<CraterFeatureConfig>>) (Object) scoped.register("crater", key -> new CraterFeature(CraterFeatureConfig.CODEC));
-        DREAM_GRID = (Holder<Feature<DreamGridFeatureConfig>>) (Object) scoped.register("dream_world_grid", key -> new DreamGridFeature(DreamGridFeatureConfig.CODEC));
-        DREAM_TRIAL_ROOM = (Holder<Feature<DreamTrialRoomConfig>>) (Object) scoped.register("dream_trial_room", key -> new DreamTrialRoom(DreamTrialRoomConfig.CODEC));
-        FLOATING_SPHERE = (Holder<Feature<FloatingSphereFeatureConfig>>) (Object) scoped.register("floating_sphere", key -> new FloatingSphereFeature(FloatingSphereFeatureConfig.CODEC));
-        DREAM_FLOATING_ISLAND = (Holder<Feature<NoneFeatureConfiguration>>) (Object) scoped.register("dream_floating_island", key -> new FloatingIslandFeature(NoneFeatureConfiguration.CODEC));
+    public static void init() {
+    }
+
+    public static <C extends FeatureConfiguration, F extends Feature<C>>
+    RegistrySupplier<Feature<C>> registerFeature(
+            String id,
+            Function<Codec<C>, F> factory,
+            Codec<C> codec
+    ) {
+        return ReverieDreamsRegistries.FEATURE.register(
+                id,
+                () -> factory.apply(codec)
+        );
     }
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -111,8 +141,8 @@ public class ConfigurationFeatureInit {
                         BlockStateProvider.simple(RDWoodBlocks.LEMON_BUNDLE.log().asBlock()),
                         new BendingTrunkPlacer(2, 1, 2, 2, UniformInt.of(1, 1)),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(RDWoodBlocks.LEMON_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                .add(RDWoodBlocks.LEMON_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                                              .add(RDWoodBlocks.LEMON_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                                              .add(RDWoodBlocks.LEMON_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -123,8 +153,8 @@ public class ConfigurationFeatureInit {
                         BlockStateProvider.simple(RDWoodBlocks.LEMON_BUNDLE.log().asBlock()),
                         new StraightTrunkPlacer(3, 1, 0),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(RDWoodBlocks.GINKGO_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                .add(RDWoodBlocks.GINKGO_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                                              .add(RDWoodBlocks.GINKGO_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                                              .add(RDWoodBlocks.GINKGO_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -135,8 +165,8 @@ public class ConfigurationFeatureInit {
                         BlockStateProvider.simple(RDWoodBlocks.PEACH_BUNDLE.log().asBlock()),
                         new StraightTrunkPlacer(2, 1, 1),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(RDWoodBlocks.PEACH_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                .add(RDWoodBlocks.PEACH_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                                              .add(RDWoodBlocks.PEACH_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                                              .add(RDWoodBlocks.PEACH_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()

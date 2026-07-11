@@ -9,11 +9,11 @@ import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -39,14 +39,14 @@ public class FastRecipeBookGui extends SimpleGui {
             {"P", "W", "A", "B", "C", "D", "E", "W", "N"},
     };
     private final ItemStack itemStack;
-    private final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
-    private final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.createStack()).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
+    private final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.value()).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
+    private final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.value()).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
     private final List<KitchenRecipe> data = new ArrayList<>();
     private int page = 0;
     private int maxPage = -1;
     private ClickType updateClickType = ClickType.MOUSE_LEFT;
     private boolean updateNext = false;
-    private DeferredBlock selectWorkType = null;
+    private BlockDelegate selectWorkType = null;
 
     public FastRecipeBookGui(ServerPlayer player, ItemStack itemStack) {
         super(MenuType.GENERIC_9x6, player, false);
@@ -136,7 +136,7 @@ public class FastRecipeBookGui extends SimpleGui {
         this.updateNext = true;
     }
 
-    public List<GuiElementBuilder> getPageContents(int page, DeferredBlock blockType) {
+    public List<GuiElementBuilder> getPageContents(int page, BlockDelegate blockType) {
         Block block = blockType.asBlock();
         if (!(block instanceof AbstractKitchenwareBlock kitchenwareBlock)) {
             return List.of();

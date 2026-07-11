@@ -26,16 +26,16 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
         RegistryImpls.NPC_ROLE.values().forEach(role -> roleBuilder.add(role.getEntityType().value()));
 
         TagAppender<EntityType<?>, EntityType<?>> undead = valueLookupBuilder(EntityTypeTags.UNDEAD);
-        undead.add(RDEntityTypes.GHOST.asHolder().value());
+        undead.add(RDEntityTypes.GHOST.value());
 
         TagAppender<EntityType<?>, EntityType<?>> yokai = valueLookupBuilder(RDEntityTypeTags.YOKAI);
-        yokai.add(RDEntityTypes.MAID_YOUSEI.asHolder().value());
-        yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value());
-        yokai.add(RDEntityTypes.YOUSEI.asHolder().value());
-        yokai.add(RDEntityTypes.HAIRBALL.asHolder().value());
-        yokai.add(RDEntityTypes.GHOST.asHolder().value());
-        yokai.add(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value());
-        yokai.add(RDEntityTypes.MAID_YOUSEI.asHolder().value());
-        yokai.add(RDEntityTypes.ONI.asHolder().value());
+        yokai.add(RDEntityTypes.MAID_YOUSEI.value());
+        yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI.value());
+        yokai.add(RDEntityTypes.YOUSEI.value());
+        yokai.add(RDEntityTypes.HAIRBALL.value());
+        yokai.add(RDEntityTypes.GHOST.value());
+        yokai.add(RDEntityTypes.MUSHROOM_MONSTER.value());
+        yokai.add(RDEntityTypes.MAID_YOUSEI.value());
+        yokai.add(RDEntityTypes.ONI.value());
     }
 }

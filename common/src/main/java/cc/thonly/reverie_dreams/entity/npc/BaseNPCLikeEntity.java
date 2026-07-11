@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
 import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
@@ -24,9 +25,9 @@ import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.authlib.properties.Property;
 import com.mojang.logging.LogUtils;
+import dev.architectury.networking.NetworkManager;
 import lombok.Getter;
 import lombok.Setter;
-import net.blay09.mods.balm.Balm;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -159,6 +160,9 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super(entityType, world);
         this.init();
         this.updateAttackType();
+        if (this.getSkinType() == null) {
+            this.setSkinType(MobSkinTypes.DEFAULT);
+        }
     }
 
     public BaseNPCLikeEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
@@ -264,7 +268,9 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
                 return;
             }
             final var packet = new SyncEntityPacket(this.getId(), this.writeUpdateTag());
-            Balm.networking().sendToAll(server, packet);
+            if (ReverieDreams.getServer() != null) {
+                NetworkManager.sendToPlayers(ReverieDreams.getServer().getPlayerList().getPlayers(), packet);
+            }
         }
     }
 

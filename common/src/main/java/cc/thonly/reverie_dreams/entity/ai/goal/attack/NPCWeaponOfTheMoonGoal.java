@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
-import cc.thonly.reverie_dreams.entity.RabbitUnit;
 import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.RabbitUnit;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;

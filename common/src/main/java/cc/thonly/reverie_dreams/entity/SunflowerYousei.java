@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
-import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
 import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
 import cc.thonly.reverie_dreams.api.entity.type.Yousei;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
+import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;

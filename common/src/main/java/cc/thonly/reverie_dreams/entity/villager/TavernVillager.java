@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.blay09.mods.balm.world.item.DeferredItem;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -26,22 +26,22 @@ import java.util.*;
 
 public class TavernVillager extends AbstractSeller {
     public TavernVillager(VillagerData prev, Level world) {
-        super(RDEntityTypes.TAVERN_VILLAGER.asHolder().value(), world);
+        super(RDEntityTypes.TAVERN_VILLAGER.value(), world);
         this.prev = prev;
     }
 
     public TavernVillager(Villager prevEntity, Level world) {
-        super(RDEntityTypes.TAVERN_VILLAGER.asHolder().value(), world);
+        super(RDEntityTypes.TAVERN_VILLAGER.value(), world);
         this.prev = prevEntity.getVillagerData();
     }
 
-    private static final List<Tuple<DeferredItem, Integer>> ALWAYS_ITEMS = new ArrayList<>();
+    private static final List<Tuple<ItemDelegate, Integer>> ALWAYS_ITEMS = new ArrayList<>();
 
     public TavernVillager(EntityType<TavernVillager> type, Level level) {
         super(type, level);
     }
 
-    public static List<Tuple<DeferredItem, Integer>> getAlwaysItems() {
+    public static List<Tuple<ItemDelegate, Integer>> getAlwaysItems() {
         if (ALWAYS_ITEMS.isEmpty()) {
             ALWAYS_ITEMS.addAll(List.of(
                     new Tuple<>(RDDrinkItems.GREEN_TEA, 8),
@@ -60,7 +60,7 @@ public class TavernVillager extends AbstractSeller {
 
         List<MerchantOffer> offers = new ArrayList<>();
 
-        for (Tuple<DeferredItem, Integer> pair : getAlwaysItems()) {
+        for (Tuple<ItemDelegate, Integer> pair : getAlwaysItems()) {
             Item item = pair.getA().asItem();
             int amount = pair.getB();
 
@@ -81,8 +81,8 @@ public class TavernVillager extends AbstractSeller {
             offers.add(offer);
         }
 
-        List<Item> allDrinks = new ArrayList<>(RDDrinkItems.DRINK_ITEMS.stream().map(DeferredItem::asItem).toList());
-        for (Tuple<DeferredItem, Integer> pair : getAlwaysItems()) {
+        List<Item> allDrinks = new ArrayList<>(RDDrinkItems.DRINK_ITEMS.stream().map(ItemDelegate::asItem).toList());
+        for (Tuple<ItemDelegate, Integer> pair : getAlwaysItems()) {
             allDrinks.remove(pair.getA().asItem());
         }
 

@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
 import cc.thonly.reverie_dreams.registry.CodecStep;
 import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
@@ -14,7 +14,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -32,7 +31,7 @@ public class FumoType implements CodecStep<FumoType>, RegistryEntryOwnerBindable
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.PROTECTED)
-    private DeferredBlock block;
+    private BlockDelegate block;
 
     private FumoType() {
     }
@@ -42,7 +41,7 @@ public class FumoType implements CodecStep<FumoType>, RegistryEntryOwnerBindable
         this.registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), "fumo/" + id.getPath());
     }
 
-    public DeferredBlock blockAsDeferred() {
+    public BlockDelegate blockAsDeferred() {
         return this.block;
     }
 
@@ -66,8 +65,8 @@ public class FumoType implements CodecStep<FumoType>, RegistryEntryOwnerBindable
         return this;
     }
 
-    private DeferredBlock registerBlock() {
-        return RDBlocks.registerSimpleBlock(ReverieDreams.getBlockRegistrar(), this.registryKey.getPath(), (settings) -> new BaseFumoBlock(settings.noCollision()), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
+    private BlockDelegate registerBlock() {
+        return RDBlocks.registerSimpleBlock(this.registryKey.getPath(), (settings) -> new BaseFumoBlock(settings.noCollision()), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
     }
 
     @Override

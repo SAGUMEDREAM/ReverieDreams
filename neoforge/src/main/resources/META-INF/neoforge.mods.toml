@@ -29,9 +29,9 @@ versionRange = "[${minecraft_version},)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.reverie_dreams]]
-modId = "balm"
+modId = "architectury"
 type = "required"
-versionRange = "[${balm_version},)"
+versionRange = "[20.0.0,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.reverie_dreams]]

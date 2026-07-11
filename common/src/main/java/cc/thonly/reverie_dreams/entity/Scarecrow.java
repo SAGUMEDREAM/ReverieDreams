@@ -31,7 +31,7 @@ public class Scarecrow extends Mob implements GeoEntity {
     public int attackCnt = 0;
 
     public Scarecrow(Level level) {
-        super(RDEntityTypes.SCARECROW.asHolder().value(), level);
+        super(RDEntityTypes.SCARECROW.value(), level);
     }
 
     public Scarecrow(EntityType<Scarecrow> entityType, Level level) {

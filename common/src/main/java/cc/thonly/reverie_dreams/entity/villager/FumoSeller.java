@@ -30,16 +30,16 @@ public class FumoSeller extends AbstractSeller {
     }
 
     public FumoSeller(Level world) {
-        super(RDEntityTypes.FUMO_SELLER_VILLAGER.asHolder().value(), world);
+        super(RDEntityTypes.FUMO_SELLER_VILLAGER.value(), world);
     }
 
     public FumoSeller(VillagerData prev, Level world) {
-        super(RDEntityTypes.FUMO_SELLER_VILLAGER.asHolder().value(), world);
+        super(RDEntityTypes.FUMO_SELLER_VILLAGER.value(), world);
         this.prev = prev;
     }
 
     public FumoSeller(Villager prevEntity, Level world) {
-        super(RDEntityTypes.FUMO_SELLER_VILLAGER.asHolder().value(), world);
+        super(RDEntityTypes.FUMO_SELLER_VILLAGER.value(), world);
         this.prev = prevEntity.getVillagerData();
     }
 

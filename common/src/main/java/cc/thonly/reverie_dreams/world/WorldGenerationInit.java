@@ -4,11 +4,10 @@ import cc.thonly.reverie_dreams.world.dimension.DimensionInit;
 import cc.thonly.reverie_dreams.world.dimension.DimensionTypeInit;
 import cc.thonly.reverie_dreams.world.dimension.WorldInit;
 import cc.thonly.reverie_dreams.world.gen.*;
-import net.blay09.mods.balm.core.BalmRegistrars;
 
 public class WorldGenerationInit {
-    public static void registerWorldGeneration(BalmRegistrars registrars) {
-        ConfigurationFeatureInit.init(registrars);
+    public static void registerWorldGeneration() {
+        ConfigurationFeatureInit.init();
         PlacedFeaturesInit.init();
         ChunkGenerationInit.init();
         ChunkGeneratorSettingsInit.init();

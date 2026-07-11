@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.server.page;
 
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
 import cc.thonly.reverie_dreams.server.dialog.*;
-import cc.thonly.reverie_dreams.util.LazyFunction;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -13,7 +12,6 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 @SuppressWarnings("ALL")
 public final class BookPage {

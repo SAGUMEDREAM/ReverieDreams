@@ -8,7 +8,8 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.server.CookingInputRecipeManager;
 import cc.thonly.reverie_dreams.server.ItemCateManager;
-import net.blay09.mods.balm.Balm;
+import dev.architectury.registry.ReloadListenerRegistry;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 
@@ -17,9 +18,7 @@ import java.util.concurrent.Executor;
 
 public class ServerResourceHelper {
     public static void init() {
-        Balm.getRuntime().resourceReloadListeners(ReverieDreams.MOD_ID, registrar -> {
-            registrar.register("data_reload", ServerResourceHelper::reload);
-        });
+        ReloadListenerRegistry.register(PackType.SERVER_DATA, ServerResourceHelper::reload, ReverieDreams.id("data_reload"));
     }
 
     public static CompletableFuture<Void> reload(

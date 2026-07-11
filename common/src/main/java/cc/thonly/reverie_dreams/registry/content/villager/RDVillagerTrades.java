@@ -1,7 +1,10 @@
 package cc.thonly.reverie_dreams.registry.content.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.villager.offer.*;
+import cc.thonly.reverie_dreams.registry.content.villager.offer.HawkerOffers;
+import cc.thonly.reverie_dreams.registry.content.villager.offer.MoneyShopClerkOffers;
+import cc.thonly.reverie_dreams.registry.content.villager.offer.MystiaModOffers;
+import cc.thonly.reverie_dreams.registry.content.villager.offer.PriestOffers;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.BuiltInRegistries;

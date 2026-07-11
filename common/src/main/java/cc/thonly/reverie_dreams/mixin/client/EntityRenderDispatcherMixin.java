@@ -1,13 +1,11 @@
 package cc.thonly.reverie_dreams.mixin.client;
 
-import cc.thonly.reverie_dreams.client.CapturedEntity;
 import cc.thonly.reverie_dreams.client.renderer.entity.EmptyRenderer;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,8 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Collections;
-import java.util.IdentityHashMap;
 import java.util.Map;
 
 @Mixin(EntityRenderDispatcher.class)

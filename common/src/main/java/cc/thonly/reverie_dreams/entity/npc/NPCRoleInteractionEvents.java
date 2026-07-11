@@ -1,15 +1,21 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
-import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.gui.entity.NPCGui;
+import cc.thonly.reverie_dreams.item.base.CustomSkinSelectorItem;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.content.skin.SkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
+import cc.thonly.reverie_dreams.server.dialog.DialogBuilder;
+import cc.thonly.reverie_dreams.server.dialog.DialogEntry;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
@@ -17,9 +23,13 @@ import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -30,16 +40,19 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.UseRemainder;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 @Slf4j
 public class NPCRoleInteractionEvents {
     public static final List<NPCRoleMessage> MESSAGES = new ArrayList<>();
@@ -75,7 +88,7 @@ public class NPCRoleInteractionEvents {
         if (!entity.isOwnedBy(player)) {
             return NPCInteractResult.PASS;
         }
-        if (stack.getItem() == RDItems.UPGRADED_HEALTH) {
+        if (stack.getItem() == RDItems.UPGRADED_HEALTH.asItem()) {
             AttributeMap attributes = entity.getAttributes();
             AttributeInstance max_health = attributes.getInstance(Attributes.MAX_HEALTH);
             float health = entity.getHealth();
@@ -150,8 +163,70 @@ public class NPCRoleInteractionEvents {
         }
         return NPCInteractResult.PASS;
     });
+    public static final NPCRoleInteractionEvent ON_SELECT_CUSTOM_SKIN = registerEvent("on_select_custom_skin", (world, player, stack, hand, entity) -> {
+        Level level = player.level();
+        if (level.isClientSide()) {
+            return NPCInteractResult.SUCCESS;
+        }
+        if (!(stack.getItem() instanceof CustomSkinSelectorItem)) {
+            return NPCInteractResult.PASS;
+        }
+        if (!(entity instanceof NPCRoleEntity npcRoleEntity)) {
+            return NPCInteractResult.PASS;
+        }
+        if ((!npcRoleEntity.isOwner(player)) && (!player.isCreative())) {
+            return NPCInteractResult.PASS;
+        }
+        DialogEntry dialogEntry = DialogBuilder.builder(builder -> {
+            builder.key(ReverieDreams.id("custom_skin_selector"));
+            builder.common(commons -> {
+                commons.title(Component.translatable("gui.reverie_dreams.custom_skin_selector.title"));
+                {
+                    Identifier id = SkinType.RECOVERY;
+                    Item icon = Items.STICK;
+                    MutableComponent component = Component.empty();
+                    CompoundTag tag = new CompoundTag();
+                    tag.putString("skin_id", id.toString());
+                    tag.putString("dim_key", npcRoleEntity.level().dimension().identifier().toString());
+                    tag.putInt("target_id", npcRoleEntity.getId());
+                    component.append(
+                            Component.translatable(npcRoleEntity.getRoleType().translateKey())
+                                     .withStyle(
+                                             Style.EMPTY.withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.MODIFY_CUSTOM_SKIN_KEY, Optional.of(tag)))
+                                     )
+                    );
+                    commons.addItemBody(new ItemStackTemplate(icon), Optional.of(
+                            new PlainMessage(component, 200))
+                    );
+                }
+                for (var customType : SkinTypes.getCustomTypes()) {
+                    Identifier id = customType.getId();
+                    Item icon = customType.getIcon();
+                    MutableComponent component = Component.empty();
+                    CompoundTag tag = new CompoundTag();
+                    tag.putString("skin_id", id.toString());
+                    tag.putString("dim_key", npcRoleEntity.level().dimension().identifier().toString());
+                    tag.putInt("target_id", npcRoleEntity.getId());
+                    component.append(
+                            Component.translatable(customType.getDescriptionId())
+                                     .withStyle(
+                                             Style.EMPTY.withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.MODIFY_CUSTOM_SKIN_KEY, Optional.of(tag)))
+                                     )
+                    );
+                    commons.addItemBody(new ItemStackTemplate(icon), Optional.of(
+                            new PlainMessage(component, 200))
+                    );
+                }
+            });
+            builder.actions(actions -> {
+                actions.addButton(Component.translatable("gui.reverie_dreams.close"), 180, Optional.empty());
+            });
+        }).get().buildOrThrow();
+        dialogEntry.open(player);
+        return NPCInteractResult.SUCCESS;
+    });
     public static final NPCRoleInteractionEvent SET_OWNER_BY_STICk = registerEvent("set_owner_by_stick", (world, player, stack, hand, entity) -> {
-        if (stack.getItem() == RDItems.OWNER_STICK) {
+        if (stack.getItem() == RDItems.OWNER_STICK.asItem()) {
             entity.setOwner(player);
             return NPCInteractResult.SUCCESS;
         }

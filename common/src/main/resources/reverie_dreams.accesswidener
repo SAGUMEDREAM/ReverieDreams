@@ -12,6 +12,7 @@ accessible class net/minecraft/world/entity/npc/wanderingtrader/WanderingTrader$
 accessible class net/minecraft/world/entity/raid/Raid$RaiderType
 accessible class net/minecraft/world/inventory/ArmorSlot
 accessible class net/minecraft/world/effect/HealOrHarmMobEffect
+accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 accessible field net/minecraft/core/Holder$Reference tags Ljava/util/Set;
 accessible field net/minecraft/core/Holder$Reference value Ljava/lang/Object;
 accessible field net/minecraft/core/HolderSet$Named contents Ljava/util/List;

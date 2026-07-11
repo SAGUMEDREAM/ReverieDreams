@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -14,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 public class KitchenwareCreativeTab implements ItemGroupContentHelper {
     public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("06_kitchenware_item_group"));
 
-    public static void bootstrap(BalmCreativeModeTabRegistrar registrar) {
-        ItemGroupContentHelper.registerGroup(registrar, KitchenwareCreativeTab.ITEM_GROUP_KEY, builder -> new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
+    public static void bootstrap() {
+        ItemGroupContentHelper.registerGroup(KitchenwareCreativeTab.ITEM_GROUP_KEY, builder -> new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
                 .icon(() -> new ItemStack(KitchenBlocks.COOKING_POT))
                 .title(Component.translatable("item_group.kitchenware_item_group"))
                 .displayItems((parameters, output) -> {

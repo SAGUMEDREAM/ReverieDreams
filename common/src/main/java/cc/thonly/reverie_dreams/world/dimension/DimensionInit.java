@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.world.dimension;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.world.gen.RDBiomes;
 import cc.thonly.reverie_dreams.world.gen.ChunkGeneratorSettingsInit;
+import cc.thonly.reverie_dreams.world.gen.RDBiomes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;

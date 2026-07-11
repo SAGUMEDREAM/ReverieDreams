@@ -50,7 +50,7 @@
   "depends": {
     "java": ">=25",
     "minecraft": "26.1.2",
-    "balm-fabric": "*",
+    "architectury": "*",
     "fabricloader": "*",
     "fabric-api": "*"
   },

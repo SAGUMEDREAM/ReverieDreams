@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,7 +15,6 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -25,7 +25,6 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -90,7 +89,7 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
         return IngredientStack.of(item.asItem());
     }
 
-    public IngredientStack ofItem(DeferredItem item) {
+    public IngredientStack ofItem(ItemDelegate item) {
         return IngredientStack.of(item.asItem());
     }
 
@@ -142,9 +141,9 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
         return wrappers;
     }
 
-    public List<IngredientStack> ofList(DeferredItem... items) {
+    public List<IngredientStack> ofList(ItemDelegate... items) {
         LinkedList<IngredientStack> wrappers = new LinkedList<>();
-        for (DeferredItem item : items) {
+        for (ItemDelegate item : items) {
             wrappers.add(this.ofItem(item.asItem()));
         }
         return wrappers;

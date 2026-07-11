@@ -30,7 +30,7 @@ public class NPCRoleFastEntity extends Mob {
         if (!(this.level() instanceof ServerLevel)) {
             return;
         }
-        BaseNPCLikeEntity baseNPCRole = RDEntityTypes.NPC_ROLE.asHolder().value().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
+        BaseNPCLikeEntity baseNPCRole = RDEntityTypes.NPC_ROLE.value().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
         if (baseNPCRole == null) {
             return;
         }

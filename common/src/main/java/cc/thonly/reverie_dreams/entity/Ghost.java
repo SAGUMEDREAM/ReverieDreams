@@ -28,7 +28,7 @@ public class Ghost extends BaseNPCLikeEntity {
     }
 
     public Ghost(Level world) {
-        super(RDEntityTypes.GHOST.asHolder().value(), world, MobSkinTypes.GHOST);
+        super(RDEntityTypes.GHOST.value(), world, MobSkinTypes.GHOST);
     }
 
     @Override

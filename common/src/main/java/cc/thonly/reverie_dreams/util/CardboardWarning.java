@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.util;
 
 import com.mojang.logging.LogUtils;
-import net.blay09.mods.balm.Balm;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class CardboardWarning {
         var name = "";
         var loaded = false;
         for (var x : BROKEN_BUKKIT_IMPL) {
-            if (Balm.platform().isModLoaded(x)) {
+            if (PlatformContext.isModLoaded(x)) {
                 name = x;
                 loaded = true;
                 break;

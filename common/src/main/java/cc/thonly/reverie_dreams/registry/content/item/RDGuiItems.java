@@ -1,8 +1,9 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
 import cc.thonly.reverie_dreams.item.other.GuiSlotItem;
-import net.blay09.mods.balm.world.item.BalmItemRegistrar;
-import net.blay09.mods.balm.world.item.DeferredItem;
+import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 
@@ -11,48 +12,33 @@ import java.util.List;
 
 public class RDGuiItems {
     public static final List<Holder<Item>> GUI_ITEM_LIST = new ArrayList<>();
-    public static DeferredItem EMPTY_ITEM;
-    public static DeferredItem NEXT;
-    public static DeferredItem PREV;
-    public static DeferredItem BACK;
-    public static DeferredItem EMPTY_SLOT;
-    public static DeferredItem HEAD_SLOT;
-    public static DeferredItem CHEST_SLOT;
-    public static DeferredItem LEG_SLOT;
-    public static DeferredItem FEET_SLOT;
-    public static DeferredItem ENABLE;
-    public static DeferredItem DISABLE;
-    public static DeferredItem DONE;
-    public static DeferredItem CLOSE;
-    public static DeferredItem PROGRESS_TO_RESULT;
-    public static DeferredItem PROGRESS_TO_RESULT_REVERSE;
-    public static DeferredItem PROGRESS_TO_RESULT_UP;
-    public static DeferredItem PROGRESS_TO_RESULT_DOWN;
+    public static final ItemDelegate EMPTY_ITEM = registerItem("sgui/elements/empty_item");
+    public static final ItemDelegate NEXT = registerItem("sgui/elements/next");
+    public static final ItemDelegate PREV = registerItem("sgui/elements/prev");
+    public static final ItemDelegate BACK = registerItem("sgui/elements/back_slot");
+    public static final ItemDelegate EMPTY_SLOT = registerItem("sgui/elements/empty_slot");
+    public static final ItemDelegate HEAD_SLOT = registerItem("sgui/elements/head_slot");
+    public static final ItemDelegate CHEST_SLOT = registerItem("sgui/elements/chest_slot");
+    public static final ItemDelegate LEG_SLOT = registerItem("sgui/elements/leg_slot");
+    public static final ItemDelegate FEET_SLOT = registerItem("sgui/elements/feet_slot");
+    public static final ItemDelegate ENABLE = registerItem("sgui/elements/enable");
+    public static final ItemDelegate DISABLE = registerItem("sgui/elements/disable");
+    public static final ItemDelegate DONE = registerItem("sgui/elements/done");
+    public static final ItemDelegate CLOSE = registerItem("sgui/elements/close");
+    public static final ItemDelegate PROGRESS_TO_RESULT = registerItem("sgui/elements/progress_to_result");
+    public static final ItemDelegate PROGRESS_TO_RESULT_REVERSE = registerItem("sgui/elements/progress_to_result_reverse");
+    public static final ItemDelegate PROGRESS_TO_RESULT_UP = registerItem("sgui/elements/progress_to_result_up");
+    public static final ItemDelegate PROGRESS_TO_RESULT_DOWN = registerItem("sgui/elements/progress_to_result_down");
 
-    public static void initialize(BalmItemRegistrar registrar) {
-        EMPTY_ITEM = registerItem(registrar, "sgui/elements/empty_item");
-        NEXT = registerItem(registrar, "sgui/elements/next");
-        PREV = registerItem(registrar, "sgui/elements/prev");
-        BACK = registerItem(registrar, "sgui/elements/back_slot");
-        EMPTY_SLOT = registerItem(registrar, "sgui/elements/empty_slot");
-        HEAD_SLOT = registerItem(registrar, "sgui/elements/head_slot");
-        CHEST_SLOT = registerItem(registrar, "sgui/elements/chest_slot");
-        LEG_SLOT = registerItem(registrar, "sgui/elements/leg_slot");
-        FEET_SLOT = registerItem(registrar, "sgui/elements/feet_slot");
-        ENABLE = registerItem(registrar, "sgui/elements/enable");
-        DISABLE = registerItem(registrar, "sgui/elements/disable");
-        DONE = registerItem(registrar, "sgui/elements/done");
-        CLOSE = registerItem(registrar, "sgui/elements/close");
-        PROGRESS_TO_RESULT = registerItem(registrar, "sgui/elements/progress_to_result");
-        PROGRESS_TO_RESULT_REVERSE = registerItem(registrar, "sgui/elements/progress_to_result_reverse");
-        PROGRESS_TO_RESULT_UP = registerItem(registrar, "sgui/elements/progress_to_result_up");
-        PROGRESS_TO_RESULT_DOWN = registerItem(registrar, "sgui/elements/progress_to_result_down");
+    public static void initialize() {
+
     }
 
-    public static DeferredItem registerItem(BalmItemRegistrar registrar, String name) {
-        DeferredItem item = registrar.register(name, GuiSlotItem::new).asDeferredItem();
-        GUI_ITEM_LIST.add(item);
-        return item;
+    public static ItemDelegate registerItem(String name) {
+        RegistrySupplier<Item> item = ReverieDreamsRegistries.ITEM.register(name, () -> new GuiSlotItem(new Item.Properties().setId(RDItems.keyOf(name))));
+        ItemDelegate itemDelegate = ItemDelegate.of(item);
+        GUI_ITEM_LIST.add(itemDelegate);
+        return itemDelegate;
     }
 
     public static List<Holder<Item>> getGuiItemList() {

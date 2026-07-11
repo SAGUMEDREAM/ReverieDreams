@@ -6,10 +6,8 @@ import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import cc.thonly.reverie_dreams.compat.rrv.RRVPlugin;
 import cc.thonly.reverie_dreams.compat.rrv.RRVRecipeTypes;
-import cc.thonly.reverie_dreams.gui.block.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
@@ -42,12 +40,12 @@ public class GensokyoAltarRecipe implements ReliableClientRecipe {
         for (int i = 0; i < 8; i++) {
             SlotContent input;
             if (i > this.recipe.getSlots().size() - 1) {
-                input = SlotContent.of(RDGuiItems.EMPTY_ITEM.asItem());
+                input = SlotContent.of(RDGuiItems.EMPTY_ITEM.value());
             } else {
                 input = SlotContent.of(this.recipe.getSlots().get(i).build());
             }
             if (input.isEmpty()) {
-                input = SlotContent.of(RDGuiItems.EMPTY_ITEM.asItem());
+                input = SlotContent.of(RDGuiItems.EMPTY_ITEM.value());
             }
             context.bindOptionalSlot(i, input, RRVPlugin.RENDERER);
         }

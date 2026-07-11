@@ -14,7 +14,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.*;
 
-@SuppressWarnings({"LombokGetterMayBeUsed", "unchecked"})
+@SuppressWarnings({"LombokGetterMayBeUsed", "unchecked", "unused", "LombokSetterMayBeUsed"})
 public class NeoRegistryImpl<T> extends RegistryImpl<T> {
     protected final List<AddCallback<T>> addCallbacks = new ArrayList<>();
     protected final List<BakeCallback<T>> bakeCallbacks = new ArrayList<>();
@@ -41,7 +41,7 @@ public class NeoRegistryImpl<T> extends RegistryImpl<T> {
         super(key, lifecycle, parent);
     }
 
-    void setSync(boolean sync) {
+    public void setSync(boolean sync) {
         this.sync = sync;
     }
 
@@ -50,7 +50,7 @@ public class NeoRegistryImpl<T> extends RegistryImpl<T> {
         return this.sync;
     }
 
-    void setMaxId(int maxId) {
+    public void setMaxId(int maxId) {
         this.maxId = maxId;
     }
 

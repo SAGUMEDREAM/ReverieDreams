@@ -7,18 +7,15 @@ import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
 import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.NPCRoles;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.LazySupplier;
-import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
+import dev.architectury.registry.level.entity.EntityAttributeRegistry;
+import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistrar;
-import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistration;
-import net.blay09.mods.balm.world.item.BalmItemRegistrar;
-import net.blay09.mods.balm.world.item.BalmItemRegistration;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -58,15 +55,15 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
     public static final StreamCodec<RegistryFriendlyByteBuf, NPCRole> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(BY_REGISTRY);
     public static final EntityDataSerializer<NPCRole> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
     public static final List<Holder<EntityType<NPCRoleFastEntity>>> ENTITIES = new ArrayList<>();
-    public static final List<DeferredItem> NPC_SPAWN_EGG_ITEM_LIST = new ArrayList<>();
+    public static final List<ItemDelegate> NPC_SPAWN_EGG_ITEM_LIST = new ArrayList<>();
 
     private Identifier id;
     private SkinType skinType;
     @Setter
     private Supplier<EntityType.Builder<NPCRoleFastEntity>> builder;
     // 构建后属性
-    private Holder<EntityType<NPCRoleFastEntity>> entityType;
-    private DeferredItem spawnEgg;
+    private RegistrySupplier<EntityType<NPCRoleFastEntity>> entityType;
+    private ItemDelegate spawnEgg;
     private boolean hasBuilt = false;
 
     private RegistryImpl<NPCRole> owner;
@@ -104,7 +101,7 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
         return this.entityType;
     }
 
-    public DeferredItem getEgg() {
+    public ItemDelegate getEgg() {
         return this.spawnEgg;
     }
 
@@ -121,13 +118,11 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
             Supplier<EntityType.Builder<NPCRoleFastEntity>> builderSupplier = this.isCustom() ? this.builder : () -> EntityType.Builder.of(
                     (type, world) -> new NPCRoleFastEntity(type, world, this.skinType),
                     MobCategory.MISC);
-            BalmEntityTypeRegistration<NPCRoleFastEntity> entityTypeRegistration = registerEntity(this.id.getPath(), builderSupplier);
-            entityTypeRegistration.withDefaultAttributes(BaseNPCLikeEntity::createLivingAttributes);
-            Holder<EntityType<NPCRoleFastEntity>> entityTypeHolder = entityTypeRegistration.asHolder();
-
+            RegistrySupplier<EntityType<NPCRoleFastEntity>> registrySupplier = registerEntity(this.id.getPath(), builderSupplier);
+            EntityAttributeRegistry.register(registrySupplier, BaseNPCLikeEntity::createLivingAttributes);
             String spawnEggId = this.id.getPath() + "_spawn_egg";
-            DeferredItem spawnEgg = registerNPCSpawnEggItem(spawnEggId, (_) -> new ColoredSpawnEggItem(spawnEggId, entityTypeHolder.value(), new Item.Properties()));
-            this.entityType = entityTypeHolder;
+            ItemDelegate spawnEgg = registerNPCSpawnEggItem(spawnEggId, (id) -> new ColoredSpawnEggItem(spawnEggId, registrySupplier.value(), new Item.Properties()));
+            this.entityType = registrySupplier;
             this.spawnEgg = spawnEgg;
             this.hasBuilt = true;
         } catch (Exception e) {
@@ -150,23 +145,20 @@ public class NPCRole implements CodecStep<NPCRole>, RegistryEntryOwnerBindable<N
         return UNIT_ROLE.get();
     }
 
-    protected static BalmEntityTypeRegistration<NPCRoleFastEntity> registerEntity(
+    protected static RegistrySupplier<EntityType<NPCRoleFastEntity>> registerEntity(
             String name,
             Supplier<EntityType.Builder<NPCRoleFastEntity>> builderSupplier
     ) {
-        BalmEntityTypeRegistrar entityTypeRegistrar = ReverieDreams.getEntityTypeRegistrar();
-        BalmEntityTypeRegistration<NPCRoleFastEntity> entityTypeRegistration = entityTypeRegistrar.register(name, builderSupplier);
-        Holder<EntityType<NPCRoleFastEntity>> holder = entityTypeRegistration.asHolder();
-        ENTITIES.add(holder);
-        return entityTypeRegistration;
+        RegistrySupplier<EntityType<NPCRoleFastEntity>> entityTypeSupplier = ReverieDreamsRegistries.ENTITY_TYPE.register(name, () -> builderSupplier.get().build(ResourceKey.create(Registries.ENTITY_TYPE, ReverieDreams.id(name))));
+        ENTITIES.add(entityTypeSupplier);
+        return entityTypeSupplier;
     }
 
-    protected static DeferredItem registerNPCSpawnEggItem(String name, Function<Item.Properties, Item> function) {
-        BalmItemRegistrar itemRegistrar = ReverieDreams.getItemRegistrar();
-        BalmItemRegistration registration = itemRegistrar.register(name, function);
-        DeferredItem item = registration.asDeferredItem();
-        NPC_SPAWN_EGG_ITEM_LIST.add(item);
-        return registration.asDeferredItem();
+    protected static ItemDelegate registerNPCSpawnEggItem(String name, Function<Item.Properties, Item> function) {
+        RegistrySupplier<Item> itemSupplier = ReverieDreamsRegistries.ITEM.register(name, () -> function.apply(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(name)))));
+        ItemDelegate itemDelegate = ItemDelegate.of(itemSupplier);
+        NPC_SPAWN_EGG_ITEM_LIST.add(itemDelegate);
+        return itemDelegate;
     }
 
     private static ResourceKey<EntityType<?>> of(Identifier id) {

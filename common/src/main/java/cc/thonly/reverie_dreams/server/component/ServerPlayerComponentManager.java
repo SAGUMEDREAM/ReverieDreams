@@ -10,9 +10,9 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.architectury.networking.NetworkManager;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.RegistryOps;
@@ -73,7 +73,7 @@ public final class ServerPlayerComponentManager extends BasePlayerComponentManag
             packets.add(packet);
         });
         for (PlayerComponentUpdatePacket packet : packets) {
-            Balm.networking().sendToAll(this.server, packet);
+            NetworkManager.sendToPlayers(this.server.getPlayerList().getPlayers(), packet);
         }
     }
 

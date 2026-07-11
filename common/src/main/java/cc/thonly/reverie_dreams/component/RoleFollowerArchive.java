@@ -28,7 +28,7 @@ public record RoleFollowerArchive(Component name, float maxHealth, CompoundTag n
     ).apply(instance, RoleFollowerArchive::new));
 
     public BaseNPCLikeEntity respawn(ServerLevel world, BlockPos pos, HolderLookup.Provider registries) {
-        NPCRoleEntity npcLikeEntity = new NPCRoleEntity(RDEntityTypes.NPC_ROLE.asHolder().value(), world);
+        NPCRoleEntity npcLikeEntity = new NPCRoleEntity(RDEntityTypes.NPC_ROLE.value(), world);
         npcLikeEntity.setPosRaw(pos.getX(), pos.getY(), pos.getZ());
         npcLikeEntity.setCustomName(this.name);
         npcLikeEntity.setOwner((LivingEntity) null);

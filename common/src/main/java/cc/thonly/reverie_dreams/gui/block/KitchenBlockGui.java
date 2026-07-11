@@ -96,7 +96,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 switch (posChar) {
                     case "X" -> this.setSlot(index, new GuiElementBuilder(Items.AIR));
                     case "N" ->
-                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setCallback((i, t, sat, sbg) -> {
+                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT.value()).setCallback((i, t, sat, sbg) -> {
                                 SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                                 if (this.page < this.maxPage) {
                                     this.page++;
@@ -104,7 +104,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                                 }
                             }));
                     case "P" ->
-                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV.createStack()).setCallback((i, t, sat, sbg) -> {
+                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV.value()).setCallback((i, t, sat, sbg) -> {
                                 SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                                 if (this.page > 0) {
                                     this.page--;

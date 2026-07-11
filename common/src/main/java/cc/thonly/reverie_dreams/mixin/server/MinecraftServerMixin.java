@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.mixin.server;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.nota.NotaAPI;
 import cc.thonly.reverie_dreams.item.armor.EarphoneItem;
 import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
-import cc.thonly.reverie_dreams.api.nota.NotaAPI;
 import com.mojang.datafixers.DataFixer;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.server.MinecraftServer;
@@ -33,7 +33,7 @@ public class MinecraftServerMixin {
     }
 
     @Inject(method = "tickServer", at = @At("TAIL"))
-    public void onTickEnd(BooleanSupplier hasTimeLeft, CallbackInfo ci) {
+    public void onTickEnd(BooleanSupplier haveTime, CallbackInfo ci) {
         EarphoneItem.VEC_3_DS.clear();
     }
 

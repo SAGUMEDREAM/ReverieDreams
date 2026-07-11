@@ -1,15 +1,14 @@
 package cc.thonly.reverie_dreams.api.recipe.callback;
 
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import net.blay09.mods.balm.platform.event.Event;
-import net.blay09.mods.balm.platform.event.EventFactory;
+import dev.architectury.event.Event;
+import dev.architectury.event.EventFactory;
 
 @FunctionalInterface
 public interface RecipeInjectCallback {
     void onLoad(BaseRecipeType<?> type);
 
-    Event<RecipeInjectCallback> EVENT = EventFactory.createArrayBacked(
-            RecipeInjectCallback.class,
+    Event<RecipeInjectCallback> EVENT = EventFactory.of(
             (listeners) -> (type) -> {
                 for (RecipeInjectCallback callback : listeners) {
                     callback.onLoad(type);

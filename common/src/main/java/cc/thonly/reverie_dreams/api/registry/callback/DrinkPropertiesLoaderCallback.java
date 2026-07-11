@@ -1,16 +1,15 @@
 package cc.thonly.reverie_dreams.api.registry.callback;
 
 import cc.thonly.reverie_dreams.data.DrinkProperty;
-import net.blay09.mods.balm.platform.event.Event;
-import net.blay09.mods.balm.platform.event.EventFactory;
+import dev.architectury.event.Event;
+import dev.architectury.event.EventFactory;
 import net.minecraft.world.item.Item;
 
 import java.util.Set;
 
 @FunctionalInterface
 public interface DrinkPropertiesLoaderCallback {
-    Event<DrinkPropertiesLoaderCallback> EVENT = EventFactory.createArrayBacked(
-            DrinkPropertiesLoaderCallback.class,
+    Event<DrinkPropertiesLoaderCallback> EVENT = EventFactory.of(
             (listeners) -> (ctx) -> {
                 for (DrinkPropertiesLoaderCallback callback : listeners) {
                     callback.modify(ctx);

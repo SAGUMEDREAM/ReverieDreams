@@ -32,7 +32,7 @@ public class WheelChairBlock extends ModelBlock {
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide() && player.isShiftKeyDown()) {
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-            Wheelchair wheelchair = new Wheelchair(RDEntityTypes.WHEEL_CHAIR.asHolder().value(), world);
+            Wheelchair wheelchair = new Wheelchair(RDEntityTypes.WHEEL_CHAIR.value(), world);
             wheelchair.setPos(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f);
             wheelchair.setOwner(player.getUUID());
             world.addFreshEntity(wheelchair);

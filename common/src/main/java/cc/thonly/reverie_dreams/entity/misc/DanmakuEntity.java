@@ -20,19 +20,19 @@ public class DanmakuEntity extends BaseDanmakuEntity {
     }
 
     public DanmakuEntity(Level level) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), level);
+        super(RDEntityTypes.DANMAKU.value(), level);
     }
 
     public DanmakuEntity(@NotNull LivingEntity owner, Level level, ItemStack item) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), owner, level, item);
+        super(RDEntityTypes.DANMAKU.value(), owner, level, item);
     }
 
     public DanmakuEntity(double x, double y, double z, Level level, ItemStack item) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), x, y, z, level, item);
+        super(RDEntityTypes.DANMAKU.value(), x, y, z, level, item);
     }
 
     public DanmakuEntity(@NotNull LivingEntity owner, double x, double y, double z, Level level, ItemStack item) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), x, y, z, level, item);
+        super(RDEntityTypes.DANMAKU.value(), x, y, z, level, item);
     }
 
     public static DanmakuEntity create(LivingEntity owner, ItemStack itemStack, float inaccuracy) {

@@ -1,14 +1,12 @@
 package cc.thonly.reverie_dreams.item;
 
 import lombok.ToString;
-import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @SuppressWarnings("ALL")
 @ToString

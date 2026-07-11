@@ -4,19 +4,16 @@ import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.mixin.accessor.CreativeModeTabsAccessor;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
-import net.blay09.mods.balm.world.level.block.BlockLike;
+import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 
 public class BaseCreativeTab implements ItemGroupContentHelper {
 
-    public static void bootstrap(BalmCreativeModeTabRegistrar registrar) {
+    public static void bootstrap() {
 
     }
 
@@ -32,7 +29,7 @@ public class BaseCreativeTab implements ItemGroupContentHelper {
             }
         }
         if (CreativeModeTabsAccessor.getRedstoneBlocks().identifier().equals(tabId)) {
-            List<BlockLike> list = List.of(
+            List<BlockDelegate> list = List.of(
                     RDBlocks.RAIL_CONTROLLER_BLOCK,
                     RDBlocks.SIGNAL_RAIL_BLOCK,
                     RDBlocks.SIGNAL_DELAYER_BLOCK,

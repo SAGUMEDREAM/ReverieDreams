@@ -278,7 +278,7 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
 
         Holder.Reference<T> entry = this.keyToEntry.remove(key);
         if (entry == null) {
-            log.warn("Attempted to unregister non-existing key {}", key);
+//            log.warn("Attempted to unregister non-existing key {}", key);
             return;
         }
 

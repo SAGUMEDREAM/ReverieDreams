@@ -2,9 +2,7 @@ package cc.thonly.reverie_dreams.gui.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.BasePageGui;
-import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
@@ -16,13 +14,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class RecipeTypeCategoryGui extends SimpleGui {
@@ -67,10 +63,10 @@ public class RecipeTypeCategoryGui extends SimpleGui {
                     this.setSlot(slot, builder);
                 }
                 if (c.equalsIgnoreCase("N")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiItems.NEXT.asItem()).setCallback(this::next));
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiItems.NEXT.value()).setCallback(this::next));
                 }
                 if (c.equalsIgnoreCase("P")) {
-                    this.setSlot(slot,  new GuiElementBuilder().setItem(RDGuiItems.PREV.asItem()).setCallback(this::prev));
+                    this.setSlot(slot,  new GuiElementBuilder().setItem(RDGuiItems.PREV.value()).setCallback(this::prev));
                 }
             }
         }

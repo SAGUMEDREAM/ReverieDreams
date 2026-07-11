@@ -6,8 +6,8 @@ import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
@@ -47,7 +47,7 @@ public class HawkerOffers {
         }
 
         // Level 1 - 2
-        for (DeferredItem ingredient : RDIngredientItems.INGREDIENTS) {
+        for (ItemDelegate ingredient : RDIngredientItems.INGREDIENTS) {
             Item item = ingredient.asItem();
             {
                 ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_1, TEMPLATE, 1, item);
@@ -106,14 +106,14 @@ public class HawkerOffers {
             ));
         }
         // Level 5
-        for (DeferredItem ingredient : RDIngredientItems.INGREDIENTS) {
+        for (ItemDelegate ingredient : RDIngredientItems.INGREDIENTS) {
             Item item = ingredient.asItem();
             ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_5, TEMPLATE, 5, item);
             makeCommon(builder, ingredient, key);
         }
     }
 
-    private static void makeCommon(RDVillagerTrades.PreparingTradeInfo builder, DeferredItem ingredient, ResourceKey<VillagerTrade> key) {
+    private static void makeCommon(RDVillagerTrades.PreparingTradeInfo builder, ItemDelegate ingredient, ResourceKey<VillagerTrade> key) {
         Collection<FoodProperty> ingredientProperties = FoodProperties.get(new ItemStackTemplate(ingredient.asItem()));
         int base = ingredientProperties.size();
         int min = (int) (base * 1.25 * 1);

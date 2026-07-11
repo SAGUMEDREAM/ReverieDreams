@@ -39,9 +39,6 @@ import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import eu.pb4.polymer.resourcepack.extras.api.ResourcePackExtras;
 import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistration;
-import net.fabricmc.fabric.impl.object.builder.FabricEntityDataRegistryImpl;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -69,7 +66,6 @@ public class PolymerInitializer {
     public static final String POLYMER_MOD_ID = "reverie_dreams_polymerify";
 
     public static void bootstrap() {
-        Balm.networking().allowServerOnly(ReverieDreams.MOD_ID);
         PolymerInitializer.polymerify();
     }
 
@@ -115,8 +111,8 @@ public class PolymerInitializer {
                 }
             });
         }
-        for (BalmEntityTypeRegistration<?> entityType : RDEntityTypes.ENTITY_TYPES) {
-            PolymerEntityUtils.registerType(entityType.asHolder().value());
+        for (var entityType : RDEntityTypes.ENTITY_TYPES) {
+            PolymerEntityUtils.registerType(entityType.value());
         }
         for (Holder<CriterionTrigger<?>> holder : RDCriteriaTriggers.LIST) {
             RegistrySyncUtils.setServerEntry(BuiltInRegistries.TRIGGER_TYPES, holder.value());

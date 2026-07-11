@@ -1,22 +1,18 @@
 package cc.thonly.reverie_dreams;
 
-import cc.thonly.keine.api.KeineAPI;
-import cc.thonly.keine.api.KeineRegistries;
 import cc.thonly.keine.api.callback.AttackBlockCallback;
 import cc.thonly.keine.api.callback.ItemAttackHitCallback;
+import cc.thonly.keine.api.callback.ServerCallback;
 import cc.thonly.keine.api.callback.ServerSavingCallback;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
-import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.networking.payload.*;
-import cc.thonly.reverie_dreams.proxy.PlatformProxies;
-import cc.thonly.reverie_dreams.registry.content.*;
-import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.creative_tab.CreativeTabs;
+import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
+import cc.thonly.reverie_dreams.creative_tab.RDCreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
+import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
@@ -24,14 +20,19 @@ import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.loot.RDLootModifies;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
+import cc.thonly.reverie_dreams.networking.payload.*;
+import cc.thonly.reverie_dreams.proxy.PlatformProxies;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
 import cc.thonly.reverie_dreams.registry.BiRegistryImpls;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
 import cc.thonly.reverie_dreams.registry.ServerResourceHelper;
+import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
 import cc.thonly.reverie_dreams.registry.content.block.*;
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
@@ -41,7 +42,10 @@ import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.server.*;
+import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
+import cc.thonly.reverie_dreams.server.DelayedTask;
+import cc.thonly.reverie_dreams.server.ParticleTickerManager;
+import cc.thonly.reverie_dreams.server.ServerEventHandlers;
 import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
 import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.server.nota.Nota;
@@ -57,37 +61,30 @@ import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
 import cc.thonly.reverie_dreams.world.RDGameRules;
 import cc.thonly.reverie_dreams.world.WorldGenerationInit;
+import dev.architectury.event.events.common.*;
+import dev.architectury.networking.NetworkManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.core.BalmRegistrars;
-import net.blay09.mods.balm.network.BalmNetworking;
-import net.blay09.mods.balm.platform.event.callback.*;
-import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistrar;
-import net.blay09.mods.balm.world.item.BalmItemRegistrar;
-import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-@SuppressWarnings("LombokGetterMayBeUsed")
 @Setter
 @Getter
 public class ReverieDreams {
@@ -100,43 +97,21 @@ public class ReverieDreams {
     public static final List<Runnable> LATE_INIT_CLIENT = new ArrayList<>();
     public static final Map<Identifier, EntityDataSerializer<?>> ENTITY_DATA_SERIALIZER_REGISTRY = new Object2ObjectLinkedOpenHashMap<>();
     public static final List<Block> SERVER_SIDE_BLOCKS = List.of(Blocks.NOTE_BLOCK, Blocks.TRIPWIRE);
-    public static Function<ResourceKey<? extends Registry<?>>, RegistryImpl<?>> REGISTRY_GETTER = null;
+    public static Function<ResourceKey<? extends Registry<?>>, RegistryImpl<?>> REGISTRY_GETTER = key -> null;
     public static BiFunction<ResourceKey<? extends Registry<?>>, RegistryImpl<?>, RegistryImpl<?>> REGISTRY_SHADOWER = null;
-    private static KeineRegistries keineRegistries;
-    private static BalmBlockRegistrar BLOCK_REGISTRAR;
-    private static BalmItemRegistrar ITEM_REGISTRAR;
-    private static BalmEntityTypeRegistrar ENTITY_TYPE_REGISTRAR;
     private static MinecraftServer server;
-    private static boolean loadDone;
 
     public static ReverieDreamsConfiguration config() {
-        ReverieDreamsConfiguration activeConfig = Balm.config().getActiveConfig(ReverieDreamsConfiguration.class);
-        return activeConfig == null ? new ReverieDreamsConfiguration() : activeConfig;
+        return AutoConfig
+                .getConfigHolder(
+                        ReverieDreamsConfiguration.class
+                )
+                .getConfig();
+
     }
 
-    public static BalmBlockRegistrar getBlockRegistrar() {
-        return BLOCK_REGISTRAR;
-    }
-
-    public static BalmItemRegistrar getItemRegistrar() {
-        return ITEM_REGISTRAR;
-    }
-
-    public static BalmEntityTypeRegistrar getEntityTypeRegistrar() {
-        return ENTITY_TYPE_REGISTRAR;
-    }
-
-    public static KeineRegistries getKeineRegistries() {
-        return keineRegistries;
-    }
-
-    public static boolean hasLoadDone() {
-        return loadDone;
-    }
-
-    public static void initialize(BalmRegistrars registrars, Runnable lateInit) {
-        keineRegistries = KeineAPI.getApi().getRegistries(MOD_ID);
-        Balm.config().registerConfig(ReverieDreamsConfiguration.class);
+    public static void initialize(Runnable lateInit) {
+        AutoConfig.register(ReverieDreamsConfiguration.class, GsonConfigSerializer::new);
         CardboardWarning.checkAndAnnounce();
         if (PlatformContext.isDevMode()) {
             LOGGER.warn("=====================================================");
@@ -151,9 +126,6 @@ public class ReverieDreams {
         LOGGER.info("Loaded " + MOD_NAME);
         PlatformContext.FABRIC_POLYFACTORY_HAND_CRANK = Blocks.AIR;
         PlatformContext.FABRIC_CREATE_FLY_HAND_CRANK = Blocks.AIR;
-        registrars.items(balmItemRegistrar -> ITEM_REGISTRAR = balmItemRegistrar);
-        registrars.blocks(balmBlockRegistrar -> BLOCK_REGISTRAR = balmBlockRegistrar);
-        registrars.entityTypes(balmEntityTypeRegistrar -> ENTITY_TYPE_REGISTRAR = balmEntityTypeRegistrar);
 
         // 初始化静态注册表
         Nota.initialize();
@@ -161,34 +133,35 @@ public class ReverieDreams {
         RDArmorMaterials.initialize();
         RDBlockStateTemplates.initialize();
         RDEnchantments.registerEnchantments();
-        registrars.registrar(Registries.SOUND_EVENT, RDSoundEvents::initialize);
-        registrars.dataComponentTypes(RDDataComponents::initialize);
-        registrars.items(RDGuiItems::initialize);
-        registrars.items(RDItems::initialize);
-        registrars.items(RDIngredientItems::initialize);
-        registrars.items(RDFoodItems::initialize);
-        registrars.items(RDDrinkItems::initialize);
-        registrars.items(RDEntityHolderItems::initialize);
-        registrars.blocks(RDBlocks::initialize);
-        registrars.blocks(RDWoodBlocks::initialize);
-        registrars.blocks(RDCropBlocks::initialize);
-        registrars.blocks(RDPlantBlocks::initialize);
-        registrars.blocks(KitchenBlocks::initialize);
-        registrars.blockEntityTypes(RDBlockEntityTypes::initialize);
-        registrars.entityTypes(RDEntityTypes::initialize);
-        registrars.registrar(Registries.MOB_EFFECT, RDStatusEffects::initialize);
-        registrars.registrar(Registries.POTION, RDPotions::initialize);
-        registrars.poiTypes(RDPointOfInterestTypes::initialize);
-        registrars.registrar(Registries.VILLAGER_PROFESSION, RDVillagerProfessions::initialize);
-        registrars.registrar(Registries.TRIGGER_TYPE, RDCriteriaTriggers::initialize);
-        registrars.registrar(Registries.GAME_RULE, RDGameRules::initialize);
-        registrars.creativeModeTabs(CreativeTabs::initialize);
-        WorldGenerationInit.registerWorldGeneration(registrars);
+        RDSoundEvents.initialize();
+        RDDataComponents.initialize();
+        RDGuiItems.initialize();
+        RDItems.initialize();
+        RDIngredientItems.initialize();
+        RDFoodItems.initialize();
+        RDDrinkItems.initialize();
+        RDEntityHolderItems.initialize();
+        RDBlocks.initialize();
+        RDWoodBlocks.initialize();
+        RDCropBlocks.initialize();
+        RDPlantBlocks.initialize();
+        KitchenBlocks.initialize();
+        RDBlockEntityTypes.initialize();
+        RDEntityTypes.initialize();
+        RDStatusEffects.initialize();
+        RDPotions.initialize();
+        RDPointOfInterestTypes.initialize();
+        RDVillagerProfessions.initialize();
+        RDCriteriaTriggers.initialize();
+        RDGameRules.initialize();
+        RDCreativeTabs.initialize();
+        WorldGenerationInit.registerWorldGeneration();
         BiomeModificationInit.initialize();
+        ReverieDreamsRegistries.register();
 
         // 初始化其他注册内容
         PlatformProxies.initialize();
-        RecipeManager.bootstrap(registrars);
+        RecipeManager.bootstrap();
         RecipeWorkbenchRegistry.bootstrap();
         ServerResourceHelper.init();
         RegistryImpls.bootstrap();
@@ -206,24 +179,26 @@ public class ReverieDreams {
         ImageToTextScanner.bootstrap();
         PlayerComponentRegistry.registerDefaultComponents();
 
-        loadCompletableEvent(registrars);
-        registerNetworkingEvent(registrars);
-        registerServerEvents(registrars);
-        registerContentEvent(registrars);
+        loadCompletableEvent();
+        registerNetworkingEvent();
+        registerServerEvents();
+        registerContentEvent();
+        registerEntityDataSerializers();
 
+        lateInit.run();
+    }
+
+    private static void registerEntityDataSerializers() {
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("danmaku_properties"), DanmakuProperties.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("skin_type"), SkinType.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("role_type"), NPCRole.SERIALIZER);
         ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("ingredient_stack"), IngredientStack.SERIALIZER);
-        lateInit.run();
-        loadDone = true;
     }
 
-    private static void registerContentEvent(BalmRegistrars registrars) {
-        LivingEntityCallback.Death.Before.EVENT.register(CommonEventHandlers::onLivingEntityDeathByDanmaku);
-        LivingEntityCallback.Death.Before.EVENT.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
-        LivingEntityCallback.Damage.Before.EVENT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
-        BlockCallback.Use.EVENT.register(CommonEventHandlers::onItemUsingByLilyPad);
+    private static void registerContentEvent() {
+        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByDanmaku);
+        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
+        EntityEvent.LIVING_HURT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitBySilverWeapon);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByMoonEnchantment);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByFrozenEnchantment);
@@ -231,98 +206,119 @@ public class ReverieDreams {
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByInstantKillGhost);
         AttackBlockCallback.EVENT.register(CommonEventHandlers::onAttackingBlockChangeCameraFov);
         AttackBlockCallback.EVENT.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
-        PlayerCallback.Attack.Before.EVENT.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
+        PlayerEvent.ATTACK_ENTITY.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
     }
 
-    private static void registerNetworkingEvent(BalmRegistrars registrars) {
-        BalmNetworking networking = Balm.networking();
-        registerClientboundPackets(networking);
-        registerServerboundPackets(networking);
+    private static void registerNetworkingEvent() {
+        registerClientboundPackets();
+        registerServerboundPackets();
     }
 
-    public static void registerClientboundPackets(BalmNetworking networking) {
-        networking.registerClientboundPacket(
+    public static void registerClientboundPackets() {
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.S2C,
                 RecipeManagerSyncPacket.PACKET_ID,
-                RecipeManagerSyncPacket.class,
                 RecipeManagerSyncPacket.CODEC,
-                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceiveRecipeManagerSyncPacket(player, packet))
+                (packet, context) ->
+                        ClientNetworkingHandlers.safeHandleClient(
+                                () -> ClientNetworkingHandlers.onReceiveRecipeManagerSyncPacket(
+                                        context.getPlayer(),
+                                        packet
+                                )
+                        )
         );
-
-        networking.registerClientboundPacket(
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.S2C,
                 RegistryImpSyncPacket.PACKET_ID,
-                RegistryImpSyncPacket.class,
                 RegistryImpSyncPacket.CODEC,
-                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceiveRegistryImpSyncPacket(player, packet))
+                (packet, context) ->
+                        ClientNetworkingHandlers.safeHandleClient(
+                                () -> ClientNetworkingHandlers.onReceiveRegistryImpSyncPacket(
+                                        context.getPlayer(),
+                                        packet
+                                )
+                        )
         );
-
-        networking.registerClientboundPacket(
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.S2C,
                 SyncEntityPacket.PACKET_ID,
-                SyncEntityPacket.class,
                 SyncEntityPacket.CODEC,
-                ClientNetworkingHandlers::onReceiveSyncEntityPacket
+                (packet, context) -> ClientNetworkingHandlers.onReceiveSyncEntityPacket(context.getPlayer(), packet)
         );
-
-        networking.registerClientboundPacket(
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.S2C,
                 StartScreenshotPacket.PACKET_ID,
-                StartScreenshotPacket.class,
                 StartScreenshotPacket.CODEC,
-                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceiveStartScreenshotPacket(player, packet))
+                (packet, context) ->
+                        ClientNetworkingHandlers.safeHandleClient(
+                                () -> ClientNetworkingHandlers.onReceiveStartScreenshotPacket(
+                                        context.getPlayer(),
+                                        packet
+                                )
+                        )
         );
-
-        networking.registerClientboundPacket(
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.S2C,
                 PlayerComponentUpdatePacket.PACKET_ID,
-                PlayerComponentUpdatePacket.class,
                 PlayerComponentUpdatePacket.CODEC,
-                (player, packet) -> ClientNetworkingHandlers.safeHandleClient(() -> ClientNetworkingHandlers.onReceivePlayerComponentUpdatePacket(player, packet))
+                (packet, context) ->
+                        ClientNetworkingHandlers.safeHandleClient(
+                                () -> ClientNetworkingHandlers.onReceivePlayerComponentUpdatePacket(
+                                        context.getPlayer(),
+                                        packet
+                                )
+                        )
         );
     }
-    public static void registerServerboundPackets(BalmNetworking networking) {
-        networking.registerServerboundPacket(
+
+    public static void registerServerboundPackets() {
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.C2S,
                 HelloPacket.PACKET_ID,
-                HelloPacket.class,
                 HelloPacket.CODEC,
-                ServerNetworkingHandlers::onReceiveHelloPacket
+                (packet, context) -> ServerNetworkingHandlers.onReceiveHelloPacket((ServerPlayer) context.getPlayer(), packet)
         );
-        networking.registerServerboundPacket(
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.C2S,
                 PlayerMidiNotePacket.PACKET_ID,
-                PlayerMidiNotePacket.class,
                 PlayerMidiNotePacket.CODEC,
-                ServerNetworkingHandlers::onReceivePlayerMidiNotePacket
+                (packet, context) -> ServerNetworkingHandlers.onReceivePlayerMidiNotePacket((ServerPlayer) context.getPlayer(), packet)
         );
-        networking.registerServerboundPacket(
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.C2S,
                 PlayerJoinVersionPacket.PACKET_ID,
-                PlayerJoinVersionPacket.class,
                 PlayerJoinVersionPacket.CODEC,
-                ServerNetworkingHandlers::onReceiveHelloPacket
+                (packet, context) -> ServerNetworkingHandlers.onReceiveHelloPacket((ServerPlayer) context.getPlayer(), packet)
         );
-        networking.registerServerboundPacket(
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.C2S,
                 ScreenshotMapPacket.PACKET_ID,
-                ScreenshotMapPacket.class,
                 ScreenshotMapPacket.CODEC,
-                ServerNetworkingHandlers::onReceiveScreenshotMapPacket
+                (packet, context) -> ServerNetworkingHandlers.onReceiveScreenshotMapPacket((ServerPlayer) context.getPlayer(), packet)
         );
     }
 
-    private static void registerServerEvents(BalmRegistrars registrars) {
-        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByModUpdateCheck);
-        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByCreateComponent);
-        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinBySync);
-        ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
-        ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
-        ServerLifecycleCallback.Started.EVENT.register(ServerEventHandlers::onServerStarted);
-        ServerLifecycleCallback.Reloading.EVENT.register(ServerEventHandlers::onServerReloading);
-        ServerLifecycleCallback.Reloaded.EVENT.register(ServerEventHandlers::onServerReloaded);
+    private static void registerServerEvents() {
+        CommandRegistrationEvent.EVENT.register(CommandInit::registerCommand);
+        PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinByModUpdateCheck);
+        PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinByCreateComponent);
+        PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinBySync);
+        PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
+        PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
+        LifecycleEvent.SERVER_STARTED.register(ServerEventHandlers::onServerStarted);
         ServerSavingCallback.AFTER.register(ServerEventHandlers::onServerSavingAfter);
-        ServerTickCallback.AFTER.register(DelayedTask::tick);
-        ServerTickCallback.AFTER.register(ServerPlayerComponentManager::tickByServer);
-        ServerTickCallback.AFTER.register(ParticleTickerManager::tick);
-        ServerTickCallback.AFTER.register(ServerPlayerInputManagerAccess::tick);
-        ServerTickCallback.AFTER.register(DanmakuScriptManager::onTick);
-        ServerTickCallback.AFTER.register(DialogPlayerManager::tick);
-        ServerTickCallback.AFTER.register(SpellcardRenderer::tick);
+        ServerCallback.RELOADING.register(ServerEventHandlers::onServerReloading);
+        ServerCallback.RELOADED.register(ServerEventHandlers::onServerReloaded);
+        TickEvent.SERVER_POST.register(DelayedTask::tick);
+        TickEvent.SERVER_POST.register(ServerPlayerComponentManager::tickByServer);
+        TickEvent.SERVER_POST.register(ParticleTickerManager::tick);
+        TickEvent.SERVER_POST.register(ServerPlayerInputManagerAccess::tick);
+        TickEvent.SERVER_POST.register(DanmakuScriptManager::onTick);
+        TickEvent.SERVER_POST.register(DialogPlayerManager::tick);
+        TickEvent.SERVER_POST.register(SpellcardRenderer::tick);
     }
 
-    private static void loadCompletableEvent(BalmRegistrars registrars) {
+    private static void loadCompletableEvent() {
         CompletableFuture.runAsync(ItemStackCheckUtils::test);
         CompletableFuture.runAsync(() -> {
             ModrinthAPI.Entry latest = ModrinthAPI.get();

@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
-import cc.thonly.reverie_dreams.client.renderer.entity.layers.WingLayer;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.ServerAvatarState;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
@@ -190,7 +191,14 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         super.extractRenderState(entity, state, partialTick);
         HumanoidMobRenderer.extractHumanoidRenderState(entity, state, partialTick, this.itemModelResolver);
         SkinType skinType = entity.getSkinType();
-        ClientAsset.Texture texture = new ClientAsset.ResourceTexture(skinType.getTexture());
+        if (skinType == null) {
+            skinType = MobSkinTypes.DEFAULT;
+        }
+        Identifier skinTypeTexture = skinType.getTexture();
+        if (skinTypeTexture == null) {
+            skinTypeTexture = ReverieDreams.id("entity/player/skin/default.png");
+        }
+        ClientAsset.Texture texture = new ClientAsset.ResourceTexture(skinTypeTexture);
         state.leftArmPose = getArmPose(entity, HumanoidArm.LEFT);
         state.rightArmPose = getArmPose(entity, HumanoidArm.RIGHT);
         state.skin = new PlayerSkin(texture, null, null, skinType.isSlim() ? PlayerModelType.SLIM : PlayerModelType.WIDE, false);

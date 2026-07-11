@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.compat.jei;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.kitchen.*;
-import cc.thonly.reverie_dreams.recipe.IClientRecipes;
 import cc.thonly.reverie_dreams.compat.ItemViewItemInfo;
 import cc.thonly.reverie_dreams.compat.jei.category.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.recipe.IClientRecipes;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
@@ -13,6 +13,7 @@ import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -20,7 +21,6 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -89,7 +89,7 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registry) {
         for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
-            DeferredItem itemHolder = danmakuType.getItemHolder();
+            ItemDelegate itemHolder = danmakuType.getItemHolder();
             registry.registerSubtypeInterpreter(itemHolder.asItem(), (stack, context) -> {
                 var color = stack.get(DataComponents.DYED_COLOR);
                 if (color == null) {

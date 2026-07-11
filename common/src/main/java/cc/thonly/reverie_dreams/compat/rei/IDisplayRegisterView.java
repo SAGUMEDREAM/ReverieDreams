@@ -1,21 +1,14 @@
 package cc.thonly.reverie_dreams.compat.rei;
 
-import cc.thonly.reverie_dreams.compat.rei.display.DanmakuCraftingTableDisplay;
-import cc.thonly.reverie_dreams.compat.rei.display.DanmakuShapeDrawDisplay;
-import cc.thonly.reverie_dreams.compat.rei.display.GensokyoAltarRecipeDisplay;
-import cc.thonly.reverie_dreams.compat.rei.display.StrengthTableDisplay;
 import cc.thonly.reverie_dreams.compat.rei.impl.RegisterViewImpl;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.registry.display.DisplayConsumer;
 import net.minecraft.resources.Identifier;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 public interface IDisplayRegisterView {

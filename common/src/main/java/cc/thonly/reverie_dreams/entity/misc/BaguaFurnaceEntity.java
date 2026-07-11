@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
+import cc.thonly.reverie_dreams.api.entity.type.BypassHitEntity;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.api.entity.type.BypassHitEntity;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
@@ -50,7 +50,7 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity {
     }
 
     public BaguaFurnaceEntity(ServerLevel world, @NotNull LivingEntity owner) {
-        super(RDEntityTypes.BAGUA_FURNACE.asHolder().value(), world);
+        super(RDEntityTypes.BAGUA_FURNACE.value(), world);
         this.ownerId = owner.getUUID();
 
         this.setXRot(owner.getXRot());

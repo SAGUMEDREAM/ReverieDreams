@@ -7,18 +7,18 @@ import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.ReferenceLinkedOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.blay09.mods.balm.world.item.BalmItemRegistrar;
-import net.blay09.mods.balm.world.item.BalmItemRegistration;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -60,7 +60,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
     private final float speed;
     private final boolean tile;
     private final boolean infinite;
-    private DeferredItem itemHolder;
+    private ItemDelegate itemHolder;
     private BaseDanmakuEntity.HitCallback hitFactory;
     private RegistryImpl<DanmakuType> owner;
     private boolean deleteFromList = false;
@@ -100,9 +100,9 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
     }
 
     public void createItemEntry() {
-        BalmItemRegistrar itemRegistrar = ReverieDreams.getItemRegistrar();
-        BalmItemRegistration itemRegistration = itemRegistrar.register(this.getItemId().getPath(), (props) -> {
-                    DanmakuItem item = new DanmakuItem(props
+        RegistrySupplier<Item> itemSupplier = ReverieDreamsRegistries.ITEM.register(this.getItemId().getPath(), () -> {
+                    DanmakuItem item = new DanmakuItem(new Item.Properties()
+                            .setId(RDItems.keyOf(this.getItemId().getPath()))
                             .component(RDDataComponents.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())
                             .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
                             .durability(120)
@@ -115,7 +115,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
                     return item;
                 }
         );
-        this.itemHolder = itemRegistration.asDeferredItem();
+        this.itemHolder = ItemDelegate.of(itemSupplier);
     }
 
     @SuppressWarnings({"deprecation", "OptionalGetWithoutIsPresent"})

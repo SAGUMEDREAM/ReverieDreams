@@ -85,7 +85,7 @@ public class ServerEventHandlers {
         RemoteSignalManager.access().saveAll(server);
     }
 
-    public static void onServerReloading(MinecraftServer server, ReloadableServerResources reloadableServerResources) {
+    public static void onServerReloading(MinecraftServer server, ReloadableServerResources resources) {
         server.execute(() -> {
         });
     }

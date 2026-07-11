@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.api.nota.callback;
 
 import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
-import net.blay09.mods.balm.platform.event.Event;
-import net.blay09.mods.balm.platform.event.EventFactory;
+import dev.architectury.event.Event;
+import dev.architectury.event.EventFactory;
 
 public interface SongEndCallback {
 
@@ -10,7 +10,7 @@ public interface SongEndCallback {
 	 * Called on end of a song.
 	 *
 	 */
-	Event<SongEndCallback> EVENT = EventFactory.createArrayBacked(SongEndCallback.class, (callbacks) -> (songPlayer) -> {
+	Event<SongEndCallback> EVENT = EventFactory.of((callbacks) -> (songPlayer) -> {
 		for (SongEndCallback callback : callbacks) {
 			callback.onSongEnd(songPlayer);
 		}

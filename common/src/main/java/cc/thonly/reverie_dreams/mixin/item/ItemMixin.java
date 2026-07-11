@@ -12,6 +12,7 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.base.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -59,6 +60,11 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
 
     @Shadow
     public abstract InteractionResult use(Level level, Player player, InteractionHand hand);
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    public void reverie_dreams$onInit(Item.Properties properties, CallbackInfo ci) {
+
+    }
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
     public void reverie_dreams$finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {

@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams;
 
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
-import cc.thonly.reverie_dreams.mixin.accessor.LevelAccessor;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
@@ -11,12 +10,12 @@ import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.NotaUtils;
+import cc.thonly.reverie_dreams.util.entity.EntityUtil;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
-import net.blay09.mods.balm.platform.event.callback.InteractionEventResult;
+import dev.architectury.event.EventResult;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -28,7 +27,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -47,25 +45,28 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@SuppressWarnings({"resource", "SameReturnValue"})
+@SuppressWarnings({"resource", "SameReturnValue", "deprecation", "JavaExistingMethodCanBeUsed"})
 public class CommonEventHandlers {
     // 银质物品对亡灵伤害
-    public static float onModifyingLivingEntityDamageByUndeadSilverDamage(LivingEntity entity, DamageSource damageSource, float damageAmount) {
+    public static EventResult onModifyingLivingEntityDamageByUndeadSilverDamage(LivingEntity entity, DamageSource damageSource, float damageAmount) {
         Entity directEntity = damageSource.getDirectEntity();
         if (!(directEntity instanceof LivingEntity attacker)) {
-            return damageAmount;
+            return EventResult.pass();
         }
         if (attacker.level().isClientSide()) {
-            return damageAmount;
+            return EventResult.pass();
         }
         ItemStack itemInHand = attacker.getItemInHand(InteractionHand.MAIN_HAND);
         if (!itemInHand.has(RDDataComponents.SILVER_ITEM.value())) {
-            return damageAmount;
+            return EventResult.pass();
         }
-        return damageAmount + 2;
+        EntityUtil.hurt((ServerLevel) entity.level(), entity, damageSource, 2);
+        return EventResult.pass();
     }
 
     // 银质物品对亡灵伤害
@@ -155,6 +156,7 @@ public class CommonEventHandlers {
         }
         return true;
     }
+
     // 冲刺附魔
     public static boolean onPostByChargeEnchantment(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = target.level();
@@ -195,10 +197,11 @@ public class CommonEventHandlers {
         }
         return true;
     }
+
     // 银制品秒杀鬼魂
     public static boolean onPostHitByInstantKillGhost(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         MinecraftServer server = target.level().getServer();
-        if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST && stack.getItem() == RDItems.ROKANKEN) {
+        if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST && RDItems.ROKANKEN.is(stack.getItem().builtInRegistryHolder())) {
             DamageSources damageSources = attacker.damageSources();
             target.invulnerableTime = 0;
             target.hurtTime = 0;
@@ -209,7 +212,7 @@ public class CommonEventHandlers {
     }
 
     // 骨粉作用于睡莲
-    public static InteractionEventResult onItemUsingByLilyPad(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
+    public static InteractionResult onItemUsingByLilyPad(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             ItemStack stack = player.getItemInHand(hand);
             BlockPos pos = hitResult.getBlockPos();
@@ -226,12 +229,12 @@ public class CommonEventHandlers {
 
                     player.swing(hand);
 
-                    return InteractionEventResult.SUCCESS_SERVER;
+                    return InteractionResult.SUCCESS_SERVER;
                 }
             }
         }
 
-        return InteractionEventResult.DEFAULT;
+        return InteractionResult.PASS;
     }
 
     public static InteractionResult onAttackingBlockChangeCameraFov(Player player, Level world, InteractionHand hand, BlockPos pos, Direction direction) {
@@ -292,21 +295,26 @@ public class CommonEventHandlers {
         return InteractionResult.PASS;
     }
 
-    public static boolean onChangingMusicalInstrumentMusic(Player player, Entity target) {
+    public static EventResult onChangingMusicalInstrumentMusic(Player player, Level level, Entity entity, InteractionHand hand, @Nullable EntityHitResult result) {
         onChangingMusicalInstrumentMusic(player, player.level(), InteractionHand.MAIN_HAND, BlockPos.ZERO, player.getMotionDirection());
-        return true;
+        return EventResult.pass();
     }
 
-    public static boolean onLivingEntityDeathByElixirOfLife(LivingEntity entity, DamageSource damageSource) {
-        return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE);
+    public static EventResult onChangingMusicalInstrumentMusic(Player player, Entity target) {
+        onChangingMusicalInstrumentMusic(player, player.level(), InteractionHand.MAIN_HAND, BlockPos.ZERO, player.getMotionDirection());
+        return EventResult.pass();
     }
 
-    public static boolean onLivingEntityDeathByDanmaku(LivingEntity entity, DamageSource damageSource) {
+    public static EventResult onLivingEntityDeathByElixirOfLife(LivingEntity entity, DamageSource damageSource) {
+        return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE) ? EventResult.interruptFalse() : EventResult.pass();
+    }
+
+    public static EventResult onLivingEntityDeathByDanmaku(LivingEntity entity, DamageSource damageSource) {
         if (damageSource.is(RDDamageTypeTags.DANMAKU_HIT)) {
 //            System.out.println("biu");
             SoundEventPlayUtils.playSound(entity.level(), entity.getX(), entity.getY(), entity.getZ(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL);
         }
-        return true;
+        return EventResult.pass();
     }
 
 }

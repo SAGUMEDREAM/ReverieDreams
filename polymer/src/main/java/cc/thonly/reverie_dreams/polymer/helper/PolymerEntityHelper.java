@@ -32,32 +32,32 @@ public class PolymerEntityHelper {
     public static final Model SCARECROW_MODEL = ModelUtil.loadBBModel(ReverieDreams.id("scarecrow"));
 
     public static void bootstrap() {
-        registerOverlay(RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value(), SunflowerYouseiImpl::new);
-        registerOverlay(RDEntityTypes.YOUSEI.asHolder().value(), YouseiImpl::new);
-        registerOverlay(RDEntityTypes.MAID_YOUSEI.asHolder().value(), MaidYouseiImpl::new);
-        registerOverlay(RDEntityTypes.GHOST.asHolder().value(), NPCImpl::new);
-        registerOverlay(RDEntityTypes.GOBLIN.asHolder().value(), NPCImpl::new);
-        registerOverlay(RDEntityTypes.WATER_ELEMENTAL.asHolder().value(), NPCImpl::new);
-        registerOverlay(RDEntityTypes.FIRE_ELEMENTAL.asHolder().value(), NPCImpl::new);
-        registerOverlay(RDEntityTypes.ICE_ELEMENTAL.asHolder().value(), NPCImpl::new);
-        registerOverlay(RDEntityTypes.MAGIC_BROOM.asHolder().value(), MagicBroomImpl::new);
-        registerOverlay(RDEntityTypes.WHEEL_CHAIR.asHolder().value(), WheelChairImpl::new);
-        registerOverlay(RDEntityTypes.MOON_RABBIT.asHolder().value(), MoonRabbitImpl::new);
-        registerOverlay(RDEntityTypes.KILLER_BEE.asHolder().value(), KillerBeeImpl::new);
-        registerOverlay(RDEntityTypes.ORE_ESP.asHolder().value(), OreEspImpl::new);
-        registerOverlay(RDEntityTypes.BAGUA_FURNACE.asHolder().value(), BaguaFurnaceImpl::new);
-        registerOverlay(RDEntityTypes.DANMAKU.asHolder().value(), DanmakuImpl::new);
-        registerOverlay(RDEntityTypes.KNIFE.asHolder().value(), DanmakuImpl::new);
-        registerOverlay(RDEntityTypes.FUMO_SELLER_VILLAGER.asHolder().value(), VillagerImpl::new);
-        registerOverlay(RDEntityTypes.NPC_ROLE.asHolder().value(), RoleImpl::new);
-        registerOverlay(RDEntityTypes.HAIRBALL.asHolder().value(), HairballImpl::new);
-        registerOverlay(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value(), MushroomMonsterImpl::new);
-        registerOverlay(RDEntityTypes.WILD_PIG.asHolder().value(), WildPigImpl::new);
-        registerOverlay(RDEntityTypes.TAVERN_VILLAGER.asHolder().value(), VillagerImpl::new);
-        registerOverlay(RDEntityTypes.SCARECROW.asHolder().value(), ScarecrowImpl::new);
-        registerOverlay(RDEntityTypes.UFO.asHolder().value(), UfoImpl::new);
-        registerOverlay(RDEntityTypes.RABBIT_UNIT.asHolder().value(), RoleImpl::new);
-        registerOverlay(RDEntityTypes.ONI.asHolder().value(), RoleImpl::new);
+        registerOverlay(RDEntityTypes.SUNFLOWER_YOUSEI.value(), SunflowerYouseiImpl::new);
+        registerOverlay(RDEntityTypes.YOUSEI.value(), YouseiImpl::new);
+        registerOverlay(RDEntityTypes.MAID_YOUSEI.value(), MaidYouseiImpl::new);
+        registerOverlay(RDEntityTypes.GHOST.value(), NPCImpl::new);
+        registerOverlay(RDEntityTypes.GOBLIN.value(), NPCImpl::new);
+        registerOverlay(RDEntityTypes.WATER_ELEMENTAL.value(), NPCImpl::new);
+        registerOverlay(RDEntityTypes.FIRE_ELEMENTAL.value(), NPCImpl::new);
+        registerOverlay(RDEntityTypes.ICE_ELEMENTAL.value(), NPCImpl::new);
+        registerOverlay(RDEntityTypes.MAGIC_BROOM.value(), MagicBroomImpl::new);
+        registerOverlay(RDEntityTypes.WHEEL_CHAIR.value(), WheelChairImpl::new);
+        registerOverlay(RDEntityTypes.MOON_RABBIT.value(), MoonRabbitImpl::new);
+        registerOverlay(RDEntityTypes.KILLER_BEE.value(), KillerBeeImpl::new);
+        registerOverlay(RDEntityTypes.ORE_ESP.value(), OreEspImpl::new);
+        registerOverlay(RDEntityTypes.BAGUA_FURNACE.value(), BaguaFurnaceImpl::new);
+        registerOverlay(RDEntityTypes.DANMAKU.value(), DanmakuImpl::new);
+        registerOverlay(RDEntityTypes.KNIFE.value(), DanmakuImpl::new);
+        registerOverlay(RDEntityTypes.FUMO_SELLER_VILLAGER.value(), VillagerImpl::new);
+        registerOverlay(RDEntityTypes.NPC_ROLE.value(), RoleImpl::new);
+        registerOverlay(RDEntityTypes.HAIRBALL.value(), HairballImpl::new);
+        registerOverlay(RDEntityTypes.MUSHROOM_MONSTER.value(), MushroomMonsterImpl::new);
+        registerOverlay(RDEntityTypes.WILD_PIG.value(), WildPigImpl::new);
+        registerOverlay(RDEntityTypes.TAVERN_VILLAGER.value(), VillagerImpl::new);
+        registerOverlay(RDEntityTypes.SCARECROW.value(), ScarecrowImpl::new);
+        registerOverlay(RDEntityTypes.UFO.value(), UfoImpl::new);
+        registerOverlay(RDEntityTypes.RABBIT_UNIT.value(), RoleImpl::new);
+        registerOverlay(RDEntityTypes.ONI.value(), RoleImpl::new);
 
         for (NPCRole role : RegistryImpls.NPC_ROLE) {
             registerOverlay(role.getEntityType().value(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);

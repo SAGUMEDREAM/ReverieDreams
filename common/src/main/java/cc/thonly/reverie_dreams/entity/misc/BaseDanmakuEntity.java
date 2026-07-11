@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.mixin.accessor.ProjectileAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ThrowableProjectileAccessor;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;

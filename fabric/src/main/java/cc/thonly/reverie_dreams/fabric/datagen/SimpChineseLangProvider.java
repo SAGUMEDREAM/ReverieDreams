@@ -792,27 +792,27 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
     public void generateEntityTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationWrapper builder = ITranslationWrapper.ofWrapper(wrapperLookup, translationBuilder);
-        builder.add(RDEntityTypes.FUMO_SELLER_VILLAGER.asHolder().value(), "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
-        builder.add(RDEntityTypes.KILLER_BEE.asHolder().value(), "杀人蜂", "杀人蜂刷怪蛋");
-        builder.add(RDEntityTypes.GHOST.asHolder().value(), "幽灵", "幽灵刷怪蛋");
-        builder.add(RDEntityTypes.MOON_RABBIT.asHolder().value(), "月兔", "月兔刷怪蛋");
-        builder.add(RDEntityTypes.YOUSEI.asHolder().value(), "妖精", "妖精刷怪蛋");
-        builder.add(RDEntityTypes.MAID_YOUSEI.asHolder().value(), "女仆妖精", "女仆妖精刷怪蛋");
-        builder.add(RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value(), "向日葵妖精", "向日葵妖精刷怪蛋");
-        builder.add(RDEntityTypes.GOBLIN.asHolder().value(), "哥布林", "哥布林刷怪蛋");
-        builder.add(RDEntityTypes.RABBIT_UNIT.asHolder().value(), "月兔战士", "月兔战士刷怪蛋");
-        builder.add(RDEntityTypes.WATER_ELEMENTAL.asHolder().value(), "水元素", "水元素刷怪蛋");
-        builder.add(RDEntityTypes.FIRE_ELEMENTAL.asHolder().value(), "火元素", "火元素刷怪蛋");
-        builder.add(RDEntityTypes.ICE_ELEMENTAL.asHolder().value(), "冰元素", "冰元素刷怪蛋");
-        builder.add(RDEntityTypes.MAGIC_BROOM.asHolder().value(), "魔法扫帚", "魔法扫帚刷怪蛋");
-        builder.add(RDEntityTypes.WHEEL_CHAIR.asHolder().value(), "轮椅", "轮椅刷怪蛋");
-        builder.add(RDEntityTypes.HAIRBALL.asHolder().value(), "毛玉", "毛玉刷怪蛋");
-        builder.add(RDEntityTypes.SCARECROW.asHolder().value(), "稻草人", "稻草人刷怪蛋");
-        builder.add(RDEntityTypes.UFO.asHolder().value(), "UFO", "UFO刷怪蛋");
-        builder.add(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value(), "蘑菇", "蘑菇刷怪蛋");
-        builder.add(RDEntityTypes.WILD_PIG.asHolder().value(), "野猪", "野猪刷怪蛋");
-        builder.add(RDEntityTypes.TAVERN_VILLAGER.asHolder().value(), "酒馆老板", "酒馆老板刷怪蛋");
-        builder.add(RDEntityTypes.ONI.asHolder().value(), "鬼", "鬼刷怪蛋");
+        builder.add(RDEntityTypes.FUMO_SELLER_VILLAGER.value(), "Fumo贩卖商人", "Fumo贩卖商人刷怪蛋");
+        builder.add(RDEntityTypes.KILLER_BEE.value(), "杀人蜂", "杀人蜂刷怪蛋");
+        builder.add(RDEntityTypes.GHOST.value(), "幽灵", "幽灵刷怪蛋");
+        builder.add(RDEntityTypes.MOON_RABBIT.value(), "月兔", "月兔刷怪蛋");
+        builder.add(RDEntityTypes.YOUSEI.value(), "妖精", "妖精刷怪蛋");
+        builder.add(RDEntityTypes.MAID_YOUSEI.value(), "女仆妖精", "女仆妖精刷怪蛋");
+        builder.add(RDEntityTypes.SUNFLOWER_YOUSEI.value(), "向日葵妖精", "向日葵妖精刷怪蛋");
+        builder.add(RDEntityTypes.GOBLIN.value(), "哥布林", "哥布林刷怪蛋");
+        builder.add(RDEntityTypes.RABBIT_UNIT.value(), "月兔战士", "月兔战士刷怪蛋");
+        builder.add(RDEntityTypes.WATER_ELEMENTAL.value(), "水元素", "水元素刷怪蛋");
+        builder.add(RDEntityTypes.FIRE_ELEMENTAL.value(), "火元素", "火元素刷怪蛋");
+        builder.add(RDEntityTypes.ICE_ELEMENTAL.value(), "冰元素", "冰元素刷怪蛋");
+        builder.add(RDEntityTypes.MAGIC_BROOM.value(), "魔法扫帚", "魔法扫帚刷怪蛋");
+        builder.add(RDEntityTypes.WHEEL_CHAIR.value(), "轮椅", "轮椅刷怪蛋");
+        builder.add(RDEntityTypes.HAIRBALL.value(), "毛玉", "毛玉刷怪蛋");
+        builder.add(RDEntityTypes.SCARECROW.value(), "稻草人", "稻草人刷怪蛋");
+        builder.add(RDEntityTypes.UFO.value(), "UFO", "UFO刷怪蛋");
+        builder.add(RDEntityTypes.MUSHROOM_MONSTER.value(), "蘑菇", "蘑菇刷怪蛋");
+        builder.add(RDEntityTypes.WILD_PIG.value(), "野猪", "野猪刷怪蛋");
+        builder.add(RDEntityTypes.TAVERN_VILLAGER.value(), "酒馆老板", "酒馆老板刷怪蛋");
+        builder.add(RDEntityTypes.ONI.value(), "鬼", "鬼刷怪蛋");
 
         var registry = wrapperLookup.lookupOrThrow(Registries.VILLAGER_PROFESSION);
         VillagerProfession hawkers = registry.getOrThrow(RDVillagerProfessions.HAWKERS_KEY).value();

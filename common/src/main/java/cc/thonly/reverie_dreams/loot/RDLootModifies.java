@@ -3,11 +3,11 @@ package cc.thonly.reverie_dreams.loot;
 import cc.thonly.keine.api.callback.LootTableCallback;
 import cc.thonly.keine.api.loot.KeineLootTableBuilder;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.entity.type.Yousei;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.Goblin;
 import cc.thonly.reverie_dreams.entity.Hairball;
-import cc.thonly.reverie_dreams.api.entity.type.Yousei;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
@@ -17,7 +17,8 @@ import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
-import net.blay09.mods.balm.platform.event.callback.LivingEntityCallback;
+import dev.architectury.event.EventResult;
+import dev.architectury.event.events.common.EntityEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -209,9 +210,9 @@ public class RDLootModifies {
             }
             return table;
         });
-        LivingEntityCallback.Death.Before.EVENT.register((entity, damageSource) -> {
+        EntityEvent.LIVING_DEATH.register((entity, damageSource) -> {
             RDLootModifies.modifyDrops(entity, damageSource);
-            return true;
+            return EventResult.pass();
         });
     }
 

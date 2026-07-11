@@ -15,7 +15,7 @@ import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import net.blay09.mods.balm.platform.event.Event;
+import dev.architectury.event.Event;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 
 public class InitTooltips {
     public static void bootstrap() {
-        Event<ItemStackTooltipCallback> event = getEvent();
+        Event<ItemStackTooltipCallback> event = getTooltipEventBus();
         registerTooltip(InitTooltips::appendDanmakuTooltip);
         registerTooltip(InitTooltips::appendDanmakuShapeTooltip);
         registerTooltip(InitTooltips::appendDrinkItemTooltip);
@@ -148,7 +148,7 @@ public class InitTooltips {
     }
 
     public static void registerTooltip(ItemStackTooltipCallback callback) {
-        Event<ItemStackTooltipCallback> event = getEvent();
+        Event<ItemStackTooltipCallback> event = getTooltipEventBus();
         event.register((itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag) -> {
             invokeBypassShowOnly(callback, itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag);
         });
@@ -165,7 +165,7 @@ public class InitTooltips {
         callback.appendTooltip(itemStack, context, display, player, consumer, flag);
     }
 
-    public static Event<ItemStackTooltipCallback> getEvent() {
+    public static Event<ItemStackTooltipCallback> getTooltipEventBus() {
         return ItemStackTooltipCallback.EVENT;
     }
 }

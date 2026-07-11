@@ -11,15 +11,13 @@ import cc.thonly.reverie_dreams.recipe.crafting.DanmakuDyeRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.*;
 import cc.thonly.reverie_dreams.recipe.type.*;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import dev.architectury.networking.NetworkManager;
+import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.core.BalmRegistrar;
-import net.blay09.mods.balm.core.BalmRegistrars;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Slf4j
 public class RecipeManager {
@@ -43,20 +41,16 @@ public class RecipeManager {
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
     public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
-    public static Holder<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE;
+    public static final RegistrySupplier<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE = registerRecipeSerializer("crafting_special_danmakudye", () -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
 
-    public static void bootstrap(BalmRegistrars registrars) {
-        BalmRegistrar.Scoped<RecipeSerializer<?>> recipeSerializerScoped = registrars.registrar(Registries.RECIPE_SERIALIZER);
-        DANMAKU_DYE_RECIPE = registerRecipeSerializer(recipeSerializerScoped, "crafting_special_danmakudye", key -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
+    public static void bootstrap() {
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T extends Recipe<?>> Holder<RecipeSerializer<T>> registerRecipeSerializer(
-            BalmRegistrar.Scoped<? extends RecipeSerializer<?>> scoped,
+    public static <T extends Recipe<?>> RegistrySupplier<RecipeSerializer<T>> registerRecipeSerializer(
             String name,
-            Function<Identifier, RecipeSerializer<T>> resourceFunction
+            Supplier<RecipeSerializer<T>> resourceFunction
     ) {
-        return (Holder<RecipeSerializer<T>>) (Holder<?>) scoped.register(name, (Function) resourceFunction);
+        return ReverieDreamsRegistries.RECIPE_SERIALIZER.register(name, resourceFunction);
     }
 
     public static <R extends BaseRecipe> SuggestionProvider<CommandSourceStack> getSuggestions(BaseRecipeType<R> type) {
@@ -90,7 +84,7 @@ public class RecipeManager {
             }
             for (RecipeManagerSyncPacket payload : payloads) {
                 Identifier key = payload.typeId();
-                Balm.networking().sendTo(player, payload);
+                NetworkManager.sendToPlayer(player, payload);
                 log.info("Send recipe type registry {} to {}", key, player.getPlainTextName());
             }
         }

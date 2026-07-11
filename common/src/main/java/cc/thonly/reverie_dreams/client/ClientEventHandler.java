@@ -5,21 +5,22 @@ import cc.thonly.reverie_dreams.client.util.MidiListener;
 import cc.thonly.reverie_dreams.networking.payload.HelloPacket;
 import cc.thonly.reverie_dreams.networking.payload.PlayerJoinVersionPacket;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import net.blay09.mods.balm.Balm;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 
 public class ClientEventHandler {
-    public static void onPlayerConnectedToServer(Minecraft client) {
+    public static void onPlayerConnectedToServer(LocalPlayer player) {
         ClientPlayerComponentManager.clearConnection();
-        Balm.networking().sendToServer(new HelloPacket());
-        Balm.networking().sendToServer(new PlayerJoinVersionPacket(PlatformContext.VERSION.get()));
+        NetworkManager.sendToServer(new HelloPacket());
+        NetworkManager.sendToServer(new PlayerJoinVersionPacket(PlatformContext.VERSION.get()));
     }
 
-    public static void onInitMidiDevice(Minecraft client) {
+    public static void onInitMidiDevice(LocalPlayer player) {
         MidiListener.startListener();
     }
 
-    public static void onStopMidiDevice(Minecraft client) {
+    public static void onStopMidiDevice(LocalPlayer player) {
         MidiListener.closeListener();
     }
 }

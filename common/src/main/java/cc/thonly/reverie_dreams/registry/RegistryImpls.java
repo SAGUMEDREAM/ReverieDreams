@@ -34,9 +34,9 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import dev.architectury.networking.NetworkManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.IdentifierArgument;
@@ -197,7 +197,7 @@ public class RegistryImpls {
 
         for (ServerPlayer player : players) {
             for (RegistryImpSyncPacket payload : payloads) {
-                Balm.networking().sendTo(player, payload);
+                NetworkManager.sendToPlayer(player, payload);
             }
         }
     }

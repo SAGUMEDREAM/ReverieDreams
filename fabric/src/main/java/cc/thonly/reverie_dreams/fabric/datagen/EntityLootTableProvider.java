@@ -25,14 +25,14 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
 
     @Override
     public void generate() {
-        this.add(RDEntityTypes.WILD_PIG.asHolder().value(),
+        this.add(RDEntityTypes.WILD_PIG.value(),
                 new LootTable.Builder()
                         .withPool(new LootPool.Builder()
                                 .setRolls(UniformGenerator.between(1.0f, 3.0f))
                                 .add(LootItem.lootTableItem(RDIngredientItems.WILD_BOAR_MEAT))
                         )
         );
-        this.add(RDEntityTypes.MOON_RABBIT.asHolder().value(),
+        this.add(RDEntityTypes.MOON_RABBIT.value(),
                 new LootTable.Builder()
                         .withPool(new LootPool.Builder()
                                 .setRolls(ConstantValue.exactly(1.0f))
@@ -56,7 +56,7 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
                                 )
                         )
         );
-        this.add(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value(),
+        this.add(RDEntityTypes.MUSHROOM_MONSTER.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()
@@ -73,7 +73,7 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
                                         )
                         )
         );
-        this.add(RDEntityTypes.UFO.asHolder().value(),
+        this.add(RDEntityTypes.UFO.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()
@@ -99,7 +99,7 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
                                         )
                         )
         );
-        this.add(RDEntityTypes.HAIRBALL.asHolder().value(),
+        this.add(RDEntityTypes.HAIRBALL.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()
@@ -111,7 +111,7 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
                                         )
                         )
         );
-        this.add(RDEntityTypes.RABBIT_UNIT.asHolder().value(),
+        this.add(RDEntityTypes.RABBIT_UNIT.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()

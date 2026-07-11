@@ -1,37 +1,57 @@
 package cc.thonly.reverie_dreams;
 
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
-import net.blay09.mods.balm.platform.config.reflection.Comment;
-import net.blay09.mods.balm.platform.config.reflection.Config;
-import net.blay09.mods.balm.platform.config.reflection.NestedType;
-
-import java.util.Arrays;
-import java.util.List;
-
-@Config(value = ReverieDreams.MOD_ID, type = "common")
-public class ReverieDreamsConfiguration {
-    @Comment("Do not modify")
+@Config(name = ReverieDreams.MOD_ID)
+public class ReverieDreamsConfiguration implements ConfigData {
+    @ConfigEntry.Gui.Tooltip
     public int configVersion = 1;
-    @Comment("If enabled, the mod will automatically check for new versions.")
+
+    @ConfigEntry.Gui.Tooltip
     public boolean checkUpdate = true;
-    @Comment("Shows extra debug logs and developer-only information.")
+
+
+    @ConfigEntry.Gui.Tooltip
     public boolean debugMode = false;
-    @Comment("Replaces vanilla torch item overlay to display a glowing outline.")
+
+
+    @ConfigEntry.Gui.Tooltip
     public boolean enableDanmakuGlow = true;
-    @Comment("Defines the highest total health value players can reach through upgrades.")
+
+
+    @ConfigEntry.Gui.Tooltip
     public int maxUpgradedHealthValue = 1024;
-    @Comment("Toggle to allow Yousei to spawn naturally.")
+
+
+    @ConfigEntry.Gui.Tooltip
     public boolean enableYouseiSpawn = true;
-    @Comment("Toggle to allow Ghosts to spawn naturally.")
+
+
+    @ConfigEntry.Gui.Tooltip
     public boolean enableGhostSpawn = false;
-    @Comment("Toggle to replace general chat by AIChat")
+
+
+    @ConfigEntry.Gui.Tooltip
     public boolean enableAIReplacesGeneralChat = false;
-    @Comment("Set Chat API url")
-    public String apiUrl = "https://api.deepseek.com/v1/chat/completions";
-    @Comment("Set Chat API key")
+
+
+    @ConfigEntry.Gui.Tooltip
+    public String apiUrl =
+            "https://api.deepseek.com/v1/chat/completions";
+
+
+    @ConfigEntry.Gui.Tooltip
     public String apiKey = "";
-    @Comment("Set Chat API Model")
-    public String model = "deepseek-chat";
-    @Comment("Set Chat API Type: openai/deepseek/gemini/claude")
-    public String chatType = "deepseek";
+
+
+    @ConfigEntry.Gui.Tooltip
+    public String model =
+            "deepseek-chat";
+
+
+    @ConfigEntry.Gui.Tooltip
+    public String chatType =
+            "deepseek";
 }

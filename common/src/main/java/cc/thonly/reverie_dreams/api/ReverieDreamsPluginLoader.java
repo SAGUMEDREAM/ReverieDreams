@@ -17,8 +17,8 @@ import cc.thonly.reverie_dreams.api.registry.callback.RegistryImplReloadCallback
 import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RawIdTypeRegistryImpl;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
+import dev.architectury.event.Event;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.platform.event.Event;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.ai.goal.Goal;

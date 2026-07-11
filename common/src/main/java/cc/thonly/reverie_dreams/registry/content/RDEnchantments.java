@@ -39,6 +39,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("UnusedReturnValue")
 public class RDEnchantments {
     public static final Set<ResourceKey<Enchantment>> KEYS = new LinkedHashSet<>();
     public static final ResourceKey<Enchantment> EXTERMINATION = getOrCreateKey("extermination");

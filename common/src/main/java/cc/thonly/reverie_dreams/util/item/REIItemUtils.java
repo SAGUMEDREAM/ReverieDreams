@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.util.item;
 
 import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +19,7 @@ public class REIItemUtils {
         return EntryIngredient.of(EntryStack.of(VanillaEntryTypes.ITEM, item.asItem().getDefaultInstance()));
     }
 
-    public static EntryIngredient getItem(DeferredItem item) {
+    public static EntryIngredient getItem(ItemDelegate item) {
         return EntryIngredient.of(EntryStack.of(VanillaEntryTypes.ITEM, item.asItem().getDefaultInstance()));
     }
 

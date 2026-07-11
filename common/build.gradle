@@ -17,17 +17,13 @@ dependencies {
 
 apply from: rootProject.file('repositories.gradle')
 dependencies {
-    implementation("net.blay09.mods:balm-common:${balm_version}") {
-        changing = balm_version.endsWith("SNAPSHOT")
-    }
+    implementation("dev.architectury:architectury:${architectury_api_version}")
     implementation("gg.moonflower:molang-compiler:3.1.1.19")
     implementation("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
     compileOnly("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}") { transitive = false }
 
     api("cc.thonly:sgui-common:${sgui_forgelike_version}")
     api("cc.thonly:keine-common:${keine_version}")
-    api(project(":common").files("/libs/sparkle-morpher-1.0.3-fa26.1.x.jar"))
-    api(project(":common").files("/libs/sparkle-morpher-1.0.3-neo26.1.x.jar"))
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-common:${jei_version}")
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}+${minecraft_version}")
@@ -35,6 +31,8 @@ dependencies {
 
 //    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3")
     compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
     compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rei_version}")
 }

@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -78,9 +77,9 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                 DataResult<StrengthTableRecipe> result = this.getCodec().parse(input);
 
                 result.resultOrPartial(error -> log.error("Failed to load strength table recipe {}, {}", id, error))
-                        .ifPresent(recipe -> {
-                            this.add(registryKey, recipe);
-                        });
+                      .ifPresent(recipe -> {
+                          this.add(registryKey, recipe);
+                      });
             } catch (IOException e) {
                 log.error("Failed to load strength table recipe {}, {}, {}", id, e.getMessage(), e);
             }
@@ -96,12 +95,12 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(Items.IRON_SWORD)), RDDataComponents.DANMAKU_PROPERTIES.value());
 
         Map<Identifier, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .collect(
-                        LinkedHashMap::new,
-                        (m, e) -> m.put(e.getKey(), e.getValue()),
-                        Map::putAll
-                );
+                                                                              .sorted(Map.Entry.comparingByKey())
+                                                                              .collect(
+                                                                                      LinkedHashMap::new,
+                                                                                      (m, e) -> m.put(e.getKey(), e.getValue()),
+                                                                                      Map::putAll
+                                                                              );
         sortedByKey.forEach(this::add);
     }
 
@@ -170,7 +169,7 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         Item offItem = offStack.getItem();
         boolean isDanmakuItem = mainItem instanceof DanmakuItem;
         boolean isSpellCardTemplate = offItem instanceof SpellCardTemplateItem;
-        boolean isSpeedItem = offItem == RDItems.SPEED_FEATHER;
+        boolean isSpeedItem = RDItems.SPEED_FEATHER.value() == offItem;
         boolean isSlime = offItem == Items.SLIME_BLOCK;
         boolean isIronSword = offItem == Items.IRON_SWORD;
         if (isDanmakuItem && isSpellCardTemplate) {

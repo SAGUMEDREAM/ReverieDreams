@@ -37,7 +37,7 @@ public class ScarecrowItem extends Item {
 
             itemStack.consume(1, player);
             boolean b = Objects.equals(blockPos, blockPos2) && direction == Direction.UP;
-            Scarecrow entity = RDEntityTypes.SCARECROW.asHolder().value().spawn(
+            Scarecrow entity = RDEntityTypes.SCARECROW.value().spawn(
                     world,
                     null,
                     player,

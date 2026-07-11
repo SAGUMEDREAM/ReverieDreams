@@ -4,13 +4,13 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.RecipeItemTag;
+import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
 import cc.thonly.reverie_dreams.util.item.CompatItemTuple;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -38,15 +38,15 @@ public class PatchBuilder<Recipe extends BaseRecipe> {
         this.baseRecipeType = baseRecipeType;
     }
 
-    public PatchBuilder<Recipe> add(Item targetItem, DeferredItem compatItem) {
+    public PatchBuilder<Recipe> add(Item targetItem, ItemDelegate compatItem) {
         return this.add(new CompatItemTuple(targetItem, compatItem.asItem()));
     }
 
-    public PatchBuilder<Recipe> add(DeferredItem targetItem, Item compatItem) {
+    public PatchBuilder<Recipe> add(ItemDelegate targetItem, Item compatItem) {
         return this.add(new CompatItemTuple(targetItem.asItem(), compatItem));
     }
 
-    public PatchBuilder<Recipe> add(DeferredItem targetItem, DeferredItem compatItem) {
+    public PatchBuilder<Recipe> add(ItemDelegate targetItem, ItemDelegate compatItem) {
         return this.add(new CompatItemTuple(targetItem.asItem(), compatItem.asItem()));
     }
 

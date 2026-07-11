@@ -1,18 +1,20 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.block.props.RailControllerBlock;
-import cc.thonly.reverie_dreams.block.props.SignalRailBlock;
 import cc.thonly.reverie_dreams.api.entity.CartSignal;
 import cc.thonly.reverie_dreams.api.entity.LockedCart;
+import cc.thonly.reverie_dreams.block.props.RailControllerBlock;
+import cc.thonly.reverie_dreams.block.props.SignalRailBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.*;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.Ticket;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;

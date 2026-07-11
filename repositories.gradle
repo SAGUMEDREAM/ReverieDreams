@@ -7,7 +7,10 @@ repositories {
 //        }
 //    }
     maven {
-        url "https://maven.ryanliptak.com/"
+        url = "https://maven.architectury.dev/"
+    }
+    maven {
+        url = "https://maven.ryanliptak.com/"
     }
     maven {
         url = "https://jitpack.io/"
@@ -82,7 +85,6 @@ repositories {
     maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
     maven { url = 'https://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url = "https://maven.fabricmc.net/" }
-    maven { url = "https://maven.architectury.dev/" }
     maven { url = "https://maven.quiltmc.org/repository/release/" }
     maven { url = "https://maven.terraformersmc.com/" }
     maven { url = "https://maven.ladysnake.org/releases" }
@@ -107,7 +109,6 @@ repositories {
     maven { url = "https://maven.blamejared.com/" }
     maven { url = "https://modmaven.dev" }
     maven { url = "https://maven.shedaniel.me/" }
-    maven { url = "https://maven.architectury.dev/" }
     flatDir {
         dirs 'libs'
     }

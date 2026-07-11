@@ -4,9 +4,8 @@ import cc.thonly.reverie_dreams.api.player.BasePlayerComponentManager;
 import cc.thonly.reverie_dreams.server.component.ComponentEntry;
 import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
+import dev.architectury.platform.Platform;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.platform.BalmSafeClientAccess;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -20,8 +19,8 @@ public final class ClientPlayerComponentManager extends BasePlayerComponentManag
 
     @SuppressWarnings("resource")
     public static void tickByClient(Minecraft client) {
-        BalmSafeClientAccess balmSafeClientAccess = Balm.safeClientAccess();
-        Player clientPlayer = balmSafeClientAccess.getClientPlayer();
+        Minecraft mc = Minecraft.getInstance();
+        Player clientPlayer = mc.player;
         if (clientPlayer == null) {
             return;
         }

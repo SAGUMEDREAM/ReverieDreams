@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.block.bundle;
 
 import cc.thonly.keine.api.KeineRegistries;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
 import lombok.Getter;
-import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.TreeGrower;
@@ -23,22 +23,22 @@ public class WoodBundle extends AbstractBlockBundle {
     public static final List<WoodBundle> INSTANCES = new ArrayList<>();
     @Getter
     private final TreeGrower saplingGenerator;
-    private DeferredBlock log;
-    private DeferredBlock wood;
-    private DeferredBlock strippedLog;
-    private DeferredBlock strippedWood;
-    private DeferredBlock leaves;
-    private DeferredBlock sapling;
-    private DeferredBlock planks;
-    private DeferredBlock stairs;
-    private DeferredBlock slab;
-    private DeferredBlock door;
-    private DeferredBlock trapdoor;
-    private DeferredBlock fence;
-    private DeferredBlock fenceGate;
-    private DeferredBlock button;
+    private BlockDelegate log;
+    private BlockDelegate wood;
+    private BlockDelegate strippedLog;
+    private BlockDelegate strippedWood;
+    private BlockDelegate leaves;
+    private BlockDelegate sapling;
+    private BlockDelegate planks;
+    private BlockDelegate stairs;
+    private BlockDelegate slab;
+    private BlockDelegate door;
+    private BlockDelegate trapdoor;
+    private BlockDelegate fence;
+    private BlockDelegate fenceGate;
+    private BlockDelegate button;
     @Nullable
-    private DeferredBlock fruitLeaves;
+    private BlockDelegate fruitLeaves;
 
     private WoodBundle(Identifier id, TreeGrower saplingGenerator) {
         super(id.getPath(), id);
@@ -50,50 +50,50 @@ public class WoodBundle extends AbstractBlockBundle {
         this(ReverieDreams.id(name), saplingGenerator);
     }
 
-    public WoodBundle build(BalmBlockRegistrar registrar) {
-        this.log = RDBlocks.registerSimpleBlock(registrar, suffix("log"),
+    public WoodBundle build() {
+        this.log = RDBlocks.registerSimpleBlock(suffix("log"),
                 RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
-        this.wood = RDBlocks.registerSimpleBlock(registrar, suffix("wood"),
+        this.wood = RDBlocks.registerSimpleBlock(suffix("wood"),
                 RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
-        this.strippedLog = RDBlocks.registerSimpleBlock(registrar, prefix(suffix("log"), "stripped"),
+        this.strippedLog = RDBlocks.registerSimpleBlock(prefix(suffix("log"), "stripped"),
                 RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).noOcclusion());
 
-        this.strippedWood = RDBlocks.registerSimpleBlock(registrar, prefix(suffix("wood"), "stripped"),
+        this.strippedWood = RDBlocks.registerSimpleBlock(prefix(suffix("wood"), "stripped"),
                 RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion());
 
-        this.leaves = RDBlocks.registerSimpleBlock(registrar, suffix("leaves"),
+        this.leaves = RDBlocks.registerSimpleBlock(suffix("leaves"),
                 (settings) -> new TintedParticleLeavesBlock(0.01f, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES));
 
-        this.sapling = RDBlocks.registerSimpleBlock(registrar, suffix("sapling"),
+        this.sapling = RDBlocks.registerSimpleBlock(suffix("sapling"),
                 (settings) -> new SaplingBlock(this.saplingGenerator, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING));
 
-        this.planks = RDBlocks.registerSimpleBlock(registrar, suffix("planks"),
+        this.planks = RDBlocks.registerSimpleBlock(suffix("planks"),
                 Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS));
 
-        this.stairs = RDBlocks.registerSimpleBlock(registrar, suffix("stairs"),
-                (settings) -> new StairBlock(this.planks.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
+        this.stairs = RDBlocks.registerSimpleBlock(suffix("stairs"),
+                (settings) -> new StairBlock(this.planks.asBlock().defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS));
 
-        this.slab = RDBlocks.registerSimpleBlock(registrar, suffix("slab"),
+        this.slab = RDBlocks.registerSimpleBlock(suffix("slab"),
                 SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB));
 
-        this.door = RDBlocks.registerSimpleBlock(registrar, suffix("door"),
+        this.door = RDBlocks.registerSimpleBlock(suffix("door"),
                 (settings) -> new DoorBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR));
 
-        this.trapdoor = RDBlocks.registerSimpleBlock(registrar, suffix("trapdoor"),
+        this.trapdoor = RDBlocks.registerSimpleBlock(suffix("trapdoor"),
                 (settings) -> new TrapDoorBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR));
 
-        this.fence = RDBlocks.registerSimpleBlock(registrar, suffix("fence"),
+        this.fence = RDBlocks.registerSimpleBlock(suffix("fence"),
                 FenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE));
 
-        this.fenceGate = RDBlocks.registerSimpleBlock(registrar, suffix("fence_gate"),
+        this.fenceGate = RDBlocks.registerSimpleBlock(suffix("fence_gate"),
                 (settings) -> new FenceGateBlock(WoodType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE));
 
-        this.button = RDBlocks.registerSimpleBlock(registrar, suffix("button"),
+        this.button = RDBlocks.registerSimpleBlock(suffix("button"),
                 (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON));
 
-        KeineRegistries registries = ReverieDreams.getKeineRegistries();
+        KeineRegistries registries = ReverieDreamsRegistries.KEINE_REGISTRIES;
         registries.strippableBlockRegistry().register(context -> {
             context.add(this.log(), this.strippedLog());
         });
@@ -124,72 +124,72 @@ public class WoodBundle extends AbstractBlockBundle {
         return this;
     }
 
-    public DeferredBlock log() {
+    public BlockDelegate log() {
         return this.log;
     }
 
-    public DeferredBlock wood() {
+    public BlockDelegate wood() {
         return this.wood;
     }
 
-    public DeferredBlock strippedLog() {
+    public BlockDelegate strippedLog() {
         return this.strippedLog;
     }
 
-    public DeferredBlock strippedWood() {
+    public BlockDelegate strippedWood() {
         return this.strippedWood;
     }
 
-    public DeferredBlock leaves() {
+    public BlockDelegate leaves() {
         return this.leaves;
     }
 
-    public DeferredBlock sapling() {
+    public BlockDelegate sapling() {
         return this.sapling;
     }
 
-    public DeferredBlock planks() {
+    public BlockDelegate planks() {
         return this.planks;
     }
 
-    public DeferredBlock stairs() {
+    public BlockDelegate stairs() {
         return this.stairs;
     }
 
-    public DeferredBlock slab() {
+    public BlockDelegate slab() {
         return this.slab;
     }
 
-    public DeferredBlock door() {
+    public BlockDelegate door() {
         return this.door;
     }
 
-    public DeferredBlock trapdoor() {
+    public BlockDelegate trapdoor() {
         return this.trapdoor;
     }
 
-    public DeferredBlock fence() {
+    public BlockDelegate fence() {
         return this.fence;
     }
 
-    public DeferredBlock fenceGate() {
+    public BlockDelegate fenceGate() {
         return this.fenceGate;
     }
 
-    public DeferredBlock button() {
+    public BlockDelegate button() {
         return this.button;
     }
 
-    public DeferredBlock fruitLeaves() {
+    public BlockDelegate fruitLeaves() {
         return this.fruitLeaves;
     }
 
-    public void setFruitLeaves(@NotNull DeferredBlock fruitLeaves) {
+    public void setFruitLeaves(@NotNull BlockDelegate fruitLeaves) {
         this.fruitLeaves = fruitLeaves;
     }
 
-    public Collection<DeferredBlock> stream() {
-        ArrayList<DeferredBlock> result = new ArrayList<>(List.of(this.log,
+    public Collection<BlockDelegate> stream() {
+        ArrayList<BlockDelegate> result = new ArrayList<>(List.of(this.log,
                 this.wood,
                 this.strippedLog,
                 this.strippedWood,

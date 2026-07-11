@@ -2,20 +2,19 @@ package cc.thonly.reverie_dreams.proxy;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.other.GuidebookItem;
-import cc.thonly.reverie_dreams.item.other.UrlTHGuideBookItem;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import net.blay09.mods.balm.platform.event.Event;
-import net.blay09.mods.balm.platform.event.EventFactory;
+import dev.architectury.event.Event;
+import dev.architectury.event.EventFactory;
 import net.minecraft.world.item.Item;
 
 @FunctionalInterface
 public interface GuidebookFactory {
-    Event<GuidebookFactory> EVENT = EventFactory.createArrayBacked(
-            GuidebookFactory.class,
+    Event<GuidebookFactory> EVENT = EventFactory.of(
             listeners -> (props) -> {
                 for (GuidebookFactory listener : listeners) {
                     Item result = listener.create(props);
-                    if (result != null) return result;
+                    if (result != null)
+                        return result;
                 }
                 return new GuidebookItem(props.component(RDDataComponents.GUIDE_BOOK_NAMESPACE.value(), ReverieDreams.MOD_ID));
             }

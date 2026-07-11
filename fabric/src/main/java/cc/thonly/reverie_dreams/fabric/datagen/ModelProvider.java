@@ -19,7 +19,6 @@ import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.*;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -331,13 +330,13 @@ public class ModelProvider extends FabricModelProvider {
 
     public void generateMystiaItem(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(RDItems.MYSTIA_ICON.asItem(), ModelTemplates.FLAT_ITEM);
-        for (DeferredItem item : RDIngredientItems.INGREDIENTS) {
+        for (var item : RDIngredientItems.INGREDIENTS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
-        for (DeferredItem item : RDFoodItems.FOOD_ITEMS) {
+        for (var item : RDFoodItems.FOOD_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
-        for (DeferredItem item : RDDrinkItems.DRINK_ITEMS) {
+        for (var item : RDDrinkItems.DRINK_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
     }
