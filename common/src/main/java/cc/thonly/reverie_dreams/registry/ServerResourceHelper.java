@@ -44,7 +44,6 @@ public class ServerResourceHelper {
 
                         registry.validate();
                     }
-                    CustomSkinLoader.getInstance().onReload(rm);
                     CookingInputRecipeManager.getInstance().clearItems();
                     ItemCateManager.getInstance().clearTags();
                     BookPageManager.getInstance().reload();

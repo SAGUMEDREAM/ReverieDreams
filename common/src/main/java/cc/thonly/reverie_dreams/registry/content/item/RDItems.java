@@ -231,6 +231,7 @@ public class RDItems {
     public static final ItemDelegate SPELL_CARD_TEMPLATE = registerItem("spell_card_template", props -> new SpellCardTemplateItem(props), new Item.Properties());
     public static final ItemDelegate ROLE_CARD = registerItem("role_card", props -> new RoleCardItem(props.stacksTo(1).component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.DYED_COLOR, true)).component(DataComponents.DYED_COLOR, new DyedItemColor(RoleCard.DEFAULT_COLOR.intValue()))), new Item.Properties());
     public static final ItemDelegate ROLE_ARCHIVE = registerItem("role_archive", props -> new RoleFollowerArchiveItem(props.stacksTo(1)), new Item.Properties());
+    public static final ItemDelegate SOUL_CARD = registerItem("soul_card", props -> new SoulCardItem(props.stacksTo(1)), new Item.Properties());
 
     // 唱片
     public static final ItemDelegate HR01_01 = registerAlbum("hr01_01", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.HR01_01.getJukeboxSongKey())), new Item.Properties());

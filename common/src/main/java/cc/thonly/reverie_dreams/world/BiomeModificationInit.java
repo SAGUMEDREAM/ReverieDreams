@@ -42,6 +42,9 @@ public class BiomeModificationInit {
         addTree();
         addEntity();
         addStructure();
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+
+        });
     }
 
     public static void addSpawnPlacements() {

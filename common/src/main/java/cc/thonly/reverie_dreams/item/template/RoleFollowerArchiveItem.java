@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.item.template;
 
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -36,6 +37,7 @@ public class RoleFollowerArchiveItem extends Item {
             followerArchive.respawn(world, context.getClickedPos().above(), world.registryAccess());
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, player.getSoundSource(), 2.0f, 1.0f);
             stack.consume(1, player);
+            stack.set(DataComponents.ITEM_NAME, stack.getItem().getDefaultInstance().getItemName());
             player.swing(context.getHand());
             return InteractionResult.SUCCESS_SERVER;
         }

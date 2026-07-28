@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.CustomSkinConfig;
+import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
@@ -11,7 +12,9 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.RegistrationInfo;
+import net.minecraft.core.WritableRegistry;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 
@@ -21,9 +24,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class CustomSkinLoader {
-    private static final CustomSkinLoader INSTANCE = new CustomSkinLoader();
 
-    public void onReload(ResourceManager manager) {
+    public static void onReload(ResourceManager manager) {
         Map<Identifier, Resource> resources = manager.listResources(("custom_skin_config"), id -> {
             return id.getPath().endsWith(".json");
         });
@@ -37,8 +39,14 @@ public class CustomSkinLoader {
                 result.resultOrPartial(error -> ReverieDreams.LOGGER.warn("Failed to parse tags for {}: {}", resourceId, error))
                       .ifPresent(config -> {
                           SkinType value = config.value();
-                          RegistryImpl<SkinType> registry = RegistryImpls.SKIN_TYPE;
-                          RegistryImpls.SKIN_TYPE.register(registry.createKey(value.getId()), value, RegistrationInfo.BUILT_IN);
+                          RegistryImpl<CustomType> registry = RegistryImpls.CUSTOM_SKIN_TYPE;
+                          ResourceKey<CustomType> key = registry.createKey(value.getId());
+                          if (registry.containsKey(key)) {
+                              registry.unregister(key);
+                          }
+                          if (value instanceof CustomType customType) {
+                              registry.register(key, customType, RegistrationInfo.BUILT_IN);
+                          }
                       });
             } catch (Exception e) {
                 ReverieDreams.LOGGER.error("Failed to load custom_skin_config {}: {}", resourceId, e.getMessage(), e);
@@ -46,7 +54,4 @@ public class CustomSkinLoader {
         }
     }
 
-    public static CustomSkinLoader getInstance() {
-        return INSTANCE;
-    }
 }

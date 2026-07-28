@@ -8,8 +8,10 @@ import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
+import cc.thonly.reverie_dreams.neoforge.impl.NeoMergeRegistry;
 import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryImpl;
 import cc.thonly.reverie_dreams.neoforge.util.biome.NeoForgeWorldGen;
+import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import dev.architectury.registry.CreativeTabRegistry;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Registry;
@@ -30,6 +32,7 @@ import net.neoforged.neoforgespi.language.ModFileScanData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 @Slf4j
 @Mod(ReverieDreams.MOD_ID)
@@ -49,6 +52,8 @@ public class ReverieDreamsNeoForge {
 
     static {
         ReverieDreams.REGISTRY_GETTER = resourceKey -> new NeoRegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey) {
+        };
+        ReverieDreams.MERGE_REGISTRY_GETTER = (key, registries) -> new NeoMergeRegistry(key, registries) {
         };
         ReverieDreams.REGISTRY_SHADOWER = (resourceKey, handler) -> new NeoRegistryImpl(resourceKey, handler) {
         };

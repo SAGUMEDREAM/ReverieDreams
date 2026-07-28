@@ -178,18 +178,31 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateConfigTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
-        translationBuilder.add("reverie_dreams.configuration.configVersion", "Configuration File Version");
-        translationBuilder.add("reverie_dreams.configuration.checkUpdate", "Enable Update Checker");
-        translationBuilder.add("reverie_dreams.configuration.debugMode", "Enable Debug Mode");
-        translationBuilder.add("reverie_dreams.configuration.enableDanmakuGlow", "Enable Glow Effect for Danmaku Items");
-        translationBuilder.add("reverie_dreams.configuration.maxUpgradedHealthValue", "Maximum Upgraded Health");
-        translationBuilder.add("reverie_dreams.configuration.enableYouseiSpawn", "Enable Yousei Spawning");
-        translationBuilder.add("reverie_dreams.configuration.enableGhostSpawn", "Enable Ghost Spawning");
-        translationBuilder.add("reverie_dreams.configuration.enableAIReplacesGeneralChat", "Enable AI chat to replace interaction");
-        translationBuilder.add("reverie_dreams.configuration.apiUrl", "AI Chat API URL");
-        translationBuilder.add("reverie_dreams.configuration.apiKey", "AI Chat API KEY");
-        translationBuilder.add("reverie_dreams.configuration.model", "AI Chat Model");
-        translationBuilder.add("reverie_dreams.configuration.chatType", "AI Chat Type");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.title", "梦隐的幻想乡 | 配置文件");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.configVersion", "Configuration File Version");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.configVersion.@Tooltip", "Do not modify");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.checkUpdate", "Enable Update Checker");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.checkUpdate.@Tooltip", "If enabled, the mod will automatically check for new versions.");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.debugMode", "Enable Debug Mode");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.debugMode.@Tooltip", "Shows extra debug logs and developer-only information.");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableDanmakuGlow", "Enable Glow Effect for Danmaku Items");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableDanmakuGlow.@Tooltip", "Replaces vanilla torch item overlay to display a glowing outline.");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue", "Maximum Upgraded Health");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue.@Tooltip", "Defines the highest total health value players can reach through upgrades.");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableYouseiSpawn", "Enable Yousei Spawning");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableYouseiSpawn.@Tooltip", "Toggle to allow Yousei to spawn naturally.");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableGhostSpawn", "Enable Ghost Spawning");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableGhostSpawn.@Tooltip", "Toggle to allow Ghosts to spawn naturally.");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat", "Enable AI chat to replace interaction");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat.@Tooltip", "Toggle to replace general chat by AIChat");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.apiUrl", "AI Chat API URL");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.apiUrl.@Tooltip", "Set Chat API url");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.apiKey", "AI Chat API KEY");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.apiKey.@Tooltip", "Set Chat API key");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.model", "AI Chat Model");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.model.@Tooltip", "Set Chat API Model");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.chatType", "Set Chat API Type: openai/deepseek/gemini/claude");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.chatType.@Tooltip", "AI Chat Type");
     }
 
     public void generateGuideTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
@@ -1159,6 +1172,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), "冥界之冠");
         translationBuilder.add(RDItems.SUNFLOWER.asItem(), "自然之力");
         translationBuilder.add(RDItems.CUSTOM_SKIN_SELECTOR.asItem(), "自定义皮肤更换工具");
+        translationBuilder.add(RDItems.SOUL_CARD.asItem(), "魂符");
 
         // 武器
         translationBuilder.add(RDItems.HAKUREI_CANE.asItem(), "博丽御币");

@@ -163,9 +163,7 @@ public class NPCRoles {
     // ...
 
     public static void bootstrap(RegistryImpl<NPCRole> registry) {
-        SkinType.CODEC = RecordCodecBuilder.create(x->x.group(
-                Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-        ).apply(x, RegistryImpls.SKIN_TYPE::getValue));
+
     }
 
     public static NPCRole registerRole(NPCRole role) {

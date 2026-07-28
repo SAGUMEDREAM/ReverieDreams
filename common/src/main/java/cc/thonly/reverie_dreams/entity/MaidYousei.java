@@ -57,7 +57,7 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
                 )
         );
         this.xpReward = 5;
-        this.variant = YouseiVariants.getFromProperty(this.getSkin());
+        this.variant = YouseiVariants.getFromSkinType(this.getSkinType());
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(new ItemStack(RDItems.MAID_HAIRBAND.asItem()));
         inventory.setChest(new ItemStack(RDItems.MAID_UPPER_SKIRT.asItem()));
@@ -131,10 +131,10 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
 
     @Override
     public void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
         Identifier variantId = Identifier.parse(youseiVariantId);
         this.variant = RegistryImpls.YOUSEI_VARIANT.getValue(variantId);
+        super.readAdditionalSaveData(view);
     }
 
     @Override

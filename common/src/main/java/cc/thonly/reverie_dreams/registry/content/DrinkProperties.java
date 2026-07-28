@@ -21,6 +21,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -68,28 +69,57 @@ public class DrinkProperties {
             if (world.isClientSide()) {
                 return;
             }
+
+            RandomSource r = user.getRandom();
+
             if (property.is(DrinkProperties.LOW_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 20));
+                user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 5 * 20, 0));
             }
+
             if (property.is(DrinkProperties.MID_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 4 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 10 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 10 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5 * 20, 0));
             }
+
             if (property.is(DrinkProperties.HIGH_ALCOHOL)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 10 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 12 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 12 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 5 * 20, 0));
             }
+
             if (property.is(DrinkProperties.CAN_ADD_ICE)) {
-                user.setSharedFlagOnFire(false);
-                user.setTicksFrozen(20);
+                user.clearFire();
+                user.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 5 * 20, 0));
             }
+
             if (property.is(DrinkProperties.SWEET)) {
-                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 10 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 8 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.HUNGER, 10 * 20, 0));
             }
+
             if (property.is(DrinkProperties.REFRESHING)) {
-                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 20 * 20));
-                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 20 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 10 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 10 * 20, 0));
             }
+
             if (property.is(DrinkProperties.BITTER)) {
-                user.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20));
+                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 10 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 5 * 20, 0));
+            }
+
+            if (property.is(DrinkProperties.BUBBLE)) {
+                user.addEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 10 * 20, 1));
+            }
+
+            if (property.is(DrinkProperties.COCKTAIL)) {
+                if (r.nextBoolean()) {
+                    user.addEffect(new MobEffectInstance(MobEffects.LUCK, 15 * 20, 0));
+                } else {
+                    user.addEffect(new MobEffectInstance(MobEffects.UNLUCK, 10 * 20, 0));
+                }
             }
         });
     }

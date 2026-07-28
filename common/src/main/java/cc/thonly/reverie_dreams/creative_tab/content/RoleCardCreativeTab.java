@@ -22,6 +22,7 @@ public class RoleCardCreativeTab implements ItemGroupContentHelper {
                     output.accept(RDItems.OWNER_STICK);
                     output.accept(RDItems.ROLE_CARD);
                     output.accept(RDItems.CUSTOM_SKIN_SELECTOR);
+                    output.accept(RDItems.SOUL_CARD);
                     RegistryImpls.ROLE_CARD.values().forEach(instance -> output.accept(instance.getTemplate().create()));
                 }));
     }

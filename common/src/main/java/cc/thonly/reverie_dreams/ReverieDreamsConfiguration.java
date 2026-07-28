@@ -38,9 +38,7 @@ public class ReverieDreamsConfiguration implements ConfigData {
 
 
     @ConfigEntry.Gui.Tooltip
-    public String apiUrl =
-            "https://api.deepseek.com/v1/chat/completions";
-
+    public String apiUrl = "https://api.deepseek.com/v1/chat/completions";
 
     @ConfigEntry.Gui.Tooltip
     public String apiKey = "";

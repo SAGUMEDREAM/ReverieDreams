@@ -1,10 +1,7 @@
 package cc.thonly.reverie_dreams.registry;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.data.CraftingConflict;
-import cc.thonly.reverie_dreams.data.DrinkProperty;
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.data.FumoType;
+import cc.thonly.reverie_dreams.data.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
@@ -14,6 +11,7 @@ import cc.thonly.reverie_dreams.data.npc.NPCRole;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
+import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
@@ -30,6 +28,7 @@ import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.SkinConfigs;
+import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import com.mojang.brigadier.Command;
@@ -42,17 +41,19 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
+import net.minecraft.core.WritableRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class RegistryImpls {
     public static final Map<ResourceKey<? extends Registry<?>>, RegistryImpl<?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
     public static final RegistryImpl<BaseRecipeType<?>> RECIPE_TYPE = RegistryImpls.<BaseRecipeType<?>>ofEntry(ReverieDreams.id("recipe_type"));
@@ -86,9 +87,8 @@ public class RegistryImpls {
 
     public static final RegistryImpl<SkinType> SKIN_TYPE =
             RegistryImpls.<SkinType>ofEntry(ReverieDreams.id("skin_type"))
-                         .codec(SkinType.UNIT_CODEC)
+                         .codec(SkinType.CODEC)
                          .reloadBuilder(SkinType::onReload)
-                         .syncToClient(RegistrySyncers.CUSTOM_SKIN)
                          .builder(GensokyoSkinTypes::bootstrap, MobSkinTypes::bootstrap);
 
     public static final RegistryImpl<SkinConfig> SKIN_CONFIG =
@@ -96,6 +96,12 @@ public class RegistryImpls {
                          .codec(SkinConfig.CODEC)
                          .reloadBuilder(SkinConfigs::reload)
                          .builder(SkinConfigs::bootstrap);
+
+    public static final RegistryImpl<CustomType> CUSTOM_SKIN_TYPE =
+            RegistryImpls.<CustomType>ofEntry(ReverieDreams.id("custom_skin_type"))
+                         .codec(CustomType.CODEC)
+                         .reloadBuilder(CustomSkinLoader::onReload)
+                         .syncToClient(RegistrySyncers.CUSTOM_SKIN);
 
     public static final RegistryImpl<NPCRole> NPC_ROLE =
             RegistryImpls.<NPCRole>ofEntry(ReverieDreams.id("npc_role"))
@@ -167,6 +173,9 @@ public class RegistryImpls {
                          .reloadBuilder(CraftingConflict::reload)
                          .builder(CraftingConflict::bootstrap)
                          .syncToClient(RegistrySyncers.CRAFTING_CONFLICT);
+
+    public static final WritableRegistry<SkinType> SKIN_TYPE_MERGED =
+            RegistryImpls.ofEntries(ReverieDreams.id("skin_type"), RegistryImpls.SKIN_TYPE, RegistryImpls.CUSTOM_SKIN_TYPE);
 
     public static void bootstrap() {
         for (var entry : ROOT.entrySet()) {
@@ -266,6 +275,14 @@ public class RegistryImpls {
         RegistryImpl<T> intrinsicalRegister = (RegistryImpl<T>) ReverieDreams.REGISTRY_GETTER.apply(key);
         ROOT.put(key, intrinsicalRegister);
         return intrinsicalRegister;
+    }
+
+    public static <T> WritableRegistry<T> ofEntries(Identifier identifier, Registry... registries) {
+        return ofEntries(ResourceKey.createRegistryKey(identifier), registries);
+    }
+
+    public static <T> WritableRegistry<T> ofEntries(ResourceKey<? extends Registry<T>> key, Registry... registries) {
+        return (MergeRegistry<T>) ReverieDreams.MERGE_REGISTRY_GETTER.apply(key, Arrays.stream(registries).toList());
     }
 
     public static RequiredArgumentBuilder<CommandSourceStack, Identifier> getSuggestProvider(

@@ -55,6 +55,9 @@ dependencies {
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
 //    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
     compileOnly(project(":common").files("/libs/sparkle-morpher-1.0.3-neo26.1.x.jar"))
+    compileOnly(project(":neoforge").files("/libs/ApothicAttributes-26.1.2-3.0.1.jar"))
+    compileOnly(project(":neoforge").files("/libs/ApothicEnchanting-26.1.2-2.0.0.jar"))
+    compileOnly(project(":neoforge").files("/libs/Placebo-26.1.2-10.0.2.jar"))
 
     implementation("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") { transitive = false }
     implementation("maven.modrinth:jade:${jade_version}+neoforge")

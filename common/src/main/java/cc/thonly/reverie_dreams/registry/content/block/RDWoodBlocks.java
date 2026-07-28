@@ -37,7 +37,7 @@ public class RDWoodBlocks {
         KeineRegistries registries = ReverieDreamsRegistries.KEINE_REGISTRIES;
         StrippableBlockRegistry strippableBlockRegistry = registries.strippableBlockRegistry();
         strippableBlockRegistry.register(context -> {
-            context.add(RDWoodBlocks.BLESSED_SPIRITUAL_LOG, RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog());
+            context.add(RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asHolder(), RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().asHolder());
         });
     }
 }

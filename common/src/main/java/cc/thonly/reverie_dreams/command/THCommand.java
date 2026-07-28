@@ -5,6 +5,10 @@ import cc.thonly.reverie_dreams.api.dialog.DialogAPI;
 import cc.thonly.reverie_dreams.api.registry.BookPageManager;
 import cc.thonly.reverie_dreams.data.DrinkProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.data.craftengine.BlockDefinitionList;
+import cc.thonly.reverie_dreams.data.craftengine.CraftEngineDefinition;
+import cc.thonly.reverie_dreams.data.craftengine.CraftEngineProvider;
+import cc.thonly.reverie_dreams.data.craftengine.ItemDefinitionList;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
@@ -57,6 +61,8 @@ import net.minecraft.world.item.component.SeededContainerLoot;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.awt.image.BufferedImage;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -169,11 +175,35 @@ public class THCommand {
             root.then(debugGetRecipeWithBlock);
             var debugResetItemCd = Commands.literal("debug_reset_item_using_time")
                                            .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
+            var debug_generate_craft_engine = Commands.literal("debug_generate_craft_engine")
+                                                      .executes(this::generateCraftEngineConfig);
+            root.then(debug_generate_craft_engine);
             debugResetItemCd.executes(this::resetItemCd);
             root.then(debugResetItemCd);
         }
 
         return root;
+    }
+
+    private int generateCraftEngineConfig(CommandContext<CommandSourceStack> context) {
+        CraftEngineDefinition craftEngineDefinition = CraftEngineProvider.fromNamespace(ReverieDreams.MOD_ID);
+        if (craftEngineDefinition == null) {
+            return 1;
+        }
+        BlockDefinitionList blockDefinitions = craftEngineDefinition.getBlockDefinitions();
+        ItemDefinitionList itemDefinitions = craftEngineDefinition.getItemDefinitions();
+        Path path = Path.of("./config/reverie_dreams/craft_engine/");
+        if (!Files.exists(path) || !Files.isDirectory(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (Exception e) {
+                log.error("Error:", e);
+            }
+        }
+        CraftEngineProvider.toFile(itemDefinitions, path.resolve("./items.yml"));
+        CraftEngineProvider.toFile(blockDefinitions, path.resolve("./blocks.yml"));
+        context.getSource().sendSystemMessage(Component.literal("Success"));
+        return 0;
     }
 
     private int loadRootPage(CommandContext<CommandSourceStack> context) {
@@ -337,7 +367,7 @@ public class THCommand {
     }
 
     private int cachedAllSkins(CommandContext<CommandSourceStack> context) {
-        for (SkinType skinType : RegistryImpls.SKIN_TYPE) {
+        for (SkinType skinType : RegistryImpls.SKIN_TYPE_MERGED) {
             try {
                 if (skinType.getProperty() == null) {
                     throw new NullPointerException();

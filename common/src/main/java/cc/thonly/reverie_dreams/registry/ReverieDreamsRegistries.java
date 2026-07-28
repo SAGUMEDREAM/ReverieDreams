@@ -51,6 +51,10 @@ public class ReverieDreamsRegistries {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZER = get(Registries.RECIPE_SERIALIZER);
 
     public static void register() {
+
+    }
+
+    static {
         for (var register : REGISTERS) {
             register.register();
         }

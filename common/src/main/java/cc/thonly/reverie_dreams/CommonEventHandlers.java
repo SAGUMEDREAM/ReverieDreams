@@ -305,9 +305,9 @@ public class CommonEventHandlers {
         return EventResult.pass();
     }
 
-    public static EventResult onLivingEntityDeathByElixirOfLife(LivingEntity entity, DamageSource damageSource) {
-        return !entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE) ? EventResult.interruptFalse() : EventResult.pass();
-    }
+//    public static EventResult onLivingEntityDeathByElixirOfLife(LivingEntity entity, DamageSource damageSource) {
+//        return entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE) ? EventResult.interruptFalse() : EventResult.pass();
+//    }
 
     public static EventResult onLivingEntityDeathByDanmaku(LivingEntity entity, DamageSource damageSource) {
         if (damageSource.is(RDDamageTypeTags.DANMAKU_HIT)) {

@@ -218,10 +218,10 @@ public class RDBlocks {
         RegistrySupplier<Block> block = ReverieDreamsRegistries.BLOCK.register(name, () -> factory.apply(blockSettings.setId(RDBlocks.keyOf(name))));
         RegistrySupplier<BlockItem> blockItem = ReverieDreamsRegistries.ITEM.register(name, () -> new BlockItem(block.get(), itemSettings.setId(RDItems.keyOf(name)).useBlockDescriptionPrefix()));
         BlockDelegate blockDelegate = BlockDelegate.of(block);
-        if (PlatformContext.isFabric()) {
-            ItemTypeGroup.join(blockDelegate.asItem());
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+            ItemTypeGroup.join(blockItem.get());
             RDItems.LATE_POLYMERIFY_ITEM_LIST.add(blockDelegate.asItem().builtInRegistryHolder());
-        }
+        });
         return registerSimpleBlock(blockDelegate);
     }
 

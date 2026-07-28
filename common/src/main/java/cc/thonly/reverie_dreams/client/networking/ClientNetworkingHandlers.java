@@ -100,10 +100,10 @@ public class ClientNetworkingHandlers {
                 Object value = entry.value();
                 Object updated = clientReloadListener.update(key, registry.getValue(key), value);
                 ResourceKey<Object> resourceKey = registry.createKey(key);
-                registry.unregister(resourceKey);
-                if (updated == null) {
-                    continue;
-                }
+//                registry.unregister(resourceKey);
+//                if (updated == null) {
+//                    continue;
+//                }
                 registry.set(resourceKey, updated, RegistrationInfo.BUILT_IN);
             }
             clientReloadListener.afterProcessing(registry);

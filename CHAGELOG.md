@@ -1,5 +1,21 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.5.10+26.1.2
+* Updated keine api to fix missing stripped log
+
+# 0.5.9+26.1.2
+* Fixed can't generate any mod entity
+* Fixed chest loot empty
+
+# 0.5.8+26.1.2
+* Fixed npc twitch in fabric
+* Fixed where NPC skins were not working after reloading the game.
+* Added item soul card
+* Added item Custom Skin Selector
+* Added Skin sideload
+* Added the latest internationalized languages
+* Rebalancing food buff values
+* Rebalancing drink buff values
 
 # 0.5.7+26.1.2
 * Fixed compat for moredelight

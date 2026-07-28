@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.ValueInput;
 
+@SuppressWarnings("UnusedReturnValue")
 public record RoleFollowerArchive(Component name, float maxHealth, CompoundTag nbt) {
     public static final Codec<RoleFollowerArchive> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ComponentSerialization.CODEC.fieldOf("Name").forGetter(RoleFollowerArchive::name),

@@ -252,6 +252,24 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('P', RDItems.POWER)
                 .unlockedBy("has_book", has(Items.BOOK))
                 .save(output, getSimpleRecipeName(RDItems.FAST_RECIPE_BOOK));
+        // 魂符
+        shaped(RecipeCategory.MISC, RDItems.SOUL_CARD)
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .define('X', Items.PAPER)
+                .define('#', Items.SOUL_SAND)
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .save(output, getSimpleRecipeName(RDItems.SOUL_CARD));
+        // 自定义皮肤选择器
+        shaped(RecipeCategory.MISC, RDItems.CUSTOM_SKIN_SELECTOR)
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .define('X', Items.STICK)
+                .define('#', ItemTags.DYES)
+                .unlockedBy("has_dye", has(ItemTags.DYES))
+                .save(output, getSimpleRecipeName(RDItems.CUSTOM_SKIN_SELECTOR));
 
         this.buildWoodBundle(RDWoodBlocks.SPIRITUAL_BUNDLE);
         this.buildWoodBundle(RDWoodBlocks.LEMON_BUNDLE);

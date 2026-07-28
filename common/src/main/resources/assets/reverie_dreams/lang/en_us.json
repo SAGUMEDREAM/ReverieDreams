@@ -1297,5 +1297,67 @@
   "reverie_dreams.configuration.enableGhostSpawn": "Enable Ghost Spawning",
   "reverie_dreams.configuration.enableYouseiSpawn": "Enable Yousei Spawning",
   "reverie_dreams.configuration.maxUpgradedHealthValue": "Maximum Upgraded Health",
-  "reverie_dreams.configuration.model": "AI Chat Model"
+  "reverie_dreams.configuration.model": "AI Chat Model",
+  "book_page.reverie_dreams.root.description": "Welcome to Reverie of Lost Dreams. This guide will help you navigate and understand the mod.",
+  "book_page.reverie_dreams.root.title": "Reverie of Lost Dreams Guide",
+
+  "config.jade.plugin_reverie_dreams.gensokyo_altar_data_provider": "Crafting Info",
+  "config.jade.plugin_reverie_dreams.kitchenware_data_provider": "Kitchenware Info",
+  "config.jade.plugin_reverie_dreams.music_block_data_provider": "Playback Info",
+
+  "gui.reverie_dreams.close": "Close",
+  "gui.reverie_dreams.custom_skin_selector.title": "Third-Party Skin Selector",
+  "gui.reverie_dreams.input_request": "Enter text:",
+  "gui.reverie_dreams.progress": "Progress",
+  "gui.reverie_dreams.send": "Send",
+
+  "item.reverie_dreams.custom_skin_selector": "Custom Skin Tool",
+  "item.reverie_dreams.soul_card": "Soul Card",
+
+  "reverie_dreams.page/basic/danmaku_tutorial.title": "Danmaku Guide",
+  "reverie_dreams.page/basic/danmaku_tutorial.content": "§eDanmaku§r refers to the bullet hell mechanic commonly seen in STG games, where dense projectiles form complex attack patterns.\nIn this mod, the same concept is applied.\n\nPlayers can craft danmaku using the §eDanmaku Workbench§r with the following materials:\n\n- Any Dye ×4\n- Danmaku Core ×4\n- Power ×35\n- Point ×35\n- Danmaku Template ×1\n\nThe §eDanmaku Template§r is used to define the shape of danmaku and is essential for crafting.\nRight-click the template to design patterns in a pixel-grid style.\n\nDifferent danmaku types have unique properties, but all can be upgraded at the §eEnhancement Table§r.\n\nUpgrade materials:\n\n- Iron Sword - Increase damage\n- Slime Block - Increase projectile count\n- Feather - Increase speed\n- Spell Card Template - Modify trajectory\n",
+
+  "reverie_dreams.page/basic/fumo_tutorial.title": "Fumo",
+  "reverie_dreams.page/basic/fumo_tutorial.content": "§aFumo§r refers to plush dolls produced by Gift, based on Touhou Project character designs by ANGELTYPE.\nThey are known for their sitting pose, iconic expression (ᗜˬᗜ), soft texture, and adorable chibi style.\n\nIn this mod, most Fumos can be obtained through expensive trades.\nWhen placed, they face the player and support 16 directions. Right-clicking plays their sound.\n\nFumos can only be obtained from Fumo Traders, whose trades refresh daily.\n\nUse a §bFumo License§r on a villager to turn them into a trader.\n",
+
+  "reverie_dreams.page/basic/gensokyo_altar.title": "Gensokyo Altar",
+  "reverie_dreams.page/basic/gensokyo_altar.content": "The §eGensokyo Workbench§r is a key crafting block in this mod.\nMost items are crafted using it.\n\nIt supports 9-slot recipes and requires a multiblock structure:\n\nThe surrounding pillars must be made of §eStripped Jomon Cedar§r, found in §aSavanna§r.\nThe top block must be blessed using paper.\nUse shears to remove the blessing.\n\nOnce ready, use \"empty hand + Shift + Right Click\" to craft.\n",
+
+  "reverie_dreams.page/basic/getting_started.title": "Getting Started",
+  "reverie_dreams.page/basic/getting_started.content": "Reverie of Lost Dreams is a magic-adventure mod inspired by Touhou fanworks.\n\nTo begin, craft the §eGensokyo Altar§r, which allows crafting items like §eHourai Jewel Branch§r, §eGungnir§r, and §eHakurei Gohei§r.\n\n- §ePower§r and §bPoint§r are basic materials dropped from mobs and fairies.\n\nExplore further crafting recipes in this guide or via Polydex.\n",
+
+  "reverie_dreams.page/basic/role_and_partner.title": "Partners",
+  "reverie_dreams.page/basic/role_and_partner.content": "§aPartners§r are companion entities similar to maids from Touhou Little Maid.\n\nThey can fight, work, carry items, and interact.\nFeed them cake to tame.\n\nSummon partners using character cards crafted at the §eGensokyo Workbench§r.\n\nIf a partner dies, they drop a §eData Card§r.\nUse it with diamonds to revive them.\n\nControls:\n- Right Click: Interact\n- Shift + Left Click: Stop attacking\n- Shift + Right Click: Open inventory\n",
+
+  "reverie_dreams.page/basic/touhou_mystia.title": "Mystia's Izakaya",
+  "reverie_dreams.page/basic/touhou_mystia.content": "Inspired by §aTouhou Mystia's Izakaya§r, this system adds ingredients, dishes, drinks, and recipes.\n\nMost ingredients come from crops or loot. Seafood is obtained via fishing.\nFoods have tags that determine their effects.\n\n-- Cooking --\n\nKitchenware includes: §ePot§r, §eCooking Table§r, §eFryer§r, §eGrill§r, §eSteamer§r.\nAll have upgraded versions.\n\nIncorrect recipes may produce §eDark Matter§r.\n\nRecipes support compatibility with other mods.\n\n-- Drinks --\n\nMost drinks are obtained from Tavern Owners.\nThey grant effects, and available drinks rotate daily.\n\nSome drinks are always available.\n\nUse a barrel on a villager to assign the Tavern Owner profession.\n",
+
+  "reverie_dreams.page/other/compat.title": "Mod Compatibility",
+  "reverie_dreams.page/other/compat.content": "This page lists compatible and recommended mods.\n\n-- Recommended --\n\n- Polydex\n- Polymer\n- JEI / REI / RRV\n\n-- Compatibility --\n\n- Create Fly\n- PolyFactory\n- Polymer Patch for Gensokyo\n\n-- Cooking Support --\n\n- Farmer's Delight\n- Ocean's Delight\n- Fishing mods\n",
+
+  "text.autoconfig.reverie_dreams.option.apiKey": "AI Chat API Key",
+  "text.autoconfig.reverie_dreams.option.apiKey.@Tooltip": "Set the API key",
+  "text.autoconfig.reverie_dreams.option.apiUrl": "AI Chat API URL",
+  "text.autoconfig.reverie_dreams.option.apiUrl.@Tooltip": "Set the API endpoint",
+  "text.autoconfig.reverie_dreams.option.chatType": "Chat API Type",
+  "text.autoconfig.reverie_dreams.option.chatType.@Tooltip": "openai / deepseek / gemini / claude",
+  "text.autoconfig.reverie_dreams.option.checkUpdate": "Enable Update Checker",
+  "text.autoconfig.reverie_dreams.option.checkUpdate.@Tooltip": "Automatically check for updates",
+  "text.autoconfig.reverie_dreams.option.configVersion": "Config Version",
+  "text.autoconfig.reverie_dreams.option.configVersion.@Tooltip": "Do not modify",
+  "text.autoconfig.reverie_dreams.option.debugMode": "Debug Mode",
+  "text.autoconfig.reverie_dreams.option.debugMode.@Tooltip": "Enable debug logs",
+  "text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat": "Replace Chat with AI",
+  "text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat.@Tooltip": "AI replaces normal chat",
+  "text.autoconfig.reverie_dreams.option.enableDanmakuGlow": "Danmaku Glow Effect",
+  "text.autoconfig.reverie_dreams.option.enableDanmakuGlow.@Tooltip": "Enable glowing outline",
+  "text.autoconfig.reverie_dreams.option.enableGhostSpawn": "Enable Ghost Spawn",
+  "text.autoconfig.reverie_dreams.option.enableGhostSpawn.@Tooltip": "Allow ghosts to spawn",
+  "text.autoconfig.reverie_dreams.option.enableYouseiSpawn": "Enable Yousei Spawn",
+  "text.autoconfig.reverie_dreams.option.enableYouseiSpawn.@Tooltip": "Allow yousei to spawn",
+  "text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue": "Max Upgraded Health",
+  "text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue.@Tooltip": "Maximum health cap",
+  "text.autoconfig.reverie_dreams.option.model": "AI Model",
+  "text.autoconfig.reverie_dreams.option.model.@Tooltip": "Select AI model",
+  "text.autoconfig.reverie_dreams.option.title": "Reverie of Lost Dreams | Config"
 }

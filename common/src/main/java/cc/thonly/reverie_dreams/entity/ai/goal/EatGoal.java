@@ -31,7 +31,7 @@ public class EatGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (GensokyoSkinTypes.YUYUKO.getProperty().equals(this.maid.getSkin())){
+        if (GensokyoSkinTypes.YUYUKO.equals(this.maid.getSkinType())){
             return maid.getNutrition() < 20;
         }
         return (maid.getNutrition() < 20 && maid.getHealth() < this.maid.getMaxHealth()) || maid.getNutrition() < 10;

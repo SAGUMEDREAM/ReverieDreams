@@ -5,7 +5,9 @@ import cc.thonly.reverie_dreams.registry.CodecStep;
 import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
 import com.mojang.authlib.properties.Property;
@@ -27,19 +29,30 @@ import java.util.Optional;
 
 @Slf4j
 public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable<SkinType>, RegistryEntryTranslatable {
-    public static Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
-    public static Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(
-            Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-    ).apply(x, RegistryImpls.SKIN_TYPE::getValue)));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SkinType> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
+    public static final RecordCodecBuilder<SkinType, Identifier> PART = Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId);
+    public static final Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
+    public static final Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(PART).apply(x, RegistryImpls.SKIN_TYPE::getValue)));
+    public static final Codec<SkinType> MERGED_CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(PART).apply(x, id -> {
+        SkinType builtinSkinType = RegistryImpls.SKIN_TYPE.getValue(id);
+        if (builtinSkinType != null) {
+            return builtinSkinType;
+        }
+        CustomType customType = RegistryImpls.CUSTOM_SKIN_TYPE.getValue(id);
+        if (customType != null) {
+            return customType;
+        }
+        return MobSkinTypes.DEFAULT;
+    })));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, SkinType> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(MERGED_CODEC);
     public static final EntityDataSerializer<SkinType> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
     public static final Identifier RECOVERY = ReverieDreams.id("recovery");
 
     @Setter
     @Getter
-    private Identifier id;
-    private String value;
-    private String signature;
+    protected Identifier id;
+    protected String value;
+    protected String signature;
     @Setter
     private Property property;
     @Setter
@@ -88,6 +101,9 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
             }
             return new Property("ewogICJ0aW1lc3RhbXAiIDogMTcwODU4MzQ0MDY4OSwKICAicHJvZmlsZUlkIiA6ICJiM2E3NjExNGVmMzI0ZjYyYWM4NDRiOWJmNTY1NGFiOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNcmd1eW1hbnBlcnNvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lODRjY2E2ZGVhNjhlN2UzYzZhNDJiYTQ2YTNhN2ZlODdlZDY3YTk3ZmRjOTRlNTY0NzI1YTc0ZTYxYjBmOTI3IgogICAgfQogIH0KfQ==",
                     "x/b2EYJFrRIkSl5TviHdKoZcwBmmDt0RfAa2y0oTK3n/YZ2xco3rl/D60NN5CSWK24Ui0VaGQ66SdrKV742aXjiNAKzOTxga3IEHSaCTN/to9jrvKHvz0esyAGiLFB98co9o4nZyGClTlzieW0dHexPmyfa6g8MTlS/T3kjACDIT8OQvSkl95U2iMnvvmqfLnZ9l7WlvEkD9+gjNg8dRUFwMGVGVRz2hCYHR6WxjOJEpqbYMMRMJgKBXRzKVCwxy7cDW+warLZL7BwV8pYZVv4FOc8epaJm3JsTbwp7eTMxb+o8rSupv1Aoq52iJwZfk4x+c0rRS/xCfc+d1bY1UfLG6s2NnwvUJpMJ3VdSMVcRZ5QecGX+OU8ZVdi+VWAZncZ4csrcZ1KqI30EeA6ztccTaarA6nmwghGzNUi+bXCUJctnzBXpjL7eErgrTeHso8JgmOpybMeu+UefDWIw1fbRWjRuX5l9/VRZp3zR4wfSu7NMuKANx/cmx0almu4ef0qeN9PZ39fjOoxwEQvaGbeq2pH0+2HCE9hHnWoH6RXFuCFTnnQkc8TsFNOWQVrY6alg1X6wWS2tzfuIzzW/EjM6Wl3qpNDd4VaVHWUNfq6xGp+F+kpymaKrCGvSxAQiLrJ/kK0SK5kAW16kKedkiSFji3dmdBlrYbTitNRFPXRg=");
+        }
+        if (!PlatformContext.hasPolymer()) {
+            return new Property("builtin", "builtin", "builtin");
         }
         if (this.property == null) {
             Optional<Property> skinFromNPCSkin = SkinFetcher.getSkinFromNPCSkin(this.config);

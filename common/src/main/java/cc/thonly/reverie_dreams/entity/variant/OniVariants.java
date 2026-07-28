@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
@@ -42,6 +43,11 @@ public class OniVariants {
         if (list.isEmpty()) return null;
 
         return list.get(ThreadLocalRandom.current().nextInt(list.size()));
+    }
+
+    public static OniVariant getFromSkinType(SkinType skinType) {
+        List<OniVariant> list = RegistryImpls.ONI_VARIANT.values().stream().filter(variant -> variant.getSkinType().equals(skinType)).toList();
+        return list.isEmpty() ? null : list.getFirst();
     }
 
     public static OniVariant getFromProperty(Property property) {

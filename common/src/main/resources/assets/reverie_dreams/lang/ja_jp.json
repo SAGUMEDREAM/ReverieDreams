@@ -1238,5 +1238,67 @@
   "item_view.information.desc.fishing": "入手方法：釣り",
   "item_view.information.desc.fumos": "入手方法：Fumo商人から購入",
   "item_view.information.desc.grass_drop_items": "入手方法：草を破壊",
-  "item_view.information.desc.truffle": "入手方法：オーク／シラカバ／ダークオーク／トウヒの原木を破壊"
+  "item_view.information.desc.truffle": "入手方法：オーク／シラカバ／ダークオーク／トウヒの原木を破壊",
+  "book_page.reverie_dreams.root.description": "ようこそ「Reverie of Lost Dreams」へ。本ガイドでは、本MODの基本的な遊び方や仕組みを紹介します。",
+  "book_page.reverie_dreams.root.title": "Reverie of Lost Dreams ガイド",
+
+  "config.jade.plugin_reverie_dreams.gensokyo_altar_data_provider": "クラフト情報",
+  "config.jade.plugin_reverie_dreams.kitchenware_data_provider": "調理器具情報",
+  "config.jade.plugin_reverie_dreams.music_block_data_provider": "再生情報",
+
+  "gui.reverie_dreams.close": "閉じる",
+  "gui.reverie_dreams.custom_skin_selector.title": "外部スキン選択",
+  "gui.reverie_dreams.input_request": "テキストを入力:",
+  "gui.reverie_dreams.progress": "進行状況",
+  "gui.reverie_dreams.send": "送信",
+
+  "item.reverie_dreams.custom_skin_selector": "カスタムスキンツール",
+  "item.reverie_dreams.soul_card": "ソウルカード",
+
+  "reverie_dreams.page/basic/danmaku_tutorial.title": "弾幕ガイド",
+  "reverie_dreams.page/basic/danmaku_tutorial.content": "§e弾幕§rとは、STG（シューティングゲーム）で見られる、弾が密集して複雑なパターンを形成する攻撃表現です。\n本MODではこの仕組みを再現しています。\n\nプレイヤーは§e弾幕作業台§rで以下の素材を使って弾幕を作成できます：\n\n- 染料 ×4\n- 弾幕コア ×4\n- Power ×35\n- Point ×35\n- 弾幕テンプレート ×1\n\n§e弾幕テンプレート§rは弾幕の形状を定義する重要なアイテムです。\n右クリックでピクセル形式のエディタを開き、弾幕パターンを設計できます。\n\n弾幕には種類ごとの特性がありますが、すべて§e強化台§rで強化可能です。\n\n強化素材：\n\n- 鉄の剣：ダメージ増加\n- スライムブロック：弾数増加\n- 羽根：速度上昇\n- スペルカードテンプレート：軌道変更\n",
+
+  "reverie_dreams.page/basic/fumo_tutorial.title": "ふも（Fumo）",
+  "reverie_dreams.page/basic/fumo_tutorial.content": "§aふも§rとは、Gift社が制作する、ANGELTYPEデザインの東方キャラクターぬいぐるみシリーズです。\n座り姿や独特な表情（ᗜˬᗜ）、柔らかな質感、デフォルメされた可愛らしさが特徴です。\n\n本MODでは、多くのふもは高価な取引によって入手できます。\n設置するとプレイヤーの方向を向き、16方向に対応します。右クリックで音声を再生します。\n\nふもは「ふも商人」からのみ入手可能で、取引内容は毎日更新されます。\n\n§bふも許可証§rを村人に使用すると、ふも商人に転職させることができます。\n",
+
+  "reverie_dreams.page/basic/gensokyo_altar.title": "幻想郷の祭壇",
+  "reverie_dreams.page/basic/gensokyo_altar.content": "§e幻想郷作業台§rは本MODの中核となるクラフトブロックです。\n多くのアイテムはここで作成されます。\n\n9スロットのレシピに対応し、マルチブロック構造が必要です：\n\n周囲の柱は§e皮を剥いだ縄文杉§rで作る必要があります（§aサバンナ§rで入手）。\n上部ブロックは紙で祝福する必要があります。\nハサミで祝福を解除できます。\n\n準備が整ったら「素手＋スニーク右クリック」でクラフトできます。\n",
+
+  "reverie_dreams.page/basic/getting_started.title": "はじめに",
+  "reverie_dreams.page/basic/getting_started.content": "Reverie of Lost Dreams は東方二次創作に着想を得た魔法アドベンチャーMODです。\n\nまずは§e幻想郷の祭壇§rを作成しましょう。\nこれにより§e蓬莱の玉の枝§r、§eグングニル§r、§e博麗の御幣§rなどをクラフトできます。\n\n- §ePower§rと§bPoint§rは、モブや妖精からドロップする基本素材です。\n\nその他のレシピはこのガイドやPolydexで確認できます。\n",
+
+  "reverie_dreams.page/basic/role_and_partner.title": "パートナー",
+  "reverie_dreams.page/basic/role_and_partner.content": "§aパートナー§rは、Touhou Little Maid のメイドのような仲間エンティティです。\n\n戦闘・作業・アイテム運搬・インタラクトが可能です。\nケーキを与えることで仲間にできます。\n\nパートナーは§e幻想郷作業台§rで作成したキャラクターカードから召喚されます。\n\n死亡した場合、§eデータカード§rをドロップします。\nダイヤモンドと一緒に使用すると復活できます。\n\n操作：\n- 右クリック：インタラクト\n- スニーク＋左クリック：攻撃停止\n- スニーク＋右クリック：インベントリを開く\n",
+
+  "reverie_dreams.page/basic/touhou_mystia.title": "ミスティアの居酒屋",
+  "reverie_dreams.page/basic/touhou_mystia.content": "§a東方ミスティアの居酒屋§rを元にしたシステムで、食材・料理・飲み物・レシピが追加されます。\n\n多くの食材は農作物や戦利品から入手できます。魚介類は釣りで入手可能です。\n料理にはタグがあり、それに応じた効果を持ちます。\n\n-- 調理 --\n\n調理器具：§e鍋§r、§e調理台§r、§eフライヤー§r、§eグリル§r、§e蒸し器§r\nすべて上位版が存在します。\n\n誤ったレシピは§eダークマター§rになる可能性があります。\n\n他MODとの互換レシピにも対応しています。\n\n-- 飲み物 --\n\n多くの飲み物は酒場の店主から入手できます。\n効果を持ち、ラインナップは毎日更新されます。\n\n一部の飲み物は常時入手可能です。\n\n樽を村人に使用すると、酒場の店主に転職させることができます。\n",
+
+  "reverie_dreams.page/other/compat.title": "MOD互換性",
+  "reverie_dreams.page/other/compat.content": "対応・推奨MOD一覧です。\n\n-- 推奨 --\n\n- Polydex\n- Polymer\n- JEI / REI / RRV\n\n-- 互換性 --\n\n- Create Fly\n- PolyFactory\n- Polymer Patch for Gensokyo\n\n-- 調理対応 --\n\n- Farmer's Delight\n- Ocean's Delight\n- 各種釣りMOD\n",
+
+  "text.autoconfig.reverie_dreams.option.apiKey": "AIチャットAPIキー",
+  "text.autoconfig.reverie_dreams.option.apiKey.@Tooltip": "APIキーを設定",
+  "text.autoconfig.reverie_dreams.option.apiUrl": "AIチャットAPI URL",
+  "text.autoconfig.reverie_dreams.option.apiUrl.@Tooltip": "APIエンドポイントを設定",
+  "text.autoconfig.reverie_dreams.option.chatType": "チャットAPIタイプ",
+  "text.autoconfig.reverie_dreams.option.chatType.@Tooltip": "openai / deepseek / gemini / claude",
+  "text.autoconfig.reverie_dreams.option.checkUpdate": "アップデート確認",
+  "text.autoconfig.reverie_dreams.option.checkUpdate.@Tooltip": "自動で更新をチェック",
+  "text.autoconfig.reverie_dreams.option.configVersion": "設定バージョン",
+  "text.autoconfig.reverie_dreams.option.configVersion.@Tooltip": "変更しないでください",
+  "text.autoconfig.reverie_dreams.option.debugMode": "デバッグモード",
+  "text.autoconfig.reverie_dreams.option.debugMode.@Tooltip": "ログ出力を有効化",
+  "text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat": "AIチャットに置き換え",
+  "text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat.@Tooltip": "通常チャットをAIに置き換えます",
+  "text.autoconfig.reverie_dreams.option.enableDanmakuGlow": "弾幕発光エフェクト",
+  "text.autoconfig.reverie_dreams.option.enableDanmakuGlow.@Tooltip": "発光アウトラインを有効化",
+  "text.autoconfig.reverie_dreams.option.enableGhostSpawn": "ゴースト出現",
+  "text.autoconfig.reverie_dreams.option.enableGhostSpawn.@Tooltip": "ゴーストのスポーンを許可",
+  "text.autoconfig.reverie_dreams.option.enableYouseiSpawn": "妖精出現",
+  "text.autoconfig.reverie_dreams.option.enableYouseiSpawn.@Tooltip": "妖精のスポーンを許可",
+  "text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue": "最大体力上限",
+  "text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue.@Tooltip": "強化後の体力上限",
+  "text.autoconfig.reverie_dreams.option.model": "AIモデル",
+  "text.autoconfig.reverie_dreams.option.model.@Tooltip": "使用するAIモデルを選択",
+  "text.autoconfig.reverie_dreams.option.title": "Reverie of Lost Dreams | 設定"
 }

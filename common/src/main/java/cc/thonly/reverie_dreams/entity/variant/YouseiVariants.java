@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.variant;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
@@ -40,9 +41,15 @@ public class YouseiVariants {
     public static synchronized YouseiVariant random() {
         List<YouseiVariant> list = RegistryImpls.YOUSEI_VARIANT.values().stream().toList();
 
-        if (list.isEmpty()) return null;
+        if (list.isEmpty())
+            return null;
 
         return list.get(ThreadLocalRandom.current().nextInt(list.size()));
+    }
+
+    public static YouseiVariant getFromSkinType(SkinType skinType) {
+        List<YouseiVariant> list = RegistryImpls.YOUSEI_VARIANT.values().stream().filter(variant -> variant.getSkinType().equals(skinType)).toList();
+        return list.isEmpty() ? null : list.getFirst();
     }
 
     public static YouseiVariant getFromProperty(Property property) {

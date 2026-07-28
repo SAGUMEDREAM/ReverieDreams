@@ -42,11 +42,11 @@ public class BlockDefinitionList {
         }
     }
 
-    public Map<String, Definition> getItems() {
+    public Map<String, Definition> getBlocks() {
         return this.blocks;
     }
 
-
+    @SuppressWarnings("ALL")
     public static class Definition {
         transient final Block block;
         @JsonProperty("settings")
@@ -56,10 +56,9 @@ public class BlockDefinitionList {
             this.block = block;
             this.settings = new Settings(block);
         }
-
-
     }
 
+    @SuppressWarnings("ALL")
     public static class State {
         transient final Block block;
 
@@ -73,6 +72,7 @@ public class BlockDefinitionList {
         }
     }
 
+    @SuppressWarnings("ALL")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class Settings {
         transient final Block block;
@@ -214,6 +214,7 @@ public class BlockDefinitionList {
         }
     }
 
+    @SuppressWarnings("ALL")
     public static class SoundSettings {
         @JsonProperty("break")
         String breakSound;

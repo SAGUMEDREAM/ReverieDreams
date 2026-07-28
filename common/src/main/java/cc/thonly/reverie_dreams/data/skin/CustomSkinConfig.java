@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -35,7 +34,7 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
     @Getter
     private Item icon = Items.VILLAGER_SPAWN_EGG;
     @Getter
-    private SkinType value;
+    private CustomType value;
 
     public CustomSkinConfig(Identifier id, SkinConfig.ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
         this.id = id;
@@ -52,16 +51,16 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
         this.icon = icon;
     }
 
-    public SkinType value() {
+    public CustomType value() {
         if (this.value != null) {
             return this.value;
         }
-        Optional<Holder.Reference<SkinType>> reference = RegistryImpls.SKIN_TYPE.get(this.id);
-        if (reference.isPresent() && (reference.get().value() instanceof CustomSkinConfig.CustomType)) {
+        Optional<Holder.Reference<CustomType>> reference = RegistryImpls.CUSTOM_SKIN_TYPE.get(this.id);
+        if (reference.isPresent()) {
             log.error("Duplicate key {}", this.id);
             return reference.get().value();
         }
-        SkinType skinType = new CustomType(this.id, this.icon);
+        CustomType skinType = new CustomType(this.id, this.icon);
         SkinConfig skinConfig = new SkinConfig(this.type, this.capeTexture, this.elytraTexture);
         skinType.bindConfig(skinConfig);
         skinConfig.bindRegistryKey(this.id);
@@ -76,19 +75,6 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
 
     public Identifier getTexture() {
         return Identifier.fromNamespaceAndPath(this.id.getNamespace(), "entity/player/skin/%s".formatted(this.id.getPath()));
-    }
-
-    @Getter
-    public static class CustomType extends SkinType {
-        final Item icon;
-        public CustomType(Identifier id, Item icon) {
-            super(id);
-            this.icon = icon;
-        }
-
-        public String getDescriptionId() {
-            return Util.makeDescriptionId("entity", this.getId());
-        }
     }
 
 }

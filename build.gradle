@@ -5,6 +5,15 @@ plugins {
     alias libs.plugins.modrinthMinotaur apply(false)
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += [
+            "-Xlint:none"
+    ]
+    options.compilerArgs += [
+            "-Xlint:-deprecation",
+            "-Xlint:-unchecked"
+    ]
+}
 tasks.register("jarCommon") {
     group = "dev"
     description = "build Common jars"

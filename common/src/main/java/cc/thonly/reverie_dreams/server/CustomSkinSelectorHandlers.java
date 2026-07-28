@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.server;
 
-import cc.thonly.reverie_dreams.data.skin.CustomSkinConfig;
+import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
@@ -77,8 +77,8 @@ public class CustomSkinSelectorHandlers {
         if (!(target instanceof NPCRoleEntity npcRoleEntity)) {
             return;
         }
-        SkinType skinType = RegistryImpls.SKIN_TYPE.getValue(skinId);
-        if (skinType instanceof CustomSkinConfig.CustomType customType) {
+        SkinType skinType = RegistryImpls.CUSTOM_SKIN_TYPE.getValue(skinId);
+        if (skinType instanceof CustomType customType) {
             npcRoleEntity.setSkinType(customType);
             npcRoleEntity.setCustomName(Component.translatable(customType.getDescriptionId()));
             npcRoleEntity.refreshDimensions();

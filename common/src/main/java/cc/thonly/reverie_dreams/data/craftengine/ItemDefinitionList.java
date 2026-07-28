@@ -61,11 +61,11 @@ public class ItemDefinitionList {
         }
     }
 
-
     public Map<String, Definition> getItems() {
         return this.items;
     }
 
+    @SuppressWarnings("ALL")
     public static class Definition {
         transient final Item item;
         @JsonProperty("material")
@@ -123,6 +123,7 @@ public class ItemDefinitionList {
         }
     }
 
+    @SuppressWarnings("ALL")
     public static class BehaviorReader {
         public static List<Behavior> read(Item item) {
             List<Behavior> behaviors = new ArrayList<>();
@@ -147,12 +148,11 @@ public class ItemDefinitionList {
         }
     }
 
-
     public static class Model {
         transient final Item item;
         @JsonAnyGetter
-        private final Map<String, Object> properties = new Object2ObjectLinkedOpenHashMap<>();
-        private transient Map<String, Object> model;
+        public final Map<String, Object> properties = new Object2ObjectLinkedOpenHashMap<>();
+        public transient Map<String, Object> model;
 
         public Model(Item item) {
             this.item = item;
@@ -160,6 +160,7 @@ public class ItemDefinitionList {
             this.readItemModel();
         }
 
+        @SuppressWarnings({"deprecation", "unchecked"})
         void readItems() {
             Holder.Reference<Item> reference = this.item.builtInRegistryHolder();
             ResourceKey<Item> key = reference.key();
@@ -223,6 +224,7 @@ public class ItemDefinitionList {
             }
         }
 
+        @SuppressWarnings("Convert2MethodRef")
         void readItemModel() {
             if (this.model == null) {
                 return;
@@ -271,17 +273,19 @@ public class ItemDefinitionList {
         transient final Item item;
         @JsonProperty("tags")
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        private final List<String> tags = new ArrayList<>();
+        public final List<String> tags = new ArrayList<>();
         @JsonProperty("fuel_time")
         @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-        private int fuelTime;
+        public int fuelTime;
 
         public Settings(Item item) {
             this.item = item;
+            this.readSettings();
         }
 
+        @SuppressWarnings("deprecation")
         void readSettings() {
-            Holder.Reference<Item> reference = item.builtInRegistryHolder();
+            Holder.Reference<Item> reference = this.item.builtInRegistryHolder();
             if (reference.tags != null) {
                 for (TagKey<Item> tag : reference.tags) {
                     this.tags.add(tag.location().toString());
@@ -296,12 +300,12 @@ public class ItemDefinitionList {
         }
     }
 
-
+    @SuppressWarnings("ALL")
     public static class Data {
         transient final Item item;
         @JsonProperty("components")
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        private final Map<String, Object> components = new Object2ObjectLinkedOpenHashMap<>();
+        public final Map<String, Object> components = new Object2ObjectLinkedOpenHashMap<>();
 
         public Data(Item item) {
             this.item = item;
@@ -326,13 +330,12 @@ public class ItemDefinitionList {
             for (TypedDataComponent<?> component : prototype) {
                 DataComponentType type = component.type();
                 Identifier id = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type);
-                Codec codec =
-                        type.codec();
+                Codec codec = type.codec();
                 if (codec == null) {
                     continue;
                 }
                 Optional result = codec.encodeStart(ops, component.value()).result();
-                result.ifPresent(value -> this.components.put(id.toString(), value));
+                result.ifPresent(value -> this.components.put(id.toString(), CraftEngineProvider.convertJson((JsonElement) value)));
             }
         }
     }

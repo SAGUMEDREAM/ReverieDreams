@@ -52,7 +52,7 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
                 )
         );
         this.xpReward = 5;
-        this.variant = RabbitUnitVariants.getFromProperty(this.getSkin());
+        this.variant = RabbitUnitVariants.getFromSkinType(this.getSkinType());
         if (ReverieDreams.RD.nextBoolean()) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(RDItems.WEAPON_OF_THE_MOON.asItem()));
         } else {

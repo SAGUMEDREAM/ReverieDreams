@@ -223,8 +223,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.storedExperience = view.getIntOr("ExperienceAmount", 0);
         this.goodwill = view.getIntOr("GoodWIll", 100);
 
-        view.read("Skin", SkinType.CODEC).ifPresent(this::setSkinType);
-        view.read("DefaultSKinType", SkinType.CODEC).ifPresent(this::setDefaultSkinType);
+        view.read("Skin", SkinType.MERGED_CODEC).ifPresent(this::setSkinType);
+        view.read("DefaultSKinType", SkinType.MERGED_CODEC).ifPresent(this::setDefaultSkinType);
         this.updateAttackType();
     }
 
@@ -252,8 +252,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
         view.putInt("ExperienceAmount", this.storedExperience);
         view.putInt("GoodWill", this.goodwill);
-        view.store("Skin", SkinType.CODEC, this.getSkinType());
-        view.store("DefaultSkinType", SkinType.CODEC, this.getDefaultSkinType());
+        view.store("Skin", SkinType.MERGED_CODEC, this.getSkinType());
+        view.store("DefaultSkinType", SkinType.MERGED_CODEC, this.getDefaultSkinType());
     }
 
     @Override
@@ -663,8 +663,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     private void updateHungerConsumption() {
         this.hungerTick--;
-        if (hungerTick <= 0) {
-            hungerTick = 20;
+        if (this.hungerTick <= 0) {
+            this.hungerTick = 20;
             int hungerEffectLevel = 0;
             MobEffectInstance hungerEff = this.getEffect(MobEffects.HUNGER);
             if (hungerEff != null) {
@@ -790,7 +790,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     public void fixPitchYaw() {
-        if (PlatformContext.isFabric()) {
+        if (PlatformContext.isFabric() && PlatformContext.hasPolymer()) {
             float delta = Math.abs(this.yBodyRot - this.getYRot());
             if (delta > 20.0f) {
                 this.setYBodyRot(this.getYRot());
@@ -806,7 +806,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.updateHungerConsumption();
         this.updateWorking();
         this.updateName();
-        this.fixPitchYaw();
+//        this.fixPitchYaw();
 //        this.neoForgePacketUpdate();
         this.updateAttackTick++;
         if (this.updateAttackTick > this.maxUpdateAttackTick) {
@@ -951,17 +951,22 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         return result;
     }
 
-    public ItemStack toArchive() {
-        ItemStack itemStack = RDItems.ROLE_ARCHIVE.createStack();
+    public RoleFollowerArchive toArchiveComponent() {
         CompoundTag nbtCompound;
         try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(this.problemPath(), LogUtils.getLogger())) {
             TagValueOutput view = TagValueOutput.createWithContext(logging, this.registryAccess());
             this.addAdditionalSaveData(view);
             nbtCompound = view.buildResult();
         }
+        return new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound);
+    }
+
+    public ItemStack toArchive() {
+        ItemStack itemStack = RDItems.ROLE_ARCHIVE.createStack();
         MutableComponent mutableComponent = Component.empty();
         mutableComponent.append(itemStack.getItemName()).append("(").append(this.getName()).append(")");
-        itemStack.set(RDDataComponents.ROLE_FOLLOWER_ARCHIVE.value(), new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));
+        itemStack.set(DataComponents.ITEM_NAME, mutableComponent);
+        itemStack.set(RDDataComponents.ROLE_FOLLOWER_ARCHIVE.value(), this.toArchiveComponent());
         itemStack.set(RDDataComponents.ROLE_CAN_RESPAWN.value(), false);
         return itemStack;
     }

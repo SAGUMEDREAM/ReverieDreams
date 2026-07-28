@@ -61,7 +61,7 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
     };
     private final Function<DecorativeBlockBundle, Void> decorativeBlockBundleLootFunction = (creator) -> {
         creator.stream().forEach((block -> {
-            if (block instanceof SlabBlock) {
+            if (block.asBlock() instanceof SlabBlock) {
                 LootTable.Builder builder = this.createSlabItemTable(block.asBlock());
                 this.add(block.asBlock(), builder);
                 return;

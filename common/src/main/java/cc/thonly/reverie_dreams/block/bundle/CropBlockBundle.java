@@ -96,15 +96,11 @@ public final class CropBlockBundle {
             });
         }
 
-        if (PlatformContext.isFabric()) {
+
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
             Block delegateBlock = blockDelegate.asBlock();
             ((AbstractCropBlock) delegateBlock).setSeed(seedItem.asItem());
-        } else {
-            ReverieDreams.COMMON_LATE_INIT.add(() -> {
-                Block delegateBlock = blockDelegate.asBlock();
-                ((AbstractCropBlock) delegateBlock).setSeed(seedItem.asItem());
-            });
-        }
+        });
 
         Entry entry = Entry.createInstance(this.identifier)
                            .setCropBlock(blockDelegate)

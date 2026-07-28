@@ -1238,5 +1238,67 @@
   "item_view.information.desc.fishing": "取得方式：釣魚",
   "item_view.information.desc.fumos": "取得方式：向 Fumo 商人購買",
   "item_view.information.desc.grass_drop_items": "取得方式：破壞草",
-  "item_view.information.desc.truffle": "取得方式：破壞橡木／樺木／深色橡木／雲杉原木"
+  "item_view.information.desc.truffle": "取得方式：破壞橡木／樺木／深色橡木／雲杉原木",
+  "book_page.reverie_dreams.root.description": "歡迎來到「Reverie of Lost Dreams」。本指南將幫助你了解並上手本模組。",
+  "book_page.reverie_dreams.root.title": "Reverie of Lost Dreams 指南",
+
+  "config.jade.plugin_reverie_dreams.gensokyo_altar_data_provider": "合成資訊",
+  "config.jade.plugin_reverie_dreams.kitchenware_data_provider": "廚具資訊",
+  "config.jade.plugin_reverie_dreams.music_block_data_provider": "播放資訊",
+
+  "gui.reverie_dreams.close": "關閉",
+  "gui.reverie_dreams.custom_skin_selector.title": "第三方造型選擇器",
+  "gui.reverie_dreams.input_request": "請輸入文字：",
+  "gui.reverie_dreams.progress": "進度",
+  "gui.reverie_dreams.send": "送出",
+
+  "item.reverie_dreams.custom_skin_selector": "自訂造型工具",
+  "item.reverie_dreams.soul_card": "靈魂卡",
+
+  "reverie_dreams.page/basic/danmaku_tutorial.title": "彈幕教學",
+  "reverie_dreams.page/basic/danmaku_tutorial.content": "§e彈幕§r是指在STG（射擊遊戲）中常見的攻擊形式，大量子彈形成複雜的彈道圖案。\n本模組中也實現了此機制。\n\n玩家可透過§e彈幕工作台§r使用以下材料製作彈幕：\n\n- 任意染料 ×4\n- 彈幕核心 ×4\n- Power ×35\n- Point ×35\n- 彈幕模板 ×1\n\n§e彈幕模板§r用於定義彈幕形狀，是不可或缺的材料。\n右鍵使用可開啟像素編輯器，自行設計彈幕圖樣。\n\n不同彈幕類型具有各自特性，且皆可於§e強化台§r進行升級。\n\n升級材料：\n\n- 鐵劍：提升傷害\n- 黏液塊：增加彈數\n- 羽毛：提升速度\n- 符卡模板：改變彈道\n",
+
+  "reverie_dreams.page/basic/fumo_tutorial.title": "Fumo（絨毛娃娃）",
+  "reverie_dreams.page/basic/fumo_tutorial.content": "§aFumo§r是由Gift公司製作、基於ANGELTYPE設計的東方Project角色絨毛娃娃。\n特色為坐姿、經典表情（ᗜˬᗜ）、柔軟觸感與可愛的Q版風格。\n\n在本模組中，大多數Fumo需透過高價交易取得。\n放置後會面向玩家，支援16方向。右鍵可播放語音。\n\nFumo僅能從「Fumo商人」取得，且商品每日刷新。\n\n對村民使用§bFumo許可證§r可使其轉職為商人。\n",
+
+  "reverie_dreams.page/basic/gensokyo_altar.title": "幻想鄉祭壇",
+  "reverie_dreams.page/basic/gensokyo_altar.content": "§e幻想鄉工作台§r是本模組的核心合成方塊。\n大多數物品皆在此製作。\n\n支援9格配方，並需要多方塊結構：\n\n周圍柱子需使用§e去皮繩文杉木§r（可於§a莽原§r找到）。\n頂部方塊需使用紙進行祝福。\n使用剪刀可移除祝福。\n\n完成後，使用「空手＋潛行右鍵」即可進行合成。\n",
+
+  "reverie_dreams.page/basic/getting_started.title": "入門指南",
+  "reverie_dreams.page/basic/getting_started.content": "Reverie of Lost Dreams 是一個受東方二次創作啟發的魔法冒險模組。\n\n建議先製作§e幻想鄉祭壇§r，可用來製作§e蓬萊玉枝§r、§e岡格尼爾§r、§e博麗御幣§r等物品。\n\n- §ePower§r與§bPoint§r為基礎材料，可從怪物與妖精掉落取得。\n\n更多配方可在本指南或Polydex中查看。\n",
+
+  "reverie_dreams.page/basic/role_and_partner.title": "夥伴",
+  "reverie_dreams.page/basic/role_and_partner.content": "§a夥伴§r是類似 Touhou Little Maid 的隨從實體。\n\n可進行戰鬥、工作、攜帶物品與互動。\n餵食蛋糕即可馴服。\n\n夥伴可透過§e幻想鄉工作台§r製作的角色卡召喚。\n\n若夥伴死亡，會掉落§e資料卡§r。\n可搭配鑽石使用以復活。\n\n操作：\n- 右鍵：互動\n- 潛行＋左鍵：停止攻擊\n- 潛行＋右鍵：開啟背包\n",
+
+  "reverie_dreams.page/basic/touhou_mystia.title": "米斯蒂亞的居酒屋",
+  "reverie_dreams.page/basic/touhou_mystia.content": "靈感來自§a東方夜雀食堂§r，加入食材、料理、飲品與配方系統。\n\n大部分食材來自作物或戰利品，海鮮則可透過釣魚取得。\n料理擁有標籤，並影響其效果。\n\n-- 烹飪 --\n\n廚具包含：§e鍋子§r、§e料理台§r、§e油炸鍋§r、§e烤架§r、§e蒸籠§r\n皆有進階版本。\n\n錯誤配方可能產生§e黑暗物質§r。\n\n支援與其他模組的配方相容。\n\n-- 飲品 --\n\n多數飲品可從酒館老闆取得。\n飲品具有各種效果，並會每日刷新。\n\n部分飲品為常駐供應。\n\n對村民使用木桶可使其轉職為酒館老闆。\n",
+
+  "reverie_dreams.page/other/compat.title": "模組相容性",
+  "reverie_dreams.page/other/compat.content": "以下為支援與推薦模組列表。\n\n-- 推薦 --\n\n- Polydex\n- Polymer\n- JEI / REI / RRV\n\n-- 相容 --\n\n- Create Fly\n- PolyFactory\n- Polymer Patch for Gensokyo\n\n-- 烹飪支援 --\n\n- Farmer's Delight\n- Ocean's Delight\n- 各類釣魚模組\n",
+
+  "text.autoconfig.reverie_dreams.option.apiKey": "AI 聊天 API 金鑰",
+  "text.autoconfig.reverie_dreams.option.apiKey.@Tooltip": "設定 API 金鑰",
+  "text.autoconfig.reverie_dreams.option.apiUrl": "AI 聊天 API 網址",
+  "text.autoconfig.reverie_dreams.option.apiUrl.@Tooltip": "設定 API 端點",
+  "text.autoconfig.reverie_dreams.option.chatType": "聊天 API 類型",
+  "text.autoconfig.reverie_dreams.option.chatType.@Tooltip": "openai / deepseek / gemini / claude",
+  "text.autoconfig.reverie_dreams.option.checkUpdate": "檢查更新",
+  "text.autoconfig.reverie_dreams.option.checkUpdate.@Tooltip": "自動檢查更新",
+  "text.autoconfig.reverie_dreams.option.configVersion": "設定版本",
+  "text.autoconfig.reverie_dreams.option.configVersion.@Tooltip": "請勿修改",
+  "text.autoconfig.reverie_dreams.option.debugMode": "除錯模式",
+  "text.autoconfig.reverie_dreams.option.debugMode.@Tooltip": "啟用除錯日誌",
+  "text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat": "以 AI 取代聊天",
+  "text.autoconfig.reverie_dreams.option.enableAIReplacesGeneralChat.@Tooltip": "使用 AI 取代一般聊天",
+  "text.autoconfig.reverie_dreams.option.enableDanmakuGlow": "彈幕發光效果",
+  "text.autoconfig.reverie_dreams.option.enableDanmakuGlow.@Tooltip": "啟用發光輪廓",
+  "text.autoconfig.reverie_dreams.option.enableGhostSpawn": "啟用幽靈生成",
+  "text.autoconfig.reverie_dreams.option.enableGhostSpawn.@Tooltip": "允許幽靈生成",
+  "text.autoconfig.reverie_dreams.option.enableYouseiSpawn": "啟用妖精生成",
+  "text.autoconfig.reverie_dreams.option.enableYouseiSpawn.@Tooltip": "允許妖精生成",
+  "text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue": "最大生命值上限",
+  "text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue.@Tooltip": "強化後的生命值上限",
+  "text.autoconfig.reverie_dreams.option.model": "AI 模型",
+  "text.autoconfig.reverie_dreams.option.model.@Tooltip": "選擇使用的 AI 模型",
+  "text.autoconfig.reverie_dreams.option.title": "Reverie of Lost Dreams｜設定"
 }

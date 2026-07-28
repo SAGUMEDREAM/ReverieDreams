@@ -10,6 +10,7 @@ import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.*;
@@ -306,7 +307,7 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
 
     @Override
     public DataComponentLookup<T> componentLookup() {
-        return null;
+        return new DataComponentLookup<>(this.valueToEntry.values());
     }
 
     @Override
@@ -510,10 +511,42 @@ public abstract class RegistryImpl<T> implements WritableRegistry<T> {
         return Stream.empty();
     }
 
-    @SuppressWarnings("DataFlowIssue")
     @Override
     public PendingTags<T> prepareTagReload(TagLoader.LoadResult<T> tags) {
-        return null;
+        return new PendingTags<T>() {
+            @Override
+            public ResourceKey<? extends Registry<? extends T>> key() {
+                return RegistryImpl.this.key();
+            }
+
+            @Override
+            public RegistryLookup<T> lookup() {
+                return RegistryImpl.this;
+            }
+
+            @Override
+            public void apply() {
+
+            }
+
+            @Override
+            public int size() {
+                return RegistryImpl.this.size();
+            }
+
+            public Map<TagKey<T>, List<Holder<T>>> contents() {
+                Map<TagKey<T>, HolderSet.Named<T>> tags = RegistryImpl.this.tags;
+                Map<TagKey<T>, List<Holder<T>>> map = new Object2ObjectLinkedOpenHashMap<>();
+                for (Map.Entry<TagKey<T>, HolderSet.Named<T>> mapEntry : tags.entrySet()) {
+                    TagKey<T> tagKey = mapEntry.getKey();
+                    HolderSet.Named<T> named = mapEntry.getValue();
+                    if (named.contents != null) {
+                        map.put(tagKey, List.copyOf(named.contents));
+                    }
+                }
+                return map;
+            }
+        };
     }
 
     @Override

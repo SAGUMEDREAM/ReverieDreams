@@ -91,56 +91,88 @@ public class FoodProperties {
             if (world.isClientSide()) {
                 return;
             }
+
             if (property.is(FoodProperties.COOL)) {
-                user.setSharedFlagOnFire(false);
-                user.setRemainingFireTicks(0);
+                user.clearFire();
+                user.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 5 * 20, 0));
             }
+
             if (property.is(FoodProperties.SPICY)) {
-                user.setSharedFlagOnFire(true);
-                user.setRemainingFireTicks(2 * 20);
+                user.setRemainingFireTicks(3 * 20);
+                user.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 10 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 10 * 20, 0));
             }
+
             if (property.is(FoodProperties.BIZARRE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 2 * 20, 1));
+                if (user.getRandom().nextBoolean()) {
+                    user.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20 * 20, 0));
+                } else {
+                    user.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10 * 20, 0));
+                }
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 10 * 20, 0));
             }
+
             if (property.is(FoodProperties.GOURMET)) {
-                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 25 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 20 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.HUNGER, 15 * 20, 0));
             }
+
             if (property.is(FoodProperties.MOUNTAIN_DELICACY)) {
-                user.addEffect(new MobEffectInstance(MobEffects.LUCK, 90 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.LUCK, 60 * 20, 0));
             }
+
             if (property.is(FoodProperties.PHOTOGENIC)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 60 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 45 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 10 * 20, 0));
             }
+
             if (property.is(FoodProperties.CURSE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 120 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 90 * 20, 0));
             }
+
             if (property.is(FoodProperties.TOXIC)) {
-                user.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 10 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.POISON, 8 * 20, 0));
             }
+
             if (property.is(FoodProperties.LARGE_PARTITION)) {
-                user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 10 * 20, 0));
             }
+
             if (property.is(FoodProperties.SWEET)) {
-                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 35 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.SPEED, 15 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.HUNGER, 20 * 20, 0));
             }
+
             if (property.is(FoodProperties.UNBELIEVABLE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 35 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 15 * 20, 1));
             }
+
             if (property.is(FoodProperties.LEGENDARY)) {
-                user.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 35 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 10 * 20, 1));
             }
+
             if (property.is(FoodProperties.FILLING)) {
-                user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, 0));
             }
+
             if (property.is(FoodProperties.POWER_SURGE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 45 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 15 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.HASTE, 15 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20 * 20, 0));
             }
+
             if (property.is(FoodProperties.OCEAN_FLAVOR)) {
-                user.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 30 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 30 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 10 * 20, 0));
             }
+
             if (property.is(FoodProperties.DARK_CUISINE)) {
-                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20));
-                user.addEffect(new MobEffectInstance(MobEffects.POISON, 10 * 20));
+                user.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 15 * 20, 1));
+                user.addEffect(new MobEffectInstance(MobEffects.POISON, 10 * 20, 0));
+                user.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20, 0));
             }
         });
     }

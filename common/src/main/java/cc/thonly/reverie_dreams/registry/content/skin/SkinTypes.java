@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.data.skin.CustomSkinConfig;
+import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import net.minecraft.resources.Identifier;
@@ -26,11 +26,11 @@ public abstract class SkinTypes {
         return RegistryImpls.registerForBuiltin(RegistryImpls.SKIN_TYPE, id, skin);
     }
 
-    public static Collection<CustomSkinConfig.CustomType> getCustomTypes() {
-        List<CustomSkinConfig.CustomType> list = new ArrayList<>();
-        for (Map.Entry<ResourceKey<SkinType>, SkinType> entry : RegistryImpls.SKIN_TYPE.entrySet()) {
+    public static Collection<CustomType> getCustomTypes() {
+        List<CustomType> list = new ArrayList<>();
+        for (Map.Entry<ResourceKey<SkinType>, SkinType> entry : RegistryImpls.SKIN_TYPE_MERGED.entrySet()) {
             SkinType type = entry.getValue();
-            if (type instanceof CustomSkinConfig.CustomType customType) {
+            if (type instanceof CustomType customType) {
                 list.add(customType);
             }
         }

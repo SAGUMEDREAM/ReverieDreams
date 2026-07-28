@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.fabric.api.ReverieDreamsPolymerBridge;
 import cc.thonly.reverie_dreams.fabric.compat.ReverieDreamsFabricCompats;
+import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import com.mojang.serialization.Lifecycle;
@@ -22,6 +23,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import java.util.*;
 import java.util.List;
+import java.util.function.Function;
 
 @SuppressWarnings({"unchecked"})
 @Slf4j
@@ -31,11 +33,12 @@ public class ReverieDreamsFabric implements ModInitializer {
     static {
         ReverieDreams.REGISTRY_GETTER = resourceKey -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, Lifecycle.stable()) {
         };
+        ReverieDreams.MERGE_REGISTRY_GETTER = (key, list) -> new MergeRegistry<>((ResourceKey<? extends Registry<Object>>) key, list) {
+        };
         ReverieDreams.REGISTRY_SHADOWER = (resourceKey, objects) -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, (RegistryImpl<Object>) objects) {
         };
     }
 
-    @SuppressWarnings("DataFlowIssue")
     @Override
     public void onInitialize() {
         this.setupEarly();
@@ -45,12 +48,12 @@ public class ReverieDreamsFabric implements ModInitializer {
         }
         ReverieDreams.initialize(() -> {
             ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.forEach(FabricEntityDataRegistry::register);
-            ReverieDreamsPolymerBridge.tryPolymerify();
             ReverieDreamsFabricCompats.initialize();
             ReverieDreams.COMMON_LATE_INIT.forEach(Runnable::run);
             ReverieDreams.COMMON_LATE_INIT.clear();
             ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
             ReverieDreams.BUS_LATE_INIT.clear();
+            ReverieDreamsPolymerBridge.tryPolymerify();
             ReverieDreamsPluginLoader.run();
             CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register(BaseCreativeTab::busInvoker);
             Placeholders.registerCommon(ReverieDreams.id("version"), (ctx, args) -> PlaceholderResult.value(PlatformContext.VERSION.get()));

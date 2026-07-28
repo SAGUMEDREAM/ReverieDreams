@@ -42,7 +42,7 @@ public class Oni extends BaseNPCLikeEntity implements FriendlyFaction {
                 )
         );
         this.xpReward = 5;
-        this.variant = OniVariants.getFromProperty(this.getSkin());
+        this.variant = OniVariants.getFromSkinType(this.getSkinType());
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setMainHand(RDItems.IRON_BAR.createStack());
     }

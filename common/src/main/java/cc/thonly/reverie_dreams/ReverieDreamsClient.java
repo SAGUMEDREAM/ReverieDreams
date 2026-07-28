@@ -9,8 +9,10 @@ import cc.thonly.reverie_dreams.client.registry.RDBlockEntityRenderers;
 import cc.thonly.reverie_dreams.client.registry.RDEntityRenderers;
 import dev.architectury.event.events.client.ClientPlayerEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
+import dev.architectury.platform.Platform;
+import dev.architectury.platform.client.ConfigurationScreenRegistry;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.world.entity.player.Player;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,9 @@ public class ReverieDreamsClient {
         Midi2Sound.register();
         ReverieDreams.LATE_INIT_CLIENT.forEach(Runnable::run);
         ReverieDreams.LATE_INIT_CLIENT.clear();
+        ConfigurationScreenRegistry.register(Platform.getMod(ReverieDreams.MOD_ID), parent -> {
+            return AutoConfigClient.getConfigScreen(ReverieDreamsConfiguration.class, parent).get();
+        });
         lateInit.run();
     }
 

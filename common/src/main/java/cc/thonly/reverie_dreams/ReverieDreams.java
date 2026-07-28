@@ -41,6 +41,7 @@ import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
+import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
 import cc.thonly.reverie_dreams.server.DelayedTask;
@@ -85,6 +86,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+@SuppressWarnings("rawtypes")
 @Setter
 @Getter
 public class ReverieDreams {
@@ -98,6 +100,7 @@ public class ReverieDreams {
     public static final Map<Identifier, EntityDataSerializer<?>> ENTITY_DATA_SERIALIZER_REGISTRY = new Object2ObjectLinkedOpenHashMap<>();
     public static final List<Block> SERVER_SIDE_BLOCKS = List.of(Blocks.NOTE_BLOCK, Blocks.TRIPWIRE);
     public static Function<ResourceKey<? extends Registry<?>>, RegistryImpl<?>> REGISTRY_GETTER = key -> null;
+    public static BiFunction<ResourceKey<? extends Registry<?>>, List<Registry>, MergeRegistry<?>> MERGE_REGISTRY_GETTER = (key, list) -> null;
     public static BiFunction<ResourceKey<? extends Registry<?>>, RegistryImpl<?>, RegistryImpl<?>> REGISTRY_SHADOWER = null;
     private static MinecraftServer server;
 
@@ -197,7 +200,7 @@ public class ReverieDreams {
 
     private static void registerContentEvent() {
         EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByDanmaku);
-        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
+//        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
         EntityEvent.LIVING_HURT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitBySilverWeapon);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByMoonEnchantment);

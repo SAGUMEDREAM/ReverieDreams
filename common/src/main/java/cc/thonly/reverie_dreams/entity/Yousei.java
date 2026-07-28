@@ -48,7 +48,7 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
                 )
        );
         this.xpReward = 5;
-        this.variant = YouseiVariants.getFromProperty(this.getSkin());
+        this.variant = YouseiVariants.getFromSkinType(this.getSkinType());
     }
 
     @Override

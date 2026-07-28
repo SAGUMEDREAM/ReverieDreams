@@ -2,9 +2,13 @@ package cc.thonly.reverie_dreams.fabric;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.ReverieDreamsClient;
-import net.blay09.mods.balm.client.BalmClient;
-import net.blay09.mods.balm.fabric.platform.runtime.FabricLoadContext;
+import cc.thonly.reverie_dreams.ReverieDreamsConfiguration;
+import dev.architectury.platform.Platform;
+import dev.architectury.platform.client.ConfigurationScreenRegistry;
+import me.shedaniel.autoconfig.AutoConfigClient;
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

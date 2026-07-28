@@ -3,10 +3,12 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
 import cc.thonly.reverie_dreams.api.item.ItemStackHelper;
+import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleInteractionEvent;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.gui.entity.NPCGui;
 import cc.thonly.reverie_dreams.item.base.CustomSkinSelectorItem;
+import cc.thonly.reverie_dreams.item.prop.SoulCardItem;
 import cc.thonly.reverie_dreams.registry.RegistryImpls;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -80,6 +82,25 @@ public class NPCRoleInteractionEvents {
         if (stack.isEmpty() && entity.isAllowOpenInventory(player) && player.isShiftKeyDown()) {
             NPCGui npcGui = new NPCGui(player, entity);
             npcGui.open();
+            return NPCInteractResult.SUCCESS;
+        }
+        return NPCInteractResult.PASS;
+    });
+    public static final NPCRoleInteractionEvent ON_USE_SOUL_CARD = registerEvent("on_use_soul_card", (world, player, stack, hand, entity) -> {
+        if (!entity.isOwnedBy(player)) {
+            return NPCInteractResult.PASS;
+        }
+        if (stack.getItem() == RDItems.SOUL_CARD.asItem()) {
+            if (stack.has(RDDataComponents.ROLE_FOLLOWER_ARCHIVE.value())) {
+                return NPCInteractResult.PASS;
+            }
+            MutableComponent mutableComponent = Component.empty();
+            mutableComponent.append(stack.getItemName()).append("(").append(entity.getName()).append(")");
+            stack.set(DataComponents.ITEM_NAME, mutableComponent);
+            stack.set(RDDataComponents.ROLE_FOLLOWER_ARCHIVE.value(), entity.toArchiveComponent());
+            player.swing(hand);
+            entity.discard();
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoulCardItem.SOUND, player.getSoundSource(), 2.0f, 1.0f);
             return NPCInteractResult.SUCCESS;
         }
         return NPCInteractResult.PASS;
