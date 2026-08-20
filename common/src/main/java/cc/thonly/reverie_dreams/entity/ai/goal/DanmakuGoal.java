@@ -19,6 +19,7 @@ import java.util.EnumSet;
 @ToString
 public class DanmakuGoal extends Goal {
     public static final DanmakuShooter DEFAULT_MOB_DANMAKU_FIRE_LAUNCHER = DanmakuShooter.DEFAULT;
+    public static final Integer DIST_SQR = 32 * 32;
     private final LivingEntity self;
     private final Mob mob;
     @Nullable
@@ -53,6 +54,10 @@ public class DanmakuGoal extends Goal {
                 return false;
             }
             if (player.hasInfiniteMaterials()) {
+                return false;
+            }
+            if (player.distanceToSqr(this.mob) >= DIST_SQR) {
+                this.stop();
                 return false;
             }
         }

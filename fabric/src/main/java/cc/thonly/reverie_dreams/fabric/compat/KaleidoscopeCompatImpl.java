@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
+import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.fabric.mixin.accessor.PotRecipeAccessor;
 import cc.thonly.reverie_dreams.fabric.mixin.accessor.SingleItemRecipeAccessor;
@@ -19,6 +21,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
 
 import java.util.Set;
 
@@ -32,52 +35,60 @@ public class KaleidoscopeCompatImpl {
             context.add(ModItems.FLOUR.builtInRegistryHolder(), RDIngredientItems.FLOUR);
 
             context.addProcessor(ModRecipes.POT_RECIPE, recipe -> {
-                PotRecipeAccessor potRecipeAccessor = (PotRecipeAccessor) (Object) recipe;
-                assert potRecipeAccessor != null;
-                NonNullList<Ingredient> ingredients = potRecipeAccessor.reverie_dreams$getIngredients();
-                NonNullList<Ingredient> copy = NonNullList.create();
-                for (Ingredient ingredient : ingredients) {
-                    copy.add(context.modify(ingredient, (ctx, modifier) -> {
-                        return modifier.appendIf(ingredient, targetIngredient -> true);
-                    }));
+                Object object = recipe;
+                if (object instanceof PotRecipeAccessor potRecipeAccessor) {
+                    NonNullList<Ingredient> ingredients = potRecipeAccessor.reverie_dreams$getIngredients();
+                    NonNullList<Ingredient> copy = NonNullList.create();
+                    for (Ingredient ingredient : ingredients) {
+                        copy.add(context.modify(ingredient, (ctx, modifier) -> {
+                            return modifier.appendIf(ingredient, targetIngredient -> true);
+                        }));
+                    }
+                    potRecipeAccessor.reverie_dreams$setIngredients(copy);
                 }
-                potRecipeAccessor.reverie_dreams$setIngredients(copy);
             });
             context.addProcessor(ModRecipes.CHOPPING_BOARD_RECIPE, recipe -> {
-                SingleItemRecipeAccessor accessor = (SingleItemRecipeAccessor) recipe;
-                Ingredient ingredient = accessor.reverie_dreams$getInput();
-                Ingredient modify = context.modify(ingredient, (ctx, modifier) -> {
-                    return modifier.appendIf(ingredient, targetIngredient -> true);
-                });
-                accessor.reverie_dreams$setInput(modify);
+                if (!(recipe instanceof SingleItemRecipe singleItemRecipe)) {
+                    return;
+                }
+                if(singleItemRecipe instanceof SingleItemRecipeAccessor accessor) {
+                    Ingredient ingredient = accessor.reverie_dreams$getInput();
+                    Ingredient modify = context.modify(ingredient, (ctx, modifier) -> {
+                        return modifier.appendIf(ingredient, targetIngredient -> true);
+                    });
+                    accessor.reverie_dreams$setInput(modify);
+                }
             });
             context.addProcessor(ModRecipes.STOCKPOT_RECIPE, recipe -> {
-                StockpotRecipeAccessor stockpotRecipeAccessor = (StockpotRecipeAccessor) (Object) recipe;
-                assert stockpotRecipeAccessor != null;
-                NonNullList<Ingredient> ingredients = stockpotRecipeAccessor.reverie_dreams$getIngredients();
-                NonNullList<Ingredient> copy = NonNullList.create();
-                for (Ingredient ingredient : ingredients) {
-                    copy.add(context.modify(ingredient, (ctx, modifier) -> {
-                        return modifier.appendIf(ingredient, targetIngredient -> true);
-                    }));
+                Object object = recipe;
+                if (object instanceof StockpotRecipeAccessor stockpotRecipeAccessor) {
+                    NonNullList<Ingredient> ingredients = stockpotRecipeAccessor.reverie_dreams$getIngredients();
+                    NonNullList<Ingredient> copy = NonNullList.create();
+                    for (Ingredient ingredient : ingredients) {
+                        copy.add(context.modify(ingredient, (ctx, modifier) -> {
+                            return modifier.appendIf(ingredient, targetIngredient -> true);
+                        }));
+                    }
+                    stockpotRecipeAccessor.reverie_dreams$setIngredients(copy);
                 }
-                stockpotRecipeAccessor.reverie_dreams$setIngredients(copy);
             });
             context.addProcessor(ModRecipes.STEAMER_RECIPE, recipe -> {
-                SingleItemRecipeAccessor accessor = (SingleItemRecipeAccessor) recipe;
-                Ingredient ingredient = accessor.reverie_dreams$getInput();
-                Ingredient modify = context.modify(ingredient, (ctx, modifier) -> {
-                    return modifier.appendIf(ingredient, targetIngredient -> true);
-                });
-                accessor.reverie_dreams$setInput(modify);
+                if (recipe instanceof SingleItemRecipeAccessor accessor) {
+                    Ingredient ingredient = accessor.reverie_dreams$getInput();
+                    Ingredient modify = context.modify(ingredient, (ctx, modifier) -> {
+                        return modifier.appendIf(ingredient, targetIngredient -> true);
+                    });
+                    accessor.reverie_dreams$setInput(modify);
+                }
             });
             context.addProcessor(ModRecipes.MILLSTONE_RECIPE, recipe -> {
-                SingleItemRecipeAccessor accessor = (SingleItemRecipeAccessor) recipe;
-                Ingredient ingredient = accessor.reverie_dreams$getInput();
-                Ingredient modify = context.modify(ingredient, (ctx, modifier) -> {
-                    return modifier.appendIf(ingredient, targetIngredient -> true);
-                });
-                accessor.reverie_dreams$setInput(modify);
+                if (recipe instanceof SingleItemRecipeAccessor accessor) {
+                    Ingredient ingredient = accessor.reverie_dreams$getInput();
+                    Ingredient modify = context.modify(ingredient, (ctx, modifier) -> {
+                        return modifier.appendIf(ingredient, targetIngredient -> true);
+                    });
+                    accessor.reverie_dreams$setInput(modify);
+                }
             });
 //            context.addProcessor(ModRecipes.TEAPOT_RECIPE, recipe -> {
 //                TeapotRecipeAccessor accessor = (TeapotRecipeAccessor) (Object) recipe;
@@ -143,6 +154,29 @@ public class KaleidoscopeCompatImpl {
             if (property.is(FoodProperties.FILLING)) {
                 items.add(ModItems.RICE_PANICLE);
             }
+        });
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+            InitTooltips.copyItemTooltip(RDIngredientItems.TOMATO, ModItems.TOMATO);
+            InitTooltips.copyItemTooltip(RDIngredientItems.CHILI, ModItems.RED_CHILI);
+            InitTooltips.copyItemTooltip(RDIngredientItems.CHILI, ModItems.GREEN_CHILI);
+            InitTooltips.copyItemTooltip(RDIngredientItems.CHILI, ModItems.CHILI_RISTRA);
+            InitTooltips.copyItemTooltip(RDIngredientItems.STICKY_RICE, ModItems.RICE_PANICLE);
+            InitTooltips.copyItemTooltip(RDIngredientItems.FLOUR, ModItems.RICE_PANICLE);
+            InitTooltips.copyItemTooltip(Items.WHEAT, ModItems.RICE_PANICLE);
+            InitTooltips.copyItemTooltip(RDIngredientItems.CICADA_SHELL, ModItems.CATERPILLAR);
+            InitTooltips.copyItemTooltip(Items.MUTTON, ModItems.RAW_LAMB_CHOPS);
+            InitTooltips.copyItemTooltip(Items.MUTTON, ModItems.COOKED_LAMB_CHOPS);
+            InitTooltips.copyItemTooltip(Items.BEEF, ModItems.RAW_COW_OFFAL);
+            InitTooltips.copyItemTooltip(Items.BEEF, ModItems.COOKED_COW_OFFAL);
+            InitTooltips.copyItemTooltip(Items.PORKCHOP, ModItems.RAW_PORK_BELLY);
+            InitTooltips.copyItemTooltip(Items.PORKCHOP, ModItems.COOKED_PORK_BELLY);
+            InitTooltips.copyItemTooltip(Items.PORKCHOP, ModItems.RAW_DONKEY_MEAT);
+            InitTooltips.copyItemTooltip(Items.PORKCHOP, ModItems.COOKED_DONKEY_MEAT);
+            InitTooltips.copyItemTooltip(Items.PORKCHOP, ModItems.RAW_MEATBALL);
+            InitTooltips.copyItemTooltip(Items.PORKCHOP, ModItems.COOKED_MEATBALL);
+            InitTooltips.copyItemTooltip(Items.CHICKEN, ModItems.RAW_CUT_SMALL_MEATS);
+            InitTooltips.copyItemTooltip(Items.CHICKEN, ModItems.COOKED_CUT_SMALL_MEATS);
+            InitTooltips.copyItemTooltip(Items.EGG, ModItems.FRIED_EGG);
         });
     }
 }

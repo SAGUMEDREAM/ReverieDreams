@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "reverie_dreams:upgraded_health"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_upgraded_health_fragment": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reverie_dreams:upgraded_health_fragment"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_upgraded_health_fragment"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "reverie_dreams:upgraded_health"
+    ]
+  }
+}

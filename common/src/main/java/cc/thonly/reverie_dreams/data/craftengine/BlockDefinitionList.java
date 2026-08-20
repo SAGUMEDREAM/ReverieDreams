@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.data.craftengine;
 
+import cc.thonly.reverie_dreams.mixin.accessor.BlockAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.FireBlockAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.ItemAccessor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -24,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings({"deprecation", "LombokGetterMayBeUsed"})
 @Slf4j
-@SuppressWarnings("ALL")
 public class BlockDefinitionList {
 
     @JsonProperty("blocks")
@@ -33,8 +35,8 @@ public class BlockDefinitionList {
 
     public BlockDefinitionList(List<Block> blockList) {
         for (Block block : blockList) {
-            ResourceKey<Block> resourceKey = block.builtInRegistryHolder()
-                                                  .key();
+            ResourceKey<Block> resourceKey = ((BlockAccessor) block).reverie_dreams$builtInRegistryHolder()
+                                                                    .key();
             Identifier id = resourceKey.identifier();
             String key = id.toString();
             Definition definition = new Definition(block);
@@ -58,7 +60,6 @@ public class BlockDefinitionList {
         }
     }
 
-    @SuppressWarnings("ALL")
     public static class State {
         transient final Block block;
 
@@ -72,7 +73,7 @@ public class BlockDefinitionList {
         }
     }
 
-    @SuppressWarnings("ALL")
+    @SuppressWarnings({"DataFlowIssue", "ConstantValue"})
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class Settings {
         transient final Block block;
@@ -115,7 +116,7 @@ public class BlockDefinitionList {
 
         @JsonProperty("friction")
         Float friction;
-//
+        //
         @JsonProperty("burnable")
         Boolean burnable;
 
@@ -200,7 +201,7 @@ public class BlockDefinitionList {
             this.requireCorrectTools = state.requiresCorrectToolForDrops();
             this.instrument = state.instrument().name();
 
-            Holder.Reference<Block> reference = this.block.builtInRegistryHolder();
+            Holder.Reference<Block> reference = ((BlockAccessor) this.block).reverie_dreams$builtInRegistryHolder();
             if (reference.tags != null) {
                 for (TagKey<Block> tag : reference.tags().toList()) {
                     this.tags.add(tag.location().toString());
@@ -209,12 +210,11 @@ public class BlockDefinitionList {
 
             Item blockItem = this.block.asItem();
             if (blockItem != null) {
-                this.item = blockItem.builtInRegistryHolder().key().identifier().toString();
+                this.item = ((ItemAccessor) blockItem).reverie_dreams$builtInRegistryHolder().key().identifier().toString();
             }
         }
     }
 
-    @SuppressWarnings("ALL")
     public static class SoundSettings {
         @JsonProperty("break")
         String breakSound;
@@ -235,7 +235,7 @@ public class BlockDefinitionList {
             this.fallSound = id(sound.getFallSound());
         }
 
-        private String id(SoundEvent event){
+        private String id(SoundEvent event) {
             Identifier id = BuiltInRegistries.SOUND_EVENT.getKey(event);
             return id == null ? null : id.toString();
         }

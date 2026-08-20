@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -39,7 +39,7 @@ public class RDPointOfInterestTypes extends PoiTypes {
     }
 
     private static RegistrySupplier<PoiType> register(ResourceKey<PoiType> key, Supplier<Entry> entrySuppler) {
-        RegistrySupplier<PoiType> registrySupplier = ReverieDreamsRegistries.POI_TYPE.register(key.identifier().getPath(), () -> {
+        RegistrySupplier<PoiType> registrySupplier = MCBuiltInRegistries.POI_TYPE.register(key.identifier().getPath(), () -> {
             Entry entry = entrySuppler.get();
             return new PoiType(entry.states, entry.ticketCount, entry.searchDistance);
         });

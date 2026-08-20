@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +31,7 @@ public class Levatin extends SwordItem {
     }
 
     private void tryBreakEquipments(LivingEntity target) {
-        if (target instanceof Player || target instanceof NPCRoleEntity)
+        if (target instanceof Player || target instanceof NPCSimpleEntity)
             return;
 
         ServerLevel world = (ServerLevel) target.level();

@@ -20,21 +20,21 @@ import java.util.List;
 
 @SuppressWarnings("resource")
 public class NPCOpenSilverChestGoal extends Goal {
-    private final BaseNPCLikeEntity roleEntity;
+    private final BaseNPCLikeEntity npc;
     @Nullable
     private OperationalTarget operationalTarget;
     private int tick = 0;
 
-    public NPCOpenSilverChestGoal(BaseNPCLikeEntity roleEntity) {
-        this.roleEntity = roleEntity;
+    public NPCOpenSilverChestGoal(BaseNPCLikeEntity npc) {
+        this.npc = npc;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     @SuppressWarnings("deprecation")
     private List<BlockPos> findSilverChestBlockPosList() {
         List<BlockPos> blockPosList = new LinkedList<>();
-        Level world = this.roleEntity.level();
-        BlockPos center = this.roleEntity.getWorkingPos();
+        Level world = this.npc.level();
+        BlockPos center = this.npc.getWorkingPos();
         int r = 8;
 
         BoundingBox box = new BoundingBox(
@@ -65,7 +65,7 @@ public class NPCOpenSilverChestGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!this.roleEntity.isTame()) {
+        if (!this.npc.isTame()) {
             return false;
         }
         if (this.operationalTarget != null) {
@@ -76,7 +76,7 @@ public class NPCOpenSilverChestGoal extends Goal {
     }
 
     private boolean trySetTarget() {
-        Level world = this.roleEntity.level();
+        Level world = this.npc.level();
         List<BlockPos> silverChestBlockPosList = this.findSilverChestBlockPosList();
         for (BlockPos blockPos : silverChestBlockPosList) {
             BlockEntity blockEntity = world.getBlockEntity(blockPos);
@@ -91,7 +91,7 @@ public class NPCOpenSilverChestGoal extends Goal {
                 if (itemStack.isEmpty()) {
                     continue;
                 }
-                NPCInventoryImpl inventory = this.roleEntity.getInventory();
+                NPCInventoryImpl inventory = this.npc.getInventory();
                 if (!inventory.canAddItem(itemStack)) {
                     continue;
                 }
@@ -113,7 +113,7 @@ public class NPCOpenSilverChestGoal extends Goal {
         if (this.operationalTarget != null) {
             BlockPos blockPos = this.operationalTarget.blockPos;
             if (!this.isReached(blockPos)) {
-                this.roleEntity.getNavigation().moveTo(
+                this.npc.getNavigation().moveTo(
                         blockPos.getX() + 0.5,
                         blockPos.getY() + 0.5,
                         blockPos.getZ() + 0.5,
@@ -124,18 +124,18 @@ public class NPCOpenSilverChestGoal extends Goal {
                 ItemStack itemStack = this.operationalTarget.itemStack;
                 int slotIndex = this.operationalTarget.index;
 
-                NPCInventoryImpl inventory = this.roleEntity.getInventory();
+                NPCInventoryImpl inventory = this.npc.getInventory();
 
                 int inserted = inventory.insertStack(itemStack);
                 if (inserted > 0) {
                     itemStack.shrink(inserted);
                     customChestBlockEntity.setChanged();
-                    this.roleEntity.makeSound(SoundEvents.CHEST_OPEN);
-                    this.roleEntity.swing(InteractionHand.MAIN_HAND);
+                    this.npc.makeSound(SoundEvents.CHEST_OPEN);
+                    this.npc.swing(InteractionHand.MAIN_HAND);
                     double x = blockPos.getX() + 0.5;
                     double y = blockPos.getY() + 0.5;
                     double z = blockPos.getZ() + 0.5;
-                    this.roleEntity.getLookControl().setLookAt(x, y, z);
+                    this.npc.getLookControl().setLookAt(x, y, z);
                 }
 
                 if (itemStack.isEmpty()) {
@@ -148,7 +148,7 @@ public class NPCOpenSilverChestGoal extends Goal {
     }
 
     private boolean isReached(BlockPos blockPos) {
-        double distanceSq = blockPos.distToCenterSqr(this.roleEntity.position());
+        double distanceSq = blockPos.distToCenterSqr(this.npc.position());
         return distanceSq <= 9; // 半径 3 格
     }
 

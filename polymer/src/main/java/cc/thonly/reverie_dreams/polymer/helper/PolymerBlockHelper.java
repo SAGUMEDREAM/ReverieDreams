@@ -1,13 +1,10 @@
 package cc.thonly.reverie_dreams.polymer.helper;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.props.*;
 import cc.thonly.reverie_dreams.fabric.ReverieDreamsFabric;
 import cc.thonly.reverie_dreams.polymer.block.*;
-import cc.thonly.reverie_dreams.block.CashBoxBlock;
-import cc.thonly.reverie_dreams.block.FoodDisplayBlock;
-import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
-import cc.thonly.reverie_dreams.block.MarisaHatBlock;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
@@ -62,10 +59,12 @@ public class PolymerBlockHelper {
             case RailControllerBlock ignored -> RailPolymerBlock.INSTANCE;
             case SignalRailBlock ignored -> RailPolymerBlock.INSTANCE;
             case SignalDelayerBlock ignored -> BaseFactoryBlock.BARRIER;
+            case ChairBlock ignored -> BaseFactoryBlock.BARRIER;
+            case TableBlock ignored -> BaseFactoryBlock.BARRIER;
             case RemoteClientBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
             case RemoteServerBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
             case SpeakerBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
-            case FoodDisplayBlock ignored -> new ItemStackDisplayImpl();
+            case PlateBlock ignored -> new PlateImpl();
             case AbstractCropBlock ignored -> new CropHolderImpl(ignored);
             case FruitLeavesBlock ignored -> new FruitLeavesImpl(ignored);
             case ModelBlock ignored -> new ModelFactoryImpl(ignored);
@@ -99,7 +98,7 @@ public class PolymerBlockHelper {
             case RotatedPillarBlock ignored -> BaseFactoryBlock.BARRIER;
             case WaterloggedTransparentBlock ignored -> BaseFactoryBlock.BARRIER;
             default -> {
-                if (defaultState.isCollisionShapeFullBlock(PolymerCommonUtils.getFakeWorld(), BlockPos.ZERO)) {
+                if (defaultState.isCollisionShapeFullBlock(PolymerCommonUtils.getFakeLevel(), BlockPos.ZERO)) {
                     yield StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
                 } else {
                     yield BaseFactoryBlock.BARRIER;

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.debug;
 
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,7 +28,7 @@ public class BattleStickItem extends Item {
         if (world.isClientSide()) return InteractionResult.SUCCESS;
         if (!(user instanceof ServerPlayer serverPlayer)) return InteractionResult.SUCCESS;
 
-        BattleStickRecorder recorder = stack.getOrDefault(RDDataComponents.BATTLE_STICK_RECORDER.value(), new BattleStickRecorder("", ""));
+        BattleStickRecorder recorder = stack.getOrDefault(RDDataComponentTypes.BATTLE_STICK_RECORDER.value(), new BattleStickRecorder("", ""));
 
         String uuid = entity.getUUID().toString();
         if (recorder.getTarget_0().isEmpty()) {
@@ -43,7 +43,7 @@ public class BattleStickItem extends Item {
             recorder.setTarget_1("");
         }
 
-        stack.set(RDDataComponents.BATTLE_STICK_RECORDER.value(), recorder);
+        stack.set(RDDataComponentTypes.BATTLE_STICK_RECORDER.value(), recorder);
         user.swing(hand);
         return InteractionResult.SUCCESS_SERVER;
     }

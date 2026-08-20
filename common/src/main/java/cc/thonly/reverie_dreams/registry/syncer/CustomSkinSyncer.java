@@ -2,9 +2,8 @@ package cc.thonly.reverie_dreams.registry.syncer;
 
 import cc.thonly.reverie_dreams.data.skin.CustomSkinConfig;
 import cc.thonly.reverie_dreams.data.skin.CustomType;
-import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import com.mojang.serialization.Codec;
 import net.minecraft.resources.Identifier;
@@ -17,22 +16,22 @@ import java.util.function.Supplier;
 public class CustomSkinSyncer implements Supplier<RegistrySyncer<CustomType, CustomSkinConfig>> {
     @Override
     public RegistrySyncer<CustomType, CustomSkinConfig> get() {
-        return new Impl(RegistryImpls.CUSTOM_SKIN_TYPE,
+        return new Impl(BuiltInRegistryProviders.CUSTOM_SKIN_TYPE,
                 CustomSkinConfig.CODEC,
                 new RegistrySyncer.ClientReloadListener<>() {
                     @Override
-                    public void preProcessing(RegistryImpl<CustomType> registry) {
-                        for (CustomType skinType : RegistryImpls.CUSTOM_SKIN_TYPE.values()) {
-                            Optional<ResourceKey<CustomType>> resourceKey = RegistryImpls.CUSTOM_SKIN_TYPE.getResourceKey(skinType);
+                    public void preProcessing(RegistryProvider<CustomType> registry) {
+                        for (CustomType skinType : BuiltInRegistryProviders.CUSTOM_SKIN_TYPE.values()) {
+                            Optional<ResourceKey<CustomType>> resourceKey = BuiltInRegistryProviders.CUSTOM_SKIN_TYPE.getResourceKey(skinType);
                             if (resourceKey.isEmpty()) {
                                 continue;
                             }
-                            RegistryImpls.CUSTOM_SKIN_TYPE.unregister(resourceKey.get());
+                            BuiltInRegistryProviders.CUSTOM_SKIN_TYPE.unregister(resourceKey.get());
                         }
                     }
 
                     @Override
-                    public void afterProcessing(RegistryImpl<CustomType> registry) {
+                    public void afterProcessing(RegistryProvider<CustomType> registry) {
 
                     }
 
@@ -46,7 +45,7 @@ public class CustomSkinSyncer implements Supplier<RegistrySyncer<CustomType, Cus
 
                     @Override
                     public RegistrySyncer<CustomType, CustomSkinConfig> getSyncer() {
-                        return RegistryImpls.CUSTOM_SKIN_TYPE.getSyncer();
+                        return BuiltInRegistryProviders.CUSTOM_SKIN_TYPE.getSyncer();
                     }
 
                 }
@@ -55,7 +54,7 @@ public class CustomSkinSyncer implements Supplier<RegistrySyncer<CustomType, Cus
 
     public static class Impl extends RegistrySyncer<CustomType, CustomSkinConfig> {
 
-        public Impl(RegistryImpl<CustomType> registry, Codec<CustomSkinConfig> codec, ClientReloadListener<CustomType, CustomSkinConfig> clientReloadListener) {
+        public Impl(RegistryProvider<CustomType> registry, Codec<CustomSkinConfig> codec, ClientReloadListener<CustomType, CustomSkinConfig> clientReloadListener) {
             super(registry, codec, clientReloadListener);
         }
 

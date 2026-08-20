@@ -4,7 +4,7 @@ import cc.thonly.keine.api.resource.AssetContainer;
 import cc.thonly.keine.api.resource.ResourceLocatorApi;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.properties.Property;
@@ -39,7 +39,7 @@ public class SkinFetcher {
 
     public static Optional<Property> getSkinFromNPCSkin(SkinConfig config) {
         boolean useSlim = config.getType() == SkinConfig.ModelType.SLIM;
-        Identifier id = RegistryImpls.SKIN_CONFIG.getKey(config);
+        Identifier id = BuiltInRegistryProviders.SKIN_CONFIG.getKey(config);
         if (id == null)
             return Optional.empty();
         if (SkinFetcherCaches.MD5_CACHED.isEmpty()) {

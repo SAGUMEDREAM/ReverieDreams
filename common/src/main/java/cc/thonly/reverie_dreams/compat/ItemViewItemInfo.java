@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.compat;
 
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.data.FumoType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -18,8 +18,8 @@ public class ItemViewItemInfo {
     public static void registerItemInfo(BiConsumer<List<Item>, Component> callback) {
         List<Item> chestDropItems = RDCropBlocks.CHEST_DROPS.stream().map(CropBlockBundle.Entry::getSeed).map(ItemLike::asItem).toList();
         List<Item> grassDropItems = RDCropBlocks.GRASS_DROPS.stream().map(CropBlockBundle.Entry::getSeed).map(ItemLike::asItem).toList();
-        List<Item> fumos = RegistryImpls.FUMO.values().stream().map(FumoType::block).map(Block::asItem).toList();
-        List<Item> drinks = RDDrinkItems.DRINK_ITEMS.stream().map(ItemLike::asItem).toList();
+        List<Item> fumos = BuiltInRegistryProviders.FUMO.values().stream().map(FumoType::block).map(Block::asItem).toList();
+        List<Item> drinks = RDBeverageItems.DRINK_ITEMS.stream().map(ItemLike::asItem).toList();
         List<Item> fishing = RDIngredientItems.FISHING.stream().map(ItemLike::asItem).toList();
         List<Item> truffle = List.of(RDIngredientItems.TRUFFLE.asItem());
 

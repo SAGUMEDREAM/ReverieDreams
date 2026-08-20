@@ -1,0 +1,58 @@
+{
+  "role_type": "reverie_dreams:watatsuki_toyohime",
+  "rare": true,
+  "budget": {
+    "min": 1200,
+    "max": 1500
+  },
+  "likes": [
+    "reverie_dreams:gourmet",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:sweet",
+    "reverie_dreams:cool",
+    "reverie_dreams:cultural_depth",
+    "reverie_dreams:fruity"
+  ],
+  "dislikes": [
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:salty",
+    "reverie_dreams:power_surge"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:can_add_ice",
+    "reverie_dreams:sake",
+    "reverie_dreams:classical"
+  ],
+  "chats": [
+    "reverie_dreams.role.watatsuki_toyohime.chat.0",
+    "reverie_dreams.role.watatsuki_toyohime.chat.1",
+    "reverie_dreams.role.watatsuki_toyohime.chat.2",
+    "reverie_dreams.role.watatsuki_toyohime.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.watatsuki_toyohime.order.0",
+    "reverie_dreams.role.watatsuki_toyohime.order.1",
+    "reverie_dreams.role.watatsuki_toyohime.order.2",
+    "reverie_dreams.role.watatsuki_toyohime.order.3",
+    "reverie_dreams.role.watatsuki_toyohime.order.4",
+    "reverie_dreams.role.watatsuki_toyohime.order.5",
+    "reverie_dreams.role.watatsuki_toyohime.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.watatsuki_toyohime.description.0",
+    "reverie_dreams.role.watatsuki_toyohime.description.1",
+    "reverie_dreams.role.watatsuki_toyohime.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.watatsuki_toyohime.evaluation.exbad",
+    "bad": "reverie_dreams.role.watatsuki_toyohime.evaluation.bad",
+    "norm": "reverie_dreams.role.watatsuki_toyohime.evaluation.norm",
+    "good": "reverie_dreams.role.watatsuki_toyohime.evaluation.good",
+    "exgood": "reverie_dreams.role.watatsuki_toyohime.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.watatsuki_toyohime.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.watatsuki_toyohime.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.watatsuki_toyohime.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.watatsuki_toyohime.evaluation.seenRepell"
+  }
+}

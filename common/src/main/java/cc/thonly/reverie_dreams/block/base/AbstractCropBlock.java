@@ -7,8 +7,11 @@ import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -20,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +48,36 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
     }
 
     @Override
+    public InteractionResult useWithoutItem(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            Player player,
+            BlockHitResult hitResult
+    ) {
+        int age = this.getAge(state);
+        if (age < this.getMaxAge()) {
+            return InteractionResult.PASS;
+        }
+
+        if (!level.isClientSide()) {
+            level.destroyBlock(
+                    pos,
+                    true,
+                    player
+            );
+            level.setBlock(
+                    pos,
+                    this.withAge(0),
+                    Block.UPDATE_ALL
+            );
+
+        }
+
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(this.getAgeProperty());
@@ -54,19 +88,19 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
         int age = this.getAge(state);
         int maxAge = this.getMaxAge();
 
-        int index = (int) ((age / (float) maxAge) * (shapes.size() - 1));
-        return shapes.get(index);
+        int index = (int) ((age / (float) maxAge) * (this.shapes.size() - 1));
+        return this.shapes.get(index);
     }
 
     public void normalizeShapes(int targetSize) {
-        if (shapes == null || shapes.isEmpty()) {
+        if (this.shapes == null || this.shapes.isEmpty()) {
             throw new IllegalStateException("Shapes cannot be empty");
         }
 
-        VoxelShape last = shapes.getLast();
+        VoxelShape last = this.shapes.getLast();
 
-        while (shapes.size() < targetSize) {
-            shapes.add(last);
+        while (this.shapes.size() < targetSize) {
+            this.shapes.add(last);
         }
     }
 
@@ -149,13 +183,14 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
     }
 
     public BlockState withAge(int age) {
-        return (BlockState) this.defaultBlockState().setValue(this.getAgeProperty(), age);
+        return this.defaultBlockState().setValue(this.getAgeProperty(), age);
     }
 
     public int getAge(BlockState state) {
         return state.getValue(this.getAgeProperty());
     }
 
+    @SuppressWarnings("JavaExistingMethodCanBeUsed")
     protected static float getAvailableMoisture(Block block, BlockGetter world, BlockPos pos) {
         boolean bl2;
         float f = 1.0f;

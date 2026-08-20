@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
@@ -25,7 +25,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings({"rawtypes", "resource"})
+@SuppressWarnings({"rawtypes"})
 public class ServerEventHandlers {
     public static void onPlayerJoinByCreateComponent(ServerPlayer player) {
         PlayerComponentManager componentManager = PlayerComponentManager.serverAccess();
@@ -36,7 +36,7 @@ public class ServerEventHandlers {
     }
 
     public static void onPlayerJoinBySync(ServerPlayer player) {
-        RegistryImpls.startSyncRegistry(List.of(player));
+        BuiltInRegistryProviders.startSyncRegistry(List.of(player));
         RecipeManager.startSyncRecipe(List.of(player));
     }
 
@@ -94,7 +94,7 @@ public class ServerEventHandlers {
         server.execute(() -> {
             PlayerComponentManager playerComponentManager = PlayerComponentManager.serverAccess();
             playerComponentManager.onLoad(server);
-            RegistryImpls.startSyncRegistry(server.getPlayerList().getPlayers());
+            BuiltInRegistryProviders.startSyncRegistry(server.getPlayerList().getPlayers());
             RecipeManager.startSyncRecipe(server.getPlayerList().getPlayers());
         });
     }

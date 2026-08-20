@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.world.gen.biome;
 
-import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinPlacedFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.attribute.AmbientParticle;
@@ -37,12 +37,12 @@ public class DreamBiomeCreator {
     }
     public static Biome createDream(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         BiomeGenerationSettings.Builder lookupBackedBuilder = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
-        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, PlacedFeaturesInit.DREAM_WORLD_GRID_KEY);
-        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, PlacedFeaturesInit.FLOATING_DREAM_STONE_KEY);
-        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, PlacedFeaturesInit.FLOATING_DREAM_CRYSTAL_KEY);
-        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, PlacedFeaturesInit.FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY);
-        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, PlacedFeaturesInit.FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY);
-        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, PlacedFeaturesInit.DREAM_FLOATING_ISLAND_KEY);
+        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, RDBuiltinPlacedFeatures.DREAM_WORLD_GRID_KEY);
+        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, RDBuiltinPlacedFeatures.FLOATING_DREAM_STONE_KEY);
+        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, RDBuiltinPlacedFeatures.FLOATING_DREAM_CRYSTAL_KEY);
+        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, RDBuiltinPlacedFeatures.FLOATING_DREAM_TRIAL_ROOM_ZOMBIE_KEY);
+        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, RDBuiltinPlacedFeatures.FLOATING_DREAM_TRIAL_ROOM_SKELETON_KEY);
+        lookupBackedBuilder.addFeature(GenerationStep.Decoration.RAW_GENERATION, RDBuiltinPlacedFeatures.DREAM_FLOATING_ISLAND_KEY);
 
         return createDream(lookupBackedBuilder);
     }

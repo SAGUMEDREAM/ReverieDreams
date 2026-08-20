@@ -1,0 +1,22 @@
+{
+  "registry_key": "reverie_dreams:sweet",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/fruity_high_ball",
+      "reverie_dreams:beverage/fruity_sour",
+      "reverie_dreams:beverage/qi",
+      "reverie_dreams:beverage/affgado",
+      "reverie_dreams:beverage/blessing_wind",
+      "reverie_dreams:beverage/winter_brew",
+      "reverie_dreams:beverage/fourteenth_night",
+      "reverie_dreams:beverage/iceberg_maple_frozen_lemon",
+      "reverie_dreams:beverage/big_popsicle",
+      "reverie_dreams:beverage/daiginjo",
+      "reverie_dreams:beverage/fairy_rain",
+      "reverie_dreams:beverage/paleo_creamy_smoothie",
+      "reverie_dreams:beverage/qi_health",
+      "reverie_dreams:beverage/komeiji_ice_cream",
+      "reverie_dreams:beverage/drunk_actor"
+    ]
+  }
+}

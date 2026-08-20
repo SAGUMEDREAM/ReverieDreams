@@ -14,7 +14,7 @@ public class RDCreativeTabs {
         KitchenwareCreativeTab.bootstrap();
         IngredientCreativeTab.bootstrap();
         FoodCreativeTab.bootstrap();
-        DrinkCreativeTab.bootstrap();
+        BeverageCreativeTab.bootstrap();
         SeedCreativeTab.bootstrap();
 
         SpawnEggCreativeTab.bootstrap();

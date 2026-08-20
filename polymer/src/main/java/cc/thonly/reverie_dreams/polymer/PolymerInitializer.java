@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.polymer;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
+import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.polymer.mixin.FabricEntityDataRegistryImplAccessor;
@@ -17,14 +18,14 @@ import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes
 import cc.thonly.reverie_dreams.polymer.item.PolymerTHGuideBookItem;
 import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import com.geckolib.GeckoLibConstants;
@@ -79,7 +80,7 @@ public class PolymerInitializer {
         for (Holder<Block> holder : RDBlocks.HOLDERS) {
             PolymerBlockHelper.registerOverlay(holder.value());
         }
-        for (Holder<DataComponentType> component : RDDataComponents.COMPONENTS) {
+        for (Holder<DataComponentType> component : RDDataComponentTypes.COMPONENTS) {
             PolymerComponent.registerDataComponent(component.value());
         }
         for (Holder<Item> item : RDItems.LATE_POLYMERIFY_ITEM_LIST) {
@@ -88,10 +89,10 @@ public class PolymerInitializer {
         for (Item spawnEgg : ColoredSpawnEggItem.SPAWN_EGGS) {
             PolymerItemHelper.registerOverlay(spawnEgg);
         }
-        for (Holder<Item> item : RDGuiItems.GUI_ITEM_LIST) {
+        for (Holder<Item> item : RDGuiPlaceholderItems.GUI_PLACEHOLDER_ITEM_LIST) {
             PolymerItemHelper.registerOverlay(item.value());
         }
-        for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
+        for (DanmakuType danmakuType : BuiltInRegistryProviders.DANMAKU_TYPE) {
             PolymerItemHelper.registerOverlay(danmakuType.getItemHolder().asItem());
         }
         for (Holder<SoundEvent> soundEvent : RDSoundEvents.SOUND_EVENTS) {
@@ -125,8 +126,10 @@ public class PolymerInitializer {
         PolymerComponent.registerDataComponent(GeckoLibConstants.STACK_ANIMATABLE_ID_COMPONENT.get());
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), DanmakuProperties.SERIALIZER);
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), SkinType.SERIALIZER);
-        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), NPCRole.SERIALIZER);
+        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), NPCRoleType.SERIALIZER);
+        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), RoleType.SERIALIZER);
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), IngredientStack.SERIALIZER);
+        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), IngredientStack.LIST_SERIALIZER);
 
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.RECIPE_SERIALIZER, RecipeManager.DANMAKU_DYE_RECIPE.value());
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.HAWKERS_KEY));

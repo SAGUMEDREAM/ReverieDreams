@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -23,7 +23,7 @@ public class RoleCardCreativeTab implements ItemGroupContentHelper {
                     output.accept(RDItems.ROLE_CARD);
                     output.accept(RDItems.CUSTOM_SKIN_SELECTOR);
                     output.accept(RDItems.SOUL_CARD);
-                    RegistryImpls.ROLE_CARD.values().forEach(instance -> output.accept(instance.getTemplate().create()));
+                    BuiltInRegistryProviders.ROLE_CARD.values().forEach(instance -> output.accept(instance.getTemplate().create()));
                 }));
     }
 }

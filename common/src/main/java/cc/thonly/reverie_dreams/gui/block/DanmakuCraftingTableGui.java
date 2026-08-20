@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.PredicateSlot;
 import eu.pb4.sgui.api.ClickType;
@@ -143,7 +143,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
                         }
                         DanmakuCraftingTableGui.this.player.addItem(itemStack.copy());
                         DanmakuCraftingTableGui.this.setSlot(DanmakuCraftingTableGui.this.resultSlot, new GuiElementBuilder()
-                                .setItem(RDGuiItems.PROGRESS_TO_RESULT.asItem())
+                                .setItem(RDGuiPlaceholderItems.PROGRESS_TO_RESULT.asItem())
                         );
                     }
                 }));
@@ -164,8 +164,8 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
         this.blockEntity.setChanged();
     }
 }

@@ -4,6 +4,7 @@ import cc.thonly.keine.api.callback.AttackBlockCallback;
 import cc.thonly.keine.api.callback.ItemAttackHitCallback;
 import cc.thonly.keine.api.callback.ServerCallback;
 import cc.thonly.keine.api.callback.ServerSavingCallback;
+import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
@@ -12,7 +13,8 @@ import cc.thonly.reverie_dreams.creative_tab.RDCreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
+import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
@@ -24,16 +26,16 @@ import cc.thonly.reverie_dreams.networking.payload.*;
 import cc.thonly.reverie_dreams.proxy.PlatformProxies;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
-import cc.thonly.reverie_dreams.registry.BiRegistryImpls;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
-import cc.thonly.reverie_dreams.registry.ServerResourceHelper;
+import cc.thonly.reverie_dreams.registry.BuiltInBiRegistryProviders;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.ResourceReloadManager;
 import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
 import cc.thonly.reverie_dreams.registry.content.block.*;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
@@ -42,7 +44,7 @@ import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.server.ParticleTickerManager;
@@ -60,17 +62,15 @@ import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
-import cc.thonly.reverie_dreams.world.RDGameRules;
-import cc.thonly.reverie_dreams.world.WorldGenerationInit;
+import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
+import cc.thonly.reverie_dreams.world.RDBuiltinWorldGenerations;
 import dev.architectury.event.events.common.*;
 import dev.architectury.networking.NetworkManager;
-import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.core.Registry;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -97,11 +97,10 @@ public class ReverieDreams {
     public static final List<Runnable> COMMON_LATE_INIT = new ArrayList<>();
     public static final List<Runnable> BUS_LATE_INIT = new ArrayList<>();
     public static final List<Runnable> LATE_INIT_CLIENT = new ArrayList<>();
-    public static final Map<Identifier, EntityDataSerializer<?>> ENTITY_DATA_SERIALIZER_REGISTRY = new Object2ObjectLinkedOpenHashMap<>();
     public static final List<Block> SERVER_SIDE_BLOCKS = List.of(Blocks.NOTE_BLOCK, Blocks.TRIPWIRE);
-    public static Function<ResourceKey<? extends Registry<?>>, RegistryImpl<?>> REGISTRY_GETTER = key -> null;
+    public static Function<ResourceKey<? extends Registry<?>>, RegistryProvider<?>> REGISTRY_GETTER = key -> null;
     public static BiFunction<ResourceKey<? extends Registry<?>>, List<Registry>, MergeRegistry<?>> MERGE_REGISTRY_GETTER = (key, list) -> null;
-    public static BiFunction<ResourceKey<? extends Registry<?>>, RegistryImpl<?>, RegistryImpl<?>> REGISTRY_SHADOWER = null;
+    public static BiFunction<ResourceKey<? extends Registry<?>>, RegistryProvider<?>, RegistryProvider<?>> REGISTRY_SHADOWER = null;
     private static MinecraftServer server;
 
     public static ReverieDreamsConfiguration config() {
@@ -110,7 +109,6 @@ public class ReverieDreams {
                         ReverieDreamsConfiguration.class
                 )
                 .getConfig();
-
     }
 
     public static void initialize(Runnable lateInit) {
@@ -137,18 +135,18 @@ public class ReverieDreams {
         RDBlockStateTemplates.initialize();
         RDEnchantments.registerEnchantments();
         RDSoundEvents.initialize();
-        RDDataComponents.initialize();
-        RDGuiItems.initialize();
+        RDDataComponentTypes.initialize();
+        RDGuiPlaceholderItems.initialize();
         RDItems.initialize();
         RDIngredientItems.initialize();
-        RDFoodItems.initialize();
-        RDDrinkItems.initialize();
+        RDCuisineItems.initialize();
+        RDBeverageItems.initialize();
         RDEntityHolderItems.initialize();
         RDBlocks.initialize();
         RDWoodBlocks.initialize();
         RDCropBlocks.initialize();
         RDPlantBlocks.initialize();
-        KitchenBlocks.initialize();
+        RDKitchenBlocks.initialize();
         RDBlockEntityTypes.initialize();
         RDEntityTypes.initialize();
         RDStatusEffects.initialize();
@@ -156,21 +154,21 @@ public class ReverieDreams {
         RDPointOfInterestTypes.initialize();
         RDVillagerProfessions.initialize();
         RDCriteriaTriggers.initialize();
-        RDGameRules.initialize();
+        RDBuiltInGameRules.initialize();
         RDCreativeTabs.initialize();
-        WorldGenerationInit.registerWorldGeneration();
+        RDBuiltinWorldGenerations.registerWorldGeneration();
         BiomeModificationInit.initialize();
-        ReverieDreamsRegistries.register();
+        MCBuiltInRegistries.register();
 
         // 初始化其他注册内容
         PlatformProxies.initialize();
         RecipeManager.bootstrap();
         RecipeWorkbenchRegistry.bootstrap();
-        ServerResourceHelper.init();
-        RegistryImpls.bootstrap();
+        ResourceReloadManager.initialize();
+        BuiltInRegistryProviders.bootstrap();
         FoodProperties.registerDefaultItemUsingProperty();
-        DrinkProperties.registerDefaultItemUsingProperty();
-        BiRegistryImpls.bootstrap();
+        BeverageProperties.registerDefaultItemUsingProperty();
+        BuiltInBiRegistryProviders.bootstrap();
         RDLootModifies.register();
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.initialize();
@@ -192,10 +190,13 @@ public class ReverieDreams {
     }
 
     private static void registerEntityDataSerializers() {
-        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("danmaku_properties"), DanmakuProperties.SERIALIZER);
-        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("skin_type"), SkinType.SERIALIZER);
-        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("role_type"), NPCRole.SERIALIZER);
-        ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.put(id("ingredient_stack"), IngredientStack.SERIALIZER);
+        EntityDataSerializerProviders providers = EntityDataSerializerProviders.get();
+        providers.add(id("danmaku_properties"), DanmakuProperties.SERIALIZER);
+        providers.add(id("skin_type"), SkinType.SERIALIZER);
+        providers.add(id("npc_role_type"), NPCRoleType.SERIALIZER);
+        providers.add(id("role_type"), RoleType.SERIALIZER);
+        providers.add(id("ingredient_stack"), IngredientStack.SERIALIZER);
+        providers.add(id("ingredient_stacks"), IngredientStack.LIST_SERIALIZER);
     }
 
     private static void registerContentEvent() {
@@ -232,11 +233,11 @@ public class ReverieDreams {
         );
         NetworkManager.registerReceiver(
                 NetworkManager.Side.S2C,
-                RegistryImpSyncPacket.PACKET_ID,
-                RegistryImpSyncPacket.CODEC,
+                CustomRegistrySyncPacket.PACKET_ID,
+                CustomRegistrySyncPacket.CODEC,
                 (packet, context) ->
                         ClientNetworkingHandlers.safeHandleClient(
-                                () -> ClientNetworkingHandlers.onReceiveRegistryImpSyncPacket(
+                                () -> ClientNetworkingHandlers.onReceiveCustomRegistrySyncPacket(
                                         context.getPlayer(),
                                         packet
                                 )

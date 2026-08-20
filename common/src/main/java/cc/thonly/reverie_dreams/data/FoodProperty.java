@@ -4,13 +4,15 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,22 +25,22 @@ import java.util.Objects;
 
 @Setter
 @Getter
-@ToString
-public class FoodProperty implements CodecStep<FoodProperty>, RegistryEntryOwnerBindable<FoodProperty>, BuiltinObject, RegistryEntryTranslatable {
+public class FoodProperty implements SerializableProvider<FoodProperty>, RegistryEntryOwnerBindable<FoodProperty>, BuiltinObject, RegistryEntryTranslatable {
     public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
-    public static final Codec<FoodProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(RegistryImpls.FOOD_PROPERTY::getValue, entry -> {
-        Identifier key = RegistryImpls.FOOD_PROPERTY.getKey(entry);
+    public static final Codec<FoodProperty> BY_REGISTRY_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(BuiltInRegistryProviders.FOOD_PROPERTY::getValue, entry -> {
+        Identifier key = BuiltInRegistryProviders.FOOD_PROPERTY.getKey(entry);
         if (key == null) {
             return UNDEFINED;
         }
         return key;
     }));
-    public static final Codec<List<FoodProperty>> LIST_COMPONENT_CODEC = Codec.lazyInitialized(COMPONENT_CODEC::listOf);
+    public static final StreamCodec<RegistryFriendlyByteBuf, FoodProperty> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(BY_REGISTRY_CODEC);
+    public static final Codec<List<FoodProperty>> BY_REGISTRY_LIST_CODEC = Codec.lazyInitialized(BY_REGISTRY_CODEC::listOf);
 
     private Identifier id;
     private final MobEffectInstance effectInstance;
 
-    private RegistryImpl<FoodProperty> owner;
+    private RegistryProvider<FoodProperty> owner;
 
     public FoodProperty() {
         this.effectInstance = new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY, 1));
@@ -60,7 +62,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, RegistryEntryOwner
     }
 
     public static String getDisplayPrefix(ItemStack itemStack, FoodProperty foodProperty) {
-        for (CraftingConflict conflict : RegistryImpls.CRAFTING_CONFLICT.values()) {
+        for (CraftingConflict conflict : BuiltInRegistryProviders.CRAFTING_CONFLICT.values()) {
             if (conflict.test(itemStack, foodProperty)) {
                 return "§c-";
             }
@@ -81,6 +83,14 @@ public class FoodProperty implements CodecStep<FoodProperty>, RegistryEntryOwner
     }
 
     @Override
+    public String toString() {
+        return "FoodProperty{" +
+                "id=" + id +
+                ", effectInstance=" + effectInstance +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(this.id);
     }
@@ -96,7 +106,7 @@ public class FoodProperty implements CodecStep<FoodProperty>, RegistryEntryOwner
 
     @Override
     public Codec<FoodProperty> getCodec() {
-        return COMPONENT_CODEC;
+        return BY_REGISTRY_CODEC;
     }
 
     public record Data(Identifier id, List<Item> items) {

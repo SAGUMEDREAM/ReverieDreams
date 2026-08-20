@@ -1,0 +1,16 @@
+{
+  "registry_key": "reverie_dreams:classical",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/godfather",
+      "reverie_dreams:beverage/winter_brew",
+      "reverie_dreams:beverage/fourteenth_night",
+      "reverie_dreams:beverage/gyokuro_tea",
+      "reverie_dreams:beverage/daiginjo",
+      "reverie_dreams:beverage/paleo_creamy_smoothie",
+      "reverie_dreams:beverage/demon_slayer",
+      "reverie_dreams:beverage/drunk_actor",
+      "reverie_dreams:beverage/daughter_of_the_sea"
+    ]
+  }
+}

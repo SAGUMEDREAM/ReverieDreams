@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -9,18 +9,24 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
+@SuppressWarnings("resource")
 public class NPCAutoPickItemGoal extends Goal {
 
-    private final NPCRoleEntity role;
+    private final NPCSimpleEntity role;
     private int ticks = 20;
 
-    public NPCAutoPickItemGoal(NPCRoleEntity role) {
+    public NPCAutoPickItemGoal(NPCSimpleEntity role) {
         this.role = role;
     }
 
     @Override
     public boolean requiresUpdateEveryTick() {
         return true;
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return this.role.isAutoPick();
     }
 
     @Override

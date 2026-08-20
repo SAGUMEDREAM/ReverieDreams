@@ -26,7 +26,7 @@ public class FarmerModOffers {
             return;
         }
         // FARMER_LEVEL_3
-        for (Holder<Item> itemHolder : registry.getTagOrEmpty(RDItemTags.INGREDIENT_ITEM)) {
+        for (Holder<Item> itemHolder : registry.getTagOrEmpty(RDItemTags.INGREDIENT)) {
             {
                 Item item = itemHolder.value();
                 ResourceKey<VillagerTrade> key = builder.keyInstance(

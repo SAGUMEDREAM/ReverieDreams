@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/energy_string",
+    "id": "reverie_dreams:cuisine/energy_string",
     "count": 1
   },
   "cost_time": 12.0

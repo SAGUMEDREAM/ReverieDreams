@@ -12,8 +12,8 @@ import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.mixin.accessor.BlockModelGeneratorsAccessor;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.*;
@@ -81,6 +81,10 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.family(RDBlocks.POINT_BLOCK.asBlock());
         blockStateModelGenerator.family(RDBlocks.POWER_BLOCK.asBlock());
         blockStateModelGenerator.family(RDBlocks.SILVER_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_IRON_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_GOLD_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_DIAMOND_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_QUARTZ_ORE.asBlock());
         blockStateModelGenerator.family(RDBlocks.DREAM_CRYSTAL_ORE.asBlock());
         blockStateModelGenerator.family(RDBlocks.SILVER_BLOCK.asBlock());
 //        this.registerChest(blockStateModelGenerator, ModBlocks.SILVER_CHEST_BLOCK.chestBlock(), ModBlocks.SILVER_BLOCK);
@@ -295,33 +299,35 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateKitchenBlock(BlockModelGenerators blockStateModelGenerator) {
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_STEAMER.asBlock());
 
-        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.FOOD_DISPLAY.asBlock());
+        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.PLATE.asBlock());
+        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.CHAIR.asBlock());
+        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.TABLE.asBlock());
 
         blockStateModelGenerator.family(RDBlocks.BLACK_SALT_BLOCK.asBlock());
 
@@ -334,10 +340,10 @@ public class ModelProvider extends FabricModelProvider {
         for (var item : RDIngredientItems.INGREDIENTS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
-        for (var item : RDFoodItems.FOOD_ITEMS) {
+        for (var item : RDCuisineItems.CUISINE_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
-        for (var item : RDDrinkItems.DRINK_ITEMS) {
+        for (var item : RDBeverageItems.DRINK_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
     }
@@ -347,7 +353,7 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateGuiItemModels(ItemModelGenerators itemModelGenerator) {
-        for (Holder<Item> item : RDGuiItems.getGuiItemList()) {
+        for (Holder<Item> item : RDGuiPlaceholderItems.getGuiPlaceholderItemList()) {
             this.registerGuiItem(itemModelGenerator, item.value());
         }
     }
@@ -383,12 +389,12 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateDanmakuItemModels(ItemModelGenerators itemModelGenerator) {
-        for (Item item : RegistryImpls.DANMAKU_TYPE.values()
-                .stream()
-                .filter(type -> !type.isDeleteFromList())
-                .map(DanmakuType::getItemHolder)
-                .map(ItemLike::asItem)
-                .toList()) {
+        for (Item item : BuiltInRegistryProviders.DANMAKU_TYPE.values()
+                                                              .stream()
+                                                              .filter(type -> !type.isDeleteFromList())
+                                                              .map(DanmakuType::getItemHolder)
+                                                              .map(ItemLike::asItem)
+                                                              .toList()) {
             itemModelGenerator.generateTwoLayerDyedItem(item);
         }
     }

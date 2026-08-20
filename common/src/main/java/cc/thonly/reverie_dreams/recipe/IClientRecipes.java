@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
+import cc.thonly.reverie_dreams.util.LazyList;
+import cc.thonly.reverie_dreams.util.network.MCThreadHelper;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -36,13 +38,15 @@ public class IClientRecipes {
     }
 
     public <T extends BaseRecipe> List<T> getRecipeTypeList(BaseRecipeType<T> type) {
+//        MCThreadHelper.await(type::isAcceptNetworking);
+//        return new LazyList<>(type::values);
         return type.values();
     }
 
     public List<KitchenRecipe> getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance typeInstance) {
         return getRecipeTypeList(RecipeManager.KITCHEN_TYPE).stream()
-                .filter(recipe -> Objects.equals(recipe.getTypeInstance(), typeInstance))
-                .toList();
+                                                            .filter(recipe -> Objects.equals(recipe.getTypeInstance(), typeInstance))
+                                                            .toList();
     }
 
     public <T extends BaseRecipe> Map<Identifier, T> getRecipeTypeView(BaseRecipeType<T> type) {

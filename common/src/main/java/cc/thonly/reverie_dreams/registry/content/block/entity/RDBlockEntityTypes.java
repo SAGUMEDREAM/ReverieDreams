@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.registry.content.block.entity;
 
 import cc.thonly.reverie_dreams.block.entity.*;
 import cc.thonly.reverie_dreams.mixin.accessor.BlockEntityTypeAccessor;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
@@ -29,15 +29,15 @@ public class RDBlockEntityTypes {
     public static final RegistrySupplier<BlockEntityType<CustomChestBlockEntity>> CUSTOM_CHEST = registerBlockEntity("custom_chest_block", CustomChestBlockEntity::new, RDBlocks.SILVER_CHEST_BLOCK.chestBlock(), RDBlocks.CASH_BOX_BLOCK, RDBlocks.WOODEN_BOX.chestBlock());
     public static final RegistrySupplier<BlockEntityType<KitchenwareBlockEntity>> KITCHENWARE_BLOCK = registerBlockEntity("kitchen_block",
             KitchenwareBlockEntity::new,
-            KitchenBlocks.COOKING_POT, KitchenBlocks.CUTTING_BOARD, KitchenBlocks.FRYING_PAN, KitchenBlocks.GRILL, KitchenBlocks.STEAMER,
-            KitchenBlocks.MYSTIA_COOKING_POT, KitchenBlocks.MYSTIA_CUTTING_BOARD, KitchenBlocks.MYSTIA_FRYING_PAN, KitchenBlocks.MYSTIA_GRILL, KitchenBlocks.MYSTIA_STEAMER,
-            KitchenBlocks.SUPER_COOKING_POT, KitchenBlocks.SUPER_CUTTING_BOARD, KitchenBlocks.SUPER_FRYING_PAN, KitchenBlocks.SUPER_GRILL, KitchenBlocks.SUPER_STEAMER,
-            KitchenBlocks.EXTREME_COOKING_POT, KitchenBlocks.EXTREME_CUTTING_BOARD, KitchenBlocks.EXTREME_FRYING_PAN, KitchenBlocks.EXTREME_GRILL, KitchenBlocks.EXTREME_STEAMER,
-            KitchenBlocks.NUKE_COOKING_POT, KitchenBlocks.NUKE_CUTTING_BOARD, KitchenBlocks.NUKE_FRYING_PAN, KitchenBlocks.NUKE_GRILL, KitchenBlocks.NUKE_STEAMER
+            RDKitchenBlocks.COOKING_POT, RDKitchenBlocks.CUTTING_BOARD, RDKitchenBlocks.FRYING_PAN, RDKitchenBlocks.GRILL, RDKitchenBlocks.STEAMER,
+            RDKitchenBlocks.MYSTIA_COOKING_POT, RDKitchenBlocks.MYSTIA_CUTTING_BOARD, RDKitchenBlocks.MYSTIA_FRYING_PAN, RDKitchenBlocks.MYSTIA_GRILL, RDKitchenBlocks.MYSTIA_STEAMER,
+            RDKitchenBlocks.SUPER_COOKING_POT, RDKitchenBlocks.SUPER_CUTTING_BOARD, RDKitchenBlocks.SUPER_FRYING_PAN, RDKitchenBlocks.SUPER_GRILL, RDKitchenBlocks.SUPER_STEAMER,
+            RDKitchenBlocks.EXTREME_COOKING_POT, RDKitchenBlocks.EXTREME_CUTTING_BOARD, RDKitchenBlocks.EXTREME_FRYING_PAN, RDKitchenBlocks.EXTREME_GRILL, RDKitchenBlocks.EXTREME_STEAMER,
+            RDKitchenBlocks.NUKE_COOKING_POT, RDKitchenBlocks.NUKE_CUTTING_BOARD, RDKitchenBlocks.NUKE_FRYING_PAN, RDKitchenBlocks.NUKE_GRILL, RDKitchenBlocks.NUKE_STEAMER
     );
-    public static final RegistrySupplier<BlockEntityType<FoodDisplayBlockEntity>> FOOD_DISPLAY = registerBlockEntity("base_display",
-            FoodDisplayBlockEntity::new,
-            RDBlocks.FOOD_DISPLAY
+    public static final RegistrySupplier<BlockEntityType<PlateBlockEntity>> FOOD_DISPLAY = registerBlockEntity("base_display",
+            PlateBlockEntity::new,
+            RDBlocks.PLATE
     );
     public static final RegistrySupplier<BlockEntityType<SignalRailBlockEntity>> SIGNAL_RAIL_BLOCK_ENTITY = registerBlockEntity(
             "signal_rails",
@@ -66,7 +66,7 @@ public class RDBlockEntityTypes {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static <T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> registerBlockEntity(String name, BlockEntityType.BlockEntitySupplier<T> factory, BlockDelegate... validBlocks) {
-        RegistrySupplier<BlockEntityType> blockEntityType = ReverieDreamsRegistries.BLOCK_ENTITY_TYPE.register(name, () -> {
+        RegistrySupplier<BlockEntityType> blockEntityType = MCBuiltInRegistries.BLOCK_ENTITY_TYPE.register(name, () -> {
             Set<Block> set = Arrays.stream(validBlocks).map(BlockDelegate::asBlock).collect(Collectors.toSet());
             return BlockEntityTypeAccessor.reverie_dreams$init(factory, set);
         });

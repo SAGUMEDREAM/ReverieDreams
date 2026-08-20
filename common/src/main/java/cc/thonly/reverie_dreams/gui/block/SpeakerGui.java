@@ -34,8 +34,7 @@ public class SpeakerGui extends SignGui {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
         try {
             List<String> lines = new ArrayList<>(4);
             for (int i = 0; i < 4; i++) {

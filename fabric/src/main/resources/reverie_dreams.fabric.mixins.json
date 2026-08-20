@@ -4,8 +4,11 @@
   "package": "cc.thonly.reverie_dreams.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "FabricDataGenHelperMixin",
     "FakePlayerNetworkHandlerMixin",
+    "RegistrySetBuilderMixin",
     "SimpleJsonResourceReloadListenerMixin",
+    "accessor.ChoppingBoardRecipeAccessor",
     "accessor.CookingPotRecipeAccessor",
     "accessor.CuttingBoardRecipeAccessor",
     "accessor.PotRecipeAccessor",
@@ -18,9 +21,11 @@
     "kaleidoscopecookery.SingleItemRecipeMixin",
     "kaleidoscopecookery.StockpotRecipeMixin",
     "kaleidoscopecookery.TeapotRecipeMixin",
-    "patches.ResourcePackManagerMixin"
+    "patches.ResourcePackManagerMixin",
+    "patches.YsmComponentsMixin"
   ],
   "client": [
+    "client.BaseNPCLikeEntityRendererMixin",
     "client.EntityRenderDispatcherMixin",
     "client.ModelBakeryMixin",
     "client.ModelManagerMixin",

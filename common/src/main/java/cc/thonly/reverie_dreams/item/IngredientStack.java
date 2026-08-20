@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item;
 
+import cc.thonly.reverie_dreams.api.item.NonPersistentAdditionalData;
 import cc.thonly.reverie_dreams.util.LazySupplier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -29,18 +30,17 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Unique;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 
 @Slf4j
 @SuppressWarnings({"LombokSetterMayBeUsed", "LombokGetterMayBeUsed", "deprecation"})
 @ToString
-public class IngredientStack implements ItemLike, DataComponentGetter, ItemInstance, TypedInstance<Item> {
+public class IngredientStack implements ItemLike, DataComponentGetter, ItemInstance, TypedInstance<Item>, NonPersistentAdditionalData {
     public static final Codec<Holder<Item>> ITEM_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(
             itemId -> {
                 return BuiltInRegistries.ITEM.getValue(itemId).builtInRegistryHolder();
@@ -76,13 +76,19 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
                 return stack;
             }
     );
+    public static final StreamCodec<RegistryFriendlyByteBuf, List<IngredientStack>> LIST_STREAM_CODEC = STREAM_CODEC.apply(ByteBufCodecs.list());
     public static final StreamCodec<RegistryFriendlyByteBuf, IngredientStack> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
     public static final EntityDataSerializer<IngredientStack> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
+    public static final EntityDataSerializer<List<IngredientStack>> LIST_SERIALIZER = EntityDataSerializer.forValueType(LIST_STREAM_CODEC);
 
     private Holder<Item> item;
     private int count;
     private DataComponentPatch components;
     private final LazySupplier<ItemStack> lazyStack = LazySupplier.of(this::build);
+
+    private volatile Map<String, Integer> reverie_dreams$keys = new HashMap<>();
+    private volatile Object[] reverie_dreams$values = new Object[0];
+
 
     public IngredientStack() {
         this.item = Items.AIR.builtInRegistryHolder();
@@ -154,6 +160,84 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
 
     public static IngredientStack of(ItemStack itemStack) {
         return new IngredientStack(itemStack);
+    }
+
+    private synchronized void reverie_dreams$updateNonPersistentAdditionalDataKey(String name) {
+        if (!this.reverie_dreams$keys.containsKey(name)) {
+            int index = this.reverie_dreams$keys.size();
+
+            this.reverie_dreams$keys.put(name, index);
+
+            this.reverie_dreams$resizeNonPersistentAdditionalDataKey();
+        }
+    }
+
+    private synchronized void reverie_dreams$resizeNonPersistentAdditionalDataKey() {
+        int size = this.reverie_dreams$keys.size();
+
+        if (this.reverie_dreams$values.length < size) {
+            Object[] newValues = new Object[size];
+
+            System.arraycopy(
+                    this.reverie_dreams$values,
+                    0,
+                    newValues,
+                    0,
+                    this.reverie_dreams$values.length
+            );
+
+            this.reverie_dreams$values = newValues;
+        }
+    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public synchronized <Type> @Nullable Type reverie_dreams$getNonPersistentAdditionalData(String name) {
+        Integer idx = this.reverie_dreams$keys.get(name);
+
+        if (idx == null) {
+            return null;
+        }
+
+        if (idx >= this.reverie_dreams$values.length) {
+            return null;
+        }
+
+        return (Type) this.reverie_dreams$values[idx];
+    }
+
+
+    @Override
+    public synchronized <Type> @Nullable Type reverie_dreams$getNonPersistentAdditionalData(
+            String name,
+            Class<Type> type
+    ) {
+        Object value = this.reverie_dreams$getNonPersistentAdditionalData(name);
+
+        if (value == null) {
+            return null;
+        }
+
+        if (!type.isInstance(value)) {
+            return null;
+        }
+
+        return type.cast(value);
+    }
+
+
+    @Override
+    public synchronized <Type> void reverie_dreams$setNonPersistentAdditionalData(
+            String name,
+            Type data
+    ) {
+
+        this.reverie_dreams$updateNonPersistentAdditionalDataKey(name);
+
+        Integer idx = this.reverie_dreams$keys.get(name);
+
+        this.reverie_dreams$values[idx] = data;
     }
 
     public boolean is(IngredientStack stack) {

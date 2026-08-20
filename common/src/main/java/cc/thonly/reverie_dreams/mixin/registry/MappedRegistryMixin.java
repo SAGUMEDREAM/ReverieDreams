@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
 import cc.thonly.reverie_dreams.api.registry.SimpleRegistryFrozenModifier;
-import cc.thonly.reverie_dreams.server.ServerContentRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -31,27 +30,10 @@ public abstract class MappedRegistryMixin<T> implements SimpleRegistryFrozenModi
 
     @Shadow @Final public Map<T, Holder.Reference<T>> byValue;
 
-    @Unique
-    private boolean reverie_dreams$injected = false;
-
     @Override
     public void reverie_dreams$setFrozen(boolean value) {
         this.frozen = value;
     }
 
-    @SuppressWarnings({"unchecked", "ConstantValue"})
-    @Deprecated
-    @Inject(method = "freeze", at = @At("HEAD"), order = 100)
-    public void reverie_dreams$onFreeze(CallbackInfoReturnable<Registry<T>> cir) {
-        if (true) {
-            return;
-        }
-        if (this.reverie_dreams$injected) {
-            return;
-        }
-        this.reverie_dreams$injected = true;
-        MappedRegistry<T> registry = (MappedRegistry<T>) (Object) this;
-        ServerContentRegistry.IMPL.write(registry);
-    }
 
 }

@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;

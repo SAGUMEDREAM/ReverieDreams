@@ -9,14 +9,14 @@ import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.entity.elemental.WaterElementalEntity;
 import cc.thonly.reverie_dreams.entity.misc.*;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
 import cc.thonly.reverie_dreams.entity.villager.FumoSeller;
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.mixin.accessor.PigVariantAccessor;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -33,11 +33,12 @@ import net.minecraft.world.entity.animal.pig.PigVariant;
 import net.minecraft.world.entity.variant.ModelAndTexture;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Supplier;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
+@SuppressWarnings({"unchecked", "rawtypes", "UnnecessaryLocalVariable"})
 public class RDEntityTypes {
     public static final Map<RegistrySupplier<EntityType<?>>, ItemDelegate> SPAWN_EGG_BIND = new Object2ObjectOpenHashMap<>(128);
     public static final List<RegistrySupplier<EntityType<?>>> ENTITY_TYPES = new ArrayList<>(128);
@@ -49,8 +50,9 @@ public class RDEntityTypes {
         return new LinkedHashSet<>(SPAWN_EGG_ITEM_LIST);
     }
 
-    public static RegistrySupplier<EntityType<NPCRoleEntity>> NPC_ROLE = registerEntity("base_character",
-            () -> EntityType.Builder.of(NPCRoleEntity::new, MobCategory.MISC),
+    public static RegistrySupplier<EntityType<NPCCompanionEntity>> NPC_SIMPLE_ENTITY = registerEntity("base_character",
+            () -> EntityType.Builder.of(NPCCompanionEntity::new, MobCategory.MISC)
+                                    .ridingOffset(-0.6F),
             BaseNPCLikeEntity::createLivingAttributes);
     public static RegistrySupplier<EntityType<DanmakuEntity>> DANMAKU = registerEntity("danmaku_bullet",
             () -> EntityType.Builder.<DanmakuEntity>of(DanmakuEntity::new, MobCategory.MISC)
@@ -64,6 +66,12 @@ public class RDEntityTypes {
             () -> EntityType.Builder.of(KnifeEntity::new, MobCategory.MISC));
     public static RegistrySupplier<EntityType<OreEspEntity>> ORE_ESP = registerEntity("ore_esp_entity",
             () -> EntityType.Builder.of(OreEspEntity::new, MobCategory.MISC));
+    public static RegistrySupplier<EntityType<SeatEntity>> SEAT = registerEntity("seat",
+            () -> EntityType.Builder.<SeatEntity>of(SeatEntity::new, MobCategory.MISC)
+                                    .noLootTable()
+                                    .ridingOffset(0)
+                                    .sized(0.5f, 0.5f)
+    );
     public static RegistrySupplier<EntityType<FumoSeller>> FUMO_SELLER_VILLAGER = registerEntityWithSpawnEgg("fumo_seller_villager",
             () -> EntityType.Builder.<FumoSeller>of(FumoSeller::new, MobCategory.MISC)
                                     .sized(0.6f, 1.95f).eyeHeight(1.62f).clientTrackingRange(10),
@@ -80,7 +88,7 @@ public class RDEntityTypes {
             Scarecrow::createLivingAttributes
     );
     public static RegistrySupplier<EntityType<KillerBee>> KILLER_BEE = registerEntityWithSpawnEgg("killer_bee",
-            () -> EntityType.Builder.of(KillerBee::new, MobCategory.MONSTER),
+            () -> EntityType.Builder.<KillerBee>of(KillerBee::new, MobCategory.MONSTER).sized(0.7F, 0.6F).eyeHeight(0.3F).clientTrackingRange(8),
             () -> Animal.createAnimalAttributes()
                         .add(Attributes.MAX_HEALTH, 10.0)
                         .add(Attributes.FLYING_SPEED, 0.6f)
@@ -89,12 +97,12 @@ public class RDEntityTypes {
                         .add(Attributes.SCALE, 1.5f)
     );
     public static RegistrySupplier<EntityType<MoonRabbit>> MOON_RABBIT = registerEntityWithSpawnEgg("moon_rabbit",
-            () -> EntityType.Builder.of(MoonRabbit::new, MobCategory.MONSTER),
+            () -> EntityType.Builder.<MoonRabbit>of(MoonRabbit::new, MobCategory.MONSTER).sized(1, 2),
             () -> LivingEntity.createLivingAttributes()
                               .add(Attributes.MAX_HEALTH, 18.0)
                               .add(Attributes.MOVEMENT_SPEED, 0.12)
                               .add(Attributes.ATTACK_DAMAGE, 3)
-                              .add(Attributes.SCALE, 1.2f)
+                              .add(Attributes.SCALE, 1.15f)
                               .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
                               .add(Attributes.FOLLOW_RANGE, 8.0)
                               .add(Attributes.TEMPT_RANGE, 10.0)
@@ -236,6 +244,23 @@ public class RDEntityTypes {
                               .add(Attributes.TEMPT_RANGE, 10.0)
                               .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
     );
+    public static final RegistrySupplier<EntityType<ThrownCuisineItem>> THROWN_CUISINE_ITEM = registerEntity("thrown_cuisine_item",
+            () -> EntityType.Builder.<ThrownCuisineItem>of(ThrownCuisineItem::new, MobCategory.MISC)
+                                    .noLootTable().sized(0.25F, 0.25F)
+                                    .clientTrackingRange(4)
+                                    .updateInterval(10),
+            null
+    );
+    public static final RegistrySupplier<EntityType<NPCFishingHook>> FISHING_BOBBER = registerEntity("fishing_bobber",
+            () -> EntityType.Builder.<NPCFishingHook>of(NPCFishingHook::new, MobCategory.MISC)
+                                    .noLootTable()
+                                    .noSave()
+                                    .noSummon()
+                                    .sized(0.25F, 0.25F)
+                                    .clientTrackingRange(4)
+                                    .updateInterval(5),
+            null
+    );
 
     public static void initialize() {
         DynamicRegistrySetupCallback.EVENT.register(dynamicRegistryView -> {
@@ -259,20 +284,22 @@ public class RDEntityTypes {
     }
 
     public static <T extends Entity> RegistrySupplier<EntityType<T>> registerEntity(String name, Supplier<EntityType.Builder<T>> entityType) {
-        RegistrySupplier<EntityType<T>> supplier = ReverieDreamsRegistries.ENTITY_TYPE.register(name, () -> entityType.get().build(ResourceKey.create(Registries.ENTITY_TYPE, ReverieDreams.id(name))));
+        RegistrySupplier<EntityType<T>> supplier = MCBuiltInRegistries.ENTITY_TYPE.register(name, () -> entityType.get().build(ResourceKey.create(Registries.ENTITY_TYPE, ReverieDreams.id(name))));
         RegistrySupplier<EntityType<?>> cast = (RegistrySupplier<EntityType<?>>) ((Object) supplier);
         ENTITY_TYPES.add(cast);
         return supplier;
     }
 
-    public static <T extends Entity> RegistrySupplier<EntityType<T>> registerEntity(String path, @NotNull Supplier<EntityType.Builder<T>> entityType, CreateAttributesBuilderFunction function) {
+    public static <T extends Entity> RegistrySupplier<EntityType<T>> registerEntity(String path, @NotNull Supplier<EntityType.Builder<T>> entityType, @Nullable CreateAttributesBuilderFunction function) {
         RegistrySupplier<EntityType<T>> supplier = registerEntity(path, entityType);
-        EntityAttributeRegistry.register((Supplier) supplier, function::apply);
+        if (function != null) {
+            EntityAttributeRegistry.register((Supplier) supplier, function::apply);
+        }
         return supplier;
     }
 
     public static <T extends Entity> @NotNull RegistrySupplier<EntityType<T>> registerEntityWithSpawnEgg(String name, Supplier<EntityType.Builder<T>> entityType, CreateAttributesBuilderFunction function) {
-        RegistrySupplier<EntityType<T>> supplier = ReverieDreamsRegistries.ENTITY_TYPE.register(name, () -> entityType.get().build(of(name)));
+        RegistrySupplier<EntityType<T>> supplier = MCBuiltInRegistries.ENTITY_TYPE.register(name, () -> entityType.get().build(of(name)));
         String eggName = name + "_spawn_egg";
         ItemDelegate item = registerSpawnEggItem(eggName, supplier);
         RegistrySupplier<EntityType<?>> cast = (RegistrySupplier<EntityType<?>>) ((Object) supplier);
@@ -282,7 +309,7 @@ public class RDEntityTypes {
     }
 
     public static <T extends Entity> ItemDelegate registerSpawnEggItem(String eggName, RegistrySupplier<EntityType<T>> supplier) {
-        RegistrySupplier<Item> item = ReverieDreamsRegistries.ITEM.register(eggName, () -> new ColoredSpawnEggItem(eggName, (EntityType<? extends Mob>) supplier.value(), new Item.Properties()));
+        RegistrySupplier<Item> item = MCBuiltInRegistries.ITEM.register(eggName, () -> new ColoredSpawnEggItem(eggName, (EntityType<? extends Mob>) supplier.value(), new Item.Properties()));
         ItemDelegate itemDelegate = ItemDelegate.of(item);
         SPAWN_EGG_ITEM_LIST.add(itemDelegate);
         return itemDelegate;

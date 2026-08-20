@@ -24,6 +24,13 @@ public class ReverieDreamsConfiguration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public int maxUpgradedHealthValue = 1024;
 
+    @ConfigEntry.Gui.Tooltip
+    public int maxCustomerTickTime = 20 * 60;
+
+
+    @ConfigEntry.Gui.Tooltip
+    public int maxCustomerCooldownTickTime = 20 * 20;
+
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableYouseiSpawn = true;
@@ -52,4 +59,10 @@ public class ReverieDreamsConfiguration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public String chatType =
             "deepseek";
+
+    @ConfigEntry.Gui.Tooltip
+    public Boolean autoUpdateItemTag = true;
+
+    @ConfigEntry.Gui.Tooltip
+    public Boolean reportResourceReloadError = true;
 }

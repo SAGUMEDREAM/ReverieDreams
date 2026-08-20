@@ -33,8 +33,8 @@ public class RemoteGui extends SignGui {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
         this.player.level().playSound(null, this.player.getOnPos(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS);
         try {
             Component name = this.getLine(0);

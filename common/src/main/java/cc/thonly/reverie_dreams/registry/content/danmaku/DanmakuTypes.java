@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.registry.content.danmaku;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -34,12 +34,12 @@ public class DanmakuTypes {
     public static final DanmakuType BIG_LASER = registerType(ReverieDreams.id("big_laser"), RDDamageTypes.DANMAKU_GENERIC, 4f, 1.5f, 1.2f, false, false).unlist();
 
     public static DanmakuType registerType(Identifier key, ResourceKey<DamageType> damageTypeKey, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        return RegistryImpls.registerForBuiltin(RegistryImpls.DANMAKU_TYPE, key, new DanmakuType(key, damageTypeKey, damage, scale, speed, tile, infinite));
+        return BuiltInRegistryProviders.registerForBuiltin(BuiltInRegistryProviders.DANMAKU_TYPE, key, new DanmakuType(key, damageTypeKey, damage, scale, speed, tile, infinite));
     }
 
     public static DanmakuType fromItem(ItemStack itemStack) {
         Item item = itemStack.getItem();
-        for (DanmakuType type : RegistryImpls.DANMAKU_TYPE.values()) {
+        for (DanmakuType type : BuiltInRegistryProviders.DANMAKU_TYPE.values()) {
             if (type.getItemHolder().is(item.builtInRegistryHolder())) {
                 return type;
             }
@@ -61,7 +61,7 @@ public class DanmakuTypes {
     }
 
     public static ItemStackTemplate random() {
-        List<DanmakuType> values = RegistryImpls.DANMAKU_TYPE.values().stream().toList();
+        List<DanmakuType> values = BuiltInRegistryProviders.DANMAKU_TYPE.values().stream().toList();
         DanmakuType type = values.get(ReverieDreams.RD.nextInt(values.size()));
         return random(type);
     }
@@ -74,7 +74,7 @@ public class DanmakuTypes {
 
     public static List<ItemStackTemplate> allColor() {
         ImmutableList.Builder<ItemStackTemplate> builder = ImmutableList.builder();
-        List<DanmakuType> typeList = RegistryImpls.DANMAKU_TYPE.values().stream().filter(type -> !type.isDeleteFromList()).toList();
+        List<DanmakuType> typeList = BuiltInRegistryProviders.DANMAKU_TYPE.values().stream().filter(type -> !type.isDeleteFromList()).toList();
         for (DanmakuType danmakuType : typeList) {
             List<Tuple<Item, ItemStackTemplate>> colorPair = danmakuType.getColorPairs().get();
             for (Tuple<Item, ItemStackTemplate> pair : colorPair) {
@@ -84,7 +84,7 @@ public class DanmakuTypes {
         return builder.build();
     }
 
-    public static void bootstrap(RegistryImpl<DanmakuType> registry) {
+    public static void bootstrap(RegistryProvider<DanmakuType> registry) {
 
     }
 

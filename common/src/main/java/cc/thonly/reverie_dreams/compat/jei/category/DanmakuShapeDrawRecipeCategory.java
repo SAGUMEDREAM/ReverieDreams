@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.compat.jei.category;
 
 import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.item.DataComponentInitializersAccess;
 import mezz.jei.api.constants.VanillaTypes;
@@ -80,8 +80,8 @@ public class DanmakuShapeDrawRecipeCategory implements IRecipeCategory<DanmakuSh
                         )
                         .setBackground(slot, -1, -1)
                         .add(state
-                                ? RDGuiItems.ENABLE.createStack()
-                                : RDGuiItems.DISABLE.createStack()
+                                ? RDGuiPlaceholderItems.ENABLE.createStack()
+                                : RDGuiPlaceholderItems.DISABLE.createStack()
                         );
             }
         }

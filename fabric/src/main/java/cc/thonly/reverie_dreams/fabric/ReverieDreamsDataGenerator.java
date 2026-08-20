@@ -23,7 +23,7 @@ import org.jspecify.annotations.NonNull;
 public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
     static boolean DISABLED = false;
 
-    @SuppressWarnings("DuplicatedCode")
+    @SuppressWarnings({"DuplicatedCode", "PointlessBooleanExpression"})
     @Override
     public void onInitializeDataGenerator(@NonNull FabricDataGenerator fabricDataGenerator) {
         if (DISABLED) {
@@ -34,11 +34,11 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
             DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
         }
 
-
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(SimpChineseLangProvider::new);
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(BlockTagProvider::new);
+//        pack.addProvider(TestFoodPropertyTagProvider::new);
         pack.addProvider(VillagerTradeTagProvider::new);
         pack.addProvider(PointOfInterestTypeProvider::new);
         pack.addProvider(EntityTagProvider::new);
@@ -56,14 +56,19 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DanmakuRecipeProvider::new);
         pack.addProvider(ShapeDrawRecipeProvider::new);
         pack.addProvider(GensokyoAltarRecipeProvider::new);
+        if (true==false){
+
+        }
         pack.addProvider(KitchenRecipeProvider::new);
+
         pack.addProvider(DynamicRegistryProvider::new);
         pack.addProvider(SkinConfigProvider::new);
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(JsonElementWriterProvider::new);
+        pack.addProvider(CustomerProvider::new);
 
         pack.addProvider(FoodIngredientProvider::new);
-        pack.addProvider(DrinkProvider::new);
+        pack.addProvider(BeverageProvider::new);
         pack.addProvider(CraftingConflictProvider::new);
     }
 
@@ -76,19 +81,19 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.PAINTING_VARIANT, RDPaintingVariants::bootstrap);
 
         builder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
-        builder.add(Registries.CONFIGURED_FEATURE, ConfigurationFeatureInit::bootstrap);
-        builder.add(Registries.CONFIGURED_CARVER, ConfigurationCarverInit::bootstrap);
-        builder.add(Registries.PLACED_FEATURE, PlacedFeaturesInit::bootstrap);
-        builder.add(Registries.NOISE_SETTINGS, ChunkGeneratorSettingsInit::bootstrap);
-        builder.add(Registries.BIOME, RDBiomes::bootstrap);
-        builder.add(Registries.STRUCTURE, ModStructures::bootstrap);
-        builder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
-        builder.add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap);
-        builder.add(Registries.DIMENSION_TYPE, DimensionTypeInit::bootstrap);
-        builder.add(Registries.LEVEL_STEM, DimensionInit::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, RDBuiltinConfigurationFeatures::bootstrap);
+        builder.add(Registries.CONFIGURED_CARVER, RDBuiltinConfigurationCarvers::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, RDBuiltinPlacedFeatures::bootstrap);
+        builder.add(Registries.NOISE_SETTINGS, RDBuiltinChunkGeneratorSettings::bootstrap);
+        builder.add(Registries.BIOME, RDBuiltinBiomes::bootstrap);
+        builder.add(Registries.STRUCTURE, RDBuiltinStructures::bootstrap);
+        builder.add(Registries.STRUCTURE_SET, RDBuiltinStructureSets::bootstrap);
+        builder.add(Registries.TEMPLATE_POOL, RDBuiltinTemplatePools::bootstrap);
+        builder.add(Registries.DIMENSION_TYPE, RDBuiltInDimensionTypes::bootstrap);
+        builder.add(Registries.LEVEL_STEM, RDBuiltInDimensions::bootstrap);
     }
 
-    public static void disablePack() {
+    public static void disablePackOutput() {
         DISABLED = true;
     }
 

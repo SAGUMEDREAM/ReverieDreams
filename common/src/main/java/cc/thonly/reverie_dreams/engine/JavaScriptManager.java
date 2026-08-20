@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.engine;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
@@ -25,7 +25,6 @@ import java.util.function.Supplier;
 @Slf4j
 public class JavaScriptManager {
     private static final String DIRNAME = "javascript_src";
-    private static final RegistryImpl<JavaScriptElement> REGISTRY = RegistryImpls.JAVASCRIPT_ELEMENT;
     private static final JavaScriptManager INSTANCE = new JavaScriptManager();
     private static final Supplier<ScriptEngine> ENGINE = () -> new ScriptEngineManager().getEngineByName("JavaScript");
 
@@ -68,12 +67,12 @@ public class JavaScriptManager {
     }
 
     public Optional<JavaScriptElement> get(Identifier key) {
-        return Optional.ofNullable(REGISTRY.getValue(key));
+        return Optional.ofNullable(BuiltInRegistryProviders.JAVASCRIPT_ELEMENT.getValue(key));
     }
 
     public static void reload(ResourceManager manager) {
         Map<Identifier, Resource> resources = manager.listResources(DIRNAME, id ->
-                id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".js")
+                id.getPath().endsWith(".js")
         );
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
             Identifier fileId = entry.getKey();
@@ -81,14 +80,14 @@ public class JavaScriptManager {
             Identifier key = Identifier.fromNamespaceAndPath(fileId.getNamespace(), fileId.getPath().replace(DIRNAME + "/", "").replace(".json", ""));
             try (InputStream inputStream = resource.open()) {
                 String src = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-                RegistryImpls.register(REGISTRY, key, new JavaScriptElement(src));
+                BuiltInRegistryProviders.register(BuiltInRegistryProviders.JAVASCRIPT_ELEMENT, key, new JavaScriptElement(src));
             } catch (Exception e) {
                 log.error("Can't load script {}", key, e);
             }
         }
     }
 
-    public static void bootstrap(RegistryImpl<JavaScriptElement> registry) {
+    public static void bootstrap(RegistryProvider<JavaScriptElement> registry) {
 
     }
 }

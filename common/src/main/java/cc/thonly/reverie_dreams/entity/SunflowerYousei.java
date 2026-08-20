@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
-import cc.thonly.reverie_dreams.api.entity.type.Yousei;
+import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
@@ -12,6 +12,7 @@ import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import cc.thonly.reverie_dreams.util.entity.EntityHelper;
 import lombok.Getter;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -31,7 +32,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 @Getter
-public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, Yousei {
+public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, YouseiType {
     public SunflowerYousei(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         super(entityType, world, skinType);
         this.xpReward = 5;
@@ -67,6 +68,8 @@ public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, Fri
         this.targetSelector.addGoal(1, new DifferentRevengeGoal(this).setGroupRevenge());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+
+        EntityHelper.registerHostilityAllRabbit(this, this.targetSelector);
     }
 
     @Override

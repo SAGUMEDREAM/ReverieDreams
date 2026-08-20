@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractRecipeTypeProvi
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
@@ -26,8 +26,8 @@ public class DanmakuRecipeProvider extends AbstractRecipeTypeProvider {
     }
 
     @Override
-    public void configured() {
-        Stream<DanmakuType> stream = RegistryImpls.DANMAKU_TYPE.stream();
+    public void configured(HolderLookup.Provider provider) {
+        Stream<DanmakuType> stream = BuiltInRegistryProviders.DANMAKU_TYPE.stream();
         stream.forEach(value -> {
             if (!value.isDeleteFromList()) {
                 for (Tuple<Item, ItemStackTemplate> pair : value.getColorPairs().get()) {

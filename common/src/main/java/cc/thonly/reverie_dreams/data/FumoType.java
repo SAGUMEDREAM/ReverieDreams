@@ -2,12 +2,12 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.AccessLevel;
@@ -23,11 +23,11 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 @Setter
 @Getter
 @ToString
-public class FumoType implements CodecStep<FumoType>, RegistryEntryOwnerBindable<FumoType>, BuiltinObject, RegistryEntryTranslatable {
+public class FumoType implements SerializableProvider<FumoType>, RegistryEntryOwnerBindable<FumoType>, BuiltinObject, RegistryEntryTranslatable {
     public static final Codec<FumoType> CODEC = UnitCodec.unit(FumoType::new);
     private Identifier id;
     private Identifier registryKey;
-    private RegistryImpl<FumoType> owner;
+    private RegistryProvider<FumoType> owner;
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.PROTECTED)

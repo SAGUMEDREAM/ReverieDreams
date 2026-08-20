@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
@@ -26,6 +27,9 @@ public class NPCWanderAroundFarGoal extends RandomStrollGoal {
     @Override
     public void start() {
         if (this.npcRole.getWorkMode() == NPCWorkModes.PLAYING_MUSIC) {
+            return;
+        }
+        if (this.npcRole.getNpcState() == NPCStates.WORKING) {
             return;
         }
         super.start();

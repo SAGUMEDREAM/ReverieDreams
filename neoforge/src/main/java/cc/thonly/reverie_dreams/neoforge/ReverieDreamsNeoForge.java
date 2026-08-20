@@ -6,16 +6,16 @@ import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
 import cc.thonly.reverie_dreams.api.ReverieDreamsExtension;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
+import cc.thonly.reverie_dreams.api.registry.AliasManager;
+import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
 import cc.thonly.reverie_dreams.neoforge.impl.NeoMergeRegistry;
-import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryImpl;
-import cc.thonly.reverie_dreams.neoforge.util.biome.NeoForgeWorldGen;
-import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
-import dev.architectury.registry.CreativeTabRegistry;
+import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryProvider;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
@@ -27,73 +27,42 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforgespi.language.ModFileScanData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 @Slf4j
 @Mod(ReverieDreams.MOD_ID)
 @EventBusSubscriber(modid = ReverieDreams.MOD_ID)
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ReverieDreamsNeoForge {
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ReverieDreams.MOD_ID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ReverieDreams.MOD_ID);
+    public static final DeferredRegister.Entities ENTITY_TYPES = DeferredRegister.createEntities(ReverieDreams.MOD_ID);
+    public static final DeferredRegister.DataComponents DATA_COMPONENT_TYPES = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ReverieDreams.MOD_ID);
+
     public ReverieDreamsNeoForge(ModContainer modContainer, IEventBus modBus) {
         NeoForgeKeine.loadApiImpl();
         checkApiLoaded();
         ReverieDreams.initialize(() -> {
-            ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.forEach((identifier, entityDataSerializer) -> {
-                Registry.register(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, identifier, entityDataSerializer);
-            });
+            EntityDataSerializerProviders.get().forEach((identifier, serializer) -> Registry.register(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, identifier, serializer));
+            AliasManager.execute(Registries.ITEM, map -> map.forEach(ITEMS::addAlias));
+            AliasManager.execute(Registries.BLOCK, map -> map.forEach(BLOCKS::addAlias));
+            AliasManager.execute(Registries.ENTITY_TYPE, map -> map.forEach(ENTITY_TYPES::addAlias));
+            AliasManager.execute(Registries.DATA_COMPONENT_TYPE, map -> map.forEach(DATA_COMPONENT_TYPES::addAlias));
+            ITEMS.register(modBus);
+            BLOCKS.register(modBus);
+            ENTITY_TYPES.register(modBus);
+            DATA_COMPONENT_TYPES.register(modBus);
         });
-//        NeoForgeWorldGen.init(modBus);
-    }
-
-    static {
-        ReverieDreams.REGISTRY_GETTER = resourceKey -> new NeoRegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey) {
-        };
-        ReverieDreams.MERGE_REGISTRY_GETTER = (key, registries) -> new NeoMergeRegistry(key, registries) {
-        };
-        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, handler) -> new NeoRegistryImpl(resourceKey, handler) {
-        };
     }
 
     public void checkApiLoaded() {
         ReverieDreamsExtensionEvents.SCAN_EVENT.register(ReverieDreamsNeoForge::loadPlugins);
     }
-
-//    @SubscribeEvent
-//    public static void onRegisterEvent(RegisterEvent event) {
-//        Registry<MapCodec<? extends BiomeModifier>> registry = event.getRegistry(NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS);
-//        if (registry == null) {
-//            return;
-//        }
-//        Identifier id = Identifier.fromNamespaceAndPath(ArchitecturyConstants.MOD_ID, "none_biome_mod_codec");
-//        if (registry.containsKey(id)) {
-//            return;
-//        }
-//        try {
-//            Class<?> impl$Clazz = Class.forName(
-//                    "dev.architectury.registry.level.biome.forge.BiomeModificationsImpl$BiomeModifierImpl"
-//            );
-//
-//            Field field = impl$Clazz.getDeclaredField("INSTANCE");
-//            field.setAccessible(true);
-//            Object obj = field.get(null);
-//            MapCodec<BiomeModifier> unit = MapCodec.unit((BiomeModifier) obj);
-//            Registry.register(registry, id, unit);
-//
-//            Class<?> clazz = Class.forName(
-//                    "dev.architectury.registry.level.biome.forge.BiomeModificationsImpl"
-//            );
-//            Field noneBiomeModCodec = clazz.getDeclaredField("noneBiomeModCodec");
-//            noneBiomeModCodec.setAccessible(true);
-//            noneBiomeModCodec.set(null, unit);
-//        } catch (Exception e) {
-//            log.error("Error: ", e);
-//        }
-//    }
 
     @SubscribeEvent
     public static void onRegisterEntityAttribute(EntityAttributeCreationEvent event) {

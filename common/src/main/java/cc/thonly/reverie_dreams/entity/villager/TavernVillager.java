@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
+import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -44,10 +44,10 @@ public class TavernVillager extends AbstractSeller {
     public static List<Tuple<ItemDelegate, Integer>> getAlwaysItems() {
         if (ALWAYS_ITEMS.isEmpty()) {
             ALWAYS_ITEMS.addAll(List.of(
-                    new Tuple<>(RDDrinkItems.GREEN_TEA, 8),
-                    new Tuple<>(RDDrinkItems.FRUITY_HIGH_BALL, 8),
-                    new Tuple<>(RDDrinkItems.FRUITY_SOUR, 8),
-                    new Tuple<>(RDDrinkItems.QI, 8)
+                    new Tuple<>(RDBeverageItems.GREEN_TEA, 8),
+                    new Tuple<>(RDBeverageItems.FRUITY_HIGH_BALL, 8),
+                    new Tuple<>(RDBeverageItems.FRUITY_SOUR, 8),
+                    new Tuple<>(RDBeverageItems.QI, 8)
             ));
         }
         return ALWAYS_ITEMS;
@@ -81,7 +81,7 @@ public class TavernVillager extends AbstractSeller {
             offers.add(offer);
         }
 
-        List<Item> allDrinks = new ArrayList<>(RDDrinkItems.DRINK_ITEMS.stream().map(ItemDelegate::asItem).toList());
+        List<Item> allDrinks = new ArrayList<>(RDBeverageItems.DRINK_ITEMS.stream().map(ItemDelegate::asItem).toList());
         for (Tuple<ItemDelegate, Integer> pair : getAlwaysItems()) {
             allDrinks.remove(pair.getA().asItem());
         }
@@ -95,7 +95,7 @@ public class TavernVillager extends AbstractSeller {
             ItemStack sellItem = new ItemStack(item, 6);
             IngredientStack wrapper = IngredientStack.of(sellItem);
 
-            int amount = DrinkProperties.getPriceCalculationTable().getOrDefault(item, 8) + random.nextInt(2);
+            int amount = BeverageProperties.getPriceCalculationTable().getOrDefault(item, 8) + random.nextInt(2);
             ItemCost first = new ItemCost(RDItems.COPPER_COIN, amount);
             ItemCost second = new ItemCost(Items.GLASS_BOTTLE, 1);
 

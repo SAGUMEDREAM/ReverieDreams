@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.data.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
@@ -24,20 +24,21 @@ import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 
+import java.util.Objects;
 import java.util.Optional;
 
 
 @Slf4j
-public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable<SkinType>, RegistryEntryTranslatable {
+public class SkinType implements SerializableProvider<SkinType>, RegistryEntryOwnerBindable<SkinType>, RegistryEntryTranslatable {
     public static final RecordCodecBuilder<SkinType, Identifier> PART = Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId);
     public static final Codec<SkinType> UNIT_CODEC = UnitCodec.unit(SkinType::new);
-    public static final Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(PART).apply(x, RegistryImpls.SKIN_TYPE::getValue)));
+    public static final Codec<SkinType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(PART).apply(x, BuiltInRegistryProviders.SKIN_TYPE::getValue)));
     public static final Codec<SkinType> MERGED_CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(PART).apply(x, id -> {
-        SkinType builtinSkinType = RegistryImpls.SKIN_TYPE.getValue(id);
+        SkinType builtinSkinType = BuiltInRegistryProviders.SKIN_TYPE.getValue(id);
         if (builtinSkinType != null) {
             return builtinSkinType;
         }
-        CustomType customType = RegistryImpls.CUSTOM_SKIN_TYPE.getValue(id);
+        CustomType customType = BuiltInRegistryProviders.CUSTOM_SKIN_TYPE.getValue(id);
         if (customType != null) {
             return customType;
         }
@@ -61,7 +62,7 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
     @Getter
     @Setter
     @ToString.Exclude
-    private RegistryImpl<SkinType> owner;
+    private RegistryProvider<SkinType> owner;
     @Setter
     @Getter
     private boolean slim;
@@ -126,6 +127,10 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
         this.property = null;
     }
 
+    public boolean is(SkinType skinType) {
+        return Objects.equals(this.id, skinType.id);
+    }
+
     private void valid() {
         try {
             Identifier fileId = ReverieDreams.id("entity/player/%s".formatted(this.id.getPath()));
@@ -155,7 +160,7 @@ public class SkinType implements CodecStep<SkinType>, RegistryEntryOwnerBindable
     }
 
     public static void onReload(ResourceManager manager) {
-        for (SkinType skinType : RegistryImpls.SKIN_TYPE.values()) {
+        for (SkinType skinType : BuiltInRegistryProviders.SKIN_TYPE.values()) {
             skinType.unbind();
         }
     }

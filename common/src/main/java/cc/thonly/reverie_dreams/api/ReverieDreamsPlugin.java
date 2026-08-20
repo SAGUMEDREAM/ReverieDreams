@@ -7,12 +7,12 @@ import cc.thonly.reverie_dreams.api.player.PlayerComponentContextRegistry;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatContext;
 import cc.thonly.reverie_dreams.api.registry.RawIdTypeRegistry;
 import cc.thonly.reverie_dreams.api.registry.RegistryImplContext;
-import cc.thonly.reverie_dreams.api.registry.callback.DrinkPropertiesLoaderCallback;
+import cc.thonly.reverie_dreams.api.registry.callback.BeveragePropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
-import cc.thonly.reverie_dreams.data.DrinkProperty;
+import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -54,12 +54,12 @@ public interface ReverieDreamsPlugin {
     }
 
     // 注册酒水属性兼容（用于适配其他模组的饮品TAG或属性）
-    default void registerDrinkPropertyCompat(DrinkPropertiesLoaderCallback.Context ctx) {
+    default void registerBeveragePropertyCompat(BeveragePropertiesLoaderCallback.Context ctx) {
 
     }
 
     // 注册注册表重载监听（当数据包或资源重载时触发）
-    default void registerRecipeLoadCallback(RegistryImpl<?> registry) {
+    default void registerRecipeLoadCallback(RegistryProvider<?> registry) {
 
     }
 
@@ -74,7 +74,7 @@ public interface ReverieDreamsPlugin {
     }
 
     // 酒水使用时触发（可添加额外效果或逻辑）
-    default void registerUseItemDrinkProperty(ServerLevel world, LivingEntity user, DrinkProperty property) {
+    default void registerUseItemDrinkProperty(ServerLevel world, LivingEntity user, BeverageProperty property) {
 
     }
 

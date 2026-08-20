@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.item.prop;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import net.minecraft.server.level.ServerLevel;
@@ -30,9 +30,9 @@ public class VaisravanasPagodaItem extends Item {
             float yaw = user.getYRot();
             for (int i = 0; i < 3; i++) {
                 ItemStack isd = DanmakuTypes.random(DanmakuTypes.LASER).create();
-                DanmakuProperties properties = isd.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                DanmakuProperties properties = isd.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                 if (properties != null) {
-                    isd.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.withSpeed(1.7f));
+                    isd.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.withSpeed(1.7f));
                 }
                 DanmakuEntity entity = DanmakuTrajectory.spawnByItemStack(
                         serverWorld, user, user.getX(), user.getY(), user.getZ(),

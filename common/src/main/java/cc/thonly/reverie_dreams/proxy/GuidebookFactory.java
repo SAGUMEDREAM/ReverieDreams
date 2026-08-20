@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.proxy;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.other.GuidebookItem;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import dev.architectury.event.Event;
 import dev.architectury.event.EventFactory;
 import net.minecraft.world.item.Item;
@@ -16,7 +16,7 @@ public interface GuidebookFactory {
                     if (result != null)
                         return result;
                 }
-                return new GuidebookItem(props.component(RDDataComponents.GUIDE_BOOK_NAMESPACE.value(), ReverieDreams.MOD_ID));
+                return new GuidebookItem(props.component(RDDataComponentTypes.GUIDE_BOOK_NAMESPACE.value(), ReverieDreams.MOD_ID));
             }
     );
 

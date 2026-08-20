@@ -6,9 +6,9 @@
     "X": "reverie_dreams:point_block"
   },
   "pattern": [
-    "XXX",
+    " X ",
     "X#X",
-    "XXX"
+    " X "
   ],
   "result": {
     "count": 2,

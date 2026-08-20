@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.registry.content.advancements;
 
 import cc.thonly.reverie_dreams.advancement.SimpleTrigger;
 import cc.thonly.reverie_dreams.advancement.UseItemTrigger;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
@@ -23,7 +23,7 @@ public class RDCriteriaTriggers {
 
     @SuppressWarnings("unchecked")
     public static <T extends CriterionTrigger<?>> RegistrySupplier<T> register(Identifier key, Supplier<T> criterionTrigger) {
-        Holder<CriterionTrigger<?>> holder = ReverieDreamsRegistries.CRITERION_TRIGGER.register(key.getPath(), criterionTrigger);
+        Holder<CriterionTrigger<?>> holder = MCBuiltInRegistries.CRITERION_TRIGGER.register(key.getPath(), criterionTrigger);
         LIST.add(holder);
         return (RegistrySupplier<T>) holder;
     }

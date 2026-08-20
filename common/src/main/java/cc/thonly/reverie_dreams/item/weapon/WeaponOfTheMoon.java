@@ -66,6 +66,7 @@ public class WeaponOfTheMoon extends Item {
         DanmakuEntity danmakuEntity = DanmakuEntity.create(world, owner, BULLET.create(), owner.getXRot(), owner.getYRot(), 0.4f);
         danmakuEntity.shootFromRotation(owner, owner.getXRot(), owner.getYRot(), 0, BULLET_PROPERTIES.speed(), 0.4f);
         danmakuEntity.setDanmakuProperties(BULLET_PROPERTIES.copy());
+        danmakuEntity.setOwner(owner);
         owner.turn(0.0F, -2.0F);
         world.addFreshEntity(danmakuEntity);
         world.playSound(null,

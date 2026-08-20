@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -119,7 +119,7 @@ public class DanmakuShapeDrawRecipeType extends BaseRecipeType<DanmakuShapeDrawR
         for (DanmakuShapeDrawRecipe recipe : stream().toList()) {
             IngredientStack outputStack = recipe.getOutput();
             ItemStack itemStack = outputStack.build();
-            IngredientStack ingredientStack = itemStack.get(RDDataComponents.DANMAKU_SHAPE.value());
+            IngredientStack ingredientStack = itemStack.get(RDDataComponentTypes.DANMAKU_SHAPE.value());
             if (ingredientStack == null) {
                 continue;
             }

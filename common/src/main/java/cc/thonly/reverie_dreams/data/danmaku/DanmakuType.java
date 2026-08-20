@@ -6,10 +6,10 @@ import cc.thonly.reverie_dreams.entity.misc.BaseDanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
@@ -40,8 +40,8 @@ import java.util.function.Supplier;
 @Setter
 @Getter
 @ToString
-public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBindable<DanmakuType>, RegistryEntryTranslatable, BuiltinObject {
-    public static final Codec<DanmakuType> COMPONENT_CODEC = RecordCodecBuilder.create(instance ->
+public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryEntryOwnerBindable<DanmakuType>, RegistryEntryTranslatable, BuiltinObject {
+    public static final Codec<DanmakuType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
                     ResourceKey.codec(Registries.DAMAGE_TYPE).fieldOf("damage_type").forGetter(DanmakuType::getDamageType),
@@ -51,7 +51,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
                     Codec.BOOL.fieldOf("tile").forGetter(DanmakuType::isTile),
                     Codec.BOOL.fieldOf("infinite").forGetter(DanmakuType::isInfinite)
             ).apply(instance, DanmakuType::getOrCreate)
-    );
+    ));
 
     private Identifier id;
     private final ResourceKey<DamageType> damageType;
@@ -62,7 +62,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
     private final boolean infinite;
     private ItemDelegate itemHolder;
     private BaseDanmakuEntity.HitCallback hitFactory;
-    private RegistryImpl<DanmakuType> owner;
+    private RegistryProvider<DanmakuType> owner;
     private boolean deleteFromList = false;
 
     public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
@@ -77,7 +77,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
     }
 
     public static DanmakuType getOrCreate(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        DanmakuType type = RegistryImpls.DANMAKU_TYPE.getValue(id);
+        DanmakuType type = BuiltInRegistryProviders.DANMAKU_TYPE.getValue(id);
         if (type == null) {
             return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite);
         }
@@ -90,7 +90,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
     }
 
     public DanmakuShape toShape() {
-        for (Map.Entry<ResourceKey<DanmakuShape>, DanmakuShape> mapEntry : RegistryImpls.DANMAKU_SHAPE.entrySet()) {
+        for (Map.Entry<ResourceKey<DanmakuShape>, DanmakuShape> mapEntry : BuiltInRegistryProviders.DANMAKU_SHAPE.entrySet()) {
             DanmakuShape shape = mapEntry.getValue();
             if (shape.getType() == this) {
                 return shape;
@@ -100,10 +100,10 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
     }
 
     public void createItemEntry() {
-        RegistrySupplier<Item> itemSupplier = ReverieDreamsRegistries.ITEM.register(this.getItemId().getPath(), () -> {
+        RegistrySupplier<Item> itemSupplier = MCBuiltInRegistries.ITEM.register(this.getItemId().getPath(), () -> {
                     DanmakuItem item = new DanmakuItem(new Item.Properties()
                             .setId(RDItems.keyOf(this.getItemId().getPath()))
-                            .component(RDDataComponents.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())
+                            .component(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())
                             .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
                             .durability(120)
                             .repairable(RDItemTags.POWER_BLOCK)
@@ -178,6 +178,6 @@ public class DanmakuType implements CodecStep<DanmakuType>, RegistryEntryOwnerBi
 
     @Override
     public Codec<DanmakuType> getCodec() {
-        return COMPONENT_CODEC;
+        return CODEC;
     }
 }

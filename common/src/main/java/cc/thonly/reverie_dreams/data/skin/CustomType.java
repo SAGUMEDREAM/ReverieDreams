@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.data.skin;
 
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.Item;
 public class CustomType extends SkinType {
     public static final Codec<CustomType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(
             Identifier.CODEC.fieldOf("SkinType").forGetter(SkinType::getId)
-    ).apply(x, RegistryImpls.CUSTOM_SKIN_TYPE::getValue)));
+    ).apply(x, BuiltInRegistryProviders.CUSTOM_SKIN_TYPE::getValue)));
     final Item icon;
 
     public CustomType(Identifier id, Item icon) {

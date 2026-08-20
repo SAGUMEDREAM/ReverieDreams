@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/cuisine/candied_sweet_potato"
+  }
+}

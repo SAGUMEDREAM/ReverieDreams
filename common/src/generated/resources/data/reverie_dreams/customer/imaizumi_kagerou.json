@@ -1,0 +1,55 @@
+{
+  "role_type": "reverie_dreams:imaizumi_kagerou",
+  "rare": true,
+  "budget": {
+    "min": 300,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:cool"
+  ],
+  "dislikes": [
+    "reverie_dreams:fiery"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:can_add_ice",
+    "reverie_dreams:sake",
+    "reverie_dreams:direct_drinking"
+  ],
+  "chats": [
+    "reverie_dreams.role.imaizumi_kagerou.chat.0",
+    "reverie_dreams.role.imaizumi_kagerou.chat.1",
+    "reverie_dreams.role.imaizumi_kagerou.chat.2",
+    "reverie_dreams.role.imaizumi_kagerou.chat.3",
+    "reverie_dreams.role.imaizumi_kagerou.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.imaizumi_kagerou.order.0",
+    "reverie_dreams.role.imaizumi_kagerou.order.1",
+    "reverie_dreams.role.imaizumi_kagerou.order.2",
+    "reverie_dreams.role.imaizumi_kagerou.order.3",
+    "reverie_dreams.role.imaizumi_kagerou.order.4",
+    "reverie_dreams.role.imaizumi_kagerou.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.imaizumi_kagerou.description.0",
+    "reverie_dreams.role.imaizumi_kagerou.description.1",
+    "reverie_dreams.role.imaizumi_kagerou.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.imaizumi_kagerou.evaluation.exbad",
+    "bad": "reverie_dreams.role.imaizumi_kagerou.evaluation.bad",
+    "norm": "reverie_dreams.role.imaizumi_kagerou.evaluation.norm",
+    "good": "reverie_dreams.role.imaizumi_kagerou.evaluation.good",
+    "exgood": "reverie_dreams.role.imaizumi_kagerou.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.imaizumi_kagerou.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.imaizumi_kagerou.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.imaizumi_kagerou.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.imaizumi_kagerou.evaluation.seenRepell"
+  }
+}

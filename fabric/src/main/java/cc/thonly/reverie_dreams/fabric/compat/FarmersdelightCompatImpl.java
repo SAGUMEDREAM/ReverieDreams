@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
+import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.fabric.mixin.accessor.CookingPotRecipeAccessor;
 import cc.thonly.reverie_dreams.fabric.mixin.accessor.CuttingBoardRecipeAccessor;
@@ -11,6 +13,7 @@ import cc.thonly.reverie_dreams.api.recipe.RecipeIngredientItems;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
+import cc.thonly.reverie_dreams.registry.content.ItemDescriptionConsts;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -93,6 +96,21 @@ public class FarmersdelightCompatImpl {
                 items.add(ModItems.COD_SLICE.get());
                 items.add(ModItems.SALMON_SLICE.get());
             }
+        });
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+            InitTooltips.copyItemTooltip(RDIngredientItems.TOMATO.asItem(), ModItems.TOMATO.get());
+            InitTooltips.copyItemTooltip(RDIngredientItems.ONION.asItem(), ModItems.ONION.get());
+            InitTooltips.copyItemTooltip(Items.PORKCHOP.asItem(), ModItems.BACON.get());
+            InitTooltips.copyItemTooltip(Items.PORKCHOP.asItem(), ModItems.COOKED_BACON.get());
+            InitTooltips.copyItemTooltip(Items.PUMPKIN.asItem(), ModItems.PUMPKIN_SLICE.get());
+            InitTooltips.copyItemTooltip(Items.MUTTON.asItem(), ModItems.MUTTON_CHOPS.get());
+            InitTooltips.copyItemTooltip(Items.MUTTON.asItem(), ModItems.COOKED_MUTTON_CHOPS.get());
+            InitTooltips.copyItemTooltip(Items.COD.asItem().asItem(), ModItems.COD_SLICE.get());
+            InitTooltips.copyItemTooltip(Items.COD.asItem().asItem(), ModItems.COOKED_COD_SLICE.get());
+            InitTooltips.copyItemTooltip(Items.SALMON.asItem(), ModItems.SALMON_SLICE.get());
+            InitTooltips.copyItemTooltip(Items.SALMON.asItem(), ModItems.COOKED_SALMON_SLICE.get());
+            InitTooltips.copyItemTooltip(Items.BEEF.asItem(), ModItems.MINCED_BEEF.get());
+            InitTooltips.copyItemTooltip(RDIngredientItems.WAGYU_BEEF.asItem(), ModItems.MINCED_BEEF.get());
         });
     }
 }

@@ -3,8 +3,8 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -23,11 +23,11 @@ public class FoodCreativeTab implements ItemGroupContentHelper {
                 .icon(FoodCreativeTab::getFoodItemIcon)
                 .title(Component.translatable("item_group.food_item_group"))
                 .displayItems((parameters, output) -> {
-                    for (var item : RDFoodItems.FOOD_ITEMS) {
+                    for (var item : RDCuisineItems.CUISINE_ITEMS) {
                         ItemStack itemStack = item.createStack();
                         Collection<FoodProperty> foodProperties = FoodProperties.get(itemStack);
-                        itemStack.set(RDDataComponents.FOOD_ITEM_TYPE.value(), Unit.INSTANCE);
-                        itemStack.set(RDDataComponents.FOOD_PROPERTIES.value(), foodProperties.stream().toList());
+                        itemStack.set(RDDataComponentTypes.FOOD_ITEM_TYPE.value(), Unit.INSTANCE);
+                        itemStack.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), foodProperties.stream().toList());
                         output.accept(itemStack);
                     }
                 })
@@ -35,7 +35,7 @@ public class FoodCreativeTab implements ItemGroupContentHelper {
     }
 
     public static ItemStack getFoodItemIcon() {
-        for (var foodItem : RDFoodItems.FOOD_ITEMS) {
+        for (var foodItem : RDCuisineItems.CUISINE_ITEMS) {
             return foodItem.createStack();
         }
         return new ItemStack(Items.COOKED_BEEF);

@@ -9,9 +9,10 @@ import cc.thonly.reverie_dreams.networking.payload.*;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.RegistryTagSet;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.util.PlatformContext;
@@ -19,13 +20,16 @@ import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.blaze3d.platform.NativeImage;
 import dev.architectury.networking.NetworkManager;
 import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
@@ -35,8 +39,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.ValueInput;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 @SuppressWarnings({"resource", "rawtypes"})
 @Slf4j
@@ -80,11 +87,12 @@ public class ClientNetworkingHandlers {
         }
     }
 
-    public static void onReceiveRegistryImpSyncPacket(Player player, RegistryImpSyncPacket payload) {
+    public static void onReceiveCustomRegistrySyncPacket(Player player, CustomRegistrySyncPacket payload) {
         Identifier registryKey = payload.registryKey();
         CompoundTag data = payload.data();
+        CompoundTag tags = payload.tags();
         try {
-            RegistryImpl<Object> registry = RegistryImpls.ofEntry(registryKey);
+            RegistryProvider<Object> registry = BuiltInRegistryProviders.ofEntry(registryKey);
             if (registry == null) {
                 return;
             }
@@ -107,8 +115,28 @@ public class ClientNetworkingHandlers {
                 registry.set(resourceKey, updated, RegistrationInfo.BUILT_IN);
             }
             clientReloadListener.afterProcessing(registry);
+            registry.unboundTag();
+            List<Tuple<Identifier, RegistryTagSet>> tuples = RegistrySyncer.readTagToSet(tags);
+            Map<TagKey<Object>, List<Holder<Object>>> result = new Object2ObjectLinkedOpenHashMap<>();
+            for (Tuple<Identifier, RegistryTagSet> tuple : tuples) {
+                Identifier tagKeyId = tuple.getA();
+                RegistryTagSet tagSet = tuple.getB();
+
+                TagKey<Object> tagKey = TagKey.create(registry.key(), tagKeyId);
+                List<Holder<Object>> holders = result.computeIfAbsent(tagKey, _ -> new ArrayList<>());
+                RegistryTagSet.Result<Object> tagResult = tagSet.result(registry);
+                for (ResourceKey<Object> id : tagResult.ids()) {
+                    registry.get(id).ifPresent(holders::add);
+                }
+            }
+            registry.bindTags(result);
+            int size = tags.getIntOr("size", -1);
+            if (size != result.size()) {
+                log.warn("Tag serialization length inconsistent Expected: {} Actual: {}", size, result.size());
+            }
+            log.info("Synchronizing server registry {} was successful.", payload.registryKey());
         } catch (Exception e) {
-            log.error("Can't sync server registry: {}", registryKey, e);
+            log.error("An error occurred while synchronizing the server registry {}: ", registryKey, e);
         }
     }
 
@@ -137,7 +165,7 @@ public class ClientNetworkingHandlers {
             return;
         }
         ItemStack stack = ItemUtils.getHandItem(player, itemStack -> itemStack.getItem() instanceof TenguCameraItem);
-        int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
+        int fov = stack.getOrDefault(RDDataComponentTypes.FOV.value(), 75);
         CompletableFuture<NativeImage> future = PhotoScreenshotHelper.getClientImage();
         future.thenAccept(clientImage -> {
             NativeImage resizedImage = PhotoScreenshotHelper.resizeImage(clientImage);

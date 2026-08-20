@@ -1,0 +1,56 @@
+{
+  "role_type": "reverie_dreams:mononobe_no_futo",
+  "rare": true,
+  "budget": {
+    "min": 600,
+    "max": 900
+  },
+  "likes": [
+    "reverie_dreams:gourmet",
+    "reverie_dreams:legendary",
+    "reverie_dreams:light",
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:flaming"
+  ],
+  "dislikes": [
+    "reverie_dreams:western_style",
+    "reverie_dreams:raw"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:can_heated",
+    "reverie_dreams:direct_drinking",
+    "reverie_dreams:bubble"
+  ],
+  "chats": [
+    "reverie_dreams.role.mononobe_no_futo.chat.0",
+    "reverie_dreams.role.mononobe_no_futo.chat.1",
+    "reverie_dreams.role.mononobe_no_futo.chat.2",
+    "reverie_dreams.role.mononobe_no_futo.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.mononobe_no_futo.order.0",
+    "reverie_dreams.role.mononobe_no_futo.order.1",
+    "reverie_dreams.role.mononobe_no_futo.order.2",
+    "reverie_dreams.role.mononobe_no_futo.order.3",
+    "reverie_dreams.role.mononobe_no_futo.order.4",
+    "reverie_dreams.role.mononobe_no_futo.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.mononobe_no_futo.description.0",
+    "reverie_dreams.role.mononobe_no_futo.description.1",
+    "reverie_dreams.role.mononobe_no_futo.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.mononobe_no_futo.evaluation.exbad",
+    "bad": "reverie_dreams.role.mononobe_no_futo.evaluation.bad",
+    "norm": "reverie_dreams.role.mononobe_no_futo.evaluation.norm",
+    "good": "reverie_dreams.role.mononobe_no_futo.evaluation.good",
+    "exgood": "reverie_dreams.role.mononobe_no_futo.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.mononobe_no_futo.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.mononobe_no_futo.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.mononobe_no_futo.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.mononobe_no_futo.evaluation.seenRepell"
+  }
+}

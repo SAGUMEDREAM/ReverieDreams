@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "reverie_dreams:item/food/looking_up_at_the_ceiling_fruit_pie"
-  }
-}

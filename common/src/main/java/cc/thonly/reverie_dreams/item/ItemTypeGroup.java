@@ -4,6 +4,8 @@ import cc.thonly.reverie_dreams.item.base.ArmorItem;
 import cc.thonly.reverie_dreams.item.base.CustomSpear;
 import cc.thonly.reverie_dreams.item.base.PickaxeItem;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
+import cc.thonly.reverie_dreams.item.weapon.Gungnir;
+import cc.thonly.reverie_dreams.item.weapon.YukaFlowerUmbrella;
 import lombok.Getter;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
@@ -49,7 +51,7 @@ public enum ItemTypeGroup {
         if (item instanceof ArmorItem) {
             ARMOR.add(item);
         }
-        if (item instanceof CustomSpear) {
+        if (item instanceof CustomSpear || item instanceof Gungnir || item instanceof YukaFlowerUmbrella) {
             SPEARS.add(item);
         }
     }

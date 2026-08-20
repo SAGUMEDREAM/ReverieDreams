@@ -6,8 +6,8 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.mixin.accessor.GuiElementBuilderAccessor;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.type.DanmakuShapeDrawRecipeType;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
@@ -131,7 +131,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
     private void readData() {
         DanmakuShapeDrawRecipeType recipeType = DanmakuShapeDrawRecipeType.getInstance();
         ItemStack source = this.source;
-        IngredientStack ingredientStack = source.get(RDDataComponents.DANMAKU_SHAPE.value());
+        IngredientStack ingredientStack = source.get(RDDataComponentTypes.DANMAKU_SHAPE.value());
         if (ingredientStack == null) {
             return;
         }
@@ -173,9 +173,9 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
 
     private ItemStack getItemForState(boolean state) {
         if (state) {
-            return RDGuiItems.ENABLE.createStack();
+            return RDGuiPlaceholderItems.ENABLE.createStack();
         } else {
-            return RDGuiItems.DISABLE.createStack();
+            return RDGuiPlaceholderItems.DISABLE.createStack();
         }
     }
 

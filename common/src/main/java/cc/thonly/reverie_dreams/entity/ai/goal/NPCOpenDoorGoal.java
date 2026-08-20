@@ -9,20 +9,21 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 import java.util.EnumSet;
 
+@SuppressWarnings("resource")
 public class NPCOpenDoorGoal extends Goal {
-    private final BaseNPCLikeEntity roleEntity;
+    private final BaseNPCLikeEntity npc;
     private BlockPos doorPos;
     private boolean hasOpened;
 
-    public NPCOpenDoorGoal(BaseNPCLikeEntity roleEntity) {
-        this.roleEntity = roleEntity;
+    public NPCOpenDoorGoal(BaseNPCLikeEntity npc) {
+        this.npc = npc;
         this.setFlags(EnumSet.of(Flag.LOOK));
     }
 
     @Override
     public boolean canUse() {
-        BlockPos front = this.roleEntity.blockPosition().relative(this.roleEntity.getDirection());
-        BlockState state = this.roleEntity.level().getBlockState(front);
+        BlockPos front = this.npc.blockPosition().relative(this.npc.getDirection());
+        BlockState state = this.npc.level().getBlockState(front);
 
         if (state.getBlock() instanceof DoorBlock door && !state.getValue(DoorBlock.OPEN)) {
             this.doorPos = front;
@@ -35,22 +36,22 @@ public class NPCOpenDoorGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         if (this.doorPos == null || !this.hasOpened) return false;
-        return roleEntity.distanceToSqr(this.doorPos.getX() + 0.5, this.doorPos.getY(), this.doorPos.getZ() + 0.5) <= 4.0;
+        return npc.distanceToSqr(this.doorPos.getX() + 0.5, this.doorPos.getY(), this.doorPos.getZ() + 0.5) <= 4.0;
     }
 
     @Override
     public void start() {
         if (this.doorPos == null) return;
 
-        BlockState state = this.roleEntity.level().getBlockState(this.doorPos);
+        BlockState state = this.npc.level().getBlockState(this.doorPos);
         if (state.getBlock() instanceof DoorBlock doorBlock && !state.getValue(DoorBlock.OPEN)) {
-            this.roleEntity.level().setBlock(
+            this.npc.level().setBlock(
                     this.doorPos,
                     state.setValue(DoorBlock.OPEN, true),
                     10
             );
             BlockSetType blockSetType = doorBlock.type();
-            this.roleEntity.makeSound(blockSetType.doorOpen());
+            this.npc.makeSound(blockSetType.doorOpen());
             this.hasOpened = true;
         }
     }
@@ -59,16 +60,16 @@ public class NPCOpenDoorGoal extends Goal {
     public void tick() {
         if (this.doorPos == null || !this.hasOpened) return;
 
-        if (this.roleEntity.distanceToSqr(this.doorPos.getX() + 0.5, this.doorPos.getY(), this.doorPos.getZ() + 0.5) > 4.0) {
-            BlockState state = this.roleEntity.level().getBlockState(this.doorPos);
+        if (this.npc.distanceToSqr(this.doorPos.getX() + 0.5, this.doorPos.getY(), this.doorPos.getZ() + 0.5) > 4.0) {
+            BlockState state = this.npc.level().getBlockState(this.doorPos);
             if (state.getBlock() instanceof DoorBlock doorBlock && state.getValue(DoorBlock.OPEN)) {
-                this.roleEntity.level().setBlock(
+                this.npc.level().setBlock(
                         this.doorPos,
                         state.setValue(DoorBlock.OPEN, false),
                         10
                 );
                 BlockSetType blockSetType = doorBlock.type();
-                this.roleEntity.makeSound(blockSetType.doorClose());
+                this.npc.makeSound(blockSetType.doorClose());
             }
             this.doorPos = null;
             this.hasOpened = false;
@@ -79,16 +80,16 @@ public class NPCOpenDoorGoal extends Goal {
     public void stop() {
         if (this.doorPos != null && this.hasOpened) {
             // 停止时如果门还开着就关门
-            BlockState state = this.roleEntity.level().getBlockState(this.doorPos);
+            BlockState state = this.npc.level().getBlockState(this.doorPos);
             Boolean isOpen = state.getValue(DoorBlock.OPEN);
             if (state.getBlock() instanceof DoorBlock doorBlock && isOpen) {
-                this.roleEntity.level().setBlock(
+                this.npc.level().setBlock(
                         this.doorPos,
                         state.setValue(DoorBlock.OPEN, false),
                         10
                 );
                 BlockSetType blockSetType = doorBlock.type();
-                this.roleEntity.makeSound(blockSetType.doorClose());
+                this.npc.makeSound(blockSetType.doorClose());
             }
         }
         this.doorPos = null;

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import net.minecraft.util.Unit;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -84,7 +84,7 @@ public class RDIngredientItems {
 //    }
 
     public static Function<Item.Properties, Item> ingredientFactory() {
-        return props -> new Item(props.component(RDDataComponents.INGREDIENT_ITEM_TYPE.value(), Unit.INSTANCE)
+        return props -> new Item(props.component(RDDataComponentTypes.INGREDIENT_ITEM_TYPE.value(), Unit.INSTANCE)
                 .food(new FoodProperties.Builder().nutrition(2).saturationModifier(2).build()));
     }
 

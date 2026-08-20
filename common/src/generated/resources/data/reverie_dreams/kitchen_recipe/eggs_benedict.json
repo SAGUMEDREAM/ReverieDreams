@@ -19,7 +19,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/eggs_benedict",
+    "id": "reverie_dreams:cuisine/eggs_benedict",
     "count": 1
   },
   "cost_time": 7.0

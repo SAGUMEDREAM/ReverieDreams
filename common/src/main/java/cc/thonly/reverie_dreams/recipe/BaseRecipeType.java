@@ -28,6 +28,7 @@ import java.util.stream.Stream;
 @ToString
 public abstract class BaseRecipeType<R extends BaseRecipe> {
     protected final Map<Identifier, R> registries = new Object2ObjectLinkedOpenHashMap<>();
+    private boolean acceptNetworking = false;
     private int nextRawId = 0;
 
     public abstract void reload(ResourceManager manager);
@@ -43,6 +44,14 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
     public abstract String getTypeId();
 
     public abstract Identifier getId();
+
+    public synchronized void setAcceptNetworking(boolean acceptNetworking) {
+        this.acceptNetworking = acceptNetworking;
+    }
+
+    public synchronized boolean isAcceptNetworking() {
+        return this.acceptNetworking;
+    }
 
     public BaseRecipeType<R> add(Identifier id, R recipe) {
         if (!this.registries.containsKey(id)) {

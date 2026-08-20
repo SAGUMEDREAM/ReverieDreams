@@ -33,6 +33,7 @@ import java.util.function.Predicate;
 
 @SuppressWarnings({"unchecked", "rawtypes", "unused", "OptionalUsedAsFieldOrParameterType", "FieldMayBeFinal", "MismatchedQueryAndUpdateOfCollection"})
 @Slf4j
+@Deprecated
 public class NeoForgeWorldGen {
     static List<Pair<Predicate<BiomeModifications.BiomeContext>, BiConsumer<BiomeModifications.BiomeContext, BiomeProperties.Mutable>>> ADDITIONS = Lists.newArrayList();
     static List<Pair<Predicate<BiomeModifications.BiomeContext>, BiConsumer<BiomeModifications.BiomeContext, BiomeProperties.Mutable>>> POST_PROCESSING = Lists.newArrayList();

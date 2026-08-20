@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.polymer.proxy;
 
 import cc.thonly.reverie_dreams.proxy.TenguCameraItemUse;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
@@ -36,7 +36,7 @@ public class TenguCameraItemUseImpl implements TenguCameraItemUse {
         ItemStack stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
 
-            int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
+            int fov = stack.getOrDefault(RDDataComponentTypes.FOV.value(), 75);
 
             float pitch = player.getXRot();
 
@@ -47,7 +47,7 @@ public class TenguCameraItemUseImpl implements TenguCameraItemUse {
             if (newFov < 30) newFov = 30;
             if (newFov > 110) newFov = 110;
 
-            stack.set(RDDataComponents.FOV.value(), newFov);
+            stack.set(RDDataComponentTypes.FOV.value(), newFov);
 
             ((ServerPlayer) player).sendSystemMessage(
                     Component.literal("§a" + newFov),
@@ -74,7 +74,7 @@ public class TenguCameraItemUseImpl implements TenguCameraItemUse {
         instance.renderEntities = true;
         try {
             CanvasImageRenderer renderer = new CanvasImageRenderer(player, 128, 128, instance.renderDistance);
-            int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
+            int fov = stack.getOrDefault(RDDataComponentTypes.FOV.value(), 75);
             int oldFov = instance.fov;
             instance.fov = fov;
             ItemStack finalCunsumeStack = cunsumeStack;

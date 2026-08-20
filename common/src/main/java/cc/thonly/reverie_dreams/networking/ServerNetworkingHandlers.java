@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.networking.payload.HelloPacket;
 import cc.thonly.reverie_dreams.networking.payload.PlayerJoinVersionPacket;
 import cc.thonly.reverie_dreams.networking.payload.PlayerMidiNotePacket;
 import cc.thonly.reverie_dreams.networking.payload.ScreenshotMapPacket;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.SessionManager;
 import cc.thonly.reverie_dreams.util.PlatformContext;
@@ -73,13 +73,13 @@ public class ServerNetworkingHandlers {
 
     public static void onReceivePlayerMidiNotePacket(ServerPlayer player, PlayerMidiNotePacket packet) {
         ItemStack itemStack = player.getItemBySlot(packet.slot());
-        if (!(itemStack.is(RDItemTags.MUSICAL_INSTRUMENTS) && itemStack.has(RDDataComponents.NOTE_TYPE.value()))) {
+        if (!(itemStack.is(RDItemTags.MUSICAL_INSTRUMENTS) && itemStack.has(RDDataComponentTypes.NOTE_TYPE.value()))) {
             return;
         }
         if (!packet.press()) {
             return;
         }
-        NoteBlockInstrument noteBlockInstrument = itemStack.get(RDDataComponents.NOTE_TYPE.value());
+        NoteBlockInstrument noteBlockInstrument = itemStack.get(RDDataComponentTypes.NOTE_TYPE.value());
         if (noteBlockInstrument == null) {
             return;
         }

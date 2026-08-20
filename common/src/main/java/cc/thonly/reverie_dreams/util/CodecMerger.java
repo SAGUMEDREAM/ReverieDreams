@@ -2,8 +2,10 @@ package cc.thonly.reverie_dreams.util;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class CodecMerger {
@@ -77,6 +79,29 @@ public class CodecMerger {
             }
 
             return merge(array);
+        });
+    }
+
+    public static <T> Codec<T> mergeLazyInitialized(
+            Supplier<List<Codec<T>>> codecs,
+            Predicate<T> predicate
+    ) {
+        return Codec.lazyInitialized(() -> {
+            List<Codec<T>> array = codecs.get();
+
+            if (array == null || array.isEmpty()) {
+                throw new IllegalArgumentException("At least one codec required");
+            }
+
+            return merge(array).validate(value -> {
+                if (predicate.test(value)) {
+                    return DataResult.success(value);
+                }
+
+                return DataResult.error(
+                        () -> "Codec validation failed for value: " + value
+                );
+            });
         });
     }
 }

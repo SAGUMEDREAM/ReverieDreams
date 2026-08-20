@@ -22,7 +22,7 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
     }
 
     @Override
-    public void configured() {
+    public void configured(HolderLookup.Provider provider) {
         this.addConfig(GensokyoSkinTypes.REIMU, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.CYAN_REIMU, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.MARISA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
@@ -72,7 +72,6 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(GensokyoSkinTypes.KOMEIJI_KOISHI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.WHITE_KOMEIJI_KOISHI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.NAZRIN, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
-        this.addConfig(GensokyoSkinTypes.NUE, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.TATARA_KOGASA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.KASODANI_KYOUKO, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.MIYAKO_YOSHIKA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));

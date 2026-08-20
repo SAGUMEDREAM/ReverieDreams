@@ -1,0 +1,58 @@
+{
+  "role_type": "reverie_dreams:kawasiro_nitori",
+  "rare": true,
+  "budget": {
+    "min": 400,
+    "max": 500
+  },
+  "likes": [
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:gourmet",
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:salty",
+    "reverie_dreams:signature",
+    "reverie_dreams:bizarre"
+  ],
+  "dislikes": [
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:cultural_depth"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:sake",
+    "reverie_dreams:direct_drinking"
+  ],
+  "chats": [
+    "reverie_dreams.role.kawasiro_nitori.chat.0",
+    "reverie_dreams.role.kawasiro_nitori.chat.1",
+    "reverie_dreams.role.kawasiro_nitori.chat.2",
+    "reverie_dreams.role.kawasiro_nitori.chat.3",
+    "reverie_dreams.role.kawasiro_nitori.chat.4",
+    "reverie_dreams.role.kawasiro_nitori.chat.5"
+  ],
+  "orders": [
+    "reverie_dreams.role.kawasiro_nitori.order.0",
+    "reverie_dreams.role.kawasiro_nitori.order.1",
+    "reverie_dreams.role.kawasiro_nitori.order.2",
+    "reverie_dreams.role.kawasiro_nitori.order.3",
+    "reverie_dreams.role.kawasiro_nitori.order.4",
+    "reverie_dreams.role.kawasiro_nitori.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.kawasiro_nitori.description.0",
+    "reverie_dreams.role.kawasiro_nitori.description.1",
+    "reverie_dreams.role.kawasiro_nitori.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.kawasiro_nitori.evaluation.exbad",
+    "bad": "reverie_dreams.role.kawasiro_nitori.evaluation.bad",
+    "norm": "reverie_dreams.role.kawasiro_nitori.evaluation.norm",
+    "good": "reverie_dreams.role.kawasiro_nitori.evaluation.good",
+    "exgood": "reverie_dreams.role.kawasiro_nitori.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.kawasiro_nitori.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.kawasiro_nitori.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.kawasiro_nitori.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.kawasiro_nitori.evaluation.seenRepell"
+  }
+}

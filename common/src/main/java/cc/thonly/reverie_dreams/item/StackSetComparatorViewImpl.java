@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.item;
 
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
+@Slf4j
 @SuppressWarnings("ALL")
 @ToString
 public class StackSetComparatorViewImpl implements ItemComparatorView {
@@ -36,5 +38,11 @@ public class StackSetComparatorViewImpl implements ItemComparatorView {
         return this.views.isEmpty()
                 ? IngredientStack.empty().getLazyStack()
                 : this.views.getFirst().stack();
+    }
+
+    @Override
+    public ItemStack stack(ItemStack stack) {
+        log.error("StackSetComparatorViewImpl Not Support Modify");
+        return this.stack();
     }
 }

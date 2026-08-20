@@ -28,12 +28,13 @@
     "minecraft:gameplay/nether_portal_spawns_piglin": true,
     "minecraft:gameplay/piglins_zombify": false,
     "minecraft:gameplay/respawn_anchor_works": true,
+    "minecraft:gameplay/sky_light_level": 15.0,
     "minecraft:visual/fog_color": "#181318",
     "minecraft:visual/sky_color": "#000000",
-    "minecraft:visual/sky_light_color": "#e580ff",
-    "minecraft:visual/sky_light_factor": 0.0
+    "minecraft:visual/sky_light_color": "#b874ff",
+    "minecraft:visual/sky_light_factor": 0.5,
+    "minecraft:visual/water_fog_color": "#66bfe8"
   },
-  "cardinal_light": "nether",
   "coordinate_scale": 1.0,
   "default_clock": "minecraft:overworld",
   "has_ceiling": false,
@@ -43,13 +44,12 @@
   "height": 256,
   "infiniburn": "#minecraft:infiniburn_overworld",
   "logical_height": 256,
-  "min_y": 0,
+  "min_y": -32,
   "monster_spawn_block_light_limit": 0,
   "monster_spawn_light_level": {
     "type": "minecraft:uniform",
-    "max_inclusive": 7,
+    "max_inclusive": 10,
     "min_inclusive": 0
   },
-  "skybox": "end",
   "timelines": "#minecraft:in_overworld"
 }

@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
+import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,7 +37,7 @@ public abstract class AbstractSkinConfigProvider implements DataProvider {
         this.future = future;
     }
 
-    public abstract void configured();
+    public abstract void configured(HolderLookup.Provider provider);
 
     protected void addConfig(Identifier id, SkinConfig config) {
         this.configList.put(id, config);
@@ -47,9 +49,12 @@ public abstract class AbstractSkinConfigProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
-        return CompletableFuture.runAsync(() -> {
-            this.configured();
-            this.export(writer);
+        return this.future.thenAcceptAsync(provider->{
+            this.configured(provider);
+            DataProviderHelper.outputFile(writer, this.configList, SkinConfig.CODEC, (id, config) -> {
+                config.bindRegistryKey(id);
+                return config;
+            }, "skin_config/");
         });
     }
 

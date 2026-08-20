@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.OniVariant;
 import cc.thonly.reverie_dreams.entity.variant.OniVariants;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
@@ -37,7 +37,7 @@ public class Oni extends BaseNPCLikeEntity implements FriendlyFaction {
     public Oni(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world, (
                 OniVariants.isEmpty()
-                        ? (OniVariants.REGISTRY.getAny().isPresent() ? OniVariants.REGISTRY.getAny().get().value().getSkinType() : OniVariants.GREEN.getSkinType())
+                        ? (BuiltInRegistryProviders.ONI_VARIANT.getAny().isPresent() ? BuiltInRegistryProviders.ONI_VARIANT.getAny().get().value().getSkinType() : OniVariants.GREEN.getSkinType())
                         : Objects.requireNonNull(OniVariants.random()).getSkinType()
                 )
         );
@@ -99,7 +99,7 @@ public class Oni extends BaseNPCLikeEntity implements FriendlyFaction {
         super.readAdditionalSaveData(view);
         String variantId = view.getStringOr("Variant", OniVariants.GREEN.getId().toString());
         Identifier variantIdentifier = Identifier.parse(variantId);
-        this.variant = RegistryImpls.ONI_VARIANT.getValue(variantIdentifier);
+        this.variant = BuiltInRegistryProviders.ONI_VARIANT.getValue(variantIdentifier);
     }
 
     @Override

@@ -1,0 +1,54 @@
+{
+  "role_type": "reverie_dreams:kaenbyou_rin",
+  "rare": true,
+  "budget": {
+    "min": 500,
+    "max": 700
+  },
+  "likes": [
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:ocean_flavor",
+    "reverie_dreams:umami",
+    "reverie_dreams:sweet",
+    "reverie_dreams:bizarre",
+    "reverie_dreams:dreamlike"
+  ],
+  "dislikes": [
+    "reverie_dreams:raw",
+    "reverie_dreams:fiery"
+  ],
+  "beverages": [
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:sake"
+  ],
+  "chats": [
+    "reverie_dreams.role.kaenbyou_rin.chat.0",
+    "reverie_dreams.role.kaenbyou_rin.chat.1",
+    "reverie_dreams.role.kaenbyou_rin.chat.2",
+    "reverie_dreams.role.kaenbyou_rin.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.kaenbyou_rin.order.0",
+    "reverie_dreams.role.kaenbyou_rin.order.1",
+    "reverie_dreams.role.kaenbyou_rin.order.2",
+    "reverie_dreams.role.kaenbyou_rin.order.3",
+    "reverie_dreams.role.kaenbyou_rin.order.4",
+    "reverie_dreams.role.kaenbyou_rin.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.kaenbyou_rin.description.0",
+    "reverie_dreams.role.kaenbyou_rin.description.1",
+    "reverie_dreams.role.kaenbyou_rin.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.kaenbyou_rin.evaluation.exbad",
+    "bad": "reverie_dreams.role.kaenbyou_rin.evaluation.bad",
+    "norm": "reverie_dreams.role.kaenbyou_rin.evaluation.norm",
+    "good": "reverie_dreams.role.kaenbyou_rin.evaluation.good",
+    "exgood": "reverie_dreams.role.kaenbyou_rin.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.kaenbyou_rin.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.kaenbyou_rin.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.kaenbyou_rin.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.kaenbyou_rin.evaluation.seenRepell"
+  }
+}

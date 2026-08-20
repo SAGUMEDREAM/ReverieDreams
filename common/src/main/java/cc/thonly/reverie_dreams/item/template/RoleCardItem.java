@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.item.template;
 
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleFastEntity;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleRedirectEntity;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -43,11 +43,11 @@ public class RoleCardItem extends Item {
     }
 
     public Optional<RoleCard> getRoleCardComponent(ItemStack itemStack) {
-        Identifier identifier = itemStack.get(RDDataComponents.ROLE_CARD_ID.value());
+        Identifier identifier = itemStack.get(RDDataComponentTypes.ROLE_CARD_ID.value());
         if (identifier == null) {
             return Optional.empty();
         }
-        RoleCard roleCard = RegistryImpls.ROLE_CARD.getValue(identifier);
+        RoleCard roleCard = BuiltInRegistryProviders.ROLE_CARD.getValue(identifier);
         if (roleCard == null) {
             return Optional.empty();
         }
@@ -90,6 +90,7 @@ public class RoleCardItem extends Item {
 //        textConsumer.accept(Text.translatable("item.tooltip.use"));
 //    }
 
+    @SuppressWarnings("unchecked")
     public static Dialog getSelectMenu(String uuid, UsingData data) {
         MultiActionDialog dialog = new MultiActionDialog(
                 new CommonDialogData(
@@ -108,10 +109,10 @@ public class RoleCardItem extends Item {
                 Optional.empty(),
                 1
         );
-        for (Map.Entry<Identifier, NPCRole> entry : data.id2Role.entrySet()) {
+        for (Map.Entry<Identifier, NPCRoleType> entry : data.id2Role.entrySet()) {
             Identifier identifier = entry.getKey();
-            NPCRole role = entry.getValue();
-            EntityType<NPCRoleFastEntity> entityType = role.get().value();
+            NPCRoleType role = entry.getValue();
+            EntityType<NPCSimpleRedirectEntity> entityType = (EntityType<NPCSimpleRedirectEntity>) (Object) role.get().value();
             CompoundTag element = new CompoundTag();
             element.putString("session_id", uuid);
             element.putString("entity_id", identifier.toString());
@@ -141,8 +142,8 @@ public class RoleCardItem extends Item {
         private final ItemStack itemStack;
         private final BlockPos blockPos;
         private final RoleCard roleCard;
-        private final Map<Identifier, NPCRole> id2Role = new Object2ObjectOpenHashMap<>();
-        private final List<NPCRole> roleList = new ArrayList<>();
+        private final Map<Identifier, NPCRoleType> id2Role = new Object2ObjectOpenHashMap<>();
+        private final List<NPCRoleType> roleList = new ArrayList<>();
 
         public UsingData(ServerPlayer player, ServerLevel world, BlockPos blockPos, ItemStack itemStack, RoleCard roleCard) {
             this.player = player;
@@ -151,7 +152,7 @@ public class RoleCardItem extends Item {
             this.blockPos = blockPos;
             this.roleCard = roleCard;
             this.roleList.addAll(this.roleCard.stream().toList());
-            for (NPCRole npcRole : this.roleList) {
+            for (NPCRoleType npcRole : this.roleList) {
                 this.id2Role.put(npcRole.getId(), npcRole);
             }
         }

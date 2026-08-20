@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -39,7 +39,7 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
     public final RecipeKeyEntry<KitchenRecipe> key2ValueEntry;
     public final Identifier key;
     public final KitchenRecipe value;
-    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.CLOSE.asItem()).setProfileSkinTexture(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
+    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiPlaceholderItems.CLOSE.asItem()).setProfileSkinTexture(PlayerHeadInfo.GUI_ADD).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
 
     public KitchenBlockDisplayView(ServerPlayer player, RecipeKeyEntry<KitchenRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {

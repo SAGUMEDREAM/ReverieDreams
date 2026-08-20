@@ -1,0 +1,55 @@
+{
+  "role_type": "reverie_dreams:kamishirasawa_keine",
+  "rare": true,
+  "budget": {
+    "min": 400,
+    "max": 800
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:light",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:cultural_depth"
+  ],
+  "dislikes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:salty",
+    "reverie_dreams:large_partition"
+  ],
+  "beverages": [
+    "reverie_dreams:soju",
+    "reverie_dreams:sake",
+    "reverie_dreams:liqueur"
+  ],
+  "chats": [
+    "reverie_dreams.role.kamishirasawa_keine.chat.0",
+    "reverie_dreams.role.kamishirasawa_keine.chat.1",
+    "reverie_dreams.role.kamishirasawa_keine.chat.2",
+    "reverie_dreams.role.kamishirasawa_keine.chat.3",
+    "reverie_dreams.role.kamishirasawa_keine.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.kamishirasawa_keine.order.0",
+    "reverie_dreams.role.kamishirasawa_keine.order.1",
+    "reverie_dreams.role.kamishirasawa_keine.order.2",
+    "reverie_dreams.role.kamishirasawa_keine.order.3",
+    "reverie_dreams.role.kamishirasawa_keine.order.4",
+    "reverie_dreams.role.kamishirasawa_keine.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.kamishirasawa_keine.description.0",
+    "reverie_dreams.role.kamishirasawa_keine.description.1",
+    "reverie_dreams.role.kamishirasawa_keine.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.kamishirasawa_keine.evaluation.exbad",
+    "bad": "reverie_dreams.role.kamishirasawa_keine.evaluation.bad",
+    "norm": "reverie_dreams.role.kamishirasawa_keine.evaluation.norm",
+    "good": "reverie_dreams.role.kamishirasawa_keine.evaluation.good",
+    "exgood": "reverie_dreams.role.kamishirasawa_keine.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.kamishirasawa_keine.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.kamishirasawa_keine.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.kamishirasawa_keine.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.kamishirasawa_keine.evaluation.seenRepell"
+  }
+}

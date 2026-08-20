@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.gui.recipe.GuiStackBuilder;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeInfo;
 import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -38,9 +38,9 @@ public class BasePageGui extends SimpleGui {
             {"P", "W", "W", "W", "B", "W", "W", "W", "N"},
     };
     public static final int PER_PAGE_SIZE = 5 * 9;
-    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiItems.CLOSE.value()).setCallback(this::back);
-    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.value()).setCallback(this::next);
-    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.value()).setCallback(this::prev);
+    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiPlaceholderItems.CLOSE.value()).setCallback(this::back);
+    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiPlaceholderItems.NEXT.value()).setCallback(this::next);
+    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiPlaceholderItems.PREV.value()).setCallback(this::prev);
     public int page = 0;
     public final int maxSize;
     public final List<GuiElementBuilder> displayList = new LinkedList<>();

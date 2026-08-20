@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.gui.item;
 
 import cc.thonly.reverie_dreams.component.GapRecorder;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -42,7 +42,7 @@ public class GapGui extends SimpleGui {
     public GapGui(ServerPlayer player, ItemStack stack) {
         super(MenuType.GENERIC_9x3, player, false);
         this.stack = stack;
-        this.gapRecorders = new ArrayList<>(stack.getOrDefault(RDDataComponents.GAP_RECORDER.value(), new ArrayList<>()));
+        this.gapRecorders = new ArrayList<>(stack.getOrDefault(RDDataComponentTypes.GAP_RECORDER.value(), new ArrayList<>()));
         while (gapRecorders.size() <= MAX_INDEX) {
             this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().identifier().toString(), BlockPos.ZERO, false));
         }
@@ -59,7 +59,7 @@ public class GapGui extends SimpleGui {
                 int index = col - 2;
 
                 switch (pos) {
-                    case "X" -> setSlot(slot, new GuiElementBuilder(RDGuiItems.EMPTY_SLOT.asItem()));
+                    case "X" -> setSlot(slot, new GuiElementBuilder(RDGuiPlaceholderItems.EMPTY_SLOT.asItem()));
                     case "I" -> {
                         if (index < MIN_INDEX || index > MAX_INDEX) break;
                         GapRecorder recorder = this.gapRecorders.get(index);
@@ -88,7 +88,7 @@ public class GapGui extends SimpleGui {
     @Override
     public void onTick() {
         super.onTick();
-        this.gapRecorders = new ArrayList<>(this.stack.getOrDefault(RDDataComponents.GAP_RECORDER.value(), new ArrayList<>()));
+        this.gapRecorders = new ArrayList<>(this.stack.getOrDefault(RDDataComponentTypes.GAP_RECORDER.value(), new ArrayList<>()));
         while (gapRecorders.size() <= MAX_INDEX) {
             this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().identifier().toString(), BlockPos.ZERO, false));
         }
@@ -154,10 +154,10 @@ public class GapGui extends SimpleGui {
         GapRecorder recorder = new GapRecorder("位置 " + index, this.getPlayer().level().dimension().identifier().toString(), pos, true);
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.gapRecorders.set(index, recorder);
-        this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
+        this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
         this.player.sendSystemMessage(Component.literal("已记录当前位置至槽位 " + index), false);
         this.init();
-        this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
+        this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
         this.player.getInventory().setChanged();
     }
 
@@ -166,18 +166,18 @@ public class GapGui extends SimpleGui {
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (recorder != null) {
             recorder.setEnable(false);
-            this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
+            this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
             this.player.sendSystemMessage(Component.literal("已清除槽位 " + index), false);
             this.init();
         }
-        this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
+        this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
         this.player.getInventory().setChanged();
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
-        this.stack.set(RDDataComponents.GAP_RECORDER.value(), this.gapRecorders);
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
+        this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
         this.player.getInventory().setChanged();
     }
 }

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.loot;
 import cc.thonly.keine.api.callback.LootTableCallback;
 import cc.thonly.keine.api.loot.KeineLootTableBuilder;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.entity.type.Yousei;
+import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.Goblin;
@@ -11,7 +11,7 @@ import cc.thonly.reverie_dreams.entity.Hairball;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -91,23 +91,20 @@ public class RDLootModifies {
             if (source.isBuiltin() && key.equals(FISHING)) {
                 KeineLootTableBuilder keineLootTableBuilder = (KeineLootTableBuilder) lootTableBuilder;
                 keineLootTableBuilder.modifyPools(tb -> {
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SALMON).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA).setWeight(1));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SALMON));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA));
                 });
             }
+
             // 松露掉落
             if (TRUFFLE_DROPS.contains(key)) {
                 LootPool.Builder poolBuilder = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.1f));
+                        .when(LootItemRandomChanceCondition.randomChance(0.07f));
 
                 poolBuilder.add(LootItem.lootTableItem(RDIngredientItems.TRUFFLE).setWeight(10));
                 lootTableBuilder.withPool(poolBuilder);
@@ -187,11 +184,11 @@ public class RDLootModifies {
                         .when(LootItemRandomChanceCondition.randomChance(0.4f));
                 for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
                     ItemStackTemplate template = entry.getValue();
-                    DanmakuProperties properties = ItemStackTemplateHelper.get(template, RDDataComponents.DANMAKU_PROPERTIES.value());
+                    DanmakuProperties properties = ItemStackTemplateHelper.get(template, RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                     if (properties==null) continue;
                     poolBuilder.add(LootItem.lootTableItem(template.item().value()).setWeight(6))
                             .apply(
-                                    SetComponentsFunction.setComponent(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.clone())
+                                    SetComponentsFunction.setComponent(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.clone())
                             );
                 }
                 lootTableBuilder.withPool(poolBuilder);
@@ -237,7 +234,7 @@ public class RDLootModifies {
         if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
-        if (entity instanceof Yousei || entity instanceof Goblin) {
+        if (entity instanceof YouseiType || entity instanceof Goblin) {
             RandomSource random = RandomSource.create();
             RegistryAccess registryAccess = entity.registryAccess();
             Registry<Item> items = registryAccess.lookupOrThrow(Registries.ITEM);
@@ -266,7 +263,7 @@ public class RDLootModifies {
         Identifier entityId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
         RegistryAccess registryAccess = entity.registryAccess();
         Level world = entity.level();
-        if ((entity instanceof Hairball || entity instanceof Monster || entity instanceof Yousei) && world instanceof ServerLevel serverWorld) {
+        if ((entity instanceof Hairball || entity instanceof Monster || entity instanceof YouseiType) && world instanceof ServerLevel serverWorld) {
             RandomSource random = RandomSource.create();
             int dropChance = 45;
             int maxDropCount = 3;

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.api.client.midi;
 
 import cc.thonly.reverie_dreams.networking.payload.PlayerMidiNotePacket;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import dev.architectury.networking.NetworkManager;
 import lombok.extern.slf4j.Slf4j;
@@ -59,11 +59,11 @@ public class Midi2Sound {
             ItemStack off = player.getItemBySlot(EquipmentSlot.OFFHAND);
             ItemStack head = player.getItemBySlot(EquipmentSlot.HEAD);
             boolean stop = false;
-            if (main.is(RDItemTags.MUSICAL_INSTRUMENTS) && main.has(RDDataComponents.NOTE_TYPE.value())) {
+            if (main.is(RDItemTags.MUSICAL_INSTRUMENTS) && main.has(RDDataComponentTypes.NOTE_TYPE.value())) {
                 slot = EquipmentSlot.MAINHAND;
-            } else if (off.is(RDItemTags.MUSICAL_INSTRUMENTS) && off.has(RDDataComponents.NOTE_TYPE.value())) {
+            } else if (off.is(RDItemTags.MUSICAL_INSTRUMENTS) && off.has(RDDataComponentTypes.NOTE_TYPE.value())) {
                 slot = EquipmentSlot.OFFHAND;
-            } else if (head.is(RDItemTags.MUSICAL_INSTRUMENTS) && head.has(RDDataComponents.NOTE_TYPE.value())) {
+            } else if (head.is(RDItemTags.MUSICAL_INSTRUMENTS) && head.has(RDDataComponentTypes.NOTE_TYPE.value())) {
                 slot = EquipmentSlot.HEAD;
             } else {
                 slot = EquipmentSlot.MAINHAND;
@@ -93,11 +93,11 @@ public class Midi2Sound {
             ItemStack off = player.getItemBySlot(EquipmentSlot.OFFHAND);
             ItemStack head = player.getItemBySlot(EquipmentSlot.HEAD);
             boolean stop = false;
-            if (main.is(RDItemTags.MUSICAL_INSTRUMENTS) && main.has(RDDataComponents.NOTE_TYPE.value())) {
+            if (main.is(RDItemTags.MUSICAL_INSTRUMENTS) && main.has(RDDataComponentTypes.NOTE_TYPE.value())) {
                 slot = EquipmentSlot.MAINHAND;
-            } else if (off.is(RDItemTags.MUSICAL_INSTRUMENTS) && off.has(RDDataComponents.NOTE_TYPE.value())) {
+            } else if (off.is(RDItemTags.MUSICAL_INSTRUMENTS) && off.has(RDDataComponentTypes.NOTE_TYPE.value())) {
                 slot = EquipmentSlot.OFFHAND;
-            } else if (head.is(RDItemTags.MUSICAL_INSTRUMENTS) && head.has(RDDataComponents.NOTE_TYPE.value())) {
+            } else if (head.is(RDItemTags.MUSICAL_INSTRUMENTS) && head.has(RDDataComponentTypes.NOTE_TYPE.value())) {
                 slot = EquipmentSlot.HEAD;
             } else {
                 slot = EquipmentSlot.MAINHAND;

@@ -10,8 +10,8 @@ import cc.thonly.reverie_dreams.networking.payload.RecipeManagerSyncPacket;
 import cc.thonly.reverie_dreams.recipe.crafting.DanmakuDyeRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.*;
 import cc.thonly.reverie_dreams.recipe.type.*;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -41,6 +41,7 @@ public class RecipeManager {
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
     public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
+    public static final BaseRecipeType<BarrelRecipe> BARREL_RECIPE = registerRecipeType(ReverieDreams.id("barrel"), new BarrelRecipeType());
     public static final RegistrySupplier<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE = registerRecipeSerializer("crafting_special_danmakudye", () -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
 
     public static void bootstrap() {
@@ -50,7 +51,7 @@ public class RecipeManager {
             String name,
             Supplier<RecipeSerializer<T>> resourceFunction
     ) {
-        return ReverieDreamsRegistries.RECIPE_SERIALIZER.register(name, resourceFunction);
+        return MCBuiltInRegistries.RECIPE_SERIALIZER.register(name, resourceFunction);
     }
 
     public static <R extends BaseRecipe> SuggestionProvider<CommandSourceStack> getSuggestions(BaseRecipeType<R> type) {
@@ -140,12 +141,13 @@ public class RecipeManager {
             } finally {
                 long endTime = System.currentTimeMillis();
                 log.info("Reloaded Recipe Type {}, it took {}ms", key.toString(), endTime - startTime);
+                recipeType.setAcceptNetworking(true);
             }
         });
     }
 
     public static <R extends BaseRecipe, BR extends BaseRecipeType<R>> BR registerRecipeType(Identifier id, BR recipeType) {
-        RegistryImpls.register(RegistryImpls.RECIPE_TYPE, id, recipeType);
+        BuiltInRegistryProviders.register(BuiltInRegistryProviders.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();
         if (!Objects.equals(id, recipeType.getId())) {
@@ -153,4 +155,5 @@ public class RecipeManager {
         }
         return recipeType;
     }
+
 }

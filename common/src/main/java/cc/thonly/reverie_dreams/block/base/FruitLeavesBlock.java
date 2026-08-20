@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.block.base;
 
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;

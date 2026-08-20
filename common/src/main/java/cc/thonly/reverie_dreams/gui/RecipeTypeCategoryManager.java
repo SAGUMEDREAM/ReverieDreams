@@ -12,7 +12,7 @@ import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.*;
 import cc.thonly.reverie_dreams.recipe.type.*;
 import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -164,7 +164,7 @@ public class RecipeTypeCategoryManager {
                         gui.setSlot(gui.getGridSlot(slotIndex), icon);
                     })
             ));
-            addCategoryType(new RecipeTypeGuiInfo<>(new ItemStackTemplate(KitchenBlocks.COOKING_POT.asItem()), KITCHEN_ICON, BasePageGui.class,
+            addCategoryType(new RecipeTypeGuiInfo<>(new ItemStackTemplate(RDKitchenBlocks.COOKING_POT.asItem()), KITCHEN_ICON, BasePageGui.class,
                     KitchenBlockDisplayView.class,
                     KitchenRecipeType::getInstance,
                     ((gui, slotIndex) -> {

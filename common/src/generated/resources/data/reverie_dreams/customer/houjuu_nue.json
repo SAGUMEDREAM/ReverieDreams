@@ -1,0 +1,58 @@
+{
+  "role_type": "reverie_dreams:houjuu_nue",
+  "rare": true,
+  "budget": {
+    "min": 300,
+    "max": 500
+  },
+  "likes": [
+    "reverie_dreams:umami",
+    "reverie_dreams:raw",
+    "reverie_dreams:signature",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:bizarre",
+    "reverie_dreams:local_specialty"
+  ],
+  "dislikes": [
+    "reverie_dreams:western_style",
+    "reverie_dreams:sour"
+  ],
+  "beverages": [
+    "reverie_dreams:can_heated",
+    "reverie_dreams:soju",
+    "reverie_dreams:direct_drinking",
+    "reverie_dreams:classical"
+  ],
+  "chats": [
+    "reverie_dreams.role.houjuu_nue.chat.0",
+    "reverie_dreams.role.houjuu_nue.chat.1",
+    "reverie_dreams.role.houjuu_nue.chat.2",
+    "reverie_dreams.role.houjuu_nue.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.houjuu_nue.order.0",
+    "reverie_dreams.role.houjuu_nue.order.1",
+    "reverie_dreams.role.houjuu_nue.order.2",
+    "reverie_dreams.role.houjuu_nue.order.3",
+    "reverie_dreams.role.houjuu_nue.order.4",
+    "reverie_dreams.role.houjuu_nue.order.5",
+    "reverie_dreams.role.houjuu_nue.order.6",
+    "reverie_dreams.role.houjuu_nue.order.7"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.houjuu_nue.description.0",
+    "reverie_dreams.role.houjuu_nue.description.1",
+    "reverie_dreams.role.houjuu_nue.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.houjuu_nue.evaluation.exbad",
+    "bad": "reverie_dreams.role.houjuu_nue.evaluation.bad",
+    "norm": "reverie_dreams.role.houjuu_nue.evaluation.norm",
+    "good": "reverie_dreams.role.houjuu_nue.evaluation.good",
+    "exgood": "reverie_dreams.role.houjuu_nue.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.houjuu_nue.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.houjuu_nue.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.houjuu_nue.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.houjuu_nue.evaluation.seenRepell"
+  }
+}

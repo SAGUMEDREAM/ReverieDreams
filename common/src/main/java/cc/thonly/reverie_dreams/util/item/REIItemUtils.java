@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.util.item;
 
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;

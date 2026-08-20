@@ -1,0 +1,17 @@
+{
+  "registry_key": "reverie_dreams:bitter",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/fruity_high_ball",
+      "reverie_dreams:beverage/fruity_sour",
+      "reverie_dreams:beverage/qi",
+      "reverie_dreams:beverage/beer",
+      "reverie_dreams:beverage/affgado",
+      "reverie_dreams:beverage/negroni",
+      "reverie_dreams:beverage/dawn",
+      "reverie_dreams:beverage/coffee",
+      "reverie_dreams:beverage/ordinary_fitness_tea",
+      "reverie_dreams:beverage/satellite_iced_coffee"
+    ]
+  }
+}

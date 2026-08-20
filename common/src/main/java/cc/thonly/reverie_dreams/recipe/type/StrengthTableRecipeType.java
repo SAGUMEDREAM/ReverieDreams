@@ -8,8 +8,8 @@ import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
@@ -84,15 +84,15 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                 log.error("Failed to load strength table recipe {}, {}, {}", id, e.getMessage(), e);
             }
         }
-        List<Item> danmakuItemView = RegistryImpls.DANMAKU_TYPE
+        List<Item> danmakuItemView = BuiltInRegistryProviders.DANMAKU_TYPE
                 .values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem).toList();
         List<ItemStackTemplate> danmakuItemStackView = danmakuItemView.stream().map(ItemStackTemplate::new).toList();
         List<ItemStackTemplate> templateStackView = DanmakuTemplates.getRegistryItemStackView().values().stream().toList();
 
-        this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, RDDataComponents.DANMAKU_PROPERTIES.value());
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(RDItems.SPEED_FEATHER.asItem())), RDDataComponents.DANMAKU_PROPERTIES.value());
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(Items.SLIME_BLOCK)), RDDataComponents.DANMAKU_PROPERTIES.value());
-        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(Items.IRON_SWORD)), RDDataComponents.DANMAKU_PROPERTIES.value());
+        this.registerAutomaticDynamic(danmakuItemStackView, templateStackView, RDDataComponentTypes.DANMAKU_PROPERTIES.value());
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(RDItems.SPEED_FEATHER.asItem())), RDDataComponentTypes.DANMAKU_PROPERTIES.value());
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(Items.SLIME_BLOCK)), RDDataComponentTypes.DANMAKU_PROPERTIES.value());
+        this.registerAutomaticDynamic(danmakuItemStackView, List.of(new ItemStackTemplate(Items.IRON_SWORD)), RDDataComponentTypes.DANMAKU_PROPERTIES.value());
 
         Map<Identifier, StrengthTableRecipe> sortedByKey = this.dynamicBuilder.entrySet().stream()
                                                                               .sorted(Map.Entry.comparingByKey())
@@ -173,36 +173,36 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         boolean isSlime = offItem == Items.SLIME_BLOCK;
         boolean isIronSword = offItem == Items.IRON_SWORD;
         if (isDanmakuItem && isSpellCardTemplate) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
-            DanmakuProperties properties = offStack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
+            DanmakuProperties properties = offStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
             if (properties != null) {
-                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), component.withTemplateId(properties.templateId()));
+                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withTemplateId(properties.templateId()));
                 return new IngredientStack(mainStack);
             }
         }
         if (isDanmakuItem && isSpeedItem) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
             float speed = component.speed();
             float sum = speed + 0.25f;
             if (sum <= MAX_SPEED) {
-                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), component.withSpeed(sum));
+                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withSpeed(sum));
                 return new IngredientStack(mainStack);
             }
         }
         if (isDanmakuItem && isSlime) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
             int count = component.count();
             int sum = count + 1;
             if (sum < MAX_COUNT) {
-                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), component.withCount(sum));
+                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withCount(sum));
                 return new IngredientStack(mainStack);
             }
         }
         if (isDanmakuItem && isIronSword) {
-            DanmakuProperties component = mainStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
+            DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
             float sum = component.damage() + 0.25f;
             if (sum < MAX_DAMAGE) {
-                mainStack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), component.withDamage(sum));
+                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withDamage(sum));
                 return new IngredientStack(mainStack);
             }
         }

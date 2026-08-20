@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.registry.content.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import net.minecraft.resources.Identifier;
 
 public class MobSkinTypes extends SkinTypes {
@@ -84,7 +84,7 @@ public class MobSkinTypes extends SkinTypes {
             ReverieDreams.id("oni_red")
     ));
 
-    public static void bootstrap(RegistryImpl<SkinType> registry) {
+    public static void bootstrap(RegistryProvider<SkinType> registry) {
         MobSkinTypes.DEFAULT.setSlim(false);
         MobSkinTypes.GOBLIN.setSlim(false);
         MobSkinTypes.WATER_ELEMENTAL.setSlim(false);

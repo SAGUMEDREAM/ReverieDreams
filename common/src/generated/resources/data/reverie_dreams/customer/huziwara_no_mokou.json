@@ -1,0 +1,54 @@
+{
+  "role_type": "reverie_dreams:huziwara_no_mokou",
+  "rare": true,
+  "budget": {
+    "min": 300,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:fiery",
+    "reverie_dreams:fruity",
+    "reverie_dreams:grilled",
+    "reverie_dreams:flaming",
+    "reverie_dreams:spicy"
+  ],
+  "dislikes": [
+    "reverie_dreams:gourmet",
+    "reverie_dreams:expensive"
+  ],
+  "beverages": [
+    "reverie_dreams:soju",
+    "reverie_dreams:pungent",
+    "reverie_dreams:bitter"
+  ],
+  "chats": [
+    "reverie_dreams.role.huziwara_no_mokou.chat.0",
+    "reverie_dreams.role.huziwara_no_mokou.chat.1",
+    "reverie_dreams.role.huziwara_no_mokou.chat.2",
+    "reverie_dreams.role.huziwara_no_mokou.chat.3",
+    "reverie_dreams.role.huziwara_no_mokou.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.huziwara_no_mokou.order.0",
+    "reverie_dreams.role.huziwara_no_mokou.order.1",
+    "reverie_dreams.role.huziwara_no_mokou.order.2",
+    "reverie_dreams.role.huziwara_no_mokou.order.3",
+    "reverie_dreams.role.huziwara_no_mokou.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.huziwara_no_mokou.description.0",
+    "reverie_dreams.role.huziwara_no_mokou.description.1",
+    "reverie_dreams.role.huziwara_no_mokou.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.huziwara_no_mokou.evaluation.exbad",
+    "bad": "reverie_dreams.role.huziwara_no_mokou.evaluation.bad",
+    "norm": "reverie_dreams.role.huziwara_no_mokou.evaluation.norm",
+    "good": "reverie_dreams.role.huziwara_no_mokou.evaluation.good",
+    "exgood": "reverie_dreams.role.huziwara_no_mokou.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.huziwara_no_mokou.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.huziwara_no_mokou.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.huziwara_no_mokou.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.huziwara_no_mokou.evaluation.seenRepell"
+  }
+}

@@ -3,8 +3,8 @@ package cc.thonly.reverie_dreams.item.danmaku;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -31,12 +31,12 @@ public class DanmakuItem extends AbstractDanmakuItem {
     @Override
     public void shoot(ServerLevel serverWorld, LivingEntity user, InteractionHand hand) {
         ItemStack stack = user.getItemInHand(hand).copy();
-        DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+        DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
         if (properties == null) {
             return;
         }
         Identifier templateId = properties.templateId();
-        DanmakuTrajectory danmakuTrajectory = RegistryImpls.DANMAKU_TRAJECTORY.getValue(templateId);
+        DanmakuTrajectory danmakuTrajectory = BuiltInRegistryProviders.DANMAKU_TRAJECTORY.getValue(templateId);
 
         if (danmakuTrajectory != null) {
             danmakuTrajectory.run(serverWorld,

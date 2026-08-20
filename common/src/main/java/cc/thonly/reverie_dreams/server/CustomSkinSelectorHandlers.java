@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.server;
 
 import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -74,19 +74,19 @@ public class CustomSkinSelectorHandlers {
     }
 
     private static void applySkin(ServerPlayer player, Entity target, Identifier skinId) {
-        if (!(target instanceof NPCRoleEntity npcRoleEntity)) {
+        if (!(target instanceof NPCSimpleEntity npc)) {
             return;
         }
-        SkinType skinType = RegistryImpls.CUSTOM_SKIN_TYPE.getValue(skinId);
+        SkinType skinType = BuiltInRegistryProviders.CUSTOM_SKIN_TYPE.getValue(skinId);
         if (skinType instanceof CustomType customType) {
-            npcRoleEntity.setSkinType(customType);
-            npcRoleEntity.setCustomName(Component.translatable(customType.getDescriptionId()));
-            npcRoleEntity.refreshDimensions();
+            npc.setSkinType(customType);
+            npc.setCustomName(Component.translatable(customType.getDescriptionId()));
+            npc.refreshDimensions();
         } else if (skinId.equals(SkinType.RECOVERY)) {
-            SkinType defaultSkinType = npcRoleEntity.getDefaultSkinType();
-            npcRoleEntity.setSkinType(defaultSkinType);
-            npcRoleEntity.setCustomName(Component.translatable(npcRoleEntity.getRoleType().translateKey()));
-            npcRoleEntity.refreshDimensions();
+            SkinType defaultSkinType = npc.getDefaultSkinType();
+            npc.setSkinType(defaultSkinType);
+            npc.setCustomName(Component.translatable(npc.getRoleType().translateKey()));
+            npc.refreshDimensions();
         }
 //        System.out.println("Apply skin " + skinId + " to entity " + target.getId());
     }

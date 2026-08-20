@@ -56,7 +56,7 @@ public class BaseFumoBlock extends HorizontalDirectionalBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         double yaw = ctx.getRotation();
-        if (!PlatformContext.isFabric()) {
+        if (!PlatformContext.hasPolymer()) {
             yaw -= 180;
         }
         SixteenDirection direction = SixteenDirection.fromYaw(yaw);

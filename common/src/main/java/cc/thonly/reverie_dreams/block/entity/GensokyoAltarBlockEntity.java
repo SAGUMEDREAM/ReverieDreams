@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.proxy.PlatformProxies;
+import cc.thonly.reverie_dreams.proxy.ByModsPlatformProxy;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import com.mojang.logging.LogUtils;
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, GensokyoAltarBlockEntity blockEntity) {
-        PlatformProxies.GENSOKYO_ALTAR_BLOCK_ENTITY_TICKER.map(method -> {
+        ByModsPlatformProxy.GENSOKYO_ALTAR_BLOCK_ENTITY_TICKER.map(method -> {
             method.handle(world, pos, state, blockEntity);
             return null;
         });

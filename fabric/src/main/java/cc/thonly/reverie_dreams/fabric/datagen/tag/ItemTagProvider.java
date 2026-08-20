@@ -3,24 +3,23 @@ package cc.thonly.reverie_dreams.fabric.datagen.tag;
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
-import cc.thonly.reverie_dreams.block.crop.TomatoCropBlock;
-import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.tag.FarmersDelightCommonItemTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -39,9 +38,11 @@ import net.minecraft.world.level.ItemLike;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+@SuppressWarnings("deprecation")
 public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -50,10 +51,10 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        // === 基础工具方法 ===
+        // 基础工具方法
         BiConsumer<TagKey<Item>, Collection<? extends Item>> addAll = (tag, items) -> valueLookupBuilder(tag).add(items.toArray(Item[]::new));
         Supplier<List<Item>> allDanmakuItemGetter = () -> {
-            RegistryImpl<DanmakuType> registry = RegistryImpls.DANMAKU_TYPE;
+            RegistryProvider<DanmakuType> registry = BuiltInRegistryProviders.DANMAKU_TYPE;
             Stream<Item> itemStream = registry.values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem);
             return itemStream.toList();
         };
@@ -63,14 +64,41 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             list.addAll(allDanmakuItemGetter.get());
             return list;
         };
+        TagAppender<Item, Item> logs = valueLookupBuilder(ItemTags.LOGS);
+        TagAppender<Item, Item> strippedLogs = valueLookupBuilder(ConventionalItemTags.STRIPPED_LOGS);
+        TagAppender<Item, Item> strippedWoods = valueLookupBuilder(ConventionalItemTags.STRIPPED_WOODS);
+        TagAppender<Item, Item> planks = valueLookupBuilder(ItemTags.PLANKS);
+        TagAppender<Item, Item> buttons = valueLookupBuilder(ItemTags.BUTTONS);
+        TagAppender<Item, Item> fences = valueLookupBuilder(ItemTags.FENCES);
+        TagAppender<Item, Item> fenceGates = valueLookupBuilder(ItemTags.FENCE_GATES);
+        TagAppender<Item, Item> slabs = valueLookupBuilder(ItemTags.SLABS);
+        TagAppender<Item, Item> doors = valueLookupBuilder(ItemTags.DOORS);
+        TagAppender<Item, Item> trapdoors = valueLookupBuilder(ItemTags.TRAPDOORS);
+        Consumer<WoodBundle> woodBundleFunction = (bundle) -> {
+            logs.add(bundle.log().asItem());
+            strippedLogs.add(bundle.strippedLog().asItem());
+            strippedWoods.add(bundle.strippedWood().asItem());
+            planks.add(bundle.log().asItem());
+            buttons.add(bundle.button().asItem());
+            fences.add(bundle.fence().asItem());
+            fenceGates.add(bundle.fenceGate().asItem());
+            slabs.add(bundle.slab().asItem());
+            doors.add(bundle.door().asItem());
+            trapdoors.add(bundle.trapdoor().asItem());
+        };
+        for (WoodBundle instance : WoodBundle.INSTANCES) {
+            woodBundleFunction.accept(instance);
+        }
+        strippedLogs.add(RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asItem());
+
         List<Item> allTool = allToolGetter.get();
 
-        // === 通用 Tag ===
+        // 通用 Tag
         valueLookupBuilder(RDItemTags.EMPTY).add(Items.BEDROCK).add(Items.BARRIER);
         addAll.accept(RDItemTags.FUMO, FumoTypes.getView().stream().map(FumoType::item).toList());
         addAll.accept(ItemTags.CREEPER_DROP_MUSIC_DISCS, AlbumItem.ITEMS);
 
-        // === 工具类 Tag ===
+        // 工具类 Tag
         addAll.accept(ItemTags.SWORDS, ItemTypeGroup.SWORD.items());
         addAll.accept(ItemTags.PICKAXES, ItemTypeGroup.PICKAXES.items());
         addAll.accept(ItemTags.AXES, ItemTypeGroup.AXES.items());
@@ -83,14 +111,14 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(RDItems.IRON_BAR.asItem()));
         addAll.accept(ConventionalItemTags.SHIELD_TOOLS, List.of(RDItems.TENGU_SHIELD.asItem()));
 
-        // === 盔甲类 Tag ===
+        // 盔甲类 Tag
         addAll.accept(ItemTags.HEAD_ARMOR, ArmorItem.HEAD_ITEMS);
         addAll.accept(ItemTags.CHEST_ARMOR, ArmorItem.CHEST_ITEMS);
         addAll.accept(ItemTags.LEG_ARMOR, ArmorItem.LEG_ITEMS);
         addAll.accept(ItemTags.FOOT_ARMOR, ArmorItem.FEET_ITEMS);
         addAll.accept(RDItemTags.ARMOR, ArmorItem.ITEMS);
 
-        // === 工具材料 ===
+        // 工具材料
         valueLookupBuilder(RDItemTags.SILVER_ITEM).add(
                 RDItems.SILVER_AXE.asItem(),
                 RDItems.SILVER_BOOTS.asItem(),
@@ -120,16 +148,16 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         valueLookupBuilder(RDItemTags.DREAM_ARMOR).add(RDItems.DREAM_HELMET.asItem()).add(RDItems.DREAM_CHESTPLATE.asItem()).add(RDItems.DREAM_LEGGINGS.asItem()).add(RDItems.DREAM_BOOTS.asItem());
         valueLookupBuilder(RDItemTags.DREAM_TOOL_MATERIALS).add(RDItems.DREAM_CRYSTAL_FRAGMENT.asItem());
 
-        // === 弹幕 ===
+        // 弹幕
         TagAppender<Item, Item> danmaku = valueLookupBuilder(RDItemTags.DANMAKU_ITEM);
-        for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
+        for (DanmakuType danmakuType : BuiltInRegistryProviders.DANMAKU_TYPE) {
             danmaku.add(danmakuType.getItemHolder().asItem());
         }
         danmaku.add(RDItems.KNIFE.asItem());
         TagAppender<Item, Item> danmakuRepairAcceptableItems = valueLookupBuilder(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM);
         danmakuRepairAcceptableItems.add(RDItems.POWER.asItem());
 
-        // === 自定义方块 ===
+        // 自定义方块
         valueLookupBuilder(ItemTags.PLANKS).addAll(WoodBundle.INSTANCES.stream().map(ins -> ins.planks().asItem()));
         valueLookupBuilder(RDItemTags.ORB_BLOCK).add(
                 RDBlocks.RED_ORB_BLOCK.asItem(),
@@ -142,19 +170,21 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         valueLookupBuilder(RDItemTags.POINT_BLOCK).add(RDBlocks.POINT_BLOCK.asItem());
         valueLookupBuilder(RDItemTags.SILVER_BLOCK).add(RDBlocks.SILVER_BLOCK.asItem());
         valueLookupBuilder(RDItemTags.VAISRAVANAS_PAGODA).add(Items.BLAZE_POWDER);
-        valueLookupBuilder(RDItemTags.INGREDIENT_ITEM).addAll(RDIngredientItems.INGREDIENTS.stream().map(ItemLike::asItem).toList());
-        valueLookupBuilder(RDItemTags.FOOD_ITEM).addAll(RDFoodItems.FOOD_ITEMS.stream().map(ItemLike::asItem).toList());
-        valueLookupBuilder(RDItemTags.DRINK_ITEM).addAll(RDDrinkItems.DRINK_ITEMS.stream().map(ItemLike::asItem).toList());
+        valueLookupBuilder(RDItemTags.INGREDIENT).addAll(RDIngredientItems.INGREDIENTS.stream().map(ItemLike::asItem).toList());
+        valueLookupBuilder(RDItemTags.CUISINE).addAll(RDCuisineItems.CUISINE_ITEMS.stream().map(ItemLike::asItem).toList());
+        valueLookupBuilder(RDItemTags.FOOD).addOptionalTag(RDItemTags.CUISINE);
+        valueLookupBuilder(RDItemTags.BEVERAGE).addAll(RDBeverageItems.DRINK_ITEMS.stream().map(ItemLike::asItem).toList());
+        valueLookupBuilder(RDItemTags.DRINK_ITEM).addOptionalTag(RDItemTags.BEVERAGE);
 
         valueLookupBuilder(RDItemTags.ROLE_TAME_FOOD)
                 .add(Items.CAKE)
-                .add(RDFoodItems.ORDINARY_SMALL_CAKE.asItem())
-                .add(RDFoodItems.SCARLET_DEVILS_CAKE.asItem());
+                .add(RDCuisineItems.ORDINARY_SMALL_CAKE.asItem())
+                .add(RDCuisineItems.SCARLET_DEVILS_CAKE.asItem());
         valueLookupBuilder(ConventionalItemTags.ORES).add(RDItems.RAW_SILVER.asItem());
         valueLookupBuilder(RDItemTags.COMMON_SILVER_ORE).add(RDItems.RAW_SILVER.asItem());
 
-        // === 兼容物品 ===
-        valueLookupBuilder(ConventionalItemTags.FOODS).addAll(RDFoodItems.FOOD_ITEMS.stream().map(ItemLike::asItem).toList());
+        // 兼容物品
+        valueLookupBuilder(ConventionalItemTags.FOODS).addOptionalTag(RDItemTags.CUISINE).addAll(RDCuisineItems.CUISINE_ITEMS.stream().map(ItemLike::asItem).toList());
         valueLookupBuilder(RDItemTags.PEACH).add(RDIngredientItems.PEACH.asItem());
         valueLookupBuilder(RDItemTags.REPLACEABLE_BLANK_PHOTOS).add(RDItems.EMPTY_PHOTO.asItem());
 
@@ -162,7 +192,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         valueLookupBuilder(RDItemTags.COIN).add(RDItems.COPPER_COIN.asItem(), RDItems.SILVER_COIN.asItem(), RDItems.GOLD_COIN.asItem());
         valueLookupBuilder(RDItemTags.COMMON_COIN).addOptionalTag(RDItemTags.COIN);
 
-        // === 方块物品分类 ===
+        // 方块物品分类
         Map<TagKey<Item>, Collection<? extends ItemLike>> blockItemGroups = Map.of(
                 ItemTags.FENCES, BlockTypeGroup.FENCE.items(),
                 ItemTags.FENCE_GATES, BlockTypeGroup.FENCE_GATE.items(),
@@ -179,7 +209,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             list.forEach(item -> builder.add(item.asItem()));
         });
 
-        // === 种子 ===
+        // 种子
         TagAppender<Item, Item> seeds = valueLookupBuilder(ConventionalItemTags.SEEDS);
         TagAppender<Item, Item> villagerPlantableSeeds = valueLookupBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS);
         for (var entry : CropBlockBundle.getViews()) {
@@ -201,39 +231,39 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         TagAppender<Item, Item> steamer = valueLookupBuilder(RDItemTags.STEAMER);
         TagAppender<Item, Item> kitchenware = valueLookupBuilder(RDItemTags.KITCHENWARE);
         cookingTop.add(
-                KitchenBlocks.COOKING_POT.asItem(),
-                KitchenBlocks.MYSTIA_COOKING_POT.asItem(),
-                KitchenBlocks.SUPER_COOKING_POT.asItem(),
-                KitchenBlocks.EXTREME_COOKING_POT.asItem(),
-                KitchenBlocks.NUKE_COOKING_POT.asItem()
+                RDKitchenBlocks.COOKING_POT.asItem(),
+                RDKitchenBlocks.MYSTIA_COOKING_POT.asItem(),
+                RDKitchenBlocks.SUPER_COOKING_POT.asItem(),
+                RDKitchenBlocks.EXTREME_COOKING_POT.asItem(),
+                RDKitchenBlocks.NUKE_COOKING_POT.asItem()
         );
         cuttingBoard.add(
-                KitchenBlocks.CUTTING_BOARD.asItem(),
-                KitchenBlocks.MYSTIA_CUTTING_BOARD.asItem(),
-                KitchenBlocks.SUPER_CUTTING_BOARD.asItem(),
-                KitchenBlocks.EXTREME_CUTTING_BOARD.asItem(),
-                KitchenBlocks.NUKE_CUTTING_BOARD.asItem()
+                RDKitchenBlocks.CUTTING_BOARD.asItem(),
+                RDKitchenBlocks.MYSTIA_CUTTING_BOARD.asItem(),
+                RDKitchenBlocks.SUPER_CUTTING_BOARD.asItem(),
+                RDKitchenBlocks.EXTREME_CUTTING_BOARD.asItem(),
+                RDKitchenBlocks.NUKE_CUTTING_BOARD.asItem()
         );
         fryingPan.add(
-                KitchenBlocks.FRYING_PAN.asItem(),
-                KitchenBlocks.MYSTIA_FRYING_PAN.asItem(),
-                KitchenBlocks.SUPER_FRYING_PAN.asItem(),
-                KitchenBlocks.EXTREME_FRYING_PAN.asItem(),
-                KitchenBlocks.NUKE_FRYING_PAN.asItem()
+                RDKitchenBlocks.FRYING_PAN.asItem(),
+                RDKitchenBlocks.MYSTIA_FRYING_PAN.asItem(),
+                RDKitchenBlocks.SUPER_FRYING_PAN.asItem(),
+                RDKitchenBlocks.EXTREME_FRYING_PAN.asItem(),
+                RDKitchenBlocks.NUKE_FRYING_PAN.asItem()
         );
         grill.add(
-                KitchenBlocks.GRILL.asItem(),
-                KitchenBlocks.MYSTIA_GRILL.asItem(),
-                KitchenBlocks.SUPER_GRILL.asItem(),
-                KitchenBlocks.EXTREME_GRILL.asItem(),
-                KitchenBlocks.NUKE_GRILL.asItem()
+                RDKitchenBlocks.GRILL.asItem(),
+                RDKitchenBlocks.MYSTIA_GRILL.asItem(),
+                RDKitchenBlocks.SUPER_GRILL.asItem(),
+                RDKitchenBlocks.EXTREME_GRILL.asItem(),
+                RDKitchenBlocks.NUKE_GRILL.asItem()
         );
         steamer.add(
-                KitchenBlocks.STEAMER.asItem(),
-                KitchenBlocks.MYSTIA_STEAMER.asItem(),
-                KitchenBlocks.SUPER_STEAMER.asItem(),
-                KitchenBlocks.EXTREME_STEAMER.asItem(),
-                KitchenBlocks.NUKE_STEAMER.asItem()
+                RDKitchenBlocks.STEAMER.asItem(),
+                RDKitchenBlocks.MYSTIA_STEAMER.asItem(),
+                RDKitchenBlocks.SUPER_STEAMER.asItem(),
+                RDKitchenBlocks.EXTREME_STEAMER.asItem(),
+                RDKitchenBlocks.NUKE_STEAMER.asItem()
         );
         kitchenware.addOptionalTag(RDItemTags.COOKING_TOP);
         kitchenware.addOptionalTag(RDItemTags.CUTTING_BOARD);
@@ -245,7 +275,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(RDBlocks.RAIL_CONTROLLER_BLOCK.asItem())
                 .add(RDBlocks.SIGNAL_RAIL_BLOCK.asItem());
 
-        // === 模组兼容扩展 ===
+        // 模组兼容扩展
         this.configureCompat(wrapperLookup);
     }
 
@@ -277,14 +307,14 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         rawPork.add(RDIngredientItems.BLACK_PORK.asItem())
                .add(RDIngredientItems.WILD_BOAR_MEAT.asItem());
 
-        soup.add(RDFoodItems.GAME_SOUP.asItem())
-            .add(RDFoodItems.HULA_SOUP.asItem())
-            .add(RDFoodItems.MILKY_MUSHROOM_SOUP.asItem())
-            .add(RDFoodItems.PEACH_BLOSSOM_SOUP.asItem())
-            .add(RDFoodItems.REAL_SEAFOOD_MISO_SOUP.asItem())
-            .add(RDFoodItems.SEAFOOD_MISO_SOUP.asItem())
-            .add(RDFoodItems.STRENGTH_SOUP.asItem())
-            .add(RDFoodItems.GINKGO_AND_RADISH_PORK_RIB_SOUP.asItem());
+        soup.add(RDCuisineItems.GAME_SOUP.asItem())
+            .add(RDCuisineItems.HULA_SOUP.asItem())
+            .add(RDCuisineItems.MILKY_MUSHROOM_SOUP.asItem())
+            .add(RDCuisineItems.PEACH_BLOSSOM_SOUP.asItem())
+            .add(RDCuisineItems.REAL_SEAFOOD_MISO_SOUP.asItem())
+            .add(RDCuisineItems.SEAFOOD_MISO_SOUP.asItem())
+            .add(RDCuisineItems.STRENGTH_SOUP.asItem())
+            .add(RDCuisineItems.GINKGO_AND_RADISH_PORK_RIB_SOUP.asItem());
         fruit.add(RDIngredientItems.FICUS_MICROCARPA.asItem())
              .add(RDIngredientItems.GRAPE.asItem())
              .add(RDIngredientItems.PLUM.asItem())

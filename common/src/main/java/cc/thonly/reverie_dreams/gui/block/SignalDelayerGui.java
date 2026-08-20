@@ -39,8 +39,8 @@ public class SignalDelayerGui extends AnvilInputGui {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
         try {
             int num = Integer.parseInt(this.getInput());
             this.signalDelayerBlockEntity.setMaxDelayTick(num);

@@ -1,0 +1,56 @@
+{
+  "role_type": "reverie_dreams:kijin_seijia",
+  "rare": true,
+  "budget": {
+    "min": 300,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:fiery",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:bizarre",
+    "reverie_dreams:flaming"
+  ],
+  "dislikes": [
+    "reverie_dreams:gourmet"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:soju",
+    "reverie_dreams:direct_drinking",
+    "reverie_dreams:pungent"
+  ],
+  "chats": [
+    "reverie_dreams.role.kijin_seijia.chat.0",
+    "reverie_dreams.role.kijin_seijia.chat.1",
+    "reverie_dreams.role.kijin_seijia.chat.2",
+    "reverie_dreams.role.kijin_seijia.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.kijin_seijia.order.0",
+    "reverie_dreams.role.kijin_seijia.order.1",
+    "reverie_dreams.role.kijin_seijia.order.2",
+    "reverie_dreams.role.kijin_seijia.order.3",
+    "reverie_dreams.role.kijin_seijia.order.4",
+    "reverie_dreams.role.kijin_seijia.order.5",
+    "reverie_dreams.role.kijin_seijia.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.kijin_seijia.description.0",
+    "reverie_dreams.role.kijin_seijia.description.1",
+    "reverie_dreams.role.kijin_seijia.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.kijin_seijia.evaluation.exbad",
+    "bad": "reverie_dreams.role.kijin_seijia.evaluation.bad",
+    "norm": "reverie_dreams.role.kijin_seijia.evaluation.norm",
+    "good": "reverie_dreams.role.kijin_seijia.evaluation.good",
+    "exgood": "reverie_dreams.role.kijin_seijia.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.kijin_seijia.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.kijin_seijia.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.kijin_seijia.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.kijin_seijia.evaluation.seenRepell"
+  }
+}

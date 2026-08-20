@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.registry.content;
 
-import cc.thonly.reverie_dreams.registry.BiRegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInBiRegistryProviders;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -39,13 +39,13 @@ public record ItemColor(Item item, Long color) {
     }
 
     public static ItemColor registerItemColor(Item item, Long value) {
-        return BiRegistryImpls.register(BiRegistryImpls.ITEM_COLOR, item, new ItemColor(item, value));
+        return BuiltInBiRegistryProviders.register(BuiltInBiRegistryProviders.ITEM_COLOR, item, new ItemColor(item, value));
     }
 
     public static Map<Item, Long> getView() {
         Map<Item, Long> view = new LinkedHashMap<>();
-        BiRegistryImpls.ITEM_COLOR.keysStream().forEach(item -> {
-            ItemColor color = BiRegistryImpls.ITEM_COLOR.get(item);
+        BuiltInBiRegistryProviders.ITEM_COLOR.keysStream().forEach(item -> {
+            ItemColor color = BuiltInBiRegistryProviders.ITEM_COLOR.get(item);
             if (color != null) {
                 view.put(item, color.color());
             }

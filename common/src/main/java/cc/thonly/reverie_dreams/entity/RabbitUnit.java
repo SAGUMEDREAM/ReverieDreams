@@ -3,15 +3,16 @@ package cc.thonly.reverie_dreams.entity;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
 import cc.thonly.reverie_dreams.api.entity.type.VariantData;
-import cc.thonly.reverie_dreams.api.entity.type.Yousei;
+import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCWeaponOfTheMoonGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariant;
 import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariants;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.util.entity.EntityHelper;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.resources.Identifier;
@@ -38,7 +39,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
-public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, Yousei {
+public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, YouseiType {
     private RabbitUnitVariant variant = null;
     private final NPCWeaponOfTheMoonGoal<RabbitUnit> weaponOfTheMoonGoal = new NPCWeaponOfTheMoonGoal<>(this, 4, 8);
 
@@ -47,7 +48,7 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
                 world,
                 (
                         RabbitUnitVariants.isEmpty()
-                                ? (RabbitUnitVariants.REGISTRY.getAny().isPresent() ? RabbitUnitVariants.REGISTRY.getAny().get().value().getSkinType() : RabbitUnitVariants.RABBIT_UNIT_0.getSkinType())
+                                ? (BuiltInRegistryProviders.RABBIT_UNIT_VARIANT.getAny().isPresent() ? BuiltInRegistryProviders.RABBIT_UNIT_VARIANT.getAny().get().value().getSkinType() : RabbitUnitVariants.RABBIT_UNIT_0.getSkinType())
                                 : Objects.requireNonNull(RabbitUnitVariants.random()).getSkinType()
                 )
         );
@@ -64,6 +65,7 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
             this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+        this.updateAttackType();
     }
 
     @Override
@@ -83,6 +85,7 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Zombie.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Skeleton.class, true));
+        EntityHelper.registerHostilityAllYousei(this, this.targetSelector);
 
     }
 
@@ -140,7 +143,8 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
         super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("UnitVariant", RabbitUnitVariants.DEFAULT_ID.toString());
         Identifier variantId = Identifier.parse(youseiVariantId);
-        this.variant = RegistryImpls.RABBIT_UNIT_VARIANT.getValue(variantId);
+        this.variant = BuiltInRegistryProviders.RABBIT_UNIT_VARIANT.getValue(variantId);
+        this.updateAttackType();
     }
 
     @Override
@@ -161,7 +165,7 @@ public class RabbitUnit extends BaseNPCLikeEntity implements Leashable, Friendly
 
     @Override
     public void setVariantData(Identifier id) {
-        this.variant = RegistryImpls.RABBIT_UNIT_VARIANT.getValue(id);
+        this.variant = BuiltInRegistryProviders.RABBIT_UNIT_VARIANT.getValue(id);
         if (this.variant != null) {
             this.setSkinType(this.variant.getSkinType());
         }

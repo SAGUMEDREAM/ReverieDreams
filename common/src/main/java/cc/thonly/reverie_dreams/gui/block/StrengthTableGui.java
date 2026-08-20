@@ -122,8 +122,8 @@ public class StrengthTableGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
         this.blockEntity.setChanged();
     }
 }

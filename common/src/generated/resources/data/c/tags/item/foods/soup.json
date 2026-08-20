@@ -1,12 +1,12 @@
 {
   "values": [
-    "reverie_dreams:food/game_soup",
-    "reverie_dreams:food/hula_soup",
-    "reverie_dreams:food/milky_mushroom_soup",
-    "reverie_dreams:food/peach_blossom_soup",
-    "reverie_dreams:food/real_seafood_miso_soup",
-    "reverie_dreams:food/seafood_miso_soup",
-    "reverie_dreams:food/strength_soup",
-    "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup"
+    "reverie_dreams:cuisine/game_soup",
+    "reverie_dreams:cuisine/hula_soup",
+    "reverie_dreams:cuisine/milky_mushroom_soup",
+    "reverie_dreams:cuisine/peach_blossom_soup",
+    "reverie_dreams:cuisine/real_seafood_miso_soup",
+    "reverie_dreams:cuisine/seafood_miso_soup",
+    "reverie_dreams:cuisine/strength_soup",
+    "reverie_dreams:cuisine/ginkgo_and_radish_pork_rib_soup"
   ]
 }

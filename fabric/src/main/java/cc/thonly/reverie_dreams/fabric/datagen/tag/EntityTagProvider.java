@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.datagen.tag;
 
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDEntityTypeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -23,7 +23,7 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
         TagAppender<EntityType<?>, EntityType<?>> roleBuilder = valueLookupBuilder(RDEntityTypeTags.NPC_ROLE);
 
-        RegistryImpls.NPC_ROLE.values().forEach(role -> roleBuilder.add(role.getEntityType().value()));
+        BuiltInRegistryProviders.NPC_ROLE_TYPE.values().forEach(role -> roleBuilder.add(role.getEntityType().value()));
 
         TagAppender<EntityType<?>, EntityType<?>> undead = valueLookupBuilder(EntityTypeTags.UNDEAD);
         undead.add(RDEntityTypes.GHOST.value());

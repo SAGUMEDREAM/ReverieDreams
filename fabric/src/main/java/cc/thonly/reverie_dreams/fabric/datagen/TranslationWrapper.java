@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 
 import cc.thonly.reverie_dreams.creative_tab.content.ItemGroupContentHelper;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
@@ -163,7 +163,7 @@ public record TranslationWrapper(HolderLookup.Provider wrapperLookup,
     }
 
     public TranslationWrapper generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        Identifier key = RegistryImpls.DANMAKU_TRAJECTORY.getKey(trajectory);
+        Identifier key = BuiltInRegistryProviders.DANMAKU_TRAJECTORY.getKey(trajectory);
         if (key == null) {
             log.error("Can't find key of {}", trajectory);
             return this;
@@ -201,7 +201,7 @@ public record TranslationWrapper(HolderLookup.Provider wrapperLookup,
         return this;
     }
 
-    public TranslationWrapper addRoleEntity(NPCRole role, String value, String spawnEggValue) {
+    public TranslationWrapper addRoleEntity(NPCRoleType role, String value, String spawnEggValue) {
         EntityType<?> entityType = role.getEntityType().value();
         Item egg = role.getEgg().asItem();
         String item_value = value + spawnEggValue;

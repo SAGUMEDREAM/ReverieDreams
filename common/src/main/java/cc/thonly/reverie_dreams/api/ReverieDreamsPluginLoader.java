@@ -4,16 +4,16 @@ import cc.thonly.keine.api.callback.DynamicRegistrySetupCallback;
 import cc.thonly.keine.api.callback.LootTableCallback;
 import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.api.entity.entry.RoleGoalEntry;
-import cc.thonly.reverie_dreams.api.item.callback.DrinkPropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.item.callback.BeveragePropertyItemUseCallback;
 import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatContext;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeInjectCallback;
 import cc.thonly.reverie_dreams.api.registry.RegistryImplContext;
-import cc.thonly.reverie_dreams.api.registry.callback.DrinkPropertiesLoaderCallback;
+import cc.thonly.reverie_dreams.api.registry.callback.BeveragePropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
-import cc.thonly.reverie_dreams.api.registry.callback.RegistryImplReloadCallback;
+import cc.thonly.reverie_dreams.api.registry.callback.RegistryProviderReloadCallback;
 import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RawIdTypeRegistryImpl;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
@@ -34,11 +34,11 @@ public class ReverieDreamsPluginLoader {
         CLIENT_SETUP,
         ROLE_GOAL,
         FOOD_PROPERTY_COMPAT,
-        DRINK_PROPERTY_COMPAT,
+        BEVERAGE_PROPERTY_COMPAT,
         REGISTRY_IMPL_RELOAD,
         RECIPE_REGISTER,
         USE_ITEM_FOOD_PROPERTY,
-        USE_ITEM_DRINK_PROPERTY,
+        USE_ITEM_BEVERAGE_PROPERTY,
         REPLACEABLE_RECIPE,
         PLAYER_COMPONENT_REGISTRY,
         REGISTRY_IMPL_REGISTER,
@@ -118,11 +118,11 @@ public class ReverieDreamsPluginLoader {
         register(PluginHook.FOOD_PROPERTY_COMPAT,
                 () -> FoodPropertiesLoaderCallback.EVENT.register(plugin::registerFoodPropertyCompat));
 
-        register(PluginHook.DRINK_PROPERTY_COMPAT,
-                () -> DrinkPropertiesLoaderCallback.EVENT.register(plugin::registerDrinkPropertyCompat));
+        register(PluginHook.BEVERAGE_PROPERTY_COMPAT,
+                () -> BeveragePropertiesLoaderCallback.EVENT.register(plugin::registerBeveragePropertyCompat));
 
         register(PluginHook.REGISTRY_IMPL_RELOAD,
-                () -> RegistryImplReloadCallback.EVENT.register(plugin::registerRecipeLoadCallback));
+                () -> RegistryProviderReloadCallback.EVENT.register(plugin::registerRecipeLoadCallback));
 
         register(PluginHook.RECIPE_REGISTER,
                 () -> RecipeInjectCallback.EVENT.register(plugin::registerRecipeLoadCallback));
@@ -130,8 +130,8 @@ public class ReverieDreamsPluginLoader {
         register(PluginHook.USE_ITEM_FOOD_PROPERTY,
                 () -> FoodPropertyItemUseCallback.EVENT.register(plugin::registerUseItemFoodProperty));
 
-        register(PluginHook.USE_ITEM_DRINK_PROPERTY,
-                () -> DrinkPropertyItemUseCallback.EVENT.register(plugin::registerUseItemDrinkProperty));
+        register(PluginHook.USE_ITEM_BEVERAGE_PROPERTY,
+                () -> BeveragePropertyItemUseCallback.EVENT.register(plugin::registerUseItemDrinkProperty));
 
         register(PluginHook.REPLACEABLE_RECIPE,
                 () -> RecipeCompatPatchesCallback.EVENT.register(() ->

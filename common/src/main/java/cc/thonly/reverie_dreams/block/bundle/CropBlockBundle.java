@@ -3,12 +3,11 @@ package cc.thonly.reverie_dreams.block.bundle;
 import cc.thonly.keine.api.registry.impl.CompostingChanceRegistry;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
-import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AccessLevel;
@@ -68,7 +67,7 @@ public final class CropBlockBundle {
      */
     public Entry build() {
         String name = this.identifier.getPath();
-        RegistrySupplier<Block> block = ReverieDreamsRegistries.BLOCK.register(name, () -> this.factory.newInstance(BlockBehaviour.Properties.of().setId(RDBlocks.keyOf(this.identifier))));
+        RegistrySupplier<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> this.factory.newInstance(BlockBehaviour.Properties.of().setId(RDBlocks.keyOf(this.identifier))));
         BlockDelegate blockDelegate = BlockDelegate.of(block);
         RDBlocks.registerSimpleBlock(blockDelegate);
 
@@ -84,7 +83,7 @@ public final class CropBlockBundle {
                 ),
                 new Item.Properties()
         );
-        CompostingChanceRegistry compostingChanceRegistry = ReverieDreamsRegistries.KEINE_REGISTRIES.compostingChanceRegistry();
+        CompostingChanceRegistry compostingChanceRegistry = MCBuiltInRegistries.KEINE_REGISTRIES.compostingChanceRegistry();
         compostingChanceRegistry.register(context -> {
             context.addItem(seedItem, getSeedCompostingLevel());
         });

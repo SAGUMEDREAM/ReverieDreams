@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.registry.syncer;
 
 import cc.thonly.reverie_dreams.data.CraftingConflict;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
@@ -13,14 +13,14 @@ public class CraftingConflictSyncer implements Supplier<RegistrySyncer<CraftingC
 
     @Override
     public RegistrySyncer<CraftingConflict, CraftingConflict> get() {
-        return new RegistrySyncer<>(RegistryImpls.CRAFTING_CONFLICT, CraftingConflict.CODEC, new RegistrySyncer.ClientReloadListener<CraftingConflict, CraftingConflict>() {
+        return new RegistrySyncer<>(BuiltInRegistryProviders.CRAFTING_CONFLICT, CraftingConflict.CODEC, new RegistrySyncer.ClientReloadListener<CraftingConflict, CraftingConflict>() {
             @Override
-            public void preProcessing(RegistryImpl<CraftingConflict> registry) {
-                RegistryImpls.CRAFTING_CONFLICT.clear();
+            public void preProcessing(RegistryProvider<CraftingConflict> registry) {
+                BuiltInRegistryProviders.CRAFTING_CONFLICT.clear();
             }
 
             @Override
-            public void afterProcessing(RegistryImpl<CraftingConflict> registry) {
+            public void afterProcessing(RegistryProvider<CraftingConflict> registry) {
 
             }
 
@@ -32,7 +32,7 @@ public class CraftingConflictSyncer implements Supplier<RegistrySyncer<CraftingC
 
             @Override
             public RegistrySyncer<CraftingConflict, CraftingConflict> getSyncer() {
-                return RegistryImpls.CRAFTING_CONFLICT.getSyncer();
+                return BuiltInRegistryProviders.CRAFTING_CONFLICT.getSyncer();
             }
         }) {
             @Override

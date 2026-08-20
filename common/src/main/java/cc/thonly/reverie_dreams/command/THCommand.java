@@ -1,9 +1,10 @@
 package cc.thonly.reverie_dreams.command;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.api.dialog.DialogAPI;
 import cc.thonly.reverie_dreams.api.registry.BookPageManager;
-import cc.thonly.reverie_dreams.data.DrinkProperty;
+import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.craftengine.BlockDefinitionList;
 import cc.thonly.reverie_dreams.data.craftengine.CraftEngineDefinition;
@@ -20,18 +21,25 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbench;
 import cc.thonly.reverie_dreams.recipe.RecipeWorkbenchRegistry;
 import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.server.PlayerSettings;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.command.PermissionPredicate;
+import cc.thonly.reverie_dreams.util.math.ModMth;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 import lombok.extern.slf4j.Slf4j;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -52,6 +60,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemCooldowns;
@@ -66,32 +75,47 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 @Slf4j
 public class THCommand {
+    public static final SuggestionProvider<CommandSourceStack> settingNameSuggestions =
+            (context, builder) -> {
+                for (String name : PlayerSettings.DEFINES.keySet()) {
+                    builder.suggest(name);
+                }
+
+                return builder.buildFuture();
+            };
+
+    public THCommand() {
+
+    }
 
     public LiteralArgumentBuilder<CommandSourceStack> makeInstance(
             CommandDispatcher<CommandSourceStack> dispatcher,
             HolderLookup.Provider registryAccess
     ) {
+
         var root = Commands.literal("touhou");
         var help = Commands.literal("help")
                            .executes(this::help);
         var get_sc_with_spell_config = Commands.literal("get_spellcard_with_config")
                                                .requires(PermissionPredicate.isGameMasters())
                                                .then(
-                                                       RegistryImpls.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
+                                                       BuiltInRegistryProviders.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
                                                );
         var with_food_property = Commands.literal("with_food_property")
                                          .requires(PermissionPredicate.isGameMasters())
                                          .then(
-                                                 RegistryImpls.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
+                                                 BuiltInRegistryProviders.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
                                          );
-        var with_drink_property = Commands.literal("with_drink_property")
-                                          .requires(PermissionPredicate.isGameMasters())
-                                          .then(
-                                                  RegistryImpls.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("drink_property")))
-                                          );
+        var with_beverage_property = Commands.literal("with_beverage_property")
+                                             .requires(PermissionPredicate.isGameMasters())
+                                             .then(
+                                                     BuiltInRegistryProviders.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("beverage_property")))
+                                             );
         var cachedAllSkins = Commands.literal("start-cached-skins")
                                      .requires(PermissionPredicate.isGameMasters())
                                      .executes(this::cachedAllSkins);
@@ -100,14 +124,48 @@ public class THCommand {
         var registry = Commands.literal("registry")
                                .requires(PermissionPredicate.isGameMasters())
                                .then(
-                                       RegistryImpls.getSuggestProvider(this::registry)
+                                       BuiltInRegistryProviders.getSuggestProvider(this::registry)
                                );
+        var registry_tag = Commands.literal("registry_tag")
+                                   .requires(PermissionPredicate.isGameMasters())
+                                   .then(
+                                           BuiltInRegistryProviders.getSuggestTagProvider(this::registryTag)
+                                   );
 //        var dialog = Commands.literal("dialog")
 //                .then(
 //                        Commands.argument("value", StringArgumentType.string())
 //                                .suggests(new DialogSuggestionProvider())
 //                                .executes(this::openDialog)
 //                );
+        var settings = Commands.literal("settings")
+                               .then(
+                                       Commands.literal("get")
+                                               .then(
+                                                       Commands.argument(
+                                                                       "name",
+                                                                       StringArgumentType.word()
+                                                               )
+                                                               .suggests(settingNameSuggestions)
+                                                               .executes(this::getPlayerSettingValue)
+                                               )
+                               )
+                               .then(
+                                       Commands.literal("set")
+                                               .then(
+                                                       Commands.argument(
+                                                                       "name",
+                                                                       StringArgumentType.word()
+                                                               )
+                                                               .suggests(settingNameSuggestions)
+                                                               .then(
+                                                                       Commands.argument(
+                                                                                       "value",
+                                                                                       StringArgumentType.greedyString()
+                                                                               )
+                                                                               .executes(this::setPlayerSettingValue)
+                                                               )
+                                               )
+                               );
         var video = Commands.literal("video")
                             .requires(PermissionPredicate.isGameMasters())
                             .then(
@@ -132,6 +190,9 @@ public class THCommand {
                                             .literal("reload")
                                             .executes(this::reloadVideo)
                             );
+        var reloadConfig = Commands.literal("reload_config")
+                                   .requires(PermissionPredicate.isGameMasters())
+                                   .executes(this::reloadConfig);
         var loadRootPage = Commands.literal("load_root_guide_page")
                                    .requires(PermissionPredicate.isGameMasters())
                                    .then(
@@ -145,13 +206,16 @@ public class THCommand {
         root.then(help);
         root.then(get_sc_with_spell_config);
         root.then(with_food_property);
-        root.then(with_drink_property);
+        root.then(with_beverage_property);
         root.then(cachedAllSkins);
         root.then(recipe);
         root.then(registry);
+        root.then(registry_tag);
 //        root.then(dialog);
         root.then(loadRootPage);
+        root.then(settings);
         root.then(video);
+        root.then(reloadConfig);
         root.then(about);
         if (PlatformContext.isDevMode()) {
             var debugGetChest = Commands.literal("debug_get_loot_with_chest")
@@ -183,6 +247,74 @@ public class THCommand {
         }
 
         return root;
+    }
+
+    private int setPlayerSettingValue(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+
+        if (!source.isPlayer()) {
+            return 0;
+        }
+
+        ServerPlayer player = source.getPlayer();
+        PlayerSettings settings = PlayerSettings.get(player);
+
+        String name = StringArgumentType.getString(context, "name");
+
+        PlayerSettings.KeyValue<?> keyValue = settings.get(name);
+
+        if (keyValue == null) {
+            source.sendFailure(
+                    Component.literal("未知设置: " + name)
+            );
+            return 0;
+        }
+
+        Object value;
+
+        switch (keyValue.type()) {
+            case BOOL -> value =
+                    BoolArgumentType.getBool(context, "value");
+
+            case STRING -> value =
+                    StringArgumentType.getString(context, "value");
+
+            case NUMBER -> value =
+                    DoubleArgumentType.getDouble(context, "value");
+
+            default -> {
+                return 0;
+            }
+        }
+
+        settings.set(name, value);
+
+        source.sendSystemMessage(Component.literal("Set %s = %s".formatted(name, value)));
+
+        return 1;
+    }
+
+    private int getPlayerSettingValue(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        PlayerSettings playerSettings = PlayerSettings.get(player);
+        String name = StringArgumentType.getString(context, "name");
+        Object object = playerSettings.get(name);
+        source.sendSystemMessage(Component.literal("Get %s = %s".formatted(name, object)));
+        return 1;
+    }
+
+    private int reloadConfig(CommandContext<CommandSourceStack> context) {
+        ConfigHolder<ReverieDreamsConfiguration> configHolder = AutoConfig.getConfigHolder(ReverieDreamsConfiguration.class);
+        if (configHolder == null) {
+            return 1;
+        }
+        configHolder.load();
+        context.getSource().sendSystemMessage(Component.literal("Reload Success"));
+        return 0;
     }
 
     private int generateCraftEngineConfig(CommandContext<CommandSourceStack> context) {
@@ -302,7 +434,7 @@ public class THCommand {
         ServerPlayer player = source.getPlayer();
         assert player != null;
         Identifier id = IdentifierArgument.getId(context, "id");
-        FoodProperty property = RegistryImpls.FOOD_PROPERTY.getValue(id);
+        FoodProperty property = BuiltInRegistryProviders.FOOD_PROPERTY.getValue(id);
         if (property == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
             return 0;
@@ -312,11 +444,11 @@ public class THCommand {
             source.sendFailure(Component.literal("§cYour slot item is empty."));
             return 0;
         }
-        List<FoodProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>()));
+        List<FoodProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), new ArrayList<>()));
         if (!props.contains(property)) {
             props.add(property);
         }
-        itemStack.set(RDDataComponents.FOOD_PROPERTIES.value(), props);
+        itemStack.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), props);
         return 1;
     }
 
@@ -328,7 +460,7 @@ public class THCommand {
         ServerPlayer player = source.getPlayer();
         assert player != null;
         Identifier id = IdentifierArgument.getId(context, "id");
-        DrinkProperty property = RegistryImpls.DRINK_PROPERTY.getValue(id);
+        BeverageProperty property = BuiltInRegistryProviders.BEVERAGE_PROPERTY.getValue(id);
         if (property == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
             return 0;
@@ -338,11 +470,11 @@ public class THCommand {
             source.sendFailure(Component.literal("§cYour slot item is empty."));
             return 0;
         }
-        List<DrinkProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponents.DRINK_PROPERTIES.value(), new ArrayList<>()));
+        List<BeverageProperty> props = new ArrayList<>(itemStack.getOrDefault(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), new ArrayList<>()));
         if (!props.contains(property)) {
             props.add(property);
         }
-        itemStack.set(RDDataComponents.DRINK_PROPERTIES.value(), props);
+        itemStack.set(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), props);
         return 1;
     }
 
@@ -355,19 +487,19 @@ public class THCommand {
         assert player != null;
         Identifier id = IdentifierArgument.getId(context, "id");
 
-        SpellCardFrameConfig config = RegistryImpls.DANMAKU_CONFIG.getValue(id);
+        SpellCardFrameConfig config = BuiltInRegistryProviders.DANMAKU_CONFIG.getValue(id);
         if (config == null) {
             source.sendFailure(Component.literal("Invalid resource key."));
             return 0;
         }
         ItemStack itemStack = RDItems.SPELLCARD.createStack();
-        itemStack.set(RDDataComponents.SPELL_CARD_COMPONENT.value(), new SpellcardRenderer(List.of(List.of(config))));
+        itemStack.set(RDDataComponentTypes.SPELL_CARD_COMPONENT.value(), new SpellcardRenderer(List.of(List.of(config))));
         player.addItem(itemStack);
         return 1;
     }
 
     private int cachedAllSkins(CommandContext<CommandSourceStack> context) {
-        for (SkinType skinType : RegistryImpls.SKIN_TYPE_MERGED) {
+        for (SkinType skinType : BuiltInRegistryProviders.SKIN_TYPE_MERGED) {
             try {
                 if (skinType.getProperty() == null) {
                     throw new NullPointerException();
@@ -390,7 +522,7 @@ public class THCommand {
         Identifier id = IdentifierArgument.getId(context, "id");
 
         ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
-        RegistryImpl<?> registry = RegistryImpls.ROOT.get(registryKey);
+        RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
         if (registry == null) {
             source.sendFailure(Component.literal("Registry not found: ").append(Component.literal(registryKey.toString())));
             return 0;
@@ -418,6 +550,33 @@ public class THCommand {
            .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
 
         source.sendSystemMessage(msg);
+        return 1;
+    }
+
+    private int registryTag(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+
+        Identifier registryKeyId = IdentifierArgument.getId(context, "registry_key");
+        Identifier id = IdentifierArgument.getId(context, "id");
+
+        ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
+        RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
+        if (registry == null) {
+            source.sendFailure(Component.literal("Registry not found: ").append(Component.literal(registryKey.toString())));
+            return 0;
+        }
+        TagKey<?> tagKey = TagKey.create(registry.key(), id);
+        List<Holder> list = ModMth.toList(registry.getTagOrEmpty((TagKey) tagKey));
+        source.sendSystemMessage(Component.literal("Registry Tag Name: %s".formatted(id)));
+        List<Identifier> ids = new ArrayList<>();
+        for (Holder holder : list) {
+            holder.unwrapKey().ifPresent((key) -> {
+                if (key instanceof ResourceKey resourceKey) {
+                    ids.add(resourceKey.identifier());
+                }
+            });
+        }
+        source.sendSystemMessage(Component.literal("%s".formatted(ids)));
         return 1;
     }
 

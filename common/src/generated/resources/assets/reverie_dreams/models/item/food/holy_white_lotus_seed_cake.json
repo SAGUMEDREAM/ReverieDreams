@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "reverie_dreams:item/food/holy_white_lotus_seed_cake"
-  }
-}

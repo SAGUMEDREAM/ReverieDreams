@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -62,7 +62,7 @@ public class RDVillagerProfessions {
 
     protected static RegistrySupplier<VillagerProfession> registerProfession(ResourceKey<VillagerProfession> key, Predicate<Holder<PoiType>> heldWorkstation, Predicate<Holder<PoiType>> acquirableWorkstation, ImmutableSet<Item> gatherableItems, ImmutableSet<Block> secondaryJobSites, @Nullable SoundEvent workSound, Int2ObjectMap<ResourceKey<TradeSet>> tradeSet) {
         MutableComponent translatable = Component.translatable("entity." + key.identifier().getNamespace() + ".villager." + key.identifier().getPath());
-        return ReverieDreamsRegistries.VILLAGER_PROFESSION.register(key.identifier().getPath(), () -> new VillagerProfession(translatable,
+        return MCBuiltInRegistries.VILLAGER_PROFESSION.register(key.identifier().getPath(), () -> new VillagerProfession(translatable,
                 heldWorkstation,
                 acquirableWorkstation,
                 gatherableItems,

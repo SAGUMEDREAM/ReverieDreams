@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -57,15 +57,15 @@ public class StrengthTableDisplayView extends SimpleGui implements DisplayView {
         this.setSlot(2, new GuiElementBuilder(this.getValue().getMainItem().build()));
         this.setSlot(3, new GuiElementBuilder(this.getValue().getOffItem().build()));
         this.setSlot(6, new GuiElementBuilder(this.getValue().getOutput().build()));
-        this.setSlot(8, new GuiElementBuilder(RDGuiItems.CLOSE.asItem()).setCallback(() -> {
+        this.setSlot(8, new GuiElementBuilder(RDGuiPlaceholderItems.CLOSE.asItem()).setCallback(() -> {
             SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
             this.prevGuiCallback.apply().open();
         }));
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
         this.back(0, null, null, null);
     }
 

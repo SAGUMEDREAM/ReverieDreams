@@ -70,7 +70,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/moonlight_dumplings"
+          "name": "reverie_dreams:cuisine/moonlight_dumplings"
         }
       ],
       "rolls": 1.0

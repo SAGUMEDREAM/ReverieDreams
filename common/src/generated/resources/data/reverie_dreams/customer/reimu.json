@@ -1,0 +1,52 @@
+{
+  "role_type": "reverie_dreams:reimu",
+  "rare": true,
+  "budget": {
+    "min": 150,
+    "max": 300
+  },
+  "likes": [
+    "reverie_dreams:gourmet",
+    "reverie_dreams:filling",
+    "reverie_dreams:sweet",
+    "reverie_dreams:economical"
+  ],
+  "dislikes": [
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:expensive"
+  ],
+  "beverages": [
+    "reverie_dreams:alcohol-free",
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:can_heated"
+  ],
+  "chats": [
+    "reverie_dreams.role.reimu.chat.0",
+    "reverie_dreams.role.reimu.chat.1",
+    "reverie_dreams.role.reimu.chat.2",
+    "reverie_dreams.role.reimu.chat.3",
+    "reverie_dreams.role.reimu.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.reimu.order.0",
+    "reverie_dreams.role.reimu.order.1",
+    "reverie_dreams.role.reimu.order.2",
+    "reverie_dreams.role.reimu.order.3"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.reimu.description.0",
+    "reverie_dreams.role.reimu.description.1",
+    "reverie_dreams.role.reimu.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.reimu.evaluation.exbad",
+    "bad": "reverie_dreams.role.reimu.evaluation.bad",
+    "norm": "reverie_dreams.role.reimu.evaluation.norm",
+    "good": "reverie_dreams.role.reimu.evaluation.good",
+    "exgood": "reverie_dreams.role.reimu.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.reimu.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.reimu.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.reimu.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.reimu.evaluation.seenRepell"
+  }
+}

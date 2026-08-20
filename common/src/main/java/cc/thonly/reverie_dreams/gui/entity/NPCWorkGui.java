@@ -1,9 +1,12 @@
 package cc.thonly.reverie_dreams.gui.entity;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.util.NotaUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -17,20 +20,20 @@ import java.util.Iterator;
 
 public class NPCWorkGui extends SimpleGui implements GuiCommon {
     private final ServerPlayer player;
-    private final BaseNPCLikeEntity npcEntity;
+    private final NPCSimpleEntity npc;
 
-    public NPCWorkGui(ServerPlayer player, BaseNPCLikeEntity npcEntity) {
+    public NPCWorkGui(ServerPlayer player, NPCSimpleEntity npc) {
         super(MenuType.GENERIC_9x6, player, false);
         this.player = player;
-        this.npcEntity = npcEntity;
+        this.npc = npc;
         this.init();
     }
 
     @Override
     public void init() {
         this.setTitle(Component.translatable("gui.npc.work.mode"));
-        NPCWorkMode workMode = this.npcEntity.getWorkMode();
-        Iterator<NPCWorkMode> iterator = RegistryImpls.NPC_WORK_MODE.iterator();
+        NPCWorkMode workMode = this.npc.getWorkMode();
+        Iterator<NPCWorkMode> iterator = BuiltInRegistryProviders.NPC_WORK_MODE.iterator();
         for (int i = 0; i < this.size; i++) {
             if (!iterator.hasNext()) {
                 break;
@@ -43,9 +46,9 @@ public class NPCWorkGui extends SimpleGui implements GuiCommon {
                 builder.glow();
             }
             builder.setCallback((index, clickType, input, slotGuiInterface) -> {
-                this.npcEntity.setWorkMode(next);
-                if (NotaUtils.isPlaying(this.npcEntity)) {
-                    NotaUtils.stop(this.npcEntity);
+                this.npc.setWorkMode(next);
+                if (NotaUtils.isPlaying(this.npc)) {
+                    NotaUtils.stop(this.npc);
                 }
                 SoundEventPlayUtils.playUISound(player, 1.0f, 1.0f);
                 this.init();
@@ -55,9 +58,12 @@ public class NPCWorkGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
-        NPCGui npcGui = new NPCGui(this.player, this.npcEntity);
-        npcGui.open();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
+        DelayedTask.create(ReverieDreams.getServer(), 2, ()->{
+            NPCGui npcGui = new NPCGui(this.player, this.npc);
+            npcGui.open();
+        });
     }
+
 }

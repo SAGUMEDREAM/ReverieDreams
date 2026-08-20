@@ -1,0 +1,12 @@
+{
+  "registry_key": "reverie_dreams:pungent",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/qi",
+      "reverie_dreams:beverage/sparrow_sake",
+      "reverie_dreams:beverage/fire_rat_fur",
+      "reverie_dreams:beverage/demon_slayer",
+      "reverie_dreams:beverage/daughter_of_the_sea"
+    ]
+  }
+}

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat.jei.category;
 import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -29,7 +29,7 @@ public class DanmakuCraftingTableRecipeCategory implements IRecipeCategory<Danma
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, RDBlocks.DANMAKU_CRAFTING_TABLE.createStack());
         this.arrow = helper.createDrawableIngredient(
                 VanillaTypes.ITEM_STACK,
-                RDGuiItems.PROGRESS_TO_RESULT_DOWN.asItem().getDefaultInstance()
+                RDGuiPlaceholderItems.PROGRESS_TO_RESULT_DOWN.asItem().getDefaultInstance()
         );
     }
 

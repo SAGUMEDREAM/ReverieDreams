@@ -6,7 +6,7 @@ import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import cc.thonly.reverie_dreams.compat.rrv.RRVPlugin;
 import cc.thonly.reverie_dreams.compat.rrv.RRVRecipeTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import net.minecraft.resources.Identifier;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class DanmakuShapeDrawRecipe implements ReliableClientRecipe {
                 if (y < shape.size() && x < shape.get(y).size()) {
                     state = shape.get(y).get(x);
                 }
-                context.bindSlot(idx, SlotContent.of(state? RDGuiItems.ENABLE.createStack() : RDGuiItems.DISABLE.createStack()));
+                context.bindSlot(idx, SlotContent.of(state? RDGuiPlaceholderItems.ENABLE.createStack() : RDGuiPlaceholderItems.DISABLE.createStack()));
                 idx++;
             }
         }

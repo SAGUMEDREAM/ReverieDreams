@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.registry.content.item;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class RDEntityHolderItems {
     public static ItemDelegate YOUSEI_WINGS = register("holder/yousei_wing_holder", factory(), new Item.Properties());
     public static ItemDelegate KNIFE_DISPLAY = register("holder/knife_display", props -> new Item(
             props.component(
-                    RDDataComponents.DANMAKU_PROPERTIES.value(),
+                    RDDataComponentTypes.DANMAKU_PROPERTIES.value(),
                     DanmakuProperties.ofDefault()
                                      .withSpeed(0.5f)
                                      .withScale(0.8f))

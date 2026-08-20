@@ -8,14 +8,12 @@ import cc.thonly.reverie_dreams.item.prop.TenguShieldItem;
 import cc.thonly.reverie_dreams.item.weapon.TrumpetGun;
 import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import eu.pb4.polymer.common.api.PolymerCommonUtils;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.Connection;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -27,7 +25,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.List;
-import java.util.Objects;
 
 public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded {
     private final Item item;
@@ -77,12 +74,12 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded {
     }
 
     private void modifyForFoodTag(ItemStack out, ItemStack stack, PacketContext context, HolderLookup.Provider lookup) {
-        if (stack.has(RDDataComponents.FOOD_ITEM_TYPE.value())) {
+        if (stack.has(RDDataComponentTypes.FOOD_ITEM_TYPE.value())) {
             FoodProperties foodProps = stack.get(DataComponents.FOOD);
             if (foodProps == null) {
                 return;
             }
-            List<FoodProperty> foodProperties = stack.get(RDDataComponents.FOOD_PROPERTIES.value());
+            List<FoodProperty> foodProperties = stack.get(RDDataComponentTypes.FOOD_PROPERTIES.value());
             if (foodProperties == null || foodProperties.isEmpty()) {
                 return;
             }

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "reverie_dreams:item/food/gensokyo_star_lotus_ship"
-  }
-}

@@ -65,8 +65,9 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
+        this.player.makeSound(SoundEvents.CHEST_CLOSE);
         this.chestBlockEntity.setChanged();
     }
 

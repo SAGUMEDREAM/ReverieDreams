@@ -5,6 +5,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public interface ItemComparatorView {
     boolean equals(Object obj);
@@ -35,7 +37,19 @@ public interface ItemComparatorView {
         return this.test(ItemComparatorView.of(other));
     }
 
+    default ItemComparatorView map(Consumer<ItemStack> function) {
+        function.accept(this.stack());
+        return this;
+    }
+
+    default ItemComparatorView map(Function<ItemStack, ItemStack> function) {
+        this.stack(function.apply(this.stack()));
+        return this;
+    }
+
     ItemStack stack();
+
+    ItemStack stack(ItemStack stack);
 
     static ItemComparatorView of(IngredientStack stack) {
         if (!stack.areComponentsBound()) {

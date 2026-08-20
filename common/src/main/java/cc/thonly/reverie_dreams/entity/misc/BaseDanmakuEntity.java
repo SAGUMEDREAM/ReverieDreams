@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.mixin.accessor.ProjectileAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ThrowableProjectileAccessor;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.PlatformContext;
@@ -71,18 +71,18 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
 
     public BaseDanmakuEntity(EntityType<? extends ThrowableItemProjectile> entityType, @NotNull LivingEntity owner, Level level, ItemStack item) {
         super(entityType, owner, level, item.copy());
-        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
+        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
     }
 
     public BaseDanmakuEntity(EntityType<? extends ThrowableItemProjectile> entityType, double x, double y, double z, Level level, ItemStack item) {
         super(entityType, x, y, z, level, item.copy());
-        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
+        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
     }
 
     public BaseDanmakuEntity(EntityType<? extends ThrowableItemProjectile> entityType, @NotNull LivingEntity livingEntity, double x, double y, double z, Level level, ItemStack item) {
         super(entityType, x, y, z, level, item.copy());
         this.setOwner(livingEntity);
-        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
+        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
     }
 
     @Override

@@ -34,7 +34,7 @@ public class FakePlayer extends ServerPlayer {
     public static FakePlayer get(ServerLevel world, GameProfile profile) {
         Objects.requireNonNull(world, "World may not be null.");
         Objects.requireNonNull(profile, "Game profile may not be null.");
-        return (FakePlayer)FAKE_PLAYER_MAP.computeIfAbsent(new FakePlayerKey(world, profile), (key) -> new FakePlayer(key.world, key.profile));
+        return FAKE_PLAYER_MAP.computeIfAbsent(new FakePlayerKey(world, profile), (key) -> new FakePlayer(key.world, key.profile));
     }
 
     protected FakePlayer(ServerLevel world, GameProfile profile) {

@@ -1,0 +1,16 @@
+{
+  "registry_key": "reverie_dreams:low_alcohol",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/fruity_high_ball",
+      "reverie_dreams:beverage/fruity_sour",
+      "reverie_dreams:beverage/qi",
+      "reverie_dreams:beverage/beer",
+      "reverie_dreams:beverage/scarlet_devil",
+      "reverie_dreams:beverage/winter_brew",
+      "reverie_dreams:beverage/drunk_actor",
+      "reverie_dreams:beverage/daughter_of_the_sea",
+      "reverie_dreams:beverage/mojito_burst_ball"
+    ]
+  }
+}

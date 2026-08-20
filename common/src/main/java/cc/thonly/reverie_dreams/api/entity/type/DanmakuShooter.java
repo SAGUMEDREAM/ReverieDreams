@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.prop.Knife;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import net.minecraft.server.level.ServerLevel;
@@ -53,7 +53,7 @@ public interface DanmakuShooter {
 
     static DanmakuEntity spawn(ServerLevel world, LivingEntity entity, ItemStack stack, float pitch, float yaw, float speed, float divergence, float offsetDist) {
         Item item = stack.getItem();
-        DanmakuProperties properties = stack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
+        DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
         properties = properties.withSpeed(speed);
         if (item instanceof AbstractDanmakuItem danmakuItem) {
             DanmakuEntity danmakuEntity = DanmakuEntity.create(

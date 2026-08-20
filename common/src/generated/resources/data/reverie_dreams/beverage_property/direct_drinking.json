@@ -1,0 +1,17 @@
+{
+  "registry_key": "reverie_dreams:direct_drinking",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/sun_moon_star",
+      "reverie_dreams:beverage/tengu_dance",
+      "reverie_dreams:beverage/gods_wheat",
+      "reverie_dreams:beverage/otter_festival",
+      "reverie_dreams:beverage/dawn",
+      "reverie_dreams:beverage/milk",
+      "reverie_dreams:beverage/iceberg_maple_frozen_lemon",
+      "reverie_dreams:beverage/daiginjo",
+      "reverie_dreams:beverage/qi_health",
+      "reverie_dreams:beverage/drunk_actor"
+    ]
+  }
+}

@@ -4,9 +4,10 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -39,52 +40,52 @@ public class FoodProperties {
     public static final Map<Item, Set<FoodProperty>> ITEM_CACHE = new Object2ObjectLinkedOpenHashMap<>();
     public static final Map<FoodProperty, Set<Item>> PROPERTY_CACHE = new Object2ObjectLinkedOpenHashMap<>();
 
-    public static final FoodProperty UNDEFINED = register("undefined", () -> new FoodProperty());
-    public static final FoodProperty MEAT = register("meat", () -> new FoodProperty());
-    public static final FoodProperty AQUATIC_PRODUCTS = register("aquatic_products", () -> new FoodProperty());
-    public static final FoodProperty VEGETARIAN = register("vegetarian", () -> new FoodProperty());
-    public static final FoodProperty HOMESTYLE = register("homestyle", () -> new FoodProperty());
-    public static final FoodProperty GOURMET = register("gourmet", () -> new FoodProperty());
-    public static final FoodProperty LEGENDARY = register("legendary", () -> new FoodProperty());
-    public static final FoodProperty GREASY = register("greasy", () -> new FoodProperty());
-    public static final FoodProperty LIGHT = register("light", () -> new FoodProperty());
-    public static final FoodProperty GOOD_WITH_ALCOHOL = register("good_with_alcohol", () -> new FoodProperty());
-    public static final FoodProperty FILLING = register("filling", () -> new FoodProperty());
-    public static final FoodProperty MOUNTAIN_DELICACY = register("mountain_delicacy", () -> new FoodProperty());
-    public static final FoodProperty OCEAN_FLAVOR = register("ocean_flavor", () -> new FoodProperty());
-    public static final FoodProperty JAPANESE_STYLE = register("japanese_style", () -> new FoodProperty());
-    public static final FoodProperty WESTERN_STYLE = register("western_style", () -> new FoodProperty());
-    public static final FoodProperty CHINESE_STYLE = register("chinese_style", () -> new FoodProperty());
-    public static final FoodProperty SALTY = register("salty", () -> new FoodProperty());
-    public static final FoodProperty UMAMI = register("umami", () -> new FoodProperty());
-    public static final FoodProperty SWEET = register("sweet", () -> new FoodProperty());
-    public static final FoodProperty RAW = register("raw", () -> new FoodProperty());
-    public static final FoodProperty PHOTOGENIC = register("photogenic", () -> new FoodProperty());
-    public static final FoodProperty COOL = register("cool", () -> new FoodProperty());
-    public static final FoodProperty FIERY = register("fiery", () -> new FoodProperty());
-    public static final FoodProperty POWER_SURGE = register("power_surge", () -> new FoodProperty());
-    public static final FoodProperty BIZARRE = register("bizarre", () -> new FoodProperty());
-    public static final FoodProperty CULTURAL_DEPTH = register("cultural_depth", () -> new FoodProperty());
-    public static final FoodProperty MUSHROOMS = register("mushrooms", () -> new FoodProperty());
-    public static final FoodProperty UNBELIEVABLE = register("unbelievable", () -> new FoodProperty());
-    public static final FoodProperty PETITE = register("petite", () -> new FoodProperty());
-    public static final FoodProperty DREAMLIKE = register("dreamlike", () -> new FoodProperty());
-    public static final FoodProperty LOCAL_SPECIALTY = register("local_specialty", () -> new FoodProperty());
-    public static final FoodProperty FRUITY = register("fruity", () -> new FoodProperty());
-    public static final FoodProperty SOUP_AND_STEW = register("soup_and_stew", () -> new FoodProperty());
-    public static final FoodProperty GRILLED = register("grilled", () -> new FoodProperty());
-    public static final FoodProperty SPICY = register("spicy", () -> new FoodProperty());
-    public static final FoodProperty FLAMING = register("flaming", () -> new FoodProperty());
-    public static final FoodProperty SOUR = register("sour", () -> new FoodProperty());
-    public static final FoodProperty TOXIC = register("toxic", () -> new FoodProperty());
-    public static final FoodProperty DARK_CUISINE = register("dark_cuisine", () -> new FoodProperty());
-    public static final FoodProperty ECONOMICAL = register("economical", () -> new FoodProperty());
-    public static final FoodProperty EXPENSIVE = register("expensive", () -> new FoodProperty());
-    public static final FoodProperty LARGE_PARTITION = register("large_partition", () -> new FoodProperty());
-    public static final FoodProperty POPULAR_NEGATIVE = register("popular_pegative", () -> new FoodProperty());
-    public static final FoodProperty POPULAR_POSITIVE = register("popular_positive", () -> new FoodProperty());
-    public static final FoodProperty SIGNATURE = register("signature", () -> new FoodProperty());
-    public static final FoodProperty CURSE = register("curse", () -> new FoodProperty());
+    public static final FoodProperty UNDEFINED = registerForBuiltIn("undefined", () -> new FoodProperty());
+    public static final FoodProperty MEAT = registerForBuiltIn("meat", () -> new FoodProperty());
+    public static final FoodProperty AQUATIC_PRODUCTS = registerForBuiltIn("aquatic_products", () -> new FoodProperty());
+    public static final FoodProperty VEGETARIAN = registerForBuiltIn("vegetarian", () -> new FoodProperty());
+    public static final FoodProperty HOMESTYLE = registerForBuiltIn("homestyle", () -> new FoodProperty());
+    public static final FoodProperty GOURMET = registerForBuiltIn("gourmet", () -> new FoodProperty());
+    public static final FoodProperty LEGENDARY = registerForBuiltIn("legendary", () -> new FoodProperty());
+    public static final FoodProperty GREASY = registerForBuiltIn("greasy", () -> new FoodProperty());
+    public static final FoodProperty LIGHT = registerForBuiltIn("light", () -> new FoodProperty());
+    public static final FoodProperty GOOD_WITH_ALCOHOL = registerForBuiltIn("good_with_alcohol", () -> new FoodProperty());
+    public static final FoodProperty FILLING = registerForBuiltIn("filling", () -> new FoodProperty());
+    public static final FoodProperty MOUNTAIN_DELICACY = registerForBuiltIn("mountain_delicacy", () -> new FoodProperty());
+    public static final FoodProperty OCEAN_FLAVOR = registerForBuiltIn("ocean_flavor", () -> new FoodProperty());
+    public static final FoodProperty JAPANESE_STYLE = registerForBuiltIn("japanese_style", () -> new FoodProperty());
+    public static final FoodProperty WESTERN_STYLE = registerForBuiltIn("western_style", () -> new FoodProperty());
+    public static final FoodProperty CHINESE_STYLE = registerForBuiltIn("chinese_style", () -> new FoodProperty());
+    public static final FoodProperty SALTY = registerForBuiltIn("salty", () -> new FoodProperty());
+    public static final FoodProperty UMAMI = registerForBuiltIn("umami", () -> new FoodProperty());
+    public static final FoodProperty SWEET = registerForBuiltIn("sweet", () -> new FoodProperty());
+    public static final FoodProperty RAW = registerForBuiltIn("raw", () -> new FoodProperty());
+    public static final FoodProperty PHOTOGENIC = registerForBuiltIn("photogenic", () -> new FoodProperty());
+    public static final FoodProperty COOL = registerForBuiltIn("cool", () -> new FoodProperty());
+    public static final FoodProperty FIERY = registerForBuiltIn("fiery", () -> new FoodProperty());
+    public static final FoodProperty POWER_SURGE = registerForBuiltIn("power_surge", () -> new FoodProperty());
+    public static final FoodProperty BIZARRE = registerForBuiltIn("bizarre", () -> new FoodProperty());
+    public static final FoodProperty CULTURAL_DEPTH = registerForBuiltIn("cultural_depth", () -> new FoodProperty());
+    public static final FoodProperty MUSHROOMS = registerForBuiltIn("mushrooms", () -> new FoodProperty());
+    public static final FoodProperty UNBELIEVABLE = registerForBuiltIn("unbelievable", () -> new FoodProperty());
+    public static final FoodProperty PETITE = registerForBuiltIn("petite", () -> new FoodProperty());
+    public static final FoodProperty DREAMLIKE = registerForBuiltIn("dreamlike", () -> new FoodProperty());
+    public static final FoodProperty LOCAL_SPECIALTY = registerForBuiltIn("local_specialty", () -> new FoodProperty());
+    public static final FoodProperty FRUITY = registerForBuiltIn("fruity", () -> new FoodProperty());
+    public static final FoodProperty SOUP_AND_STEW = registerForBuiltIn("soup_and_stew", () -> new FoodProperty());
+    public static final FoodProperty GRILLED = registerForBuiltIn("grilled", () -> new FoodProperty());
+    public static final FoodProperty SPICY = registerForBuiltIn("spicy", () -> new FoodProperty());
+    public static final FoodProperty FLAMING = registerForBuiltIn("flaming", () -> new FoodProperty());
+    public static final FoodProperty SOUR = registerForBuiltIn("sour", () -> new FoodProperty());
+    public static final FoodProperty TOXIC = registerForBuiltIn("toxic", () -> new FoodProperty());
+    public static final FoodProperty DARK_CUISINE = registerForBuiltIn("dark_cuisine", () -> new FoodProperty());
+    public static final FoodProperty ECONOMICAL = registerForBuiltIn("economical", () -> new FoodProperty());
+    public static final FoodProperty EXPENSIVE = registerForBuiltIn("expensive", () -> new FoodProperty());
+    public static final FoodProperty LARGE_PARTITION = registerForBuiltIn("large_partition", () -> new FoodProperty());
+    public static final FoodProperty POPULAR_NEGATIVE = registerForBuiltIn("popular_pegative", () -> new FoodProperty());
+    public static final FoodProperty POPULAR_POSITIVE = registerForBuiltIn("popular_positive", () -> new FoodProperty());
+    public static final FoodProperty SIGNATURE = registerForBuiltIn("signature", () -> new FoodProperty());
+    public static final FoodProperty CURSE = registerForBuiltIn("curse", () -> new FoodProperty());
 
     public static void registerDefaultItemUsingProperty() {
         FoodPropertyItemUseCallback.EVENT.register((world, user, property) -> {
@@ -178,18 +179,25 @@ public class FoodProperties {
     }
 
     @SuppressWarnings("unchecked")
+    private static <T extends FoodProperty> T registerForBuiltIn(String name, Supplier<T> factory) {
+        T property = factory.get();
+        property.setId(ReverieDreams.id(name));
+        return (T) BuiltInRegistryProviders.registerForBuiltin(BuiltInRegistryProviders.FOOD_PROPERTY, ReverieDreams.id(name), property);
+    }
+
+    @SuppressWarnings("unchecked")
     private static <T extends FoodProperty> T register(String name, Supplier<T> factory) {
         T property = factory.get();
         property.setId(ReverieDreams.id(name));
-        return (T) RegistryImpls.registerForBuiltin(RegistryImpls.FOOD_PROPERTY, ReverieDreams.id(name), property);
+        return (T) BuiltInRegistryProviders.register(BuiltInRegistryProviders.FOOD_PROPERTY, ReverieDreams.id(name), property);
     }
 
-    public static void bootstrap(RegistryImpl<FoodProperty> registry) {
+    public static void bootstrap(RegistryProvider<FoodProperty> registry) {
 
     }
 
-    public static Collection<FoodProperty> get(ItemStack stack) {
-        List<FoodProperty> existing = stack.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>());
+    public static Collection<FoodProperty> get(IngredientStack stack) {
+        List<FoodProperty> existing = stack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), new ArrayList<>());
         if (!existing.isEmpty()) {
             return existing;
         }
@@ -200,14 +208,31 @@ public class FoodProperties {
         }
 
         List<FoodProperty> result = new ArrayList<>(cached);
-        stack.set(RDDataComponents.FOOD_PROPERTIES.value(), result);
+        stack.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), result);
+
+        return result;
+    }
+
+    public static Collection<FoodProperty> get(ItemStack stack) {
+        List<FoodProperty> existing = stack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), new ArrayList<>());
+        if (!existing.isEmpty()) {
+            return existing;
+        }
+
+        Set<FoodProperty> cached = ITEM_CACHE.get(stack.getItem());
+        if (cached == null || cached.isEmpty()) {
+            return List.of();
+        }
+
+        List<FoodProperty> result = new ArrayList<>(cached);
+        stack.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), result);
 
         return result;
     }
 
     public static Collection<FoodProperty> get(ItemStackTemplate template) {
         Holder<Item> item = template.item();
-        List<FoodProperty> existing = ItemStackTemplateHelper.getOrDefault(template, RDDataComponents.FOOD_PROPERTIES.value(), new ArrayList<>());
+        List<FoodProperty> existing = ItemStackTemplateHelper.getOrDefault(template, RDDataComponentTypes.FOOD_PROPERTIES.value(), new ArrayList<>());
         if (!existing.isEmpty()) {
             return existing;
         }
@@ -219,7 +244,7 @@ public class FoodProperties {
 
         List<FoodProperty> result = new ArrayList<>(cached);
         ItemStackTemplateHelper.modify(template, (template1, modifier) -> {
-            modifier.set(RDDataComponents.FOOD_PROPERTIES.value(), result);
+            modifier.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), result);
         });
         return result;
     }
@@ -227,7 +252,7 @@ public class FoodProperties {
     public static void reload(ResourceManager manager) {
         unbound();
         Map<Identifier, Resource> resources = manager.listResources("food_property", id ->
-                id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
+                 id.getPath().endsWith(".json")
         );
         List<FoodProperty.Data> foodPropertyData = new ArrayList<>();
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
@@ -237,16 +262,16 @@ public class FoodProperties {
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
                 DataResult<FoodProperty.Data> result = FoodProperty.Data.CODEC.parse(input);
 
-                result.resultOrPartial(error -> ReverieDreams.LOGGER.warn("Failed to parse tags for {}: {}", entry.getKey(), error))
+                result.resultOrPartial(error -> log.warn("Failed to parse tags for {}: {}", entry.getKey(), error))
                         .ifPresent(foodPropertyData::add);
             } catch (IOException e) {
-                ReverieDreams.LOGGER.error("Failed to load food_property {}: {}", entry.getKey(), e.getMessage(), e);
+                log.error("Failed to load food_property {}: {}", entry.getKey(), e.getMessage(), e);
             }
         }
         Map<FoodProperty, Set<Item>> foodPropertySetMap = new Object2ObjectLinkedOpenHashMap<>();
         for (FoodProperty.Data foodPropertyDatum : foodPropertyData) {
             Identifier id = foodPropertyDatum.id();
-            FoodProperty property = RegistryImpls.FOOD_PROPERTY.getValue(id);
+            FoodProperty property = BuiltInRegistryProviders.FOOD_PROPERTY.getValue(id);
             if (property == null) {
                 log.warn("Unknown food property {}", id);
                 continue;
@@ -284,6 +309,7 @@ public class FoodProperties {
     }
 
     public static void unbound() {
+        BuiltInRegistryProviders.FOOD_PROPERTY.clear();
         ITEM_CACHE.clear();
         PROPERTY_CACHE.clear();
     }

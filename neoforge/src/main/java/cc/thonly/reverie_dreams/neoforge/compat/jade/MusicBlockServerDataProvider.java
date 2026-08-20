@@ -26,6 +26,6 @@ public class MusicBlockServerDataProvider implements StreamServerDataProvider<Bl
 
     @Override
     public Identifier getUid() {
-        return JadePlugin.KITCHENWARE_DATA_PROVIDER;
+        return JadePlugin.MUSIC_BLOCK_DATA_PROVIDER;
     }
 }

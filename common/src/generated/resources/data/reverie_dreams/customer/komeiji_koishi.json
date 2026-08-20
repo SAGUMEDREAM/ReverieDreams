@@ -1,0 +1,49 @@
+{
+  "role_type": "reverie_dreams:komeiji_koishi",
+  "rare": true,
+  "budget": {
+    "min": 800,
+    "max": 1200
+  },
+  "likes": [
+    "reverie_dreams:salty",
+    "reverie_dreams:sweet",
+    "reverie_dreams:raw",
+    "reverie_dreams:bizarre",
+    "reverie_dreams:dreamlike"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:soju",
+    "reverie_dreams:bitter",
+    "reverie_dreams:bubble"
+  ],
+  "chats": [
+    "reverie_dreams.role.komeiji_koishi.chat.0",
+    "reverie_dreams.role.komeiji_koishi.chat.1",
+    "reverie_dreams.role.komeiji_koishi.chat.2",
+    "reverie_dreams.role.komeiji_koishi.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.komeiji_koishi.order.0",
+    "reverie_dreams.role.komeiji_koishi.order.1",
+    "reverie_dreams.role.komeiji_koishi.order.2",
+    "reverie_dreams.role.komeiji_koishi.order.3",
+    "reverie_dreams.role.komeiji_koishi.order.4",
+    "reverie_dreams.role.komeiji_koishi.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.komeiji_koishi.description.0"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.komeiji_koishi.evaluation.exbad",
+    "bad": "reverie_dreams.role.komeiji_koishi.evaluation.bad",
+    "norm": "reverie_dreams.role.komeiji_koishi.evaluation.norm",
+    "good": "reverie_dreams.role.komeiji_koishi.evaluation.good",
+    "exgood": "reverie_dreams.role.komeiji_koishi.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.komeiji_koishi.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.komeiji_koishi.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.komeiji_koishi.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.komeiji_koishi.evaluation.seenRepell"
+  }
+}

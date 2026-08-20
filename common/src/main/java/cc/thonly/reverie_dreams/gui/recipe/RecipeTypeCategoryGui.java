@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.gui.recipe;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.BasePageGui;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -63,10 +63,10 @@ public class RecipeTypeCategoryGui extends SimpleGui {
                     this.setSlot(slot, builder);
                 }
                 if (c.equalsIgnoreCase("N")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiItems.NEXT.value()).setCallback(this::next));
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiPlaceholderItems.NEXT.value()).setCallback(this::next));
                 }
                 if (c.equalsIgnoreCase("P")) {
-                    this.setSlot(slot,  new GuiElementBuilder().setItem(RDGuiItems.PREV.value()).setCallback(this::prev));
+                    this.setSlot(slot,  new GuiElementBuilder().setItem(RDGuiPlaceholderItems.PREV.value()).setCallback(this::prev));
                 }
             }
         }

@@ -1,0 +1,51 @@
+{
+  "role_type": "reverie_dreams:chen",
+  "rare": true,
+  "budget": {
+    "min": 400,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:greasy",
+    "reverie_dreams:sweet",
+    "reverie_dreams:grilled"
+  ],
+  "dislikes": [
+    "reverie_dreams:fiery",
+    "reverie_dreams:bizarre"
+  ],
+  "beverages": [
+    "reverie_dreams:pungent"
+  ],
+  "chats": [
+    "reverie_dreams.role.chen.chat.0",
+    "reverie_dreams.role.chen.chat.1",
+    "reverie_dreams.role.chen.chat.2",
+    "reverie_dreams.role.chen.chat.3",
+    "reverie_dreams.role.chen.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.chen.order.0",
+    "reverie_dreams.role.chen.order.1",
+    "reverie_dreams.role.chen.order.2",
+    "reverie_dreams.role.chen.order.3",
+    "reverie_dreams.role.chen.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.chen.description.0",
+    "reverie_dreams.role.chen.description.1",
+    "reverie_dreams.role.chen.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.chen.evaluation.exbad",
+    "bad": "reverie_dreams.role.chen.evaluation.bad",
+    "norm": "reverie_dreams.role.chen.evaluation.norm",
+    "good": "reverie_dreams.role.chen.evaluation.good",
+    "exgood": "reverie_dreams.role.chen.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.chen.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.chen.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.chen.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.chen.evaluation.seenRepell"
+  }
+}

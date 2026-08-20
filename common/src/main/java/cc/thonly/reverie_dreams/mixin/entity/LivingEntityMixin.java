@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"AddedMixinMembersNamePattern", "resource"})
+@SuppressWarnings({"resource"})
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements LivingEntityDataModifier {
     @Shadow
@@ -275,9 +275,9 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
                             this.teleportTo(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
                     } else if (registryKey.equals(moonKey) || registryKey.equals(dreamKey)) {
-                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1, 0));
+                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1, 0, false, false));
                         if (mobY >= moonWorld.getHeight()) {
-                            this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0));
+                            this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0, false, false));
                             this.teleportTo(endWorld, this.getX(), endWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
                     }
@@ -433,12 +433,15 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
 
     @Override
     public void reverie_dreams$setDeathLevel(int deathLevel) {
+        if (deathLevel < 0) {
+            deathLevel = 0;
+        }
         this.deathLevel = deathLevel;
     }
 
     @Override
     public int reverie_dreams$getDeathLevel() {
-        return deathLevel;
+        return this.deathLevel;
     }
 
     @Override

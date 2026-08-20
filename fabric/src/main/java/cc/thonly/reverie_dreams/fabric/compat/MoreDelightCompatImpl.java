@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
@@ -27,16 +28,17 @@ public class MoreDelightCompatImpl {
         FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
             FoodProperty property = ctx.getProperty();
             Set<Item> items = ctx.getItems();
-            if (property.equals(FoodProperties.VEGETARIAN)) {
+            if (property.is(FoodProperties.VEGETARIAN)) {
                 if (dicedPotatoes != Items.STONE) {
                     items.add(dicedPotatoes);
                 }
             }
-            if (property.equals(FoodProperties.HOMESTYLE)) {
+            if (property.is(FoodProperties.HOMESTYLE)) {
                 if (dicedPotatoes != Items.STONE) {
                     items.add(dicedPotatoes);
                 }
             }
         });
+
     }
 }

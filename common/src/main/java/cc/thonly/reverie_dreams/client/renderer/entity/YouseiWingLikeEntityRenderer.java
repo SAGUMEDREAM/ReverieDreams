@@ -39,22 +39,22 @@ public class YouseiWingLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> e
     }
 
     @Override
-    public void submit(AvatarRenderState state, PoseStack matrices, SubmitNodeCollector nodeCollector, CameraRenderState p_450931_) {
-        matrices.pushPose();
-        matrices.scale(1.2f, 1.2f, 1.2f);
-        matrices.translate(0, 1, 0);
-        matrices.mulPose(Axis.YP.rotationDegrees(-state.bodyRot + 180));
+    public void submit(AvatarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        poseStack.pushPose();
+        poseStack.scale(1.2f, 1.2f, 1.2f);
+        poseStack.translate(0, 1, 0);
+        poseStack.mulPose(Axis.YP.rotationDegrees(-state.bodyRot + 180));
         if (state instanceof NPCAvatarRenderState rs) {
             rs.wingHolderRenderState.submit(
-                    matrices,
-                    nodeCollector,
+                    poseStack,
+                    submitNodeCollector,
                     state.lightCoords,
                     OverlayTexture.NO_OVERLAY,
                     0
             );
         }
-        matrices.popPose();
-        super.submit(state, matrices, nodeCollector, p_450931_);
+        poseStack.popPose();
+        super.submit(state, poseStack, submitNodeCollector, camera);
     }
 
     @Override

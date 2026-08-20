@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat.rei.category;
 import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
 import cc.thonly.reverie_dreams.compat.rei.display.KitchenDisplay;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 import me.shedaniel.math.Point;
@@ -85,15 +85,15 @@ public class KitchenRecipeCategory implements DisplayCategory<KitchenDisplay> {
         ItemStack iconStack;
 
         if (type.is(KitchenRecipeType.TypeInstance.COOKING_POT)) {
-            iconStack = KitchenBlocks.COOKING_POT.asItem().getDefaultInstance();
+            iconStack = RDKitchenBlocks.COOKING_POT.asItem().getDefaultInstance();
         } else if (type.is(KitchenRecipeType.TypeInstance.CUTTING_BOARD)) {
-            iconStack = KitchenBlocks.CUTTING_BOARD.asItem().getDefaultInstance();
+            iconStack = RDKitchenBlocks.CUTTING_BOARD.asItem().getDefaultInstance();
         } else if (type.is(KitchenRecipeType.TypeInstance.FRYING_PAN)) {
-            iconStack = KitchenBlocks.FRYING_PAN.asItem().getDefaultInstance();
+            iconStack = RDKitchenBlocks.FRYING_PAN.asItem().getDefaultInstance();
         } else if (type.is(KitchenRecipeType.TypeInstance.GRILL)) {
-            iconStack = KitchenBlocks.GRILL.asItem().getDefaultInstance();
+            iconStack = RDKitchenBlocks.GRILL.asItem().getDefaultInstance();
         } else if (type.is(KitchenRecipeType.TypeInstance.STEAMER)) {
-            iconStack = KitchenBlocks.STEAMER.asItem().getDefaultInstance();
+            iconStack = RDKitchenBlocks.STEAMER.asItem().getDefaultInstance();
         } else {
             iconStack = RDItems.MYSTIA_ICON.createStack();
         }

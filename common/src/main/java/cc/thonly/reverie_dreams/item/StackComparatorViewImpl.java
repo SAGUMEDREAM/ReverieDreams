@@ -11,7 +11,7 @@ import java.util.Objects;
 @SuppressWarnings("ALL")
 @ToString
 public final class StackComparatorViewImpl implements ItemComparatorView {
-    private final ItemStack itemStack;
+    private ItemStack itemStack;
 
     public StackComparatorViewImpl(IngredientStack stack) {
         this.itemStack = stack.build();
@@ -95,4 +95,9 @@ public final class StackComparatorViewImpl implements ItemComparatorView {
         return this.itemStack;
     }
 
+    @Override
+    public ItemStack stack(ItemStack stack) {
+        this.itemStack = stack;
+        return this.stack();
+    }
 }

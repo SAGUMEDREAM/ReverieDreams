@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -48,7 +48,7 @@ public class FumoSeller extends AbstractSeller {
         Random random = new Random(seed);
 
         List<MerchantOffer> offers = new ArrayList<>();
-        List<FumoType> allFumos = new ArrayList<>(RegistryImpls.FUMO.values());
+        List<FumoType> allFumos = new ArrayList<>(BuiltInRegistryProviders.FUMO.values());
 
         Collections.shuffle(allFumos, random);
 

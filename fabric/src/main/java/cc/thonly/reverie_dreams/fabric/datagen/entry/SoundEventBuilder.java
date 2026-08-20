@@ -8,10 +8,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.Identifier;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Accessors(chain = true)
 @Setter
@@ -19,7 +16,7 @@ import java.util.Map;
 public class SoundEventBuilder {
     private final Identifier key;
     private String subtitle;
-    private List<Object> sounds = new LinkedList<>();
+    private List<Object> sounds = new ArrayList<>(16);
 
     public SoundEventBuilder(Identifier key) {
         this.key = key;
@@ -63,7 +60,7 @@ public class SoundEventBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public JsonElement toJsonElement() {
+    public JsonElement toObject() {
         JsonObject jsonObject = new JsonObject();
 
         if (this.subtitle != null && !this.subtitle.isEmpty()) {

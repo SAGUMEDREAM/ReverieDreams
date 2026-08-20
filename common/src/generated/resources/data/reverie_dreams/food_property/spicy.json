@@ -3,21 +3,13 @@
   "properties": {
     "values": [
       "reverie_dreams:ingredient/chili",
-      "reverie_dreams:food/stinky_tofu",
-      "reverie_dreams:food/mapo_tofu",
-      "reverie_dreams:food/mushroom_girls_dance_stew",
-      "reverie_dreams:food/screaming_oden",
-      "reverie_dreams:food/hell_thrill_warning",
-      "reverie_dreams:food/beef_hot_pot",
-      "reverie_dreams:food/hula_soup",
-      "reverie_dreams:ingredient/chili",
-      "reverie_dreams:food/stinky_tofu",
-      "reverie_dreams:food/mapo_tofu",
-      "reverie_dreams:food/mushroom_girls_dance_stew",
-      "reverie_dreams:food/screaming_oden",
-      "reverie_dreams:food/hell_thrill_warning",
-      "reverie_dreams:food/beef_hot_pot",
-      "reverie_dreams:food/hula_soup"
+      "reverie_dreams:cuisine/stinky_tofu",
+      "reverie_dreams:cuisine/mapo_tofu",
+      "reverie_dreams:cuisine/mushroom_girls_dance_stew",
+      "reverie_dreams:cuisine/screaming_oden",
+      "reverie_dreams:cuisine/hell_thrill_warning",
+      "reverie_dreams:cuisine/beef_hot_pot",
+      "reverie_dreams:cuisine/hula_soup"
     ]
   }
 }

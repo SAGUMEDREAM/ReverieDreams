@@ -1,0 +1,57 @@
+{
+  "role_type": "reverie_dreams:reisen",
+  "rare": true,
+  "budget": {
+    "min": 200,
+    "max": 350
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:ocean_flavor",
+    "reverie_dreams:sweet",
+    "reverie_dreams:petite",
+    "reverie_dreams:local_specialty"
+  ],
+  "dislikes": [
+    "reverie_dreams:expensive"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:can_heated",
+    "reverie_dreams:soju",
+    "reverie_dreams:beer",
+    "reverie_dreams:bitter"
+  ],
+  "chats": [
+    "reverie_dreams.role.reisen.chat.0",
+    "reverie_dreams.role.reisen.chat.1",
+    "reverie_dreams.role.reisen.chat.2",
+    "reverie_dreams.role.reisen.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.reisen.order.0",
+    "reverie_dreams.role.reisen.order.1",
+    "reverie_dreams.role.reisen.order.2",
+    "reverie_dreams.role.reisen.order.3",
+    "reverie_dreams.role.reisen.order.4",
+    "reverie_dreams.role.reisen.order.5",
+    "reverie_dreams.role.reisen.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.reisen.description.0",
+    "reverie_dreams.role.reisen.description.1",
+    "reverie_dreams.role.reisen.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.reisen.evaluation.exbad",
+    "bad": "reverie_dreams.role.reisen.evaluation.bad",
+    "norm": "reverie_dreams.role.reisen.evaluation.norm",
+    "good": "reverie_dreams.role.reisen.evaluation.good",
+    "exgood": "reverie_dreams.role.reisen.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.reisen.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.reisen.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.reisen.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.reisen.evaluation.seenRepell"
+  }
+}

@@ -11,10 +11,10 @@ import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
@@ -96,7 +96,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 switch (posChar) {
                     case "X" -> this.setSlot(index, new GuiElementBuilder(Items.AIR));
                     case "N" ->
-                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.NEXT.value()).setCallback((i, t, sat, sbg) -> {
+                            this.setSlot(index, new GuiElementBuilder(RDGuiPlaceholderItems.NEXT.value()).setCallback((i, t, sat, sbg) -> {
                                 SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                                 if (this.page < this.maxPage) {
                                     this.page++;
@@ -104,7 +104,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                                 }
                             }));
                     case "P" ->
-                            this.setSlot(index, new GuiElementBuilder(RDGuiItems.PREV.value()).setCallback((i, t, sat, sbg) -> {
+                            this.setSlot(index, new GuiElementBuilder(RDGuiPlaceholderItems.PREV.value()).setCallback((i, t, sat, sbg) -> {
                                 SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                                 if (this.page > 0) {
                                     this.page--;
@@ -204,13 +204,13 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
             builder.setCallback((slotIndex, clickType, input, slotBasedGui) -> {
                 ItemStack itemStack = output.get();
-                for (CraftingConflict conflict : RegistryImpls.CRAFTING_CONFLICT.values()) {
+                for (CraftingConflict conflict : BuiltInRegistryProviders.CRAFTING_CONFLICT.values()) {
                     if (conflict.test(itemStack)) {
                         SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_DARK_CUISINE).trigger(this.player);
-                        output.set(RDFoodItems.DARK_CUISINE.createStack());
+                        output.set(RDCuisineItems.DARK_CUISINE.createStack());
                     }
                 }
-                if (outputShow.getOrDefault(RDDataComponents.FOOD_PROPERTIES.value(), List.of()).size() >= 5) {
+                if (outputShow.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), List.of()).size() >= 5) {
                     SimpleTriggerFactory
                             .create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG)
                             .trigger(this.player);
@@ -235,8 +235,8 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
         this.blockEntity.setChanged();
     }
 

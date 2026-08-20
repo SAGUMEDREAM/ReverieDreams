@@ -28,7 +28,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
 
     @SuppressWarnings("deprecation")
     @Override
-    protected void configured() {
+    protected void configured(HolderLookup.Provider provider) {
         for (FumoType fumoType : FumoTypes.getView()) {
             Block block = fumoType.block();
             this.addSixteenDirectionBlockState(block);

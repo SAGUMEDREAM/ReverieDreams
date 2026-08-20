@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.other;
 
 import cc.thonly.reverie_dreams.api.registry.BookPageManager;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,19 +21,19 @@ public class GuidebookItem extends Item {
     }
 
     public GuidebookItem(String namespace, Properties properties) {
-        super(properties.component(RDDataComponents.GUIDE_BOOK_NAMESPACE.value(), namespace));
+        super(properties.component(RDDataComponentTypes.GUIDE_BOOK_NAMESPACE.value(), namespace));
     }
 
     public GuidebookItem(Identifier pageId, Properties properties) {
-        super(properties.component(RDDataComponents.GUIDE_BOOK_PAGE_ID.value(), pageId));
+        super(properties.component(RDDataComponentTypes.GUIDE_BOOK_PAGE_ID.value(), pageId));
     }
 
     public void openPageIfExist(ItemStack itemStack, Player iPlayer) {
         if (!(iPlayer instanceof ServerPlayer player)) {
             return;
         }
-        String namespace = itemStack.get(RDDataComponents.GUIDE_BOOK_NAMESPACE.value());
-        Identifier pageId = itemStack.get(RDDataComponents.GUIDE_BOOK_PAGE_ID.value());
+        String namespace = itemStack.get(RDDataComponentTypes.GUIDE_BOOK_NAMESPACE.value());
+        Identifier pageId = itemStack.get(RDDataComponentTypes.GUIDE_BOOK_PAGE_ID.value());
         BookPageManager bookPageManager = BookPageManager.getInstance();
         if (namespace != null) {
             bookPageManager.openRoot(namespace, player);

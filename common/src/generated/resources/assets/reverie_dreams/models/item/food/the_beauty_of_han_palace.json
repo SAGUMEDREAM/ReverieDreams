@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "reverie_dreams:item/food/the_beauty_of_han_palace"
-  }
-}

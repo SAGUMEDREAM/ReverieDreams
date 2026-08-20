@@ -16,6 +16,7 @@ import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -91,6 +92,10 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(RDBlocks.POINT_BLOCK.asBlock());
         dropSelf(RDBlocks.POWER_BLOCK.asBlock());
         add(RDBlocks.SILVER_ORE.asBlock(), (Block block) -> this.createOreDrop(block, RDItems.RAW_SILVER.asItem()));
+        add(RDBlocks.MOON_IRON_ORE.asBlock(), (Block block) -> this.createOreDrop(block, Items.RAW_IRON.asItem()));
+        add(RDBlocks.MOON_GOLD_ORE.asBlock(), (Block block) -> this.createOreDrop(block, Items.RAW_GOLD.asItem()));
+        add(RDBlocks.MOON_DIAMOND_ORE.asBlock(), (Block block) -> this.createOreDrop(block, Items.DIAMOND.asItem()));
+        add(RDBlocks.MOON_QUARTZ_ORE.asBlock(), (Block block) -> this.createOreDrop(block, Items.QUARTZ.asItem()));
         add(RDBlocks.DEEPSLATE_SILVER_ORE.asBlock(), (Block block) -> this.createOreDrop(block, RDItems.RAW_SILVER.asItem()));
         Function<Block, LootTable.Builder> orbDropFunction = (Block block) -> {
             LootTable.Builder builder = new LootTable.Builder();
@@ -221,7 +226,9 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
         for (Block block : AbstractKitchenwareBlock.KITCHENWARE_BLOCKS) {
             dropSelf(block);
         }
-        dropSelf(RDBlocks.FOOD_DISPLAY.asBlock());
+        dropSelf(RDBlocks.PLATE.asBlock());
+        dropSelf(RDBlocks.CHAIR.asBlock());
+        dropSelf(RDBlocks.TABLE.asBlock());
 
         for (Map.Entry<Identifier, CropBlockBundle.Entry> view : CropBlockBundle.getViews()) {
             CropBlockBundle.Entry entry = view.getValue();

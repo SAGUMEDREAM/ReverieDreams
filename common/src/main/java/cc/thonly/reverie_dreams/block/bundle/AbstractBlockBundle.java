@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;

@@ -2,8 +2,14 @@ package cc.thonly.reverie_dreams.api.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 
 public interface LivingEntityDataModifier {
+
+    static LivingEntityDataModifier getMixin(LivingEntity entity) {
+        return (LivingEntityDataModifier) entity;
+    }
+
     void reverie_dreams$setMaxHealthModifier(float value);
 
     float reverie_dreams$getMaxHealthModifier();

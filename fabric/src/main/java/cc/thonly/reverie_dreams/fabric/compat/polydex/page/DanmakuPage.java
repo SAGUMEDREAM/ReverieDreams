@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.compat.polydex.page;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
@@ -78,7 +78,7 @@ public class DanmakuPage implements PolydexPage {
 
     private ItemStack getViewStack(String s) {
         if (s.equals("X")) {
-            return RDGuiItems.EMPTY_SLOT.createStack();
+            return RDGuiPlaceholderItems.EMPTY_SLOT.createStack();
         } else if (s.equals("A")) {
             return this.value.getDye().build().copy();
         } else if (s.equals("S")) {
@@ -90,7 +90,7 @@ public class DanmakuPage implements PolydexPage {
         } else if (s.equals("G")) {
             return this.value.getMaterial().build().copy();
         } else if (s.equals("T")) {
-            return RDGuiItems.PROGRESS_TO_RESULT_DOWN.createStack();
+            return RDGuiPlaceholderItems.PROGRESS_TO_RESULT_DOWN.createStack();
         } else if (s.equals("O")) {
             return this.value.getOutput().build().copy();
         }

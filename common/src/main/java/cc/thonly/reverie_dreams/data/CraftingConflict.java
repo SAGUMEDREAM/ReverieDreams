@@ -1,11 +1,10 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.CodecStep;
+import cc.thonly.reverie_dreams.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -16,6 +15,7 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
@@ -32,8 +32,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Stream;
 
+@Slf4j
 @ToString
-public class CraftingConflict implements CodecStep<CraftingConflict>, RegistryEntryOwnerBindable<CraftingConflict> {
+public class CraftingConflict implements SerializableProvider<CraftingConflict>, RegistryEntryOwnerBindable<CraftingConflict> {
     public static final Codec<CraftingConflict> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("item").forGetter((entry) -> BuiltInRegistries.ITEM.getKey(entry.item)),
             Codec.list(Identifier.CODEC).fieldOf("values").forGetter((entry) -> {
@@ -53,7 +54,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, RegistryEn
     private final Set<FoodProperty> foodProperties = new ObjectOpenHashSet<>();
     @Setter
     @Getter
-    private RegistryImpl<CraftingConflict> owner;
+    private RegistryProvider<CraftingConflict> owner;
 
     private CraftingConflict() {
         this.item = Items.AIR;
@@ -66,7 +67,7 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, RegistryEn
     public CraftingConflict(Item item, List<Identifier> identifiers) {
         this.item = item;
         for (var identifier : identifiers) {
-            FoodProperty property = RegistryImpls.FOOD_PROPERTY.getValue(identifier);
+            FoodProperty property = BuiltInRegistryProviders.FOOD_PROPERTY.getValue(identifier);
             if (property != null) {
                 this.foodProperties.add(property);
             }
@@ -114,9 +115,9 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, RegistryEn
     }
 
     public static void reload(ResourceManager manager) {
-        RegistryImpls.CRAFTING_CONFLICT.clear();
+        BuiltInRegistryProviders.CRAFTING_CONFLICT.clear();
         Map<Identifier, Resource> resources = manager.listResources("crafting_conflict", id ->
-                id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json")
+                id.getPath().endsWith(".json")
         );
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
             Identifier resId = entry.getKey();
@@ -129,17 +130,17 @@ public class CraftingConflict implements CodecStep<CraftingConflict>, RegistryEn
                 if (optional.isPresent()) {
                     CraftingConflict conflict = optional.get();
                     conflict.setId(id);
-                    RegistryImpls.register(RegistryImpls.CRAFTING_CONFLICT, id, conflict); // 注册
+                    BuiltInRegistryProviders.register(BuiltInRegistryProviders.CRAFTING_CONFLICT, id, conflict); // 注册
                 } else {
-                    ReverieDreams.LOGGER.error("Failed to parse crafting_conflict {}: {}", id, result.error().map(Object::toString).orElse("Unknown error"));
+                    log.error("Failed to parse crafting_conflict {}: {}", id, result.error().map(Object::toString).orElse("Unknown error"));
                 }
             } catch (IOException e) {
-                ReverieDreams.LOGGER.error("Failed to load food_property {}: {}", id, e.getMessage(), e);
+                log.error("Failed to load crafting_conflict {}: {}", id, e.getMessage(), e);
             }
         }
     }
 
-    public static void bootstrap(RegistryImpl<CraftingConflict> registry) {
+    public static void bootstrap(RegistryProvider<CraftingConflict> registry) {
 
     }
 }

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.block.bundle;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.CustomChestBlock;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import lombok.Getter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat.rrv.kitchen;
 import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -49,7 +49,7 @@ public abstract class BaseKitchenClientRecipeType implements ReliableClientRecip
     public static class CookingPotImpl extends BaseKitchenClientRecipeType {
         @Override
         public Component getDisplayName() {
-            return KitchenBlocks.COOKING_POT.asBlock().getName();
+            return RDKitchenBlocks.COOKING_POT.asBlock().getName();
         }
 
         @Override
@@ -59,14 +59,14 @@ public abstract class BaseKitchenClientRecipeType implements ReliableClientRecip
 
         @Override
         public ItemStack getIcon() {
-            return KitchenBlocks.COOKING_POT.createStack();
+            return RDKitchenBlocks.COOKING_POT.createStack();
         }
     }
 
     public static class CuttingBoardImpl extends BaseKitchenClientRecipeType {
         @Override
         public Component getDisplayName() {
-            return KitchenBlocks.CUTTING_BOARD.asBlock().getName();
+            return RDKitchenBlocks.CUTTING_BOARD.asBlock().getName();
         }
 
         @Override
@@ -76,14 +76,14 @@ public abstract class BaseKitchenClientRecipeType implements ReliableClientRecip
 
         @Override
         public ItemStack getIcon() {
-            return KitchenBlocks.CUTTING_BOARD.createStack();
+            return RDKitchenBlocks.CUTTING_BOARD.createStack();
         }
     }
 
     public static class FryingPanImpl extends BaseKitchenClientRecipeType {
         @Override
         public Component getDisplayName() {
-            return KitchenBlocks.FRYING_PAN.asBlock().getName();
+            return RDKitchenBlocks.FRYING_PAN.asBlock().getName();
         }
 
         @Override
@@ -93,14 +93,14 @@ public abstract class BaseKitchenClientRecipeType implements ReliableClientRecip
 
         @Override
         public ItemStack getIcon() {
-            return KitchenBlocks.FRYING_PAN.createStack();
+            return RDKitchenBlocks.FRYING_PAN.createStack();
         }
     }
 
     public static class GrillImpl extends BaseKitchenClientRecipeType {
         @Override
         public Component getDisplayName() {
-            return KitchenBlocks.GRILL.asBlock().getName();
+            return RDKitchenBlocks.GRILL.asBlock().getName();
         }
 
         @Override
@@ -110,14 +110,14 @@ public abstract class BaseKitchenClientRecipeType implements ReliableClientRecip
 
         @Override
         public ItemStack getIcon() {
-            return KitchenBlocks.GRILL.createStack();
+            return RDKitchenBlocks.GRILL.createStack();
         }
     }
 
     public static class SteamerImpl extends BaseKitchenClientRecipeType {
         @Override
         public Component getDisplayName() {
-            return KitchenBlocks.STEAMER.asBlock().getName();
+            return RDKitchenBlocks.STEAMER.asBlock().getName();
         }
 
         @Override
@@ -127,7 +127,7 @@ public abstract class BaseKitchenClientRecipeType implements ReliableClientRecip
 
         @Override
         public ItemStack getIcon() {
-            return KitchenBlocks.STEAMER.createStack();
+            return RDKitchenBlocks.STEAMER.createStack();
         }
     }
 }

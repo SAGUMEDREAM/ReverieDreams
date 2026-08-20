@@ -1,15 +1,16 @@
 package cc.thonly.reverie_dreams.registry.content.block;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.registry.AliasManager;
 import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import cc.thonly.reverie_dreams.block.bundle.ChestBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.props.*;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.Getter;
@@ -65,11 +66,27 @@ public class RDBlocks {
             BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
     // ===== Bundle =====
-    public static final DecorativeBlockBundle ICE_SCALES = DecorativeBlockBundle.create("ice_scales_block").build();
-    public static final DecorativeBlockBundle DREAM_STONE = DecorativeBlockBundle.create("dream_stone").build();
-    public static final DecorativeBlockBundle DREAM_STONE_BRICK = DecorativeBlockBundle.create("dream_stone_brick").build();
-    public static final DecorativeBlockBundle MOON_STONE = DecorativeBlockBundle.create("moon_stone").build();
-    public static final DecorativeBlockBundle MOON_STONE_BRICK = DecorativeBlockBundle.create("moon_stone_brick").build();
+    public static final DecorativeBlockBundle ICE_SCALES = DecorativeBlockBundle.create("ice_scales_block").map(properties -> properties.sound(SoundType.GLASS)).build();
+    public static final DecorativeBlockBundle DREAM_STONE = DecorativeBlockBundle.create("dream_stone").map(properties -> properties.sound(SoundType.STONE)).build();
+    public static final DecorativeBlockBundle DREAM_STONE_BRICK = DecorativeBlockBundle.create("dream_stone_brick").map(properties -> properties.sound(SoundType.STONE)).build();
+    public static final DecorativeBlockBundle MOON_STONE = DecorativeBlockBundle.create("moon_stone").map(properties -> properties.sound(SoundType.STONE)).build();
+    public static final DecorativeBlockBundle MOON_STONE_BRICK = DecorativeBlockBundle.create("moon_stone_brick").map(properties -> properties.sound(SoundType.STONE)).build();
+
+    public static final BlockDelegate MOON_IRON_ORE = registerBlock("moon_iron_ore", Block::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)
+    );
+
+    public static final BlockDelegate MOON_GOLD_ORE = registerBlock("moon_gold_ore", Block::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_ORE)
+    );
+
+    public static final BlockDelegate MOON_DIAMOND_ORE = registerBlock("moon_diamond_ore", Block::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_ORE)
+    );
+
+    public static final BlockDelegate MOON_QUARTZ_ORE = registerBlock("moon_quartz_ore", Block::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_QUARTZ_ORE)
+    );
 
     public static final BlockDelegate SILVER_ORE = registerBlock("silver_ore", Block::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE));
@@ -144,10 +161,20 @@ public class RDBlocks {
 //                BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(0.8F).sound(SoundType.WOOL).noOcclusion()
 //        );
 
-    public static final BlockDelegate FOOD_DISPLAY = registerSimpleBlock(
-            "display",
-            FoodDisplayBlock::new,
+    public static final BlockDelegate PLATE = registerSimpleBlock(
+            "plate",
+            PlateBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).noOcclusion().noCollision().sound(SoundType.GLASS)
+    );
+
+    public static final BlockDelegate CHAIR = registerBlock("chair",
+            ChairBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion()
+    );
+
+    public static final BlockDelegate TABLE = registerBlock("table",
+            TableBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion()
     );
 
     public static final BlockDelegate BLACK_SALT_BLOCK = registerSimpleBlock(
@@ -198,7 +225,7 @@ public class RDBlocks {
     }
 
     public static void initialize() {
-
+        AliasManager.get(Registries.BLOCK).addAlias(ReverieDreams.id("display"), ReverieDreams.id("plate"));
     }
 
     public static BlockDelegate registerSimpleBlock(BlockDelegate block) {
@@ -215,8 +242,8 @@ public class RDBlocks {
         if (name.equalsIgnoreCase("marisa_hat")) {
             itemSettings.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).build());
         }
-        RegistrySupplier<Block> block = ReverieDreamsRegistries.BLOCK.register(name, () -> factory.apply(blockSettings.setId(RDBlocks.keyOf(name))));
-        RegistrySupplier<BlockItem> blockItem = ReverieDreamsRegistries.ITEM.register(name, () -> new BlockItem(block.get(), itemSettings.setId(RDItems.keyOf(name)).useBlockDescriptionPrefix()));
+        RegistrySupplier<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> factory.apply(blockSettings.setId(RDBlocks.keyOf(name))));
+        RegistrySupplier<BlockItem> blockItem = MCBuiltInRegistries.ITEM.register(name, () -> new BlockItem(block.get(), itemSettings.setId(RDItems.keyOf(name)).useBlockDescriptionPrefix()));
         BlockDelegate blockDelegate = BlockDelegate.of(block);
         ReverieDreams.COMMON_LATE_INIT.add(() -> {
             ItemTypeGroup.join(blockItem.get());

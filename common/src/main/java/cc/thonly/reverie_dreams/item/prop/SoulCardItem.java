@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +28,7 @@ public class SoulCardItem extends Item {
         Player player = context.getPlayer();
         if (!contextWorld.isClientSide() && contextWorld instanceof ServerLevel world && player != null) {
             ItemStack stack = context.getItemInHand();
-            DataComponentType<RoleFollowerArchive> dataComponentType = RDDataComponents.ROLE_FOLLOWER_ARCHIVE.value();
+            DataComponentType<RoleFollowerArchive> dataComponentType = RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE.value();
             RoleFollowerArchive followerArchive = stack.get(dataComponentType);
             if (followerArchive == null) {
                 return InteractionResult.PASS;

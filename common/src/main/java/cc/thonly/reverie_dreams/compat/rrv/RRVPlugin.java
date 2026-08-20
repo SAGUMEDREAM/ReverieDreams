@@ -17,9 +17,9 @@ import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -40,7 +40,7 @@ public class RRVPlugin implements ReliableRecipeViewerClientPlugin {
     @Override
     public void onIntegrationInitialize() {
         ItemView.addClientReloadCallback(() -> {
-            for (DanmakuType type : RegistryImpls.DANMAKU_TYPE) {
+            for (DanmakuType type : BuiltInRegistryProviders.DANMAKU_TYPE) {
 //                if (type.isDeleteFromList()) {
 //                    continue;
 //                }
@@ -49,15 +49,15 @@ public class RRVPlugin implements ReliableRecipeViewerClientPlugin {
                     ItemView.addStackSensitive(tuple.getB().create());
                 }
             }
-            for (DanmakuShape danmakuShape : RegistryImpls.DANMAKU_SHAPE) {
+            for (DanmakuShape danmakuShape : BuiltInRegistryProviders.DANMAKU_SHAPE) {
                 ItemStack itemStack = danmakuShape.getItemStackOrThrow();
                 ItemView.addStackSensitive(itemStack);
             }
-            for (RoleCard roleCard : RegistryImpls.ROLE_CARD) {
+            for (RoleCard roleCard : BuiltInRegistryProviders.ROLE_CARD) {
                 ItemStackTemplate template = roleCard.getTemplate();
                 ItemView.addStackSensitive(template.create());
             }
-            for (Holder<Item> holder : RDGuiItems.getGuiItemList()) {
+            for (Holder<Item> holder : RDGuiPlaceholderItems.getGuiPlaceholderItemList()) {
                 ItemView.excludeItem(holder.value());
             }
             for (Holder<Item> holder : RDEntityHolderItems.HOLDERS) {

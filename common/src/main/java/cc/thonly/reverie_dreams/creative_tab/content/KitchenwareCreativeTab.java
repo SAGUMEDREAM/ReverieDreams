@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.core.registries.Registries;
@@ -15,40 +15,42 @@ public class KitchenwareCreativeTab implements ItemGroupContentHelper {
 
     public static void bootstrap() {
         ItemGroupContentHelper.registerGroup(KitchenwareCreativeTab.ITEM_GROUP_KEY, builder -> new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
-                .icon(() -> new ItemStack(KitchenBlocks.COOKING_POT))
+                .icon(() -> new ItemStack(RDKitchenBlocks.COOKING_POT))
                 .title(Component.translatable("item_group.kitchenware_item_group"))
                 .displayItems((parameters, output) -> {
-                    output.accept(KitchenBlocks.COOKING_POT);
-                    output.accept(KitchenBlocks.CUTTING_BOARD);
-                    output.accept(KitchenBlocks.FRYING_PAN);
-                    output.accept(KitchenBlocks.GRILL);
-                    output.accept(KitchenBlocks.STEAMER);
+                    output.accept(RDKitchenBlocks.COOKING_POT);
+                    output.accept(RDKitchenBlocks.CUTTING_BOARD);
+                    output.accept(RDKitchenBlocks.FRYING_PAN);
+                    output.accept(RDKitchenBlocks.GRILL);
+                    output.accept(RDKitchenBlocks.STEAMER);
 
-                    output.accept(KitchenBlocks.MYSTIA_COOKING_POT);
-                    output.accept(KitchenBlocks.MYSTIA_CUTTING_BOARD);
-                    output.accept(KitchenBlocks.MYSTIA_FRYING_PAN);
-                    output.accept(KitchenBlocks.MYSTIA_GRILL);
-                    output.accept(KitchenBlocks.MYSTIA_STEAMER);
+                    output.accept(RDKitchenBlocks.MYSTIA_COOKING_POT);
+                    output.accept(RDKitchenBlocks.MYSTIA_CUTTING_BOARD);
+                    output.accept(RDKitchenBlocks.MYSTIA_FRYING_PAN);
+                    output.accept(RDKitchenBlocks.MYSTIA_GRILL);
+                    output.accept(RDKitchenBlocks.MYSTIA_STEAMER);
 
-                    output.accept(KitchenBlocks.SUPER_COOKING_POT);
-                    output.accept(KitchenBlocks.SUPER_CUTTING_BOARD);
-                    output.accept(KitchenBlocks.SUPER_FRYING_PAN);
-                    output.accept(KitchenBlocks.SUPER_GRILL);
-                    output.accept(KitchenBlocks.SUPER_STEAMER);
+                    output.accept(RDKitchenBlocks.SUPER_COOKING_POT);
+                    output.accept(RDKitchenBlocks.SUPER_CUTTING_BOARD);
+                    output.accept(RDKitchenBlocks.SUPER_FRYING_PAN);
+                    output.accept(RDKitchenBlocks.SUPER_GRILL);
+                    output.accept(RDKitchenBlocks.SUPER_STEAMER);
 
-                    output.accept(KitchenBlocks.EXTREME_COOKING_POT);
-                    output.accept(KitchenBlocks.EXTREME_CUTTING_BOARD);
-                    output.accept(KitchenBlocks.EXTREME_FRYING_PAN);
-                    output.accept(KitchenBlocks.EXTREME_GRILL);
-                    output.accept(KitchenBlocks.EXTREME_STEAMER);
+                    output.accept(RDKitchenBlocks.EXTREME_COOKING_POT);
+                    output.accept(RDKitchenBlocks.EXTREME_CUTTING_BOARD);
+                    output.accept(RDKitchenBlocks.EXTREME_FRYING_PAN);
+                    output.accept(RDKitchenBlocks.EXTREME_GRILL);
+                    output.accept(RDKitchenBlocks.EXTREME_STEAMER);
 
-                    output.accept(KitchenBlocks.NUKE_COOKING_POT);
-                    output.accept(KitchenBlocks.NUKE_CUTTING_BOARD);
-                    output.accept(KitchenBlocks.NUKE_FRYING_PAN);
-                    output.accept(KitchenBlocks.NUKE_GRILL);
-                    output.accept(KitchenBlocks.NUKE_STEAMER);
+                    output.accept(RDKitchenBlocks.NUKE_COOKING_POT);
+                    output.accept(RDKitchenBlocks.NUKE_CUTTING_BOARD);
+                    output.accept(RDKitchenBlocks.NUKE_FRYING_PAN);
+                    output.accept(RDKitchenBlocks.NUKE_GRILL);
+                    output.accept(RDKitchenBlocks.NUKE_STEAMER);
 
-                    output.accept(RDBlocks.FOOD_DISPLAY);
+                    output.accept(RDBlocks.PLATE);
+                    output.accept(RDBlocks.CHAIR);
+                    output.accept(RDBlocks.TABLE);
                     output.accept(RDItems.FAST_RECIPE_BOOK);
                 })
         );

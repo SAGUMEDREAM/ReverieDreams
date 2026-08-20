@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.entity.misc;
 import cc.thonly.reverie_dreams.api.entity.type.BypassHitEntity;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
@@ -84,9 +84,9 @@ public class BaguaFurnaceEntity extends Entity implements BypassHitEntity {
         if (this.intervalTick1 <= 0) {
             if (!this.level().isClientSide()) {
                 ItemStack stack = DanmakuTypes.random(DanmakuTypes.BIG_LASER).create();
-                DanmakuProperties properties = stack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                 if (properties != null) {
-                    stack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.withSpeed(2f));
+                    stack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.withSpeed(2f));
                 }
                 DanmakuEntity entity = DanmakuTrajectory.spawnByItemStack(
                         (ServerLevel) this.level(),

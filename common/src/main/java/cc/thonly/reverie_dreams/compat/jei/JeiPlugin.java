@@ -9,11 +9,11 @@ import cc.thonly.reverie_dreams.recipe.IClientRecipes;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -88,7 +88,7 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registry) {
-        for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
+        for (DanmakuType danmakuType : BuiltInRegistryProviders.DANMAKU_TYPE) {
             ItemDelegate itemHolder = danmakuType.getItemHolder();
             registry.registerSubtypeInterpreter(itemHolder.asItem(), (stack, context) -> {
                 var color = stack.get(DataComponents.DYED_COLOR);
@@ -100,14 +100,14 @@ public class JeiPlugin implements IModPlugin {
             });
         }
         registry.registerSubtypeInterpreter(RDItems.ROLE_CARD.asItem(), (stack, context) -> {
-            var id = stack.get(RDDataComponents.ROLE_CARD_ID.value());
+            var id = stack.get(RDDataComponentTypes.ROLE_CARD_ID.value());
             if (id == null) {
                 return "default";
             }
             return id;
         });
         registry.registerSubtypeInterpreter(RDItems.DANMAKU_SHAPE_CREATOR.asItem(), (stack, context) -> {
-            var shape = stack.get(RDDataComponents.DANMAKU_SHAPE.value());
+            var shape = stack.get(RDDataComponentTypes.DANMAKU_SHAPE.value());
             if (shape == null) {
                 return "default";
             }

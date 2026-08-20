@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
+import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,7 +31,7 @@ public abstract class AbstractJukeboxProvider implements DataProvider {
     public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, JukeboxSong> identifierJukeboxSongMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, JukeboxSong> registries = new Object2ObjectOpenHashMap<>();
 
     public AbstractJukeboxProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
@@ -38,22 +40,22 @@ public abstract class AbstractJukeboxProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
-        return CompletableFuture.runAsync(() -> {
-            this.configured();
-            this.export(writer);
+        return this.future.thenAcceptAsync((provider) -> {
+            this.configured(provider);
+            DataProviderHelper.outputFile(writer, this.registries, JukeboxSong.DIRECT_CODEC, "jukebox_song");
         });
     }
 
     public JukeboxSong add(Identifier id, JukeboxSong song) {
-        return this.identifierJukeboxSongMap.put(id, song);
+        return this.registries.put(id, song);
     }
 
-    public abstract void configured();
+    public abstract void configured(HolderLookup.Provider provider);
 
     public void export(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
-            for (var entry: this.identifierJukeboxSongMap.entrySet()) {
+            for (var entry: this.registries.entrySet()) {
                 String namespace = entry.getKey().getNamespace();
                 String key = entry.getKey().getPath();
                 JukeboxSong ref = entry.getValue();

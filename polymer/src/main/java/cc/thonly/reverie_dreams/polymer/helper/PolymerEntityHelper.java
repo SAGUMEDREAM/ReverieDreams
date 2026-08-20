@@ -2,10 +2,10 @@ package cc.thonly.reverie_dreams.polymer.helper;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.polymer.entity.*;
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.polymer.entity.inf.PolymerHolderEntity;
 import cc.thonly.reverie_dreams.polymer.entity.inf.TickHolderEntity;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.fabric.util.ModelUtil;
 import de.tomalbrc.bil.core.model.Model;
@@ -49,7 +49,7 @@ public class PolymerEntityHelper {
         registerOverlay(RDEntityTypes.DANMAKU.value(), DanmakuImpl::new);
         registerOverlay(RDEntityTypes.KNIFE.value(), DanmakuImpl::new);
         registerOverlay(RDEntityTypes.FUMO_SELLER_VILLAGER.value(), VillagerImpl::new);
-        registerOverlay(RDEntityTypes.NPC_ROLE.value(), RoleImpl::new);
+        registerOverlay(RDEntityTypes.NPC_SIMPLE_ENTITY.value(), RoleImpl::new);
         registerOverlay(RDEntityTypes.HAIRBALL.value(), HairballImpl::new);
         registerOverlay(RDEntityTypes.MUSHROOM_MONSTER.value(), MushroomMonsterImpl::new);
         registerOverlay(RDEntityTypes.WILD_PIG.value(), WildPigImpl::new);
@@ -58,8 +58,9 @@ public class PolymerEntityHelper {
         registerOverlay(RDEntityTypes.UFO.value(), UfoImpl::new);
         registerOverlay(RDEntityTypes.RABBIT_UNIT.value(), RoleImpl::new);
         registerOverlay(RDEntityTypes.ONI.value(), RoleImpl::new);
+        registerOverlay(RDEntityTypes.FISHING_BOBBER.value(), npcFishingHook -> (PolymerEntity) context -> EntityType.BLOCK_DISPLAY);
 
-        for (NPCRole role : RegistryImpls.NPC_ROLE) {
+        for (NPCRoleType role : BuiltInRegistryProviders.NPC_ROLE_TYPE) {
             registerOverlay(role.getEntityType().value(), npcRoleFastEntity -> context -> EntityType.BLOCK_DISPLAY);
         }
 

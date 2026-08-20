@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.core.registries.Registries;
@@ -30,7 +30,7 @@ public class TemplateCreativeTab implements ItemGroupContentHelper {
                         ItemStackTemplate stack = view.getValue();
                         output.accept(stack.create());
                     }
-                    for (DanmakuShape shape : RegistryImpls.DANMAKU_SHAPE) {
+                    for (DanmakuShape shape : BuiltInRegistryProviders.DANMAKU_SHAPE) {
                         if (shape.getType().isDeleteFromList()) {
                             continue;
                         }

@@ -15,7 +15,7 @@ public class JukeboxProvider extends AbstractJukeboxProvider {
     }
 
     @Override
-    public void configured() {
+    public void configured(HolderLookup.Provider provider) {
         for (JukeBoxEntry entry : JukeboxSongInit.ENTRIES) {
             this.add(ReverieDreams.id(entry.getId()), entry.getEntryByProvider());
         }

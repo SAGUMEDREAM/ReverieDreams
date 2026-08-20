@@ -9,6 +9,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -33,7 +35,7 @@ public class Rokanken extends SwordItem implements YoumuSwordUsing {
             return;
         }
         var look = attacker.getLookAngle();
-
+        attacker.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1));
         double forwardStrength = 0.34;
         double yBoost = 0.05;
 

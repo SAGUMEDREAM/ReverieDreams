@@ -7,7 +7,7 @@ import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import cc.thonly.reverie_dreams.compat.rrv.RRVPlugin;
 import cc.thonly.reverie_dreams.compat.rrv.RRVRecipeTypes;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
@@ -34,13 +34,13 @@ public class DanmakuCraftingTableRecipe implements ReliableClientRecipe {
     public void bindSlots(RecipeViewMenu.SlotFillContext context) {
         for (int i = 0; i < 5; i++) {
             if (i > this.inputs.size() - 1) {
-                SlotContent slotContent = SlotContent.of(RDGuiItems.EMPTY_ITEM.asItem());
+                SlotContent slotContent = SlotContent.of(RDGuiPlaceholderItems.EMPTY_ITEM.asItem());
                 context.bindOptionalSlot(i, slotContent, RRVPlugin.RENDERER);
                 continue;
             }
             SlotContent slotContent = this.inputs.get(i);
             if (slotContent.isEmpty()) {
-                context.bindOptionalSlot(i,  SlotContent.of(RDGuiItems.EMPTY_ITEM.asItem()), RRVPlugin.RENDERER);
+                context.bindOptionalSlot(i,  SlotContent.of(RDGuiPlaceholderItems.EMPTY_ITEM.asItem()), RRVPlugin.RENDERER);
                 continue;
             }
             context.bindOptionalSlot(i, slotContent, RRVPlugin.RENDERER);

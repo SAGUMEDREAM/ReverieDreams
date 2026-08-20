@@ -1,10 +1,15 @@
 package cc.thonly.reverie_dreams;
 
+import cc.thonly.reverie_dreams.data.BeverageProperty;
+import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
+import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -12,11 +17,14 @@ import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.NotaUtils;
-import cc.thonly.reverie_dreams.util.entity.EntityUtil;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import cc.thonly.reverie_dreams.util.entity.EntityHelper;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import dev.architectury.event.EventResult;
 import net.minecraft.core.*;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -35,6 +43,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -47,11 +56,14 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings({"resource", "SameReturnValue", "deprecation", "JavaExistingMethodCanBeUsed"})
 public class CommonEventHandlers {
+
     // 银质物品对亡灵伤害
     public static EventResult onModifyingLivingEntityDamageByUndeadSilverDamage(LivingEntity entity, DamageSource damageSource, float damageAmount) {
         Entity directEntity = damageSource.getDirectEntity();
@@ -62,17 +74,17 @@ public class CommonEventHandlers {
             return EventResult.pass();
         }
         ItemStack itemInHand = attacker.getItemInHand(InteractionHand.MAIN_HAND);
-        if (!itemInHand.has(RDDataComponents.SILVER_ITEM.value())) {
+        if (!itemInHand.has(RDDataComponentTypes.SILVER_ITEM.value())) {
             return EventResult.pass();
         }
-        EntityUtil.hurt((ServerLevel) entity.level(), entity, damageSource, 2);
+        EntityHelper.hurt((ServerLevel) entity.level(), entity, damageSource, 2);
         return EventResult.pass();
     }
 
     // 银质物品对亡灵伤害
     public static boolean onPostHitBySilverWeapon(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         MinecraftServer server = target.level().getServer();
-        if (server != null && target.level() instanceof ServerLevel serverWorld && stack.has(RDDataComponents.SILVER_ITEM.value())) {
+        if (server != null && target.level() instanceof ServerLevel serverWorld && stack.has(RDDataComponentTypes.SILVER_ITEM.value())) {
             RegistryAccess.Frozen registryAccess = server.registryAccess();
             Registry<EntityType<?>> entityTypes = registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
             DamageSources damageSources = attacker.damageSources();
@@ -180,7 +192,7 @@ public class CommonEventHandlers {
             }
             if (itemEnchantmentLevel != 0) {
                 var look = attacker.getLookAngle();
-
+                boolean sprinting = attacker.isSprinting();
                 double forwardStrength = 0.34 + 0.2 * itemEnchantmentLevel;
                 double yBoost = 0.05 + 0.015 * itemEnchantmentLevel;
 
@@ -192,11 +204,16 @@ public class CommonEventHandlers {
 
                 attacker.hurtMarked = true;
                 attacker.fallDistance = 0;
+
+                if (sprinting) {
+                    attacker.setSprinting(true);
+                }
                 SoundEventPlayUtils.playSound(level, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.NEUTRAL);
             }
         }
         return true;
     }
+    //
 
     // 银制品秒杀鬼魂
     public static boolean onPostHitByInstantKillGhost(ItemStack stack, LivingEntity target, LivingEntity attacker) {
@@ -246,14 +263,14 @@ public class CommonEventHandlers {
             return InteractionResult.PASS;
         }
         if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
-            int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
+            int fov = stack.getOrDefault(RDDataComponentTypes.FOV.value(), 75);
             int newFov = fov - 1;
             if (newFov < 30)
                 newFov = 30;
             if (newFov > 110)
                 newFov = 110;
 
-            stack.set(RDDataComponents.FOV.value(), newFov);
+            stack.set(RDDataComponentTypes.FOV.value(), newFov);
 
             serverPlayer.sendSystemMessage(
                     Component.literal("§aFOV: " + newFov),
@@ -276,15 +293,15 @@ public class CommonEventHandlers {
                     return InteractionResult.SUCCESS_SERVER;
                 }
 
-                String playingMusic = stack.get(RDDataComponents.PLAYING_MUSIC.value());
+                String playingMusic = stack.get(RDDataComponentTypes.PLAYING_MUSIC.value());
                 int index = playingMusic == null ? -1 : fileNames.indexOf(playingMusic);
                 index = (index - 1 + fileNames.size()) % fileNames.size(); // 向上翻页
 
                 String previous = fileNames.get(index);
-                stack.set(RDDataComponents.PLAYING_MUSIC.value(), previous);
+                stack.set(RDDataComponentTypes.PLAYING_MUSIC.value(), previous);
                 serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.switch_music", previous), false);
                 if (NotaUtils.isPlaying(serverPlayer)) {
-                    NoteBlockInstrument noteBlockInstrument = stack.getOrDefault(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.PLING);
+                    NoteBlockInstrument noteBlockInstrument = stack.getOrDefault(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.PLING);
                     NotaUtils.play(serverPlayer, previous, noteBlockInstrument);
                 }
                 serverPlayer.swing(hand);
@@ -315,6 +332,63 @@ public class CommonEventHandlers {
             SoundEventPlayUtils.playSound(entity.level(), entity.getX(), entity.getY(), entity.getZ(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL);
         }
         return EventResult.pass();
+    }
+
+    // 食用物品回调
+    public static EventResult onFinishUseItem(ItemStack itemStack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir) {
+        onFinishAnyGoldenApple(itemStack, level, entity, cir);
+        onFinishFoodItem(itemStack, level, entity, cir);
+        onFinishBeverageItem(itemStack, level, entity, cir);
+        return EventResult.pass();
+    }
+
+    public static void onFinishAnyGoldenApple(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+        if (itemStack.is(Items.GOLDEN_APPLE)) {
+            EntityHelper.removeDeathLevel(livingEntity, 1);
+        } else if (itemStack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
+            EntityHelper.removeDeathLevel(livingEntity, 2);
+        }
+    }
+
+    public static void onFinishFoodItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+        if (itemStack.is(RDItemTags.INGREDIENT)) {
+            return;
+        }
+        FoodProperties.get(itemStack);
+        if (itemStack.has(RDDataComponentTypes.FOOD_PROPERTIES.value()) && (itemStack.has(RDDataComponentTypes.FOOD_ITEM_TYPE.value())) || itemStack.has(DataComponents.FOOD)) {
+            Collection<FoodProperty> foodProperties = FoodProperties.get(itemStack);
+            foodProperties.forEach(property -> {
+                property.use((ServerLevel) level, livingEntity);
+            });
+            int size = foodProperties.size();
+            if (size != 0) {
+                net.minecraft.world.food.FoodProperties properties = new net.minecraft.world.food.FoodProperties(size, size * 1.5f, false);
+                if (livingEntity instanceof ServerPlayer serverPlayer) {
+                    FoodData foodData = serverPlayer.getFoodData();
+                    foodData.eat(properties);
+                    SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
+                } else if (livingEntity instanceof NPCSimpleEntity npc && npc.isEnableTamableFeature() && npc.canFeed()) {
+                    NPCFoodDataContainer foodData = npc.getFoodData();
+                    foodData.eat(properties);
+                }
+            }
+        }
+    }
+
+    public static void onFinishBeverageItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+        BeverageProperties.get(itemStack);
+        if (itemStack.has(RDDataComponentTypes.BEVERAGE_PROPERTIES.value()) && (itemStack.has(RDDataComponentTypes.DRINK_ITEM_TYPE.value()) || itemStack.has(DataComponents.FOOD))) {
+            if (livingEntity instanceof NPCSimpleEntity npc && !npc.canFeed()) {
+                return;
+            }
+            List<BeverageProperty> drinkProperties = BeverageProperties.get(itemStack);
+            drinkProperties.forEach(property -> {
+                property.use((ServerLevel) level, livingEntity);
+            });
+            if (livingEntity instanceof ServerPlayer serverPlayer) {
+                SimpleTriggerFactory.create(SimpleTriggerKeys.HAVING_DRINK).trigger(serverPlayer);
+            }
+        }
     }
 
 }

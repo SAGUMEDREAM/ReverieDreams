@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "reverie_dreams:item/food/ginkgo_and_radish_pork_rib_soup"
-  }
-}

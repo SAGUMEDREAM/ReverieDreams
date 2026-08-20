@@ -20,9 +20,9 @@ import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.item.weapon.*;
 import cc.thonly.reverie_dreams.proxy.GuidebookFactory;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -65,7 +65,7 @@ public class RDItems {
     };
 
     // 调试
-    public static final ItemDelegate BATTLE_STICK = registerSimpleItem("battle_stick", props -> new BattleStickItem(props.stacksTo(1).component(RDDataComponents.BATTLE_STICK_RECORDER.value(), BattleStickRecorder.empty())), new Item.Properties());
+    public static final ItemDelegate BATTLE_STICK = registerSimpleItem("battle_stick", props -> new BattleStickItem(props.stacksTo(1).component(RDDataComponentTypes.BATTLE_STICK_RECORDER.value(), BattleStickRecorder.empty())), new Item.Properties());
     public static final ItemDelegate OWNER_STICK = registerSimpleItem("owner_stick", props -> new OwnerStickItem(props.stacksTo(1)), new Item.Properties());
 
     // 图标
@@ -105,7 +105,7 @@ public class RDItems {
     public static final ItemDelegate GUIDEBOOK = registerItem("guidebook", props -> GuidebookFactory.EVENT.invoker().create(props.stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)), new Item.Properties());
     public static final ItemDelegate UPGRADED_HEALTH = registerItem("upgraded_health", props -> new UpgradedHealthItem(props), new Item.Properties());
     public static final ItemDelegate BOMB = registerItem("bomb", props -> new BombItem(props.useCooldown(2.0f)), new Item.Properties());
-    public static final ItemDelegate CROSSING_CHISEL = registerItem("crossing_chisel", props -> new CrossingChisel(props.useCooldown(3.0f).component(RDDataComponents.MAX_DISTANCE.value(), CrossingChisel.DEFAULT_VALUE).stacksTo(1).durability(150)), new Item.Properties());
+    public static final ItemDelegate CROSSING_CHISEL = registerItem("crossing_chisel", props -> new CrossingChisel(props.useCooldown(3.0f).component(RDDataComponentTypes.MAX_DISTANCE.value(), CrossingChisel.DEFAULT_VALUE).stacksTo(1).durability(150)), new Item.Properties());
     public static final ItemDelegate GAP_BALL = registerItem("gap_ball", props -> new GapBall(props.stacksTo(1)), new Item.Properties());
     public static final ItemDelegate TIME_STOP_CLOCK = registerItem("time_stop_clock", props -> new TimeStopClock(props.stacksTo(1).durability(200).repairable(ItemTags.GOLD_TOOL_MATERIALS)), new Item.Properties());
     public static final ItemDelegate EARPHONE = registerItem("earphone", props -> new EarphoneItem(props.durability(ArmorType.HELMET.getDurability(EarphoneArmorMaterial.BASE_DURABILITY))), new Item.Properties());
@@ -134,7 +134,7 @@ public class RDItems {
                     Optional.of(SoundEvents.SHIELD_BREAK)))
             .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)), new Item.Properties());
     public static final ItemDelegate TENGU_CAMERA = registerItem("tengu_camera", props -> new TenguCameraItem(props.stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR)), new Item.Properties());
-    public static final ItemDelegate HIMEKAIDOU_HATATES_PHONE = registerItem("himekaidou_hatates_phone", props -> new HimekaidouHatatesPhone(props.component(RDDataComponents.FOV.value(), 75).stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR)), new Item.Properties());
+    public static final ItemDelegate HIMEKAIDOU_HATATES_PHONE = registerItem("himekaidou_hatates_phone", props -> new HimekaidouHatatesPhone(props.component(RDDataComponentTypes.FOV.value(), 75).stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR)), new Item.Properties());
     public static final ItemDelegate BAD_APPLE = registerItem("bad_apple", props -> new BadAppleItem(props.food(Foods.GOLDEN_APPLE).stacksTo(16).rarity(Rarity.EPIC)), new Item.Properties());
     public static final ItemDelegate SCARECROW = registerItem("scarecrow", props -> new ScarecrowItem(props), new Item.Properties());
     public static final ItemDelegate EXORCISM_PAPER = registerItem("exorcism_paper", props -> new ExorcismPaperItem(props.stacksTo(16)), new Item.Properties());
@@ -167,28 +167,28 @@ public class RDItems {
     public static final ItemDelegate TRUMPET_GUN = registerItem("trumpet_gun", props -> new TrumpetGun(props.stacksTo(1).durability(150).repairable(Items.GOLD_BLOCK)), new Item.Properties());
     public static final ItemDelegate TREASURE_HUNTING_ROD = registerItem("treasure_hunting_rod", props -> new TreasureHuntingRod(2f, -2.8f, props), new Item.Properties());
     public static final ItemDelegate DEATH_SCYTHE = registerItem("death_scythe", props -> new DeathScytheItem(1f, -2.8f, props), new Item.Properties());
-    public static final ItemDelegate VIOLIN = registerItem("violin", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.FLUTE)), new Item.Properties());
-    public static final ItemDelegate KEYBOARD = registerItem("keyboard", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.PLING)), new Item.Properties());
-    public static final ItemDelegate TRUMPET = registerItem("trumpet", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.TRUMPET)), new Item.Properties());
+    public static final ItemDelegate VIOLIN = registerItem("violin", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.FLUTE)), new Item.Properties());
+    public static final ItemDelegate KEYBOARD = registerItem("keyboard", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.PLING)), new Item.Properties());
+    public static final ItemDelegate TRUMPET = registerItem("trumpet", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.TRUMPET)), new Item.Properties());
     public static final ItemDelegate IRON_BAR = registerItem("iron_bar", props -> new IronBarItem(props.stacksTo(1).component(DataComponents.TOOL, new Tool(List.of(), 1.0F, 2, false)).durability(400).repairable(RDItemTags.IRON_BAR_MATERIALS).attributes(ItemAttributeModifiers.builder().add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 8, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, 1 - 1 - 3.3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build()).enchantable(15)), new Item.Properties());
 
     // 银装备
     public static final ItemDelegate RAW_SILVER = registerItem("raw_silver", props -> new Item(props), new Item.Properties());
     public static final ItemDelegate SILVER_INGOT = registerItem("silver_ingot", props -> new Item(props), new Item.Properties());
     public static final ItemDelegate SILVER_NUGGET = registerItem("silver_nugget", props -> new Item(props), new Item.Properties());
-    public static final ItemDelegate SILVER_SWORD = registerItem("silver_sword", props -> new SwordItem(SilverMaterial.INSTANCE, 3.0f, -2.4f, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
-    public static final ItemDelegate SILVER_AXE = registerItem("silver_axe", props -> new AxeItem(SilverMaterial.INSTANCE, 6.0f, -2.8f, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
-    public static final ItemDelegate SILVER_PICKAXE = registerItem("silver_pickaxe", props -> new PickaxeItem(SilverMaterial.INSTANCE, 1.0f, -2.8f, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
-    public static final ItemDelegate SILVER_SHOVEL = registerItem("silver_shovel", props -> new ShovelItem(SilverMaterial.INSTANCE, 1.5f, -3.0f, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
-    public static final ItemDelegate SILVER_HOE = registerItem("silver_hoe", props -> new HoeItem(SilverMaterial.INSTANCE, -2.0f, -1.0f, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
+    public static final ItemDelegate SILVER_SWORD = registerItem("silver_sword", props -> new SwordItem(SilverMaterial.INSTANCE, 3.0f, -2.4f, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
+    public static final ItemDelegate SILVER_AXE = registerItem("silver_axe", props -> new AxeItem(SilverMaterial.INSTANCE, 6.0f, -2.8f, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
+    public static final ItemDelegate SILVER_PICKAXE = registerItem("silver_pickaxe", props -> new PickaxeItem(SilverMaterial.INSTANCE, 1.0f, -2.8f, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
+    public static final ItemDelegate SILVER_SHOVEL = registerItem("silver_shovel", props -> new ShovelItem(SilverMaterial.INSTANCE, 1.5f, -3.0f, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
+    public static final ItemDelegate SILVER_HOE = registerItem("silver_hoe", props -> new HoeItem(SilverMaterial.INSTANCE, -2.0f, -1.0f, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE)), new Item.Properties());
     public static final ItemDelegate SILVER_SPEAR = registerItem("silver_spear", props -> new CustomSpear(props.spear(SilverMaterial.INSTANCE, 0.95F, 0.95F, 0.6F, 2.5F, 8.0F, 6.75F, 5.1F, 11.25F, 4.6F)), new Item.Properties());
-    public static final ItemDelegate SILVER_HELMET = registerItem("silver_helmet", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.HELMET, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.HELMET.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
-    public static final ItemDelegate SILVER_CHESTPLATE = registerItem("silver_chestplate", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.CHESTPLATE.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
-    public static final ItemDelegate SILVER_LEGGINGS = registerItem("silver_leggings", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.LEGGINGS, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.LEGGINGS.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
-    public static final ItemDelegate SILVER_BOOTS = registerItem("silver_boots", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.BOOTS, props.component(RDDataComponents.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.BOOTS.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
+    public static final ItemDelegate SILVER_HELMET = registerItem("silver_helmet", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.HELMET, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.HELMET.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
+    public static final ItemDelegate SILVER_CHESTPLATE = registerItem("silver_chestplate", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.CHESTPLATE.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
+    public static final ItemDelegate SILVER_LEGGINGS = registerItem("silver_leggings", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.LEGGINGS, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.LEGGINGS.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
+    public static final ItemDelegate SILVER_BOOTS = registerItem("silver_boots", props -> new ArmorItem(SilverArmorMaterial.INSTANCE, ArmorType.BOOTS, props.component(RDDataComponentTypes.SILVER_ITEM.value(), Unit.INSTANCE).durability(ArmorType.BOOTS.getDurability(SilverArmorMaterial.BASE_DURABILITY))), new Item.Properties());
 
     // 女仆装备
-    public static final ItemDelegate KNIFE = registerItem("knife", props -> new Knife(0f, 0f, props.stacksTo(1).component(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault().withSpeed(1.4f).withScale(1.8f))), new Item.Properties());
+    public static final ItemDelegate KNIFE = registerItem("knife", props -> new Knife(0f, 0f, props.stacksTo(1).component(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault().withSpeed(1.4f).withScale(1.8f))), new Item.Properties());
     public static final ItemDelegate MAID_HAIRBAND = registerItem("maid_hairband", props -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.HELMET, props.durability(ArmorType.HELMET.getDurability(MaidArmorMaterial.BASE_DURABILITY))), new Item.Properties());
     public static final ItemDelegate MAID_UPPER_SKIRT = registerItem("maid_upper_skirt", props -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.CHESTPLATE, props.durability(ArmorType.CHESTPLATE.getDurability(MaidArmorMaterial.BASE_DURABILITY))), new Item.Properties());
     public static final ItemDelegate MAID_LOWER_SKIRT = registerItem("maid_lowerband", props -> new ArmorItem(MaidArmorMaterial.INSTANCE, ArmorType.LEGGINGS, props.durability(ArmorType.LEGGINGS.getDurability(MaidArmorMaterial.BASE_DURABILITY))), new Item.Properties());
@@ -264,7 +264,7 @@ public class RDItems {
     }
 
     public static ItemDelegate registerSimpleItem(String name, Function<Item.Properties, Item> factory, Item.Properties settings) {
-        RegistrySupplier<Item> item = ReverieDreamsRegistries.ITEM.register(name, () -> factory.apply(settings.setId(keyOf(name))));
+        RegistrySupplier<Item> item = MCBuiltInRegistries.ITEM.register(name, () -> factory.apply(settings.setId(keyOf(name))));
         ItemDelegate itemDelegate = ItemDelegate.of(item);
         ReverieDreams.COMMON_LATE_INIT.add(() -> ItemTypeGroup.join(itemDelegate.asItem()));
         LATE_POLYMERIFY_ITEM_LIST.add(item);

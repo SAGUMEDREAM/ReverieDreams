@@ -18,16 +18,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.phys.Vec3;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-@SuppressWarnings("removal")
 @Slf4j
 public class ResourcePackGenerator {
     private static final Set<String> EXPANDABLE = new LinkedHashSet<>(Set.of(
             "wall", "fence", "slab", "stairs", "pressure_plate", "button",
             "glass_pane", "lattice", "bars", "carpet", "chain", "lantern",
-            "gensokyo_altar"
+            "gensokyo_altar", "chair", "table"
     ));
     public static final Set<String> NAMESPACES = new LinkedHashSet<>();
     public static final Set<HolderResource> HOLDER_RESOURCES_SET = new LinkedHashSet<>();
@@ -38,9 +39,19 @@ public class ResourcePackGenerator {
     }
 
     public static void registerEvent() {
-        PolymerResourcePackUtils.RESOURCE_PACK_AFTER_INITIAL_CREATION_EVENT.register(resourcePackBuilder -> {
-            buildVanillaLike(resourcePackBuilder);
-            buildCustomHolder(resourcePackBuilder);
+        PolymerResourcePackUtils.RESOURCE_PACK_AFTER_INITIAL_CREATION_EVENT.register(builder -> {
+            buildVanillaLike(builder);
+            buildCustomHolder(builder);
+            try (InputStream inputStream = ReverieDreams.class.getResourceAsStream("assets/minecraft/font/default.json")) {
+                byte[] bytes;
+                if (inputStream != null) {
+                    bytes = inputStream.readAllBytes();
+                    builder.addData("assets/minecraft/font/default.json", bytes);
+                }
+            } catch (Exception e) {
+                log.error("Error: ", e);
+            }
+
         });
     }
 
@@ -61,16 +72,16 @@ public class ResourcePackGenerator {
                             var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
 
                             builder.addData(AssetPaths.model(polymerify_namespace, parentId.getPath()) + ".json", new ModelAsset(parentAsset.parent(), parentAsset.elements().map(x -> x.stream()
-                                    .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
-                                            element.faces(), element.rotation(), element.shade(), element.lightEmission())
-                                    ).toList()), parentAsset.textures(), parentAsset.display(), parentAsset.guiLight(), parentAsset.ambientOcclusion()).toBytes());
+                                                                                                                                                                                        .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
+                                                                                                                                                                                                element.faces(), element.rotation(), element.shade(), element.lightEmission())
+                                                                                                                                                                                        ).toList()), parentAsset.textures(), parentAsset.display(), parentAsset.guiLight(), parentAsset.ambientOcclusion()).toBytes());
                         }
 
                         if (asset.elements().isPresent()) {
                             builder.addData(string, new ModelAsset(asset.parent(), asset.elements().map(x -> x.stream()
-                                    .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
-                                            element.faces(), element.rotation(), element.shade(), element.lightEmission())
-                                    ).toList()), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
+                                                                                                              .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
+                                                                                                                      element.faces(), element.rotation(), element.shade(), element.lightEmission())
+                                                                                                              ).toList()), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
                         }
                     }
                 }
@@ -167,16 +178,16 @@ public class ResourcePackGenerator {
                         var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
 
                         builder.addData(AssetPaths.model(polymerify_namespace, parentId.getPath()) + ".json", new ModelAsset(parentAsset.parent(), parentAsset.elements().map(x -> x.stream()
-                                .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
-                                        element.faces(), element.rotation(), element.shade(), element.lightEmission())
-                                ).toList()), parentAsset.textures(), parentAsset.display(), parentAsset.guiLight(), parentAsset.ambientOcclusion()).toBytes());
+                                                                                                                                                                                    .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
+                                                                                                                                                                                            element.faces(), element.rotation(), element.shade(), element.lightEmission())
+                                                                                                                                                                                    ).toList()), parentAsset.textures(), parentAsset.display(), parentAsset.guiLight(), parentAsset.ambientOcclusion()).toBytes());
                     }
 
                     if (asset.elements().isPresent()) {
                         builder.addData(path, new ModelAsset(asset.parent(), asset.elements().map(x -> x.stream()
-                                .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
-                                        element.faces(), element.rotation(), element.shade(), element.lightEmission())
-                                ).toList()), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
+                                                                                                        .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
+                                                                                                                element.faces(), element.rotation(), element.shade(), element.lightEmission())
+                                                                                                        ).toList()), asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
                     }
                 }
             }

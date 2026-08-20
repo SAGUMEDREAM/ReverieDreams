@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.util.entity.PlayerHelper;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import com.mojang.logging.LogUtils;
@@ -185,7 +185,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
             } else {
                 blockEntity.inventory.setItem(OUTPUT_SLOT, blockEntity.preOutput.getLazyStack().copy());
                 if (this.getLevel() != null && blockEntity.block.isWillBeFailure(this.getLevel())) {
-                    blockEntity.inventory.setItem(OUTPUT_SLOT, RDFoodItems.DARK_CUISINE.createStack().copy());
+                    blockEntity.inventory.setItem(OUTPUT_SLOT, RDCuisineItems.DARK_CUISINE.createStack().copy());
                 }
             }
             blockEntity.preOutput = DEFAULT_WRAPPER_FACTORY.get();

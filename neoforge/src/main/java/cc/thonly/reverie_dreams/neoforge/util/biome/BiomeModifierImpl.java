@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
+@Deprecated
 public class BiomeModifierImpl implements BiomeModifier {
     public static final BiomeModifier INSTANCE = new BiomeModifierImpl();
 

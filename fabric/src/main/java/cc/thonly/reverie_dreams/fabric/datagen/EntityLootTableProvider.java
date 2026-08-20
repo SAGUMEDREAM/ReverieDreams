@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen;
 
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -51,7 +51,7 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
                         ).withPool(LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
                                 .when(LootItemRandomChanceCondition.randomChance(0.1f))
-                                .add(LootItem.lootTableItem(RDFoodItems.MOONLIGHT_DUMPLINGS)
+                                .add(LootItem.lootTableItem(RDCuisineItems.MOONLIGHT_DUMPLINGS)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1f, 3f)))
                                 )
                         )

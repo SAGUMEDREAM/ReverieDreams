@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "#": "reverie_dreams:power",
     "X": "minecraft:ice"
   },
   "pattern": [
-    "XX",
-    "XX"
+    "XXX",
+    "X#X",
+    "XXX"
   ],
   "result": {
+    "count": 8,
     "id": "reverie_dreams:magic_ice"
   }
 }

@@ -1,0 +1,52 @@
+{
+  "role_type": "reverie_dreams:houraisan_kaguya",
+  "rare": true,
+  "budget": {
+    "min": 1000,
+    "max": 1500
+  },
+  "likes": [
+    "reverie_dreams:legendary",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:cultural_depth"
+  ],
+  "dislikes": [
+    "reverie_dreams:signature",
+    "reverie_dreams:bizarre",
+    "reverie_dreams:large_partition"
+  ],
+  "beverages": [
+    "reverie_dreams:sake",
+    "reverie_dreams:classical",
+    "reverie_dreams:modern"
+  ],
+  "chats": [
+    "reverie_dreams.role.houraisan_kaguya.chat.0",
+    "reverie_dreams.role.houraisan_kaguya.chat.1",
+    "reverie_dreams.role.houraisan_kaguya.chat.2",
+    "reverie_dreams.role.houraisan_kaguya.chat.3",
+    "reverie_dreams.role.houraisan_kaguya.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.houraisan_kaguya.order.0",
+    "reverie_dreams.role.houraisan_kaguya.order.1",
+    "reverie_dreams.role.houraisan_kaguya.order.2",
+    "reverie_dreams.role.houraisan_kaguya.order.3"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.houraisan_kaguya.description.0",
+    "reverie_dreams.role.houraisan_kaguya.description.1",
+    "reverie_dreams.role.houraisan_kaguya.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.houraisan_kaguya.evaluation.exbad",
+    "bad": "reverie_dreams.role.houraisan_kaguya.evaluation.bad",
+    "norm": "reverie_dreams.role.houraisan_kaguya.evaluation.norm",
+    "good": "reverie_dreams.role.houraisan_kaguya.evaluation.good",
+    "exgood": "reverie_dreams.role.houraisan_kaguya.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.houraisan_kaguya.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.houraisan_kaguya.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.houraisan_kaguya.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.houraisan_kaguya.evaluation.seenRepell"
+  }
+}

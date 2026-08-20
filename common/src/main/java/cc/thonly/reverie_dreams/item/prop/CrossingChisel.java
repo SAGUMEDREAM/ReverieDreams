@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -28,7 +28,7 @@ public class CrossingChisel extends Item {
         Player player = context.getPlayer();
         BlockPos origin = context.getClickedPos();
         Direction direction = context.getClickedFace();
-        Integer maxDistance = stack.get(RDDataComponents.MAX_DISTANCE.value());
+        Integer maxDistance = stack.get(RDDataComponentTypes.MAX_DISTANCE.value());
         maxDistance = maxDistance != null ? maxDistance : DEFAULT_VALUE;
 
         if (player != null) {

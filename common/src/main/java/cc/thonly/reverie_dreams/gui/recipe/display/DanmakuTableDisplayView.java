@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -35,7 +35,7 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
     public final RecipeKeyEntry<DanmakuRecipe> key2ValueEntry;
     public final Identifier key;
     public final DanmakuRecipe value;
-    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiItems.CLOSE.asItem()).setCallback(this::back);
+    public final GuiElementBuilder back = new GuiElementBuilder().setItem(RDGuiPlaceholderItems.CLOSE.asItem()).setCallback(this::back);
     public final GuiOpeningPrevCallback prevGuiCallback;
 
     public DanmakuTableDisplayView(ServerPlayer player, RecipeKeyEntry<DanmakuRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
@@ -72,7 +72,7 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
                 String c = grid[row][col];
                 int slot = row * 9 + col;
                 if (c.equalsIgnoreCase("T")) {
-                    GuiElementBuilder builder = new GuiElementBuilder(RDGuiItems.PROGRESS_TO_RESULT.asItem());
+                    GuiElementBuilder builder = new GuiElementBuilder(RDGuiPlaceholderItems.PROGRESS_TO_RESULT.asItem());
                     this.setSlot(slot, builder);
                 }
                 if (c.equalsIgnoreCase("B")) {

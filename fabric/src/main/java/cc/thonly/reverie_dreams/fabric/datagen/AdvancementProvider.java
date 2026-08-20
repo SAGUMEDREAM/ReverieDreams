@@ -3,19 +3,19 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 import cc.thonly.reverie_dreams.advancement.UseItemTrigger;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDDrinkItems;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.tag.RDEntityTypeTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
-import cc.thonly.reverie_dreams.world.dimension.WorldInit;
-import cc.thonly.reverie_dreams.world.gen.ModStructures;
+import cc.thonly.reverie_dreams.world.dimension.RDBuiltinLevels;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinStructures;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
@@ -91,13 +91,13 @@ public class AdvancementProvider extends FabricAdvancementProvider {
         AdvancementHolder abandonedShrine = registerAdvancement(context, RDAdvancements.ABANDONED_SHRINE, Advancement.Builder.advancement()
                 .parent(root)
                 .display(makeDisplayInfo(RDItems.HAKUREI_CANE, RDAdvancements.ABANDONED_SHRINE, AdvancementType.TASK))
-                .addCriterion("into_abandoned_shrine", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(structureLookup.getOrThrow(ModStructures.ABANDONED_ALTAR))))
+                .addCriterion("into_abandoned_shrine", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(structureLookup.getOrThrow(RDBuiltinStructures.ABANDONED_ALTAR))))
         );
 
         AdvancementHolder enterDreams = registerAdvancement(context, RDAdvancements.ENTER_DREAM, Advancement.Builder.advancement()
                 .parent(root)
                 .display(makeDisplayInfo(Blocks.RED_BED, RDAdvancements.ENTER_DREAM, AdvancementType.TASK))
-                .addCriterion("enter_dream", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(WorldInit.DREAM_WORLD))
+                .addCriterion("enter_dream", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(RDBuiltinLevels.DREAM_WORLD))
         );
 
         AdvancementHolder rehabilitationExpert = registerAdvancement(context, RDAdvancements.REHABILITATION_EXPERT, Advancement.Builder.advancement()
@@ -174,7 +174,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 
         AdvancementHolder cookingByMyself = registerAdvancement(context, RDAdvancements.COOKING_BY_MYSELF, Advancement.Builder.advancement()
                 .parent(touhouMystiasIzakaya)
-                .display(makeDisplayInfo(KitchenBlocks.COOKING_POT, RDAdvancements.COOKING_BY_MYSELF, AdvancementType.TASK))
+                .display(makeDisplayInfo(RDKitchenBlocks.COOKING_POT, RDAdvancements.COOKING_BY_MYSELF, AdvancementType.TASK))
                 .addCriterion("cooking_food", SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING).createCriterion())
         );
 
@@ -186,19 +186,19 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 
         AdvancementHolder darkCuisine = registerAdvancement(context, RDAdvancements.DARK_CUISINE, Advancement.Builder.advancement()
                 .parent(cookingByMyself)
-                .display(makeDisplayInfo(RDFoodItems.DARK_CUISINE, RDAdvancements.DARK_CUISINE, AdvancementType.TASK))
+                .display(makeDisplayInfo(RDCuisineItems.DARK_CUISINE, RDAdvancements.DARK_CUISINE, AdvancementType.TASK))
                 .addCriterion("dark_cuisine", SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_DARK_CUISINE).createCriterion())
         );
 
         AdvancementHolder delicacy = registerAdvancement(context, RDAdvancements.DELICACY, Advancement.Builder.advancement()
                 .parent(cookingByMyself)
-                .display(makeDisplayInfo(RDFoodItems.RICE_BALL, RDAdvancements.DELICACY, AdvancementType.TASK))
+                .display(makeDisplayInfo(RDCuisineItems.RICE_BALL, RDAdvancements.DELICACY, AdvancementType.TASK))
                 .addCriterion("eat_cooked_food", SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).createCriterion())
         );
 
         AdvancementHolder fineWine = registerAdvancement(context, RDAdvancements.FINE_WINE, Advancement.Builder.advancement()
                 .parent(touhouMystiasIzakaya)
-                .display(makeDisplayInfo(RDDrinkItems.BEER, RDAdvancements.FINE_WINE, AdvancementType.TASK))
+                .display(makeDisplayInfo(RDBeverageItems.BEER, RDAdvancements.FINE_WINE, AdvancementType.TASK))
                 .addCriterion("having_drink", SimpleTriggerFactory.create(SimpleTriggerKeys.HAVING_DRINK).createCriterion())
         );
 

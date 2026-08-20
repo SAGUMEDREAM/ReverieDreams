@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -21,7 +21,7 @@ public class ShapeDrawRecipeProvider extends AbstractRecipeTypeProvider {
     }
 
     @Override
-    public void configured() {
+    public void configured(HolderLookup.Provider provider) {
         this.offerShapeRecipe(DanmakuTypes.AMULET, new String[]{
                 "FFFFFF",
                 "FFTTFF",

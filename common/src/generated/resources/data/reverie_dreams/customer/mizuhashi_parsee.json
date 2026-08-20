@@ -1,0 +1,55 @@
+{
+  "role_type": "reverie_dreams:mizuhashi_parsee",
+  "rare": true,
+  "budget": {
+    "min": 300,
+    "max": 400
+  },
+  "likes": [
+    "reverie_dreams:salty",
+    "reverie_dreams:umami",
+    "reverie_dreams:fruity",
+    "reverie_dreams:spicy",
+    "reverie_dreams:sour"
+  ],
+  "dislikes": [
+    "reverie_dreams:sweet"
+  ],
+  "beverages": [
+    "reverie_dreams:alcohol-free",
+    "reverie_dreams:can_heated",
+    "reverie_dreams:direct_drinking",
+    "reverie_dreams:pungent",
+    "reverie_dreams:bitter"
+  ],
+  "chats": [
+    "reverie_dreams.role.mizuhashi_parsee.chat.0",
+    "reverie_dreams.role.mizuhashi_parsee.chat.1",
+    "reverie_dreams.role.mizuhashi_parsee.chat.2",
+    "reverie_dreams.role.mizuhashi_parsee.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.mizuhashi_parsee.order.0",
+    "reverie_dreams.role.mizuhashi_parsee.order.1",
+    "reverie_dreams.role.mizuhashi_parsee.order.2",
+    "reverie_dreams.role.mizuhashi_parsee.order.3",
+    "reverie_dreams.role.mizuhashi_parsee.order.4",
+    "reverie_dreams.role.mizuhashi_parsee.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.mizuhashi_parsee.description.0",
+    "reverie_dreams.role.mizuhashi_parsee.description.1",
+    "reverie_dreams.role.mizuhashi_parsee.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.mizuhashi_parsee.evaluation.exbad",
+    "bad": "reverie_dreams.role.mizuhashi_parsee.evaluation.bad",
+    "norm": "reverie_dreams.role.mizuhashi_parsee.evaluation.norm",
+    "good": "reverie_dreams.role.mizuhashi_parsee.evaluation.good",
+    "exgood": "reverie_dreams.role.mizuhashi_parsee.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.mizuhashi_parsee.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.mizuhashi_parsee.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.mizuhashi_parsee.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.mizuhashi_parsee.evaluation.seenRepell"
+  }
+}

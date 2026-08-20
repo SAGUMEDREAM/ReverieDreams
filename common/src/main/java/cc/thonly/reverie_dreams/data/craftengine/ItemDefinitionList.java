@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.data.craftengine;
 
+import cc.thonly.reverie_dreams.mixin.accessor.BlockAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.ItemAccessor;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +15,7 @@ import dev.architectury.platform.Mod;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.GameInstance;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -38,8 +41,8 @@ import java.nio.file.Path;
 import java.util.*;
 
 
+@Getter
 @Slf4j
-@SuppressWarnings("ALL")
 public class ItemDefinitionList {
 
     @JsonProperty("items")
@@ -51,9 +54,7 @@ public class ItemDefinitionList {
             if (item.getDefaultInstance().isEmpty()) {
                 continue;
             }
-            ResourceKey<Item> resourceKey =
-                    item.builtInRegistryHolder()
-                        .key();
+            ResourceKey<Item> resourceKey = ((ItemAccessor) item).reverie_dreams$builtInRegistryHolder().key();
             Identifier id = resourceKey.identifier();
             String key = id.toString();
             Definition definition = new Definition(item);
@@ -61,11 +62,6 @@ public class ItemDefinitionList {
         }
     }
 
-    public Map<String, Definition> getItems() {
-        return this.items;
-    }
-
-    @SuppressWarnings("ALL")
     public static class Definition {
         transient final Item item;
         @JsonProperty("material")
@@ -85,10 +81,10 @@ public class ItemDefinitionList {
 
         public Definition(Item item) {
             this.item = item;
-            this.material = item.builtInRegistryHolder()
-                                .key()
-                                .identifier()
-                                .toString();
+            this.material = ((ItemAccessor) item).reverie_dreams$builtInRegistryHolder()
+                                                 .key()
+                                                 .identifier()
+                                                 .toString();
             this.data = new Data(item);
             this.settings = new Settings(item);
             this.model = new Model(item);
@@ -123,7 +119,6 @@ public class ItemDefinitionList {
         }
     }
 
-    @SuppressWarnings("ALL")
     public static class BehaviorReader {
         public static List<Behavior> read(Item item) {
             List<Behavior> behaviors = new ArrayList<>();
@@ -135,7 +130,7 @@ public class ItemDefinitionList {
             }
             if (item instanceof BlockItem blockItem) {
                 Block block = blockItem.getBlock();
-                Holder.Reference<Block> reference = block.builtInRegistryHolder();
+                Holder.Reference<Block> reference = ((BlockAccessor) block).reverie_dreams$builtInRegistryHolder();
                 ResourceKey<Block> key = reference.key();
                 Identifier identifier = key.identifier();
                 String blockId = identifier.toString();
@@ -148,6 +143,7 @@ public class ItemDefinitionList {
         }
     }
 
+    @SuppressWarnings({"Convert2MethodRef", "ConditionCoveredByFurtherCondition", "UseBulkOperation", "AccessStaticViaInstance", "UnnecessaryLocalVariable", "unchecked"})
     public static class Model {
         transient final Item item;
         @JsonAnyGetter
@@ -160,9 +156,9 @@ public class ItemDefinitionList {
             this.readItemModel();
         }
 
-        @SuppressWarnings({"deprecation", "unchecked"})
+        @SuppressWarnings({"AccessStaticViaInstance", "rawtypes"})
         void readItems() {
-            Holder.Reference<Item> reference = this.item.builtInRegistryHolder();
+            Holder.Reference<Item> reference = ((ItemAccessor)this.item).reverie_dreams$builtInRegistryHolder();
             ResourceKey<Item> key = reference.key();
             Identifier itemId = key.identifier();
             String target = "assets/%s/items/%s.json".format(itemId.getNamespace(), itemId.getPath());
@@ -189,7 +185,7 @@ public class ItemDefinitionList {
             if (object == null) {
                 return;
             }
-            Map<String, Object> model = (Map<String, Object>) object.get("model");
+            Map<String, Object> model = (Map) object.get("model");
             if (model == null) {
                 return;
             }
@@ -283,9 +279,8 @@ public class ItemDefinitionList {
             this.readSettings();
         }
 
-        @SuppressWarnings("deprecation")
         void readSettings() {
-            Holder.Reference<Item> reference = this.item.builtInRegistryHolder();
+            Holder.Reference<Item> reference = ((ItemAccessor) this.item).reverie_dreams$builtInRegistryHolder();
             if (reference.tags != null) {
                 for (TagKey<Item> tag : reference.tags) {
                     this.tags.add(tag.location().toString());
@@ -328,13 +323,13 @@ public class ItemDefinitionList {
             ItemStack stack = this.item.getDefaultInstance();
             DataComponentMap prototype = stack.getPrototype();
             for (TypedDataComponent<?> component : prototype) {
-                DataComponentType type = component.type();
+                DataComponentType<?> type = component.type();
                 Identifier id = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type);
                 Codec codec = type.codec();
                 if (codec == null) {
                     continue;
                 }
-                Optional result = codec.encodeStart(ops, component.value()).result();
+                Optional<?> result = codec.encodeStart(ops, component.value()).result();
                 result.ifPresent(value -> this.components.put(id.toString(), CraftEngineProvider.convertJson((JsonElement) value)));
             }
         }

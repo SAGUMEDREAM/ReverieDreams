@@ -3,9 +3,9 @@ package cc.thonly.reverie_dreams.registry.syncer;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -25,15 +25,15 @@ public class FoodPropertySyncer implements Supplier<RegistrySyncer<FoodProperty,
     @Override
     public RegistrySyncer<FoodProperty, FoodProperty.Data> get() {
         return new Impl(
-                RegistryImpls.FOOD_PROPERTY,
+                BuiltInRegistryProviders.FOOD_PROPERTY,
                 FoodProperty.Data.CODEC,
                 new RegistrySyncer.ClientReloadListener<>() {
                     private final Map<FoodProperty, Set<Item>> propertyItemMap =
                             new Object2ObjectLinkedOpenHashMap<>();
 
                     @Override
-                    public void preProcessing(RegistryImpl<FoodProperty> registry) {
-                        RegistryImpls.FOOD_PROPERTY.clear();
+                    public void preProcessing(RegistryProvider<FoodProperty> registry) {
+                        BuiltInRegistryProviders.FOOD_PROPERTY.clear();
                         FoodProperties.unbound();
                         this.propertyItemMap.clear();
                     }
@@ -43,10 +43,10 @@ public class FoodPropertySyncer implements Supplier<RegistrySyncer<FoodProperty,
                                                @Nullable FoodProperty old,
                                                FoodProperty.Data data) {
 
-                        FoodProperty property = RegistryImpls.FOOD_PROPERTY.getValue(key);
+                        FoodProperty property = BuiltInRegistryProviders.FOOD_PROPERTY.getValue(key);
 
                         if (property == null) {
-                            ReverieDreams.LOGGER.warn("Unknown food property {}", key);
+                            log.warn("Unknown food property {}", key);
                             return null;
                         }
 
@@ -76,7 +76,7 @@ public class FoodPropertySyncer implements Supplier<RegistrySyncer<FoodProperty,
                     }
 
                     @Override
-                    public void afterProcessing(RegistryImpl<FoodProperty> registry) {
+                    public void afterProcessing(RegistryProvider<FoodProperty> registry) {
                         propertyItemMap.forEach((property, items) -> {
                             for (Item item : items) {
                                 FoodProperties.ITEM_CACHE.computeIfAbsent(item, k -> new LinkedHashSet<>())
@@ -89,13 +89,13 @@ public class FoodPropertySyncer implements Supplier<RegistrySyncer<FoodProperty,
 
                     @Override
                     public RegistrySyncer<FoodProperty, FoodProperty.Data> getSyncer() {
-                        return RegistryImpls.FOOD_PROPERTY.getSyncer();
+                        return BuiltInRegistryProviders.FOOD_PROPERTY.getSyncer();
                     }
                 }
         );
     }
     public static class Impl extends RegistrySyncer<FoodProperty, FoodProperty.Data>{
-        public Impl(RegistryImpl<FoodProperty> registry, Codec<FoodProperty.Data> dataCodec, ClientReloadListener<FoodProperty, FoodProperty.Data> clientReloadListener) {
+        public Impl(RegistryProvider<FoodProperty> registry, Codec<FoodProperty.Data> dataCodec, ClientReloadListener<FoodProperty, FoodProperty.Data> clientReloadListener) {
             super(registry, dataCodec, clientReloadListener);
         }
 
@@ -106,7 +106,7 @@ public class FoodPropertySyncer implements Supplier<RegistrySyncer<FoodProperty,
 
         @Override
         public FoodProperty toT(FoodProperty.Data data) {
-            return RegistryImpls.FOOD_PROPERTY.getValue(data.id());
+            return BuiltInRegistryProviders.FOOD_PROPERTY.getValue(data.id());
         }
     }
 }

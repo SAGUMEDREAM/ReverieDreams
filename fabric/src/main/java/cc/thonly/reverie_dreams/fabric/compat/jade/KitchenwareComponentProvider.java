@@ -16,22 +16,20 @@ public class KitchenwareComponentProvider implements IBlockComponentProvider {
     @Override
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
         Optional<KitchenwareData> data = KitchenwareServerDataProvider.INSTANCE.decodeFromData(blockAccessor);
-        if(data.isEmpty())return;
+        if (data.isEmpty())
+            return;
         KitchenwareData kitchenwareData = data.get();
-
         if (kitchenwareData.target().isPresent()) {
             Element item = JadeUI.item(kitchenwareData.target().get());
             iTooltip.add(item);
         }
         float v;
-        if(kitchenwareData.maxCookingTime()!=0) {
+        if (kitchenwareData.maxCookingTime() != 0 && kitchenwareData.maxCookingTime() != 1) {
             v = ((float) kitchenwareData.maxCookingTime() - kitchenwareData.cookingTime()) / kitchenwareData.maxCookingTime();
-        }else{
-            v = 0;
-        }
 
-        ResizeableElement progress = JadeUI.progress(new ProgressView(ProgressView.Part.of(v), Component.translatable("gui.reverie_dreams.progress"), JadeUI.progressStyle(), BoxStyle.nestedBox()));
-        iTooltip.add(progress);
+            ResizeableElement progress = JadeUI.progress(new ProgressView(ProgressView.Part.of(v), Component.translatable("gui.reverie_dreams.progress"), JadeUI.progressStyle(), BoxStyle.nestedBox()));
+            iTooltip.add(progress);
+        }
     }
 
     @Override

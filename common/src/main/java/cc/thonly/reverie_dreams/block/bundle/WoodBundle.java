@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.block.bundle;
 
 import cc.thonly.keine.api.KeineRegistries;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.ReverieDreamsRegistries;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import lombok.Getter;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.*;
@@ -93,7 +93,7 @@ public class WoodBundle extends AbstractBlockBundle {
         this.button = RDBlocks.registerSimpleBlock(suffix("button"),
                 (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON));
 
-        KeineRegistries registries = ReverieDreamsRegistries.KEINE_REGISTRIES;
+        KeineRegistries registries = MCBuiltInRegistries.KEINE_REGISTRIES;
         registries.strippableBlockRegistry().register(context -> {
             context.add(this.log(), this.strippedLog());
         });

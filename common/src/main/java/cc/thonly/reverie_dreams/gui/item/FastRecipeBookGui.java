@@ -5,11 +5,11 @@ import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -39,8 +39,8 @@ public class FastRecipeBookGui extends SimpleGui {
             {"P", "W", "A", "B", "C", "D", "E", "W", "N"},
     };
     private final ItemStack itemStack;
-    private final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.value()).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
-    private final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.value()).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
+    private final GuiElementBuilder next = new GuiElementBuilder(RDGuiPlaceholderItems.NEXT.value()).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
+    private final GuiElementBuilder prev = new GuiElementBuilder(RDGuiPlaceholderItems.PREV.value()).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
     private final List<KitchenRecipe> data = new ArrayList<>();
     private int page = 0;
     private int maxPage = -1;
@@ -55,7 +55,7 @@ public class FastRecipeBookGui extends SimpleGui {
     }
 
     public MutableComponent updateTitle() {
-        KitchenRecipe.IdEntry idEntry = this.itemStack.get(RDDataComponents.RECIPE_MEMORY.value());
+        KitchenRecipe.IdEntry idEntry = this.itemStack.get(RDDataComponentTypes.RECIPE_MEMORY.value());
         MutableComponent titleComponent = Component.empty()
                 .append(Component.translatable("space.-8"))
                 .append(Component.literal("\ub006")
@@ -92,40 +92,40 @@ public class FastRecipeBookGui extends SimpleGui {
                     this.setSlot(slot, new GuiElementBuilder().setItem(Items.AIR));
                 }
                 if (c.equalsIgnoreCase("A")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.COOKING_POT.asItem()).setCallback((clickType) -> {
-                        this.selectWorkType = KitchenBlocks.COOKING_POT;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDKitchenBlocks.COOKING_POT.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = RDKitchenBlocks.COOKING_POT;
                         this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("B")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.CUTTING_BOARD.asItem()).setCallback((clickType) -> {
-                        this.selectWorkType = KitchenBlocks.CUTTING_BOARD;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDKitchenBlocks.CUTTING_BOARD.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = RDKitchenBlocks.CUTTING_BOARD;
                         this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("C")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.FRYING_PAN.asItem()).setCallback((clickType) -> {
-                        this.selectWorkType = KitchenBlocks.FRYING_PAN;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDKitchenBlocks.FRYING_PAN.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = RDKitchenBlocks.FRYING_PAN;
                         this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("D")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.GRILL.asItem()).setCallback((clickType) -> {
-                        this.selectWorkType = KitchenBlocks.GRILL;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDKitchenBlocks.GRILL.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = RDKitchenBlocks.GRILL;
                         this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
                     }));
                 }
                 if (c.equalsIgnoreCase("E")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(KitchenBlocks.STEAMER.asItem()).setCallback((clickType) -> {
-                        this.selectWorkType = KitchenBlocks.STEAMER;
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDKitchenBlocks.STEAMER.asItem()).setCallback((clickType) -> {
+                        this.selectWorkType = RDKitchenBlocks.STEAMER;
                         this.updateClickType = clickType;
                         this.updateNext = true;
                         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
@@ -180,10 +180,10 @@ public class FastRecipeBookGui extends SimpleGui {
             builder.setLore(List.of(component));
             builder.setCallback(() -> {
                 SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-                this.itemStack.set(RDDataComponents.RECIPE_MEMORY.value(), recipeIdEntry);
+                this.itemStack.set(RDDataComponentTypes.RECIPE_MEMORY.value(), recipeIdEntry);
                 this.updateNext = true;
             });
-            if (Objects.equals(this.itemStack.get(RDDataComponents.RECIPE_MEMORY.value()), recipeIdEntry)) {
+            if (Objects.equals(this.itemStack.get(RDDataComponentTypes.RECIPE_MEMORY.value()), recipeIdEntry)) {
                 builder.glow(true);
             }
 
@@ -216,10 +216,10 @@ public class FastRecipeBookGui extends SimpleGui {
             builder.setLore(List.of(component));
             builder.setCallback(() -> {
                 SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-                this.itemStack.set(RDDataComponents.RECIPE_MEMORY.value(), recipeIdEntry);
+                this.itemStack.set(RDDataComponentTypes.RECIPE_MEMORY.value(), recipeIdEntry);
                 this.updateNext = true;
             });
-            if (Objects.equals(this.itemStack.get(RDDataComponents.RECIPE_MEMORY.value()), recipeIdEntry)) {
+            if (Objects.equals(this.itemStack.get(RDDataComponentTypes.RECIPE_MEMORY.value()), recipeIdEntry)) {
                 builder.glow(true);
             }
 

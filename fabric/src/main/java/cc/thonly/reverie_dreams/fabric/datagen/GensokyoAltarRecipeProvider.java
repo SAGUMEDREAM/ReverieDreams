@@ -28,7 +28,7 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
     }
 
     @Override
-    public void configured() {
+    public void configured(HolderLookup.Provider provider) {
         this.configuredRecipe();
         this.configuredRoleCardRecipe();
     }

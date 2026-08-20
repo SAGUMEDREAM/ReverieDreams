@@ -21,19 +21,19 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class NPCSmeltGoal extends Goal {
-    private final BaseNPCLikeEntity roleEntity;
+    private final BaseNPCLikeEntity npc;
     @Nullable
     private OperationalTarget operationalTarget;
 
-    public NPCSmeltGoal(BaseNPCLikeEntity roleEntity) {
-        this.roleEntity = roleEntity;
+    public NPCSmeltGoal(BaseNPCLikeEntity npc) {
+        this.npc = npc;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     /** 找到实体身上所有可熔炼的物品 */
     private List<Integer> findAllInputSlots() {
         List<Integer> slots = new ArrayList<>();
-        SimpleContainer inventory = this.roleEntity.getInventory();
+        SimpleContainer inventory = this.npc.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
             if (!stack.isEmpty() && CookingInputRecipeManager.getInstance().contains(stack.getItem())) {
@@ -46,8 +46,8 @@ public class NPCSmeltGoal extends Goal {
     /** 找到附近的熔炉 */
     private List<BlockPos> findFurnaceBlockPosList() {
         List<BlockPos> blockPosList = new ArrayList<>();
-        Level world = this.roleEntity.level();
-        BlockPos center = this.roleEntity.getWorkingPos();
+        Level world = this.npc.level();
+        BlockPos center = this.npc.getWorkingPos();
         int r = 8;
 
         BoundingBox box = new BoundingBox(
@@ -71,11 +71,11 @@ public class NPCSmeltGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!EntityTargetUtil.isThisWorkMode(this.roleEntity, NPCWorkModes.SMELT)) {
+        if (!EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.SMELT)) {
             return false;
         }
 
-        MinecraftServer server = this.roleEntity.level().getServer();
+        MinecraftServer server = this.npc.level().getServer();
         CookingInputRecipeManager instance = CookingInputRecipeManager.getInstance();
         if (server != null && instance.isEmpty()) {
             instance.load(server);
@@ -93,7 +93,7 @@ public class NPCSmeltGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         return this.operationalTarget != null &&
-                EntityTargetUtil.isThisWorkMode(this.roleEntity, NPCWorkModes.SMELT);
+                EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.SMELT);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class NPCSmeltGoal extends Goal {
 
     /** 选择一个熔炉目标 */
     private boolean trySetTarget() {
-        Level world = this.roleEntity.level();
+        Level world = this.npc.level();
         List<BlockPos> furnaceList = this.findFurnaceBlockPosList();
         List<Integer> inputSlots = this.findAllInputSlots();
 
@@ -116,7 +116,7 @@ public class NPCSmeltGoal extends Goal {
             boolean isEmpty = furnaceStack.isEmpty();
 
             for (int invSlot : inputSlots) {
-                ItemStack npcStack = this.roleEntity.getInventory().getItem(invSlot);
+                ItemStack npcStack = this.npc.getInventory().getItem(invSlot);
                 if (npcStack.isEmpty()) continue;
                 Item item = npcStack.getItem();
 
@@ -134,8 +134,8 @@ public class NPCSmeltGoal extends Goal {
 
             // ===== 燃料槽 (slot 1) =====
             ItemStack fuelSlot = furnace.getItem(1);
-            for (int i = 0; i < this.roleEntity.getInventory().getContainerSize(); i++) {
-                ItemStack npcStack = this.roleEntity.getInventory().getItem(i);
+            for (int i = 0; i < this.npc.getInventory().getContainerSize(); i++) {
+                ItemStack npcStack = this.npc.getInventory().getItem(i);
                 if (npcStack.isEmpty()) continue;
                 if (CookingInputRecipeManager.isFuel(npcStack)) {
                     if (fuelSlot.isEmpty() || (ItemStack.isSameItemSameComponents(fuelSlot, npcStack) &&
@@ -171,15 +171,15 @@ public class NPCSmeltGoal extends Goal {
         int npcSlot = this.operationalTarget.inventorySlot();
         int furnaceSlotIndex = this.operationalTarget.slotIndex();
 
-        ItemStack npcStack = this.roleEntity.getInventory().getItem(npcSlot);
+        ItemStack npcStack = this.npc.getInventory().getItem(npcSlot);
         if (npcStack.isEmpty()) {
             this.operationalTarget = null;
             return;
         }
 
         if (!isReached(pos)) {
-            this.roleEntity.getNavigation().moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.0D);
-            this.roleEntity.getLookControl().setLookAt(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+            this.npc.getNavigation().moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.0D);
+            this.npc.getLookControl().setLookAt(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             return;
         }
 
@@ -197,7 +197,7 @@ public class NPCSmeltGoal extends Goal {
         }
 
         furnace.setChanged();
-        this.roleEntity.swing(InteractionHand.MAIN_HAND);
+        this.npc.swing(InteractionHand.MAIN_HAND);
 
         // 炉子已满 或者 NPC 没货了 -> 清空目标
         if (npcStack.isEmpty() || furnaceSlot.getCount() >= furnaceSlot.getMaxStackSize()) {
@@ -206,7 +206,7 @@ public class NPCSmeltGoal extends Goal {
     }
 
     private boolean isReached(BlockPos blockPos) {
-        double distSq = blockPos.distToCenterSqr(this.roleEntity.position());
+        double distSq = blockPos.distToCenterSqr(this.npc.position());
         return distSq <= 9; // 半径 3 格
     }
 

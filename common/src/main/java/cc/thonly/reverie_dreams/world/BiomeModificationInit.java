@@ -5,16 +5,15 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.UFO;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.util.PlatformContext;
-import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
-import cc.thonly.reverie_dreams.world.gen.RDBiomes;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinConfigurationCarvers;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinPlacedFeatures;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinBiomes;
 import dev.architectury.hooks.level.biome.GenerationProperties;
 import dev.architectury.hooks.level.biome.SpawnProperties;
 import dev.architectury.registry.level.biome.BiomeModifications;
 import dev.architectury.registry.level.entity.SpawnPlacementsRegistry;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
@@ -83,8 +82,8 @@ public class BiomeModificationInit {
                     int nearby = world.getEntitiesOfClass(
                             RDEntityTypes.MAID_YOUSEI.value().getBaseClass(),
                             new AABB(
-                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
-                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                                    pos.getX() - 16, pos.getY() - 16, pos.getZ() - 16,
+                                    pos.getX() + 16, pos.getY() + 16, pos.getZ() + 16
                             )
                     ).size();
 
@@ -99,7 +98,6 @@ public class BiomeModificationInit {
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, world, reason, pos, random) -> {
-
                     if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK))
                         return false;
                     if (world.getRawBrightness(pos, 0) <= 8)
@@ -110,8 +108,8 @@ public class BiomeModificationInit {
                     int nearbyCount = world.getEntitiesOfClass(
                             RDEntityTypes.SUNFLOWER_YOUSEI.value().getBaseClass(),
                             new AABB(
-                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
-                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                                    pos.getX() - 16, pos.getY() - 16, pos.getZ() - 16,
+                                    pos.getX() + 16, pos.getY() + 16, pos.getZ() + 16
                             )
                     ).size();
 
@@ -167,14 +165,30 @@ public class BiomeModificationInit {
                 RDEntityTypes.MOON_RABBIT,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                Monster::checkMonsterSpawnRules
+                (type, level, spawnReason, pos, randomSource) -> {
+                    boolean setup = Monster.checkMonsterSpawnRules(type, level, spawnReason, pos, randomSource);
+                    int nearby = level.getEntitiesOfClass(
+                            RDEntityTypes.ONI.value().getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 32,
+                                    pos.getY() - 10,
+                                    pos.getZ() - 32,
+                                    pos.getX() + 32,
+                                    pos.getY() + 10,
+                                    pos.getZ() + 32
+                            )
+                    ).size();
+
+                    if (nearby > 2)
+                        return false;
+                    return setup;
+                }
         );
         SpawnPlacementsRegistry.register(
                 RDEntityTypes.ONI,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, world, reason, pos, random) -> {
-
                     if (world.getBlockState(pos.below()).is(Blocks.AIR))
                         return false;
 
@@ -221,7 +235,7 @@ public class BiomeModificationInit {
 
                 generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.SPIRITUAL_TREE_KEY
+                        RDBuiltinPlacedFeatures.SPIRITUAL_TREE_KEY
                 );
             }
         });
@@ -240,7 +254,7 @@ public class BiomeModificationInit {
 
                 generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.LEMON_TREE_KEY
+                        RDBuiltinPlacedFeatures.LEMON_TREE_KEY
                 );
             }
         });
@@ -260,7 +274,7 @@ public class BiomeModificationInit {
 
                 generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.GINKGO_TREE_KEY
+                        RDBuiltinPlacedFeatures.GINKGO_TREE_KEY
                 );
             }
         });
@@ -280,7 +294,7 @@ public class BiomeModificationInit {
 
                 generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.PEACH_TREE_KEY
+                        RDBuiltinPlacedFeatures.PEACH_TREE_KEY
                 );
             }
         });
@@ -288,7 +302,6 @@ public class BiomeModificationInit {
 
     public static void addBlock() {
         BiomeModifications.addProperties((context, mutable) -> {
-
             if (!context.hasTag(BiomeTags.IS_OVERWORLD)) {
                 return;
             }
@@ -300,16 +313,56 @@ public class BiomeModificationInit {
             // 银矿石
             generationProperties.addFeature(
                     GenerationStep.Decoration.UNDERGROUND_ORES,
-                    PlacedFeaturesInit.OVERWORLD_SILVER_ORE_KEY
+                    RDBuiltinPlacedFeatures.OVERWORLD_SILVER_ORE_KEY
             );
 
 
             // 宝玉矿石
             generationProperties.addFeature(
                     GenerationStep.Decoration.UNDERGROUND_ORES,
-                    PlacedFeaturesInit.OVERWORLD_ORB_ORE_KEY
+                    RDBuiltinPlacedFeatures.OVERWORLD_ORB_ORE_KEY
             );
 
+        });
+        BiomeModifications.addProperties((context, mutable) -> {
+            Optional<Identifier> keyOptional = context.getKey();
+            if (keyOptional.isEmpty()) {
+                return;
+            }
+            if (!keyOptional.get().equals(RDBuiltinBiomes.THE_MOON.identifier())) {
+                return;
+            }
+            GenerationProperties.Mutable generationProperties = mutable.getGenerationProperties();
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_GOLD_ORE_KEY
+            );
+            generationProperties.addFeature(GenerationStep.Decoration.LAKES,
+                    RDBuiltinPlacedFeatures.MOON_WATER_LAKE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_IRON_ORE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_DIAMOND_ORE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_QUARTZ_ORE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_DIORITE_PLACED_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_GRAVEL_PLACED_KEY
+            );
+            generationProperties.addCarver(
+                    RDBuiltinConfigurationCarvers.MOON_CAVE
+            );
         });
     }
 
@@ -333,7 +386,7 @@ public class BiomeModificationInit {
 
                 generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.UDUMBARA_FLOWER_KEY
+                        RDBuiltinPlacedFeatures.UDUMBARA_FLOWER_KEY
                 );
             }
 
@@ -345,7 +398,7 @@ public class BiomeModificationInit {
 
                 generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.TREMELLA_KEY
+                        RDBuiltinPlacedFeatures.TREMELLA_KEY
                 );
             }
 
@@ -367,7 +420,7 @@ public class BiomeModificationInit {
             boolean isPlains = context.hasTag(ConventionalBiomeTags.IS_PLAINS);
 
             boolean isDream = context.getKey()
-                                     .map(id -> Objects.equals(id, RDBiomes.DREAM.identifier()))
+                                     .map(id -> Objects.equals(id, RDBuiltinBiomes.DREAM.identifier()))
                                      .orElse(false);
 
 
@@ -532,7 +585,7 @@ public class BiomeModificationInit {
 
             // 月兔
             context.getKey().ifPresent(id -> {
-                if (Objects.equals(id, RDBiomes.THE_MOON.identifier())) {
+                if (Objects.equals(id, RDBuiltinBiomes.THE_MOON.identifier())) {
 
                     spawnProperties.addSpawn(
                             MobCategory.MONSTER,

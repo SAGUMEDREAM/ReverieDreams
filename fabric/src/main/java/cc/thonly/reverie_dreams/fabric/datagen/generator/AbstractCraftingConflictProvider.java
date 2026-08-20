@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.CraftingConflict;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
+import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,13 +44,14 @@ public abstract class AbstractCraftingConflictProvider implements DataProvider {
     public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
-            this.export(writer);
+            DataProviderHelper.outputFile(writer, this.registries, CraftingConflict.CODEC, "crafting_conflict");
+//            this.export(writer);
         });
     }
 
     protected AbstractCraftingConflictProvider registerEntry(CraftingConflict craftingConflict) {
         var id = BuiltInRegistries.ITEM.getKey(craftingConflict.getItem());
-        id = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/","-"));
+        id = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/", "-"));
         return this.registerEntry(id, craftingConflict);
     }
 

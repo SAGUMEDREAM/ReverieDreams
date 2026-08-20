@@ -4,8 +4,8 @@ import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -33,7 +33,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
         this.icon = icon.apply(helper);
         this.arrow = helper.createDrawableIngredient(
                 VanillaTypes.ITEM_STACK,
-                RDGuiItems.PROGRESS_TO_RESULT.createStack()
+                RDGuiPlaceholderItems.PROGRESS_TO_RESULT.createStack()
         );
     }
 
@@ -90,7 +90,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
     public static class CookingPotImpl extends BaseKitchenRecipeCategory {
         public CookingPotImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.COOKING_POT.createStack()), KitchenRecipeType.TypeInstance.COOKING_POT);
+            super(helper, h -> createIcon(h, RDKitchenBlocks.COOKING_POT.createStack()), KitchenRecipeType.TypeInstance.COOKING_POT);
         }
 
         @Override
@@ -100,13 +100,13 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
         @Override
         public Component getTitle() {
-            return KitchenBlocks.COOKING_POT.asBlock().getName();
+            return RDKitchenBlocks.COOKING_POT.asBlock().getName();
         }
     }
 
     public static class CuttingBoardImpl extends BaseKitchenRecipeCategory {
         public CuttingBoardImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.CUTTING_BOARD.createStack()), KitchenRecipeType.TypeInstance.CUTTING_BOARD);
+            super(helper, h -> createIcon(h, RDKitchenBlocks.CUTTING_BOARD.createStack()), KitchenRecipeType.TypeInstance.CUTTING_BOARD);
         }
 
         @Override
@@ -116,13 +116,13 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
         @Override
         public Component getTitle() {
-            return KitchenBlocks.CUTTING_BOARD.asBlock().getName();
+            return RDKitchenBlocks.CUTTING_BOARD.asBlock().getName();
         }
     }
 
     public static class FryingPanImpl extends BaseKitchenRecipeCategory {
         public FryingPanImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.FRYING_PAN.createStack()), KitchenRecipeType.TypeInstance.FRYING_PAN);
+            super(helper, h -> createIcon(h, RDKitchenBlocks.FRYING_PAN.createStack()), KitchenRecipeType.TypeInstance.FRYING_PAN);
         }
 
         @Override
@@ -132,13 +132,13 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
         @Override
         public Component getTitle() {
-            return KitchenBlocks.FRYING_PAN.asBlock().getName();
+            return RDKitchenBlocks.FRYING_PAN.asBlock().getName();
         }
     }
 
     public static class GrillImpl extends BaseKitchenRecipeCategory {
         public GrillImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.GRILL.createStack()), KitchenRecipeType.TypeInstance.GRILL);
+            super(helper, h -> createIcon(h, RDKitchenBlocks.GRILL.createStack()), KitchenRecipeType.TypeInstance.GRILL);
         }
 
         @Override
@@ -148,13 +148,13 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
         @Override
         public Component getTitle() {
-            return KitchenBlocks.GRILL.asBlock().getName();
+            return RDKitchenBlocks.GRILL.asBlock().getName();
         }
     }
 
     public static class SteamerImpl extends BaseKitchenRecipeCategory {
         public SteamerImpl(IGuiHelper helper) {
-            super(helper, h -> createIcon(h, KitchenBlocks.STEAMER.createStack()), KitchenRecipeType.TypeInstance.STEAMER);
+            super(helper, h -> createIcon(h, RDKitchenBlocks.STEAMER.createStack()), KitchenRecipeType.TypeInstance.STEAMER);
         }
 
         @Override
@@ -164,7 +164,7 @@ public abstract class BaseKitchenRecipeCategory implements IRecipeCategory<Kitch
 
         @Override
         public Component getTitle() {
-            return KitchenBlocks.STEAMER.asBlock().getName();
+            return RDKitchenBlocks.STEAMER.asBlock().getName();
         }
     }
 }

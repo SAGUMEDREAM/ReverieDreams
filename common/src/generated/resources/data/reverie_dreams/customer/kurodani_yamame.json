@@ -1,0 +1,55 @@
+{
+  "role_type": "reverie_dreams:kurodani_yamame",
+  "rare": true,
+  "budget": {
+    "min": 250,
+    "max": 400
+  },
+  "likes": [
+    "reverie_dreams:umami",
+    "reverie_dreams:sweet",
+    "reverie_dreams:raw",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:bizarre"
+  ],
+  "dislikes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:salty",
+    "reverie_dreams:fiery"
+  ],
+  "beverages": [
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:beer",
+    "reverie_dreams:sweet"
+  ],
+  "chats": [
+    "reverie_dreams.role.kurodani_yamame.chat.0",
+    "reverie_dreams.role.kurodani_yamame.chat.1",
+    "reverie_dreams.role.kurodani_yamame.chat.2",
+    "reverie_dreams.role.kurodani_yamame.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.kurodani_yamame.order.0",
+    "reverie_dreams.role.kurodani_yamame.order.1",
+    "reverie_dreams.role.kurodani_yamame.order.2",
+    "reverie_dreams.role.kurodani_yamame.order.3",
+    "reverie_dreams.role.kurodani_yamame.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.kurodani_yamame.description.0",
+    "reverie_dreams.role.kurodani_yamame.description.1",
+    "reverie_dreams.role.kurodani_yamame.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.kurodani_yamame.evaluation.exbad",
+    "bad": "reverie_dreams.role.kurodani_yamame.evaluation.bad",
+    "norm": "reverie_dreams.role.kurodani_yamame.evaluation.norm",
+    "good": "reverie_dreams.role.kurodani_yamame.evaluation.good",
+    "exgood": "reverie_dreams.role.kurodani_yamame.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.kurodani_yamame.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.kurodani_yamame.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.kurodani_yamame.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.kurodani_yamame.evaluation.seenRepell"
+  }
+}

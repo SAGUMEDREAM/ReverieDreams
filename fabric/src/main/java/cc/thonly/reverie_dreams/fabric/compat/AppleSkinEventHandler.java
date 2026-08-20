@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.compat;
 
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
@@ -15,12 +15,12 @@ public class AppleSkinEventHandler implements AppleSkinApi {
     public void registerEvents() {
         FoodValuesEvent.EVENT.register(foodValuesEvent -> {
             ItemStack itemStack = foodValuesEvent.itemStack;
-            if (itemStack.has(DataComponents.FOOD) && itemStack.has(RDDataComponents.FOOD_PROPERTIES.value()) && itemStack.has(RDDataComponents.FOOD_ITEM_TYPE.value())) {
+            if (itemStack.has(DataComponents.FOOD) && itemStack.has(RDDataComponentTypes.FOOD_PROPERTIES.value()) && itemStack.has(RDDataComponentTypes.FOOD_ITEM_TYPE.value())) {
                 FoodProperties foodProps = itemStack.get(DataComponents.FOOD);
                 if (foodProps == null) {
                     return;
                 }
-                List<FoodProperty> foodProperties = itemStack.get(RDDataComponents.FOOD_PROPERTIES.value());
+                List<FoodProperty> foodProperties = itemStack.get(RDDataComponentTypes.FOOD_PROPERTIES.value());
                 if (foodProperties == null || foodProperties.isEmpty()) {
                     return;
                 }

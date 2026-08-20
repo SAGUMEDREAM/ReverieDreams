@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -198,19 +198,19 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
 
         public Block defaultBlock() {
             if (this == COOKING_POT) {
-                return KitchenBlocks.COOKING_POT.asBlock();
+                return RDKitchenBlocks.COOKING_POT.asBlock();
             }
             if (this == CUTTING_BOARD) {
-                return KitchenBlocks.CUTTING_BOARD.asBlock();
+                return RDKitchenBlocks.CUTTING_BOARD.asBlock();
             }
             if (this == FRYING_PAN) {
-                return KitchenBlocks.FRYING_PAN.asBlock();
+                return RDKitchenBlocks.FRYING_PAN.asBlock();
             }
             if (this == GRILL) {
-                return KitchenBlocks.GRILL.asBlock();
+                return RDKitchenBlocks.GRILL.asBlock();
             }
             if (this == STEAMER) {
-                return KitchenBlocks.STEAMER.asBlock();
+                return RDKitchenBlocks.STEAMER.asBlock();
             }
             return null;
         }

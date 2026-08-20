@@ -36,6 +36,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.phys.Vec3;
 
+@SuppressWarnings("resource")
 public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> extends LivingEntityRenderer<NPCEntity, AvatarRenderState, PlayerModel> {
 
     public BaseNPCLikeEntityRenderer(EntityRendererProvider.Context context, boolean slim) {
@@ -138,14 +139,14 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         return state.skin.body().texturePath();
     }
 
-    protected void scale(AvatarRenderState p_447098_, PoseStack p_445727_) {
+    protected void scale(AvatarRenderState state, PoseStack poseStack) {
         float f = 0.9375F;
-        p_445727_.scale(0.9375F, 0.9375F, 0.9375F);
+        poseStack.scale(0.9375F, 0.9375F, 0.9375F);
     }
 
     @Override
-    public void submit(AvatarRenderState p_433493_, PoseStack p_434615_, SubmitNodeCollector p_433768_, CameraRenderState p_450931_) {
-        super.submit(p_433493_, p_434615_, p_433768_, p_450931_);
+    public void submit(AvatarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        super.submit(state, poseStack, submitNodeCollector, camera);
     }
 
     protected void submitNameTag(AvatarRenderState state,
@@ -191,6 +192,7 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         super.extractRenderState(entity, state, partialTick);
         HumanoidMobRenderer.extractHumanoidRenderState(entity, state, partialTick, this.itemModelResolver);
         SkinType skinType = entity.getSkinType();
+//        System.out.println(skinType);
         if (skinType == null) {
             skinType = MobSkinTypes.DEFAULT;
         }
@@ -231,6 +233,9 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
             if (itemstack.is(Items.SPYGLASS)) {
                 this.itemModelResolver.updateForLiving(state.heldOnHead, itemstack, ItemDisplayContext.HEAD, entity);
             }
+        }
+        if (state instanceof NPCAvatarRenderState npcAvatarRenderState) {
+            npcAvatarRenderState.dimension = entity.level().dimension();
         }
     }
 

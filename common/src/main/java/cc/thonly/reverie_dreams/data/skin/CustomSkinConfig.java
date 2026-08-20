@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.data.skin;
 
-import cc.thonly.reverie_dreams.registry.CodecStep;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -15,13 +15,13 @@ import java.util.Optional;
 
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType"})
 @Slf4j
-public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
+public class CustomSkinConfig implements SerializableProvider<CustomSkinConfig> {
     public static final Codec<CustomSkinConfig> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(x -> x.group(
             Identifier.CODEC.fieldOf("id").forGetter(CustomSkinConfig::getId),
             SkinConfig.ModelType.CODEC.optionalFieldOf("model_type", SkinConfig.ModelType.WIDE).forGetter(CustomSkinConfig::getType),
             Identifier.CODEC.optionalFieldOf("cape_texture").forGetter(CustomSkinConfig::getCapeTexture),
             Identifier.CODEC.optionalFieldOf("elytra_texture").forGetter(CustomSkinConfig::getElytraTexture),
-            CodecStep.ITEM_CODEC.optionalFieldOf("icon", Items.VILLAGER_SPAWN_EGG).forGetter(CustomSkinConfig::getIcon)
+            SerializableProvider.ITEM_CODEC.optionalFieldOf("icon", Items.VILLAGER_SPAWN_EGG).forGetter(CustomSkinConfig::getIcon)
     ).apply(x, CustomSkinConfig::new)));
     @Getter
     private final Identifier id;
@@ -55,7 +55,7 @@ public class CustomSkinConfig implements CodecStep<CustomSkinConfig> {
         if (this.value != null) {
             return this.value;
         }
-        Optional<Holder.Reference<CustomType>> reference = RegistryImpls.CUSTOM_SKIN_TYPE.get(this.id);
+        Optional<Holder.Reference<CustomType>> reference = BuiltInRegistryProviders.CUSTOM_SKIN_TYPE.get(this.id);
         if (reference.isPresent()) {
             log.error("Duplicate key {}", this.id);
             return reference.get().value();

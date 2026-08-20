@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import com.google.common.hash.HashCode;
 import com.google.gson.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -31,12 +32,13 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
 
     @Override
     public CompletableFuture<?> run(CachedOutput cachedOutput) {
-        this.configured();
-        this.export(cachedOutput);
-        return CompletableFuture.completedFuture(null);
+        return this.future.thenAcceptAsync(provider -> {
+            this.configured(provider);
+            this.outputFile(cachedOutput);
+        });
     }
 
-    public void export(CachedOutput cachedOutput) {
+    public void outputFile(CachedOutput cachedOutput) {
         Path basePath = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         for (var entry : path2JsonElement.entrySet()) {
             String relativePath = entry.getKey();
@@ -54,7 +56,7 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
         }
     }
 
-    protected abstract void configured();
+    protected abstract void configured(HolderLookup.Provider provider);
 
     public void addElement(Type type, Identifier location, String subPath, JsonElement element) {
         String relativePath = type.path + location.getNamespace() + "/" + subPath + "/" + location.getPath() + ".json";

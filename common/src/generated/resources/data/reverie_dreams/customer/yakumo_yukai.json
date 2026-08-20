@@ -1,0 +1,56 @@
+{
+  "role_type": "reverie_dreams:yakumo_yukai",
+  "rare": true,
+  "budget": {
+    "min": 4000,
+    "max": 6000
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:gourmet",
+    "reverie_dreams:legendary",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:cool",
+    "reverie_dreams:bizarre",
+    "reverie_dreams:soup_and_stew"
+  ],
+  "dislikes": [
+    "reverie_dreams:filling",
+    "reverie_dreams:mushrooms"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:soju",
+    "reverie_dreams:classical"
+  ],
+  "chats": [
+    "reverie_dreams.role.yukari.chat.0",
+    "reverie_dreams.role.yukari.chat.1",
+    "reverie_dreams.role.yukari.chat.2",
+    "reverie_dreams.role.yukari.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.yukari.order.0",
+    "reverie_dreams.role.yukari.order.1",
+    "reverie_dreams.role.yukari.order.2",
+    "reverie_dreams.role.yukari.order.3",
+    "reverie_dreams.role.yukari.order.4",
+    "reverie_dreams.role.yukari.order.5",
+    "reverie_dreams.role.yukari.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.yukari.description.0"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.yukari.evaluation.exbad",
+    "bad": "reverie_dreams.role.yukari.evaluation.bad",
+    "norm": "reverie_dreams.role.yukari.evaluation.norm",
+    "good": "reverie_dreams.role.yukari.evaluation.good",
+    "exgood": "reverie_dreams.role.yukari.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.yukari.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.yukari.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.yukari.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.yukari.evaluation.seenRepell"
+  }
+}

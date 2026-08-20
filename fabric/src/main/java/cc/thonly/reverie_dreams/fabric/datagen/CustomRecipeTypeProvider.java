@@ -14,7 +14,7 @@ public class CustomRecipeTypeProvider extends AbstractRecipeTypeProvider {
     }
 
     @Override
-    public void configured() {
+    public void configured(HolderLookup.Provider provider) {
 
     }
 

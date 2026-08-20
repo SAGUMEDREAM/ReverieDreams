@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
 import cc.thonly.reverie_dreams.gui.block.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -30,7 +30,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,RDBlocks.GENSOKYO_ALTAR.createStack());
         this.arrow = helper.createDrawableIngredient(
                 VanillaTypes.ITEM_STACK,
-                RDGuiItems.PROGRESS_TO_RESULT.asItem().getDefaultInstance()
+                RDGuiPlaceholderItems.PROGRESS_TO_RESULT.asItem().getDefaultInstance()
         );
     }
 

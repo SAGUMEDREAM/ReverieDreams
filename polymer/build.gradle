@@ -1,6 +1,5 @@
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
     alias libs.plugins.fabricLoom

@@ -6,6 +6,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 public class RDItemTags {
     public static final TagKey<Item> EMPTY = of("empty");
     public static final TagKey<Item> FUMO = of("fumo");
@@ -27,9 +28,10 @@ public class RDItemTags {
     public static final TagKey<Item> SILVER_BLOCK = of("silver_block");
     public static final TagKey<Item> PEACH = of("peach");
     public static final TagKey<Item> VAISRAVANAS_PAGODA = of("vaisravanas_pagoda_materials");
-    public static final TagKey<Item> INGREDIENT_ITEM = of("ingredient_item");
-    public static final TagKey<Item> FOOD_ITEM = of("food_item");
-    public static final TagKey<Item> DRINK_ITEM = of("drink_item");
+    public static final TagKey<Item> INGREDIENT = of("ingredient");
+    public static final TagKey<Item> CUISINE = of("cuisine");
+    public static final TagKey<Item> FOOD = of("food");
+    public static final TagKey<Item> BEVERAGE = of("beverage");
     public static final TagKey<Item> ROLE_TAME_FOOD = of("role_tame_food");
     public static final TagKey<Item> DANMAKU_ITEM = of("danmaku_item");
     public static final TagKey<Item> DANMAKU_REPAIR_ACCEPTABLE_ITEM = of("danmaku_repair_acceptable");
@@ -50,6 +52,9 @@ public class RDItemTags {
     public static final TagKey<Item> FRYING_PAN = of("frying_pan");
     public static final TagKey<Item> GRILL = of("grill");
     public static final TagKey<Item> STEAMER = of("steamer");
+
+    @Deprecated
+    public static final TagKey<Item> DRINK_ITEM = of("drink_item");
 
     private static TagKey<Item> of(String path) {
         return TagKey.create(Registries.ITEM, ReverieDreams.id(path));

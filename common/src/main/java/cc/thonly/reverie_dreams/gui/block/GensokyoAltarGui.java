@@ -106,8 +106,8 @@ public class GensokyoAltarGui extends SimpleGui {
     }
 
     @Override
-    public void onManualClose() {
-        super.onManualClose();
+    public void onPlayerClose(boolean success) {
+        super.onPlayerClose(success);
         if (this.blockEntity.getLevel() != null) {
             this.blockEntity.getLevel().sendBlockUpdated(
                     this.pos,

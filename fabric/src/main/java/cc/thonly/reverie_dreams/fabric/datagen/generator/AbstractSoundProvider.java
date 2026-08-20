@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.fabric.datagen.entry.SoundEventBuilder;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import cc.thonly.reverie_dreams.sound.JukeBoxEntry;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "ReplaceNullCheck"})
 @Slf4j
 public abstract class AbstractSoundProvider implements DataProvider {
     public final FabricPackOutput output;
@@ -45,7 +46,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
     public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
-            this.export(writer);
+            this.outputFile(writer);
         });
     }
 
@@ -84,7 +85,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
     public abstract void configured();
 
     //    @SuppressWarnings("deprecation")
-    public void export(CachedOutput writer) {
+    public void outputFile(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
             Map<String, List<SoundEventBuilder>> namespaceToBuild = new LinkedHashMap<>();
@@ -103,7 +104,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
                 JsonObject object = new JsonObject();
                 for (var builder : list) {
                     Identifier key = builder.getKey();
-                    JsonElement element = builder.toJsonElement();
+                    JsonElement element = builder.toObject();
                     object.add(key.getPath(), element);
                 }
                 String jsonString = this.gson.toJson(object);

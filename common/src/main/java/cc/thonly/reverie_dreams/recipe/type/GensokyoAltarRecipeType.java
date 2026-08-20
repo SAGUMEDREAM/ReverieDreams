@@ -7,8 +7,9 @@ import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -61,9 +62,9 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
                 DataResult<GensokyoAltarRecipe> result = this.getCodec().parse(input);
 
                 result.resultOrPartial(error -> log.error("Failed to load gensokyo altar recipe {}, {}", id, error))
-                        .ifPresent(recipe -> {
-                            this.add(registryKey, recipe);
-                        });
+                      .ifPresent(recipe -> {
+                          this.add(registryKey, recipe);
+                      });
             } catch (IOException e) {
                 log.error("Failed to load gensokyo altar recipe {}, {}, {}", id, e.getMessage(), e);
             }
@@ -111,7 +112,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
         if (coreWrapper.getItem() instanceof RoleFollowerArchiveItem && isAllMatch.test(2)) {
             ItemStack itemStack = coreWrapper.build();
-            itemStack.set(RDDataComponents.ROLE_CAN_RESPAWN.value(), true);
+            itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN.value(), true);
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,
@@ -137,7 +138,8 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
     @Override
     public List<GensokyoAltarRecipe> getMatches(List<IngredientStack> wrappers) {
-        if (wrappers.size() < 8) return List.of();
+        if (wrappers.size() < 8)
+            return List.of();
         List<GensokyoAltarRecipe> matches = this.getModifierRecipe(wrappers);
 
         if (matches.isEmpty()) {
@@ -154,14 +156,14 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
                 IngredientStack slot8 = recipe.getCore();
                 if (
                         ItemComparatorView.of(wrappers.get(0)).test(ItemComparatorView.of(slot0)) &&
-                                ItemComparatorView.of(wrappers.get(1)).test(ItemComparatorView.of(slot1)) &&
-                                ItemComparatorView.of(wrappers.get(2)).test(ItemComparatorView.of(slot2)) &&
-                                ItemComparatorView.of(wrappers.get(3)).test(ItemComparatorView.of(slot3)) &&
-                                ItemComparatorView.of(wrappers.get(4)).test(ItemComparatorView.of(slot4)) &&
-                                ItemComparatorView.of(wrappers.get(5)).test(ItemComparatorView.of(slot5)) &&
-                                ItemComparatorView.of(wrappers.get(6)).test(ItemComparatorView.of(slot6)) &&
-                                ItemComparatorView.of(wrappers.get(7)).test(ItemComparatorView.of(slot7)) &&
-                                ItemComparatorView.of(wrappers.get(8)).test(ItemComparatorView.of(slot8))
+                                ItemComparatorView.of(wrappers.get(1)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot1).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(2)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot2).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(3)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot3).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(4)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot4).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(5)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot5).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(6)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot6).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(7)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot7).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(8)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot8).map(ItemUtils::updateItemStackTag))
                 ) {
                     matches.add(recipe);
                 }

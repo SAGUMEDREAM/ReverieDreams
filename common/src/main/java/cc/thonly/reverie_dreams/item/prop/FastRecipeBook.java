@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.block.entity.KitchenwareBlockEntity;
 import cc.thonly.reverie_dreams.gui.item.FastRecipeBookGui;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.util.entity.PlayerHelper;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
@@ -70,9 +70,12 @@ public class FastRecipeBook extends Item {
         if (!(be instanceof KitchenwareBlockEntity blockEntity)) {
             return;
         }
+        if (blockEntity.getTickLeft() > 1.0) {
+            return;
+        }
         InteractionHand hand = context.getHand();
         ItemStack stack = player.getItemInHand(hand);
-        KitchenRecipe.IdEntry recipeIdEntry = stack.get(RDDataComponents.RECIPE_MEMORY.value());
+        KitchenRecipe.IdEntry recipeIdEntry = stack.get(RDDataComponentTypes.RECIPE_MEMORY.value());
         if (recipeIdEntry == null) {
             return;
         }

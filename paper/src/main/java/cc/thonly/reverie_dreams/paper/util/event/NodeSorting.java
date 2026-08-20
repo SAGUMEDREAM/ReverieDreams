@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.paper.util.event;
 
 import com.google.common.annotations.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,6 +9,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +23,7 @@ public class NodeSorting {
     public static <N extends SortableNode<N>> boolean sort(List<N> sortedNodes, String elementDescription, Comparator<N> comparator) {
         List<N> toposort = new ArrayList<>(sortedNodes.size());
 
-        for(N node : sortedNodes) {
+        for (N node : sortedNodes) {
             forwardVisit(node, null, toposort);
         }
 
@@ -29,14 +31,14 @@ public class NodeSorting {
         Collections.reverse(toposort);
         Map<N, NodeScc<N>> nodeToScc = new IdentityHashMap<>();
 
-        for(N node : toposort) {
+        for (N node : toposort) {
             if (!node.visited) {
                 List<N> sccNodes = new ArrayList<>();
                 backwardVisit(node, sccNodes);
                 sccNodes.sort(comparator);
                 NodeScc<N> scc = new NodeScc<N>(sccNodes);
 
-                for(N nodeInScc : sccNodes) {
+                for (N nodeInScc : sccNodes) {
                     nodeToScc.put(nodeInScc, scc);
                 }
             }
@@ -44,10 +46,10 @@ public class NodeSorting {
 
         clearStatus(toposort);
 
-        for(NodeScc<N> scc : nodeToScc.values()) {
-            for(N node : scc.nodes) {
-                for(N subsequentNode : node.subsequentNodes) {
-                    NodeScc<N> subsequentScc = (NodeScc)nodeToScc.get(subsequentNode);
+        for (NodeScc<N> scc : nodeToScc.values()) {
+            for (N node : scc.nodes) {
+                for (N subsequentNode : node.subsequentNodes) {
+                    NodeScc<N> subsequentScc = (NodeScc) nodeToScc.get(subsequentNode);
                     if (subsequentScc != scc) {
                         scc.subsequentSccs.add(subsequentScc);
                         ++subsequentScc.inDegree;
@@ -55,10 +57,11 @@ public class NodeSorting {
                 }
             }
         }
-        PriorityQueue<NodeScc<N>> pq = new PriorityQueue(Comparator.comparing((sccx) -> ((NodeScc)sccx).nodes.getFirst(), comparator));
+        Comparator<Object> comparing = Comparator.comparing((Function) (sccx) -> ((NodeScc) sccx).nodes.getFirst());
+        PriorityQueue<NodeScc<N>> pq = new PriorityQueue(comparing);
         sortedNodes.clear();
 
-        for(NodeScc<N> scc : nodeToScc.values()) {
+        for (NodeScc<N> scc : nodeToScc.values()) {
             if (scc.inDegree == 0) {
                 pq.add(scc);
                 scc.inDegree = -1;
@@ -67,7 +70,7 @@ public class NodeSorting {
 
         boolean noCycle = true;
 
-        while(!pq.isEmpty()) {
+        while (!pq.isEmpty()) {
             NodeScc<N> scc = pq.poll();
             sortedNodes.addAll(scc.nodes);
             if (scc.nodes.size() > 1) {
@@ -76,7 +79,7 @@ public class NodeSorting {
                     StringBuilder builder = new StringBuilder();
                     builder.append("Found cycle while sorting ").append(elementDescription).append(":\n");
 
-                    for(N node : scc.nodes) {
+                    for (N node : scc.nodes) {
                         builder.append("\t").append(node.getDescription()).append("\n");
                     }
 
@@ -84,7 +87,7 @@ public class NodeSorting {
                 }
             }
 
-            for(NodeScc<N> subsequentScc : scc.subsequentSccs) {
+            for (NodeScc<N> subsequentScc : scc.subsequentSccs) {
                 --subsequentScc.inDegree;
                 if (subsequentScc.inDegree == 0) {
                     pq.add(subsequentScc);
@@ -99,7 +102,7 @@ public class NodeSorting {
         if (!node.visited) {
             node.visited = true;
 
-            for(N data : node.subsequentNodes) {
+            for (N data : node.subsequentNodes) {
                 forwardVisit(data, node, toposort);
             }
 
@@ -109,7 +112,7 @@ public class NodeSorting {
     }
 
     private static <N extends SortableNode<N>> void clearStatus(List<N> nodes) {
-        for(N node : nodes) {
+        for (N node : nodes) {
             node.visited = false;
         }
 
@@ -120,7 +123,7 @@ public class NodeSorting {
             node.visited = true;
             sccNodes.add(node);
 
-            for(N data : node.previousNodes) {
+            for (N data : node.previousNodes) {
                 backwardVisit(data, sccNodes);
             }
         }

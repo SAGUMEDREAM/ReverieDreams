@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -94,11 +95,11 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
 //            System.out.println("material compare:   " + ItemComparatorView.of(recipe.getMaterial()).greaterThan(materialSlot));
 //            System.out.println("-----------------------------");
             if (
-                    ItemComparatorView.of(recipe.getDye()).greaterThan(dyeSlot) &&
-                            ItemComparatorView.of(recipe.getCore()).greaterThan(coreSlot) &&
-                            ItemComparatorView.of(recipe.getPoint()).greaterThan(pointSlot) &&
-                            ItemComparatorView.of(recipe.getPower()).greaterThan(powerSlot) &&
-                            ItemComparatorView.of(recipe.getMaterial()).greaterThan(materialSlot)
+                    ItemComparatorView.of(recipe.getDye()).map(ItemUtils::updateItemStackTag).greaterThan(dyeSlot) &&
+                            ItemComparatorView.of(recipe.getCore()).map(ItemUtils::updateItemStackTag).greaterThan(coreSlot) &&
+                            ItemComparatorView.of(recipe.getPoint()).map(ItemUtils::updateItemStackTag).greaterThan(pointSlot) &&
+                            ItemComparatorView.of(recipe.getPower()).map(ItemUtils::updateItemStackTag).greaterThan(powerSlot) &&
+                            ItemComparatorView.of(recipe.getMaterial()).map(ItemUtils::updateItemStackTag).greaterThan(materialSlot)
             ) {
                 matches.add(recipe);
             }

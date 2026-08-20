@@ -1,0 +1,46 @@
+{
+  "role_type": "reverie_dreams:yuyuko",
+  "rare": true,
+  "budget": {
+    "min": 1500,
+    "max": 2000
+  },
+  "likes": [
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:gourmet",
+    "reverie_dreams:legendary",
+    "reverie_dreams:filling",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:large_partition"
+  ],
+  "dislikes": [
+    "reverie_dreams:light",
+    "reverie_dreams:petite"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:can_add_ice",
+    "reverie_dreams:cocktail"
+  ],
+  "chats": [
+    "reverie_dreams.role.yuyuko.chat.0",
+    "reverie_dreams.role.yuyuko.chat.1",
+    "reverie_dreams.role.yuyuko.chat.2",
+    "reverie_dreams.role.yuyuko.chat.3",
+    "reverie_dreams.role.yuyuko.chat.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.yuyuko.description.0"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.yuyuko.evaluation.exbad",
+    "bad": "reverie_dreams.role.yuyuko.evaluation.bad",
+    "norm": "reverie_dreams.role.yuyuko.evaluation.norm",
+    "good": "reverie_dreams.role.yuyuko.evaluation.good",
+    "exgood": "reverie_dreams.role.yuyuko.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.yuyuko.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.yuyuko.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.yuyuko.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.yuyuko.evaluation.seenRepell"
+  }
+}
