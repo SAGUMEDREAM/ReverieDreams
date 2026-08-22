@@ -8,7 +8,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 
-public class RDAdvancements {
+public class RDBuiltInAdvancements {
     public static final Identifier ADVANCEMENT_BACKGROUND = Identifier.withDefaultNamespace("gui/advancements/backgrounds/stone");
     public static final ResourceKey<Advancement> ROOT = getOrCreateKey("root");
     public static final ResourceKey<Advancement> DANMAKU_TABLE = getOrCreateKey("danmaku_table");
@@ -35,6 +35,13 @@ public class RDAdvancements {
     public static final ResourceKey<Advancement> COOKING_BY_MYSELF_AMOUNT_5_TAG = getOrCreateKey("cooking_by_myself_amount_5_tag");
     public static final ResourceKey<Advancement> DELICACY = getOrCreateKey("delicacy");
     public static final ResourceKey<Advancement> FINE_WINE = getOrCreateKey("fine_wine");
+    public static final ResourceKey<Advancement> TOUHOU_PEOPLE_CAN_FLY = getOrCreateKey("touhou_people_can_fly");
+    public static final ResourceKey<Advancement> WELCOME_TO_THE_MOON_TOUR = getOrCreateKey("welcome_to_the_moon_tour");
+    public static final ResourceKey<Advancement> SERVING_DISHES_BY_THROWING = getOrCreateKey("serving_dishes_by_throwing");
+    public static final ResourceKey<Advancement> TREASURES_BENEATH_THE_MOON = getOrCreateKey("treasures_beneath_the_moon");
+    public static final ResourceKey<Advancement> YOUKAI_SECRET_BREW = getOrCreateKey("youkai_secret_brew");
+    public static final ResourceKey<Advancement> WAITER = getOrCreateKey("waiter");
+    public static final ResourceKey<Advancement> ASKING_FOR_MONEY = getOrCreateKey("asking_for_money");
 
     public static String getRootKey() {
         return ROOT.identifier().toLanguageKey("title");

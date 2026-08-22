@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:stick",
+    "#": "#minecraft:planks",
     "A": "#minecraft:slabs",
-    "X": "#minecraft:planks"
+    "X": "minecraft:stick"
   },
   "pattern": [
     "###",

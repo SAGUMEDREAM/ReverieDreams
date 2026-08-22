@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.util;
+package cc.thonly.reverie_dreams.gui.slot;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

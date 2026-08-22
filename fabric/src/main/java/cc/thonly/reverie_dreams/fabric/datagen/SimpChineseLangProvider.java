@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.creative_tab.content.*;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCCustomerContainer;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.registry.content.*;
-import cc.thonly.reverie_dreams.registry.content.advancements.RDAdvancements;
+import cc.thonly.reverie_dreams.registry.content.advancements.RDBuiltInAdvancements;
 import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
@@ -64,6 +64,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("item.action.click.cashbox.fails.used", "§c你今天已经被祝福过了哦");
         translationBuilder.add("item.action.click.cashbox.fails.full", "§c你的信仰值已超过了%s哦");
         translationBuilder.add("item.action.click.upgraded_health.max_full", "§c你的最大生命值已超过了%s§c哦");
+        translationBuilder.add("item.tooltip.food_properties", "属性：");
         translationBuilder.add("item.tooltip.use", "§b[右键使用]");
         translationBuilder.add("item.tooltip.use.villager", "§b[右键村民使用]");
         translationBuilder.add("item.tooltip.shape", "形状：");
@@ -73,6 +74,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("item.tooltip.count", "数量：");
         translationBuilder.add("item.tooltip.base_type", "弹幕轨迹：");
         translationBuilder.add("item.tooltip.recipe.no_compat", "当前不兼容该配方显示，请使用 §b/touhou recipe §r查询");
+        translationBuilder.add("item.tooltip.cheque.owner", "§f签名：%s");
+        translationBuilder.add("item.tooltip.cheque.amount", "§f金额：%s");
         translationBuilder.add(RecipeTypeCategoryManager.DANMAKU_TABLE_ICON.toLanguageKey(), "弹幕工作台");
         translationBuilder.add(RecipeTypeCategoryManager.DANMAKU_SHAPE_ICON.toLanguageKey(), "弹幕创作模板");
         translationBuilder.add(RecipeTypeCategoryManager.GENSOKYO_ALTAR_ICON.toLanguageKey(), "幻想乡祭坛");
@@ -2432,31 +2435,39 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
     public void generateAdvancementsTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationWrapper builder = ITranslationWrapper.ofWrapper(wrapperLookup, translationBuilder);
-        builder.addAdvancement(RDAdvancements.ROOT, "夢見る幻想郷", "§r获得§a夢見る幻想郷§r模组指南");
-        builder.addAdvancement(RDAdvancements.DANMAKU_TABLE, "弹幕工作台", "获得§c弹幕工作台");
-        builder.addAdvancement(RDAdvancements.DANMAKU_WARS, "弹幕大战争！", "§r在§c弹幕工作台§r中制作你的弹幕");
-        builder.addAdvancement(RDAdvancements.DANMAKU_UPGRADE, "火力升级", "通过强化台强化你的弹幕");
-        builder.addAdvancement(RDAdvancements.DARK_CUISINE, "搞砸了", "烹饪出黑暗料理");
-        builder.addAdvancement(RDAdvancements.ABANDONED_SHRINE, "第一次接触", "进入废弃神社");
-        builder.addAdvancement(RDAdvancements.ENTER_DREAM, "梦里什么都有", "进入第四槐安通道");
-        builder.addAdvancement(RDAdvancements.FUMOFUMO, "FUMO FUMO", "获得fumo");
-        builder.addAdvancement(RDAdvancements.SHINY_COINS, "闪亮的货币", "获得金属货币");
-        builder.addAdvancement(RDAdvancements.LAYLA_PRISMRIVER, "蕾拉·普莉兹姆利巴", "获得一件乐器");
-        builder.addAdvancement(RDAdvancements.WOOD_WITH_SPIRITUAL_POWER, "灵力的木头", "获得绳文杉木头");
-        builder.addAdvancement(RDAdvancements.GENSOKYO_ALTAR_CRAFTING, "祭坛合成", "§r使用§d幻想乡祭坛§r合成一些物品");
-        builder.addAdvancement(RDAdvancements.PSYCHOLOGIST, "心理医生", "对生物使用§d觉之眼§r诊断");
-        builder.addAdvancement(RDAdvancements.MAKE_FRIEND, "旅途的伙伴", "使用蛋糕邀请一位角色成为你的伙伴");
-        builder.addAdvancement(RDAdvancements.TAKING_PHOTO, "不良新闻记者", "使用照相机拍照");
-        builder.addAdvancement(RDAdvancements.I_WILL_TAKE_YOUR_SOUL, "我要偷走你的灵魂！", "获得死神镰刀");
-        builder.addAdvancement(RDAdvancements.BURST, "爆！", "使用§aBomb§r");
-        builder.addAdvancement(RDAdvancements.LEVEL_UP, "+UP", "使用§d残机§r");
-        builder.addAdvancement(RDAdvancements.REHABILITATION_EXPERT, "退治专家", "击败一只妖怪或妖精");
-        builder.addAdvancement(RDAdvancements.A_CELESTIAL_BEING_DESCENDED_TO_EARTH, "天神下凡", "尝试带有威力附魔的桃子");
-        builder.addAdvancement(RDAdvancements.TOUHOU_MYSTIA_IZAKAYA, "东方夜雀食堂", "获得任意厨具");
-        builder.addAdvancement(RDAdvancements.COOKING_BY_MYSELF, "第一次烹饪", "使用任意厨具烹饪食物");
-        builder.addAdvancement(RDAdvancements.COOKING_BY_MYSELF_AMOUNT_5_TAG, "烹饪专家", "用厨具制作出带有 5 个以上标签的料理");
-        builder.addAdvancement(RDAdvancements.DELICACY, "美味", "品尝一次由厨具烹饪出的料理");
-        builder.addAdvancement(RDAdvancements.FINE_WINE, "好酒", "品尝一杯酒水");
+        builder.addAdvancement(RDBuiltInAdvancements.ROOT, "夢見る幻想郷", "§r获得§a夢見る幻想郷§r模组指南");
+        builder.addAdvancement(RDBuiltInAdvancements.DANMAKU_TABLE, "弹幕工作台", "获得§c弹幕工作台");
+        builder.addAdvancement(RDBuiltInAdvancements.DANMAKU_WARS, "弹幕大战争！", "§r在§c弹幕工作台§r中制作你的弹幕");
+        builder.addAdvancement(RDBuiltInAdvancements.DANMAKU_UPGRADE, "火力升级", "通过强化台强化你的弹幕");
+        builder.addAdvancement(RDBuiltInAdvancements.DARK_CUISINE, "搞砸了", "烹饪出黑暗料理");
+        builder.addAdvancement(RDBuiltInAdvancements.ABANDONED_SHRINE, "第一次接触", "进入废弃神社");
+        builder.addAdvancement(RDBuiltInAdvancements.ENTER_DREAM, "梦里什么都有", "进入第四槐安通道");
+        builder.addAdvancement(RDBuiltInAdvancements.FUMOFUMO, "FUMO FUMO", "获得fumo");
+        builder.addAdvancement(RDBuiltInAdvancements.SHINY_COINS, "闪亮的货币", "获得金属货币");
+        builder.addAdvancement(RDBuiltInAdvancements.LAYLA_PRISMRIVER, "蕾拉·普莉兹姆利巴", "获得一件乐器");
+        builder.addAdvancement(RDBuiltInAdvancements.WOOD_WITH_SPIRITUAL_POWER, "灵力的木头", "获得绳文杉木头");
+        builder.addAdvancement(RDBuiltInAdvancements.GENSOKYO_ALTAR_CRAFTING, "祭坛合成", "§r使用§d幻想乡祭坛§r合成一些物品");
+        builder.addAdvancement(RDBuiltInAdvancements.PSYCHOLOGIST, "心理医生", "对生物使用§d觉之眼§r诊断");
+        builder.addAdvancement(RDBuiltInAdvancements.MAKE_FRIEND, "旅途的伙伴", "使用蛋糕邀请一位角色成为你的伙伴");
+        builder.addAdvancement(RDBuiltInAdvancements.TAKING_PHOTO, "不良新闻记者", "使用照相机拍照");
+        builder.addAdvancement(RDBuiltInAdvancements.I_WILL_TAKE_YOUR_SOUL, "我要偷走你的灵魂！", "获得死神镰刀");
+        builder.addAdvancement(RDBuiltInAdvancements.BURST, "爆！", "使用§aBomb§r");
+        builder.addAdvancement(RDBuiltInAdvancements.LEVEL_UP, "+UP", "使用§d残机§r");
+        builder.addAdvancement(RDBuiltInAdvancements.REHABILITATION_EXPERT, "退治专家", "击败一只妖怪或妖精");
+        builder.addAdvancement(RDBuiltInAdvancements.A_CELESTIAL_BEING_DESCENDED_TO_EARTH, "天神下凡", "尝试带有威力附魔的桃子");
+        builder.addAdvancement(RDBuiltInAdvancements.TOUHOU_MYSTIA_IZAKAYA, "东方夜雀食堂", "获得任意厨具");
+        builder.addAdvancement(RDBuiltInAdvancements.COOKING_BY_MYSELF, "第一次烹饪", "使用任意厨具烹饪食物");
+        builder.addAdvancement(RDBuiltInAdvancements.COOKING_BY_MYSELF_AMOUNT_5_TAG, "烹饪专家", "用厨具制作出带有 5 个以上标签的料理");
+        builder.addAdvancement(RDBuiltInAdvancements.DELICACY, "美味", "品尝一次由厨具烹饪出的料理");
+        builder.addAdvancement(RDBuiltInAdvancements.FINE_WINE, "好酒", "品尝一杯酒水");
+        builder.addAdvancement(RDBuiltInAdvancements.TOUHOU_PEOPLE_CAN_FLY, "东方人能飞", "骑上魔法扫帚");
+        builder.addAdvancement(RDBuiltInAdvancements.WELCOME_TO_THE_MOON_TOUR, "欢迎来到月面旅行团", "进入月面");
+        builder.addAdvancement(RDBuiltInAdvancements.SERVING_DISHES_BY_THROWING, "料理投掷手", "向实体投掷料理");
+        builder.addAdvancement(RDBuiltInAdvancements.TREASURES_BENEATH_THE_MOON, "月球的宝藏", "发现月球的宝藏箱子");
+        builder.addAdvancement(RDBuiltInAdvancements.YOUKAI_SECRET_BREW, "妖怪秘酿", "学会酿造酒水");
+        builder.addAdvancement(RDBuiltInAdvancements.WAITER, "服务员", "给客人上菜");
+        builder.addAdvancement(RDBuiltInAdvancements.ASKING_FOR_MONEY, "讨数!", "海哥讨走了你的￥1500!");
+
     }
 
     public void generateCommandTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder builder) {
@@ -2494,7 +2505,6 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         TranslationWrapper builder = ITranslationWrapper.ofWrapper(wrapperLookup, translationBuilder);
         translationBuilder.add("block.feedback.working", "§c该厨具正在工作中...");
 
-        translationBuilder.add("item.tooltip.food_properties", "属性：");
 //        translationBuilder.add("item_group.kitchenware_item_group", "梦隐的幻想乡 - 厨具");
 //        translationBuilder.add("item_group.ingredients_item_group", "梦隐的幻想乡 - 食材");
 //        translationBuilder.add("item_group.seed_item_group", "梦隐的幻想乡 - 种子");
@@ -2528,6 +2538,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDKitchenBlocks.NUKE_STEAMER.asBlock(), "核能⦁蒸锅");
 
         translationBuilder.add(RDBlocks.PLATE.asBlock(), "盘子");
+        translationBuilder.add(RDBlocks.BREWING_BARREL.asBlock(), "酒桶");
+        translationBuilder.add(RDBlocks.CUPBOARD.asBlock(), "橱柜");
         translationBuilder.add(RDBlocks.BLACK_SALT_BLOCK.asBlock(), "黑盐块");
 
         translationBuilder.add(RDItems.MYSTIA_ICON.asItem(), "东方夜雀食堂图标");
@@ -3256,6 +3268,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), "冥界之冠");
         translationBuilder.add(RDItems.SUNFLOWER.asItem(), "自然之力");
         translationBuilder.add(RDItems.CUSTOM_SKIN_SELECTOR.asItem(), "自定义皮肤更换工具");
+        translationBuilder.add(RDItems.CHEQUE.asItem(), "支票");
         translationBuilder.add(RDItems.SOUL_CARD.asItem(), "魂符");
 
         // 武器

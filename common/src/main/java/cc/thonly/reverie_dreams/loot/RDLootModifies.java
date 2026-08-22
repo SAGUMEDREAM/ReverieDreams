@@ -88,15 +88,15 @@ public class RDLootModifies {
     public static void register() {
         LootTableCallback.MODIFY.register((key, lootTableBuilder, source, registries) -> {
             // 钓鱼修改
-            if (source.isBuiltin() && key.equals(FISHING)) {
+            if (key.equals(FISHING)) {
                 KeineLootTableBuilder keineLootTableBuilder = (KeineLootTableBuilder) lootTableBuilder;
                 keineLootTableBuilder.modifyPools(tb -> {
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SALMON));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SALMON).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA).setWeight(8));
                 });
             }
 

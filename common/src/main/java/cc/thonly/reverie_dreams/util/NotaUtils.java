@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.phys.Vec3;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -66,12 +67,17 @@ public final class NotaUtils {
         Song song;
         try {
             song = NBSDecoderPlus.parse(getFilePath(filename).toFile());
+        } catch (FileNotFoundException e) {
+            return;
         } catch (Exception e) {
             log.error("读取音乐失败: {}", filename, e);
             return;
         }
 
         DelayedTask.create(server, 2, () -> {
+            if (song == null) {
+                return;
+            }
             Map<Long, SongPlayer> blockPos2SongPlayer = blockMusicPlayCache.computeIfAbsent(world, k -> new HashMap<>());
             SongPlayer songPlayer = blockPos2SongPlayer.get(pos.asLong());
             if (songPlayer != null) {
@@ -109,9 +115,11 @@ public final class NotaUtils {
                     ParticleOptions particleEffect = ParticleTypes.NOTE;
                     List<ServerPlayer> players = serverWorld.players();
                     for (ServerPlayer player : players) {
-                        if (psp.hasPlayer(player)) continue;
+                        if (psp.hasPlayer(player))
+                            continue;
                         double squaredDistance = pos.distToCenterSqr(player.position());
-                        if (squaredDistance > MAX_DISTANCE * MAX_DISTANCE) continue;
+                        if (squaredDistance > MAX_DISTANCE * MAX_DISTANCE)
+                            continue;
                         psp.addPlayer(player);
                     }
 
@@ -151,6 +159,10 @@ public final class NotaUtils {
             if (user instanceof ServerPlayer player) {
                 player.sendSystemMessage(Component.literal("§c无法读取音乐：" + playingMusic), false);
             }
+            return;
+        }
+
+        if (song == null) {
             return;
         }
 
@@ -230,10 +242,10 @@ public final class NotaUtils {
     public static List<String> getFileNames() {
         try {
             return Files.list(PATH)
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().toLowerCase().endsWith(".nbs"))
-                    .map(path -> path.getFileName().toString())
-                    .toList();
+                        .filter(Files::isRegularFile)
+                        .filter(path -> path.getFileName().toString().toLowerCase().endsWith(".nbs"))
+                        .map(path -> path.getFileName().toString())
+                        .toList();
         } catch (Exception e) {
             log.warn("扫描音乐目录失败", e);
             return new ArrayList<>();

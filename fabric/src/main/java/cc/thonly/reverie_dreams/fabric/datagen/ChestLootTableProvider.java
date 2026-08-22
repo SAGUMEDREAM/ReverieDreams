@@ -161,7 +161,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
         var miniBarPool = LootPool.lootPool().setRolls(UniformGenerator.between(4, 6))
                                   .add(LootItem.lootTableItem(RDItems.POINT).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 7))))
                                   .add(LootItem.lootTableItem(Items.EMERALD).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))));
-        for (var drinkItem : RDBeverageItems.DRINK_ITEMS) {
+        for (var drinkItem : RDBeverageItems.BEVERAGE_ITEMS) {
             miniBarPool.add(LootItem.lootTableItem(drinkItem).setWeight(10));
         }
         output.accept(MINI_BAR_CHEST, LootTable.lootTable().withPool(miniBarPool));

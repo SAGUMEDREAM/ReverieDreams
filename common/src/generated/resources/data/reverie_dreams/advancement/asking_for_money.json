@@ -1,0 +1,44 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "pay_1500": {
+      "conditions": {
+        "trigger": "reverie_dreams:asking_for_money"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.asking_for_money"
+        }
+      ],
+      "text": ""
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "components": {
+        "minecraft:item_model": "reverie_dreams:advancement_icon/asking_for_money"
+      },
+      "id": "minecraft:paper"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.asking_for_money"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "pay_1500"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

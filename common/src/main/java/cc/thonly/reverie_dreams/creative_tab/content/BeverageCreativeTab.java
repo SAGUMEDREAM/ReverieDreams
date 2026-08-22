@@ -18,7 +18,7 @@ public class BeverageCreativeTab implements ItemGroupContentHelper {
                 .title(Component.translatable("item_group.drink_item_group"))
                 .displayItems((parameters, output) -> {
                     output.accept(Items.BARREL);
-                    for (var item : RDBeverageItems.DRINK_ITEMS) {
+                    for (var item : RDBeverageItems.BEVERAGE_ITEMS) {
                         output.accept(item);
                     }
                 })

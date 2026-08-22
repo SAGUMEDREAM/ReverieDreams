@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.datagen;
 
+import cc.thonly.reverie_dreams.advancement.AdvancementIcons;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractJsonElementWriterProvider;
@@ -21,12 +22,12 @@ import net.minecraft.world.level.block.LeavesBlock;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings({"deprecation", "TextBlockMigration"})
 public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider {
     public JsonElementWriterProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     protected void configured(HolderLookup.Provider provider) {
         for (FumoType fumoType : FumoTypes.getView()) {
@@ -65,35 +66,61 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
                         "}"
         ));
         for (Item spawnEgg : ColoredSpawnEggItem.SPAWN_EGGS) {
-            ResourceKey<Item> key = spawnEgg.builtInRegistryHolder().key();
-            Identifier location = key.identifier();
-            JsonElement element = strToJson("{\n" +
-                    "  \"model\": {\n" +
-                    "    \"type\": \"minecraft:condition\",\n" +
-                    "    \"component\": \"minecraft:dyed_color\",\n" +
-                    "    \"on_false\": {\n" +
-                    "      \"type\": \"minecraft:model\",\n" +
-                    "      \"model\": \"reverie_dreams:item/spawn_egg\"\n" +
-                    "    },\n" +
-                    "    \"on_true\": {\n" +
-                    "      \"type\": \"minecraft:model\",\n" +
-                    "      \"model\": \"reverie_dreams:item/spawn_egg_dyed\",\n" +
-                    "      \"tints\": [\n" +
-                    "        {\n" +
-                    "          \"type\": \"minecraft:constant\",\n" +
-                    "          \"value\": -1\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"type\": \"minecraft:dye\",\n" +
-                    "          \"default\": 0\n" +
-                    "        }\n" +
-                    "      ]\n" +
-                    "    },\n" +
-                    "    \"property\": \"minecraft:has_component\"\n" +
-                    "  }\n" +
-                    "}");
-            this.addElement(Type.ASSETS, location, "items", element);
+            this.addSpawnEgg(spawnEgg);
         }
+        AdvancementIcons.getIcons().forEach((key, value) -> this.addAdvancementIcon(key));
+    }
+
+    void addAdvancementIcon(Identifier key) {
+        JsonElement items = strToJson(("{\n" +
+                "  \"model\": {\n" +
+                "    \"type\": \"minecraft:model\",\n" +
+                "    \"model\": \"%s:item/%s\",\n" +
+                "    \"oversized_in_gui\": true\n" +
+                "  },\n" +
+                "  \"oversized_in_gui\": true\n" +
+                "}"
+        ).formatted(key.getNamespace(), key.getPath()));
+        this.addElement(Type.ASSETS, key, "items", items);
+        JsonElement modelItem = strToJson(("{\n" +
+                "  \"parent\": \"reverie_dreams:item/custom_slot\",\n" +
+                "  \"textures\": {\n" +
+                "    \"layer0\": \"%s:item/%s\"\n" +
+                "  }\n" +
+                "}").formatted(key.getNamespace(), key.getPath())
+        );
+        this.addElement(Type.ASSETS, key, "models/item", modelItem);
+    }
+
+    void addSpawnEgg(Item item) {
+        ResourceKey<Item> key = item.builtInRegistryHolder().key();
+        Identifier location = key.identifier();
+        JsonElement element = strToJson("{\n" +
+                "  \"model\": {\n" +
+                "    \"type\": \"minecraft:condition\",\n" +
+                "    \"component\": \"minecraft:dyed_color\",\n" +
+                "    \"on_false\": {\n" +
+                "      \"type\": \"minecraft:model\",\n" +
+                "      \"model\": \"reverie_dreams:item/spawn_egg\"\n" +
+                "    },\n" +
+                "    \"on_true\": {\n" +
+                "      \"type\": \"minecraft:model\",\n" +
+                "      \"model\": \"reverie_dreams:item/spawn_egg_dyed\",\n" +
+                "      \"tints\": [\n" +
+                "        {\n" +
+                "          \"type\": \"minecraft:constant\",\n" +
+                "          \"value\": -1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"type\": \"minecraft:dye\",\n" +
+                "          \"default\": 0\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    \"property\": \"minecraft:has_component\"\n" +
+                "  }\n" +
+                "}");
+        this.addElement(Type.ASSETS, location, "items", element);
     }
 
     void addSixteenDirectionBlockState(Block block) {

@@ -6,11 +6,14 @@ import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.server.InputKey;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -125,6 +128,17 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
                 this.hurtServer(world, this.damageSources().magic(), Integer.MAX_VALUE);
             }
         }
+        frozenParticles(this, this.level());
+    }
+
+    private static void frozenParticles(MagicBroom entity, Level level) {
+        if (entity.tickCount % 3 != 0)
+            return;
+        float offset = 2.0f;
+        double xOffset = entity.getDeltaMovement().x * offset;
+        double yOffset = entity.getDeltaMovement().y * offset;
+        double zOffset = entity.getDeltaMovement().z * offset;
+        level.addParticle(ParticleTypes.SNOWFLAKE, entity.getX() - xOffset, entity.getY() + entity.getBbHeight() / 2 - yOffset, entity.getZ() - zOffset, 0, 0, 0);
     }
 
     @Override
@@ -216,7 +230,8 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
 //                vertical += 0.6f;
 //            }
 
-            if (sneak) vertical -= 0.6f;
+            if (sneak)
+                vertical -= 0.6f;
 
             this.moveRelative(speed, new Vec3(strafe, vertical, forward));
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -297,8 +312,9 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
-            if (!this.level().isClientSide()) {
+            if (!this.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
                 player.startRiding(this);
+                SimpleTriggerFactory.create(SimpleTriggerKeys.TOUHOU_PEOPLE_CAN_FLY).trigger(serverPlayer);
                 return InteractionResult.SUCCESS_SERVER;
             }
             return InteractionResult.SUCCESS;

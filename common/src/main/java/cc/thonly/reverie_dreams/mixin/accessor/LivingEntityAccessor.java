@@ -5,6 +5,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -29,4 +30,7 @@ public interface LivingEntityAccessor {
 
     @Invoker("getDamageAfterArmorAbsorb")
     float reverie_dreams$getDamageAfterArmorAbsorb(DamageSource damageSource, float damage);
+
+    @Invoker("getHitbox")
+    AABB reverie_dreams$getHitbox();
 }

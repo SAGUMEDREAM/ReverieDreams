@@ -229,6 +229,7 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(RDBlocks.PLATE.asBlock());
         dropSelf(RDBlocks.CHAIR.asBlock());
         dropSelf(RDBlocks.TABLE.asBlock());
+        dropSelf(RDBlocks.BREWING_BARREL.asBlock());
 
         for (Map.Entry<Identifier, CropBlockBundle.Entry> view : CropBlockBundle.getViews()) {
             CropBlockBundle.Entry entry = view.getValue();

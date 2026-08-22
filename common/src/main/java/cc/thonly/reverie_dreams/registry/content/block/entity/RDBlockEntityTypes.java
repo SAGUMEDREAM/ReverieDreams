@@ -35,9 +35,17 @@ public class RDBlockEntityTypes {
             RDKitchenBlocks.EXTREME_COOKING_POT, RDKitchenBlocks.EXTREME_CUTTING_BOARD, RDKitchenBlocks.EXTREME_FRYING_PAN, RDKitchenBlocks.EXTREME_GRILL, RDKitchenBlocks.EXTREME_STEAMER,
             RDKitchenBlocks.NUKE_COOKING_POT, RDKitchenBlocks.NUKE_CUTTING_BOARD, RDKitchenBlocks.NUKE_FRYING_PAN, RDKitchenBlocks.NUKE_GRILL, RDKitchenBlocks.NUKE_STEAMER
     );
-    public static final RegistrySupplier<BlockEntityType<PlateBlockEntity>> FOOD_DISPLAY = registerBlockEntity("base_display",
+    public static final RegistrySupplier<BlockEntityType<PlateBlockEntity>> PLATE = registerBlockEntity("base_display",
             PlateBlockEntity::new,
             RDBlocks.PLATE
+    );
+    public static final RegistrySupplier<BlockEntityType<BrewingBarrelBlockEntity>> BREWING_BARREL = registerBlockEntity("brewing_barrel",
+            BrewingBarrelBlockEntity::new,
+            RDBlocks.BREWING_BARREL
+    );
+    public static final RegistrySupplier<BlockEntityType<CupboardBlockEntity>> CUPBOARD = registerBlockEntity("cupboard",
+            CupboardBlockEntity::new,
+            RDBlocks.CUPBOARD
     );
     public static final RegistrySupplier<BlockEntityType<SignalRailBlockEntity>> SIGNAL_RAIL_BLOCK_ENTITY = registerBlockEntity(
             "signal_rails",

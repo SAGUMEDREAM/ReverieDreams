@@ -34,11 +34,12 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Unique;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 
 @Slf4j
-@SuppressWarnings({"LombokSetterMayBeUsed", "LombokGetterMayBeUsed", "deprecation"})
+@SuppressWarnings({"LombokSetterMayBeUsed", "LombokGetterMayBeUsed", "deprecation", "OptionalAssignedToNull", "ConstantValue", "rawtypes", "unchecked"})
 @ToString
 public class IngredientStack implements ItemLike, DataComponentGetter, ItemInstance, TypedInstance<Item>, NonPersistentAdditionalData {
     public static final Codec<Holder<Item>> ITEM_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(
@@ -326,6 +327,30 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         this.components = builder.build();
     }
 
+    public IngredientStack apply(DataComponentPatch patch) {
+        if (patch.isEmpty()) {
+            return this.copy();
+        }
+        DataComponentPatch.Builder builder = DataComponentPatch.builder();
+        for (Map.Entry<DataComponentType<?>, Optional<?>> entry : this.components().entrySet()) {
+            DataComponentType key = entry.getKey();
+            Optional optional = entry.getValue();
+            if (optional.isPresent()) {
+                Object value = optional.get();
+                builder.set(key, value);
+            }
+        }
+        for (Map.Entry<DataComponentType<?>, Optional<?>> entry : patch.entrySet()) {
+            DataComponentType key = entry.getKey();
+            Optional optional = entry.getValue();
+            if (optional.isPresent()) {
+                Object value = optional.get();
+                builder.set(key, value);
+            }
+        }
+        return new IngredientStack(this.item, this.count, builder.build());
+    }
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     public <T> void set(DataComponentType<T> type, T value) {
         DataComponentPatch.Builder builder = DataComponentPatch.builder();
@@ -345,7 +370,10 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
     @SuppressWarnings("unchecked")
     @Override
     public <T> T get(DataComponentType<? extends T> type) {
-        Optional<T> optional = (Optional<T>) this.components.map.get(type);
+        @Nullable Optional<T> optional = (Optional<T>) this.components.map.get(type);
+        if (optional == null) {
+            return null;
+        }
         return optional.orElse(null);
     }
 

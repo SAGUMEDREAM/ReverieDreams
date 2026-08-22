@@ -15,8 +15,11 @@ import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -28,19 +31,116 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Predicate;
 
+@SuppressWarnings("deprecation")
 @Slf4j
 public class ItemUtils extends net.minecraft.world.item.ItemUtils {
     private static Field _FIELD_ITEM = null;
     private static Field _FIELD_COUNT = null;
     private static Field _FIELD_COMPONENTS = null;
     public static final String FOOD_TAG_FIELD_KEY = "FoodTagRead";
-    public static final String DRINK_TAG_FIELD_KEY = "DrinkTagRead";
+    public static final String BEVERAGE_TAG_FIELD_KEY = "BeverageTagRead";
 
     public static final Map<Holder<Item>, Integer> PRICE = new Object2ObjectOpenHashMap<>(Map.of(
             RDItems.COPPER_COIN, 1,
             RDItems.SILVER_COIN, 10,
             RDItems.GOLD_COIN, 100
     ));
+
+    public static <T> void addComponentIfExist(
+            DataComponentPatch.Builder builder,
+            ItemStack itemStack,
+            DataComponentType<T> componentType
+    ) {
+        if (itemStack.has(componentType)) {
+            T value = itemStack.get(componentType);
+            if (value != null) {
+                builder.set(componentType, value);
+            }
+        }
+    }
+    public static <T> void addComponentIfExist(
+            DataComponentPatch.Builder builder,
+            ItemStack itemStack,
+            Holder<DataComponentType<T>> componentType
+    ) {
+        if (itemStack.has(componentType.value())) {
+            T value = itemStack.get(componentType.value());
+            if (value != null) {
+                builder.set(componentType.value(), value);
+            }
+        }
+    }
+
+    public static int getPlayerCoinValue(Player player) {
+        Inventory inventory = player.getInventory();
+
+        int total = 0;
+
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+
+            if (stack.isEmpty()) {
+                continue;
+            }
+
+            Holder<Item> holder = stack.getItem().builtInRegistryHolder();
+
+            for (Map.Entry<Holder<Item>, Integer> entry : PRICE.entrySet()) {
+                if (holder.is(entry.getKey())) {
+                    total += entry.getValue() * stack.getCount();
+                    break;
+                }
+            }
+        }
+
+        return total;
+    }
+
+    public static boolean removeCoins(
+            Player player,
+            int amount
+    ) {
+        if (amount <= 0) {
+            return true;
+        }
+
+        Inventory inventory = player.getInventory();
+
+        int total = getPlayerCoinValue(player);
+
+        if (total < amount) {
+            return false;
+        }
+
+        int remaining = total - amount;
+
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+
+            if (stack.isEmpty()) {
+                continue;
+            }
+
+            Holder<Item> holder = stack.getItem().builtInRegistryHolder();
+
+            for (Holder<Item> coin : PRICE.keySet()) {
+                if (holder.is(coin)) {
+                    inventory.setItem(i, ItemStack.EMPTY);
+                    break;
+                }
+            }
+        }
+
+        List<ItemStack> remainingCoins = calculateCoins(remaining);
+
+        for (ItemStack stack : remainingCoins) {
+            if (!inventory.add(stack)) {
+                player.drop(stack, false);
+            }
+        }
+
+        return true;
+    }
 
     public static List<ItemStack> calculateCoins(int price) {
         List<ItemStack> result = new ArrayList<>();
@@ -92,10 +192,10 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
                 FoodProperties.get(stack);
                 stack.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.FOOD_TAG_FIELD_KEY, 1);
             }
-            Byte drinkTagBuild = stack.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.DRINK_TAG_FIELD_KEY, Byte.class);
-            if (drinkTagBuild == null) {
+            Byte beverageTagBuild = stack.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, Byte.class);
+            if (beverageTagBuild == null) {
                 BeverageProperties.get(stack);
-                stack.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.DRINK_TAG_FIELD_KEY, 1);
+                stack.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, 1);
             }
         } catch (Exception e) {
             log.error("Error on update item tag", e);
@@ -113,10 +213,10 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
                 FoodProperties.get(itemStack);
                 mixinImpl.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.FOOD_TAG_FIELD_KEY, 1);
             }
-            Byte drinkTagBuild = mixinImpl.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.DRINK_TAG_FIELD_KEY, Byte.class);
+            Byte drinkTagBuild = mixinImpl.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, Byte.class);
             if (drinkTagBuild == null) {
                 BeverageProperties.get(itemStack);
-                mixinImpl.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.DRINK_TAG_FIELD_KEY, 1);
+                mixinImpl.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, 1);
             }
         } catch (Exception e) {
             log.error("Error on update item tag");
@@ -132,8 +232,8 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
 
         // ❗过滤掉“纯食材容器类”（你原本的逻辑保留）
         List<IngredientStack> filteredInputs = inputs.stream()
-                .filter(ingredientStack -> !ingredientStack.is(RDItemTags.CUISINE))
-                .toList();
+                                                     .filter(ingredientStack -> !ingredientStack.is(RDItemTags.CUISINE))
+                                                     .toList();
 
         List<IngredientStack> ingredients = recipe.getIngredients();
 
@@ -147,7 +247,8 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
         for (IngredientStack ingredient : ingredients) {
 
             for (int i = 0; i < filteredInputs.size(); i++) {
-                if (used[i]) continue;
+                if (used[i])
+                    continue;
 
                 IngredientStack input = filteredInputs.get(i);
 

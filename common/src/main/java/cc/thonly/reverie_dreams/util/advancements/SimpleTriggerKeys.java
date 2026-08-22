@@ -14,6 +14,12 @@ public class SimpleTriggerKeys {
     public static final Identifier DANMAKU_UPGRADE = createKey("danmaku_upgrade");
     public static final Identifier MAKING_FRIEND = createKey("making_friend");
     public static final Identifier USE_MUSICAL_INSTRUMENTS = createKey("using_musical_instruments");
+    public static final Identifier TOUHOU_PEOPLE_CAN_FLY = createKey("touhou_people_can_fly");
+    public static final Identifier SERVING_DISHES_BY_THROWING = createKey("serving_dishes_by_throwing");
+    public static final Identifier YOUKAI_SECRET_BREW = createKey("youkai_secret_brew");
+    public static final Identifier WAITER = createKey("waiter");
+    public static final Identifier OPEN_CHEST = createKey("open_chest");
+    public static final Identifier ASKING_FOR_MONEY = createKey("asking_for_money");
 
     public static Identifier createKey(String name) {
         return ReverieDreams.id(name);

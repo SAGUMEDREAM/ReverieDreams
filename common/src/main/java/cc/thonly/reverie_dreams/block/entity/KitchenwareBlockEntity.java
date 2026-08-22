@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.util.entity.PlayerHelper;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -133,6 +134,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     }
 
     public void setOutput(IngredientStack ingredientStack, Double time) {
+        ItemUtils.updateIngredientTag(ingredientStack);
         this.setPreOutput(ingredientStack);
         this.setTickLeft(time);
         this.setTickMax(time);
@@ -330,7 +332,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
     }
 
     @Override
-    public @org.jspecify.annotations.Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 

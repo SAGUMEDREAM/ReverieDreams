@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.data.npc.NPCLikeInteractionEvent;
 import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.entity.npc.container.FavorabilityContainer;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCCustomerContainer;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.gui.entity.NPCGui;
@@ -161,9 +162,9 @@ public class NPCLikeInteractionEvents {
         if (stack.isEmpty()) {
             return NPCInteractResult.PASS;
         }
-        if (entity.canFeed() && (stack.getItem() == Items.POTION || stack.has(RDDataComponentTypes.DRINK_ITEM_TYPE.value()))) {
+        if (entity.canFeed() && entity instanceof NPCSimpleEntity npc && (stack.getItem() == Items.POTION || stack.has(RDDataComponentTypes.DRINK_ITEM_TYPE.value()))) {
             UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
-            entity.playSound(SoundEvents.GENERIC_DRINK.value(), 1.0f, 1.0f);
+            npc.playSound(SoundEvents.GENERIC_DRINK.value(), 1.0f, 1.0f);
             ItemStack result = stack.finishUsingItem(world, entity);
             if (!player.hasInfiniteMaterials()) {
                 player.setItemInHand(hand, result);
@@ -172,6 +173,8 @@ public class NPCLikeInteractionEvents {
                 ItemStack itemStack = useRemainderComponent.convertIntoRemainder(stack, stack.getCount(), player.hasInfiniteMaterials(), player::handleExtraItemsCreatedOnUse);
                 player.setItemInHand(hand, itemStack);
             }
+            FavorabilityContainer favorabilityContainer = npc.getFavorabilityContainer();
+            favorabilityContainer.add(player.getUUID(), npc.getRandom().nextInt(1, 9));
             player.swing(hand);
             return NPCInteractResult.SUCCESS;
         }

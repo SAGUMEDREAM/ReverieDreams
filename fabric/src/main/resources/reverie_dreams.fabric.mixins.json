@@ -21,6 +21,7 @@
     "kaleidoscopecookery.SingleItemRecipeMixin",
     "kaleidoscopecookery.StockpotRecipeMixin",
     "kaleidoscopecookery.TeapotRecipeMixin",
+    "lootr.ILootrAPIMixin",
     "patches.ResourcePackManagerMixin",
     "patches.YsmComponentsMixin"
   ],

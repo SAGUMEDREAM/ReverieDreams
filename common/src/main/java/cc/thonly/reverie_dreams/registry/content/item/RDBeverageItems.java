@@ -4,20 +4,24 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.registry.AliasManager;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.UseRemainder;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
 public class RDBeverageItems {
-    public static final List<ItemDelegate> DRINK_ITEMS = new LinkedList<>();
+    public static final List<ItemDelegate> BEVERAGE_ITEMS = new LinkedList<>();
 
     public static ItemDelegate AFFGADO = registerBeverageItem("affgado", beverageFactory(), new Item.Properties());
     public static ItemDelegate BEER = registerBeverageItem("beer", beverageFactory(), new Item.Properties());
@@ -74,13 +78,16 @@ public class RDBeverageItems {
         String oldPrefixName = "drink/" + name;
         String prefixName = "beverage/" + name;
         ItemDelegate item = RDItems.registerSimpleItem(prefixName, factory, settings);
-        DRINK_ITEMS.add(item);
+        BEVERAGE_ITEMS.add(item);
         AliasManager.register(Registries.ITEM, ReverieDreams.id(oldPrefixName), ReverieDreams.id(prefixName));
         return item;
     }
 
     public static Function<Item.Properties, Item> beverageFactory() {
-        return props -> new Item(props.component(RDDataComponentTypes.DRINK_ITEM_TYPE.value(), Unit.INSTANCE).food(new FoodProperties(0, 3, true), Consumable.builder().consumeSeconds(1.6F).animation(ItemUseAnimation.DRINK).sound(SoundEvents.GENERIC_DRINK).hasConsumeParticles(false).build()));
+        return props -> new Item(props.component(RDDataComponentTypes.DRINK_ITEM_TYPE.value(), Unit.INSTANCE)
+                                      .food(new FoodProperties(0, 3, true), Consumable.builder().consumeSeconds(1.6F).animation(ItemUseAnimation.DRINK).sound(SoundEvents.GENERIC_DRINK).hasConsumeParticles(false).build())
+                                      .component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.GLASS_BOTTLE)))
+        );
     }
 
 }

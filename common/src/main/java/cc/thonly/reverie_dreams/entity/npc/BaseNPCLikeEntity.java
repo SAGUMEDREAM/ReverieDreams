@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.entity.ai.goal.attack.*;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.LivingEntityAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerEntityAccessor;
 import cc.thonly.reverie_dreams.networking.payload.SyncEntityPacket;
@@ -139,7 +140,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     protected final NPCCrossbowAttackGoal crossBowAttackGoal = new NPCCrossbowAttackGoal(this, 1.0, 20);
     protected final NPCDanmakuItemGoal<BaseNPCLikeEntity> danmakuItemGoal = new NPCDanmakuItemGoal<>(this, 1.0, 20, 15.0f);
 
-    protected final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false) {
+    protected final NPCMeleeAttackGoal meleeAttackGoal = new NPCMeleeAttackGoal(this, 1.5, false) {
         @Override
         public void stop() {
             super.stop();
@@ -189,7 +190,21 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, -1.0f);
     }
 
-//    @Override
+    @SuppressWarnings("ConstantValue")
+    @Override
+    public boolean isWithinMeleeAttackRange(LivingEntity target) {
+        boolean withinMeleeAttackRange = super.isWithinMeleeAttackRange(target);
+        double maxRange = 3.5;
+        double minRange = 0;
+        LivingEntityAccessor accessor = (LivingEntityAccessor) target;
+        if (!withinMeleeAttackRange) {
+            AABB hitbox = accessor.reverie_dreams$getHitbox();
+            return this.getAttackBoundingBox(maxRange).intersects(hitbox) && (minRange <= 0.0 || !this.getAttackBoundingBox(minRange).intersects(hitbox));
+        }
+        return withinMeleeAttackRange;
+    }
+
+    //    @Override
 //    public boolean isShiftKeyDown() {
 //        return this.getNpcState().equals(NPCStates.SNAKING);
 //    }

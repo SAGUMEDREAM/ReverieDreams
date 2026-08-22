@@ -81,7 +81,7 @@ public class TavernVillager extends AbstractSeller {
             offers.add(offer);
         }
 
-        List<Item> allDrinks = new ArrayList<>(RDBeverageItems.DRINK_ITEMS.stream().map(ItemDelegate::asItem).toList());
+        List<Item> allDrinks = new ArrayList<>(RDBeverageItems.BEVERAGE_ITEMS.stream().map(ItemDelegate::asItem).toList());
         for (Tuple<ItemDelegate, Integer> pair : getAlwaysItems()) {
             allDrinks.remove(pair.getA().asItem());
         }

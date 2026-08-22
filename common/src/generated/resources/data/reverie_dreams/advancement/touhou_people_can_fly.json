@@ -1,0 +1,38 @@
+{
+  "parent": "reverie_dreams:gensokyo_altar_crafting",
+  "criteria": {
+    "riding_broom": {
+      "conditions": {
+        "trigger": "reverie_dreams:touhou_people_can_fly"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.touhou_people_can_fly"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.touhou_people_can_fly"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "riding_broom"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

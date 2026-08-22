@@ -10,7 +10,7 @@ import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 public class RDBlockEntityRenderers {
     public static void initialize() {
         ReverieDreamsClient.LATE_INIT.add(() -> {
-            BlockEntityRendererRegistry.register(RDBlockEntityTypes.FOOD_DISPLAY.value(), PlateBlockEntityRenderer::new);
+            BlockEntityRendererRegistry.register(RDBlockEntityTypes.PLATE.value(), PlateBlockEntityRenderer::new);
             BlockEntityRendererRegistry.register(RDBlockEntityTypes.GENSOKYO_ALTAR.value(), GensokyoAltarBlockEntityRenderer::new);
             BlockEntityRendererRegistry.register(RDBlockEntityTypes.KITCHENWARE_BLOCK.value(), KitchenBlockEntityRenderer::new);
         });

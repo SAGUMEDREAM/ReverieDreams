@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
+import cc.thonly.reverie_dreams.item.prop.Cheque;
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
 import cc.thonly.reverie_dreams.item.template.DanmakuShapeCreatorItem;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
@@ -38,6 +39,7 @@ import java.util.function.Consumer;
 
 public class InitTooltips {
     public static final Map<ItemLike, List<String>> ITEM_DESCRIPTION_RENDER_DATA = new Object2ObjectOpenHashMap<>(512);
+
 
     public static void addItem(ItemLike item, String component) {
         List<String> list = ITEM_DESCRIPTION_RENDER_DATA.computeIfAbsent(item, _ -> new ArrayList<>());
@@ -71,6 +73,19 @@ public class InitTooltips {
         registerTooltip(InitTooltips::appendRoleCardItemTooltip);
         registerTooltip(InitTooltips::appendDanmakuPropertiesTooltip);
         registerTooltip(InitTooltips::appendFastRecipeBookTooltip);
+        registerTooltip(InitTooltips::appendChequeItem);
+    }
+
+    public static void appendChequeItem(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+        if (!(itemStack.getItem() instanceof Cheque)) {
+            return;
+        }
+        Component component = itemStack.get(RDDataComponentTypes.CHEQUE_NAME.get());
+        int amount = itemStack.getOrDefault(RDDataComponentTypes.CHEQUE_AMOUNT.get(), 0);
+        if (component != null) {
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.cheque.owner", component)));
+        }
+        consumer.accept(Component.empty().append(Component.translatable("item.tooltip.cheque.amount", amount)));
     }
 
     public static void appendItemDescription(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {

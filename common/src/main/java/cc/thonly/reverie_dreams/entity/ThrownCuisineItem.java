@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity;
 import cc.thonly.reverie_dreams.entity.base.FakePlayer;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.util.item.ProjectileItemHelper;
+import lombok.Setter;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,8 +23,13 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-@SuppressWarnings({"resource", "deprecation"})
+import java.util.Optional;
+
+@SuppressWarnings({"resource", "deprecation", "OptionalUsedAsFieldOrParameterType"})
 public class ThrownCuisineItem extends ThrowableItemProjectile {
+    @Setter
+    private Optional<Runnable> hitCallback = Optional.empty();
+
     public ThrownCuisineItem(EntityType<? extends ThrownCuisineItem> type, Level level) {
         super(type, level);
     }
@@ -73,6 +79,7 @@ public class ThrownCuisineItem extends ThrowableItemProjectile {
             ServerPlayer player = owner instanceof ServerPlayer serverPlayer ? serverPlayer : FakePlayer.get(serverLevel);
             ProjectileItemHelper.onFoodHitEntity(serverLevel, itemStack, player, livingEntity);
             level.broadcastEntityEvent(this, (byte) 3);
+            this.hitCallback.ifPresent(Runnable::run);
             this.discard();
         } else {
             entity.hurt(this.damageSources().thrown(this, this.getOwner()), 0);

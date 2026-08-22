@@ -2,13 +2,12 @@ package cc.thonly.reverie_dreams.gui.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.util.PredicateSlot;
+import cc.thonly.reverie_dreams.gui.slot.PredicateSlot;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;

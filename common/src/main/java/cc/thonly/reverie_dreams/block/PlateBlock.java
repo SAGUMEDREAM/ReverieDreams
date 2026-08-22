@@ -129,7 +129,7 @@ public class PlateBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, RDBlockEntityTypes.FOOD_DISPLAY.value(), PlateBlockEntity::tick);
+        return createTickerHelper(type, RDBlockEntityTypes.PLATE.value(), PlateBlockEntity::tick);
     }
 
 }

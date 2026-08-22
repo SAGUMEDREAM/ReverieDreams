@@ -21,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
@@ -108,6 +110,15 @@ public class RDDataComponentTypes {
     public static final RegistrySupplier<DataComponentType<Unit>> SHOW_ONLY =
             registerDataComponentType("show_only", Unit.CODEC);
 
+    public static final RegistrySupplier<DataComponentType<String>> CHEQUE_PLAYER_ID =
+            registerDataComponentType("cheque_player_id", Codec.STRING);
+
+    public static final RegistrySupplier<DataComponentType<Component>> CHEQUE_NAME =
+            registerDataComponentType("cheque_name", ComponentSerialization.CODEC);
+
+    public static final RegistrySupplier<DataComponentType<Integer>> CHEQUE_AMOUNT =
+            registerDataComponentType("cheque_amount", Codec.INT);
+
     @Deprecated
     public static final RegistrySupplier<DataComponentType<List<BeverageProperty>>> DRINK_PROPERTIES = BEVERAGE_PROPERTIES;
 
@@ -132,10 +143,10 @@ public class RDDataComponentTypes {
         RegistrySupplier<DataComponentType> componentType = MCBuiltInRegistries.DATA_COMPONENT_TYPE.register(
                 path,
                 () -> DataComponentType.builder()
-                                       .persistent(castCodec)
-                                       .networkSynchronized(streamCodec)
-                                       .cacheEncoding()
-                                       .build()
+                        .persistent(castCodec)
+                        .networkSynchronized(streamCodec)
+                        .cacheEncoding()
+                        .build()
         );
         COMPONENTS.add(componentType);
         return (RegistrySupplier) componentType;

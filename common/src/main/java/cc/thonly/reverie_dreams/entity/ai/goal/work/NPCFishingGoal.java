@@ -404,7 +404,7 @@ public class NPCFishingGoal extends Goal {
         NPCFishingHook hook = new NPCFishingHook(this.npc, this.npc.level(), 0, 0);
 
         Vec3 start = hook.position();
-        Vec3 target = Vec3.atCenterOf(water).add(0.0D, 0.4D, 0.0D);
+        Vec3 target = Vec3.atCenterOf(water).add(0.0D, 0.75D, 0.0D);
         Vec3 direction = target.subtract(start);
 
         if (direction.lengthSqr() < 0.0001D) {

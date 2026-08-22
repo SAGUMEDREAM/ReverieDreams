@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.gui.   block;
+package cc.thonly.reverie_dreams.gui.block;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
@@ -9,7 +9,7 @@ import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.util.PredicateSlot;
+import cc.thonly.reverie_dreams.gui.slot.PredicateSlot;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -24,10 +24,10 @@ import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -61,19 +61,19 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     public void init() {
         this.setTitle(
                 Component.empty()
-                        .append(Component.translatable("space.-8"))
-                        .append(Component.literal("\ub001")
-                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                        .append(Component.translatable("space.-168"))
-                        .append(Component.translatable(RDBlocks.DANMAKU_CRAFTING_TABLE.asBlock().getDescriptionId()))
+                         .append(Component.translatable("space.-8"))
+                         .append(Component.literal("\ub001")
+                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                         .append(Component.translatable("space.-168"))
+                         .append(Component.translatable(RDBlocks.DANMAKU_CRAFTING_TABLE.asBlock().getDescriptionId()))
         );
 
         Container inventory = this.blockEntity.getInventory();
         int counter = 0;
         int counter2 = 0;
         Function<Integer, Function<ItemStack, Boolean>> iffib = index -> switch (index) {
-            case 0 -> itemStack -> itemStack.getItem() instanceof DyeItem;
+            case 0 -> itemStack -> itemStack.is(ItemTags.DYES);
             case 1 -> itemStack -> itemStack.is(RDItems.DANMAKU_CORE);
             case 2 -> itemStack -> itemStack.is(RDItems.POWER);
             case 3 -> itemStack -> itemStack.is(RDItems.POINT);

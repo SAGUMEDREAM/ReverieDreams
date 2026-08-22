@@ -173,7 +173,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         valueLookupBuilder(RDItemTags.INGREDIENT).addAll(RDIngredientItems.INGREDIENTS.stream().map(ItemLike::asItem).toList());
         valueLookupBuilder(RDItemTags.CUISINE).addAll(RDCuisineItems.CUISINE_ITEMS.stream().map(ItemLike::asItem).toList());
         valueLookupBuilder(RDItemTags.FOOD).addOptionalTag(RDItemTags.CUISINE);
-        valueLookupBuilder(RDItemTags.BEVERAGE).addAll(RDBeverageItems.DRINK_ITEMS.stream().map(ItemLike::asItem).toList());
+        valueLookupBuilder(RDItemTags.BEVERAGE).addAll(RDBeverageItems.BEVERAGE_ITEMS.stream().map(ItemLike::asItem).toList());
         valueLookupBuilder(RDItemTags.DRINK_ITEM).addOptionalTag(RDItemTags.BEVERAGE);
 
         valueLookupBuilder(RDItemTags.ROLE_TAME_FOOD)

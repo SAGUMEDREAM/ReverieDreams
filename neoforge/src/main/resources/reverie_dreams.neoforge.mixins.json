@@ -10,7 +10,8 @@
     "RegistryDataLoaderMixin",
     "RegistryHandlerMixin",
     "accessor.CreativeModeTabAccessor",
-    "event.ServerPlayerGameModeMixin"
+    "event.ServerPlayerGameModeMixin",
+    "lootr.ILootrAPIMixin"
   ],
   "client": [
     "client.EntityRenderDispatcherMixin"

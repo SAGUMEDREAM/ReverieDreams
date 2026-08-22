@@ -567,8 +567,8 @@ public class NPCFishingHook extends Projectile {
     public void recreateFromPacket(ClientboundAddEntityPacket packet) {
         super.recreateFromPacket(packet);
         if (this.getEntityOwner() == null) {
-            int ownerId = packet.getData();
-            LOGGER.error("Failed to recreate fishing hook on client. {} (id: {}) is not a valid owner.", this.level().getEntity(ownerId), ownerId);
+//            int ownerId = packet.getData();
+//            LOGGER.error("Failed to recreate fishing hook on client. {} (id: {}) is not a valid owner.", this.level().getEntity(ownerId), ownerId);
             this.discard();
         }
     }

@@ -33,7 +33,7 @@ public class PlateBlockEntity extends BlockEntity {
     private float yaw = 0;
 
     public PlateBlockEntity(BlockPos pos, BlockState state) {
-        super(RDBlockEntityTypes.FOOD_DISPLAY.value(), pos, state);
+        super(RDBlockEntityTypes.PLATE.value(), pos, state);
     }
 
     public void update() {

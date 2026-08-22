@@ -16,6 +16,8 @@ import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.math.ModMth;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
@@ -155,7 +157,7 @@ public class NPCCustomerContainer {
             }
 
             // 非常轻的抛出速度
-            double velocity = 0.18;
+            double velocity = 0.23;
             entity.setPickUpDelay(40);
             entity.setDeltaMovement(
                     dx * velocity,
@@ -466,6 +468,8 @@ public class NPCCustomerContainer {
                 this.triggerAngry(player);
             }
         }
+        player.giveExperiencePoints(this.randomSource.nextInt(2, 16));
+        SimpleTriggerFactory.create(SimpleTriggerKeys.WAITER).trigger(player);
 
         CustomerEvaluation evaluation = this.getCustomer().evaluation();
         this.evaluationFeedback = evaluation.getEvaluationFeedback(this.score, overBudget);
@@ -500,9 +504,9 @@ public class NPCCustomerContainer {
 
     public void tell(Player player, Component component) {
         MutableComponent body = Component.empty()
-                                         .append(this.npc.getName())
-                                         .append(": ")
-                                         .append(component);
+                .append(this.npc.getName())
+                .append(": ")
+                .append(component);
 
         player.sendSystemMessage(body);
     }

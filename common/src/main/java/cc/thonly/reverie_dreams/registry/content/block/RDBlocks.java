@@ -177,6 +177,16 @@ public class RDBlocks {
             BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).noOcclusion()
     );
 
+    public static final BlockDelegate BREWING_BARREL = registerBlock("brewing_barrel",
+            BrewingBarrelBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL).noOcclusion()
+    );
+
+    public static final BlockDelegate CUPBOARD = registerBlock("cupboard",
+            CupboardBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()
+    );
+
     public static final BlockDelegate BLACK_SALT_BLOCK = registerSimpleBlock(
             "black_salt_block",
             Block::new,

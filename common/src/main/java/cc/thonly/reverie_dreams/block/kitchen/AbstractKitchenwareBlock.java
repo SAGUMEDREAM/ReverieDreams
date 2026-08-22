@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.block.kitchen;
 
 import cc.thonly.reverie_dreams.block.entity.KitchenwareBlockEntity;
 import cc.thonly.reverie_dreams.gui.block.KitchenBlockGui;
+import cc.thonly.reverie_dreams.item.prop.FastRecipeBook;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import com.mojang.serialization.MapCodec;
@@ -14,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -79,10 +81,18 @@ public class AbstractKitchenwareBlock extends BaseEntityBlock {
         boolean pass = false;
         BlockState downBlockState = world.getBlockState(pos.below());
         Block upBlock = downBlockState.getBlock();
-        if (upBlock instanceof HopperBlock|| upBlock instanceof FenceBlock || upBlock instanceof WallBlock || upBlock instanceof LeavesBlock) {
+        if (upBlock instanceof HopperBlock || upBlock instanceof FenceBlock || upBlock instanceof WallBlock || upBlock instanceof LeavesBlock) {
             pass = true;
         }
         return pass || belowState.isFaceSturdy(world, belowPos, Direction.UP);
+    }
+
+    @Override
+    public InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (itemStack.is(holder -> holder.value() instanceof FastRecipeBook)) {
+            return InteractionResult.PASS;
+        }
+        return super.useItemOn(itemStack, state, level, pos, player, hand, hitResult);
     }
 
     @Override
@@ -90,6 +100,11 @@ public class AbstractKitchenwareBlock extends BaseEntityBlock {
         if (!world.isClientSide() && world instanceof ServerLevel) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
             BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (player.getMainHandItem().is(holder -> holder.value() instanceof FastRecipeBook)) {
+                return InteractionResult.PASS;
+            } else if (player.getOffhandItem().is(holder -> holder.value() instanceof FastRecipeBook)) {
+                return InteractionResult.PASS;
+            }
             if (blockEntity instanceof KitchenwareBlockEntity kitchenwareBlockEntity) {
                 if (kitchenwareBlockEntity.isWorking()) {
                     serverPlayer.sendSystemMessage(Component.translatable("block.feedback.working"), false);

@@ -19,7 +19,7 @@ public class ItemViewItemInfo {
         List<Item> chestDropItems = RDCropBlocks.CHEST_DROPS.stream().map(CropBlockBundle.Entry::getSeed).map(ItemLike::asItem).toList();
         List<Item> grassDropItems = RDCropBlocks.GRASS_DROPS.stream().map(CropBlockBundle.Entry::getSeed).map(ItemLike::asItem).toList();
         List<Item> fumos = BuiltInRegistryProviders.FUMO.values().stream().map(FumoType::block).map(Block::asItem).toList();
-        List<Item> drinks = RDBeverageItems.DRINK_ITEMS.stream().map(ItemLike::asItem).toList();
+        List<Item> drinks = RDBeverageItems.BEVERAGE_ITEMS.stream().map(ItemLike::asItem).toList();
         List<Item> fishing = RDIngredientItems.FISHING.stream().map(ItemLike::asItem).toList();
         List<Item> truffle = List.of(RDIngredientItems.TRUFFLE.asItem());
 

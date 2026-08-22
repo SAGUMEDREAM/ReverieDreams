@@ -13,7 +13,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 
-@SuppressWarnings("LombokSetterMayBeUsed")
 @Getter
 public class NPCInventoryImpl extends SimpleContainer {
     public static final int MAX_SIZE = 24;

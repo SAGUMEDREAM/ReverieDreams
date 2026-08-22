@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.registry;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public interface SerializableProvider<T> {
                             .collect(Collectors.toList())
             )
     );
+    Codec<ItemStack> ITEM_STACK_CODEC = ItemStack.CODEC.orElse(ItemStack.EMPTY);
 
 
     Codec<T> getCodec();

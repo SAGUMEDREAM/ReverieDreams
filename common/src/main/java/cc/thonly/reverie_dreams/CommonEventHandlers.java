@@ -361,12 +361,14 @@ public class CommonEventHandlers {
                 property.use((ServerLevel) level, livingEntity);
             });
             int size = foodProperties.size();
-            if (size != 0) {
+            if (size > 0) {
                 net.minecraft.world.food.FoodProperties properties = new net.minecraft.world.food.FoodProperties(size, size * 1.5f, false);
                 if (livingEntity instanceof ServerPlayer serverPlayer) {
                     FoodData foodData = serverPlayer.getFoodData();
                     foodData.eat(properties);
-                    SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
+                    if (itemStack.is(RDItemTags.FOOD)) {
+                        SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
+                    }
                 } else if (livingEntity instanceof NPCSimpleEntity npc && npc.isEnableTamableFeature() && npc.canFeed()) {
                     NPCFoodDataContainer foodData = npc.getFoodData();
                     foodData.eat(properties);

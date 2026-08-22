@@ -200,6 +200,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.SUNFLOWER.asItem());
         itemModelGenerator.generateFlatItem(RDItems.CUSTOM_SKIN_SELECTOR.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.CHEQUE.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SOUL_CARD.asItem(), ModelTemplates.FLAT_ITEM);
 
         // 武器
@@ -328,6 +329,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.PLATE.asBlock());
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.CHAIR.asBlock());
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.TABLE.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDBlocks.CUPBOARD.asBlock());
 
         blockStateModelGenerator.family(RDBlocks.BLACK_SALT_BLOCK.asBlock());
 
@@ -343,7 +345,7 @@ public class ModelProvider extends FabricModelProvider {
         for (var item : RDCuisineItems.CUISINE_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
-        for (var item : RDBeverageItems.DRINK_ITEMS) {
+        for (var item : RDBeverageItems.BEVERAGE_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
     }
