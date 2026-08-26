@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.compat.rei;
 
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
+import cc.thonly.reverie_dreams.block.cooking.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.compat.ItemViewItemInfo;
 import cc.thonly.reverie_dreams.compat.rei.category.*;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -21,6 +21,7 @@ public class ClientREIPlugin implements REIClientPlugin {
         registry.add(new GensokyoAltarRecipeCategory());
         registry.add(new StrengthTableRecipeCategory());
         registry.add(new KitchenRecipeCategory());
+        registry.add(new BrewingBarrelRecipeCategory());
 
         registry.addWorkstations(REICategoryIdentifiers.DANMAKU_CRAFTING_TABLE, REIItemUtils.getItem(RDBlocks.DANMAKU_CRAFTING_TABLE));
         registry.addWorkstations(REICategoryIdentifiers.DANMAKU_SHAPE_DRAW, REIItemUtils.getItem(RDItems.DANMAKU_SHAPE_CREATOR));
@@ -29,6 +30,7 @@ public class ClientREIPlugin implements REIClientPlugin {
         for (AbstractKitchenwareBlock block : AbstractKitchenwareBlock.KITCHENWARE_BLOCKS) {
             registry.addWorkstations(REICategoryIdentifiers.KITCHEN, REIItemUtils.getItem(block));
         }
+        registry.addWorkstations(REICategoryIdentifiers.BREWING_BARREL, REIItemUtils.getItem(RDBlocks.BREWING_BARREL));
     }
 
     @Override

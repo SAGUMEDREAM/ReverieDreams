@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.gui.container;
 
-import cc.thonly.reverie_dreams.block.CashBoxBlock;
-import cc.thonly.reverie_dreams.block.CustomChestBlock;
+import cc.thonly.reverie_dreams.block.props.CashBoxBlock;
+import cc.thonly.reverie_dreams.block.props.CustomChestBlock;
 import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;

@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:cocoa_beans",
+      "count": 1
+    },
+    {
+      "id": "minecraft:blaze_powder",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/cream",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/demonic_coffee",
+    "count": 1
+  },
+  "cost_time": 1140
+}

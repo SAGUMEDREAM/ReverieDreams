@@ -16,11 +16,11 @@ import java.util.function.Supplier;
 
 public class RDPotions {
     public static List<RegistrySupplier<Potion>> POTIONS = new ArrayList<>();
-    public static RegistrySupplier<Potion> ELIXIR_OF_LIFE_POTION = registerPotion("elixir_of_life", () -> new Potion("elixir_of_life", new MobEffectInstance(RDStatusEffects.ELIXIR_OF_LIFE, 3600, 0)));
-    public static RegistrySupplier<Potion> ELIXIR_OF_LIFE_POTION_INF = registerPotion("elixir_of_life_inf", () -> new Potion("elixir_of_life", new MobEffectInstance(RDStatusEffects.ELIXIR_OF_LIFE, -1, 0)));
-    public static RegistrySupplier<Potion> MENTAL_DISORDER_POTION = registerPotion("mental_disorder", () -> new Potion("mental_disorder", new MobEffectInstance(RDStatusEffects.MENTAL_DISORDER, 3600, 0)));
-    public static RegistrySupplier<Potion> BACK_OF_LIFE_POTION = registerPotion("back_of_life", () -> new Potion("back_of_life", new MobEffectInstance(RDStatusEffects.BACK_OF_LIFE, 3600, 0)));
-    public static RegistrySupplier<Potion> KANJU_KUSURI_POTION = registerPotion("kanju_kusuri", () -> new Potion("kanju_kusuri", new MobEffectInstance(RDStatusEffects.KANJU_KUSURI, 3600, 0)));
+    public static RegistrySupplier<Potion> ELIXIR_OF_LIFE_POTION = registerPotion("elixir_of_life", () -> new Potion("elixir_of_life", new MobEffectInstance(RDStatusEffects.ELIXIR_OF_LIFE.builtInHolder(), 3600, 0)));
+    public static RegistrySupplier<Potion> ELIXIR_OF_LIFE_POTION_INF = registerPotion("elixir_of_life_inf", () -> new Potion("elixir_of_life", new MobEffectInstance(RDStatusEffects.ELIXIR_OF_LIFE.builtInHolder(), -1, 0)));
+    public static RegistrySupplier<Potion> MENTAL_DISORDER_POTION = registerPotion("mental_disorder", () -> new Potion("mental_disorder", new MobEffectInstance(RDStatusEffects.MENTAL_DISORDER.builtInHolder(), 3600, 0)));
+    public static RegistrySupplier<Potion> BACK_OF_LIFE_POTION = registerPotion("back_of_life", () -> new Potion("back_of_life", new MobEffectInstance(RDStatusEffects.BACK_OF_LIFE.builtInHolder(), 3600, 0)));
+    public static RegistrySupplier<Potion> KANJU_KUSURI_POTION = registerPotion("kanju_kusuri", () -> new Potion("kanju_kusuri", new MobEffectInstance(RDStatusEffects.KANJU_KUSURI.builtInHolder(), 3600, 0)));
 
     public static void initialize() {
     }

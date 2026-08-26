@@ -282,7 +282,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .pattern("A A")
                 .pattern("X X")
                 .define('#', ItemTags.PLANKS)
-                .define('A', ItemTags.SLABS)
+                .define('A', ItemTags.WOODEN_SLABS)
                 .define('X', Items.STICK)
                 .unlockedBy("has_stick", has(Items.STICK))
                 .save(output, getSimpleRecipeName(RDBlocks.TABLE));
@@ -290,9 +290,48 @@ public class ImplRecipeGenerator extends RecipeProvider {
         shaped(RecipeCategory.MISC, RDBlocks.CHAIR)
                 .pattern("###")
                 .pattern("# #")
-                .define('#', ItemTags.SLABS)
-                .unlockedBy("has_slab", has(ItemTags.SLABS))
+                .define('#', ItemTags.WOODEN_SLABS)
+                .unlockedBy("has_slab", has(ItemTags.WOODEN_SLABS))
                 .save(output, getSimpleRecipeName(RDBlocks.CHAIR));
+        // 酿酒桶
+        shaped(RecipeCategory.DECORATIONS, RDBlocks.BREWING_BARREL)
+                .pattern("# #")
+                .pattern("#C#")
+                .pattern("# #")
+                .define('#', ItemTags.WOODEN_SLABS)
+                .define('C', Items.BARREL)
+                .unlockedBy("has_barrel", has(Items.BARREL))
+                .save(output, getSimpleRecipeName(RDBlocks.BREWING_BARREL));
+        // 支票
+        shaped(RecipeCategory.TOOLS, RDItems.CHEQUE)
+                .pattern("  G")
+                .pattern("## ")
+                .pattern("## ")
+                .define('#', Items.PAPER)
+                .define('G', RDItems.GOLD_COIN)
+                .unlockedBy("has_gold_coin", has(RDItems.GOLD_COIN))
+                .save(output, getSimpleRecipeName(RDItems.CHEQUE));
+        // 橱柜
+        shaped(RecipeCategory.DECORATIONS, RDBlocks.CUPBOARD)
+                .pattern("###")
+                .pattern("#C#")
+                .pattern("#G#")
+                .define('#', ItemTags.WOODEN_SLABS)
+                .define('C', Items.CHEST)
+                .define('G', Items.GLASS)
+                .unlockedBy("has_chest", has(Items.CHEST))
+                .save(output, getSimpleRecipeName(RDBlocks.CUPBOARD));
+        // 制冰机
+        shaped(RecipeCategory.DECORATIONS, RDBlocks.ICE_MAKING_MACHINE)
+                .pattern("ICI")
+                .pattern("IBI")
+                .pattern("CWC")
+                .define('I', Items.IRON_INGOT)
+                .define('C', Items.COPPER_INGOT)
+                .define('B', Items.BLUE_ICE)
+                .define('W', Items.BUCKET)
+                .unlockedBy("has_iron", has(Items.IRON_INGOT))
+                .save(output, getSimpleRecipeName(RDBlocks.ICE_MAKING_MACHINE));
 
         this.buildWoodBundle(RDWoodBlocks.SPIRITUAL_BUNDLE);
         this.buildWoodBundle(RDWoodBlocks.LEMON_BUNDLE);
@@ -309,7 +348,6 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('X', RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog())
                 .unlockedBy("has_paper", has(Items.PAPER))
                 .save(output, getSimpleRecipeName(RDWoodBlocks.BLESSED_SPIRITUAL_LOG));
-
         // 附魔桃子
         ItemStackTemplate peachStack = new ItemStackTemplate(RDIngredientItems.PEACH.asItem());
         HolderLookup.RegistryLookup<Enchantment> enchantmentRegistryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
@@ -323,6 +361,14 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('#', RDIngredientItems.PEACH)
                 .unlockedBy("has_gold_nugget", has(Items.GOLD_NUGGET))
                 .save(output, getSimpleRecipeName(RDIngredientItems.PEACH));
+        // 鲜花
+        shaped(RecipeCategory.FOOD, RDIngredientItems.FLOWERS, 4)
+                .pattern("XXX")
+                .pattern("X X")
+                .pattern("XXX")
+                .define('X', ItemTags.FLOWERS)
+                .unlockedBy("has_flowers", has(ItemTags.FLOWERS))
+                .save(output, getSimpleRecipeName(RDIngredientItems.FLOWERS));
         this.buildDecorativeBlock();
 
         this.buildWorkBlock();

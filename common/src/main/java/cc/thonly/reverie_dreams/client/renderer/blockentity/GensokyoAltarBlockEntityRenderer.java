@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.client.renderer.blockentity;
 
-import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
+import cc.thonly.reverie_dreams.block.props.GensokyoAltarBlock;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import cc.thonly.reverie_dreams.client.renderer.blockentity.state.GensokyoAltarBlockEntityRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;

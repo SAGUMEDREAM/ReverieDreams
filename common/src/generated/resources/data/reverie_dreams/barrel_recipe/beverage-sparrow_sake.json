@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
+    },
+    {
+      "id": "minecraft:bamboo",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/sparrow_sake",
+    "count": 1
+  },
+  "cost_time": 1120
+}

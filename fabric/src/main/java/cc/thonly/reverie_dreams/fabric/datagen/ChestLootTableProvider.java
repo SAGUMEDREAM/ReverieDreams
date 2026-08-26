@@ -167,13 +167,16 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
         output.accept(MINI_BAR_CHEST, LootTable.lootTable().withPool(miniBarPool));
 
         var foodPool = LootPool.lootPool().setRolls(UniformGenerator.between(2, 4));
-        for (var i : RDCuisineItems.CUISINE_ITEMS) {
-            foodPool.add(LootItem.lootTableItem(i).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
+        for (var item : RDCuisineItems.CUISINE_ITEMS) {
+            foodPool.add(LootItem.lootTableItem(item).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
         }
 
         var ingredientPool = LootPool.lootPool().setRolls(UniformGenerator.between(1, 3));
-        for (var i : RDIngredientItems.INGREDIENTS) {
-            ingredientPool.add(LootItem.lootTableItem(i).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
+        for (var item : RDIngredientItems.INGREDIENTS) {
+            if (RDIngredientItems.EXISTS.contains(item)) {
+                continue;
+            }
+            ingredientPool.add(LootItem.lootTableItem(item).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
         }
 
         output.accept(BAMBOO_FOREST_BBQ_CHEST,

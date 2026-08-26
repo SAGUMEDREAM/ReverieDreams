@@ -27,5 +27,9 @@ public class DisplayImpls {
                 RecipeManager.KITCHEN_TYPE,
                 KitchenDisplay::new
         );
+        view.registerType(
+                RecipeManager.BREWING_BARREL,
+                BrewingBarrelDisplay::new
+        );
     }
 }

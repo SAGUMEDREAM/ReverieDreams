@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": "#minecraft:planks",
-    "A": "#minecraft:slabs",
+    "A": "#minecraft:wooden_slabs",
     "X": "minecraft:stick"
   },
   "pattern": [

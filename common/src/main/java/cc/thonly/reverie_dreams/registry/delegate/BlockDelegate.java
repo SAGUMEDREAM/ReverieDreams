@@ -14,6 +14,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class BlockDelegate implements Holder<Block>, DeferredSupplier<Block>, ItemLike {
     @Delegate
     final RegistrySupplier<Block> supplier;
@@ -67,5 +68,10 @@ public class BlockDelegate implements Holder<Block>, DeferredSupplier<Block>, It
 
     public ItemStackTemplate createTemplate() {
         return new ItemStackTemplate(this.supplier.get().asItem());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) || (obj instanceof Holder<?> holder && this.is((Holder) holder));
     }
 }

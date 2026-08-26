@@ -41,7 +41,7 @@ public class RecipeManager {
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
     public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
-    public static final BaseRecipeType<BarrelRecipe> BARREL_RECIPE = registerRecipeType(ReverieDreams.id("barrel"), new BarrelRecipeType());
+    public static final BaseRecipeType<BrewingBarrelRecipe> BREWING_BARREL = registerRecipeType(ReverieDreams.id("barrel"), new BrewingBarrelRecipeType());
     public static final RegistrySupplier<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE = registerRecipeSerializer("crafting_special_danmakudye", () -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
 
     public static void bootstrap() {

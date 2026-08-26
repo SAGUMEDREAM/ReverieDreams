@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:wooden_slabs",
+    "C": "minecraft:barrel"
+  },
+  "pattern": [
+    "# #",
+    "#C#",
+    "# #"
+  ],
+  "result": {
+    "id": "reverie_dreams:brewing_barrel"
+  }
+}

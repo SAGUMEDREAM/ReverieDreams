@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.block.props.RemoteClientBlock;
+import cc.thonly.reverie_dreams.block.redstone.RemoteClientBlock;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.server.RemoteSignalManager;
 import com.mojang.serialization.Codec;

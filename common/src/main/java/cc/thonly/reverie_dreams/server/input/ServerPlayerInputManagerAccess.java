@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.server.input;
 
 import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.server.InputKey;
-import cc.thonly.reverie_dreams.util.PairWrapper;
+import cc.thonly.reverie_dreams.util.SimplePair;
 import lombok.Getter;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
@@ -17,7 +17,7 @@ import java.util.*;
 @Getter
 public class ServerPlayerInputManagerAccess implements PlayerInputManagerAccess {
     private static ServerPlayerInputManagerAccess INSTANCE = null;
-    public static Stack<PairWrapper<ServerPlayer, Packet<?>>> TICK_PLAYER_QUEUE = new Stack<>();
+    public static Stack<SimplePair<ServerPlayer, Packet<?>>> TICK_PLAYER_QUEUE = new Stack<>();
     private final List<ServerPlayer> FORWARDS = new ArrayList<>();
     private final List<ServerPlayer> BACKWARDS = new ArrayList<>();
     private final List<ServerPlayer> LEFTS = new ArrayList<>();
@@ -49,7 +49,7 @@ public class ServerPlayerInputManagerAccess implements PlayerInputManagerAccess 
             playerEntities.clear();
         }
         while (!TICK_PLAYER_QUEUE.isEmpty()) {
-            PairWrapper<ServerPlayer, Packet<?>> wrapper = TICK_PLAYER_QUEUE.pop();
+            SimplePair<ServerPlayer, Packet<?>> wrapper = TICK_PLAYER_QUEUE.pop();
             ServerPlayer player = wrapper.getKey();
             Packet<?> packet = wrapper.getValue();
             if (packet instanceof ServerboundPlayerInputPacket(Input input)) {

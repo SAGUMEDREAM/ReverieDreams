@@ -39,19 +39,20 @@ public class RDItemTags {
     public static final TagKey<Item> MUSICAL_INSTRUMENTS = of("musical_instruments");
     public static final TagKey<Item> COIN = of("coin");
     public static final TagKey<Item> COMMON_COIN = of_c("coin");
-    public static final TagKey<Item> DLC0 = of("touhou_mystia_dlc/0");
-    public static final TagKey<Item> DLC1 = of("touhou_mystia_dlc/1");
-    public static final TagKey<Item> DLC2 = of("touhou_mystia_dlc/2");
-    public static final TagKey<Item> DLC3 = of("touhou_mystia_dlc/3");
-    public static final TagKey<Item> DLC4 = of("touhou_mystia_dlc/4");
-    public static final TagKey<Item> DLC5 = of("touhou_mystia_dlc/5");
-    public static final TagKey<Item> DLC6 = of("touhou_mystia_dlc/6");
+    public static final TagKey<Item> DLC0 = of("touhou-mystia-izakaya_dlc_0");
+    public static final TagKey<Item> DLC1 = of("touhou-mystia-izakaya_dlc_1");
+    public static final TagKey<Item> DLC2 = of("touhou-mystia-izakaya_dlc_2");
+    public static final TagKey<Item> DLC3 = of("touhou-mystia-izakaya_dlc_3");
+    public static final TagKey<Item> DLC4 = of("touhou-mystia-izakaya_dlc_4");
+    public static final TagKey<Item> DLC5 = of("touhou-mystia-izakaya_dlc_5");
+    public static final TagKey<Item> DLC6 = of("touhou-mystia-izakaya_dlc_6");
     public static final TagKey<Item> KITCHENWARE = of("kitchenware");
     public static final TagKey<Item> COOKING_TOP = of("cooking_top");
     public static final TagKey<Item> CUTTING_BOARD = of("cutting_board");
     public static final TagKey<Item> FRYING_PAN = of("frying_pan");
     public static final TagKey<Item> GRILL = of("grill");
     public static final TagKey<Item> STEAMER = of("steamer");
+    public static final TagKey<Item> ICE_MAKING_MACHINE_OUTPUT = of("ice_making_machine_output");
 
     @Deprecated
     public static final TagKey<Item> DRINK_ITEM = of("drink_item");

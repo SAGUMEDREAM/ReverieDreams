@@ -62,6 +62,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
@@ -73,6 +74,7 @@ import java.awt.image.BufferedImage;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -244,9 +246,31 @@ public class THCommand {
             root.then(debug_generate_craft_engine);
             debugResetItemCd.executes(this::resetItemCd);
             root.then(debugResetItemCd);
+            if (PlatformContext.isDevModeByIDEA()) {
+                var debugTempTest = Commands.literal("test").executes(this::tempTest);
+                root.then(debugTempTest);
+            }
         }
 
         return root;
+    }
+
+    private int tempTest(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+
+        if (!source.isPlayer()) {
+            return 0;
+        }
+
+        ServerPlayer player = source.getPlayer();
+        if (player != null) {
+            Collection<MobEffectInstance> activeEffects = player.getActiveEffects();
+            for (MobEffectInstance activeEffect : activeEffects) {
+                
+            }
+        }
+
+        return 1;
     }
 
     private int setPlayerSettingValue(CommandContext<CommandSourceStack> context) {

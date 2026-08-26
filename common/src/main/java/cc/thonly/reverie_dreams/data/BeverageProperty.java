@@ -19,7 +19,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -42,17 +44,23 @@ public class BeverageProperty implements SerializableProvider<BeverageProperty>,
     private RegistryProvider<BeverageProperty> owner;
 
     public BeverageProperty() {
-        this(new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY, 1)));
+        this(new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1)));
     }
 
     public BeverageProperty(MobEffectInstance effectInstance) {
         this.effectInstance = effectInstance;
     }
 
-    public final void use(ServerLevel world, LivingEntity user) {
+    public final void use(ServerLevel world, LivingEntity user, ItemStack itemStack) {
         MobEffectInstance effectInstance = new MobEffectInstance(this.effectInstance);
         user.addEffect(effectInstance);
-        BeveragePropertyItemUseCallback.EVENT.invoker().onUse(world, user, this);
+        List<MobEffectInstance> effectInstances = new ArrayList<>();
+        List<MobEffectInstance> negativeEffectInstances = new ArrayList<>();
+        BeveragePropertyItemUseCallback.EVENT.invoker().onUse(world, user, itemStack, this, effectInstances, negativeEffectInstances);
+        effectInstances.forEach(user::addEffect);
+        if (!user.hasEffect(RDStatusEffects.ANTI_ALCOHOL.builtInHolder())) {
+            negativeEffectInstances.forEach(user::addEffect);
+        }
         this.onUse(world, user);
     }
 

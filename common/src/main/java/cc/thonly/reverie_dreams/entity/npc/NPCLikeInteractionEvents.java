@@ -174,7 +174,7 @@ public class NPCLikeInteractionEvents {
                 player.setItemInHand(hand, itemStack);
             }
             FavorabilityContainer favorabilityContainer = npc.getFavorabilityContainer();
-            favorabilityContainer.add(player.getUUID(), npc.getRandom().nextInt(1, 9));
+            favorabilityContainer.add(player.getUUID(), npc.getRandom().nextInt(1, 8));
             player.swing(hand);
             return NPCInteractResult.SUCCESS;
         }
@@ -201,6 +201,8 @@ public class NPCLikeInteractionEvents {
             if (!player.hasInfiniteMaterials()) {
                 player.setItemInHand(hand, result);
             }
+            FavorabilityContainer favorabilityContainer = npc.getFavorabilityContainer();
+            favorabilityContainer.add(player.getUUID(), npc.getRandom().nextInt(1, 8));
             player.swing(hand);
             return NPCInteractResult.SUCCESS;
         }

@@ -28,7 +28,7 @@ public class ResourcePackGenerator {
     private static final Set<String> EXPANDABLE = new LinkedHashSet<>(Set.of(
             "wall", "fence", "slab", "stairs", "pressure_plate", "button",
             "glass_pane", "lattice", "bars", "carpet", "chain", "lantern",
-            "gensokyo_altar", "chair", "table"
+            "gensokyo_altar", "chair", "table", "ice_making_machine"
     ));
     public static final Set<String> NAMESPACES = new LinkedHashSet<>();
     public static final Set<HolderResource> HOLDER_RESOURCES_SET = new LinkedHashSet<>();

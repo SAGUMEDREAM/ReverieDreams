@@ -55,6 +55,7 @@ public class RDEntityRenderers {
         EntityRendererRegistry.register(RDEntityTypes.YOUSEI, slimYouseiWingLikeRendererProvider);
         EntityRendererRegistry.register(RDEntityTypes.MAID_YOUSEI, slimYouseiWingLikeRendererProvider);
         EntityRendererRegistry.register(RDEntityTypes.SUNFLOWER_YOUSEI, slimYouseiWingLikeRendererProvider);
+        EntityRendererRegistry.register(RDEntityTypes.ICE_FAIRY, IceFairyLikeEntityRenderer::new);
         EntityRendererRegistry.register(RDEntityTypes.GOBLIN, wideNpcLikeRendererProvider);
         EntityRendererRegistry.register(RDEntityTypes.RABBIT_UNIT, slimNpcLikeRendererProvider);
         EntityRendererRegistry.register(RDEntityTypes.WATER_ELEMENTAL, wideNpcLikeRendererProvider);

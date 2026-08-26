@@ -49,7 +49,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     @Override
     public void reload(ResourceManager manager) {
         Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
+            return id.getPath().endsWith(".json");
         });
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
             Identifier id = entry.getKey();

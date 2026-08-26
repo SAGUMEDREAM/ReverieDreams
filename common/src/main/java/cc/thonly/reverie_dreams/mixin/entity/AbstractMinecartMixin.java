@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.api.entity.CartSignal;
 import cc.thonly.reverie_dreams.api.entity.LockedCart;
-import cc.thonly.reverie_dreams.block.props.RailControllerBlock;
-import cc.thonly.reverie_dreams.block.props.SignalRailBlock;
+import cc.thonly.reverie_dreams.block.redstone.RailControllerBlock;
+import cc.thonly.reverie_dreams.block.redstone.SignalRailBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.Ticket;

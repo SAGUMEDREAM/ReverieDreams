@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.item;
 
 import cc.thonly.reverie_dreams.api.item.NonPersistentAdditionalData;
 import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
@@ -43,9 +44,7 @@ import java.util.stream.Stream;
 @ToString
 public class IngredientStack implements ItemLike, DataComponentGetter, ItemInstance, TypedInstance<Item>, NonPersistentAdditionalData {
     public static final Codec<Holder<Item>> ITEM_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(
-            itemId -> {
-                return BuiltInRegistries.ITEM.getValue(itemId).builtInRegistryHolder();
-            },
+            ItemUtils::getHolderItem,
             typeHolder -> {
                 Item item = typeHolder.value();
                 return BuiltInRegistries.ITEM.getKey(item);
@@ -56,10 +55,7 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
             Codec.INT.optionalFieldOf("count", 0).forGetter(IngredientStack::getCount),
             DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY)
                                     .forGetter(IngredientStack::getComponents)
-    ).apply(instance, (item, count, components) -> {
-        IngredientStack stack = new IngredientStack(item, count, components);
-        return stack;
-    }));
+    ).apply(instance, IngredientStack::new));
     public static final Codec<IngredientStack> CODEC = MAP_CODEC.codec();
     public static final Codec<List<IngredientStack>> LIST_CODEC = CODEC.listOf();
     public static final StreamCodec<RegistryFriendlyByteBuf, IngredientStack> STREAM_CODEC = StreamCodec.composite(

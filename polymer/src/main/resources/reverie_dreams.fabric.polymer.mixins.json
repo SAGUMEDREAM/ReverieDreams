@@ -9,7 +9,9 @@
     "FabricEntityDataRegistryImplAccessor",
     "PolymerBlockUtilsMixin",
     "PolymerNetworkingMixin",
-    "item.CameraItemMixin"
+    "item.CameraItemMixin",
+    "item.IngredientStackMixin",
+    "item.ItemUtilsMixin"
   ],
   "client": [
     "client.AbstractBlockMixin",

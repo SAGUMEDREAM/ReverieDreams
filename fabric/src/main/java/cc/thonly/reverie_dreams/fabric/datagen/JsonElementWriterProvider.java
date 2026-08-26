@@ -83,7 +83,7 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
         ).formatted(key.getNamespace(), key.getPath()));
         this.addElement(Type.ASSETS, key, "items", items);
         JsonElement modelItem = strToJson(("{\n" +
-                "  \"parent\": \"reverie_dreams:item/custom_slot\",\n" +
+                "  \"parent\": \"reverie_dreams:item/custom_icon\",\n" +
                 "  \"textures\": {\n" +
                 "    \"layer0\": \"%s:item/%s\"\n" +
                 "  }\n" +

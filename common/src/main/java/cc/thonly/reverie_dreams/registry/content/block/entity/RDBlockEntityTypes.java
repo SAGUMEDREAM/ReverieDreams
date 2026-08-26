@@ -47,6 +47,11 @@ public class RDBlockEntityTypes {
             CupboardBlockEntity::new,
             RDBlocks.CUPBOARD
     );
+    public static final RegistrySupplier<BlockEntityType<IceMakingMachineBlockEntity>> ICE_MAKING_MACHINE = registerBlockEntity("ice_making_machine",
+            IceMakingMachineBlockEntity::new,
+            RDBlocks.ICE_MAKING_MACHINE
+    );
+
     public static final RegistrySupplier<BlockEntityType<SignalRailBlockEntity>> SIGNAL_RAIL_BLOCK_ENTITY = registerBlockEntity(
             "signal_rails",
             SignalRailBlockEntity::new,

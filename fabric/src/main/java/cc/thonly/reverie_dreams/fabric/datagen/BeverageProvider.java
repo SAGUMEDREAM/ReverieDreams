@@ -267,6 +267,6 @@ public class BeverageProvider extends AbstractBeverageProvider {
 
     @Override
     public String getName() {
-        return "Drink";
+        return "Beverage";
     }
 }

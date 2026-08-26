@@ -52,13 +52,14 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(EquipmentAssetProvider::new);
         pack.addProvider(JukeboxProvider::new);
         pack.addProvider(SoundProvider::new);
+        pack.addProvider(FoodIngredientProvider::new);
+        pack.addProvider(BeverageProvider::new);
+        pack.addProvider(CraftingConflictProvider::new);
         pack.addProvider(CustomRecipeTypeProvider::new);
         pack.addProvider(DanmakuRecipeProvider::new);
         pack.addProvider(ShapeDrawRecipeProvider::new);
         pack.addProvider(GensokyoAltarRecipeProvider::new);
-        if (true==false){
-
-        }
+        pack.addProvider(BrewingBarrelRecipeTypeProvider::new);
         pack.addProvider(KitchenRecipeProvider::new);
 
         pack.addProvider(DynamicRegistryProvider::new);
@@ -66,10 +67,6 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(JsonElementWriterProvider::new);
         pack.addProvider(CustomerProvider::new);
-
-        pack.addProvider(FoodIngredientProvider::new);
-        pack.addProvider(BeverageProvider::new);
-        pack.addProvider(CraftingConflictProvider::new);
     }
 
     @Override

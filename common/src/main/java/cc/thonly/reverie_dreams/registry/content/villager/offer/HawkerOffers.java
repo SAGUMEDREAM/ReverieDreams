@@ -48,6 +48,9 @@ public class HawkerOffers {
 
         // Level 1 - 2
         for (ItemDelegate ingredient : RDIngredientItems.INGREDIENTS) {
+            if (RDIngredientItems.EXISTS.contains(ingredient)) {
+                continue;
+            }
             Item item = ingredient.asItem();
             {
                 ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_1, TEMPLATE, 1, item);
@@ -107,6 +110,9 @@ public class HawkerOffers {
         }
         // Level 5
         for (ItemDelegate ingredient : RDIngredientItems.INGREDIENTS) {
+            if (RDIngredientItems.EXISTS.contains(ingredient)) {
+                continue;
+            }
             Item item = ingredient.asItem();
             ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_5, TEMPLATE, 5, item);
             makeCommon(builder, ingredient, key);

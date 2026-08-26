@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:rabbit_foot",
+      "count": 1
+    },
+    {
+      "id": "minecraft:red_mushroom",
+      "count": 1
+    },
+    {
+      "id": "minecraft:quartz",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/tengu_dance",
+    "count": 1
+  },
+  "cost_time": 1320
+}

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.compat.jei;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.kitchen.*;
+import cc.thonly.reverie_dreams.block.cooking.*;
 import cc.thonly.reverie_dreams.compat.ItemViewItemInfo;
 import cc.thonly.reverie_dreams.compat.jei.category.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
@@ -41,6 +41,7 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.FryingPanImpl(guiHelper));
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.GrillImpl(guiHelper));
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.SteamerImpl(guiHelper));
+        registry.addRecipeCategories(new BrewingBarrelRecipeCategory(guiHelper));
     }
 
     @Override
@@ -55,6 +56,8 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipes(JeiRecipeTypes.FRYING_PAN, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.FRYING_PAN));
         registry.addRecipes(JeiRecipeTypes.GRILL, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.GRILL));
         registry.addRecipes(JeiRecipeTypes.STEAMER, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.STEAMER));
+        registry.addRecipes(JeiRecipeTypes.BREWING, recipes.getRecipeTypeList(RecipeManager.BREWING_BARREL));
+
 
         ItemViewItemInfo.registerItemInfo((items, component) -> {
             registry.addIngredientInfo(items.stream().map(Item::getDefaultInstance).toList(), VanillaTypes.ITEM_STACK, component);
@@ -84,6 +87,7 @@ public class JeiPlugin implements IModPlugin {
                 registry.addCraftingStation(JeiRecipeTypes.STEAMER, block);
             }
         }
+        registry.addCraftingStation(JeiRecipeTypes.BREWING, RDBlocks.BREWING_BARREL.createStack());
     }
 
     @Override

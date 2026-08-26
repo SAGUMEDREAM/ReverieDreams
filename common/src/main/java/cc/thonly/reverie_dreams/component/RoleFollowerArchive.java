@@ -31,7 +31,7 @@ public record RoleFollowerArchive(Component name, float maxHealth, CompoundTag n
 
     public BaseNPCLikeEntity respawn(ServerLevel world, BlockPos pos, HolderLookup.Provider registries) {
         NPCSimpleEntity npcLikeEntity = new NPCCompanionEntity(RDEntityTypes.NPC_SIMPLE_ENTITY.value(), world);
-        npcLikeEntity.setPosRaw(pos.getX(), pos.getY(), pos.getZ());
+        npcLikeEntity.setPosRaw(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
         npcLikeEntity.setCustomName(this.name);
         npcLikeEntity.setOwner((LivingEntity) null);
         try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(npcLikeEntity.problemPath(), LogUtils.getLogger())) {

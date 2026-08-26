@@ -19,7 +19,7 @@ public class Polydex2EIVCompatImpl {
 //
 //            Collection<RoleCard> roleCards = RegistryImpls.ROLE_CARD.values();
 //            for (RoleCard instance : roleCards) {
-//                stacks.add(instance.itemStack());
+//                stacks.add(instance.stacks());
 //            }
 //
 //            return stacks;

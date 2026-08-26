@@ -102,38 +102,33 @@ public class CommonEventHandlers {
         return true;
     }
 
-    // 月伤附魔攻击效果
-    public static boolean onPostHitByMoonEnchantment(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        Level world = target.level();
-        if (world.isClientSide()) {
-            return true;
-        }
-        ServerLevel level = (ServerLevel) target.level();
-        RegistryAccess registryAccess = level.registryAccess();
-        long overworldClockTime = level.getOverworldClockTime();
+    public static float onPostHitByMoonEnchantment(
+            ServerLevel serverLevel,
+            ItemStack itemStack,
+            Entity victim
+    ) {
+        long overworldClockTime = serverLevel.getOverworldClockTime();
         long timeOfDay = overworldClockTime % 24000;
-        boolean isNight = timeOfDay >= 13000 && timeOfDay <= 23000;
-        if (!isNight) {
-            return true;
+
+        boolean isNight =
+                timeOfDay >= 13000 &&
+                        timeOfDay <= 23000;
+
+        if (!isNight || itemStack.isEmpty()) {
+            return 0;
         }
-        if (!stack.isEmpty()) {
-            Registry<Enchantment> enchantments = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
-            Holder.Reference<Enchantment> moonDamage = enchantments.getOrThrow(RDEnchantments.MOON_DAMAGE);
-            int itemEnchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(moonDamage, stack);
-            if (itemEnchantmentLevel != 0) {
-                var invulnerableTime = target.invulnerableTime;
-                var hurtTime = target.hurtTime;
-                var lastHurt = target.lastHurt;
-                target.invulnerableTime = 0;
-                target.hurtTime = 0;
-                target.lastHurt = 0;
-                target.hurtServer(level, attacker.damageSources().magic(), itemEnchantmentLevel);
-                target.invulnerableTime = invulnerableTime;
-                target.hurtTime = hurtTime;
-                target.lastHurt = lastHurt;
-            }
+
+        RegistryAccess registryAccess = serverLevel.registryAccess();
+        Registry<Enchantment> enchantments = registryAccess.lookupOrThrow(Registries.ENCHANTMENT);
+        Holder.Reference<Enchantment> moonDamage = enchantments.getOrThrow(RDEnchantments.MOON_DAMAGE);
+
+        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(moonDamage, itemStack);
+
+        if (enchantmentLevel <= 0) {
+            return 0;
         }
-        return true;
+
+        return enchantmentLevel;
     }
 
     public static boolean onPostByFrozenEnchantment(ItemStack stack, LivingEntity target, LivingEntity attacker) {
@@ -152,18 +147,8 @@ public class CommonEventHandlers {
                 itemEnchantmentLevel += 1;
             }
             if (itemEnchantmentLevel != 0) {
-                var invulnerableTime = target.invulnerableTime;
-                var hurtTime = target.hurtTime;
-                var lastHurt = target.lastHurt;
-                target.invulnerableTime = 0;
-                target.hurtTime = 0;
-                target.lastHurt = 0;
                 target.setTicksFrozen(40 * itemEnchantmentLevel);
                 target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40 * itemEnchantmentLevel, 0, false, false));
-//                    target.hurtServer((ServerLevel) target.level(), attacker.damageSources().freeze(), itemEnchantmentLevel);
-                target.invulnerableTime = invulnerableTime;
-                target.hurtTime = hurtTime;
-                target.lastHurt = lastHurt;
             }
         }
         return true;
@@ -358,7 +343,7 @@ public class CommonEventHandlers {
         if (itemStack.has(RDDataComponentTypes.FOOD_PROPERTIES.value()) && (itemStack.has(RDDataComponentTypes.FOOD_ITEM_TYPE.value())) || itemStack.has(DataComponents.FOOD)) {
             Collection<FoodProperty> foodProperties = FoodProperties.get(itemStack);
             foodProperties.forEach(property -> {
-                property.use((ServerLevel) level, livingEntity);
+                property.use((ServerLevel) level, livingEntity, itemStack);
             });
             int size = foodProperties.size();
             if (size > 0) {
@@ -385,7 +370,7 @@ public class CommonEventHandlers {
             }
             List<BeverageProperty> drinkProperties = BeverageProperties.get(itemStack);
             drinkProperties.forEach(property -> {
-                property.use((ServerLevel) level, livingEntity);
+                property.use((ServerLevel) level, livingEntity, itemStack);
             });
             if (livingEntity instanceof ServerPlayer serverPlayer) {
                 SimpleTriggerFactory.create(SimpleTriggerKeys.HAVING_DRINK).trigger(serverPlayer);

@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class YouseiWingLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> extends BaseNPCLikeEntityRenderer<NPCEntity> {
-    private static final LazySupplier<ItemStack> WING_HOLDER = LazySupplier.of(() -> RDEntityHolderItems.YOUSEI_WINGS.createStack());
+    private static final LazySupplier<ItemStack> WING_HOLDER = LazySupplier.of(RDEntityHolderItems.YOUSEI_WINGS::createStack);
     private final ItemModelResolver itemModelResolver;
 
     public YouseiWingLikeEntityRenderer(EntityRendererProvider.Context context, boolean slim) {

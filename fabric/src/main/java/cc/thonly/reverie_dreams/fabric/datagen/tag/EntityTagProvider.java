@@ -28,14 +28,22 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
         TagAppender<EntityType<?>, EntityType<?>> undead = valueLookupBuilder(EntityTypeTags.UNDEAD);
         undead.add(RDEntityTypes.GHOST.value());
 
+        TagAppender<EntityType<?>, EntityType<?>> yousei = valueLookupBuilder(RDEntityTypeTags.YOUSEI);
+        yousei.add(RDEntityTypes.MAID_YOUSEI.value());
+        yousei.add(RDEntityTypes.SUNFLOWER_YOUSEI.value());
+        yousei.add(RDEntityTypes.YOUSEI.value());
+        yousei.add(RDEntityTypes.ICE_FAIRY.value());
+
         TagAppender<EntityType<?>, EntityType<?>> yokai = valueLookupBuilder(RDEntityTypeTags.YOKAI);
         yokai.add(RDEntityTypes.MAID_YOUSEI.value());
         yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI.value());
         yokai.add(RDEntityTypes.YOUSEI.value());
+        yokai.add(RDEntityTypes.ICE_FAIRY.value());
         yokai.add(RDEntityTypes.HAIRBALL.value());
         yokai.add(RDEntityTypes.GHOST.value());
         yokai.add(RDEntityTypes.MUSHROOM_MONSTER.value());
         yokai.add(RDEntityTypes.MAID_YOUSEI.value());
         yokai.add(RDEntityTypes.ONI.value());
+        yokai.addOptionalTag(RDEntityTypeTags.YOUSEI);
     }
 }

@@ -3,10 +3,15 @@
     "reverie_dreams:maid_yousei",
     "reverie_dreams:sunflower_yousei",
     "reverie_dreams:yousei",
+    "reverie_dreams:ice_fairy",
     "reverie_dreams:hairball",
     "reverie_dreams:ghost",
     "reverie_dreams:mushroom_monster",
     "reverie_dreams:maid_yousei",
-    "reverie_dreams:oni"
+    "reverie_dreams:oni",
+    {
+      "id": "#reverie_dreams:yousei",
+      "required": false
+    }
   ]
 }

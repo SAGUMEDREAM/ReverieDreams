@@ -6,8 +6,8 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
-import cc.thonly.reverie_dreams.block.props.RemoteClientBlock;
-import cc.thonly.reverie_dreams.block.props.RemoteServerBlock;
+import cc.thonly.reverie_dreams.block.redstone.RemoteClientBlock;
+import cc.thonly.reverie_dreams.block.redstone.RemoteServerBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
@@ -330,6 +330,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.CHAIR.asBlock());
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.TABLE.asBlock());
         this.registerRotatable(blockStateModelGenerator, RDBlocks.CUPBOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDBlocks.ICE_MAKING_MACHINE.asBlock());
 
         blockStateModelGenerator.family(RDBlocks.BLACK_SALT_BLOCK.asBlock());
 
@@ -340,6 +341,9 @@ public class ModelProvider extends FabricModelProvider {
     public void generateMystiaItem(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(RDItems.MYSTIA_ICON.asItem(), ModelTemplates.FLAT_ITEM);
         for (var item : RDIngredientItems.INGREDIENTS) {
+            if (RDIngredientItems.EXISTS.contains(item)) {
+                continue;
+            }
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
         for (var item : RDCuisineItems.CUISINE_ITEMS) {

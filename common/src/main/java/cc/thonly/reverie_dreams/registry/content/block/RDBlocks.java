@@ -6,7 +6,9 @@ import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import cc.thonly.reverie_dreams.block.bundle.ChestBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
+import cc.thonly.reverie_dreams.block.kitchen.*;
 import cc.thonly.reverie_dreams.block.props.*;
+import cc.thonly.reverie_dreams.block.redstone.*;
 import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -54,7 +56,7 @@ public class RDBlocks {
             BlockBehaviour.Properties.ofFullCopy(Blocks.NOTE_BLOCK));
 
     public static final BlockDelegate MAGIC_ICE_BLOCK = registerBlock("magic_ice",
-            Block::new,
+            MagicIceBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.BLUE_ICE).noOcclusion());
 
     public static final BlockDelegate POINT_BLOCK = registerBlock("point_block",
@@ -65,7 +67,7 @@ public class RDBlocks {
             Block::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
-    // ===== Bundle =====
+    // Bundle
     public static final DecorativeBlockBundle ICE_SCALES = DecorativeBlockBundle.create("ice_scales_block").map(properties -> properties.sound(SoundType.GLASS)).build();
     public static final DecorativeBlockBundle DREAM_STONE = DecorativeBlockBundle.create("dream_stone").map(properties -> properties.sound(SoundType.STONE)).build();
     public static final DecorativeBlockBundle DREAM_STONE_BRICK = DecorativeBlockBundle.create("dream_stone_brick").map(properties -> properties.sound(SoundType.STONE)).build();
@@ -185,6 +187,11 @@ public class RDBlocks {
     public static final BlockDelegate CUPBOARD = registerBlock("cupboard",
             CupboardBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()
+    );
+
+    public static final BlockDelegate ICE_MAKING_MACHINE = registerBlock("ice_making_machine",
+            IceMakingMachine::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion()
     );
 
     public static final BlockDelegate BLACK_SALT_BLOCK = registerSimpleBlock(

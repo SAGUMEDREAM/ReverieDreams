@@ -42,10 +42,11 @@ public class SoundEventPlayUtils {
     }
 
     public static void playSound(Level level, BlockPos pos, SoundEvent event, SoundSource source) {
-        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), event, source);
+        level.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, event, source);
     }
 
     public static void playSound(Level level, double x, double y, double z, SoundEvent event, SoundSource source) {
         level.playSound(null, x, y, z, event, source);
     }
+
 }

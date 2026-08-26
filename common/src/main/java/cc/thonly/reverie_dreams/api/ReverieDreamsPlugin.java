@@ -21,6 +21,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -69,12 +70,12 @@ public interface ReverieDreamsPlugin {
     }
 
     // 食物使用时触发（可添加额外效果或逻辑）
-    default void registerUseItemFoodProperty(ServerLevel world, LivingEntity user, FoodProperty property) {
+    default void registerUseItemFoodProperty(ServerLevel world, LivingEntity user, ItemStack itemStack, FoodProperty property) {
 
     }
 
     // 酒水使用时触发（可添加额外效果或逻辑）
-    default void registerUseItemDrinkProperty(ServerLevel world, LivingEntity user, BeverageProperty property) {
+    default void registerUseItemDrinkProperty(ServerLevel world, LivingEntity user, ItemStack itemStack, BeverageProperty property, List<MobEffectInstance> effectInstances, List<MobEffectInstance> negativeEffectInstances) {
 
     }
 

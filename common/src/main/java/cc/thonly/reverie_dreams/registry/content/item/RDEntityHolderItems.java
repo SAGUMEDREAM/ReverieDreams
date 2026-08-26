@@ -11,8 +11,9 @@ import java.util.function.Function;
 
 public class RDEntityHolderItems {
     public static final List<ItemDelegate> HOLDERS = new ArrayList<>();
-    public static ItemDelegate YOUSEI_WINGS = register("holder/yousei_wing_holder", factory(), new Item.Properties());
-    public static ItemDelegate KNIFE_DISPLAY = register("holder/knife_display", props -> new Item(
+    public static final ItemDelegate YOUSEI_WINGS = register("holder/yousei_wing_holder", factory(), new Item.Properties());
+    public static final ItemDelegate ICE_FAIRY_WINGS = register("holder/ice_fairy_wings", factory(), new Item.Properties());
+    public static final ItemDelegate KNIFE_DISPLAY = register("holder/knife_display", props -> new Item(
             props.component(
                     RDDataComponentTypes.DANMAKU_PROPERTIES.value(),
                     DanmakuProperties.ofDefault()
@@ -20,7 +21,7 @@ public class RDEntityHolderItems {
                                      .withScale(0.8f))
                  .stacksTo(1).overrideDescription("Entity Holder")), new Item.Properties()
     );
-    public static ItemDelegate MAGIC_BROOM_DISPLAY = register("holder/magic_broom_display", factory(), new Item.Properties());
+    public static final ItemDelegate MAGIC_BROOM_DISPLAY = register("holder/magic_broom_display", factory(), new Item.Properties());
 
     public static void initialize() {
 

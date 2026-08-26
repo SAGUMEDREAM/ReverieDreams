@@ -1,0 +1,25 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:snow",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/flowers",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/peach",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/ficus_microcarpa",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/komeiji_ice_cream",
+    "count": 1
+  },
+  "cost_time": 60
+}

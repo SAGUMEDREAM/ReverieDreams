@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.NPCWeaponOfTheMoonGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.RangedAttackUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.KeepInventoryTypes;
 import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariant;
 import cc.thonly.reverie_dreams.entity.variant.RabbitUnitVariants;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;

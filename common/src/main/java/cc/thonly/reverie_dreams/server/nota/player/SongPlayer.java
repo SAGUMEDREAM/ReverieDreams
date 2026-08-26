@@ -93,6 +93,9 @@ public abstract class SongPlayer {
 		if(this.server != api.getServer() && (this.destroyed || NotaAPI.getAPI().isDisabling())) {
 			task.cancel();
 		}
+		if (this.server.tickRateManager().isFrozen() || this.server.isPaused()) {
+			return;
+		}
 		if(playing) {
 			tick++;
 			if(tick == 0) {

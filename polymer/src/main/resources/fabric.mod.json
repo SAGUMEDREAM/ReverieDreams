@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "reverie_dreams_polymerify",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "name": "Polymer Patch for Gensokyo: Reverie of Lost Dreams",
   "description": "a server-only mod for the Touhou Project",
   "authors": [

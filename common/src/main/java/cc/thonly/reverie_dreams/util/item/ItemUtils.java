@@ -18,6 +18,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -305,6 +307,10 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
         }
 
         return new IngredientStack(base.copy());
+    }
+
+    public static Holder<Item> getHolderItem(Identifier itemId) {
+        return BuiltInRegistries.ITEM.getValue(itemId).builtInRegistryHolder();
     }
 
     public static boolean isArmorItem(ItemStack stack) {

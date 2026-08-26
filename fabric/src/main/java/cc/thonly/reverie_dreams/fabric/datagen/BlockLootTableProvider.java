@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
+import cc.thonly.reverie_dreams.block.cooking.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -110,19 +110,19 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
             for (Item item : itemList) {
                 LootPool.Builder pool = LootPool.lootPool()
-                                                .setRolls(ConstantValue.exactly(1))
-                                                .when(LootItemRandomChanceCondition.randomChance(0.25f))
-                                                .add(LootItem.lootTableItem(item));
+                        .setRolls(ConstantValue.exactly(1))
+                        .when(LootItemRandomChanceCondition.randomChance(0.25f))
+                        .add(LootItem.lootTableItem(item));
                 builder.withPool(pool);
             }
 
             LootPool.Builder fallbackPool = LootPool.lootPool()
-                                                    .setRolls(ConstantValue.exactly(1))
-                                                    .add(LootItem.lootTableItem(RDItems.RED_ORB).setWeight(1))
-                                                    .add(LootItem.lootTableItem(RDItems.BLUE_ORB).setWeight(1))
-                                                    .add(LootItem.lootTableItem(RDItems.YELLOW_ORB).setWeight(1))
-                                                    .add(LootItem.lootTableItem(RDItems.GREEN_ORB).setWeight(1))
-                                                    .add(LootItem.lootTableItem(RDItems.PURPLE_ORB).setWeight(1));
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(RDItems.RED_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(RDItems.BLUE_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(RDItems.YELLOW_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(RDItems.GREEN_ORB).setWeight(1))
+                    .add(LootItem.lootTableItem(RDItems.PURPLE_ORB).setWeight(1));
             builder.withPool(fallbackPool);
 
             return builder;
@@ -141,15 +141,15 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
             for (Item item : itemList) {
                 LootPool.Builder pool = LootPool.lootPool()
-                                                .setRolls(ConstantValue.exactly(1))
-                                                .when(LootItemRandomChanceCondition.randomChance(0.25f))
-                                                .add(LootItem.lootTableItem(item));
+                        .setRolls(ConstantValue.exactly(1))
+                        .when(LootItemRandomChanceCondition.randomChance(0.25f))
+                        .add(LootItem.lootTableItem(item));
                 builder.withPool(pool);
             }
 
             LootPool.Builder fallbackPool = LootPool.lootPool()
-                                                    .setRolls(ConstantValue.exactly(1))
-                                                    .add(LootItem.lootTableItem(RDItems.DREAM_CRYSTAL_FRAGMENT).setWeight(1));
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(RDItems.DREAM_CRYSTAL_FRAGMENT).setWeight(1));
             builder.withPool(fallbackPool);
 
             return builder;
@@ -166,7 +166,35 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
             dropSelf(fumo.block());
         }
 
-        this.generateTHMystiaModLoot();
+        for (Block block : AbstractKitchenwareBlock.KITCHENWARE_BLOCKS) {
+            dropSelf(block);
+        }
+        dropSelf(RDBlocks.PLATE.asBlock());
+        dropSelf(RDBlocks.CHAIR.asBlock());
+        dropSelf(RDBlocks.TABLE.asBlock());
+        dropSelf(RDBlocks.BREWING_BARREL.asBlock());
+        dropSelf(RDBlocks.ICE_MAKING_MACHINE.asBlock());
+
+        for (Map.Entry<Identifier, CropBlockBundle.Entry> view : CropBlockBundle.getViews()) {
+            CropBlockBundle.Entry entry = view.getValue();
+            generateCropLoot(entry);
+        }
+
+        this.woodBundleLootFunction.apply(RDWoodBlocks.SPIRITUAL_BUNDLE);
+        dropSelf(RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asBlock());
+
+        this.woodBundleLootFunction.apply(RDWoodBlocks.LEMON_BUNDLE);
+        dropOther(RDWoodBlocks.LEMON_FRUIT_LEAVES.asBlock(), RDWoodBlocks.LEMON_BUNDLE.sapling());
+
+        this.woodBundleLootFunction.apply(RDWoodBlocks.GINKGO_BUNDLE);
+        dropOther(RDWoodBlocks.GINKGO_FRUIT_LEAVES.asBlock(), RDWoodBlocks.GINKGO_BUNDLE.sapling());
+
+        this.woodBundleLootFunction.apply(RDWoodBlocks.PEACH_BUNDLE);
+        dropOther(RDWoodBlocks.PEACH_FRUIT_LEAVES.asBlock(), RDWoodBlocks.PEACH_BUNDLE.sapling());
+
+        dropSelf(RDBlocks.BLACK_SALT_BLOCK.asBlock());
+        dropSelf(RDWoodBlocks.UDUMBARA_FLOWER.asBlock());
+        dropSelf(RDWoodBlocks.TREMELLA.asBlock());
 
         dropSelf(RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock());
         dropSelf(RDBlocks.SIGNAL_RAIL_BLOCK.asBlock());
@@ -188,17 +216,17 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 //                LootTable.Builder lootTableBuilder = provider.cropDrops(this.cropBlock, this.product, this.seed, condition);
             LootTable.Builder lootTableBuilder = LootTable.lootTable();
             LootPoolSingletonContainer.Builder<?> productEntry = LootItem.lootTableItem(entry.getProduct())
-                                                                         .apply(SetItemCountFunction.setCount(
-                                                                                 UniformGenerator.between(1.0f, 3.0f)
-                                                                         ));
+                    .apply(SetItemCountFunction.setCount(
+                            UniformGenerator.between(1.0f, 3.0f)
+                    ));
             LootPoolSingletonContainer.Builder<?> seedEntry = LootItem.lootTableItem(entry.getSeed())
-                                                                      .apply(SetItemCountFunction.setCount(
-                                                                              UniformGenerator.between(1.0f, 2.0f)
-                                                                      ));
+                    .apply(SetItemCountFunction.setCount(
+                            UniformGenerator.between(1.0f, 2.0f)
+                    ));
             LootPoolSingletonContainer.Builder<?> baseSeedEntry = LootItem.lootTableItem(entry.getSeed())
-                                                                          .apply(SetItemCountFunction.setCount(
-                                                                                  ConstantValue.exactly(1)
-                                                                          ));
+                    .apply(SetItemCountFunction.setCount(
+                            ConstantValue.exactly(1)
+                    ));
             lootTableBuilder.withPool(
                     LootPool.lootPool()
                             .when(condition.build())
@@ -221,36 +249,4 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
         }
     }
 
-
-    public void generateTHMystiaModLoot() {
-        for (Block block : AbstractKitchenwareBlock.KITCHENWARE_BLOCKS) {
-            dropSelf(block);
-        }
-        dropSelf(RDBlocks.PLATE.asBlock());
-        dropSelf(RDBlocks.CHAIR.asBlock());
-        dropSelf(RDBlocks.TABLE.asBlock());
-        dropSelf(RDBlocks.BREWING_BARREL.asBlock());
-
-        for (Map.Entry<Identifier, CropBlockBundle.Entry> view : CropBlockBundle.getViews()) {
-            CropBlockBundle.Entry entry = view.getValue();
-            generateCropLoot(entry);
-        }
-
-        this.woodBundleLootFunction.apply(RDWoodBlocks.SPIRITUAL_BUNDLE);
-        dropSelf(RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asBlock());
-
-        this.woodBundleLootFunction.apply(RDWoodBlocks.LEMON_BUNDLE);
-        dropOther(RDWoodBlocks.LEMON_FRUIT_LEAVES.asBlock(), RDWoodBlocks.LEMON_BUNDLE.sapling());
-
-        this.woodBundleLootFunction.apply(RDWoodBlocks.GINKGO_BUNDLE);
-        dropOther(RDWoodBlocks.GINKGO_FRUIT_LEAVES.asBlock(), RDWoodBlocks.GINKGO_BUNDLE.sapling());
-
-        this.woodBundleLootFunction.apply(RDWoodBlocks.PEACH_BUNDLE);
-        dropOther(RDWoodBlocks.PEACH_FRUIT_LEAVES.asBlock(), RDWoodBlocks.PEACH_BUNDLE.sapling());
-
-//        addDrop(MIBlocks.COOKTOP);
-        dropSelf(RDBlocks.BLACK_SALT_BLOCK.asBlock());
-        dropSelf(RDWoodBlocks.UDUMBARA_FLOWER.asBlock());
-        dropSelf(RDWoodBlocks.TREMELLA.asBlock());
-    }
 }

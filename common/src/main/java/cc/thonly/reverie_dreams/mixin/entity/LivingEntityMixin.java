@@ -217,7 +217,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
 
     @Unique
     public void processDeathLevel() {
-        if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE)) {
+        if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE.builtInHolder())) {
             if (this.deathLevel == 1) {
                 this.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 0));
             }
@@ -344,7 +344,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         if (this.kanjuWorld == null) {
             return false;
         }
-        if (this.kanjuWorld instanceof ServerLevel serverWorld && this.hasEffect(RDStatusEffects.KANJU_KUSURI) && (this.getHealth() - amount <= 0f)) {
+        if (this.kanjuWorld instanceof ServerLevel serverWorld && this.hasEffect(RDStatusEffects.KANJU_KUSURI.builtInHolder()) && (this.getHealth() - amount <= 0f)) {
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());
             this.hurtServer(serverWorld, this.damageSources().magic(), 0.0001F);
@@ -367,7 +367,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
 
     @Unique
     public boolean triggerDeathInElixir(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE) && (this.getHealth() - amount <= 0f)) {
+        if (this.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE.builtInHolder()) && (this.getHealth() - amount <= 0f)) {
             this.deathLevel++;
             this.setHealth(1f);
             this.setHealth(this.getMaxHealth());

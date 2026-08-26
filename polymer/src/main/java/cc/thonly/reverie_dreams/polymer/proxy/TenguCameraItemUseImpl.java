@@ -103,7 +103,6 @@ public class TenguCameraItemUseImpl implements TenguCameraItemUse {
                 if (!player.addItem(x)) {
                     player.spawnAtLocation(player.level(), x);
                 }
-
             });
         }
     }

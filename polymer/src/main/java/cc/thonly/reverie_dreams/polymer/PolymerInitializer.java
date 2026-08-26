@@ -153,13 +153,15 @@ public class PolymerInitializer {
                 ReverieDreams.id("block"),
                 ReverieDreams.id("item"),
                 ReverieDreams.id("entity"),
-                ReverieDreams.id("font")
+                ReverieDreams.id("font"),
+                ReverieDreams.id("mob_effect")
         );
         ResourcePackExtras.forDefault().addBridgedModelsFolder(
                 polymerifyId("block"),
                 polymerifyId("item"),
                 polymerifyId("entity"),
-                polymerifyId("font")
+                polymerifyId("font"),
+                ReverieDreams.id("mob_effect")
         );
         ResourcePackGenerator.registerEvent();
     }

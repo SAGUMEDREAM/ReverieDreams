@@ -1,0 +1,17 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:dark_oak_leaves",
+      "count": 1
+    },
+    {
+      "id": "minecraft:dark_oak_leaves",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/gyokuro_tea",
+    "count": 1
+  },
+  "cost_time": 60
+}

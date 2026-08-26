@@ -258,6 +258,7 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
                 log.error("Duplicate recipe id found {} in {}", id, id + ".json");
             }
             this.registries.put(identifier, recipe);
+            this.recipeType.add(identifier, recipe);
             return this;
         }
 

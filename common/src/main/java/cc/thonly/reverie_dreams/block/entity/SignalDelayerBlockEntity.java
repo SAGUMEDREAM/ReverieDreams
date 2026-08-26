@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.block.props.SignalDelayerBlock;
+import cc.thonly.reverie_dreams.block.redstone.SignalDelayerBlock;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import lombok.Getter;
 import lombok.Setter;

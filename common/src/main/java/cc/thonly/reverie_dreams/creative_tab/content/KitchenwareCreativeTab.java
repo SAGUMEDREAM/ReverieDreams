@@ -48,12 +48,14 @@ public class KitchenwareCreativeTab implements ItemGroupContentHelper {
                     output.accept(RDKitchenBlocks.NUKE_GRILL);
                     output.accept(RDKitchenBlocks.NUKE_STEAMER);
 
+                    output.accept(RDItems.FAST_RECIPE_BOOK);
+
                     output.accept(RDBlocks.PLATE);
                     output.accept(RDBlocks.CHAIR);
                     output.accept(RDBlocks.TABLE);
                     output.accept(RDBlocks.BREWING_BARREL);
                     output.accept(RDBlocks.CUPBOARD);
-                    output.accept(RDItems.FAST_RECIPE_BOOK);
+                    output.accept(RDBlocks.ICE_MAKING_MACHINE);
                 })
         );
 

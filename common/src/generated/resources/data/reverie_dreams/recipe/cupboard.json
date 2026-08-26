@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:wooden_slabs",
+    "C": "minecraft:chest",
+    "G": "minecraft:glass"
+  },
+  "pattern": [
+    "###",
+    "#C#",
+    "#G#"
+  ],
+  "result": {
+    "id": "reverie_dreams:cupboard"
+  }
+}

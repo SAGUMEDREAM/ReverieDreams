@@ -204,7 +204,6 @@ public class ReverieDreams {
 //        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
         EntityEvent.LIVING_HURT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitBySilverWeapon);
-        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByMoonEnchantment);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByFrozenEnchantment);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByChargeEnchantment);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByInstantKillGhost);

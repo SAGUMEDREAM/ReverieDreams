@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:wheat_seeds",
+      "count": 1
+    },
+    {
+      "id": "minecraft:wheat_seeds",
+      "count": 1
+    },
+    {
+      "id": "minecraft:wheat_seeds",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/beer",
+    "count": 1
+  },
+  "cost_time": 840
+}

@@ -38,72 +38,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/affgado",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/beer",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/big_popsicle",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/blessing_wind",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/coffee",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/daiginjo",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/daughter_of_the_sea",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/dawn",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/demonic_coffee",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/demon_slayer",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/drunk_actor",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/fairy_rain",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/fire_rat_fur",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/fourteenth_night",
+          "name": "reverie_dreams:beverage/green_tea",
           "weight": 10
         },
         {
@@ -118,7 +53,32 @@
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/godfather",
+          "name": "reverie_dreams:beverage/qi",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/beer",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/sun_moon_star",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/plum_wine",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/tengu_dance",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/scarlet_devil",
           "weight": 10
         },
         {
@@ -128,7 +88,62 @@
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/green_tea",
+          "name": "reverie_dreams:beverage/otter_festival",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/dawn",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/sparrow_sake",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/scarlet_devil_mansion_black_tea",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/affgado",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/red_mist",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/negroni",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/godfather",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/blessing_wind",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/winter_brew",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/fourteenth_night",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/fire_rat_fur",
           "weight": 10
         },
         {
@@ -138,12 +153,67 @@
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/heaven_and_earth_are_useless",
+          "name": "reverie_dreams:beverage/moon_rocket",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/milk",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/red_grapefruit_juice",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/soda",
           "weight": 10
         },
         {
           "type": "minecraft:item",
           "name": "reverie_dreams:beverage/iceberg_maple_frozen_lemon",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/big_popsicle",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/daiginjo",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/coffee",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/fairy_rain",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/paleo_creamy_smoothie",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/ordinary_fitness_tea",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/demon_slayer",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/qi_health",
           "weight": 10
         },
         {
@@ -158,7 +228,27 @@
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/milk",
+          "name": "reverie_dreams:beverage/qilin",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/heaven_and_earth_are_useless",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/drunk_actor",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/daughter_of_the_sea",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:beverage/demonic_coffee",
           "weight": 10
         },
         {
@@ -168,102 +258,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/moon_rocket",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/negroni",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/ordinary_fitness_tea",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/otter_festival",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/paleo_creamy_smoothie",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/plum_wine",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/qi",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/qilin",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/qi_health",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/red_grapefruit_juice",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/red_mist",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/satellite_iced_coffee",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/scarlet_devil",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/scarlet_devil_mansion_black_tea",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/soda",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
           "name": "reverie_dreams:beverage/space_beer",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/sparrow_sake",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/sun_moon_star",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/tengu_dance",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "reverie_dreams:beverage/winter_brew",
+          "name": "reverie_dreams:beverage/satellite_iced_coffee",
           "weight": 10
         }
       ],

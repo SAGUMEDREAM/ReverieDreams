@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:bread",
+      "count": 1
+    },
+    {
+      "id": "minecraft:blaze_powder",
+      "count": 1
+    },
+    {
+      "id": "minecraft:magma_cream",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/demon_slayer",
+    "count": 1
+  },
+  "cost_time": 1320
+}

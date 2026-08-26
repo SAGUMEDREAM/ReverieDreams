@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.block;
 
+import cc.thonly.reverie_dreams.block.cooking.*;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
-import cc.thonly.reverie_dreams.block.kitchen.*;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;

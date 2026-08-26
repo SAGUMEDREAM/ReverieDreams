@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.block;
 
-import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
+import cc.thonly.reverie_dreams.block.props.GensokyoAltarBlock;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;

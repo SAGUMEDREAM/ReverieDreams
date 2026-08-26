@@ -6,10 +6,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
+@SuppressWarnings("SimplifiableConditionalExpression")
 public class NPCMeleeAttackGoal extends Goal {
     protected final PathfinderMob mob;
     private final double speedModifier;
@@ -34,7 +39,7 @@ public class NPCMeleeAttackGoal extends Goal {
     @Override
     public boolean canUse() {
         long time = this.mob.level().getGameTime();
-        if (time - this.lastCanUseCheck < 20L) {
+        if (time - this.lastCanUseCheck < COOLDOWN_BETWEEN_CAN_USE_CHECKS) {
             return false;
         } else {
             this.lastCanUseCheck = time;
@@ -141,7 +146,47 @@ public class NPCMeleeAttackGoal extends Goal {
     }
 
     protected boolean canPerformAttack(LivingEntity target) {
-        return this.isTimeToAttack() && this.mob.isWithinMeleeAttackRange(target) && this.mob.getSensing().hasLineOfSight(target);
+        return this.isTimeToAttack()
+                && this.mob.isWithinMeleeAttackRange(target)
+                && this.hasLineOfSight(target);
+    }
+
+    protected boolean hasLineOfSight(LivingEntity target) {
+        Vec3 start = this.mob.getEyePosition();
+
+        AABB box = target.getBoundingBox();
+        double minX = box.minX;
+        double maxX = box.maxX;
+        double minY = box.minY;
+        double maxY = box.maxY;
+        double minZ = box.minZ;
+        double maxZ = box.maxZ;
+
+        Vec3[] points = new Vec3[] {
+                new Vec3((minX + maxX) * 0.5, minY + 0.1, (minZ + maxZ) * 0.5),
+                new Vec3((minX + maxX) * 0.5, (minY + maxY) * 0.5, (minZ + maxZ) * 0.5),
+                new Vec3((minX + maxX) * 0.5, maxY - 0.1, (minZ + maxZ) * 0.5),
+                new Vec3(minX + 0.1, (minY + maxY) * 0.5, (minZ + maxZ) * 0.5),
+                new Vec3(maxX - 0.1, (minY + maxY) * 0.5, (minZ + maxZ) * 0.5),
+                new Vec3((minX + maxX) * 0.5, (minY + maxY) * 0.5, minZ + 0.1),
+                new Vec3((minX + maxX) * 0.5, (minY + maxY) * 0.5, maxZ - 0.1)
+        };
+
+        for (Vec3 point : points) {
+            HitResult result = this.mob.level().clip(new ClipContext(
+                    start,
+                    point,
+                    ClipContext.Block.COLLIDER,
+                    ClipContext.Fluid.NONE,
+                    this.mob
+            ));
+
+            if (result.getType() == HitResult.Type.MISS) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected int getTicksUntilNextAttack() {

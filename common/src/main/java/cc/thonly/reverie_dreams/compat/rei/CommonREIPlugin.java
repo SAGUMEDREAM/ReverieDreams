@@ -15,6 +15,7 @@ public class CommonREIPlugin implements REICommonPlugin {
         registry.register(ReverieDreams.id("gensokyo_altar"), GensokyoAltarRecipeDisplay.SERIALIZER);
         registry.register(ReverieDreams.id("strength_table"), StrengthTableDisplay.SERIALIZER);
         registry.register(ReverieDreams.id("kitchen"), KitchenDisplay.SERIALIZER);
+        registry.register(ReverieDreams.id("brewing_barrel"), BrewingBarrelDisplay.SERIALIZER);
     }
 
     @Override

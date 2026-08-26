@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.gui.slot.LimitedSlot;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.util.DistributedTickTask;
 import eu.pb4.sgui.api.ClickType;
+import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -30,7 +31,7 @@ public class BrewingBarrelGui extends SimpleGui implements GuiCommon {
             Level world,
             BlockPos pos
     ) {
-        super(MenuType.GENERIC_9x3, player, false);
+        super(MenuType.GENERIC_9x1, player, false);
         this.player = player;
         this.state = state;
         this.blockEntity = (BrewingBarrelBlockEntity) world.getBlockEntity(pos);

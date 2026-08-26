@@ -94,7 +94,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
                 .add(Attributes.FOLLOW_RANGE, 32.0)
                 .add(Attributes.TEMPT_RANGE, 10.0)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 3);
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5);
     }
 
     @Override

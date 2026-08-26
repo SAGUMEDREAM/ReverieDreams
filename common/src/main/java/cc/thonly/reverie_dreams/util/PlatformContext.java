@@ -112,6 +112,10 @@ public class PlatformContext {
                 || ReverieDreams.config().debugMode;
     }
 
+    public static boolean isDevModeByIDEA() {
+        return DEV_MODE.get();
+    }
+
 
     public static boolean isHasConnector() {
         return HAS_CONNECTOR.get();

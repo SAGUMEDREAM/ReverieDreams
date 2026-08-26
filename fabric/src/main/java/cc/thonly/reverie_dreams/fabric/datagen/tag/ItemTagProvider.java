@@ -275,8 +275,361 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(RDBlocks.RAIL_CONTROLLER_BLOCK.asItem())
                 .add(RDBlocks.SIGNAL_RAIL_BLOCK.asItem());
 
+        TagAppender<Item, Item> iceMakingMachineOutput = valueLookupBuilder(RDItemTags.ICE_MAKING_MACHINE_OUTPUT);
+        iceMakingMachineOutput.add(Items.ICE);
+        iceMakingMachineOutput.add(Items.SNOWBALL);
+        iceMakingMachineOutput.add(RDBlocks.MAGIC_ICE_BLOCK.asItem());
+
         // 模组兼容扩展
+        this.configureDLCFoodItem(wrapperLookup);
+        this.configureDLCBeverageItem(wrapperLookup);
+        this.configureDLCIngredientItem(wrapperLookup);
         this.configureCompat(wrapperLookup);
+    }
+
+    protected void configureDLCFoodItem(HolderLookup.Provider wrapperLookup) {
+        TagAppender<Item, Item> dlc0 = valueLookupBuilder(RDItemTags.DLC0);
+        TagAppender<Item, Item> dlc1 = valueLookupBuilder(RDItemTags.DLC1);
+        TagAppender<Item, Item> dlc2 = valueLookupBuilder(RDItemTags.DLC2);
+        TagAppender<Item, Item> dlc3 = valueLookupBuilder(RDItemTags.DLC3);
+        TagAppender<Item, Item> dlc4 = valueLookupBuilder(RDItemTags.DLC4);
+        TagAppender<Item, Item> dlc5 = valueLookupBuilder(RDItemTags.DLC5);
+        TagAppender<Item, Item> dlc6 = valueLookupBuilder(RDItemTags.DLC6);
+
+        // DLC0
+        dlc0.add(RDCuisineItems.SEAFOOD_MISO_SOUP.asItem());
+        dlc0.add(RDCuisineItems.TOFU_MISO.asItem());
+        dlc0.add(RDCuisineItems.STRENGTH_SOUP.asItem());
+        dlc0.add(RDCuisineItems.PORK_AND_TROUT_SMOKED.asItem());
+        dlc0.add(RDCuisineItems.GRILLED_HAGFISH.asItem());
+        dlc0.add(RDCuisineItems.ENERGY_STRING.asItem());
+        dlc0.add(RDCuisineItems.TWO_HEAVENS_ONE_STYLE.asItem());
+        dlc0.add(RDCuisineItems.RICE_BALL.asItem());
+        dlc0.add(RDCuisineItems.GRILLED_PORK_RICE_BALLS.asItem());
+        dlc0.add(RDCuisineItems.WARM_RICE_BALL.asItem());
+        dlc0.add(RDCuisineItems.FAILING_SAKURA_SNOW.asItem());
+        dlc0.add(RDCuisineItems.FRIED_PORK_SHREDS.asItem());
+        dlc0.add(RDCuisineItems.COLD_TOFU.asItem());
+        dlc0.add(RDCuisineItems.BRAISED_EEL.asItem());
+        dlc0.add(RDCuisineItems.POTATO_CROQUETTES.asItem());
+        dlc0.add(RDCuisineItems.GAME_SOUP.asItem());
+        dlc0.add(RDCuisineItems.PORK_RICE.asItem());
+        dlc0.add(RDCuisineItems.BEEF_RICE.asItem());
+        dlc0.add(RDCuisineItems.FRIED_HAGFISH.asItem());
+        dlc0.add(RDCuisineItems.VEGETABLE_SPECIAL.asItem());
+        dlc0.add(RDCuisineItems.SNOW_WHITE.asItem());
+        dlc0.add(RDCuisineItems.TOFU_POT.asItem());
+        dlc0.add(RDCuisineItems.ZHAJI.asItem());
+        dlc0.add(RDCuisineItems.SASHIMI_PLATTER.asItem());
+        dlc0.add(RDCuisineItems.GRAND_BANQUET.asItem());
+        dlc0.add(RDCuisineItems.TONKOTSU_RAMEN.asItem());
+        dlc0.add(RDCuisineItems.MAGMA.asItem());
+        dlc0.add(RDCuisineItems.DEEP_FRIED_CICADA_SHELLS.asItem());
+        dlc0.add(RDCuisineItems.DEW_BOILED_EGGS.asItem());
+        dlc0.add(RDCuisineItems.UDUMBARA_CAKE.asItem());
+        dlc0.add(RDCuisineItems.BEAR_PAW.asItem());
+        dlc0.add(RDCuisineItems.SECRET_DRIED_FISH.asItem());
+        dlc0.add(RDCuisineItems.COLD_DISH_CARVING.asItem());
+        dlc0.add(RDCuisineItems.PEACH_BLOSSOM_SOUP.asItem());
+        dlc0.add(RDCuisineItems.ARCTIC_SWEET_SHRIMP_AND_PEACH_SALAD.asItem());
+        dlc0.add(RDCuisineItems.FRIED_TOFU.asItem());
+        dlc0.add(RDCuisineItems.POETRY_AND_GINKGO.asItem());
+        dlc0.add(RDCuisineItems.REAL_SEAFOOD_MISO_SOUP.asItem());
+        dlc0.add(RDCuisineItems.ROASTED_MUSHROOMS.asItem());
+        dlc0.add(RDCuisineItems.COOKING_TOFU.asItem());
+        dlc0.add(RDCuisineItems.FRIED_PORK_CUTLET.asItem());
+        dlc0.add(RDCuisineItems.BUTTER_STEAK.asItem());
+        dlc0.add(RDCuisineItems.RISOTTO.asItem());
+        dlc0.add(RDCuisineItems.BEEF_WELLINGTON.asItem());
+        dlc0.add(RDCuisineItems.EGGS_BENEDICT.asItem());
+        dlc0.add(RDCuisineItems.HOT_WAFFLES.asItem());
+        dlc0.add(RDCuisineItems.SCONES.asItem());
+        dlc0.add(RDCuisineItems.PAN_FRIED_SALMON.asItem());
+        dlc0.add(RDCuisineItems.CREAM_STEW.asItem());
+        dlc0.add(RDCuisineItems.HONEY_BBQ_PORK.asItem());
+        dlc0.add(RDCuisineItems.GINKGO_AND_RADISH_PORK_RIB_SOUP.asItem());
+        dlc0.add(RDCuisineItems.TAKETORIHIME.asItem());
+        dlc0.add(RDCuisineItems.PHOENIX.asItem());
+        dlc0.add(RDCuisineItems.MOONLIGHT_DUMPLINGS.asItem());
+        dlc0.add(RDCuisineItems.MOCHI.asItem());
+        dlc0.add(RDCuisineItems.WHITE_PEACH_EIGHT_BRIDGE.asItem());
+        dlc0.add(RDCuisineItems.MOON_LOVERS.asItem());
+        dlc0.add(RDCuisineItems.PIG_DEER_BUTTERFLY.asItem());
+        dlc0.add(RDCuisineItems.FLOWING_WATER_NOODLES.asItem());
+        dlc0.add(RDCuisineItems.BAMBOO_SHOOTS_FRIED_MEAT.asItem());
+        dlc0.add(RDCuisineItems.BAMBOO_STEAMED_EGG.asItem());
+        dlc0.add(RDCuisineItems.HORAI_DAMA_NO_EDA.asItem());
+        dlc0.add(RDCuisineItems.STINKY_TOFU.asItem());
+        dlc0.add(RDCuisineItems.COLORFUL_JADE_FRIED_BUNS.asItem());
+        dlc0.add(RDCuisineItems.MAPO_TOFU.asItem());
+        dlc0.add(RDCuisineItems.BOILED_FISH.asItem());
+        dlc0.add(RDCuisineItems.MOON_CAKE.asItem());
+        dlc0.add(RDCuisineItems.MAOYU_TRICOLOR_ICE_CREAM.asItem());
+        dlc0.add(RDCuisineItems.MAOYU_LAVA_TOFU.asItem());
+        dlc0.add(RDCuisineItems.SCARLET_DEVILS_CAKE.asItem());
+        dlc0.add(RDCuisineItems.UNCONSCIOUS_MONSTER_MOUSSE.asItem());
+        dlc0.add(RDCuisineItems.DUMPLING.asItem());
+        dlc0.add(RDCuisineItems.GLUTINOUS_RICE_BALLS.asItem());
+
+        // DLC1
+        dlc1.add(RDCuisineItems.FRIED_SHRIMP_TEMPURA.asItem());
+        dlc1.add(RDCuisineItems.GOLDEN_CRISPY_FISH_CAKE.asItem());
+        dlc1.add(RDCuisineItems.ALL_MEAT_FEAST.asItem());
+        dlc1.add(RDCuisineItems.PICKLED_CUCUMBERS.asItem());
+        dlc1.add(RDCuisineItems.BAKED_CRAB_WITH_CREAM.asItem());
+        dlc1.add(RDCuisineItems.PSEUDO_JIRITAMA.asItem());
+        dlc1.add(RDCuisineItems.OKONOMIYAKI.asItem());
+        dlc1.add(RDCuisineItems.TAKOYAKI.asItem());
+        dlc1.add(RDCuisineItems.SEA_URCHIN_SASHIMI.asItem());
+        dlc1.add(RDCuisineItems.MUSHROOM_MEAT_SLICES.asItem());
+        dlc1.add(RDCuisineItems.SECRET_MUSHROOM_CASSEROLE.asItem());
+        dlc1.add(RDCuisineItems.MUSHROOM_GIRLS_DANCE_STEW.asItem());
+        dlc1.add(RDCuisineItems.MILKY_MUSHROOM_SOUP.asItem());
+        dlc1.add(RDCuisineItems.ORDINARY_SMALL_CAKE.asItem());
+        dlc1.add(RDCuisineItems.SEVEN_COLORED_YOKAN.asItem());
+        dlc1.add(RDCuisineItems.NIGIRI_SUSHI.asItem());
+        dlc1.add(RDCuisineItems.PUMPKIN_SHRIMP_CAKE.asItem());
+        dlc1.add(RDCuisineItems.GENSOKYO_BUDDHA_JUMPS_OVER_THE_WALL.asItem());
+
+        // DLC2
+        dlc2.add(RDCuisineItems.DEPRESSED_CHEESE_STICKS.asItem());
+        dlc2.add(RDCuisineItems.GLOOMY_FRUIT_PIE.asItem());
+        dlc2.add(RDCuisineItems.SCREAMING_ODEN.asItem());
+        dlc2.add(RDCuisineItems.CRISP_CYCLONE.asItem());
+        dlc2.add(RDCuisineItems.LOOKING_UP_AT_THE_CEILING_FRUIT_PIE.asItem());
+        dlc2.add(RDCuisineItems.BEETLE_STEAMED_CAKE.asItem());
+        dlc2.add(RDCuisineItems.LION_HEAD.asItem());
+        dlc2.add(RDCuisineItems.GIANT_TAMAGOYAKI.asItem());
+        dlc2.add(RDCuisineItems.OEDO_BOAT_FESTIVAL.asItem());
+        dlc2.add(RDCuisineItems.SAKURA_PUDDING.asItem());
+        dlc2.add(RDCuisineItems.REFRESHING_PUDDING.asItem());
+        dlc2.add(RDCuisineItems.BURNT_PUDDING.asItem());
+        dlc2.add(RDCuisineItems.CAT_FOOD.asItem());
+        dlc2.add(RDCuisineItems.SALMON_TEMPURA.asItem());
+        dlc2.add(RDCuisineItems.FISH_LEAPS_OVER_DRAGON_GATE.asItem());
+        dlc2.add(RDCuisineItems.CHEESE_EGG.asItem());
+        dlc2.add(RDCuisineItems.ONE_HIT_KILL.asItem());
+        dlc2.add(RDCuisineItems.HELL_THRILL_WARNING.asItem());
+
+        // DLC3
+        dlc3.add(RDCuisineItems.BAKED_SWEET_POTATOES.asItem());
+        dlc3.add(RDCuisineItems.SKINNY_HORSE_DUMPLING.asItem());
+        dlc3.add(RDCuisineItems.FRIGHT_ADVENTURE.asItem());
+        dlc3.add(RDCuisineItems.BISCAY_BISCUITS.asItem());
+        dlc3.add(RDCuisineItems.PIRATE_BACON.asItem());
+        dlc3.add(RDCuisineItems.LUOHAN_VEGETARIAN.asItem());
+        dlc3.add(RDCuisineItems.YUNSHAN_COTTON_CANDY.asItem());
+        dlc3.add(RDCuisineItems.HOLY_WHITE_LOTUS_SEED_CAKE.asItem());
+        dlc3.add(RDCuisineItems.GENSOKYO_STAR_LOTUS_SHIP.asItem());
+        dlc3.add(RDCuisineItems.PINE_NUT_CAKE.asItem());
+        dlc3.add(RDCuisineItems.SHIRAGA_SADAMATSU.asItem());
+        dlc3.add(RDCuisineItems.TAICHI_BAGUA_FISH_MAW.asItem());
+        dlc3.add(RDCuisineItems.CANDIED_CHESTNUTS.asItem());
+        dlc3.add(RDCuisineItems.TIANSHI_BRAISED_CHESTNUT_MUSHROOMS.asItem());
+        dlc3.add(RDCuisineItems.LOTUS_FISH_RICE_BOWL.asItem());
+        dlc3.add(RDCuisineItems.CANDIED_SWEET_POTATO.asItem());
+        dlc3.add(RDCuisineItems.PAN_FRIED_MUSHROOM_MEAT_ROLL.asItem());
+        dlc3.add(RDCuisineItems.ASSORTED_TEMPURA.asItem());
+
+        // DLC4
+        dlc4.add(RDCuisineItems.FRIED_TOMATO_STRIPS.asItem());
+        dlc4.add(RDCuisineItems.BRAISED_PORK_WITH_PEACH.asItem());
+        dlc4.add(RDCuisineItems.REVERSING_THE_WORLD.asItem());
+        dlc4.add(RDCuisineItems.RED_BEAN_DAIFUKU.asItem());
+        dlc4.add(RDCuisineItems.DORAYAKI.asItem());
+        dlc4.add(RDCuisineItems.THE_BEAUTY_OF_HAN_PALACE.asItem());
+        dlc4.add(RDCuisineItems.BAMBOO_SHOOTS_STEWED_IN_STONE_POT.asItem());
+        dlc4.add(RDCuisineItems.BAMBOO_TUBE_STEAMED_PORK.asItem());
+        dlc4.add(RDCuisineItems.GREEN_BAMBOO_WELCOMES_SPRING.asItem());
+        dlc4.add(RDCuisineItems.PLUM_TEA_RICE.asItem());
+        dlc4.add(RDCuisineItems.STEAMED_EGG_WITH_SEA_URCHIN.asItem());
+        dlc4.add(RDCuisineItems.FANTASY_IS_ALL_THE_RAGE.asItem());
+        dlc4.add(RDCuisineItems.GREEN_FAIRY_MUSHROOM.asItem());
+        dlc4.add(RDCuisineItems.FLOWERS_BIRDS_WIND_AND_MOON.asItem());
+        dlc4.add(RDCuisineItems.THE_DREAM.asItem());
+        dlc4.add(RDCuisineItems.TOON_PANCAKES.asItem());
+        dlc4.add(RDCuisineItems.POISONOUS_GARDEN.asItem());
+        dlc4.add(RDCuisineItems.A_LITTLE_SWEET_POISON.asItem());
+
+        // DLC5
+        dlc5.add(RDCuisineItems.EEL_EGG_DONBURI.asItem());
+        dlc5.add(RDCuisineItems.BAMBOO_TUBE_ROASTED_DRUNKEN_SHRIMP.asItem());
+        dlc5.add(RDCuisineItems.BEEF_HOT_POT.asItem());
+        dlc5.add(RDCuisineItems.CAT_KULULI.asItem());
+        dlc5.add(RDCuisineItems.CAT_PIZZA.asItem());
+        dlc5.add(RDCuisineItems.CATS_PLAYING_IN_WATER.asItem());
+        dlc5.add(RDCuisineItems.RAPUNZEL.asItem());
+        dlc5.add(RDCuisineItems.SEA_URCHIN_SHINGEN_PANCAKE.asItem());
+        dlc5.add(RDCuisineItems.MAD_HATTER_TEA_PARTY.asItem());
+        dlc5.add(RDCuisineItems.PEACH_BLOSSOM_GLAZE_ROLL.asItem());
+        dlc5.add(RDCuisineItems.MOONLIGHT_OVER_LOTUS_POND.asItem());
+        dlc5.add(RDCuisineItems.LONGYIN_PEACH.asItem());
+        dlc5.add(RDCuisineItems.MOLECULAR_EGG.asItem());
+        dlc5.add(RDCuisineItems.THE_SOURCE_OF_LIFE.asItem());
+        dlc5.add(RDCuisineItems.THE_MARS.asItem());
+        dlc5.add(RDCuisineItems.HEART_PORRIDGE_GRUEL.asItem());
+        dlc5.add(RDCuisineItems.HULA_SOUP.asItem());
+        dlc5.add(RDCuisineItems.SUPERME_SEAFOOD_NOODLES.asItem());
+
+        // DLC6
+    }
+
+    protected void configureDLCBeverageItem(HolderLookup.Provider wrapperLookup) {
+        TagAppender<Item, Item> dlc0 = valueLookupBuilder(RDItemTags.DLC0);
+        TagAppender<Item, Item> dlc1 = valueLookupBuilder(RDItemTags.DLC1);
+        TagAppender<Item, Item> dlc2 = valueLookupBuilder(RDItemTags.DLC2);
+        TagAppender<Item, Item> dlc3 = valueLookupBuilder(RDItemTags.DLC3);
+        TagAppender<Item, Item> dlc4 = valueLookupBuilder(RDItemTags.DLC4);
+        TagAppender<Item, Item> dlc5 = valueLookupBuilder(RDItemTags.DLC5);
+        TagAppender<Item, Item> dlc6 = valueLookupBuilder(RDItemTags.DLC6);
+
+        // DLC0
+        dlc0.add(RDBeverageItems.GREEN_TEA.asItem());
+        dlc0.add(RDBeverageItems.FRUITY_HIGH_BALL.asItem());
+        dlc0.add(RDBeverageItems.FRUITY_SOUR.asItem());
+        dlc0.add(RDBeverageItems.QI.asItem());
+        dlc0.add(RDBeverageItems.BEER.asItem());
+        dlc0.add(RDBeverageItems.SUN_MOON_STAR.asItem());
+        dlc0.add(RDBeverageItems.PLUM_WINE.asItem());
+        dlc0.add(RDBeverageItems.TENGU_DANCE.asItem());
+        dlc0.add(RDBeverageItems.SCARLET_DEVIL.asItem());
+        dlc0.add(RDBeverageItems.GODS_WHEAT.asItem());
+        dlc0.add(RDBeverageItems.OTTER_FESTIVAL.asItem());
+        dlc0.add(RDBeverageItems.DAWN.asItem());
+        dlc0.add(RDBeverageItems.SPARROW_SAKE.asItem());
+        dlc0.add(RDBeverageItems.SCARLET_DEVIL_MANSION_BLACK_TEA.asItem());
+        dlc0.add(RDBeverageItems.AFFGADO.asItem());
+        dlc0.add(RDBeverageItems.RED_MIST.asItem());
+        dlc0.add(RDBeverageItems.NEGRONI.asItem());
+        dlc0.add(RDBeverageItems.GODFATHER.asItem());
+        dlc0.add(RDBeverageItems.BLESSING_WIND.asItem());
+        dlc0.add(RDBeverageItems.WINTER_BREW.asItem());
+        dlc0.add(RDBeverageItems.FOURTEENTH_NIGHT.asItem());
+        dlc0.add(RDBeverageItems.FIRE_RAT_FUR.asItem());
+        dlc0.add(RDBeverageItems.GYOKURO_TEA.asItem());
+        dlc0.add(RDBeverageItems.MOON_ROCKET.asItem());
+        dlc0.add(RDBeverageItems.MILK.asItem());
+        dlc0.add(RDBeverageItems.RED_GRAPEFRUIT_JUICE.asItem());
+        dlc0.add(RDBeverageItems.SODA.asItem());
+        dlc0.add(RDBeverageItems.ICEBERG_MAPLE_FROZEN_LEMON.asItem());
+        dlc0.add(RDBeverageItems.BIG_POPSICLE.asItem());
+
+        // DLC1
+        dlc1.add(RDBeverageItems.DAIGINJO.asItem());
+        dlc1.add(RDBeverageItems.COFFEE.asItem());
+        dlc1.add(RDBeverageItems.FAIRY_RAIN.asItem());
+        dlc1.add(RDBeverageItems.PALEO_CREAMY_SMOOTHIE.asItem());
+        dlc1.add(RDBeverageItems.ORDINARY_FITNESS_TEA.asItem());
+
+        // DLC2
+        dlc2.add(RDBeverageItems.DEMON_SLAYER.asItem());
+        dlc2.add(RDBeverageItems.QI_HEALTH.asItem());
+        dlc2.add(RDBeverageItems.KOMEIJI_ICE_CREAM.asItem());
+
+        // DLC3
+        dlc3.add(RDBeverageItems.MANGO_POMELO_SAGO.asItem());
+        dlc3.add(RDBeverageItems.QILIN.asItem());
+
+        // DLC4
+        dlc4.add(RDBeverageItems.HEAVEN_AND_EARTH_ARE_USELESS.asItem());
+        dlc4.add(RDBeverageItems.DRUNK_ACTOR.asItem());
+
+        // DLC5
+        dlc5.add(RDBeverageItems.DAUGHTER_OF_THE_SEA.asItem());
+        dlc5.add(RDBeverageItems.DEMONIC_COFFEE.asItem());
+        dlc5.add(RDBeverageItems.MOJITO_BURST_BALL.asItem());
+        dlc5.add(RDBeverageItems.SPACE_BEER.asItem());
+        dlc5.add(RDBeverageItems.SATELLITE_ICED_COFFEE.asItem());
+
+        // DLC6
+    }
+
+    protected void configureDLCIngredientItem(HolderLookup.Provider wrapperLookup) {
+        TagAppender<Item, Item> dlc0 = valueLookupBuilder(RDItemTags.DLC0);
+        TagAppender<Item, Item> dlc1 = valueLookupBuilder(RDItemTags.DLC1);
+        TagAppender<Item, Item> dlc2 = valueLookupBuilder(RDItemTags.DLC2);
+        TagAppender<Item, Item> dlc3 = valueLookupBuilder(RDItemTags.DLC3);
+        TagAppender<Item, Item> dlc4 = valueLookupBuilder(RDItemTags.DLC4);
+        TagAppender<Item, Item> dlc5 = valueLookupBuilder(RDItemTags.DLC5);
+        TagAppender<Item, Item> dlc6 = valueLookupBuilder(RDItemTags.DLC6);
+
+        // DLC0
+        dlc0.add(RDIngredientItems.EGG.asItem());
+        dlc0.add(RDIngredientItems.BLUE_EGG.asItem());
+        dlc0.add(RDIngredientItems.BROWN_EGG.asItem());
+        dlc0.add(RDIngredientItems.PORKCHOP.asItem());
+        dlc0.add(RDIngredientItems.BEEF.asItem());
+        dlc0.add(RDIngredientItems.VENISON.asItem());
+        dlc0.add(RDIngredientItems.WILD_BOAR_MEAT.asItem());
+        dlc0.add(RDIngredientItems.TOFU.asItem());
+        dlc0.add(RDIngredientItems.POTATO.asItem());
+        dlc0.add(RDIngredientItems.ONION.asItem());
+        dlc0.add(RDIngredientItems.PUMPKIN.asItem());
+        dlc0.add(RDIngredientItems.WHITE_RADISH.asItem());
+        dlc0.add(RDIngredientItems.KELP.asItem());
+        dlc0.add(RDIngredientItems.TROUT.asItem());
+        dlc0.add(RDIngredientItems.HAGFISH.asItem());
+        dlc0.add(RDIngredientItems.SALMON.asItem());
+        dlc0.add(RDIngredientItems.TUNA.asItem());
+        dlc0.add(RDIngredientItems.BLACK_PORK.asItem());
+        dlc0.add(RDIngredientItems.WAGYU_BEEF.asItem());
+        dlc0.add(RDIngredientItems.BROWN_MUSHROOM.asItem());
+        dlc0.add(RDIngredientItems.RED_MUSHROOM.asItem());
+        dlc0.add(RDIngredientItems.TRUFFLE.asItem());
+        dlc0.add(RDIngredientItems.SUPREME_TUNA.asItem());
+        dlc0.add(RDIngredientItems.PUFFERFISH.asItem());
+        dlc0.add(RDIngredientItems.PEACH.asItem());
+        dlc0.add(RDIngredientItems.GINKGO.asItem());
+        dlc0.add(RDIngredientItems.SHRIMP.asItem());
+        dlc0.add(RDIngredientItems.HONEY_BOTTLE.asItem());
+        dlc0.add(RDIngredientItems.CICADA_SHELL.asItem());
+        dlc0.add(RDIngredientItems.UDUMBARA.asItem());
+        dlc0.add(RDIngredientItems.DEW.asItem());
+        dlc0.add(RDIngredientItems.BAMBOO_SHOOTS.asItem());
+        dlc0.add(RDIngredientItems.BUTTER.asItem());
+        dlc0.add(RDIngredientItems.FLOUR.asItem());
+        dlc0.add(RDIngredientItems.BAMBOO.asItem());
+        dlc0.add(RDIngredientItems.STICKY_RICE.asItem());
+        dlc0.add(RDIngredientItems.MOONFLOWER.asItem());
+        dlc0.add(RDIngredientItems.MAGIC_ICE_BLOCK.asItem());
+        dlc0.add(RDIngredientItems.CHILI.asItem());
+        dlc0.add(RDIngredientItems.GRAPE.asItem());
+
+        // DLC1
+        dlc1.add(RDIngredientItems.CUCUMBER.asItem());
+        dlc1.add(RDIngredientItems.OCTOPUS.asItem());
+        dlc1.add(RDIngredientItems.SEA_URCHIN.asItem());
+        dlc1.add(RDIngredientItems.BLACK_SALT.asItem());
+        dlc1.add(RDIngredientItems.CREAM.asItem());
+        dlc1.add(RDIngredientItems.CRAB.asItem());
+
+        // DLC2
+        dlc2.add(RDIngredientItems.TWIN_LOTUS.asItem());
+        dlc2.add(RDIngredientItems.LEMON.asItem());
+        dlc2.add(RDIngredientItems.CHEESE.asItem());
+
+        // DLC3
+        dlc3.add(RDIngredientItems.LOTUS_NUTS.asItem());
+        dlc3.add(RDIngredientItems.SWEET_POTATO.asItem());
+        dlc3.add(RDIngredientItems.PINE_NUT.asItem());
+        dlc3.add(RDIngredientItems.CHESTNUT.asItem());
+
+        // DLC4
+        dlc4.add(RDIngredientItems.PLUM.asItem());
+        dlc4.add(RDIngredientItems.RED_BEANS.asItem());
+        dlc4.add(RDIngredientItems.FLOWERS.asItem());
+        dlc4.add(RDIngredientItems.TOON.asItem());
+        dlc4.add(RDIngredientItems.TOMATO.asItem());
+
+        // DLC5
+        dlc5.add(RDIngredientItems.COCOA_BEANS.asItem());
+        dlc5.add(RDIngredientItems.BROCCOLI.asItem());
+        dlc5.add(RDIngredientItems.PUFF_YO_FRUIT.asItem());
+        dlc5.add(RDIngredientItems.FICUS_MICROCARPA.asItem());
+        dlc5.add(RDIngredientItems.TREMELLA.asItem());
+        dlc5.add(RDIngredientItems.CAPSAICIN.asItem());
+
+        // DLC6
     }
 
 

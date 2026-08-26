@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.compat.rrv;
 
+import cc.thonly.reverie_dreams.compat.rrv.brewing_barrel.BrewingBarrelRecipeType;
 import cc.thonly.reverie_dreams.compat.rrv.danmaku_crafting_table.DanmakuCraftingTableRecipeType;
 import cc.thonly.reverie_dreams.compat.rrv.danmaku_shape_draw.DanmakuShapeDrawRecipeType;
 import cc.thonly.reverie_dreams.compat.rrv.gensokyo_altar.GensokyoAltarRecipeType;
@@ -18,6 +19,7 @@ public class RRVRecipeTypes {
     public static final DanmakuShapeDrawRecipeType DANMAKU_SHAPE_DRAW_RECIPE_TYPE = new DanmakuShapeDrawRecipeType();
     public static final GensokyoAltarRecipeType GENSOKYO_ALTAR_RECIPE_TYPE = new GensokyoAltarRecipeType();
     public static final StrengthTableRecipeType STRENGTH_TABLE_RECIPE_TYPE = new StrengthTableRecipeType();
+    public static final BrewingBarrelRecipeType BREWING_BARREL_RECIPE_TYPE = new BrewingBarrelRecipeType();
 
     public static BaseKitchenClientRecipeType getTypeByRecipe(KitchenRecipe recipe) {
         KitchenRecipeType.TypeInstance typeInstance = recipe.getTypeInstance();

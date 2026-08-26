@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Supplier;
 
-@SuppressWarnings({"unchecked", "rawtypes", "UnnecessaryLocalVariable"})
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class RDEntityTypes {
     public static final Map<RegistrySupplier<EntityType<?>>, ItemDelegate> SPAWN_EGG_BIND = new Object2ObjectOpenHashMap<>(128);
     public static final List<RegistrySupplier<EntityType<?>>> ENTITY_TYPES = new ArrayList<>(128);
@@ -50,174 +50,187 @@ public class RDEntityTypes {
         return new LinkedHashSet<>(SPAWN_EGG_ITEM_LIST);
     }
 
-    public static RegistrySupplier<EntityType<NPCCompanionEntity>> NPC_SIMPLE_ENTITY = registerEntity("base_character",
+    public static final RegistrySupplier<EntityType<NPCCompanionEntity>> NPC_SIMPLE_ENTITY = registerEntity("base_character",
             () -> EntityType.Builder.of(NPCCompanionEntity::new, MobCategory.MISC)
-                                    .ridingOffset(-0.6F),
+                    .ridingOffset(-0.6F),
             BaseNPCLikeEntity::createLivingAttributes);
-    public static RegistrySupplier<EntityType<DanmakuEntity>> DANMAKU = registerEntity("danmaku_bullet",
+    public static final RegistrySupplier<EntityType<DanmakuEntity>> DANMAKU = registerEntity("danmaku_bullet",
             () -> EntityType.Builder.<DanmakuEntity>of(DanmakuEntity::new, MobCategory.MISC)
-                                    .sized(0.5f, 0.5f)
+                    .sized(0.5f, 0.5f)
 //                        .clientTrackingRange(DANMAKU_RANGE)
 //                        .updateInterval(DANMAKU_RATE)
     );
-    public static RegistrySupplier<EntityType<BaguaFurnaceEntity>> BAGUA_FURNACE = registerEntity("bagua_furnace",
+    public static final RegistrySupplier<EntityType<BaguaFurnaceEntity>> BAGUA_FURNACE = registerEntity("bagua_furnace",
             () -> EntityType.Builder.of(BaguaFurnaceEntity::new, MobCategory.MISC));
-    public static RegistrySupplier<EntityType<KnifeEntity>> KNIFE = registerEntity("knife",
+    public static final RegistrySupplier<EntityType<KnifeEntity>> KNIFE = registerEntity("knife",
             () -> EntityType.Builder.of(KnifeEntity::new, MobCategory.MISC));
-    public static RegistrySupplier<EntityType<OreEspEntity>> ORE_ESP = registerEntity("ore_esp_entity",
+    public static final RegistrySupplier<EntityType<OreEspEntity>> ORE_ESP = registerEntity("ore_esp_entity",
             () -> EntityType.Builder.of(OreEspEntity::new, MobCategory.MISC));
-    public static RegistrySupplier<EntityType<SeatEntity>> SEAT = registerEntity("seat",
+    public static final RegistrySupplier<EntityType<SeatEntity>> SEAT = registerEntity("seat",
             () -> EntityType.Builder.<SeatEntity>of(SeatEntity::new, MobCategory.MISC)
-                                    .noLootTable()
-                                    .ridingOffset(0)
-                                    .sized(0.5f, 0.5f)
+                    .noLootTable()
+                    .ridingOffset(0)
+                    .sized(0.5f, 0.5f)
     );
-    public static RegistrySupplier<EntityType<FumoSeller>> FUMO_SELLER_VILLAGER = registerEntityWithSpawnEgg("fumo_seller_villager",
+    public static final RegistrySupplier<EntityType<FumoSeller>> FUMO_SELLER_VILLAGER = registerEntityWithSpawnEgg("fumo_seller_villager",
             () -> EntityType.Builder.<FumoSeller>of(FumoSeller::new, MobCategory.MISC)
-                                    .sized(0.6f, 1.95f).eyeHeight(1.62f).clientTrackingRange(10),
+                    .sized(0.6f, 1.95f).eyeHeight(1.62f).clientTrackingRange(10),
             FumoSeller::createLivingAttributes
     );
-    public static RegistrySupplier<EntityType<MagicBroom>> MAGIC_BROOM = registerEntityWithSpawnEgg("broom",
+    public static final RegistrySupplier<EntityType<MagicBroom>> MAGIC_BROOM = registerEntityWithSpawnEgg("broom",
             () -> EntityType.Builder.<MagicBroom>of(MagicBroom::new, MobCategory.MISC).sized(0.8f, 1f).ridingOffset(1f),
             MagicBroom::createLivingAttributes);
-    public static RegistrySupplier<EntityType<Wheelchair>> WHEEL_CHAIR = registerEntityWithSpawnEgg("wheel_chair",
+    public static final RegistrySupplier<EntityType<Wheelchair>> WHEEL_CHAIR = registerEntityWithSpawnEgg("wheel_chair",
             () -> EntityType.Builder.<Wheelchair>of(Wheelchair::new, MobCategory.MISC).ridingOffset(0.4f),
             Wheelchair::createLivingAttributes);
-    public static RegistrySupplier<EntityType<Scarecrow>> SCARECROW = registerEntityWithSpawnEgg("scarecrow",
+    public static final RegistrySupplier<EntityType<Scarecrow>> SCARECROW = registerEntityWithSpawnEgg("scarecrow",
             () -> EntityType.Builder.<Scarecrow>of(Scarecrow::new, MobCategory.MISC),
             Scarecrow::createLivingAttributes
     );
-    public static RegistrySupplier<EntityType<KillerBee>> KILLER_BEE = registerEntityWithSpawnEgg("killer_bee",
+    public static final RegistrySupplier<EntityType<KillerBee>> KILLER_BEE = registerEntityWithSpawnEgg("killer_bee",
             () -> EntityType.Builder.<KillerBee>of(KillerBee::new, MobCategory.MONSTER).sized(0.7F, 0.6F).eyeHeight(0.3F).clientTrackingRange(8),
             () -> Animal.createAnimalAttributes()
-                        .add(Attributes.MAX_HEALTH, 10.0)
-                        .add(Attributes.FLYING_SPEED, 0.6f)
-                        .add(Attributes.MOVEMENT_SPEED, 0.3f)
-                        .add(Attributes.ATTACK_DAMAGE, 2.0)
-                        .add(Attributes.SCALE, 1.5f)
+                    .add(Attributes.MAX_HEALTH, 10.0)
+                    .add(Attributes.FLYING_SPEED, 0.6f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.3f)
+                    .add(Attributes.ATTACK_DAMAGE, 2.0)
+                    .add(Attributes.SCALE, 1.5f)
     );
-    public static RegistrySupplier<EntityType<MoonRabbit>> MOON_RABBIT = registerEntityWithSpawnEgg("moon_rabbit",
+    public static final RegistrySupplier<EntityType<MoonRabbit>> MOON_RABBIT = registerEntityWithSpawnEgg("moon_rabbit",
             () -> EntityType.Builder.<MoonRabbit>of(MoonRabbit::new, MobCategory.MONSTER).sized(1, 2),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 18.0)
-                              .add(Attributes.MOVEMENT_SPEED, 0.12)
-                              .add(Attributes.ATTACK_DAMAGE, 3)
-                              .add(Attributes.SCALE, 1.15f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                              .add(Attributes.FOLLOW_RANGE, 8.0)
-                              .add(Attributes.TEMPT_RANGE, 10.0)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 18.0)
+                    .add(Attributes.MOVEMENT_SPEED, 0.12)
+                    .add(Attributes.ATTACK_DAMAGE, 3)
+                    .add(Attributes.SCALE, 1.15f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 8.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
     );
-    public static RegistrySupplier<EntityType<Ghost>> GHOST = registerEntityWithSpawnEgg("ghost",
+    public static final RegistrySupplier<EntityType<Ghost>> GHOST = registerEntityWithSpawnEgg("ghost",
             () -> EntityType.Builder.of(Ghost::new, MobCategory.MONSTER),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 20.0)
-                              .add(Attributes.MOVEMENT_SPEED, 0.1)
-                              .add(Attributes.ATTACK_DAMAGE, 3)
-                              .add(Attributes.SCALE, 0.8f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                              .add(Attributes.FOLLOW_RANGE, 8.0)
-                              .add(Attributes.TEMPT_RANGE, 10.0)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 20.0)
+                    .add(Attributes.MOVEMENT_SPEED, 0.1)
+                    .add(Attributes.ATTACK_DAMAGE, 3)
+                    .add(Attributes.SCALE, 0.8f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 8.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
     );
-    public static RegistrySupplier<EntityType<Yousei>> YOUSEI = registerEntityWithSpawnEgg("yousei",
+    public static final RegistrySupplier<EntityType<Yousei>> YOUSEI = registerEntityWithSpawnEgg("yousei",
             () -> EntityType.Builder.of(Yousei::new, MobCategory.MONSTER),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 25.0)
-                              .add(Attributes.FLYING_SPEED, 0.8f)
-                              .add(Attributes.MOVEMENT_SPEED, 0.15f)
-                              .add(Attributes.ATTACK_DAMAGE, 0.5)
-                              .add(Attributes.SCALE, 1.8f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                              .add(Attributes.FOLLOW_RANGE, 16.0)
-                              .add(Attributes.TEMPT_RANGE, 10.0)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 25.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                    .add(Attributes.ATTACK_DAMAGE, 0.5)
+                    .add(Attributes.SCALE, 1.8f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 16.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
     );
-    public static RegistrySupplier<EntityType<MaidYousei>> MAID_YOUSEI = registerEntityWithSpawnEgg("maid_yousei",
+    public static final RegistrySupplier<EntityType<MaidYousei>> MAID_YOUSEI = registerEntityWithSpawnEgg("maid_yousei",
             () -> EntityType.Builder.of(MaidYousei::new, MobCategory.MONSTER),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 25.0)
-                              .add(Attributes.FLYING_SPEED, 0.8f)
-                              .add(Attributes.MOVEMENT_SPEED, 0.15f)
-                              .add(Attributes.ATTACK_DAMAGE, 0.5)
-                              .add(Attributes.SCALE, 1.8f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                              .add(Attributes.FOLLOW_RANGE, 16.0)
-                              .add(Attributes.TEMPT_RANGE, 10.0)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 25.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                    .add(Attributes.ATTACK_DAMAGE, 0.5)
+                    .add(Attributes.SCALE, 1.8f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 16.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
     );
-    public static RegistrySupplier<EntityType<SunflowerYousei>> SUNFLOWER_YOUSEI = registerEntityWithSpawnEgg("sunflower_yousei",
+    public static final RegistrySupplier<EntityType<SunflowerYousei>> SUNFLOWER_YOUSEI = registerEntityWithSpawnEgg("sunflower_yousei",
             () -> EntityType.Builder.of((type, world) -> new SunflowerYousei(type, world, MobSkinTypes.SUNFLOWER_YOUSEI), MobCategory.MONSTER),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 30.0)
-                              .add(Attributes.FLYING_SPEED, 0.8f)
-                              .add(Attributes.MOVEMENT_SPEED, 0.15f)
-                              .add(Attributes.ATTACK_DAMAGE, 0.5)
-                              .add(Attributes.SCALE, 0.6f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                              .add(Attributes.FOLLOW_RANGE, 16.0)
-                              .add(Attributes.TEMPT_RANGE, 10.0)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 30.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                    .add(Attributes.ATTACK_DAMAGE, 0.5)
+                    .add(Attributes.SCALE, 0.6f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 16.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
     );
-    public static RegistrySupplier<EntityType<Goblin>> GOBLIN = registerEntityWithSpawnEgg("goblin",
+    public static final RegistrySupplier<EntityType<IceFairy>> ICE_FAIRY = registerEntityWithSpawnEgg("ice_fairy",
+            () -> EntityType.Builder.<IceFairy>of(IceFairy::new, MobCategory.MONSTER),
+            () -> LivingEntity.createLivingAttributes()
+                    .add(Attributes.MAX_HEALTH, 30.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                    .add(Attributes.ATTACK_DAMAGE, 1f)
+                    .add(Attributes.SCALE, 1f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1f)
+                    .add(Attributes.FOLLOW_RANGE, 16.0f)
+                    .add(Attributes.TEMPT_RANGE, 10.0f)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
+    );
+    public static final RegistrySupplier<EntityType<Goblin>> GOBLIN = registerEntityWithSpawnEgg("goblin",
             () -> EntityType.Builder.of(Goblin::new, MobCategory.MONSTER),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 30.0)
-                              .add(Attributes.FLYING_SPEED, 0.8f)
-                              .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                              .add(Attributes.ATTACK_DAMAGE, 1f)
-                              .add(Attributes.SCALE, 1f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1f)
-                              .add(Attributes.FOLLOW_RANGE, 16.0f)
-                              .add(Attributes.TEMPT_RANGE, 10.0f)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 30.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                    .add(Attributes.ATTACK_DAMAGE, 1f)
+                    .add(Attributes.SCALE, 1f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1f)
+                    .add(Attributes.FOLLOW_RANGE, 16.0f)
+                    .add(Attributes.TEMPT_RANGE, 10.0f)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
     );
-    public static RegistrySupplier<EntityType<RabbitUnit>> RABBIT_UNIT = registerEntityWithSpawnEgg("rabbit_unit",
+    public static final RegistrySupplier<EntityType<RabbitUnit>> RABBIT_UNIT = registerEntityWithSpawnEgg("rabbit_unit",
             () -> EntityType.Builder.of(RabbitUnit::new, MobCategory.MONSTER),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 30.0)
-                              .add(Attributes.FLYING_SPEED, 0.8f)
-                              .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                              .add(Attributes.ATTACK_DAMAGE, 0.5)
-                              .add(Attributes.SCALE, 1.85f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                              .add(Attributes.FOLLOW_RANGE, 16.0)
-                              .add(Attributes.TEMPT_RANGE, 10.0)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 30.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                    .add(Attributes.ATTACK_DAMAGE, 0.5)
+                    .add(Attributes.SCALE, 1.85f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 16.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
     );
-    public static RegistrySupplier<EntityType<WaterElementalEntity>> WATER_ELEMENTAL = registerEntityWithSpawnEgg("water_elemental",
+    public static final RegistrySupplier<EntityType<WaterElementalEntity>> WATER_ELEMENTAL = registerEntityWithSpawnEgg("water_elemental",
             () -> EntityType.Builder.of(WaterElementalEntity::new, MobCategory.MONSTER),
             WaterElementalEntity::createLivingAttributes
     );
-    public static RegistrySupplier<EntityType<FireElementalEntity>> FIRE_ELEMENTAL = registerEntityWithSpawnEgg("fire_elemental",
+    public static final RegistrySupplier<EntityType<FireElementalEntity>> FIRE_ELEMENTAL = registerEntityWithSpawnEgg("fire_elemental",
             () -> EntityType.Builder.of(FireElementalEntity::new, MobCategory.MONSTER),
             FireElementalEntity::createLivingAttributes
     );
-    public static RegistrySupplier<EntityType<IceElementalEntity>> ICE_ELEMENTAL = registerEntityWithSpawnEgg("ice_elemental",
+    public static final RegistrySupplier<EntityType<IceElementalEntity>> ICE_ELEMENTAL = registerEntityWithSpawnEgg("ice_elemental",
             () -> EntityType.Builder.of(IceElementalEntity::new, MobCategory.MONSTER),
             IceElementalEntity::createLivingAttributes
     );
-    public static RegistrySupplier<EntityType<Hairball>> HAIRBALL = registerEntityWithSpawnEgg("hairball",
+    public static final RegistrySupplier<EntityType<Hairball>> HAIRBALL = registerEntityWithSpawnEgg("hairball",
             () -> EntityType.Builder.of(Hairball::new, MobCategory.MONSTER).sized(1, 1),
             Hairball::createAttributes
     );
-    public static RegistrySupplier<EntityType<UFO>> UFO = registerEntityWithSpawnEgg("ufo",
+    public static final RegistrySupplier<EntityType<UFO>> UFO = registerEntityWithSpawnEgg("ufo",
             () -> EntityType.Builder.<UFO>of(cc.thonly.reverie_dreams.entity.UFO::new, MobCategory.MONSTER).sized(1.5f, 1.5f).eyeHeight(1.5f * 0.5f),
             cc.thonly.reverie_dreams.entity.UFO::createAttributes
     );
-    public static RegistrySupplier<EntityType<MushroomMonster>> MUSHROOM_MONSTER = registerEntityWithSpawnEgg("mushroom_monster",
+    public static final RegistrySupplier<EntityType<MushroomMonster>> MUSHROOM_MONSTER = registerEntityWithSpawnEgg("mushroom_monster",
             () -> EntityType.Builder.of(MushroomMonster::new, MobCategory.MONSTER),
             MushroomMonster::createAttributes
     );
     public static RegistrySupplier<EntityType<WildPig>> WILD_PIG = registerEntityWithSpawnEgg("wild_pig",
             () -> EntityType.Builder.of(WildPig::new, MobCategory.MONSTER)
-                                    .sized(0.9F, 0.9F),
+                    .sized(0.9F, 0.9F),
             () -> {
                 AttributeSupplier.Builder builder = Animal.createAnimalAttributes()
-                                                          .add(Attributes.MAX_HEALTH, 20.0)
-                                                          .add(Attributes.FLYING_SPEED, 0.6f)
-                                                          .add(Attributes.MOVEMENT_SPEED, 0.3f)
-                                                          .add(Attributes.ATTACK_DAMAGE, 2.0);
+                        .add(Attributes.MAX_HEALTH, 20.0)
+                        .add(Attributes.FLYING_SPEED, 0.6f)
+                        .add(Attributes.MOVEMENT_SPEED, 0.3f)
+                        .add(Attributes.ATTACK_DAMAGE, 2.0);
                 if (PlatformContext.hasPolymer()) {
                     builder.add(Attributes.SCALE, 1.5f);
                 }
@@ -226,39 +239,39 @@ public class RDEntityTypes {
     );
     public static RegistrySupplier<EntityType<TavernVillager>> TAVERN_VILLAGER = registerEntityWithSpawnEgg("tavern_villager",
             () -> EntityType.Builder.<TavernVillager>of(TavernVillager::new, MobCategory.MISC)
-                                    .sized(0.6f, 1.95f)
-                                    .eyeHeight(1.62f)
-                                    .clientTrackingRange(10),
+                    .sized(0.6f, 1.95f)
+                    .eyeHeight(1.62f)
+                    .clientTrackingRange(10),
             TavernVillager::createLivingAttributes
     );
     public static RegistrySupplier<EntityType<Oni>> ONI = registerEntityWithSpawnEgg("oni",
             () -> EntityType.Builder.of(Oni::new, MobCategory.MONSTER),
             () -> LivingEntity.createLivingAttributes()
-                              .add(Attributes.MAX_HEALTH, 25.0)
-                              .add(Attributes.FLYING_SPEED, 0.8f)
-                              .add(Attributes.MOVEMENT_SPEED, 0.22f)
-                              .add(Attributes.ATTACK_DAMAGE, 0.5)
-                              .add(Attributes.SCALE, 1.85f)
-                              .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                              .add(Attributes.FOLLOW_RANGE, 16.0)
-                              .add(Attributes.TEMPT_RANGE, 10.0)
-                              .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
+                    .add(Attributes.MAX_HEALTH, 25.0)
+                    .add(Attributes.FLYING_SPEED, 0.8f)
+                    .add(Attributes.MOVEMENT_SPEED, 0.22f)
+                    .add(Attributes.ATTACK_DAMAGE, 0.5)
+                    .add(Attributes.SCALE, 1.85f)
+                    .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                    .add(Attributes.FOLLOW_RANGE, 16.0)
+                    .add(Attributes.TEMPT_RANGE, 10.0)
+                    .add(Attributes.ENTITY_INTERACTION_RANGE, 3)
     );
     public static final RegistrySupplier<EntityType<ThrownCuisineItem>> THROWN_CUISINE_ITEM = registerEntity("thrown_cuisine_item",
             () -> EntityType.Builder.<ThrownCuisineItem>of(ThrownCuisineItem::new, MobCategory.MISC)
-                                    .noLootTable().sized(0.25F, 0.25F)
-                                    .clientTrackingRange(4)
-                                    .updateInterval(10),
+                    .noLootTable().sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10),
             null
     );
     public static final RegistrySupplier<EntityType<NPCFishingHook>> FISHING_BOBBER = registerEntity("fishing_bobber",
             () -> EntityType.Builder.<NPCFishingHook>of(NPCFishingHook::new, MobCategory.MISC)
-                                    .noLootTable()
-                                    .noSave()
-                                    .noSummon()
-                                    .sized(0.25F, 0.25F)
-                                    .clientTrackingRange(4)
-                                    .updateInterval(5),
+                    .noLootTable()
+                    .noSave()
+                    .noSummon()
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(5),
             null
     );
 

@@ -5,6 +5,8 @@ import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
+import cc.thonly.reverie_dreams.util.IdCompletableFuture;
+import cc.thonly.reverie_dreams.util.IdCompletableFutureKeys;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -62,13 +64,20 @@ public abstract class AbstractBeverageProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
-        return this.future.thenAcceptAsync((provider) -> {
+        CompletableFuture<Void> future = this.future.thenAcceptAsync(provider -> {
             this.configured(provider);
+
             for (Factory factory : this.registries.values()) {
-                BeverageProperties.registerByPair(factory.buildForProvider());
+                BeverageProperties.registerByPair(
+                        factory.buildForProvider()
+                );
             }
+
             DataProviderHelper.outputFile(writer, this.registries, BeverageProperty.Data.CODEC, (id, factory) -> new BeverageProperty.Data(id, factory.getList()), "beverage_property");
         });
+
+        IdCompletableFuture.register(IdCompletableFutureKeys.BEVERAGE_PROVIDER, future);
+        return future;
     }
 
     protected abstract void configured(HolderLookup.Provider provider);

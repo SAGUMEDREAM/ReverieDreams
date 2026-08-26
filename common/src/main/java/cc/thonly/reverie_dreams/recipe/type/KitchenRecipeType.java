@@ -71,7 +71,6 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     public BaseRecipeType<KitchenRecipe> add(Identifier id, KitchenRecipe recipe) {
         super.add(id, recipe);
         this.register(recipe.getTypeInstance(), id, recipe);
-        ;
         return this;
     }
 

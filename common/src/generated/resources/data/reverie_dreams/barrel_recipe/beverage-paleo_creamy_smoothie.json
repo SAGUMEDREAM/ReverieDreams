@@ -1,0 +1,25 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:milk_bucket",
+      "count": 1
+    },
+    {
+      "id": "minecraft:sugar",
+      "count": 1
+    },
+    {
+      "id": "minecraft:ice",
+      "count": 1
+    },
+    {
+      "id": "minecraft:snowball",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/paleo_creamy_smoothie",
+    "count": 1
+  },
+  "cost_time": 60
+}

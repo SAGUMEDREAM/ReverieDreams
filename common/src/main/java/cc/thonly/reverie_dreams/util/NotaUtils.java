@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.util;
 
-import cc.thonly.reverie_dreams.block.MusicBlock;
+import cc.thonly.reverie_dreams.block.props.MusicBlock;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.server.nota.model.RepeatMode;

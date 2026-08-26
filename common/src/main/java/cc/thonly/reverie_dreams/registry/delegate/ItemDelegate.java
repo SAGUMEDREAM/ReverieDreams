@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.ItemLike;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ItemDelegate implements Holder<Item>, DeferredSupplier<Item>, ItemLike {
     @Delegate
     final RegistrySupplier<Item> supplier;
@@ -22,6 +23,10 @@ public class ItemDelegate implements Holder<Item>, DeferredSupplier<Item>, ItemL
 
     public static ItemDelegate of(RegistrySupplier<Item> supplier) {
         return new ItemDelegate(supplier);
+    }
+
+    public static ItemDelegate of(Holder<Item> itemHolder) {
+        return new ItemDelegate.Existed(itemHolder);
     }
 
     @Override
@@ -53,5 +58,16 @@ public class ItemDelegate implements Holder<Item>, DeferredSupplier<Item>, ItemL
 
     public ItemStackTemplate createTemplate() {
         return new ItemStackTemplate(this.supplier.get());
+    }
+
+    public static class Existed extends ItemDelegate {
+        public Existed(Holder<Item> itemHolder) {
+            super(new HolderDelegate<>(itemHolder));
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) || (obj instanceof Holder<?> holder && this.is((Holder) holder));
     }
 }

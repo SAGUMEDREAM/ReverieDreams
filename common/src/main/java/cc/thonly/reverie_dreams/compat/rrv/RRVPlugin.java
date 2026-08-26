@@ -8,10 +8,11 @@ import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.compat.ItemViewItemInfo;
+import cc.thonly.reverie_dreams.compat.rrv.brewing_barrel.BrewingBarrelRecipe;
 import cc.thonly.reverie_dreams.compat.rrv.danmaku_crafting_table.DanmakuCraftingTableRecipe;
 import cc.thonly.reverie_dreams.compat.rrv.danmaku_shape_draw.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.compat.rrv.gensokyo_altar.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.compat.rrv.kitchen.BaseKitchenClientRecipe;
+import cc.thonly.reverie_dreams.compat.rrv.kitchen.BaseKitchenRecipe;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
@@ -72,7 +73,7 @@ public class RRVPlugin implements ReliableRecipeViewerClientPlugin {
         ItemView.addClientRecipeProvider(recipeList -> {
             try {
                 RecipeManager.KITCHEN_TYPE.getRegistryView().forEach((id, recipe) -> {
-                    recipeList.add(new BaseKitchenClientRecipe(id, recipe, RRVRecipeTypes.getTypeByRecipe(recipe)));
+                    recipeList.add(new BaseKitchenRecipe(id, recipe, RRVRecipeTypes.getTypeByRecipe(recipe)));
                 });
                 RecipeManager.DANMAKU.getRegistryView().forEach((id, recipe) -> {
                     recipeList.add(new DanmakuCraftingTableRecipe(id, recipe));
@@ -91,6 +92,9 @@ public class RRVPlugin implements ReliableRecipeViewerClientPlugin {
                             UUID.randomUUID().toString().charAt(2)
                     ).replaceAll("/", "_");
                     recipeList.add(new cc.thonly.reverie_dreams.compat.rrv.strength_table.StrengthTableRecipe(ReverieDreams.id(idPath), recipe));
+                });
+                RecipeManager.BREWING_BARREL.getRegistryView().forEach((id, recipe) -> {
+                    recipeList.add(new BrewingBarrelRecipe(id, recipe));
                 });
             } catch (Exception e) {
                 log.error("Can't load rrv client recipe provider", e);

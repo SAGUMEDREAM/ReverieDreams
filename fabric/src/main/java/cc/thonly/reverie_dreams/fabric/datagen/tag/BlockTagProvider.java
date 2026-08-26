@@ -125,6 +125,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         pickaxeMineables.add(RDBlocks.GENSOKYO_ALTAR.asBlock());
         pickaxeMineables.add(RDBlocks.ANTI_COLLISION_BARREL.asBlock());
         pickaxeMineables.add(RDBlocks.WHEEL_CHAIR.asBlock());
+        pickaxeMineables.add(RDBlocks.ICE_MAKING_MACHINE.asBlock());
         needsStoneTool.add(
                 RDBlocks.SILVER_BLOCK.asBlock(),
                 RDBlocks.SILVER_ORE.asBlock(),
@@ -152,6 +153,8 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         axeMineables.add(RDBlocks.CASH_BOX_BLOCK.asBlock());
         axeMineables.add(RDBlocks.CHAIR.asBlock());
         axeMineables.add(RDBlocks.TABLE.asBlock());
+        axeMineables.add(RDBlocks.CUPBOARD.asBlock());
+        axeMineables.add(RDBlocks.BREWING_BARREL.asBlock());
         hoeMineables.add(RDBlocks.POWER_BLOCK.asBlock());
         hoeMineables.add(RDBlocks.POINT_BLOCK.asBlock());
         sliver.add(RDBlocks.SILVER_BLOCK.asBlock(), RDBlocks.SILVER_ORE.asBlock(), RDBlocks.DEEPSLATE_SILVER_ORE.asBlock());

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:paper",
+    "G": "reverie_dreams:gold_coin"
+  },
+  "pattern": [
+    "  G",
+    "## ",
+    "## "
+  ],
+  "result": {
+    "id": "reverie_dreams:cheque"
+  }
+}

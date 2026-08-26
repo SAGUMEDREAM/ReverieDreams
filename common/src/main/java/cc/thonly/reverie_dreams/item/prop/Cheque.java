@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.advancement.SimpleTrigger;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
-import com.mojang.authlib.GameProfile;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -71,10 +70,6 @@ public class Cheque extends Item {
 
         int amount = cheque.getOrDefault(RDDataComponentTypes.CHEQUE_AMOUNT.get(), 0);
         if (amount <= 0) {
-            return InteractionResult.FAIL;
-        }
-
-        if (creative) {
             return InteractionResult.FAIL;
         }
 

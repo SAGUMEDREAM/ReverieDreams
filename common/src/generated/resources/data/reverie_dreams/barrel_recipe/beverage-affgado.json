@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:ice",
+      "count": 1
+    },
+    {
+      "id": "minecraft:snowball",
+      "count": 1
+    },
+    {
+      "id": "minecraft:cocoa_beans",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/affgado",
+    "count": 1
+  },
+  "cost_time": 60
+}

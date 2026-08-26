@@ -88,7 +88,7 @@ public class FoodProperties {
     public static final FoodProperty CURSE = registerForBuiltIn("curse", () -> new FoodProperty());
 
     public static void registerDefaultItemUsingProperty() {
-        FoodPropertyItemUseCallback.EVENT.register((world, user, property) -> {
+        FoodPropertyItemUseCallback.EVENT.register((world, user, itemStack, property) -> {
             if (world.isClientSide()) {
                 return;
             }

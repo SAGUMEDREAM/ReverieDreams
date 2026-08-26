@@ -43,17 +43,17 @@ public class FoodProperty implements SerializableProvider<FoodProperty>, Registr
     private RegistryProvider<FoodProperty> owner;
 
     public FoodProperty() {
-        this.effectInstance = new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY, 1));
+        this.effectInstance = new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1));
     }
 
     public FoodProperty(MobEffectInstance effectInstance) {
         this.effectInstance = effectInstance;
     }
 
-    public final void use(ServerLevel world, LivingEntity user) {
+    public final void use(ServerLevel world, LivingEntity user, ItemStack itemStack) {
         MobEffectInstance effectInstance = new MobEffectInstance(this.effectInstance);
         user.addEffect(effectInstance);
-        FoodPropertyItemUseCallback.EVENT.invoker().onUse(world, user, this);
+        FoodPropertyItemUseCallback.EVENT.invoker().onUse(world, user, itemStack, this);
         this.onUse(world, user);
     }
 

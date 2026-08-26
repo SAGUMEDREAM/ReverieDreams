@@ -10,7 +10,6 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -25,7 +24,6 @@ import java.util.stream.Stream;
 
 @SuppressWarnings("UnusedReturnValue")
 @Slf4j
-@ToString
 public abstract class BaseRecipeType<R extends BaseRecipe> {
     protected final Map<Identifier, R> registries = new Object2ObjectLinkedOpenHashMap<>();
     private boolean acceptNetworking = false;
@@ -142,6 +140,11 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
 
     public BaseRecipeType<R> clear() {
         return this.removeAll();
+    }
+
+    @Override
+    public String toString() {
+        return "BaseRecipeType{" + "size=" + this.size() + ", acceptNetworking=" + this.acceptNetworking + '}';
     }
 
     public static <R extends BaseRecipe> CompoundTag writeForTag(BaseRecipeType<R> recipeType) {

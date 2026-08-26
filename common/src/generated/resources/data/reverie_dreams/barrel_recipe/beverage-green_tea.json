@@ -1,0 +1,17 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:oak_leaves",
+      "count": 1
+    },
+    {
+      "id": "minecraft:oak_leaves",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/green_tea",
+    "count": 1
+  },
+  "cost_time": 60
+}

@@ -24,10 +24,17 @@ public class VanillaCompat {
             builder.add(Items.CHICKEN, Items.COOKED_CHICKEN);
             builder.add(Items.MUTTON, Items.COOKED_MUTTON);
             builder.add(Items.PORKCHOP, Items.COOKED_PORKCHOP);
+            builder.add(Items.POTATO, Items.BAKED_POTATO);
         });
         FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
             FoodProperty property = ctx.getProperty();
             Set<Item> items = ctx.getItems();
+            if (property.equals(FoodProperties.TOXIC)) {
+                items.add(Items.POISONOUS_POTATO);
+            }
+            if (property.equals(FoodProperties.BIZARRE)) {
+                items.add(Items.ROTTEN_FLESH);
+            }
             if (property.equals(FoodProperties.RAW)) {
                 items.add(Items.BROWN_EGG);
                 items.add(Items.BLUE_EGG);
@@ -45,6 +52,11 @@ public class VanillaCompat {
             if (property.equals(FoodProperties.VEGETARIAN)) {
                 items.add(Items.CARROT);
                 items.add(Items.BEETROOT);
+                items.add(Items.GOLDEN_DANDELION);
+                items.add(Items.DRIED_KELP);
+            }
+            if (property.equals(FoodProperties.UNBELIEVABLE)) {
+                items.add(Items.GOLDEN_DANDELION);
             }
             if (property.equals(FoodProperties.SALTY)) {
                 items.add(Items.SEA_PICKLE);
@@ -56,6 +68,7 @@ public class VanillaCompat {
                 items.add(Items.COOKED_RABBIT);
                 items.add(Items.MUTTON);
                 items.add(Items.COOKED_MUTTON);
+                items.add(Items.COOKED_PORKCHOP);
             }
             if (property.equals(FoodProperties.FRUITY)) {
                 items.add(Items.APPLE);
@@ -64,15 +77,25 @@ public class VanillaCompat {
                 items.add(Items.MELON);
                 items.add(Items.SWEET_BERRIES);
                 items.add(Items.GLOW_BERRIES);
+                items.add(Items.CHORUS_FRUIT);
             }
             if (property.equals(FoodProperties.SWEET)) {
                 items.add(Items.SWEET_BERRIES);
                 items.add(Items.GLOW_BERRIES);
+                items.add(Items.CAKE);
+                items.add(Items.COOKIE);
+                items.add(Items.SUGAR);
+                items.add(Items.SUGAR_CANE);
             }
             if (property.equals(FoodProperties.DREAMLIKE)) {
                 items.add(Items.GLOW_BERRIES);
                 items.add(Items.GOLDEN_APPLE);
                 items.add(Items.ENCHANTED_GOLDEN_APPLE);
+            }
+            if (property.equals(FoodProperties.AQUATIC_PRODUCTS)) {
+                items.add(Items.COD);
+                items.add(Items.SALMON);
+                items.add(Items.TROPICAL_FISH);
             }
         });
     }

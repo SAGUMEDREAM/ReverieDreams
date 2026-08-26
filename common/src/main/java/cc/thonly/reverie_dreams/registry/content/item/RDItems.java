@@ -145,7 +145,7 @@ public class RDItems {
     public static final ItemDelegate LOW_GRAVITY_BOOT = registerItem("low_gravity_boot", LowGravityBootItem::new, new Item.Properties());
     public static final ItemDelegate CROWN_OF_THE_UNDERWORLD = registerItem("crown_of_the_underworld", CrownOfTheUnderworldItem::new, new Item.Properties());
     public static final ItemDelegate SUNFLOWER = registerItem("sunflower", props -> new Sunflower(props.stacksTo(1).durability(256).repairable(RDItemTags.POWER_BLOCK)), new Item.Properties());
-    public static final ItemDelegate CHEQUE = registerItem("cheque", props -> new Cheque(props.component(RDDataComponentTypes.CHEQUE_AMOUNT.get(), 0)), new Item.Properties());
+    public static final ItemDelegate CHEQUE = registerItem("cheque", props -> new Cheque(props.stacksTo(1).component(RDDataComponentTypes.CHEQUE_AMOUNT.get(), 0)), new Item.Properties());
     public static final ItemDelegate CUSTOM_SKIN_SELECTOR = registerSimpleItem("custom_skin_selector", props -> new CustomSkinSelectorItem(props.stacksTo(1)), new Item.Properties());
 
     // 武器

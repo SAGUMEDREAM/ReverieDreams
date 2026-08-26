@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.proxy;
 
-import cc.thonly.reverie_dreams.block.PlateBlock;
+import cc.thonly.reverie_dreams.block.kitchen.PlateBlock;
 import cc.thonly.reverie_dreams.block.entity.PlateBlockEntity;
 import cc.thonly.reverie_dreams.polymer.block.PlateImpl;
 import cc.thonly.reverie_dreams.proxy.PlateBlockEntityUpdater;

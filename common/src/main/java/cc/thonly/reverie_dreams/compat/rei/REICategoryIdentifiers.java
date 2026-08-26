@@ -10,5 +10,6 @@ public class REICategoryIdentifiers {
     public static final CategoryIdentifier<GensokyoAltarRecipeDisplay> GENSOKYO_ALTAR = CategoryIdentifier.of(ReverieDreams.id("gensokyo_altar"));
     public static final CategoryIdentifier<StrengthTableDisplay> STRENGTH_TABLE = CategoryIdentifier.of(ReverieDreams.id("strength_table"));
     public static final CategoryIdentifier<KitchenDisplay> KITCHEN = CategoryIdentifier.of(ReverieDreams.id("kitchen"));
+    public static final CategoryIdentifier<BrewingBarrelDisplay> BREWING_BARREL = CategoryIdentifier.of(ReverieDreams.id("brewing_barrel"));
 
 }

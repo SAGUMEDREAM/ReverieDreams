@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.gui.item;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
+import cc.thonly.reverie_dreams.block.cooking.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;

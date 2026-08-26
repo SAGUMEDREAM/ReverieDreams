@@ -45,7 +45,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
-@SuppressWarnings("resource")
+@SuppressWarnings({"resource", "SpellCheckingInspection"})
 @Getter
 @Setter
 public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, ChatAIEntity<NPCSimpleEntity>, TamableNPC {
@@ -76,7 +76,7 @@ public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, Cha
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new NPCEatPlateGoal(this, 1, 15, 1));
-        this.goalSelector.addGoal(2, new EatGoal(this));
+        this.goalSelector.addGoal(2, new NPCInventoryEatGoal(this));
         this.goalSelector.addGoal(3, new SleepAtNightGoal(this, 1.0));
         //        this.goalSelector.add(4, this.bowAttackGoal);
         //        this.goalSelector.add(4, this.meleeAttackGoal);

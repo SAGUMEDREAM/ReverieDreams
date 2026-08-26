@@ -14,6 +14,8 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.engine.JavaScriptManager;
 import cc.thonly.reverie_dreams.entity.npc.NPCLikeInteractionEvents;
+import cc.thonly.reverie_dreams.entity.skill.Skill;
+import cc.thonly.reverie_dreams.entity.skill.Skills;
 import cc.thonly.reverie_dreams.entity.variant.*;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.networking.payload.CustomRegistrySyncPacket;
@@ -63,130 +65,135 @@ public class BuiltInRegistryProviders {
 
     public static final RegistryProvider<DanmakuType> DANMAKU_TYPE =
             BuiltInRegistryProviders.<DanmakuType>ofEntry(BuiltInRegistryProviderKeys.DANMAKU_TYPE)
-                                    .codec(DanmakuType.CODEC)
-                                    .builder(DanmakuTypes::bootstrap);
+                    .codec(DanmakuType.CODEC)
+                    .builder(DanmakuTypes::bootstrap);
 
     public static final RegistryProvider<DanmakuShape> DANMAKU_SHAPE =
             BuiltInRegistryProviders.<DanmakuShape>ofEntry(BuiltInRegistryProviderKeys.DANMAKU_SHAPE)
-                                    .codec(DanmakuShape.CODEC)
-                                    .builder(DanmakuShapes::bootstrap);
+                    .codec(DanmakuShape.CODEC)
+                    .builder(DanmakuShapes::bootstrap);
 
     public static final RegistryProvider<DanmakuTrajectory> DANMAKU_TRAJECTORY =
             BuiltInRegistryProviders.<DanmakuTrajectory>ofEntry(BuiltInRegistryProviderKeys.DANMAKU_TRAJECTORY)
-                                    .codec(DanmakuTrajectory.CODEC)
-                                    .builder(DanmakuTrajectories::bootstrap);
+                    .codec(DanmakuTrajectory.CODEC)
+                    .builder(DanmakuTrajectories::bootstrap);
 
     public static final RegistryProvider<SpellCardFrameConfig> DANMAKU_CONFIG =
             BuiltInRegistryProviders.<SpellCardFrameConfig>ofEntry(BuiltInRegistryProviderKeys.DANMAKU_CONFIG)
-                                    .codec(SpellCardFrameConfig.COMPONENT_CODEC)
-                                    .reloadBuilder(SpellCardFrameConfigs::reload)
-                                    .builder(SpellCardFrameConfigs::bootstrap);
+                    .codec(SpellCardFrameConfig.COMPONENT_CODEC)
+                    .reloadBuilder(SpellCardFrameConfigs::reload)
+                    .builder(SpellCardFrameConfigs::bootstrap);
 
     public static final RegistryProvider<JavaScriptElement> JAVASCRIPT_ELEMENT =
             BuiltInRegistryProviders.<JavaScriptElement>ofEntry(BuiltInRegistryProviderKeys.JAVASCRIPT_ELEMENT)
-                                    .codec(JavaScriptElement.CODEC)
-                                    .reloadBuilder(JavaScriptManager::reload)
-                                    .builder(JavaScriptManager::bootstrap);
+                    .codec(JavaScriptElement.CODEC)
+                    .reloadBuilder(JavaScriptManager::reload)
+                    .builder(JavaScriptManager::bootstrap);
 
     public static final RegistryProvider<SkinType> SKIN_TYPE =
             BuiltInRegistryProviders.<SkinType>ofEntry(BuiltInRegistryProviderKeys.SKIN_TYPE)
-                                    .codec(SkinType.CODEC)
-                                    .reloadBuilder(SkinType::onReload)
-                                    .builder(GensokyoSkinTypes::bootstrap, MobSkinTypes::bootstrap);
+                    .codec(SkinType.CODEC)
+                    .reloadBuilder(SkinType::onReload)
+                    .builder(GensokyoSkinTypes::bootstrap, MobSkinTypes::bootstrap);
 
     public static final RegistryProvider<SkinConfig> SKIN_CONFIG =
             BuiltInRegistryProviders.<SkinConfig>ofEntry(BuiltInRegistryProviderKeys.SKIN_CONFIG)
-                                    .codec(SkinConfig.CODEC)
-                                    .reloadBuilder(SkinConfigs::onReload)
-                                    .builder(SkinConfigs::bootstrap);
+                    .codec(SkinConfig.CODEC)
+                    .reloadBuilder(SkinConfigs::onReload)
+                    .builder(SkinConfigs::bootstrap);
 
     public static final RegistryProvider<CustomType> CUSTOM_SKIN_TYPE =
             BuiltInRegistryProviders.<CustomType>ofEntry(BuiltInRegistryProviderKeys.CUSTOM_SKIN_TYPE)
-                                    .codec(CustomType.CODEC)
-                                    .reloadBuilder(CustomSkinLoader::onReload)
-                                    .syncToClient(RegistrySyncers.CUSTOM_SKIN);
+                    .codec(CustomType.CODEC)
+                    .reloadBuilder(CustomSkinLoader::onReload)
+                    .syncToClient(RegistrySyncers.CUSTOM_SKIN);
 
     public static final RegistryProvider<NPCRoleType> NPC_ROLE_TYPE =
             BuiltInRegistryProviders.<NPCRoleType>ofEntry(BuiltInRegistryProviderKeys.NPC_ROLE_TYPE)
-                                    .codec(NPCRoleType.BY_REGISTRY_CODEC)
-                                    .builder(NPCRoleTypes::bootstrap);
+                    .codec(NPCRoleType.BY_REGISTRY_CODEC)
+                    .builder(NPCRoleTypes::bootstrap);
 
     public static final RegistryProvider<NPCSimpleRoleType> NPC_SIMPLE_ROLE_TYPE =
             BuiltInRegistryProviders.<NPCSimpleRoleType>ofEntry(BuiltInRegistryProviderKeys.NPC_SIMPLE_ROLE)
-                                    .codec(NPCSimpleRoleType.BY_REGISTRY_CODEC);
+                    .codec(NPCSimpleRoleType.BY_REGISTRY_CODEC);
 
     public static final RegistryProvider<RoleCard> ROLE_CARD =
             BuiltInRegistryProviders.<RoleCard>ofEntry(BuiltInRegistryProviderKeys.ROLE_CARD)
-                                    .codec(RoleCard.CODEC)
-                                    .builder(RoleCards::bootstrap);
+                    .codec(RoleCard.CODEC)
+                    .builder(RoleCards::bootstrap);
+
+    public static final RegistryProvider<Skill<?>> SKILL =
+            BuiltInRegistryProviders.<Skill<?>>ofEntry(BuiltInRegistryProviderKeys.SKILL)
+                    .codec(Skill.CODEC)
+                    .builder(Skills::bootstrap);
 
     public static final RegistryProvider<NPCLikeInteractionEvent> NPCLIKE_INTERACTION_EVENT =
             BuiltInRegistryProviders.<NPCLikeInteractionEvent>ofEntry(BuiltInRegistryProviderKeys.NPCLIKE_INTERACTION_EVENT)
-                                    .codec(NPCLikeInteractionEvent.CODEC)
-                                    .builder(NPCLikeInteractionEvents::bootstrap);
+                    .codec(NPCLikeInteractionEvent.CODEC)
+                    .builder(NPCLikeInteractionEvents::bootstrap);
 
     public static final RegistryProvider<NPCState> NPC_STATE =
             BuiltInRegistryProviders.<NPCState>ofEntry(BuiltInRegistryProviderKeys.NPC_STATE)
-                                    .codec(NPCState.CODEC)
-                                    .defaultId(NPCState.DEFAULT_ID)
-                                    .builder(NPCStates::bootstrap);
+                    .codec(NPCState.CODEC)
+                    .defaultId(NPCState.DEFAULT_ID)
+                    .builder(NPCStates::bootstrap);
 
     public static final RegistryProvider<NPCWorkMode> NPC_WORK_MODE =
             BuiltInRegistryProviders.<NPCWorkMode>ofEntry(BuiltInRegistryProviderKeys.NPC_WORK_MODE)
-                                    .codec(NPCWorkMode.CODEC)
-                                    .defaultId(NPCWorkMode.DEFAULT_ID)
-                                    .builder(NPCWorkModes::bootstrap);
+                    .codec(NPCWorkMode.CODEC)
+                    .defaultId(NPCWorkMode.DEFAULT_ID)
+                    .builder(NPCWorkModes::bootstrap);
 
     public static final RegistryProvider<FumoType> FUMO =
             BuiltInRegistryProviders.<FumoType>ofEntry(BuiltInRegistryProviderKeys.FUMO)
-                                    .codec(FumoType.CODEC)
-                                    .builder(FumoTypes::bootstrap);
+                    .codec(FumoType.CODEC)
+                    .builder(FumoTypes::bootstrap);
 
     public static final RegistryProvider<YouseiVariant> YOUSEI_VARIANT =
             BuiltInRegistryProviders.<YouseiVariant>ofEntry(BuiltInRegistryProviderKeys.YOUSEI_VARIANT)
-                                    .codec(YouseiVariant.CODEC)
-                                    .defaultId(ReverieDreams.id("blue"))
-                                    .builder(YouseiVariants::bootstrap);
+                    .codec(YouseiVariant.CODEC)
+                    .defaultId(ReverieDreams.id("blue"))
+                    .builder(YouseiVariants::bootstrap);
 
     public static final RegistryProvider<RabbitUnitVariant> RABBIT_UNIT_VARIANT =
             BuiltInRegistryProviders.<RabbitUnitVariant>ofEntry(BuiltInRegistryProviderKeys.RABBIT_UNIT_VARIANT)
-                                    .codec(RabbitUnitVariant.CODEC)
-                                    .defaultId(ReverieDreams.id("blue"))
-                                    .builder(RabbitUnitVariants::bootstrap);
+                    .codec(RabbitUnitVariant.CODEC)
+                    .defaultId(ReverieDreams.id("blue"))
+                    .builder(RabbitUnitVariants::bootstrap);
 
     public static final RegistryProvider<OniVariant> ONI_VARIANT =
             BuiltInRegistryProviders.<OniVariant>ofEntry(BuiltInRegistryProviderKeys.ONI_VARIANT)
-                                    .codec(OniVariant.CODEC)
-                                    .defaultId(ReverieDreams.id("blue"))
-                                    .builder(OniVariants::bootstrap);
+                    .codec(OniVariant.CODEC)
+                    .defaultId(ReverieDreams.id("blue"))
+                    .builder(OniVariants::bootstrap);
 
     public static final RegistryProvider<FoodProperty> FOOD_PROPERTY =
             BuiltInRegistryProviders.<FoodProperty>ofEntry(BuiltInRegistryProviderKeys.FOOD_PROPERTY)
-                                    .codec(FoodProperty.BY_REGISTRY_CODEC)
-                                    .reloadBuilder(FoodProperties::reload)
-                                    .builder(FoodProperties::bootstrap)
-                                    .syncToClient(RegistrySyncers.FOOD_PROPERTY);
+                    .codec(FoodProperty.BY_REGISTRY_CODEC)
+                    .reloadBuilder(FoodProperties::reload)
+                    .builder(FoodProperties::bootstrap)
+                    .syncToClient(RegistrySyncers.FOOD_PROPERTY);
 
     public static final RegistryProvider<BeverageProperty> BEVERAGE_PROPERTY =
             BuiltInRegistryProviders.<BeverageProperty>ofEntry(BuiltInRegistryProviderKeys.BEVERAGE_PROPERTY)
-                                    .codec(BeverageProperty.COMPONENT_CODEC)
-                                    .reloadBuilder(BeverageProperties::reload)
-                                    .builder(BeverageProperties::bootstrap)
-                                    .syncToClient(RegistrySyncers.BEVERAGE_PROPERTY);
+                    .codec(BeverageProperty.COMPONENT_CODEC)
+                    .reloadBuilder(BeverageProperties::reload)
+                    .builder(BeverageProperties::bootstrap)
+                    .syncToClient(RegistrySyncers.BEVERAGE_PROPERTY);
 
     public static final RegistryProvider<CraftingConflict> CRAFTING_CONFLICT =
             BuiltInRegistryProviders.<CraftingConflict>ofEntry(BuiltInRegistryProviderKeys.CRAFTING_CONFLICT)
-                                    .codec(CraftingConflict.CODEC)
-                                    .reloadBuilder(CraftingConflict::reload)
-                                    .builder(CraftingConflict::bootstrap)
-                                    .syncToClient(RegistrySyncers.CRAFTING_CONFLICT);
+                    .codec(CraftingConflict.CODEC)
+                    .reloadBuilder(CraftingConflict::reload)
+                    .builder(CraftingConflict::bootstrap)
+                    .syncToClient(RegistrySyncers.CRAFTING_CONFLICT);
 
     public static final RegistryProvider<Customer> CUSTOMER =
             BuiltInRegistryProviders.<Customer>ofEntry(BuiltInRegistryProviderKeys.CUSTOMER)
-                                    .codec(Customer.CODEC)
-                                    .reloadBuilder(Customers::reload)
-                                    .builder(Customers::bootstrap)
-                                    .syncToClient(RegistrySyncers.CUSTOMER_DATA);
+                    .codec(Customer.CODEC)
+                    .reloadBuilder(Customers::reload)
+                    .builder(Customers::bootstrap)
+                    .syncToClient(RegistrySyncers.CUSTOMER_DATA);
 
     public static final WritableRegistry<SkinType> SKIN_TYPE_MERGED =
             BuiltInRegistryProviders.ofEntries(BuiltInRegistryProviderKeys.SKIN_TYPE_MERGED, BuiltInRegistryProviders.SKIN_TYPE, BuiltInRegistryProviders.CUSTOM_SKIN_TYPE);
@@ -338,23 +345,23 @@ public class BuiltInRegistryProviders {
                     return builder.buildFuture();
                 })
                 .then(Commands.argument("id", IdentifierArgument.id())
-                              .suggests((context, builder) -> {
-                                  Identifier identifier = IdentifierArgument.getId(context, "registry_key");
+                        .suggests((context, builder) -> {
+                            Identifier identifier = IdentifierArgument.getId(context, "registry_key");
 
-                                  ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
+                            ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
 
-                                  if (!BuiltInRegistryProviders.ROOT.containsKey(registryKey)) {
-                                      return builder.buildFuture();
-                                  }
+                            if (!BuiltInRegistryProviders.ROOT.containsKey(registryKey)) {
+                                return builder.buildFuture();
+                            }
 
-                                  RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
-                                  for (Identifier key : registry.keys()) {
-                                      builder.suggest(key.toString());
-                                  }
+                            RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
+                            for (Identifier key : registry.keys()) {
+                                builder.suggest(key.toString());
+                            }
 
-                                  return builder.buildFuture();
-                              })
-                              .executes(command)
+                            return builder.buildFuture();
+                        })
+                        .executes(command)
                 );
     }
 
@@ -370,25 +377,25 @@ public class BuiltInRegistryProviders {
                     return builder.buildFuture();
                 })
                 .then(Commands.argument("id", IdentifierArgument.id())
-                              .suggests((context, builder) -> {
-                                  Identifier identifier = IdentifierArgument.getId(context, "registry_key");
+                        .suggests((context, builder) -> {
+                            Identifier identifier = IdentifierArgument.getId(context, "registry_key");
 
-                                  ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
+                            ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(identifier);
 
-                                  if (!BuiltInRegistryProviders.ROOT.containsKey(registryKey)) {
-                                      return builder.buildFuture();
-                                  }
+                            if (!BuiltInRegistryProviders.ROOT.containsKey(registryKey)) {
+                                return builder.buildFuture();
+                            }
 
-                                  RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
-                                  Stream<? extends HolderSet.Named<?>> namedStream = registry.listTags();
-                                  namedStream.forEach((Consumer<HolderSet.Named<?>>) holders -> {
-                                      TagKey<?> key = holders.key();
-                                      builder.suggest(key.location().toString());
-                                  });
+                            RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
+                            Stream<? extends HolderSet.Named<?>> namedStream = registry.listTags();
+                            namedStream.forEach((Consumer<HolderSet.Named<?>>) holders -> {
+                                TagKey<?> key = holders.key();
+                                builder.suggest(key.location().toString());
+                            });
 
-                                  return builder.buildFuture();
-                              })
-                              .executes(command)
+                            return builder.buildFuture();
+                        })
+                        .executes(command)
                 );
     }
 

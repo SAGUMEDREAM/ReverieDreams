@@ -2,14 +2,16 @@ package cc.thonly.reverie_dreams.polymer.helper;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.*;
+import cc.thonly.reverie_dreams.block.kitchen.*;
 import cc.thonly.reverie_dreams.block.props.*;
+import cc.thonly.reverie_dreams.block.redstone.*;
 import cc.thonly.reverie_dreams.fabric.ReverieDreamsFabric;
 import cc.thonly.reverie_dreams.polymer.block.*;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
-import cc.thonly.reverie_dreams.block.kitchen.AbstractKitchenwareBlock;
+import cc.thonly.reverie_dreams.block.cooking.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import eu.pb4.factorytools.api.block.model.SignModel;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
@@ -24,7 +26,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 
-@SuppressWarnings("deprecation")
 @Slf4j
 public class PolymerBlockHelper {
     public static void registerOverlay(Block block) {
@@ -61,6 +62,9 @@ public class PolymerBlockHelper {
             case SignalDelayerBlock ignored -> BaseFactoryBlock.BARRIER;
             case ChairBlock ignored -> BaseFactoryBlock.BARRIER;
             case TableBlock ignored -> BaseFactoryBlock.BARRIER;
+            case BrewingBarrelBlock ignored -> BaseFactoryBlock.BARRIER;
+            case CupboardBlock ignored -> BaseFactoryBlock.BARRIER;
+            case IceMakingMachine ignored -> BaseFactoryBlock.BARRIER;
             case RemoteClientBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
             case RemoteServerBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
             case SpeakerBlock ignored -> StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);

@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/missing"
+  },
+  "display": {
+    "gui": {
+      "scale": [1.0, 1.0, 1.0]
+    }
+  }
+}

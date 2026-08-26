@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.block.ChairBlock;
+import cc.thonly.reverie_dreams.block.kitchen.ChairBlock;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.SynchedEntityData;

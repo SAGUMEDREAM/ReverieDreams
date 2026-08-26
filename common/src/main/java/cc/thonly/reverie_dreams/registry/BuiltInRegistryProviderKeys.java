@@ -11,6 +11,7 @@ import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.engine.JavaScriptElement;
+import cc.thonly.reverie_dreams.entity.skill.Skill;
 import cc.thonly.reverie_dreams.entity.variant.*;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import net.minecraft.core.Registry;
@@ -22,6 +23,7 @@ import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.data.npc.NPCSimpleRoleType;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class BuiltInRegistryProviderKeys {
     public static final ResourceKey<Registry<DanmakuType>> DANMAKU_TYPE = create("danmaku_type");
     public static final ResourceKey<Registry<DanmakuShape>> DANMAKU_SHAPE = create("danmaku_shape");
@@ -34,6 +36,7 @@ public class BuiltInRegistryProviderKeys {
     public static final ResourceKey<Registry<NPCRoleType>> NPC_ROLE_TYPE = create("npc_role");
     public static final ResourceKey<Registry<NPCSimpleRoleType>> NPC_SIMPLE_ROLE = create("npc_simple_role");
     public static final ResourceKey<Registry<RoleCard>> ROLE_CARD = create("role_card");
+    public static final ResourceKey<Registry<Skill<?>>> SKILL = create("skill");
     public static final ResourceKey<Registry<NPCLikeInteractionEvent>> NPCLIKE_INTERACTION_EVENT = create("interaction_event");
     public static final ResourceKey<Registry<NPCState>> NPC_STATE = create("npc_state");
     public static final ResourceKey<Registry<NPCWorkMode>> NPC_WORK_MODE = create("npc_work_mode");

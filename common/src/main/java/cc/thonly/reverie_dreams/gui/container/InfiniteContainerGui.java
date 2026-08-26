@@ -50,7 +50,7 @@ public abstract class InfiniteContainerGui extends SimpleGui implements GuiCommo
                 return;
             }
 
-            Level level = this.blockEntity.getLevel();
+            Level level = this.blockEntity.asBlockEntity().getLevel();
 
             if (level == null) {
                 this.close();
@@ -116,7 +116,7 @@ public abstract class InfiniteContainerGui extends SimpleGui implements GuiCommo
         source.shrink(inserted);
         menu.getSlot(index).set(source);
 
-        this.blockEntity.setChanged();
+        this.blockEntity.asBlockEntity().setChanged();
         menu.broadcastChanges();
 
         return original.copyWithCount(inserted);
@@ -181,7 +181,7 @@ public abstract class InfiniteContainerGui extends SimpleGui implements GuiCommo
         }
 
         containerMenu.broadcastChanges();
-        this.blockEntity.setChanged();
+        this.blockEntity.asBlockEntity().setChanged();
 
         return super.onClick(containerIndex, type, action, element);
     }
@@ -224,7 +224,7 @@ public abstract class InfiniteContainerGui extends SimpleGui implements GuiCommo
         inventory.removeItem(slot, inserted);
 
         menu.broadcastChanges();
-        this.blockEntity.setChanged();
+        this.blockEntity.asBlockEntity().setChanged();
     }
 
     private void takeItem(

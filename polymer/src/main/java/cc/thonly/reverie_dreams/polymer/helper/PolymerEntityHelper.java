@@ -35,6 +35,7 @@ public class PolymerEntityHelper {
         registerOverlay(RDEntityTypes.SUNFLOWER_YOUSEI.value(), SunflowerYouseiImpl::new);
         registerOverlay(RDEntityTypes.YOUSEI.value(), YouseiImpl::new);
         registerOverlay(RDEntityTypes.MAID_YOUSEI.value(), MaidYouseiImpl::new);
+        registerOverlay(RDEntityTypes.ICE_FAIRY.value(), NPCImpl::new);
         registerOverlay(RDEntityTypes.GHOST.value(), NPCImpl::new);
         registerOverlay(RDEntityTypes.GOBLIN.value(), NPCImpl::new);
         registerOverlay(RDEntityTypes.WATER_ELEMENTAL.value(), NPCImpl::new);

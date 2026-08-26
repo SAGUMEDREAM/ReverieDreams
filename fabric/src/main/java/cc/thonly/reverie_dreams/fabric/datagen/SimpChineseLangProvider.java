@@ -83,9 +83,10 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RecipeTypeCategoryManager.KITCHEN_ICON.toLanguageKey(), "夜雀食堂");
         translationBuilder.add("message.gensokyo_altar.miss_structure", "§c结构错误");
         translationBuilder.add("message.gensokyo_altar.miss_recipe", "§c未知合成仪式");
-        translationBuilder.add("message.treasure_hunting_rod.find", "离目标还有 %s 格，偏移：X=%s, Y=%s, Z=%s，目标：");
-        translationBuilder.add("message.treasure_hunting_rod.not_found", "未在附近找到矿物。");
+        translationBuilder.add("message.reverie_dreams.treasure_hunting_rod.find", "离目标还有 %s 格，偏移：X=%s, Y=%s, Z=%s，目标：");
+        translationBuilder.add("message.reverie_dreams.treasure_hunting_rod.not_found", "未在附近找到矿物。");
         translationBuilder.add("message.reverie_dreams.update", "检测到模组更新，最新版本 %s");
+        translationBuilder.add("message.reverie_dreams.no_bottle", "§c你必须使用空瓶子接收");
         translationBuilder.add(RDBuiltInGameRules.DO_GHOST.value().getDescriptionId(), "禁止幽灵生成");
 
         translationBuilder.add("item_view.information.desc.chest_drop_items", "获取方式：开启宝箱获得");
@@ -141,6 +142,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(NPCWorkModes.FISHING.translateKey(), "§6钓鱼");
         translationBuilder.add("gui.npc.work.mode.create-fly/hand_crank", "§d摇曲柄");
         translationBuilder.add("gui.npc.work.mode.polyfactory/hand_crank", "§d摇曲柄");
+        translationBuilder.add("gui.reverie_dreams.count", "数量");
         translationBuilder.add("gui.reverie_dreams.progress", "进度");
         translationBuilder.add("gui.reverie_dreams.close", "关闭");
         translationBuilder.add("gui.reverie_dreams.input_request", "请输入内容：");
@@ -176,6 +178,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("config.jade.plugin_reverie_dreams.music_block_data_provider", "播放信息");
         translationBuilder.add("config.jade.plugin_reverie_dreams.gensokyo_altar_data_provider", "合成信息");
         translationBuilder.add("config.jade.plugin_reverie_dreams.role_description", "角色信息");
+        translationBuilder.add("config.jade.plugin_reverie_dreams.brewing_barrel", "酿酒");
+        translationBuilder.add("config.jade.plugin_reverie_dreams.cupboard", "橱柜");
 
         translationBuilder.add("narration.reverie_dreams.food", "Food: %s");
 
@@ -2270,8 +2274,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("text.autoconfig.reverie_dreams.option.enableDanmakuGlow.@Tooltip", "Replaces vanilla torch item overlay to display a glowing outline.");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue", "Maximum Upgraded Health");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.maxUpgradedHealthValue.@Tooltip", "Defines the highest total health value players can reach through upgrades.");
-        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxCustomerTickTime", "Maximum customer wait time");
-        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxCustomerTickTime.@Tooltip", "Defines maximum customer wait time.");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxCustomerCooldownTickTime", "Maximum customer wait time");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxCustomerCooldownTickTime.@Tooltip", "Defines maximum customer wait time.");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.enableYouseiSpawn", "Enable Yousei Spawning");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.enableYouseiSpawn.@Tooltip", "Toggle to allow Yousei to spawn naturally.");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.enableGhostSpawn", "Enable Ghost Spawning");
@@ -2540,6 +2544,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDBlocks.PLATE.asBlock(), "盘子");
         translationBuilder.add(RDBlocks.BREWING_BARREL.asBlock(), "酒桶");
         translationBuilder.add(RDBlocks.CUPBOARD.asBlock(), "橱柜");
+        translationBuilder.add(RDBlocks.ICE_MAKING_MACHINE.asBlock(), "制冰机");
         translationBuilder.add(RDBlocks.BLACK_SALT_BLOCK.asBlock(), "黑盐块");
 
         translationBuilder.add(RDItems.MYSTIA_ICON.asItem(), "东方夜雀食堂图标");
@@ -2908,6 +2913,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         builder.add(RDEntityTypes.YOUSEI.value(), "妖精", "妖精刷怪蛋");
         builder.add(RDEntityTypes.MAID_YOUSEI.value(), "女仆妖精", "女仆妖精刷怪蛋");
         builder.add(RDEntityTypes.SUNFLOWER_YOUSEI.value(), "向日葵妖精", "向日葵妖精刷怪蛋");
+        builder.add(RDEntityTypes.ICE_FAIRY.value(), "冰精", "冰精刷怪蛋");
         builder.add(RDEntityTypes.GOBLIN.value(), "哥布林", "哥布林刷怪蛋");
         builder.add(RDEntityTypes.RABBIT_UNIT.value(), "月兔战士", "月兔战士刷怪蛋");
         builder.add(RDEntityTypes.WATER_ELEMENTAL.value(), "水元素", "水元素刷怪蛋");
@@ -3106,10 +3112,12 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
     public void generateEffectTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
         TranslationWrapper builder = ITranslationWrapper.ofWrapper(wrapperLookup, translationBuilder);
+        builder.add(RDStatusEffects.EMPTY.value(), "绝密");
         builder.add(RDStatusEffects.ELIXIR_OF_LIFE.value(), "不死");
         builder.add(RDStatusEffects.MENTAL_DISORDER.value(), "精神错乱");
         builder.add(RDStatusEffects.BACK_OF_LIFE.value(), "返生");
         builder.add(RDStatusEffects.KANJU_KUSURI.value(), "绀珠");
+        builder.add(RDStatusEffects.ANTI_ALCOHOL.value(), "抗酒精");
 
         builder.generatePotion(RDPotions.ELIXIR_OF_LIFE_POTION.value(), "蓬莱之药", "喷溅型蓬莱之药", "滞留型蓬莱之药");
         builder.generatePotion(RDPotions.MENTAL_DISORDER_POTION.value(), "精神错乱药水", "喷溅型精神错乱药水", "滞留型精神错乱药水");
@@ -3312,7 +3320,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.ICE_SCALES.asItem(), "冰之鳞");
         translationBuilder.add(RDItems.MAGIC_ICE_SWORD.asItem(), "冰剑");
         translationBuilder.add(RDItems.MAGIC_ICE_AXE.asItem(), "冰斧");
-        translationBuilder.add(RDItems.MAGIC_ICE_PICKAXE.asItem(), "冰稿");
+        translationBuilder.add(RDItems.MAGIC_ICE_PICKAXE.asItem(), "冰镐");
         translationBuilder.add(RDItems.MAGIC_ICE_SHOVEL.asItem(), "冰锹");
         translationBuilder.add(RDItems.MAGIC_ICE_HOE.asItem(), "冰锄");
         translationBuilder.add(RDItems.MAGIC_ICE_SPEAR.asItem(), "冰矛");
@@ -3328,7 +3336,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDItems.SPELL_CARD_TEMPLATE.asItem(), "符卡模板");
         translationBuilder.add(RDItems.DREAM_SWORD.asItem(), "梦境水晶剑");
         translationBuilder.add(RDItems.DREAM_AXE.asItem(), "梦境水晶斧");
-        translationBuilder.add(RDItems.DREAM_PICKAXE.asItem(), "梦境水晶稿");
+        translationBuilder.add(RDItems.DREAM_PICKAXE.asItem(), "梦境水晶镐");
         translationBuilder.add(RDItems.DREAM_SHOVEL.asItem(), "梦境水晶锹");
         translationBuilder.add(RDItems.DREAM_HOE.asItem(), "梦境水晶锄");
         translationBuilder.add(RDItems.DREAM_SPEAR.asItem(), "梦境水晶矛");

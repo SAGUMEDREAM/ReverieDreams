@@ -5,6 +5,8 @@ import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
+import cc.thonly.reverie_dreams.util.IdCompletableFuture;
+import cc.thonly.reverie_dreams.util.IdCompletableFutureKeys;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,6 +53,7 @@ public abstract class AbstractFoodIngredientProvider implements DataProvider {
         }
         Factory factory = new Factory(id, property);
         this.registries.put(id, factory);
+
         return factory;
     }
 
@@ -62,13 +65,21 @@ public abstract class AbstractFoodIngredientProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
-        return this.future.thenAcceptAsync((provider) -> {
+        CompletableFuture<Void> future = this.future.thenAcceptAsync(provider -> {
             this.configured(provider);
+
             for (Factory factory : this.registries.values()) {
-                FoodProperties.registerByPair(factory.buildForProvider());
+                FoodProperties.registerByPair(
+                        factory.buildForProvider()
+                );
             }
+
             DataProviderHelper.outputFile(writer, this.registries, FoodProperty.Data.CODEC, (id, factory) -> new FoodProperty.Data(id, factory.getList()), "food_property");
         });
+
+        IdCompletableFuture.register(IdCompletableFutureKeys.FOOD_PROVIDER, future);
+
+        return future;
     }
 
     protected abstract void configured(HolderLookup.Provider provider);

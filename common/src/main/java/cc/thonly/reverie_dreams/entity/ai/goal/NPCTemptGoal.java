@@ -110,15 +110,15 @@ public class NPCTemptGoal extends Goal {
 
     @Override
     public void tick() {
-        this.mob.getLookControl().setLookAt(this.closestPlayer, this.mob.getMaxHeadYRot() + 20, this.mob.getMaxHeadXRot());
-        if (this.mob.distanceToSqr(this.closestPlayer) < 6.25) {
-            this.mob.getNavigation().stop();
-        } else {
-            this.mob.getNavigation().moveTo(this.closestPlayer, this.speed);
+        if (this.closestPlayer != null) {
+            this.mob.getLookControl().setLookAt(this.closestPlayer, this.mob.getMaxHeadYRot() + 20, this.mob.getMaxHeadXRot());
+            if (this.mob.distanceToSqr(this.closestPlayer) < 6.25) {
+                this.mob.getNavigation().stop();
+            } else {
+                this.mob.getNavigation().moveTo(this.closestPlayer, this.speed);
+            }
         }
     }
-
-
 
 }
 
