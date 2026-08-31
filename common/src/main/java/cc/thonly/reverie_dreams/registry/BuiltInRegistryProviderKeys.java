@@ -35,6 +35,7 @@ public class BuiltInRegistryProviderKeys {
     public static final ResourceKey<Registry<CustomType>> CUSTOM_SKIN_TYPE = create("custom_skin_type");
     public static final ResourceKey<Registry<NPCRoleType>> NPC_ROLE_TYPE = create("npc_role");
     public static final ResourceKey<Registry<NPCSimpleRoleType>> NPC_SIMPLE_ROLE = create("npc_simple_role");
+    public static final ResourceKey<Registry<NPCMenuType>> NPC_MENU_TYPE = create("npc_menu_type");
     public static final ResourceKey<Registry<RoleCard>> ROLE_CARD = create("role_card");
     public static final ResourceKey<Registry<Skill<?>>> SKILL = create("skill");
     public static final ResourceKey<Registry<NPCLikeInteractionEvent>> NPCLIKE_INTERACTION_EVENT = create("interaction_event");

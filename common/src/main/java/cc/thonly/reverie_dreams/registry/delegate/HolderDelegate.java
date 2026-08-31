@@ -76,7 +76,7 @@ public class HolderDelegate<T> implements Holder<T>, RegistrySupplierImpl<T> {
     }
 
     public ResourceKey<T> getKey() {
-        return ((Holder<T>) this).unwrapKey().orElse(null);
+        return this.holder.unwrapKey().orElse(null);
     }
 
     @Override

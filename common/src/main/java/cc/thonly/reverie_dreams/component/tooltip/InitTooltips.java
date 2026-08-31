@@ -22,10 +22,12 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
+import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
 import dev.architectury.event.Event;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,13 +35,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gamerules.GameRules;
 
 import java.util.*;
 import java.util.function.Consumer;
 
+@SuppressWarnings("resource")
 public class InitTooltips {
     public static final Map<ItemLike, List<String>> ITEM_DESCRIPTION_RENDER_DATA = new Object2ObjectOpenHashMap<>(512);
-
 
     public static void addItem(ItemLike item, String component) {
         List<String> list = ITEM_DESCRIPTION_RENDER_DATA.computeIfAbsent(item, _ -> new ArrayList<>());
@@ -158,14 +162,20 @@ public class InitTooltips {
         if (!(itemStack.getItem() instanceof RoleCardItem roleCardItem)) {
             return;
         }
+        boolean renderDisabled = false;
         Optional<RoleCard> roleCardComponent = roleCardItem.getRoleCardComponent(itemStack);
-        if (roleCardComponent.isEmpty()) {
-            consumer.accept(Component.translatable("item.disabled"));
-            return;
+        if (roleCardComponent.isEmpty() || roleCardComponent.get().isEmpty()) {
+            renderDisabled = true;
         }
-        if (roleCardComponent.get().isEmpty()) {
+        Level level = player.level();
+        if (level instanceof ServerLevel serverLevel) {
+            GameRules gameRules = serverLevel.getGameRules();
+            if (gameRules.get(RDBuiltInGameRules.FREE_CHOICE_OF_ROLE.value())) {
+                renderDisabled = false;
+            }
+        }
+        if (renderDisabled) {
             consumer.accept(Component.translatable("item.disabled"));
-            return;
         }
         consumer.accept(Component.translatable("item.tooltip.use"));
     }

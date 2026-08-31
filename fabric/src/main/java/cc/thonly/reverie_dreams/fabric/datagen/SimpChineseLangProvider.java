@@ -88,6 +88,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("message.reverie_dreams.update", "检测到模组更新，最新版本 %s");
         translationBuilder.add("message.reverie_dreams.no_bottle", "§c你必须使用空瓶子接收");
         translationBuilder.add(RDBuiltInGameRules.DO_GHOST.value().getDescriptionId(), "禁止幽灵生成");
+        translationBuilder.add(RDBuiltInGameRules.FREE_CHOICE_OF_ROLE.value().getDescriptionId(), "自由选择角色");
 
         translationBuilder.add("item_view.information.desc.chest_drop_items", "获取方式：开启宝箱获得");
         translationBuilder.add("item_view.information.desc.grass_drop_items", "获取方式：破坏草获得");
@@ -121,6 +122,11 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("gui.npc.info.xp.button", "§f点击取出");
         translationBuilder.add("gui.npc.info.auto-pick", "§b自动寻路拾取");
         translationBuilder.add("gui.npc.info.favorability", "§6好感度：%s");
+        translationBuilder.add("gui.npc.info.skin", "§e皮肤");
+        translationBuilder.add("gui.npc.page.next", "§b下一页");
+        translationBuilder.add("gui.npc.page.previous", "§c上一页");
+        translationBuilder.add("gui.npc.page.next.disabled", "§0下一页");
+        translationBuilder.add("gui.npc.page.previous.disabled", "§0上一页");
         translationBuilder.add("gui.npc.mode.null", "§b当前模式为: §c序列化错误");
         translationBuilder.add(NPCStates.FOLLOW.translateKey(), "§b当前模式为: §a跟随");
         translationBuilder.add(NPCStates.NORMAL.translateKey(), "§b当前模式为: §a正常");
@@ -2940,6 +2946,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateRoleCardTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
+        translationBuilder.add("item.reverie_dreams.role_card.full", "§r角色卡");
         translationBuilder.add(RoleCards.PROTAGONIST_GROUP.translationKey(), "§c主角组§r角色卡");
         translationBuilder.add(RoleCards.KOUMAKYOU.translationKey(), "§c红魔乡§r角色卡");
         translationBuilder.add(RoleCards.YOUYOUMU.translationKey(), "§5妖妖梦§r角色卡");
@@ -3143,6 +3150,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
 
         translationBuilder.add("dialog.text.empty", "空");
         translationBuilder.add("dialog.text.exit", "退出");
+        translationBuilder.add("dialog.text.other", "其他");
         translationBuilder.add("dialog.text.random", "随机");
         translationBuilder.add("dialog.text.back", "返回");
 

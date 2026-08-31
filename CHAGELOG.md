@@ -1,5 +1,11 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.6.2+26.1.2
+* Added a game rule that controls whether Role Cards can freely summon all characters.
+* Added pagination to the NPC inventory.
+* NPC inventory buttons are now registry-driven.
+* Added a command for converting MIDI files to NBS.
+
 # 0.6.1+26.1.2
 * Fixed missing fishing loot modifications.
 * Fixed item duplication caused by `FastRecipeBook`.

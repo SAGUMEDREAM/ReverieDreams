@@ -27,8 +27,10 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.server.PlayerSettings;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
+import cc.thonly.reverie_dreams.util.nbs.Midi2Nbs;
+import cc.thonly.reverie_dreams.util.test.ModTest;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import cc.thonly.reverie_dreams.util.command.PermissionPredicate;
+import cc.thonly.reverie_dreams.util.command.PermissionPredicates;
 import cc.thonly.reverie_dreams.util.math.ModMth;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
@@ -62,7 +64,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
@@ -71,13 +72,23 @@ import net.minecraft.world.item.component.SeededContainerLoot;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.stream.Stream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Comparator;
+import java.util.Locale;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 @Slf4j
@@ -87,6 +98,34 @@ public class THCommand {
                 for (String name : PlayerSettings.DEFINES.keySet()) {
                     builder.suggest(name);
                 }
+
+                return builder.buildFuture();
+            };
+    public static final SuggestionProvider<CommandSourceStack> midiNameSuggestions =
+            (context, builder) -> {
+                Path dir = Path.of("./config/reverie_dreams/nota");
+
+                if (!Files.exists(dir) || !Files.isDirectory(dir)) {
+                    return builder.buildFuture();
+                }
+
+                try (Stream<Path> files = Files.list(dir)) {
+                    files
+                            .filter(Files::isRegularFile)
+                            .filter(path -> {
+                                String name = path.getFileName().toString().toLowerCase(Locale.ROOT);
+                                return name.endsWith(".mid") || name.endsWith(".midi");
+                            })
+                            .map(path -> path.getFileName().toString())
+                            .filter(name -> name.toLowerCase(Locale.ROOT)
+                                    .startsWith(builder.getRemaining().toLowerCase(Locale.ROOT)))
+                            .sorted(String.CASE_INSENSITIVE_ORDER)
+                            .forEach(builder::suggest);
+
+                } catch (IOException e) {
+                    log.error("Error: ", e);
+                }
+                builder.suggest("*");
 
                 return builder.buildFuture();
             };
@@ -102,37 +141,45 @@ public class THCommand {
 
         var root = Commands.literal("touhou");
         var help = Commands.literal("help")
-                           .executes(this::help);
+                .executes(this::help);
         var get_sc_with_spell_config = Commands.literal("get_spellcard_with_config")
-                                               .requires(PermissionPredicate.isGameMasters())
-                                               .then(
-                                                       BuiltInRegistryProviders.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
-                                               );
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        BuiltInRegistryProviders.getSuggestProvider(this::getItemWithDanmakuConfig, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_config")))
+                );
         var with_food_property = Commands.literal("with_food_property")
-                                         .requires(PermissionPredicate.isGameMasters())
-                                         .then(
-                                                 BuiltInRegistryProviders.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
-                                         );
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        BuiltInRegistryProviders.getSuggestProvider(this::withFoodProperties, ResourceKey.createRegistryKey(ReverieDreams.id("food_property")))
+                );
         var with_beverage_property = Commands.literal("with_beverage_property")
-                                             .requires(PermissionPredicate.isGameMasters())
-                                             .then(
-                                                     BuiltInRegistryProviders.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("beverage_property")))
-                                             );
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        BuiltInRegistryProviders.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("beverage_property")))
+                );
         var cachedAllSkins = Commands.literal("start-cached-skins")
-                                     .requires(PermissionPredicate.isGameMasters())
-                                     .executes(this::cachedAllSkins);
+                .requires(PermissionPredicates.isGameMasters())
+                .executes(this::cachedAllSkins);
+        var parseMidi2Nbt = Commands.literal("parse_nbs_midi")
+                .then(Commands.argument(
+                                "file_name",
+                                StringArgumentType.string()
+                        ).suggests(midiNameSuggestions)
+                        .requires(PermissionPredicates.isGameMasters())
+                        .executes(this::parseMidi2Nbd)
+                );
         var recipe = Commands.literal("recipe")
-                             .executes(this::recipe);
+                .executes(this::recipe);
         var registry = Commands.literal("registry")
-                               .requires(PermissionPredicate.isGameMasters())
-                               .then(
-                                       BuiltInRegistryProviders.getSuggestProvider(this::registry)
-                               );
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        BuiltInRegistryProviders.getSuggestProvider(this::registry)
+                );
         var registry_tag = Commands.literal("registry_tag")
-                                   .requires(PermissionPredicate.isGameMasters())
-                                   .then(
-                                           BuiltInRegistryProviders.getSuggestTagProvider(this::registryTag)
-                                   );
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        BuiltInRegistryProviders.getSuggestTagProvider(this::registryTag)
+                );
 //        var dialog = Commands.literal("dialog")
 //                .then(
 //                        Commands.argument("value", StringArgumentType.string())
@@ -140,109 +187,110 @@ public class THCommand {
 //                                .executes(this::openDialog)
 //                );
         var settings = Commands.literal("settings")
-                               .then(
-                                       Commands.literal("get")
-                                               .then(
-                                                       Commands.argument(
-                                                                       "name",
-                                                                       StringArgumentType.word()
-                                                               )
-                                                               .suggests(settingNameSuggestions)
-                                                               .executes(this::getPlayerSettingValue)
-                                               )
-                               )
-                               .then(
-                                       Commands.literal("set")
-                                               .then(
-                                                       Commands.argument(
-                                                                       "name",
-                                                                       StringArgumentType.word()
-                                                               )
-                                                               .suggests(settingNameSuggestions)
-                                                               .then(
-                                                                       Commands.argument(
-                                                                                       "value",
-                                                                                       StringArgumentType.greedyString()
-                                                                               )
-                                                                               .executes(this::setPlayerSettingValue)
-                                                               )
-                                               )
-                               );
+                .then(
+                        Commands.literal("get")
+                                .then(
+                                        Commands.argument(
+                                                        "name",
+                                                        StringArgumentType.word()
+                                                )
+                                                .suggests(settingNameSuggestions)
+                                                .executes(this::getPlayerSettingValue)
+                                )
+                )
+                .then(
+                        Commands.literal("set")
+                                .then(
+                                        Commands.argument(
+                                                        "name",
+                                                        StringArgumentType.word()
+                                                )
+                                                .suggests(settingNameSuggestions)
+                                                .then(
+                                                        Commands.argument(
+                                                                        "value",
+                                                                        StringArgumentType.greedyString()
+                                                                )
+                                                                .executes(this::setPlayerSettingValue)
+                                                )
+                                )
+                );
         var video = Commands.literal("video")
-                            .requires(PermissionPredicate.isGameMasters())
-                            .then(
-                                    Commands.literal("play")
-                                            .then(
-                                                    Commands.argument("target", EntityArgument.entity())
-                                                            .then(
-                                                                    Commands.argument("file", StringArgumentType.string())
-                                                                            .suggests(new DialogFiles.FilesSuggestionProvider())
-                                                                            .executes(this::playVideo)
-                                                                            .then(
-                                                                                    Commands.argument("sound", IdentifierArgument.id())
-                                                                                            .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
-                                                                                            .executes(this::playVideo)
-                                                                            )
-                                                            )
-                                            )
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        Commands.literal("play")
+                                .then(
+                                        Commands.argument("target", EntityArgument.entity())
+                                                .then(
+                                                        Commands.argument("file", StringArgumentType.string())
+                                                                .suggests(new DialogFiles.FilesSuggestionProvider())
+                                                                .executes(this::playVideo)
+                                                                .then(
+                                                                        Commands.argument("sound", IdentifierArgument.id())
+                                                                                .suggests(SuggestionProviders.cast(SuggestionProviders.AVAILABLE_SOUNDS))
+                                                                                .executes(this::playVideo)
+                                                                )
+                                                )
+                                )
 
-                            )
-                            .then(
-                                    Commands
-                                            .literal("reload")
-                                            .executes(this::reloadVideo)
-                            );
+                )
+                .then(
+                        Commands
+                                .literal("reload")
+                                .executes(this::reloadVideo)
+                );
         var reloadConfig = Commands.literal("reload_config")
-                                   .requires(PermissionPredicate.isGameMasters())
-                                   .executes(this::reloadConfig);
+                .requires(PermissionPredicates.isGameMasters())
+                .executes(this::reloadConfig);
         var loadRootPage = Commands.literal("load_root_guide_page")
-                                   .requires(PermissionPredicate.isGameMasters())
-                                   .then(
-                                           Commands.argument("namespace", StringArgumentType.string())
-                                                   .executes(this::loadRootPage)
-                                   );
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        Commands.argument("namespace", StringArgumentType.string())
+                                .executes(this::loadRootPage)
+                );
         var about = Commands.literal("about")
-                            .executes(this::about);
+                .executes(this::about);
 
         root.executes(this::run);
-        root.then(help);
-        root.then(get_sc_with_spell_config);
-        root.then(with_food_property);
-        root.then(with_beverage_property);
+        root.then(about);
         root.then(cachedAllSkins);
+        root.then(get_sc_with_spell_config);
+        root.then(help);
+        root.then(loadRootPage);
+        root.then(parseMidi2Nbt);
         root.then(recipe);
         root.then(registry);
         root.then(registry_tag);
-//        root.then(dialog);
-        root.then(loadRootPage);
+        root.then(reloadConfig);
         root.then(settings);
         root.then(video);
-        root.then(reloadConfig);
-        root.then(about);
+        root.then(with_beverage_property);
+        root.then(with_food_property);
+        // root.then(dialog);
         if (PlatformContext.isDevMode()) {
             var debugGetChest = Commands.literal("debug_get_loot_with_chest")
-                                        .then(Commands.argument("loot_table", ResourceOrIdArgument.lootTable(CommandBuildContext.simple(registryAccess, FeatureFlagSet.of())))
-                                                      .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                                                      .executes(this::debugFastChestLoot));
+                    .then(Commands.argument("loot_table", ResourceOrIdArgument.lootTable(CommandBuildContext.simple(registryAccess, FeatureFlagSet.of())))
+                            .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                            .executes(this::debugFastChestLoot));
             root.then(debugGetChest);
             var debugGetRecipeWithBlock = Commands.literal("debug_get_recipe_with_block")
-                                                  .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
+                    .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
             for (Map.Entry<String, RecipeWorkbench<?>> mapEntry : RecipeWorkbenchRegistry.entries()) {
                 String key = mapEntry.getKey();
                 RecipeWorkbench<?> entry = mapEntry.getValue();
                 debugGetRecipeWithBlock.then(
                         Commands.literal(key).then(Commands.argument("recipe_id", IdentifierArgument.id())
-                                                           .suggests(RecipeManager.getSuggestions(entry.getRecipeType()))
-                                                           .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                                                           .executes((context) -> this.debugFastRecipeBlock(entry, context))
+                                .suggests(RecipeManager.getSuggestions(entry.getRecipeType()))
+                                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                                .executes((context) -> this.debugFastRecipeBlock(entry, context))
                         )
                 );
             }
             root.then(debugGetRecipeWithBlock);
             var debugResetItemCd = Commands.literal("debug_reset_item_using_time")
-                                           .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
+                    .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
             var debug_generate_craft_engine = Commands.literal("debug_generate_craft_engine")
-                                                      .executes(this::generateCraftEngineConfig);
+                    .executes(this::generateCraftEngineConfig);
             root.then(debug_generate_craft_engine);
             debugResetItemCd.executes(this::resetItemCd);
             root.then(debugResetItemCd);
@@ -264,13 +312,266 @@ public class THCommand {
 
         ServerPlayer player = source.getPlayer();
         if (player != null) {
-            Collection<MobEffectInstance> activeEffects = player.getActiveEffects();
-            for (MobEffectInstance activeEffect : activeEffects) {
-                
-            }
+            ModTest.ByCommand.onTest(player);
         }
 
         return 1;
+    }
+
+    private int parseMidi2Nbd(CommandContext<CommandSourceStack> context) {
+        String fileName = StringArgumentType.getString(context, "file_name");
+        CommandSourceStack source = context.getSource();
+
+        Path basePath = Path.of("./config/reverie_dreams/nota");
+
+        try {
+            Files.createDirectories(basePath);
+
+            // *
+            if ("*".equals(fileName)) {
+                int total = 0;
+                int success = 0;
+                int skipped = 0;
+                int failed = 0;
+
+                try (var stream = Files.list(basePath)) {
+                    for (Path inputPath : stream
+                            .filter(Files::isRegularFile)
+                            .filter(path -> {
+                                String name = path.getFileName()
+                                        .toString()
+                                        .toLowerCase(Locale.ROOT);
+                                return name.endsWith(".mid") || name.endsWith(".midi");
+                            })
+                            .sorted(Comparator.comparing(
+                                    path -> path.getFileName().toString(),
+                                    String.CASE_INSENSITIVE_ORDER
+                            ))
+                            .toList()) {
+
+                        total++;
+
+                        String inputName = inputPath.getFileName().toString();
+                        String lowerName = inputName.toLowerCase(Locale.ROOT);
+
+                        String outputFileName;
+                        if (lowerName.endsWith(".mid")) {
+                            outputFileName =
+                                    inputName.substring(0, inputName.length() - 4) + ".nbs";
+                        } else {
+                            outputFileName =
+                                    inputName.substring(0, inputName.length() - 5) + ".nbs";
+                        }
+
+                        Path outputPath = basePath.resolve(outputFileName);
+
+                        // 已经存在 NBS
+                        if (Files.exists(outputPath)) {
+                            skipped++;
+                            source.sendSystemMessage(
+                                    Component.literal(
+                                            "Skip: %s (NBS already exists)"
+                                                    .formatted(inputName)
+                                    )
+                            );
+                            continue;
+                        }
+
+                        // 检查文件是否被占用
+                        try (FileChannel channel = FileChannel.open(
+                                inputPath,
+                                StandardOpenOption.READ,
+                                StandardOpenOption.WRITE
+                        )) {
+                            try (FileLock lock = channel.tryLock()) {
+                                if (lock == null) {
+                                    skipped++;
+                                    source.sendSystemMessage(
+                                            Component.literal(
+                                                    "Skip: %s (file is in use)"
+                                                            .formatted(inputName)
+                                            )
+                                    );
+                                    continue;
+                                }
+
+                                try {
+                                    Midi2Nbs.midi2nbs(
+                                            inputPath,
+                                            outputPath,
+                                            new Midi2Nbs.Options()
+                                    );
+
+                                    success++;
+
+                                    source.sendSystemMessage(
+                                            Component.literal(
+                                                    "Success: %s -> %s"
+                                                            .formatted(
+                                                                    inputName,
+                                                                    outputFileName
+                                                            )
+                                            )
+                                    );
+                                } catch (Exception e) {
+                                    failed++;
+                                    log.error("Error parsing MIDI {}", inputPath, e);
+
+                                    source.sendFailure(
+                                            Component.literal(
+                                                    "Failure parse: %s"
+                                                            .formatted(inputName)
+                                            )
+                                    );
+                                }
+                            }
+                        } catch (OverlappingFileLockException e) {
+                            skipped++;
+                            source.sendSystemMessage(
+                                    Component.literal(
+                                            "Skip: %s (file is in use)"
+                                                    .formatted(inputName)
+                                    )
+                            );
+                        } catch (IOException e) {
+                            skipped++;
+                            log.error("Unable to access MIDI {}", inputPath, e);
+
+                            source.sendFailure(
+                                    Component.literal(
+                                            "Cannot access: %s"
+                                                    .formatted(inputName)
+                                    )
+                            );
+                        }
+                    }
+                }
+
+                source.sendSystemMessage(
+                        Component.literal(
+                                "MIDI conversion finished: total=%d, success=%d, skipped=%d, failed=%d"
+                                        .formatted(
+                                                total,
+                                                success,
+                                                skipped,
+                                                failed
+                                        )
+                        )
+                );
+
+                return success > 0 ? 1 : 0;
+            }
+
+            // 单个文件
+            Path inputPath = basePath.resolve(fileName).normalize();
+
+            if (!Files.isRegularFile(inputPath)) {
+                source.sendFailure(
+                        Component.literal(
+                                "MIDI file not found: %s".formatted(fileName)
+                        )
+                );
+                return 0;
+            }
+
+            String lowerName = fileName.toLowerCase(Locale.ROOT);
+
+            if (!lowerName.endsWith(".mid") && !lowerName.endsWith(".midi")) {
+                source.sendFailure(
+                        Component.literal(
+                                "Not a MIDI file: %s".formatted(fileName)
+                        )
+                );
+                return 0;
+            }
+
+            String outputFileName;
+
+            if (lowerName.endsWith(".mid")) {
+                outputFileName =
+                        fileName.substring(0, fileName.length() - 4) + ".nbs";
+            } else {
+                outputFileName =
+                        fileName.substring(0, fileName.length() - 5) + ".nbs";
+            }
+
+            Path outputPath = basePath.resolve(outputFileName);
+
+            // 对应 NBS 已经存在
+            if (Files.exists(outputPath)) {
+                source.sendSystemMessage(
+                        Component.literal(
+                                "Skip: %s already exists"
+                                        .formatted(outputFileName)
+                        )
+                );
+                return 1;
+            }
+
+            // 检查 MIDI 是否被占用
+            try (FileChannel channel = FileChannel.open(
+                    inputPath,
+                    StandardOpenOption.READ,
+                    StandardOpenOption.WRITE
+            )) {
+                try (FileLock lock = channel.tryLock()) {
+                    if (lock == null) {
+                        source.sendFailure(
+                                Component.literal(
+                                        "MIDI file is in use: %s"
+                                                .formatted(fileName)
+                                )
+                        );
+                        return 0;
+                    }
+
+                    try {
+                        Midi2Nbs.midi2nbs(
+                                inputPath,
+                                outputPath,
+                                new Midi2Nbs.Options()
+                        );
+
+                        source.sendSystemMessage(
+                                Component.literal(
+                                        "Success save to %s"
+                                                .formatted(outputPath)
+                                )
+                        );
+                    } catch (Exception e) {
+                        log.error("Error parsing MIDI {}", inputPath, e);
+
+                        source.sendFailure(
+                                Component.literal("Failure parse")
+                        );
+
+                        return 0;
+                    }
+                }
+            } catch (OverlappingFileLockException e) {
+                source.sendFailure(
+                        Component.literal(
+                                "MIDI file is in use: %s"
+                                        .formatted(fileName)
+                        )
+                );
+                return 0;
+            } catch (IOException e) {
+                log.error("Unable to access MIDI {}", inputPath, e);
+
+                source.sendFailure(
+                        Component.literal(
+                                "Cannot access MIDI file"
+                        )
+                );
+                return 0;
+            }
+
+            return 1;
+        } catch (Exception e) {
+            log.error("Error: ", e);
+        }
+        return 0;
     }
 
     private int setPlayerSettingValue(CommandContext<CommandSourceStack> context) {
@@ -554,9 +855,9 @@ public class THCommand {
 
         Object value = registry.getValue(id);
         MutableComponent msg = Component.literal("")
-                                        .append(Component.literal("=== ").withStyle(ChatFormatting.GOLD))
-                                        .append(Component.literal(ResourceKey.create(registryKey, id).toString()).withStyle(ChatFormatting.YELLOW))
-                                        .append(Component.literal(" ===\n").withStyle(ChatFormatting.GOLD));
+                .append(Component.literal("=== ").withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(ResourceKey.create(registryKey, id).toString()).withStyle(ChatFormatting.YELLOW))
+                .append(Component.literal(" ===\n").withStyle(ChatFormatting.GOLD));
 
         if (value == null) {
             msg.append(Component.literal("No entry found for this ID.").withStyle(ChatFormatting.RED));
@@ -566,12 +867,12 @@ public class THCommand {
 
         if (value instanceof RegistryEntryTranslatable translatable) {
             msg.append(Component.literal("Translation: ").withStyle(ChatFormatting.GRAY))
-               .append(Component.translatable(translatable.translateKey()).withStyle(ChatFormatting.WHITE))
-               .append(Component.literal("\n"));
+                    .append(Component.translatable(translatable.translateKey()).withStyle(ChatFormatting.WHITE))
+                    .append(Component.literal("\n"));
         }
 
         msg.append(Component.literal("Object: ").withStyle(ChatFormatting.GRAY))
-           .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
+                .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
 
         source.sendSystemMessage(msg);
         return 1;

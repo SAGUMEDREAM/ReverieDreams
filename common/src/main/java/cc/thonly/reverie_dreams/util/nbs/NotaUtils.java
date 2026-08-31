@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.util;
+package cc.thonly.reverie_dreams.util.nbs;
 
 import cc.thonly.reverie_dreams.block.props.MusicBlock;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;

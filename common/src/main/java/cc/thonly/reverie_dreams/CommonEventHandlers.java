@@ -16,7 +16,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.tag.RDDamageTypeTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
-import cc.thonly.reverie_dreams.util.NotaUtils;
+import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.entity.EntityHelper;

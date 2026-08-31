@@ -5,7 +5,7 @@ import net.minecraft.server.permissions.Permissions;
 
 import java.util.function.Predicate;
 
-public interface PermissionPredicate {
+public interface PermissionPredicates {
 
     static Predicate<CommandSourceStack> all() {
         return ctx -> true;

@@ -21,6 +21,16 @@ public class RDBuiltInGameRules {
             true,
             FeatureFlagSet.of())
     );
+    public static final Holder<GameRule<Boolean>> FREE_CHOICE_OF_ROLE = MCBuiltInRegistries.GAME_RULE.register("free_choice_of_role", () -> new GameRule<>(
+            GameRuleCategory.MISC,
+            GameRuleType.BOOL,
+            BoolArgumentType.bool(),
+            GameRuleTypeVisitor::visitBoolean,
+            Codec.BOOL,
+            value -> value ? 1 : 0,
+            true,
+            FeatureFlagSet.of())
+    );
 
     public static void initialize() {
     }

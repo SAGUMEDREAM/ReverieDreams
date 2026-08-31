@@ -117,6 +117,11 @@ public class BuiltInRegistryProviders {
             BuiltInRegistryProviders.<NPCSimpleRoleType>ofEntry(BuiltInRegistryProviderKeys.NPC_SIMPLE_ROLE)
                     .codec(NPCSimpleRoleType.BY_REGISTRY_CODEC);
 
+    public static final RegistryProvider<NPCMenuType> NPC_MENU_TYPE =
+            BuiltInRegistryProviders.ofEntry(BuiltInRegistryProviderKeys.NPC_MENU_TYPE)
+                    .codec(NPCMenuType.BY_REGISTRY_CODEC)
+                    .builder(NPCMenuTypes::bootstrap);
+
     public static final RegistryProvider<RoleCard> ROLE_CARD =
             BuiltInRegistryProviders.<RoleCard>ofEntry(BuiltInRegistryProviderKeys.ROLE_CARD)
                     .codec(RoleCard.CODEC)

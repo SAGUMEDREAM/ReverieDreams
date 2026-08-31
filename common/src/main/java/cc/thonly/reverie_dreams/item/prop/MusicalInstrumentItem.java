@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
-import cc.thonly.reverie_dreams.util.NotaUtils;
+import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import com.mojang.serialization.Codec;

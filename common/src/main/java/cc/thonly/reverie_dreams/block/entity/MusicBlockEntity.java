@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.block.entity;
 
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
-import cc.thonly.reverie_dreams.util.NotaUtils;
+import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
