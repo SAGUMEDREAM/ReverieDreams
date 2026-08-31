@@ -1,9 +1,10 @@
 package cc.thonly.reverie_dreams.item.debug;
 
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -25,23 +26,24 @@ public class BattleStickItem extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
         Level world = user.level();
         if (world.isClientSide()) return InteractionResult.SUCCESS;
+        if (!(user instanceof ServerPlayer serverPlayer)) return InteractionResult.SUCCESS;
 
-        BattleStickRecorder recorder = stack.getOrDefault(RDDataComponents.BATTLE_STICK_RECORDER.value(), new BattleStickRecorder("", ""));
+        BattleStickRecorder recorder = stack.getOrDefault(RDDataComponentTypes.BATTLE_STICK_RECORDER.value(), new BattleStickRecorder("", ""));
 
         String uuid = entity.getUUID().toString();
         if (recorder.getTarget_0().isEmpty()) {
             recorder.setTarget_0(uuid);
-            user.displayClientMessage(Component.literal("已记录第一个目标：" + entity.getName().getString()), false);
+            serverPlayer.sendSystemMessage(Component.literal("已记录第一个目标：" + entity.getName().getString()), false);
         } else if (recorder.getTarget_1().isEmpty()) {
             recorder.setTarget_1(uuid);
-            user.displayClientMessage(Component.literal("已记录第二个目标：" + entity.getName().getString()), false);
+            serverPlayer.sendSystemMessage(Component.literal("已记录第二个目标：" + entity.getName().getString()), false);
             this.apply(recorder.getTarget_0(), recorder.getTarget_1(), (ServerLevel) world);
 
             recorder.setTarget_0("");
             recorder.setTarget_1("");
         }
 
-        stack.set(RDDataComponents.BATTLE_STICK_RECORDER.value(), recorder);
+        stack.set(RDDataComponentTypes.BATTLE_STICK_RECORDER.value(), recorder);
         user.swing(hand);
         return InteractionResult.SUCCESS_SERVER;
     }

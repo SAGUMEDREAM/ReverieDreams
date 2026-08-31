@@ -3,8 +3,7 @@ package cc.thonly.reverie_dreams.item.weapon;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import net.blay09.mods.balm.platform.event.callback.ServerTickCallback;
-import net.minecraft.server.MinecraftServer;
+import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,24 +42,22 @@ public class YukaFlowerUmbrella extends SwordItem {
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.BLOCK;
+        return ItemUseAnimation.SPEAR;
     }
 
     static {
-        ServerTickCallback.AFTER.register(server -> {
-            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-                if (player.isUsingItem()) {
-                    ItemStack using = player.getUseItem();
-                    if (using.getItem() instanceof YukaFlowerUmbrella) {
-                        Entity vehicle = player.getVehicle();
-                        //noinspection ConditionCoveredByFurtherCondition
-                        if (vehicle != null && vehicle instanceof LivingEntity livingVehicle) {
-                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
-                            livingVehicle.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
-                        }
-                        player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
-                        player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
+        TickEvent.PLAYER_POST.register(player -> {
+            if (player.isUsingItem()) {
+                ItemStack using = player.getUseItem();
+                if (using.getItem() instanceof YukaFlowerUmbrella) {
+                    Entity vehicle = player.getVehicle();
+                    //noinspection ConditionCoveredByFurtherCondition
+                    if (vehicle != null && vehicle instanceof LivingEntity livingVehicle) {
+                        livingVehicle.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
+                        livingVehicle.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
                     }
+                    player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
+                    player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
                 }
             }
         });

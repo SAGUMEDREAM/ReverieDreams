@@ -1,22 +1,24 @@
 package cc.thonly.reverie_dreams.entity;
 
+import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
+import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
+import cc.thonly.reverie_dreams.api.entity.type.VariantData;
+import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
-import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
-import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
-import cc.thonly.reverie_dreams.entity.interfaces.VariantData;
-import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.KeepInventoryTypes;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
 import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDEntityHolderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import cc.thonly.reverie_dreams.util.entity.EntityHelper;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.resources.Identifier;
@@ -44,7 +46,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
-public class MaidYousei extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, Yousei {
+public class MaidYousei extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, YouseiType {
     private YouseiVariant variant = null;
 
     public MaidYousei(EntityType<? extends TamableAnimal> entityType, Level world) {
@@ -52,12 +54,12 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
                 world,
                 (
                         YouseiVariants.isEmpty()
-                                ? (YouseiVariants.REGISTRY.getAny().isPresent() ? YouseiVariants.REGISTRY.getAny().get().value().getSkinType() : YouseiVariants.BLUE.getSkinType())
+                                ? (BuiltInRegistryProviders.YOUSEI_VARIANT.getAny().isPresent() ? BuiltInRegistryProviders.YOUSEI_VARIANT.getAny().get().value().getSkinType() : YouseiVariants.BLUE.getSkinType())
                                 : Objects.requireNonNull(YouseiVariants.random()).getSkinType()
                 )
         );
         this.xpReward = 5;
-        this.variant = YouseiVariants.getFromProperty(this.getSkin());
+        this.variant = YouseiVariants.getFromSkinType(this.getSkinType());
         NPCInventoryImpl inventory = this.getInventory();
         inventory.setHead(new ItemStack(RDItems.MAID_HAIRBAND.asItem()));
         inventory.setChest(new ItemStack(RDItems.MAID_UPPER_SKIRT.asItem()));
@@ -75,24 +77,25 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
             final float[] pitchYaw = DanmakuShooter.getPitchYaw(self, target);
             for (Float v : List.of(0.3f, 0.5f, 0.7f)) {
                 DelayedTask.repeat(server, 2, v, () -> {
-                    ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI);
+                    ItemStack stack = DanmakuTypes.random(DanmakuTypes.KUNAI).create();
                     DanmakuShooter.StackModifier modifier = origin -> {
-                        ItemStack stack0 = DanmakuTypes.random(DanmakuTypes.KUNAI);
-                        DanmakuProperties properties = stack0.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                        ItemStack stack0 = DanmakuTypes.random(DanmakuTypes.KUNAI).create();
+                        DanmakuProperties properties = stack0.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                         if (properties != null) {
-                            origin.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.withSpeed(2.2f));
+                            origin.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.withSpeed(2.2f));
                         }
                         return origin;
                     };
+                    DanmakuShooter.soundDefault(this);
                     DanmakuShooter.spawn(world, self, stack, pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f, modifier);
                 });
             }
 
             DelayedTask.repeat(server, 1, 1f, () -> {
                 ItemStack knifeStack = new ItemStack(RDEntityHolderItems.KNIFE_DISPLAY.asItem());
-                DanmakuProperties properties = knifeStack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                DanmakuProperties properties = knifeStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                 if (properties != null) {
-                    knifeStack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.withSpeed(1.2f));
+                    knifeStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.withSpeed(1.2f));
                 }
                 DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1] - 15.0f, 0.5f, 5.0f, 0.2f);
                 DanmakuShooter.spawn(world, self, knifeStack.copy(), pitchYaw[0], pitchYaw[1], 0.5f, 5.0f, 0.2f);
@@ -112,6 +115,8 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
 
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+
+        EntityHelper.registerHostilityAllRabbit(this, this.targetSelector);
     }
 
     @Override
@@ -131,10 +136,10 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
 
     @Override
     public void readAdditionalSaveData(ValueInput view) {
-        super.readAdditionalSaveData(view);
         String youseiVariantId = view.getStringOr("YouseiVariant", YouseiVariants.DEFAULT_ID.toString());
         Identifier variantId = Identifier.parse(youseiVariantId);
-        this.variant = RegistryImpls.YOUSEI_VARIANT.getValue(variantId);
+        this.variant = BuiltInRegistryProviders.YOUSEI_VARIANT.getValue(variantId);
+        super.readAdditionalSaveData(view);
     }
 
     @Override
@@ -160,7 +165,7 @@ public class MaidYousei extends BaseNPCLikeEntity implements Leashable, Friendly
 
     @Override
     public void setVariantData(Identifier id) {
-        this.variant = RegistryImpls.YOUSEI_VARIANT.getValue(id);
+        this.variant = BuiltInRegistryProviders.YOUSEI_VARIANT.getValue(id);
         if (this.variant != null) {
             this.setSkinType(this.variant.getSkinType());
         }

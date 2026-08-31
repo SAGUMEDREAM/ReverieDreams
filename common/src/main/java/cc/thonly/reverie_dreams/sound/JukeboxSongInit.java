@@ -1,9 +1,6 @@
 package cc.thonly.reverie_dreams.sound;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import net.blay09.mods.balm.core.BalmRegistrars;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.JukeboxSong;
@@ -11,6 +8,7 @@ import net.minecraft.world.item.JukeboxSong;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("SameParameterValue")
 public class JukeboxSongInit {
     public static final List<JukeBoxEntry> ENTRIES = new LinkedList<>();
     public static final JukeBoxEntry HR01_01 = createJukeBoxEntry("records/hr01_01", 233, 6);

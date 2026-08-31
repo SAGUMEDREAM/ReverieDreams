@@ -1,19 +1,18 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
+import cc.thonly.reverie_dreams.api.dialog.DialogAPI;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.ServerTickRateManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.level.Level;
+
+import java.util.Optional;
 
 @SuppressWarnings("resource")
 public class BadAppleItem extends Item {
@@ -26,14 +25,15 @@ public class BadAppleItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
         if (!world.isClientSide() && user instanceof ServerPlayer serverPlayer) {
-            ServerLevel level = serverPlayer.level();
-            ResourceKey<SoundEvent> soundEventReference = JukeboxSongInit.BAD_APPLE.getSoundEventReference();
-            if (soundEventReference != null) {
-                RegistryAccess registryAccess = level.registryAccess();
-                Registry<SoundEvent> soundEvents = registryAccess.lookupOrThrow(Registries.SOUND_EVENT);
-                DialogPlayer.play(serverPlayer, FILE_NAME, soundEvents.getValue(soundEventReference));
+            MinecraftServer server = world.getServer();
+            assert server != null;
+            ServerTickRateManager serverTickRateManager = server.tickRateManager();
+            serverTickRateManager.setFrozen(false);
+            ResourceKey<SoundEvent> key = JukeboxSongInit.BAD_APPLE.getSoundEventKey();
+            if (key != null) {
+                DialogAPI.play(serverPlayer, FILE_NAME, new SoundEvent(key.identifier(), Optional.empty()));
             } else {
-                DialogPlayer.play(serverPlayer, FILE_NAME, null);
+                DialogAPI.play(serverPlayer, FILE_NAME, null);
             }
         }
         return super.finishUsingItem(stack, world, user);

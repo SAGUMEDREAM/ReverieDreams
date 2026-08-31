@@ -1,18 +1,20 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.api.item.ItemAttackHitCallback;
-import cc.thonly.reverie_dreams.data.DrinkProperty;
+import cc.thonly.reverie_dreams.CommonEventHandlers;
+import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
+import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.inf.IPlayerEntity;
-import cc.thonly.reverie_dreams.registry.content.DrinkProperties;
+import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
+import cc.thonly.reverie_dreams.util.entity.EntityHelper;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.base.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -46,6 +48,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -53,13 +56,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Mixin(Item.class)
 public abstract class ItemMixin implements FeatureElement, ItemLike {
 
     @Shadow
     public abstract InteractionResult use(Level level, Player player, InteractionHand hand);
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    public void reverie_dreams$onInit(Item.Properties properties, CallbackInfo ci) {
+
+    }
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
     public void reverie_dreams$finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
@@ -80,32 +87,11 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
     }
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
-    public void reverie_dreams$finishEatFood(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+    public void reverie_dreams$finishEatFood(ItemStack itemStack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir) {
         if (level.isClientSide()) {
             return;
         }
-        if (!(livingEntity instanceof ServerPlayer serverPlayer)) {
-            return;
-        }
-        FoodProperties.get(itemStack);
-        if (itemStack.has(RDDataComponents.FOOD_PROPERTIES.value()) && (itemStack.has(RDDataComponents.FOOD_ITEM_TYPE.value())) || itemStack.has(DataComponents.FOOD)) {
-            Collection<FoodProperty> foodProperties = FoodProperties.get(itemStack);
-            foodProperties.forEach(property -> {
-                property.use((ServerLevel) level, serverPlayer);
-            });
-            int size = foodProperties.size();
-            FoodData foodData = serverPlayer.getFoodData();
-            foodData.eat(new net.minecraft.world.food.FoodProperties(size, size * 1.5f, false));
-            SimpleTriggerFactory.create(SimpleTriggerKeys.EAT_FOOD).trigger(serverPlayer);
-        }
-        DrinkProperties.get(itemStack);
-        if (itemStack.has(RDDataComponents.DRINK_PROPERTIES.value()) && (itemStack.has(RDDataComponents.DRINK_ITEM_TYPE.value()) || itemStack.has(DataComponents.FOOD))) {
-            List<DrinkProperty> drinkProperties = DrinkProperties.get(itemStack);
-            drinkProperties.forEach(property -> {
-                property.use((ServerLevel) level, serverPlayer);
-            });
-            SimpleTriggerFactory.create(SimpleTriggerKeys.HAVING_DRINK).trigger(serverPlayer);
-        }
+        CommonEventHandlers.onFinishUseItem(itemStack, level, entity, cir);
     }
 
     @Inject(method = "use", at = @At("RETURN"))
@@ -116,18 +102,14 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
         }
     }
 
-    @Inject(method = "hurtEnemy", at = @At("TAIL"))
-    public void reverie_dreams$postHitCallback(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfo ci) {
-        ItemAttackHitCallback.EVENT.invoker().postHit(stack, target, attacker);
-    }
-
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     public void reverie_dreams$inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
-        if (entity instanceof IPlayerEntity iPlayerEntity) {
+        if (entity instanceof PlayerEntityDataModifier playerEntityDataModifier) {
             if (itemStack.is(RDItemTags.SILVER_ITEM)) {
-                iPlayerEntity.reverie_dreams$setNonSleepingTime(0);
+                playerEntityDataModifier.reverie_dreams$setNonSleepingTime(0);
             }
         }
+        ItemUtils.updateItemStackTag(itemStack);
     }
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)

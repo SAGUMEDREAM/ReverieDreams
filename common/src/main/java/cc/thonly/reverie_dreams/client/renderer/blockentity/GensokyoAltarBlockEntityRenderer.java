@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.client.renderer.blockentity;
 
-import cc.thonly.reverie_dreams.block.GensokyoAltarBlock;
+import cc.thonly.reverie_dreams.block.props.GensokyoAltarBlock;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
 import cc.thonly.reverie_dreams.client.renderer.blockentity.state.GensokyoAltarBlockEntityRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemDisplayContext;

@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.api.item.ItemStackTooltipCallback;
+import cc.thonly.reverie_dreams.api.item.IItemStack;
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
-import cc.thonly.reverie_dreams.inf.IItemStack;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentHolder;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -21,8 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -31,27 +29,126 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.function.Consumer;
+import java.util.HashMap;
+import java.util.Map;
 
+@SuppressWarnings("unchecked")
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin<T> implements IItemStack,
-        DataComponentHolder{
+        DataComponentHolder {
     @Shadow
     public abstract Item getItem();
 
     @Shadow
     public abstract boolean isEmpty();
 
-    @Shadow public abstract void consume(int amount, @Nullable LivingEntity entity);
+    @Shadow
+    public abstract void consume(int amount, @Nullable LivingEntity entity);
 
-    @Shadow public abstract DataComponentMap getComponents();
+    @Shadow
+    public abstract DataComponentMap getComponents();
 
-    @Shadow @Final public PatchedDataComponentMap components;
+    @Shadow
+    @Final
+    public PatchedDataComponentMap components;
 
-    @Shadow @Final @Deprecated private @Nullable Item item;
+    @Shadow
+    @Final
+    @Deprecated
+    private @Nullable Holder<Item> item;
+
+    @Unique
+    private volatile Map<String, Integer> reverie_dreams$keys = new HashMap<>();
+
+    @Unique
+    private volatile Object[] reverie_dreams$values = new Object[0];
+
+
+    @Unique
+    private synchronized void reverie_dreams$updateNonPersistentAdditionalDataKey(String name) {
+        if (!this.reverie_dreams$keys.containsKey(name)) {
+            int index = this.reverie_dreams$keys.size();
+
+            this.reverie_dreams$keys.put(name, index);
+
+            this.reverie_dreams$resizeNonPersistentAdditionalDataKey();
+        }
+    }
+
+
+    @Unique
+    private synchronized void reverie_dreams$resizeNonPersistentAdditionalDataKey() {
+        int size = this.reverie_dreams$keys.size();
+
+        if (this.reverie_dreams$values.length < size) {
+            Object[] newValues = new Object[size];
+
+            System.arraycopy(
+                    this.reverie_dreams$values,
+                    0,
+                    newValues,
+                    0,
+                    this.reverie_dreams$values.length
+            );
+
+            this.reverie_dreams$values = newValues;
+        }
+    }
+
+
+    @Unique
+    @Override
+    @SuppressWarnings("unchecked")
+    public synchronized <Type> @Nullable Type reverie_dreams$getNonPersistentAdditionalData(String name) {
+        Integer idx = this.reverie_dreams$keys.get(name);
+
+        if (idx == null) {
+            return null;
+        }
+
+        if (idx >= this.reverie_dreams$values.length) {
+            return null;
+        }
+
+        return (Type) this.reverie_dreams$values[idx];
+    }
+
+
+    @Unique
+    @Override
+    public synchronized <Type> @Nullable Type reverie_dreams$getNonPersistentAdditionalData(
+            String name,
+            Class<Type> type
+    ) {
+        Object value = this.reverie_dreams$getNonPersistentAdditionalData(name);
+
+        if (value == null) {
+            return null;
+        }
+
+        if (!type.isInstance(value)) {
+            return null;
+        }
+
+        return type.cast(value);
+    }
+
+
+    @Unique
+    @Override
+    public synchronized <Type> void reverie_dreams$setNonPersistentAdditionalData(
+            String name,
+            Type data
+    ) {
+
+        this.reverie_dreams$updateNonPersistentAdditionalDataKey(name);
+
+        Integer idx = this.reverie_dreams$keys.get(name);
+
+        this.reverie_dreams$values[idx] = data;
+    }
 
     @Inject(method = "interactLivingEntity", at = @At("HEAD"), cancellable = true)
     public void useOnVillager(Player user, LivingEntity entity, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
@@ -80,21 +177,15 @@ public abstract class ItemStackMixin<T> implements IItemStack,
         }
     }
 
-    @Inject(method = "addDetailsToTooltip", at= @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getItem()Lnet/minecraft/world/item/Item;", ordinal = 0))
-    public void appendTooltipCallback(Item.TooltipContext context, TooltipDisplay displayComponent, Player player, TooltipFlag type, Consumer<Component> textConsumer, CallbackInfo ci) {
-        ItemStack itemStack = (ItemStack) (Object) this;
-        ItemStackTooltipCallback.EVENT.invoker().appendTooltip(itemStack, context, displayComponent, player, textConsumer, type);
-    }
-
     @Unique
     @Override
     public boolean reverie_dreams$isFood() {
-        return this.components.has(DataComponents.FOOD) || this.components.has(RDDataComponents.FOOD_ITEM_TYPE.value());
+        return this.components.has(DataComponents.FOOD) || this.components.has(RDDataComponentTypes.FOOD_ITEM_TYPE.value());
     }
 
     @Unique
     @Override
-    public boolean reverie_dreams$isDrink() {
-        return this.components.has(RDDataComponents.DRINK_ITEM_TYPE.value());
+    public boolean reverie_dreams$isBeverage() {
+        return this.components.has(RDDataComponentTypes.DRINK_ITEM_TYPE.value());
     }
 }

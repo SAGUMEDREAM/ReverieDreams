@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
@@ -22,13 +22,13 @@ public interface ItemGroupContentHelper {
         return new CreativeModeTab.Builder(CreativeModeTab.Row.BOTTOM, -1);
     }
 
-    static Holder<CreativeModeTab> registerGroup(BalmCreativeModeTabRegistrar registrar, ResourceKey<CreativeModeTab> key, Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction) {
+    static Holder<CreativeModeTab> registerGroup(ResourceKey<CreativeModeTab> key, Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction) {
         if (!PlatformContext.hasPolymer()) {
-            Holder<CreativeModeTab> holder = registrar.register(key.identifier().getPath(), builderFunction).asHolder();
+            RegistrySupplier<CreativeModeTab> holder = MCBuiltInRegistries.CREATIVE_MODE_TAB.register(key.identifier().getPath(), () -> builderFunction.apply(builder()).build());
             REGISTRIES.put(key, builderFunction);
             return holder;
         } else {
-            CreativeModeTab.Builder builder = builderFunction.apply(registrar.createBuilder());
+            CreativeModeTab.Builder builder = builderFunction.apply(builder());
             REGISTRIES.put(key, builderFunction);
             FABRIC_LATE_INIT.add(new Tuple<>(key, builderFunction));
             return Holder.direct(builderFunction.apply(builder).build());

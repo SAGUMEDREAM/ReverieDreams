@@ -1,20 +1,25 @@
 package cc.thonly.reverie_dreams.gui;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.recipe.GuiOpeningPrevCallback;
 import cc.thonly.reverie_dreams.gui.recipe.GuiStackBuilder;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeGuiInfo;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeInfo;
-import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import eu.pb4.sgui.api.gui.SlotBasedGui;
 import lombok.Getter;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
@@ -33,15 +38,15 @@ public class BasePageGui extends SimpleGui {
             {"P", "W", "W", "W", "B", "W", "W", "W", "N"},
     };
     public static final int PER_PAGE_SIZE = 5 * 9;
-    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiItems.BACK.createStack()).setItemName(Component.nullToEmpty("Back")).setCallback(this::back);
-    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiItems.NEXT.createStack()).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
-    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiItems.PREV.createStack()).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
+    public final GuiElementBuilder back = new GuiElementBuilder(RDGuiPlaceholderItems.CLOSE.value()).setCallback(this::back);
+    public final GuiElementBuilder next = new GuiElementBuilder(RDGuiPlaceholderItems.NEXT.value()).setCallback(this::next);
+    public final GuiElementBuilder prev = new GuiElementBuilder(RDGuiPlaceholderItems.PREV.value()).setCallback(this::prev);
     public int page = 0;
     public final int maxSize;
     public final List<GuiElementBuilder> displayList = new LinkedList<>();
     public final RecipeTypeGuiInfo<? extends BasePageGui> recipeGuiInfo;
     public final RecipeTypeInfo recipeTypeInfo;
-    public final List<RecipeEntryWrapper<?>> entries;
+    public final List<RecipeKeyEntry<?>> entries;
     public boolean updated = true;
     public GuiOpeningPrevCallback prevGuiCallback;
 
@@ -52,17 +57,23 @@ public class BasePageGui extends SimpleGui {
         this.entries = new LinkedList<>();
         Map<Identifier, ?> registryView = this.recipeTypeInfo.getRecipeType().getRegistryView();
         for (Map.Entry<Identifier, ?> entry : registryView.entrySet()) {
-            this.entries.add(new RecipeEntryWrapper<>(entry.getKey(), entry.getValue()));
+            this.entries.add(new RecipeKeyEntry<>(entry.getKey(), entry.getValue()));
         }
         this.maxSize = this.entries.size();
         this.prevGuiCallback = prevGuiCallback;
         this.init();
-        this.setTitle(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")));
-
     }
 
     public void init() {
-        this.setTitle(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")));
+        this.setTitle(
+                Component.empty()
+                         .append(Component.translatable("space.-8"))
+                         .append(Component.literal("\ub007")
+                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                         .append(Component.translatable("space.-168"))
+                         .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
+        );
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
                 String c = GRID[row][col];
@@ -82,44 +93,41 @@ public class BasePageGui extends SimpleGui {
                 if (c.equalsIgnoreCase("P")) {
                     this.setSlot(slot, this.prev);
                 }
-                if (c.equalsIgnoreCase("W")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiItems.EMPTY_SLOT.asItem()));
-                }
             }
         }
     }
 
     @Override
-    public boolean onAnyClick(int index, ClickType type, net.minecraft.world.inventory.ClickType action) {
+    public boolean onAnyClick(int index, ClickType type, ContainerInput action) {
         this.updated = true;
         return super.onAnyClick(index, type, action);
     }
 
-    public void clickIcon(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void clickIcon(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         int iconIndex = this.page * PER_PAGE_SIZE + index;
         if (this.maxSize > iconIndex) {
 
         }
     }
 
-    public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+    public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();
             applyGui.open();
         }
     }
 
-    public void next(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+    public void next(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
             this.displayList.clear();
         }
     }
 
-    public void prev(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+    public void prev(int index, ClickType clickType, ContainerInput action, SlotBasedGui slotBasedGui) {
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
 
         if (this.page > getMinPage()) {
             this.page--;
@@ -141,7 +149,15 @@ public class BasePageGui extends SimpleGui {
         if (!this.updated) return;
         this.updated = false;
 
-        this.setTitle(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")));
+        this.setTitle(
+                Component.empty()
+                         .append(Component.translatable("space.-8"))
+                         .append(Component.literal("\ub007")
+                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                         .append(Component.translatable("space.-168"))
+                         .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
+        );
         int start = this.page * PER_PAGE_SIZE;
 
         for (int i = 0; i < PER_PAGE_SIZE; i++) {

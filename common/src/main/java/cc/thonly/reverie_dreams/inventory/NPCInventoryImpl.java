@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.inventory;
 
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.InteractionHand;
@@ -20,18 +22,21 @@ public class NPCInventoryImpl extends SimpleContainer {
     public static final int FEET = 21;
     public static final int MAIN_HAND = 22;
     public static final int OFF_HAND = 23;
+    private final BaseNPCLikeEntity npc;
 
-    public NPCInventoryImpl(int size) {
+    public NPCInventoryImpl(BaseNPCLikeEntity npc, int size) {
         super(size);
-        init();
+        this.npc = npc;
+        this.init();
     }
 
-    public NPCInventoryImpl(ItemStack... items) {
+    public NPCInventoryImpl(BaseNPCLikeEntity npc,ItemStack... items) {
         super(items);
-        init();
+        this.npc = npc;
+        this.init();
     }
 
-    protected void init() {
+    private void init() {
 
     }
 
@@ -110,7 +115,8 @@ public class NPCInventoryImpl extends SimpleContainer {
     }
 
     public int insertStack(ItemStack stack) {
-        if (stack.isEmpty()) return 0;
+        if (stack.isEmpty())
+            return 0;
         int remaining = stack.getCount();
         int inserted = 0;
         NonNullList<ItemStack> items = this.getItems();
@@ -132,7 +138,8 @@ public class NPCInventoryImpl extends SimpleContainer {
                 inserted += toInsert;
                 remaining -= toInsert;
             }
-            if (remaining <= 0) break;
+            if (remaining <= 0)
+                break;
         }
 
         stack.shrink(inserted);
@@ -143,7 +150,8 @@ public class NPCInventoryImpl extends SimpleContainer {
     public List<Integer> findItemSlots(int maxLength, Predicate<ItemStack> isGood, Predicate<Integer> isExcludeIndex) {
         List<Integer> itemSlots = new LinkedList<>();
         for (int i = MAX_SIZE - 1; i >= 0; i--) {
-            if (itemSlots.size() >= maxLength) break;
+            if (itemSlots.size() >= maxLength)
+                break;
             ItemStack stack = this.getItem(i);
             if ((!stack.isEmpty()) && (!isExcludeIndex.test(i)) && isGood.test(stack))
                 itemSlots.add(i);

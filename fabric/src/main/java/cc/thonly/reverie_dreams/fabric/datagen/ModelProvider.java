@@ -6,23 +6,26 @@ import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
+import cc.thonly.reverie_dreams.block.redstone.RemoteClientBlock;
+import cc.thonly.reverie_dreams.block.redstone.RemoteServerBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.mixin.accessor.BlockModelGeneratorsAccessor;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.*;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -32,6 +35,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jspecify.annotations.NonNull;
 
@@ -39,14 +43,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static net.minecraft.client.data.models.BlockModelGenerators.createRotatedVariants;
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
+import static net.minecraft.client.data.models.BlockModelGenerators.Y_ROT_90;
+import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
 @Slf4j
 public class ModelProvider extends FabricModelProvider {
     private final Map<Block, TexturedModel> uniqueModels = ImmutableMap.<Block, TexturedModel>builder()
             .build();
 
-    public ModelProvider(FabricDataOutput output) {
+    public ModelProvider(FabricPackOutput output) {
         super(output);
     }
 
@@ -75,6 +81,10 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.family(RDBlocks.POINT_BLOCK.asBlock());
         blockStateModelGenerator.family(RDBlocks.POWER_BLOCK.asBlock());
         blockStateModelGenerator.family(RDBlocks.SILVER_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_IRON_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_GOLD_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_DIAMOND_ORE.asBlock());
+        blockStateModelGenerator.family(RDBlocks.MOON_QUARTZ_ORE.asBlock());
         blockStateModelGenerator.family(RDBlocks.DREAM_CRYSTAL_ORE.asBlock());
         blockStateModelGenerator.family(RDBlocks.SILVER_BLOCK.asBlock());
 //        this.registerChest(blockStateModelGenerator, ModBlocks.SILVER_CHEST_BLOCK.chestBlock(), ModBlocks.SILVER_BLOCK);
@@ -93,6 +103,13 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.ANTI_COLLISION_BARREL.asBlock());
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WHEEL_CHAIR.asBlock());
         blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.WOODEN_BOX.chestBlock().asBlock());
+
+        this.createControllerRails(blockStateModelGenerator, RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock());
+        this.createSignalRails(blockStateModelGenerator, RDBlocks.SIGNAL_RAIL_BLOCK.asBlock());
+        this.createSignalDelayer(blockStateModelGenerator, RDBlocks.SIGNAL_DELAYER_BLOCK.asBlock(), TexturedModel.ORIENTABLE_ONLY_TOP);
+        this.createSignalCS(blockStateModelGenerator, RDBlocks.REMOTE_CLIENT.asBlock());
+        this.createSignalCS(blockStateModelGenerator, RDBlocks.REMOTE_SERVER.asBlock());
+        blockStateModelGenerator.createTrivialCube(RDBlocks.SPEAKER.asBlock());
 
         this.generateCropBlockModel(blockStateModelGenerator);
         this.generateKitchenBlock(blockStateModelGenerator);
@@ -178,6 +195,13 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.SPELLCARD.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.SATORI_EYE.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.WEAPON_OF_THE_MOON.asItem());
+        itemModelGenerator.generateFlatItem(RDItems.FAST_RECIPE_BOOK.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.LOW_GRAVITY_BOOT.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.CROWN_OF_THE_UNDERWORLD.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.declareCustomModelItem(RDItems.SUNFLOWER.asItem());
+        itemModelGenerator.generateFlatItem(RDItems.CUSTOM_SKIN_SELECTOR.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.CHEQUE.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.SOUL_CARD.asItem(), ModelTemplates.FLAT_ITEM);
 
         // 武器
         itemModelGenerator.generateFlatItem(RDItems.HAKUREI_CANE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -187,8 +211,10 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.KNIFE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
 //        itemModelGenerator.generateSpear(RDItems.GUNGNIR);
         itemModelGenerator.generateFlatItem(RDItems.LEVATIN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(RDItems.ROKANKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(RDItems.HAKUROKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.declareCustomModelItem(RDItems.ROKANKEN.asItem());
+        itemModelGenerator.declareCustomModelItem(RDItems.HAKUROKEN.asItem());
+//        itemModelGenerator.generateFlatItem(RDItems.ROKANKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+//        itemModelGenerator.generateFlatItem(RDItems.HAKUROKEN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.PAPILIO_PATTERN_FAN.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.HORAI_DAMA_NO_EDA.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(RDItems.YUKA_FLOWER_UMBRELLA.asItem());
@@ -202,6 +228,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.declareCustomModelItem(RDItems.VIOLIN.asItem());
         itemModelGenerator.declareCustomModelItem(RDItems.KEYBOARD.asItem());
         itemModelGenerator.declareCustomModelItem(RDItems.TRUMPET.asItem());
+        itemModelGenerator.declareCustomModelItem(RDItems.IRON_BAR.asItem());
         itemModelGenerator.generateFlatItem(RDItems.DEATH_SCYTHE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAID_HAIRBAND.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.MAID_UPPER_SKIRT.asItem(), ModelTemplates.FLAT_ITEM);
@@ -273,33 +300,37 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateKitchenBlock(BlockModelGenerators blockStateModelGenerator) {
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.MYSTIA_STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.SUPER_STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.EXTREME_STEAMER.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_COOKING_POT.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_CUTTING_BOARD.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_FRYING_PAN.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_GRILL.asBlock());
-        this.registerRotatable(blockStateModelGenerator, KitchenBlocks.NUKE_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.MYSTIA_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.SUPER_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.EXTREME_STEAMER.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_COOKING_POT.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_CUTTING_BOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_FRYING_PAN.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_GRILL.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDKitchenBlocks.NUKE_STEAMER.asBlock());
 
-        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.FOOD_DISPLAY.asBlock());
+        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.PLATE.asBlock());
+        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.CHAIR.asBlock());
+        blockStateModelGenerator.createNonTemplateModelBlock(RDBlocks.TABLE.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDBlocks.CUPBOARD.asBlock());
+        this.registerRotatable(blockStateModelGenerator, RDBlocks.ICE_MAKING_MACHINE.asBlock());
 
         blockStateModelGenerator.family(RDBlocks.BLACK_SALT_BLOCK.asBlock());
 
@@ -309,13 +340,16 @@ public class ModelProvider extends FabricModelProvider {
 
     public void generateMystiaItem(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(RDItems.MYSTIA_ICON.asItem(), ModelTemplates.FLAT_ITEM);
-        for (DeferredItem item : RDIngredientItems.INGREDIENTS) {
+        for (var item : RDIngredientItems.INGREDIENTS) {
+            if (RDIngredientItems.EXISTS.contains(item)) {
+                continue;
+            }
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
-        for (DeferredItem item : RDFoodItems.FOOD_ITEMS) {
+        for (var item : RDCuisineItems.CUISINE_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
-        for (DeferredItem item : RDDrinkItems.DRINK_ITEMS) {
+        for (var item : RDBeverageItems.BEVERAGE_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
         }
     }
@@ -325,7 +359,7 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateGuiItemModels(ItemModelGenerators itemModelGenerator) {
-        for (Holder<Item> item : RDGuiItems.getGuiItemList()) {
+        for (Holder<Item> item : RDGuiPlaceholderItems.getGuiPlaceholderItemList()) {
             this.registerGuiItem(itemModelGenerator, item.value());
         }
     }
@@ -353,22 +387,6 @@ public class ModelProvider extends FabricModelProvider {
                         .dispatch(block, BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block)))
                         .with(BlockModelGeneratorsAccessor.getRotationHorizontalFacing())
                 );
-//        blockStateModelGenerator.blockStateOutput.accept(
-//                MultiVariantGenerator.multiVariant(block)
-//                        .with(
-//                                PropertyDispatch.property(AbstractKitchenwareBlock.FACING)
-//                                        .select(Direction.NORTH, Variant.variant().with(VariantProperties.MODEL, modelId))
-//                                        .select(Direction.SOUTH, Variant.variant()
-//                                                .with(VariantProperties.MODEL, modelId)
-//                                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
-//                                        .select(Direction.WEST, Variant.variant()
-//                                                .with(VariantProperties.MODEL, modelId)
-//                                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
-//                                        .select(Direction.EAST, Variant.variant()
-//                                                .with(VariantProperties.MODEL, modelId)
-//                                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-//                        )
-//        );
     }
 
     private void registerGuiItem(ItemModelGenerators itemModelGenerator, Item item) {
@@ -377,12 +395,12 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void generateDanmakuItemModels(ItemModelGenerators itemModelGenerator) {
-        for (Item item : RegistryImpls.DANMAKU_TYPE.values()
-                .stream()
-                .filter(type -> !type.isDeleteFromList())
-                .map(DanmakuType::getItemHolder)
-                .map(ItemLike::asItem)
-                .toList()) {
+        for (Item item : BuiltInRegistryProviders.DANMAKU_TYPE.values()
+                                                              .stream()
+                                                              .filter(type -> !type.isDeleteFromList())
+                                                              .map(DanmakuType::getItemHolder)
+                                                              .map(ItemLike::asItem)
+                                                              .toList()) {
             itemModelGenerator.generateTwoLayerDyedItem(item);
         }
     }
@@ -471,6 +489,101 @@ public class ModelProvider extends FabricModelProvider {
     private void registerFamily(BlockModelGenerators generator, BlockFamily family) {
         TexturedModel texturedModel = this.uniqueModels.getOrDefault(family.getBaseBlock(), TexturedModel.CUBE.get(family.getBaseBlock()));
         generator.new BlockFamilyProvider(texturedModel.getMapping()).fullBlock(family.getBaseBlock(), texturedModel.getTemplate()).generateFor(family);
+    }
+
+    private void createSignalCS(BlockModelGenerators generators, Block block) {
+        MultiVariant off = plainVariant(TexturedModel.CUBE.create(block, generators.modelOutput));
+        MultiVariant on = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.CUBE_ALL, TextureMapping::cube));
+        if (block instanceof RemoteServerBlock) {
+            generators.blockStateOutput
+                    .accept(MultiVariantGenerator.dispatch(block).with(createBooleanModelDispatch(BlockStateProperties.OCCUPIED, on, off)));
+        }
+        if (block instanceof RemoteClientBlock) {
+            generators.blockStateOutput
+                    .accept(MultiVariantGenerator.dispatch(block).with(createBooleanModelDispatch(BlockStateProperties.POWERED, on, off)));
+        }
+    }
+
+    private void createSignalDelayer(BlockModelGenerators generators, Block block, TexturedModel.Provider provider) {
+        MultiVariant normal = plainVariant(provider.create(block, generators.modelOutput));
+
+        var frontOn = TextureMapping.getBlockTexture(block, "_front_on");
+        MultiVariant powered = plainVariant(provider.get(block)
+                .updateTextures(texture -> texture.put(TextureSlot.FRONT, frontOn))
+                .createWithSuffix(block, "_on", generators.modelOutput));
+
+        generators.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block)
+                        .with(PropertyDispatch.initial(BlockStateProperties.POWERED, BlockStateProperties.OCCUPIED).generate((hasPowered, hasOccupied) -> {
+                            if (hasPowered) {
+                                return powered;
+                            } else {
+                                return normal;
+                            }
+                        }))
+                        .with(BlockModelGeneratorsAccessor.getRotationFacing())
+        );
+    }
+
+
+    private void createSignalRails(BlockModelGenerators generators, Block block) {
+        MultiVariant multiVariant = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant2 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant3 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        MultiVariant multiVariant4 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant5 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant6 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        generators.registerSimpleFlatItemModel(block);
+        generators.blockStateOutput
+                .accept(
+                        MultiVariantGenerator.dispatch(block)
+                                .with(PropertyDispatch.initial(BlockStateProperties.POWERED, BlockStateProperties.RAIL_SHAPE_STRAIGHT)
+                                        .generate((powered, railShape) -> {
+                                            return switch (railShape) {
+                                                case NORTH_SOUTH -> powered ? multiVariant4 : multiVariant;
+                                                case EAST_WEST ->
+                                                        (powered ? multiVariant4 : multiVariant).with(Y_ROT_90);
+                                                case ASCENDING_EAST ->
+                                                        (powered ? multiVariant5 : multiVariant2).with(Y_ROT_90);
+                                                case ASCENDING_WEST ->
+                                                        (powered ? multiVariant6 : multiVariant3).with(Y_ROT_90);
+                                                case ASCENDING_NORTH -> powered ? multiVariant5 : multiVariant2;
+                                                case ASCENDING_SOUTH -> powered ? multiVariant6 : multiVariant3;
+                                                default ->
+                                                        throw new UnsupportedOperationException("Fix you generator!");
+                                            };
+                                        }))
+                );
+    }
+
+    private void createControllerRails(BlockModelGenerators generators, Block block) {
+        MultiVariant multiVariant = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant2 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant3 = plainVariant(generators.createSuffixedVariant(block, "", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        MultiVariant multiVariant4 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_FLAT, TextureMapping::rail));
+        MultiVariant multiVariant5 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_NE, TextureMapping::rail));
+        MultiVariant multiVariant6 = plainVariant(generators.createSuffixedVariant(block, "_on", ModelTemplates.RAIL_RAISED_SW, TextureMapping::rail));
+        generators.registerSimpleFlatItemModel(block);
+        generators.blockStateOutput
+                .accept(
+                        MultiVariantGenerator.dispatch(block)
+                                .with(PropertyDispatch.initial(BlockStateProperties.POWERED, BlockStateProperties.OCCUPIED, BlockStateProperties.RAIL_SHAPE_STRAIGHT)
+                                        .generate((powered, occupied, railShape) -> {
+                                            return switch (railShape) {
+                                                case NORTH_SOUTH -> occupied ? multiVariant4 : multiVariant;
+                                                case EAST_WEST ->
+                                                        (occupied ? multiVariant4 : multiVariant).with(Y_ROT_90);
+                                                case ASCENDING_EAST ->
+                                                        (occupied ? multiVariant5 : multiVariant2).with(Y_ROT_90);
+                                                case ASCENDING_WEST ->
+                                                        (occupied ? multiVariant6 : multiVariant3).with(Y_ROT_90);
+                                                case ASCENDING_NORTH -> occupied ? multiVariant5 : multiVariant2;
+                                                case ASCENDING_SOUTH -> occupied ? multiVariant6 : multiVariant3;
+                                                default ->
+                                                        throw new UnsupportedOperationException("Fix you generator!");
+                                            };
+                                        }))
+                );
     }
 
     @Override

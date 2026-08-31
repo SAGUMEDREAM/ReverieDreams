@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -20,19 +20,19 @@ public class DanmakuEntity extends BaseDanmakuEntity {
     }
 
     public DanmakuEntity(Level level) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), level);
+        super(RDEntityTypes.DANMAKU.value(), level);
     }
 
     public DanmakuEntity(@NotNull LivingEntity owner, Level level, ItemStack item) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), owner, level, item);
+        super(RDEntityTypes.DANMAKU.value(), owner, level, item);
     }
 
     public DanmakuEntity(double x, double y, double z, Level level, ItemStack item) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), x, y, z, level, item);
+        super(RDEntityTypes.DANMAKU.value(), x, y, z, level, item);
     }
 
     public DanmakuEntity(@NotNull LivingEntity owner, double x, double y, double z, Level level, ItemStack item) {
-        super(RDEntityTypes.DANMAKU.asHolder().value(), x, y, z, level, item);
+        super(RDEntityTypes.DANMAKU.value(), x, y, z, level, item);
     }
 
     public static DanmakuEntity create(LivingEntity owner, ItemStack itemStack, float inaccuracy) {
@@ -44,7 +44,7 @@ public class DanmakuEntity extends BaseDanmakuEntity {
     }
 
     public static DanmakuEntity create(ServerLevel level, LivingEntity owner, ItemStack itemStack, float inaccuracy) {
-        DanmakuProperties properties = itemStack.getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()).copy();
+        DanmakuProperties properties = itemStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()).copy();
         DanmakuEntity entity = new DanmakuEntity(owner, level, itemStack);
         float xRot = owner.getXRot();
         float yRot = owner.getYRot();
@@ -73,7 +73,7 @@ public class DanmakuEntity extends BaseDanmakuEntity {
 
     public static DanmakuEntity create(ServerLevel level, ItemStack itemStack, double x, double y, double z, float xRot, float yRot, float inaccuracy) {
         DanmakuProperties properties = itemStack
-                .getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault())
+                .getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault())
                 .copy();
         DanmakuEntity entity = new DanmakuEntity(x, y, z, level, itemStack);
         entity.setItem(itemStack);
@@ -92,7 +92,7 @@ public class DanmakuEntity extends BaseDanmakuEntity {
 
     public static DanmakuEntity create(ServerLevel level, LivingEntity owner, ItemStack itemStack, float xRot, float yRot, float inaccuracy) {
         DanmakuProperties properties = itemStack
-                .getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault())
+                .getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault())
                 .copy();
         DanmakuEntity entity = new DanmakuEntity(owner.getX(), owner.getEyeY(), owner.getZ(), level, itemStack);
         entity.setOwner(owner);

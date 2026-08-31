@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.server.nota.model.playmode;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 import cc.thonly.reverie_dreams.server.nota.model.Layer;
 import cc.thonly.reverie_dreams.server.nota.model.Note;
 import cc.thonly.reverie_dreams.server.nota.model.Song;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * Decides how is {@link Note} played to {@link Player}

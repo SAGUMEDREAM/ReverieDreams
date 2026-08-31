@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.server.nota.player;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
-import cc.thonly.reverie_dreams.server.nota.Nota;
+import cc.thonly.reverie_dreams.api.nota.NotaAPI;
 import cc.thonly.reverie_dreams.server.nota.model.Layer;
 import cc.thonly.reverie_dreams.server.nota.model.Note;
 import cc.thonly.reverie_dreams.server.nota.model.Playlist;
 import cc.thonly.reverie_dreams.server.nota.model.Song;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * SongPlayer playing to everyone added to it no matter where they are
@@ -23,7 +23,7 @@ public class RadioSongPlayer extends SongPlayer {
 
 	@Override
 	public void playTick(Player player, int tick) {
-		byte playerVolume = Nota.getPlayerVolume(player);
+		byte playerVolume = NotaAPI.getPlayerVolume(player);
 
 		for(Layer layer : song.getLayerHashMap().values()) {
 			Note note = layer.getNote(tick);

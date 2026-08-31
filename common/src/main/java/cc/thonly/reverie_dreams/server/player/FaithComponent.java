@@ -4,17 +4,19 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.server.level.ServerPlayer;
+import lombok.ToString;
+import net.minecraft.world.entity.player.Player;
 
 @Getter
 @Setter
+@ToString
 public class FaithComponent implements PlayerComponent<FaithComponent> {
     private static final Codec<FaithComponent> CODEC = RecordCodecBuilder.create(x -> x.group(
             Codec.INT.optionalFieldOf("FaithValue", 0).forGetter(FaithComponent::getFaithValue),
             Codec.LONG.optionalFieldOf("DateOfLastPrayer", -1L).forGetter(FaithComponent::getDateOfLastPrayer)
     ).apply(x, FaithComponent::new));
     public static final int MAX_VALUE = 200;
-    private ServerPlayer player;
+    private Player player;
     private int faithValue = 0;
     private long dateOfLastPrayer = -1L;
 
@@ -36,8 +38,13 @@ public class FaithComponent implements PlayerComponent<FaithComponent> {
     }
 
     @Override
-    public void setPlayer(ServerPlayer player) {
+    public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return this.player;
     }
 
     @Override
@@ -46,9 +53,8 @@ public class FaithComponent implements PlayerComponent<FaithComponent> {
     }
 
     public static class FaithComponentInitializer implements PlayerComponentInitializer<FaithComponent> {
-
         @Override
-        public PlayerComponent<FaithComponent> create(ServerPlayer player) {
+        public PlayerComponent<FaithComponent> create() {
             return new FaithComponent(0, -1L);
         }
 

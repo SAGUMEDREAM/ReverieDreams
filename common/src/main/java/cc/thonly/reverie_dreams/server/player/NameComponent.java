@@ -5,13 +5,15 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 @Setter
 @Getter
+@ToString
 public class NameComponent implements PlayerComponent<NameComponent> {
     public static final Codec<NameComponent> CODEC = RecordCodecBuilder.create(x -> x.group(
             ComponentSerialization.CODEC.optionalFieldOf("Name", Component.literal("Player")).forGetter(NameComponent::getName),
@@ -20,7 +22,7 @@ public class NameComponent implements PlayerComponent<NameComponent> {
     private Component name;
     @Nullable
     private String playerName;
-    private ServerPlayer player;
+    private Player player;
 
     public NameComponent(Component name) {
         this.name = name;
@@ -39,8 +41,13 @@ public class NameComponent implements PlayerComponent<NameComponent> {
     }
 
     @Override
-    public void setPlayer(ServerPlayer player) {
+    public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return this.player;
     }
 
     @Override
@@ -51,7 +58,7 @@ public class NameComponent implements PlayerComponent<NameComponent> {
     public static class NameComponentInitializer implements PlayerComponentInitializer<NameComponent> {
 
         @Override
-        public PlayerComponent<NameComponent> create(ServerPlayer player) {
+        public PlayerComponent<NameComponent> create() {
             return new NameComponent(Component.literal("Player"));
         }
 

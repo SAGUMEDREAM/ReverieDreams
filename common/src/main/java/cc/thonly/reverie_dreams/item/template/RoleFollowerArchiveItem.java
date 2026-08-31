@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.item.template;
 
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -25,17 +26,18 @@ public class RoleFollowerArchiveItem extends Item {
         Player player = context.getPlayer();
         if (!contextWorld.isClientSide() && contextWorld instanceof ServerLevel world && player != null) {
             ItemStack stack = context.getItemInHand();
-            RoleFollowerArchive followerArchive = stack.get(RDDataComponents.ROLE_FOLLOWER_ARCHIVE.value());
+            RoleFollowerArchive followerArchive = stack.get(RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE.value());
             if (followerArchive == null) {
                 return InteractionResult.PASS;
             }
-            boolean canRespawn = stack.getOrDefault(RDDataComponents.ROLE_CAN_RESPAWN.value(), false);
+            boolean canRespawn = stack.getOrDefault(RDDataComponentTypes.ROLE_CAN_RESPAWN.value(), false);
             if (!canRespawn) {
                 return InteractionResult.PASS;
             }
             followerArchive.respawn(world, context.getClickedPos().above(), world.registryAccess());
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, player.getSoundSource(), 2.0f, 1.0f);
             stack.consume(1, player);
+            stack.set(DataComponents.ITEM_NAME, stack.getItem().getDefaultInstance().getItemName());
             player.swing(context.getHand());
             return InteractionResult.SUCCESS_SERVER;
         }

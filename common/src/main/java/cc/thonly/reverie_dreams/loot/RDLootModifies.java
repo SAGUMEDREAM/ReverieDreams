@@ -3,23 +3,29 @@ package cc.thonly.reverie_dreams.loot;
 import cc.thonly.keine.api.callback.LootTableCallback;
 import cc.thonly.keine.api.loot.KeineLootTableBuilder;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.Goblin;
 import cc.thonly.reverie_dreams.entity.Hairball;
-import cc.thonly.reverie_dreams.entity.interfaces.Yousei;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.blay09.mods.balm.platform.event.callback.LivingEntityCallback;
+import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
+import dev.architectury.event.EventResult;
+import dev.architectury.event.events.common.EntityEvent;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,6 +34,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.skeleton.Stray;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -45,6 +52,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+@SuppressWarnings("resource")
 public class RDLootModifies {
     public static final ResourceKey<LootTable> VILLAGE_WEAPONSMITH_CHEST = BuiltInLootTables.VILLAGE_WEAPONSMITH;
     public static final ResourceKey<LootTable> END_CITY_TREASURE_CHEST = BuiltInLootTables.END_CITY_TREASURE;
@@ -80,26 +88,23 @@ public class RDLootModifies {
     public static void register() {
         LootTableCallback.MODIFY.register((key, lootTableBuilder, source, registries) -> {
             // 钓鱼修改
-            if (source.isBuiltin() && key.equals(FISHING)) {
+            if (key.equals(FISHING)) {
                 KeineLootTableBuilder keineLootTableBuilder = (KeineLootTableBuilder) lootTableBuilder;
                 keineLootTableBuilder.modifyPools(tb -> {
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SALMON).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(10));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA).setWeight(1));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SALMON).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(8));
+                    tb.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA).setWeight(8));
                 });
             }
+
             // 松露掉落
             if (TRUFFLE_DROPS.contains(key)) {
                 LootPool.Builder poolBuilder = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.1f));
+                        .when(LootItemRandomChanceCondition.randomChance(0.07f));
 
                 poolBuilder.add(LootItem.lootTableItem(RDIngredientItems.TRUFFLE).setWeight(10));
                 lootTableBuilder.withPool(poolBuilder);
@@ -178,12 +183,13 @@ public class RDLootModifies {
                         .setRolls(ConstantValue.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(0.4f));
                 for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
-                    ItemStack itemStack = entry.getValue();
-                    DanmakuProperties properties = itemStack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                    ItemStackTemplate template = entry.getValue();
+                    DanmakuProperties properties = ItemStackTemplateHelper.get(template, RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                     if (properties==null) continue;
-                    poolBuilder.add(LootItem.lootTableItem(itemStack.getItem())
-                            .apply(SetComponentsFunction.setComponent(RDDataComponents.DANMAKU_PROPERTIES.value(), properties.clone()))
-                            .setWeight(6));
+                    poolBuilder.add(LootItem.lootTableItem(template.item().value()).setWeight(6))
+                            .apply(
+                                    SetComponentsFunction.setComponent(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.clone())
+                            );
                 }
                 lootTableBuilder.withPool(poolBuilder);
             }
@@ -201,9 +207,9 @@ public class RDLootModifies {
             }
             return table;
         });
-        LivingEntityCallback.Death.Before.EVENT.register((entity, damageSource) -> {
+        EntityEvent.LIVING_DEATH.register((entity, damageSource) -> {
             RDLootModifies.modifyDrops(entity, damageSource);
-            return true;
+            return EventResult.pass();
         });
     }
 
@@ -228,16 +234,23 @@ public class RDLootModifies {
         if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
-        if (entity instanceof Yousei || entity instanceof Goblin) {
+        if (entity instanceof YouseiType || entity instanceof Goblin) {
             RandomSource random = RandomSource.create();
-            List<Item> itemPool = List.of(
+            RegistryAccess registryAccess = entity.registryAccess();
+            Registry<Item> items = registryAccess.lookupOrThrow(Registries.ITEM);
+            Iterable<Holder<Item>> commonCoins = items.getTagOrEmpty(RDItemTags.COMMON_COIN);
+            List<Item> itemPool = new ArrayList<>();
+            for (Holder<Item> commonCoin : commonCoins) {
+                itemPool.add(commonCoin.value());
+            }
+            itemPool.addAll(List.of(
                     RDItems.COPPER_COIN.asItem(),
                     RDItems.SILVER_COIN.asItem(),
                     RDItems.SILVER_COIN.asItem(),
                     RDItems.COPPER_COIN.asItem(),
                     RDItems.COPPER_COIN.asItem(),
                     RDItems.COPPER_COIN.asItem()
-            );
+            ));
             int dropChance = 45;
             int maxDropCount = 5;
             if (random.nextInt(100) < dropChance) {
@@ -248,8 +261,9 @@ public class RDLootModifies {
 
     private static void dropPointPower(LivingEntity entity, DamageSource damageSource) {
         Identifier entityId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        RegistryAccess registryAccess = entity.registryAccess();
         Level world = entity.level();
-        if ((entity instanceof Hairball || entity instanceof Monster || entity instanceof Yousei) && world instanceof ServerLevel serverWorld) {
+        if ((entity instanceof Hairball || entity instanceof Monster || entity instanceof YouseiType) && world instanceof ServerLevel serverWorld) {
             RandomSource random = RandomSource.create();
             int dropChance = 45;
             int maxDropCount = 3;
@@ -264,7 +278,8 @@ public class RDLootModifies {
 
     private static void dropIceScales(LivingEntity entity, DamageSource damageSource) {
         Level world = entity.level();
-        if (world instanceof ServerLevel serverWorld && entity instanceof Stray) {
+        RegistryAccess registryAccess = entity.registryAccess();
+        if (world instanceof ServerLevel serverWorld && (entity instanceof Stray)) {
             RandomSource random = RandomSource.create();
             int dropChance = 45;
             int maxDropCount = 3;

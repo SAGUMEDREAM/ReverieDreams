@@ -2,31 +2,37 @@ package cc.thonly.reverie_dreams.fabric;
 
 import cc.thonly.keine.fabric.FabricKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.command.CommandInit;
+import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
+import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
+import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
+import cc.thonly.reverie_dreams.api.registry.AliasManager;
+import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.fabric.api.ReverieDreamsPolymerBridge;
-import cc.thonly.reverie_dreams.fabric.compat.ReverieDreamsCompats;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.fabric.compat.ReverieDreamsFabricCompats;
+import cc.thonly.reverie_dreams.fabric.impl.FabricRegistryProvider;
+import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import com.mojang.serialization.Lifecycle;
 import eu.pb4.placeholders.api.PlaceholderResult;
 import eu.pb4.placeholders.api.Placeholders;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.fabric.platform.runtime.FabricLoadContext;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 
 import java.util.*;
 import java.util.List;
+import java.util.function.BiConsumer;
 
-@SuppressWarnings({"unchecked"})
 @Slf4j
 public class ReverieDreamsFabric implements ModInitializer {
     public static final List<Runnable> FABRIC_LATE_INIT = new ArrayList<>();
@@ -34,30 +40,36 @@ public class ReverieDreamsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         this.setupEarly();
-        FabricKeine.loadApiImpl();
-        FabricKeine.serverSideOnly();
-        ReverieDreams.REGISTRY_GETTER = resourceKey -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, Lifecycle.stable()) {
-        };
-        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, objects) -> new RegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey, (RegistryImpl<Object>) objects) {
-        };
-        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> cc.thonly.reverie_dreams.api.block.AttackBlockCallback.EVENT.invoker().interact(player, world, hand, pos, direction));
+        this.checkApiLoaded();
         if (PlatformContext.hasPolymer()) {
-            ReverieDreamsPolymerBridge.tryReplaceGuidebook();
+            ReverieDreamsPolymerBridge.tryPreloadPolymer();
         }
-        Balm.initializeMod(ReverieDreams.MOD_ID, FabricLoadContext.INSTANCE, registrars -> ReverieDreams.initialize(registrars, () -> {
-            ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.forEach(FabricTrackedDataRegistry::register);
-            ReverieDreamsPolymerBridge.tryPolymerify();
-            ReverieDreamsCompats.initialize();
-            ReverieDreams.LATE_INIT.forEach(Runnable::run);
-            ReverieDreams.LATE_INIT.clear();
+        ReverieDreams.initialize(() -> {
+            EntityDataSerializerProviders.get().forEach(FabricEntityDataRegistry::register);
+            ReverieDreamsFabricCompats.initialize();
+            ReverieDreams.COMMON_LATE_INIT.forEach(Runnable::run);
+            ReverieDreams.COMMON_LATE_INIT.clear();
             ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
             ReverieDreams.BUS_LATE_INIT.clear();
-            CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-                CommandInit.initialize(dispatcher, registryAccess);
-            });
-            ItemGroupEvents.MODIFY_ENTRIES_ALL.register(BaseCreativeTab::busInvoker);
-            Placeholders.register(ReverieDreams.id("version"), (ctx, args) -> PlaceholderResult.value(PlatformContext.VERSION.get()));
-        }));
+            ReverieDreamsPolymerBridge.tryPolymerify();
+            ReverieDreamsPluginLoader.run();
+            CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register(BaseCreativeTab::busInvoker);
+            AliasManager.execute(Registries.ITEM, map -> map.forEach(BuiltInRegistries.ITEM::addAlias));
+            AliasManager.execute(Registries.BLOCK, map -> map.forEach(BuiltInRegistries.BLOCK::addAlias));
+            AliasManager.execute(Registries.ENTITY_TYPE, map -> map.forEach(BuiltInRegistries.ENTITY_TYPE::addAlias));
+            AliasManager.execute(Registries.DATA_COMPONENT_TYPE, map -> map.forEach(BuiltInRegistries.DATA_COMPONENT_TYPE::addAlias));
+            Placeholders.registerCommon(ReverieDreams.id("version"), (ctx, args) -> PlaceholderResult.value(PlatformContext.VERSION.get()));
+        });
+    }
+
+    public void checkApiLoaded() {
+        FabricKeine.loadApiImpl();
+        ReverieDreamsExtensionEvents.SCAN_EVENT.register(this::loadPlugins);
+    }
+
+    public List<ReverieDreamsPlugin> loadPlugins() {
+        return FabricLoader.getInstance()
+                .getEntrypoints("reverie_dreams:extension", ReverieDreamsPlugin.class);
     }
 
     private void setupEarly() {

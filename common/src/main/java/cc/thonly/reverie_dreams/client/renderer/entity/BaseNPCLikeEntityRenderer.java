@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.ServerAvatarState;
+import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
@@ -18,7 +20,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.component.DataComponents;
@@ -34,6 +36,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.phys.Vec3;
 
+@SuppressWarnings("resource")
 public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> extends LivingEntityRenderer<NPCEntity, AvatarRenderState, PlayerModel> {
 
     public BaseNPCLikeEntityRenderer(EntityRendererProvider.Context context, boolean slim) {
@@ -136,14 +139,14 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         return state.skin.body().texturePath();
     }
 
-    protected void scale(AvatarRenderState p_447098_, PoseStack p_445727_) {
+    protected void scale(AvatarRenderState state, PoseStack poseStack) {
         float f = 0.9375F;
-        p_445727_.scale(0.9375F, 0.9375F, 0.9375F);
+        poseStack.scale(0.9375F, 0.9375F, 0.9375F);
     }
 
     @Override
-    public void submit(AvatarRenderState p_433493_, PoseStack p_434615_, SubmitNodeCollector p_433768_, CameraRenderState p_450931_) {
-        super.submit(p_433493_, p_434615_, p_433768_, p_450931_);
+    public void submit(AvatarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        super.submit(state, poseStack, submitNodeCollector, camera);
     }
 
     protected void submitNameTag(AvatarRenderState state,
@@ -189,7 +192,15 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         super.extractRenderState(entity, state, partialTick);
         HumanoidMobRenderer.extractHumanoidRenderState(entity, state, partialTick, this.itemModelResolver);
         SkinType skinType = entity.getSkinType();
-        ClientAsset.Texture texture = new ClientAsset.ResourceTexture(skinType.getTexture());
+//        System.out.println(skinType);
+        if (skinType == null) {
+            skinType = MobSkinTypes.DEFAULT;
+        }
+        Identifier skinTypeTexture = skinType.getTexture();
+        if (skinTypeTexture == null) {
+            skinTypeTexture = ReverieDreams.id("entity/player/skin/default.png");
+        }
+        ClientAsset.Texture texture = new ClientAsset.ResourceTexture(skinTypeTexture);
         state.leftArmPose = getArmPose(entity, HumanoidArm.LEFT);
         state.rightArmPose = getArmPose(entity, HumanoidArm.RIGHT);
         state.skin = new PlayerSkin(texture, null, null, skinType.isSlim() ? PlayerModelType.SLIM : PlayerModelType.WIDE, false);
@@ -222,6 +233,9 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
             if (itemstack.is(Items.SPYGLASS)) {
                 this.itemModelResolver.updateForLiving(state.heldOnHead, itemstack, ItemDisplayContext.HEAD, entity);
             }
+        }
+        if (state instanceof NPCAvatarRenderState npcAvatarRenderState) {
+            npcAvatarRenderState.dimension = entity.level().dimension();
         }
     }
 

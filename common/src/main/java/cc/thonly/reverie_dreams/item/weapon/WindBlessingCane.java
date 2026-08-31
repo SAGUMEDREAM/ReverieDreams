@@ -24,11 +24,11 @@ public class WindBlessingCane extends SwordItem {
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = target.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            if (serverWorld.random.nextFloat() < 0.33f) {
+            if (serverWorld.getRandom().nextFloat() < 0.33f) {
                 Projectile.spawnProjectileFromRotation((w, s, st) ->
-                        new WindCharge(w, s.getX(), s.getY(), s.getZ(), s.getDeltaMovement()), serverWorld, this.getDefaultInstance(), attacker, 0.0f, 1.5f, 1.0f
+                        new WindCharge(w, s.getX(), s.getEyeY(), s.getZ(), s.getDeltaMovement()), serverWorld, this.getDefaultInstance(), attacker, 0.0f, 1.5f, 1.0f
                 );
-                serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.WIND_CHARGE_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (serverWorld.getRandom().nextFloat() * 0.4f + 0.8f));
+                serverWorld.playSound(null, attacker.getX(), attacker.getEyeY(), attacker.getZ(), SoundEvents.WIND_CHARGE_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (serverWorld.getRandom().nextFloat() * 0.4f + 0.8f));
             }
         }
         super.hurtEnemy(stack, target, attacker);

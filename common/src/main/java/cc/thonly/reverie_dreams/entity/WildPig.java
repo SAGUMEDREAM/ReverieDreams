@@ -46,7 +46,7 @@ public class WildPig extends Pig {
 
     @Nullable
     public WildPig getBreedOffspring(@NonNull ServerLevel serverWorld, @NonNull AgeableMob passiveEntity) {
-        return RDEntityTypes.WILD_PIG.asHolder().value().create(serverWorld, EntitySpawnReason.BREEDING);
+        return RDEntityTypes.WILD_PIG.value().create(serverWorld, EntitySpawnReason.BREEDING);
     }
 
 

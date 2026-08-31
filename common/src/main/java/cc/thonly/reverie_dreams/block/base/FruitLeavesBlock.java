@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.block.base;
 
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
-import net.blay09.mods.balm.world.item.DeferredItem;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,7 +18,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -43,8 +42,8 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
     public static final List<FruitLeavesBlock> FRUIT_LEAVES_BLOCKS = new ArrayList<>();
     public static final int MAX_AGE = 3;
     public static final IntegerProperty AGE_PROPERTY = IntegerProperty.create("fruit_age", 0, MAX_AGE);
-    private DeferredItem output;
-    private DeferredBlock emptyLeavesBlock;
+    private ItemDelegate output;
+    private BlockDelegate emptyLeavesBlock;
 
     public FruitLeavesBlock(Properties settings) {
         super(0.01f, settings.noOcclusion());
@@ -58,7 +57,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
         BlockTypeGroup.FRUIT_LEAVES.add(this);
     }
 
-    public FruitLeavesBlock(DeferredItem output, DeferredBlock emptyLeavesBlock, Properties settings) {
+    public FruitLeavesBlock(ItemDelegate output, BlockDelegate emptyLeavesBlock, Properties settings) {
         this(settings);
         this.emptyLeavesBlock = emptyLeavesBlock;
         this.output = output;
@@ -86,7 +85,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
             Integer age = state.getValue(AGE_PROPERTY);
             RandomSource random = world.getRandom();
             if (age >= MAX_AGE) {
-                world.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
+                world.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0f, 0.8f + world.getRandom().nextFloat() * 0.4f);
 
                 // 优化合适掉落位置
                 double resultY = pos.getY();
@@ -216,7 +215,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
                 if (blockState.is(Blocks.FARMLAND)) {
                     g = 1.0f;
-                    if (blockState.getValue(FarmBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(FarmlandBlock.MOISTURE) > 0) {
                         g = 3.0f;
                     }
                 }

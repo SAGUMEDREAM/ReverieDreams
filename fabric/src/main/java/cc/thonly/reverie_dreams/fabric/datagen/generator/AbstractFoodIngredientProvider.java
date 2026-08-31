@@ -2,7 +2,11 @@ package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.FoodProperty;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
+import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
+import cc.thonly.reverie_dreams.util.IdCompletableFuture;
+import cc.thonly.reverie_dreams.util.IdCompletableFutureKeys;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,7 +18,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -32,24 +36,24 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @SuppressWarnings("rawTypes")
 public abstract class AbstractFoodIngredientProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, Factory> id2Builder = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, Factory> registries = new Object2ObjectOpenHashMap<>();
 
-    public AbstractFoodIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractFoodIngredientProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
-        this.configured();
     }
 
     public Factory createFactory(FoodProperty property) {
         Identifier id = property.getId();
-        if (this.id2Builder.containsKey(id)) {
-            return this.id2Builder.get(id);
+        if (this.registries.containsKey(id)) {
+            return this.registries.get(id);
         }
         Factory factory = new Factory(id, property);
-        this.id2Builder.put(id, factory);
+        this.registries.put(id, factory);
+
         return factory;
     }
 
@@ -61,21 +65,29 @@ public abstract class AbstractFoodIngredientProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
-        return CompletableFuture.runAsync(() -> {
-            this.configured();
-            this.export(writer);
-            for (Factory factory : this.id2Builder.values()) {
-                FoodProperties.registerByPair(factory.buildForProvider());
+        CompletableFuture<Void> future = this.future.thenAcceptAsync(provider -> {
+            this.configured(provider);
+
+            for (Factory factory : this.registries.values()) {
+                FoodProperties.registerByPair(
+                        factory.buildForProvider()
+                );
             }
+
+            DataProviderHelper.outputFile(writer, this.registries, FoodProperty.Data.CODEC, (id, factory) -> new FoodProperty.Data(id, factory.getList()), "food_property");
         });
+
+        IdCompletableFuture.register(IdCompletableFutureKeys.FOOD_PROVIDER, future);
+
+        return future;
     }
 
-    protected abstract void configured();
+    protected abstract void configured(HolderLookup.Provider provider);
 
     public void export(CachedOutput writer) {
         Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         try {
-            for (var entry : this.id2Builder.entrySet()) {
+            for (var entry : this.registries.entrySet()) {
                 Identifier identifier = entry.getKey();
                 Factory factory = entry.getValue();
                 FoodProperty.Data data = new FoodProperty.Data(identifier, factory.getList());
@@ -127,6 +139,12 @@ public abstract class AbstractFoodIngredientProvider implements DataProvider {
         }
 
         public void build() {
+            Set<Item> items = FoodProperties.PROPERTY_CACHE.computeIfAbsent(this.property, _ -> new LinkedHashSet<>());
+            items.addAll(this.list);
+            for (Item item : this.list) {
+                Set<FoodProperty> foodProperties = FoodProperties.ITEM_CACHE.computeIfAbsent(item, _ -> new LinkedHashSet<>());
+                foodProperties.add(this.property);
+            }
         }
 
         public Pair<FoodProperty, Collection<Item>> buildForProvider() {

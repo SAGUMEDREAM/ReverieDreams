@@ -1,9 +1,12 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
+import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,8 +17,7 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.world.item.DeferredItem;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
@@ -23,9 +25,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.Identifier;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -40,140 +42,148 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class AbstractRecipeTypeProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final Map<Identifier, Factory<?>> identifierFactoryMap = new Object2ObjectOpenHashMap<>();
+    private final Map<Identifier, Factory<?>> registries = new Object2ObjectOpenHashMap<>();
+    private HolderLookup.Provider provider;
 
-    public AbstractRecipeTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractRecipeTypeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
 
-    public ItemStackWrapper ofEmpty() {
-        return ItemStackWrapper.empty();
+    public HolderLookup.Provider provider() {
+        if (this.provider == null) {
+            try {
+                this.provider = this.future.get();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return this.provider;
     }
 
-    public ItemStackWrapper ofItem(ItemStack item) {
-        return ItemStackWrapper.of(item);
+    public IngredientStack ofEmpty() {
+        return IngredientStack.empty();
     }
 
-    public ItemStackWrapper ofItem(ItemLike item) {
-        return ItemStackWrapper.of(item.asItem());
+    public IngredientStack ofItem(ItemStack item) {
+        return IngredientStack.of(item.getItem());
     }
 
-    public ItemStackWrapper ofItem(DeferredItem item) {
-        return ItemStackWrapper.of(item.asItem());
+    public IngredientStack ofItem(ItemStackTemplate item) {
+        return IngredientStack.of(item);
     }
 
-    public ItemStackWrapper ofItem(Item item) {
-        return ItemStackWrapper.of(item);
+    public IngredientStack ofItem(ItemLike item) {
+        return IngredientStack.of(item.asItem());
     }
 
-    public ItemStackWrapper ofItem(Block block) {
-        return ItemStackWrapper.of(block.asItem());
+    public IngredientStack ofItem(ItemDelegate item) {
+        return IngredientStack.of(item.asItem());
     }
 
-    public ItemStackWrapper ofItem(Block block, int amount) {
-        return ItemStackWrapper.of(block.asItem(), amount);
+    public IngredientStack ofItem(Item item) {
+        return IngredientStack.of(item);
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount) {
-        return ItemStackWrapper.of(item, amount);
+    public IngredientStack ofItem(Block block) {
+        return IngredientStack.of(block.asItem());
     }
 
-    public ItemStackWrapper ofItem(ItemLike item, int amount) {
-        return ItemStackWrapper.of(item.asItem(), amount);
+    public IngredientStack ofItem(Block block, int amount) {
+        return IngredientStack.of(block.asItem(), amount);
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount, DataComponentPatch components) {
-        return ItemStackWrapper.of(item, amount, components);
+    public IngredientStack ofItem(Item item, int amount) {
+        return IngredientStack.of(item, amount);
     }
 
-    public ItemStackWrapper ofItem(ItemStack item, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item.getItem(), Arrays.stream(tagKey).toList());
+    public IngredientStack ofItem(ItemLike item, int amount) {
+        return IngredientStack.of(item.asItem(), amount);
     }
 
-    public ItemStackWrapper ofItem(Item item, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item, Arrays.stream(tagKey).toList());
+    public IngredientStack ofItem(Item item, int amount, DataComponentPatch components) {
+        return IngredientStack.of(item, amount, components);
     }
 
-    public ItemStackWrapper ofItem(Item item, int amount, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item, amount, Arrays.stream(tagKey).toList());
-    }
-
-    public ItemStackWrapper ofItem(Item item, int amount, DataComponentPatch components, TagKey<Item>... tagKey) {
-        return ItemStackWrapper.of(item, amount, components, tagKey);
-    }
-
-    public List<ItemStackWrapper> ofList(Item... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(Item... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (Item item : items) {
             wrappers.add(this.ofItem(item));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(ItemLike... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(ItemLike... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (ItemLike item : items) {
             wrappers.add(this.ofItem(item.asItem()));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(Holder<Item>... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(Holder<Item>... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (Holder<Item> item : items) {
             wrappers.add(this.ofItem(item.value()));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(DeferredItem... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
-        for (DeferredItem item : items) {
+    public List<IngredientStack> ofList(ItemDelegate... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
+        for (ItemDelegate item : items) {
             wrappers.add(this.ofItem(item.asItem()));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(ItemStack... items) {
-        LinkedList<ItemStackWrapper> wrappers = new LinkedList<>();
+    public List<IngredientStack> ofList(ItemStack... items) {
+        LinkedList<IngredientStack> wrappers = new LinkedList<>();
         for (ItemStack stack : items) {
             wrappers.add(this.ofItem(stack));
         }
         return wrappers;
     }
 
-    public List<ItemStackWrapper> ofList(ItemStackWrapper... stackRecipeWrappers) {
+    public List<IngredientStack> ofList(IngredientStack... stackRecipeWrappers) {
         return new LinkedList<>(Arrays.asList(stackRecipeWrappers));
     }
 
     public synchronized <R extends BaseRecipe> Factory<R> getOrCreateFactory(BaseRecipeType<R> recipeType, Class<R> rClass) {
         Identifier id = recipeType.getId();
-        if (this.identifierFactoryMap.containsKey(id)) {
-            return (Factory<R>) this.identifierFactoryMap.get(id);
+        if (this.registries.containsKey(id)) {
+            return (Factory<R>) this.registries.get(id);
         }
         Factory<R> factory = new Factory<>(recipeType, rClass);
-        this.identifierFactoryMap.put(id, factory);
+        this.registries.put(id, factory);
         return factory;
     }
 
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
-        return CompletableFuture.runAsync(() -> {
-            this.configured();
-            this.export(writer);
+        return this.future.thenAcceptAsync(provider -> {
+            this.configured(provider);
+
+            for (Factory<?> factory : this.registries.values()) {
+                DataProviderHelper.outputFile(
+                        writer,
+                        (Map) factory.getRegistries(),
+                        (Codec) factory.getCodec(),
+                        factory.getRecipeType().getTypeId() + "_recipe"
+                );
+            }
         });
     }
 
-    public abstract void configured();
+    public abstract void configured(HolderLookup.Provider provider);
 
     public void export(CachedOutput cachedOutput) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
-            for (Map.Entry<Identifier, Factory<?>> entry : identifierFactoryMap.entrySet()) {
+            for (Map.Entry<Identifier, Factory<?>> entry : this.registries.entrySet()) {
                 Factory<?> factory = entry.getValue();
                 Codec codec = factory.getCodec();
                 BaseRecipeType<?> recipeType = factory.getRecipeType();
@@ -248,6 +258,7 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
                 log.error("Duplicate recipe id found {} in {}", id, id + ".json");
             }
             this.registries.put(identifier, recipe);
+            this.recipeType.add(identifier, recipe);
             return this;
         }
 

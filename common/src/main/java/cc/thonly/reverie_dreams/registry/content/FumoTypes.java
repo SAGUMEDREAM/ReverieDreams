@@ -2,14 +2,14 @@ package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.FumoType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import net.minecraft.resources.Identifier;
 
 import java.util.Collection;
 
 public class FumoTypes {
-    public static final RegistryImpl<FumoType> REGISTRY_KEY = RegistryImpls.FUMO;
+    public static final RegistryProvider<FumoType> REGISTRY_KEY = BuiltInRegistryProviders.FUMO;
     public static final FumoType ALICE = register(new FumoType(ReverieDreams.id("alice")));
     public static final FumoType AYA = register(new FumoType(ReverieDreams.id("aya")));
     public static final FumoType BLUE_REIMU = register(new FumoType(ReverieDreams.id("blue_reimu")));
@@ -79,14 +79,14 @@ public class FumoTypes {
     }
 
     public static FumoType register(Identifier id, FumoType fumo) {
-        return RegistryImpls.register(REGISTRY_KEY, id, fumo.build());
+        return BuiltInRegistryProviders.register(REGISTRY_KEY, id, fumo.build());
     }
 
     public static Collection<FumoType> getView() {
         return REGISTRY_KEY.values();
     }
 
-    public static void bootstrap(RegistryImpl<FumoType> registry) {
+    public static void bootstrap(RegistryProvider<FumoType> registry) {
 
     }
 }

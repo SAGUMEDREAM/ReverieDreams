@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
+import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.entity.interfaces.FriendlyFaction;
 import cc.thonly.reverie_dreams.mixin.accessor.ProjectileAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ThrowableProjectileAccessor;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.PlatformContext;
@@ -71,18 +71,18 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
 
     public BaseDanmakuEntity(EntityType<? extends ThrowableItemProjectile> entityType, @NotNull LivingEntity owner, Level level, ItemStack item) {
         super(entityType, owner, level, item.copy());
-        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
+        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
     }
 
     public BaseDanmakuEntity(EntityType<? extends ThrowableItemProjectile> entityType, double x, double y, double z, Level level, ItemStack item) {
         super(entityType, x, y, z, level, item.copy());
-        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
+        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
     }
 
     public BaseDanmakuEntity(EntityType<? extends ThrowableItemProjectile> entityType, @NotNull LivingEntity livingEntity, double x, double y, double z, Level level, ItemStack item) {
         super(entityType, x, y, z, level, item.copy());
         this.setOwner(livingEntity);
-        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponents.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
+        this.getEntityData().set(DANMAKU_PROPERTIES, this.getItemStack().getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault()));
     }
 
     @Override
@@ -116,7 +116,7 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
         if (!PlatformContext.hasPolymer()) {
             super.tick();
         }
-        this.b$fabric_tick();
+        this.b$polymer_tick();
         if (!this.level().isClientSide()) {
             if (!this.onGround()) {
                 this.entityData.set(ROLL, (float) (this.entityData.get(ROLL) - Mth.DEG_TO_RAD * this.getDeltaMovement().lengthSqr() * 15) % Mth.TWO_PI);
@@ -131,7 +131,7 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
         frozenParticles(this, this.level());
     }
 
-    public void b$fabric_tick() {
+    public void b$polymer_tick() {
         if (!PlatformContext.hasPolymer()) {
             return;
         }
@@ -329,7 +329,7 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
     }
 
     public void cancelParticle(ServerLevel serverWorld) {
-        ItemParticleOption ispe = new ItemParticleOption(ParticleTypes.ITEM, RDItems.BOMB_FRAGMENT.createStack());
+        ItemParticleOption ispe = new ItemParticleOption(ParticleTypes.ITEM, RDItems.BOMB_FRAGMENT.asItem());
         serverWorld.sendParticles(ispe,
                 position().x(), position().y() + getBbHeight() / 2, position().z(),
                 1, 0, 0, 0, 0);

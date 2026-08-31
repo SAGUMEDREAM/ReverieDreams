@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.block.entity;
 
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.ContainerHelper;

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.elemental;
 
-import cc.thonly.reverie_dreams.entity.interfaces.ElementalMob;
+import cc.thonly.reverie_dreams.api.entity.type.ElementalMob;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jspecify.annotations.NonNull;
 
 public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMob {
     public int aTick = 0;
@@ -95,7 +94,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
                 .add(Attributes.FOLLOW_RANGE, 32.0)
                 .add(Attributes.TEMPT_RANGE, 10.0)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 3);
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5);
     }
 
     @Override
@@ -136,7 +135,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
         int light = world.getRawBrightness(pos, 0);
 
         // 世界时间（0~23999，0~12000 白天，12000~23999 夜晚）
-        long timeOfDay = serverWorld.getDayTime() % 24000L;
+        long timeOfDay = serverWorld.getGameTime() % 24000L;
         boolean isNight = timeOfDay >= 13000 && timeOfDay <= 23000; // 晚上时间段
 
         return isNight && light <= 7;

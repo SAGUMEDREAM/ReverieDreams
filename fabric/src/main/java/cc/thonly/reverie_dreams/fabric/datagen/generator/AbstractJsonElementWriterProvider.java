@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import com.google.common.hash.HashCode;
 import com.google.gson.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -21,22 +22,23 @@ import java.util.concurrent.CompletableFuture;
 public abstract class AbstractJsonElementWriterProvider implements DataProvider {
     protected final Map<String, JsonElement> path2JsonElement = new Object2ObjectLinkedOpenHashMap<>();
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
 
-    public AbstractJsonElementWriterProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractJsonElementWriterProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
 
     @Override
     public CompletableFuture<?> run(CachedOutput cachedOutput) {
-        this.configured();
-        this.export(cachedOutput);
-        return CompletableFuture.completedFuture(null);
+        return this.future.thenAcceptAsync(provider -> {
+            this.configured(provider);
+            this.outputFile(cachedOutput);
+        });
     }
 
-    public void export(CachedOutput cachedOutput) {
+    public void outputFile(CachedOutput cachedOutput) {
         Path basePath = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
         for (var entry : path2JsonElement.entrySet()) {
             String relativePath = entry.getKey();
@@ -54,7 +56,7 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
         }
     }
 
-    protected abstract void configured();
+    protected abstract void configured(HolderLookup.Provider provider);
 
     public void addElement(Type type, Identifier location, String subPath, JsonElement element) {
         String relativePath = type.path + location.getNamespace() + "/" + subPath + "/" + location.getPath() + ".json";

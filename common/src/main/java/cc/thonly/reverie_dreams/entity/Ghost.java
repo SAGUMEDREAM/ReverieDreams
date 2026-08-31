@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.entity;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCFollowOwnerGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.KeepInventoryTypes;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
@@ -28,7 +29,7 @@ public class Ghost extends BaseNPCLikeEntity {
     }
 
     public Ghost(Level world) {
-        super(RDEntityTypes.GHOST.asHolder().value(), world, MobSkinTypes.GHOST);
+        super(RDEntityTypes.GHOST.value(), world, MobSkinTypes.GHOST);
     }
 
     @Override
@@ -92,8 +93,8 @@ public class Ghost extends BaseNPCLikeEntity {
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, BaseNPCLikeEntity.class, 8.0f));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 
-        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Player.class, true, RDStatusEffects.MENTAL_DISORDER));
-        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Mob.class, true, RDStatusEffects.MENTAL_DISORDER));
+        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Player.class, true, RDStatusEffects.MENTAL_DISORDER.builtInHolder()));
+        this.targetSelector.addGoal(2, new GhostStatusEffectTargetGoal<>(this, Mob.class, true, RDStatusEffects.MENTAL_DISORDER.builtInHolder()));
     }
 
     @Override

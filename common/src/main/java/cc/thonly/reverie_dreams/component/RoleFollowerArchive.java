@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.component;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.ValueInput;
 
+@SuppressWarnings("UnusedReturnValue")
 public record RoleFollowerArchive(Component name, float maxHealth, CompoundTag nbt) {
     public static final Codec<RoleFollowerArchive> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ComponentSerialization.CODEC.fieldOf("Name").forGetter(RoleFollowerArchive::name),
@@ -28,8 +30,8 @@ public record RoleFollowerArchive(Component name, float maxHealth, CompoundTag n
     ).apply(instance, RoleFollowerArchive::new));
 
     public BaseNPCLikeEntity respawn(ServerLevel world, BlockPos pos, HolderLookup.Provider registries) {
-        NPCRoleEntity npcLikeEntity = new NPCRoleEntity(RDEntityTypes.NPC_ROLE.asHolder().value(), world);
-        npcLikeEntity.setPosRaw(pos.getX(), pos.getY(), pos.getZ());
+        NPCSimpleEntity npcLikeEntity = new NPCCompanionEntity(RDEntityTypes.NPC_SIMPLE_ENTITY.value(), world);
+        npcLikeEntity.setPosRaw(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
         npcLikeEntity.setCustomName(this.name);
         npcLikeEntity.setOwner((LivingEntity) null);
         try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(npcLikeEntity.problemPath(), LogUtils.getLogger())) {

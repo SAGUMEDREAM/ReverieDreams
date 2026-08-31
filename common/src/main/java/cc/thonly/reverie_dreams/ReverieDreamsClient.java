@@ -1,69 +1,48 @@
 package cc.thonly.reverie_dreams;
 
+import cc.thonly.reverie_dreams.api.client.midi.Midi2Sound;
+import cc.thonly.reverie_dreams.api.proxy.SafeClientAccess;
+import cc.thonly.reverie_dreams.client.ClientEventHandler;
+import cc.thonly.reverie_dreams.client.SafeClientAccessImpl;
+import cc.thonly.reverie_dreams.client.component.ClientPlayerComponentManager;
 import cc.thonly.reverie_dreams.client.registry.RDBlockEntityRenderers;
-import cc.thonly.reverie_dreams.client.registry.RDBlockRenderTypes;
 import cc.thonly.reverie_dreams.client.registry.RDEntityRenderers;
-import cc.thonly.reverie_dreams.client.util.PhotoScreenshotHelper;
-import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
-import cc.thonly.reverie_dreams.mixin.accessor.EntityAccessor;
-import cc.thonly.reverie_dreams.networking.payload.*;
-import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
-import cc.thonly.reverie_dreams.util.PlatformContext;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
-import com.mojang.blaze3d.platform.NativeImage;
-import it.unimi.dsi.fastutil.Pair;
+import dev.architectury.event.events.client.ClientPlayerEvent;
+import dev.architectury.event.events.client.ClientTickEvent;
+import dev.architectury.platform.Platform;
+import dev.architectury.platform.client.ConfigurationScreenRegistry;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.client.BalmClientRegistrars;
-import net.blay09.mods.balm.client.platform.event.callback.ClientLifecycleCallback;
-import net.blay09.mods.balm.network.BalmNetworking;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.RegistrationInfo;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.ProblemReporter;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.TagValueInput;
-import net.minecraft.world.level.storage.ValueInput;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class ReverieDreamsClient {
     public static final Logger LOGGER = LoggerFactory.getLogger(ReverieDreams.MOD_ID);
+    public static final List<Runnable> LATE_INIT = new ArrayList<>();
 
-    public static void initialize(BalmClientRegistrars registrars, Runnable lateInit) {
-        registrars.blockRenderTypes(RDBlockRenderTypes::initialize);
-        registrars.blockEntityRenderers(RDBlockEntityRenderers::initialize);
-        registrars.entityRenderers(RDEntityRenderers::initialize);
-        ReverieDreamsClient.initializeClientEvent(registrars);
-        ReverieDreamsClient.initializeClientHooks(registrars);
+    public static void initialize(Runnable lateInit) {
+        SafeClientAccess.ref.set(new SafeClientAccessImpl());
+        RDBlockEntityRenderers.initialize();
+        RDEntityRenderers.initialize();
+        ReverieDreamsClient.initializeClientEvent();
+        Midi2Sound.register();
         ReverieDreams.LATE_INIT_CLIENT.forEach(Runnable::run);
         ReverieDreams.LATE_INIT_CLIENT.clear();
+        ConfigurationScreenRegistry.register(Platform.getMod(ReverieDreams.MOD_ID), parent -> {
+            return AutoConfigClient.getConfigScreen(ReverieDreamsConfiguration.class, parent).get();
+        });
         lateInit.run();
     }
 
-    public static void initializeClientEvent(BalmClientRegistrars registrars) {
-        ClientLifecycleCallback.ConnectedToServer.EVENT.register(client -> {
-            Balm.networking().sendToServer(new HelloPacket());
-            Balm.networking().sendToServer(new CSVersionPacket(PlatformContext.VERSION.get()));
-        });
-    }
-
-    public static void initializeClientHooks(BalmClientRegistrars registrars) {
-
+    public static void initializeClientEvent() {
+        ClientPlayerEvent.CLIENT_PLAYER_JOIN.register(ClientEventHandler::onPlayerConnectedToServer);
+        ClientPlayerEvent.CLIENT_PLAYER_JOIN.register(ClientEventHandler::onInitMidiDevice);
+        ClientPlayerEvent.CLIENT_PLAYER_QUIT.register(ClientEventHandler::onStopMidiDevice);
+        ClientTickEvent.CLIENT_POST.register(ClientPlayerComponentManager::tickByClient);
     }
 
     public static Logger logger() {

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.recipe;
 
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,8 @@ public abstract class BaseRecipe {
     private Identifier id;
     private Integer rawId;
     private boolean isVirtual;
-    public abstract ItemStackWrapper getOutput();
+
+    public abstract IngredientStack getOutput();
 
     public static <T extends BaseRecipe> StreamCodec<RegistryFriendlyByteBuf, T> forStreamCodec(Codec<T> codec) {
         return StreamCodec.of(

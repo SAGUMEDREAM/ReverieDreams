@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.compat.rei.category;
 
 import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
 import cc.thonly.reverie_dreams.compat.rei.display.GensokyoAltarRecipeDisplay;
-import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
+import cc.thonly.reverie_dreams.gui.block.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 import me.shedaniel.math.Point;
@@ -102,7 +102,7 @@ public class GensokyoAltarRecipeCategory implements DisplayCategory<GensokyoAlta
                                 coreY,
                                 slotSize,
                                 slotSize))
-                        .entries(display.getOutputEntries().get(0))
+                        .entries(display.getOutputEntries().getFirst())
                         .markOutput()
         );
 
@@ -131,6 +131,6 @@ public class GensokyoAltarRecipeCategory implements DisplayCategory<GensokyoAlta
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(RDBlocks.GENSOKYO_ALTAR);
+        return EntryStacks.ofItemHolder(RDBlocks.GENSOKYO_ALTAR);
     }
 }

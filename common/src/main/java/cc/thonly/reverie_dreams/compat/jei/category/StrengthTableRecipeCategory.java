@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat.jei.category;
 import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -13,7 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 
@@ -29,7 +29,7 @@ public class StrengthTableRecipeCategory implements IRecipeCategory<StrengthTabl
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, RDBlocks.STRENGTH_TABLE.createStack());
         this.arrow = helper.createDrawableIngredient(
                 VanillaTypes.ITEM_STACK,
-                RDGuiItems.PROGRESS_TO_RESULT.createStack()
+                RDGuiPlaceholderItems.PROGRESS_TO_RESULT.createStack()
         );
     }
 
@@ -59,7 +59,7 @@ public class StrengthTableRecipeCategory implements IRecipeCategory<StrengthTabl
     }
 
     @Override
-    public void draw(StrengthTableRecipe recipe, IRecipeSlotsView view, GuiGraphics graphics, double mouseX, double mouseY) {
+    public void draw(StrengthTableRecipe recipe, IRecipeSlotsView view, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
         this.arrow.draw(graphics, 42, 9);
     }
 
@@ -69,14 +69,14 @@ public class StrengthTableRecipeCategory implements IRecipeCategory<StrengthTabl
 
         builder.addSlot(RecipeIngredientRole.INPUT, 0, 9)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getMainItem().getItemStack().copy());
+                .add(recipe.getMainItem().build().copy());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 18, 9)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOffItem().getItemStack().copy());
+                .add(recipe.getOffItem().build().copy());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 9)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOutput().getItemStack().copy());
+                .add(recipe.getOutput().build().copy());
     }
 }

@@ -1,11 +1,12 @@
 package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.component.DataComponents;
@@ -30,21 +31,21 @@ public class RecipeWorkbenchRegistry {
         register("gensokyo_altar", () -> new RecipeWorkbench<>("gensokyo_altar", RDBlocks.GENSOKYO_ALTAR.asBlock(), RecipeManager.GENSOKYO_ALTAR, (registryAccess, recipeId, self) -> {
             BaseRecipeType<GensokyoAltarRecipe> recipeType = self.getRecipeType();
             GensokyoAltarRecipe recipeById = recipeType.getRecipeById(recipeId);
-            List<ItemStackWrapper> slots = recipeById.getSlots();
+            List<IngredientStack> slots = recipeById.getSlots();
             Block first = self.getBlock().getFirst();
             ItemStack itemStack = first.asItem().getDefaultInstance();
             SimpleContainer inventory = new SimpleContainer(9);
-            inventory.setItem(0, slots.get(0).getItemStack().copy());
-            inventory.setItem(1, slots.get(1).getItemStack().copy());
-            inventory.setItem(2, slots.get(2).getItemStack().copy());
+            inventory.setItem(0, slots.get(0).build().copy());
+            inventory.setItem(1, slots.get(1).build().copy());
+            inventory.setItem(2, slots.get(2).build().copy());
 
-            inventory.setItem(3, slots.get(3).getItemStack().copy());
-            inventory.setItem(4, slots.get(4).getItemStack().copy());
-            inventory.setItem(5, slots.get(5).getItemStack().copy());
+            inventory.setItem(3, slots.get(3).build().copy());
+            inventory.setItem(4, slots.get(4).build().copy());
+            inventory.setItem(5, slots.get(5).build().copy());
 
-            inventory.setItem(6, slots.get(6).getItemStack().copy());
-            inventory.setItem(7, slots.get(7).getItemStack().copy());
-            inventory.setItem(8, recipeById.getCore().getItemStack().copy());
+            inventory.setItem(6, slots.get(6).build().copy());
+            inventory.setItem(7, slots.get(7).build().copy());
+            inventory.setItem(8, recipeById.getCore().build().copy());
             try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(RDBlockEntityTypes.GENSOKYO_ALTAR::toString, LogUtils.getLogger())) {
                 TagValueOutput output = TagValueOutput.createWithContext(logging, registryAccess);
                 ContainerHelper.saveAllItems(output, inventory.getItems());
@@ -58,8 +59,8 @@ public class RecipeWorkbenchRegistry {
             StrengthTableRecipe recipeById = recipeType.getRecipeById(recipeId);
             ItemStack itemStack = first.asItem().getDefaultInstance();
             SimpleContainer inventory = new SimpleContainer(2);
-            inventory.setItem(0, recipeById.getMainItem().getItemStack().copy());
-            inventory.setItem(1, recipeById.getOffItem().getItemStack().copy());
+            inventory.setItem(0, recipeById.getMainItem().build().copy());
+            inventory.setItem(1, recipeById.getOffItem().build().copy());
             try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(RDBlockEntityTypes.STRENGTH_TABLE::toString, LogUtils.getLogger())) {
                 TagValueOutput output = TagValueOutput.createWithContext(logging, registryAccess);
                 ContainerHelper.saveAllItems(output, inventory.getItems());
@@ -73,11 +74,11 @@ public class RecipeWorkbenchRegistry {
             DanmakuRecipe recipeById = recipeType.getRecipeById(recipeId);
             ItemStack itemStack = first.asItem().getDefaultInstance();
             SimpleContainer inventory = new SimpleContainer(5);
-            inventory.setItem(0, recipeById.getDye().getItemStack().copy());
-            inventory.setItem(1, recipeById.getCore().getItemStack().copy());
-            inventory.setItem(2, recipeById.getPower().getItemStack().copy());
-            inventory.setItem(3, recipeById.getPoint().getItemStack().copy());
-            inventory.setItem(4, recipeById.getMaterial().getItemStack().copy());
+            inventory.setItem(0, recipeById.getDye().build().copy());
+            inventory.setItem(1, recipeById.getCore().build().copy());
+            inventory.setItem(2, recipeById.getPower().build().copy());
+            inventory.setItem(3, recipeById.getPoint().build().copy());
+            inventory.setItem(4, recipeById.getMaterial().build().copy());
             try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(RDBlockEntityTypes.DANMAKU_CRAFTING_TABLE::toString, LogUtils.getLogger())) {
                 TagValueOutput output = TagValueOutput.createWithContext(logging, registryAccess);
                 ContainerHelper.saveAllItems(output, inventory.getItems());
@@ -88,7 +89,7 @@ public class RecipeWorkbenchRegistry {
     }
 
     public static <R extends BaseRecipe> void register(String name, Supplier<RecipeWorkbench<R>> value) {
-        ReverieDreams.LATE_INIT.add(() -> VALUES.put(name, value.get()));
+        ReverieDreams.COMMON_LATE_INIT.add(() -> VALUES.put(name, value.get()));
     }
 
     public static Set<Map.Entry<String, RecipeWorkbench<?>>> entries() {

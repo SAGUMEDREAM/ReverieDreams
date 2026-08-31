@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.inf.ILivingEntity;
+import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import net.minecraft.network.chat.Component;
@@ -33,7 +33,7 @@ public class UpgradedHealthItem extends Item {
             }
 
             world.playSound(null, user.getX(), user.getEyeY(), user.getZ(), RDSoundEvents.UP, user.getSoundSource(), 1.0f, 1.0f);
-            ILivingEntity modifier = (ILivingEntity) user;
+            LivingEntityDataModifier modifier = (LivingEntityDataModifier) user;
             float value = modifier.reverie_dreams$getMaxHealthModifier();
             modifier.reverie_dreams$setMaxHealthModifier(value + 2);
             if (maxHealthAttributeInstance != null) {

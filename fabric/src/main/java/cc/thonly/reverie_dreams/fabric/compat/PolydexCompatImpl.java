@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public class PolydexCompatImpl {
     public static void bootstrap(
     ) {

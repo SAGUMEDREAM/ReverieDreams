@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
+import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import cc.thonly.reverie_dreams.entity.RabbitUnit;
-import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -38,14 +38,17 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
 
     @Override
     public boolean canUse() {
-        if ((this.actor).getTarget() == null) {
+        if (this.actor.getTarget() == null) {
+//            System.out.println("no1");
             return false;
         }
         if (this.actor.getTarget() == this.actor.getOwner()) {
+//            System.out.println("no2");
             return false;
         }
         if (this.actor.getTarget() instanceof TamableAnimal tameableEntity) {
             if (tameableEntity.getOwner() == this.actor.getOwner()) {
+//                System.out.println("no3");
                 return false;
             }
         }
@@ -53,7 +56,7 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
     }
 
     private boolean isHoldingWeaponOfTheMoon() {
-        return this.actor.getMainHandItem().getItem() instanceof WeaponOfTheMoon;
+        return RangedAttackUtil.isWeaponOfTheMoonInHand(this.actor);
     }
 
     @Override
@@ -81,12 +84,16 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
             this.stop();
             return;
         }
+//        System.out.println("st1");
         float[] pitchYaw = DanmakuShooter.getPitchYaw(this.actor, target);
         this.actor.getLookControl().setLookAt(target);
         this.actor.setXRot(pitchYaw[0]);
         this.actor.setYRot(pitchYaw[1]);
 
-        if (!this.canUse()) return;
+        if (!this.canUse()) {
+//            System.out.println("st2");
+            return;
+        }
 
         double distanceSq = this.actor.distanceToSqr(target);
         if (distanceSq > this.range * this.range) {
@@ -112,7 +119,7 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
                 this.actor.startUsingItem(InteractionHand.MAIN_HAND);
                 this.atCd = this.attackInterval;
                 this.bullet--;
-                if (RDItems.WEAPON_OF_THE_MOON instanceof WeaponOfTheMoon weaponOfTheMoon) {
+                if (RDItems.WEAPON_OF_THE_MOON.asItem() instanceof WeaponOfTheMoon weaponOfTheMoon) {
                     weaponOfTheMoon.tryShoot(this.actor, serverLevel, InteractionHand.MAIN_HAND, 0.2f);
                 }
             } else {

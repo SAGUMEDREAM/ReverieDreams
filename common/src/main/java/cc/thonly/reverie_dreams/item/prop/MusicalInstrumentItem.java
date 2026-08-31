@@ -1,21 +1,17 @@
 package cc.thonly.reverie_dreams.item.prop;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.block.AttackBlockCallback;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
-import cc.thonly.reverie_dreams.util.NotaUtils;
+import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.serialization.Codec;
-import net.blay09.mods.balm.platform.event.callback.PlayerCallback;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,40 +34,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MusicalInstrumentItem extends Item {
     public static final Codec<NoteBlockInstrument> NOTE_BLOCK_INSTRUMENT_CODEC = StringRepresentable.fromEnum(NoteBlockInstrument::values);
-    public static final BlockPos NONE = new BlockPos(0, 0, 0);
-    public static final AttackBlockCallback BLOCK_CALLBACK = (player, world, hand, blockPos, direction) -> {
-        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            ItemStack stack = ItemUtils.getHandItem(player, itemStack -> itemStack.getItem() instanceof MusicalInstrumentItem);
-
-            if (!stack.isEmpty() && !player.isSpectator() && player.isShiftKeyDown()) {
-                List<String> fileNames = NotaUtils.getFileNames();
-                if (fileNames.isEmpty()) {
-                    player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
-                    return InteractionResult.SUCCESS_SERVER;
-                }
-
-                String playingMusic = stack.get(RDDataComponents.PLAYING_MUSIC.value());
-                int index = playingMusic == null ? -1 : fileNames.indexOf(playingMusic);
-                index = (index - 1 + fileNames.size()) % fileNames.size(); // 向上翻页
-
-                String previous = fileNames.get(index);
-                stack.set(RDDataComponents.PLAYING_MUSIC.value(), previous);
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", previous), false);
-                player.swing(hand);
-
-                return InteractionResult.SUCCESS_SERVER;
-            }
-        }
-        return InteractionResult.PASS;
-    };
-
-    static {
-        AttackBlockCallback.EVENT.register(BLOCK_CALLBACK);
-        PlayerCallback.Attack.Before.EVENT.register((player, target) -> {
-            BLOCK_CALLBACK.interact(player, player.level(), InteractionHand.MAIN_HAND, NONE, player.getMotionDirection());
-            return true;
-        });
-    }
 
     public MusicalInstrumentItem(Properties settings) {
         super(settings);
@@ -80,7 +42,7 @@ public class MusicalInstrumentItem extends Item {
     public InteractionResult useByEntity(Level world, LivingEntity user, InteractionHand hand) {
         ItemStack itemByMainSlot = user.getItemInHand(InteractionHand.MAIN_HAND);
         ItemStack itemByOffSlot = user.getItemInHand(InteractionHand.OFF_HAND);
-        if (itemByOffSlot.getItem() == DanmakuTypes.NOTE.getItemHolder()) {
+        if (itemByOffSlot.getItem() == DanmakuTypes.NOTE.getItemHolder().asItem()) {
             ItemStack baseBullet = itemByOffSlot.copy();
             if (user instanceof Player player) {
                 ItemCooldowns itemCooldownManager = player.getCooldowns();
@@ -101,10 +63,10 @@ public class MusicalInstrumentItem extends Item {
 
                 float speed = 0.7f + random.nextFloat() * 0.2f;
 
-                ItemStack randomStack = DanmakuTypes.random(DanmakuTypes.NOTE);
-                DanmakuProperties properties = baseBullet.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                ItemStack randomStack = DanmakuTypes.random(DanmakuTypes.NOTE).create();
+                DanmakuProperties properties = baseBullet.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                 if (properties != null) {
-                    randomStack.set(RDDataComponents.DANMAKU_PROPERTIES.value(), properties);
+                    randomStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties);
                 }
                 DanmakuTrajectory.spawnByItemStack(
                         (ServerLevel) world,
@@ -129,50 +91,35 @@ public class MusicalInstrumentItem extends Item {
         List<String> fileNames = NotaUtils.getFileNames();
         if (fileNames.isEmpty()) {
             if (user instanceof ServerPlayer player) {
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
+                player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
             }
             return InteractionResult.FAIL;
         }
 
-        String playingMusic = itemStack.get(RDDataComponents.PLAYING_MUSIC.value());
-        NoteBlockInstrument noteBlockInstrument = itemStack.getOrDefault(RDDataComponents.NOTE_TYPE.value(), NoteBlockInstrument.PLING);
+        String playingMusic = itemStack.get(RDDataComponentTypes.PLAYING_MUSIC.value());
+        NoteBlockInstrument noteBlockInstrument = itemStack.getOrDefault(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.PLING);
 
         if (isSneaking) {
             int index = playingMusic == null ? -1 : fileNames.indexOf(playingMusic);
             index = (index + 1) % fileNames.size();
             String next = fileNames.get(index);
-            itemStack.set(RDDataComponents.PLAYING_MUSIC.value(), next);
+            itemStack.set(RDDataComponentTypes.PLAYING_MUSIC.value(), next);
             if (user instanceof ServerPlayer player) {
-                player.displayClientMessage(Component.translatable("item.reverie_dreams.music.switch_music", next), false);
+                player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.switch_music", next), false);
+                if (NotaUtils.isPlaying(player)) {
+                    NotaUtils.play(user, next, noteBlockInstrument);
+                }
             }
         } else {
             if (playingMusic == null) {
                 if (user instanceof ServerPlayer player) {
-                    player.displayClientMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
+                    player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
                 }
             } else {
                 NotaUtils.play(user, playingMusic, noteBlockInstrument);
                 if (user instanceof ServerPlayer player && ReverieDreams.getServer() != null) {
-                    player.displayClientMessage(Component.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.getSerializedName()), false);
-                    ReverieDreams.getServer().executeIfPossible(() -> {
-                        AABB box = player.getBoundingBox().inflate(NotaUtils.MAX_DISTANCE);
-                        List<NPCRoleEntity> entities = world.getEntitiesOfClass(
-                                NPCRoleEntity.class,
-                                box,
-                                e -> e.isAlive() && e.isOwnedBy(player) && e.getWorkMode() == NPCWorkModes.PLAYING_MUSIC
-                        );
-                        for (NPCRoleEntity e : entities) {
-                            ItemStack mainHandStack = e.getMainHandItem();
-                            ItemStack offHandStack = e.getOffhandItem();
-                            if (mainHandStack.getItem() instanceof MusicalInstrumentItem) {
-                                mainHandStack.set(RDDataComponents.PLAYING_MUSIC.value(), playingMusic);
-                                this.useByEntity(world, e, InteractionHand.MAIN_HAND);
-                            } else if (offHandStack.getItem() instanceof MusicalInstrumentItem) {
-                                offHandStack.set(RDDataComponents.PLAYING_MUSIC.value(), playingMusic);
-                                this.useByEntity(world, e, InteractionHand.OFF_HAND);
-                            }
-                        }
-                    });
+                    player.sendSystemMessage(Component.translatable("item.reverie_dreams.music.playing_music", playingMusic, noteBlockInstrument.getSerializedName()), false);
+                    ReverieDreams.getServer().executeIfPossible(() -> playForMaidEntity(world, player, playingMusic));
                 }
                 if (user instanceof ServerPlayer player) {
                     SimpleTriggerFactory.create(SimpleTriggerKeys.USE_MUSICAL_INSTRUMENTS).trigger(player);
@@ -181,6 +128,26 @@ public class MusicalInstrumentItem extends Item {
         }
         user.swing(hand);
         return InteractionResult.SUCCESS_SERVER;
+    }
+
+    private void playForMaidEntity(Level world, ServerPlayer player, String playingMusic) {
+        AABB box = player.getBoundingBox().inflate(NotaUtils.MAX_DISTANCE);
+        List<NPCSimpleEntity> entities = world.getEntitiesOfClass(
+                NPCSimpleEntity.class,
+                box,
+                e -> e.isAlive() && e.isOwnedBy(player) && e.getWorkMode() == NPCWorkModes.PLAYING_MUSIC
+        );
+        for (NPCSimpleEntity e : entities) {
+            ItemStack mainHandStack = e.getMainHandItem();
+            ItemStack offHandStack = e.getOffhandItem();
+            if (mainHandStack.getItem() instanceof MusicalInstrumentItem) {
+                mainHandStack.set(RDDataComponentTypes.PLAYING_MUSIC.value(), playingMusic);
+                this.useByEntity(world, e, InteractionHand.MAIN_HAND);
+            } else if (offHandStack.getItem() instanceof MusicalInstrumentItem) {
+                offHandStack.set(RDDataComponentTypes.PLAYING_MUSIC.value(), playingMusic);
+                this.useByEntity(world, e, InteractionHand.OFF_HAND);
+            }
+        }
     }
 
     @Override

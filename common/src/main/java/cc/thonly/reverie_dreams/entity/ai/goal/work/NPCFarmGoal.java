@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
+import cc.thonly.reverie_dreams.api.block.CustomMatureBlock;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.inf.IMatureBlock;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -94,7 +94,7 @@ public class NPCFarmGoal extends Goal {
         super.stop();
     }
 
-    public static boolean isMature(IMatureBlock crop, BlockState cropsState) {
+    public static boolean isMature(CustomMatureBlock crop, BlockState cropsState) {
         if (crop instanceof CropBlock cropBlock) {
             return cropBlock.isMaxAge(cropsState);
         } else if (crop instanceof AbstractCropBlock basicCropBlock) {
@@ -106,7 +106,7 @@ public class NPCFarmGoal extends Goal {
     public boolean harvest(BlockPos targetFarmLandTop) {
         ServerLevel serverWorld = getServerLevel(maid);
         BlockState cropsState = serverWorld.getBlockState(targetFarmLandTop);
-        if (cropsState.getBlock() instanceof IMatureBlock crop && this.isMature(crop, cropsState)) {
+        if (cropsState.getBlock() instanceof CustomMatureBlock crop && this.isMature(crop, cropsState)) {
             dropItem(targetFarmLandTop);
             //调用breakBlock无法吃到时运 自定义掉落并关闭break的掉落
             serverWorld.destroyBlock(targetFarmLandTop, false, maid);
@@ -173,17 +173,17 @@ public class NPCFarmGoal extends Goal {
     public static boolean isCrop(BlockPos pos, ServerLevel world) {
         BlockState blockState = world.getBlockState(pos);
         Block crop = blockState.getBlock();
-        if (!(crop instanceof IMatureBlock iMatureBlock)) {
+        if (!(crop instanceof CustomMatureBlock customMatureBlock)) {
             return false;
         }
-        return isMature(iMatureBlock, blockState);
+        return isMature(customMatureBlock, blockState);
 //        return is && ((IMatureBlock) crop).isMature(blockState);
     }
 
     //这个方块下面是不是耕地
     public static boolean isFarmLandTop(BlockPos b, ServerLevel world) {
         Block block = world.getBlockState(b.below()).getBlock();
-        return world.getBlockState(b).isAir() && (block instanceof FarmBlock);
+        return world.getBlockState(b).isAir() && (block instanceof FarmlandBlock);
     }
 
 

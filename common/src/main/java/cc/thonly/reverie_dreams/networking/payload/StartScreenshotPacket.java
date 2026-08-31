@@ -13,11 +13,11 @@ public record StartScreenshotPacket(UUID sessionId) implements CustomPacketPaylo
     public static final Type<StartScreenshotPacket> PACKET_ID = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, StartScreenshotPacket> CODEC = StreamCodec.ofMember(StartScreenshotPacket::write, StartScreenshotPacket::read);
 
-    private static StartScreenshotPacket read(RegistryFriendlyByteBuf buf) {
+    public static StartScreenshotPacket read(RegistryFriendlyByteBuf buf) {
         return new StartScreenshotPacket(buf.readUUID());
     }
 
-    private void write(RegistryFriendlyByteBuf buf) {
+    public void write(RegistryFriendlyByteBuf buf) {
         buf.writeUUID(this.sessionId);
     }
 

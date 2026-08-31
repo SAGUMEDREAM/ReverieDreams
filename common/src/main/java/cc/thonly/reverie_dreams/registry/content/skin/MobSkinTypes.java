@@ -2,10 +2,15 @@ package cc.thonly.reverie_dreams.registry.content.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import net.minecraft.resources.Identifier;
 
 public class MobSkinTypes extends SkinTypes {
+    public static final SkinType UNDEFINED = register(new SkinType(Identifier.withDefaultNamespace("undefined"),
+            "ewogICJ0aW1lc3RhbXAiIDogMTcwODU4MzQ0MDY4OSwKICAicHJvZmlsZUlkIiA6ICJiM2E3NjExNGVmMzI0ZjYyYWM4NDRiOWJmNTY1NGFiOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNcmd1eW1hbnBlcnNvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lODRjY2E2ZGVhNjhlN2UzYzZhNDJiYTQ2YTNhN2ZlODdlZDY3YTk3ZmRjOTRlNTY0NzI1YTc0ZTYxYjBmOTI3IgogICAgfQogIH0KfQ==",
+            "x/b2EYJFrRIkSl5TviHdKoZcwBmmDt0RfAa2y0oTK3n/YZ2xco3rl/D60NN5CSWK24Ui0VaGQ66SdrKV742aXjiNAKzOTxga3IEHSaCTN/to9jrvKHvz0esyAGiLFB98co9o4nZyGClTlzieW0dHexPmyfa6g8MTlS/T3kjACDIT8OQvSkl95U2iMnvvmqfLnZ9l7WlvEkD9+gjNg8dRUFwMGVGVRz2hCYHR6WxjOJEpqbYMMRMJgKBXRzKVCwxy7cDW+warLZL7BwV8pYZVv4FOc8epaJm3JsTbwp7eTMxb+o8rSupv1Aoq52iJwZfk4x+c0rRS/xCfc+d1bY1UfLG6s2NnwvUJpMJ3VdSMVcRZ5QecGX+OU8ZVdi+VWAZncZ4csrcZ1KqI30EeA6ztccTaarA6nmwghGzNUi+bXCUJctnzBXpjL7eErgrTeHso8JgmOpybMeu+UefDWIw1fbRWjRuX5l9/VRZp3zR4wfSu7NMuKANx/cmx0almu4ef0qeN9PZ39fjOoxwEQvaGbeq2pH0+2HCE9hHnWoH6RXFuCFTnnQkc8TsFNOWQVrY6alg1X6wWS2tzfuIzzW/EjM6Wl3qpNDd4VaVHWUNfq6xGp+F+kpymaKrCGvSxAQiLrJ/kK0SK5kAW16kKedkiSFji3dmdBlrYbTitNRFPXRg=")
+    );
+
     public static final SkinType DEFAULT = register(new SkinType(Identifier.withDefaultNamespace("default"),
             "ewogICJ0aW1lc3RhbXAiIDogMTcwODU4MzQ0MDY4OSwKICAicHJvZmlsZUlkIiA6ICJiM2E3NjExNGVmMzI0ZjYyYWM4NDRiOWJmNTY1NGFiOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNcmd1eW1hbnBlcnNvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lODRjY2E2ZGVhNjhlN2UzYzZhNDJiYTQ2YTNhN2ZlODdlZDY3YTk3ZmRjOTRlNTY0NzI1YTc0ZTYxYjBmOTI3IgogICAgfQogIH0KfQ==",
             "x/b2EYJFrRIkSl5TviHdKoZcwBmmDt0RfAa2y0oTK3n/YZ2xco3rl/D60NN5CSWK24Ui0VaGQ66SdrKV742aXjiNAKzOTxga3IEHSaCTN/to9jrvKHvz0esyAGiLFB98co9o4nZyGClTlzieW0dHexPmyfa6g8MTlS/T3kjACDIT8OQvSkl95U2iMnvvmqfLnZ9l7WlvEkD9+gjNg8dRUFwMGVGVRz2hCYHR6WxjOJEpqbYMMRMJgKBXRzKVCwxy7cDW+warLZL7BwV8pYZVv4FOc8epaJm3JsTbwp7eTMxb+o8rSupv1Aoq52iJwZfk4x+c0rRS/xCfc+d1bY1UfLG6s2NnwvUJpMJ3VdSMVcRZ5QecGX+OU8ZVdi+VWAZncZ4csrcZ1KqI30EeA6ztccTaarA6nmwghGzNUi+bXCUJctnzBXpjL7eErgrTeHso8JgmOpybMeu+UefDWIw1fbRWjRuX5l9/VRZp3zR4wfSu7NMuKANx/cmx0almu4ef0qeN9PZ39fjOoxwEQvaGbeq2pH0+2HCE9hHnWoH6RXFuCFTnnQkc8TsFNOWQVrY6alg1X6wWS2tzfuIzzW/EjM6Wl3qpNDd4VaVHWUNfq6xGp+F+kpymaKrCGvSxAQiLrJ/kK0SK5kAW16kKedkiSFji3dmdBlrYbTitNRFPXRg=")
@@ -69,12 +74,24 @@ public class MobSkinTypes extends SkinTypes {
     public static final SkinType RABBIT_UNIT_2 = register(new SkinType(
             ReverieDreams.id("rabbit_unit_2")
     ));
+    public static final SkinType ONI_GREEN = register(new SkinType(
+            ReverieDreams.id("oni_green")
+    ));
+    public static final SkinType ONI_ORANGE = register(new SkinType(
+            ReverieDreams.id("oni_orange")
+    ));
+    public static final SkinType ONI_RED = register(new SkinType(
+            ReverieDreams.id("oni_red")
+    ));
 
-    public static void bootstrap(RegistryImpl<SkinType> registry) {
+    public static void bootstrap(RegistryProvider<SkinType> registry) {
         MobSkinTypes.DEFAULT.setSlim(false);
         MobSkinTypes.GOBLIN.setSlim(false);
         MobSkinTypes.WATER_ELEMENTAL.setSlim(false);
         MobSkinTypes.FIRE_ELEMENTAL.setSlim(false);
         MobSkinTypes.ICE_ELEMENTAL.setSlim(false);
+        MobSkinTypes.ONI_GREEN.setSlim(false);
+        MobSkinTypes.ONI_ORANGE.setSlim(false);
+        MobSkinTypes.ONI_RED.setSlim(false);
     }
 }

@@ -27,6 +27,7 @@ public class EarphoneItem extends ArmorItem {
         super(EarphoneArmorMaterial.INSTANCE, ArmorType.HELMET, settings);
     }
 
+    @SuppressWarnings("resource")
     @Override
     public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(itemStack, serverLevel, entity, slot);

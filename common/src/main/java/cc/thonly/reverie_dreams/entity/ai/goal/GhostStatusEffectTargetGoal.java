@@ -25,7 +25,6 @@ public class GhostStatusEffectTargetGoal<T extends LivingEntity> extends StatusE
     public void start() {
         if (this.targetEntity != null) {
             var hasSilver = hasSilverArmor(this.targetEntity);
-            System.out.println(hasSilver);
             if (!hasSilver) {
                 super.start();
             }

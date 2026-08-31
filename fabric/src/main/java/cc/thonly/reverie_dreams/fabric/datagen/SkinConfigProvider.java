@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractSkinConfigProvider;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 
 import java.util.Optional;
@@ -17,12 +17,12 @@ import java.util.concurrent.CompletableFuture;
  **/
 public class SkinConfigProvider extends AbstractSkinConfigProvider {
 
-    public SkinConfigProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public SkinConfigProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 
     @Override
-    public void configured() {
+    public void configured(HolderLookup.Provider provider) {
         this.addConfig(GensokyoSkinTypes.REIMU, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.CYAN_REIMU, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.MARISA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
@@ -72,7 +72,6 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(GensokyoSkinTypes.KOMEIJI_KOISHI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.WHITE_KOMEIJI_KOISHI, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.NAZRIN, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
-        this.addConfig(GensokyoSkinTypes.NUE, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.TATARA_KOGASA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.KASODANI_KYOUKO, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.MIYAKO_YOSHIKA, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
@@ -136,6 +135,7 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(GensokyoSkinTypes.SUNNY, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(GensokyoSkinTypes.LUNAR, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
 
+        this.addConfig(MobSkinTypes.UNDEFINED, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.DEFAULT, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.GHOST, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.YOUSEI01, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
@@ -149,5 +149,8 @@ public class SkinConfigProvider extends AbstractSkinConfigProvider {
         this.addConfig(MobSkinTypes.RABBIT_UNIT_0, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.RABBIT_UNIT_1, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
         this.addConfig(MobSkinTypes.RABBIT_UNIT_2, new SkinConfig(SkinConfig.ModelType.SLIM, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.ONI_GREEN, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.ONI_ORANGE, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
+        this.addConfig(MobSkinTypes.ONI_RED, new SkinConfig(SkinConfig.ModelType.WIDE, Optional.empty(), Optional.empty()));
     }
 }

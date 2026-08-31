@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.api;
 
+import cc.thonly.keine.fabric.FabricKeine;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import lombok.extern.slf4j.Slf4j;
 
@@ -8,7 +9,7 @@ import java.lang.reflect.Method;
 @Slf4j
 public class ReverieDreamsPolymerBridge {
     private static boolean LOADED = false;
-    private static boolean LOADED2 = false;
+    private static boolean PRE_LOADED = false;
 
     public static void tryPolymerify() {
         if (LOADED) {
@@ -19,9 +20,10 @@ public class ReverieDreamsPolymerBridge {
             return;
         }
         try {
-            Class<?> clazz = Class.forName("cc.thonly.reverie_dreams.fabric.PolymerInitializer");
+            Class<?> clazz = Class.forName("cc.thonly.reverie_dreams.polymer.PolymerInitializer");
             Method method = clazz.getDeclaredMethod("bootstrap");
             method.invoke(null);
+            FabricKeine.serverSideOnly();
         } catch (Exception e) {
             log.error("Can't load polymer patch", e);
             String text = "An error occurred during Polymerify that failed to load.\n Please try checking that the versions of the base mod and the polymer patch are the same, and report the error.";
@@ -34,8 +36,8 @@ public class ReverieDreamsPolymerBridge {
         LOADED = true;
     }
 
-    public static void tryReplaceGuidebook() {
-        if (LOADED2) {
+    public static void tryPreloadPolymer() {
+        if (PRE_LOADED) {
             return;
         }
         boolean modLoaded = PlatformContext.hasPolymer();
@@ -43,13 +45,13 @@ public class ReverieDreamsPolymerBridge {
             return;
         }
         try {
-            Class<?> clazz = Class.forName("cc.thonly.reverie_dreams.fabric.PolymerInitializer");
+            Class<?> clazz = Class.forName("cc.thonly.reverie_dreams.polymer.PolymerInitializer");
             Method method = clazz.getDeclaredMethod("replaceGuidebook");
             method.invoke(null);
         } catch (Exception e) {
             log.error("Can't load polymer patch", e);
             throw new RuntimeException(e);
         }
-        LOADED2 = true;
+        PRE_LOADED = true;
     }
 }

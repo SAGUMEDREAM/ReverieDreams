@@ -4,8 +4,8 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.function.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 
 import java.util.Map;
 
@@ -89,7 +89,7 @@ public class KeyframeFunctions {
                                               Map<String, Float> parameters) {
         KeyframeFunctionFactory factory = FUNCTIONS.get(key);
         if (factory == null) {
-            throw new IllegalArgumentException("Unknown keyframe function: " + key.identifier());
+            throw new NullPointerException("Unknown keyframe function: " + key.identifier());
         }
         return factory.create(parameters);
     }

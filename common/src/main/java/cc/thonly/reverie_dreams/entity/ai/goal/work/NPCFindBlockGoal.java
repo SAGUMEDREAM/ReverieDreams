@@ -154,7 +154,7 @@ public class NPCFindBlockGoal extends Goal {
             return;
         }
 
-        // 移动到目标箱子
+        // 移动到目标方块
         if (!isReached(this.currentTarget)) {
 //            System.out.println("[tick] Moving to block at " + this.currentTarget);
             this.roleEntity.getNavigation().moveTo(

@@ -1,92 +1,137 @@
 package cc.thonly.reverie_dreams.registry.content.villager.offer;
 
-import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.util.ListMaker;
-import net.blay09.mods.balm.world.entity.npc.villager.BalmVillagerTradeRegistrar;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
-import net.minecraft.world.item.ItemStack;
+import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
+import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.trading.ItemCost;
-import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.TradeCost;
+import net.minecraft.world.item.trading.VillagerTrade;
+import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.List;
 import java.util.Optional;
 
 public class PriestOffers {
-    @SuppressWarnings("DataFlowIssue")
-    public static void registers(BalmVillagerTradeRegistrar tradeRegistrar) {
-        tradeRegistrar.registerTrade(
-                RDVillagerProfessions.PRIEST_KEY,
-                1,
-                ListMaker.of(() -> List.of(
-                        (VillagerTrades.ItemListing) (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(RDItems.POWER, 11),
-                                Optional.empty(),
-                                new ItemStack(RDItems.COPPER_COIN.asItem(), 3),
-                                7,
-                                5,
-                                0.2f
-                        ),
-                        (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(RDItems.POINT, 12),
-                                Optional.empty(),
-                                new ItemStack(RDItems.COPPER_COIN.asItem(), 3),
-                                7,
-                                5,
-                                0.13f
-                        )
-                )).toArray(new VillagerTrades.ItemListing[0])
-        );
-        tradeRegistrar.registerTrade(
-                RDVillagerProfessions.PRIEST_KEY,
-                2,
-                ListMaker.of(() -> List.of(
-                        (VillagerTrades.ItemListing) (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(RDItems.POWER, 38),
-                                Optional.of(new ItemCost(RDItems.COPPER_COIN, 24)),
-                                new ItemStack(RDItems.EXORCISM_PAPER.asItem(), 6),
-                                4,
-                                5,
-                                0.2f
-                        ),
+    public static final String TEMPLATE = RDVillagerTrades.PRIEST_LEVEL_TEMPLATE;
 
-                        (level, entity, random) -> {
-                            RegistryAccess registryManager = entity.registryAccess();
-                            ItemStack woodenSwordStack = Items.WOODEN_SWORD.getDefaultInstance();
-                            Registry<Enchantment> lookup = registryManager.lookupOrThrow(Registries.ENCHANTMENT);
+    public static void makeOffers(RDVillagerTrades.PreparingTradeInfo builder) {
+        HolderGetter<Enchantment> enchantments = builder.getEnchantmentRegistry();
+        // Level 1
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_1,
+                    TEMPLATE,
+                    1,
+                    RDItems.POWER
+            );
 
-                            woodenSwordStack.enchant(
-                                    lookup.wrapAsHolder(lookup.getValue(Enchantments.SMITE)), 4
-                            );
-                            woodenSwordStack.enchant(
-                                    lookup.wrapAsHolder(lookup.getValue(Enchantments.UNBREAKING)), 2
-                            );
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.POWER, ConstantValue.exactly(11)),
+                    Optional.empty(),
+                    new ItemStackTemplate(RDItems.COPPER_COIN.asItem()),
+                    7,
+                    5,
+                    0.2f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(3)).build()
+                    )
+            ));
+        }
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_1,
+                    TEMPLATE,
+                    1,
+                    RDItems.POINT
+            );
 
-                            return new MerchantOffer(
-                                    new ItemCost(RDItems.POINT, 29),
-                                    Optional.of(new ItemCost(RDItems.COPPER_COIN, 31)),
-                                    woodenSwordStack,
-                                    7,
-                                    5,
-                                    0.13f
-                            );
-                        },
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.POINT, ConstantValue.exactly(12)),
+                    Optional.empty(),
+                    new ItemStackTemplate(RDItems.COPPER_COIN.asItem()),
+                    7,
+                    5,
+                    0.13f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(3)).build()
+                    )
+            ));
+        }
 
-                        (level, entity, random) -> new MerchantOffer(
-                                new ItemCost(RDItems.COPPER_COIN, 29),
-                                Optional.empty(),
-                                new ItemStack(RDItems.HAKUREI_CANE.asItem()),
-                                7,
-                                5,
-                                0.13f
-                        )
-                )).toArray(new VillagerTrades.ItemListing[0])
-        );
+        // Level 2
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_2,
+                    TEMPLATE,
+                    2,
+                    RDItems.EXORCISM_PAPER
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.POWER, ConstantValue.exactly(38)),
+                    Optional.of(new TradeCost(RDItems.COPPER_COIN, ConstantValue.exactly(24))),
+                    new ItemStackTemplate(RDItems.EXORCISM_PAPER.asItem()),
+                    4,
+                    5,
+                    0.2f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(6)).build()
+                    )
+            ));
+        }
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_2,
+                    TEMPLATE,
+                    2,
+                    Items.WOODEN_SWORD
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.POINT, ConstantValue.exactly(29)),
+                    Optional.of(new TradeCost(RDItems.COPPER_COIN, ConstantValue.exactly(31))),
+                    new ItemStackTemplate(Items.WOODEN_SWORD),
+                    7,
+                    5,
+                    0.13f,
+                    Optional.empty(),
+                    List.of(
+                            new SetEnchantmentsFunction.Builder()
+                                    .withEnchantment(enchantments.getOrThrow(Enchantments.SMITE), ConstantValue.exactly(4))
+                                    .withEnchantment(enchantments.getOrThrow(Enchantments.UNBREAKING), ConstantValue.exactly(2))
+                                    .build()
+                    )
+            ));
+        }
+        // Level 2
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_2,
+                    TEMPLATE,
+                    2,
+                    RDItems.HAKUREI_CANE
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.COPPER_COIN, ConstantValue.exactly(29)),
+                    Optional.empty(),
+                    new ItemStackTemplate(RDItems.HAKUREI_CANE.asItem()),
+                    7,
+                    5,
+                    0.13f,
+                    Optional.empty(),
+                    List.of() // 无额外处理
+            ));
+        }
     }
 }

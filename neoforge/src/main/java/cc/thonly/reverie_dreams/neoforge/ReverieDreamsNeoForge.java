@@ -2,75 +2,118 @@ package cc.thonly.reverie_dreams.neoforge;
 
 import cc.thonly.keine.neoforge.NeoForgeKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.command.CommandInit;
+import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
+import cc.thonly.reverie_dreams.api.ReverieDreamsExtension;
+import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
+import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
+import cc.thonly.reverie_dreams.api.registry.AliasManager;
+import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
-import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsCompats;
-import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryImpl;
-import com.mojang.brigadier.CommandDispatcher;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.neoforge.platform.runtime.NeoForgeLoadContext;
-import net.minecraft.commands.CommandBuildContext;
-import net.minecraft.commands.CommandSourceStack;
+import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
+import cc.thonly.reverie_dreams.neoforge.impl.NeoMergeRegistry;
+import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryProvider;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforgespi.language.ModFileScanData;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 @Mod(ReverieDreams.MOD_ID)
+@EventBusSubscriber(modid = ReverieDreams.MOD_ID)
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ReverieDreamsNeoForge {
-    public ReverieDreamsNeoForge(IEventBus modEventBus) {
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ReverieDreams.MOD_ID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ReverieDreams.MOD_ID);
+    public static final DeferredRegister.Entities ENTITY_TYPES = DeferredRegister.createEntities(ReverieDreams.MOD_ID);
+    public static final DeferredRegister.DataComponents DATA_COMPONENT_TYPES = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ReverieDreams.MOD_ID);
+
+    public ReverieDreamsNeoForge(ModContainer modContainer, IEventBus modBus) {
         NeoForgeKeine.loadApiImpl();
-        final var context = new NeoForgeLoadContext(modEventBus);
-        setupApi();
-        Balm.initializeMod(ReverieDreams.MOD_ID, context, registrars -> {
-            ReverieDreams.initialize(registrars, () -> {
-                ReverieDreams.ENTITY_DATA_SERIALIZER_REGISTRY.forEach((identifier, entityDataSerializer) -> {
-                    Registry.register(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, identifier, entityDataSerializer);
-                });
-            });
+        checkApiLoaded();
+        ReverieDreams.initialize(() -> {
+            EntityDataSerializerProviders.get().forEach((identifier, serializer) -> Registry.register(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, identifier, serializer));
+            AliasManager.execute(Registries.ITEM, map -> map.forEach(ITEMS::addAlias));
+            AliasManager.execute(Registries.BLOCK, map -> map.forEach(BLOCKS::addAlias));
+            AliasManager.execute(Registries.ENTITY_TYPE, map -> map.forEach(ENTITY_TYPES::addAlias));
+            AliasManager.execute(Registries.DATA_COMPONENT_TYPE, map -> map.forEach(DATA_COMPONENT_TYPES::addAlias));
+            ITEMS.register(modBus);
+            BLOCKS.register(modBus);
+            ENTITY_TYPES.register(modBus);
+            DATA_COMPONENT_TYPES.register(modBus);
         });
-        modEventBus.addListener(this::onCommonSetup);
-        modEventBus.addListener(this::onCreativeTabEvent);
-        NeoForge.EVENT_BUS.addListener(this::onRegisterCommands);
     }
 
-    public void setupApi() {
-        ReverieDreams.REGISTRY_GETTER = resourceKey -> new NeoRegistryImpl<>((ResourceKey<? extends Registry<Object>>) resourceKey) {
-        };
-        ReverieDreams.REGISTRY_SHADOWER = (resourceKey, handler) -> new NeoRegistryImpl(resourceKey, handler) {
-        };
+    public void checkApiLoaded() {
+        ReverieDreamsExtensionEvents.SCAN_EVENT.register(ReverieDreamsNeoForge::loadPlugins);
     }
 
     @SubscribeEvent
-    public void onCommonSetup(FMLCommonSetupEvent event) {
+    public static void onRegisterEntityAttribute(EntityAttributeCreationEvent event) {
+
+    }
+
+    @SubscribeEvent
+    public static void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            ReverieDreams.LATE_INIT.forEach(Runnable::run);
-            ReverieDreams.LATE_INIT.clear();
+            ReverieDreams.COMMON_LATE_INIT.forEach(Runnable::run);
+            ReverieDreams.COMMON_LATE_INIT.clear();
             ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
             ReverieDreams.BUS_LATE_INIT.clear();
-            ReverieDreamsCompats.initialize();
+            ReverieDreamsPluginLoader.run();
+            ReverieDreamsNeoForgeCompats.initialize();
         });
     }
 
     @SubscribeEvent
-    public void onCreativeTabEvent(BuildCreativeModeTabContentsEvent event) {
+    public static void onCreativeTabEvent(BuildCreativeModeTabContentsEvent event) {
         CreativeModeTab tab = event.getTab();
         BaseCreativeTab.busInvoker(tab, event);
     }
 
-    @SubscribeEvent
-    public void onRegisterCommands(RegisterCommandsEvent event) {
-        CommandBuildContext buildContext = event.getBuildContext();
-        CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
-        CommandInit.initialize(dispatcher, buildContext);
+    public static List<ReverieDreamsPlugin> loadPlugins() {
+        List<ReverieDreamsPlugin> plugins = new ArrayList<>();
+        for (var mod : ModList.get().getMods()) {
+
+            ModFileScanData scanData = mod.getOwningFile().getFile().getScanResult();
+
+            for (var ann : scanData.getAnnotations()) {
+
+                if (!ann.annotationType().getClassName()
+                        .equals(ReverieDreamsExtension.class.getName()))
+                    continue;
+
+                try {
+                    Class<?> clazz = Class.forName(ann.clazz().getClassName());
+
+                    if (!ReverieDreamsPlugin.class.isAssignableFrom(clazz)) {
+                        continue;
+                    }
+
+                    ReverieDreamsPlugin instance = (ReverieDreamsPlugin) clazz.getDeclaredConstructor().newInstance();
+                    plugins.add(instance);
+                } catch (Exception e) {
+                    log.error("Can't load plugin {}", mod.getModId());
+                }
+            }
+        }
+        return plugins;
     }
 
 }

@@ -4,8 +4,8 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.Pattern;
 import cc.thonly.reverie_dreams.data.danmaku.trajectory.*;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import net.minecraft.resources.Identifier;
 
 public class DanmakuTrajectories {
@@ -20,10 +20,10 @@ public class DanmakuTrajectories {
     public static final DanmakuTrajectory CUSTOM = register(ReverieDreams.id("custom"), new CustomTrajectory());
 
     public static DanmakuTrajectory register(Identifier key, DanmakuTrajectory value) {
-        return RegistryImpls.registerForBuiltin(RegistryImpls.DANMAKU_TRAJECTORY, key, value);
+        return BuiltInRegistryProviders.registerForBuiltin(BuiltInRegistryProviders.DANMAKU_TRAJECTORY, key, value);
     }
 
-    public static void bootstrap(RegistryImpl<DanmakuTrajectory> registry) {
+    public static void bootstrap(RegistryProvider<DanmakuTrajectory> registry) {
 
     }
 }

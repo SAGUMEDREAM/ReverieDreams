@@ -59,6 +59,7 @@ dependencies {
 
     compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
     runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+    implementation("dev.architectury:architectury-neoforge:${architectury_api_version}")
 
     jarJar(implementation("cc.thonly:keine-neoforge:1.21.11-1.0.0"))
     jarJar(implementation("cc.thonly:sgui_balm-neoforge:1.21.11-21.11.0"))

@@ -1,26 +1,24 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
-import cc.thonly.keine.api.KeineRegistries;
-import cc.thonly.keine.api.registry.CompostingChanceRegistry;
+import cc.thonly.keine.api.registry.impl.CompostingChanceRegistry;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import net.blay09.mods.balm.world.item.DeferredItem;
-import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
-import net.blay09.mods.balm.world.level.block.BalmBlockRegistration;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -40,7 +38,7 @@ public final class CropBlockBundle {
     private Integer maxAge;
     private float seedCompostingLevel = 0.3f;
     private float cropCompostingLevel = 0.6f;
-    private DeferredItem gain;
+    private ItemDelegate gain;
     private BasicBlockFactory factory;
     private boolean inWater;
     private boolean selfSeed = false;
@@ -67,26 +65,25 @@ public final class CropBlockBundle {
     /**
      * 构建并注册作物 block 与 item
      */
-    public Entry build(BalmBlockRegistrar registrar) {
+    public Entry build() {
         String name = this.identifier.getPath();
-        BalmBlockRegistration blockRegistration = registrar.register(name, props -> this.factory.newInstance(props), BlockBehaviour.Properties.of().setId(RDBlocks.keyOf(this.identifier)));
-        RDBlocks.registerSimpleBlock(blockRegistration.asDeferredBlock());
+        RegistrySupplier<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> this.factory.newInstance(BlockBehaviour.Properties.of().setId(RDBlocks.keyOf(this.identifier))));
+        BlockDelegate blockDelegate = BlockDelegate.of(block);
+        RDBlocks.registerSimpleBlock(blockDelegate);
 
-        DeferredItem seedItem;
+        ItemDelegate seedItem;
         Identifier seedId = Identifier.fromNamespaceAndPath(this.identifier.getNamespace(), this.identifier.getPath() + "_seeds");
         seedItem = RDItems.registerSimpleItem(
-                ReverieDreams.getItemRegistrar(),
                 seedId.getPath(),
                 (settings) -> new BlockItem(
-                        blockRegistration.asDeferredBlock().asBlock(),
+                        blockDelegate.asBlock(),
                         settings
                                 .setId(ResourceKey.create(Registries.ITEM, seedId))
                                 .useItemDescriptionPrefix()
                 ),
                 new Item.Properties()
         );
-        KeineRegistries keineRegistries = ReverieDreams.getKeineRegistries();
-        CompostingChanceRegistry compostingChanceRegistry = keineRegistries.compostingChanceRegistry();
+        CompostingChanceRegistry compostingChanceRegistry = MCBuiltInRegistries.KEINE_REGISTRIES.compostingChanceRegistry();
         compostingChanceRegistry.register(context -> {
             context.addItem(seedItem, getSeedCompostingLevel());
         });
@@ -98,23 +95,19 @@ public final class CropBlockBundle {
             });
         }
 
-        if (PlatformContext.isFabric()) {
-            Block block = blockRegistration.asBlockLike().asBlock();
-            ((AbstractCropBlock) block).setSeed(seedItem.asItem());
-        } else {
-            ReverieDreams.LATE_INIT.add(() -> {
-                Block block = blockRegistration.asBlockLike().asBlock();
-                ((AbstractCropBlock) block).setSeed(seedItem.asItem());
-            });
-        }
+
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+            Block delegateBlock = blockDelegate.asBlock();
+            ((AbstractCropBlock) delegateBlock).setSeed(seedItem.asItem());
+        });
 
         Entry entry = Entry.createInstance(this.identifier)
-                .setCropBlock(blockRegistration.asDeferredBlock())
-                .setSeed(seedItem)
-                .setProduct(this.gain)
-                .setModelType(this.modelType)
-                .setInWater(this.inWater)
-                .setSelfSeed(this.selfSeed);
+                           .setCropBlock(blockDelegate)
+                           .setSeed(seedItem)
+                           .setProduct(this.gain)
+                           .setModelType(this.modelType)
+                           .setInWater(this.inWater)
+                           .setSelfSeed(this.selfSeed);
 
         entry.getItems().add(seedItem);
         if (this.gain != null) {
@@ -148,10 +141,10 @@ public final class CropBlockBundle {
     @ToString
     public static class Entry {
         private final Identifier identifier;
-        private final Set<DeferredItem> items = new HashSet<>();
-        private DeferredItem seed;
-        private DeferredItem product;
-        private DeferredBlock cropBlock;
+        private final Set<ItemDelegate> items = new HashSet<>();
+        private ItemDelegate seed;
+        private ItemDelegate product;
+        private BlockDelegate cropBlock;
         private ModelType modelType;
         private boolean inWater = false;
         private boolean selfSeed = false;

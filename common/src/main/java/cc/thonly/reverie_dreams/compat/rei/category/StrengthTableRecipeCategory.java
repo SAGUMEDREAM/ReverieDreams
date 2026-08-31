@@ -91,6 +91,6 @@ public class StrengthTableRecipeCategory implements DisplayCategory<StrengthTabl
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(RDBlocks.STRENGTH_TABLE);
+        return EntryStacks.ofItemHolder(RDBlocks.STRENGTH_TABLE);
     }
 }

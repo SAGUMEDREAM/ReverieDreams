@@ -1,9 +1,12 @@
 package cc.thonly.reverie_dreams.registry.impl;
 
+import cc.thonly.reverie_dreams.registry.RegistryTagSet;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -11,20 +14,22 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Tuple;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
 
 @Slf4j
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "ForLoopReplaceableByForEach"})
 public abstract class RegistrySyncer<T, D> {
-    private final RegistryImpl<T> registry;
+    private final RegistryProvider<T> registry;
     private final Codec<D> dataCodec;
     @Getter
     private final ClientReloadListener<T, D> clientReloadListener;
 
-    public RegistrySyncer(RegistryImpl<T> registry, Codec<D> dataCodec, ClientReloadListener<T, D> clientReloadListener) {
+    public RegistrySyncer(RegistryProvider<T> registry, Codec<D> dataCodec, ClientReloadListener<T, D> clientReloadListener) {
         this.registry = registry;
         this.dataCodec = dataCodec;
         this.clientReloadListener = clientReloadListener;
@@ -33,6 +38,82 @@ public abstract class RegistrySyncer<T, D> {
     public abstract T toT(D d);
 
     public abstract D toD(T t);
+
+    public static <T> CompoundTag writeNamedToTag(Collection<HolderSet.Named<T>> namedTags) {
+        CompoundTag tag = new CompoundTag();
+        int size = namedTags.size();
+        tag.putInt("size", size);
+        ListTag entries = new ListTag();
+        for (HolderSet.Named<T> namedTag : namedTags) {
+            if (!namedTag.isBound()) {
+                continue;
+            }
+            CompoundTag entry = new CompoundTag();
+            entry.putString("id", namedTag.key().location().toString());
+            ListTag values = new ListTag();
+            for (Holder<T> tHolder : namedTag) {
+                tHolder.unwrapKey().ifPresent(key -> {
+                    CompoundTag entryKey = new CompoundTag();
+                    entryKey.putString("name", key.identifier().toString());
+                    values.add(entryKey);
+                });
+            }
+            entry.put("values", values);
+            entries.add(entry);
+        }
+        tag.put("tags", entries);
+        return tag;
+    }
+
+    public static List<Tuple<Identifier, RegistryTagSet>> readTagToSet(CompoundTag tag) {
+        int size = tag.getIntOr("size", -1);
+        if (size < 0) {
+            log.error("Error: Tag length abnormal");
+            return List.of();
+        }
+
+        List<Tuple<Identifier, RegistryTagSet>> list = new ArrayList<>();
+        ListTag tags = tag.getListOrEmpty("tags");
+
+        for (Tag entry : tags) {
+            if (!(entry instanceof CompoundTag compoundTag)) {
+                continue;
+            }
+
+            String idString = compoundTag.getStringOr("id", "");
+            if (idString.isEmpty()) {
+                log.error("Error: Missing tag id");
+                continue;
+            }
+
+            Identifier id = Identifier.tryParse(idString);
+            if (id == null) {
+                log.error("Error: Invalid tag identifier: {}", idString);
+                continue;
+            }
+
+            Optional<RegistryTagSet> optional = RegistryTagSet.CODEC.parse(
+                    NbtOps.INSTANCE,
+                    compoundTag
+            ).resultOrPartial(error ->
+                    log.error("Failed to parse tag {}: {}", id, error)
+            );
+
+            optional.ifPresent(registryTagSet ->
+                    list.add(new Tuple<>(id, registryTagSet))
+            );
+        }
+
+        if (list.size() != size) {
+            log.warn(
+                    "Tag length mismatch: expected {}, actually read {}",
+                    size,
+                    list.size()
+            );
+        }
+
+        return list;
+    }
 
     public CompoundTag writeToTag(List<Entry<T>> entries) {
         CompoundTag tag = new CompoundTag();
@@ -121,9 +202,9 @@ public abstract class RegistrySyncer<T, D> {
     }
 
     public interface ClientReloadListener<T, D> {
-        void preProcessing(RegistryImpl<T> registry);
+        void preProcessing(RegistryProvider<T> registry);
 
-        void afterProcessing(RegistryImpl<T> registry);
+        void afterProcessing(RegistryProvider<T> registry);
 
         T update(Identifier key, @Nullable T old, D data);
 

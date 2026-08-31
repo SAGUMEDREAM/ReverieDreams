@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.fabric.datagen.tag;
 
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDEntityTypeTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.EntityTypeTags;
@@ -13,9 +13,9 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
+public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider {
 
-    public EntityTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public EntityTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -23,17 +23,27 @@ public class EntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
         TagAppender<EntityType<?>, EntityType<?>> roleBuilder = valueLookupBuilder(RDEntityTypeTags.NPC_ROLE);
 
-        RegistryImpls.NPC_ROLE.values().forEach(role -> roleBuilder.add(role.getEntityType().value()));
+        BuiltInRegistryProviders.NPC_ROLE_TYPE.values().forEach(role -> roleBuilder.add(role.getEntityType().value()));
 
         TagAppender<EntityType<?>, EntityType<?>> undead = valueLookupBuilder(EntityTypeTags.UNDEAD);
-        undead.add(RDEntityTypes.GHOST.asHolder().value());
+        undead.add(RDEntityTypes.GHOST.value());
+
+        TagAppender<EntityType<?>, EntityType<?>> yousei = valueLookupBuilder(RDEntityTypeTags.YOUSEI);
+        yousei.add(RDEntityTypes.MAID_YOUSEI.value());
+        yousei.add(RDEntityTypes.SUNFLOWER_YOUSEI.value());
+        yousei.add(RDEntityTypes.YOUSEI.value());
+        yousei.add(RDEntityTypes.ICE_FAIRY.value());
 
         TagAppender<EntityType<?>, EntityType<?>> yokai = valueLookupBuilder(RDEntityTypeTags.YOKAI);
-        yokai.add(RDEntityTypes.MAID_YOUSEI.asHolder().value());
-        yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value());
-        yokai.add(RDEntityTypes.YOUSEI.asHolder().value());
-        yokai.add(RDEntityTypes.HAIRBALL.asHolder().value());
-        yokai.add(RDEntityTypes.GHOST.asHolder().value());
-        yokai.add(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value());
+        yokai.add(RDEntityTypes.MAID_YOUSEI.value());
+        yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI.value());
+        yokai.add(RDEntityTypes.YOUSEI.value());
+        yokai.add(RDEntityTypes.ICE_FAIRY.value());
+        yokai.add(RDEntityTypes.HAIRBALL.value());
+        yokai.add(RDEntityTypes.GHOST.value());
+        yokai.add(RDEntityTypes.MUSHROOM_MONSTER.value());
+        yokai.add(RDEntityTypes.MAID_YOUSEI.value());
+        yokai.add(RDEntityTypes.ONI.value());
+        yokai.addOptionalTag(RDEntityTypeTags.YOUSEI);
     }
 }

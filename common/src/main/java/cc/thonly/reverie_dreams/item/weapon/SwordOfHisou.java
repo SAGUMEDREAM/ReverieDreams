@@ -24,7 +24,7 @@ public class SwordOfHisou extends SwordItem {
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = target.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            if (world.isRaining() && serverWorld.random.nextFloat() < 0.3f) {
+            if (world.isRaining() && serverWorld.getRandom().nextFloat() < 0.3f) {
                 if (world.isThundering()) {
                     target.setRemainingFireTicks(2 * 20);
                     serverWorld.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.LIGHTNING_BOLT_THUNDER, SoundSource.NEUTRAL, 0.5f, 0.4f / (serverWorld.getRandom().nextFloat() * 0.4f + 0.8f));

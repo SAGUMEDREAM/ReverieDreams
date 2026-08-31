@@ -4,8 +4,8 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.KitchenBlockType;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class KitchenPage implements PolydexPage {
     public static final Identifier id = ReverieDreams.id("recipe/kitchen");
     public static final PolydexCategory CATEGORY = PolydexCategory.of(id);
     private static final Component TEXTURE = Component.empty();
-    public static final ItemStack ICON = new GuiElementBuilder(KitchenBlocks.COOKING_POT.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
+    public static final ItemStack ICON = new GuiElementBuilder(RDKitchenBlocks.COOKING_POT.asItem()).setName(Component.translatable(id.toLanguageKey())).asStack();
     public final Identifier key;
     public final KitchenRecipe value;
     private final List<PolydexIngredient<?>> ingredients;
@@ -44,7 +44,7 @@ public class KitchenPage implements PolydexPage {
             list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class KitchenPage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
@@ -81,21 +81,21 @@ public class KitchenPage implements PolydexPage {
 
     private ItemStack getViewStack(AtomicInteger input, String s) {
         if (s.equals("X")) {
-            return RDGuiItems.EMPTY_SLOT.createStack();
+            return RDGuiPlaceholderItems.EMPTY_SLOT.createStack();
         } else if (s.equals("O")) {
-            return this.value.getOutput().getItemStack();
+            return this.value.getOutput().build();
         } else if (s.equals("I")) {
             int i = input.get();
             input.incrementAndGet();
             if (i + 1 <= this.value.getIngredients().size()) {
-                return this.value.getIngredients().get(i).getItemStack();
+                return this.value.getIngredients().get(i).build();
             }
         } else if (s.equals("T")) {
-            return RDGuiItems.PROGRESS_TO_RESULT.createStack();
+            return RDGuiPlaceholderItems.PROGRESS_TO_RESULT.createStack();
         } else if (s.equals("P")) {
             MinecraftServer server = ReverieDreams.getServer();
             if (server !=null) {
-                KitchenRecipeType.MappingType type = this.value.getType();
+                KitchenRecipeType.TypeInstance type = this.value.getTypeInstance();
                 List<Block> blocks = KitchenBlockType.getMatchBlocks(server.registryAccess(), type);
                 if (blocks.isEmpty()) {
                     return Items.AIR.getDefaultInstance();

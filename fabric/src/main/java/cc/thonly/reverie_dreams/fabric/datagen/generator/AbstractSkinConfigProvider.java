@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
+import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,7 +12,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -25,17 +27,17 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public abstract class AbstractSkinConfigProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, SkinConfig> configList = new Object2ObjectLinkedOpenHashMap<>();
 
-    public AbstractSkinConfigProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractSkinConfigProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
 
-    public abstract void configured();
+    public abstract void configured(HolderLookup.Provider provider);
 
     protected void addConfig(Identifier id, SkinConfig config) {
         this.configList.put(id, config);
@@ -47,9 +49,12 @@ public abstract class AbstractSkinConfigProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
-        return CompletableFuture.runAsync(() -> {
-            this.configured();
-            this.export(writer);
+        return this.future.thenAcceptAsync(provider->{
+            this.configured(provider);
+            DataProviderHelper.outputFile(writer, this.configList, SkinConfig.CODEC, (id, config) -> {
+                config.bindRegistryKey(id);
+                return config;
+            }, "skin_config/");
         });
     }
 

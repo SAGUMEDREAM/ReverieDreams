@@ -1,33 +1,36 @@
 package cc.thonly.reverie_dreams.entity.npc;
 
-import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
+import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.entity.NPCFishingHook;
 import cc.thonly.reverie_dreams.entity.ai.goal.AvoidCreeperExplosionEntityGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.AvoidFireDamageEntityGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.attack.*;
-import cc.thonly.reverie_dreams.inf.IHolderEntity;
+import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityTrackerAccessor;
+import cc.thonly.reverie_dreams.mixin.accessor.LivingEntityAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerChunkLoadingManagerAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ServerEntityAccessor;
 import cc.thonly.reverie_dreams.networking.payload.SyncEntityPacket;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
-import com.google.common.collect.ImmutableList;
 import com.mojang.authlib.properties.Property;
 import com.mojang.logging.LogUtils;
+import dev.architectury.networking.NetworkManager;
 import lombok.Getter;
 import lombok.Setter;
-import net.blay09.mods.balm.Balm;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -55,18 +58,11 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -90,11 +86,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-@SuppressWarnings("resource")
+@SuppressWarnings({"resource", "SpellCheckingInspection", "unused"})
 @Getter
 @Setter
 public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements RangedAttackMob, NPCSettings {
     public static final EntityDataAccessor<SkinType> SKIN_TYPE = SynchedEntityData.defineId(BaseNPCLikeEntity.class, SkinType.SERIALIZER);
+    public static final EntityDataAccessor<SkinType> DEFAULT_SKIN_TYPE = SynchedEntityData.defineId(BaseNPCLikeEntity.class, SkinType.SERIALIZER);
+
     // 实体信息
     protected NPCState npcState = NPCStates.NORMAL;
     protected NPCState lastNpcState = NPCStates.NORMAL;
@@ -105,22 +103,15 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     protected ArmorStand seat;
     protected boolean paused = false;
     // 背包
-    protected NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
+    protected NPCInventoryImpl inventory;
     // 回血
     protected int healthTick = 20;
     protected int maxHealthTick = 20 * 8;
     // 攻击tick
     protected int updateAttackTick = 0;
     protected int maxUpdateAttackTick = 20 * 2 + 1;
-    // 饥饿
-    protected int nutrition = 20;
-    protected int saturation = 20;//饱食
-    protected float exhaustionLevel = 0;//消耗
-    protected int hungerTick = 20;
     // 经验
     protected int storedExperience = 0;
-    // 好感度
-    protected int goodwill = 100;
     // 工作
     protected BlockPos workingPos = new BlockPos(0, 0, 0);
     protected int workTick = 0;
@@ -133,6 +124,9 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     protected int movePacketFreshTick = 0;
     protected int neoForgeSyncPacketTick = 0;
     protected boolean saveChanged = false;
+    protected boolean lockSlot = false;
+    public @Nullable NPCFishingHook fishing;
+    public int pickItemTick = 20;
 
     static {
         ARROW_ITEMS.add(Items.ARROW);
@@ -144,7 +138,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     protected final NPCCrossbowAttackGoal crossBowAttackGoal = new NPCCrossbowAttackGoal(this, 1.0, 20);
     protected final NPCDanmakuItemGoal<BaseNPCLikeEntity> danmakuItemGoal = new NPCDanmakuItemGoal<>(this, 1.0, 20, 15.0f);
 
-    protected final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false) {
+    protected final NPCMeleeAttackGoal meleeAttackGoal = new NPCMeleeAttackGoal(this, 1.5, false) {
         @Override
         public void stop() {
             super.stop();
@@ -157,22 +151,26 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             BaseNPCLikeEntity.this.setAggressive(true);
         }
     };
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.NEAREST_BED);
-    private static final ImmutableList<SensorType<? extends Sensor<? super BaseNPCLikeEntity>>> SENSORS = ImmutableList.of();
+    @Getter
+    private final NPCFoodDataContainer foodDataContainer;
+    @Getter
+    private final ItemPickContainer itemPickContainer;
 
     public BaseNPCLikeEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world);
+        this.inventory = new NPCInventoryImpl(this, NPCInventoryImpl.MAX_SIZE);
+        this.itemPickContainer = new ItemPickContainer(this, this.getRandom());
+        this.foodDataContainer = new NPCFoodDataContainer(this, this.getRandom());
         this.init();
         this.updateAttackType();
+        if (this.getSkinType() == null) {
+            this.setSkinType(MobSkinTypes.DEFAULT);
+        }
     }
 
     public BaseNPCLikeEntity(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         this(entityType, world);
-        this.setSkinType(skinType);;
-    }
-
-    protected Brain.Provider<BaseNPCLikeEntity> brainProvider() {
-        return Brain.provider(MEMORY_MODULES, SENSORS);
+        this.setSkinType(skinType);
     }
 
     public void init() {
@@ -186,14 +184,38 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.setTame(false, false);
         this.setCanPickUpLoot(true);
 
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0f);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0f);
+        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 16.0f);
+        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, -1.0f);
     }
+
+    @SuppressWarnings("ConstantValue")
+    @Override
+    public boolean isWithinMeleeAttackRange(LivingEntity target) {
+        boolean withinMeleeAttackRange = super.isWithinMeleeAttackRange(target);
+        double maxRange = 3.5;
+        double minRange = 0;
+        LivingEntityAccessor accessor = (LivingEntityAccessor) target;
+        if (!withinMeleeAttackRange) {
+            AABB hitbox = accessor.reverie_dreams$getHitbox();
+            return this.getAttackBoundingBox(maxRange).intersects(hitbox) && (minRange <= 0.0 || !this.getAttackBoundingBox(minRange).intersects(hitbox));
+        }
+        return withinMeleeAttackRange;
+    }
+
+    public boolean addItem(ItemStack itemStack) {
+        return this.inventory.addItem(itemStack) != ItemStack.EMPTY;
+    }
+
+    //    @Override
+//    public boolean isShiftKeyDown() {
+//        return this.getNpcState().equals(NPCStates.SNAKING);
+//    }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(SKIN_TYPE, MobSkinTypes.DEFAULT);
+        builder.define(DEFAULT_SKIN_TYPE, MobSkinTypes.UNDEFINED);
     }
 
     @Override
@@ -201,12 +223,13 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super.readAdditionalSaveData(view);
         this.swinging = view.getBooleanOr("IsSwing", false);
         this.sit = view.getBooleanOr("IsSit", false);
+        this.foodDataContainer.readAdditionalSaveData(view);
 
         this.npcState = NPCStates.get(Identifier.parse(view.getStringOr("NPCStateId", NPCState.DEFAULT_ID.toString())));
         this.workMode = NPCWorkModes.get(Identifier.parse(view.getStringOr("NPCWorkStateId", NPCWorkMode.DEFAULT_ID.toString())));
-        this.npcOwner = view.getStringOr("NpcOwner", "");
+        this.npcOwner = view.getStringOr("NPCOwner", view.getStringOr("NpcOwner", ""));
 
-        NPCInventoryImpl inventory = new NPCInventoryImpl(NPCInventoryImpl.MAX_SIZE);
+        NPCInventoryImpl inventory = new NPCInventoryImpl(this, NPCInventoryImpl.MAX_SIZE);
         ContainerHelper.loadAllItems(view, inventory.getItems());
 
         view.getBooleanOr("AutoPick", false);
@@ -215,19 +238,16 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
         this.seatUUID = view.getStringOr("SeatUUID", "null");
 
-        this.nutrition = view.getIntOr("FoodNutrition", 20);
-        this.saturation = view.getIntOr("FoodSaturation", 20);
-
-        this.exhaustionLevel = view.getIntOr("FoodExhaustionLevel", 0);
         Optional<Long> workingPosOptional = view.getLong("WorkingPos");
         this.workingPos = workingPosOptional
                 .map(BlockPos::of)
                 .orElseGet(() -> BlockPos.of(new BlockPos(0, 0, 0).asLong()));
 
         this.storedExperience = view.getIntOr("ExperienceAmount", 0);
-        this.goodwill = view.getIntOr("GoodWIll", 100);
+        this.lockSlot = view.getBooleanOr("LockSlot", false);
 
-        this.readSkinData(view);
+        view.read("Skin", SkinType.MERGED_CODEC).ifPresent(this::setSkinType);
+        view.read("DefaultSKinType", SkinType.MERGED_CODEC).ifPresent(this::setDefaultSkinType);
         this.updateAttackType();
     }
 
@@ -236,15 +256,12 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super.addAdditionalSaveData(view);
         view.putBoolean("IsSwing", this.swinging);
         view.putBoolean("IsSit", this.sit);
-        view.putString("NpcOwner", this.npcOwner);
-        view.putString("NPCStateId", Optional.ofNullable(RegistryImpls.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
-        view.putString("NPCWorkStateId", Optional.ofNullable(RegistryImpls.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
-        view.putFloat("FoodNutrition", this.nutrition);
-        view.putFloat("FoodSaturation", this.saturation);
-        view.putFloat("FoodExhaustionLevel", this.exhaustionLevel);
+        view.putString("NPCOwner", this.npcOwner);
+        view.putString("NPCStateId", Optional.ofNullable(BuiltInRegistryProviders.NPC_STATE.getKey(this.npcState)).orElse(NPCState.DEFAULT_ID).toString());
+        view.putString("NPCWorkStateId", Optional.ofNullable(BuiltInRegistryProviders.NPC_WORK_MODE.getKey(this.workMode)).orElse(NPCWorkMode.DEFAULT_ID).toString());
+        this.foodDataContainer.addAdditionalSaveData(view);
 
         ContainerHelper.saveAllItems(view, this.inventory.getItems());
-
         view.putLong("WorkingPos", this.workingPos.asLong());
 
         view.putBoolean("AutoPick", this.autoPick);
@@ -254,8 +271,18 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         }
 
         view.putInt("ExperienceAmount", this.storedExperience);
-        view.putInt("GoodWill", this.goodwill);
-        this.writeSkinData(view);
+        view.putBoolean("LockSlot", this.lockSlot);
+
+        view.store("Skin", SkinType.MERGED_CODEC, this.getSkinType());
+        view.store("DefaultSkinType", SkinType.MERGED_CODEC, this.getDefaultSkinType());
+    }
+
+    public NPCFoodDataContainer getFoodData() {
+        return this.foodDataContainer;
+    }
+
+    public boolean isEnableTamableFeature() {
+        return false;
     }
 
     @Override
@@ -263,14 +290,16 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         super.swing(hand, updateSelf);
     }
 
-    public void sendSyncPacket() {
+    public void sendForceSyncPacket() {
         if (!this.level().isClientSide()) {
             MinecraftServer server = this.level().getServer();
             if (server == null) {
                 return;
             }
             final var packet = new SyncEntityPacket(this.getId(), this.writeUpdateTag());
-            Balm.networking().sendToAll(server, packet);
+            if (ReverieDreams.getServer() != null) {
+                NetworkManager.sendToPlayers(ReverieDreams.getServer().getPlayerList().getPlayers().stream().filter(player -> Objects.equals(player.level().dimension(), this.level().dimension())).toList(), packet);
+            }
         }
     }
 
@@ -282,14 +311,6 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         } catch (Exception any) {
             return new CompoundTag();
         }
-    }
-
-    public void writeSkinData(ValueOutput view) {
-        view.store("Skin", SkinType.CODEC, this.getSkinType());
-    }
-
-    public void readSkinData(ValueInput view) {
-        view.read("Skin", SkinType.CODEC).ifPresent(this::setSkinType);
     }
 
     @Override
@@ -329,7 +350,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         if (itemStack.getItem() instanceof CrossbowItem) {
             ChargedProjectiles chargedProjectilesComponent = itemStack.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
             if (chargedProjectilesComponent != null) {
-                for (ItemStack projStack : chargedProjectilesComponent.getItems()) {
+                for (ItemStack projStack : chargedProjectilesComponent.itemCopies()) {
                     Projectile projectile = this.createArrowProjectile(projStack, 3.15f, itemStack);
                     shoot(target, projStack, projectile);
                     shoot(target, projStack, projectile);
@@ -348,6 +369,26 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         }
 
 
+    }
+
+    public void setWorkMode(NPCWorkMode workMode) {
+        if (Objects.equals(this.workMode, workMode)) {
+            return;
+        }
+
+        this.workMode.onStop(this);
+        this.workMode = workMode;
+        this.workMode.onStarted(this);
+    }
+
+    public void setNpcState(NPCState npcState) {
+        if (Objects.equals(this.npcState, npcState)) {
+            return;
+        }
+
+        this.npcState.onStop(this);
+        this.npcState = npcState;
+        this.npcState.onStarted(this);
     }
 
     private void shoot(Entity target, ItemStack arrow, Projectile arrowEntity) {
@@ -388,7 +429,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             world.addFreshEntity(itemEntity);
         } else if (keepInventoryType == KeepInventoryTypes.DROP_ALL_ITEM) {
             for (int i = 0; i < this.inventory.getContainerSize(); i++) {
-                if (this.getDonDropSlotIndex().contains(i)) continue;
+                if (this.getDonDropSlotIndex().contains(i))
+                    continue;
                 ItemStack copiedStack = this.inventory.getItem(i).copy();
                 ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
                 world.addFreshEntity(itemEntity);
@@ -408,6 +450,18 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             List<ItemStack> stacks = List.of(
                     this.inventory.getMainHand(),
                     this.inventory.getOffHand(),
+                    this.inventory.getHead(),
+                    this.inventory.getChest(),
+                    this.inventory.getLegs(),
+                    this.inventory.getFeet()
+            );
+            for (ItemStack stack : stacks) {
+                ItemStack copiedStack = stack.copy();
+                ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
+                world.addFreshEntity(itemEntity);
+            }
+        } else if (keepInventoryType == KeepInventoryTypes.ONLY_ARMOR) {
+            List<ItemStack> stacks = List.of(
                     this.inventory.getHead(),
                     this.inventory.getChest(),
                     this.inventory.getLegs(),
@@ -485,7 +539,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.updateBob();
         Level world = this.level();
         if (world instanceof ServerLevel serverWorld) {
-            if (this.isSleeping()) return;
+            if (this.isSleeping())
+                return;
             if (this.canPickUpLoot() && this.isAlive()) {
                 Vec3i vec3i = this.getPickupReach();
                 List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(vec3i.getX(), vec3i.getY(), vec3i.getZ()));
@@ -556,8 +611,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.get(this);
-        if (polymerEntity instanceof IHolderEntity playerPolymerEntity) {
+        Object polymerEntity = PolymerEntityGetterCallback.get(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity playerPolymerEntity) {
             playerPolymerEntity.onCreated();
         }
     }
@@ -565,8 +620,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.get(this);
-        if (polymerEntity instanceof IHolderEntity playerPolymerEntity) {
+        Object polymerEntity = PolymerEntityGetterCallback.get(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity playerPolymerEntity) {
             playerPolymerEntity.onTrackingStopped(player);
         }
     }
@@ -614,63 +669,30 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     protected void updateHealth() {
-        if (this.level().isClientSide()) return;
+        if (this.level().isClientSide())
+            return;
         if (this.getHealth() < this.getMaxHealth()) {
             this.healthTick--;
         } else {
 //            this.healthTick = 10;
         }
         if (this.consumeHunger() && this.getHealth() < this.getMaxHealth() && this.healthTick <= 0) {
-            if (this.isDeadOrDying()) return;
-            if (this.nutrition == 20 && this.saturation > 1) {
-                this.setHealth(getHealth() + Math.min(1, saturation / 6));
+            if (this.isDeadOrDying())
+                return;
+            NPCFoodDataContainer foodData = this.getFoodData();
+            if (this.getFoodData().getNutrition() == 20 && foodData.getSaturation() > 1) {
+                this.setHealth(getHealth() + Math.min(1, foodData.getSaturation() / 6));
                 this.healthTick = 10;
-                this.exhaustionLevel += 6;
-            } else if (nutrition >= 18) {
+                foodData.setExhaustionLevel(foodData.getExhaustionLevel() + 6);
+            } else if (foodData.getNutrition() >= 18) {
                 this.setHealth(getHealth() + 1);
                 this.healthTick = 80;
-                this.exhaustionLevel += 6;
-            } else if (nutrition == 0 && this.getHealth() > this.getMaxHealth() / 2) {
+                foodData.setExhaustionLevel(foodData.getExhaustionLevel() + 6);
+            } else if (foodData.getNutrition() == 0 && this.getHealth() > this.getMaxHealth() / 2) {
                 this.hurtServer((ServerLevel) this.level(), this.damageSources().starve(), 1);
                 this.healthTick = 80;
             }
         }
-    }
-
-    private void updateHunger() {
-        if (this.consumeHunger()) {
-            nutrition = Math.clamp(this.nutrition, 0, 20);
-            saturation = Math.clamp(this.saturation, 0, this.nutrition);
-            if (exhaustionLevel >= 4) {
-                if (this.saturation > 0) {
-                    this.saturation--;
-                    this.exhaustionLevel = 0;
-                } else if (this.nutrition > 0) {
-                    this.nutrition--;
-                    this.exhaustionLevel = 0;
-                }
-            }
-        }
-    }
-
-    private void updateHungerConsumption() {
-        this.hungerTick--;
-        if (hungerTick <= 0) {
-            hungerTick = 20;
-            int hungerEffectLevel = 0;
-            MobEffectInstance hungerEff = this.getEffect(MobEffects.HUNGER);
-            if (hungerEff != null) {
-                hungerEffectLevel = hungerEff.getAmplifier();
-                // System.out.println("饥饿消耗 "+ hungerEffectLevel);
-            }
-            this.exhaustionLevel += (float) (hungerEffectLevel * 0.1);
-            if (this.getNavigation().isInProgress()) {
-                this.exhaustionLevel += 0.015F;//无法检测具体行为 按0.015计算 略微提高消耗
-                // System.out.println("寻路增加消耗");
-            }
-        }
-
-
     }
 
 
@@ -714,37 +736,21 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     public NPCState getNextState() {
-        if (this.isSleeping()) return this.npcState;
-        int rawId = RegistryImpls.NPC_STATE.getId(this.npcState);
+        if (this.isSleeping())
+            return this.npcState;
+        int rawId = BuiltInRegistryProviders.NPC_STATE.getId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId + 1);
         return next != null ? next : NPCStates.fromInt(0);
     }
 
     public NPCState getPreviousState() {
-        if (this.isSleeping()) return this.npcState;
-        int rawId = RegistryImpls.NPC_STATE.getId(this.npcState);
+        if (this.isSleeping())
+            return this.npcState;
+        int rawId = BuiltInRegistryProviders.NPC_STATE.getId(this.npcState);
         NPCState next = NPCStates.fromInt(rawId - 1);
-        Map<Integer, Holder.Reference<NPCState>> rawToEntry = RegistryImpls.NPC_STATE.getIdToEntryMap();
+        Map<Integer, Holder.Reference<NPCState>> rawToEntry = BuiltInRegistryProviders.NPC_STATE.getIdToEntryMap();
         int maxKey = Collections.max(rawToEntry.keySet());
         return next != null ? next : NPCStates.fromInt(maxKey);
-    }
-
-    public void reduceHunger(float value) {
-        float remaining = value;
-
-        while (remaining > 0.0f) {
-            if (this.saturation > 0.0f) {
-                float delta = Math.min(0.5f, Math.min(this.saturation, remaining));
-                this.saturation -= delta;
-                remaining -= delta;
-            } else if (this.nutrition > 0.0f) {
-                float delta = Math.min(0.5f, Math.min(this.nutrition, remaining));
-                this.nutrition -= delta;
-                remaining -= delta;
-            } else {
-                break;
-            }
-        }
     }
 
     public void updateWorking() {
@@ -780,7 +786,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     public void fixPitchYaw() {
-        if (PlatformContext.isFabric()) {
+        if (PlatformContext.isFabric() && PlatformContext.hasPolymer()) {
             float delta = Math.abs(this.yBodyRot - this.getYRot());
             if (delta > 20.0f) {
                 this.setYBodyRot(this.getYRot());
@@ -792,12 +798,17 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     public void tick() {
         Level world = this.level();
         this.updateHealth();
-        this.updateHunger();
-        this.updateHungerConsumption();
+        this.foodDataContainer.tick();
+        this.foodDataContainer.updateHunger();
+        this.foodDataContainer.updateHungerConsumption();
+        this.itemPickContainer.tick();
         this.updateWorking();
         this.updateName();
-        this.fixPitchYaw();
-        this.neoForgePacketUpdate();
+//        this.fixPitchYaw();
+//        this.neoForgePacketUpdate();
+        if (!this.getNpcState().equals(NPCStates.SEATED)) {
+            this.setOrderedToSit(false);
+        }
         this.updateAttackTick++;
         if (this.updateAttackTick > this.maxUpdateAttackTick) {
             this.updateAttackType();
@@ -817,19 +828,20 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         if (this.npcState == NPCStates.SEATED) {
             if (this.seat == null) {
                 List<ArmorStand> list = world.getEntitiesOfClass(
-                                ArmorStand.class,
-                                new AABB(this.getX() + 1, this.getY() + 1, this.getZ() + 1, this.getX() - 1, this.getY() - 1, this.getZ() - 1),
-                                entity -> true)
-                        .stream()
-                        .filter(entity -> entity.getUUID().toString().equalsIgnoreCase(this.seatUUID))
-                        .toList();
+                                                     ArmorStand.class,
+                                                     new AABB(this.getX() + 1, this.getY() + 1, this.getZ() + 1, this.getX() - 1, this.getY() - 1, this.getZ() - 1),
+                                                     entity -> true)
+                                             .stream()
+                                             .filter(entity -> entity.getUUID().toString().equalsIgnoreCase(this.seatUUID))
+                                             .toList();
                 if (!list.isEmpty()) {
                     this.seat = list.getFirst();
                 } else {
-                    spawnSeatAndSit();
+                    this.spawnSeatAndSit();
                 }
             }
             this.setSit(true);
+            super.tick();
             return;
         } else {
             if (this.seat != null) {
@@ -839,11 +851,12 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             }
             this.setSit(false);
         }
-        if (this.getPose() == Pose.CROUCHING) {
+        if (this.getPose() == Pose.CROUCHING && !(this.getNpcState().equals(NPCStates.SNAKING))) {
             this.setPose(Pose.STANDING);
         }
         this.lastNpcState = this.npcState;
         this.avatarState.tick(this.position(), this.getDeltaMovement());
+
         super.tick();
     }
 
@@ -855,7 +868,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             return;
         }
         if (this.neoForgeSyncPacketTick >= 3) {
-            this.sendSyncPacket();
+            this.sendForceSyncPacket();
             this.neoForgeSyncPacketTick = 0;
         } else {
             this.neoForgeSyncPacketTick++;
@@ -864,7 +877,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     private void spawnSeatAndSit() {
         ArmorStand as = EntityType.ARMOR_STAND.create(this.level(), EntitySpawnReason.TRIGGERED);
-        if (as == null) return;
+        if (as == null)
+            return;
 
         as.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
         as.setInvisible(true);
@@ -894,8 +908,10 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     @Override
     public float getSpeed() {
-        if (this.npcState == NPCStates.NO_WALK || this.npcState == NPCStates.SNAKING) return 0;
-        if (this.paused) return 0;
+        if (this.npcState == NPCStates.NO_WALK || this.npcState == NPCStates.SNAKING)
+            return 0;
+        if (this.paused)
+            return 0;
         return super.getSpeed();
     }
 
@@ -938,18 +954,23 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         return result;
     }
 
-    public ItemStack toArchive() {
-        ItemStack itemStack = RDItems.ROLE_ARCHIVE.createStack();
+    public RoleFollowerArchive toArchiveComponent() {
         CompoundTag nbtCompound;
         try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(this.problemPath(), LogUtils.getLogger())) {
             TagValueOutput view = TagValueOutput.createWithContext(logging, this.registryAccess());
             this.addAdditionalSaveData(view);
             nbtCompound = view.buildResult();
         }
+        return new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound);
+    }
+
+    public ItemStack toArchive() {
+        ItemStack itemStack = RDItems.ROLE_ARCHIVE.createStack();
         MutableComponent mutableComponent = Component.empty();
         mutableComponent.append(itemStack.getItemName()).append("(").append(this.getName()).append(")");
-        itemStack.set(RDDataComponents.ROLE_FOLLOWER_ARCHIVE.value(), new RoleFollowerArchive(this.getName(), this.getMaxHealth(), nbtCompound));
-        itemStack.set(RDDataComponents.ROLE_CAN_RESPAWN.value(), false);
+        itemStack.set(DataComponents.ITEM_NAME, mutableComponent);
+        itemStack.set(RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE.value(), this.toArchiveComponent());
+        itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN.value(), false);
         return itemStack;
     }
 
@@ -964,16 +985,29 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     }
 
     @Override
+    public ItemStack getItemHeldByArm(HumanoidArm arm) {
+        if (arm == HumanoidArm.RIGHT) {
+            return this.inventory.getMainHand();
+        }
+        if (arm == HumanoidArm.LEFT) {
+            return this.inventory.getOffHand();
+        }
+        return super.getItemHeldByArm(arm);
+    }
+
+    @Override
     public ItemStack getMainHandItem() {
         ItemStack stack = this.inventory.getItem(NPCInventoryImpl.MAIN_HAND);
-        if (stack.isEmpty()) return super.getMainHandItem();
+        if (stack.isEmpty())
+            return super.getMainHandItem();
         return stack;
     }
 
     @Override
     public ItemStack getOffhandItem() {
         ItemStack stack = this.inventory.getItem(NPCInventoryImpl.OFF_HAND);
-        if (stack.isEmpty()) return super.getOffhandItem();
+        if (stack.isEmpty())
+            return super.getOffhandItem();
         return stack;
     }
 
@@ -1007,7 +1041,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             case FEET -> -14;
             default -> -1;
         };
-        if (idx >= 0) this.inventory.setItem(idx, stack);
+        if (idx >= 0)
+            this.inventory.setItem(idx, stack);
         if (-14 <= idx && idx <= -11) {
             if (idx == -11) {
                 this.inventory.setHead(stack);
@@ -1034,13 +1069,13 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     public static AttributeSupplier.Builder createLivingAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.ATTACK_DAMAGE, 1.0)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                .add(Attributes.FOLLOW_RANGE, 32.0)
-                .add(Attributes.TEMPT_RANGE, 10.0)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 3);
+                           .add(Attributes.MAX_HEALTH, 20.0)
+                           .add(Attributes.MOVEMENT_SPEED, 0.25)
+                           .add(Attributes.ATTACK_DAMAGE, 1.0)
+                           .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                           .add(Attributes.FOLLOW_RANGE, 32.0)
+                           .add(Attributes.TEMPT_RANGE, 10.0)
+                           .add(Attributes.ENTITY_INTERACTION_RANGE, 3);
     }
 
     public boolean isOwner(Entity player) {
@@ -1053,14 +1088,34 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     @Override
     public @Nullable LivingEntity getOwner() {
-        if (this.npcOwner.equalsIgnoreCase("")) return null;
-        return this.level().getPlayerByUUID(UUID.fromString(this.npcOwner));
+        if (this.npcOwner.equalsIgnoreCase(""))
+            return null;
+        Player playerByUUID = this.level().getPlayerByUUID(UUID.fromString(this.npcOwner));
+        MinecraftServer server = this.level().getServer();
+        if (server == null) {
+            return playerByUUID;
+        }
+        return playerByUUID;
     }
 
-    @Deprecated
     public @Nullable UUID getOwnerUuid() {
-        if (this.npcOwner.equalsIgnoreCase("")) return null;
-        return UUID.fromString(this.npcOwner);
+        if (this.npcOwner.equalsIgnoreCase(""))
+            return null;
+        try {
+            return UUID.fromString(this.npcOwner);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean isAlliedTo(BaseNPCLikeEntity other) {
+        if (!this.isTame() || !other.isTame()) {
+            return false;
+        }
+        if (this.getOwnerUuid() == null || other.getOwnerUuid() == null) {
+            return false;
+        }
+        return Objects.equals(this.getOwnerUuid(), other.getOwnerUuid());
     }
 
     @Override
@@ -1075,7 +1130,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     @Override
     public Property getSkin() {
-        return this.getSkinType().get();
+        return this.getSkinType().getProperty();
     }
 
     public void setSkinType(SkinType type) {
@@ -1084,5 +1139,18 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     public SkinType getSkinType() {
         return this.getEntityData().get(SKIN_TYPE);
+    }
+
+    public void setDefaultSkinType(SkinType type) {
+        this.getEntityData().set(DEFAULT_SKIN_TYPE, type);
+    }
+
+    public SkinType getDefaultSkinType() {
+        SkinType skinType = this.getEntityData().get(DEFAULT_SKIN_TYPE);
+        if (Objects.equals(skinType, MobSkinTypes.UNDEFINED)) {
+            skinType = this.getSkinType();
+            this.setDefaultSkinType(skinType);
+        }
+        return skinType;
     }
 }

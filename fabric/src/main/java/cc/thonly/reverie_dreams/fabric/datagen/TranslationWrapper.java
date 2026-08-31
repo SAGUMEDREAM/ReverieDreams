@@ -2,23 +2,22 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 
 import cc.thonly.reverie_dreams.creative_tab.content.ItemGroupContentHelper;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import lombok.Getter;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.world.entity.BalmEntityTypeRegistration;
-import net.blay09.mods.balm.world.item.DeferredItem;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.StatType;
 import net.minecraft.tags.TagKey;
@@ -40,18 +39,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
-@SuppressWarnings("UnusedReturnValue")
-@Getter
+@SuppressWarnings({"UnusedReturnValue", "DataFlowIssue"})
 @Slf4j
-public class TranslationWrapper implements ITranslationWrapper {
-    public static final Map<BalmEntityTypeRegistration<?>, DeferredItem> MAPPER = RDEntityTypes.SPAWN_EGG_BIND;
-    private final HolderLookup.Provider wrapperLookup;
-    private final FabricLanguageProvider.TranslationBuilder translationBuilder;
-
-    public TranslationWrapper(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
-        this.wrapperLookup = wrapperLookup;
-        this.translationBuilder = translationBuilder;
-    }
+public record TranslationWrapper(HolderLookup.Provider wrapperLookup,
+                                 FabricLanguageProvider.TranslationBuilder translationBuilder
+) implements ITranslationWrapper {
+    public static final Map<RegistrySupplier<EntityType<?>>, ItemDelegate> MAPPER = RDEntityTypes.SPAWN_EGG_BIND;
 
     public TranslationWrapper add(String translationKey, String value) {
         this.translationBuilder.add(translationKey, value);
@@ -70,7 +63,7 @@ public class TranslationWrapper implements ITranslationWrapper {
 
     public TranslationWrapper add(ResourceKey<CreativeModeTab> registryKey, String value) {
         Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction = ItemGroupContentHelper.REGISTRIES.get(registryKey);
-        CreativeModeTab.Builder builder = builderFunction.apply(FabricItemGroup.builder());
+        CreativeModeTab.Builder builder = builderFunction.apply(FabricCreativeModeTab.builder());
         if (builder != null) {
             this.add(builder.build(), value);
             return this;
@@ -134,12 +127,12 @@ public class TranslationWrapper implements ITranslationWrapper {
         this.add(entityType, name);
         AtomicReference<Item> item = new AtomicReference<>();
         AtomicBoolean lock = new AtomicBoolean(false);
-        MAPPER.forEach((entityTypeRegistration, deferredItem) -> {
+        MAPPER.forEach((registrySupplier, deferredItem) -> {
             if (lock.get()) {
                 return;
 
             }
-            if (Objects.equals(entityTypeRegistration.asHolder().value(), entityType)) {
+            if (Objects.equals(registrySupplier.value(), entityType)) {
                 item.set(deferredItem.asItem());
             }
         });
@@ -170,7 +163,7 @@ public class TranslationWrapper implements ITranslationWrapper {
     }
 
     public TranslationWrapper generateDanmakuType(DanmakuTrajectory trajectory, String value) {
-        Identifier key = RegistryImpls.DANMAKU_TRAJECTORY.getKey(trajectory);
+        Identifier key = BuiltInRegistryProviders.DANMAKU_TRAJECTORY.getKey(trajectory);
         if (key == null) {
             log.error("Can't find key of {}", trajectory);
             return this;
@@ -208,7 +201,7 @@ public class TranslationWrapper implements ITranslationWrapper {
         return this;
     }
 
-    public TranslationWrapper addRoleEntity(NPCRole role, String value, String spawnEggValue) {
+    public TranslationWrapper addRoleEntity(NPCRoleType role, String value, String spawnEggValue) {
         EntityType<?> entityType = role.getEntityType().value();
         Item egg = role.getEgg().asItem();
         String item_value = value + spawnEggValue;
@@ -281,7 +274,7 @@ public class TranslationWrapper implements ITranslationWrapper {
         Identifier key = registryKey.identifier();
         String namespace = key.getNamespace();
         String path = key.getPath().replaceAll("/", ".");
-        return key.toLanguageKey("jukebox_song").replaceAll("/",".");
+        return key.toLanguageKey("jukebox_song").replaceAll("/", ".");
     }
 
 }

@@ -13,16 +13,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("NullableProblems")
 public class WeaponOfTheMoon extends Item {
-    private static final ItemStack BULLET = new ItemStack(Items.COPPER_NUGGET);
+    private static final ItemStackTemplate BULLET = new ItemStackTemplate(Items.COPPER_NUGGET);
     private static final DanmakuProperties BULLET_PROPERTIES = new DanmakuProperties(
             DanmakuProperties.DEFAULT_TEMPLATE_ID,
             1,
@@ -54,6 +51,7 @@ public class WeaponOfTheMoon extends Item {
     }
 
     public void tryShoot(LivingEntity owner, ServerLevel world, @Nullable InteractionHand hand, float d) {
+//        System.out.println("shoot");
         if (owner instanceof Player player && hand != null) {
             ItemStack offStack = player.getItemInHand(InteractionHand.OFF_HAND);
             if (!offStack.is(Items.COPPER_NUGGET) && !player.isCreative()) {
@@ -65,9 +63,10 @@ public class WeaponOfTheMoon extends Item {
             var itemCooldowns = player.getCooldowns();
             itemCooldowns.addCooldown(player.getItemInHand(hand), 2);
         }
-        DanmakuEntity danmakuEntity = DanmakuEntity.create(world, owner, BULLET.copy(), owner.getXRot(), owner.getYRot(), 0.4f);
+        DanmakuEntity danmakuEntity = DanmakuEntity.create(world, owner, BULLET.create(), owner.getXRot(), owner.getYRot(), 0.4f);
         danmakuEntity.shootFromRotation(owner, owner.getXRot(), owner.getYRot(), 0, BULLET_PROPERTIES.speed(), 0.4f);
         danmakuEntity.setDanmakuProperties(BULLET_PROPERTIES.copy());
+        danmakuEntity.setOwner(owner);
         owner.turn(0.0F, -2.0F);
         world.addFreshEntity(danmakuEntity);
         world.playSound(null,
@@ -82,11 +81,14 @@ public class WeaponOfTheMoon extends Item {
         if (!level.isClientSide() && level instanceof ServerLevel world) {
             ItemStack itemStack = player.getItemInHand(hand);
             this.tryShoot(player, world, hand);
+            float pitchKick = -1.5F;
+            float yawKick = (world.getRandom().nextFloat() - 0.5F) * 2.0F;
+            player.turn(pitchKick, yawKick);
             player.awardStat(Stats.ITEM_USED.get(this));
             RDCriteriaTriggers.USE_ITEM.value().trigger((ServerPlayer) player, itemStack);
-            return InteractionResult.CONSUME;
+            return InteractionResult.FAIL;
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResult.FAIL;
     }
 
     @Override

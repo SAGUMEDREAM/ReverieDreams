@@ -14,7 +14,7 @@ public record RecipeManagerSyncPacket(Identifier typeId,
     public static final Type<RecipeManagerSyncPacket> PACKET_ID = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, RecipeManagerSyncPacket> CODEC = StreamCodec.ofMember(RecipeManagerSyncPacket::write, RecipeManagerSyncPacket::read);
 
-    private static RecipeManagerSyncPacket read(RegistryFriendlyByteBuf buf) {
+    public static RecipeManagerSyncPacket read(RegistryFriendlyByteBuf buf) {
         Identifier typeId = buf.readIdentifier();
         CompoundTag compoundTag = buf.readNbt();
         return new RecipeManagerSyncPacket(typeId, compoundTag);

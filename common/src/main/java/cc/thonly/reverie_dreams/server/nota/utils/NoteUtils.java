@@ -25,24 +25,24 @@ public class NoteUtils {
 	}
 
 	/**
-	 * Get pitch in specific octave range
+	 * Get note in specific octave range
 	 *
 	 * @param note note
-	 * @return pitch
+	 * @return note
 	 */
 	public static float getPitchInOctave(Note note) {
 		return getPitchInOctave(note.getKey(), note.getPitch());
 	}
 
 	/**
-	 * Get pitch in specific octave range
+	 * Get note in specific octave range
 	 *
 	 * @param key   sound key
-	 * @param pitch extra pitch
-	 * @return pitch
+	 * @param pitch extra note
+	 * @return note
 	 */
 	public static float getPitchInOctave(byte key, short pitch) {
-		// Apply pitch to key
+		// Apply note to key
 		key = applyPitchToKey(key, pitch);
 		pitch %= 100;
 
@@ -67,24 +67,24 @@ public class NoteUtils {
 	}
 
 	/**
-	 * Get pitch after transposed
+	 * Get note after transposed
 	 *
 	 * @param note note
-	 * @return pitch
+	 * @return note
 	 */
 	public static float getPitchTransposed(Note note) {
 		return getPitchTransposed(note.getKey(), note.getPitch());
 	}
 
 	/**
-	 * Get pitch after transposed
+	 * Get note after transposed
 	 *
 	 * @param key   sound key
-	 * @param pitch extra pitch
-	 * @return pitch
+	 * @param pitch extra note
+	 * @return note
 	 */
 	public static float getPitchTransposed(byte key, short pitch) {
-		// Apply key to pitch
+		// Apply key to note
 		pitch += key * 100;
 
 		while(pitch < 3300) pitch += 1200;
@@ -96,7 +96,7 @@ public class NoteUtils {
 	}
 
 	/**
-	 * Returns true if combination of specified key and pitch is outside Minecraft octave range
+	 * Returns true if combination of specified key and note is outside Minecraft octave range
 	 *
 	 * @param key
 	 * @param pitch

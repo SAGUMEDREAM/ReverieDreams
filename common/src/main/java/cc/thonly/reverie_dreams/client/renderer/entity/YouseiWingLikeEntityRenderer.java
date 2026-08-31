@@ -11,13 +11,13 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class YouseiWingLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> extends BaseNPCLikeEntityRenderer<NPCEntity> {
-    private static final LazySupplier<ItemStack> WING_HOLDER = LazySupplier.of(() -> RDEntityHolderItems.YOUSEI_WINGS.createStack());
+    private static final LazySupplier<ItemStack> WING_HOLDER = LazySupplier.of(RDEntityHolderItems.YOUSEI_WINGS::createStack);
     private final ItemModelResolver itemModelResolver;
 
     public YouseiWingLikeEntityRenderer(EntityRendererProvider.Context context, boolean slim) {
@@ -29,7 +29,7 @@ public class YouseiWingLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> e
     public void extractRenderState(NPCEntity entity, AvatarRenderState state, float partialTick) {
         super.extractRenderState(entity, state, partialTick);
         state.bodyRot = entity.yBodyRot;
-        if (state instanceof NPCAvatarRenderState rs) {
+        if (state instanceof NPCAvatarRenderState rs && entity.isAlive()) {
             this.itemModelResolver.updateForLiving(
                     rs.wingHolderRenderState,
                     WING_HOLDER.get(),
@@ -39,22 +39,22 @@ public class YouseiWingLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> e
     }
 
     @Override
-    public void submit(AvatarRenderState state, PoseStack matrices, SubmitNodeCollector nodeCollector, CameraRenderState p_450931_) {
-        matrices.pushPose();
-        matrices.scale(1.2f, 1.2f, 1.2f);
-        matrices.translate(0, 1, 0);
-        matrices.mulPose(Axis.YP.rotationDegrees(-state.bodyRot + 180));
+    public void submit(AvatarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        poseStack.pushPose();
+        poseStack.scale(1.2f, 1.2f, 1.2f);
+        poseStack.translate(0, 1, 0);
+        poseStack.mulPose(Axis.YP.rotationDegrees(-state.bodyRot + 180));
         if (state instanceof NPCAvatarRenderState rs) {
             rs.wingHolderRenderState.submit(
-                    matrices,
-                    nodeCollector,
+                    poseStack,
+                    submitNodeCollector,
                     state.lightCoords,
                     OverlayTexture.NO_OVERLAY,
                     0
             );
         }
-        matrices.popPose();
-        super.submit(state, matrices, nodeCollector, p_450931_);
+        poseStack.popPose();
+        super.submit(state, poseStack, submitNodeCollector, camera);
     }
 
     @Override

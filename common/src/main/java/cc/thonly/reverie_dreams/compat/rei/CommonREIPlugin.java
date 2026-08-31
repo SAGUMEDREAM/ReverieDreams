@@ -3,8 +3,6 @@ package cc.thonly.reverie_dreams.compat.rei;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.compat.rei.display.*;
 import cc.thonly.reverie_dreams.compat.rei.impl.DisplayImpls;
-import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
@@ -17,12 +15,13 @@ public class CommonREIPlugin implements REICommonPlugin {
         registry.register(ReverieDreams.id("gensokyo_altar"), GensokyoAltarRecipeDisplay.SERIALIZER);
         registry.register(ReverieDreams.id("strength_table"), StrengthTableDisplay.SERIALIZER);
         registry.register(ReverieDreams.id("kitchen"), KitchenDisplay.SERIALIZER);
+        registry.register(ReverieDreams.id("brewing_barrel"), BrewingBarrelDisplay.SERIALIZER);
     }
 
     @Override
     public void registerDisplays(ServerDisplayRegistry registry) {
         IDisplayRegisterView view = IDisplayRegisterView.getRecipeRegisters(registry);
-//        DisplayImpls.register(view);
+        DisplayImpls.register(view);
 
     }
 

@@ -1,16 +1,19 @@
 package cc.thonly.reverie_dreams.entity.misc;
 
-import cc.thonly.reverie_dreams.api.polymer.PolymerEntityGetter;
-import cc.thonly.reverie_dreams.inf.IHolderEntity;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.server.IPlayerInputManager;
+import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
+import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
+import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.server.InputKey;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
+import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -46,8 +49,8 @@ import java.util.UUID;
 @Getter
 @ToString
 public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
-    public static final EntityDataAccessor<ItemStackWrapper> ITEM_WRAPPER =
-            SynchedEntityData.defineId(MagicBroom.class, ItemStackWrapper.SERIALIZER);
+    public static final EntityDataAccessor<IngredientStack> STACK =
+            SynchedEntityData.defineId(MagicBroom.class, IngredientStack.SERIALIZER);
     private float FCMP_THRE = 1e-4f;
     public int damageTick = 0;
     public final int maxDamageTick = 20 * 8;
@@ -59,13 +62,13 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
         super(entityType, world);
     }
 
-    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z, ItemStackWrapper wrapper) {
+    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z, IngredientStack wrapper) {
         this(entityType, world);
         this.setPos(x, y, z);
-        this.setItemWrapper(wrapper);
+        this.setItemStack(wrapper);
     }
 
-    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z, ItemStackWrapper wrapper, UUID owner) {
+    public MagicBroom(EntityType<? extends PathfinderMob> entityType, Level world, float x, float y, float z, IngredientStack wrapper, UUID owner) {
         this(entityType, world, x, y, z, wrapper);
         this.owner = owner;
     }
@@ -73,23 +76,23 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(ITEM_WRAPPER, ItemStackWrapper.of(Items.AIR.getDefaultInstance()));
+        builder.define(STACK, IngredientStack.of(Items.AIR.getDefaultInstance()));
     }
 
-    public void setItemWrapper(ItemStackWrapper itemWrapper) {
-        this.getEntityData().set(ITEM_WRAPPER, itemWrapper);
+    public void setItemStack(IngredientStack itemWrapper) {
+        this.getEntityData().set(STACK, itemWrapper);
     }
 
-    public ItemStackWrapper getItemWrapper() {
-        return this.getEntityData().get(ITEM_WRAPPER);
+    public IngredientStack getIngredientStack() {
+        return this.getEntityData().get(STACK);
     }
 
     @Override
     public Component getName() {
-        if (this.getItemWrapper() == null || this.getItemWrapper().isEmpty()) {
+        if (this.getIngredientStack() == null || this.getIngredientStack().isEmpty()) {
             return super.getName();
         }
-        ItemStack itemStack = this.getItemWrapper().getItemStack();
+        ItemStack itemStack = this.getIngredientStack().getLazyStack();
         return itemStack.getHoverName();
     }
 
@@ -121,17 +124,28 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
                     this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
                 }
             }
-            if (!this.getItemWrapper().isEmpty() && this.getItemWrapper().getItemStack().isDamageableItem() && this.getItemWrapper().getItemStack().getDamageValue() >= this.getItemWrapper().getItemStack().getMaxDamage()) {
+            if (!this.getIngredientStack().isEmpty() && this.getIngredientStack().getLazyStack().isDamageableItem() && this.getIngredientStack().getLazyStack().getDamageValue() >= this.getIngredientStack().getLazyStack().getMaxDamage()) {
                 this.hurtServer(world, this.damageSources().magic(), Integer.MAX_VALUE);
             }
         }
+        frozenParticles(this, this.level());
+    }
+
+    private static void frozenParticles(MagicBroom entity, Level level) {
+        if (entity.tickCount % 3 != 0)
+            return;
+        float offset = 2.0f;
+        double xOffset = entity.getDeltaMovement().x * offset;
+        double yOffset = entity.getDeltaMovement().y * offset;
+        double zOffset = entity.getDeltaMovement().z * offset;
+        level.addParticle(ParticleTypes.SNOWFLAKE, entity.getX() - xOffset, entity.getY() + entity.getBbHeight() / 2 - yOffset, entity.getZ() - zOffset, 0, 0, 0);
     }
 
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.getPolymerEntity(this);
-        if (polymerEntity instanceof IHolderEntity impl) {
+        Object polymerEntity = PolymerEntityGetterCallback.getPolymerEntity(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity impl) {
             impl.onTrackingStopped(player);
             impl.onCreated();
         }
@@ -140,8 +154,8 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        Object polymerEntity = PolymerEntityGetter.getPolymerEntity(this);
-        if (polymerEntity instanceof IHolderEntity impl) {
+        Object polymerEntity = PolymerEntityGetterCallback.getPolymerEntity(this);
+        if (polymerEntity instanceof CommonPolymerHolderEntity impl) {
             impl.onTrackingStopped(player);
         }
     }
@@ -150,8 +164,8 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (attacker != null && attacker.isShiftKeyDown()) {
-            if (!this.getItemWrapper().isEmpty()) {
-                ItemStack copiedStack = this.getItemWrapper().getItemStack().copy();
+            if (!this.getIngredientStack().isEmpty()) {
+                ItemStack copiedStack = this.getIngredientStack().getLazyStack().copy();
                 ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
                 world.addFreshEntity(itemEntity);
                 this.discard();
@@ -216,7 +230,8 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
 //                vertical += 0.6f;
 //            }
 
-            if (sneak) vertical -= 0.6f;
+            if (sneak)
+                vertical -= 0.6f;
 
             this.moveRelative(speed, new Vec3(strafe, vertical, forward));
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -235,16 +250,16 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
         this.yBodyRot = this.yHeadRot = this.getYRot();
         this.yBodyRotO = this.yHeadRot;
 
-        if (!this.getItemWrapper().isEmpty() && !controllingPlayer.hasInfiniteMaterials() && this.getItemWrapper().getItemStack().isDamageableItem()) {
+        if (!this.getIngredientStack().isEmpty() && !controllingPlayer.hasInfiniteMaterials() && this.getIngredientStack().getLazyStack().isDamageableItem()) {
             this.damageTick++;
             if (this.damageTick > this.maxDamageTick) {
-                this.getItemWrapper().getItemStack().hurtAndBreak(1, this, EquipmentSlot.MAINHAND);
+                this.getIngredientStack().getLazyStack().hurtAndBreak(1, this, EquipmentSlot.MAINHAND);
                 this.damageTick = 0;
             }
         }
 
         if (PlatformContext.hasPolymer() && controllingPlayer instanceof ServerPlayer player) {
-            IPlayerInputManager inputManager = IPlayerInputManager.polymerAccess();
+            PlayerInputManagerAccess inputManager = PlayerInputManagerAccess.polymerAccess();
             boolean keyLeft = inputManager.isKeyDown(player, InputKey.LEFT);
             boolean keyRight = inputManager.isKeyDown(player, InputKey.RIGHT);
             boolean keyForward = inputManager.isKeyDown(player, InputKey.FORWARD);
@@ -286,10 +301,10 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     public void die(DamageSource damageSource) {
         super.die(damageSource);
         Level world = this.level();
-        if (this.getItemWrapper().isEmpty()) {
+        if (this.getIngredientStack().isEmpty()) {
             return;
         }
-        ItemStack copiedStack = this.getItemWrapper().getItemStack().copy();
+        ItemStack copiedStack = this.getIngredientStack().getLazyStack().copy();
         ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
         world.addFreshEntity(itemEntity);
     }
@@ -297,8 +312,9 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
-            if (!this.level().isClientSide()) {
+            if (!this.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
                 player.startRiding(this);
+                SimpleTriggerFactory.create(SimpleTriggerKeys.TOUHOU_PEOPLE_CAN_FLY).trigger(serverPlayer);
                 return InteractionResult.SUCCESS_SERVER;
             }
             return InteractionResult.SUCCESS;
@@ -317,7 +333,7 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     protected void addAdditionalSaveData(ValueOutput view) {
         super.addAdditionalSaveData(view);
-        view.store("Item", ItemStackWrapper.CODEC, this.getItemWrapper());
+        view.store("Item", IngredientStack.CODEC, this.getIngredientStack());
         if (this.owner != null) {
             view.store("Owner", UUIDCodec.CODEC, this.owner);
         }
@@ -327,7 +343,7 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     protected void readAdditionalSaveData(ValueInput view) {
         super.readAdditionalSaveData(view);
         RegistryAccess registryManager = this.registryAccess();
-        this.setItemWrapper(view.read("Item", ItemStackWrapper.CODEC).orElse(ItemStackWrapper.of(Items.AIR)));
+        this.setItemStack(view.read("Item", IngredientStack.CODEC).orElse(IngredientStack.of(Items.AIR)));
         view.read("Owner", UUIDCodec.CODEC).ifPresent(value -> this.owner = value);
 
     }

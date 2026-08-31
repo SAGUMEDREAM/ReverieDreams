@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.server.nota.utils;
 
+import cc.thonly.reverie_dreams.server.nota.model.Sound;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import cc.thonly.reverie_dreams.server.nota.model.Sound;
 
 /**
  * Various methods for working with instruments
@@ -63,16 +63,14 @@ public class InstrumentUtils {
 	 * @param instrument instrument identifier
 	 * @return Sound name with full qualified name
 	 */
-	public static String getSoundNameByInstrument(byte instrument) {
-		//noinspection RedundantSuppression
+	@SuppressWarnings("DuplicateBranchesInSwitch")
+    public static String getSoundNameByInstrument(byte instrument) {
 		switch(instrument) {
 			case 0:
-				//noinspection DuplicateBranchesInSwitch
 				return "minecraft:block.note_block.harp";
 			case 1:
 				return "minecraft:block.note_block.bass";
 			case 2:
-				//noinspection SpellCheckingInspection
 				return "minecraft:block.note_block.basedrum";
 			case 3:
 				return "minecraft:block.note_block.snare";
@@ -99,8 +97,15 @@ public class InstrumentUtils {
 			case 14:
 				return "minecraft:block.note_block.banjo";
 			case 15:
-				//noinspection SpellCheckingInspection
 				return "minecraft:block.note_block.pling";
+			case 16:
+				return "minecraft:block.note_block.trumpet";
+			case 17:
+				return "minecraft:block.note_block.trumpet_exposed";
+			case 18:
+				return "minecraft:block.note_block.trumpet_oxidized";
+			case 19:
+				return "minecraft:block.note_block.trumpet_weathered";
 			default:
 				return "minecraft:block.note_block.harp";
 		}
@@ -130,6 +135,10 @@ public class InstrumentUtils {
 			case 13 -> "BLOCK_NOTE_BLOCK_BIT";
 			case 14 -> "BLOCK_NOTE_BLOCK_BANJO";
 			case 15 -> "BLOCK_NOTE_BLOCK_PLING";
+			case 16 -> "BLOCK_NOTE_BLOCK_TRUMPET";
+			case 17 -> "BLOCK_NOTE_BLOCK_TRUMPET_EXPOSED";
+			case 18 -> "BLOCK_NOTE_BLOCK_TRUMPET_OXIDIZED";
+			case 19 -> "BLOCK_NOTE_BLOCK_TRUMPET_WEATHERED";
 			default -> "BLOCK_NOTE_BLOCK_HARP";
 		};
 	}

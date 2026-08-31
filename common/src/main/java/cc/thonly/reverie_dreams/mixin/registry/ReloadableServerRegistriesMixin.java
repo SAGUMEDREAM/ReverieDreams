@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.mixin.registry;
 
-import cc.thonly.reverie_dreams.inf.ILootTable;
+import cc.thonly.reverie_dreams.api.loot.LootTableIdSetter;
 import cc.thonly.reverie_dreams.mixin.accessor.HolderReferenceAccessor;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.world.level.storage.loot.LootDataType;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.Validatable;
+import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ReloadableServerRegistriesMixin {
     @SuppressWarnings("unchecked")
     @Inject(method = "validateRegistry", at = @At("TAIL"))
-    private static <T> void makeIdSet(ValidationContext context, LootDataType<T> lootDataType, HolderLookup.Provider registries, CallbackInfo ci) {
-        if (lootDataType != LootDataType.TABLE) {
+    private static <T extends Validatable> void makeIdSet(ValidationContextSource contextSource, LootDataType<T> type, HolderLookup.Provider registries, CallbackInfo ci) {
+        if (type != LootDataType.TABLE) {
             return;
         }
         HolderLookup.RegistryLookup<LootTable> registryLookup = registries.lookupOrThrow(LootDataType.TABLE.registryKey());
@@ -30,8 +30,8 @@ public class ReloadableServerRegistriesMixin {
             if (lootTableResourceKey == null || lootTable == null) {
                 return;
             }
-            ILootTable iLootTable = (ILootTable) lootTable;
-            iLootTable.reverie_dreams$setLootTableId(lootTableResourceKey);
+            LootTableIdSetter lootTableIdSetter = (LootTableIdSetter) lootTable;
+            lootTableIdSetter.reverie_dreams$setLootTableId(lootTableResourceKey);
         });
     }
 }

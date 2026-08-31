@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.compat.rei.display;
 
 import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -31,7 +30,7 @@ public class GensokyoAltarRecipeDisplay extends BasicDisplay {
     public GensokyoAltarRecipeDisplay(GensokyoAltarRecipe recipe) {
         super(recipe.getSlots()
                 .stream()
-                .map(ItemStackWrapper::getItemStack)
+                .map(IngredientStack::build)
                 .filter(itemStack -> !itemStack.isEmpty())
                 .map(REIItemUtils::getItem)
                 .toList(),

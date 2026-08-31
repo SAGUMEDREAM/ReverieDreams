@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.RDMPHooks;
 import cc.thonly.reverie_dreams.networking.payload.StartScreenshotPacket;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.proxy.ByModsPlatformProxy;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.SessionManager;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import dev.architectury.networking.NetworkManager;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -37,12 +38,12 @@ public class TenguCameraItem extends Item {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             ItemStack stack = player.getItemInHand(hand);
             if (player.isShiftKeyDown()) {
-                int fov = stack.getOrDefault(RDDataComponents.FOV.value(), 75);
+                int fov = stack.getOrDefault(RDDataComponentTypes.FOV.value(), 75);
                 int newFov = fov + 1;
                 if (newFov < 30) newFov = 30;
                 if (newFov > 110) newFov = 110;
 
-                stack.set(RDDataComponents.FOV.value(), newFov);
+                stack.set(RDDataComponentTypes.FOV.value(), newFov);
 
                 serverPlayer.sendSystemMessage(
                         Component.literal("§aFov: " + newFov),
@@ -67,7 +68,7 @@ public class TenguCameraItem extends Item {
             }
             UUID sessionId = UUID.randomUUID();
             SessionManager.startSession(serverPlayer.getUUID(), sessionId);
-            Balm.networking().sendTo(serverPlayer, new StartScreenshotPacket(sessionId));
+            NetworkManager.sendToPlayer(serverPlayer, new StartScreenshotPacket(sessionId));
             level.playSound(null, player.blockPosition(), RDSoundEvents.PHOTO.value(), SoundSource.PLAYERS);
             return InteractionResult.SUCCESS_SERVER;
         }
@@ -75,7 +76,8 @@ public class TenguCameraItem extends Item {
     }
 
     public InteractionResult useByPolymer(Level level, Player player, InteractionHand hand) {
-        return RDMPHooks.TenguCameraItemUseCallback.EVENT.invoker().handle(level, player, hand);
+        Optional<InteractionResult> interactionResult = ByModsPlatformProxy.TENGU_CAMERA_ITEM_USE.map(method -> method.handle(level, player, hand));
+        return interactionResult.orElse(InteractionResult.PASS);
     }
 
 }

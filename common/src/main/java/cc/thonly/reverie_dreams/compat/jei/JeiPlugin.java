@@ -1,32 +1,29 @@
 package cc.thonly.reverie_dreams.compat.jei;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.block.kitchen.*;
-import cc.thonly.reverie_dreams.compat.IClientRecipes;
+import cc.thonly.reverie_dreams.block.cooking.*;
 import cc.thonly.reverie_dreams.compat.ItemViewItemInfo;
 import cc.thonly.reverie_dreams.compat.jei.category.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.recipe.IClientRecipes;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.registration.*;
-import net.blay09.mods.balm.world.item.DeferredItem;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
-
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -44,6 +41,7 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.FryingPanImpl(guiHelper));
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.GrillImpl(guiHelper));
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.SteamerImpl(guiHelper));
+        registry.addRecipeCategories(new BrewingBarrelRecipeCategory(guiHelper));
     }
 
     @Override
@@ -53,11 +51,13 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipes(JeiRecipeTypes.DANMAKU_SHAPE_DRAW, recipes.getRecipeTypeList(RecipeManager.DANMAKU_SHAPE_DRAW));
         registry.addRecipes(JeiRecipeTypes.GENSOKYO_ALTAR, recipes.getRecipeTypeList(RecipeManager.GENSOKYO_ALTAR));
         registry.addRecipes(JeiRecipeTypes.STRENGTH_TABLE, StrengthTableRecipe.createRecipeList());
-        registry.addRecipes(JeiRecipeTypes.COOKING_POT, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.COOKING_POT));
-        registry.addRecipes(JeiRecipeTypes.CUTTING_BOARD, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.CUTTING_BOARD));
-        registry.addRecipes(JeiRecipeTypes.FRYING_PAN, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.FRYING_PAN));
-        registry.addRecipes(JeiRecipeTypes.GRILL, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.GRILL));
-        registry.addRecipes(JeiRecipeTypes.STEAMER, recipes.getKitchenRecipeTypeList(KitchenRecipeType.MappingType.STEAMER));
+        registry.addRecipes(JeiRecipeTypes.COOKING_POT, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.COOKING_POT));
+        registry.addRecipes(JeiRecipeTypes.CUTTING_BOARD, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.CUTTING_BOARD));
+        registry.addRecipes(JeiRecipeTypes.FRYING_PAN, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.FRYING_PAN));
+        registry.addRecipes(JeiRecipeTypes.GRILL, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.GRILL));
+        registry.addRecipes(JeiRecipeTypes.STEAMER, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.STEAMER));
+        registry.addRecipes(JeiRecipeTypes.BREWING, recipes.getRecipeTypeList(RecipeManager.BREWING_BARREL));
+
 
         ItemViewItemInfo.registerItemInfo((items, component) -> {
             registry.addIngredientInfo(items.stream().map(Item::getDefaultInstance).toList(), VanillaTypes.ITEM_STACK, component);
@@ -87,14 +87,14 @@ public class JeiPlugin implements IModPlugin {
                 registry.addCraftingStation(JeiRecipeTypes.STEAMER, block);
             }
         }
+        registry.addCraftingStation(JeiRecipeTypes.BREWING, RDBlocks.BREWING_BARREL.createStack());
     }
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registry) {
-        for (DanmakuType danmakuType : RegistryImpls.DANMAKU_TYPE) {
-            DeferredItem itemHolder = danmakuType.getItemHolder();
+        for (DanmakuType danmakuType : BuiltInRegistryProviders.DANMAKU_TYPE) {
+            ItemDelegate itemHolder = danmakuType.getItemHolder();
             registry.registerSubtypeInterpreter(itemHolder.asItem(), (stack, context) -> {
-
                 var color = stack.get(DataComponents.DYED_COLOR);
                 if (color == null) {
                     return "default";
@@ -104,14 +104,14 @@ public class JeiPlugin implements IModPlugin {
             });
         }
         registry.registerSubtypeInterpreter(RDItems.ROLE_CARD.asItem(), (stack, context) -> {
-            var id = stack.get(RDDataComponents.ROLE_CARD_ID.value());
+            var id = stack.get(RDDataComponentTypes.ROLE_CARD_ID.value());
             if (id == null) {
                 return "default";
             }
             return id;
         });
         registry.registerSubtypeInterpreter(RDItems.DANMAKU_SHAPE_CREATOR.asItem(), (stack, context) -> {
-            var shape = stack.get(RDDataComponents.DANMAKU_SHAPE.value());
+            var shape = stack.get(RDDataComponentTypes.DANMAKU_SHAPE.value());
             if (shape == null) {
                 return "default";
             }

@@ -9,6 +9,7 @@ import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.jspecify.annotations.Nullable;
 
+@SuppressWarnings("resource")
 public final class FakePlayerNetworkHandler extends ServerGamePacketListenerImpl {
     private static final Connection FAKE_CONNECTION = new FakeClientConnection();
 

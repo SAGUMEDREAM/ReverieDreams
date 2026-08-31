@@ -1,10 +1,9 @@
 package cc.thonly.reverie_dreams.compat.rei.display;
 
 import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
-import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -32,7 +31,7 @@ public class KitchenDisplay extends BasicDisplay {
     public KitchenDisplay(KitchenRecipe recipe) {
         super(recipe.getIngredients()
                 .stream()
-                .map(ItemStackWrapper::getItemStack)
+                .map(IngredientStack::build)
                 .filter(Objects::nonNull)
                 .filter(itemStack -> !itemStack.isEmpty())
                 .map(REIItemUtils::getItem)

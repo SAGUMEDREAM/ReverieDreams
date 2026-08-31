@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.fabric.datagen.entry.SoundEventBuilder;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import cc.thonly.reverie_dreams.sound.JukeBoxEntry;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
@@ -9,7 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -28,15 +29,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "ReplaceNullCheck"})
 @Slf4j
 public abstract class AbstractSoundProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, SoundEventBuilder> identifierSoundEventMap = new Object2ObjectOpenHashMap<>();
 
-    public AbstractSoundProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractSoundProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
@@ -45,7 +46,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
     public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
-            this.export(writer);
+            this.outputFile(writer);
         });
     }
 
@@ -68,7 +69,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
     }
 
     public AbstractSoundProvider addWithRecords(JukeBoxEntry jukeBoxEntry, @Nullable String soundPath) {
-        JukeboxSong ref = jukeBoxEntry.getRef();
+        JukeboxSong ref = jukeBoxEntry.getEntryByProvider();
         Identifier id = ref.soundEvent().value().location();
         SoundEventBuilder entry = new SoundEventBuilder(id);
         entry.setSubtitle(id);
@@ -84,7 +85,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
     public abstract void configured();
 
     //    @SuppressWarnings("deprecation")
-    public void export(CachedOutput writer) {
+    public void outputFile(CachedOutput writer) {
         try {
             Path path = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
             Map<String, List<SoundEventBuilder>> namespaceToBuild = new LinkedHashMap<>();
@@ -103,7 +104,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
                 JsonObject object = new JsonObject();
                 for (var builder : list) {
                     Identifier key = builder.getKey();
-                    JsonElement element = builder.toJsonElement();
+                    JsonElement element = builder.toObject();
                     object.add(key.getPath(), element);
                 }
                 String jsonString = this.gson.toJson(object);

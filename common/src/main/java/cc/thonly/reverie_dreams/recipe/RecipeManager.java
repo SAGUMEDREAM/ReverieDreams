@@ -1,29 +1,28 @@
 package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesCallback;
-import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatchesImpl;
-import cc.thonly.reverie_dreams.api.recipe.RecipeInjectCallback;
+import cc.thonly.reverie_dreams.api.recipe.PatchBuilder;
+import cc.thonly.reverie_dreams.api.recipe.RecipeCompatPatches;
+import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
+import cc.thonly.reverie_dreams.api.recipe.callback.RecipeInjectCallback;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.networking.payload.RecipeManagerSyncPacket;
 import cc.thonly.reverie_dreams.recipe.crafting.DanmakuDyeRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.*;
 import cc.thonly.reverie_dreams.recipe.type.*;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import dev.architectury.networking.NetworkManager;
+import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.core.BalmRegistrar;
-import net.blay09.mods.balm.core.BalmRegistrars;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -31,7 +30,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 @Slf4j
 public class RecipeManager {
@@ -41,20 +41,17 @@ public class RecipeManager {
     public static final BaseRecipeType<GensokyoAltarRecipe> GENSOKYO_ALTAR = registerRecipeType(ReverieDreams.id("gensokyo_altar"), new GensokyoAltarRecipeType());
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
     public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
-    public static Holder<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE;
+    public static final BaseRecipeType<BrewingBarrelRecipe> BREWING_BARREL = registerRecipeType(ReverieDreams.id("barrel"), new BrewingBarrelRecipeType());
+    public static final RegistrySupplier<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE = registerRecipeSerializer("crafting_special_danmakudye", () -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
 
-    public static void bootstrap(BalmRegistrars registrars) {
-        BalmRegistrar.Scoped<RecipeSerializer<?>> recipeSerializerScoped = registrars.registrar(Registries.RECIPE_SERIALIZER);
-        DANMAKU_DYE_RECIPE = registerRecipeSerializer(recipeSerializerScoped, "crafting_special_danmakudye", key -> new CustomRecipe.Serializer<>(DanmakuDyeRecipe::new));
+    public static void bootstrap() {
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T extends Recipe<?>> Holder<RecipeSerializer<T>> registerRecipeSerializer(
-            BalmRegistrar.Scoped<? extends RecipeSerializer<?>> scoped,
+    public static <T extends Recipe<?>> RegistrySupplier<RecipeSerializer<T>> registerRecipeSerializer(
             String name,
-            Function<Identifier, RecipeSerializer<T>> resourceFunction
+            Supplier<RecipeSerializer<T>> resourceFunction
     ) {
-        return (Holder<RecipeSerializer<T>>) (Holder<?>) scoped.register(name, (Function) resourceFunction);
+        return MCBuiltInRegistries.RECIPE_SERIALIZER.register(name, resourceFunction);
     }
 
     public static <R extends BaseRecipe> SuggestionProvider<CommandSourceStack> getSuggestions(BaseRecipeType<R> type) {
@@ -87,7 +84,9 @@ public class RecipeManager {
                 continue;
             }
             for (RecipeManagerSyncPacket payload : payloads) {
-                Balm.networking().sendTo(player, payload);
+                Identifier key = payload.typeId();
+                NetworkManager.sendToPlayer(player, payload);
+                log.info("Send recipe type registry {} to {}", key, player.getPlainTextName());
             }
         }
     }
@@ -97,7 +96,7 @@ public class RecipeManager {
             Map<Identifier, ?> registryView = recipeTypeEntry.getValue().getRegistryView();
             for (Map.Entry<Identifier, ?> recipeEntry : registryView.entrySet()) {
                 Object recipeObj = recipeEntry.getValue();
-                ItemStackWrapper wrapper = getOutputReflective(recipeObj);
+                IngredientStack wrapper = getOutputReflective(recipeObj);
                 if (wrapper != null && wrapper.getItem() == item) {
                     return (BaseRecipe) recipeObj;
                 }
@@ -106,12 +105,12 @@ public class RecipeManager {
         return null;
     }
 
-    public static ItemStackWrapper getOutputReflective(Object recipeObj) {
+    public static IngredientStack getOutputReflective(Object recipeObj) {
         try {
             Method method = recipeObj.getClass().getMethod("getOutput");
             Object result = method.invoke(recipeObj);
 
-            if (result instanceof ItemStackWrapper wrapper) {
+            if (result instanceof IngredientStack wrapper) {
                 return wrapper;
             }
         } catch (Exception e) {
@@ -121,28 +120,40 @@ public class RecipeManager {
     }
 
     public static void onReload(ResourceManager manager) {
-        RecipeCompatPatchesImpl.Builder.INSTANCE.clear();
+        PatchBuilder.INSTANCE.clear();
         RECIPE_TYPES.forEach((key, recipeType) -> {
+            long startTime = System.currentTimeMillis();
             try {
                 recipeType.removeAll();
                 recipeType.reload(manager);
+                RecipeInjectCallback.EVENT.invoker().onLoad(recipeType);
+                RecipeCompatPatches.removeAll(recipeType);
+                RecipeCompatPatchesCallback.EVENT.invoker().onLoad();
                 recipeType.sort();
                 recipeType.assignRawId();
-                RecipeCompatPatchesCallback.EVENT.invoker().onLoad();
-                RecipeInjectCallback.EVENT.invoker().onLoad(recipeType);
-                log.info("Reloaded Recipe Type {}", key.toString());
-                RecipeCompatPatchesImpl.apply(recipeType);
+                long patchesStartTime = System.currentTimeMillis();
+                log.info("Start load compatibility recipes");
+                RecipeCompatPatches.apply(recipeType);
+                long patchesEndTime = System.currentTimeMillis();
+                log.info("Finished load compatibility recipes, is took {}ms", patchesEndTime - patchesStartTime);
             } catch (Exception e) {
-                log.error("Can't reload recipes {}, {}", key, e);
+                log.error("Can't reload recipes {}", key, e);
+            } finally {
+                long endTime = System.currentTimeMillis();
+                log.info("Reloaded Recipe Type {}, it took {}ms", key.toString(), endTime - startTime);
+                recipeType.setAcceptNetworking(true);
             }
         });
     }
 
     public static <R extends BaseRecipe, BR extends BaseRecipeType<R>> BR registerRecipeType(Identifier id, BR recipeType) {
-        RegistryImpls.register(RegistryImpls.RECIPE_TYPE, id, recipeType);
+        BuiltInRegistryProviders.register(BuiltInRegistryProviders.RECIPE_TYPE, id, recipeType);
         RECIPE_TYPES.put(id, recipeType);
         recipeType.bootstrap();
-        assert id == recipeType.getId();
+        if (!Objects.equals(id, recipeType.getId())) {
+            throw new IllegalArgumentException("RecipeType id must be equal registry id, %s != %s".formatted(recipeType.getId(), id));
+        }
         return recipeType;
     }
+
 }

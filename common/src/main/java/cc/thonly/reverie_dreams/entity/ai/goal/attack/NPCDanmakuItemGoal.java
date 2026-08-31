@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
+import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
-import cc.thonly.reverie_dreams.entity.interfaces.DanmakuShooter;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import lombok.Getter;
 import lombok.Setter;
@@ -105,16 +105,16 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
             Level world = this.actor.level();
             if (world instanceof ServerLevel serverWorld) {
                 ItemStack itemStack = this.actor.getMainHandItem();
-                DanmakuProperties properties = itemStack.get(RDDataComponents.DANMAKU_PROPERTIES.value());
+                DanmakuProperties properties = itemStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                 if (properties == null) {
                     return;
                 }
                 Item item = itemStack.getItem();
-                if (!(item instanceof AbstractDanmakuItem polymerDanmakuItem)) {
+                if (!(item instanceof AbstractDanmakuItem danmakuItem)) {
                     return;
                 }
                 for (int i = 0; i < properties.count(); i++) {
-                    polymerDanmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
+                    danmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
                 }
                 if (!properties.infinite()) {
                     itemStack.hurtAndBreak(1, this.actor, InteractionHand.MAIN_HAND);
@@ -123,6 +123,7 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
                     }
                 }
 
+                this.actor.swing(InteractionHand.MAIN_HAND);
                 world.playSound(null, this.actor.getX(), this.actor.getY(), this.actor.getZ(), RDSoundEvents.FIRE, SoundSource.NEUTRAL, 1f, 1.0f);
             }
             this.resetCooldown();

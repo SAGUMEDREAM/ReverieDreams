@@ -90,6 +90,6 @@ public class DanmakuCraftingTableRecipeCategory implements DisplayCategory<Danma
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(RDBlocks.DANMAKU_CRAFTING_TABLE);
+        return EntryStacks.ofItemHolder(RDBlocks.DANMAKU_CRAFTING_TABLE);
     }
 }

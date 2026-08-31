@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.compat.rei.display;
 
 import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
-import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

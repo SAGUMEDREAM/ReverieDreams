@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat.rei.category;
 import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
 import cc.thonly.reverie_dreams.compat.rei.display.KitchenDisplay;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.registry.content.block.KitchenBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 import me.shedaniel.math.Point;
@@ -71,42 +71,42 @@ public class KitchenRecipeCategory implements DisplayCategory<KitchenDisplay> {
         // ===== 输出 =====
         widgets.add(
                 Widgets.createSlot(new Rectangle(
-                                startInputX + 6 * slotSize,
-                                centerY,
-                                slotSize,
-                                slotSize))
-                        .entries(display.getOutputEntries().getFirst())
-                        .markOutput()
+                               startInputX + 6 * slotSize,
+                               centerY,
+                               slotSize,
+                               slotSize))
+                       .entries(display.getOutputEntries().getFirst())
+                       .markOutput()
         );
 
         // ===== 设备图标 =====
-        var type = recipe.getRecipeTypeMapping();
+        var type = recipe.getTypeInstance();
 
         ItemStack iconStack;
 
-        if (type == KitchenRecipeType.MappingType.COOKING_POT) {
-            iconStack = KitchenBlocks.COOKING_POT.asItem().getDefaultInstance();
-        } else if (type == KitchenRecipeType.MappingType.CUTTING_BOARD) {
-            iconStack = KitchenBlocks.CUTTING_BOARD.asItem().getDefaultInstance();
-        } else if (type == KitchenRecipeType.MappingType.FRYING_PAN) {
-            iconStack = KitchenBlocks.FRYING_PAN.asItem().getDefaultInstance();
-        } else if (type == KitchenRecipeType.MappingType.GRILL) {
-            iconStack = KitchenBlocks.GRILL.asItem().getDefaultInstance();
-        } else if (type == KitchenRecipeType.MappingType.STEAMER) {
-            iconStack = KitchenBlocks.STEAMER.asItem().getDefaultInstance();
+        if (type.is(KitchenRecipeType.TypeInstance.COOKING_POT)) {
+            iconStack = RDKitchenBlocks.COOKING_POT.asItem().getDefaultInstance();
+        } else if (type.is(KitchenRecipeType.TypeInstance.CUTTING_BOARD)) {
+            iconStack = RDKitchenBlocks.CUTTING_BOARD.asItem().getDefaultInstance();
+        } else if (type.is(KitchenRecipeType.TypeInstance.FRYING_PAN)) {
+            iconStack = RDKitchenBlocks.FRYING_PAN.asItem().getDefaultInstance();
+        } else if (type.is(KitchenRecipeType.TypeInstance.GRILL)) {
+            iconStack = RDKitchenBlocks.GRILL.asItem().getDefaultInstance();
+        } else if (type.is(KitchenRecipeType.TypeInstance.STEAMER)) {
+            iconStack = RDKitchenBlocks.STEAMER.asItem().getDefaultInstance();
         } else {
             iconStack = RDItems.MYSTIA_ICON.createStack();
         }
 
         widgets.add(
                 Widgets.createSlot(new Rectangle(
-                                xOffset + 2,
-                                centerY,
-                                slotSize,
-                                slotSize))
-                        .entries(REIItemUtils.getItem(iconStack))
-                        .markInput()
-                        .disableBackground()
+                               xOffset + 2,
+                               centerY,
+                               slotSize,
+                               slotSize))
+                       .entries(REIItemUtils.getItem(iconStack))
+                       .markInput()
+                       .disableBackground()
         );
 
         return widgets;
@@ -129,11 +129,11 @@ public class KitchenRecipeCategory implements DisplayCategory<KitchenDisplay> {
 
     @Override
     public Component getTitle() {
-        return RDItems.MYSTIA_ICON.asItem().getName();
+        return RDItems.MYSTIA_ICON.asItem().getName(RDItems.MYSTIA_ICON.createStack());
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(RDItems.MYSTIA_ICON);
+        return EntryStacks.ofItemHolder(RDItems.MYSTIA_ICON);
     }
 }

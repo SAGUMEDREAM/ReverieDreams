@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
@@ -17,7 +19,7 @@ import java.util.function.Predicate;
 public class NPCTemptGoal extends Goal {
     private static final TargetingConditions TEMPTING_ENTITY_PREDICATE = TargetingConditions.forNonCombat().ignoreLineOfSight();
     private final TargetingConditions predicate;
-    protected final PathfinderMob mob;
+    protected final BaseNPCLikeEntity mob;
     private final double speed;
     private double lastPlayerX;
     private double lastPlayerY;
@@ -31,8 +33,8 @@ public class NPCTemptGoal extends Goal {
     private final Predicate<ItemStack> foodPredicate;
     private final boolean canBeScared;
 
-    public NPCTemptGoal(PathfinderMob entity, double speed, Predicate<ItemStack> foodPredicate, boolean canBeScared) {
-        this.mob = entity;
+    public NPCTemptGoal(BaseNPCLikeEntity mob, double speed, Predicate<ItemStack> foodPredicate, boolean canBeScared) {
+        this.mob = mob;
         this.speed = speed;
         this.foodPredicate = foodPredicate;
         this.canBeScared = canBeScared;
@@ -47,12 +49,11 @@ public class NPCTemptGoal extends Goal {
             return false;
         }
         this.closestPlayer = NPCTemptGoal.getServerLevel(this.mob).getNearestPlayer(this.predicate.range(this.mob.getAttributeValue(Attributes.TEMPT_RANGE)), this.mob);
-        if (this.mob instanceof TamableAnimal entitySelf) {
-            if(!entitySelf.isTame()) {
-                return this.closestPlayer != null;
-            } else if (!(entitySelf.getOwner() == this.closestPlayer)) {
-                return false;
-            }
+        TamableAnimal entitySelf = this.mob;
+        if (!entitySelf.isTame()) {
+            return this.closestPlayer != null;
+        } else if (!(entitySelf.getOwner() == this.closestPlayer)) {
+            return false;
         }
         return this.closestPlayer != null;
     }
@@ -109,15 +110,15 @@ public class NPCTemptGoal extends Goal {
 
     @Override
     public void tick() {
-        this.mob.getLookControl().setLookAt(this.closestPlayer, this.mob.getMaxHeadYRot() + 20, this.mob.getMaxHeadXRot());
-        if (this.mob.distanceToSqr(this.closestPlayer) < 6.25) {
-            this.mob.getNavigation().stop();
-        } else {
-            this.mob.getNavigation().moveTo(this.closestPlayer, this.speed);
+        if (this.closestPlayer != null) {
+            this.mob.getLookControl().setLookAt(this.closestPlayer, this.mob.getMaxHeadYRot() + 20, this.mob.getMaxHeadXRot());
+            if (this.mob.distanceToSqr(this.closestPlayer) < 6.25) {
+                this.mob.getNavigation().stop();
+            } else {
+                this.mob.getNavigation().moveTo(this.closestPlayer, this.speed);
+            }
         }
     }
-
-
 
 }
 

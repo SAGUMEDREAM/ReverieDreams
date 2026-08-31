@@ -1,13 +1,16 @@
 package cc.thonly.reverie_dreams.util.skin;
 
+import cc.thonly.keine.api.resource.AssetContainer;
+import cc.thonly.keine.api.resource.ResourceLocatorApi;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.properties.Property;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.resources.IoSupplier;
 
 import javax.imageio.ImageIO;
 import javax.net.ssl.HttpsURLConnection;
@@ -22,14 +25,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class SkinFetcher {
     private static final Set<Class<?>> SCAN_LIST = new HashSet<>(
             Set.of(ReverieDreams.class)
     );
-    private static final Map<String, File> SKIN_CACHE = new ConcurrentHashMap<>();
     static String PROPERTY_TEXTURES = "textures";
 
     public static void registerScanClasses(Class<?>... classes) {
@@ -38,8 +39,9 @@ public class SkinFetcher {
 
     public static Optional<Property> getSkinFromNPCSkin(SkinConfig config) {
         boolean useSlim = config.getType() == SkinConfig.ModelType.SLIM;
-        Identifier id = RegistryImpls.SKIN_CONFIG.getKey(config);
-        if (id == null) return Optional.empty();
+        Identifier id = BuiltInRegistryProviders.SKIN_CONFIG.getKey(config);
+        if (id == null)
+            return Optional.empty();
         if (SkinFetcherCaches.MD5_CACHED.isEmpty()) {
             SkinFetcherCaches.load();
         }
@@ -47,33 +49,71 @@ public class SkinFetcher {
         String assetPath = "/assets/%s/textures/entity/player/skin/%s.png"
                 .formatted(id.getNamespace(), id.getPath());
 
-        for (Class<?> aClass : SCAN_LIST) {
-            try (InputStream in = aClass.getResourceAsStream(assetPath)) {
-                if (in == null) continue;
+        boolean find = false;
+        try (AssetContainer globalAssetContainer = ResourceLocatorApi.createGlobalAssetContainer()) {
+            List<IoSupplier<InputStream>> allAssets = globalAssetContainer.getAllAssets(id.getNamespace(), "/textures/entity/player/skin/%s.png".formatted(id.getPath()));
+            for (IoSupplier<InputStream> allAsset : allAssets) {
+                try (InputStream in = allAsset.get()) {
+                    Path tempFile = Files.createTempFile("npcskin_", ".png");
+                    Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
+                    File skinFile = tempFile.toFile();
 
-                Path tempFile = Files.createTempFile("npcskin_", ".png");
-                Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
-                File skinFile = tempFile.toFile();
+                    String md5;
+                    try (InputStream md5In = new FileInputStream(skinFile)) {
+                        md5 = SkinFetcherCaches.getMD5FromInputStream(md5In);
+                    }
 
-                String md5;
-                try (InputStream md5In = new FileInputStream(skinFile)) {
-                    md5 = SkinFetcherCaches.getMD5FromInputStream(md5In);
+                    SkinFetcherCaches.Entry entry = SkinFetcherCaches.MD5_CACHED.get(md5);
+                    if (entry != null) {
+                        return Optional.of(entry.property());
+                    }
+
+                    Optional<Property> skinFromFile = getSkinFromFile(skinFile, useSlim);
+                    if (skinFromFile.isPresent()) {
+                        SkinFetcherCaches.MD5_CACHED.put(md5, new SkinFetcherCaches.Entry(skinFromFile.get()));
+                        SkinFetcherCaches.save();
+                    }
+                    find = true;
+                    return skinFromFile;
+                } catch (IOException e) {
+                    log.error("Error: ", e);
+                    continue;
                 }
-
-                SkinFetcherCaches.Entry entry = SkinFetcherCaches.MD5_CACHED.get(md5);
-                if (entry != null) {
-                    return Optional.of(entry.property());
-                }
-
-                Optional<Property> skinFromFile = getSkinFromFile(skinFile, useSlim);
-                if (skinFromFile.isPresent()) {
-                    SkinFetcherCaches.MD5_CACHED.put(md5, new SkinFetcherCaches.Entry(skinFromFile.get()));
-                    SkinFetcherCaches.save();
-                }
-                return skinFromFile;
-            } catch (IOException e) {
-                log.error("Can't load skin: {}", assetPath, e);
             }
+        } catch (Exception e) {
+            log.error("Error: ", e);
+        }
+        if (!find) {
+            for (Class<?> aClass : SCAN_LIST) {
+                try (InputStream in = aClass.getResourceAsStream(assetPath)) {
+                    if (in == null)
+                        continue;
+
+                    Path tempFile = Files.createTempFile("npcskin_", ".png");
+                    Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
+                    File skinFile = tempFile.toFile();
+
+                    String md5;
+                    try (InputStream md5In = new FileInputStream(skinFile)) {
+                        md5 = SkinFetcherCaches.getMD5FromInputStream(md5In);
+                    }
+
+                    SkinFetcherCaches.Entry entry = SkinFetcherCaches.MD5_CACHED.get(md5);
+                    if (entry != null) {
+                        return Optional.of(entry.property());
+                    }
+
+                    Optional<Property> skinFromFile = getSkinFromFile(skinFile, useSlim);
+                    if (skinFromFile.isPresent()) {
+                        SkinFetcherCaches.MD5_CACHED.put(md5, new SkinFetcherCaches.Entry(skinFromFile.get()));
+                        SkinFetcherCaches.save();
+                    }
+                    return skinFromFile;
+                } catch (IOException e) {
+                    log.error("Can't load skin: {}", assetPath, e);
+                }
+            }
+            find = true;
         }
         return Optional.empty();
     }

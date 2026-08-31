@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin extends Player implements ITradingCardPlayer {
     @Unique
-    private TradingCardManager tradingCardManager;
+    private TradingCardManager reverie_dreams$tradingCardManager;
 
     public ServerPlayerEntityMixin(Level world, GameProfile profile) {
         super(world, profile);
@@ -29,21 +29,21 @@ public abstract class ServerPlayerEntityMixin extends Player implements ITrading
     @Inject(method = "<init>", at = @At("TAIL"))
     public void onInit(MinecraftServer server, ServerLevel world, GameProfile profile, ClientInformation clientOptions, CallbackInfo ci) {
         ServerPlayer serverPlayer = (ServerPlayer) (Object) this;
-        this.tradingCardManager = new TradingCardManager(serverPlayer);
+        this.reverie_dreams$tradingCardManager = new TradingCardManager(serverPlayer);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     public void read(ValueInput view, CallbackInfo ci) {
-        this.tradingCardManager.read(view);
+        this.reverie_dreams$tradingCardManager.read(view);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     public void write(ValueOutput view, CallbackInfo ci) {
-        this.tradingCardManager.write(view);
+        this.reverie_dreams$tradingCardManager.write(view);
     }
 
     @Override
-    public TradingCardManager getTradingCardManager() {
-        return this.tradingCardManager;
+    public TradingCardManager getReverie_dreams$tradingCardManager() {
+        return this.reverie_dreams$tradingCardManager;
     }
 }

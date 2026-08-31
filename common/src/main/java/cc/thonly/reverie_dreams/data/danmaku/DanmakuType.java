@@ -4,46 +4,44 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.BaseDanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.ReferenceLinkedOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.blay09.mods.balm.world.item.BalmItemRegistrar;
-import net.blay09.mods.balm.world.item.BalmItemRegistration;
-import net.blay09.mods.balm.world.item.DeferredItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.UseCooldown;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.Supplier;
 
 @Setter
 @Getter
 @ToString
-public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<DanmakuType>, Translatable, BuiltinObject {
-    public static final Codec<DanmakuType> COMPONENT_CODEC = RecordCodecBuilder.create(instance ->
+public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryEntryOwnerBindable<DanmakuType>, RegistryEntryTranslatable, BuiltinObject {
+    public static final Codec<DanmakuType> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("registry_key").forGetter(DanmakuType::getId),
                     ResourceKey.codec(Registries.DAMAGE_TYPE).fieldOf("damage_type").forGetter(DanmakuType::getDamageType),
@@ -53,7 +51,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
                     Codec.BOOL.fieldOf("tile").forGetter(DanmakuType::isTile),
                     Codec.BOOL.fieldOf("infinite").forGetter(DanmakuType::isInfinite)
             ).apply(instance, DanmakuType::getOrCreate)
-    );
+    ));
 
     private Identifier id;
     private final ResourceKey<DamageType> damageType;
@@ -62,9 +60,9 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     private final float speed;
     private final boolean tile;
     private final boolean infinite;
-    private DeferredItem itemHolder;
+    private ItemDelegate itemHolder;
     private BaseDanmakuEntity.HitCallback hitFactory;
-    private RegistryImpl<DanmakuType> owner;
+    private RegistryProvider<DanmakuType> owner;
     private boolean deleteFromList = false;
 
     public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
@@ -79,7 +77,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     }
 
     public static DanmakuType getOrCreate(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        DanmakuType type = RegistryImpls.DANMAKU_TYPE.getValue(id);
+        DanmakuType type = BuiltInRegistryProviders.DANMAKU_TYPE.getValue(id);
         if (type == null) {
             return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite);
         }
@@ -92,7 +90,7 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     }
 
     public DanmakuShape toShape() {
-        for (Map.Entry<ResourceKey<DanmakuShape>, DanmakuShape> mapEntry : RegistryImpls.DANMAKU_SHAPE.entrySet()) {
+        for (Map.Entry<ResourceKey<DanmakuShape>, DanmakuShape> mapEntry : BuiltInRegistryProviders.DANMAKU_SHAPE.entrySet()) {
             DanmakuShape shape = mapEntry.getValue();
             if (shape.getType() == this) {
                 return shape;
@@ -102,10 +100,10 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
     }
 
     public void createItemEntry() {
-        BalmItemRegistrar itemRegistrar = ReverieDreams.getItemRegistrar();
-        BalmItemRegistration itemRegistration = itemRegistrar.register(this.getItemId().getPath(), (props) -> {
-                    DanmakuItem item = new DanmakuItem(props
-                            .component(RDDataComponents.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())
+        RegistrySupplier<Item> itemSupplier = MCBuiltInRegistries.ITEM.register(this.getItemId().getPath(), () -> {
+                    DanmakuItem item = new DanmakuItem(new Item.Properties()
+                            .setId(RDItems.keyOf(this.getItemId().getPath()))
+                            .component(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())
                             .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
                             .durability(120)
                             .repairable(RDItemTags.POWER_BLOCK)
@@ -117,28 +115,30 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
                     return item;
                 }
         );
-        this.itemHolder = itemRegistration.asDeferredItem();
+        this.itemHolder = ItemDelegate.of(itemSupplier);
     }
 
-    @SuppressWarnings("deprecation")
-    public List<Tuple<Item, ItemStack>> getColorPairs() {
-        List<Tuple<Item, ItemStack>> pairList = new LinkedList<>();
-        ItemStack defaultStack = this.itemHolder.asItem().getDefaultInstance();
+    @SuppressWarnings({"deprecation", "OptionalGetWithoutIsPresent"})
+    public Supplier<List<Tuple<Item, ItemStackTemplate>>> getColorPairs() {
+        List<Tuple<Item, ItemStackTemplate>> pairList = new LinkedList<>();
+        ItemStackTemplate defaultStack = new ItemStackTemplate(this.itemHolder.asItem());
         for (Map.Entry<Item, Long> itemLongEntry : ItemColor.getView().entrySet()) {
             Item dyeItem = itemLongEntry.getKey();
-            ItemStack stack = defaultStack.copy();
+            ItemStackTemplate template = new ItemStackTemplate(defaultStack.item(), defaultStack.count(), defaultStack.components());
             int color = itemLongEntry.getValue().intValue();
-            Component hoverName = stack.getHoverName();
+            Component hoverName = ItemStackTemplateHelper.getHoverName(template);
             Style style = hoverName.getStyle().withColor(brighten(color, 1.25f));
             Component colored = hoverName.copy().setStyle(style);
-            String gid = "%s_%s_%s".formatted(stack.getItem().builtInRegistryHolder().key().identifier(), dyeItem.builtInRegistryHolder().key().identifier(), color);
+            String gid = "%s_%s_%s".formatted(template.item().unwrapKey().get().identifier(), dyeItem.builtInRegistryHolder().key().identifier(), color);
             UUID uuid = UUID.nameUUIDFromBytes(gid.getBytes(StandardCharsets.UTF_8));
-            stack.set(DataComponents.ITEM_NAME, colored);
-            stack.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
-            stack.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(uuid.toString()))));
-            pairList.add(new Tuple<>(dyeItem, stack));
+            ItemStackTemplateHelper.modify(template, (old, modifier) -> {
+                modifier.set(DataComponents.ITEM_NAME, colored);
+                modifier.set(DataComponents.DYED_COLOR, new DyedItemColor(itemLongEntry.getValue().intValue()));
+                modifier.set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(uuid.toString()))));
+            });
+            pairList.add(new Tuple<>(dyeItem, template));
         }
-        return pairList;
+        return () -> pairList;
     }
 
     private int brighten(int color, float factor) {
@@ -178,6 +178,6 @@ public class DanmakuType implements CodecStep<DanmakuType>, OwnerBinding<Danmaku
 
     @Override
     public Codec<DanmakuType> getCodec() {
-        return COMPONENT_CODEC;
+        return CODEC;
     }
 }

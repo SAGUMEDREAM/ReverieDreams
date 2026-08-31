@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.compat.polydex.page;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import eu.pb4.polydex.api.v1.recipe.*;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class StrengthTablePage implements PolydexPage {
             list.add(PolydexIngredient.of(Ingredient.of(x.getItem()), x.getCount()));
         }
         this.ingredients = list;
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class StrengthTablePage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
@@ -79,19 +79,19 @@ public class StrengthTablePage implements PolydexPage {
 
     private ItemStack getViewStack(AtomicInteger input, String s) {
         if (s.equals("X")) {
-            return RDGuiItems.EMPTY_SLOT.createStack();
+            return RDGuiPlaceholderItems.EMPTY_SLOT.createStack();
         } else if (s.equals("I")) {
             int i = input.get();
             input.incrementAndGet();
             if (i == 0) {
-                return this.value.getMainItem().getItemStack().copy();
+                return this.value.getMainItem().build().copy();
             } else if (i == 1) {
-                return this.value.getOffItem().getItemStack().copy();
+                return this.value.getOffItem().build().copy();
             } else if (i == 2) {
-                return this.value.getOutput().getItemStack().copy();
+                return this.value.getOutput().build().copy();
             }
         } else if (s.equals("T")) {
-            return RDGuiItems.PROGRESS_TO_RESULT.createStack();
+            return RDGuiPlaceholderItems.PROGRESS_TO_RESULT.createStack();
         }
         return Items.AIR.getDefaultInstance();
     }

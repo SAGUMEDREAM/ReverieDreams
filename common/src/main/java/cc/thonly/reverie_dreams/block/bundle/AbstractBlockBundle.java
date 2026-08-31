@@ -1,12 +1,10 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
-import net.blay09.mods.balm.world.level.block.BalmBlockRegistrar;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.Block;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +40,7 @@ public abstract class AbstractBlockBundle {
         return Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath() + "_" + name);
     }
 
-    protected abstract Collection<DeferredBlock> stream();
+    protected abstract Collection<BlockDelegate> stream();
 
-    protected abstract AbstractBlockBundle build(BalmBlockRegistrar registrar);
+    protected abstract AbstractBlockBundle build();
 }

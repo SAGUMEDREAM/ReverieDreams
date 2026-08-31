@@ -1,25 +1,32 @@
 package cc.thonly.reverie_dreams.server.player;
 
-import cc.thonly.reverie_dreams.server.PlayerDataComponentManager;
+import cc.thonly.reverie_dreams.api.player.BasePlayerComponentManager;
+import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
 import com.mojang.serialization.Codec;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("unchecked")
-public interface PlayerComponent<T> {
+@SuppressWarnings({"unchecked", "rawtypes"})
+public interface PlayerComponent<T extends PlayerComponent> {
     void onLoad();
 
-    void setPlayer(ServerPlayer player);
+    void setPlayer(Player player);
+
+    Player getPlayer();
 
     Codec<T> getCodec();
 
-    default void tick(MinecraftServer server) {
+    default void tick(@Nullable MinecraftServer server, boolean isClient) {
 
     }
 
     default void markDirty() {
-        PlayerDataComponentManager playerDataComponentManager = PlayerDataComponentManager.getInstance();
-        playerDataComponentManager.saveAll();
+        BasePlayerComponentManager playerComponentManager = ServerPlayerComponentManager.serverAccess();
+        playerComponentManager.saveAll();
+        if (playerComponentManager instanceof ServerPlayerComponentManager serverPlayerComponentManager) {
+            serverPlayerComponentManager.updatePlayerData();
+        }
     }
 
     default T get() {

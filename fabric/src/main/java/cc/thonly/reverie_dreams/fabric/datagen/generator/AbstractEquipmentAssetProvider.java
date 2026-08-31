@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,13 +10,13 @@ import com.mojang.serialization.JsonOps;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 
 import java.io.IOException;
@@ -31,11 +32,11 @@ import java.util.function.BiConsumer;
 @Slf4j
 @Environment(value = EnvType.CLIENT)
 public abstract class AbstractEquipmentAssetProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public AbstractEquipmentAssetProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractEquipmentAssetProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
@@ -88,7 +89,7 @@ public abstract class AbstractEquipmentAssetProvider implements DataProvider {
                         Files.createDirectories(output.getParent());
                         writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
                     } catch (IOException e) {
-                        log.error("Can't generate equipment asset {}", identifier.toString());
+                        log.error("Can't generate equipment asset {}", identifier, e);
                     }
                 }
             });

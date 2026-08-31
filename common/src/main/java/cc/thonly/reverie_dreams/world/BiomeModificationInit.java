@@ -2,17 +2,19 @@ package cc.thonly.reverie_dreams.world;
 
 import cc.thonly.keine.tag.ConventionalBiomeTags;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.entity.Hairball;
-import cc.thonly.reverie_dreams.entity.MaidYousei;
-import cc.thonly.reverie_dreams.entity.SunflowerYousei;
 import cc.thonly.reverie_dreams.entity.UFO;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.util.biome.BiomePredicateTool;
-import cc.thonly.reverie_dreams.world.gen.BiomeInit;
-import cc.thonly.reverie_dreams.world.gen.PlacedFeaturesInit;
-import net.blay09.mods.balm.Balm;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinConfigurationCarvers;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinPlacedFeatures;
+import cc.thonly.reverie_dreams.world.gen.RDBuiltinBiomes;
+import dev.architectury.hooks.level.biome.GenerationProperties;
+import dev.architectury.hooks.level.biome.SpawnProperties;
+import dev.architectury.registry.level.biome.BiomeModifications;
+import dev.architectury.registry.level.entity.SpawnPlacementsRegistry;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
@@ -25,351 +27,605 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
-import java.util.function.Supplier;
 
+@Slf4j
+@SuppressWarnings("UnstableApiUsage")
 public class BiomeModificationInit {
     public static void initialize() {
         addSpawnPlacements();
-        ReverieDreams.LATE_INIT.add(() -> {
-            addBlock();
-            addFlower();
-            addTree();
-            addEntity();
-            addStructure();
+        addBlock();
+        addFlower();
+        addTree();
+        addEntity();
+        addStructure();
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+
         });
     }
 
     public static void addSpawnPlacements() {
-        RDEntityTypes.YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entityType, world, reason, pos, random) -> {
-            if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
-            if (world.getRawBrightness(pos, 0) <= 8) return false;
-            if (!world.getBlockState(pos).isAir()) return false;
+        SpawnPlacementsRegistry.register(RDEntityTypes.YOUSEI, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+            if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK))
+                return false;
+            if (world.getRawBrightness(pos, 0) <= 8)
+                return false;
+            if (!world.getBlockState(pos).isAir())
+                return false;
 
             int nearby = world.getEntitiesOfClass(
-                    RDEntityTypes.YOUSEI.asHolder().value().getBaseClass(),
+                    RDEntityTypes.YOUSEI.value().getBaseClass(),
                     new AABB(
                             pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
                             pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
                     )
             ).size();
 
-            if (nearby > 2) return false;
+            if (nearby > 2)
+                return false;
             return random.nextFloat() < 0.6f;
         });
-        RDEntityTypes.SUNFLOWER_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new Supplier<SpawnPlacements.SpawnPredicate<SunflowerYousei>>() {
-            @Override
-            public SpawnPlacements.SpawnPredicate<SunflowerYousei> get() {
-                return (entityType, world, reason, pos, random) -> {
-                    // 原本条件
-                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
-                    if (world.getRawBrightness(pos, 0) <= 8) return false;
-                    if (!world.getBlockState(pos).isAir()) return false;
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.MAID_YOUSEI,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (entityType, world, reason, pos, random) -> {
+                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK))
+                        return false;
+                    if (world.getRawBrightness(pos, 0) <= 8)
+                        return false;
+                    if (!world.getBlockState(pos).isAir())
+                        return false;
 
-                    // 检测周围是否已有太多该实体
-                    int nearbyCount = world.getEntitiesOfClass(
-                            RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value().getBaseClass(),
+                    int nearby = world.getEntitiesOfClass(
+                            RDEntityTypes.MAID_YOUSEI.value().getBaseClass(),
                             new AABB(
-                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
-                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
+                                    pos.getX() - 16, pos.getY() - 16, pos.getZ() - 16,
+                                    pos.getX() + 16, pos.getY() + 16, pos.getZ() + 16
                             )
                     ).size();
 
-                    return nearbyCount < 3; // 附近 16x8x16 范围内少于 3 个才允许生成
-                };
-            }
-        });
-        RDEntityTypes.MAID_YOUSEI.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new Supplier<SpawnPlacements.SpawnPredicate<MaidYousei>>() {
-            @Override
-            public SpawnPlacements.SpawnPredicate<MaidYousei> get() {
-                return (entityType, world, reason, pos, random) -> {
-                    // 原本条件
-                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) return false;
-                    if (world.getRawBrightness(pos, 0) <= 8) return false;
-                    if (!world.getBlockState(pos).isAir()) return false;
+                    if (nearby > 2)
+                        return false;
 
-                    // 检测周围是否已有太多该实体
-                    int nearbyCount = world.getEntitiesOfClass(
-                            RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value().getBaseClass(),
-                            new AABB(
-                                    pos.getX() - 8, pos.getY() - 4, pos.getZ() - 8,
-                                    pos.getX() + 8, pos.getY() + 4, pos.getZ() + 8
-                            )
-                    ).size();
-
-                    return nearbyCount < 3; // 附近 16x8x16 范围内少于 3 个才允许生成
-                };
-            }
-        });
-        RDEntityTypes.HAIRBALL.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> Hairball::checkSpawnRules
-        );
-        RDEntityTypes.GOBLIN.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, () -> (entity, world, reason, pos, random) ->
-                        world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) &&
-                                world.getRawBrightness(pos, 0) > 8 &&
-                                world.getBlockState(pos).isAir()
-        );
-        RDEntityTypes.ICE_ELEMENTAL.withSpawnPlacement(
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> IceElementalEntity::canSpawn
-        );
-        RDEntityTypes.UFO.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> UFO::checkSpawnRules
-        );
-        RDEntityTypes.MOON_RABBIT.withSpawnPlacement(
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> (entity, world, reason, pos, random) -> {
-                    return world.getBlockState(pos.above()).isAir();
+                    return random.nextFloat() < 0.6f;
                 }
         );
-        RDEntityTypes.WILD_PIG.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.SUNFLOWER_YOUSEI,
+                SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> Animal::checkAnimalSpawnRules
+                (entityType, world, reason, pos, random) -> {
+                    if (!world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK))
+                        return false;
+                    if (world.getRawBrightness(pos, 0) <= 8)
+                        return false;
+                    if (!world.getBlockState(pos).isAir())
+                        return false;
+
+                    int nearbyCount = world.getEntitiesOfClass(
+                            RDEntityTypes.SUNFLOWER_YOUSEI.value().getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 16, pos.getY() - 16, pos.getZ() - 16,
+                                    pos.getX() + 16, pos.getY() + 16, pos.getZ() + 16
+                            )
+                    ).size();
+
+                    return nearbyCount < 3;
+                }
         );
-        RDEntityTypes.KILLER_BEE.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.GOBLIN,
+                SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> Animal::checkAnimalSpawnRules
+                (entity, world, reason, pos, random) ->
+                        world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)
+                                && world.getRawBrightness(pos, 0) > 8
+                                && world.getBlockState(pos).isAir()
         );
-        RDEntityTypes.MUSHROOM_MONSTER.withSpawnPlacement(SpawnPlacementTypes.ON_GROUND,
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.ICE_ELEMENTAL,
+                SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                () -> Monster::checkMonsterSpawnRules
+                IceElementalEntity::canSpawn
+        );
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.UFO,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                UFO::checkSpawnRules
+        );
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.WILD_PIG,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Animal::checkAnimalSpawnRules
+        );
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.HAIRBALL,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Mob::checkMobSpawnRules
+        );
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.KILLER_BEE,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Animal::checkAnimalSpawnRules
+        );
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.MUSHROOM_MONSTER,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Monster::checkMonsterSpawnRules
+        );
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.MOON_RABBIT,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, level, spawnReason, pos, randomSource) -> {
+                    boolean setup = Monster.checkMonsterSpawnRules(type, level, spawnReason, pos, randomSource);
+                    int nearby = level.getEntitiesOfClass(
+                            RDEntityTypes.ONI.value().getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 32,
+                                    pos.getY() - 10,
+                                    pos.getZ() - 32,
+                                    pos.getX() + 32,
+                                    pos.getY() + 10,
+                                    pos.getZ() + 32
+                            )
+                    ).size();
+
+                    if (nearby > 2)
+                        return false;
+                    return setup;
+                }
+        );
+        SpawnPlacementsRegistry.register(
+                RDEntityTypes.ONI,
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (entityType, world, reason, pos, random) -> {
+                    if (world.getBlockState(pos.below()).is(Blocks.AIR))
+                        return false;
+
+                    if (world.getRawBrightness(pos, 0) <= 8)
+                        return false;
+
+                    if (!world.getBlockState(pos).isAir())
+                        return false;
+
+                    int nearby = world.getEntitiesOfClass(
+                            RDEntityTypes.ONI.value().getBaseClass(),
+                            new AABB(
+                                    pos.getX() - 16,
+                                    pos.getY() - 8,
+                                    pos.getZ() - 16,
+                                    pos.getX() + 16,
+                                    pos.getY() + 8,
+                                    pos.getZ() + 16
+                            )
+                    ).size();
+
+                    if (nearby > 2)
+                        return false;
+
+                    return random.nextFloat() < 0.6f;
+                }
         );
     }
 
     public static void addTree() {
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("spiritual_tree_spawn"),
-                BiomePredicateTool.includeByKey(Biomes.BIRCH_FOREST, Biomes.SAVANNA),
-                (biome, builder) -> builder.addFeature(
+        BiomeModifications.addProperties((context, mutable) -> {
+            Optional<Identifier> keyOptional = context.getKey();
+            if (keyOptional.isEmpty()) {
+                return;
+            }
+
+            Identifier id = keyOptional.get();
+
+            if (Objects.equals(Biomes.BIRCH_FOREST.identifier(), id)
+                    || Objects.equals(Biomes.SAVANNA.identifier(), id)) {
+
+                GenerationProperties.Mutable generationProperties =
+                        mutable.getGenerationProperties();
+
+                generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.SPIRITUAL_TREE_KEY
-                )
-        );
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("lemon_tree_spawn"),
-                BiomePredicateTool.includeByKey(Biomes.FOREST),
-                (biome, builder) -> builder.addFeature(
+                        RDBuiltinPlacedFeatures.SPIRITUAL_TREE_KEY
+                );
+            }
+        });
+        BiomeModifications.addProperties((context, mutable) -> {
+            Optional<Identifier> keyOptional = context.getKey();
+            if (keyOptional.isEmpty()) {
+                return;
+            }
+
+            Identifier id = keyOptional.get();
+
+            if (Objects.equals(Biomes.FOREST.identifier(), id)) {
+
+                GenerationProperties.Mutable generationProperties =
+                        mutable.getGenerationProperties();
+
+                generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.LEMON_TREE_KEY
-                )
-        );
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("ginkgo_tree_spawn"),
-                BiomePredicateTool.includeByKey(Biomes.SAVANNA, Biomes.JUNGLE),
-                (biome, builder) -> builder.addFeature(
+                        RDBuiltinPlacedFeatures.LEMON_TREE_KEY
+                );
+            }
+        });
+        BiomeModifications.addProperties((context, mutable) -> {
+            Optional<Identifier> keyOptional = context.getKey();
+            if (keyOptional.isEmpty()) {
+                return;
+            }
+
+            Identifier id = keyOptional.get();
+
+            if (Objects.equals(Biomes.SAVANNA.identifier(), id)
+                    || Objects.equals(Biomes.JUNGLE.identifier(), id)) {
+
+                GenerationProperties.Mutable generationProperties =
+                        mutable.getGenerationProperties();
+
+                generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.GINKGO_TREE_KEY
-                )
-        );
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("peach_tree_spawn"),
-                BiomePredicateTool.includeByKey(Biomes.FOREST, Biomes.JUNGLE),
-                (biome, builder) -> builder.addFeature(
+                        RDBuiltinPlacedFeatures.GINKGO_TREE_KEY
+                );
+            }
+        });
+        BiomeModifications.addProperties((context, mutable) -> {
+            Optional<Identifier> keyOptional = context.getKey();
+            if (keyOptional.isEmpty()) {
+                return;
+            }
+
+            Identifier id = keyOptional.get();
+
+            if (Objects.equals(Biomes.FOREST.identifier(), id)
+                    || Objects.equals(Biomes.JUNGLE.identifier(), id)) {
+
+                GenerationProperties.Mutable generationProperties =
+                        mutable.getGenerationProperties();
+
+                generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.PEACH_TREE_KEY
-                )
-        );
+                        RDBuiltinPlacedFeatures.PEACH_TREE_KEY
+                );
+            }
+        });
     }
 
     public static void addBlock() {
-        // 银矿石
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("overworld_silver_ore_spawn"),
-                BiomePredicateTool.includeByKey(BiomeTags.IS_OVERWORLD),
-                (biome, builder) -> builder.addFeature(
-                        GenerationStep.Decoration.UNDERGROUND_ORES,
-                        PlacedFeaturesInit.OVERWORLD_SILVER_ORE_KEY
-                )
-        );
-        // 宝玉矿石
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("overworld_orb_ore_spawn"),
-                BiomePredicateTool.includeByKey(BiomeTags.IS_OVERWORLD),
-                (biome, builder) -> builder.addFeature(
-                        GenerationStep.Decoration.UNDERGROUND_ORES,
-                        PlacedFeaturesInit.OVERWORLD_ORB_ORE_KEY
-                )
-        );
+        BiomeModifications.addProperties((context, mutable) -> {
+            if (!context.hasTag(BiomeTags.IS_OVERWORLD)) {
+                return;
+            }
+
+            GenerationProperties.Mutable generationProperties =
+                    mutable.getGenerationProperties();
+
+
+            // 银矿石
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.OVERWORLD_SILVER_ORE_KEY
+            );
+
+
+            // 宝玉矿石
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.OVERWORLD_ORB_ORE_KEY
+            );
+
+        });
+        BiomeModifications.addProperties((context, mutable) -> {
+            Optional<Identifier> keyOptional = context.getKey();
+            if (keyOptional.isEmpty()) {
+                return;
+            }
+            if (!keyOptional.get().equals(RDBuiltinBiomes.THE_MOON.identifier())) {
+                return;
+            }
+            GenerationProperties.Mutable generationProperties = mutable.getGenerationProperties();
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_GOLD_ORE_KEY
+            );
+            generationProperties.addFeature(GenerationStep.Decoration.LAKES,
+                    RDBuiltinPlacedFeatures.MOON_WATER_LAKE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_IRON_ORE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_DIAMOND_ORE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_QUARTZ_ORE_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_DIORITE_PLACED_KEY
+            );
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.MOON_GRAVEL_PLACED_KEY
+            );
+            generationProperties.addCarver(
+                    RDBuiltinConfigurationCarvers.MOON_CAVE
+            );
+        });
     }
 
     public static void addFlower() {
-        // 幻昙华
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("udumbara_flower_spawn"),
-                BiomePredicateTool.includeByKey(Biomes.SNOWY_PLAINS, Biomes.FLOWER_FOREST),
-                (biome, builder) -> builder.addFeature(
+        BiomeModifications.addProperties((context, mutable) -> {
+
+            Optional<Identifier> keyOptional = context.getKey();
+            if (keyOptional.isEmpty()) {
+                return;
+            }
+
+            Identifier id = keyOptional.get();
+
+            GenerationProperties.Mutable generationProperties =
+                    mutable.getGenerationProperties();
+
+
+            // 幻昙华
+            if (Objects.equals(Biomes.SNOWY_PLAINS.identifier(), id)
+                    || Objects.equals(Biomes.FLOWER_FOREST.identifier(), id)) {
+
+                generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.UDUMBARA_FLOWER_KEY
-                )
-        );
-        // 银耳丛
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("tremella_spawn"),
-                BiomePredicateTool.includeByKey(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST),
-                (biome, builder) -> builder.addFeature(
+                        RDBuiltinPlacedFeatures.UDUMBARA_FLOWER_KEY
+                );
+            }
+
+
+            // 银耳丛
+            if (Objects.equals(Biomes.FOREST.identifier(), id)
+                    || Objects.equals(Biomes.DARK_FOREST.identifier(), id)
+                    || Objects.equals(Biomes.BIRCH_FOREST.identifier(), id)) {
+
+                generationProperties.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
-                        PlacedFeaturesInit.TREMELLA_KEY
-                )
-        );
+                        RDBuiltinPlacedFeatures.TREMELLA_KEY
+                );
+            }
+
+        });
     }
 
     public static void addEntity() {
-        // 野猪
-        Balm.biomeModifications().modifyBiome(ReverieDreams.id("wild_pig_spawn"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_FOREST),
-                (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
+        // 妖精大类
+        BiomeModifications.addProperties((context, mutable) -> {
+            // 配置关闭时不添加妖精生成
+            if (!ReverieDreams.config().enableYouseiSpawn) {
+                return;
+            }
+
+            SpawnProperties.Mutable spawnProperties =
+                    mutable.getSpawnProperties();
+
+
+            boolean isPlains = context.hasTag(ConventionalBiomeTags.IS_PLAINS);
+
+            boolean isDream = context.getKey()
+                                     .map(id -> Objects.equals(id, RDBuiltinBiomes.DREAM.identifier()))
+                                     .orElse(false);
+
+
+            // 普通妖精
+            if (isPlains) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
                         new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.WILD_PIG.asHolder().value(),
+                                RDEntityTypes.YOUSEI.value(),
+                                1,
+                                2
+                        ),
+                        10
+                );
+
+                // 向日葵妖精
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.SUNFLOWER_YOUSEI.value(),
                                 1,
                                 3
-                        ), 1)
-        );
-        // 妖精大类
-        if (ReverieDreams.config().enableYouseiSpawn) {
-            // 普通妖精
-            Balm.biomeModifications().modifyBiome(ReverieDreams.id("yousei_spawn_plains"),
-                    BiomePredicateTool.tag(ConventionalBiomeTags.IS_PLAINS),
-                    (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
-                            new MobSpawnSettings.SpawnerData(RDEntityTypes.YOUSEI.asHolder().value(), 1, 2),
-                            10
-                    )
-            );
-            Balm.biomeModifications().modifyBiome(ReverieDreams.id("yousei_spawn_dream"),
-                    BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_PLAINS),
-                    (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
-                            new MobSpawnSettings.SpawnerData(RDEntityTypes.YOUSEI.asHolder().value(), 1, 2),
-                            2
-                    )
-            );
-            // 向日葵妖精
-            Balm.biomeModifications().modifyBiome(ReverieDreams.id("sunflower_yousei_spawn_dream"),
-                    BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_PLAINS),
-                    (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
-                            new MobSpawnSettings.SpawnerData(RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value(), 1, 3),
-                            3
-                    )
-            );
-            Balm.biomeModifications().modifyBiome(ReverieDreams.id("sunflower_yousei_spawn_dream"),
-                    BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_PLAINS),
-                    (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
-                            new MobSpawnSettings.SpawnerData(RDEntityTypes.SUNFLOWER_YOUSEI.asHolder().value(), 1, 1),
-                            1
-                    )
-            );
-            // 女仆妖精
-            Balm.biomeModifications().modifyBiome(ReverieDreams.id("maid_yousei_spawn_dark_forest"),
-                    BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_PLAINS),
-                    (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
-                            new MobSpawnSettings.SpawnerData(RDEntityTypes.MAID_YOUSEI.asHolder().value(), 1, 2),
-                            10
-                    )
-            );
-        }
-        // 杀人蜂
-        Balm.biomeModifications().modifyBiome(ReverieDreams.id("killer_bee_spawn_birch_forest"),
-                BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_BIRCH_FOREST),
-                (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.KILLER_BEE.asHolder().value(), 2, 3),
-                        7
-                )
-        );
-        // 毛玉
-        Balm.biomeModifications().modifyBiome(ReverieDreams.id("hailball_spawn_forest"),
-                BiomePredicateTool.includeByKey(ConventionalBiomeTags.IS_FOREST),
-                (biome, builder) -> builder.addSpawn(MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.HAIRBALL.asHolder().value(), 2, 4),
-                        10
-                )
-        );
+                        ),
+                        1
+                );
 
-        // 哥布林
-        Balm.biomeModifications().modifyBiome(ReverieDreams.id("goblin_spawn_desert"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_DESERT),
-                (biome, builder) -> builder.addSpawn(
+                // 女仆妖精
+                spawnProperties.addSpawn(
                         MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.GOBLIN.asHolder().value(), 1, 1),
-                        50 / 5
-                )
-        );
-        // 蘑菇怪
-        Balm.biomeModifications().modifyBiome(ReverieDreams.id("mushroom_spawn_mushroom"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_DESERT),
-                (biome, builder) -> builder.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value(), 1, 1),
-                        8
-                )
-        );
-        Balm.biomeModifications().modifyBiome(ReverieDreams.id("mushroom_spawn_dark_forest"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_DESERT),
-                (biome, builder) -> builder.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value(), 1, 1),
-                        8
-                )
-        );
-        // 冰元素
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("ice_elemental_snowy"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_SNOWY),
-                (biome, builder) -> builder.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.ICE_ELEMENTAL.asHolder().value(), 1, 2),
-                        10 // weight 最后面
-                )
-        );
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.MAID_YOUSEI.value(),
+                                1,
+                                2
+                        ),
+                        10
+                );
+            }
 
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("ice_elemental_snowy_plains"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_SNOWY_PLAINS),
-                (biome, builder) -> builder.addSpawn(
+            // 梦境世界额外生成
+            if (isDream) {
+                spawnProperties.addSpawn(
                         MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.ICE_ELEMENTAL.asHolder().value(), 1, 2),
-                        10
-                )
-        );
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.YOUSEI.value(),
+                                1,
+                                2
+                        ),
+                        2
+                );
 
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("ice_elemental_cold_end"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_COLD_END),
-                (biome, builder) -> builder.addSpawn(
+                spawnProperties.addSpawn(
                         MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.ICE_ELEMENTAL.asHolder().value(), 1, 2),
-                        10
-                )
-        );
-        // 月兔
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("moon_rabbit_spawn"),
-                BiomePredicateTool.includeByKey(BiomeInit.THE_MOON),
-                (biome, builder) -> builder.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.MOON_RABBIT.asHolder().value(), 1, 1),
-                        10
-                )
-        );
-//        RDEntityTypes.MOON_RABBIT.withSpawnPlacement(
-//                SpawnPlacementTypes.ON_GROUND,
-//                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-//                () -> (entity, world, reason, pos, random) -> {
-//                    return world.getBlockState(pos.below()).is(RDBlocks.MOON_STONE.block()) &&
-//                            world.getBlockState(pos).isAir();
-//                }
-//        );
-        // UFO
-        Balm.biomeModifications().modifyBiome(
-                ReverieDreams.id("ufo_spawn"),
-                BiomePredicateTool.tag(ConventionalBiomeTags.IS_MOUNTAIN_PEAK),
-                (biome, builder) -> builder.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(RDEntityTypes.UFO.asHolder().value(), 1, 2),
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.SUNFLOWER_YOUSEI.value(),
+                                1,
+                                3
+                        ),
                         3
-                )
-        );
+                );
+            }
+        });
+
+        BiomeModifications.addProperties((context, mutable) -> {
+            SpawnProperties.Mutable spawnProperties =
+                    mutable.getSpawnProperties();
+
+            // 野猪
+            if (context.hasTag(ConventionalBiomeTags.IS_FOREST)) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.WILD_PIG.value(),
+                                1,
+                                3
+                        ),
+                        1
+                );
+            }
+
+            // 杀人蜂
+            if (context.hasTag(ConventionalBiomeTags.IS_BIRCH_FOREST)) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.KILLER_BEE.value(),
+                                2,
+                                3
+                        ),
+                        7
+                );
+            }
+
+
+            // 毛玉
+            if (context.hasTag(ConventionalBiomeTags.IS_FOREST)) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.HAIRBALL.value(),
+                                2,
+                                4
+                        ),
+                        10
+                );
+            }
+
+
+            // 哥布林
+            if (context.hasTag(ConventionalBiomeTags.IS_DESERT)) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.GOBLIN.value(),
+                                1,
+                                1
+                        ),
+                        50 / 5
+                );
+
+
+                // Oni 沙漠
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.ONI.value(),
+                                1,
+                                2
+                        ),
+                        2
+                );
+            }
+
+
+            // 蘑菇怪
+            if (context.hasTag(ConventionalBiomeTags.IS_DARK_FOREST) || context.hasTag(ConventionalBiomeTags.IS_MUSHROOM)) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.MUSHROOM_MONSTER.value(),
+                                1,
+                                1
+                        ),
+                        8
+                );
+            }
+
+            // 冰元素
+            if (context.hasTag(ConventionalBiomeTags.IS_SNOWY)
+                    || context.hasTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
+                    || context.hasTag(ConventionalBiomeTags.IS_COLD_END)) {
+
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.ICE_ELEMENTAL.value(),
+                                1,
+                                2
+                        ),
+                        10
+                );
+            }
+
+            // 月兔
+            context.getKey().ifPresent(id -> {
+                if (Objects.equals(id, RDBuiltinBiomes.THE_MOON.identifier())) {
+
+                    spawnProperties.addSpawn(
+                            MobCategory.MONSTER,
+                            new MobSpawnSettings.SpawnerData(
+                                    RDEntityTypes.MOON_RABBIT.value(),
+                                    1,
+                                    1
+                            ),
+                            10
+                    );
+                }
+            });
+
+            // UFO
+            if (context.hasTag(ConventionalBiomeTags.IS_MOUNTAIN_PEAK)) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.UFO.value(),
+                                1,
+                                2
+                        ),
+                        3
+                );
+            }
+
+            // Oni
+            if (context.hasTag(ConventionalBiomeTags.IS_DARK_FOREST)) {
+                spawnProperties.addSpawn(
+                        MobCategory.MONSTER,
+                        new MobSpawnSettings.SpawnerData(
+                                RDEntityTypes.ONI.value(),
+                                1,
+                                2
+                        ),
+                        2
+                );
+            }
+
+        });
     }
 
     public static void addStructure() {

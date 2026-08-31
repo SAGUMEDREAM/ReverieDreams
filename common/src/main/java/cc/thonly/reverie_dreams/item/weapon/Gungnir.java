@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
+import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.item.base.SpearItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
-import cc.thonly.reverie_dreams.server.IPlayerInputManager;
 import cc.thonly.reverie_dreams.server.InputKey;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -23,7 +23,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.ProjectileItem;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -54,7 +57,7 @@ public class Gungnir extends SpearItem implements ProjectileItem {
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return false;
         }
-        IPlayerInputManager inputManager = IPlayerInputManager.polymerAccess();
+        PlayerInputManagerAccess inputManager = PlayerInputManagerAccess.polymerAccess();
         if (!(inputManager.isKeyDown(serverPlayer, InputKey.SPRINT) &&
                 inputManager.isKeyDown(serverPlayer, InputKey.JUMP))
         ) {

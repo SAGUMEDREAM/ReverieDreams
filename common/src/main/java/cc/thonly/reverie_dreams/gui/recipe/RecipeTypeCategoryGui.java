@@ -1,22 +1,26 @@
 package cc.thonly.reverie_dreams.gui.recipe;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.BasePageGui;
-import cc.thonly.reverie_dreams.gui.PlayerHeadInfo;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import eu.pb4.sgui.api.gui.SlotBasedGui;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public class RecipeTypeCategoryGui extends SimpleGui {
     public static final String[][] GRID = {
             {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
@@ -28,9 +32,7 @@ public class RecipeTypeCategoryGui extends SimpleGui {
     };
     public static final int PER_PAGE_SIZE = 5 * 9;
 
-    public final List<GuiElementBuilder> recipeElements = new LinkedList<>();
-    public final GuiElementBuilder next = new GuiElementBuilder().setItem(Items.PLAYER_HEAD).setSkullOwner(PlayerHeadInfo.GUI_NEXT_PAGE).setItemName(Component.nullToEmpty("Next Page")).setCallback(this::next);
-    public final GuiElementBuilder prev = new GuiElementBuilder().setItem(Items.PLAYER_HEAD).setSkullOwner(PlayerHeadInfo.GUI_PREVIOUS_PAGE).setItemName(Component.nullToEmpty("Prev Page")).setCallback(this::prev);
+    public final List<GuiElementBuilder> recipeElements = new ArrayList<>();
     public int page = 0;
 
     public RecipeTypeCategoryGui(ServerPlayer player) {
@@ -61,35 +63,31 @@ public class RecipeTypeCategoryGui extends SimpleGui {
                     this.setSlot(slot, builder);
                 }
                 if (c.equalsIgnoreCase("N")) {
-                    this.setSlot(slot, this.next);
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiPlaceholderItems.NEXT.value()).setCallback(this::next));
                 }
                 if (c.equalsIgnoreCase("P")) {
-                    this.setSlot(slot, this.prev);
-                }
-                if (c.equalsIgnoreCase("W")) {
-                    this.setSlot(slot, new GuiElementBuilder().setItem(Items.WHITE_STAINED_GLASS_PANE));
+                    this.setSlot(slot,  new GuiElementBuilder().setItem(RDGuiPlaceholderItems.PREV.value()).setCallback(this::prev));
                 }
             }
         }
     }
 
-    public void clickIcon(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
+    public void clickIcon(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         int iconIndex = this.page * PER_PAGE_SIZE + index;
         if (RecipeTypeCategoryManager.CATEGORY_ENTRIES.size() > iconIndex) {
             RecipeTypeGuiInfo<? extends BasePageGui> info = RecipeTypeCategoryManager.CATEGORY_ENTRIES.get(iconIndex);
         }
     }
 
-    public void next(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+    public void next(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
         }
     }
 
-    public void prev(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action) {
-        this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-
+    public void prev(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+        SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (this.page > getMinPage()) {
             this.page--;
         }
@@ -106,8 +104,15 @@ public class RecipeTypeCategoryGui extends SimpleGui {
     @Override
     public void onTick() {
         super.onTick();
-        this.setTitle(Component.nullToEmpty("Recipes Manager" + " " + "(" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")"));
-
+        this.setTitle(
+                Component.empty()
+                         .append(Component.translatable("space.-8"))
+                         .append(Component.literal("\ub007")
+                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                         .append(Component.translatable("space.-168"))
+                         .append(Component.nullToEmpty("Recipes Manager" + " " + "(" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")"))
+        );
         int start = this.page * PER_PAGE_SIZE;
 
         for (int i = 0; i < PER_PAGE_SIZE; i++) {
@@ -117,13 +122,13 @@ public class RecipeTypeCategoryGui extends SimpleGui {
             if (recipeIndex < RecipeTypeCategoryManager.CATEGORY_ENTRIES.size()) {
                 RecipeTypeGuiInfo<? extends BasePageGui> recipeTypeGuiInfo = RecipeTypeCategoryManager.CATEGORY_ENTRIES.get(recipeIndex + this.page * PER_PAGE_SIZE);
                 GuiElementBuilder icon = new GuiElementBuilder()
-                        .setItem(recipeTypeGuiInfo.getIcon().getItem())
+                        .setItem(recipeTypeGuiInfo.getIcon().item().value())
                         .setItemName(Component.translatable(recipeTypeGuiInfo.getId().toLanguageKey()))
                         .setLore(List.of())
-                        .setCallback((slot, click, action) -> {
+                        .setCallback((slot, click, input, basedGui) -> {
                             this.close();
-                            this.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                            recipeTypeGuiInfo.create(player, () -> new RecipeTypeCategoryGui(player, this.page));
+                            SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
+                            recipeTypeGuiInfo.create(this.player, () -> new RecipeTypeCategoryGui(this.player, this.page));
                         });
                 this.setSlot(getGridSlot(slotIndex), icon);
             } else {

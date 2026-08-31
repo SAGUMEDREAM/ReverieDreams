@@ -1,10 +1,19 @@
 package cc.thonly.reverie_dreams.registry.content.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+@Slf4j
 public abstract class SkinTypes {
 
     public static SkinType register(SkinType skin) {
@@ -16,6 +25,26 @@ public abstract class SkinTypes {
     }
 
     public static SkinType register(Identifier id, SkinType skin) {
-        return RegistryImpls.register(RegistryImpls.SKIN_TYPE, id, skin);
+        return BuiltInRegistryProviders.registerForBuiltin(BuiltInRegistryProviders.SKIN_TYPE, id, skin);
+    }
+
+    public static Collection<CustomType> getCustomTypes() {
+        List<CustomType> list = new ArrayList<>();
+        for (Map.Entry<ResourceKey<SkinType>, SkinType> entry : BuiltInRegistryProviders.SKIN_TYPE_MERGED.entrySet()) {
+            SkinType type = entry.getValue();
+            if (type instanceof CustomType customType) {
+                list.add(customType);
+            }
+        }
+        return list;
+    }
+
+    static {
+        try {
+            Class.forName("cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes");
+            Class.forName("cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes");
+        } catch (Exception e){
+            log.error("Error: ", e);
+        }
     }
 }

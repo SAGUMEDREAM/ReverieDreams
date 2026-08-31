@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.danmaku.spellcard;
 
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
@@ -41,7 +41,7 @@ public class SpellCardFrameConfigs {
                 Optional<SpellCardFrameConfig> optional = result.result();
                 if (optional.isPresent()) {
                     SpellCardFrameConfig danmakuConfig = optional.get();
-                    RegistryImpls.register(RegistryImpls.DANMAKU_CONFIG, id, danmakuConfig);
+                    BuiltInRegistryProviders.register(BuiltInRegistryProviders.DANMAKU_CONFIG, id, danmakuConfig);
                 } else {
                     log.error("Can't parse danmaku config {}", id);
                 }
@@ -51,7 +51,7 @@ public class SpellCardFrameConfigs {
         }
     }
 
-    public static void bootstrap(RegistryImpl<SpellCardFrameConfig> configs) {
+    public static void bootstrap(RegistryProvider<SpellCardFrameConfig> configs) {
         BUILTIN_ITEMS.put("Test", createTestSpellcardElegant());
         BUILTIN_ITEMS.put("Test2", createTestSpellcardElegant2());
     }

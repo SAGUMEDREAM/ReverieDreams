@@ -17,10 +17,9 @@
 
 package cc.thonly.reverie_dreams.mixin.accessor;
 
+import net.minecraft.resources.FileToIdConverter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-
-import net.minecraft.resources.FileToIdConverter;
 
 @Mixin(FileToIdConverter.class)
 public interface FileToIdConverterAccessor {

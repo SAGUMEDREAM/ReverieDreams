@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.block.entity;
 
-import cc.thonly.reverie_dreams.RDMPHooks;
+import cc.thonly.reverie_dreams.proxy.ByModsPlatformProxy;
+import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import com.mojang.logging.LogUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -40,7 +41,10 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, GensokyoAltarBlockEntity blockEntity) {
-        RDMPHooks.GensokyoAltarBlockEntityTicker.EVENT.invoker().handle(world, pos, state, blockEntity);
+        ByModsPlatformProxy.GENSOKYO_ALTAR_BLOCK_ENTITY_TICKER.map(method -> {
+            method.handle(world, pos, state, blockEntity);
+            return null;
+        });
     }
 
     @Override
@@ -62,7 +66,7 @@ public class GensokyoAltarBlockEntity extends BlockEntity {
                     level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
                 }
             }
-        };;
+        };
         ContainerHelper.loadAllItems(view, inventory.getItems());
         this.inventory = inventory;
     }

@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.CraftingConflict;
+import cc.thonly.reverie_dreams.fabric.util.DataGeneratorUtil;
+import cc.thonly.reverie_dreams.fabric.util.DataProviderHelper;
 import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,7 +12,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
@@ -27,12 +29,12 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public abstract class AbstractCraftingConflictProvider implements DataProvider {
-    public final FabricDataOutput output;
+    public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, CraftingConflict> registries = new Object2ObjectOpenHashMap<>();
 
-    public AbstractCraftingConflictProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractCraftingConflictProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
         this.configured();
@@ -42,13 +44,14 @@ public abstract class AbstractCraftingConflictProvider implements DataProvider {
     public CompletableFuture<?> run(CachedOutput writer) {
         return CompletableFuture.runAsync(() -> {
             this.configured();
-            this.export(writer);
+            DataProviderHelper.outputFile(writer, this.registries, CraftingConflict.CODEC, "crafting_conflict");
+//            this.export(writer);
         });
     }
 
     protected AbstractCraftingConflictProvider registerEntry(CraftingConflict craftingConflict) {
         var id = BuiltInRegistries.ITEM.getKey(craftingConflict.getItem());
-        id = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/","-"));
+        id = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceAll("/", "-"));
         return this.registerEntry(id, craftingConflict);
     }
 

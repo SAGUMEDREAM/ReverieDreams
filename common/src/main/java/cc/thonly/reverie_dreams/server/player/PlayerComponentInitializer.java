@@ -1,15 +1,24 @@
 package cc.thonly.reverie_dreams.server.player;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public interface PlayerComponentInitializer<T> {
+@SuppressWarnings("rawtypes")
+public interface PlayerComponentInitializer<T extends PlayerComponent> {
 
-    PlayerComponent<T> create(ServerPlayer player);
+    Codec<T> getCodec();
 
-    default PlayerComponent<T> createAndLoad(ServerPlayer player) {
+    default PlayerComponent<T> create(Player player) {
+        PlayerComponent<T> playerComponent = this.create();
+        playerComponent.setPlayer(player);
+        return playerComponent;
+    }
+
+    PlayerComponent<T> create();
+
+    default PlayerComponent<T> createAndLoad(Player player) {
         Logger log = LoggerFactory.getLogger(PlayerComponentInitializer.class);
         PlayerComponent<T> playerComponent = this.create(player);
         playerComponent.setPlayer(player);
@@ -20,6 +29,4 @@ public interface PlayerComponentInitializer<T> {
         }
         return playerComponent;
     }
-
-    Codec<T> getCodec();
 }

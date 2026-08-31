@@ -97,11 +97,12 @@ public class TreasureHuntingRod extends SwordItem {
                     int roundedDistance = (int) minDistance;
 
                     MutableComponent message = Component.translatable(
-                            "message.treasure_hunting_rod.find", roundedDistance, dx, dy, dz
+                            "message.reverie_dreams.treasure_hunting_rod.find", roundedDistance, dx, dy, dz
                     ).append(" ").append(Component.translatable(closestOreBlock.getDescriptionId()));
-
-                    ((ServerPlayer) user).sendSystemMessage(message, false);
-                    OreEspEntity oreEspEntity = RDEntityTypes.ORE_ESP.asHolder().value().create(world, EntitySpawnReason.EVENT);
+                    if (user instanceof ServerPlayer) {
+                        ((ServerPlayer) user).sendSystemMessage(message, false);
+                    }
+                    OreEspEntity oreEspEntity = RDEntityTypes.ORE_ESP.value().create(world, EntitySpawnReason.EVENT);
                     if (oreEspEntity != null) {
                         ((BlockDisplayAccessor) oreEspEntity).reverie_dreams$setBlockState(world.getBlockState(closestOrePos));
                         oreEspEntity.setPos(new Vec3(closestOrePos));
@@ -113,7 +114,7 @@ public class TreasureHuntingRod extends SwordItem {
                             SoundEvents.NOTE_BLOCK_PLING.value(),
                             SoundSource.PLAYERS, 1.0f, 1.0f);
                 } else {
-                    player.displayClientMessage(Component.translatable("message.treasure_hunting_rod.not_found"), false);
+                    player.sendSystemMessage(Component.translatable("message.reverie_dreams.treasure_hunting_rod.not_found"), false);
                 }
 
                 // 伤害和冷却

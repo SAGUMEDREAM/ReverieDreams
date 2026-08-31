@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.fabric.datagen;
 
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.registry.content.item.RDFoodItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -18,21 +18,21 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EntityLootTableProvider extends FabricEntityLootTableProvider {
-    public EntityLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+public class EntityLootTableProvider extends FabricEntityLootSubProvider {
+    public EntityLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
     @Override
     public void generate() {
-        this.add(RDEntityTypes.WILD_PIG.asHolder().value(),
+        this.add(RDEntityTypes.WILD_PIG.value(),
                 new LootTable.Builder()
                         .withPool(new LootPool.Builder()
                                 .setRolls(UniformGenerator.between(1.0f, 3.0f))
                                 .add(LootItem.lootTableItem(RDIngredientItems.WILD_BOAR_MEAT))
                         )
         );
-        this.add(RDEntityTypes.MOON_RABBIT.asHolder().value(),
+        this.add(RDEntityTypes.MOON_RABBIT.value(),
                 new LootTable.Builder()
                         .withPool(new LootPool.Builder()
                                 .setRolls(ConstantValue.exactly(1.0f))
@@ -51,12 +51,12 @@ public class EntityLootTableProvider extends FabricEntityLootTableProvider {
                         ).withPool(LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
                                 .when(LootItemRandomChanceCondition.randomChance(0.1f))
-                                .add(LootItem.lootTableItem(RDFoodItems.MOONLIGHT_DUMPLINGS)
+                                .add(LootItem.lootTableItem(RDCuisineItems.MOONLIGHT_DUMPLINGS)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1f, 3f)))
                                 )
                         )
         );
-        this.add(RDEntityTypes.MUSHROOM_MONSTER.asHolder().value(),
+        this.add(RDEntityTypes.MUSHROOM_MONSTER.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()
@@ -73,7 +73,7 @@ public class EntityLootTableProvider extends FabricEntityLootTableProvider {
                                         )
                         )
         );
-        this.add(RDEntityTypes.UFO.asHolder().value(),
+        this.add(RDEntityTypes.UFO.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()
@@ -99,7 +99,7 @@ public class EntityLootTableProvider extends FabricEntityLootTableProvider {
                                         )
                         )
         );
-        this.add(RDEntityTypes.HAIRBALL.asHolder().value(),
+        this.add(RDEntityTypes.HAIRBALL.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()
@@ -111,7 +111,7 @@ public class EntityLootTableProvider extends FabricEntityLootTableProvider {
                                         )
                         )
         );
-        this.add(RDEntityTypes.RABBIT_UNIT.asHolder().value(),
+        this.add(RDEntityTypes.RABBIT_UNIT.value(),
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()

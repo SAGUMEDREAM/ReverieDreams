@@ -85,7 +85,10 @@ public class NPCFollowOwnerGoal extends Goal {
         if (this.tameable.unableToMoveToOwner()) {
             return false;
         }
-        return !(this.tameable.distanceToSqr(this.owner) <= (double) (this.maxDistance * this.maxDistance));
+        if (this.owner != null) {
+            return !(this.tameable.distanceToSqr(this.owner) <= (double) (this.maxDistance * this.maxDistance));
+        }
+        return false;
     }
 
     @Override

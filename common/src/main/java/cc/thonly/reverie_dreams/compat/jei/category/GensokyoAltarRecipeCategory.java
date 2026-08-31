@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.compat.jei.category;
 
 import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
-import cc.thonly.reverie_dreams.gui.recipe.gui.GensokyoAltarGui;
+import cc.thonly.reverie_dreams.gui.block.GensokyoAltarGui;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -14,7 +14,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 
@@ -30,7 +30,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,RDBlocks.GENSOKYO_ALTAR.createStack());
         this.arrow = helper.createDrawableIngredient(
                 VanillaTypes.ITEM_STACK,
-                RDGuiItems.PROGRESS_TO_RESULT.asItem().getDefaultInstance()
+                RDGuiPlaceholderItems.PROGRESS_TO_RESULT.asItem().getDefaultInstance()
         );
     }
 
@@ -60,7 +60,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
     }
 
     @Override
-    public void draw(GensokyoAltarRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+    public void draw(GensokyoAltarRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
         this.arrow.draw(graphics, 18 * 6, 18 * 2);
     }
 
@@ -92,7 +92,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
                     if (invIndex < recipe.getSlots().size()) {
                         builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                                 .setBackground(slot, -1, -1)
-                                .add(recipe.getSlots().get(invIndex).getItemStack());
+                                .add(recipe.getSlots().get(invIndex).build());
                     } else {
                         builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                                 .setBackground(slot, -1, -1);
@@ -107,7 +107,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
 
                     builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                             .setBackground(slot, -1, -1)
-                            .add(recipe.getCore().getItemStack());
+                            .add(recipe.getCore().build());
 
                     continue;
                 }
@@ -116,6 +116,6 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, coreX + 18 * 6, coreY)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOutput().getItemStack().copy());
+                .add(recipe.getOutput().build().copy());
     }
 }

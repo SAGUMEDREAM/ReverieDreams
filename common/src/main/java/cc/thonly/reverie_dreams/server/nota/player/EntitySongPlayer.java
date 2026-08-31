@@ -1,14 +1,14 @@
 package cc.thonly.reverie_dreams.server.nota.player;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import cc.thonly.reverie_dreams.server.nota.Nota;
+import cc.thonly.reverie_dreams.api.nota.NotaAPI;
 import cc.thonly.reverie_dreams.server.nota.model.Layer;
 import cc.thonly.reverie_dreams.server.nota.model.Note;
 import cc.thonly.reverie_dreams.server.nota.model.Playlist;
 import cc.thonly.reverie_dreams.server.nota.model.Song;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "resource", "LombokGetterMayBeUsed", "LombokSetterMayBeUsed"})
 public class EntitySongPlayer extends RangeSongPlayer {
 
 	private Entity entity;
@@ -64,7 +64,7 @@ public class EntitySongPlayer extends RangeSongPlayer {
 			return; // not in same world
 		}
 
-		byte playerVolume = Nota.getPlayerVolume(player);
+		byte playerVolume = NotaAPI.getPlayerVolume(player);
 
 		for(Layer layer : song.getLayerHashMap().values()) {
 			Note note = layer.getNote(tick);

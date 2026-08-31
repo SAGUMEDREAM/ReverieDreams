@@ -30,13 +30,14 @@ public class RangedAttackUtil {
     }
 
     public static boolean isWeaponOfTheMoonInHand(BaseNPCLikeEntity npc) {
+//        System.out.println("is weapon = %s".formatted(npc.getInventory().getMainHand().getItem() instanceof WeaponOfTheMoon));
         return npc.getInventory().getMainHand().getItem() instanceof WeaponOfTheMoon;
     }
 
     public static boolean loadProjectiles(ItemStack crossbow, ItemStack ammo, LivingEntity user) {
         List<ItemStack> list = ProjectileWeaponItem.draw(crossbow, ammo, user);
         if (!list.isEmpty()) {
-            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(list));
+            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.ofNonEmpty(list));
             return true;
         } else {
             return false;

@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
+import cc.thonly.reverie_dreams.api.entity.AnimalEntityActionController;
 import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.inf.IAnimalEntity;
 import cc.thonly.reverie_dreams.mixin.accessor.AnimalAccessor;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
@@ -65,9 +65,9 @@ public class NPCBreedGoal extends TargetGoal {
     @Override
     public void start() {
         this.task = () -> {
-            ((IAnimalEntity) this.targetEntity).reverie_dreams$eatStackFood(this.maid, InteractionHand.MAIN_HAND, this.maid.getItemInHand(InteractionHand.MAIN_HAND));
+            ((AnimalEntityActionController) this.targetEntity).reverie_dreams$eatStackFood(this.maid, InteractionHand.MAIN_HAND, this.maid.getItemInHand(InteractionHand.MAIN_HAND));
             ((AnimalAccessor) this.targetEntity).reverie_dreams$playEatingSound();
-            ((IAnimalEntity) this.targetEntity).reverie_dreams$loveEntity(this.maid);
+            ((AnimalEntityActionController) this.targetEntity).reverie_dreams$loveEntity(this.maid);
         };
     }
 

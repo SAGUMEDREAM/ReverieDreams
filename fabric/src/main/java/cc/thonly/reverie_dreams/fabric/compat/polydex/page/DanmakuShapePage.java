@@ -3,12 +3,12 @@ package cc.thonly.reverie_dreams.fabric.compat.polydex.page;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.gui.recipe.display.DanmakuShapeDisplayView;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
-import cc.thonly.reverie_dreams.recipe.view.RecipeEntryWrapper;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import eu.pb4.polydex.api.v1.recipe.*;
+import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import eu.pb4.sgui.api.elements.GuiElementInterface;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -35,8 +35,8 @@ public class DanmakuShapePage implements PolydexPage {
     public DanmakuShapePage(Identifier key, DanmakuShapeDrawRecipe value) {
         this.key = key.withPrefix("recipe/");
         this.value = value;
-        this.ingredients = List.of(PolydexIngredient.of(Ingredient.of(RDGuiItems.ENABLE)));
-        this.output = PolydexStack.of(this.value.getOutput().getItemStack());
+        this.ingredients = List.of(PolydexIngredient.of(Ingredient.of(RDGuiPlaceholderItems.ENABLE)));
+        this.output = PolydexStack.of(this.value.getOutput().build());
     }
 
     @Override
@@ -51,13 +51,13 @@ public class DanmakuShapePage implements PolydexPage {
 
     @Override
     public ItemStack entryIcon(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity) {
-        return this.value.getOutput().getItemStack();
+        return this.value.getOutput().build();
     }
 
     @Override
     public void createPage(@Nullable PolydexEntry polydexEntry, ServerPlayer serverPlayerEntity, PageBuilder layout) {
         Runnable runnable = ()-> {
-            DanmakuShapeDisplayView view = new DanmakuShapeDisplayView(serverPlayerEntity, RecipeEntryWrapper.of(this.key, this.value), null);
+            DanmakuShapeDisplayView view = new DanmakuShapeDisplayView(serverPlayerEntity, RecipeKeyEntry.of(this.key, this.value), null);
             view.open();
         };
         String[][] views = {
@@ -69,18 +69,18 @@ public class DanmakuShapePage implements PolydexPage {
         };
         for (int row = 0; row < views.length; row++) {
             for (int col = 0; col < views[row].length; col++) {
-                GuiElementBuilder viewStack = getViewStack(views[row][col], (i, clickType, slotActionType) -> runnable.run());
+                GuiElementBuilder viewStack = getViewStack(views[row][col], (i, clickType, slotActionType, basedGui) -> runnable.run());
                 layout.set(col, row, viewStack);
             }
         }
     }
 
-    private GuiElementBuilder getViewStack(String s, GuiElementInterface.ItemClickCallback callback) {
+    private GuiElementBuilder getViewStack(String s, GuiElement.ClickCallback callback) {
         if (s.equalsIgnoreCase("X")) {
-            return new GuiElementBuilder(RDGuiItems.EMPTY_SLOT.asItem());
+            return new GuiElementBuilder(RDGuiPlaceholderItems.EMPTY_SLOT.asItem());
         }
         if (s.equalsIgnoreCase("E")) {
-            return new GuiElementBuilder(this.value.getOutput().getItemStack().copy())
+            return new GuiElementBuilder(this.value.getOutput().build().copy())
                     .setCallback(callback)
                     .setLore(List.of(Component.empty().append(Component.translatable("item.tooltip.recipe.no_compat"))));
         }

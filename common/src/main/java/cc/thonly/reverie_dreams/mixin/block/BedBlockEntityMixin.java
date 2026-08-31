@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
-import cc.thonly.reverie_dreams.inf.IBedBlockEntity;
+import cc.thonly.reverie_dreams.api.entity.BedBlockEntityDreamPillow;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(BedBlockEntity.class)
-public class BedBlockEntityMixin extends BlockEntity implements IBedBlockEntity {
+public class BedBlockEntityMixin extends BlockEntity implements BedBlockEntityDreamPillow {
     @Unique
     boolean reverie_dream$hasDreamPillow = false;
 

@@ -1,11 +1,11 @@
 package cc.thonly.reverie_dreams.server.nota.utils;
 
-import lombok.extern.slf4j.Slf4j;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import cc.thonly.reverie_dreams.server.nota.model.CustomInstrument;
 import cc.thonly.reverie_dreams.server.nota.model.Layer;
 import cc.thonly.reverie_dreams.server.nota.model.Note;
 import cc.thonly.reverie_dreams.server.nota.model.Song;
+import lombok.extern.slf4j.Slf4j;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +34,10 @@ public class NBSDecoderPlus extends NBSDecoder {
         instrumentToByteMap.put(NoteBlockInstrument.BIT, (byte) 13);
         instrumentToByteMap.put(NoteBlockInstrument.BANJO, (byte) 14);
         instrumentToByteMap.put(NoteBlockInstrument.PLING, (byte) 15);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET, (byte) 16);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET_EXPOSED, (byte) 17);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET_OXIDIZED, (byte) 18);
+        instrumentToByteMap.put(NoteBlockInstrument.TRUMPET_WEATHERED, (byte) 19);
     }
 
     public static Song parse(File songFile, NoteBlockInstrument instrument) {

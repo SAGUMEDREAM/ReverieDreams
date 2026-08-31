@@ -1,7 +1,9 @@
 package cc.thonly.reverie_dreams.sound;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import net.blay09.mods.balm.core.BalmRegistrar;
+import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.delegate.SoundDelegate;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -12,47 +14,30 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class RDSoundEvents {
     public static final List<Holder<SoundEvent>> SOUND_EVENTS = new LinkedList<>();
-    public static Holder<SoundEvent> EMPTY;
-    public static Holder<SoundEvent> POINT;
-    public static Holder<SoundEvent> BIU;
-    public static Holder<SoundEvent> SPELL_CARD;
-    public static Holder<SoundEvent> UP;
-    public static Holder<SoundEvent> FIRE;
-    public static Holder<SoundEvent> BAGUA;
-    public static Holder<SoundEvent> PHOTO;
-    public static Holder<SoundEvent> TICK_WAVE;
-    public static Holder<SoundEvent> GRAZE;
-    public static Holder<SoundEvent> FUMO_0;
-    public static Holder<SoundEvent> FUMO_1;
-    public static Holder<SoundEvent> FUMO_2;
-    public static Holder<SoundEvent> FUMO_3;
-
+    public static final SoundDelegate EMPTY = register("empty");
+    public static final SoundDelegate POINT = register("point");
+    public static final SoundDelegate BIU = register("biu");
+    public static final SoundDelegate SPELL_CARD = register("spell_card");
+    public static final SoundDelegate UP = register("up");
+    public static final SoundDelegate FIRE = register("fire");
+    public static final SoundDelegate BAGUA = register("bagua");
+    public static final SoundDelegate PHOTO = register("photo");
+    public static final SoundDelegate TICK_WAVE = register("tick_wave");
+    public static final SoundDelegate GRAZE = register("graze");
+    public static final SoundDelegate FUMO_0 = register("fumo/0");
+    public static final SoundDelegate FUMO_1 = register("fumo/1");
+    public static final SoundDelegate FUMO_2 = register("fumo/2");
+    public static final SoundDelegate FUMO_3 = register("fumo/3");
     public static Holder<SoundEvent>[] FUMO_SOUNDS = new Holder[]{};
 
-    public static void initialize(BalmRegistrar.Scoped<SoundEvent> registry) {
-        EMPTY = register(registry, "empty");
-        POINT = register(registry, "point");
-        BIU = register(registry, "biu");
-        SPELL_CARD = register(registry, "spell_card");
-        UP = register(registry, "up");
-        FIRE = register(registry, "fire");
-        BAGUA = register(registry, "bagua");
-        PHOTO = register(registry, "photo");
-        TICK_WAVE = register(registry, "tick_wave");
-        GRAZE = register(registry, "graze");
-        FUMO_0 = register(registry, "fumo/0");
-        FUMO_1 = register(registry, "fumo/1");
-        FUMO_2 = register(registry, "fumo/2");
-        FUMO_3 = register(registry, "fumo/3");
+    public static void initialize() {
         FUMO_SOUNDS = new Holder[]{FUMO_0, FUMO_1, FUMO_2, FUMO_3};
     }
 
-    private static Holder<SoundEvent> register(BalmRegistrar.Scoped<SoundEvent> registry, String name) {
-        Holder<SoundEvent> holder =
-                registry.register(name, SoundEvent::createVariableRangeEvent);
-
+    private static SoundDelegate register(String name) {
+        RegistrySupplier<SoundEvent> holder = MCBuiltInRegistries.SOUND_EVENT.register(name, () -> SoundEvent.createVariableRangeEvent(ReverieDreams.id(name)));
         SOUND_EVENTS.add(holder);
-        return holder;
+        return SoundDelegate.of(holder);
     }
 
     public static Holder<SoundEvent> getRandomFumoSound() {

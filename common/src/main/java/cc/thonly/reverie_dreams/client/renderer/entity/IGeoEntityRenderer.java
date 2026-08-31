@@ -1,14 +1,15 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import org.jetbrains.annotations.ApiStatus;
 
-@Deprecated
+@ApiStatus.Experimental
 public class IGeoEntityRenderer<
         T extends Entity & GeoAnimatable,
         R extends EntityRenderState & GeoRenderState

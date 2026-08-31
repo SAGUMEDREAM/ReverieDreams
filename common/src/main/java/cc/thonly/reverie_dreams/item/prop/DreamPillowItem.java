@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.inf.IBedBlockEntity;
+import cc.thonly.reverie_dreams.api.entity.BedBlockEntityDreamPillow;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -34,11 +34,11 @@ public class DreamPillowItem extends Item {
             BlockPos blockPos = context.getClickedPos();
             Tuple<Boolean, BlockPos> bedHead = getBedHead(serverWorld, blockPos);
             if (sneaking && bedHead.getA() && serverWorld.getBlockEntity(bedHead.getB()) instanceof BedBlockEntity blockEntity) {
-                IBedBlockEntity iBedBlockEntity = (IBedBlockEntity) blockEntity;
-                if (iBedBlockEntity.reverie_dreams$hasDreamPillow()) {
+                BedBlockEntityDreamPillow bedBlockEntityDataModifier = (BedBlockEntityDreamPillow) blockEntity;
+                if (bedBlockEntityDataModifier.reverie_dreams$hasDreamPillow()) {
                     return InteractionResult.PASS;
                 } else {
-                    iBedBlockEntity.reverie_dreams$setHasDreamPillow(true);
+                    bedBlockEntityDataModifier.reverie_dreams$setHasDreamPillow(true);
                     itemStack.consume(1, player);
                     return InteractionResult.SUCCESS_SERVER;
                 }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
-import cc.thonly.reverie_dreams.inf.IAnimalEntity;
+import cc.thonly.reverie_dreams.api.entity.AnimalEntityActionController;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.AgeableMob;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(Animal.class)
-public abstract class AnimalEntityMixin extends AgeableMob implements IAnimalEntity {
+public abstract class AnimalEntityMixin extends AgeableMob implements AnimalEntityActionController {
 
     @Shadow private int inLove;
 

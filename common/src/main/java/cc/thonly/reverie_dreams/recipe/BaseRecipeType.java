@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.recipe;
 
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
@@ -9,38 +10,46 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
-import com.mojang.serialization.DataResult;
-import net.minecraft.nbt.CompoundTag;
 
 import java.util.*;
 import java.util.stream.Stream;
 
 @SuppressWarnings("UnusedReturnValue")
 @Slf4j
-@ToString
 public abstract class BaseRecipeType<R extends BaseRecipe> {
     protected final Map<Identifier, R> registries = new Object2ObjectLinkedOpenHashMap<>();
+    private boolean acceptNetworking = false;
     private int nextRawId = 0;
 
     public abstract void reload(ResourceManager manager);
 
     public abstract void bootstrap();
 
-    public abstract List<R> getMatches(List<ItemStackWrapper> wrappers);
+    public abstract List<R> getMatches(List<IngredientStack> stackList);
 
-    public abstract Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe);
+    public abstract Boolean isMatch(IngredientStack input, IngredientStack recipe);
 
     public abstract Codec<R> getCodec();
 
     public abstract String getTypeId();
 
     public abstract Identifier getId();
+
+    public synchronized void setAcceptNetworking(boolean acceptNetworking) {
+        this.acceptNetworking = acceptNetworking;
+    }
+
+    public synchronized boolean isAcceptNetworking() {
+        return this.acceptNetworking;
+    }
 
     public BaseRecipeType<R> add(Identifier id, R recipe) {
         if (!this.registries.containsKey(id)) {
@@ -64,7 +73,7 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
         for (Map.Entry<Identifier, R> recipeEntry : this.registries.entrySet()) {
             R recipe = recipeEntry.getValue();
             Item item = recipe.getOutput().getItem();
-            LinkedList<R> list = sign.computeIfAbsent(item, i -> new LinkedList<>());
+            LinkedList<R> list = sign.computeIfAbsent(item, _ -> new LinkedList<>());
             list.add(recipe);
         }
         for (Map.Entry<Item, LinkedList<R>> linkEntry : sign.entrySet()) {
@@ -83,6 +92,15 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
             R recipeEntry = next.getValue();
             recipeEntry.setRawId(nextId++);
         }
+    }
+
+    public Identifier getRecipeKey(R recipe) {
+        for (Map.Entry<Identifier, R> entry : this.registries.entrySet()) {
+            if (Objects.equals(entry.getValue(), recipe)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public R getRecipeById(Identifier id) {
@@ -122,6 +140,11 @@ public abstract class BaseRecipeType<R extends BaseRecipe> {
 
     public BaseRecipeType<R> clear() {
         return this.removeAll();
+    }
+
+    @Override
+    public String toString() {
+        return "BaseRecipeType{" + "size=" + this.size() + ", acceptNetworking=" + this.acceptNetworking + '}';
     }
 
     public static <R extends BaseRecipe> CompoundTag writeForTag(BaseRecipeType<R> recipeType) {

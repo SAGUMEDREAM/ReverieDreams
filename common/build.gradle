@@ -26,6 +26,7 @@ dependencies {
     }
     implementation("gg.moonflower:molang-compiler:3.1.1.19")
     implementation("software.bernie.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
+    implementation("dev.architectury:architectury:${architectury_api_version}")
 
     api("cc.thonly:sgui_balm-common:1.21.11-21.11.0")
     api("cc.thonly:keine-common:1.21.11-1.0.0")

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.compat.jei.category;
 import cc.thonly.reverie_dreams.compat.jei.JeiRecipeTypes;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -13,7 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 
@@ -29,7 +29,7 @@ public class DanmakuCraftingTableRecipeCategory implements IRecipeCategory<Danma
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, RDBlocks.DANMAKU_CRAFTING_TABLE.createStack());
         this.arrow = helper.createDrawableIngredient(
                 VanillaTypes.ITEM_STACK,
-                RDGuiItems.PROGRESS_TO_RESULT_DOWN.asItem().getDefaultInstance()
+                RDGuiPlaceholderItems.PROGRESS_TO_RESULT_DOWN.asItem().getDefaultInstance()
         );
     }
 
@@ -59,7 +59,7 @@ public class DanmakuCraftingTableRecipeCategory implements IRecipeCategory<Danma
     }
 
     @Override
-    public void draw(DanmakuRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+    public void draw(DanmakuRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
         this.arrow.draw(graphics, 72, 18);
     }
 
@@ -70,26 +70,26 @@ public class DanmakuCraftingTableRecipeCategory implements IRecipeCategory<Danma
 
         builder.addSlot(RecipeIngredientRole.INPUT, 0, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getDye().getItemStack().copy());
+                .add(recipe.getDye().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 36, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getCore().getItemStack().copy());
+                .add(recipe.getCore().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 72, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getPower().getItemStack().copy());
+                .add(recipe.getPower().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 108, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getPoint().getItemStack().copy());
+                .add(recipe.getPoint().build());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 144, 0)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getMaterial().getItemStack().copy());
+                .add(recipe.getMaterial().build());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 72, 36)
                 .setBackground(slot, -1, -1)
-                .add(recipe.getOutput().getItemStack().copy());
+                .add(recipe.getOutput().build());
     }
 }

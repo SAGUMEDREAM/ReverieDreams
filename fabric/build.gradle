@@ -33,6 +33,7 @@ dependencies {
     }
     modImplementation include("eu.pb4:map-canvas-api:${mapcanvas_version}")
     modImplementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
+    modImplementation "dev.architectury:architectury-fabric:${architectury_api_version}"
 
     // Polymer
     modImplementation("eu.pb4:polymer-autohost:[${polymer_version}]")

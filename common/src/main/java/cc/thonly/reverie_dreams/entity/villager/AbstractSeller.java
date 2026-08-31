@@ -1,19 +1,14 @@
 package cc.thonly.reverie_dreams.entity.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
-import cc.thonly.reverie_dreams.util.PlatformContext;
+import cc.thonly.reverie_dreams.api.proxy.SafeClientAccess;
+import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.collect.ImmutableList;
-import eu.pb4.sgui.api.gui.MerchantGui;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.platform.BalmSafeClientAccess;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -30,13 +25,15 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.monster.illager.Illusioner;
 import net.minecraft.world.entity.monster.illager.Pillager;
 import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.entity.npc.villager.*;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -123,7 +120,7 @@ public abstract class AbstractSeller extends WanderingTrader {
         }
     }
 
-    public void trade(ItemStackWrapper wrapper) {
+    public void trade(IngredientStack wrapper) {
         Level world = this.level();
         this.exp += ReverieDreams.RD.nextInt(9, 25);
         this.makeSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
@@ -156,8 +153,9 @@ public abstract class AbstractSeller extends WanderingTrader {
                 this.villagerDataCache = modifyVillagerData;
                 return modifyVillagerData;
             }
-            BalmSafeClientAccess clientAccess = Balm.safeClientAccess();
-            Player clientPlayer = clientAccess.getClientPlayer();
+
+            SafeClientAccess safeClientAccess = SafeClientAccess.safeClientAccess();
+            Player clientPlayer = safeClientAccess.getClientPlayer();
             if (clientPlayer != null) {
                 RegistryAccess registryAccess = clientPlayer.registryAccess();
                 VillagerData modifyVillagerData = this.getModifyVillagerData(registryAccess);
@@ -188,17 +186,21 @@ public abstract class AbstractSeller extends WanderingTrader {
                 player.swing(hand);
                 return InteractionResult.SUCCESS_SERVER;
             }
-            if (this.sessions.isEmpty()) {
-                ServerPlayer serverPlayer = (ServerPlayer) player;
-
-                this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
-                this.getNavigation().stop();
-
-                SellerGui sellerGui = new SellerGui(serverPlayer, this);
-                sellerGui.open();
-                player.swing(hand);
-                return InteractionResult.SUCCESS_SERVER;
+            Iterator<SellerGui> iterator = this.sessions.iterator();
+            while (iterator.hasNext()) {
+                SellerGui next = iterator.next();
+                next.close();
+                iterator.remove();
             }
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+
+            this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
+            this.getNavigation().stop();
+
+            SellerGui sellerGui = new SellerGui(serverPlayer, this);
+            sellerGui.open();
+            player.swing(hand);
+            return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.SUCCESS;
     }
@@ -209,9 +211,6 @@ public abstract class AbstractSeller extends WanderingTrader {
 
     @Override
     public void aiStep() {
-        if (!this.level().isClientSide() && !this.sessions.isEmpty()) {
-            return;
-        }
         super.aiStep();
     }
 
@@ -254,69 +253,10 @@ public abstract class AbstractSeller extends WanderingTrader {
     public long getVillagerSeed() {
         UUID uuid = this.getUUID();
         Level world = this.level();
-        long day = world.getDayTime() / 24000L;
+        long day = world.getGameTime() / 24000L;
         long mostSigBits = uuid.getMostSignificantBits();
         long leastSigBits = uuid.getLeastSignificantBits();
         return mostSigBits + leastSigBits + day;
-    }
-
-    @Getter
-    public static class SellerGui extends MerchantGui {
-        private final AbstractSeller self;
-
-        public SellerGui(ServerPlayer player, AbstractSeller self) {
-            super(player, false);
-            this.self = self;
-            this.init();
-        }
-
-        public void init() {
-            this.setTitle(this.self.getName());
-            List<MerchantOffer> villagerOffers = this.self.getVillagerOffers();
-            for (MerchantOffer offer : villagerOffers) {
-                this.addTrade(offer);
-            }
-            if (villagerOffers.isEmpty()) {
-                this.self.discard();
-                this.close();
-            }
-        }
-
-        public boolean canTrade(MerchantOffer offer) {
-            return offer.getUses() < offer.getMaxUses();
-        }
-
-        @Override
-        public boolean onTrade(MerchantOffer offer) {
-            if (offer.getUses() >= offer.getMaxUses()) {
-                return false;
-            }
-
-            MerchantOffer before = offer.copy();
-
-            boolean success = super.onTrade(offer);
-
-            if (!success) {
-                return false;
-            }
-
-            this.self.trade(ItemStackWrapper.of(before.assemble()));
-            this.self.notifyTrade(before);
-
-            return true;
-        }
-
-        @Override
-        public void onOpen() {
-            super.onOpen();
-            this.self.getSessions().add(this);
-        }
-
-        @Override
-        public void onClose() {
-            super.onClose();
-            this.self.getSessions().remove(this);
-        }
     }
 
     public abstract boolean canReset();

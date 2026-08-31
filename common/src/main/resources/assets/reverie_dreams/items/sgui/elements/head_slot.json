@@ -1,0 +1,8 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "reverie_dreams:item/sgui/elements/head_slot",
+    "oversized_in_gui": true
+  },
+  "oversized_in_gui": true
+}

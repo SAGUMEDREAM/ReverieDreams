@@ -1,13 +1,15 @@
 package cc.thonly.reverie_dreams.recipe.type;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.item.template.RoleFollowerArchiveItem;
 import cc.thonly.reverie_dreams.item.template.SpellCardTemplateItem;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.recipe.ItemStackWrapper;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponents;
+import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -47,7 +49,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     @Override
     public void reload(ResourceManager manager) {
         Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
+            return id.getPath().endsWith(".json");
         });
         for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
             Identifier id = entry.getKey();
@@ -60,9 +62,9 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
                 DataResult<GensokyoAltarRecipe> result = this.getCodec().parse(input);
 
                 result.resultOrPartial(error -> log.error("Failed to load gensokyo altar recipe {}, {}", id, error))
-                        .ifPresent(recipe -> {
-                            this.add(registryKey, recipe);
-                        });
+                      .ifPresent(recipe -> {
+                          this.add(registryKey, recipe);
+                      });
             } catch (IOException e) {
                 log.error("Failed to load gensokyo altar recipe {}, {}, {}", id, e.getMessage(), e);
             }
@@ -71,26 +73,26 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
     public void registerDynamicRecipe() {
-        this.add(ReverieDreams.id("role_archive"), new GensokyoAltarRecipe(ItemStackWrapper.of(RDItems.ROLE_ARCHIVE), List.of(
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2)
-        ), ItemStackWrapper.of(RDItems.ROLE_ARCHIVE)));
-        this.add(ReverieDreams.id("copy_spell_card_template"), new GensokyoAltarRecipe(ItemStackWrapper.of(RDItems.SPELL_CARD_TEMPLATE), List.of(
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2),
-                ItemStackWrapper.of(Items.DIAMOND, 2)
-        ), ItemStackWrapper.of(RDItems.SPELL_CARD_TEMPLATE, 2)));
+        this.add(ReverieDreams.id("role_archive"), new GensokyoAltarRecipe(IngredientStack.of(RDItems.ROLE_ARCHIVE), List.of(
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2)
+        ), IngredientStack.of(RDItems.ROLE_ARCHIVE)));
+        this.add(ReverieDreams.id("copy_spell_card_template"), new GensokyoAltarRecipe(IngredientStack.of(RDItems.SPELL_CARD_TEMPLATE), List.of(
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2),
+                IngredientStack.of(Items.DIAMOND, 2)
+        ), IngredientStack.of(RDItems.SPELL_CARD_TEMPLATE, 2)));
     }
 
     @Override
@@ -98,35 +100,35 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
     }
 
-    public List<GensokyoAltarRecipe> getModifierRecipe(List<ItemStackWrapper> wrappers) {
+    public List<GensokyoAltarRecipe> getModifierRecipe(List<IngredientStack> wrappers) {
         List<GensokyoAltarRecipe> matches = new ArrayList<>();
-        ItemStackWrapper coreWrapper = wrappers.get(8);
+        IngredientStack coreWrapper = wrappers.get(8);
 
         Predicate<Integer> isAllMatch = (amount) -> {
             return IntStream.range(0, 8).allMatch(i ->
-                    wrappers.get(i).test(new ItemStack(Items.DIAMOND, amount))
+                    ItemComparatorView.of(wrappers.get(i)).test(ItemComparatorView.of(new ItemStack(Items.DIAMOND, amount)))
             );
         };
 
         if (coreWrapper.getItem() instanceof RoleFollowerArchiveItem && isAllMatch.test(2)) {
-            ItemStack itemStack = coreWrapper.copy().getItemStack();
-            itemStack.set(RDDataComponents.ROLE_CAN_RESPAWN.value(), true);
+            ItemStack itemStack = coreWrapper.build();
+            itemStack.set(RDDataComponentTypes.ROLE_CAN_RESPAWN.value(), true);
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,
-                    Collections.nCopies(8, ItemStackWrapper.of(Items.DIAMOND, 2)),
-                    ItemStackWrapper.of(itemStack)
+                    Collections.nCopies(8, IngredientStack.of(Items.DIAMOND, 2)),
+                    IngredientStack.of(itemStack)
             ));
         }
 
         if (coreWrapper.getItem() instanceof SpellCardTemplateItem && isAllMatch.test(2)) {
-            ItemStack itemStack = coreWrapper.copy().getItemStack();
+            ItemStack itemStack = coreWrapper.build();
             itemStack.setCount(2);
 
             matches.add(new GensokyoAltarRecipe(
                     coreWrapper,
-                    Collections.nCopies(8, ItemStackWrapper.of(Items.DIAMOND, 2)),
-                    ItemStackWrapper.of(itemStack)
+                    Collections.nCopies(8, IngredientStack.of(Items.DIAMOND, 2)),
+                    IngredientStack.of(itemStack)
             ));
         }
 
@@ -135,32 +137,33 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
 
     @Override
-    public List<GensokyoAltarRecipe> getMatches(List<ItemStackWrapper> wrappers) {
-        if (wrappers.size() < 8) return List.of();
+    public List<GensokyoAltarRecipe> getMatches(List<IngredientStack> wrappers) {
+        if (wrappers.size() < 8)
+            return List.of();
         List<GensokyoAltarRecipe> matches = this.getModifierRecipe(wrappers);
 
         if (matches.isEmpty()) {
             for (GensokyoAltarRecipe recipe : stream().toList()) {
-                List<ItemStackWrapper> slots = recipe.getSlots();
-                ItemStackWrapper slot0 = slots.get(0);
-                ItemStackWrapper slot1 = slots.get(1);
-                ItemStackWrapper slot2 = slots.get(2);
-                ItemStackWrapper slot3 = slots.get(3);
-                ItemStackWrapper slot4 = slots.get(4);
-                ItemStackWrapper slot5 = slots.get(5);
-                ItemStackWrapper slot6 = slots.get(6);
-                ItemStackWrapper slot7 = slots.get(7);
-                ItemStackWrapper slot8 = recipe.getCore();
+                List<IngredientStack> slots = recipe.getSlots();
+                IngredientStack slot0 = slots.get(0);
+                IngredientStack slot1 = slots.get(1);
+                IngredientStack slot2 = slots.get(2);
+                IngredientStack slot3 = slots.get(3);
+                IngredientStack slot4 = slots.get(4);
+                IngredientStack slot5 = slots.get(5);
+                IngredientStack slot6 = slots.get(6);
+                IngredientStack slot7 = slots.get(7);
+                IngredientStack slot8 = recipe.getCore();
                 if (
-                        wrappers.get(0).test(slot0.getItemStack()) &&
-                                wrappers.get(1).test(slot1.getItemStack()) &&
-                                wrappers.get(2).test(slot2.getItemStack()) &&
-                                wrappers.get(3).test(slot3.getItemStack()) &&
-                                wrappers.get(4).test(slot4.getItemStack()) &&
-                                wrappers.get(5).test(slot5.getItemStack()) &&
-                                wrappers.get(6).test(slot6.getItemStack()) &&
-                                wrappers.get(7).test(slot7.getItemStack()) &&
-                                wrappers.get(8).test(slot8.getItemStack())
+                        ItemComparatorView.of(wrappers.get(0)).test(ItemComparatorView.of(slot0)) &&
+                                ItemComparatorView.of(wrappers.get(1)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot1).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(2)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot2).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(3)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot3).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(4)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot4).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(5)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot5).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(6)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot6).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(7)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot7).map(ItemUtils::updateItemStackTag)) &&
+                                ItemComparatorView.of(wrappers.get(8)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot8).map(ItemUtils::updateItemStackTag))
                 ) {
                     matches.add(recipe);
                 }
@@ -171,7 +174,7 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
     @Override
-    public Boolean isMatch(ItemStackWrapper input, ItemStackWrapper recipe) {
+    public Boolean isMatch(IngredientStack input, IngredientStack recipe) {
         return false;
     }
 

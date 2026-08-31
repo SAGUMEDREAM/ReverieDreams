@@ -1,13 +1,15 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
 import cc.thonly.reverie_dreams.entity.Ghost;
 import cc.thonly.reverie_dreams.entity.ai.goal.GhostStatusEffectTargetGoal;
-import cc.thonly.reverie_dreams.inf.IPlayerEntity;
 import cc.thonly.reverie_dreams.item.WingType;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.server.DelayedTask;
-import cc.thonly.reverie_dreams.world.RDGameRules;
+import cc.thonly.reverie_dreams.server.PlayerSettings;
+import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
@@ -30,8 +32,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@SuppressWarnings("resource")
 @Mixin(Player.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerEntity {
+public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityDataModifier {
 
     @Shadow
     public abstract boolean hasInfiniteMaterials();
@@ -39,28 +42,35 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     @Unique
     private static final long MAX_NON_SLEEPING_TIME = (long) (2 * 10 * 60 * 20) / 2;
     @Unique
-    private long nonSleepingTime = 0L;
+    private long reverie_dreams$nonSleepingTime = 0L;
     @Unique
-    private boolean sleep = false;
+    private boolean reverie_dreams$sleep = false;
     @Unique
-    private WingType wingType = WingType.NONE;
+    private WingType reverie_dreams$wingType = WingType.NONE;
+    @Unique
+    private PlayerSettings reverie_dreams$playerSettings;
+
     @Unique
     private static final Holder<MobEffect> MENTAL_DISORDER = RDStatusEffects.MENTAL_DISORDER;
 
-
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
+    }
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    public void reverie_dreams$init(Level level, GameProfile gameProfile, CallbackInfo ci) {
+        this.reverie_dreams$playerSettings = new PlayerSettings((Player) (Object) this);
     }
 
     @Inject(method = "playSound",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"),
             cancellable = true
     )
-    public void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+    public void reverie_dreams$playSound(SoundEvent sound, float f, float g, CallbackInfo ci) {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         for (StackTraceElement element : stack) {
             if (element.getClassName().startsWith("cc.thonly")) {
-                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), f, g);
+                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), sound, this.getSoundSource(), f, g);
                 ci.cancel();
                 return;
             }
@@ -69,16 +79,16 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
 
 
     @Inject(method = "tick", at = @At("TAIL"))
-    public void tick(CallbackInfo ci) {
+    public void reverie_dreams$tick(CallbackInfo ci) {
         this.nonSleepingTick();
         if (this.isSleeping()) {
             if (this.hasEffect(MENTAL_DISORDER)) {
                 this.removeEffect(MENTAL_DISORDER);
             }
-            this.nonSleepingTime = 0;
-            this.sleep = true;
+            this.reverie_dreams$nonSleepingTime = 0;
+            this.reverie_dreams$sleep = true;
         } else {
-            this.sleep = false;
+            this.reverie_dreams$sleep = false;
         }
     }
 
@@ -94,24 +104,24 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
         }
         if (world instanceof ServerLevel serverWorld) {
             if (GhostStatusEffectTargetGoal.hasSilverArmor(this)) {
-                this.nonSleepingTime = 0;
+                this.reverie_dreams$nonSleepingTime = 0;
                 return;
             }
-            if (this.nonSleepingTime < MAX_NON_SLEEPING_TIME) {
-                this.nonSleepingTime++;
-            } else if (ReverieDreams.config().enableGhostSpawn && serverWorld.getGameRules().get(RDGameRules.DO_GHOST.value())){
-                this.trySpawnGhost();
+            if (this.reverie_dreams$nonSleepingTime < MAX_NON_SLEEPING_TIME) {
+                this.reverie_dreams$nonSleepingTime++;
+            } else if (ReverieDreams.config().enableGhostSpawn && serverWorld.getGameRules().get(RDBuiltInGameRules.DO_GHOST.value())) {
+                this.reverie_dreams$trySpawnGhost();
                 this.addEffect(new MobEffectInstance(RDStatusEffects.MENTAL_DISORDER, 20 * 60 * 5));
-                DelayedTask.whenTick(server, () -> this.sleep, 20 * 60 * 2, this::trySpawnGhost, () -> {
+                DelayedTask.whenTick(server, () -> this.reverie_dreams$sleep, 20 * 60 * 2, this::reverie_dreams$trySpawnGhost, () -> {
 
                 });
-                this.nonSleepingTime = 0;
+                this.reverie_dreams$nonSleepingTime = 0;
             }
         }
     }
 
     @Unique
-    private void trySpawnGhost() {
+    private void reverie_dreams$trySpawnGhost() {
         if (!ReverieDreams.config().enableGhostSpawn) {
             return;
         }
@@ -123,14 +133,14 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
         if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
-        boolean value = serverWorld.getGameRules().get(RDGameRules.DO_GHOST.value());
+        boolean value = serverWorld.getGameRules().get(RDBuiltInGameRules.DO_GHOST.value());
         if (!value) {
             return;
         }
         if (world.equals(server.overworld())) {
             BlockPos origin = this.blockPosition();
-            BlockPos a = this.getRandomPos(origin);
-            BlockPos b = this.getRandomPos(origin);
+            BlockPos a = this.reverie_dreams$getRandomPos(origin);
+            BlockPos b = this.reverie_dreams$getRandomPos(origin);
             Ghost aMob = new Ghost(world);
             aMob.setPosRaw(a.getX(), a.getY(), a.getZ());
             Ghost bMob = new Ghost(world);
@@ -141,7 +151,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     }
 
     @Unique
-    private BlockPos getRandomPos(BlockPos origin) {
+    private BlockPos reverie_dreams$getRandomPos(BlockPos origin) {
         var world = this.level();
         RandomSource random = world.getRandom();
 
@@ -154,39 +164,44 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    protected void writeCustomData(ValueOutput view, CallbackInfo ci) {
-        view.putLong("NonSleepingTime", this.nonSleepingTime);
-        view.store("WingType", WingType.CODEC, this.wingType);
+    protected void reverie_dreams$writeCustomData(ValueOutput view, CallbackInfo ci) {
+        view.putLong("NonSleepingTime", this.reverie_dreams$nonSleepingTime);
+        view.store("WingType", WingType.CODEC, this.reverie_dreams$wingType);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    protected void readCustomData(ValueInput view, CallbackInfo ci) {
-        this.nonSleepingTime = view.getLongOr("NonSleepingTime", 0L);
-        this.wingType = view.read("WingType", WingType.CODEC).orElse(WingType.NONE);
+    protected void reverie_dreams$readCustomData(ValueInput view, CallbackInfo ci) {
+        this.reverie_dreams$nonSleepingTime = view.getLongOr("NonSleepingTime", 0L);
+        this.reverie_dreams$wingType = view.read("WingType", WingType.CODEC).orElse(WingType.NONE);
+    }
+
+    @Unique
+    public PlayerSettings reverie_dreams$getPlayerSettings() {
+        return this.reverie_dreams$playerSettings;
     }
 
     @Unique
     @Override
     public void reverie_dreams$setNonSleepingTime(long time) {
-        this.nonSleepingTime = time;
+        this.reverie_dreams$nonSleepingTime = time;
     }
 
     @Unique
     @Override
     public long reverie_dreams$getNonSleepingTime() {
-        return this.nonSleepingTime;
+        return this.reverie_dreams$nonSleepingTime;
     }
 
     @Unique
     @Override
     public void reverie_dreams$setWingType(WingType wingType) {
-        this.wingType = wingType;
+        this.reverie_dreams$wingType = wingType;
     }
 
     @Unique
     @Override
     public WingType reverie_dreams$getWingType() {
-        return this.wingType;
+        return this.reverie_dreams$wingType;
     }
 
     //    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)

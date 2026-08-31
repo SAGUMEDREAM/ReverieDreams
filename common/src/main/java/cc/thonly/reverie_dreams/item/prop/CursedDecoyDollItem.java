@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCRoleEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,7 +38,7 @@ public class CursedDecoyDollItem extends Item {
             List<LivingEntity> list = world.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos).inflate(24), livingEntity -> true);
             for (LivingEntity livingEntity : list) {
                 if (livingEntity instanceof Player) continue;
-                if (livingEntity instanceof NPCRoleEntity role) {
+                if (livingEntity instanceof NPCSimpleEntity role) {
                     LivingEntity attacker = role.getLastHurtByMob();
                     LivingEntity target = role.getTarget();
                     if (attacker == player || target == player) {

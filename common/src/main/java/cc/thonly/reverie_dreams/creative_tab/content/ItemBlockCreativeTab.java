@@ -8,7 +8,6 @@ import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -25,8 +24,8 @@ import java.util.List;
 public class ItemBlockCreativeTab implements ItemGroupContentHelper {
     public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("01_item_group"));
 
-    public static void bootstrap(BalmCreativeModeTabRegistrar registrar) {
-        ItemGroupContentHelper.registerGroup(registrar, ItemBlockCreativeTab.ITEM_GROUP_KEY, builder -> new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
+    public static void bootstrap() {
+        ItemGroupContentHelper.registerGroup(ItemBlockCreativeTab.ITEM_GROUP_KEY, builder -> new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
                 .icon(() -> new ItemStack(RDItems.HAKUREI_CANE.asItem()))
                 .title(Component.translatable("item_group.touhou_block_and_item"))
                 .displayItems((parameters, output) -> {
@@ -38,11 +37,11 @@ public class ItemBlockCreativeTab implements ItemGroupContentHelper {
                         List<ItemStack> books = RDEnchantments.getEnchantmentBook(registryAccess, key);
                         books.forEach(output::accept);
                     }
-                    output.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION));
-                    output.accept(RDPotions.createStack(RDPotions.ELIXIR_OF_LIFE_POTION_INF));
-                    output.accept(RDPotions.createStack(RDPotions.MENTAL_DISORDER_POTION));
-                    output.accept(RDPotions.createStack(RDPotions.BACK_OF_LIFE_POTION));
-                    output.accept(RDPotions.createStack(RDPotions.KANJU_KUSURI_POTION));
+                    output.accept(RDPotions.createStackTemplate(RDPotions.ELIXIR_OF_LIFE_POTION).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.ELIXIR_OF_LIFE_POTION_INF).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.MENTAL_DISORDER_POTION).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.BACK_OF_LIFE_POTION).create());
+                    output.accept(RDPotions.createStackTemplate(RDPotions.KANJU_KUSURI_POTION).create());
 
                     // 方块
                     for (Holder<Block> blockHolder : RDBlocks.BLOCKS) {

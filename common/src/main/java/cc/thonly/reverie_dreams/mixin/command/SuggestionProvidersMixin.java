@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.command;
 
-import cc.thonly.reverie_dreams.data.npc.NPCRole;
-import cc.thonly.reverie_dreams.registry.RegistryImpls;
+import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.synchronization.SuggestionProviders;
@@ -30,7 +30,7 @@ public class SuggestionProvidersMixin {
         if (Objects.equals(id, Identifier.withDefaultNamespace("summonable_entities"))) {
             provider = (context, builder) -> SharedSuggestionProvider.suggestResource(BuiltInRegistries.ENTITY_TYPE.stream().filter(entityType -> {
                 boolean a = entityType.isEnabled(context.getSource().enabledFeatures()) && entityType.canSummon();
-                boolean b = !RegistryImpls.NPC_ROLE.stream().map(NPCRole::getEntityType).toList().contains(entityType);
+                boolean b = !BuiltInRegistryProviders.NPC_ROLE_TYPE.stream().map(NPCRoleType::getEntityType).toList().contains(entityType);
                 return a && b;
             }), builder, EntityType::getKey, EntityType::getDescription);
             SuggestionProvider<SharedSuggestionProvider> suggestionProvider = PROVIDERS_BY_NAME.putIfAbsent(id, provider);

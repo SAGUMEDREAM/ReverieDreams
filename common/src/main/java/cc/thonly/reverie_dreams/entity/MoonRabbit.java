@@ -34,7 +34,7 @@ public class MoonRabbit extends Rabbit {
     }
 
     public MoonRabbit(Level world) {
-        this(RDEntityTypes.MOON_RABBIT.asHolder().value(), world);
+        this(RDEntityTypes.MOON_RABBIT.value(), world);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MoonRabbit extends Rabbit {
 
     @Override
     public @Nullable Rabbit getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
-        return RDEntityTypes.MOON_RABBIT.asHolder().value().create(serverWorld, EntitySpawnReason.BREEDING);
+        return RDEntityTypes.MOON_RABBIT.value().create(serverWorld, EntitySpawnReason.BREEDING);
     }
 
 }

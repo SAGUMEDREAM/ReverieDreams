@@ -14,7 +14,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
@@ -25,12 +25,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class ShapedStackRecipeBuilder implements RecipeBuilder {
     private final HolderGetter<Item> items;
     private final RecipeCategory category;
-    private final ItemStack result;
+    private final ItemStackTemplate result;
     private final List<String> rows = Lists.newArrayList();
     private final Map<Character, Ingredient> key = Maps.newLinkedHashMap();
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
@@ -38,18 +37,18 @@ public class ShapedStackRecipeBuilder implements RecipeBuilder {
     private String group;
     private boolean showNotification = true;
 
-    private ShapedStackRecipeBuilder(HolderGetter<Item> holderGetter, RecipeCategory recipeCategory, ItemStack result) {
+    private ShapedStackRecipeBuilder(HolderGetter<Item> holderGetter, RecipeCategory recipeCategory, ItemStackTemplate result) {
         this.items = holderGetter;
         this.category = recipeCategory;
         this.result = result;
     }
 
     public static ShapedStackRecipeBuilder shaped(HolderGetter<Item> holderGetter, RecipeCategory recipeCategory, ItemLike itemLike) {
-        return shaped(holderGetter, recipeCategory, new ItemStack(itemLike, 1));
+        return shaped(holderGetter, recipeCategory, new ItemStackTemplate(itemLike.asItem(), 1));
     }
 
-    public static ShapedStackRecipeBuilder shaped(HolderGetter<Item> holderGetter, RecipeCategory recipeCategory, ItemStack itemStack) {
-        return new ShapedStackRecipeBuilder(holderGetter, recipeCategory, itemStack);
+    public static ShapedStackRecipeBuilder shaped(HolderGetter<Item> holderGetter, RecipeCategory recipeCategory, ItemStackTemplate template) {
+        return new ShapedStackRecipeBuilder(holderGetter, recipeCategory, template);
     }
 
     public ShapedStackRecipeBuilder define(Character character, TagKey<Item> tagKey) {
@@ -91,8 +90,8 @@ public class ShapedStackRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public Item getResult() {
-        return this.result.getItem();
+    public ResourceKey<Recipe<?>> defaultId() {
+        return RecipeBuilder.getDefaultRecipeId(this.result);
     }
 
     public ShapedStackRecipeBuilder showNotification(boolean bl) {
@@ -101,10 +100,15 @@ public class ShapedStackRecipeBuilder implements RecipeBuilder {
     }
 
     public void save(RecipeOutput recipeOutput, ResourceKey<Recipe<?>> resourceKey) {
-        ShapedRecipePattern shapedRecipePattern = this.ensureValid(resourceKey);
+        ShapedRecipePattern pattern = this.ensureValid(resourceKey);
         Advancement.Builder builder = recipeOutput.advancement().addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey)).rewards(AdvancementRewards.Builder.recipe(resourceKey)).requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(builder::addCriterion);
-        ShapedRecipe shapedRecipe = new ShapedRecipe(Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), shapedRecipePattern, this.result, this.showNotification);
+        ShapedRecipe shapedRecipe = new ShapedRecipe(
+                RecipeBuilder.createCraftingCommonInfo(this.showNotification),
+                RecipeBuilder.createCraftingBookInfo(this.category, this.group),
+                pattern,
+                this.result
+        );
         recipeOutput.accept(resourceKey, shapedRecipe, builder.build(resourceKey.identifier().withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 

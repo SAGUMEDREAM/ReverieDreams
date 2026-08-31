@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.skin;
 
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
+import cc.thonly.reverie_dreams.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Getter
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @ToString
-public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfig> {
+public class SkinConfig implements SerializableProvider<SkinConfig>, RegistryEntryOwnerBindable<SkinConfig> {
     public static final Codec<SkinConfig> CODEC = RecordCodecBuilder.create(x -> x.group(
             Identifier.CODEC.fieldOf("registry_key").forGetter(SkinConfig::getRegistryKey),
             ModelType.CODEC.fieldOf("type").forGetter(SkinConfig::getType),
@@ -30,8 +30,9 @@ public class SkinConfig implements CodecStep<SkinConfig>, OwnerBinding<SkinConfi
     private final ModelType type;
     private final Optional<Identifier> capeTexture;
     private final Optional<Identifier> elytraTexture;
+    @ToString.Exclude
     @Setter
-    private RegistryImpl<SkinConfig> owner;
+    private RegistryProvider<SkinConfig> owner;
 
     public SkinConfig(ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
         this.registryKey = null;

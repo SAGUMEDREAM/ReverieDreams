@@ -1,20 +1,19 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
+import cc.thonly.reverie_dreams.registry.BuiltinObject;
+import cc.thonly.reverie_dreams.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.impl.RegistryImpl;
-import cc.thonly.reverie_dreams.registry.interfaces.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.interfaces.CodecStep;
-import cc.thonly.reverie_dreams.registry.interfaces.OwnerBinding;
-import cc.thonly.reverie_dreams.registry.interfaces.Translatable;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -24,15 +23,15 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 @Setter
 @Getter
 @ToString
-public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, BuiltinObject, Translatable {
+public class FumoType implements SerializableProvider<FumoType>, RegistryEntryOwnerBindable<FumoType>, BuiltinObject, RegistryEntryTranslatable {
     public static final Codec<FumoType> CODEC = UnitCodec.unit(FumoType::new);
     private Identifier id;
     private Identifier registryKey;
-    private RegistryImpl<FumoType> owner;
+    private RegistryProvider<FumoType> owner;
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.PROTECTED)
-    private DeferredBlock block;
+    private BlockDelegate block;
 
     private FumoType() {
     }
@@ -42,7 +41,7 @@ public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, Bu
         this.registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), "fumo/" + id.getPath());
     }
 
-    public DeferredBlock blockAsDeferred() {
+    public BlockDelegate blockAsDeferred() {
         return this.block;
     }
 
@@ -56,7 +55,7 @@ public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, Bu
 
     public String translateKey() {
         if (this.block == null) {
-            return Translatable.super.translateKey();
+            return RegistryEntryTranslatable.super.translateKey();
         }
         return this.block.asBlock().getDescriptionId();
     }
@@ -66,8 +65,8 @@ public class FumoType implements CodecStep<FumoType>, OwnerBinding<FumoType>, Bu
         return this;
     }
 
-    private DeferredBlock registerBlock() {
-        return RDBlocks.registerSimpleBlock(ReverieDreams.getBlockRegistrar(), this.registryKey.getPath(), (settings) -> new BaseFumoBlock(settings.noCollision()), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
+    private BlockDelegate registerBlock() {
+        return RDBlocks.registerSimpleBlock(this.registryKey.getPath(), (settings) -> new BaseFumoBlock(settings.noCollision()), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
     }
 
     @Override

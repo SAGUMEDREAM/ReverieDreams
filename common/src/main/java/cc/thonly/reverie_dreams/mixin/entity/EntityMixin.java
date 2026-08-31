@@ -36,17 +36,6 @@ public abstract class EntityMixin {
         }
     }
 
-    @Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("HEAD"), cancellable = true)
-    public void modifyInWaterTick(CallbackInfo ci) {
-        Entity entity = ((Entity)(Object) this);
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            return;
-        }
-        if (WaterproofArmor.hasEquipment(livingEntity)) {
-            ci.cancel();
-        }
-    }
-
     @Inject(method = "clearFire", at = @At("HEAD"), cancellable = true)
     public void modifyClearFire(CallbackInfo ci) {
         Entity entity = ((Entity)(Object) this);

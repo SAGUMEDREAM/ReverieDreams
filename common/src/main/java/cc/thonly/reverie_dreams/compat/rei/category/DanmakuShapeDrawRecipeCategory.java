@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.compat.rei.category;
 
 import cc.thonly.reverie_dreams.compat.rei.REICategoryIdentifiers;
 import cc.thonly.reverie_dreams.compat.rei.display.DanmakuShapeDrawDisplay;
-import cc.thonly.reverie_dreams.registry.content.item.RDGuiItems;
+import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.item.REIItemUtils;
 import me.shedaniel.math.Rectangle;
@@ -56,7 +56,7 @@ public class DanmakuShapeDrawRecipeCategory implements DisplayCategory<DanmakuSh
                                         gridStartY + y * slotSize,
                                         slotSize,
                                         slotSize))
-                                .entries(state ? REIItemUtils.getItem(RDGuiItems.ENABLE) : REIItemUtils.getItem(RDGuiItems.DISABLE))
+                                .entries(state ? REIItemUtils.getItem(RDGuiPlaceholderItems.ENABLE.asItem()) : REIItemUtils.getItem(RDGuiPlaceholderItems.DISABLE.asItem()))
                                 .markInput()
                 );
             }
@@ -104,11 +104,11 @@ public class DanmakuShapeDrawRecipeCategory implements DisplayCategory<DanmakuSh
 
     @Override
     public Component getTitle() {
-        return RDItems.DANMAKU_SHAPE_CREATOR.asItem().getName();
+        return RDItems.DANMAKU_SHAPE_CREATOR.asItem().getName(RDItems.DANMAKU_SHAPE_CREATOR.asItem().getDefaultInstance());
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(RDItems.DANMAKU_SHAPE_CREATOR.asItem());
+        return EntryStacks.ofItemHolder(RDItems.DANMAKU_SHAPE_CREATOR);
     }
 }

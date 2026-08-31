@@ -4,11 +4,10 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
-import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,8 +18,8 @@ import java.util.Map;
 public class SeedCreativeTab implements ItemGroupContentHelper {
     public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("10_seeds_item_group"));
 
-    public static void bootstrap(BalmCreativeModeTabRegistrar registrar) {
-        ItemGroupContentHelper.registerGroup(registrar,SeedCreativeTab.ITEM_GROUP_KEY, builder -> new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
+    public static void bootstrap() {
+        ItemGroupContentHelper.registerGroup(SeedCreativeTab.ITEM_GROUP_KEY, builder -> new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
                 .icon(SeedCreativeTab::getSeedItemIcon)
                 .title(Component.translatable("item_group.seed_item_group"))
                 .displayItems((parameters, output) -> {
