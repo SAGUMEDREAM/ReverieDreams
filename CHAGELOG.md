@@ -6,6 +6,9 @@
 * NPC inventory buttons are now registry-driven.
 * Added a command for converting MIDI files to NBS.
 
+## Hotfix.1
+* The translation of the previous version has been completed.
+
 # 0.6.1+26.1.2
 * Fixed missing fishing loot modifications.
 * Fixed item duplication caused by `FastRecipeBook`.
