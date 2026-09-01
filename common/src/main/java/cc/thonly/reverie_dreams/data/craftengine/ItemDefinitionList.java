@@ -321,7 +321,7 @@ public class ItemDefinitionList {
 
             for (Identifier modelId : modelIdList) {
                 String target =
-                        "assets/%s/models/item/%s.json"
+                        "assets/%s/models/%s.json"
                                 .formatted(
                                         modelId.getNamespace(),
                                         modelId.getPath()

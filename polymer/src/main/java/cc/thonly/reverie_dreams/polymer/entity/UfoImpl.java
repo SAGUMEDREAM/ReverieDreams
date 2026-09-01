@@ -10,6 +10,8 @@ import cc.thonly.reverie_dreams.fabric.util.AnimationHelper;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.api.AnimatedEntityHolder;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 
 public class UfoImpl implements AnimatedEntity, PolymerHolderEntity, TickHolderEntity {
@@ -54,5 +56,10 @@ public class UfoImpl implements AnimatedEntity, PolymerHolderEntity, TickHolderE
     @Override
     public AnimatedEntityHolder getHolder() {
         return this.holder;
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        return EntityType.BLOCK_DISPLAY;
     }
 }

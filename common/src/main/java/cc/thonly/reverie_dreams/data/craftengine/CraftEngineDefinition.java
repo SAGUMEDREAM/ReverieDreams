@@ -2,13 +2,15 @@ package cc.thonly.reverie_dreams.data.craftengine;
 
 import lombok.Getter;
 
+import java.util.List;
+
 public class CraftEngineDefinition {
     @Getter
-    final ItemDefinitionList itemDefinitions;
+    final List<ItemDefinitionList> itemDefinitions;
     @Getter
-    final BlockDefinitionList blockDefinitions;
+    final List<BlockDefinitionList> blockDefinitions;
 
-    public CraftEngineDefinition(ItemDefinitionList itemDefinitions, BlockDefinitionList blockDefinitions) {
+    public CraftEngineDefinition(List<ItemDefinitionList> itemDefinitions, List<BlockDefinitionList> blockDefinitions) {
         this.itemDefinitions = itemDefinitions;
         this.blockDefinitions = blockDefinitions;
     }

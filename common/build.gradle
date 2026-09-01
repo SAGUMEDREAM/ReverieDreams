@@ -1,3 +1,4 @@
+//file:noinspection VulnerableLibrariesLocal
 plugins {
     id 'multiloader-common'
     alias libs.plugins.modDevGradle

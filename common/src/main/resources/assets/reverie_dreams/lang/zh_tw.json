@@ -3622,5 +3622,13 @@
   "title.reverie_dreams.treasures_beneath_the_moon": "月球的寶藏",
   "title.reverie_dreams.waiter": "服務員",
   "title.reverie_dreams.welcome_to_the_moon_tour": "歡迎來到月面旅行團",
-  "title.reverie_dreams.youkai_secret_brew": "妖怪秘釀"
+  "title.reverie_dreams.youkai_secret_brew": "妖怪秘釀",
+  "dialog.text.other": "其他",
+  "gamerule.reverie_dreams.free_choice_of_role": "自由选择角色",
+  "gui.npc.info.skin": "§e皮肤",
+  "gui.npc.page.next": "§b下一页",
+  "gui.npc.page.next.disabled": "§0下一页",
+  "gui.npc.page.previous": "§c上一页",
+  "gui.npc.page.previous.disabled": "§0上一页",
+  "item.reverie_dreams.role_card.full": "§r角色卡"
 }

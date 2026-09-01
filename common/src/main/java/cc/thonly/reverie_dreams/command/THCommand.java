@@ -643,23 +643,44 @@ public class THCommand {
     }
 
     private int generateCraftEngineConfig(CommandContext<CommandSourceStack> context) {
-        CraftEngineDefinition craftEngineDefinition = CraftEngineProvider.fromNamespace(ReverieDreams.MOD_ID);
+        CraftEngineDefinition craftEngineDefinition =
+                CraftEngineProvider.fromNamespace(ReverieDreams.MOD_ID);
+
         if (craftEngineDefinition == null) {
             return 1;
         }
-        BlockDefinitionList blockDefinitions = craftEngineDefinition.getBlockDefinitions();
-        ItemDefinitionList itemDefinitions = craftEngineDefinition.getItemDefinitions();
+
+        List<BlockDefinitionList> blockDefinitions =
+                craftEngineDefinition.getBlockDefinitions();
+
+        List<ItemDefinitionList> itemDefinitions =
+                craftEngineDefinition.getItemDefinitions();
+
         Path path = Path.of("./config/reverie_dreams/craft_engine/");
-        if (!Files.exists(path) || !Files.isDirectory(path)) {
-            try {
-                Files.createDirectories(path);
-            } catch (Exception e) {
-                log.error("Error:", e);
-            }
+
+        try {
+            Files.createDirectories(path);
+        } catch (Exception e) {
+            log.error("Failed to create CraftEngine config directory", e);
+            return 1;
         }
-        CraftEngineProvider.toFile(itemDefinitions, path.resolve("./items.yml"));
-        CraftEngineProvider.toFile(blockDefinitions, path.resolve("./blocks.yml"));
-        context.getSource().sendSystemMessage(Component.literal("Success"));
+
+        // Items 分片生成
+        CraftEngineProvider.toItemFiles(
+                itemDefinitions,
+                path
+        );
+
+        // Blocks 继续单文件
+        CraftEngineProvider.toFile(
+                blockDefinitions,
+                path.resolve("blocks.yml")
+        );
+
+        context.getSource().sendSystemMessage(
+                Component.literal("Success")
+        );
+
         return 0;
     }
 

@@ -54,8 +54,15 @@ tasks.register("runServerFabric") {
     description = "Run NeoForge Minecraft Client"
     dependsOn(":fabric:runServer")
 }
-tasks.register("runServerPaper") {
-    group = "dev"
+tasks.register('runServerPaper', Copy) {
+    group = 'dev'
+    description = 'Build Paper and copy the jar to paper/run/plugins'
+
+    dependsOn(':paper:jar')
+
+    from(project(':paper').tasks.jar)
+    into(file("${rootProject.projectDir}/paper/run/plugins"))
+    dependsOn(':paper:runServer')
 }
 
 subprojects {

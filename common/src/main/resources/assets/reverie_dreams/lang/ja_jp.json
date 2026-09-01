@@ -3622,5 +3622,12 @@
   "title.reverie_dreams.treasures_beneath_the_moon": "月の宝物",
   "title.reverie_dreams.waiter": "ウェイター",
   "title.reverie_dreams.welcome_to_the_moon_tour": "月面旅行へようこそ",
-  "title.reverie_dreams.youkai_secret_brew": "妖怪秘醸"
+  "title.reverie_dreams.youkai_secret_brew": "妖怪秘醸",
+
+  "gui.npc.info.skin": "§eキャラクターのスキン",
+  "gui.npc.page.next": "§b次のページ",
+  "gui.npc.page.next.disabled": "§0次のページ",
+  "gui.npc.page.previous": "§c前のページ",
+  "gui.npc.page.previous.disabled": "§0前のページ",
+  "item.reverie_dreams.role_card.full": "§rキャラクターカード"
 }

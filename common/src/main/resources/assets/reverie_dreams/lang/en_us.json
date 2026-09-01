@@ -3681,5 +3681,14 @@
   "title.reverie_dreams.treasures_beneath_the_moon": "Treasures of the Moon",
   "title.reverie_dreams.waiter": "Waiter",
   "title.reverie_dreams.welcome_to_the_moon_tour": "Welcome to the Moon Tour",
-  "title.reverie_dreams.youkai_secret_brew": "Youkai Secret Brew"
+  "title.reverie_dreams.youkai_secret_brew": "Youkai Secret Brew",
+
+  "dialog.text.other": "Other",
+  "gamerule.reverie_dreams.free_choice_of_role": "Free choice of role",
+  "gui.npc.info.skin": "§eSkin",
+  "gui.npc.page.next": "§bNext Page",
+  "gui.npc.page.next.disabled": "§0Next Page",
+  "gui.npc.page.previous": "§cPrevious Page",
+  "gui.npc.page.previous.disabled": "§0Previous Page",
+  "item.reverie_dreams.role_card.full": "§rRole Card"
 }
