@@ -6,7 +6,7 @@ import net.minecraft.server.dialog.DialogAction;
 import net.minecraft.server.dialog.Input;
 import net.minecraft.server.dialog.body.DialogBody;
 import net.minecraft.server.dialog.body.PlainMessage;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 
 import java.util.ArrayList;
 import java.util.List;

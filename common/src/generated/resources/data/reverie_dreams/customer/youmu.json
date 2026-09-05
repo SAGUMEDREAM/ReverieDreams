@@ -1,0 +1,44 @@
+{
+  "role_type": "reverie_dreams:youmu",
+  "rare": true,
+  "budget": {
+    "min": 300,
+    "max": 400
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:light",
+    "reverie_dreams:umami",
+    "reverie_dreams:power_surge"
+  ],
+  "dislikes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:salty",
+    "reverie_dreams:bizarre"
+  ],
+  "beverages": [
+    "reverie_dreams:alcohol-free",
+    "reverie_dreams:can_heated"
+  ],
+  "chats": [
+    "reverie_dreams.role.youmu.chat.0",
+    "reverie_dreams.role.youmu.chat.1",
+    "reverie_dreams.role.youmu.chat.2",
+    "reverie_dreams.role.youmu.chat.3",
+    "reverie_dreams.role.youmu.chat.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.youmu.description.0"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.youmu.evaluation.exbad",
+    "bad": "reverie_dreams.role.youmu.evaluation.bad",
+    "norm": "reverie_dreams.role.youmu.evaluation.norm",
+    "good": "reverie_dreams.role.youmu.evaluation.good",
+    "exgood": "reverie_dreams.role.youmu.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.youmu.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.youmu.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.youmu.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.youmu.evaluation.seenRepell"
+  }
+}

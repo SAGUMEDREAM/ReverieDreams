@@ -14,6 +14,8 @@ import cc.thonly.reverie_dreams.engine.JavaScriptElement;
 import cc.thonly.reverie_dreams.entity.skill.Skill;
 import cc.thonly.reverie_dreams.entity.variant.*;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
+import cc.thonly.reverie_dreams.util.trading.TradeSet;
+import cc.thonly.reverie_dreams.util.trading.VillagerTrade;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -51,6 +53,9 @@ public class BuiltInRegistryProviderKeys {
     public static final ResourceKey<Registry<Customer>> CUSTOMER = create("customer");
     public static final ResourceKey<Registry<SkinType>> SKIN_TYPE_MERGED = create("skin_type");
     public static final ResourceKey<Registry<RoleType>> ROLE_TYPE_MERGED = create("role_type");
+
+    public static final ResourceKey<Registry<VillagerTrade>> VILLAGER_TRADE = create("villager_trade");
+    public static final ResourceKey<Registry<TradeSet>> TRADE_SET = create("trade_set");
 
     public static <T> ResourceKey<Registry<T>> create(String name) {
         return create(ReverieDreams.id(name));

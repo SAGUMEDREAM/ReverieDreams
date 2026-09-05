@@ -11,7 +11,7 @@ import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings({"deprecation", "TextBlockMigration"})
 public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider {
-    public JsonElementWriterProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public JsonElementWriterProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

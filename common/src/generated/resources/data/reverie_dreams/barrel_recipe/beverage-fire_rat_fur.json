@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:blaze_powder",
+      "count": 1
+    },
+    {
+      "id": "minecraft:magma_cream",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/chili",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/fire_rat_fur",
+    "count": 1
+  },
+  "cost_time": 1140
+}

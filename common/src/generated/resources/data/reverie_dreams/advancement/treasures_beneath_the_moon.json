@@ -1,0 +1,58 @@
+{
+  "parent": "reverie_dreams:welcome_to_the_moon_tour",
+  "criteria": {
+    "in_the_moon": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "dimension": "reverie_dreams:the_moon"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "open_chest": {
+      "conditions": {
+        "trigger": "reverie_dreams:open_chest"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.treasures_beneath_the_moon"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:chest"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.treasures_beneath_the_moon"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "open_chest"
+    ],
+    [
+      "in_the_moon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

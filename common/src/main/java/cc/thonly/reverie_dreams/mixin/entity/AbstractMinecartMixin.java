@@ -118,8 +118,8 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Loc
         }
 
         if (!cart.hasExactlyOnePlayerPassenger() && !this.reverie_dreams$oldChunkPos.equals(this.reverie_dreams$chunkPos)) {
-            serverLevel.setChunkForced(this.reverie_dreams$oldChunkPos.x(), this.reverie_dreams$oldChunkPos.z(), false);
-            serverLevel.setChunkForced(this.reverie_dreams$chunkPos.x(), this.reverie_dreams$chunkPos.z(), true);
+            serverLevel.setChunkForced(this.reverie_dreams$oldChunkPos.x, this.reverie_dreams$oldChunkPos.z, false);
+            serverLevel.setChunkForced(this.reverie_dreams$chunkPos.x, this.reverie_dreams$chunkPos.z, true);
         }
     }
 

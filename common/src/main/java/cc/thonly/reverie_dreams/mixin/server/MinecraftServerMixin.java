@@ -25,7 +25,7 @@ import java.util.function.BooleanSupplier;
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void init(Thread serverThread, LevelStorageSource.LevelStorageAccess storageSource, PackRepository packRepository, WorldStem worldStem, Optional gameRules, Proxy proxy, DataFixer fixerUpper, Services services, LevelLoadListener levelLoadListener, boolean propagatesCrashes, CallbackInfo ci) {
+    public void init(Thread serverThread, LevelStorageSource.LevelStorageAccess storageSource, PackRepository packRepository, WorldStem worldStem, Proxy proxy, DataFixer fixerUpper, Services services, LevelLoadListener levelLoadListener, CallbackInfo ci) {
         MinecraftServer minecraftServer = (MinecraftServer) (Object) this;
         ReverieDreams.setServer(minecraftServer);
         ServerPlayerComponentManager.serverAccess().onLoad(minecraftServer);

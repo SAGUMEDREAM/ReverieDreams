@@ -7,24 +7,176 @@ import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
+import cc.thonly.reverie_dreams.util.trading.TradeCost;
+import cc.thonly.reverie_dreams.util.trading.VillagerTrade;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.TradeCost;
-import net.minecraft.world.item.trading.VillagerTrade;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class HawkerOffers {
     public static final String TEMPLATE = RDVillagerTrades.HAWKERS_LEVEL_TEMPLATE;
+
+    public static List<Tuple<Integer, VillagerTrades.ItemListing>> makeOffers() {
+        List<Tuple<Integer, VillagerTrades.ItemListing>> offers = new ArrayList<>();
+
+        // Level 1
+        Item[] arr1 = new Item[]{
+                Items.WHEAT,
+                Items.POTATO,
+                Items.CARROT
+        };
+
+        for (Item item : arr1) {
+            offers.add(new Tuple<>(
+                    1,
+                    (level, entity, random) -> new MerchantOffer(
+                            new ItemCost(
+                                    RDItems.COPPER_COIN.get(),
+                                    random.nextInt(8, 11)
+                            ),
+                            new ItemStack(
+                                    item,
+                                    random.nextInt(3, 5)
+                            ),
+                            7,
+                            3,
+                            0.2f
+                    )
+            ));
+        }
+
+        // Level 1 - 2 - 3
+        for (RegistryDelegate<Item> ingredient : RDIngredientItems.INGREDIENTS) {
+            if (RDIngredientItems.EXISTS.contains(ingredient)) {
+                continue;
+            }
+
+            Item item = ingredient.get().asItem();
+
+            Collection<FoodProperty> ingredientProperties =
+                    FoodProperties.get(new ItemStackTemplate(item));
+
+            int base = ingredientProperties.size();
+            int min = (int) (base * 1.25 * 1);
+            int max = (int) (base * 1.25 * 2);
+
+            VillagerTrades.ItemListing listing = (level, entity, random) -> new MerchantOffer(
+                    new ItemCost(
+                            RDItems.COPPER_COIN.get(),
+                            random.nextInt(3 + min, 3 + max + 1)
+                    ),
+                    new ItemStack(
+                            item,
+                            random.nextInt(3, 5)
+                    ),
+                    11,
+                    5,
+                    0.2f
+            );
+
+            offers.add(new Tuple<>(1, listing));
+            offers.add(new Tuple<>(2, listing));
+            offers.add(new Tuple<>(3, listing));
+        }
+
+        // Level 3
+        Item[] arr3 = new Item[]{
+                Items.SALMON,
+                Items.COD,
+                Items.TROPICAL_FISH
+        };
+
+        for (Item item : arr3) {
+            offers.add(new Tuple<>(
+                    3,
+                    (level, entity, random) -> new MerchantOffer(
+                            new ItemCost(
+                                    RDItems.COPPER_COIN.get(),
+                                    random.nextInt(5, 7)
+                            ),
+                            new ItemStack(
+                                    item,
+                                    random.nextInt(3, 5)
+                            ),
+                            7,
+                            5,
+                            0.2f
+                    )
+            ));
+        }
+
+        // Level 4
+        for (Map.Entry<Identifier, CropBlockBundle.Entry> view : CropBlockBundle.getViews()) {
+            CropBlockBundle.Entry entry = view.getValue();
+            Item seed = entry.getSeed().asItem();
+
+            offers.add(new Tuple<>(
+                    4,
+                    (level, entity, random) -> new MerchantOffer(
+                            new ItemCost(
+                                    RDItems.COPPER_COIN.get(),
+                                    random.nextInt(7, 16)
+                            ),
+                            new ItemStack(
+                                    seed,
+                                    random.nextInt(3, 7)
+                            ),
+                            4,
+                            3,
+                            0.2f
+                    )
+            ));
+        }
+
+        // Level 5
+        for (RegistryDelegate<Item> ingredient : RDIngredientItems.INGREDIENTS) {
+            if (RDIngredientItems.EXISTS.contains(ingredient)) {
+                continue;
+            }
+
+            Item item = ingredient.get().asItem();
+
+            Collection<FoodProperty> ingredientProperties =
+                    FoodProperties.get(new ItemStackTemplate(item));
+
+            int base = ingredientProperties.size();
+            int min = (int) (base * 1.25 * 1);
+            int max = (int) (base * 1.25 * 2);
+
+            offers.add(new Tuple<>(
+                    5,
+                    (level, entity, random) -> new MerchantOffer(
+                            new ItemCost(
+                                    RDItems.COPPER_COIN.get(),
+                                    random.nextInt(3 + min, 3 + max + 1)
+                            ),
+                            new ItemStack(
+                                    item,
+                                    random.nextInt(3, 5)
+                            ),
+                            11,
+                            5,
+                            0.2f
+                    )
+            ));
+        }
+
+        return offers;
+    }
+
     public static void makeOffers(RDVillagerTrades.PreparingTradeInfo builder) {
         // Level 1
         Item[] arr1 = new Item[]{
@@ -47,11 +199,11 @@ public class HawkerOffers {
         }
 
         // Level 1 - 2
-        for (ItemDelegate ingredient : RDIngredientItems.INGREDIENTS) {
+        for (RegistryDelegate<Item> ingredient : RDIngredientItems.INGREDIENTS) {
             if (RDIngredientItems.EXISTS.contains(ingredient)) {
                 continue;
             }
-            Item item = ingredient.asItem();
+            Item item = ingredient.get().asItem();
             {
                 ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_1, TEMPLATE, 1, item);
                 makeCommon(builder, ingredient, key);
@@ -109,18 +261,18 @@ public class HawkerOffers {
             ));
         }
         // Level 5
-        for (ItemDelegate ingredient : RDIngredientItems.INGREDIENTS) {
+        for (RegistryDelegate<Item> ingredient : RDIngredientItems.INGREDIENTS) {
             if (RDIngredientItems.EXISTS.contains(ingredient)) {
                 continue;
             }
-            Item item = ingredient.asItem();
+            Item item = ingredient.get().asItem();
             ResourceKey<VillagerTrade> key = builder.keyInstance(RDVillagerTradeTags.HAWKERS_LEVEL_5, TEMPLATE, 5, item);
             makeCommon(builder, ingredient, key);
         }
     }
 
-    private static void makeCommon(RDVillagerTrades.PreparingTradeInfo builder, ItemDelegate ingredient, ResourceKey<VillagerTrade> key) {
-        Collection<FoodProperty> ingredientProperties = FoodProperties.get(new ItemStackTemplate(ingredient.asItem()));
+    private static void makeCommon(RDVillagerTrades.PreparingTradeInfo builder, RegistryDelegate<Item> ingredient, ResourceKey<VillagerTrade> key) {
+        Collection<FoodProperty> ingredientProperties = FoodProperties.get(new ItemStackTemplate(ingredient.get().asItem()));
         int base = ingredientProperties.size();
         int min = (int) (base * 1.25 * 1);
         int max = (int) (base * 1.25 * 2);
@@ -129,7 +281,7 @@ public class HawkerOffers {
                         UniformGenerator.between(3 + min, 3 + max)
                 ),
                 Optional.empty(),
-                new ItemStackTemplate(ingredient.asItem()),
+                new ItemStackTemplate(ingredient.get().asItem()),
                 11,
                 5,
                 0.2f,

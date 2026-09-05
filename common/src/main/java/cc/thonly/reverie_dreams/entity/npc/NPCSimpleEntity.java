@@ -185,7 +185,7 @@ public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, Cha
         UUID uid = player.getUUID();
 
         List<AIMessage> history = this.chatAIContainer.getHistories()
-                                                      .computeIfAbsent(uid, _ -> new ArrayList<>());
+                                                      .computeIfAbsent(uid, inst -> new ArrayList<>());
 
         if (history.isEmpty()) {
             history.add(new AIMessage(

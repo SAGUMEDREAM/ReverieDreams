@@ -1,0 +1,58 @@
+{
+  "role_type": "reverie_dreams:komeiji_satori",
+  "rare": true,
+  "budget": {
+    "min": 500,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:sweet",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:petite",
+    "reverie_dreams:dreamlike",
+    "reverie_dreams:local_specialty"
+  ],
+  "dislikes": [
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:fiery",
+    "reverie_dreams:bizarre",
+    "reverie_dreams:large_partition"
+  ],
+  "beverages": [
+    "reverie_dreams:alcohol-free",
+    "reverie_dreams:bitter",
+    "reverie_dreams:bubble",
+    "reverie_dreams:refreshing"
+  ],
+  "chats": [
+    "reverie_dreams.role.komeiji_satori.chat.0",
+    "reverie_dreams.role.komeiji_satori.chat.1",
+    "reverie_dreams.role.komeiji_satori.chat.2",
+    "reverie_dreams.role.komeiji_satori.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.komeiji_satori.order.0",
+    "reverie_dreams.role.komeiji_satori.order.1",
+    "reverie_dreams.role.komeiji_satori.order.2",
+    "reverie_dreams.role.komeiji_satori.order.3",
+    "reverie_dreams.role.komeiji_satori.order.4",
+    "reverie_dreams.role.komeiji_satori.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.komeiji_satori.description.0",
+    "reverie_dreams.role.komeiji_satori.description.1",
+    "reverie_dreams.role.komeiji_satori.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.komeiji_satori.evaluation.exbad",
+    "bad": "reverie_dreams.role.komeiji_satori.evaluation.bad",
+    "norm": "reverie_dreams.role.komeiji_satori.evaluation.norm",
+    "good": "reverie_dreams.role.komeiji_satori.evaluation.good",
+    "exgood": "reverie_dreams.role.komeiji_satori.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.komeiji_satori.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.komeiji_satori.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.komeiji_satori.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.komeiji_satori.evaluation.seenRepell"
+  }
+}

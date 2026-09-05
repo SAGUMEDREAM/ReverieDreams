@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.mixin.accessor;
 
-import net.minecraft.core.component.DataComponentInitializers;
+//import net.minecraft.core.component.DataComponentInitializers;
 import net.minecraft.resources.DependantName;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -23,12 +23,12 @@ public interface ItemSettingsAccessor {
         throw new UnsupportedOperationException();
     }
 
-    @Accessor("componentInitializer")
-    public DataComponentInitializers.Initializer<Item> getComponentInitializers();
+//    @Accessor("componentInitializer")
+//    public DataComponentInitializers.Initializer<Item> getComponentInitializers();
 
     @Accessor("craftingRemainingItem")
     @Nullable
-    public ItemStackTemplate getRecipeRemainder();
+    public Item getRecipeRemainder();
 
     @Accessor("requiredFeatures")
     public FeatureFlagSet getRequiredFeatures();

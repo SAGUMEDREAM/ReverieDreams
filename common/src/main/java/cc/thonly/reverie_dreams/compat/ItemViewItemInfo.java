@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.block.RDCropBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -20,7 +21,7 @@ public class ItemViewItemInfo {
         List<Item> grassDropItems = RDCropBlocks.GRASS_DROPS.stream().map(CropBlockBundle.Entry::getSeed).map(ItemLike::asItem).toList();
         List<Item> fumos = BuiltInRegistryProviders.FUMO.values().stream().map(FumoType::block).map(Block::asItem).toList();
         List<Item> drinks = RDBeverageItems.BEVERAGE_ITEMS.stream().map(ItemLike::asItem).toList();
-        List<Item> fishing = RDIngredientItems.FISHING.stream().map(ItemLike::asItem).toList();
+        List<Item> fishing = RDIngredientItems.FISHING.stream().map(RegistryDelegate::get).map(ItemLike::asItem).toList();
         List<Item> truffle = List.of(RDIngredientItems.TRUFFLE.asItem());
 
         callback.accept(chestDropItems, Component.translatable("item_view.information.desc.chest_drop_items"));

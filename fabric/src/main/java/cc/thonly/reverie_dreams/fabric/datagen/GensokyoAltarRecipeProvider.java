@@ -11,10 +11,10 @@ import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
     public final Factory<GensokyoAltarRecipe> factory = this.getOrCreateFactory(RecipeManager.GENSOKYO_ALTAR, GensokyoAltarRecipe.class);
 
-    public GensokyoAltarRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public GensokyoAltarRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

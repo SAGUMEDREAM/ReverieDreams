@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
@@ -24,7 +24,7 @@ public class KitchenRecipeProvider extends AbstractRecipeTypeProvider {
     private static final Identifier fryingPan = KitchenRecipeType.TypeInstance.FRYING_PAN.toId();
     private final Factory<KitchenRecipe> factory = this.getOrCreateFactory(RecipeManager.KITCHEN_TYPE, KitchenRecipe.class);
 
-    public KitchenRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public KitchenRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

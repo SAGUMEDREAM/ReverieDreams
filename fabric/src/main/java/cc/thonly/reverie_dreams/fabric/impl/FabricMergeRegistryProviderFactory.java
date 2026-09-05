@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.proxy.MergeRegistryProviderFactory;
 import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 
 import java.util.List;
 
@@ -12,6 +13,11 @@ public class FabricMergeRegistryProviderFactory implements MergeRegistryProvider
     @Override
     public MergeRegistry<?> apply(ResourceKey<? extends Registry<?>> key, List<Registry> registries) {
         return new MergeRegistry(key, registries) {
+
+            @Override
+            public void bindTag(TagKey tag, List values) {
+
+            }
 
         };
     }

@@ -11,13 +11,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.LilyPadBlock;
+import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @SuppressWarnings("NullableProblems")
-@Mixin(LilyPadBlock.class)
+@Mixin(WaterlilyBlock.class)
 public class LilyPadBlockMixin implements BonemealableBlock {
 
     @Override

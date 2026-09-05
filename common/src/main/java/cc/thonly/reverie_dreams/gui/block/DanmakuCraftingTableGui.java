@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.gui.block;
 
+import cc.thonly.keine.tag.ConventionalItemTags;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.entity.DanmakuCraftingTableBlockEntity;
 import cc.thonly.reverie_dreams.gui.GuiCommon;
@@ -14,7 +15,8 @@ import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import eu.pb4.sgui.api.gui.SlotBasedGui;
+import eu.pb4.sgui.api.gui.BaseSlotGui;
+import eu.pb4.sgui.api.gui.SlotGuiInterface;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -26,7 +28,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
-import net.minecraft.world.inventory.ContainerInput;
+
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -73,12 +75,12 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
         int counter = 0;
         int counter2 = 0;
         Function<Integer, Function<ItemStack, Boolean>> iffib = index -> switch (index) {
-            case 0 -> itemStack -> itemStack.is(ItemTags.DYES);
+            case 0 -> itemStack -> itemStack.is(ConventionalItemTags.DYES);
             case 1 -> itemStack -> itemStack.is(RDItems.DANMAKU_CORE);
             case 2 -> itemStack -> itemStack.is(RDItems.POWER);
             case 3 -> itemStack -> itemStack.is(RDItems.POINT);
             case 4 -> itemStack -> itemStack.is(RDItems.DANMAKU_SHAPE_CREATOR);
-            default -> _ -> true;
+            default -> inst -> true;
         };
         for (int i = 0; i < layout.length; i++) {
             for (int j = 0; j < layout[i].length(); j++) {
@@ -88,7 +90,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
 //                            .setItem(RDGuiItems.EMPTY_SLOT.asItem()));
 //                }
                 if (c == 'X') {
-                    this.setSlot(counter, new PredicateSlot(inventory, counter2, 0, 0, iffib.apply(counter2)));
+                    this.setSlotRedirect(counter, new PredicateSlot(inventory, counter2, 0, 0, iffib.apply(counter2)));
                     counter2++;
                 }
                 if (c == 'E') {
@@ -133,7 +135,7 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
 
                 this.setSlot(this.resultSlot, new GuiElementBuilder(itemStack).setCallback(new GuiElement.ClickCallback() {
                     @Override
-                    public void click(int i, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+                    public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType input, SlotGuiInterface slotBasedGui) {
                         for (IngredientStack countRecipeSlot : List.of(recipeEntry.getDye(), recipeEntry.getCore(), recipeEntry.getPower(), recipeEntry.getPoint(), recipeEntry.getMaterial())) {
                             if (countRecipeSlot.getItem() != Items.AIR) {
                                 Item item = countRecipeSlot.getItem();

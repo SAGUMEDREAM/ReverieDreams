@@ -23,7 +23,7 @@ public interface LazySupplier<T> extends Supplier<T> {
     }
 
     static <T> LazySupplier<T> defineByName(String name, Supplier<T> getter) {
-        return (LazySupplier<T>) NamedImpl.IMPLS.computeIfAbsent(name, _ -> new NamedImpl<>(name, getter));
+        return (LazySupplier<T>) NamedImpl.IMPLS.computeIfAbsent(name, inst -> new NamedImpl<>(name, getter));
     }
 
     static <T> LazySupplier<T> byName(String name) {

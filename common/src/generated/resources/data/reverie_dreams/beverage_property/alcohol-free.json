@@ -1,0 +1,24 @@
+{
+  "registry_key": "reverie_dreams:alcohol-free",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/green_tea",
+      "reverie_dreams:beverage/scarlet_devil_mansion_black_tea",
+      "reverie_dreams:beverage/affgado",
+      "reverie_dreams:beverage/gyokuro_tea",
+      "reverie_dreams:beverage/moon_rocket",
+      "reverie_dreams:beverage/milk",
+      "reverie_dreams:beverage/red_grapefruit_juice",
+      "reverie_dreams:beverage/soda",
+      "reverie_dreams:beverage/iceberg_maple_frozen_lemon",
+      "reverie_dreams:beverage/big_popsicle",
+      "reverie_dreams:beverage/coffee",
+      "reverie_dreams:beverage/fairy_rain",
+      "reverie_dreams:beverage/paleo_creamy_smoothie",
+      "reverie_dreams:beverage/qi_health",
+      "reverie_dreams:beverage/komeiji_ice_cream",
+      "reverie_dreams:beverage/mango_pomelo_sago",
+      "reverie_dreams:beverage/satellite_iced_coffee"
+    ]
+  }
+}

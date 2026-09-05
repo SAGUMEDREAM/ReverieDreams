@@ -2,9 +2,11 @@ package cc.thonly.reverie_dreams.neoforge.impl;
 
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.mojang.serialization.Lifecycle;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.neoforged.neoforge.registries.callback.AddCallback;
 import net.neoforged.neoforge.registries.callback.BakeCallback;
 import net.neoforged.neoforge.registries.callback.ClearCallback;
@@ -164,5 +166,10 @@ public class NeoRegistryProvider<T> extends RegistryProvider<T> {
 
     public Map<DataMapType<T, ?>, Map<ResourceKey<T>, ?>> getDataMaps() {
         return this.dataMaps;
+    }
+
+    @Override
+    public void bindTag(TagKey<T> tagKey, List<Holder<T>> list) {
+
     }
 }

@@ -3,13 +3,14 @@ package cc.thonly.reverie_dreams.proxy;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.other.GuidebookItem;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import dev.architectury.event.Event;
-import dev.architectury.event.EventFactory;
+import net.blay09.mods.balm.platform.event.Event;
+import net.blay09.mods.balm.platform.event.EventFactory;
 import net.minecraft.world.item.Item;
 
 @FunctionalInterface
 public interface GuidebookFactory {
-    Event<GuidebookFactory> EVENT = EventFactory.of(
+    Event<GuidebookFactory> EVENT = EventFactory.createArrayBacked(
+            GuidebookFactory.class,
             listeners -> (props) -> {
                 for (GuidebookFactory listener : listeners) {
                     Item result = listener.create(props);

@@ -1,19 +1,19 @@
 package cc.thonly.reverie_dreams.api.nota.callback;
 
 import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
-import dev.architectury.event.Event;
-import dev.architectury.event.EventFactory;
+import net.blay09.mods.balm.platform.event.Event;
+import net.blay09.mods.balm.platform.event.EventFactory;
 
 public interface SongTickCallback {
 
-	/**
-	 * Called at the start of the song tick.
-	 */
-	Event<SongTickCallback> EVENT = EventFactory.of((callbacks) -> (songPlayer) -> {
-		for (SongTickCallback callback : callbacks) {
-			callback.onSongTick(songPlayer);
-		}
-	});
+    /**
+     * Called at the start of the song tick.
+     */
+    Event<SongTickCallback> EVENT = EventFactory.createArrayBacked(SongTickCallback.class, (callbacks) -> (songPlayer) -> {
+        for (SongTickCallback callback : callbacks) {
+            callback.onSongTick(songPlayer);
+        }
+    });
 
-	void onSongTick(SongPlayer songPlayer);
+    void onSongTick(SongPlayer songPlayer);
 }

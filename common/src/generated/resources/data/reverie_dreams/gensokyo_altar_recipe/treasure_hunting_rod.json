@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:diamond_pickaxe"
+    "id": "minecraft:diamond_pickaxe",
+    "count": 1
   },
   "slots": [
     {
@@ -16,24 +17,28 @@
       "count": 9
     },
     {
-      "id": "minecraft:netherite_ingot"
+      "id": "minecraft:netherite_ingot",
+      "count": 1
     },
     {
       "id": "minecraft:gold_ingot",
       "count": 10
     },
     {
-      "id": "minecraft:netherite_ingot"
+      "id": "minecraft:netherite_ingot",
+      "count": 1
     },
     {
       "id": "minecraft:redstone",
       "count": 8
     },
     {
-      "id": "minecraft:stone_button"
+      "id": "minecraft:stone_button",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:treasure_hunting_rod"
+    "id": "reverie_dreams:treasure_hunting_rod",
+    "count": 1
   }
 }

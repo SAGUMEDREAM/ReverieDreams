@@ -32,7 +32,7 @@ public class RecipeIngredientItems {
         return new Context() {
             @Override
             public <I extends RecipeInput, R extends Recipe<I>> Context addProcessor(Holder<RecipeType<R>> recipeType, Consumer<R> function) {
-                List<Consumer<Recipe<?>>> functions = PROCESSOR.computeIfAbsent((Holder<RecipeType<? extends Recipe<?>>>) (Object) recipeType, _ -> new ArrayList<>());
+                List<Consumer<Recipe<?>>> functions = PROCESSOR.computeIfAbsent((Holder<RecipeType<? extends Recipe<?>>>) (Object) recipeType, inst -> new ArrayList<>());
                 functions.add((Consumer<Recipe<?>>) function);
                 return this;
             }

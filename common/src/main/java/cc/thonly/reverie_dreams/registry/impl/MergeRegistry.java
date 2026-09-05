@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.registry.impl;
 import com.mojang.serialization.Lifecycle;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.*;
-import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -43,7 +42,6 @@ public abstract class MergeRegistry<T> implements WritableRegistry<T> {
         return null;
     }
 
-    @Override
     public void bindTags(Map<TagKey<T>, List<Holder<T>>> pendingTags) {
         log.warn("MergeRegistry does not support bindTags");
     }
@@ -266,11 +264,6 @@ public abstract class MergeRegistry<T> implements WritableRegistry<T> {
     @Override
     public Registry<T> freeze() {
         return this;
-    }
-
-    @Override
-    public DataComponentLookup<T> componentLookup() {
-        return new DataComponentLookup<>(List.of());
     }
 
     @Override

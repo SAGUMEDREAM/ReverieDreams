@@ -43,7 +43,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -169,7 +169,7 @@ public class NPCCustomerContainer {
         }
     }
 
-    public void triggerSuccess(Player player) {
+    public void triggerSuccess(ServerPlayer player) {
         int price = this.priceOutput;
         this.spawnCoinsToPlayer(player, price);
         SoundEventPlayUtils.playSound(player, SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
@@ -182,7 +182,7 @@ public class NPCCustomerContainer {
         }
     }
 
-    public void triggerTooExpensive(Player player) {
+    public void triggerTooExpensive(ServerPlayer player) {
         int price = this.priceOutput;
         this.spawnCoinsToPlayer(player, price);
         SoundEventPlayUtils.playSound(player, SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
@@ -195,7 +195,7 @@ public class NPCCustomerContainer {
         }
     }
 
-    public void triggerAngry(Player player) {
+    public void triggerAngry(ServerPlayer player) {
         int price = (int) (this.priceOutput / 3);
         this.spawnCoinsToPlayer(player, price);
         SoundEventPlayUtils.playSound(player, SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 0.65f);
@@ -269,7 +269,7 @@ public class NPCCustomerContainer {
         ItemStack item = isMainHand ? this.npc.getMainHandItem() : this.npc.getOffhandItem();
         return item.isEmpty()
                 ? ParticleTypes.ITEM_SNOWBALL
-                : new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
+                : new ItemParticleOption(ParticleTypes.ITEM, item);
     }
 
     public boolean isCustomerMode() {
@@ -502,7 +502,7 @@ public class NPCCustomerContainer {
         this.cooldownTickTime = ReverieDreams.config().maxCustomerCooldownTickTime;
     }
 
-    public void tell(Player player, Component component) {
+    public void tell(ServerPlayer player, Component component) {
         MutableComponent body = Component.empty()
                 .append(this.npc.getName())
                 .append(": ")
@@ -511,7 +511,7 @@ public class NPCCustomerContainer {
         player.sendSystemMessage(body);
     }
 
-    public void tellOrder(Player player) {
+    public void tellOrder(ServerPlayer player) {
         for (Component line : this.components) {
             this.tell(player, line);
         }

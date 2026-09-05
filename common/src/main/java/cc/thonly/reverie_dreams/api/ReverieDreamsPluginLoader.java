@@ -17,7 +17,8 @@ import cc.thonly.reverie_dreams.api.registry.callback.RegistryProviderReloadCall
 import cc.thonly.reverie_dreams.registry.content.PlayerComponentRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RawIdTypeRegistryImpl;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
-import dev.architectury.event.Event;
+import net.blay09.mods.balm.platform.event.Event;
+import net.blay09.mods.balm.platform.event.EventFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
@@ -81,7 +82,7 @@ public class ReverieDreamsPluginLoader {
     }
 
     private static List<Runnable> actions(PluginHook hook) {
-        return ACTIONS.computeIfAbsent(hook, _ -> new ArrayList<>());
+        return ACTIONS.computeIfAbsent(hook, inst -> new ArrayList<>());
     }
 
     private static void register(PluginHook hook, Runnable action) {

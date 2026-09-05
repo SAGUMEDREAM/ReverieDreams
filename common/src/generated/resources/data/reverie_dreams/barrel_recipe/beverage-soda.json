@@ -1,0 +1,17 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:sugar",
+      "count": 1
+    },
+    {
+      "id": "minecraft:sugar",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/soda",
+    "count": 1
+  },
+  "cost_time": 60
+}

@@ -1,86 +1,70 @@
 package cc.thonly.reverie_dreams.registry.delegate;
 
-import dev.architectury.impl.RegistrySupplierImpl;
-import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.RegistrarManager;
-import dev.architectury.registry.registries.RegistrySupplier;
-import lombok.experimental.Delegate;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings({"UnstableApiUsage", "PatternVariableHidesField", "rawtypes", "unchecked"})
-public class HolderDelegate<T> implements Holder<T>, RegistrySupplierImpl<T> {
-    private final Holder<T> holder;
-    private RegistrarManager registrarManager;
-    private Registrar<T> registrar;
-    private Identifier registryId;
-    private Identifier id;
+import java.util.Objects;
 
-    public HolderDelegate(Holder<T> holder) {
-        this.holder = holder;
+public class HolderDelegate<I, O>
+        extends RegistryDelegate<O> {
+
+    private Identifier key;
+
+    private final RegistryDelegate<I> input;
+    private final HolderDelegateMapper<I, O> mapper;
+
+    private HolderDelegate(
+            RegistryDelegate<I> input,
+            HolderDelegateMapper<I, O> mapper
+    ) {
+        super(null);
+
+        this.input = Objects.requireNonNull(input, "input");
+        this.mapper = Objects.requireNonNull(mapper, "mapper");
+    }
+
+    public static <I, O> HolderDelegate<I, O> create(
+            RegistryDelegate<I> input,
+            HolderDelegateMapper<I, O> mapper
+    ) {
+        return new HolderDelegate<>(input, mapper);
+    }
+
+    private RegistryDelegate<O> mapped() {
+        return this.mapper.map(this.input);
     }
 
     @Override
-    public Holder<T> getHolder() {
-        return this.holder;
+    public O get() {
+        return this.mapped().get();
     }
 
     @Override
-    public RegistrarManager getRegistrarManager() {
-        if (this.registrarManager == null && this.holder instanceof RegistrySupplier<T> supplier) {
-            this.registrarManager = supplier.getRegistrarManager();
-        }
-        if (this.registrarManager == null) {
-            this.holder.unwrapKey().ifPresent(key -> {
-                this.registrarManager = RegistrarManager.get(key.identifier().getNamespace());
-            });
-        }
-        return this.registrarManager;
+    public @Nullable Holder<O> getHolder() {
+        return this.mapped().getHolder();
     }
 
     @Override
-    public Registrar<T> getRegistrar() {
-        if (this.registrar == null && this.holder instanceof RegistrySupplier<T> supplier) {
-            this.registrar = supplier.getRegistrar();
-        }
-        return this.registrar;
+    public void bindKey(Identifier key) {
+        this.key = Objects.requireNonNull(key, "key");
     }
 
     @Override
     public Identifier getRegistryId() {
-        if (this.registryId == null && this.holder instanceof RegistrySupplier<T> supplier) {
-            this.registryId = supplier.getRegistryId();
-        }
-        return this.registryId;
+        return this.key;
     }
 
     @Override
-    public Identifier getId() {
-        if (this.id == null && this.holder instanceof RegistrySupplier<T> supplier) {
-            this.id = supplier.getId();
-        }
-        return this.id;
+    public void bind(Holder<O> holder) {
+        this.holder = Objects.requireNonNull(holder, "holder");
     }
 
-    @Override
-    public boolean isPresent() {
-        return this.holder.isBound();
-    }
+    @FunctionalInterface
+    public interface HolderDelegateMapper<I, O> {
 
-    @Override
-    public T get() {
-        return this.holder.value();
-    }
-
-    public ResourceKey<T> getKey() {
-        return this.holder.unwrapKey().orElse(null);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj) || (obj instanceof Holder<?> holder && this.is((Holder) holder));
+        RegistryDelegate<O> map(
+                RegistryDelegate<I> input
+        );
     }
 }

@@ -1,0 +1,56 @@
+{
+  "role_type": "reverie_dreams:yatadera_narumi",
+  "rare": true,
+  "budget": {
+    "min": 300,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:light",
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:cultural_depth",
+    "reverie_dreams:local_specialty"
+  ],
+  "dislikes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:filling"
+  ],
+  "beverages": [
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:can_add_ice",
+    "reverie_dreams:direct_drinking",
+    "reverie_dreams:classical"
+  ],
+  "chats": [
+    "reverie_dreams.role.yatadera_narumi.chat.0",
+    "reverie_dreams.role.yatadera_narumi.chat.1",
+    "reverie_dreams.role.yatadera_narumi.chat.2",
+    "reverie_dreams.role.yatadera_narumi.chat.3",
+    "reverie_dreams.role.yatadera_narumi.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.yatadera_narumi.order.0",
+    "reverie_dreams.role.yatadera_narumi.order.1",
+    "reverie_dreams.role.yatadera_narumi.order.2",
+    "reverie_dreams.role.yatadera_narumi.order.3",
+    "reverie_dreams.role.yatadera_narumi.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.yatadera_narumi.description.0",
+    "reverie_dreams.role.yatadera_narumi.description.1",
+    "reverie_dreams.role.yatadera_narumi.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.yatadera_narumi.evaluation.exbad",
+    "bad": "reverie_dreams.role.yatadera_narumi.evaluation.bad",
+    "norm": "reverie_dreams.role.yatadera_narumi.evaluation.norm",
+    "good": "reverie_dreams.role.yatadera_narumi.evaluation.good",
+    "exgood": "reverie_dreams.role.yatadera_narumi.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.yatadera_narumi.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.yatadera_narumi.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.yatadera_narumi.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.yatadera_narumi.evaluation.seenRepell"
+  }
+}

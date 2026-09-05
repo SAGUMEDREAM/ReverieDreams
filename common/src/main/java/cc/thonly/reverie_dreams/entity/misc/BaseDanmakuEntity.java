@@ -329,7 +329,7 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
     }
 
     public void cancelParticle(ServerLevel serverWorld) {
-        ItemParticleOption ispe = new ItemParticleOption(ParticleTypes.ITEM, RDItems.BOMB_FRAGMENT.asItem());
+        ItemParticleOption ispe = new ItemParticleOption(ParticleTypes.ITEM, RDItems.BOMB_FRAGMENT.createStack());
         serverWorld.sendParticles(ispe,
                 position().x(), position().y() + getBbHeight() / 2, position().z(),
                 1, 0, 0, 0, 0);

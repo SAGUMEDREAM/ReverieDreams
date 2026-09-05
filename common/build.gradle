@@ -26,16 +26,19 @@ dependencies {
     }
     implementation("gg.moonflower:molang-compiler:3.1.1.19")
     implementation("software.bernie.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
-    implementation("dev.architectury:architectury:${architectury_api_version}")
+//    implementation("dev.architectury:architectury:${architectury_api_version}")
+    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
 
     api("cc.thonly:sgui_balm-common:1.21.11-21.11.0")
-    api("cc.thonly:keine-common:1.21.11-1.0.0")
+    api("cc.thonly:keine-common:${keine_api_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-common:${jei_version}")
     compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 
 //    compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
 //    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rei_version}")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3")
 }
 
 

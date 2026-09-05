@@ -1,0 +1,57 @@
+{
+  "role_type": "reverie_dreams:kazami_yuka",
+  "rare": true,
+  "budget": {
+    "min": 1200,
+    "max": 1800
+  },
+  "likes": [
+    "reverie_dreams:gourmet",
+    "reverie_dreams:legendary",
+    "reverie_dreams:light",
+    "reverie_dreams:western_style",
+    "reverie_dreams:dreamlike",
+    "reverie_dreams:local_specialty"
+  ],
+  "dislikes": [
+    "reverie_dreams:filling",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:salty",
+    "reverie_dreams:fiery"
+  ],
+  "beverages": [
+    "reverie_dreams:cocktail",
+    "reverie_dreams:western_wine",
+    "reverie_dreams:liqueur",
+    "reverie_dreams:modern"
+  ],
+  "chats": [
+    "reverie_dreams.role.kazami_yuka.chat.0",
+    "reverie_dreams.role.kazami_yuka.chat.1",
+    "reverie_dreams.role.kazami_yuka.chat.2",
+    "reverie_dreams.role.kazami_yuka.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.kazami_yuka.order.0",
+    "reverie_dreams.role.kazami_yuka.order.1",
+    "reverie_dreams.role.kazami_yuka.order.2",
+    "reverie_dreams.role.kazami_yuka.order.3",
+    "reverie_dreams.role.kazami_yuka.order.4",
+    "reverie_dreams.role.kazami_yuka.order.5",
+    "reverie_dreams.role.kazami_yuka.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.kazami_yuka.description.0",
+    "reverie_dreams.role.kazami_yuka.description.1",
+    "reverie_dreams.role.kazami_yuka.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.kazami_yuka.evaluation.exbad",
+    "bad": "reverie_dreams.role.kazami_yuka.evaluation.bad",
+    "norm": "reverie_dreams.role.kazami_yuka.evaluation.norm",
+    "good": "reverie_dreams.role.kazami_yuka.evaluation.good",
+    "exgood": "reverie_dreams.role.kazami_yuka.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.kazami_yuka.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.kazami_yuka.evaluation.lackmoneynormal"
+  }
+}

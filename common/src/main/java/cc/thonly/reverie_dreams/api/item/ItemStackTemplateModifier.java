@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.api.item;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 
 public interface ItemStackTemplateModifier {
     void reverie_dreams$setItem(Holder<Item> item);

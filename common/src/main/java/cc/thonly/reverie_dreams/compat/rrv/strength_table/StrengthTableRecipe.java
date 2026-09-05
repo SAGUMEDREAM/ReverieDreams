@@ -7,7 +7,7 @@ import cc.cassian.rrv.common.recipe.inventory.RecipeViewScreen;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import cc.thonly.reverie_dreams.compat.rrv.RRVPlugin;
 import cc.thonly.reverie_dreams.compat.rrv.RRVRecipeTypes;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class StrengthTableRecipe implements ReliableClientRecipe {
     }
 
     @Override
-    public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void renderRecipe(RecipeViewScreen screen, RecipePosition recipePosition, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
 
     }
 

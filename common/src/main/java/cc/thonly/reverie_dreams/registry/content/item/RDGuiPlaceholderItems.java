@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.registry.content.item;
 import cc.thonly.reverie_dreams.item.other.GuiPlaceholderItem;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
-import dev.architectury.registry.registries.RegistrySupplier;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 
@@ -35,7 +35,7 @@ public class RDGuiPlaceholderItems {
     }
 
     public static ItemDelegate registerItem(String name) {
-        RegistrySupplier<Item> item = MCBuiltInRegistries.ITEM.register(name, () -> new GuiPlaceholderItem(new Item.Properties().setId(RDItems.keyOf(name))));
+        RegistryDelegate<Item> item = MCBuiltInRegistries.ITEM.register(name, () -> new GuiPlaceholderItem(new Item.Properties().setId(RDItems.keyOf(name))));
         ItemDelegate itemDelegate = ItemDelegate.of(item);
         GUI_PLACEHOLDER_ITEM_LIST.add(itemDelegate);
         return itemDelegate;

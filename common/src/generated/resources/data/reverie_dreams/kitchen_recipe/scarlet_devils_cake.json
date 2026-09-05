@@ -2,20 +2,25 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/dew"
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
     },
     {
-      "id": "minecraft:pumpkin"
+      "id": "minecraft:pumpkin",
+      "count": 1
     },
     {
-      "id": "minecraft:potato"
+      "id": "minecraft:potato",
+      "count": 1
     },
     {
-      "id": "minecraft:honey_bottle"
+      "id": "minecraft:honey_bottle",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/scarlet_devils_cake"
+    "id": "reverie_dreams:cuisine/scarlet_devils_cake",
+    "count": 1
   },
   "cost_time": 8.0
 }

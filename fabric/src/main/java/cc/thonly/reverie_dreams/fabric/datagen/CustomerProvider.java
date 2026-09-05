@@ -4,14 +4,14 @@ import cc.thonly.reverie_dreams.data.CustomerBudget;
 import cc.thonly.reverie_dreams.data.CustomerEvaluation;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractCustomerProvider;
 import cc.thonly.reverie_dreams.registry.content.*;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class CustomerProvider extends AbstractCustomerProvider {
-    public CustomerProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public CustomerProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

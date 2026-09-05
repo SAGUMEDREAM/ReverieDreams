@@ -104,7 +104,8 @@ public class RoleCardItem extends Item {
         Component defaultName = super.getName(itemStack);
         MinecraftServer server = ReverieDreams.getServer();
         if (server != null) {
-            GameRules gameRules = server.getGameRules();
+            ServerLevel overworld = server.overworld();
+            GameRules gameRules = overworld.getGameRules();
             if (gameRules.get(RDBuiltInGameRules.FREE_CHOICE_OF_ROLE.value())) {
                 return Component.translatable("item.reverie_dreams.role_card.full");
             }

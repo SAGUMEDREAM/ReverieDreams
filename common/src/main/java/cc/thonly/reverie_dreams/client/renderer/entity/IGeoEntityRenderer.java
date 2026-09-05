@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.renderer.GeoEntityRenderer;
-import com.geckolib.renderer.base.GeoRenderState;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.Entity;

@@ -54,11 +54,6 @@ public abstract class ItemStackMixin<T> implements IItemStack,
     @Final
     public PatchedDataComponentMap components;
 
-    @Shadow
-    @Final
-    @Deprecated
-    private @Nullable Holder<Item> item;
-
     @Unique
     private volatile Map<String, Integer> reverie_dreams$keys = new HashMap<>();
 

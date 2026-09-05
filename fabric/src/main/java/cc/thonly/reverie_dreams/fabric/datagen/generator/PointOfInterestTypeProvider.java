@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen.generator;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -16,10 +16,10 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-public abstract class PointOfInterestTypeProvider extends FabricTagsProvider<PoiType> {
+public abstract class PointOfInterestTypeProvider extends FabricTagProvider<PoiType> {
     private final Function<PoiType, ResourceKey<PoiType>> valueToKey;
 
-    public PointOfInterestTypeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public PointOfInterestTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, Registries.POINT_OF_INTEREST_TYPE, registriesFuture);
         this.valueToKey = value -> {
             Optional<ResourceKey<PoiType>> key = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(value);

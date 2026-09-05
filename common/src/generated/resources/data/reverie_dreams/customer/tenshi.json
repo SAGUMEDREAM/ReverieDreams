@@ -1,0 +1,55 @@
+{
+  "role_type": "reverie_dreams:tenshi",
+  "rare": true,
+  "budget": {
+    "min": 2000,
+    "max": 3000
+  },
+  "likes": [
+    "reverie_dreams:legendary",
+    "reverie_dreams:light",
+    "reverie_dreams:sweet",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:fruity",
+    "reverie_dreams:expensive"
+  ],
+  "dislikes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:greasy"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:cocktail"
+  ],
+  "chats": [
+    "reverie_dreams.role.tenshi.chat.0",
+    "reverie_dreams.role.tenshi.chat.1",
+    "reverie_dreams.role.tenshi.chat.2",
+    "reverie_dreams.role.tenshi.chat.3",
+    "reverie_dreams.role.tenshi.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.tenshi.order.0",
+    "reverie_dreams.role.tenshi.order.1",
+    "reverie_dreams.role.tenshi.order.2",
+    "reverie_dreams.role.tenshi.order.3",
+    "reverie_dreams.role.tenshi.order.4",
+    "reverie_dreams.role.tenshi.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.tenshi.description.0",
+    "reverie_dreams.role.tenshi.description.1",
+    "reverie_dreams.role.tenshi.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.tenshi.evaluation.exbad",
+    "bad": "reverie_dreams.role.tenshi.evaluation.bad",
+    "norm": "reverie_dreams.role.tenshi.evaluation.norm",
+    "good": "reverie_dreams.role.tenshi.evaluation.good",
+    "exgood": "reverie_dreams.role.tenshi.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.tenshi.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.tenshi.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.tenshi.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.tenshi.evaluation.seenRepell"
+  }
+}

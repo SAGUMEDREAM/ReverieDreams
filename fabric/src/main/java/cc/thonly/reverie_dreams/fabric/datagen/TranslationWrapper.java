@@ -6,10 +6,10 @@ import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
-import dev.architectury.registry.registries.RegistrySupplier;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -44,7 +44,7 @@ import java.util.function.Function;
 public record TranslationWrapper(HolderLookup.Provider wrapperLookup,
                                  FabricLanguageProvider.TranslationBuilder translationBuilder
 ) implements ITranslationWrapper {
-    public static final Map<RegistrySupplier<EntityType<?>>, ItemDelegate> MAPPER = RDEntityTypes.SPAWN_EGG_BIND;
+    public static final Map<RegistryDelegate<EntityType<?>>, ItemDelegate> MAPPER = RDEntityTypes.SPAWN_EGG_BIND;
 
     public TranslationWrapper add(String translationKey, String value) {
         this.translationBuilder.add(translationKey, value);
@@ -63,7 +63,7 @@ public record TranslationWrapper(HolderLookup.Provider wrapperLookup,
 
     public TranslationWrapper add(ResourceKey<CreativeModeTab> registryKey, String value) {
         Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction = ItemGroupContentHelper.REGISTRIES.get(registryKey);
-        CreativeModeTab.Builder builder = builderFunction.apply(FabricCreativeModeTab.builder());
+        CreativeModeTab.Builder builder = builderFunction.apply(FabricItemGroup.builder());
         if (builder != null) {
             this.add(builder.build(), value);
             return this;

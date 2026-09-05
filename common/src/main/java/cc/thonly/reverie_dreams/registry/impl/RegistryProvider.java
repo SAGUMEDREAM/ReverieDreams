@@ -12,7 +12,6 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.*;
-import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -308,10 +307,10 @@ public abstract class RegistryProvider<T> implements WritableRegistry<T>, Regist
         log.debug("Unregistered registry entry {}", id);
     }
 
-    @Override
-    public DataComponentLookup<T> componentLookup() {
-        return new DataComponentLookup<>(this.valueToEntry.values());
-    }
+//    @Override
+//    public DataComponentLookup<T> componentLookup() {
+//        return new DataComponentLookup<>(this.valueToEntry.values());
+//    }
 
     @Override
     public void unboundTag() {
@@ -321,7 +320,6 @@ public abstract class RegistryProvider<T> implements WritableRegistry<T>, Regist
         });
     }
 
-    @Override
     public void bindTags(Map<TagKey<T>, List<Holder<T>>> pendingTags) {
         pendingTags.forEach((tag, registryEntries) -> {
             HolderSet.Named<T> entryListNamed = NamedAccessor.callNew(this, tag);
@@ -332,7 +330,7 @@ public abstract class RegistryProvider<T> implements WritableRegistry<T>, Regist
         this.tags.forEach((tagKey, holders) -> {
             for (Holder<T> holder : holders) {
                 if (holder instanceof Holder.Reference<T> reference) {
-                    Set<TagKey<T>> tagKeys = map.computeIfAbsent(reference, _ -> new HashSet<>());
+                    Set<TagKey<T>> tagKeys = map.computeIfAbsent(reference, inst -> new HashSet<>());
                     tagKeys.add(tagKey);
                 }
             }

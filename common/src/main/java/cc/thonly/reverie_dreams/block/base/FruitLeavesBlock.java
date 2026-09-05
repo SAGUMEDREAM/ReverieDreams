@@ -215,7 +215,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
                 if (blockState.is(Blocks.FARMLAND)) {
                     g = 1.0f;
-                    if (blockState.getValue(FarmlandBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(FarmBlock.MOISTURE) > 0) {
                         g = 3.0f;
                     }
                 }

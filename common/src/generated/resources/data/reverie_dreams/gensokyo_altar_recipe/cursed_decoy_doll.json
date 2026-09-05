@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:armor_stand"
+    "id": "minecraft:armor_stand",
+    "count": 1
   },
   "slots": [
     {
@@ -37,6 +38,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:cursed_decoy_doll"
+    "id": "reverie_dreams:cursed_decoy_doll",
+    "count": 1
   }
 }

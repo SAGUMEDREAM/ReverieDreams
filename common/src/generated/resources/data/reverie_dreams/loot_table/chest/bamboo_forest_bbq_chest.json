@@ -17,7 +17,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/all_meat_feast",
+          "name": "reverie_dreams:cuisine/seafood_miso_soup",
           "weight": 10
         },
         {
@@ -33,7 +33,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/arctic_sweet_shrimp_and_peach_salad",
+          "name": "reverie_dreams:cuisine/tofu_miso",
           "weight": 10
         },
         {
@@ -49,7 +49,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/assorted_tempura",
+          "name": "reverie_dreams:cuisine/strength_soup",
           "weight": 10
         },
         {
@@ -65,7 +65,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/a_little_sweet_poison",
+          "name": "reverie_dreams:cuisine/pork_and_trout_smoked",
           "weight": 10
         },
         {
@@ -81,7 +81,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/baked_crab_with_cream",
+          "name": "reverie_dreams:cuisine/grilled_hagfish",
           "weight": 10
         },
         {
@@ -97,7 +97,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/baked_sweet_potatoes",
+          "name": "reverie_dreams:cuisine/energy_string",
           "weight": 10
         },
         {
@@ -113,7 +113,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/bamboo_shoots_fried_meat",
+          "name": "reverie_dreams:cuisine/two_heavens_one_style",
           "weight": 10
         },
         {
@@ -129,7 +129,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/bamboo_shoots_stewed_in_stone_pot",
+          "name": "reverie_dreams:cuisine/rice_ball",
           "weight": 10
         },
         {
@@ -145,7 +145,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/bamboo_steamed_egg",
+          "name": "reverie_dreams:cuisine/grilled_pork_rice_balls",
           "weight": 10
         },
         {
@@ -161,7 +161,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/bamboo_tube_roasted_drunken_shrimp",
+          "name": "reverie_dreams:cuisine/warm_rice_ball",
           "weight": 10
         },
         {
@@ -177,7 +177,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/bamboo_tube_steamed_pork",
+          "name": "reverie_dreams:cuisine/failing_sakura_snow",
           "weight": 10
         },
         {
@@ -193,7 +193,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/bear_paw",
+          "name": "reverie_dreams:cuisine/fried_pork_shreds",
           "weight": 10
         },
         {
@@ -209,7 +209,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/beef_hot_pot",
+          "name": "reverie_dreams:cuisine/cold_tofu",
           "weight": 10
         },
         {
@@ -225,7 +225,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/beef_rice",
+          "name": "reverie_dreams:cuisine/braised_eel",
           "weight": 10
         },
         {
@@ -241,7 +241,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/beef_wellington",
+          "name": "reverie_dreams:cuisine/potato_croquettes",
           "weight": 10
         },
         {
@@ -257,7 +257,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/beetle_steamed_cake",
+          "name": "reverie_dreams:cuisine/game_soup",
           "weight": 10
         },
         {
@@ -273,7 +273,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/biscay_biscuits",
+          "name": "reverie_dreams:cuisine/pork_rice",
           "weight": 10
         },
         {
@@ -289,7 +289,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/boiled_fish",
+          "name": "reverie_dreams:cuisine/beef_rice",
           "weight": 10
         },
         {
@@ -305,7 +305,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/braised_eel",
+          "name": "reverie_dreams:cuisine/fried_hagfish",
           "weight": 10
         },
         {
@@ -321,7 +321,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/braised_pork_with_peach",
+          "name": "reverie_dreams:cuisine/vegetable_special",
           "weight": 10
         },
         {
@@ -337,7 +337,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/burnt_pudding",
+          "name": "reverie_dreams:cuisine/snow_white",
           "weight": 10
         },
         {
@@ -353,7 +353,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/butter_steak",
+          "name": "reverie_dreams:cuisine/tofu_pot",
           "weight": 10
         },
         {
@@ -369,7 +369,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/candied_chestnuts",
+          "name": "reverie_dreams:cuisine/zhaji",
           "weight": 10
         },
         {
@@ -385,7 +385,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/candied_sweet_potato",
+          "name": "reverie_dreams:cuisine/sashimi_platter",
           "weight": 10
         },
         {
@@ -401,7 +401,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cats_playing_in_water",
+          "name": "reverie_dreams:cuisine/grand_banquet",
           "weight": 10
         },
         {
@@ -417,7 +417,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cat_food",
+          "name": "reverie_dreams:cuisine/tonkotsu_ramen",
           "weight": 10
         },
         {
@@ -433,7 +433,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cat_kululi",
+          "name": "reverie_dreams:cuisine/magma",
           "weight": 10
         },
         {
@@ -449,7 +449,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cat_pizza",
+          "name": "reverie_dreams:cuisine/deep_fried_cicada_shells",
           "weight": 10
         },
         {
@@ -465,7 +465,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cheese_egg",
+          "name": "reverie_dreams:cuisine/dew_boiled_eggs",
           "weight": 10
         },
         {
@@ -481,7 +481,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cold_dish_carving",
+          "name": "reverie_dreams:cuisine/udumbara_cake",
           "weight": 10
         },
         {
@@ -497,7 +497,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cold_tofu",
+          "name": "reverie_dreams:cuisine/bear_paw",
           "weight": 10
         },
         {
@@ -513,7 +513,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/colorful_jade_fried_buns",
+          "name": "reverie_dreams:cuisine/secret_dried_fish",
           "weight": 10
         },
         {
@@ -529,7 +529,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cooking_tofu",
+          "name": "reverie_dreams:cuisine/cold_dish_carving",
           "weight": 10
         },
         {
@@ -545,7 +545,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/cream_stew",
+          "name": "reverie_dreams:cuisine/peach_blossom_soup",
           "weight": 10
         },
         {
@@ -561,7 +561,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/crisp_cyclone",
+          "name": "reverie_dreams:cuisine/arctic_sweet_shrimp_and_peach_salad",
           "weight": 10
         },
         {
@@ -577,7 +577,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/dark_cuisine",
+          "name": "reverie_dreams:cuisine/fried_tofu",
           "weight": 10
         },
         {
@@ -593,7 +593,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/deep_fried_cicada_shells",
+          "name": "reverie_dreams:cuisine/poetry_and_ginkgo",
           "weight": 10
         },
         {
@@ -609,7 +609,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/depressed_cheese_sticks",
+          "name": "reverie_dreams:cuisine/real_seafood_miso_soup",
           "weight": 10
         },
         {
@@ -625,7 +625,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/dew_boiled_eggs",
+          "name": "reverie_dreams:cuisine/roasted_mushrooms",
           "weight": 10
         },
         {
@@ -641,7 +641,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/dorayaki",
+          "name": "reverie_dreams:cuisine/cooking_tofu",
           "weight": 10
         },
         {
@@ -657,7 +657,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/dumpling",
+          "name": "reverie_dreams:cuisine/fried_pork_cutlet",
           "weight": 10
         },
         {
@@ -673,7 +673,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/eel_egg_donburi",
+          "name": "reverie_dreams:cuisine/butter_steak",
           "weight": 10
         },
         {
@@ -689,7 +689,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/eggs_benedict",
+          "name": "reverie_dreams:cuisine/risotto",
           "weight": 10
         },
         {
@@ -705,7 +705,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/energy_string",
+          "name": "reverie_dreams:cuisine/beef_wellington",
           "weight": 10
         },
         {
@@ -721,7 +721,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/failing_sakura_snow",
+          "name": "reverie_dreams:cuisine/eggs_benedict",
           "weight": 10
         },
         {
@@ -737,7 +737,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fantasy_is_all_the_rage",
+          "name": "reverie_dreams:cuisine/hot_waffles",
           "weight": 10
         },
         {
@@ -753,7 +753,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fish_leaps_over_dragon_gate",
+          "name": "reverie_dreams:cuisine/scones",
           "weight": 10
         },
         {
@@ -769,7 +769,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/flowers_birds_wind_and_moon",
+          "name": "reverie_dreams:cuisine/pan_fried_salmon",
           "weight": 10
         },
         {
@@ -785,7 +785,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/flowing_water_noodles",
+          "name": "reverie_dreams:cuisine/cream_stew",
           "weight": 10
         },
         {
@@ -801,7 +801,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fried_hagfish",
+          "name": "reverie_dreams:cuisine/honey_bbq_pork",
           "weight": 10
         },
         {
@@ -817,7 +817,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fried_pork_cutlet",
+          "name": "reverie_dreams:cuisine/ginkgo_and_radish_pork_rib_soup",
           "weight": 10
         },
         {
@@ -833,7 +833,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fried_pork_shreds",
+          "name": "reverie_dreams:cuisine/taketorihime",
           "weight": 10
         },
         {
@@ -849,7 +849,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fried_shrimp_tempura",
+          "name": "reverie_dreams:cuisine/phoenix",
           "weight": 10
         },
         {
@@ -865,7 +865,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fried_tofu",
+          "name": "reverie_dreams:cuisine/moonlight_dumplings",
           "weight": 10
         },
         {
@@ -881,7 +881,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fried_tomato_strips",
+          "name": "reverie_dreams:cuisine/mochi",
           "weight": 10
         },
         {
@@ -897,7 +897,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/fright_adventure",
+          "name": "reverie_dreams:cuisine/white_peach_eight_bridge",
           "weight": 10
         },
         {
@@ -913,7 +913,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/game_soup",
+          "name": "reverie_dreams:cuisine/moon_lovers",
           "weight": 10
         },
         {
@@ -929,7 +929,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/gensokyo_buddha_jumps_over_the_wall",
+          "name": "reverie_dreams:cuisine/pig_deer_butterfly",
           "weight": 10
         },
         {
@@ -945,7 +945,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/gensokyo_star_lotus_ship",
+          "name": "reverie_dreams:cuisine/flowing_water_noodles",
           "weight": 10
         },
         {
@@ -961,7 +961,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/giant_tamagoyaki",
+          "name": "reverie_dreams:cuisine/bamboo_shoots_fried_meat",
           "weight": 10
         },
         {
@@ -977,7 +977,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/ginkgo_and_radish_pork_rib_soup",
+          "name": "reverie_dreams:cuisine/bamboo_steamed_egg",
           "weight": 10
         },
         {
@@ -993,7 +993,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/gloomy_fruit_pie",
+          "name": "reverie_dreams:cuisine/horai-dama_no_eda",
           "weight": 10
         },
         {
@@ -1009,7 +1009,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/glutinous_rice_balls",
+          "name": "reverie_dreams:cuisine/stinky_tofu",
           "weight": 10
         },
         {
@@ -1025,7 +1025,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/golden_crispy_fish_cake",
+          "name": "reverie_dreams:cuisine/colorful_jade_fried_buns",
           "weight": 10
         },
         {
@@ -1041,7 +1041,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/grand_banquet",
+          "name": "reverie_dreams:cuisine/mapo_tofu",
           "weight": 10
         },
         {
@@ -1057,7 +1057,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/green_bamboo_welcomes_spring",
+          "name": "reverie_dreams:cuisine/boiled_fish",
           "weight": 10
         },
         {
@@ -1073,7 +1073,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/green_fairy_mushroom",
+          "name": "reverie_dreams:cuisine/moon_cake",
           "weight": 10
         },
         {
@@ -1089,7 +1089,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/grilled_hagfish",
+          "name": "reverie_dreams:cuisine/maoyu_tricolor_ice_cream",
           "weight": 10
         },
         {
@@ -1105,7 +1105,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/grilled_pork_rice_balls",
+          "name": "reverie_dreams:cuisine/maoyu_lava_tofu",
           "weight": 10
         },
         {
@@ -1121,7 +1121,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/heart_porridge_gruel",
+          "name": "reverie_dreams:cuisine/scarlet_devils_cake",
           "weight": 10
         },
         {
@@ -1137,7 +1137,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/hell_thrill_warning",
+          "name": "reverie_dreams:cuisine/unconscious_monster_mousse",
           "weight": 10
         },
         {
@@ -1153,7 +1153,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/holy_white_lotus_seed_cake",
+          "name": "reverie_dreams:cuisine/dumpling",
           "weight": 10
         },
         {
@@ -1169,7 +1169,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/honey_bbq_pork",
+          "name": "reverie_dreams:cuisine/glutinous_rice_balls",
           "weight": 10
         },
         {
@@ -1185,7 +1185,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/horai-dama_no_eda",
+          "name": "reverie_dreams:cuisine/fried_shrimp_tempura",
           "weight": 10
         },
         {
@@ -1201,7 +1201,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/hot_waffles",
+          "name": "reverie_dreams:cuisine/golden_crispy_fish_cake",
           "weight": 10
         },
         {
@@ -1217,7 +1217,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/hula_soup",
+          "name": "reverie_dreams:cuisine/all_meat_feast",
           "weight": 10
         },
         {
@@ -1233,7 +1233,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/lion_head",
+          "name": "reverie_dreams:cuisine/pickled_cucumbers",
           "weight": 10
         },
         {
@@ -1249,7 +1249,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/longyin_peach",
+          "name": "reverie_dreams:cuisine/baked_crab_with_cream",
           "weight": 10
         },
         {
@@ -1265,7 +1265,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/looking_up_at_the_ceiling_fruit_pie",
+          "name": "reverie_dreams:cuisine/pseudo_jiritama",
           "weight": 10
         },
         {
@@ -1281,7 +1281,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/lotus_fish_rice_bowl",
+          "name": "reverie_dreams:cuisine/okonomiyaki",
           "weight": 10
         },
         {
@@ -1297,7 +1297,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/luohan_vegetarian",
+          "name": "reverie_dreams:cuisine/takoyaki",
           "weight": 10
         },
         {
@@ -1313,7 +1313,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/mad_hatter_tea_party",
+          "name": "reverie_dreams:cuisine/sea_urchin_sashimi",
           "weight": 10
         },
         {
@@ -1329,7 +1329,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/magma",
+          "name": "reverie_dreams:cuisine/mushroom_meat_slices",
           "weight": 10
         },
         {
@@ -1345,7 +1345,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/maoyu_lava_tofu",
+          "name": "reverie_dreams:cuisine/secret_mushroom_casserole",
           "weight": 10
         },
         {
@@ -1361,7 +1361,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/maoyu_tricolor_ice_cream",
+          "name": "reverie_dreams:cuisine/mushroom_girls_dance_stew",
           "weight": 10
         },
         {
@@ -1377,7 +1377,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/mapo_tofu",
+          "name": "reverie_dreams:cuisine/milky_mushroom_soup",
           "weight": 10
         },
         {
@@ -1393,7 +1393,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/milky_mushroom_soup",
+          "name": "reverie_dreams:cuisine/ordinary_small_cake",
           "weight": 10
         },
         {
@@ -1409,7 +1409,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/mochi",
+          "name": "reverie_dreams:cuisine/seven_colored_yokan",
           "weight": 10
         },
         {
@@ -1425,7 +1425,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/molecular_egg",
+          "name": "reverie_dreams:cuisine/nigiri_sushi",
           "weight": 10
         },
         {
@@ -1441,7 +1441,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/moonlight_dumplings",
+          "name": "reverie_dreams:cuisine/pumpkin_shrimp_cake",
           "weight": 10
         },
         {
@@ -1457,7 +1457,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/moonlight_over_lotus_pond",
+          "name": "reverie_dreams:cuisine/gensokyo_buddha_jumps_over_the_wall",
           "weight": 10
         },
         {
@@ -1473,7 +1473,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/moon_cake",
+          "name": "reverie_dreams:cuisine/depressed_cheese_sticks",
           "weight": 10
         },
         {
@@ -1489,7 +1489,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/moon_lovers",
+          "name": "reverie_dreams:cuisine/gloomy_fruit_pie",
           "weight": 10
         },
         {
@@ -1505,7 +1505,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/mushroom_girls_dance_stew",
+          "name": "reverie_dreams:cuisine/screaming_oden",
           "weight": 10
         },
         {
@@ -1521,7 +1521,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/mushroom_meat_slices",
+          "name": "reverie_dreams:cuisine/crisp_cyclone",
           "weight": 10
         },
         {
@@ -1537,7 +1537,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/nigiri_sushi",
+          "name": "reverie_dreams:cuisine/looking_up_at_the_ceiling_fruit_pie",
           "weight": 10
         },
         {
@@ -1553,7 +1553,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/oedo_boat_festival",
+          "name": "reverie_dreams:cuisine/beetle_steamed_cake",
           "weight": 10
         },
         {
@@ -1569,7 +1569,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/okonomiyaki",
+          "name": "reverie_dreams:cuisine/lion_head",
           "weight": 10
         },
         {
@@ -1585,7 +1585,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/one_hit_kill",
+          "name": "reverie_dreams:cuisine/giant_tamagoyaki",
           "weight": 10
         },
         {
@@ -1601,7 +1601,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/ordinary_small_cake",
+          "name": "reverie_dreams:cuisine/oedo_boat_festival",
           "weight": 10
         },
         {
@@ -1617,7 +1617,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pan_fried_mushroom_meat_roll",
+          "name": "reverie_dreams:cuisine/sakura_pudding",
           "weight": 10
         },
         {
@@ -1633,7 +1633,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pan_fried_salmon",
+          "name": "reverie_dreams:cuisine/refreshing_pudding",
           "weight": 10
         },
         {
@@ -1649,7 +1649,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/peach_blossom_glaze_roll",
+          "name": "reverie_dreams:cuisine/burnt_pudding",
           "weight": 10
         },
         {
@@ -1665,7 +1665,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/peach_blossom_soup",
+          "name": "reverie_dreams:cuisine/cat_food",
           "weight": 10
         },
         {
@@ -1681,7 +1681,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/phoenix",
+          "name": "reverie_dreams:cuisine/salmon_tempura",
           "weight": 10
         },
         {
@@ -1697,7 +1697,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pickled_cucumbers",
+          "name": "reverie_dreams:cuisine/fish_leaps_over_dragon_gate",
           "weight": 10
         },
         {
@@ -1713,7 +1713,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pig_deer_butterfly",
+          "name": "reverie_dreams:cuisine/cheese_egg",
           "weight": 10
         },
         {
@@ -1729,7 +1729,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pine_nut_cake",
+          "name": "reverie_dreams:cuisine/one_hit_kill",
           "weight": 10
         },
         {
@@ -1745,7 +1745,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pirate_bacon",
+          "name": "reverie_dreams:cuisine/hell_thrill_warning",
           "weight": 10
         },
         {
@@ -1761,7 +1761,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/plum_tea_rice",
+          "name": "reverie_dreams:cuisine/baked_sweet_potatoes",
           "weight": 10
         },
         {
@@ -1777,7 +1777,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/poetry_and_ginkgo",
+          "name": "reverie_dreams:cuisine/skinny_horse_dumpling",
           "weight": 10
         },
         {
@@ -1793,7 +1793,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/poisonous_garden",
+          "name": "reverie_dreams:cuisine/fright_adventure",
           "weight": 10
         },
         {
@@ -1809,7 +1809,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pork_and_trout_smoked",
+          "name": "reverie_dreams:cuisine/biscay_biscuits",
           "weight": 10
         },
         {
@@ -1825,7 +1825,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pork_rice",
+          "name": "reverie_dreams:cuisine/pirate_bacon",
           "weight": 10
         },
         {
@@ -1841,7 +1841,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/potato_croquettes",
+          "name": "reverie_dreams:cuisine/luohan_vegetarian",
           "weight": 10
         },
         {
@@ -1857,7 +1857,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pseudo_jiritama",
+          "name": "reverie_dreams:cuisine/yunshan_cotton_candy",
           "weight": 10
         },
         {
@@ -1873,7 +1873,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/pumpkin_shrimp_cake",
+          "name": "reverie_dreams:cuisine/holy_white_lotus_seed_cake",
           "weight": 10
         },
         {
@@ -1889,7 +1889,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/rapunzel",
+          "name": "reverie_dreams:cuisine/gensokyo_star_lotus_ship",
           "weight": 10
         },
         {
@@ -1905,7 +1905,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/real_seafood_miso_soup",
+          "name": "reverie_dreams:cuisine/pine_nut_cake",
           "weight": 10
         },
         {
@@ -1921,7 +1921,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/red_bean_daifuku",
+          "name": "reverie_dreams:cuisine/shiraga_sadamatsu",
           "weight": 10
         },
         {
@@ -1937,7 +1937,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/refreshing_pudding",
+          "name": "reverie_dreams:cuisine/taichi_bagua_fish_maw",
           "weight": 10
         },
         {
@@ -1953,7 +1953,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/reversing_the_world",
+          "name": "reverie_dreams:cuisine/candied_chestnuts",
           "weight": 10
         },
         {
@@ -1969,7 +1969,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/rice_ball",
+          "name": "reverie_dreams:cuisine/tianshi_braised_chestnut_mushrooms",
           "weight": 10
         },
         {
@@ -1985,7 +1985,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/risotto",
+          "name": "reverie_dreams:cuisine/lotus_fish_rice_bowl",
           "weight": 10
         },
         {
@@ -2001,7 +2001,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/roasted_mushrooms",
+          "name": "reverie_dreams:cuisine/candied_sweet_potato",
           "weight": 10
         },
         {
@@ -2017,7 +2017,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/sakura_pudding",
+          "name": "reverie_dreams:cuisine/pan_fried_mushroom_meat_roll",
           "weight": 10
         },
         {
@@ -2033,7 +2033,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/salmon_tempura",
+          "name": "reverie_dreams:cuisine/assorted_tempura",
           "weight": 10
         },
         {
@@ -2049,7 +2049,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/sashimi_platter",
+          "name": "reverie_dreams:cuisine/fried_tomato_strips",
           "weight": 10
         },
         {
@@ -2065,7 +2065,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/scarlet_devils_cake",
+          "name": "reverie_dreams:cuisine/braised_pork_with_peach",
           "weight": 10
         },
         {
@@ -2081,7 +2081,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/scones",
+          "name": "reverie_dreams:cuisine/reversing_the_world",
           "weight": 10
         },
         {
@@ -2097,7 +2097,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/screaming_oden",
+          "name": "reverie_dreams:cuisine/red_bean_daifuku",
           "weight": 10
         },
         {
@@ -2113,7 +2113,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/seafood_miso_soup",
+          "name": "reverie_dreams:cuisine/dorayaki",
           "weight": 10
         },
         {
@@ -2129,7 +2129,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/sea_urchin_sashimi",
+          "name": "reverie_dreams:cuisine/the_beauty_of_han_palace",
           "weight": 10
         },
         {
@@ -2145,7 +2145,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/sea_urchin_shingen_pancake",
+          "name": "reverie_dreams:cuisine/bamboo_shoots_stewed_in_stone_pot",
           "weight": 10
         },
         {
@@ -2161,7 +2161,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/secret_dried_fish",
+          "name": "reverie_dreams:cuisine/bamboo_tube_steamed_pork",
           "weight": 10
         },
         {
@@ -2177,7 +2177,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/secret_mushroom_casserole",
+          "name": "reverie_dreams:cuisine/green_bamboo_welcomes_spring",
           "weight": 10
         },
         {
@@ -2193,7 +2193,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/seven_colored_yokan",
+          "name": "reverie_dreams:cuisine/plum_tea_rice",
           "weight": 10
         },
         {
@@ -2209,7 +2209,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/shiraga_sadamatsu",
+          "name": "reverie_dreams:cuisine/steamed_egg_with_sea_urchin",
           "weight": 10
         },
         {
@@ -2225,7 +2225,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/skinny_horse_dumpling",
+          "name": "reverie_dreams:cuisine/fantasy_is_all_the_rage",
           "weight": 10
         },
         {
@@ -2241,7 +2241,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/snow_white",
+          "name": "reverie_dreams:cuisine/green_fairy_mushroom",
           "weight": 10
         },
         {
@@ -2257,7 +2257,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/steamed_egg_with_sea_urchin",
+          "name": "reverie_dreams:cuisine/flowers_birds_wind_and_moon",
           "weight": 10
         },
         {
@@ -2273,7 +2273,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/stinky_tofu",
+          "name": "reverie_dreams:cuisine/the_dream",
           "weight": 10
         },
         {
@@ -2289,7 +2289,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/strength_soup",
+          "name": "reverie_dreams:cuisine/toon_pancakes",
           "weight": 10
         },
         {
@@ -2305,7 +2305,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/superme_seafood_noodles",
+          "name": "reverie_dreams:cuisine/poisonous_garden",
           "weight": 10
         },
         {
@@ -2321,7 +2321,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/taichi_bagua_fish_maw",
+          "name": "reverie_dreams:cuisine/a_little_sweet_poison",
           "weight": 10
         },
         {
@@ -2337,7 +2337,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/taketorihime",
+          "name": "reverie_dreams:cuisine/eel_egg_donburi",
           "weight": 10
         },
         {
@@ -2353,7 +2353,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/takoyaki",
+          "name": "reverie_dreams:cuisine/bamboo_tube_roasted_drunken_shrimp",
           "weight": 10
         },
         {
@@ -2369,7 +2369,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/the_beauty_of_han_palace",
+          "name": "reverie_dreams:cuisine/beef_hot_pot",
           "weight": 10
         },
         {
@@ -2385,7 +2385,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/the_dream",
+          "name": "reverie_dreams:cuisine/cat_kululi",
           "weight": 10
         },
         {
@@ -2401,7 +2401,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/the_mars",
+          "name": "reverie_dreams:cuisine/cat_pizza",
           "weight": 10
         },
         {
@@ -2417,7 +2417,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/the_source_of_life",
+          "name": "reverie_dreams:cuisine/cats_playing_in_water",
           "weight": 10
         },
         {
@@ -2433,7 +2433,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/tianshi_braised_chestnut_mushrooms",
+          "name": "reverie_dreams:cuisine/rapunzel",
           "weight": 10
         },
         {
@@ -2449,7 +2449,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/tofu_miso",
+          "name": "reverie_dreams:cuisine/sea_urchin_shingen_pancake",
           "weight": 10
         },
         {
@@ -2465,7 +2465,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/tofu_pot",
+          "name": "reverie_dreams:cuisine/mad_hatter_tea_party",
           "weight": 10
         },
         {
@@ -2481,7 +2481,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/tonkotsu_ramen",
+          "name": "reverie_dreams:cuisine/peach_blossom_glaze_roll",
           "weight": 10
         },
         {
@@ -2497,7 +2497,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/toon_pancakes",
+          "name": "reverie_dreams:cuisine/moonlight_over_lotus_pond",
           "weight": 10
         },
         {
@@ -2513,7 +2513,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/two_heavens_one_style",
+          "name": "reverie_dreams:cuisine/longyin_peach",
           "weight": 10
         },
         {
@@ -2529,7 +2529,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/udumbara_cake",
+          "name": "reverie_dreams:cuisine/molecular_egg",
           "weight": 10
         },
         {
@@ -2545,7 +2545,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/unconscious_monster_mousse",
+          "name": "reverie_dreams:cuisine/the_source_of_life",
           "weight": 10
         },
         {
@@ -2561,7 +2561,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/vegetable_special",
+          "name": "reverie_dreams:cuisine/the_mars",
           "weight": 10
         },
         {
@@ -2577,7 +2577,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/warm_rice_ball",
+          "name": "reverie_dreams:cuisine/heart_porridge_gruel",
           "weight": 10
         },
         {
@@ -2593,7 +2593,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/white_peach_eight_bridge",
+          "name": "reverie_dreams:cuisine/hula_soup",
           "weight": 10
         },
         {
@@ -2609,7 +2609,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/yunshan_cotton_candy",
+          "name": "reverie_dreams:cuisine/superme_seafood_noodles",
           "weight": 10
         },
         {
@@ -2625,7 +2625,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:food/zhaji",
+          "name": "reverie_dreams:cuisine/dark_cuisine",
           "weight": 10
         }
       ],
@@ -2651,7 +2651,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:ingredient/bamboo_shoots",
+          "name": "reverie_dreams:ingredient/venison",
           "weight": 10
         },
         {
@@ -2667,551 +2667,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:ingredient/black_pork",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/black_salt",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/broccoli",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/butter",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/capsaicin",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/cheese",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/chestnut",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/chili",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/cicada_shell",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/crab",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/cream",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/cucumber",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/dew",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/ficus_microcarpa",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/flour",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/flowers",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/ginkgo",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/grape",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/hagfish",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/lemon",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/lotus_nuts",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/moonflower",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/octopus",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/onion",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/peach",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/pine_nut",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/plum",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/puff_yo_fruit",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/red_beans",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/salmon",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/sea_urchin",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/shrimp",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/sticky_rice",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/supreme_tuna",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/sweet_potato",
+          "name": "reverie_dreams:ingredient/wild_boar_meat",
           "weight": 10
         },
         {
@@ -3243,151 +2699,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:ingredient/tomato",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/toon",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/tremella",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/trout",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/truffle",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/tuna",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/twin_lotus",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/udumbara",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/venison",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "reverie_dreams:ingredient/wagyu_beef",
+          "name": "reverie_dreams:ingredient/onion",
           "weight": 10
         },
         {
@@ -3419,7 +2731,695 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:ingredient/wild_boar_meat",
+          "name": "reverie_dreams:ingredient/trout",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/hagfish",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/salmon",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/tuna",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/black_pork",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/wagyu_beef",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/truffle",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/supreme_tuna",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/peach",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/ginkgo",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/shrimp",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/cicada_shell",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/udumbara",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/dew",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/bamboo_shoots",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/butter",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/flour",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/sticky_rice",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/moonflower",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/chili",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/grape",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/cucumber",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/octopus",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/sea_urchin",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/black_salt",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/cream",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/crab",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/twin_lotus",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/lemon",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/cheese",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/lotus_nuts",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/sweet_potato",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/pine_nut",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/chestnut",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/plum",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/red_beans",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/flowers",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/toon",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/tomato",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/broccoli",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/puff_yo_fruit",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/ficus_microcarpa",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/tremella",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "reverie_dreams:ingredient/capsaicin",
           "weight": 10
         }
       ],

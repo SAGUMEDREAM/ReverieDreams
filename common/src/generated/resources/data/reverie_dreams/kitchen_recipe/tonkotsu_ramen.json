@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "minecraft:porkchop"
+      "id": "minecraft:porkchop",
+      "count": 1
     },
     {
-      "id": "minecraft:egg"
+      "id": "minecraft:egg",
+      "count": 1
     },
     {
-      "id": "minecraft:kelp"
+      "id": "minecraft:kelp",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/tonkotsu_ramen"
+    "id": "reverie_dreams:cuisine/tonkotsu_ramen",
+    "count": 1
   },
   "cost_time": 8.0
 }

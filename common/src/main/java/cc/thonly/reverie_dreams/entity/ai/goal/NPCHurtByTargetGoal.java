@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
@@ -41,7 +42,7 @@ public class NPCHurtByTargetGoal extends TargetGoal {
                     return false; // 同主人不反击
                 }
             }
-            if (lastHurtByMob.is(EntityType.PLAYER) && getServerLevel(this.mob).getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
+            if (lastHurtByMob instanceof Player && getServerLevel(this.mob).getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
                 return false;
             } else {
                 for(Class<?> ignoreClass : this.toIgnoreDamage) {

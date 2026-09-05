@@ -2,20 +2,25 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/onion"
+      "id": "reverie_dreams:ingredient/onion",
+      "count": 1
     },
     {
-      "id": "minecraft:brown_mushroom"
+      "id": "minecraft:brown_mushroom",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/bamboo_shoots"
+      "id": "reverie_dreams:ingredient/bamboo_shoots",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/butter"
+      "id": "reverie_dreams:ingredient/butter",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/risotto"
+    "id": "reverie_dreams:cuisine/risotto",
+    "count": 1
   },
   "cost_time": 6.0
 }

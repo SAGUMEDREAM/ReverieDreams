@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.client.model.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.Hairball;
-import com.geckolib.model.DefaultedEntityGeoModel;
-import com.geckolib.renderer.base.GeoRenderState;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 import net.minecraft.resources.Identifier;
 
 public class HairballVariantModel extends DefaultedEntityGeoModel<Hairball> {

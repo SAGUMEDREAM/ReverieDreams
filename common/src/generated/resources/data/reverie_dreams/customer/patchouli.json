@@ -1,0 +1,56 @@
+{
+  "role_type": "reverie_dreams:patchouli",
+  "rare": true,
+  "budget": {
+    "min": 600,
+    "max": 1000
+  },
+  "likes": [
+    "reverie_dreams:gourmet",
+    "reverie_dreams:western_style",
+    "reverie_dreams:sweet",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:dreamlike"
+  ],
+  "dislikes": [
+    "reverie_dreams:salty",
+    "reverie_dreams:raw",
+    "reverie_dreams:fiery",
+    "reverie_dreams:bizarre"
+  ],
+  "beverages": [
+    "reverie_dreams:cocktail",
+    "reverie_dreams:liqueur",
+    "reverie_dreams:bubble"
+  ],
+  "chats": [
+    "reverie_dreams.role.patchouli.chat.0",
+    "reverie_dreams.role.patchouli.chat.1",
+    "reverie_dreams.role.patchouli.chat.2",
+    "reverie_dreams.role.patchouli.chat.3",
+    "reverie_dreams.role.patchouli.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.patchouli.order.0",
+    "reverie_dreams.role.patchouli.order.1",
+    "reverie_dreams.role.patchouli.order.2",
+    "reverie_dreams.role.patchouli.order.3",
+    "reverie_dreams.role.patchouli.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.patchouli.description.0",
+    "reverie_dreams.role.patchouli.description.1",
+    "reverie_dreams.role.patchouli.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.patchouli.evaluation.exbad",
+    "bad": "reverie_dreams.role.patchouli.evaluation.bad",
+    "norm": "reverie_dreams.role.patchouli.evaluation.norm",
+    "good": "reverie_dreams.role.patchouli.evaluation.good",
+    "exgood": "reverie_dreams.role.patchouli.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.patchouli.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.patchouli.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.patchouli.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.patchouli.evaluation.seenRepell"
+  }
+}

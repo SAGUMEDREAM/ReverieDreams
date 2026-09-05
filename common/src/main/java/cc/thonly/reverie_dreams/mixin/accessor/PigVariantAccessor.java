@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(PigVariant.class)
 public interface PigVariantAccessor {
-    @Invoker("<init>")
-    static PigVariant invokeStaticInit(ModelAndTexture<PigVariant.ModelType> modelAndTexture, ClientAsset.ResourceTexture babyTexture, SpawnPrioritySelectors spawnConditions) {
-        throw new AssertionError();
-    }
-
-    @Invoker("<init>")
-    static PigVariant invokeStaticInit(ModelAndTexture<PigVariant.ModelType> assetInfo, ClientAsset.ResourceTexture babyTexture) {
-        throw new AssertionError();
-    }
+//    @Invoker("<init>")
+//    static PigVariant invokeStaticInit(ModelAndTexture<PigVariant.ModelType> modelAndTexture, ClientAsset.ResourceTexture babyTexture, SpawnPrioritySelectors spawnConditions) {
+//        throw new AssertionError();
+//    }
+//
+//    @Invoker("<init>")
+//    static PigVariant invokeStaticInit(ModelAndTexture<PigVariant.ModelType> assetInfo, ClientAsset.ResourceTexture babyTexture) {
+//        throw new AssertionError();
+//    }
 }

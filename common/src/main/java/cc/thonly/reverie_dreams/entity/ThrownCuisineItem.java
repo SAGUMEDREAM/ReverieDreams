@@ -16,7 +16,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -51,7 +51,7 @@ public class ThrownCuisineItem extends ThrowableItemProjectile {
         ItemStack item = this.getItem();
         return item.isEmpty()
                 ? ParticleTypes.ITEM_SNOWBALL
-                : new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
+                : new ItemParticleOption(ParticleTypes.ITEM, item);
     }
 
     @Override

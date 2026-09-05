@@ -16,7 +16,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.phys.Vec3;
 
 @SuppressWarnings("resource")
@@ -64,7 +64,7 @@ public class NPCInventoryEatGoal extends Goal {
 
             //干饭粒子
             world.sendParticles(
-                    new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(stack)), // 粒子类型 + 物品
+                    new ItemParticleOption(ParticleTypes.ITEM, stack), // 粒子类型 + 物品
                     eyePos.x + this.maid.getLookAngle().x / 3.0, eyePos.y, eyePos.z + this.maid.getLookAngle().x / 3.0,
                     2,
                     world.getRandom().nextGaussian() * 0.05, world.getRandom().nextGaussian() * 0.05, world.getRandom().nextGaussian() * 0.05

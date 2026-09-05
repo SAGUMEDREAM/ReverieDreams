@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.registry.content.effect;
 import cc.thonly.reverie_dreams.effect.*;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.delegate.MobEffectDelegate;
-import dev.architectury.registry.registries.RegistrySupplier;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 
@@ -25,7 +25,7 @@ public class RDStatusEffects {
     }
 
     public static MobEffectDelegate register(String name, Supplier<MobEffect> supplier) {
-        RegistrySupplier<MobEffect> registrySupplier = MCBuiltInRegistries.MOB_EFFECT.register(name, supplier);
+        RegistryDelegate<MobEffect> registrySupplier = MCBuiltInRegistries.MOB_EFFECT.register(name, supplier);
         return MobEffectDelegate.of(registrySupplier);
     }
 

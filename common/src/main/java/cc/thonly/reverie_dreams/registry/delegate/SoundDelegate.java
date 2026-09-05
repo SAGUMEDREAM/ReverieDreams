@@ -1,25 +1,50 @@
 package cc.thonly.reverie_dreams.registry.delegate;
 
-import dev.architectury.registry.registries.DeferredSupplier;
-import dev.architectury.registry.registries.RegistrySupplier;
-import lombok.experimental.Delegate;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
-public class SoundDelegate implements Holder<SoundEvent>, DeferredSupplier<SoundEvent> {
-    @Delegate
-    final RegistrySupplier<SoundEvent> supplier;
+import java.util.Objects;
 
-    public SoundDelegate(RegistrySupplier<SoundEvent> supplier) {
-        this.supplier = supplier;
+public class SoundDelegate extends RegistryDelegate<SoundEvent> {
+
+    private Identifier key;
+
+    private SoundDelegate(RegistryDelegate<SoundEvent> delegate) {
+        super(delegate);
+        this.key = delegate.getRegistryId();
     }
 
-    public static SoundDelegate of(RegistrySupplier<SoundEvent> supplier) {
-        return new SoundDelegate(supplier);
+    @Override
+    public void bindKey(Identifier key) {
+        this.key = key;
     }
 
+    public static SoundDelegate of(
+            RegistryDelegate<SoundEvent> delegate
+    ) {
+        return new SoundDelegate(delegate);
+    }
 
     public SoundEvent asSoundEvent() {
-        return this.supplier.get();
+        return this.get();
+    }
+
+    @Override
+    public Identifier getRegistryId() {
+        return this.key;
+    }
+
+    @Override
+    public void bind(Holder<SoundEvent> holder) {
+        Objects.requireNonNull(holder, "holder");
+
+        if (this.holder != null) {
+            throw new IllegalStateException(
+                    "Sound delegate is already bound"
+            );
+        }
+
+        this.holder = holder;
     }
 }

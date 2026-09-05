@@ -12,8 +12,10 @@ import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
+import eu.pb4.sgui.api.gui.GuiInterface;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import eu.pb4.sgui.api.gui.SlotBasedGui;
+import eu.pb4.sgui.api.gui.BaseSlotGui;
+import eu.pb4.sgui.api.gui.SlotGuiInterface;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
@@ -23,7 +25,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.inventory.ContainerInput;
+
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -88,7 +90,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
                     GuiElementBuilder builder = new GuiElementBuilder(getItemForState(shape.get(shapeY).get(shapeX)))
                             .setCallback(new GuiElement.ClickCallback() {
                                 @Override
-                                public void click(int i, ClickType clickType, ContainerInput input, SlotBasedGui slotGuiInterface) {
+                                public void click(int i, ClickType clickType, net.minecraft.world.inventory.ClickType input, SlotGuiInterface slotGuiInterface) {
                                     boolean current = shape.get(shapeY).get(shapeX);
                                     boolean next = !current;
 

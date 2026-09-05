@@ -55,7 +55,7 @@ public class BiRegistryProvider<K, V> implements Serializable {
     }
 
     public static <K, V> BiRegistryProvider<K, V> of(Identifier id, Class<K> klass, Class<V> vlass) {
-        return (BiRegistryProvider<K, V>) BuiltInBiRegistryProviders.ROOT.computeIfAbsent(id, _ -> new BiRegistryProvider<>(id, klass, vlass));
+        return (BiRegistryProvider<K, V>) BuiltInBiRegistryProviders.ROOT.computeIfAbsent(id, inst -> new BiRegistryProvider<>(id, klass, vlass));
     }
 
     public static <K, V> BiRegistryProvider<K, V> of(Class<K> klass, Class<V> vlass) {

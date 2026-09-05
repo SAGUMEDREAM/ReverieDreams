@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "minecraft:item_frame",
+    "Y": "minecraft:quartz"
+  },
+  "pattern": [
+    "YXY",
+    " Y "
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:plate"
+  }
+}

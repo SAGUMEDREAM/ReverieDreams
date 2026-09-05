@@ -20,13 +20,7 @@ repositories {
             includeGroup "mezz.jei"
         }
     }
-    maven {
-        name = 'GeckoLib'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-        content {
-            includeGroup("software.bernie.geckolib")
-        }
-    }
+    maven {url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" }
     maven { url = "https://maven.architectury.dev/" }
     maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
     maven { url = 'https://maven.aliyun.com/nexus/content/groups/public/' }
@@ -56,6 +50,18 @@ repositories {
 
     mavenCentral()
     mavenLocal()
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Cassian's Maven"
+                url = uri("https://maven.cassian.cc")
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("cc.cassian")
+        }
+    }
 
     exclusiveContent {
         forRepository {

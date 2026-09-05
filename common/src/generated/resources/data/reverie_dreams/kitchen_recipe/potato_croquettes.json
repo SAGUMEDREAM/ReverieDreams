@@ -2,11 +2,13 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:potato"
+      "id": "minecraft:potato",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/potato_croquettes"
+    "id": "reverie_dreams:cuisine/potato_croquettes",
+    "count": 1
   },
   "cost_time": 7.0
 }

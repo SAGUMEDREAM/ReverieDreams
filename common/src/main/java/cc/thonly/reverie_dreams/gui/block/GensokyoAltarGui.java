@@ -11,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
@@ -59,12 +58,12 @@ public class GensokyoAltarGui extends SimpleGui {
                     continue;
                 }
                 if (pos.equalsIgnoreCase("I")) {
-                    this.setSlot(index, new Slot(blockEntity.getInventory(), invSlot, 0, 0));
+                    this.setSlotRedirect(index, new Slot(blockEntity.getInventory(), invSlot, 0, 0));
                     invSlot++;
                     continue;
                 }
                 if (pos.equalsIgnoreCase("E")) {
-                    this.setSlot(index, new Slot(blockEntity.getInventory(), 8, 0, 0));
+                    this.setSlotRedirect(index, new Slot(blockEntity.getInventory(), 8, 0, 0));
                 }
             }
         }
@@ -81,7 +80,7 @@ public class GensokyoAltarGui extends SimpleGui {
     }
 
     @Override
-    public boolean onAnyClick(int index, ClickType type, ContainerInput action) {
+    public boolean onAnyClick(int index, ClickType type, net.minecraft.world.inventory.ClickType action) {
         if (this.blockEntity.getLevel() != null) {
             this.blockEntity.getLevel().sendBlockUpdated(
                     this.pos,

@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 
+
 @Mixin(EntityRenderDispatcher.class)
 public class EntityRenderDispatcherMixin {
     @Shadow
@@ -26,18 +27,16 @@ public class EntityRenderDispatcherMixin {
     @SuppressWarnings("unchecked")
     @Inject(method = "getRenderer(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;)Lnet/minecraft/client/renderer/entity/EntityRenderer;",
             at = @At("HEAD"), cancellable = true)
-    public <S extends EntityRenderState> void reverie_dreams$getNPCRenderer(S entityRenderState,
-                                                                            CallbackInfoReturnable<EntityRenderer<?, ? super S>> cir) {
-        if (entityRenderState instanceof NPCAvatarRenderState) {
-            cir.setReturnValue((EntityRenderer<?, ? super S>) this.renderers.get(entityRenderState.entityType));
+    public <S extends EntityRenderState> void reverie_dreams$getNPCRenderer(S renderState, CallbackInfoReturnable<EntityRenderer<?, ? super S>> cir) {
+        if (renderState instanceof NPCAvatarRenderState) {
+            cir.setReturnValue((EntityRenderer<?, ? super S>) this.renderers.get(renderState.entityType));
             cir.cancel();
         }
     }
 
     @Inject(method = "getRenderer(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;)Lnet/minecraft/client/renderer/entity/EntityRenderer;",
             at = @At("RETURN"), cancellable = true)
-    public <S extends EntityRenderState> void reverie_dreams$getEmptyRenderer(S entityRenderState,
-                                                                              CallbackInfoReturnable<EntityRenderer<?, ? super S>> cir) {
+    public <S extends EntityRenderState> void reverie_dreams$getEmptyRenderer(S renderState, CallbackInfoReturnable<EntityRenderer<?, ? super S>> cir) {
         if (PlatformContext.isDevMode() && cir.getReturnValue() == null) {
             cir.setReturnValue(this.reverie_dreams$getEmptyRenderer());
         }

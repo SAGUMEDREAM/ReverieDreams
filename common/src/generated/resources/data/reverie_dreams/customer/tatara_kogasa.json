@@ -1,0 +1,57 @@
+{
+  "role_type": "reverie_dreams:tatara_kogasa",
+  "rare": true,
+  "budget": {
+    "min": 150,
+    "max": 300
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:filling",
+    "reverie_dreams:sweet",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:bizarre"
+  ],
+  "dislikes": [
+    "reverie_dreams:fiery",
+    "reverie_dreams:soup_and_stew",
+    "reverie_dreams:spicy"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:can_add_ice",
+    "reverie_dreams:classical"
+  ],
+  "chats": [
+    "reverie_dreams.role.tatara_kogasa.chat.0",
+    "reverie_dreams.role.tatara_kogasa.chat.1",
+    "reverie_dreams.role.tatara_kogasa.chat.2",
+    "reverie_dreams.role.tatara_kogasa.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.tatara_kogasa.order.0",
+    "reverie_dreams.role.tatara_kogasa.order.1",
+    "reverie_dreams.role.tatara_kogasa.order.2",
+    "reverie_dreams.role.tatara_kogasa.order.3",
+    "reverie_dreams.role.tatara_kogasa.order.4",
+    "reverie_dreams.role.tatara_kogasa.order.5",
+    "reverie_dreams.role.tatara_kogasa.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.tatara_kogasa.description.0",
+    "reverie_dreams.role.tatara_kogasa.description.1",
+    "reverie_dreams.role.tatara_kogasa.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.tatara_kogasa.evaluation.exbad",
+    "bad": "reverie_dreams.role.tatara_kogasa.evaluation.bad",
+    "norm": "reverie_dreams.role.tatara_kogasa.evaluation.norm",
+    "good": "reverie_dreams.role.tatara_kogasa.evaluation.good",
+    "exgood": "reverie_dreams.role.tatara_kogasa.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.tatara_kogasa.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.tatara_kogasa.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.tatara_kogasa.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.tatara_kogasa.evaluation.seenRepell"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:wheat_seeds",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/lemon",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/tomato",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/scarlet_devil",
+    "count": 1
+  },
+  "cost_time": 840
+}

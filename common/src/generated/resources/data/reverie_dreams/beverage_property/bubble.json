@@ -1,0 +1,14 @@
+{
+  "registry_key": "reverie_dreams:bubble",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/qi",
+      "reverie_dreams:beverage/moon_rocket",
+      "reverie_dreams:beverage/soda",
+      "reverie_dreams:beverage/iceberg_maple_frozen_lemon",
+      "reverie_dreams:beverage/ordinary_fitness_tea",
+      "reverie_dreams:beverage/daughter_of_the_sea",
+      "reverie_dreams:beverage/mojito_burst_ball"
+    ]
+  }
+}

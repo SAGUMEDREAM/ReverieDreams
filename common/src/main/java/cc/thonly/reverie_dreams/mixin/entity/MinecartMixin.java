@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = {Minecart.class, MinecartChest.class, MinecartFurnace.class})
 public class MinecartMixin {
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
-    public void onUseNameTag(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> cir) {
+    public void onUseNameTag(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         Level level = player.level();
         if (!level.isClientSide()) {
             ItemStack itemStack = player.getItemInHand(hand);

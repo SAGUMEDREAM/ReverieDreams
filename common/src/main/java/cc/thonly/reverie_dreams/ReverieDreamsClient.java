@@ -6,13 +6,12 @@ import cc.thonly.reverie_dreams.client.ClientEventHandler;
 import cc.thonly.reverie_dreams.client.SafeClientAccessImpl;
 import cc.thonly.reverie_dreams.client.component.ClientPlayerComponentManager;
 import cc.thonly.reverie_dreams.client.registry.RDBlockEntityRenderers;
+import cc.thonly.reverie_dreams.client.registry.RDBlockRenderTypes;
 import cc.thonly.reverie_dreams.client.registry.RDEntityRenderers;
-import dev.architectury.event.events.client.ClientPlayerEvent;
-import dev.architectury.event.events.client.ClientTickEvent;
-import dev.architectury.platform.Platform;
-import dev.architectury.platform.client.ConfigurationScreenRegistry;
 import lombok.extern.slf4j.Slf4j;
-import me.shedaniel.autoconfig.AutoConfigClient;
+import net.blay09.mods.balm.client.platform.event.callback.ClientLifecycleCallback;
+import net.blay09.mods.balm.client.platform.event.callback.ClientTickCallback;
+import net.minecraft.client.player.LocalPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,22 +26,28 @@ public class ReverieDreamsClient {
     public static void initialize(Runnable lateInit) {
         SafeClientAccess.ref.set(new SafeClientAccessImpl());
         RDBlockEntityRenderers.initialize();
+        RDBlockRenderTypes.initialize();
         RDEntityRenderers.initialize();
         ReverieDreamsClient.initializeClientEvent();
         Midi2Sound.register();
         ReverieDreams.LATE_INIT_CLIENT.forEach(Runnable::run);
         ReverieDreams.LATE_INIT_CLIENT.clear();
-        ConfigurationScreenRegistry.register(Platform.getMod(ReverieDreams.MOD_ID), parent -> {
-            return AutoConfigClient.getConfigScreen(ReverieDreamsConfiguration.class, parent).get();
-        });
         lateInit.run();
     }
 
     public static void initializeClientEvent() {
-        ClientPlayerEvent.CLIENT_PLAYER_JOIN.register(ClientEventHandler::onPlayerConnectedToServer);
-        ClientPlayerEvent.CLIENT_PLAYER_JOIN.register(ClientEventHandler::onInitMidiDevice);
-        ClientPlayerEvent.CLIENT_PLAYER_QUIT.register(ClientEventHandler::onStopMidiDevice);
-        ClientTickEvent.CLIENT_POST.register(ClientPlayerComponentManager::tickByClient);
+        ClientLifecycleCallback.ConnectedToServer.EVENT.register(minecraft -> {
+            LocalPlayer player = minecraft.player;
+            minecraft.execute(() -> {
+                ClientEventHandler.onInitMidiDevice(player);
+                ClientEventHandler.onPlayerConnectedToServer(player);
+            });
+        });
+        ClientLifecycleCallback.DisconnectedFromServer.EVENT.register(minecraft -> {
+            LocalPlayer player = minecraft.player;
+            ClientEventHandler.onStopMidiDevice(player);
+        });
+        ClientTickCallback.AFTER.register(ClientPlayerComponentManager::tickByClient);
     }
 
     public static Logger logger() {

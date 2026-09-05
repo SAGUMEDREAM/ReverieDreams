@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.registry.tag;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviderKeys;
+import cc.thonly.reverie_dreams.util.trading.VillagerTrade;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
-import net.minecraft.tags.VillagerTradeTags;
-import net.minecraft.world.item.trading.VillagerTrade;
 
 public class RDVillagerTradeTags {
     public static final TagKey<VillagerTrade> HAWKERS_LEVEL_1 = of("hawkers/level_1");
@@ -35,6 +35,6 @@ public class RDVillagerTradeTags {
 
 
     private static TagKey<VillagerTrade> of(String id) {
-        return TagKey.create(Registries.VILLAGER_TRADE, ReverieDreams.id(id));
+        return TagKey.create(BuiltInRegistryProviderKeys.VILLAGER_TRADE, ReverieDreams.id(id));
     }
 }

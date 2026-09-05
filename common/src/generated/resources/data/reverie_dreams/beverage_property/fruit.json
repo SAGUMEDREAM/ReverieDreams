@@ -1,0 +1,19 @@
+{
+  "registry_key": "reverie_dreams:fruit",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/fruity_high_ball",
+      "reverie_dreams:beverage/fruity_sour",
+      "reverie_dreams:beverage/plum_wine",
+      "reverie_dreams:beverage/scarlet_devil_mansion_black_tea",
+      "reverie_dreams:beverage/negroni",
+      "reverie_dreams:beverage/red_grapefruit_juice",
+      "reverie_dreams:beverage/iceberg_maple_frozen_lemon",
+      "reverie_dreams:beverage/daiginjo",
+      "reverie_dreams:beverage/komeiji_ice_cream",
+      "reverie_dreams:beverage/mango_pomelo_sago",
+      "reverie_dreams:beverage/drunk_actor",
+      "reverie_dreams:beverage/space_beer"
+    ]
+  }
+}

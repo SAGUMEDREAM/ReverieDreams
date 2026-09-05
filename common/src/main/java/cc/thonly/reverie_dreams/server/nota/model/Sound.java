@@ -36,10 +36,10 @@ public enum Sound {
     NOTE_DIDGERIDOO("BLOCK_NOTE_BLOCK_DIDGERIDOO"),
     NOTE_BIT("BLOCK_NOTE_BLOCK_BIT"),
     NOTE_BANJO("BLOCK_NOTE_BLOCK_BANJO"),
-    NOTE_TRUMPET("BLOCK_NOTE_BLOCK_TRUMPET"),
-    NOTE_TRUMPET_EXPOSED("BLOCK_NOTE_BLOCK_TRUMPET_EXPOSED"),
-    NOTE_TRUMPET_OXIDIZED("BLOCK_NOTE_BLOCK_TRUMPET_OXIDIZED"),
-    NOTE_TRUMPET_WEATHERED("BLOCK_NOTE_BLOCK_TRUMPET_WEATHERED"),
+//    NOTE_TRUMPET("BLOCK_NOTE_BLOCK_TRUMPET"),
+//    NOTE_TRUMPET_EXPOSED("BLOCK_NOTE_BLOCK_TRUMPET_EXPOSED"),
+//    NOTE_TRUMPET_OXIDIZED("BLOCK_NOTE_BLOCK_TRUMPET_OXIDIZED"),
+//    NOTE_TRUMPET_WEATHERED("BLOCK_NOTE_BLOCK_TRUMPET_WEATHERED"),
     ;
     final String[] versionDependentNames;
     SoundEvent cached = null;
@@ -118,18 +118,18 @@ public enum Sound {
             case "BLOCK_NOTE_BLOCK_BANJO" -> {
                 return bullshit(SoundEvents.NOTE_BLOCK_BANJO);
             }
-            case "BLOCK_NOTE_BLOCK_TRUMPET" -> {
-                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET);
-            }
-            case "BLOCK_NOTE_BLOCK_TRUMPET_EXPOSED" -> {
-                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET_EXPOSED);
-            }
-            case "BLOCK_NOTE_BLOCK_TRUMPET_OXIDIZED" -> {
-                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET_OXIDIZED);
-            }
-            case "BLOCK_NOTE_BLOCK_TRUMPET_WEATHERED" -> {
-                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET_WEATHERED);
-            }
+//            case "BLOCK_NOTE_BLOCK_TRUMPET" -> {
+//                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET);
+//            }
+//            case "BLOCK_NOTE_BLOCK_TRUMPET_EXPOSED" -> {
+//                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET_EXPOSED);
+//            }
+//            case "BLOCK_NOTE_BLOCK_TRUMPET_OXIDIZED" -> {
+//                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET_OXIDIZED);
+//            }
+//            case "BLOCK_NOTE_BLOCK_TRUMPET_WEATHERED" -> {
+//                return bullshit(SoundEvents.NOTE_BLOCK_TRUMPET_WEATHERED);
+//            }
         }
         return bullshit(SoundEvents.NOTE_BLOCK_BASS);
     }

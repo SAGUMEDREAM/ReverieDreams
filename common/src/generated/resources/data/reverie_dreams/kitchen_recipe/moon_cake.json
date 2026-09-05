@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/moonflower"
+      "id": "reverie_dreams:ingredient/moonflower",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/moon_cake"
+    "id": "reverie_dreams:cuisine/moon_cake",
+    "count": 1
   },
   "cost_time": 10.0
 }

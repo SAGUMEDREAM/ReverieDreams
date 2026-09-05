@@ -3,12 +3,15 @@ package cc.thonly.reverie_dreams.fabric.impl;
 import cc.thonly.reverie_dreams.registry.RegistryExtension;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.mojang.serialization.Lifecycle;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FabricRegistryProvider<T> extends RegistryProvider<T> implements RegistryExtension<T> {
@@ -61,5 +64,10 @@ public class FabricRegistryProvider<T> extends RegistryProvider<T> implements Re
             return name;
 
         return resolveId(alias);
+    }
+
+    @Override
+    public void bindTag(TagKey<T> tag, List<Holder<T>> values) {
+
     }
 }

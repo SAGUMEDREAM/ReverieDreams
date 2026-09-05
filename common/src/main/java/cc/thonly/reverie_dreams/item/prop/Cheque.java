@@ -27,6 +27,9 @@ public class Cheque extends Item {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
+        if (!(player instanceof ServerPlayer serverPlayer)) {
+            return InteractionResult.SUCCESS;
+        }
         ItemStack cheque = player.getItemInHand(hand);
         boolean creative = player.isCreative();
         String chequePlayerId = cheque.getOrDefault(RDDataComponentTypes.CHEQUE_PLAYER_ID.get(), "");
@@ -58,11 +61,11 @@ public class Cheque extends Item {
             cheque.set(RDDataComponentTypes.CHEQUE_PLAYER_ID.get(), playerId);
             cheque.set(RDDataComponentTypes.CHEQUE_NAME.get(), player.getDisplayName());
             cheque.set(RDDataComponentTypes.CHEQUE_AMOUNT.get(), newAmount);
-            player.sendSystemMessage(
+            serverPlayer.sendSystemMessage(
                     Component.literal("§e+%s".formatted(playerMoney))
             );
             if (newAmount >= 1500) {
-                SimpleTrigger.trigger((ServerPlayer) player, SimpleTriggerKeys.ASKING_FOR_MONEY);
+                SimpleTrigger.trigger(serverPlayer, SimpleTriggerKeys.ASKING_FOR_MONEY);
             }
 
             return InteractionResult.SUCCESS_SERVER;

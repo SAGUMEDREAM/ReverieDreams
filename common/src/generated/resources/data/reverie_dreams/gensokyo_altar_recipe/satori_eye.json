@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "minecraft:ender_eye"
+    "id": "minecraft:ender_eye",
+    "count": 1
   },
   "slots": [
     {
@@ -37,6 +38,7 @@
     }
   ],
   "output": {
-    "id": "reverie_dreams:satori_eye"
+    "id": "reverie_dreams:satori_eye",
+    "count": 1
   }
 }

@@ -1,0 +1,19 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "reverie_dreams:low_gravity_boot"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "reverie_dreams:low_gravity_boot"
+      }
+    ],
+    "horse_body": [
+      {
+        "texture": "reverie_dreams:low_gravity_boot"
+      }
+    ]
+  }
+}

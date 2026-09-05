@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 250,
+  "experience": 0.7,
+  "group": "iron_ingot",
+  "ingredient": "reverie_dreams:moon_iron_ore",
+  "result": {
+    "id": "minecraft:iron_ingot"
+  }
+}

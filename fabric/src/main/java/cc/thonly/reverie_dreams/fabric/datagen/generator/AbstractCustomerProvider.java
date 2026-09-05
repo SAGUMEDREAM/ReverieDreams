@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.data.CachedOutput;
@@ -21,11 +21,11 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class AbstractCustomerProvider implements DataProvider {
-    public final FabricPackOutput output;
+    public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Map<Identifier, Customer> registries = new Object2ObjectOpenHashMap<>();
 
-    public AbstractCustomerProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractCustomerProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }

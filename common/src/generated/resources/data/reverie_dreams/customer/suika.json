@@ -1,0 +1,51 @@
+{
+  "role_type": "reverie_dreams:suika",
+  "rare": true,
+  "budget": {
+    "min": 600,
+    "max": 800
+  },
+  "likes": [
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:petite"
+  ],
+  "dislikes": [
+    "reverie_dreams:greasy"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:direct_drinking"
+  ],
+  "chats": [
+    "reverie_dreams.role.suika.chat.0",
+    "reverie_dreams.role.suika.chat.1",
+    "reverie_dreams.role.suika.chat.2",
+    "reverie_dreams.role.suika.chat.3",
+    "reverie_dreams.role.suika.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.suika.order.0",
+    "reverie_dreams.role.suika.order.1",
+    "reverie_dreams.role.suika.order.2",
+    "reverie_dreams.role.suika.order.3",
+    "reverie_dreams.role.suika.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.suika.description.0",
+    "reverie_dreams.role.suika.description.1",
+    "reverie_dreams.role.suika.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.suika.evaluation.exbad",
+    "bad": "reverie_dreams.role.suika.evaluation.bad",
+    "norm": "reverie_dreams.role.suika.evaluation.norm",
+    "good": "reverie_dreams.role.suika.evaluation.good",
+    "exgood": "reverie_dreams.role.suika.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.suika.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.suika.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.suika.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.suika.evaluation.seenRepell"
+  }
+}

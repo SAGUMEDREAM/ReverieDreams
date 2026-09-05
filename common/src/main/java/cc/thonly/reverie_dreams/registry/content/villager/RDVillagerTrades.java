@@ -1,11 +1,15 @@
 package cc.thonly.reverie_dreams.registry.content.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviderKeys;
 import cc.thonly.reverie_dreams.registry.content.villager.offer.HawkerOffers;
 import cc.thonly.reverie_dreams.registry.content.villager.offer.MoneyShopClerkOffers;
 import cc.thonly.reverie_dreams.registry.content.villager.offer.MystiaModOffers;
 import cc.thonly.reverie_dreams.registry.content.villager.offer.PriestOffers;
+import cc.thonly.reverie_dreams.util.trading.VillagerTrade;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.world.entity.npc.villager.BalmVillagerTradeRegistrar;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -14,9 +18,10 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +36,38 @@ public class RDVillagerTrades {
     public static final String HAWKERS_LEVEL_TEMPLATE = "hawkers_level_%s_result_item_%s";
     public static final String PRIEST_LEVEL_TEMPLATE = "priest_level_%s_result_item_%s";
     public static final String MONEY_SHOP_CLERK_TEMPLATE = "money_shop_clerk_level_%s_result_item_%s";
+
+    public static void initialize() {
+        Balm.getRuntime().villagerTrades(ReverieDreams.MOD_ID, tradeRegistrar -> {
+            HawkerOffers.makeOffers().forEach(tuple -> {
+                Integer level = tuple.getA();
+                VillagerTrades.ItemListing listing = tuple.getB();
+                tradeRegistrar.registerTrade(RDVillagerProfessions.HAWKERS_KEY, level, listing);
+            });
+            PriestOffers.makeOffers().forEach(tuple -> {
+                Integer level = tuple.getA();
+                VillagerTrades.ItemListing listing = tuple.getB();
+                tradeRegistrar.registerTrade(RDVillagerProfessions.PRIEST_KEY, level, listing);
+            });
+            MoneyShopClerkOffers.makeOffers().forEach(tuple -> {
+                Integer level = tuple.getA();
+                VillagerTrades.ItemListing listing = tuple.getB();
+                tradeRegistrar.registerTrade(RDVillagerProfessions.MONEY_SHOP_CLERK_KEY, level, listing);
+            });
+            MystiaModOffers.makeOffers().forEach(tuple -> {
+                Integer level = tuple.getA();
+                VillagerTrades.ItemListing listing = tuple.getB();
+                tradeRegistrar.registerTrade(VillagerProfession.BUTCHER, level, listing);
+            });
+
+        });
+    }
+
+    private static void tryCheck(HolderGetter<Item> items, HolderGetter<Enchantment> enchantments) {
+        if (!isPrepared()) {
+            fillRegistries(items, enchantments);
+        }
+    }
 
     public static void bootstrap(BootstrapContext<VillagerTrade> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -92,7 +129,7 @@ public class RDVillagerTrades {
             Identifier itemId = BuiltInRegistries.ITEM.getKey(result.asItem());
             String itemIdName = "%s_%s".formatted(itemId.getNamespace(), itemId.getPath());
             ResourceKey<VillagerTrade> key = ResourceKey.create(
-                    Registries.VILLAGER_TRADE,
+                    BuiltInRegistryProviderKeys.VILLAGER_TRADE,
                     Identifier.fromNamespaceAndPath(namespace, template.formatted(level, itemIdName))
             );
             Set<ResourceKey<VillagerTrade>> keys = BOUNDED_TAG_KEYS.computeIfAbsent(tagKey, tk -> new LinkedHashSet<>());
@@ -154,6 +191,6 @@ public class RDVillagerTrades {
     }
 
     public static ResourceKey<VillagerTrade> key(String name) {
-        return ResourceKey.create(Registries.VILLAGER_TRADE, ReverieDreams.id(name));
+        return ResourceKey.create(BuiltInRegistryProviderKeys.VILLAGER_TRADE, ReverieDreams.id(name));
     }
 }

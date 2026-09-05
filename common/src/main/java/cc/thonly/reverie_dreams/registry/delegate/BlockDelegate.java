@@ -1,47 +1,66 @@
 package cc.thonly.reverie_dreams.registry.delegate;
 
-import dev.architectury.registry.registries.DeferredSupplier;
-import dev.architectury.registry.registries.RegistrySupplier;
-import lombok.experimental.Delegate;
+import cc.thonly.keine.item.ItemStackTemplate;
+import cc.thonly.reverie_dreams.registry.DeferredDelegateRegister;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
-public class BlockDelegate implements Holder<Block>, DeferredSupplier<Block>, ItemLike {
-    @Delegate
-    final RegistrySupplier<Block> supplier;
+import java.util.Objects;
 
-    public BlockDelegate(RegistrySupplier<Block> supplier) {
-        this.supplier = supplier;
+public class BlockDelegate
+        extends RegistryDelegate<Block>
+        implements ItemLike {
+    private Identifier key;
+
+    private BlockDelegate(Holder<Block> holder) {
+        super(holder);
+        if (holder instanceof DeferredDelegateRegister.Entry<Block> entry) {
+            this.key = entry.getRegistryId();
+        }
     }
 
-    public static BlockDelegate of(RegistrySupplier<Block> supplier) {
-        return new BlockDelegate(supplier);
+    public static BlockDelegate of(
+            RegistryDelegate<Block> delegate
+    ) {
+        BlockDelegate result = new BlockDelegate(null);
+        result.bindKey(delegate.getRegistryId());
+        result.holder = delegate;
+        return result;
+    }
+
+    public static BlockDelegate of(
+            Holder<Block> holder
+    ) {
+        return new BlockDelegate(holder);
+    }
+
+    @Override
+    public void bindKey(Identifier key) {
+        this.key = key;
     }
 
     @Override
     public Item asItem() {
-        return this.supplier.get().asItem();
+        return this.get().asItem();
     }
 
     public Block asBlock() {
-        return this.supplier.get();
+        return this.get();
     }
 
     public BlockState defaultBlockState() {
-        return this.supplier.get().defaultBlockState();
+        return this.get().defaultBlockState();
     }
 
     public BlockState asBlockState() {
-        return this.supplier.get().defaultBlockState();
+        return this.get().defaultBlockState();
     }
 
     public Holder<Block> asHolder() {
@@ -49,11 +68,11 @@ public class BlockDelegate implements Holder<Block>, DeferredSupplier<Block>, It
     }
 
     public ItemStack createStack() {
-        return this.supplier.get().asItem().getDefaultInstance();
+        return this.get().asItem().getDefaultInstance();
     }
 
     public ItemStack toStack() {
-        return this.supplier.get().asItem().getDefaultInstance();
+        return this.get().asItem().getDefaultInstance();
     }
 
     public ItemStack toStack(int count) {
@@ -67,11 +86,24 @@ public class BlockDelegate implements Holder<Block>, DeferredSupplier<Block>, It
     }
 
     public ItemStackTemplate createTemplate() {
-        return new ItemStackTemplate(this.supplier.get().asItem());
+        return new ItemStackTemplate(this.get().asItem());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj) || (obj instanceof Holder<?> holder && this.is((Holder) holder));
+    public Identifier getRegistryId() {
+        return this.key;
+    }
+
+    @Override
+    public void bind(Holder<Block> holder) {
+        Objects.requireNonNull(holder, "holder");
+
+        if (this.holder != null) {
+            throw new IllegalStateException(
+                    "Block delegate is already bound"
+            );
+        }
+
+        this.holder = holder;
     }
 }

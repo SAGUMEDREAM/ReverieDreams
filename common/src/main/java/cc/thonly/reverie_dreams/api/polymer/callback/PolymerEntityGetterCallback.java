@@ -1,12 +1,13 @@
 package cc.thonly.reverie_dreams.api.polymer.callback;
 
-import dev.architectury.event.Event;
-import dev.architectury.event.EventFactory;
+import net.blay09.mods.balm.platform.event.Event;
+import net.blay09.mods.balm.platform.event.EventFactory;
 import net.minecraft.world.entity.Entity;
 
 @FunctionalInterface
 public interface PolymerEntityGetterCallback {
-    Event<PolymerEntityGetterCallback> EVENT = EventFactory.of(
+    Event<PolymerEntityGetterCallback> EVENT = EventFactory.createArrayBacked(
+            PolymerEntityGetterCallback.class,
             (listeners) -> (entity) -> {
                 for (PolymerEntityGetterCallback callback : listeners) {
                     Object obj = callback.handle(entity);

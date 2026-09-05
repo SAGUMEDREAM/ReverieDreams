@@ -2,23 +2,29 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "minecraft:cocoa_beans"
+      "id": "minecraft:cocoa_beans",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/cream"
+      "id": "reverie_dreams:ingredient/cream",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     },
     {
-      "id": "minecraft:brown_mushroom_block"
+      "id": "minecraft:brown_mushroom_block",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/broccoli"
+      "id": "reverie_dreams:ingredient/broccoli",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/mad_hatter_tea_party"
+    "id": "reverie_dreams:cuisine/mad_hatter_tea_party",
+    "count": 1
   },
   "cost_time": 15.0
 }

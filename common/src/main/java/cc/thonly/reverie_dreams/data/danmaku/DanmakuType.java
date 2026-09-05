@@ -9,12 +9,12 @@ import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.ReferenceLinkedOpenHashSet;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.UseCooldown;
@@ -100,7 +100,7 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
     }
 
     public void createItemEntry() {
-        RegistrySupplier<Item> itemSupplier = MCBuiltInRegistries.ITEM.register(this.getItemId().getPath(), () -> {
+        RegistryDelegate<Item> itemSupplier = MCBuiltInRegistries.ITEM.register(this.getItemId().getPath(), () -> {
                     DanmakuItem item = new DanmakuItem(new Item.Properties()
                             .setId(RDItems.keyOf(this.getItemId().getPath()))
                             .component(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())

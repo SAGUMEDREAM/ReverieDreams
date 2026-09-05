@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/onion"
+      "id": "reverie_dreams:ingredient/onion",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/trout"
+      "id": "reverie_dreams:ingredient/trout",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/warm_rice_ball"
+    "id": "reverie_dreams:cuisine/warm_rice_ball",
+    "count": 1
   },
   "cost_time": 8.0
 }

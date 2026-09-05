@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:touhou_mystias_izakaya",
+  "criteria": {
+    "waiter": {
+      "conditions": {
+        "trigger": "reverie_dreams:waiter"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.waiter"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:plate"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.waiter"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "waiter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

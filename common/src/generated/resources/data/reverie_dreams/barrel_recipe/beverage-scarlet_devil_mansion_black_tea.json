@@ -1,0 +1,25 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:cherry_leaves",
+      "count": 1
+    },
+    {
+      "id": "minecraft:acacia_leaves",
+      "count": 1
+    },
+    {
+      "id": "minecraft:dark_oak_leaves",
+      "count": 1
+    },
+    {
+      "id": "minecraft:poppy",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/scarlet_devil_mansion_black_tea",
+    "count": 1
+  },
+  "cost_time": 60
+}

@@ -3,8 +3,8 @@ package cc.thonly.reverie_dreams.api.client.midi;
 import cc.thonly.reverie_dreams.networking.payload.PlayerMidiNotePacket;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import dev.architectury.networking.NetworkManager;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -75,7 +75,7 @@ public class Midi2Sound {
             int note = keyToNote(key);
             float volume = velocity / 127.0f;
 //            log.info("key={} note={}", key, note);;
-            mc.execute(() -> NetworkManager.sendToServer(new PlayerMidiNotePacket(slot, key, note, volume, true)));
+            mc.execute(() -> Balm.networking().sendToServer(new PlayerMidiNotePacket(slot, key, note, volume, true)));
         }
 
         @Override
@@ -106,7 +106,7 @@ public class Midi2Sound {
             if (stop) {
                 return;
             }
-            mc.execute(() -> NetworkManager.sendToServer(new PlayerMidiNotePacket(slot, key, 0, 0, false)));
+            mc.execute(() -> Balm.networking().sendToServer(new PlayerMidiNotePacket(slot, key, 0, 0, false)));
         }
     }
 }

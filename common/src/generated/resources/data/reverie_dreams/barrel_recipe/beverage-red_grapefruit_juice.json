@@ -1,0 +1,17 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:sweet_berries",
+      "count": 1
+    },
+    {
+      "id": "minecraft:sweet_berries",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/red_grapefruit_juice",
+    "count": 1
+  },
+  "cost_time": 60
+}

@@ -10,7 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Consumable;
@@ -104,7 +104,7 @@ public class RDBeverageItems {
                         .hasConsumeParticles(false)
                         .build()
                 )
-                .component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.GLASS_BOTTLE)))
+                .component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.GLASS_BOTTLE).create()))
                 .craftRemainder(Items.GLASS_BOTTLE)
         );
     }
@@ -118,7 +118,7 @@ public class RDBeverageItems {
                         .hasConsumeParticles(false)
                         .build()
                 )
-                .component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.GLASS_BOTTLE)))
+                .component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.GLASS_BOTTLE).create()))
                 .craftRemainder(Items.GLASS_BOTTLE)
         );
     }
@@ -133,7 +133,7 @@ public class RDBeverageItems {
                         .onConsume(ClearAllStatusEffectsConsumeEffect.INSTANCE)
                         .build()
                 )
-                .component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.GLASS_BOTTLE)))
+                .component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.GLASS_BOTTLE).create()))
                 .craftRemainder(Items.GLASS_BOTTLE)
         );
     }

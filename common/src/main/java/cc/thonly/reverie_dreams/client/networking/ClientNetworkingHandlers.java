@@ -18,10 +18,10 @@ import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.blaze3d.platform.NativeImage;
-import dev.architectury.networking.NetworkManager;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -123,7 +123,7 @@ public class ClientNetworkingHandlers {
                 RegistryTagSet tagSet = tuple.getB();
 
                 TagKey<Object> tagKey = TagKey.create(registry.key(), tagKeyId);
-                List<Holder<Object>> holders = result.computeIfAbsent(tagKey, _ -> new ArrayList<>());
+                List<Holder<Object>> holders = result.computeIfAbsent(tagKey, inst -> new ArrayList<>());
                 RegistryTagSet.Result<Object> tagResult = tagSet.result(registry);
                 for (ResourceKey<Object> id : tagResult.ids()) {
                     registry.get(id).ifPresent(holders::add);
@@ -171,7 +171,7 @@ public class ClientNetworkingHandlers {
             NativeImage resizedImage = PhotoScreenshotHelper.resizeImage(clientImage);
             NativeImage rescaledImage = PhotoScreenshotHelper.rescaleImage(resizedImage, fov);
             byte[] imageBytes = PhotoScreenshotHelper.getImageBytes(rescaledImage);
-            NetworkManager.sendToServer(new ScreenshotMapPacket(packet.sessionId(), imageBytes));
+            Balm.networking().sendToServer(new ScreenshotMapPacket(packet.sessionId(), imageBytes));
         });
     }
 

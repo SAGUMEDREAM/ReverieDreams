@@ -52,11 +52,7 @@ public class VanillaCompat {
             if (property.equals(FoodProperties.VEGETARIAN)) {
                 items.add(Items.CARROT);
                 items.add(Items.BEETROOT);
-                items.add(Items.GOLDEN_DANDELION);
                 items.add(Items.DRIED_KELP);
-            }
-            if (property.equals(FoodProperties.UNBELIEVABLE)) {
-                items.add(Items.GOLDEN_DANDELION);
             }
             if (property.equals(FoodProperties.SALTY)) {
                 items.add(Items.SEA_PICKLE);

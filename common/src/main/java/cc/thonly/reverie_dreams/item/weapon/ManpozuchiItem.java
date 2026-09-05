@@ -127,7 +127,7 @@ public class ManpozuchiItem extends PickaxeItem {
             if (attacker instanceof ServerPlayer) {
                 serverPlayer = (ServerPlayer) attacker;
                 serverPlayer.currentImpulseImpactPos = this.getCurrentExplosionImpactPos(serverPlayer);
-                serverPlayer.setIgnoreFallDamageFromCurrentImpulse(true, Vec3.ZERO);
+                serverPlayer.setIgnoreFallDamageFromCurrentImpulse(true);
                 serverPlayer.connection.send(new ClientboundSetEntityMotionPacket(serverPlayer));
             }
 

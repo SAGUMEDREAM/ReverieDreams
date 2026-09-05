@@ -1,0 +1,54 @@
+{
+  "role_type": "reverie_dreams:reiuji_utsuh",
+  "rare": true,
+  "budget": {
+    "min": 500,
+    "max": 800
+  },
+  "likes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:salty",
+    "reverie_dreams:fiery",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:spicy"
+  ],
+  "dislikes": [
+    "reverie_dreams:light",
+    "reverie_dreams:mushrooms"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:can_heated",
+    "reverie_dreams:cocktail"
+  ],
+  "chats": [
+    "reverie_dreams.role.reiuji_utsuh.chat.0",
+    "reverie_dreams.role.reiuji_utsuh.chat.1",
+    "reverie_dreams.role.reiuji_utsuh.chat.2",
+    "reverie_dreams.role.reiuji_utsuh.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.reiuji_utsuh.order.0",
+    "reverie_dreams.role.reiuji_utsuh.order.1",
+    "reverie_dreams.role.reiuji_utsuh.order.2",
+    "reverie_dreams.role.reiuji_utsuh.order.3",
+    "reverie_dreams.role.reiuji_utsuh.order.4",
+    "reverie_dreams.role.reiuji_utsuh.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.reiuji_utsuh.description.0",
+    "reverie_dreams.role.reiuji_utsuh.description.1",
+    "reverie_dreams.role.reiuji_utsuh.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.reiuji_utsuh.evaluation.exbad",
+    "bad": "reverie_dreams.role.reiuji_utsuh.evaluation.bad",
+    "norm": "reverie_dreams.role.reiuji_utsuh.evaluation.norm",
+    "good": "reverie_dreams.role.reiuji_utsuh.evaluation.good",
+    "exgood": "reverie_dreams.role.reiuji_utsuh.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.reiuji_utsuh.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.reiuji_utsuh.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.reiuji_utsuh.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.reiuji_utsuh.evaluation.seenRepell"
+  }
+}

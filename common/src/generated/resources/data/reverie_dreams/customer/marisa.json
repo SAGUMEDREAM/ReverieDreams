@@ -1,0 +1,52 @@
+{
+  "role_type": "reverie_dreams:marisa",
+  "rare": true,
+  "budget": {
+    "min": 3000,
+    "max": 5000
+  },
+  "likes": [
+    "reverie_dreams:legendary",
+    "reverie_dreams:greasy",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:fiery",
+    "reverie_dreams:mushrooms"
+  ],
+  "dislikes": [
+    "reverie_dreams:bizarre"
+  ],
+  "beverages": [
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:can_add_ice"
+  ],
+  "chats": [
+    "reverie_dreams.role.marisa.chat.0",
+    "reverie_dreams.role.marisa.chat.1",
+    "reverie_dreams.role.marisa.chat.2",
+    "reverie_dreams.role.marisa.chat.3",
+    "reverie_dreams.role.marisa.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.marisa.order.0",
+    "reverie_dreams.role.marisa.order.1",
+    "reverie_dreams.role.marisa.order.2",
+    "reverie_dreams.role.marisa.order.3",
+    "reverie_dreams.role.marisa.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.marisa.description.0",
+    "reverie_dreams.role.marisa.description.1",
+    "reverie_dreams.role.marisa.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.marisa.evaluation.exbad",
+    "bad": "reverie_dreams.role.marisa.evaluation.bad",
+    "norm": "reverie_dreams.role.marisa.evaluation.norm",
+    "good": "reverie_dreams.role.marisa.evaluation.good",
+    "exgood": "reverie_dreams.role.marisa.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.marisa.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.marisa.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.marisa.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.marisa.evaluation.seenRepell"
+  }
+}

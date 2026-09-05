@@ -2,11 +2,13 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/supreme_tuna"
+      "id": "reverie_dreams:ingredient/supreme_tuna",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/failing_sakura_snow"
+    "id": "reverie_dreams:cuisine/failing_sakura_snow",
+    "count": 1
   },
   "cost_time": 12.0
 }

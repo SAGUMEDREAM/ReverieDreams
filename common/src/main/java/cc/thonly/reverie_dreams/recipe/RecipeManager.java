@@ -12,17 +12,18 @@ import cc.thonly.reverie_dreams.recipe.entry.*;
 import cc.thonly.reverie_dreams.recipe.type.*;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import dev.architectury.networking.NetworkManager;
-import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -42,12 +43,12 @@ public class RecipeManager {
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
     public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
     public static final BaseRecipeType<BrewingBarrelRecipe> BREWING_BARREL = registerRecipeType(ReverieDreams.id("barrel"), new BrewingBarrelRecipeType());
-    public static final RegistrySupplier<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE = registerRecipeSerializer("crafting_special_danmakudye", () -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
+    public static final RegistryDelegate<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE = registerRecipeSerializer("crafting_special_danmakudye", () ->  new CustomRecipe.Serializer<>(DanmakuDyeRecipe::new));
 
     public static void bootstrap() {
     }
 
-    public static <T extends Recipe<?>> RegistrySupplier<RecipeSerializer<T>> registerRecipeSerializer(
+    public static <T extends Recipe<?>> RegistryDelegate<RecipeSerializer<T>> registerRecipeSerializer(
             String name,
             Supplier<RecipeSerializer<T>> resourceFunction
     ) {
@@ -85,7 +86,7 @@ public class RecipeManager {
             }
             for (RecipeManagerSyncPacket payload : payloads) {
                 Identifier key = payload.typeId();
-                NetworkManager.sendToPlayer(player, payload);
+                Balm.networking().sendTo(player, payload);
                 log.info("Send recipe type registry {} to {}", key, player.getPlainTextName());
             }
         }

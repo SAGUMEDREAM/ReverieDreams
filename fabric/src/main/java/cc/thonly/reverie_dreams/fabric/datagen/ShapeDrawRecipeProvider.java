@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuShapeDrawRecipe;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 public class ShapeDrawRecipeProvider extends AbstractRecipeTypeProvider {
     public final Factory<DanmakuShapeDrawRecipe> factory = this.getOrCreateFactory(RecipeManager.DANMAKU_SHAPE_DRAW, DanmakuShapeDrawRecipe.class);
 
-    public ShapeDrawRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public ShapeDrawRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

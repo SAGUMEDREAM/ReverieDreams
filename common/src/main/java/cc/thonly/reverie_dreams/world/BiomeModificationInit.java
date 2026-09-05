@@ -2,19 +2,17 @@ package cc.thonly.reverie_dreams.world;
 
 import cc.thonly.keine.tag.ConventionalBiomeTags;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.registry.SpawnPlacementsRegistry;
 import cc.thonly.reverie_dreams.entity.UFO;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.world.gen.RDBuiltinConfigurationCarvers;
+import cc.thonly.reverie_dreams.util.biome.BiomePredicateTool;
 import cc.thonly.reverie_dreams.world.gen.RDBuiltinPlacedFeatures;
 import cc.thonly.reverie_dreams.world.gen.RDBuiltinBiomes;
-import dev.architectury.hooks.level.biome.GenerationProperties;
-import dev.architectury.hooks.level.biome.SpawnProperties;
-import dev.architectury.registry.level.biome.BiomeModifications;
-import dev.architectury.registry.level.entity.SpawnPlacementsRegistry;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.world.level.levelgen.BalmWorldGen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
@@ -27,12 +25,9 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Random;
 
 @Slf4j
-@SuppressWarnings("UnstableApiUsage")
 public class BiomeModificationInit {
     public static void initialize() {
         addSpawnPlacements();
@@ -219,413 +214,402 @@ public class BiomeModificationInit {
     }
 
     public static void addTree() {
-        BiomeModifications.addProperties((context, mutable) -> {
-            Optional<Identifier> keyOptional = context.getKey();
-            if (keyOptional.isEmpty()) {
-                return;
-            }
+        BalmWorldGen worldGen = Balm.biomeModifications();
 
-            Identifier id = keyOptional.get();
-
-            if (Objects.equals(Biomes.BIRCH_FOREST.identifier(), id)
-                    || Objects.equals(Biomes.SAVANNA.identifier(), id)) {
-
-                GenerationProperties.Mutable generationProperties =
-                        mutable.getGenerationProperties();
-
-                generationProperties.addFeature(
+        worldGen.modifyBiome(
+                ReverieDreams.id("spiritual_tree_spawn"),
+                BiomePredicateTool.includeByKey(Biomes.BIRCH_FOREST, Biomes.SAVANNA),
+                (biome, builder) -> builder.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
                         RDBuiltinPlacedFeatures.SPIRITUAL_TREE_KEY
-                );
-            }
-        });
-        BiomeModifications.addProperties((context, mutable) -> {
-            Optional<Identifier> keyOptional = context.getKey();
-            if (keyOptional.isEmpty()) {
-                return;
-            }
+                )
+        );
 
-            Identifier id = keyOptional.get();
-
-            if (Objects.equals(Biomes.FOREST.identifier(), id)) {
-
-                GenerationProperties.Mutable generationProperties =
-                        mutable.getGenerationProperties();
-
-                generationProperties.addFeature(
+        worldGen.modifyBiome(
+                ReverieDreams.id("lemon_tree_spawn"),
+                BiomePredicateTool.includeByKey(Biomes.FOREST),
+                (biome, builder) -> builder.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
                         RDBuiltinPlacedFeatures.LEMON_TREE_KEY
-                );
-            }
-        });
-        BiomeModifications.addProperties((context, mutable) -> {
-            Optional<Identifier> keyOptional = context.getKey();
-            if (keyOptional.isEmpty()) {
-                return;
-            }
+                )
+        );
 
-            Identifier id = keyOptional.get();
-
-            if (Objects.equals(Biomes.SAVANNA.identifier(), id)
-                    || Objects.equals(Biomes.JUNGLE.identifier(), id)) {
-
-                GenerationProperties.Mutable generationProperties =
-                        mutable.getGenerationProperties();
-
-                generationProperties.addFeature(
+        worldGen.modifyBiome(
+                ReverieDreams.id("ginkgo_tree_spawn"),
+                BiomePredicateTool.includeByKey(Biomes.SAVANNA, Biomes.JUNGLE),
+                (biome, builder) -> builder.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
                         RDBuiltinPlacedFeatures.GINKGO_TREE_KEY
-                );
-            }
-        });
-        BiomeModifications.addProperties((context, mutable) -> {
-            Optional<Identifier> keyOptional = context.getKey();
-            if (keyOptional.isEmpty()) {
-                return;
-            }
+                )
+        );
 
-            Identifier id = keyOptional.get();
-
-            if (Objects.equals(Biomes.FOREST.identifier(), id)
-                    || Objects.equals(Biomes.JUNGLE.identifier(), id)) {
-
-                GenerationProperties.Mutable generationProperties =
-                        mutable.getGenerationProperties();
-
-                generationProperties.addFeature(
+        worldGen.modifyBiome(
+                ReverieDreams.id("peach_tree_spawn"),
+                BiomePredicateTool.includeByKey(Biomes.FOREST, Biomes.JUNGLE),
+                (biome, builder) -> builder.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
                         RDBuiltinPlacedFeatures.PEACH_TREE_KEY
-                );
-            }
-        });
+                )
+        );
     }
 
     public static void addBlock() {
-        BiomeModifications.addProperties((context, mutable) -> {
-            if (!context.hasTag(BiomeTags.IS_OVERWORLD)) {
-                return;
-            }
+        BalmWorldGen worldGen = Balm.biomeModifications();
 
-            GenerationProperties.Mutable generationProperties =
-                    mutable.getGenerationProperties();
+        // 银矿石 + 宝玉矿石
+        worldGen.modifyBiome(
+                ReverieDreams.id("overworld_ores"),
+                BiomePredicateTool.tag(BiomeTags.IS_OVERWORLD),
+                (biome, builder) -> {
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.OVERWORLD_SILVER_ORE_KEY
+                    );
 
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.OVERWORLD_ORB_ORE_KEY
+                    );
+                }
+        );
 
-            // 银矿石
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.OVERWORLD_SILVER_ORE_KEY
-            );
+        // 月球
+        worldGen.modifyBiome(
+                ReverieDreams.id("moon_generation"),
+                BiomePredicateTool.includeByKey(
+                        RDBuiltinBiomes.THE_MOON
+                ),
+                (biome, builder) -> {
+                    // 月球金矿
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.MOON_GOLD_ORE_KEY
+                    );
 
+                    // 月球水湖
+                    builder.addFeature(
+                            GenerationStep.Decoration.LAKES,
+                            RDBuiltinPlacedFeatures.MOON_WATER_LAKE_KEY
+                    );
 
-            // 宝玉矿石
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.OVERWORLD_ORB_ORE_KEY
-            );
+                    // 月球铁矿
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.MOON_IRON_ORE_KEY
+                    );
 
-        });
-        BiomeModifications.addProperties((context, mutable) -> {
-            Optional<Identifier> keyOptional = context.getKey();
-            if (keyOptional.isEmpty()) {
-                return;
-            }
-            if (!keyOptional.get().equals(RDBuiltinBiomes.THE_MOON.identifier())) {
-                return;
-            }
-            GenerationProperties.Mutable generationProperties = mutable.getGenerationProperties();
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.MOON_GOLD_ORE_KEY
-            );
-            generationProperties.addFeature(GenerationStep.Decoration.LAKES,
-                    RDBuiltinPlacedFeatures.MOON_WATER_LAKE_KEY
-            );
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.MOON_IRON_ORE_KEY
-            );
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.MOON_DIAMOND_ORE_KEY
-            );
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.MOON_QUARTZ_ORE_KEY
-            );
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.MOON_DIORITE_PLACED_KEY
-            );
-            generationProperties.addFeature(
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    RDBuiltinPlacedFeatures.MOON_GRAVEL_PLACED_KEY
-            );
-            generationProperties.addCarver(
-                    RDBuiltinConfigurationCarvers.MOON_CAVE
-            );
-        });
+                    // 月球钻石矿
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.MOON_DIAMOND_ORE_KEY
+                    );
+
+                    // 月球石英矿
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.MOON_QUARTZ_ORE_KEY
+                    );
+
+                    // 月球闪长岩
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.MOON_DIORITE_PLACED_KEY
+                    );
+
+                    // 月球沙砾
+                    builder.addFeature(
+                            GenerationStep.Decoration.UNDERGROUND_ORES,
+                            RDBuiltinPlacedFeatures.MOON_GRAVEL_PLACED_KEY
+                    );
+
+                }
+        );
     }
 
     public static void addFlower() {
-        BiomeModifications.addProperties((context, mutable) -> {
+        BalmWorldGen worldGen = Balm.biomeModifications();
 
-            Optional<Identifier> keyOptional = context.getKey();
-            if (keyOptional.isEmpty()) {
-                return;
-            }
-
-            Identifier id = keyOptional.get();
-
-            GenerationProperties.Mutable generationProperties =
-                    mutable.getGenerationProperties();
-
-
-            // 幻昙华
-            if (Objects.equals(Biomes.SNOWY_PLAINS.identifier(), id)
-                    || Objects.equals(Biomes.FLOWER_FOREST.identifier(), id)) {
-
-                generationProperties.addFeature(
+        // 幻昙华
+        worldGen.modifyBiome(
+                ReverieDreams.id("udumbara_flower"),
+                BiomePredicateTool.includeByKey(
+                        Biomes.SNOWY_PLAINS,
+                        Biomes.FLOWER_FOREST
+                ),
+                (biome, builder) -> builder.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
                         RDBuiltinPlacedFeatures.UDUMBARA_FLOWER_KEY
-                );
-            }
+                )
+        );
 
-
-            // 银耳丛
-            if (Objects.equals(Biomes.FOREST.identifier(), id)
-                    || Objects.equals(Biomes.DARK_FOREST.identifier(), id)
-                    || Objects.equals(Biomes.BIRCH_FOREST.identifier(), id)) {
-
-                generationProperties.addFeature(
+        // 银耳丛
+        worldGen.modifyBiome(
+                ReverieDreams.id("tremella"),
+                BiomePredicateTool.includeByKey(
+                        Biomes.FOREST,
+                        Biomes.DARK_FOREST,
+                        Biomes.BIRCH_FOREST
+                ),
+                (biome, builder) -> builder.addFeature(
                         GenerationStep.Decoration.VEGETAL_DECORATION,
                         RDBuiltinPlacedFeatures.TREMELLA_KEY
-                );
-            }
-
-        });
+                )
+        );
     }
 
     public static void addEntity() {
+        BalmWorldGen worldGen = Balm.biomeModifications();
+
+        // =========================
         // 妖精大类
-        BiomeModifications.addProperties((context, mutable) -> {
-            // 配置关闭时不添加妖精生成
-            if (!ReverieDreams.config().enableYouseiSpawn) {
-                return;
-            }
+        // =========================
+        if (ReverieDreams.config().enableYouseiSpawn) {
+            worldGen.modifyBiome(
+                    ReverieDreams.id("yousei_spawn"),
+                    biome -> BiomePredicateTool.tag(ConventionalBiomeTags.IS_PLAINS).test(biome)
+                            || BiomePredicateTool.includeByKey(RDBuiltinBiomes.DREAM).test(biome),
+                    (biome, builder) -> {
+                        boolean isPlains = BiomePredicateTool
+                                .tag(ConventionalBiomeTags.IS_PLAINS)
+                                .test(biome);
 
-            SpawnProperties.Mutable spawnProperties =
-                    mutable.getSpawnProperties();
+                        boolean isDream = BiomePredicateTool
+                                .includeByKey(RDBuiltinBiomes.DREAM)
+                                .test(biome);
 
+                        // 普通妖精
+                        if (isPlains) {
+                            builder.addSpawn(
+                                    MobCategory.MONSTER,
+                                    new MobSpawnSettings.SpawnerData(
+                                            RDEntityTypes.YOUSEI.value(),
+                                            1,
+                                            2
+                                    ),
+                                    10
+                            );
 
-            boolean isPlains = context.hasTag(ConventionalBiomeTags.IS_PLAINS);
-
-            boolean isDream = context.getKey()
-                                     .map(id -> Objects.equals(id, RDBuiltinBiomes.DREAM.identifier()))
-                                     .orElse(false);
-
-
-            // 普通妖精
-            if (isPlains) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.YOUSEI.value(),
-                                1,
-                                2
-                        ),
-                        10
-                );
-
-                // 向日葵妖精
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.SUNFLOWER_YOUSEI.value(),
-                                1,
-                                3
-                        ),
-                        1
-                );
-
-                // 女仆妖精
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.MAID_YOUSEI.value(),
-                                1,
-                                2
-                        ),
-                        10
-                );
-            }
-
-            // 梦境世界额外生成
-            if (isDream) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.YOUSEI.value(),
-                                1,
-                                2
-                        ),
-                        2
-                );
-
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.SUNFLOWER_YOUSEI.value(),
-                                1,
-                                3
-                        ),
-                        3
-                );
-            }
-        });
-
-        BiomeModifications.addProperties((context, mutable) -> {
-            SpawnProperties.Mutable spawnProperties =
-                    mutable.getSpawnProperties();
-
-            // 野猪
-            if (context.hasTag(ConventionalBiomeTags.IS_FOREST)) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.WILD_PIG.value(),
-                                1,
-                                3
-                        ),
-                        1
-                );
-            }
-
-            // 杀人蜂
-            if (context.hasTag(ConventionalBiomeTags.IS_BIRCH_FOREST)) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.KILLER_BEE.value(),
-                                2,
-                                3
-                        ),
-                        7
-                );
-            }
-
-
-            // 毛玉
-            if (context.hasTag(ConventionalBiomeTags.IS_FOREST)) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.HAIRBALL.value(),
-                                2,
-                                4
-                        ),
-                        10
-                );
-            }
-
-
-            // 哥布林
-            if (context.hasTag(ConventionalBiomeTags.IS_DESERT)) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.GOBLIN.value(),
-                                1,
-                                1
-                        ),
-                        50 / 5
-                );
-
-
-                // Oni 沙漠
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.ONI.value(),
-                                1,
-                                2
-                        ),
-                        2
-                );
-            }
-
-
-            // 蘑菇怪
-            if (context.hasTag(ConventionalBiomeTags.IS_DARK_FOREST) || context.hasTag(ConventionalBiomeTags.IS_MUSHROOM)) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.MUSHROOM_MONSTER.value(),
-                                1,
-                                1
-                        ),
-                        8
-                );
-            }
-
-            // 冰元素
-            if (context.hasTag(ConventionalBiomeTags.IS_SNOWY)
-                    || context.hasTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
-                    || context.hasTag(ConventionalBiomeTags.IS_COLD_END)) {
-
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.ICE_ELEMENTAL.value(),
-                                1,
-                                2
-                        ),
-                        10
-                );
-            }
-
-            // 月兔
-            context.getKey().ifPresent(id -> {
-                if (Objects.equals(id, RDBuiltinBiomes.THE_MOON.identifier())) {
-
-                    spawnProperties.addSpawn(
-                            MobCategory.MONSTER,
-                            new MobSpawnSettings.SpawnerData(
-                                    RDEntityTypes.MOON_RABBIT.value(),
-                                    1,
+                            // 向日葵妖精
+                            builder.addSpawn(
+                                    MobCategory.MONSTER,
+                                    new MobSpawnSettings.SpawnerData(
+                                            RDEntityTypes.SUNFLOWER_YOUSEI.value(),
+                                            1,
+                                            3
+                                    ),
                                     1
-                            ),
-                            10
-                    );
+                            );
+
+                            // 女仆妖精
+                            builder.addSpawn(
+                                    MobCategory.MONSTER,
+                                    new MobSpawnSettings.SpawnerData(
+                                            RDEntityTypes.MAID_YOUSEI.value(),
+                                            1,
+                                            2
+                                    ),
+                                    10
+                            );
+                        }
+
+                        // 梦境世界额外生成
+                        if (isDream) {
+                            builder.addSpawn(
+                                    MobCategory.MONSTER,
+                                    new MobSpawnSettings.SpawnerData(
+                                            RDEntityTypes.YOUSEI.value(),
+                                            1,
+                                            2
+                                    ),
+                                    2
+                            );
+
+                            builder.addSpawn(
+                                    MobCategory.MONSTER,
+                                    new MobSpawnSettings.SpawnerData(
+                                            RDEntityTypes.SUNFLOWER_YOUSEI.value(),
+                                            1,
+                                            3
+                                    ),
+                                    3
+                            );
+                        }
+                    }
+            );
+        }
+
+        // =========================
+        // 其他实体
+        // =========================
+        worldGen.modifyBiome(
+                ReverieDreams.id("entity_spawn"),
+                BiomePredicateTool.all(),
+                (biome, builder) -> {
+
+                    // 野猪
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_FOREST)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.WILD_PIG.value(),
+                                        1,
+                                        3
+                                ),
+                                1
+                        );
+                    }
+
+                    // 杀人蜂
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_BIRCH_FOREST)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.KILLER_BEE.value(),
+                                        2,
+                                        3
+                                ),
+                                7
+                        );
+                    }
+
+                    // 毛玉
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_FOREST)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.HAIRBALL.value(),
+                                        2,
+                                        4
+                                ),
+                                10
+                        );
+                    }
+
+                    // 哥布林 + Oni 沙漠
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_DESERT)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.GOBLIN.value(),
+                                        1,
+                                        1
+                                ),
+                                50 / 5
+                        );
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.ONI.value(),
+                                        1,
+                                        2
+                                ),
+                                2
+                        );
+                    }
+
+                    // 蘑菇怪
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_DARK_FOREST)
+                            .test(biome)
+                            || BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_MUSHROOM)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.MUSHROOM_MONSTER.value(),
+                                        1,
+                                        1
+                                ),
+                                8
+                        );
+                    }
+
+                    // 冰元素
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_SNOWY)
+                            .test(biome)
+                            || BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
+                            .test(biome)
+                            || BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_COLD_END)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.ICE_ELEMENTAL.value(),
+                                        1,
+                                        2
+                                ),
+                                10
+                        );
+                    }
+
+                    // 月兔
+                    if (BiomePredicateTool
+                            .includeByKey(RDBuiltinBiomes.THE_MOON)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.MOON_RABBIT.value(),
+                                        1,
+                                        1
+                                ),
+                                10
+                        );
+                    }
+
+                    // UFO
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_MOUNTAIN_PEAK)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.UFO.value(),
+                                        1,
+                                        2
+                                ),
+                                3
+                        );
+                    }
+
+                    // Oni
+                    if (BiomePredicateTool
+                            .tag(ConventionalBiomeTags.IS_DARK_FOREST)
+                            .test(biome)) {
+
+                        builder.addSpawn(
+                                MobCategory.MONSTER,
+                                new MobSpawnSettings.SpawnerData(
+                                        RDEntityTypes.ONI.value(),
+                                        1,
+                                        2
+                                ),
+                                2
+                        );
+                    }
                 }
-            });
-
-            // UFO
-            if (context.hasTag(ConventionalBiomeTags.IS_MOUNTAIN_PEAK)) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.UFO.value(),
-                                1,
-                                2
-                        ),
-                        3
-                );
-            }
-
-            // Oni
-            if (context.hasTag(ConventionalBiomeTags.IS_DARK_FOREST)) {
-                spawnProperties.addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(
-                                RDEntityTypes.ONI.value(),
-                                1,
-                                2
-                        ),
-                        2
-                );
-            }
-
-        });
+        );
     }
 
     public static void addStructure() {

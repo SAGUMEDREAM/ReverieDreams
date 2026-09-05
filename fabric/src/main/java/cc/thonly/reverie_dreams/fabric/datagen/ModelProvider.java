@@ -20,7 +20,7 @@ import cc.thonly.reverie_dreams.registry.content.item.*;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -52,7 +52,7 @@ public class ModelProvider extends FabricModelProvider {
     private final Map<Block, TexturedModel> uniqueModels = ImmutableMap.<Block, TexturedModel>builder()
             .build();
 
-    public ModelProvider(FabricPackOutput output) {
+    public ModelProvider(FabricDataOutput output) {
         super(output);
     }
 
@@ -344,7 +344,7 @@ public class ModelProvider extends FabricModelProvider {
             if (RDIngredientItems.EXISTS.contains(item)) {
                 continue;
             }
-            itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(item.get().asItem(), ModelTemplates.FLAT_ITEM);
         }
         for (var item : RDCuisineItems.CUISINE_ITEMS) {
             itemModelGenerator.generateFlatItem(item.asItem(), ModelTemplates.FLAT_ITEM);

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/cuisine/cats_playing_in_water"
+  }
+}

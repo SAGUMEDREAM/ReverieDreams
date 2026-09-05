@@ -2,13 +2,17 @@ package cc.thonly.reverie_dreams.registry.content.item;
 
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.HolderDelegate;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import net.minecraft.core.Holder;
 import net.minecraft.util.Unit;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +21,9 @@ import java.util.function.Function;
 
 @SuppressWarnings({"deprecation", "unused", "SpellCheckingInspection"})
 public class RDIngredientItems {
-    public static final List<ItemDelegate> INGREDIENTS = new ArrayList<>();
-    public static final List<ItemDelegate> EXISTS = new ArrayList<>();
-    public static final List<ItemDelegate> FISHING = new ArrayList<>();
+    public static final List<RegistryDelegate<Item>> INGREDIENTS = new ArrayList<>();
+    public static final List<RegistryDelegate<Item>> EXISTS = new ArrayList<>();
+    public static final List<RegistryDelegate<Item>> FISHING = new ArrayList<>();
 
     public static final ItemDelegate EGG = addExistedIngredient(Items.EGG);
     public static final ItemDelegate BLUE_EGG = addExistedIngredient(Items.BLUE_EGG);
@@ -58,7 +62,7 @@ public class RDIngredientItems {
     public static final ItemDelegate BAMBOO = addExistedIngredient(Items.BAMBOO);
     public static final ItemDelegate STICKY_RICE = registerIngredient("ingredient/sticky_rice", ingredientFactory(), new Item.Properties());
     public static final ItemDelegate MOONFLOWER = registerIngredient("ingredient/moonflower", ingredientFactory(), new Item.Properties());
-    public static final ItemDelegate MAGIC_ICE_BLOCK = addExistedIngredient(RDBlocks.MAGIC_ICE_BLOCK);
+    public static final RegistryDelegate<Item> MAGIC_ICE_BLOCK = addExistedIngredient(RDBlocks.MAGIC_ICE_BLOCK);
     public static final ItemDelegate CHILI = registerIngredient("ingredient/chili", ingredientFactory(), new Item.Properties());
     public static final ItemDelegate GRAPE = registerIngredient("ingredient/grape", ingredientFactory(), new Item.Properties());
 
@@ -108,10 +112,27 @@ public class RDIngredientItems {
         return item;
     }
 
-    public static ItemDelegate addExistedIngredient(ItemLike item) {
-        ItemDelegate itemDelegate = ItemDelegate.of(item.asItem().builtInRegistryHolder());
+    public static ItemDelegate addExistedIngredient(Item item) {
+        ItemDelegate itemDelegate = ItemDelegate.of(item.builtInRegistryHolder());
         EXISTS.add(itemDelegate);
         INGREDIENTS.add(itemDelegate);
+        return itemDelegate;
+    }
+
+    public static RegistryDelegate<Item> addExistedIngredient(BlockDelegate blockDelegate) {
+        HolderDelegate<Block, Item> itemDelegate =
+                HolderDelegate.create(
+                        blockDelegate,
+                        input -> ItemDelegate.of(
+                                input.get()
+                                        .asItem()
+                                        .builtInRegistryHolder()
+                        )
+                );
+
+        EXISTS.add(itemDelegate);
+        INGREDIENTS.add(itemDelegate);
+
         return itemDelegate;
     }
 

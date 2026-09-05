@@ -11,7 +11,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.util.IdCompletableFuture;
 import cc.thonly.reverie_dreams.util.IdCompletableFutureKeys;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 public class BrewingBarrelRecipeTypeProvider extends AbstractRecipeTypeProvider {
     private final Factory<BrewingBarrelRecipe> factory = this.getOrCreateFactory(RecipeManager.BREWING_BARREL, BrewingBarrelRecipe.class);
 
-    public BrewingBarrelRecipeTypeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public BrewingBarrelRecipeTypeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.compat.jade.element;
 
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -43,8 +43,8 @@ public class FoodElement extends Element {
     }
 
     @Override
-    public void extractRenderState(
-            GuiGraphicsExtractor graphics,
+    public void render(
+            GuiGraphics graphics,
             int mouseX,
             int mouseY,
             float partialTicks

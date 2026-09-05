@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.item;
 
+import cc.thonly.keine.item.ItemStackTemplate;
 import cc.thonly.reverie_dreams.api.item.NonPersistentAdditionalData;
 import cc.thonly.reverie_dreams.util.LazySupplier;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
@@ -12,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.TypedInstance;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
@@ -42,7 +42,7 @@ import java.util.stream.Stream;
 @Slf4j
 @SuppressWarnings({"LombokSetterMayBeUsed", "LombokGetterMayBeUsed", "deprecation", "OptionalAssignedToNull", "ConstantValue", "rawtypes", "unchecked"})
 @ToString
-public class IngredientStack implements ItemLike, DataComponentGetter, ItemInstance, TypedInstance<Item>, NonPersistentAdditionalData {
+public class IngredientStack implements ItemLike, DataComponentGetter, NonPersistentAdditionalData {
     public static final Codec<Holder<Item>> ITEM_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(
             ItemUtils::getHolderItem,
             typeHolder -> {
@@ -241,27 +241,22 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         return this.equals(stack);
     }
 
-    @Override
     public boolean is(TagKey<Item> tag) {
         return this.item.value().builtInRegistryHolder().is(tag);
     }
 
-    @Override
     public boolean is(Holder<Item> type) {
         return Objects.equals(this.item, type);
     }
 
-    @Override
     public boolean is(Item rawType) {
         return Objects.equals(this.item.value(), rawType);
     }
 
-    @Override
     public boolean is(HolderSet<Item> set) {
         return set.contains(this.item);
     }
 
-    @Override
     public boolean is(ResourceKey<Item> type) {
         Optional<ResourceKey<Item>> resourceKey = BuiltInRegistries.ITEM.getResourceKey(this.item.value());
         if (resourceKey.isEmpty()) {
@@ -296,7 +291,7 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
     }
 
     public boolean areComponentsBound() {
-        return this.item.areComponentsBound();
+        return this.item.isBound();
     }
 
     public void setItem(Item item) {
@@ -410,7 +405,6 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         return this.item.value();
     }
 
-    @Override
     public Holder<Item> typeHolder() {
         return this.item;
     }
@@ -431,7 +425,6 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         return this.lazyStack.get();
     }
 
-    @Override
     public int count() {
         return this.count;
     }

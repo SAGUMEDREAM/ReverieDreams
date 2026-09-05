@@ -2,13 +2,16 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/hagfish"
+      "id": "reverie_dreams:ingredient/hagfish",
+      "count": 1
     },
     {
-      "id": "minecraft:egg"
+      "id": "minecraft:egg",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/eel_egg_donburi"
+    "id": "reverie_dreams:cuisine/eel_egg_donburi",
+    "count": 1
   }
 }

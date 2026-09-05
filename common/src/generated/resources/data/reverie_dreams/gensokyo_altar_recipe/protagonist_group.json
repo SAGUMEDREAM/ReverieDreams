@@ -1,6 +1,7 @@
 {
   "core": {
-    "id": "reverie_dreams:role_card"
+    "id": "reverie_dreams:role_card",
+    "count": 1
   },
   "slots": [
     {
@@ -38,6 +39,7 @@
   ],
   "output": {
     "id": "reverie_dreams:role_card",
+    "count": 1,
     "components": {
       "minecraft:item_name": {
         "translate": "reverie_dreams.protagonist_group_role_card"

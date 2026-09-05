@@ -3,8 +3,8 @@ package cc.thonly.reverie_dreams.registry.content.villager;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import com.google.common.collect.ImmutableSet;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -23,9 +23,9 @@ public class RDPointOfInterestTypes extends PoiTypes {
     public static final ResourceKey<PoiType> HAWKERS_KEY = createKey("hawkers");
     public static final ResourceKey<PoiType> PRIEST_KEY = createKey("priest");
     public static final ResourceKey<PoiType> MONEY_SHOP_CLERK_KEY = createKey("money_shop_clerk");
-    public static final RegistrySupplier<PoiType> HAWKERS = register( HAWKERS_KEY, () -> new Entry(getBlockStates(RDBlocks.WOODEN_BOX.chestBlock().asBlock()), 1, 2));
-    public static final RegistrySupplier<PoiType> PRIEST = register( PRIEST_KEY, () -> new Entry(getBlockStates(RDBlocks.CASH_BOX_BLOCK.asBlock()), 1, 2));
-    public static final RegistrySupplier<PoiType> MONEY_SHOP_CLERK = register( MONEY_SHOP_CLERK_KEY, () -> new Entry(getBlockStates(Blocks.ENDER_CHEST), 1, 2));
+    public static final RegistryDelegate<PoiType> HAWKERS = register( HAWKERS_KEY, () -> new Entry(getBlockStates(RDBlocks.WOODEN_BOX.chestBlock().asBlock()), 1, 2));
+    public static final RegistryDelegate<PoiType> PRIEST = register( PRIEST_KEY, () -> new Entry(getBlockStates(RDBlocks.CASH_BOX_BLOCK.asBlock()), 1, 2));
+    public static final RegistryDelegate<PoiType> MONEY_SHOP_CLERK = register( MONEY_SHOP_CLERK_KEY, () -> new Entry(getBlockStates(Blocks.ENDER_CHEST), 1, 2));
 
     public static void initialize() {
     }
@@ -38,8 +38,8 @@ public class RDPointOfInterestTypes extends PoiTypes {
         return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ReverieDreams.id(id));
     }
 
-    private static RegistrySupplier<PoiType> register(ResourceKey<PoiType> key, Supplier<Entry> entrySuppler) {
-        RegistrySupplier<PoiType> registrySupplier = MCBuiltInRegistries.POI_TYPE.register(key.identifier().getPath(), () -> {
+    private static RegistryDelegate<PoiType> register(ResourceKey<PoiType> key, Supplier<Entry> entrySuppler) {
+        RegistryDelegate<PoiType> registrySupplier = MCBuiltInRegistries.POI_TYPE.register(key.identifier().getPath(), () -> {
             Entry entry = entrySuppler.get();
             return new PoiType(entry.states, entry.ticketCount, entry.searchDistance);
         });

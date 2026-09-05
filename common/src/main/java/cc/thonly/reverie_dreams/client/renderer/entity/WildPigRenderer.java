@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.AdultAndBabyModelPair;
-import net.minecraft.client.model.animal.pig.BabyPigModel;
 import net.minecraft.client.model.animal.pig.ColdPigModel;
 import net.minecraft.client.model.animal.pig.PigModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -13,7 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.entity.state.PigRenderState;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.Registry;
@@ -48,10 +47,10 @@ public class WildPigRenderer extends MobRenderer<Pig, PigRenderState, PigModel> 
         return Maps.newEnumMap(
                 Map.of(
                         PigVariant.ModelType.NORMAL,
-                        new AdultAndBabyModelPair<>(new PigModel(context.bakeLayer(ModelLayers.PIG)), new BabyPigModel(context.bakeLayer(ModelLayers.PIG_BABY))),
+                        new AdultAndBabyModelPair<>(new PigModel(context.bakeLayer(ModelLayers.PIG)), new PigModel(context.bakeLayer(ModelLayers.PIG_BABY))),
                         PigVariant.ModelType.COLD,
                         new AdultAndBabyModelPair<>(
-                                new ColdPigModel(context.bakeLayer(ModelLayers.COLD_PIG)), new BabyPigModel(context.bakeLayer(ModelLayers.PIG_BABY))
+                                new ColdPigModel(context.bakeLayer(ModelLayers.COLD_PIG)), new ColdPigModel(context.bakeLayer(ModelLayers.COLD_PIG_BABY))
                         )
                 )
         );

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:planks",
+    "A": "#minecraft:wooden_slabs",
+    "X": "minecraft:stick"
+  },
+  "pattern": [
+    "###",
+    "A A",
+    "X X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:table"
+  }
+}

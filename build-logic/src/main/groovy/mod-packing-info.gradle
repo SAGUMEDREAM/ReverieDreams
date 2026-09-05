@@ -1,5 +1,5 @@
 enum RemapJarType {
-    STABLE(""),
+    RELEASE(""),
     BETA("beta"),
     ALPHA("alpha"),
     ;
@@ -11,15 +11,20 @@ enum RemapJarType {
 }
 
 def isLts = false
-def remapJarType = RemapJarType.STABLE
+def remapJarType = RemapJarType.valueOf(project.version_type.toUpperCase())
 
 base {
-    def name =  "%s-%s+%s%s%s".formatted(
+    def name = "%s-%s+%s%s%s".formatted(
             mod_id,
             project.name == "polymer" ? "fabric+polymerify" : project.name,
             version,
-            (remapJarType == RemapJarType.STABLE ? "" : "+" + remapJarType.name),
+            (remapJarType == RemapJarType.RELEASE ? "" : "+" + remapJarType.name),
             (isLts ? "+lts" : "")
     )
+
     archivesName = name
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    archiveVersion = ""
 }

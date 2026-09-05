@@ -2,20 +2,25 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/black_pork"
+      "id": "reverie_dreams:ingredient/black_pork",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/truffle"
+      "id": "reverie_dreams:ingredient/truffle",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/hagfish"
+      "id": "reverie_dreams:ingredient/hagfish",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/moonflower"
+      "id": "reverie_dreams:ingredient/moonflower",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/assorted_tempura"
+    "id": "reverie_dreams:cuisine/assorted_tempura",
+    "count": 1
   },
   "cost_time": 7.0
 }

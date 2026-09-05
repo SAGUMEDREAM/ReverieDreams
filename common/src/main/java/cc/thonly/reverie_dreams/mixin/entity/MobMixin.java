@@ -17,7 +17,7 @@ public class MobMixin {
         if (target == null) {
             return;
         }
-        if (CrownOfTheUnderworldItem.hasEquipment(target) && mob.is(EntityTypeTags.UNDEAD)) {
+        if (CrownOfTheUnderworldItem.hasEquipment(target) && mob.getType().is(EntityTypeTags.UNDEAD)) {
             ci.cancel();
         }
     }

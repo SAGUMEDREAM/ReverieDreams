@@ -19,11 +19,12 @@ import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.tag.FarmersDelightCommonItemTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -43,9 +44,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 @SuppressWarnings("deprecation")
-public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-    public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -170,7 +171,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         valueLookupBuilder(RDItemTags.POINT_BLOCK).add(RDBlocks.POINT_BLOCK.asItem());
         valueLookupBuilder(RDItemTags.SILVER_BLOCK).add(RDBlocks.SILVER_BLOCK.asItem());
         valueLookupBuilder(RDItemTags.VAISRAVANAS_PAGODA).add(Items.BLAZE_POWDER);
-        valueLookupBuilder(RDItemTags.INGREDIENT).addAll(RDIngredientItems.INGREDIENTS.stream().map(ItemLike::asItem).toList());
+        valueLookupBuilder(RDItemTags.INGREDIENT).addAll(RDIngredientItems.INGREDIENTS.stream().map(RegistryDelegate::get).map(ItemLike::asItem).toList());
         valueLookupBuilder(RDItemTags.CUISINE).addAll(RDCuisineItems.CUISINE_ITEMS.stream().map(ItemLike::asItem).toList());
         valueLookupBuilder(RDItemTags.FOOD).addOptionalTag(RDItemTags.CUISINE);
         valueLookupBuilder(RDItemTags.BEVERAGE).addAll(RDBeverageItems.BEVERAGE_ITEMS.stream().map(ItemLike::asItem).toList());
@@ -591,7 +592,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         dlc0.add(RDIngredientItems.BAMBOO.asItem());
         dlc0.add(RDIngredientItems.STICKY_RICE.asItem());
         dlc0.add(RDIngredientItems.MOONFLOWER.asItem());
-        dlc0.add(RDIngredientItems.MAGIC_ICE_BLOCK.asItem());
+        dlc0.add(RDIngredientItems.MAGIC_ICE_BLOCK.get().asItem());
         dlc0.add(RDIngredientItems.CHILI.asItem());
         dlc0.add(RDIngredientItems.GRAPE.asItem());
 

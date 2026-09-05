@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams;
 
+import cc.thonly.reverie_dreams.api.util.EventResult;
 import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
@@ -22,7 +23,6 @@ import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.entity.EntityHelper;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
-import dev.architectury.event.EventResult;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -107,7 +107,7 @@ public class CommonEventHandlers {
             ItemStack itemStack,
             Entity victim
     ) {
-        long overworldClockTime = serverLevel.getOverworldClockTime();
+        long overworldClockTime = serverLevel.getDayTime();
         long timeOfDay = overworldClockTime % 24000;
 
         boolean isNight =
@@ -203,7 +203,7 @@ public class CommonEventHandlers {
     // 银制品秒杀鬼魂
     public static boolean onPostHitByInstantKillGhost(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         MinecraftServer server = target.level().getServer();
-        if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST && RDItems.ROKANKEN.is(stack.getItem().builtInRegistryHolder())) {
+        if (server != null && target.level() instanceof ServerLevel serverWorld && target.getType() == RDEntityTypes.GHOST.get() && RDItems.ROKANKEN.is(stack.getItem().builtInRegistryHolder())) {
             DamageSources damageSources = attacker.damageSources();
             target.invulnerableTime = 0;
             target.hurtTime = 0;

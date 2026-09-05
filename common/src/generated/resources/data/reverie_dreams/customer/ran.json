@@ -1,0 +1,63 @@
+{
+  "role_type": "reverie_dreams:ran",
+  "rare": true,
+  "budget": {
+    "min": 600,
+    "max": 1200
+  },
+  "likes": [
+    "reverie_dreams:gourmet",
+    "reverie_dreams:legendary",
+    "reverie_dreams:greasy",
+    "reverie_dreams:mountain_delicacy",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:large_partition"
+  ],
+  "dislikes": [
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:light",
+    "reverie_dreams:fiery",
+    "reverie_dreams:petite"
+  ],
+  "beverages": [
+    "reverie_dreams:mid_alcohol",
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:can_heated",
+    "reverie_dreams:sake",
+    "reverie_dreams:pungent",
+    "reverie_dreams:bubble",
+    "reverie_dreams:refreshing"
+  ],
+  "chats": [
+    "reverie_dreams.role.ran.chat.0",
+    "reverie_dreams.role.ran.chat.1",
+    "reverie_dreams.role.ran.chat.2",
+    "reverie_dreams.role.ran.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.ran.order.0",
+    "reverie_dreams.role.ran.order.1",
+    "reverie_dreams.role.ran.order.2",
+    "reverie_dreams.role.ran.order.3",
+    "reverie_dreams.role.ran.order.4",
+    "reverie_dreams.role.ran.order.5",
+    "reverie_dreams.role.ran.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.ran.description.0",
+    "reverie_dreams.role.ran.description.1",
+    "reverie_dreams.role.ran.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.ran.evaluation.exbad",
+    "bad": "reverie_dreams.role.ran.evaluation.bad",
+    "norm": "reverie_dreams.role.ran.evaluation.norm",
+    "good": "reverie_dreams.role.ran.evaluation.good",
+    "exgood": "reverie_dreams.role.ran.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.ran.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.ran.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.ran.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.ran.evaluation.seenRepell"
+  }
+}

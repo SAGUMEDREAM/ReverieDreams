@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "minecraft:honey_bottle"
+      "id": "minecraft:honey_bottle",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/peach"
+      "id": "reverie_dreams:ingredient/peach",
+      "count": 1
     },
     {
-      "id": "minecraft:porkchop"
+      "id": "minecraft:porkchop",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/braised_pork_with_peach"
+    "id": "reverie_dreams:cuisine/braised_pork_with_peach",
+    "count": 1
   },
   "cost_time": 8.0
 }

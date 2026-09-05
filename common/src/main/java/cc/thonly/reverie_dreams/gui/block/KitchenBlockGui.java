@@ -120,7 +120,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                     default -> {
                         Integer invIndex = CHAR2INDEX.get(posChar);
                         if (invIndex != null) {
-                            this.setSlot(index, new Slot(this.blockEntity.getInventory(), invIndex, 0, 0));
+                            this.setSlotRedirect(index, new Slot(this.blockEntity.getInventory(), invIndex, 0, 0));
                         }
                     }
                 }
@@ -136,7 +136,7 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             if (!stack.isEmpty()) {
                 UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
                 if (useRemainderComponent != null) {
-                    ItemStack itemStack = useRemainderComponent.convertInto().create();
+                    ItemStack itemStack = useRemainderComponent.convertInto();
                     this.blockEntity.throwItem((ServerLevel) blockEntity.getLevel(), itemStack);
                 }
                 stack.shrink(1);

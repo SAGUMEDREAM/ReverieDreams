@@ -2,22 +2,14 @@
   "registry_key": "reverie_dreams:grilled",
   "properties": {
     "values": [
-      "reverie_dreams:food/pork_and_trout_smoked",
-      "reverie_dreams:food/grilled_hagfish",
-      "reverie_dreams:food/energy_string",
-      "reverie_dreams:food/two_heavens_one_style",
-      "reverie_dreams:food/roasted_mushrooms",
-      "reverie_dreams:food/phoenix",
-      "reverie_dreams:food/horai-dama_no_eda",
-      "reverie_dreams:food/one_hit_kill",
-      "reverie_dreams:food/pork_and_trout_smoked",
-      "reverie_dreams:food/grilled_hagfish",
-      "reverie_dreams:food/energy_string",
-      "reverie_dreams:food/two_heavens_one_style",
-      "reverie_dreams:food/roasted_mushrooms",
-      "reverie_dreams:food/phoenix",
-      "reverie_dreams:food/horai-dama_no_eda",
-      "reverie_dreams:food/one_hit_kill"
+      "reverie_dreams:cuisine/pork_and_trout_smoked",
+      "reverie_dreams:cuisine/grilled_hagfish",
+      "reverie_dreams:cuisine/energy_string",
+      "reverie_dreams:cuisine/two_heavens_one_style",
+      "reverie_dreams:cuisine/roasted_mushrooms",
+      "reverie_dreams:cuisine/phoenix",
+      "reverie_dreams:cuisine/horai-dama_no_eda",
+      "reverie_dreams:cuisine/one_hit_kill"
     ]
   }
 }

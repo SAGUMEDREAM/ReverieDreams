@@ -1,0 +1,55 @@
+{
+  "role_type": "reverie_dreams:hutatsuiwa_mamizou",
+  "rare": true,
+  "budget": {
+    "min": 1000,
+    "max": 1200
+  },
+  "likes": [
+    "reverie_dreams:aquatic_products",
+    "reverie_dreams:homestyle",
+    "reverie_dreams:legendary",
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:fruity"
+  ],
+  "dislikes": [
+    "reverie_dreams:fiery",
+    "reverie_dreams:spicy"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:can_heated",
+    "reverie_dreams:soju",
+    "reverie_dreams:classical"
+  ],
+  "chats": [
+    "reverie_dreams.role.hutatsuiwa_mamizou.chat.0",
+    "reverie_dreams.role.hutatsuiwa_mamizou.chat.1",
+    "reverie_dreams.role.hutatsuiwa_mamizou.chat.2",
+    "reverie_dreams.role.hutatsuiwa_mamizou.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.hutatsuiwa_mamizou.order.0",
+    "reverie_dreams.role.hutatsuiwa_mamizou.order.1",
+    "reverie_dreams.role.hutatsuiwa_mamizou.order.2",
+    "reverie_dreams.role.hutatsuiwa_mamizou.order.3",
+    "reverie_dreams.role.hutatsuiwa_mamizou.order.4",
+    "reverie_dreams.role.hutatsuiwa_mamizou.order.5",
+    "reverie_dreams.role.hutatsuiwa_mamizou.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.hutatsuiwa_mamizou.description.0"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.exbad",
+    "bad": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.bad",
+    "norm": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.norm",
+    "good": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.good",
+    "exgood": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.seenRepell"
+  }
+}

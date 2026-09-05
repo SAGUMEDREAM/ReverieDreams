@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/moonflower"
+      "id": "reverie_dreams:ingredient/moonflower",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/sticky_rice"
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/moonlight_dumplings"
+    "id": "reverie_dreams:cuisine/moonlight_dumplings",
+    "count": 1
   },
   "cost_time": 8.0
 }

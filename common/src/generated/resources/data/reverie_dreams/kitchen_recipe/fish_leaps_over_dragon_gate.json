@@ -2,23 +2,29 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/supreme_tuna"
+      "id": "reverie_dreams:ingredient/supreme_tuna",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/venison"
+      "id": "reverie_dreams:ingredient/venison",
+      "count": 1
     },
     {
-      "id": "minecraft:honey_bottle"
+      "id": "minecraft:honey_bottle",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/moonflower"
+      "id": "reverie_dreams:ingredient/moonflower",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/truffle"
+      "id": "reverie_dreams:ingredient/truffle",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/fish_leaps_over_dragon_gate"
+    "id": "reverie_dreams:cuisine/fish_leaps_over_dragon_gate",
+    "count": 1
   },
   "cost_time": 12.0
 }

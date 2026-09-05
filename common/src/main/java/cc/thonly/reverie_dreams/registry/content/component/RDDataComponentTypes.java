@@ -14,8 +14,8 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import com.mojang.serialization.Codec;
-import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
@@ -28,6 +28,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,89 +39,93 @@ import java.util.List;
 public class RDDataComponentTypes {
     @SuppressWarnings("rawtypes")
     public static final List<Holder<DataComponentType>> COMPONENTS = new ArrayList<>();
-    public static final RegistrySupplier<DataComponentType<DanmakuProperties>> DANMAKU_PROPERTIES =
+    public static final RegistryDelegate<DataComponentType<DanmakuProperties>> DANMAKU_PROPERTIES =
             registerDataComponentType("danmaku_properties", DanmakuProperties.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<SpellCardFrameConfig>> SPELLCARD_FRAME_CONFIG =
+    public static final RegistryDelegate<DataComponentType<SpellCardFrameConfig>> SPELLCARD_FRAME_CONFIG =
             registerDataComponentType("spellcard_frame", SpellCardFrameConfig.COMPONENT_CODEC);
 
-    public static final RegistrySupplier<DataComponentType<SpellcardRenderer>> SPELL_CARD_COMPONENT =
+    public static final RegistryDelegate<DataComponentType<SpellcardRenderer>> SPELL_CARD_COMPONENT =
             registerDataComponentType("spell_card_component", SpellcardRenderer.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<IngredientStack>> DANMAKU_SHAPE =
+    public static final RegistryDelegate<DataComponentType<IngredientStack>> DANMAKU_SHAPE =
             registerDataComponentType("shape", IngredientStack.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Integer>> FOV =
+    public static final RegistryDelegate<DataComponentType<Integer>> FOV =
             registerDataComponentType("fov", Codec.INT);
 
-    public static final RegistrySupplier<DataComponentType<Unit>> SILVER_ITEM =
+    public static final RegistryDelegate<DataComponentType<Unit>> SILVER_ITEM =
             registerDataComponentType("silver_item", Unit.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Identifier>> ROLE_CARD_ID =
+    public static final RegistryDelegate<DataComponentType<Identifier>> ROLE_CARD_ID =
             registerDataComponentType("role_card_id", Identifier.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Integer>> MAX_DISTANCE =
+    public static final RegistryDelegate<DataComponentType<Integer>> MAX_DISTANCE =
             registerDataComponentType("max_distance", Codec.INT);
 
-    public static final RegistrySupplier<DataComponentType<List<GapRecorder>>> GAP_RECORDER =
+    public static final RegistryDelegate<DataComponentType<List<GapRecorder>>> GAP_RECORDER =
             registerDataComponentType("gap_recorder", GapRecorder.LIST_CODEC);
 
-    public static final RegistrySupplier<DataComponentType<BattleStickRecorder>> BATTLE_STICK_RECORDER =
+    public static final RegistryDelegate<DataComponentType<BattleStickRecorder>> BATTLE_STICK_RECORDER =
             registerDataComponentType("battle_stick_recorder", BattleStickRecorder.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<String>> PLAYING_MUSIC =
+    public static final RegistryDelegate<DataComponentType<String>> PLAYING_MUSIC =
             registerDataComponentType("playing_music", Codec.STRING);
 
-    public static final RegistrySupplier<DataComponentType<NoteBlockInstrument>> NOTE_TYPE =
+    public static final RegistryDelegate<DataComponentType<NoteBlockInstrument>> NOTE_TYPE =
             registerDataComponentType("note_type", MusicalInstrumentItem.NOTE_BLOCK_INSTRUMENT_CODEC);
 
-    public static final RegistrySupplier<DataComponentType<RoleFollowerArchive>> ROLE_FOLLOWER_ARCHIVE =
+    public static final RegistryDelegate<DataComponentType<RoleFollowerArchive>> ROLE_FOLLOWER_ARCHIVE =
             registerDataComponentType("role_follower_archive", RoleFollowerArchive.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Boolean>> ROLE_CAN_RESPAWN =
+    public static final RegistryDelegate<DataComponentType<Boolean>> ROLE_CAN_RESPAWN =
             registerDataComponentType("role_can_respawn", Codec.BOOL);
 
-    public static final RegistrySupplier<DataComponentType<Unit>> FOOD_ITEM_TYPE =
+    public static final RegistryDelegate<DataComponentType<Unit>> FOOD_ITEM_TYPE =
             registerDataComponentType("cuisine_item_type", Unit.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Unit>> INGREDIENT_ITEM_TYPE =
+    public static final RegistryDelegate<DataComponentType<Unit>> INGREDIENT_ITEM_TYPE =
             registerDataComponentType("ingredient_item_type", Unit.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Unit>> DRINK_ITEM_TYPE =
+    public static final RegistryDelegate<DataComponentType<Unit>> DRINK_ITEM_TYPE =
             registerDataComponentType("beverage_item_type", Unit.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<List<FoodProperty>>> FOOD_PROPERTIES =
+    public static final RegistryDelegate<DataComponentType<List<FoodProperty>>> FOOD_PROPERTIES =
             registerDataComponentType("food_properties", FoodProperty.BY_REGISTRY_LIST_CODEC);
 
-    public static final RegistrySupplier<DataComponentType<List<BeverageProperty>>> BEVERAGE_PROPERTIES =
+    public static final RegistryDelegate<DataComponentType<List<BeverageProperty>>> BEVERAGE_PROPERTIES =
             registerDataComponentType("beverage_properties", BeverageProperty.BY_REGISTRY_LIST_CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Integer>> FOOD_BONUS =
+    public static final RegistryDelegate<DataComponentType<Integer>> FOOD_BONUS =
             registerDataComponentType("food_bonus", Codec.INT);
 
-    public static final RegistrySupplier<DataComponentType<KitchenRecipe.IdEntry>> RECIPE_MEMORY =
+    public static final RegistryDelegate<DataComponentType<KitchenRecipe.IdEntry>> RECIPE_MEMORY =
             registerDataComponentType("recipe_memory", KitchenRecipe.IdEntry.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<String>> GUIDE_BOOK_NAMESPACE =
+    public static final RegistryDelegate<DataComponentType<String>> GUIDE_BOOK_NAMESPACE =
             registerDataComponentType("guidebook_namespace", Codec.STRING);
 
-    public static final RegistrySupplier<DataComponentType<Identifier>> GUIDE_BOOK_PAGE_ID =
+    public static final RegistryDelegate<DataComponentType<Identifier>> GUIDE_BOOK_PAGE_ID =
             registerDataComponentType("guidebook_page_id", Identifier.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Unit>> SHOW_ONLY =
+    public static final RegistryDelegate<DataComponentType<Unit>> SHOW_ONLY =
             registerDataComponentType("show_only", Unit.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<String>> CHEQUE_PLAYER_ID =
+    public static final RegistryDelegate<DataComponentType<String>> CHEQUE_PLAYER_ID =
             registerDataComponentType("cheque_player_id", Codec.STRING);
 
-    public static final RegistrySupplier<DataComponentType<Component>> CHEQUE_NAME =
+    public static final RegistryDelegate<DataComponentType<Component>> CHEQUE_NAME =
             registerDataComponentType("cheque_name", ComponentSerialization.CODEC);
 
-    public static final RegistrySupplier<DataComponentType<Integer>> CHEQUE_AMOUNT =
+    public static final RegistryDelegate<DataComponentType<Integer>> CHEQUE_AMOUNT =
             registerDataComponentType("cheque_amount", Codec.INT);
 
+    @ApiStatus.Experimental
+    public static final RegistryDelegate<DataComponentType<Integer>> ADDITIONAL_TRADE_COST =
+            registerDataComponentType("additional_trade_cost", Codec.INT);
+
     @Deprecated
-    public static final RegistrySupplier<DataComponentType<List<BeverageProperty>>> DRINK_PROPERTIES = BEVERAGE_PROPERTIES;
+    public static final RegistryDelegate<DataComponentType<List<BeverageProperty>>> DRINK_PROPERTIES = BEVERAGE_PROPERTIES;
 
     static {
         AliasManager.Registrar registrar = AliasManager.get(Registries.DATA_COMPONENT_TYPE);
@@ -134,13 +139,13 @@ public class RDDataComponentTypes {
     }
 
     @SuppressWarnings({"rawtypes", "UnnecessaryLocalVariable"})
-    public static <T> RegistrySupplier<DataComponentType<T>> registerDataComponentType(
+    public static <T> RegistryDelegate<DataComponentType<T>> registerDataComponentType(
             String path,
             Codec<T> codec
     ) {
         Codec castCodec = codec;
         StreamCodec streamCodec = ByteBufCodecs.fromCodec(castCodec);
-        RegistrySupplier<DataComponentType> componentType = MCBuiltInRegistries.DATA_COMPONENT_TYPE.register(
+        RegistryDelegate<DataComponentType> componentType = MCBuiltInRegistries.DATA_COMPONENT_TYPE.register(
                 path,
                 () -> DataComponentType.builder()
                         .persistent(castCodec)
@@ -149,7 +154,7 @@ public class RDDataComponentTypes {
                         .build()
         );
         COMPONENTS.add(componentType);
-        return (RegistrySupplier) componentType;
+        return (RegistryDelegate) componentType;
     }
 
 }

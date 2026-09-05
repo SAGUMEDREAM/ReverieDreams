@@ -12,17 +12,18 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.FishingHookRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.phys.Vec3;
 
 public class NPCFishingHookRenderer extends EntityRenderer<NPCFishingHook, FishingHookRenderState> {
-    public static final Identifier TEXTURE_LOCATION = Identifier.withDefaultNamespace("textures/entity/fishing/fishing_hook.png");
+    public static final Identifier TEXTURE_LOCATION = Identifier.withDefaultNamespace("textures/entity/fishing_hook.png");
     public static final RenderType RENDER_TYPE;
     public static final double VIEW_BOBBING_SCALE = (double) 960.0F;
 
@@ -34,62 +35,65 @@ public class NPCFishingHookRenderer extends EntityRenderer<NPCFishingHook, Fishi
         return super.shouldRender(entity, culler, camX, camY, camZ) && entity.getEntityOwner() != null;
     }
 
-    public void submit(FishingHookRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+    public void submit(FishingHookRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
         poseStack.pushPose();
         poseStack.scale(0.5F, 0.5F, 0.5F);
-        poseStack.mulPose(camera.orientation);
-        submitNodeCollector.submitCustomGeometry(poseStack, RENDER_TYPE, (pose, buffer) -> {
-            vertex(buffer, pose, state.lightCoords, 0.0F, 0, 0, 1);
-            vertex(buffer, pose, state.lightCoords, 1.0F, 0, 1, 1);
-            vertex(buffer, pose, state.lightCoords, 1.0F, 1, 1, 0);
-            vertex(buffer, pose, state.lightCoords, 0.0F, 1, 0, 0);
+        poseStack.mulPose(cameraRenderState.orientation);
+        nodeCollector.submitCustomGeometry(poseStack, RENDER_TYPE, (p_434943_, p_432878_) -> {
+            vertex(p_432878_, p_434943_, state.lightCoords, 0.0F, 0, 0, 1);
+            vertex(p_432878_, p_434943_, state.lightCoords, 1.0F, 0, 1, 1);
+            vertex(p_432878_, p_434943_, state.lightCoords, 1.0F, 1, 1, 0);
+            vertex(p_432878_, p_434943_, state.lightCoords, 0.0F, 1, 0, 0);
         });
         poseStack.popPose();
-        float xa = (float) state.lineOriginOffset.x;
-        float ya = (float) state.lineOriginOffset.y;
-        float za = (float) state.lineOriginOffset.z;
-        float width = Minecraft.getInstance().gameRenderer.getGameRenderState().windowRenderState.appropriateLineWidth;
-        submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.lines(), (pose, buffer) -> {
-            int steps = 16;
+        float f = (float)state.lineOriginOffset.x;
+        float f1 = (float)state.lineOriginOffset.y;
+        float f2 = (float)state.lineOriginOffset.z;
+        float f3 = Minecraft.getInstance().getWindow().getAppropriateLineWidth();
+        nodeCollector.submitCustomGeometry(poseStack, RenderTypes.lines(), (p_454362_, p_454363_) -> {
+            int i = 16;
 
-            for (int i = 0; i < 16; ++i) {
-                float a0 = fraction(i, steps);
-                float a1 = fraction(i + 1, steps);
-                stringVertex(xa, ya, za, buffer, pose, a0, a1, width);
-                stringVertex(xa, ya, za, buffer, pose, a1, a0, width);
+            for (int j = 0; j < 16; j++) {
+                float f4 = fraction(j, 16);
+                float f5 = fraction(j + 1, 16);
+                stringVertex(f, f1, f2, p_454363_, p_454362_, f4, f5, f3);
+                stringVertex(f, f1, f2, p_454363_, p_454362_, f5, f4, f3);
             }
-
         });
         poseStack.popPose();
-        super.submit(state, poseStack, submitNodeCollector, camera);
+        super.submit(state, poseStack, nodeCollector, cameraRenderState);
     }
 
     public static HumanoidArm getHoldingArm(BaseNPCLikeEntity owner) {
         return owner.getMainHandItem().getItem() instanceof FishingRodItem ? owner.getMainArm() : owner.getMainArm().getOpposite();
     }
 
-    private Vec3 getHandPos(BaseNPCLikeEntity owner, float swing, float partialTicks) {
-        int invert = getHoldingArm(owner) == HumanoidArm.RIGHT ? 1 : -1;
+    private Vec3 getHandPos(BaseNPCLikeEntity npc, float handAngle, float partialTick) {
+        int i = getHoldingArm(npc) == HumanoidArm.RIGHT ? 1 : -1;
         if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson()) {
-            float fov = (float) (Integer) this.entityRenderDispatcher.options.fov().get();
-            double viewBobbingScale = (double) VIEW_BOBBING_SCALE / (double) fov;
-            Vec3 viewVec = null;
-            if (this.entityRenderDispatcher.camera != null) {
-                viewVec = this.entityRenderDispatcher.camera.getNearPlane(fov).getPointOnPlane((float) invert * 0.525F, -0.1F).scale(viewBobbingScale).yRot(swing * 0.5F).xRot(-swing * 0.7F);
-            }
-            if (viewVec != null) {
-                return owner.getEyePosition(partialTicks).add(viewVec);
+            double d4 = VIEW_BOBBING_SCALE / this.entityRenderDispatcher.options.fov().get();
+            Vec3 vec3 = null;
+            if (this.entityRenderDispatcher
+                    .camera != null) {
+                vec3 = this.entityRenderDispatcher
+                        .camera
+                        .getNearPlane()
+                        .getPointOnPlane(i * 0.525F, -0.1F)
+                        .scale(d4)
+                        .yRot(handAngle * 0.5F)
+                        .xRot(-handAngle * 0.7F);
+                return npc.getEyePosition(partialTick).add(vec3);
             }
         } else {
-            float ownerYRot = Mth.lerp(partialTicks, owner.yBodyRotO, owner.yBodyRot) * ((float) Math.PI / 180F);
-            double sin = (double) Mth.sin((double) ownerYRot);
-            double cos = (double) Mth.cos((double) ownerYRot);
-            float playerScale = owner.getScale();
-            double rightOffset = (double) invert * 0.35 * (double) playerScale;
-            double forwardOffset = 0.8 * (double) playerScale;
-            float yOffset = owner.isCrouching() ? -0.1875F : 0.0F;
-            return owner.getEyePosition(partialTicks).add(-cos * rightOffset - sin * forwardOffset, (double) yOffset - 0.45 * (double) playerScale, -sin * rightOffset + cos * forwardOffset);
+            float f = Mth.lerp(partialTick, npc.yBodyRotO, npc.yBodyRot) * (float) (Math.PI / 180.0);
+            double d0 = Mth.sin(f);
+            double d1 = Mth.cos(f);
+            float f1 = npc.getScale();
+            double d2 = i * 0.35 * f1;
+            double d3 = 0.8 * f1;
+            float f2 = npc.isCrouching() ? -0.1875F : 0.0F;
+            return npc.getEyePosition(partialTick).add(-d1 * d2 - d0 * d3, f2 - 0.45 * f1, -d0 * d2 + d1 * d3);
         }
         return Vec3.ZERO;
     }
@@ -135,11 +139,12 @@ public class NPCFishingHookRenderer extends EntityRenderer<NPCFishingHook, Fishi
 
     }
 
-    protected boolean affectedByCulling(FishingHook entity) {
+    @Override
+    protected boolean affectedByCulling(NPCFishingHook display) {
         return false;
     }
 
     static {
-        RENDER_TYPE = RenderTypes.entityCutoutCull(TEXTURE_LOCATION);
+        RENDER_TYPE = RenderTypes.entityCutout(TEXTURE_LOCATION);
     }
 }

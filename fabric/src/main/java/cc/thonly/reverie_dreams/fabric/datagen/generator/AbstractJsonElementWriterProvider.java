@@ -5,7 +5,7 @@ import com.google.common.hash.HashCode;
 import com.google.gson.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -22,10 +22,10 @@ import java.util.concurrent.CompletableFuture;
 public abstract class AbstractJsonElementWriterProvider implements DataProvider {
     protected final Map<String, JsonElement> path2JsonElement = new Object2ObjectLinkedOpenHashMap<>();
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
-    public final FabricPackOutput output;
+    public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
 
-    public AbstractJsonElementWriterProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractJsonElementWriterProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }

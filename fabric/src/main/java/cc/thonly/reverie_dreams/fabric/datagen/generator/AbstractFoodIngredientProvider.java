@@ -18,7 +18,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -36,12 +36,12 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @SuppressWarnings("rawTypes")
 public abstract class AbstractFoodIngredientProvider implements DataProvider {
-    public final FabricPackOutput output;
+    public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, Factory> registries = new Object2ObjectOpenHashMap<>();
 
-    public AbstractFoodIngredientProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractFoodIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
@@ -139,10 +139,10 @@ public abstract class AbstractFoodIngredientProvider implements DataProvider {
         }
 
         public void build() {
-            Set<Item> items = FoodProperties.PROPERTY_CACHE.computeIfAbsent(this.property, _ -> new LinkedHashSet<>());
+            Set<Item> items = FoodProperties.PROPERTY_CACHE.computeIfAbsent(this.property, inst -> new LinkedHashSet<>());
             items.addAll(this.list);
             for (Item item : this.list) {
-                Set<FoodProperty> foodProperties = FoodProperties.ITEM_CACHE.computeIfAbsent(item, _ -> new LinkedHashSet<>());
+                Set<FoodProperty> foodProperties = FoodProperties.ITEM_CACHE.computeIfAbsent(item, inst -> new LinkedHashSet<>());
                 foodProperties.add(this.property);
             }
         }

@@ -1,0 +1,54 @@
+{
+  "role_type": "reverie_dreams:kaku_seiga",
+  "rare": true,
+  "budget": {
+    "min": 400,
+    "max": 900
+  },
+  "likes": [
+    "reverie_dreams:legendary",
+    "reverie_dreams:sweet",
+    "reverie_dreams:petite",
+    "reverie_dreams:local_specialty"
+  ],
+  "dislikes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:filling"
+  ],
+  "beverages": [
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:sake",
+    "reverie_dreams:modern"
+  ],
+  "chats": [
+    "reverie_dreams.role.kaku_seiga.chat.0",
+    "reverie_dreams.role.kaku_seiga.chat.1",
+    "reverie_dreams.role.kaku_seiga.chat.2",
+    "reverie_dreams.role.kaku_seiga.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.kaku_seiga.order.0",
+    "reverie_dreams.role.kaku_seiga.order.1",
+    "reverie_dreams.role.kaku_seiga.order.2",
+    "reverie_dreams.role.kaku_seiga.order.3",
+    "reverie_dreams.role.kaku_seiga.order.4",
+    "reverie_dreams.role.kaku_seiga.order.5",
+    "reverie_dreams.role.kaku_seiga.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.kaku_seiga.description.0",
+    "reverie_dreams.role.kaku_seiga.description.1",
+    "reverie_dreams.role.kaku_seiga.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.kaku_seiga.evaluation.exbad",
+    "bad": "reverie_dreams.role.kaku_seiga.evaluation.bad",
+    "norm": "reverie_dreams.role.kaku_seiga.evaluation.norm",
+    "good": "reverie_dreams.role.kaku_seiga.evaluation.good",
+    "exgood": "reverie_dreams.role.kaku_seiga.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.kaku_seiga.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.kaku_seiga.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.kaku_seiga.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.kaku_seiga.evaluation.seenRepell"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "registry_key": "reverie_dreams:beer",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/beer",
+      "reverie_dreams:beverage/qilin",
+      "reverie_dreams:beverage/space_beer"
+    ]
+  }
+}

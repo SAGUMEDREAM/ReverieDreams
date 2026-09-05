@@ -1,0 +1,5 @@
+{
+  "type": "neoforge:add_carvers",
+  "biomes": "reverie_dreams:the_moon",
+  "carvers": "reverie_dreams:moon_cave"
+}

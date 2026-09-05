@@ -29,7 +29,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -165,7 +165,10 @@ public class BeverageProperties {
 
     public static Collection<BeverageProperty> get(ItemStackTemplate template) {
         Holder<Item> item = template.item();
-        List<BeverageProperty> existing = template.getOrDefault(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), new ArrayList<>());
+        List<BeverageProperty> existing = template.get(RDDataComponentTypes.BEVERAGE_PROPERTIES.value());
+        if (existing == null) {
+            existing = new ArrayList<>();
+        }
         if (!existing.isEmpty()) {
             return existing;
         }

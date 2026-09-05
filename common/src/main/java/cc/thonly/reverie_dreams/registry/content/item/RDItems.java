@@ -23,9 +23,9 @@ import cc.thonly.reverie_dreams.proxy.GuidebookFactory;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -46,6 +46,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 
 import java.util.ArrayList;
@@ -121,17 +122,14 @@ public class RDItems {
             .stacksTo(1)
             .durability(600)
             .repairable(ItemTags.IRON_TOOL_MATERIALS).equippableUnswappable(EquipmentSlot.OFFHAND)
-            .delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(
-                    0.25F,
-                    1.0F,
-                    List.of(new BlocksAttacks.DamageReduction(90.0F,
-                            Optional.empty()
-                            , 0.0F, 1.0F)
-                    ),
-                    new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
-                    Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
-                    Optional.of(SoundEvents.SHIELD_BLOCK),
-                    Optional.of(SoundEvents.SHIELD_BREAK)))
+            .component(DataComponents.BLOCKS_ATTACKS,
+                    new BlocksAttacks(0.25F, 1.0F,
+                            List.of(
+                                    new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                            new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                            Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+                            Optional.of(SoundEvents.SHIELD_BLOCK),
+                            Optional.of(SoundEvents.SHIELD_BREAK)))
             .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)), new Item.Properties());
     public static final ItemDelegate TENGU_CAMERA = registerItem("tengu_camera", props -> new TenguCameraItem(props.stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR)), new Item.Properties());
     public static final ItemDelegate HIMEKAIDOU_HATATES_PHONE = registerItem("himekaidou_hatates_phone", props -> new HimekaidouHatatesPhone(props.component(RDDataComponentTypes.FOV.value(), 75).stacksTo(1).durability(250).repairable(ItemTags.REPAIRS_IRON_ARMOR)), new Item.Properties());
@@ -170,7 +168,7 @@ public class RDItems {
     public static final ItemDelegate DEATH_SCYTHE = registerItem("death_scythe", props -> new DeathScytheItem(1f, -2.8f, props), new Item.Properties());
     public static final ItemDelegate VIOLIN = registerItem("violin", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.FLUTE)), new Item.Properties());
     public static final ItemDelegate KEYBOARD = registerItem("keyboard", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.PLING)), new Item.Properties());
-    public static final ItemDelegate TRUMPET = registerItem("trumpet", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.TRUMPET)), new Item.Properties());
+    public static final ItemDelegate TRUMPET = registerItem("trumpet", props -> new MusicalInstrumentItem(props.stacksTo(1).equippable(EquipmentSlot.HEAD).component(RDDataComponentTypes.NOTE_TYPE.value(), NoteBlockInstrument.DIDGERIDOO)), new Item.Properties());
     public static final ItemDelegate IRON_BAR = registerItem("iron_bar", props -> new IronBarItem(props.stacksTo(1).component(DataComponents.TOOL, new Tool(List.of(), 1.0F, 2, false)).durability(400).repairable(RDItemTags.IRON_BAR_MATERIALS).attributes(ItemAttributeModifiers.builder().add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 8, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, 1 - 1 - 3.3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build()).enchantable(15)), new Item.Properties());
 
     // 银装备
@@ -264,7 +262,7 @@ public class RDItems {
     }
 
     public static ItemDelegate registerSimpleItem(String name, Function<Item.Properties, Item> factory, Item.Properties settings) {
-        RegistrySupplier<Item> item = MCBuiltInRegistries.ITEM.register(name, () -> factory.apply(settings.setId(keyOf(name))));
+        RegistryDelegate<Item> item = MCBuiltInRegistries.ITEM.register(name, () -> factory.apply(settings.setId(keyOf(name))));
         ItemDelegate itemDelegate = ItemDelegate.of(item);
         ReverieDreams.COMMON_LATE_INIT.add(() -> ItemTypeGroup.join(itemDelegate.asItem()));
         LATE_POLYMERIFY_ITEM_LIST.add(item);

@@ -19,7 +19,7 @@ import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.world.dimension.RDBuiltInDimensions;
 import cc.thonly.reverie_dreams.world.dimension.RDBuiltinLevels;
 import cc.thonly.reverie_dreams.world.gen.RDBuiltinStructures;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.*;
@@ -32,7 +32,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -48,7 +48,7 @@ import java.util.function.Consumer;
 public class AdvancementProvider extends FabricAdvancementProvider {
     private static boolean root = true;
 
-    public AdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public AdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 
@@ -280,7 +280,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
     }
 
     public void generateHidedAdvancement(HolderLookup.Provider provider, Consumer<AdvancementHolder> context, AdvancementHolder root) {
-        DisplayInfo askingForMoneydisplayInfo = new DisplayInfo(AdvancementIcons.ASKING_FOR_MONEY,
+        DisplayInfo askingForMoneydisplayInfo = new DisplayInfo(AdvancementIcons.ASKING_FOR_MONEY.create(),
                 RDBuiltInAdvancements.getTitleComponent(RDBuiltInAdvancements.ASKING_FOR_MONEY),
                 RDBuiltInAdvancements.getDescriptionComponent(RDBuiltInAdvancements.ASKING_FOR_MONEY),
                 Optional.of(RDBuiltInAdvancements.ADVANCEMENT_BACKGROUND).map(ClientAsset.ResourceTexture::new),
@@ -298,7 +298,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
     }
 
     public static DisplayInfo makeDisplayInfo(ItemLike item, ResourceKey<Advancement> key, AdvancementType type) {
-        DisplayInfo displayInfo = new DisplayInfo(new ItemStackTemplate(item.asItem()),
+        DisplayInfo displayInfo = new DisplayInfo(new ItemStackTemplate(item.asItem()).create(),
                 RDBuiltInAdvancements.getTitleComponent(key),
                 RDBuiltInAdvancements.getDescriptionComponent(key),
                 AdvancementProvider.root ? Optional.of(RDBuiltInAdvancements.ADVANCEMENT_BACKGROUND).map(ClientAsset.ResourceTexture::new) : Optional.empty(),

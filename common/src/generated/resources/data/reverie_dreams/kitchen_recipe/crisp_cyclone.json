@@ -2,16 +2,20 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     },
     {
-      "id": "minecraft:honey_bottle"
+      "id": "minecraft:honey_bottle",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/cicada_shell"
+      "id": "reverie_dreams:ingredient/cicada_shell",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/crisp_cyclone"
+    "id": "reverie_dreams:cuisine/crisp_cyclone",
+    "count": 1
   }
 }

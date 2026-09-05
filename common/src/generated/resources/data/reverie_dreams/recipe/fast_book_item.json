@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": "minecraft:feather",
+    "P": "reverie_dreams:power",
+    "R": "minecraft:redstone",
+    "X": "minecraft:book"
+  },
+  "pattern": [
+    "FRP",
+    "RXR",
+    "PRP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:fast_book_item"
+  }
+}

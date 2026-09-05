@@ -28,9 +28,9 @@ import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.authlib.properties.Property;
 import com.mojang.logging.LogUtils;
-import dev.architectury.networking.NetworkManager;
 import lombok.Getter;
 import lombok.Setter;
+import net.blay09.mods.balm.Balm;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -84,6 +84,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @SuppressWarnings({"resource", "SpellCheckingInspection", "unused"})
@@ -184,8 +185,8 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         this.setTame(false, false);
         this.setCanPickUpLoot(true);
 
-        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 16.0f);
-        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, -1.0f);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0f);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0f);
     }
 
     @SuppressWarnings("ConstantValue")
@@ -298,7 +299,9 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
             }
             final var packet = new SyncEntityPacket(this.getId(), this.writeUpdateTag());
             if (ReverieDreams.getServer() != null) {
-                NetworkManager.sendToPlayers(ReverieDreams.getServer().getPlayerList().getPlayers().stream().filter(player -> Objects.equals(player.level().dimension(), this.level().dimension())).toList(), packet);
+                ReverieDreams.getServer().getPlayerList().getPlayers().stream().filter(player -> Objects.equals(player.level().dimension(), this.level().dimension())).toList().forEach(player -> {
+                    Balm.networking().sendTo(player, packet);
+                });
             }
         }
     }
@@ -350,7 +353,7 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         if (itemStack.getItem() instanceof CrossbowItem) {
             ChargedProjectiles chargedProjectilesComponent = itemStack.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
             if (chargedProjectilesComponent != null) {
-                for (ItemStack projStack : chargedProjectilesComponent.itemCopies()) {
+                for (ItemStack projStack : chargedProjectilesComponent.getItems()) {
                     Projectile projectile = this.createArrowProjectile(projStack, 3.15f, itemStack);
                     shoot(target, projStack, projectile);
                     shoot(target, projStack, projectile);

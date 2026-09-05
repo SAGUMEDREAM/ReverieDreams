@@ -5,6 +5,7 @@ import cc.thonly.keine.api.callback.ItemAttackHitCallback;
 import cc.thonly.keine.api.callback.ServerCallback;
 import cc.thonly.keine.api.callback.ServerSavingCallback;
 import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
+import cc.thonly.reverie_dreams.api.registry.NetworkManager;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
@@ -43,6 +44,7 @@ import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
+import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
@@ -64,12 +66,13 @@ import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
 import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
 import cc.thonly.reverie_dreams.world.RDBuiltinWorldGenerations;
-import dev.architectury.event.events.common.*;
-import dev.architectury.networking.NetworkManager;
 import lombok.Getter;
 import lombok.Setter;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.network.BalmNetworking;
+import net.blay09.mods.balm.platform.event.callback.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -83,6 +86,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -94,9 +98,9 @@ public class ReverieDreams {
     public static final String MOD_ID = "reverie_dreams";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final Random RD = new Random();
-    public static final List<Runnable> COMMON_LATE_INIT = new ArrayList<>();
-    public static final List<Runnable> BUS_LATE_INIT = new ArrayList<>();
-    public static final List<Runnable> LATE_INIT_CLIENT = new ArrayList<>();
+    public static final List<Runnable> COMMON_LATE_INIT = new CopyOnWriteArrayList<>();
+    public static final List<Runnable> BUS_LATE_INIT = new CopyOnWriteArrayList<>();
+    public static final List<Runnable> LATE_INIT_CLIENT = new CopyOnWriteArrayList<>();
     public static final List<Block> SERVER_SIDE_BLOCKS = List.of(Blocks.NOTE_BLOCK, Blocks.TRIPWIRE);
     public static Function<ResourceKey<? extends Registry<?>>, RegistryProvider<?>> REGISTRY_GETTER = key -> null;
     public static BiFunction<ResourceKey<? extends Registry<?>>, List<Registry>, MergeRegistry<?>> MERGE_REGISTRY_GETTER = (key, list) -> null;
@@ -128,6 +132,7 @@ public class ReverieDreams {
         PlatformContext.FABRIC_POLYFACTORY_HAND_CRANK = Blocks.AIR;
         PlatformContext.FABRIC_CREATE_FLY_HAND_CRANK = Blocks.AIR;
 
+        MCBuiltInRegistries.register();
         // 初始化静态注册表
         Nota.initialize();
         JukeboxSongInit.initialize();
@@ -158,7 +163,6 @@ public class ReverieDreams {
         RDCreativeTabs.initialize();
         RDBuiltinWorldGenerations.registerWorldGeneration();
         BiomeModificationInit.initialize();
-        MCBuiltInRegistries.register();
 
         // 初始化其他注册内容
         PlatformProxies.initialize();
@@ -200,16 +204,25 @@ public class ReverieDreams {
     }
 
     private static void registerContentEvent() {
-        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByDanmaku);
+        LivingEntityCallback.Death.Before.EVENT.register((livingEntity, damageSource) -> {
+            CommonEventHandlers.onLivingEntityDeathByDanmaku(livingEntity, damageSource);
+            return true;
+        });
 //        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
-        EntityEvent.LIVING_HURT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
+        LivingEntityCallback.Damage.Before.EVENT.register((livingEntity, damageSource, amount) -> {
+            CommonEventHandlers.onModifyingLivingEntityDamageByUndeadSilverDamage(livingEntity, damageSource, amount);
+            return amount;
+        });
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitBySilverWeapon);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByFrozenEnchantment);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByChargeEnchantment);
         ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByInstantKillGhost);
         AttackBlockCallback.EVENT.register(CommonEventHandlers::onAttackingBlockChangeCameraFov);
         AttackBlockCallback.EVENT.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
-        PlayerEvent.ATTACK_ENTITY.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
+        PlayerCallback.Attack.Before.EVENT.register((player, target) -> {
+            CommonEventHandlers.onChangingMusicalInstrumentMusic(player, target);
+            return true;
+        });
     }
 
     private static void registerNetworkingEvent() {
@@ -218,56 +231,63 @@ public class ReverieDreams {
     }
 
     public static void registerClientboundPackets() {
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.S2C,
+        NetworkManager.registerClientboundPacket(
                 RecipeManagerSyncPacket.PACKET_ID,
+                RecipeManagerSyncPacket.class,
                 RecipeManagerSyncPacket.CODEC,
-                (packet, context) ->
+                (player, packet) ->
                         ClientNetworkingHandlers.safeHandleClient(
                                 () -> ClientNetworkingHandlers.onReceiveRecipeManagerSyncPacket(
-                                        context.getPlayer(),
+                                        player,
                                         packet
                                 )
                         )
         );
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.S2C,
+        NetworkManager.registerClientboundPacket(
                 CustomRegistrySyncPacket.PACKET_ID,
+                CustomRegistrySyncPacket.class,
                 CustomRegistrySyncPacket.CODEC,
-                (packet, context) ->
+                (player, packet) ->
                         ClientNetworkingHandlers.safeHandleClient(
                                 () -> ClientNetworkingHandlers.onReceiveCustomRegistrySyncPacket(
-                                        context.getPlayer(),
+                                        player,
                                         packet
                                 )
                         )
         );
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.S2C,
+
+        NetworkManager.registerClientboundPacket(
                 SyncEntityPacket.PACKET_ID,
+                SyncEntityPacket.class,
                 SyncEntityPacket.CODEC,
-                (packet, context) -> ClientNetworkingHandlers.onReceiveSyncEntityPacket(context.getPlayer(), packet)
+                (player, packet) ->
+                        ClientNetworkingHandlers.safeHandleClient(
+                                () -> ClientNetworkingHandlers.onReceiveSyncEntityPacket(
+                                        player,
+                                        packet
+                                )
+                        )
         );
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.S2C,
+        NetworkManager.registerClientboundPacket(
                 StartScreenshotPacket.PACKET_ID,
+                StartScreenshotPacket.class,
                 StartScreenshotPacket.CODEC,
-                (packet, context) ->
+                (player, packet) ->
                         ClientNetworkingHandlers.safeHandleClient(
                                 () -> ClientNetworkingHandlers.onReceiveStartScreenshotPacket(
-                                        context.getPlayer(),
+                                        player,
                                         packet
                                 )
                         )
         );
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.S2C,
+        NetworkManager.registerClientboundPacket(
                 PlayerComponentUpdatePacket.PACKET_ID,
+                PlayerComponentUpdatePacket.class,
                 PlayerComponentUpdatePacket.CODEC,
-                (packet, context) ->
+                (player, packet) ->
                         ClientNetworkingHandlers.safeHandleClient(
                                 () -> ClientNetworkingHandlers.onReceivePlayerComponentUpdatePacket(
-                                        context.getPlayer(),
+                                        player,
                                         packet
                                 )
                         )
@@ -275,50 +295,65 @@ public class ReverieDreams {
     }
 
     public static void registerServerboundPackets() {
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.C2S,
+        NetworkManager.registerServerboundPacket(
                 HelloPacket.PACKET_ID,
+                HelloPacket.class,
                 HelloPacket.CODEC,
-                (packet, context) -> ServerNetworkingHandlers.onReceiveHelloPacket((ServerPlayer) context.getPlayer(), packet)
+                (player, packet) ->
+                        ServerNetworkingHandlers.onReceiveHelloPacket(
+                                (ServerPlayer) player,
+                                packet
+                        )
         );
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.C2S,
+        NetworkManager.registerServerboundPacket(
                 PlayerMidiNotePacket.PACKET_ID,
+                PlayerMidiNotePacket.class,
                 PlayerMidiNotePacket.CODEC,
-                (packet, context) -> ServerNetworkingHandlers.onReceivePlayerMidiNotePacket((ServerPlayer) context.getPlayer(), packet)
+                (player, packet) ->
+                        ServerNetworkingHandlers.onReceivePlayerMidiNotePacket(
+                                (ServerPlayer) player,
+                                packet
+                        )
         );
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.C2S,
+        NetworkManager.registerServerboundPacket(
                 PlayerJoinVersionPacket.PACKET_ID,
+                PlayerJoinVersionPacket.class,
                 PlayerJoinVersionPacket.CODEC,
-                (packet, context) -> ServerNetworkingHandlers.onReceiveHelloPacket((ServerPlayer) context.getPlayer(), packet)
+                (player, packet) ->
+                        ServerNetworkingHandlers.onReceiveHelloPacket(
+                                (ServerPlayer) player,
+                                packet
+                        )
         );
-        NetworkManager.registerReceiver(
-                NetworkManager.Side.C2S,
+        NetworkManager.registerServerboundPacket(
                 ScreenshotMapPacket.PACKET_ID,
+                ScreenshotMapPacket.class,
                 ScreenshotMapPacket.CODEC,
-                (packet, context) -> ServerNetworkingHandlers.onReceiveScreenshotMapPacket((ServerPlayer) context.getPlayer(), packet)
+                (player, packet) ->
+                        ServerNetworkingHandlers.onReceiveScreenshotMapPacket(
+                                (ServerPlayer) player,
+                                packet
+                        )
         );
     }
 
     private static void registerServerEvents() {
-        CommandRegistrationEvent.EVENT.register(CommandInit::registerCommand);
-        PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinByModUpdateCheck);
-        PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinByCreateComponent);
-        PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinBySync);
-        PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
-        PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
-        LifecycleEvent.SERVER_STARTED.register(ServerEventHandlers::onServerStarted);
+        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByModUpdateCheck);
+        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinByCreateComponent);
+        ServerPlayerCallback.Join.EVENT.register(ServerEventHandlers::onPlayerJoinBySync);
+        ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
+        ServerPlayerCallback.Leave.EVENT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
+        ServerLifecycleCallback.Started.EVENT.register(ServerEventHandlers::onServerStarted);
         ServerSavingCallback.AFTER.register(ServerEventHandlers::onServerSavingAfter);
         ServerCallback.RELOADING.register(ServerEventHandlers::onServerReloading);
         ServerCallback.RELOADED.register(ServerEventHandlers::onServerReloaded);
-        TickEvent.SERVER_POST.register(DelayedTask::tick);
-        TickEvent.SERVER_POST.register(ServerPlayerComponentManager::tickByServer);
-        TickEvent.SERVER_POST.register(ParticleTickerManager::tick);
-        TickEvent.SERVER_POST.register(ServerPlayerInputManagerAccess::tick);
-        TickEvent.SERVER_POST.register(DanmakuScriptManager::onTick);
-        TickEvent.SERVER_POST.register(DialogPlayerManager::tick);
-        TickEvent.SERVER_POST.register(SpellcardRenderer::tick);
+        ServerTickCallback.AFTER.register(DelayedTask::tick);
+        ServerTickCallback.AFTER.register(ServerPlayerComponentManager::tickByServer);
+        ServerTickCallback.AFTER.register(ParticleTickerManager::tick);
+        ServerTickCallback.AFTER.register(ServerPlayerInputManagerAccess::tick);
+        ServerTickCallback.AFTER.register(DanmakuScriptManager::onTick);
+        ServerTickCallback.AFTER.register(DialogPlayerManager::tick);
+        ServerTickCallback.AFTER.register(SpellcardRenderer::tick);
     }
 
     private static void loadCompletableEvent() {

@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:dark_oak_leaves",
+      "count": 1
+    },
+    {
+      "id": "minecraft:dark_oak_leaves",
+      "count": 1
+    },
+    {
+      "id": "minecraft:blaze_powder",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/ordinary_fitness_tea",
+    "count": 1
+  },
+  "cost_time": 940
+}

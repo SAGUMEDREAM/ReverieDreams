@@ -37,7 +37,7 @@ public class BasePlayerComponentManager implements PlayerComponentManager {
     @Override
     public <T extends PlayerComponent> PlayerComponent<T> createComponent(Player player, Class<T> key) {
         String uuid = player.getStringUUID();
-        List<ComponentEntry> componentEntries = this.dataList.computeIfAbsent(uuid, _ -> new ArrayList<>());
+        List<ComponentEntry> componentEntries = this.dataList.computeIfAbsent(uuid, inst -> new ArrayList<>());
         PlayerComponentInitializer initializer = PlayerComponentRegistry.getComponentType(key);
         PlayerComponent<T> playerComponent = initializer.createAndLoad(player);
         componentEntries.add(new ComponentEntry(key, playerComponent));
@@ -46,7 +46,7 @@ public class BasePlayerComponentManager implements PlayerComponentManager {
 
     @Override
     public <T extends PlayerComponent> void readComponent(Player player, Class<T> key, PlayerComponent<T> component) {
-        List<ComponentEntry> componentEntries = this.dataList.computeIfAbsent(player.getStringUUID(), _ -> new ArrayList<>());
+        List<ComponentEntry> componentEntries = this.dataList.computeIfAbsent(player.getStringUUID(), inst -> new ArrayList<>());
         componentEntries.add(new ComponentEntry(key, component));
     }
 

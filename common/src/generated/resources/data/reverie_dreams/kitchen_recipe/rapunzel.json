@@ -2,13 +2,16 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "minecraft:pumpkin"
+      "id": "minecraft:pumpkin",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/shrimp"
+      "id": "reverie_dreams:ingredient/shrimp",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/rapunzel"
+    "id": "reverie_dreams:cuisine/rapunzel",
+    "count": 1
   }
 }

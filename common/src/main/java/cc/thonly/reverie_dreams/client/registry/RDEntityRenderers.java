@@ -1,24 +1,29 @@
 package cc.thonly.reverie_dreams.client.registry;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.client.EntityRendererRegistry;
 import cc.thonly.reverie_dreams.client.renderer.entity.*;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleRedirectEntity;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
-import dev.architectury.registry.registries.RegistrySupplier;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
+import net.blay09.mods.balm.client.BalmClient;
+import net.blay09.mods.balm.client.renderer.entity.BalmEntityRendererRegistrar;
 import net.minecraft.client.renderer.entity.BeeRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RabbitRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.EntityType;
 
+import java.util.function.Consumer;
+
 public class RDEntityRenderers {
     public static void initialize() {
         // EmptyRenderer
         for (NPCRoleType npcRole : BuiltInRegistryProviders.NPC_ROLE_TYPE) {
-            RegistrySupplier<EntityType<NPCSimpleRedirectEntity>> entityType = npcRole.getEntityType();
+            RegistryDelegate<EntityType<NPCSimpleRedirectEntity>> entityType = npcRole.getEntityType();
             EntityRendererRegistry.register(entityType, EmptyRenderer::new);
         }
         // Projectile
@@ -63,4 +68,5 @@ public class RDEntityRenderers {
         EntityRendererRegistry.register(RDEntityTypes.ICE_ELEMENTAL, wideNpcLikeRendererProvider);
         EntityRendererRegistry.register(RDEntityTypes.ONI, wideNpcLikeRendererProvider);
     }
+
 }

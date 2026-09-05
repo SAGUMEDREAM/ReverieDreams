@@ -10,10 +10,11 @@ import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -38,7 +39,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class BlockLootTableProvider extends FabricBlockLootSubProvider {
+public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     protected static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
     private final Function<WoodBundle, Void> woodBundleLootFunction = (creator) -> {
         creator.stream().forEach((deferredBlock -> {
@@ -72,7 +73,7 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
         return null;
     };
 
-    public BlockLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
@@ -229,19 +230,19 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
                     ));
             lootTableBuilder.withPool(
                     LootPool.lootPool()
-                            .when(condition.build())
+                            .when(condition)
                             .setRolls(ConstantValue.exactly(1))
                             .add(baseSeedEntry)
             );
             lootTableBuilder.withPool(
                     LootPool.lootPool()
-                            .when(condition.build())
+                            .when(condition)
                             .setRolls(ConstantValue.exactly(1))
                             .add(productEntry)
             );
             lootTableBuilder.withPool(
                     LootPool.lootPool()
-                            .when(condition.build())
+                            .when(condition)
                             .setRolls(ConstantValue.exactly(1))
                             .add(seedEntry)
             );

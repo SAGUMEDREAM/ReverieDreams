@@ -37,7 +37,7 @@ public class RangedAttackUtil {
     public static boolean loadProjectiles(ItemStack crossbow, ItemStack ammo, LivingEntity user) {
         List<ItemStack> list = ProjectileWeaponItem.draw(crossbow, ammo, user);
         if (!list.isEmpty()) {
-            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.ofNonEmpty(list));
+            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(list));
             return true;
         } else {
             return false;

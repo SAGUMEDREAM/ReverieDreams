@@ -75,6 +75,11 @@
     "reverie_dreams:spiritual_button",
     "reverie_dreams:danmaku_crafting_table",
     "reverie_dreams:music_block",
-    "reverie_dreams:cash_box"
+    "reverie_dreams:cash_box",
+    "reverie_dreams:chair",
+    "reverie_dreams:table",
+    "reverie_dreams:cupboard",
+    "reverie_dreams:brewing_barrel",
+    "reverie_dreams:speaker"
   ]
 }

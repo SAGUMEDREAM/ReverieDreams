@@ -2,13 +2,16 @@
   "recipe_type": "reverie_dreams:cutting_board",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/salmon"
+      "id": "reverie_dreams:ingredient/salmon",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/tuna"
+      "id": "reverie_dreams:ingredient/tuna",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/sashimi_platter"
+    "id": "reverie_dreams:cuisine/sashimi_platter",
+    "count": 1
   }
 }

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.fabric.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.client.resources.model.sprite.TextureSlots;
+import net.minecraft.client.renderer.block.model.TextureSlots;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

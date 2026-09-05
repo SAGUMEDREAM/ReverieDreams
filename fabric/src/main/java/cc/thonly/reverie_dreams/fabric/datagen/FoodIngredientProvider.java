@@ -5,14 +5,14 @@ import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
 public class FoodIngredientProvider extends AbstractFoodIngredientProvider {
-    public FoodIngredientProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public FoodIngredientProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

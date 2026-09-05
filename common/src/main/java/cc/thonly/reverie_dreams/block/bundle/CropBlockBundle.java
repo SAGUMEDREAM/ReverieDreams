@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
-import dev.architectury.registry.registries.RegistrySupplier;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -67,7 +67,7 @@ public final class CropBlockBundle {
      */
     public Entry build() {
         String name = this.identifier.getPath();
-        RegistrySupplier<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> this.factory.newInstance(BlockBehaviour.Properties.of().setId(RDBlocks.keyOf(this.identifier))));
+        RegistryDelegate<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> this.factory.newInstance(BlockBehaviour.Properties.of().setId(RDBlocks.keyOf(this.identifier))));
         BlockDelegate blockDelegate = BlockDelegate.of(block);
         RDBlocks.registerSimpleBlock(blockDelegate);
 

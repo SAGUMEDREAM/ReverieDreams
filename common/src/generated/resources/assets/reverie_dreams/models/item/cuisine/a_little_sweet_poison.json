@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/cuisine/a_little_sweet_poison"
+  }
+}

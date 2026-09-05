@@ -7,8 +7,8 @@ import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.SessionManager;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import dev.architectury.networking.NetworkManager;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -68,7 +68,7 @@ public class TenguCameraItem extends Item {
             }
             UUID sessionId = UUID.randomUUID();
             SessionManager.startSession(serverPlayer.getUUID(), sessionId);
-            NetworkManager.sendToPlayer(serverPlayer, new StartScreenshotPacket(sessionId));
+            Balm.networking().sendTo(serverPlayer, new StartScreenshotPacket(sessionId));
             level.playSound(null, player.blockPosition(), RDSoundEvents.PHOTO.value(), SoundSource.PLAYERS);
             return InteractionResult.SUCCESS_SERVER;
         }

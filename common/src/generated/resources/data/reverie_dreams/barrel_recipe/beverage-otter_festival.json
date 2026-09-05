@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:gold_ingot",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/otter_festival",
+    "count": 1
+  },
+  "cost_time": 1120
+}

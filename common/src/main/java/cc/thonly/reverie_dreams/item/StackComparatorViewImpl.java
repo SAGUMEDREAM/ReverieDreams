@@ -78,7 +78,7 @@ public final class StackComparatorViewImpl implements ItemComparatorView {
             return false;
         }
 
-        return other.stack().getCount() >= this.stack().count();
+        return other.stack().getCount() >= this.stack().getCount();
     }
 
     @Override

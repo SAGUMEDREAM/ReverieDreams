@@ -52,17 +52,27 @@ dependencies {
     implementation("net.blay09.mods:balm-neoforge:${balm_version}") {
         changing = balm_version.contains("SNAPSHOT")
     }
-    compileOnly("cc.thonly:keine-common:1.21.11-1.0.0")
+    compileOnly("cc.thonly:keine-common:${keine_api_version}")
     compileOnly("software.bernie.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-//    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
 
     compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
-    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
-    implementation("dev.architectury:architectury-neoforge:${architectury_api_version}")
+//    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
 
-    jarJar(implementation("cc.thonly:keine-neoforge:1.21.11-1.0.0"))
+    // AppleSkin
+    compileOnly "maven.modrinth:EsAfCjCV:MH9ov9DW"
+    // Lootr
+    compileOnly("maven.modrinth:EltpO5cN:TBkxTN54")
+    // Jade
+    compileOnly("maven.modrinth:nvQzSEkH:LDFqgwEA")
+//    implementation("dev.architectury:architectury-neoforge:${architectury_api_version}")
+
+    jarJar(implementation("cc.thonly:keine-neoforge:${keine_api_version}"))
     jarJar(implementation("cc.thonly:sgui_balm-neoforge:1.21.11-21.11.0"))
+    // ClothConfig
+    jarJar(implementation("maven.modrinth:9s6osm5g:Wsus0EWg"))
     jarJar(implementation("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))
 
     jarJar(implementation('com.squareup.okhttp3:okhttp:4.12.0'))
@@ -71,6 +81,8 @@ dependencies {
     jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib:1.9.10'))
     jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10'))
     jarJar(implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10'))
+    jarJar(implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3"))
+    jarJar(implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3"))
 }
 
 def neoForgeSnapshotUrl = findProperty("neoforge_snapshot_url")

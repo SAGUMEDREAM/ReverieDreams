@@ -23,8 +23,8 @@ import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
-import dev.architectury.event.Event;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.blay09.mods.balm.platform.event.Event;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -46,12 +46,12 @@ public class InitTooltips {
     public static final Map<ItemLike, List<String>> ITEM_DESCRIPTION_RENDER_DATA = new Object2ObjectOpenHashMap<>(512);
 
     public static void addItem(ItemLike item, String component) {
-        List<String> list = ITEM_DESCRIPTION_RENDER_DATA.computeIfAbsent(item, _ -> new ArrayList<>());
+        List<String> list = ITEM_DESCRIPTION_RENDER_DATA.computeIfAbsent(item, inst -> new ArrayList<>());
         list.add(component);
     }
 
     public static void addItem(ItemLike item, List<String> components) {
-        List<String> list = ITEM_DESCRIPTION_RENDER_DATA.computeIfAbsent(item, _ -> new ArrayList<>());
+        List<String> list = ITEM_DESCRIPTION_RENDER_DATA.computeIfAbsent(item, inst -> new ArrayList<>());
         list.addAll(components);
     }
 
@@ -215,6 +215,9 @@ public class InitTooltips {
     public static void registerTooltip(ItemStackTooltipCallback callback) {
         Event<ItemStackTooltipCallback> event = getTooltipEventBus();
         event.register((itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag) -> {
+            if (player == null) {
+                return;
+            }
             invokeBypassShowOnly(callback, itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag);
         });
     }

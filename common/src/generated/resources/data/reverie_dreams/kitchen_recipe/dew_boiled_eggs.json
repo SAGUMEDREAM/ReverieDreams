@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/dew"
+      "id": "reverie_dreams:ingredient/dew",
+      "count": 1
     },
     {
-      "id": "minecraft:egg"
+      "id": "minecraft:egg",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/dew_boiled_eggs"
+    "id": "reverie_dreams:cuisine/dew_boiled_eggs",
+    "count": 1
   },
   "cost_time": 3.0
 }

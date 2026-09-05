@@ -11,7 +11,8 @@ import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import eu.pb4.sgui.api.gui.SlotBasedGui;
+import eu.pb4.sgui.api.gui.BaseSlotGui;
+import eu.pb4.sgui.api.gui.SlotGuiInterface;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -19,13 +20,13 @@ import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 @Getter
 public class BasePageGui extends SimpleGui {
@@ -98,19 +99,19 @@ public class BasePageGui extends SimpleGui {
     }
 
     @Override
-    public boolean onAnyClick(int index, ClickType type, ContainerInput action) {
+    public boolean onAnyClick(int index, ClickType type, net.minecraft.world.inventory.ClickType action) {
         this.updated = true;
         return super.onAnyClick(index, type, action);
     }
 
-    public void clickIcon(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+    public void clickIcon(int index, ClickType clickType, net.minecraft.world.inventory.ClickType input, SlotGuiInterface slotBasedGui) {
         int iconIndex = this.page * PER_PAGE_SIZE + index;
         if (this.maxSize > iconIndex) {
 
         }
     }
 
-    public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+    public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType input, SlotGuiInterface slotBasedGui) {
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (this.prevGuiCallback != null) {
             SimpleGui applyGui = this.prevGuiCallback.apply();
@@ -118,7 +119,7 @@ public class BasePageGui extends SimpleGui {
         }
     }
 
-    public void next(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+    public void next(int index, ClickType clickType, net.minecraft.world.inventory.ClickType input, SlotGuiInterface slotBasedGui) {
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (this.page < getMaxPage()) {
             this.page++;
@@ -126,7 +127,7 @@ public class BasePageGui extends SimpleGui {
         }
     }
 
-    public void prev(int index, ClickType clickType, ContainerInput action, SlotBasedGui slotBasedGui) {
+    public void prev(int index, ClickType clickType, net.minecraft.world.inventory.ClickType action, SlotGuiInterface slotBasedGui) {
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
 
         if (this.page > getMinPage()) {

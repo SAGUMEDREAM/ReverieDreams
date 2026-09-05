@@ -2,10 +2,12 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/sticky_rice"
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/glutinous_rice_balls"
+    "id": "reverie_dreams:cuisine/glutinous_rice_balls",
+    "count": 1
   }
 }

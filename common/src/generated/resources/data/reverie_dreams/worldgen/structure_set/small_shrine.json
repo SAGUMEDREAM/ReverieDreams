@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 319980603,
+    "separation": 10,
+    "spacing": 40
+  },
+  "structures": [
+    {
+      "structure": "reverie_dreams:small_shrine",
+      "weight": 1
+    }
+  ]
+}

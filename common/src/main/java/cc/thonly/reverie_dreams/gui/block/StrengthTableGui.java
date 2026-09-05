@@ -52,8 +52,8 @@ public class StrengthTableGui extends SimpleGui implements GuiCommon {
                         .append(Component.translatable("space.-168"))
                         .append(Component.translatable(RDBlocks.STRENGTH_TABLE.asBlock().getDescriptionId()))
         );
-        this.setSlot(2, new Slot(this.blockEntity.getInventory(), 0, 0, 0));
-        this.setSlot(3, new Slot(this.blockEntity.getInventory(), 1, 0, 0));
+        this.setSlotRedirect(2, new Slot(this.blockEntity.getInventory(), 0, 0, 0));
+        this.setSlotRedirect(3, new Slot(this.blockEntity.getInventory(), 1, 0, 0));
         this.output = new GuiElementBuilder()
                 .setItem(Items.AIR)
                 .setCallback((index, type, action, basedGui) -> click());

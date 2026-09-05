@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:cave",
+  "config": {
+    "floor_level": -0.7,
+    "horizontal_radius_multiplier": 1.0,
+    "lava_level": {
+      "absolute": -54
+    },
+    "probability": 0.08,
+    "replaceable": "reverie_dreams:moon_stone",
+    "vertical_radius_multiplier": 0.8,
+    "y": {
+      "type": "minecraft:uniform",
+      "max_inclusive": {
+        "absolute": 90
+      },
+      "min_inclusive": {
+        "absolute": -32
+      }
+    },
+    "yScale": 0.5
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "reverie_dreams:item/custom_icon",
+  "textures": {
+    "layer0": "reverie_dreams:item/advancement_icon/asking_for_money"
+  }
+}

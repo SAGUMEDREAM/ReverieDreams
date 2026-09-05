@@ -11,8 +11,8 @@ import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
@@ -31,8 +31,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @Getter(AccessLevel.PRIVATE)
-public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
-    public BlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
+    public BlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

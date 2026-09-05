@@ -1,9 +1,11 @@
 package cc.thonly.reverie_dreams.neoforge.impl;
 
 import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.neoforged.neoforge.registries.callback.RegistryCallback;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
@@ -127,5 +129,10 @@ public class NeoMergeRegistry<T> extends MergeRegistry<T> {
         }
 
         return result;
+    }
+
+    @Override
+    public void bindTag(TagKey<T> tagKey, List<Holder<T>> list) {
+
     }
 }

@@ -7,8 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.world.level.storage.loot.LootDataType;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.Validatable;
-import net.minecraft.world.level.storage.loot.ValidationContextSource;
+import net.minecraft.world.level.storage.loot.ValidationContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ReloadableServerRegistriesMixin {
     @SuppressWarnings("unchecked")
     @Inject(method = "validateRegistry", at = @At("TAIL"))
-    private static <T extends Validatable> void makeIdSet(ValidationContextSource contextSource, LootDataType<T> type, HolderLookup.Provider registries, CallbackInfo ci) {
+    private static <T> void makeIdSet(ValidationContext context, LootDataType<T> type, HolderLookup.Provider registries, CallbackInfo ci) {
         if (type != LootDataType.TABLE) {
             return;
         }

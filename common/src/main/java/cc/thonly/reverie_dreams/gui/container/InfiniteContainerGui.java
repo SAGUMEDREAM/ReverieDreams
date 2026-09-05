@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.util.InfiniteInventoryBlockEntity;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
+import eu.pb4.sgui.api.elements.GuiElementInterface;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -14,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerInput;
+
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -123,7 +124,7 @@ public abstract class InfiniteContainerGui extends SimpleGui implements GuiCommo
     }
 
     @Override
-    public boolean onClick(int containerIndex, ClickType type, ContainerInput action, GuiElement element) {
+    public boolean onClick(int containerIndex, ClickType type, net.minecraft.world.inventory.ClickType action, GuiElementInterface element) {
         AbstractContainerMenu containerMenu = this.player.containerMenu;
         if (containerMenu == null || this.blockEntity == null) {
             return super.onClick(containerIndex, type, action, element);

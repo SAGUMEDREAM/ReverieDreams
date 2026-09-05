@@ -13,8 +13,8 @@ import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.Getter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -259,8 +259,8 @@ public class RDBlocks {
         if (name.equalsIgnoreCase("marisa_hat")) {
             itemSettings.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).build());
         }
-        RegistrySupplier<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> factory.apply(blockSettings.setId(RDBlocks.keyOf(name))));
-        RegistrySupplier<BlockItem> blockItem = MCBuiltInRegistries.ITEM.register(name, () -> new BlockItem(block.get(), itemSettings.setId(RDItems.keyOf(name)).useBlockDescriptionPrefix()));
+        RegistryDelegate<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> factory.apply(blockSettings.setId(RDBlocks.keyOf(name))));
+        RegistryDelegate<BlockItem> blockItem = MCBuiltInRegistries.ITEM.register(name, () -> new BlockItem(block.get(), itemSettings.setId(RDItems.keyOf(name)).useBlockDescriptionPrefix()));
         BlockDelegate blockDelegate = BlockDelegate.of(block);
         ReverieDreams.COMMON_LATE_INIT.add(() -> {
             ItemTypeGroup.join(blockItem.get());

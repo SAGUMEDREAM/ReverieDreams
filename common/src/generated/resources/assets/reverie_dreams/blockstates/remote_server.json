@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "occupied=false": {
+      "model": "reverie_dreams:block/remote_server"
+    },
+    "occupied=true": {
+      "model": "reverie_dreams:block/remote_server_on"
+    }
+  }
+}

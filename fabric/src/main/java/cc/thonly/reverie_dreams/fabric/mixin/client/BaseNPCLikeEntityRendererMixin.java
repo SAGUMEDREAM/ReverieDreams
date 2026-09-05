@@ -4,15 +4,11 @@ import cc.thonly.reverie_dreams.client.renderer.entity.BaseNPCLikeEntityRenderer
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
 import cc.thonly.reverie_dreams.util.YsmHolder;
-import com.micaftic.morpher.capability.PlayerCapability;
-import com.micaftic.morpher.capability.VehicleCapability;
-import com.micaftic.morpher.client.renderer.ModelPreviewRenderer;
-import com.micaftic.morpher.mixin.client.MinecraftAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;

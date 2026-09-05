@@ -23,7 +23,7 @@ import org.jspecify.annotations.NonNull;
 public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
     static boolean DISABLED = false;
 
-    @SuppressWarnings({"DuplicatedCode", "PointlessBooleanExpression"})
+    @SuppressWarnings({"DuplicatedCode"})
     @Override
     public void onInitializeDataGenerator(@NonNull FabricDataGenerator fabricDataGenerator) {
         if (DISABLED) {
@@ -39,7 +39,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(BlockTagProvider::new);
 //        pack.addProvider(TestFoodPropertyTagProvider::new);
-        pack.addProvider(VillagerTradeTagProvider::new);
+//        pack.addProvider(VillagerTradeTagProvider::new);
         pack.addProvider(PointOfInterestTypeProvider::new);
         pack.addProvider(EntityTagProvider::new);
         pack.addProvider(DamageTypeTagProvider::new);
@@ -72,8 +72,6 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
     @Override
     public void buildRegistry(@NonNull RegistrySetBuilder builder) {
         DataGeneratorEntrypoint.super.buildRegistry(builder);
-        builder.add(Registries.VILLAGER_TRADE, RDVillagerTrades::bootstrap);
-        builder.add(Registries.TRADE_SET, RDTradeSets::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
         builder.add(Registries.PAINTING_VARIANT, RDPaintingVariants::bootstrap);
 

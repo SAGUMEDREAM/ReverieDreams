@@ -2,10 +2,12 @@ package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class IngredientCreativeTab implements ItemGroupContentHelper {
@@ -16,8 +18,8 @@ public class IngredientCreativeTab implements ItemGroupContentHelper {
                 .icon(() -> new ItemStack(RDIngredientItems.BLACK_PORK.asItem()))
                 .title(Component.translatable("item_group.ingredients_item_group"))
                 .displayItems((parameters, output) -> {
-                    for (var item : RDIngredientItems.INGREDIENTS) {
-                        output.accept(item);
+                    for (RegistryDelegate<Item> item : RDIngredientItems.INGREDIENTS) {
+                        output.accept(item.get());
                     }
                 })
         );

@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import dev.architectury.registry.registries.RegistrySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
@@ -24,7 +24,7 @@ public interface ItemGroupContentHelper {
 
     static Holder<CreativeModeTab> registerGroup(ResourceKey<CreativeModeTab> key, Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction) {
         if (!PlatformContext.hasPolymer()) {
-            RegistrySupplier<CreativeModeTab> holder = MCBuiltInRegistries.CREATIVE_MODE_TAB.register(key.identifier().getPath(), () -> builderFunction.apply(builder()).build());
+            RegistryDelegate<CreativeModeTab> holder = MCBuiltInRegistries.CREATIVE_MODE_TAB.register(key.identifier().getPath(), () -> builderFunction.apply(builder()).build());
             REGISTRIES.put(key, builderFunction);
             return holder;
         } else {

@@ -13,6 +13,7 @@
     "RegistryHandlerMixin",
     "accessor.CreativeModeTabAccessor",
     "event.ServerPlayerGameModeMixin",
+    "lootr.ILootrAPIMixin",
     "rei.ClientREIPluginMixin",
     "rei.CommonREIPluginMixin"
   ],

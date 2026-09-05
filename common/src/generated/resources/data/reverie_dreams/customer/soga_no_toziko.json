@@ -1,0 +1,58 @@
+{
+  "role_type": "reverie_dreams:soga_no_toziko",
+  "rare": true,
+  "budget": {
+    "min": 500,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:greasy",
+    "reverie_dreams:filling",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:signature",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:grilled"
+  ],
+  "dislikes": [
+    "reverie_dreams:sweet",
+    "reverie_dreams:cool"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:soju",
+    "reverie_dreams:beer",
+    "reverie_dreams:bitter"
+  ],
+  "chats": [
+    "reverie_dreams.role.soga_no_toziko.chat.0",
+    "reverie_dreams.role.soga_no_toziko.chat.1",
+    "reverie_dreams.role.soga_no_toziko.chat.2",
+    "reverie_dreams.role.soga_no_toziko.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.soga_no_toziko.order.0",
+    "reverie_dreams.role.soga_no_toziko.order.1",
+    "reverie_dreams.role.soga_no_toziko.order.2",
+    "reverie_dreams.role.soga_no_toziko.order.3",
+    "reverie_dreams.role.soga_no_toziko.order.4",
+    "reverie_dreams.role.soga_no_toziko.order.5",
+    "reverie_dreams.role.soga_no_toziko.order.6"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.soga_no_toziko.description.0",
+    "reverie_dreams.role.soga_no_toziko.description.1",
+    "reverie_dreams.role.soga_no_toziko.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.soga_no_toziko.evaluation.exbad",
+    "bad": "reverie_dreams.role.soga_no_toziko.evaluation.bad",
+    "norm": "reverie_dreams.role.soga_no_toziko.evaluation.norm",
+    "good": "reverie_dreams.role.soga_no_toziko.evaluation.good",
+    "exgood": "reverie_dreams.role.soga_no_toziko.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.soga_no_toziko.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.soga_no_toziko.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.soga_no_toziko.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.soga_no_toziko.evaluation.seenRepell"
+  }
+}

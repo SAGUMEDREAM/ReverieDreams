@@ -1,0 +1,20 @@
+{
+  "anvil_cost": 6,
+  "description": {
+    "translate": "enchantment.reverie_dreams.charge"
+  },
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 20
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 9,
+    "per_level_above_first": 21
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:swords",
+  "weight": 6
+}

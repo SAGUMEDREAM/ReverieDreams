@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/toon"
+      "id": "reverie_dreams:ingredient/toon",
+      "count": 1
     },
     {
-      "id": "minecraft:brown_mushroom"
+      "id": "minecraft:brown_mushroom",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/green_fairy_mushroom"
+    "id": "reverie_dreams:cuisine/green_fairy_mushroom",
+    "count": 1
   },
   "cost_time": 6.0
 }

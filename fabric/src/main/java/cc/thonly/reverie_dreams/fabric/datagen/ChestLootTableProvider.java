@@ -7,8 +7,8 @@ import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.world.gen.feature.DreamTrialRoom;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -28,10 +28,10 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
+public class ChestLootTableProvider extends SimpleFabricLootTableProvider {
     private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
-    public ChestLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public ChestLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup, LootContextParamSets.CHEST);
         this.registryLookup = registryLookup;
     }
@@ -176,7 +176,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
             if (RDIngredientItems.EXISTS.contains(item)) {
                 continue;
             }
-            ingredientPool.add(LootItem.lootTableItem(item).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
+            ingredientPool.add(LootItem.lootTableItem(item.get()).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))));
         }
 
         output.accept(BAMBOO_FOREST_BBQ_CHEST,

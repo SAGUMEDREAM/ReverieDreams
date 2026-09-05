@@ -10,7 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -32,12 +32,12 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings({"UnusedReturnValue", "ReplaceNullCheck"})
 @Slf4j
 public abstract class AbstractSoundProvider implements DataProvider {
-    public final FabricPackOutput output;
+    public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Map<Identifier, SoundEventBuilder> identifierSoundEventMap = new Object2ObjectOpenHashMap<>();
 
-    public AbstractSoundProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractSoundProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }

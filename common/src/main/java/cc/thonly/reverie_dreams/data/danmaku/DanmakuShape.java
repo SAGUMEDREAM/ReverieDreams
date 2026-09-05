@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 
 import java.util.function.Function;
 

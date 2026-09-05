@@ -2,11 +2,13 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/tofu"
+      "id": "reverie_dreams:ingredient/tofu",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/cooking_tofu"
+    "id": "reverie_dreams:cuisine/cooking_tofu",
+    "count": 1
   },
   "cost_time": 7.0
 }

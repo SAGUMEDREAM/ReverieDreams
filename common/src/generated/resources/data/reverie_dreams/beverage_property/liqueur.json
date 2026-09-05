@@ -1,0 +1,9 @@
+{
+  "registry_key": "reverie_dreams:liqueur",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/plum_wine",
+      "reverie_dreams:beverage/ordinary_fitness_tea"
+    ]
+  }
+}

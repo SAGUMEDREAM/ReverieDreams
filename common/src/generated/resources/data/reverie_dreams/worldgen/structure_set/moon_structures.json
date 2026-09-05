@@ -1,0 +1,34 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 123456789,
+    "separation": 40,
+    "spacing": 50
+  },
+  "structures": [
+    {
+      "structure": "reverie_dreams:moon_empty_building",
+      "weight": 1
+    },
+    {
+      "structure": "reverie_dreams:moon_institute",
+      "weight": 1
+    },
+    {
+      "structure": "reverie_dreams:copper_tree",
+      "weight": 1
+    },
+    {
+      "structure": "reverie_dreams:patio",
+      "weight": 1
+    },
+    {
+      "structure": "reverie_dreams:signal_tower",
+      "weight": 1
+    },
+    {
+      "structure": "reverie_dreams:quarantine_pool",
+      "weight": 1
+    }
+  ]
+}

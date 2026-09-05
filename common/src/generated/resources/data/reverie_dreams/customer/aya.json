@@ -1,0 +1,54 @@
+{
+  "role_type": "reverie_dreams:aya",
+  "rare": true,
+  "budget": {
+    "min": 500,
+    "max": 600
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:signature",
+    "reverie_dreams:photogenic"
+  ],
+  "dislikes": [
+    "reverie_dreams:western_style"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:can_add_ice",
+    "reverie_dreams:soju",
+    "reverie_dreams:refreshing"
+  ],
+  "chats": [
+    "reverie_dreams.role.aya.chat.0",
+    "reverie_dreams.role.aya.chat.1",
+    "reverie_dreams.role.aya.chat.2",
+    "reverie_dreams.role.aya.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.aya.order.0",
+    "reverie_dreams.role.aya.order.1",
+    "reverie_dreams.role.aya.order.2",
+    "reverie_dreams.role.aya.order.3",
+    "reverie_dreams.role.aya.order.4",
+    "reverie_dreams.role.aya.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.aya.description.0",
+    "reverie_dreams.role.aya.description.1",
+    "reverie_dreams.role.aya.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.aya.evaluation.exbad",
+    "bad": "reverie_dreams.role.aya.evaluation.bad",
+    "norm": "reverie_dreams.role.aya.evaluation.norm",
+    "good": "reverie_dreams.role.aya.evaluation.good",
+    "exgood": "reverie_dreams.role.aya.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.aya.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.aya.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.aya.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.aya.evaluation.seenRepell"
+  }
+}

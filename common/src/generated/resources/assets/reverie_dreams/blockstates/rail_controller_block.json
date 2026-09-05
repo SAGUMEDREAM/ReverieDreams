@@ -1,0 +1,88 @@
+{
+  "variants": {
+    "occupied=false,powered=false,shape=ascending_east": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_ne",
+      "y": 90
+    },
+    "occupied=false,powered=false,shape=ascending_north": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_ne"
+    },
+    "occupied=false,powered=false,shape=ascending_south": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_sw"
+    },
+    "occupied=false,powered=false,shape=ascending_west": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_sw",
+      "y": 90
+    },
+    "occupied=false,powered=false,shape=east_west": {
+      "model": "reverie_dreams:block/rail_controller_block",
+      "y": 90
+    },
+    "occupied=false,powered=false,shape=north_south": {
+      "model": "reverie_dreams:block/rail_controller_block"
+    },
+    "occupied=false,powered=true,shape=ascending_east": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_ne",
+      "y": 90
+    },
+    "occupied=false,powered=true,shape=ascending_north": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_ne"
+    },
+    "occupied=false,powered=true,shape=ascending_south": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_sw"
+    },
+    "occupied=false,powered=true,shape=ascending_west": {
+      "model": "reverie_dreams:block/rail_controller_block_raised_sw",
+      "y": 90
+    },
+    "occupied=false,powered=true,shape=east_west": {
+      "model": "reverie_dreams:block/rail_controller_block",
+      "y": 90
+    },
+    "occupied=false,powered=true,shape=north_south": {
+      "model": "reverie_dreams:block/rail_controller_block"
+    },
+    "occupied=true,powered=false,shape=ascending_east": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_ne",
+      "y": 90
+    },
+    "occupied=true,powered=false,shape=ascending_north": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_ne"
+    },
+    "occupied=true,powered=false,shape=ascending_south": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_sw"
+    },
+    "occupied=true,powered=false,shape=ascending_west": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_sw",
+      "y": 90
+    },
+    "occupied=true,powered=false,shape=east_west": {
+      "model": "reverie_dreams:block/rail_controller_block_on",
+      "y": 90
+    },
+    "occupied=true,powered=false,shape=north_south": {
+      "model": "reverie_dreams:block/rail_controller_block_on"
+    },
+    "occupied=true,powered=true,shape=ascending_east": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_ne",
+      "y": 90
+    },
+    "occupied=true,powered=true,shape=ascending_north": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_ne"
+    },
+    "occupied=true,powered=true,shape=ascending_south": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_sw"
+    },
+    "occupied=true,powered=true,shape=ascending_west": {
+      "model": "reverie_dreams:block/rail_controller_block_on_raised_sw",
+      "y": 90
+    },
+    "occupied=true,powered=true,shape=east_west": {
+      "model": "reverie_dreams:block/rail_controller_block_on",
+      "y": 90
+    },
+    "occupied=true,powered=true,shape=north_south": {
+      "model": "reverie_dreams:block/rail_controller_block_on"
+    }
+  }
+}

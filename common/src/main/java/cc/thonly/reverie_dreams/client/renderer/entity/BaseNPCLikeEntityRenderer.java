@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.component.DataComponents;
@@ -47,7 +47,7 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
                         ArmorModelSet.bake(
                                 slim ? ModelLayers.PLAYER_SLIM_ARMOR : ModelLayers.PLAYER_ARMOR,
                                 context.getModelSet(),
-                                p_477740_ -> new PlayerModel(p_477740_, slim)
+                                p_477740 -> new PlayerModel(p_477740, slim)
                         ),
                         context.getEquipmentRenderer()
                 )

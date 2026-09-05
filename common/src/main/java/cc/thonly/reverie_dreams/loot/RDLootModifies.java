@@ -17,8 +17,8 @@ import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
-import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.EntityEvent;
+import net.blay09.mods.balm.platform.event.callback.EntityCallback;
+import net.blay09.mods.balm.platform.event.callback.LivingEntityCallback;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -34,7 +34,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.skeleton.Stray;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -207,9 +207,9 @@ public class RDLootModifies {
             }
             return table;
         });
-        EntityEvent.LIVING_DEATH.register((entity, damageSource) -> {
-            RDLootModifies.modifyDrops(entity, damageSource);
-            return EventResult.pass();
+        LivingEntityCallback.Death.Before.EVENT.register((livingEntity, damageSource) -> {
+            RDLootModifies.modifyDrops(livingEntity, damageSource);
+            return true;
         });
     }
 

@@ -12,9 +12,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import dev.architectury.registry.ReloadListenerRegistry;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.server.packs.resources.BalmResourceReloadListenerRegistrar;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -43,7 +44,12 @@ import java.util.stream.Stream;
 @Slf4j
 public class ResourceReloadManager {
     public static void initialize() {
-        ReloadListenerRegistry.register(PackType.SERVER_DATA, ResourceReloadManager::reload, ReverieDreams.id("data_reload"));
+        Balm.getRuntime().resourceReloadListeners("reverie_dreams", new Consumer<BalmResourceReloadListenerRegistrar>() {
+            @Override
+            public void accept(BalmResourceReloadListenerRegistrar registrar) {
+                registrar.register("data_reload", ResourceReloadManager::reload);
+            }
+        });
     }
 
     public static CompletableFuture<Void> reload(PreparableReloadListener.SharedState sharedState, Executor prepareExecutor, PreparableReloadListener.PreparationBarrier barrier, Executor applyExecutor) {

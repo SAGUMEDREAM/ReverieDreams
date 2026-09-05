@@ -1,7 +1,10 @@
 package cc.thonly.reverie_dreams.registry.content.villager;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviderKeys;
 import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
+import cc.thonly.reverie_dreams.util.trading.TradeSet;
+import cc.thonly.reverie_dreams.util.trading.VillagerTrade;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -11,16 +14,15 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.trading.TradeSet;
-import net.minecraft.world.item.trading.TradeSets;
-import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+@ApiStatus.Experimental
 public class RDTradeSets {
     public static final ResourceKey<TradeSet> HAWKERS_LEVEL_1 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
     public static final ResourceKey<TradeSet> HAWKERS_LEVEL_2 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
@@ -37,16 +39,16 @@ public class RDTradeSets {
     public static final ResourceKey<TradeSet> MONEY_SHOP_CLERK_LEVEL_3 = key(RDVillagerTradeTags.MONEY_SHOP_CLERK_LEVEL_3);
     public static final ResourceKey<TradeSet> MONEY_SHOP_CLERK_LEVEL_4 = key(RDVillagerTradeTags.MONEY_SHOP_CLERK_LEVEL_4);
     public static final ResourceKey<TradeSet> MONEY_SHOP_CLERK_LEVEL_5 = key(RDVillagerTradeTags.MONEY_SHOP_CLERK_LEVEL_5);
-    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_1 = TradeSets.BUTCHER_LEVEL_1;
-    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_2 = TradeSets.BUTCHER_LEVEL_2;
-    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_3 = TradeSets.BUTCHER_LEVEL_3;
-    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_4 = TradeSets.BUTCHER_LEVEL_4;
-    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_5 = TradeSets.BUTCHER_LEVEL_5;
-    public static final ResourceKey<TradeSet> FARMER_LEVEL_1 = TradeSets.FARMER_LEVEL_1;
-    public static final ResourceKey<TradeSet> FARMER_LEVEL_2 = TradeSets.FARMER_LEVEL_2;
-    public static final ResourceKey<TradeSet> FARMER_LEVEL_3 = TradeSets.FARMER_LEVEL_3;
-    public static final ResourceKey<TradeSet> FARMER_LEVEL_4 = TradeSets.FARMER_LEVEL_4;
-    public static final ResourceKey<TradeSet> FARMER_LEVEL_5 = TradeSets.FARMER_LEVEL_5;
+    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_1 = vanillaKey("butcher/level_1");
+    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_2 = vanillaKey("butcher/level_2");
+    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_3 = vanillaKey("butcher/level_3");
+    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_4 = vanillaKey("butcher/level_4");
+    public static final ResourceKey<TradeSet> BUTCHER_LEVEL_5 = vanillaKey("butcher/level_5");
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_1 = vanillaKey("farmer/level_1");
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_2 = vanillaKey("farmer/level_2");
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_3 = vanillaKey("farmer/level_3");
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_4 = vanillaKey("farmer/level_4");
+    public static final ResourceKey<TradeSet> FARMER_LEVEL_5 = vanillaKey("farmer/level_5");
 
     public static void bootstrap(BootstrapContext<TradeSet> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -79,7 +81,7 @@ public class RDTradeSets {
         return context.register(
                 finalResourceKey,
                 new TradeSet(
-                        context.lookup(Registries.VILLAGER_TRADE).getOrThrow(tradeTag),
+                        context.lookup(BuiltInRegistryProviderKeys.VILLAGER_TRADE).getOrThrow(tradeTag),
                         numberProvider,
                         false,
                         Optional.of(finalId)
@@ -88,14 +90,18 @@ public class RDTradeSets {
     }
 
     public static ResourceKey<TradeSet> key(TagKey<VillagerTrade> key) {
-        return ResourceKey.create(Registries.TRADE_SET, key.location());
+        return ResourceKey.create(BuiltInRegistryProviderKeys.TRADE_SET, key.location());
     }
 
     public static ResourceKey<TradeSet> key(Identifier location) {
-        return ResourceKey.create(Registries.TRADE_SET, location);
+        return ResourceKey.create(BuiltInRegistryProviderKeys.TRADE_SET, location);
     }
 
     public static ResourceKey<TradeSet> key(String path) {
-        return ResourceKey.create(Registries.TRADE_SET, ReverieDreams.id(path));
+        return ResourceKey.create(BuiltInRegistryProviderKeys.TRADE_SET, ReverieDreams.id(path));
+    }
+
+    public static ResourceKey<TradeSet> vanillaKey(String path) {
+        return ResourceKey.create(BuiltInRegistryProviderKeys.TRADE_SET, ReverieDreams.id(path));
     }
 }

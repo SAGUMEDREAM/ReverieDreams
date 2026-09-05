@@ -9,8 +9,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 public record CraterFeatureConfig(UniformInt radius, UniformInt depth) implements FeatureConfiguration {
     public static final Codec<CraterFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(
-                UniformInt.MAP_CODEC.codec().fieldOf("radius").forGetter(CraterFeatureConfig::radius),
-                UniformInt.MAP_CODEC.codec().fieldOf("depth").forGetter(CraterFeatureConfig::depth)
+                UniformInt.CODEC.codec().fieldOf("radius").forGetter(CraterFeatureConfig::radius),
+                UniformInt.CODEC.codec().fieldOf("depth").forGetter(CraterFeatureConfig::depth)
         ).apply(instance, CraterFeatureConfig::new);
     });
 

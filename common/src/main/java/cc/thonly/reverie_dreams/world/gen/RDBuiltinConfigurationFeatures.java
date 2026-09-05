@@ -5,9 +5,9 @@ import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.world.gen.feature.*;
 import com.mojang.serialization.Codec;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -73,31 +72,37 @@ public class RDBuiltinConfigurationFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> DREAM_FLOATING_ISLAND_KEY = getOrCreateRegistryKey("dream_floating_island");
 
     // 梦境世界
-    public static final RegistrySupplier<Feature<CraterFeatureConfig>> CRATER =
+    public static final RegistryDelegate<Feature<CraterFeatureConfig>> CRATER =
             registerFeature(
                     "crater",
                     CraterFeature::new,
                     CraterFeatureConfig.CODEC
             );
-    public static final RegistrySupplier<Feature<DreamGridFeatureConfig>> DREAM_GRID =
+    public static final RegistryDelegate<Feature<LakeFeature.Configuration>> LAKE =
+            registerFeature(
+                    "lake",
+                    LakeFeature::new,
+                    LakeFeature.Configuration.CODEC
+            );
+    public static final RegistryDelegate<Feature<DreamGridFeatureConfig>> DREAM_GRID =
             registerFeature(
                     "dream_world_grid",
                     DreamGridFeature::new,
                     DreamGridFeatureConfig.CODEC
             );
-    public static final RegistrySupplier<Feature<DreamTrialRoomConfig>> DREAM_TRIAL_ROOM =
+    public static final RegistryDelegate<Feature<DreamTrialRoomConfig>> DREAM_TRIAL_ROOM =
             registerFeature(
                     "dream_trial_room",
                     DreamTrialRoom::new,
                     DreamTrialRoomConfig.CODEC
             );
-    public static final RegistrySupplier<Feature<FloatingSphereFeatureConfig>> FLOATING_SPHERE =
+    public static final RegistryDelegate<Feature<FloatingSphereFeatureConfig>> FLOATING_SPHERE =
             registerFeature(
                     "floating_sphere",
                     FloatingSphereFeature::new,
                     FloatingSphereFeatureConfig.CODEC
             );
-    public static final RegistrySupplier<Feature<NoneFeatureConfiguration>> DREAM_FLOATING_ISLAND =
+    public static final RegistryDelegate<Feature<NoneFeatureConfiguration>> DREAM_FLOATING_ISLAND =
             registerFeature(
                     "dream_floating_island",
                     FloatingIslandFeature::new,
@@ -109,7 +114,7 @@ public class RDBuiltinConfigurationFeatures {
     }
 
     public static <C extends FeatureConfiguration, F extends Feature<C>>
-    RegistrySupplier<Feature<C>> registerFeature(
+    RegistryDelegate<Feature<C>> registerFeature(
             String id,
             Function<Codec<C>, F> factory,
             Codec<C> codec
@@ -234,14 +239,13 @@ public class RDBuiltinConfigurationFeatures {
         context.register(
                 MOON_WATER_LAKE_KEY,
                 new ConfiguredFeature<>(
-                        Feature.LAKE,
+                        LAKE.get(),
                         new LakeFeature.Configuration(
                                 BlockStateProvider.simple(Blocks.WATER),
                                 BlockStateProvider.simple(RDBlocks.MOON_STONE.block().asBlock())
                         )
                 )
         );
-
 
         // 花
         context.register(

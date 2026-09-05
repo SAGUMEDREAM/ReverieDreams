@@ -36,8 +36,7 @@
   },
   "mixins": [
     "reverie_dreams.mixins.json",
-    "reverie_dreams.fabric.mixins.json",
-    "reverie_dreams.fabric.polymer.mixins.json"
+    "reverie_dreams.fabric.mixins.json"
   ],
   "depends": {
     "java": ">=21",

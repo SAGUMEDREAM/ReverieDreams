@@ -54,7 +54,7 @@ public class CustomChestBlockGui extends SimpleGui implements GuiCommon {
     @Override
     public void init() {
         for (int i = 0; i < this.chestBlockEntity.getContainerSize(); i++) {
-            this.setSlot(i, this.factory.get(this.chestBlockEntity.getInventory(), i, 0, 0));
+            this.setSlotRedirect(i, this.factory.get(this.chestBlockEntity.getInventory(), i, 0, 0));
         }
     }
 

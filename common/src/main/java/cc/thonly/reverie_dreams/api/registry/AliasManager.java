@@ -20,12 +20,12 @@ public class AliasManager {
 
     public <T> void add(ResourceKey<? extends Registry<T>> key, Identifier oldId, Identifier newId) {
         Map<ResourceKey<? extends Registry<?>>, Map<Identifier, Identifier>> map = INSTANCE.keyMap;
-        Map<Identifier, Identifier> idKey = map.computeIfAbsent(key, _ -> new HashMap<>());
+        Map<Identifier, Identifier> idKey = map.computeIfAbsent(key, inst -> new HashMap<>());
         idKey.put(oldId, newId);
     }
 
     public static <T> Registrar get(ResourceKey<? extends Registry<T>> key) {
-        Map<Identifier, Identifier> idMap = INSTANCE.keyMap.computeIfAbsent(key, _ -> new HashMap<>());
+        Map<Identifier, Identifier> idMap = INSTANCE.keyMap.computeIfAbsent(key, inst -> new HashMap<>());
         return idMap::put;
     }
 

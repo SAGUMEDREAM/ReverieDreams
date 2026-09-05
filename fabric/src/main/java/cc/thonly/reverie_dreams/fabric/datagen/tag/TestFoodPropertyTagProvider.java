@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractCustomRegistryTagProvider;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.TagKey;
 
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Deprecated
 public class TestFoodPropertyTagProvider extends AbstractCustomRegistryTagProvider<FoodProperty, FoodProperty> {
-    public TestFoodPropertyTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public TestFoodPropertyTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(BuiltInRegistryProviders.FOOD_PROPERTY, output, future);
     }
 

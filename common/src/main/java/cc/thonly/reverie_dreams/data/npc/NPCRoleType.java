@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.registry.EntityAttributeRegistry;
 import cc.thonly.reverie_dreams.data.Customer;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
@@ -9,11 +10,10 @@ import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.NPCRoleTypes;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.LazySupplier;
 import com.mojang.serialization.Codec;
-import dev.architectury.registry.level.entity.EntityAttributeRegistry;
-import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +67,7 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
     @Setter
     private Supplier<EntityType.Builder<NPCSimpleRedirectEntity>> builder;
     // 构建后属性
-    private RegistrySupplier<EntityType<NPCSimpleRedirectEntity>> entityType;
+    private RegistryDelegate<EntityType<NPCSimpleRedirectEntity>> entityType;
     private ItemDelegate spawnEgg;
     private boolean initialized = false;
 
@@ -153,7 +153,7 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
             Supplier<EntityType.Builder<NPCSimpleRedirectEntity>> builderSupplier = this.isCustom() ? this.builder : () -> EntityType.Builder.of(
                     (type, world) -> new NPCSimpleRedirectEntity(type, world, this),
                     MobCategory.MISC);
-            RegistrySupplier<EntityType<NPCSimpleRedirectEntity>> registrySupplier = registerEntity(this.id.getPath(), builderSupplier);
+            RegistryDelegate<EntityType<NPCSimpleRedirectEntity>> registrySupplier = registerEntity(this.id.getPath(), builderSupplier);
             EntityAttributeRegistry.register(registrySupplier, BaseNPCLikeEntity::createLivingAttributes);
             String spawnEggId = this.id.getPath() + "_spawn_egg";
             ItemDelegate spawnEgg = registerNPCSpawnEggItem(spawnEggId, (id) -> new ColoredSpawnEggItem(spawnEggId, registrySupplier.value(), new Item.Properties()));
@@ -161,7 +161,7 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
             this.spawnEgg = spawnEgg;
             this.initialized = true;
         } catch (Exception e) {
-            log.error("Can't register role entity type {}", this.id.toString());
+            log.error("Can't register role entity type {}", this.id.toString(), e);
         }
         return this;
     }
@@ -186,17 +186,17 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
         return type;
     }
 
-    protected static RegistrySupplier<EntityType<NPCSimpleRedirectEntity>> registerEntity(
+    protected static RegistryDelegate<EntityType<NPCSimpleRedirectEntity>> registerEntity(
             String name,
             Supplier<EntityType.Builder<NPCSimpleRedirectEntity>> builderSupplier
     ) {
-        RegistrySupplier<EntityType<NPCSimpleRedirectEntity>> entityTypeSupplier = MCBuiltInRegistries.ENTITY_TYPE.register(name, () -> builderSupplier.get().build(ResourceKey.create(Registries.ENTITY_TYPE, ReverieDreams.id(name))));
+        RegistryDelegate<EntityType<NPCSimpleRedirectEntity>> entityTypeSupplier = MCBuiltInRegistries.ENTITY_TYPE.register(name, () -> builderSupplier.get().build(ResourceKey.create(Registries.ENTITY_TYPE, ReverieDreams.id(name))));
         ENTITIES.add(entityTypeSupplier);
         return entityTypeSupplier;
     }
 
     protected static ItemDelegate registerNPCSpawnEggItem(String name, Function<Item.Properties, Item> function) {
-        RegistrySupplier<Item> itemSupplier = MCBuiltInRegistries.ITEM.register(name, () -> function.apply(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(name)))));
+        RegistryDelegate<Item> itemSupplier = MCBuiltInRegistries.ITEM.register(name, () -> function.apply(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(name)))));
         ItemDelegate itemDelegate = ItemDelegate.of(itemSupplier);
         NPC_SPAWN_EGG_ITEM_LIST.add(itemDelegate);
         return itemDelegate;

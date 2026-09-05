@@ -1,19 +1,18 @@
 package cc.thonly.reverie_dreams.recipe.crafting;
 
+
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
-import com.mojang.serialization.MapCodec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ARGB;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -23,11 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DanmakuDyeRecipe extends CustomRecipe {
-    public static final DanmakuDyeRecipe INSTANCE = new DanmakuDyeRecipe();
-    public static final MapCodec<DanmakuDyeRecipe> MAP_CODEC =
-            MapCodec.unit(() -> INSTANCE);
-    public static final StreamCodec<RegistryFriendlyByteBuf, DanmakuDyeRecipe> STREAM_CODEC =
-            StreamCodec.unit(INSTANCE);
+    public DanmakuDyeRecipe(CraftingBookCategory craftingBookCategory) {
+        super(craftingBookCategory);
+    }
 
     @Override
     public boolean matches(CraftingInput craftingInput, Level level) {
@@ -56,7 +53,7 @@ public class DanmakuDyeRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput craftingInput) {
+    public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider registries) {
         ArrayList<DyeItem> list = new ArrayList<>();
         ItemStack itemStack = ItemStack.EMPTY;
         for (int i = 0; i < craftingInput.size(); ++i) {
@@ -107,7 +104,7 @@ public class DanmakuDyeRecipe extends CustomRecipe {
             ++m;
         }
         for (DyeItem dyeItem : dyes) {
-            p = dyeItem.getDefaultInstance().getOrDefault(DataComponents.DYE, DyeColor.WHITE).getTextureDiffuseColor();
+            p = dyeItem.getDyeColor().getTextureDiffuseColor();
             int q = ARGB.red(p);
             int r = ARGB.green(p);
             s = ARGB.blue(p);

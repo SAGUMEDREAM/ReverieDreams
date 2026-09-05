@@ -1,0 +1,50 @@
+{
+  "role_type": "reverie_dreams:wriggle_nightbug",
+  "rare": true,
+  "budget": {
+    "min": 200,
+    "max": 400
+  },
+  "likes": [
+    "reverie_dreams:sweet",
+    "reverie_dreams:raw",
+    "reverie_dreams:bizarre"
+  ],
+  "dislikes": [
+    "reverie_dreams:light",
+    "reverie_dreams:cool"
+  ],
+  "beverages": [
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:can_add_ice"
+  ],
+  "chats": [
+    "reverie_dreams.role.wriggle_nightbug.chat.0",
+    "reverie_dreams.role.wriggle_nightbug.chat.1",
+    "reverie_dreams.role.wriggle_nightbug.chat.2",
+    "reverie_dreams.role.wriggle_nightbug.chat.3",
+    "reverie_dreams.role.wriggle_nightbug.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.wriggle_nightbug.order.0",
+    "reverie_dreams.role.wriggle_nightbug.order.1",
+    "reverie_dreams.role.wriggle_nightbug.order.2",
+    "reverie_dreams.role.wriggle_nightbug.order.3"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.wriggle_nightbug.description.0",
+    "reverie_dreams.role.wriggle_nightbug.description.1",
+    "reverie_dreams.role.wriggle_nightbug.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.wriggle_nightbug.evaluation.exbad",
+    "bad": "reverie_dreams.role.wriggle_nightbug.evaluation.bad",
+    "norm": "reverie_dreams.role.wriggle_nightbug.evaluation.norm",
+    "good": "reverie_dreams.role.wriggle_nightbug.evaluation.good",
+    "exgood": "reverie_dreams.role.wriggle_nightbug.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.wriggle_nightbug.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.wriggle_nightbug.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.wriggle_nightbug.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.wriggle_nightbug.evaluation.seenRepell"
+  }
+}

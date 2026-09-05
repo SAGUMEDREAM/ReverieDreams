@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:cooking_by_myself",
+  "criteria": {
+    "throwing_dishes": {
+      "conditions": {
+        "trigger": "reverie_dreams:serving_dishes_by_throwing"
+      },
+      "trigger": "reverie_dreams:simple_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.serving_dishes_by_throwing"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:bow"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.serving_dishes_by_throwing"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "throwing_dishes"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

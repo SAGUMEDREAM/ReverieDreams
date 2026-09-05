@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/plum"
+      "id": "reverie_dreams:ingredient/plum",
+      "count": 1
     },
     {
-      "id": "minecraft:kelp"
+      "id": "minecraft:kelp",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/plum_tea_rice"
+    "id": "reverie_dreams:cuisine/plum_tea_rice",
+    "count": 1
   },
   "cost_time": 4.0
 }

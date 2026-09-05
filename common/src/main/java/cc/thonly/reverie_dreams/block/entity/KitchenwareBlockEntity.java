@@ -121,7 +121,7 @@ public class KitchenwareBlockEntity extends BlockEntity implements WorldlyContai
             if (!stack.isEmpty()) {
                 UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
                 if (useRemainderComponent != null) {
-                    ItemStack itemStack = useRemainderComponent.convertInto().create();
+                    ItemStack itemStack = useRemainderComponent.convertInto();
                     this.throwItem((ServerLevel) this.getLevel(), itemStack);
                 }
                 stack.shrink(1);

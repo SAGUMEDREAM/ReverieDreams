@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.server.page.BookPageBuilder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

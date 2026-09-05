@@ -2,23 +2,29 @@
   "recipe_type": "reverie_dreams:cooking_pot",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/supreme_tuna"
+      "id": "reverie_dreams:ingredient/supreme_tuna",
+      "count": 1
     },
     {
-      "id": "minecraft:kelp"
+      "id": "minecraft:kelp",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/octopus"
+      "id": "reverie_dreams:ingredient/octopus",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/crab"
+      "id": "reverie_dreams:ingredient/crab",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/shrimp"
+      "id": "reverie_dreams:ingredient/shrimp",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/superme_seafood_noodles"
+    "id": "reverie_dreams:cuisine/superme_seafood_noodles",
+    "count": 1
   },
   "cost_time": 12.0
 }

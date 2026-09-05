@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.util.entity;
 
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.constant.dataticket.DataTicket;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.dataticket.DataTicket;
 import net.minecraft.world.entity.Entity;
 
 public interface IAnimationHelper {

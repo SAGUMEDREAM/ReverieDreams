@@ -57,7 +57,7 @@ public class EntityHelper {
     }
 
     public static boolean is(Entity entity, TagKey<EntityType<?>> tagKey) {
-        return entity.is(tagKey);
+        return entity.getType().is(tagKey);
     }
 
     public static void hurt(ServerLevel level, LivingEntity entity, DamageSource source, float dmg) {

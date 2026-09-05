@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "minecraft:rail",
+    "X": "minecraft:redstone",
+    "Y": "#minecraft:signs"
+  },
+  "pattern": [
+    "XYX",
+    "X#X",
+    "XXX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "reverie_dreams:signal_rails"
+  }
+}

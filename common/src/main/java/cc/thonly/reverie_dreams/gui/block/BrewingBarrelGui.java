@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.ContainerInput;
+
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -69,7 +69,7 @@ public class BrewingBarrelGui extends SimpleGui implements GuiCommon {
             if (i >= BrewingBarrelBlockEntity.SIZE) {
                 break;
             }
-            this.setSlot(i, new LimitedSlot(inventory, i, 1));
+            this.setSlotRedirect(i, new LimitedSlot(inventory, i, 1));
         }
     }
 
@@ -89,7 +89,7 @@ public class BrewingBarrelGui extends SimpleGui implements GuiCommon {
     public boolean onAnyClick(
             int index,
             ClickType type,
-            ContainerInput action
+            net.minecraft.world.inventory.ClickType action
     ) {
         Level level = this.blockEntity.getLevel();
 

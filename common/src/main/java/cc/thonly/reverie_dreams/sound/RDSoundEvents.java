@@ -2,8 +2,8 @@ package cc.thonly.reverie_dreams.sound;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import cc.thonly.reverie_dreams.registry.delegate.SoundDelegate;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -35,7 +35,7 @@ public class RDSoundEvents {
     }
 
     private static SoundDelegate register(String name) {
-        RegistrySupplier<SoundEvent> holder = MCBuiltInRegistries.SOUND_EVENT.register(name, () -> SoundEvent.createVariableRangeEvent(ReverieDreams.id(name)));
+        RegistryDelegate<SoundEvent> holder = MCBuiltInRegistries.SOUND_EVENT.register(name, () -> SoundEvent.createVariableRangeEvent(ReverieDreams.id(name)));
         SOUND_EVENTS.add(holder);
         return SoundDelegate.of(holder);
     }

@@ -13,7 +13,7 @@ import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import eu.pb4.sgui.api.gui.SlotBasedGui;
+import eu.pb4.sgui.api.gui.BaseSlotGui;
 import it.unimi.dsi.fastutil.objects.ReferenceSortedSets;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -25,7 +25,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.inventory.ArmorSlot;
-import net.minecraft.world.inventory.ContainerInput;
+
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
@@ -101,7 +101,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
 
                 if (posChar.equalsIgnoreCase("I")) {
                     if (row == GRID.length - 1 && col == 0) {
-                        this.setSlot(
+                        this.setSlotRedirect(
                                 slotIndex,
                                 new PredicateSlot(
                                         this.npc.getInventory(),
@@ -112,7 +112,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                                 )
                         );
                     } else if (row == GRID.length - 1 && col == 1) {
-                        this.setSlot(
+                        this.setSlotRedirect(
                                 slotIndex,
                                 new PredicateSlot(
                                         this.npc.getInventory(),
@@ -123,7 +123,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                                 )
                         );
                     } else {
-                        this.setSlot(
+                        this.setSlotRedirect(
                                 slotIndex,
                                 new PredicateSlot(
                                         this.npc.getInventory(),
@@ -140,7 +140,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                 }
 
                 if (posChar.equals("/")) {
-                    this.setSlot(
+                    this.setSlotRedirect(
                             slotIndex,
                             new ArmorSlot(
                                     this.npc.getInventory(),
@@ -156,7 +156,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                 }
 
                 if (posChar.equals("*")) {
-                    this.setSlot(
+                    this.setSlotRedirect(
                             slotIndex,
                             new ArmorSlot(
                                     this.npc.getInventory(),
@@ -172,7 +172,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                 }
 
                 if (posChar.equals("-")) {
-                    this.setSlot(
+                    this.setSlotRedirect(
                             slotIndex,
                             new ArmorSlot(
                                     this.npc.getInventory(),
@@ -188,7 +188,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                 }
 
                 if (posChar.equals("+")) {
-                    this.setSlot(
+                    this.setSlotRedirect(
                             slotIndex,
                             new ArmorSlot(
                                     this.npc.getInventory(),

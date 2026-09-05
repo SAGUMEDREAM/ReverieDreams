@@ -1,0 +1,21 @@
+{
+  "materials": [
+    {
+      "id": "minecraft:wheat",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:ingredient/sticky_rice",
+      "count": 1
+    },
+    {
+      "id": "reverie_dreams:soy_beans_seeds",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:beverage/dawn",
+    "count": 1
+  },
+  "cost_time": 1320
+}

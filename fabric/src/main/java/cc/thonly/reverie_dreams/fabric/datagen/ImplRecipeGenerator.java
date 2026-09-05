@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -28,7 +29,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -273,8 +274,8 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .pattern("#X#")
                 .pattern("###")
                 .define('X', Items.STICK)
-                .define('#', ItemTags.DYES)
-                .unlockedBy("has_dye", has(ItemTags.DYES))
+                .define('#', ConventionalItemTags.DYES)
+                .unlockedBy("has_dye", has(ConventionalItemTags.DYES))
                 .save(output, getSimpleRecipeName(RDItems.CUSTOM_SKIN_SELECTOR));
         // 桌子
         shaped(RecipeCategory.MISC, RDBlocks.TABLE)
@@ -517,7 +518,7 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_chili", has(RDIngredientItems.CHILI))
                 .save(output, getSimpleRecipeName(RDIngredientItems.CREAM));
 
-        oreSmelting(List.of(RDIngredientItems.BLACK_PORK, RDIngredientItems.WILD_BOAR_MEAT), RecipeCategory.MISC, CookingBookCategory.FOOD, Items.COOKED_PORKCHOP, 0.7F, 160, "food");
+        oreSmelting(List.of(RDIngredientItems.BLACK_PORK, RDIngredientItems.WILD_BOAR_MEAT), RecipeCategory.FOOD, Items.COOKED_PORKCHOP.asItem(), 0.7F, 160, "food");
     }
 
     private void buildDecorativeBlock() {
@@ -674,20 +675,20 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .save(output, getSimpleRecipeName(RDBlocks.SILVER_CHEST_BLOCK.chestBlock()));
 
         // 烧银矿
-        oreSmelting(SILVER, RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
-        oreBlasting(SILVER, RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
+        oreSmelting(SILVER, RecipeCategory.MISC, RDItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
+        oreBlasting(SILVER, RecipeCategory.MISC, RDItems.SILVER_INGOT, 0.7F, 250, "silver_ingot");
 
-        oreSmelting(MOON_IRON, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.IRON_INGOT, 0.7F, 250, "iron_ingot");
-        oreBlasting(MOON_IRON, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.IRON_INGOT, 0.7F, 250, "iron_ingot");
+        oreSmelting(MOON_IRON, RecipeCategory.MISC, Items.IRON_INGOT, 0.7F, 250, "iron_ingot");
+        oreBlasting(MOON_IRON, RecipeCategory.MISC, Items.IRON_INGOT, 0.7F, 250, "iron_ingot");
 
-        oreSmelting(MOON_GOLD, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.GOLD_INGOT, 0.7F, 250, "gold_ingot");
-        oreBlasting(MOON_GOLD, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.GOLD_INGOT, 0.7F, 250, "gold_ingot");
+        oreSmelting(MOON_GOLD, RecipeCategory.MISC, Items.GOLD_INGOT, 0.7F, 250, "gold_ingot");
+        oreBlasting(MOON_GOLD, RecipeCategory.MISC, Items.GOLD_INGOT, 0.7F, 250, "gold_ingot");
 
-        oreSmelting(MOON_DIAMOND, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.DIAMOND, 0.7F, 250, "diamond");
-        oreBlasting(MOON_DIAMOND, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.DIAMOND, 0.7F, 250, "diamond");
+        oreSmelting(MOON_DIAMOND, RecipeCategory.MISC, Items.DIAMOND, 0.7F, 250, "diamond");
+        oreBlasting(MOON_DIAMOND, RecipeCategory.MISC, Items.DIAMOND, 0.7F, 250, "diamond");
 
-        oreSmelting(MOON_QUARTZ, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.QUARTZ, 0.7F, 250, "quartz");
-        oreBlasting(MOON_QUARTZ, RecipeCategory.MISC, CookingBookCategory.BLOCKS, Items.QUARTZ, 0.7F, 250, "quartz");
+        oreSmelting(MOON_QUARTZ, RecipeCategory.MISC, Items.QUARTZ, 0.7F, 250, "quartz");
+        oreBlasting(MOON_QUARTZ, RecipeCategory.MISC, Items.QUARTZ, 0.7F, 250, "quartz");
 
     }
 
@@ -715,8 +716,8 @@ public class ImplRecipeGenerator extends RecipeProvider {
     }
 
     private void buildMagicIce() {
-        oreSmelting(List.of(RDBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.ICE_SCALES, 0.7F, 140, "silver_ingot");
-        oreBlasting(List.of(RDBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.ICE_SCALES, 0.7F, 70, "silver_ingot");
+        oreSmelting(List.of(RDBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, RDItems.ICE_SCALES, 0.7F, 140, "silver_ingot");
+        oreBlasting(List.of(RDBlocks.MAGIC_ICE_BLOCK.asItem()), RecipeCategory.MISC, RDItems.ICE_SCALES, 0.7F, 70, "silver_ingot");
         // 魔法冰
         shaped(RecipeCategory.DECORATIONS, RDBlocks.MAGIC_ICE_BLOCK, 8)
                 .pattern("XXX")
@@ -775,9 +776,8 @@ public class ImplRecipeGenerator extends RecipeProvider {
         offerBootsRecipe(output, RDItems.WATER_PROOF_BOOTS.asItem(), RDItems.WATERPROOF_LEATHER.asItem());
 
         // 烧梦境水晶矿
-        oreSmelting(DREAM, RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
-        oreBlasting(DREAM, RecipeCategory.MISC, CookingBookCategory.BLOCKS, RDItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
-
+        oreSmelting(DREAM, RecipeCategory.MISC, RDItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
+        oreBlasting(DREAM, RecipeCategory.MISC, RDItems.DREAM_CRYSTAL_FRAGMENT, 0.7F, 250, "dream_ingot");
     }
 
     private void buildPlant2Ingredient() {
@@ -1090,13 +1090,13 @@ public class ImplRecipeGenerator extends RecipeProvider {
     }
 
     public ShapedStackRecipeBuilder shapedItemStack(RecipeCategory recipeCategory, ItemStackTemplate template) {
-        return ShapedStackRecipeBuilder.shaped(((RecipeProviderAccessor) this).reverie_dreams$getItems(), recipeCategory, template);
+        return ShapedStackRecipeBuilder.shaped(((RecipeProviderAccessor) this).reverie_dreams$getItems(), recipeCategory, template.create());
     }
 
     public ShapedStackRecipeBuilder shapedItemStack(RecipeCategory recipeCategory, ItemStackTemplate template, int i) {
         ItemStackTemplateHelper.modify(template, (template1, modifier) -> {
             modifier.setCount(i);
         });
-        return ShapedStackRecipeBuilder.shaped(((RecipeProviderAccessor) this).reverie_dreams$getItems(), recipeCategory, template);
+        return ShapedStackRecipeBuilder.shaped(((RecipeProviderAccessor) this).reverie_dreams$getItems(), recipeCategory, template.create());
     }
 }

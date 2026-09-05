@@ -8,7 +8,7 @@ import cc.thonly.reverie_dreams.server.page.BookPage;
 import cc.thonly.reverie_dreams.server.page.BookPageBuilder;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 
 @Slf4j

@@ -10,7 +10,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -29,12 +29,12 @@ import java.util.stream.Stream;
 @Slf4j
 @SuppressWarnings("unchecked")
 public abstract class AbstractCustomRegistryTagProvider<E, T> implements DataProvider {
-    public final FabricPackOutput output;
+    public final FabricDataOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
     private final RegistryProvider<E> registryProvider;
     private final Map<TagKey<E>, TagAppender<E, T>> registries = new Object2ObjectOpenHashMap<>();
 
-    public AbstractCustomRegistryTagProvider(RegistryProvider<E> registryProvider, FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public AbstractCustomRegistryTagProvider(RegistryProvider<E> registryProvider, FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.registryProvider = registryProvider;
         this.output = output;
         this.future = future;
@@ -50,7 +50,7 @@ public abstract class AbstractCustomRegistryTagProvider<E, T> implements DataPro
         List<TagKey<E>> keys = new ArrayList<>();
         List<ResourceKey<E>> ids = new ArrayList<>();
         RegistryTagSet.Result<E> result = new RegistryTagSet.Result<>(keys, ids);
-        return this.registries.computeIfAbsent(tag, _ -> new TagAppender<>(this.registryProvider, tag, result));
+        return this.registries.computeIfAbsent(tag, inst -> new TagAppender<>(this.registryProvider, tag, result));
     }
 
     @Override

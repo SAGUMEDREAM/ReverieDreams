@@ -35,9 +35,9 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
-import dev.architectury.networking.NetworkManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.blay09.mods.balm.Balm;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.IdentifierArgument;
@@ -237,7 +237,7 @@ public class BuiltInRegistryProviders {
 
         for (ServerPlayer player : players) {
             for (CustomRegistrySyncPacket payload : payloads) {
-                NetworkManager.sendToPlayer(player, payload);
+                Balm.networking().sendTo(player, payload);
                 log.info("Synchronizing registry {} for player {}", payload.registryKey(), player.getPlainTextName());
             }
         }
@@ -315,7 +315,7 @@ public class BuiltInRegistryProviders {
     }
 
     public static synchronized <T> RegistryProvider<T> ofEntry(ResourceKey<? extends Registry<T>> key) {
-        return (RegistryProvider<T>) ROOT.computeIfAbsent(key, _ -> {
+        return (RegistryProvider<T>) ROOT.computeIfAbsent(key, inst -> {
             Optional<RegistryProviderFactory> registryProviderFactoryOptional = PlatformProxies.REGISTRY_PROVIDER_FACTORY;
             if (registryProviderFactoryOptional.isPresent()) {
                 RegistryProviderFactory registryProviderFactory = registryProviderFactoryOptional.get();

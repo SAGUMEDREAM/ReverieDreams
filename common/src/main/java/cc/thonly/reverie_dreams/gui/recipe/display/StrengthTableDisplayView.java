@@ -9,7 +9,8 @@ import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import eu.pb4.sgui.api.gui.SlotBasedGui;
+import eu.pb4.sgui.api.gui.BaseSlotGui;
+import eu.pb4.sgui.api.gui.SlotGuiInterface;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.ContainerInput;
+
 import net.minecraft.world.inventory.MenuType;
 
 @Getter
@@ -69,7 +70,7 @@ public class StrengthTableDisplayView extends SimpleGui implements DisplayView {
         this.back(0, null, null, null);
     }
 
-    public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
+    public void back(int index, ClickType clickType, net.minecraft.world.inventory.ClickType input, SlotGuiInterface slotBasedGui) {
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.close();
         if (this.prevGuiCallback != null) {

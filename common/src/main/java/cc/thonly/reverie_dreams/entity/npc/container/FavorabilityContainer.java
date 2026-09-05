@@ -50,7 +50,7 @@ public class FavorabilityContainer {
     }
 
     public void add(UUID uuid, double number) {
-        double previous = this.data.computeIfAbsent(uuid, _ -> DEFAULT_VALUE);
+        double previous = this.data.computeIfAbsent(uuid, inst -> DEFAULT_VALUE);
         this.data.put(uuid, this.normalizedValue(previous + number));
     }
 

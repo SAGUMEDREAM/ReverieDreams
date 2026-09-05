@@ -24,7 +24,7 @@ import cc.thonly.reverie_dreams.server.BookPageManagerImpl;
 import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -35,7 +35,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class SimpChineseLangProvider extends FabricLanguageProvider implements ITranslationWrapper {
 
-    public SimpChineseLangProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public SimpChineseLangProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, "zh_cn", registryLookup);
     }
 

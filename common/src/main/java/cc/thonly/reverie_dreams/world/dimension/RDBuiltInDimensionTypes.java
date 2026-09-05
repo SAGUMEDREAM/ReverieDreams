@@ -13,9 +13,6 @@ import net.minecraft.tags.TimelineTags;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.*;
-import net.minecraft.world.clock.WorldClock;
-import net.minecraft.world.clock.WorldClocks;
-import net.minecraft.world.level.CardinalLighting;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.timeline.Timeline;
 
@@ -28,12 +25,10 @@ public class RDBuiltInDimensionTypes {
 
     public static void bootstrap(BootstrapContext<DimensionType> context) {
         HolderGetter<Timeline> timeLines = context.lookup(Registries.TIMELINE);
-        HolderGetter<WorldClock> clocks = context.lookup(Registries.WORLD_CLOCK);
         context.register(DREAM_WORLD, new DimensionType(
                 true,                       // hasFixedTime
                 true,                                   // hasSkyLight
                 false,                                  // hasCeiling
-                false,                                  // hasEnderDragonFight
                 1.0,                                    // coordinateScale
                 0,                                      // minY
                 256,                                    // height
@@ -45,7 +40,7 @@ public class RDBuiltInDimensionTypes {
                         0                               // monsterSpawnBlockLightLimit
                 ),
                 DimensionType.Skybox.NONE,
-                CardinalLighting.Type.DEFAULT,
+                DimensionType.CardinalLightType.DEFAULT,
                 EnvironmentAttributeMap.builder()
                                        .set(EnvironmentAttributes.FOG_COLOR, -4138753)
                                        .set(EnvironmentAttributes.SKY_COLOR, OverworldBiomes.calculateSkyColor(0.8F))
@@ -59,14 +54,12 @@ public class RDBuiltInDimensionTypes {
                                        .set(EnvironmentAttributes.BED_RULE, new BedRule(BedRule.Rule.ALWAYS, BedRule.Rule.NEVER, false, Optional.empty()))
                                        .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, true)
                                        .build(),    // hasRaids,
-                timeLines.getOrThrow(TimelineTags.IN_OVERWORLD),
-                Optional.of(clocks.getOrThrow(WorldClocks.OVERWORLD))
+                timeLines.getOrThrow(TimelineTags.IN_OVERWORLD)
         ));
         context.register(THE_MOON, new DimensionType(
                 true,     // hasFixedTime
                 true,                 // hasSkyLight
                 false,                // hasCeiling
-                false,                // hasEnderDragonFight
                 1.0,                  // coordinateScale
                 -32,                    // minY
                 256,                  // height
@@ -78,7 +71,7 @@ public class RDBuiltInDimensionTypes {
                         0                           // monsterSpawnBlockLightLimit
                 ),
                 DimensionType.Skybox.OVERWORLD,
-                CardinalLighting.Type.DEFAULT,
+                DimensionType.CardinalLightType.DEFAULT,
                 EnvironmentAttributeMap.builder()
                                        .set(EnvironmentAttributes.FOG_COLOR, -15199464)
                                        .set(EnvironmentAttributes.SKY_LIGHT_COLOR, -4688641)
@@ -94,8 +87,7 @@ public class RDBuiltInDimensionTypes {
                                        .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, true)
                                        .set(EnvironmentAttributes.SKY_LIGHT_LEVEL, 15f)
                                        .build(),
-                timeLines.getOrThrow(TimelineTags.IN_OVERWORLD),
-                Optional.of(clocks.getOrThrow(WorldClocks.OVERWORLD))
+                timeLines.getOrThrow(TimelineTags.IN_OVERWORLD)
         ));
     }
 

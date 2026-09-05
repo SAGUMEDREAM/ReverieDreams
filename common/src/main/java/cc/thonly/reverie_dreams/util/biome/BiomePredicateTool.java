@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.util.biome;
 
+import net.blay09.mods.balm.world.level.biome.BiomePredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -118,7 +119,7 @@ public class BiomePredicateTool {
     }
 
     @FunctionalInterface
-    public interface BiomePredicate {
+    public interface BiomePredicate extends net.blay09.mods.balm.world.level.biome.BiomePredicate {
         boolean test(Holder<Biome> holder);
     }
 }

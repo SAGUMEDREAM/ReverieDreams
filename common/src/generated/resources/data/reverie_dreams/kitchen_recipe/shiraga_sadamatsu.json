@@ -2,17 +2,21 @@
   "recipe_type": "reverie_dreams:steamer",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/venison"
+      "id": "reverie_dreams:ingredient/venison",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/ginkgo"
+      "id": "reverie_dreams:ingredient/ginkgo",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/pine_nut"
+      "id": "reverie_dreams:ingredient/pine_nut",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/shiraga_sadamatsu"
+    "id": "reverie_dreams:cuisine/shiraga_sadamatsu",
+    "count": 1
   },
   "cost_time": 12.0
 }

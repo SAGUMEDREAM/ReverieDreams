@@ -6,7 +6,7 @@ import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
-import dev.architectury.registry.registries.RegistrySupplier;
+import cc.thonly.reverie_dreams.registry.delegate.RegistryDelegate;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 public class RDBlockEntityTypes {
     @SuppressWarnings("rawtypes")
     public static final List<Holder<BlockEntityType>> ENTITIES = new ArrayList<>();
-    public static final RegistrySupplier<BlockEntityType<DanmakuCraftingTableBlockEntity>> DANMAKU_CRAFTING_TABLE = registerBlockEntity("danmaku_crafting_table", DanmakuCraftingTableBlockEntity::new, RDBlocks.DANMAKU_CRAFTING_TABLE);
-    public static final RegistrySupplier<BlockEntityType<StrengthenTableBlockEntity>> STRENGTH_TABLE = registerBlockEntity("strength_table", StrengthenTableBlockEntity::new, RDBlocks.STRENGTH_TABLE);
-    public static final RegistrySupplier<BlockEntityType<GensokyoAltarBlockEntity>> GENSOKYO_ALTAR = registerBlockEntity("gensokyo_altar", GensokyoAltarBlockEntity::new, RDBlocks.GENSOKYO_ALTAR);
-    public static final RegistrySupplier<BlockEntityType<MusicBlockEntity>> MUSIC_BLOCK = registerBlockEntity("music_block", MusicBlockEntity::new, RDBlocks.MUSIC_BLOCK);
-    public static final RegistrySupplier<BlockEntityType<CustomChestBlockEntity>> CUSTOM_CHEST = registerBlockEntity("custom_chest_block", CustomChestBlockEntity::new, RDBlocks.SILVER_CHEST_BLOCK.chestBlock(), RDBlocks.CASH_BOX_BLOCK, RDBlocks.WOODEN_BOX.chestBlock());
-    public static final RegistrySupplier<BlockEntityType<KitchenwareBlockEntity>> KITCHENWARE_BLOCK = registerBlockEntity("kitchen_block",
+    public static final RegistryDelegate<BlockEntityType<DanmakuCraftingTableBlockEntity>> DANMAKU_CRAFTING_TABLE = registerBlockEntity("danmaku_crafting_table", DanmakuCraftingTableBlockEntity::new, RDBlocks.DANMAKU_CRAFTING_TABLE);
+    public static final RegistryDelegate<BlockEntityType<StrengthenTableBlockEntity>> STRENGTH_TABLE = registerBlockEntity("strength_table", StrengthenTableBlockEntity::new, RDBlocks.STRENGTH_TABLE);
+    public static final RegistryDelegate<BlockEntityType<GensokyoAltarBlockEntity>> GENSOKYO_ALTAR = registerBlockEntity("gensokyo_altar", GensokyoAltarBlockEntity::new, RDBlocks.GENSOKYO_ALTAR);
+    public static final RegistryDelegate<BlockEntityType<MusicBlockEntity>> MUSIC_BLOCK = registerBlockEntity("music_block", MusicBlockEntity::new, RDBlocks.MUSIC_BLOCK);
+    public static final RegistryDelegate<BlockEntityType<CustomChestBlockEntity>> CUSTOM_CHEST = registerBlockEntity("custom_chest_block", CustomChestBlockEntity::new, RDBlocks.SILVER_CHEST_BLOCK.chestBlock(), RDBlocks.CASH_BOX_BLOCK, RDBlocks.WOODEN_BOX.chestBlock());
+    public static final RegistryDelegate<BlockEntityType<KitchenwareBlockEntity>> KITCHENWARE_BLOCK = registerBlockEntity("kitchen_block",
             KitchenwareBlockEntity::new,
             RDKitchenBlocks.COOKING_POT, RDKitchenBlocks.CUTTING_BOARD, RDKitchenBlocks.FRYING_PAN, RDKitchenBlocks.GRILL, RDKitchenBlocks.STEAMER,
             RDKitchenBlocks.MYSTIA_COOKING_POT, RDKitchenBlocks.MYSTIA_CUTTING_BOARD, RDKitchenBlocks.MYSTIA_FRYING_PAN, RDKitchenBlocks.MYSTIA_GRILL, RDKitchenBlocks.MYSTIA_STEAMER,
@@ -35,40 +35,40 @@ public class RDBlockEntityTypes {
             RDKitchenBlocks.EXTREME_COOKING_POT, RDKitchenBlocks.EXTREME_CUTTING_BOARD, RDKitchenBlocks.EXTREME_FRYING_PAN, RDKitchenBlocks.EXTREME_GRILL, RDKitchenBlocks.EXTREME_STEAMER,
             RDKitchenBlocks.NUKE_COOKING_POT, RDKitchenBlocks.NUKE_CUTTING_BOARD, RDKitchenBlocks.NUKE_FRYING_PAN, RDKitchenBlocks.NUKE_GRILL, RDKitchenBlocks.NUKE_STEAMER
     );
-    public static final RegistrySupplier<BlockEntityType<PlateBlockEntity>> PLATE = registerBlockEntity("base_display",
+    public static final RegistryDelegate<BlockEntityType<PlateBlockEntity>> PLATE = registerBlockEntity("base_display",
             PlateBlockEntity::new,
             RDBlocks.PLATE
     );
-    public static final RegistrySupplier<BlockEntityType<BrewingBarrelBlockEntity>> BREWING_BARREL = registerBlockEntity("brewing_barrel",
+    public static final RegistryDelegate<BlockEntityType<BrewingBarrelBlockEntity>> BREWING_BARREL = registerBlockEntity("brewing_barrel",
             BrewingBarrelBlockEntity::new,
             RDBlocks.BREWING_BARREL
     );
-    public static final RegistrySupplier<BlockEntityType<CupboardBlockEntity>> CUPBOARD = registerBlockEntity("cupboard",
+    public static final RegistryDelegate<BlockEntityType<CupboardBlockEntity>> CUPBOARD = registerBlockEntity("cupboard",
             CupboardBlockEntity::new,
             RDBlocks.CUPBOARD
     );
-    public static final RegistrySupplier<BlockEntityType<IceMakingMachineBlockEntity>> ICE_MAKING_MACHINE = registerBlockEntity("ice_making_machine",
+    public static final RegistryDelegate<BlockEntityType<IceMakingMachineBlockEntity>> ICE_MAKING_MACHINE = registerBlockEntity("ice_making_machine",
             IceMakingMachineBlockEntity::new,
             RDBlocks.ICE_MAKING_MACHINE
     );
 
-    public static final RegistrySupplier<BlockEntityType<SignalRailBlockEntity>> SIGNAL_RAIL_BLOCK_ENTITY = registerBlockEntity(
+    public static final RegistryDelegate<BlockEntityType<SignalRailBlockEntity>> SIGNAL_RAIL_BLOCK_ENTITY = registerBlockEntity(
             "signal_rails",
             SignalRailBlockEntity::new,
             RDBlocks.SIGNAL_RAIL_BLOCK
     );
-    public static final RegistrySupplier<BlockEntityType<SignalDelayerBlockEntity>> SIGNAL_DELAYER_BLOCK_ENTITY = registerBlockEntity(
+    public static final RegistryDelegate<BlockEntityType<SignalDelayerBlockEntity>> SIGNAL_DELAYER_BLOCK_ENTITY = registerBlockEntity(
             "signal_delayer",
             SignalDelayerBlockEntity::new,
             RDBlocks.SIGNAL_DELAYER_BLOCK
     );
-    public static final RegistrySupplier<BlockEntityType<RemoteBlockEntity>> REMOTE_BLOCK_ENTITY = registerBlockEntity(
+    public static final RegistryDelegate<BlockEntityType<RemoteBlockEntity>> REMOTE_BLOCK_ENTITY = registerBlockEntity(
             "remote_block",
             RemoteBlockEntity::new,
             RDBlocks.REMOTE_CLIENT,
             RDBlocks.REMOTE_SERVER
     );
-    public static final RegistrySupplier<BlockEntityType<SpeakerBlockEntity>> SPEAKER_BLOCK_ENTITY = registerBlockEntity(
+    public static final RegistryDelegate<BlockEntityType<SpeakerBlockEntity>> SPEAKER_BLOCK_ENTITY = registerBlockEntity(
             "speaker",
             SpeakerBlockEntity::new,
             RDBlocks.SPEAKER
@@ -78,13 +78,13 @@ public class RDBlockEntityTypes {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> registerBlockEntity(String name, BlockEntityType.BlockEntitySupplier<T> factory, BlockDelegate... validBlocks) {
-        RegistrySupplier<BlockEntityType> blockEntityType = MCBuiltInRegistries.BLOCK_ENTITY_TYPE.register(name, () -> {
+    public static <T extends BlockEntity> RegistryDelegate<BlockEntityType<T>> registerBlockEntity(String name, BlockEntityType.BlockEntitySupplier<T> factory, BlockDelegate... validBlocks) {
+        RegistryDelegate<BlockEntityType> blockEntityType = MCBuiltInRegistries.BLOCK_ENTITY_TYPE.register(name, () -> {
             Set<Block> set = Arrays.stream(validBlocks).map(BlockDelegate::asBlock).collect(Collectors.toSet());
             return BlockEntityTypeAccessor.reverie_dreams$init(factory, set);
         });
         ENTITIES.add(blockEntityType);
-        return (RegistrySupplier<BlockEntityType<T>>) (Object) blockEntityType;
+        return (RegistryDelegate<BlockEntityType<T>>) (Object) blockEntityType;
     }
 
 }

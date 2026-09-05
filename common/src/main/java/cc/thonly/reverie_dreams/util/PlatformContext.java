@@ -1,29 +1,27 @@
 package cc.thonly.reverie_dreams.util;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import dev.architectury.platform.Mod;
-import dev.architectury.platform.Platform;
-import dev.architectury.utils.Env;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.platform.BalmEnvironment;
+import net.blay09.mods.balm.platform.ModInfo;
 import net.minecraft.world.level.block.Block;
 
 import java.awt.*;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class PlatformContext {
 
-    public static final LazySupplier<String> VERSION =
-            LazySupplier.of(() -> {
-                        Optional<Mod> optionalMod = Platform.getOptionalMod(ReverieDreams.MOD_ID);
-                        if (optionalMod.isPresent()) {
-                            return optionalMod.get().getVersion();
-                        }
-                        return "unknown";
-                    }
-            );
+    public static final LazySupplier<String> VERSION = LazySupplier.of(() ->
+            Balm.platform()
+                    .getModInfo(ReverieDreams.MOD_ID)
+                    .map(ModInfo::versionString)
+                    .orElse("unknown")
+    );
     private static final LazySupplier<Boolean> DEV_ENV =
-            LazySupplier.of(Platform::isDevelopmentEnvironment);
+            LazySupplier.of(() -> Balm.platform().isDevelopmentEnvironment());
     private static final LazySupplier<Boolean> DEV_MODE =
             LazySupplier.of(() ->
                     VERSION.get().contains("-dev.")
@@ -58,17 +56,17 @@ public class PlatformContext {
 
 
     public static boolean isFabric() {
-        return Platform.isFabric();
+        return Objects.equals(Balm.platform().name(), "fabric");
     }
 
 
     public static boolean isNeoForge() {
-        return Platform.isNeoForge();
+        return Objects.equals(Balm.platform().name(), "neoforge");
     }
 
 
     public static boolean isForge() {
-        return Platform.isNeoForge();
+        return Objects.equals(Balm.platform().name(), "forge");
     }
 
 
@@ -78,14 +76,14 @@ public class PlatformContext {
 
 
     public static boolean isClientSide() {
-        Env env = Platform.getEnvironment();
-        return env == Env.CLIENT;
+        BalmEnvironment env =  Balm.platform().physicalSide();
+        return env == BalmEnvironment.CLIENT;
     }
 
 
     public static boolean isDedicatedServer() {
-        Env env = Platform.getEnvironment();
-        return env == Env.SERVER;
+        BalmEnvironment env =  Balm.platform().physicalSide();
+        return env == BalmEnvironment.DEDICATED_SERVER;
     }
 
 
@@ -103,7 +101,7 @@ public class PlatformContext {
 
 
     public static boolean isModLoaded(String id) {
-        return Platform.isModLoaded(id);
+        return Balm.platform().isModLoaded(id);
     }
 
 

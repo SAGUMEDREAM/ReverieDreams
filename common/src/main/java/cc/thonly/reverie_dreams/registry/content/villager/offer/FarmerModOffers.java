@@ -5,14 +5,14 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
+import cc.thonly.reverie_dreams.util.trading.TradeCost;
+import cc.thonly.reverie_dreams.util.trading.VillagerTrade;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.trading.TradeCost;
-import net.minecraft.world.item.trading.VillagerTrade;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 

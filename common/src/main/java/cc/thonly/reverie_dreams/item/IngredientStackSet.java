@@ -14,7 +14,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 import net.minecraft.world.level.ItemLike;
 import org.jspecify.annotations.NonNull;
 
@@ -132,7 +132,7 @@ public class IngredientStackSet implements Collection<IngredientStack>,
         return HolderSetDirectAccessor.invokeInit(this.values
                 .stream()
                 .filter(Objects::nonNull)
-                .map(stack -> new Holder.Direct<>(stack, DataComponentMap.EMPTY))
+                .map(stack -> new Holder.Direct<>(stack))
                 .map(direct -> (Holder<IngredientStack>) direct)
                 .toList());
     }

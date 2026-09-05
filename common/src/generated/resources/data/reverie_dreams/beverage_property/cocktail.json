@@ -1,0 +1,15 @@
+{
+  "registry_key": "reverie_dreams:cocktail",
+  "properties": {
+    "values": [
+      "reverie_dreams:beverage/fruity_high_ball",
+      "reverie_dreams:beverage/fruity_sour",
+      "reverie_dreams:beverage/qi",
+      "reverie_dreams:beverage/scarlet_devil",
+      "reverie_dreams:beverage/negroni",
+      "reverie_dreams:beverage/godfather",
+      "reverie_dreams:beverage/blessing_wind",
+      "reverie_dreams:beverage/mojito_burst_ball"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "parent": "reverie_dreams:root",
+  "criteria": {
+    "enter_moon": {
+      "conditions": {
+        "to": "reverie_dreams:the_moon"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "extra": [
+        {
+          "translate": "description.reverie_dreams.welcome_to_the_moon_tour"
+        }
+      ],
+      "text": ""
+    },
+    "icon": {
+      "count": 1,
+      "id": "reverie_dreams:moon_stone"
+    },
+    "title": {
+      "extra": [
+        {
+          "translate": "title.reverie_dreams.welcome_to_the_moon_tour"
+        }
+      ],
+      "text": ""
+    }
+  },
+  "requirements": [
+    [
+      "enter_moon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

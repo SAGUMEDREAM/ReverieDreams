@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_rail_raised_sw",
+  "textures": {
+    "rail": "reverie_dreams:block/rail_controller_block_on"
+  }
+}

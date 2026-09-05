@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:frying_pan",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/shrimp"
+      "id": "reverie_dreams:ingredient/shrimp",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/flour"
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/fried_shrimp_tempura"
+    "id": "reverie_dreams:cuisine/fried_shrimp_tempura",
+    "count": 1
   },
   "cost_time": 6.0
 }

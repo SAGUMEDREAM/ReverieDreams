@@ -1,0 +1,54 @@
+{
+  "role_type": "reverie_dreams:alice",
+  "rare": true,
+  "budget": {
+    "min": 500,
+    "max": 800
+  },
+  "likes": [
+    "reverie_dreams:homestyle",
+    "reverie_dreams:gourmet",
+    "reverie_dreams:western_style",
+    "reverie_dreams:sweet",
+    "reverie_dreams:cultural_depth"
+  ],
+  "dislikes": [
+    "reverie_dreams:greasy",
+    "reverie_dreams:filling",
+    "reverie_dreams:bizarre"
+  ],
+  "beverages": [
+    "reverie_dreams:low_alcohol",
+    "reverie_dreams:western_wine",
+    "reverie_dreams:modern"
+  ],
+  "chats": [
+    "reverie_dreams.role.alice.chat.0",
+    "reverie_dreams.role.alice.chat.1",
+    "reverie_dreams.role.alice.chat.2",
+    "reverie_dreams.role.alice.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.alice.order.0",
+    "reverie_dreams.role.alice.order.1",
+    "reverie_dreams.role.alice.order.2",
+    "reverie_dreams.role.alice.order.3",
+    "reverie_dreams.role.alice.order.4"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.alice.description.0",
+    "reverie_dreams.role.alice.description.1",
+    "reverie_dreams.role.alice.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.alice.evaluation.exbad",
+    "bad": "reverie_dreams.role.alice.evaluation.bad",
+    "norm": "reverie_dreams.role.alice.evaluation.norm",
+    "good": "reverie_dreams.role.alice.evaluation.good",
+    "exgood": "reverie_dreams.role.alice.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.alice.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.alice.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.alice.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.alice.evaluation.seenRepell"
+  }
+}

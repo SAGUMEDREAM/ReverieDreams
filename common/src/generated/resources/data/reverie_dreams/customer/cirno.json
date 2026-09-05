@@ -1,0 +1,52 @@
+{
+  "role_type": "reverie_dreams:cirno",
+  "rare": true,
+  "budget": {
+    "min": 100,
+    "max": 200
+  },
+  "likes": [
+    "reverie_dreams:sweet",
+    "reverie_dreams:photogenic",
+    "reverie_dreams:cool",
+    "reverie_dreams:bizarre"
+  ],
+  "dislikes": [
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:cultural_depth",
+    "reverie_dreams:expensive"
+  ],
+  "beverages": [
+    "reverie_dreams:can_add_ice",
+    "reverie_dreams:sweet"
+  ],
+  "chats": [
+    "reverie_dreams.role.cirno.chat.0",
+    "reverie_dreams.role.cirno.chat.1",
+    "reverie_dreams.role.cirno.chat.2",
+    "reverie_dreams.role.cirno.chat.3",
+    "reverie_dreams.role.cirno.chat.4"
+  ],
+  "orders": [
+    "reverie_dreams.role.cirno.order.0",
+    "reverie_dreams.role.cirno.order.1",
+    "reverie_dreams.role.cirno.order.2",
+    "reverie_dreams.role.cirno.order.3"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.cirno.description.0",
+    "reverie_dreams.role.cirno.description.1",
+    "reverie_dreams.role.cirno.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.cirno.evaluation.exbad",
+    "bad": "reverie_dreams.role.cirno.evaluation.bad",
+    "norm": "reverie_dreams.role.cirno.evaluation.norm",
+    "good": "reverie_dreams.role.cirno.evaluation.good",
+    "exgood": "reverie_dreams.role.cirno.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.cirno.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.cirno.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.cirno.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.cirno.evaluation.seenRepell"
+  }
+}

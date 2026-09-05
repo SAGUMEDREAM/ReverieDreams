@@ -2,14 +2,17 @@
   "recipe_type": "reverie_dreams:grill",
   "ingredients": [
     {
-      "id": "reverie_dreams:ingredient/black_pork"
+      "id": "reverie_dreams:ingredient/black_pork",
+      "count": 1
     },
     {
-      "id": "reverie_dreams:ingredient/wild_boar_meat"
+      "id": "reverie_dreams:ingredient/wild_boar_meat",
+      "count": 1
     }
   ],
   "output": {
-    "id": "reverie_dreams:food/two_heavens_one_style"
+    "id": "reverie_dreams:cuisine/two_heavens_one_style",
+    "count": 1
   },
   "cost_time": 18.0
 }

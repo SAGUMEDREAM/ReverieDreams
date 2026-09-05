@@ -7,13 +7,13 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
+import cc.thonly.keine.item.ItemStackTemplate;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 public class DanmakuRecipeProvider extends AbstractRecipeTypeProvider {
     public final Factory<DanmakuRecipe> factory = this.getOrCreateFactory(RecipeManager.DANMAKU, DanmakuRecipe.class);
 
-    public DanmakuRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+    public DanmakuRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
         super(output, future);
     }
 

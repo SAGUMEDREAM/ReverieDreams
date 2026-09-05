@@ -1,0 +1,57 @@
+{
+  "role_type": "reverie_dreams:hoshiguma_yugi",
+  "rare": true,
+  "budget": {
+    "min": 600,
+    "max": 1000
+  },
+  "likes": [
+    "reverie_dreams:legendary",
+    "reverie_dreams:good_with_alcohol",
+    "reverie_dreams:japanese_style",
+    "reverie_dreams:signature",
+    "reverie_dreams:power_surge",
+    "reverie_dreams:flaming",
+    "reverie_dreams:large_partition"
+  ],
+  "dislikes": [
+    "reverie_dreams:bizarre",
+    "reverie_dreams:petite"
+  ],
+  "beverages": [
+    "reverie_dreams:high_alcohol",
+    "reverie_dreams:sake",
+    "reverie_dreams:beer",
+    "reverie_dreams:classical"
+  ],
+  "chats": [
+    "reverie_dreams.role.hoshiguma_yugi.chat.0",
+    "reverie_dreams.role.hoshiguma_yugi.chat.1",
+    "reverie_dreams.role.hoshiguma_yugi.chat.2",
+    "reverie_dreams.role.hoshiguma_yugi.chat.3"
+  ],
+  "orders": [
+    "reverie_dreams.role.hoshiguma_yugi.order.0",
+    "reverie_dreams.role.hoshiguma_yugi.order.1",
+    "reverie_dreams.role.hoshiguma_yugi.order.2",
+    "reverie_dreams.role.hoshiguma_yugi.order.3",
+    "reverie_dreams.role.hoshiguma_yugi.order.4",
+    "reverie_dreams.role.hoshiguma_yugi.order.5"
+  ],
+  "descriptions": [
+    "reverie_dreams.role.hoshiguma_yugi.description.0",
+    "reverie_dreams.role.hoshiguma_yugi.description.1",
+    "reverie_dreams.role.hoshiguma_yugi.description.2"
+  ],
+  "evaluation": {
+    "exbad": "reverie_dreams.role.hoshiguma_yugi.evaluation.exbad",
+    "bad": "reverie_dreams.role.hoshiguma_yugi.evaluation.bad",
+    "norm": "reverie_dreams.role.hoshiguma_yugi.evaluation.norm",
+    "good": "reverie_dreams.role.hoshiguma_yugi.evaluation.good",
+    "exgood": "reverie_dreams.role.hoshiguma_yugi.evaluation.exgood",
+    "lackmoneyangry": "reverie_dreams.role.hoshiguma_yugi.evaluation.lackmoneyangry",
+    "lackmoneynormal": "reverie_dreams.role.hoshiguma_yugi.evaluation.lackmoneynormal",
+    "repell": "reverie_dreams.role.hoshiguma_yugi.evaluation.repell",
+    "seenRepell": "reverie_dreams.role.hoshiguma_yugi.evaluation.seenRepell"
+  }
+}
