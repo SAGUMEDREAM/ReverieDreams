@@ -1,5 +1,12 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.6.3+26.1.2
+* Fixed a crash caused by lakes accessing unavailable chunks during world generation.
+* Fixed missing translation keys.
+* Fixed NeoForge failing to launch the game.
+* Fixed a crash when searching in Creative Mode.
+* Added Polydex support for viewing brewing recipes.
+
 # 0.6.2+26.1.2
 * Added a game rule that controls whether Role Cards can freely summon all characters.
 * Added pagination to the NPC inventory.

@@ -2,7 +2,9 @@ package cc.thonly.reverie_dreams.registry.content.item;
 
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.util.Unit;
 import net.minecraft.world.food.FoodProperties;
@@ -15,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
+@Slf4j
 @SuppressWarnings({"deprecation", "unused", "SpellCheckingInspection"})
 public class RDIngredientItems {
     public static final List<ItemDelegate> INGREDIENTS = new ArrayList<>();
@@ -108,8 +111,8 @@ public class RDIngredientItems {
         return item;
     }
 
-    public static ItemDelegate addExistedIngredient(ItemLike item) {
-        ItemDelegate itemDelegate = ItemDelegate.of(item.asItem().builtInRegistryHolder());
+    public static ItemDelegate addExistedIngredient(Item item) {
+        ItemDelegate itemDelegate = ItemDelegate.of(item.builtInRegistryHolder());
         EXISTS.add(itemDelegate);
         INGREDIENTS.add(itemDelegate);
         return itemDelegate;
@@ -117,6 +120,17 @@ public class RDIngredientItems {
 
     public static ItemDelegate addExistedIngredient(Holder<Item> item) {
         ItemDelegate itemDelegate = ItemDelegate.of(item);
+        EXISTS.add(itemDelegate);
+        INGREDIENTS.add(itemDelegate);
+        return itemDelegate;
+    }
+
+    public static ItemDelegate addExistedIngredient(BlockDelegate blockDelegate) {
+        if (blockDelegate.blockItem() == null) {
+            log.error("No Holder bound to {} found", blockDelegate);
+            return null;
+        }
+        ItemDelegate itemDelegate = blockDelegate.blockItem();
         EXISTS.add(itemDelegate);
         INGREDIENTS.add(itemDelegate);
         return itemDelegate;

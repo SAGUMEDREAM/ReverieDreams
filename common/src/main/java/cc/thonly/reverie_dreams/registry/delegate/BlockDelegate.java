@@ -13,11 +13,13 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class BlockDelegate implements Holder<Block>, DeferredSupplier<Block>, ItemLike {
     @Delegate
     final RegistrySupplier<Block> supplier;
+    @Nullable ItemDelegate blockItem;
 
     public BlockDelegate(RegistrySupplier<Block> supplier) {
         this.supplier = supplier;
@@ -30,6 +32,14 @@ public class BlockDelegate implements Holder<Block>, DeferredSupplier<Block>, It
     @Override
     public Item asItem() {
         return this.supplier.get().asItem();
+    }
+
+    public void bindBlockItem(ItemDelegate itemDelegate) {
+        this.blockItem = itemDelegate;
+    }
+
+    public @Nullable ItemDelegate blockItem() {
+        return this.blockItem;
     }
 
     public Block asBlock() {

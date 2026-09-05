@@ -25,6 +25,7 @@ public class PolydexCompatImpl {
         createRecipeView(GensokyoAltarRecipeType.getInstance().getRegistryView(), GensokyoAltarPage::new, pageConsumer);
         createRecipeView(StrengthTableRecipeType.getInstance().getRegistryView(), StrengthTablePage::new, pageConsumer);
         createRecipeView(KitchenRecipeType.getInstance().getRegistryView(), KitchenPage::new, pageConsumer);
+        createRecipeView(BrewingBarrelRecipeType.getInstance().getRegistryView(), BrewingBarrelPage::new, pageConsumer);
     }
 
     private static <T, R extends PolydexPage> void createRecipeView(

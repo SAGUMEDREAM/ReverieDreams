@@ -215,6 +215,9 @@ public class InitTooltips {
     public static void registerTooltip(ItemStackTooltipCallback callback) {
         Event<ItemStackTooltipCallback> event = getTooltipEventBus();
         event.register((itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag) -> {
+            if (player == null) {
+                return;
+            }
             invokeBypassShowOnly(callback, itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag);
         });
     }

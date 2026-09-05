@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -79,6 +78,12 @@ public class RDBuiltinConfigurationFeatures {
                     CraterFeature::new,
                     CraterFeatureConfig.CODEC
             );
+    public static final RegistrySupplier<Feature<LakeFeature.Configuration>> LAKE =
+            registerFeature(
+                    "lake",
+                    LakeFeature::new,
+                    LakeFeature.Configuration.CODEC
+            );
     public static final RegistrySupplier<Feature<DreamGridFeatureConfig>> DREAM_GRID =
             registerFeature(
                     "dream_world_grid",
@@ -120,7 +125,6 @@ public class RDBuiltinConfigurationFeatures {
         );
     }
 
-    @SuppressWarnings("deprecation")
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -234,7 +238,7 @@ public class RDBuiltinConfigurationFeatures {
         context.register(
                 MOON_WATER_LAKE_KEY,
                 new ConfiguredFeature<>(
-                        Feature.LAKE,
+                        LAKE.get(),
                         new LakeFeature.Configuration(
                                 BlockStateProvider.simple(Blocks.WATER),
                                 BlockStateProvider.simple(RDBlocks.MOON_STONE.block().asBlock())

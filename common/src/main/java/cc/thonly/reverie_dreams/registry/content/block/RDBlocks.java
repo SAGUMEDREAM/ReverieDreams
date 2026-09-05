@@ -13,6 +13,7 @@ import cc.thonly.reverie_dreams.item.ItemTypeGroup;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.Getter;
@@ -251,7 +252,7 @@ public class RDBlocks {
         return block;
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "unchecked"})
     public static BlockDelegate registerSimpleBlock(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties blockSettings, Item.Properties itemSettings) {
         if (PlatformContext.hasPolymer()) {
             blockSettings.noOcclusion();
@@ -261,7 +262,9 @@ public class RDBlocks {
         }
         RegistrySupplier<Block> block = MCBuiltInRegistries.BLOCK.register(name, () -> factory.apply(blockSettings.setId(RDBlocks.keyOf(name))));
         RegistrySupplier<BlockItem> blockItem = MCBuiltInRegistries.ITEM.register(name, () -> new BlockItem(block.get(), itemSettings.setId(RDItems.keyOf(name)).useBlockDescriptionPrefix()));
+        ItemDelegate itemDelegate = ItemDelegate.of((Holder<Item>) (Object) blockItem);
         BlockDelegate blockDelegate = BlockDelegate.of(block);
+        blockDelegate.bindBlockItem(itemDelegate);
         ReverieDreams.COMMON_LATE_INIT.add(() -> {
             ItemTypeGroup.join(blockItem.get());
             RDItems.LATE_POLYMERIFY_ITEM_LIST.add(blockDelegate.asItem().builtInRegistryHolder());

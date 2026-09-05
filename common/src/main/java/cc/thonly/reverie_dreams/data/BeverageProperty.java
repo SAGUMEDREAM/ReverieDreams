@@ -26,7 +26,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@EqualsAndHashCode
 public class BeverageProperty implements SerializableProvider<BeverageProperty>, RegistryEntryOwnerBindable<BeverageProperty>, BuiltinObject, RegistryEntryTranslatable {
     public static final Identifier UNDEFINED = ReverieDreams.id("undefined");
     public static final Codec<BeverageProperty> COMPONENT_CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.xmap(BuiltInRegistryProviders.BEVERAGE_PROPERTY::getValue, entry -> {
@@ -70,6 +69,11 @@ public class BeverageProperty implements SerializableProvider<BeverageProperty>,
 
     public Boolean is(BeverageProperty property) {
         return this == property || this.getId().equals(property.getId()) || this.hashCode() == property.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) || (obj instanceof BeverageProperty property && property.is(this));
     }
 
     public Component getTooltip() {
