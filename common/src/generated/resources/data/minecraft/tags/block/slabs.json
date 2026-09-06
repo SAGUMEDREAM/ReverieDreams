@@ -4,14 +4,14 @@
     "reverie_dreams:lemon_slab",
     "reverie_dreams:ginkgo_slab",
     "reverie_dreams:peach_slab",
-    "reverie_dreams:spiritual_slab",
-    "reverie_dreams:peach_slab",
-    "reverie_dreams:ginkgo_slab",
-    "reverie_dreams:moon_stone_slab",
     "reverie_dreams:lemon_slab",
-    "reverie_dreams:dream_stone_slab",
     "reverie_dreams:ice_scales_block_slab",
+    "reverie_dreams:spiritual_slab",
+    "reverie_dreams:ginkgo_slab",
+    "reverie_dreams:moon_stone_brick_slab",
+    "reverie_dreams:peach_slab",
+    "reverie_dreams:dream_stone_slab",
     "reverie_dreams:dream_stone_brick_slab",
-    "reverie_dreams:moon_stone_brick_slab"
+    "reverie_dreams:moon_stone_slab"
   ]
 }

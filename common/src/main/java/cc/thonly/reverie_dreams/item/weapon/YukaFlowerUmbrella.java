@@ -45,21 +45,4 @@ public class YukaFlowerUmbrella extends SwordItem {
         return ItemUseAnimation.SPEAR;
     }
 
-    static {
-        TickEvent.PLAYER_POST.register(player -> {
-            if (player.isUsingItem()) {
-                ItemStack using = player.getUseItem();
-                if (using.getItem() instanceof YukaFlowerUmbrella) {
-                    Entity vehicle = player.getVehicle();
-                    //noinspection ConditionCoveredByFurtherCondition
-                    if (vehicle != null && vehicle instanceof LivingEntity livingVehicle) {
-                        livingVehicle.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
-                        livingVehicle.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
-                    }
-                    player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
-                    player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
-                }
-            }
-        });
-    }
 }

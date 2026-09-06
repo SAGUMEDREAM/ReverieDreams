@@ -243,6 +243,8 @@ public class RDItems {
     public static final ItemDelegate GLOWING_NEEDLES_LITTLE_PEOPLE = registerAlbum("glowing_needles_little_people", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongKey())), new Item.Properties());
     public static final ItemDelegate COOKIE = registerAlbum("cookie", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.COOKIE.getJukeboxSongKey())), new Item.Properties());
     public static final ItemDelegate BADAPPLE = registerAlbum("bad-apple", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.BAD_APPLE.getJukeboxSongKey())), new Item.Properties());
+    public static final ItemDelegate A_MELODY_BLOOMING_ON_THE_EARTH = registerAlbum("a_melody_blooming_on_the_earth", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.A_MELODY_BLOOMING_ON_THE_EARTH.getJukeboxSongKey())), new Item.Properties());
+    public static final ItemDelegate SPRAWLING_EARTH = registerAlbum("sprawling_earth", props -> new AlbumItem(props.jukeboxPlayable(JukeboxSongInit.SPRAWLING_EARTH.getJukeboxSongKey())), new Item.Properties());
 
 
     public static void initialize() {

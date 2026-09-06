@@ -325,6 +325,19 @@ public class BiomeModificationInit {
 
         });
         BiomeModifications.addProperties((context, mutable) -> {
+            if (!context.hasTag(BiomeTags.IS_NETHER)) {
+                return;
+            }
+
+            GenerationProperties.Mutable generationProperties =
+                    mutable.getGenerationProperties();
+
+            generationProperties.addFeature(
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    RDBuiltinPlacedFeatures.NETHER_BLACK_SALT_ORE_KEY
+            );
+        });
+        BiomeModifications.addProperties((context, mutable) -> {
             Optional<Identifier> keyOptional = context.getKey();
             if (keyOptional.isEmpty()) {
                 return;

@@ -41,6 +41,7 @@ public class RecipeTypeCategoryManager {
     public static final Identifier GENSOKYO_ALTAR_ICON = ReverieDreams.id("recipe/gensokyo_altar");
     public static final Identifier STRENGTH_TABLE_ICON = ReverieDreams.id("recipe/strength_table");
     public static final Identifier KITCHEN_ICON = ReverieDreams.id("recipe/kitchen");
+    public static final Identifier BREWING_ICON = ReverieDreams.id("recipe/brewing");
 
     public static void addCategoryType(RecipeTypeGuiInfo<? extends BasePageGui> type) {
         CATEGORY_ENTRIES.add(type);
@@ -176,6 +177,24 @@ public class RecipeTypeCategoryManager {
                                     gui.close();
                                     SoundEventPlayUtils.playUISound(gui.getPlayer(), 1.0f, 1.0f);
                                     SimpleGui view = new KitchenBlockDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
+                                    view.open();
+                                });
+                        GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().build());
+                        gui.setSlot(gui.getGridSlot(slotIndex), icon);
+                    })
+            ));
+            addCategoryType(new RecipeTypeGuiInfo<>(new ItemStackTemplate(RDBlocks.BREWING_BARREL.asItem()), BREWING_ICON, BasePageGui.class,
+                    BrewingBlockDisplayView.class,
+                    BrewingBarrelRecipeType::getInstance,
+                    ((gui, slotIndex) -> {
+                        RecipeKeyEntry<BrewingBarrelRecipe> key2ValueEntry = (RecipeKeyEntry<BrewingBarrelRecipe>) gui.getEntries().get(slotIndex + gui.getPage() * BasePageGui.PER_PAGE_SIZE);
+                        GuiElementBuilder icon = new GuiElementBuilder()
+                                .setItem(key2ValueEntry.getValue().getOutput().getItem())
+                                .setItemName(key2ValueEntry.getValue().getOutput().build().getHoverName())
+                                .setCallback((slot, click, action, basedGui) -> {
+                                    gui.close();
+                                    SoundEventPlayUtils.playUISound(gui.getPlayer(), 1.0f, 1.0f);
+                                    SimpleGui view = new BrewingBlockDisplayView(gui.getPlayer(), key2ValueEntry, () -> new BasePageGui(gui.getPlayer(), gui.getRecipeGuiInfo(), gui.getRecipeTypeInfo(), gui.getPrevGuiCallback()));
                                     view.open();
                                 });
                         GuiElementBuilderSetter.setter(icon, key2ValueEntry.getValue().getOutput().build());

@@ -73,16 +73,24 @@
       "reverie_dreams:fumo/3"
     ]
   },
+  "up": {
+    "subtitle": "sound.reverie_dreams.up",
+    "sounds": [
+      "reverie_dreams:up"
+    ]
+  },
   "empty": {
     "subtitle": "sound.reverie_dreams.empty",
     "sounds": [
       "reverie_dreams:empty"
     ]
   },
-  "up": {
-    "subtitle": "sound.reverie_dreams.up",
+  "records/sprawling_earth": {
+    "subtitle": "sound.reverie_dreams.records/sprawling_earth",
     "sounds": [
-      "reverie_dreams:up"
+      {
+        "name": "reverie_dreams:records/sprawling_earth"
+      }
     ]
   },
   "records/hr02_08": {
@@ -129,6 +137,14 @@
     "subtitle": "sound.reverie_dreams.point",
     "sounds": [
       "reverie_dreams:point"
+    ]
+  },
+  "records/a_melody_blooming_on_the_earth": {
+    "subtitle": "sound.reverie_dreams.records/a_melody_blooming_on_the_earth",
+    "sounds": [
+      {
+        "name": "reverie_dreams:records/a_melody_blooming_on_the_earth"
+      }
     ]
   },
   "records/badapple": {

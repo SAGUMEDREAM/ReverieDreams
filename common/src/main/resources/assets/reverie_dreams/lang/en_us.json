@@ -3690,5 +3690,11 @@
   "gui.npc.page.next.disabled": "§0Next Page",
   "gui.npc.page.previous": "§cPrevious Page",
   "gui.npc.page.previous.disabled": "§0Previous Page",
-  "item.reverie_dreams.role_card.full": "§rRole Card"
+  "item.reverie_dreams.role_card.full": "§rRole Card",
+
+  "jukebox_song.reverie_dreams.records.a_melody_blooming_on_the_earth": "幽閉サテライト - A Melody Blooming on the Earth / Melody Beneath the Starry Sky - AcAciaZizzo",
+  "jukebox_song.reverie_dreams.records.sprawling_earth": "ごんばこんなか - Welcome to the Lunar Shopping Center　～ Sprawling Earth",
+  "reverie_dreams.recipe/brewing": "Brewing",
+  "sound.reverie_dreams.records/a_melody_blooming_on_the_earth": "幽閉サテライト - A Melody Blooming on the Earth / Melody Beneath the Starry Sky - AcAciaZizzo",
+  "sound.reverie_dreams.records/sprawling_earth": "ごんばこんなか - Welcome to the Lunar Shopping Center　～ Sprawling Earth"
 }

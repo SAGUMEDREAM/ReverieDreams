@@ -146,7 +146,7 @@ public class RDBuiltinConfigurationFeatures {
                 new TreeConfiguration.TreeConfigurationBuilder(
                         BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL_BUNDLE.log().asBlock()),
                         new StraightTrunkPlacer(5, 2, 1),
-                        BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL_BUNDLE.leaves().asBlock().defaultBlockState().setValue(LeavesBlock.DISTANCE, 7).setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false)),
+                        BlockStateProvider.simple(RDWoodBlocks.SPIRITUAL_BUNDLE.leaves().asBlock().defaultBlockState().setValue(LeavesBlock.DISTANCE, 7).setValue(LeavesBlock.WATERLOGGED, false)),
                         new BlobFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -157,8 +157,8 @@ public class RDBuiltinConfigurationFeatures {
                         BlockStateProvider.simple(RDWoodBlocks.LEMON_BUNDLE.log().asBlock()),
                         new BendingTrunkPlacer(2, 1, 2, 2, UniformInt.of(1, 1)),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                                              .add(RDWoodBlocks.LEMON_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                                              .add(RDWoodBlocks.LEMON_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                                              .add(RDWoodBlocks.LEMON_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                                              .add(RDWoodBlocks.LEMON_FRUIT_LEAVES.defaultBlockState().setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -169,8 +169,8 @@ public class RDBuiltinConfigurationFeatures {
                         BlockStateProvider.simple(RDWoodBlocks.LEMON_BUNDLE.log().asBlock()),
                         new StraightTrunkPlacer(3, 1, 0),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                                              .add(RDWoodBlocks.GINKGO_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                                              .add(RDWoodBlocks.GINKGO_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                                              .add(RDWoodBlocks.GINKGO_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                                              .add(RDWoodBlocks.GINKGO_FRUIT_LEAVES.defaultBlockState().setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()
@@ -181,8 +181,8 @@ public class RDBuiltinConfigurationFeatures {
                         BlockStateProvider.simple(RDWoodBlocks.PEACH_BUNDLE.log().asBlock()),
                         new StraightTrunkPlacer(2, 1, 1),
                         new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                                              .add(RDWoodBlocks.PEACH_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(LeavesBlock.WATERLOGGED, false), 3)
-                                                              .add(RDWoodBlocks.PEACH_FRUIT_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true).setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
+                                                              .add(RDWoodBlocks.PEACH_BUNDLE.leaves().defaultBlockState().setValue(LeavesBlock.WATERLOGGED, false), 3)
+                                                              .add(RDWoodBlocks.PEACH_FRUIT_LEAVES.defaultBlockState().setValue(FruitLeavesBlock.AGE_PROPERTY, FruitLeavesBlock.MAX_AGE).setValue(LeavesBlock.WATERLOGGED, false), 1)),
                         new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
                         new TwoLayersFeatureSize(1, 0, 2)
                 ).build()

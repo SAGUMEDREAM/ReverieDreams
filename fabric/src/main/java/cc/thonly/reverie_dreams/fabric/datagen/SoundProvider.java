@@ -23,6 +23,8 @@ public class SoundProvider extends AbstractSoundProvider {
         this.addWithRecords(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE, null);
         this.addWithRecords(JukeboxSongInit.COOKIE, null);
         this.addWithRecords(JukeboxSongInit.BAD_APPLE, null);
+        this.addWithRecords(JukeboxSongInit.A_MELODY_BLOOMING_ON_THE_EARTH, null);
+        this.addWithRecords(JukeboxSongInit.SPRAWLING_EARTH, null);
         for (var soundEvent : RDSoundEvents.SOUND_EVENTS) {
             this.addWithSoundEvent(soundEvent.value(), null);
         }

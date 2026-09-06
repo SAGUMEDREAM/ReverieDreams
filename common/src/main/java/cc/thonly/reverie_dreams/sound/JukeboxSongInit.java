@@ -19,6 +19,9 @@ public class JukeboxSongInit {
     public static final JukeBoxEntry GLOWING_NEEDLES_LITTLE_PEOPLE = createJukeBoxEntry("records/glowing_needles_little_people", 242, 6);
     public static final JukeBoxEntry COOKIE = createJukeBoxEntry("records/cookie", 72, 6);
     public static final JukeBoxEntry BAD_APPLE = createJukeBoxEntry("records/badapple", 219, 6);
+    public static final JukeBoxEntry A_MELODY_BLOOMING_ON_THE_EARTH = createJukeBoxEntry("records/a_melody_blooming_on_the_earth", 189, 6);
+    public static final JukeBoxEntry SPRAWLING_EARTH = createJukeBoxEntry("records/sprawling_earth", 189, 6);
+
 
     private static JukeBoxEntry createJukeBoxEntry(String id, int length, int output) {
         ResourceKey<JukeboxSong> jukeboxSongRegistryKey = createJukeBoxSongRegistryKey(id);

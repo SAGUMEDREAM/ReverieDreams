@@ -23,6 +23,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 public class MoonRabbit extends Rabbit {
+
     public MoonRabbit(EntityType<? extends Rabbit> entityType, Level world) {
         super(entityType, world);
         this.setVariant(Variant.WHITE);

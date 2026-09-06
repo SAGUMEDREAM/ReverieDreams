@@ -40,6 +40,7 @@ public class RDBuiltinPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PEACH_TREE_KEY = getOrCreateRegistryKey("peach_tree_placed");
     public static final ResourceKey<PlacedFeature> OVERWORLD_SILVER_ORE_KEY = getOrCreateRegistryKey("overworld_silver_ore_placed");
     public static final ResourceKey<PlacedFeature> OVERWORLD_ORB_ORE_KEY = getOrCreateRegistryKey("overworld_orb_ore_placed");
+    public static final ResourceKey<PlacedFeature> NETHER_BLACK_SALT_ORE_KEY = getOrCreateRegistryKey("nether_black_salt");
     public static final ResourceKey<PlacedFeature> UDUMBARA_FLOWER_KEY = getOrCreateRegistryKey("udumbara_flower_placed");
     public static final ResourceKey<PlacedFeature> TREMELLA_KEY = getOrCreateRegistryKey("tremella_placed");
 
@@ -88,6 +89,11 @@ public class RDBuiltinPlacedFeatures {
         context.register(OVERWORLD_ORB_ORE_KEY, new PlacedFeature(
                 registryLookup.getOrThrow(RDBuiltinConfigurationFeatures.OVERWORLD_ORB_ORE_KEY),
                 Modifiers.modifiersCount(7, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))
+        ));
+
+        context.register(NETHER_BLACK_SALT_ORE_KEY, new PlacedFeature(
+                registryLookup.getOrThrow(RDBuiltinConfigurationFeatures.NETHER_BLACK_SALT_ORE_KEY),
+                Modifiers.modifiersCount(6, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))
         ));
 
         context.register(UDUMBARA_FLOWER_KEY,

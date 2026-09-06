@@ -81,6 +81,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RecipeTypeCategoryManager.GENSOKYO_ALTAR_ICON.toLanguageKey(), "幻想乡祭坛");
         translationBuilder.add(RecipeTypeCategoryManager.STRENGTH_TABLE_ICON.toLanguageKey(), "强化台");
         translationBuilder.add(RecipeTypeCategoryManager.KITCHEN_ICON.toLanguageKey(), "夜雀食堂");
+        translationBuilder.add(RecipeTypeCategoryManager.BREWING_ICON.toLanguageKey(), "酒水酿造");
         translationBuilder.add("message.gensokyo_altar.miss_structure", "§c结构错误");
         translationBuilder.add("message.gensokyo_altar.miss_recipe", "§c未知合成仪式");
         translationBuilder.add("message.reverie_dreams.treasure_hunting_rod.find", "离目标还有 %s 格，偏移：X=%s, Y=%s, Z=%s，目标：");
@@ -3415,6 +3416,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         builder.generateJukeBox(JukeboxSongInit.GLOWING_NEEDLES_LITTLE_PEOPLE.getJukeboxSongKey(), "Inchlings of the Shining Needle ~ Little Princess : 「Miracle Remix」");
         builder.generateJukeBox(JukeboxSongInit.COOKIE.getJukeboxSongKey(), "温馨的神社（迫真）");
         builder.generateJukeBox(JukeboxSongInit.BAD_APPLE.getJukeboxSongKey(), "Bad Apple");
+        builder.generateJukeBox(JukeboxSongInit.A_MELODY_BLOOMING_ON_THE_EARTH.getJukeboxSongKey(), "幽閉サテライト - 大地に咲く旋律 / 星空下的旋律 - AcAciaZizzo");
+        builder.generateJukeBox(JukeboxSongInit.SPRAWLING_EARTH.getJukeboxSongKey(), "ごんばこんなか - 欢迎来到月面购物中心　～ Sprawling Earth");
     }
 
     public void generateBlockTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
@@ -3459,7 +3462,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.stairs().asBlock(), "绳文杉楼梯");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.slab().asBlock(), "绳文杉台阶");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.door().asBlock(), "绳文杉门");
-        translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.trapdoor().asBlock(), "绳文杉活版门");
+        translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.trapdoor().asBlock(), "绳文杉活板门");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.fence().asBlock(), "绳文杉栅栏");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.fenceGate().asBlock(), "绳文杉栅栏门");
         translationBuilder.add(RDWoodBlocks.SPIRITUAL_BUNDLE.button().asBlock(), "绳文杉按钮");
@@ -3498,7 +3501,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.stairs().asBlock(), "柠檬楼梯");
         translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.slab().asBlock(), "柠檬台阶");
         translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.door().asBlock(), "柠檬门");
-        translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.trapdoor().asBlock(), "柠檬活版门");
+        translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.trapdoor().asBlock(), "柠檬活板门");
         translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.fence().asBlock(), "柠檬栅栏");
         translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.fenceGate().asBlock(), "柠檬栅栏门");
         translationBuilder.add(RDWoodBlocks.LEMON_BUNDLE.button().asBlock(), "柠檬按钮");
@@ -3514,7 +3517,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.stairs().asBlock(), "白果楼梯");
         translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.slab().asBlock(), "白果台阶");
         translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.door().asBlock(), "白果门");
-        translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.trapdoor().asBlock(), "白果活版门");
+        translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.trapdoor().asBlock(), "白果活板门");
         translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.fence().asBlock(), "白果栅栏");
         translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.fenceGate().asBlock(), "白果栅栏门");
         translationBuilder.add(RDWoodBlocks.GINKGO_BUNDLE.button().asBlock(), "白果按钮");
@@ -3530,7 +3533,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.stairs().asBlock(), "桃木楼梯");
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.slab().asBlock(), "桃木台阶");
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.door().asBlock(), "桃木门");
-        translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.trapdoor().asBlock(), "桃木活版门");
+        translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.trapdoor().asBlock(), "桃木活板门");
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.fence().asBlock(), "桃木栅栏");
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.fenceGate().asBlock(), "桃木栅栏门");
         translationBuilder.add(RDWoodBlocks.PEACH_BUNDLE.button().asBlock(), "桃木按钮");

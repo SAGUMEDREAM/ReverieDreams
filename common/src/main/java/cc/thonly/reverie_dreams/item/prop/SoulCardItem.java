@@ -43,4 +43,9 @@ public class SoulCardItem extends Item {
         }
         return InteractionResult.SUCCESS;
     }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return super.isFoil(stack) || stack.has(RDDataComponentTypes.ROLE_FOLLOWER_ARCHIVE.value());
+    }
 }

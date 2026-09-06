@@ -34,7 +34,7 @@ public class ImageToTextScanner {
     }
 
     public static void bootstrap() {
-        CompletableFuture.runAsync(()-> {
+        CompletableFuture.runAsync(() -> {
             ImageToTextScanner instance = ImageToTextScanner.createInstance(ReverieDreams.class);
             DEFAULT_FACTORY.onLoad(instance);
         });
@@ -104,5 +104,12 @@ public class ImageToTextScanner {
     @FunctionalInterface
     public interface LoaderFactory {
         void onLoad(ImageToTextScanner instance);
+
+        default LoaderFactory andThen(LoaderFactory other) {
+            return instance -> {
+                this.onLoad(instance);
+                other.onLoad(instance);
+            };
+        }
     }
 }

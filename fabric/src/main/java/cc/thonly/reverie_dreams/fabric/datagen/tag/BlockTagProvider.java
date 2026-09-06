@@ -54,6 +54,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 //        ProvidedTagBuilder<Block, Block> villagerJobSites = valueLookupBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
 
         TagAppender<Block, Block> logs = valueLookupBuilder(BlockTags.LOGS);
+        TagAppender<Block, Block> preventsNearbyLeafDecay = valueLookupBuilder(BlockTags.PREVENTS_NEARBY_LEAF_DECAY);
         TagAppender<Block, Block> strippedLogs = valueLookupBuilder(ConventionalBlockTags.STRIPPED_LOGS);
         TagAppender<Block, Block> strippedWoods = valueLookupBuilder(ConventionalBlockTags.STRIPPED_WOODS);
         TagAppender<Block, Block> planks = valueLookupBuilder(BlockTags.PLANKS);
@@ -65,6 +66,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         TagAppender<Block, Block> trapdoors = valueLookupBuilder(BlockTags.TRAPDOORS);
         Consumer<WoodBundle> woodBundleFunction = (bundle) -> {
             logs.add(bundle.log().asBlock());
+            preventsNearbyLeafDecay.add(bundle.log().asBlock());
             strippedLogs.add(bundle.strippedLog().asBlock());
             strippedWoods.add(bundle.strippedWood().asBlock());
             planks.add(bundle.log().asBlock());

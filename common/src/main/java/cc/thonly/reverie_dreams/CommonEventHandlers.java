@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
+import cc.thonly.reverie_dreams.item.weapon.YukaFlowerUmbrella;
 import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
@@ -61,7 +62,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Collection;
 import java.util.List;
 
-@SuppressWarnings({"resource", "SameReturnValue", "deprecation", "JavaExistingMethodCanBeUsed"})
+@SuppressWarnings({"resource", "SameReturnValue", "deprecation", "JavaExistingMethodCanBeUsed", "UnusedReturnValue"})
 public class CommonEventHandlers {
 
     // 银质物品对亡灵伤害
@@ -311,10 +312,27 @@ public class CommonEventHandlers {
 //        return entity.hasEffect(RDStatusEffects.ELIXIR_OF_LIFE) ? EventResult.interruptFalse() : EventResult.pass();
 //    }
 
+    public static EventResult onUseYukaFlowerUmbrella(Player player) {
+        if (player.isUsingItem()) {
+            ItemStack using = player.getUseItem();
+            if (using.getItem() instanceof YukaFlowerUmbrella) {
+                Entity vehicle = player.getVehicle();
+                //noinspection ConditionCoveredByFurtherCondition
+                if (vehicle != null && vehicle instanceof LivingEntity livingVehicle) {
+                    livingVehicle.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
+                    livingVehicle.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
+                }
+                player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 2, false, false, true));
+                player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
+            }
+        }
+        return EventResult.pass();
+    }
+
     public static EventResult onLivingEntityDeathByDanmaku(LivingEntity entity, DamageSource damageSource) {
         if (damageSource.is(RDDamageTypeTags.DANMAKU_HIT)) {
 //            System.out.println("biu");
-            SoundEventPlayUtils.playSound(entity.level(), entity.getX(), entity.getY(), entity.getZ(), RDSoundEvents.BIU.value(), SoundSource.NEUTRAL);
+            SoundEventPlayUtils.playSound(entity, RDSoundEvents.BIU.value(), SoundSource.NEUTRAL, 0.45f, 1.0f);
         }
         return EventResult.pass();
     }

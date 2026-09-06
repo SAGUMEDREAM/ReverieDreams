@@ -292,6 +292,8 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(RDItems.GLOWING_NEEDLES_LITTLE_PEOPLE.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.COOKIE.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(RDItems.BADAPPLE.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.A_MELODY_BLOOMING_ON_THE_EARTH.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(RDItems.SPRAWLING_EARTH.asItem(), ModelTemplates.FLAT_ITEM);
 
         this.generateGuiItemModels(itemModelGenerator);
         this.generateDanmakuItemModels(itemModelGenerator);

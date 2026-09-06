@@ -24,8 +24,9 @@ public class BaseCreativeTab implements ItemGroupContentHelper {
             output.accept(RDItems.OWNER_STICK.createStack());
         }
         if (CreativeModeTabsAccessor.getToolsAndUtilities().identifier().equals(tabId)) {
-            for (Item item : AlbumItem.ITEMS) {
-                output.accept(item);
+            var list = AlbumItem.ITEMS;
+            for (int i = 0; i < AlbumItem.ITEMS.size(); i++) {
+                output.accept(list.get(i));
             }
         }
         if (CreativeModeTabsAccessor.getRedstoneBlocks().identifier().equals(tabId)) {

@@ -6,24 +6,31 @@ import cc.thonly.reverie_dreams.entity.RabbitUnit;
 import cc.thonly.reverie_dreams.entity.SunflowerYousei;
 import cc.thonly.reverie_dreams.entity.Yousei;
 import cc.thonly.reverie_dreams.mixin.accessor.LivingEntityAccessor;
+import lombok.extern.slf4j.Slf4j;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.DoubleTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.phys.Vec2;
 
+@Slf4j
 public class EntityHelper {
 
     public static void registerHostilityAllYousei(Mob mob, GoalSelector targetSelector) {
@@ -78,5 +85,32 @@ public class EntityHelper {
                 entity.gameEvent(GameEvent.ENTITY_DAMAGE);
             }
         }
+    }
+
+    public static CompoundTag serializeEntity(Entity entity) {
+        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(entity.problemPath(), log)) {
+            TagValueOutput mobData = TagValueOutput.createWithContext(scopedCollector, entity.registryAccess());
+            entity.saveWithoutId(mobData);
+
+            mobData.store("Rotation", Vec2.CODEC, new Vec2(entity.getYRot(), entity.getXRot()));
+            mobData.discard("Fire");
+            mobData.discard("HurtTime");
+
+            return mobData.buildResult();
+        }
+    }
+
+
+    public static Entity deserializeEntity(CompoundTag mobData, Identifier entityId, Level level, BlockPos pos) {
+        CompoundTag dataCopy = mobData.copy();
+
+        ListTag mobPos = new ListTag();
+        mobPos.add(DoubleTag.valueOf(pos.getX() + 0.5));
+        mobPos.add(DoubleTag.valueOf(pos.getY()));
+        mobPos.add(DoubleTag.valueOf(pos.getZ() + 0.5));
+        dataCopy.put("Pos", mobPos);
+        dataCopy.putString("id", entityId.toString());
+
+        return EntityType.loadEntityRecursive(dataCopy, level, EntitySpawnReason.MOB_SUMMONED, e -> e);
     }
 }

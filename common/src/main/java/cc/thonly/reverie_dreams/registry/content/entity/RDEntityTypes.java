@@ -81,7 +81,7 @@ public class RDEntityTypes {
             () -> EntityType.Builder.<MagicBroom>of(MagicBroom::new, MobCategory.MISC).sized(0.8f, 1f).ridingOffset(1f),
             MagicBroom::createLivingAttributes);
     public static final RegistrySupplier<EntityType<Wheelchair>> WHEEL_CHAIR = registerEntityWithSpawnEgg("wheel_chair",
-            () -> EntityType.Builder.<Wheelchair>of(Wheelchair::new, MobCategory.MISC).ridingOffset(0.4f),
+            () -> EntityType.Builder.<Wheelchair>of(Wheelchair::new, MobCategory.MISC).sized(1, 1.8f).ridingOffset(0.4f),
             Wheelchair::createLivingAttributes);
     public static final RegistrySupplier<EntityType<Scarecrow>> SCARECROW = registerEntityWithSpawnEgg("scarecrow",
             () -> EntityType.Builder.<Scarecrow>of(Scarecrow::new, MobCategory.MISC),
@@ -102,7 +102,7 @@ public class RDEntityTypes {
                     .add(Attributes.MAX_HEALTH, 18.0)
                     .add(Attributes.MOVEMENT_SPEED, 0.12)
                     .add(Attributes.ATTACK_DAMAGE, 3)
-                    .add(Attributes.SCALE, 1.15f)
+                    .add(Attributes.SCALE, 0.7f)
                     .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
                     .add(Attributes.FOLLOW_RANGE, 8.0)
                     .add(Attributes.TEMPT_RANGE, 10.0)

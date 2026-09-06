@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.recipe.entry.BrewingBarrelRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.recipe.entry.StrengthTableRecipe;
@@ -79,6 +80,22 @@ public class RecipeWorkbenchRegistry {
             inventory.setItem(2, recipeById.getPower().build().copy());
             inventory.setItem(3, recipeById.getPoint().build().copy());
             inventory.setItem(4, recipeById.getMaterial().build().copy());
+            try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(RDBlockEntityTypes.DANMAKU_CRAFTING_TABLE::toString, LogUtils.getLogger())) {
+                TagValueOutput output = TagValueOutput.createWithContext(logging, registryAccess);
+                ContainerHelper.saveAllItems(output, inventory.getItems());
+                itemStack.set(DataComponents.BLOCK_ENTITY_DATA, TypedEntityData.of(RDBlockEntityTypes.DANMAKU_CRAFTING_TABLE.value(), output.buildResult()));
+            }
+            return itemStack;
+        }));
+        register("brewing_barrel", () -> new RecipeWorkbench<>("brewing_barrel", RDBlocks.BREWING_BARREL.asBlock(), RecipeManager.BREWING_BARREL, (registryAccess, recipeId, self) -> {
+            Block first = self.getBlock().getFirst();
+            BaseRecipeType<BrewingBarrelRecipe> recipeType = self.getRecipeType();
+            BrewingBarrelRecipe recipeById = recipeType.getRecipeById(recipeId);
+            ItemStack itemStack = first.asItem().getDefaultInstance();
+            SimpleContainer inventory = new SimpleContainer(5);
+            for (IngredientStack material : recipeById.getMaterials()) {
+                inventory.addItem(material.build().copy());
+            }
             try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(RDBlockEntityTypes.DANMAKU_CRAFTING_TABLE::toString, LogUtils.getLogger())) {
                 TagValueOutput output = TagValueOutput.createWithContext(logging, registryAccess);
                 ContainerHelper.saveAllItems(output, inventory.getItems());

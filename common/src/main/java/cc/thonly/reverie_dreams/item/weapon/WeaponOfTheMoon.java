@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -73,6 +74,15 @@ public class WeaponOfTheMoon extends Item {
                 owner.getX(), owner.getY(), owner.getZ(),
                 SoundEvents.BLAZE_HURT, SoundSource.PLAYERS,
                 2.0f, 1.0f
+        );
+
+        RandomSource random = world.getRandom();
+        float recoilPitch = 1.5f + random.nextFloat() * 2.5f;
+        float recoilYaw = (random.nextFloat() - 0.5f) * 1.5f;
+
+        owner.turn(
+                recoilYaw,
+                -recoilPitch
         );
     }
 

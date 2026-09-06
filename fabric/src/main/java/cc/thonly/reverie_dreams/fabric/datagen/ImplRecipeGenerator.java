@@ -369,6 +369,19 @@ public class ImplRecipeGenerator extends RecipeProvider {
                 .define('X', ItemTags.FLOWERS)
                 .unlockedBy("has_flowers", has(ItemTags.FLOWERS))
                 .save(output, getSimpleRecipeName(RDIngredientItems.FLOWERS));
+        // 盐
+        shaped(RecipeCategory.FOOD, RDIngredientItems.BLACK_SALT, 9)
+                .pattern("X")
+                .define('X', RDBlocks.BLACK_SALT_BLOCK)
+                .unlockedBy("has_salt_block", has(ItemTags.FLOWERS))
+                .save(output, getSimpleRecipeName(RDIngredientItems.BLACK_SALT));
+        shaped(RecipeCategory.FOOD, RDBlocks.BLACK_SALT_BLOCK, 1)
+                .pattern("XXX")
+                .pattern("XXX")
+                .pattern("XXX")
+                .define('X', RDIngredientItems.BLACK_SALT)
+                .unlockedBy("has_salt", has(RDIngredientItems.BLACK_SALT))
+                .save(output, getSimpleRecipeName(RDBlocks.BLACK_SALT_BLOCK));
         this.buildDecorativeBlock();
 
         this.buildWorkBlock();

@@ -1,0 +1,10 @@
+{
+  "sound_event": {
+    "sound_id": "reverie_dreams:records/sprawling_earth"
+  },
+  "description": {
+    "translate": "jukebox_song.reverie_dreams.records.sprawling_earth"
+  },
+  "length_in_seconds": 189.0,
+  "comparator_output": 6
+}

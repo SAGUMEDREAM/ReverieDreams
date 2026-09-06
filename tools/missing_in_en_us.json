@@ -1,10 +1,7 @@
 {
-  "dialog.text.other": "其他",
-  "gamerule.reverie_dreams.free_choice_of_role": "自由选择角色",
-  "gui.npc.info.skin": "§e皮肤",
-  "gui.npc.page.next": "§b下一页",
-  "gui.npc.page.next.disabled": "§0下一页",
-  "gui.npc.page.previous": "§c上一页",
-  "gui.npc.page.previous.disabled": "§0上一页",
-  "item.reverie_dreams.role_card.full": "§r角色卡"
+  "jukebox_song.reverie_dreams.records.a_melody_blooming_on_the_earth": "幽閉サテライト - 大地に咲く旋律 / 星空下的旋律 - AcAciaZizzo",
+  "jukebox_song.reverie_dreams.records.sprawling_earth": "ごんばこんなか - 欢迎来到月面购物中心　～ Sprawling Earth",
+  "reverie_dreams.recipe/brewing": "酒水酿造",
+  "sound.reverie_dreams.records/a_melody_blooming_on_the_earth": "幽閉サテライト - 大地に咲く旋律 / 星空下的旋律 - AcAciaZizzo",
+  "sound.reverie_dreams.records/sprawling_earth": "ごんばこんなか - 欢迎来到月面购物中心　～ Sprawling Earth"
 }

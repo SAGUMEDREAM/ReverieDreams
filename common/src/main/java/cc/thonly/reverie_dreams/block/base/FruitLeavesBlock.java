@@ -119,9 +119,8 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
                         new ItemStack(this.output.asItem(), random.nextIntBetweenInclusive(1, 3))
                 );
 
-                serverWorld.addFreshEntity(drop);
                 drop.setPickUpDelay(10);
-                world.addFreshEntity(drop);
+                serverWorld.addFreshEntity(drop);
                 world.setBlockAndUpdate(pos, state.setValue(AGE_PROPERTY, 1));
                 return InteractionResult.SUCCESS_SERVER;
             } else {
@@ -165,11 +164,17 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        super.randomTick(state, world, pos, random);
         float f;
         int i;
         if (world.getRawBrightness(pos, 0) >= 9 && (i = this.getAge(state)) < MAX_AGE && random.nextInt((int) (25.0f / (f = getAvailableMoisture(this, world, pos))) + 1) == 0) {
             world.setBlock(pos, this.withAge(i + 1), Block.UPDATE_CLIENTS);
         }
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        super.tick(state, level, pos, random);
     }
 
     public BlockState withAge(int age) {
