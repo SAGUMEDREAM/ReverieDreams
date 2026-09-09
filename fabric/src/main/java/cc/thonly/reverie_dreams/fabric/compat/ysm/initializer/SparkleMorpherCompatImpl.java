@@ -1,0 +1,79 @@
+package cc.thonly.reverie_dreams.fabric.compat.ysm.initializer;
+
+import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
+import cc.thonly.reverie_dreams.data.npc.NPCMenuType;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
+import cc.thonly.reverie_dreams.fabric.compat.ysm.network.C2SSetNPCModelPacket;
+import cc.thonly.reverie_dreams.fabric.compat.ysm.network.C2SYsmScreenPacket;
+import cc.thonly.reverie_dreams.registry.content.NPCMenuTypes;
+import cc.thonly.reverie_dreams.util.YsmHolder;
+import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
+import com.micaftic.morpher.client.gui.ModernPlayerModelScreen;
+import com.micaftic.morpher.core.api.network.PacketDirection;
+import com.micaftic.morpher.core.api.network.YSMChannel;
+import com.micaftic.morpher.network.NetworkHandler;
+import dev.architectury.networking.NetworkManager;
+import eu.pb4.sgui.api.elements.GuiElementBuilder;
+import lombok.extern.slf4j.Slf4j;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Items;
+
+@SuppressWarnings({"SameParameterValue"})
+@Slf4j
+public class SparkleMorpherCompatImpl {
+    static final int packet_offset = 64;
+
+    public static void bootstrap() {
+        try {
+            YsmHolder.setInitialized();
+            NetworkManager.registerReceiver(NetworkManager.Side.S2C, C2SYsmScreenPacket.PACKET_ID, C2SYsmScreenPacket.CODEC, (packet, context) -> {
+                ClientNetworkingHandlers.safeHandleClient(() -> openScreen(packet.entityId()));
+            });
+            YSMChannel.register(getPacket_offset(24), C2SSetNPCModelPacket.class, C2SSetNPCModelPacket::encode, C2SSetNPCModelPacket::decode, C2SSetNPCModelPacket::handle, PacketDirection.PLAY_TO_SERVER);
+            NPCMenuTypes.MODIFY_MODEL = NPCMenuTypes.registerMenuType("modify_model",
+                    new NPCMenuType()
+                            .factory((player, npc, currentGui) -> {
+                                NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+
+                                GuiElementBuilder builder = new GuiElementBuilder();
+                                builder.setItem(Items.LEATHER_CHESTPLATE);
+                                builder.setItemName(Component.translatable("gui.npc.info.model"));
+                                builder.setCallback((i, clickType, containerInput, slotBasedGui) -> {
+                                    SoundEventPlayUtils.playUISound(
+                                            player,
+                                            SoundEvents.UI_BUTTON_CLICK.value(),
+                                            1.0f,
+                                            1.0f
+                                    );
+                                    if (currentGui != null) {
+                                        currentGui.close();
+                                    }
+                                    NetworkManager.sendToPlayer(player, new C2SYsmScreenPacket(npc.getId()));
+                                    npc.setPaused(false);
+                                });
+                                return builder;
+                            })
+
+            );
+        } catch (Exception e) {
+            log.error("Error: ", e);
+        }
+    }
+
+    static int getPacket_offset(int discriminator) {
+        int i = packet_offset + discriminator;
+        if (i > 256) {
+            throw new IllegalArgumentException("%s > 256".formatted(i));
+        }
+        return i;
+    }
+
+    public static void openScreen(int entityId) {
+        Minecraft instance = Minecraft.getInstance();
+        Screen parent = instance.screen;
+        instance.setScreen(new ModernPlayerModelScreen(parent, (modelId, texture) -> NetworkHandler.sendToServer(new C2SSetNPCModelPacket(entityId, modelId, texture))));
+    }
+}

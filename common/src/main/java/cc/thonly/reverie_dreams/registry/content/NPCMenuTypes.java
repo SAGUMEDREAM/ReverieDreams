@@ -13,6 +13,7 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
+import dev.architectury.networking.NetworkManager;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -225,7 +226,7 @@ public class NPCMenuTypes {
                     })
                     .predicate(ofSimple())
     );
-    public static final NPCMenuType MODIFY_MODEL = registerMenuType("modify_model",
+    public static final NPCMenuType MODIFY_SKIN = registerMenuType("modify_skin",
             new NPCMenuType()
                     .factory((player, npc, currentGui) -> {
                         NPCSimpleEntity simple = (NPCSimpleEntity) npc;
@@ -253,6 +254,7 @@ public class NPCMenuTypes {
                         return gameRules.get(RDBuiltInGameRules.FREE_CHOICE_OF_ROLE.value());
                     })
     );
+    public static NPCMenuType MODIFY_MODEL;
 
     public static NPCMenuType registerMenuType(String name, NPCMenuType menuType) {
         return registerMenuType(ReverieDreams.id(name), menuType);

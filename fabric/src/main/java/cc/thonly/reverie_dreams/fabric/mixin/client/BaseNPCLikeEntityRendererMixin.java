@@ -2,7 +2,10 @@ package cc.thonly.reverie_dreams.fabric.mixin.client;
 
 import cc.thonly.reverie_dreams.client.renderer.entity.BaseNPCLikeEntityRenderer;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
+import cc.thonly.reverie_dreams.fabric.integration.sparkle.CapturedNPC;
+import cc.thonly.reverie_dreams.fabric.integration.sparkle.SparkleClient;
 import cc.thonly.reverie_dreams.util.YsmHolder;
 import com.micaftic.morpher.capability.PlayerCapability;
 import com.micaftic.morpher.capability.VehicleCapability;
@@ -11,6 +14,7 @@ import com.micaftic.morpher.mixin.client.MinecraftAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.entity.Entity;
@@ -21,81 +25,90 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@SuppressWarnings("DataFlowIssue")
 @Pseudo
 @Mixin(BaseNPCLikeEntityRenderer.class)
 public class BaseNPCLikeEntityRendererMixin {
-//    @Inject(
-//            method = {"submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V"},
-//            at = {@At("HEAD")},
-//            cancellable = true
-//    )
-    public void reverie_dreams$onYsmSubmit(LivingEntityRenderState state,
-                                     PoseStack poseStack,
-                                     SubmitNodeCollector collector,
-                                     CameraRenderState cameraState,
-                                     CallbackInfo ci) {
-        if (!YsmHolder.isInitialized()) {
-            return;
-        }
-        this.reverie_dreams$onYsmSubmitProxy(state, poseStack, collector, cameraState, ci);
+    @Unique
+    private static final ThreadLocal<CapturedNPC> REVERIE_CAPTURE = new ThreadLocal<>();
+
+    /**
+     * 你的 renderer 的 extractRenderState() 有真正的 Entity，
+     * 而 submit() 只有 RenderState。
+     * <p>
+     * 所以这里把 entity + partialTick 暂存起来。
+     */
+    @Inject(
+            method = "extractRenderState(Lcc/thonly/reverie_dreams/entity/npc/BaseNPCLikeEntity;Lnet/minecraft/client/renderer/entity/state/AvatarRenderState;F)V",
+            at = @At("TAIL")
+    )
+    private void reverie_dreams$captureEntity(BaseNPCLikeEntity entity, AvatarRenderState state, float partialTick, CallbackInfo ci) {
+        REVERIE_CAPTURE.set(
+                new CapturedNPC(
+                        entity,
+                        partialTick
+                )
+        );
     }
 
-    @Unique
-    public void reverie_dreams$onYsmSubmitProxy(LivingEntityRenderState state,
-                                                PoseStack poseStack,
-                                                SubmitNodeCollector collector,
-                                                CameraRenderState cameraState,
-                                                CallbackInfo ci) {
-        if (!YsmHolder.isInitialized()) {
+    @Inject(
+            method = "submit(Lnet/minecraft/client/renderer/entity/state/AvatarRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void reverie_dreams$submitSparkle(
+            AvatarRenderState state,
+            PoseStack poseStack,
+            SubmitNodeCollector collector,
+            CameraRenderState camera,
+            CallbackInfo ci
+    ) {
+        CapturedNPC captured = REVERIE_CAPTURE.get();
+
+        if (captured == null) {
             return;
         }
-//        if (state instanceof NPCAvatarRenderState avatarState) {
-//            if (Minecraft.getInstance().level != null && avatarState.dimension != null) {
-//                NPCCompanionEntity player = reverie_dreams_ysm$resolveNPC(avatarState);
-//                if (player != null) {
-//                    float partialTick = ((MinecraftAccessor)Minecraft.getInstance()).ysm$getDeltaTracker().getGameTimeDeltaPartialTick(false);
-//                    int packedLight = ((MinecraftAccessor)Minecraft.getInstance()).ysm$getEntityRenderDispatcher().getPackedLightCoords(player, partialTick);
-//                    boolean preview = ModelPreviewRenderer.isPreview();
-//                    float yaw = preview ? state.bodyRot : state.yRot;
-//                    float oldBodyRot = player.yBodyRot;
-//                    float oldBodyRotO = player.yBodyRotO;
-//                    float oldYRot = player.getYRot();
-//                    float oldYRotO = player.yRotO;
-//                    float oldXRot = player.getXRot();
-//                    float oldXRotO = player.xRotO;
-//                    float oldHeadRot = player.yHeadRot;
-//                    float oldHeadRotO = player.yHeadRotO;
-//                    if (preview) {
-//                        float bodyRot = state.bodyRot;
-//                        float headRot = bodyRot + state.yRot;
-//                        player.yBodyRot = bodyRot;
-//                        player.yBodyRotO = bodyRot;
-//                        player.setYRot(headRot);
-//                        player.yRotO = headRot;
-//                        player.setXRot(state.xRot);
-//                        player.xRotO = state.xRot;
-//                        player.yHeadRot = headRot;
-//                        player.yHeadRotO = headRot;
-//                    }
-//
-//                    VehicleCapability capability = (VehicleCapability)PlayerCapability.get(player).orElse((Object)null);
-//                    if (capability != null) {
-//                        capability.beginRenderState(avatarState);
-//                    }
-//
-//                }
-//            }
-//        }
+
+        try {
+            BaseNPCLikeEntity entity = captured.entity();
+
+            if (entity.isRemoved()) {
+                return;
+            }
+
+            /*
+             * 防止 Renderer 被错误地复用到另一个 state。
+             */
+            if (state.id != entity.getId()) {
+                return;
+            }
+
+            /*
+             * 没有 YSM 模型 → 完全保持你原来的 PlayerModel renderer。
+             */
+            if (!entity.reverie_dreams$hasModel()) {
+                return;
+            }
+
+            boolean rendered = SparkleClient.render(entity,
+                    entity.getYRot(),
+                    captured.partialTick(),
+                    poseStack, collector,
+                    Minecraft.getInstance()
+                            .getEntityRenderDispatcher()
+                            .getPackedLightCoords(entity, captured.partialTick())
+            );
+
+            /*
+             * Sparkle 成功渲染以后，
+             * 阻止 BaseNPCLikeEntityRenderer 的 PlayerModel。
+             */
+            if (rendered) {
+                ci.cancel();
+            }
+
+        } finally {
+            REVERIE_CAPTURE.remove();
+        }
     }
 
-    @Unique
-    private static NPCCompanionEntity reverie_dreams_ysm$resolveNPC(NPCAvatarRenderState state) {
-        Minecraft minecraft = Minecraft.getInstance();
-        Entity entity = minecraft.level.getEntity(state.id);
-        if (entity instanceof NPCCompanionEntity npc) {
-            return npc;
-        }
-        return null;
-    }
 }

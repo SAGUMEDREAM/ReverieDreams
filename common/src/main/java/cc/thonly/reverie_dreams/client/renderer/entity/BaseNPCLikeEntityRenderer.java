@@ -184,6 +184,7 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         poseStack.popPose();
     }
 
+    @Override
     public AvatarRenderState createRenderState() {
         return new NPCAvatarRenderState();
     }
@@ -236,6 +237,8 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         }
         if (state instanceof NPCAvatarRenderState npcAvatarRenderState) {
             npcAvatarRenderState.dimension = entity.level().dimension();
+            npcAvatarRenderState.modelId = entity.reverie_dreams$getModelId();
+            npcAvatarRenderState.modelTexture = entity.reverie_dreams$getTexture();
         }
     }
 

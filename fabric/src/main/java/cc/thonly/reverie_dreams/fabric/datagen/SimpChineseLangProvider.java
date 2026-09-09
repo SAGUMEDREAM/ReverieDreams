@@ -124,6 +124,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("gui.npc.info.auto-pick", "§b自动寻路拾取");
         translationBuilder.add("gui.npc.info.favorability", "§6好感度：%s");
         translationBuilder.add("gui.npc.info.skin", "§e皮肤");
+        translationBuilder.add("gui.npc.info.model", "§b模型");
         translationBuilder.add("gui.npc.page.next", "§b下一页");
         translationBuilder.add("gui.npc.page.previous", "§c上一页");
         translationBuilder.add("gui.npc.page.next.disabled", "§0下一页");
