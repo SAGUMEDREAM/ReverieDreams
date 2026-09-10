@@ -24,38 +24,15 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-public class NPCAnimatable extends LivingAnimatable<BaseNPCLikeEntity> {
-    @Getter
-    @Setter
-    Consumer<NPCCapability> capabilityConsumer = null;
+public abstract class NPCAnimatable extends LivingAnimatable<BaseNPCLikeEntity> {
 
     public NPCAnimatable(BaseNPCLikeEntity entity) {
         super(entity, true);
     }
 
-    /**
-     * Sparkle 的动画控制器默认必须由 AnimatableEntity 子类注册。
-     * <p>
-     * NPC 当前首先使用 Sparkle 的：
-     * - movement
-     * - head tracking
-     * - Molang
-     * - YSM animation
-     * pipeline。
-     */
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void registerAnimationControllers() {
-        ModelAssembly assembly = getModelAssembly();
 
-        if (assembly == null) {
-            return;
-        }
-
-        NPCPlayerAnimationController.register(this);
-        if (this.capabilityConsumer instanceof Consumer consumer) {
-            consumer.accept(this);
-        }
     }
 
     @Override

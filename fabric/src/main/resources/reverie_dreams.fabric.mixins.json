@@ -27,6 +27,8 @@
     "patches.YsmComponentsMixin"
   ],
   "client": [
+    "client.ModernPlayerModelScreenMixin",
+    "accessor.ModernPlayerModelScreenAccessor",
     "client.BaseNPCLikeEntityRendererMixin",
     "client.EntityRenderDispatcherMixin",
     "client.ModelBakeryMixin",

@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public final class NPCPlayerAnimationController {
     private static boolean initialized = false;
 
-    public static synchronized void register(NPCAnimatable animatable) {
+    public static synchronized void register(NPCCapability animatable) {
         if (initialized) {
             return;
         }

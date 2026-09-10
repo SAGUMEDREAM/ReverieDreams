@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.integration.sparkle;
 
+import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 
 import cc.thonly.reverie_dreams.entity.npc.NPCMorphData;
@@ -7,17 +8,21 @@ import com.micaftic.morpher.client.ClientModelManager;
 import com.micaftic.morpher.client.renderer.SubmitRenderContext;
 import com.micaftic.morpher.mixin.client.EntityRenderDispatcherAccessor;
 
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.Entity;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
+@Slf4j
 public class SparkleClient {
     private static final Map<BaseNPCLikeEntity, NPCAnimatable> ANIMATABLES = new WeakHashMap<>();
 
@@ -62,25 +67,32 @@ public class SparkleClient {
     }
 
     public static boolean render(
-            BaseNPCLikeEntity entity,
+            NPCAvatarRenderState renderState,
             float entityYaw,
             float partialTick,
             PoseStack poseStack,
-            SubmitNodeCollector collector,
-            int packedLight
+            SubmitNodeCollector collector
     ) {
-        if (!(entity instanceof NPCMorphData data)) {
-            return false;
-        }
-
-        String modelId = data.reverie_dreams$getModelId();
-
+        String modelId = renderState.modelId;
         if (modelId == null || modelId.isBlank()) {
             return false;
         }
 
-        NPCAnimatable animatable = animatable(entity);
-        String texture = data.reverie_dreams$getTexture();
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level == null) {
+            return false;
+        }
+
+        Entity entity = level.getEntity(renderState.id);
+        if (!(entity instanceof BaseNPCLikeEntity npc)) {
+            return false;
+        }
+
+        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        int packedLight = entityRenderDispatcher.getPackedLightCoords(entity, renderState.partialTick);
+
+        NPCAnimatable animatable = animatable(npc);
+        String texture = renderState.modelTexture;
 
         if (!modelId.equals(animatable.getModelId())) {
             animatable.initModelWithTexture(modelId, texture);
@@ -110,6 +122,8 @@ public class SparkleClient {
                     bufferSource,
                     packedLight
             );
+        } catch (Exception e) {
+            log.error("Error: ", e);
         } finally {
             SubmitRenderContext.set(null);
         }

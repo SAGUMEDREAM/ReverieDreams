@@ -42,8 +42,8 @@ public record C2SSetNPCModelPacket(int npcId, String modelId, String textureId) 
                     if (entity instanceof BaseNPCLikeEntity npc) {
                         npc.reverie_dreams$setModelId(modelId);
                         npc.reverie_dreams$setTexture(textureId);
-                        npc.onSyncedDataUpdated((List) List.of(AbstractNPCEntity.YSM_MODEL_ID,AbstractNPCEntity.YSM_TEXTURE));
-                        npc.refreshDimensions();
+//                        npc.onSyncedDataUpdated((List) List.of(AbstractNPCEntity.YSM_MODEL_ID,AbstractNPCEntity.YSM_TEXTURE));
+//                        npc.refreshDimensions();
                     }
                 }
             });

@@ -31,7 +31,7 @@ public class NPCPlayerAnimationControllers {
 
     @SuppressWarnings("ALL")
     private static void registerControllers() {
-        System.out.println("registered controllers");
+//        System.out.println("registered controllers");
         IAnimationPredicate<NPCCapability> stop = (event, evaluator) -> PlayState.STOP;
         registerParallelController("pre_parallel", (name, cap, animation) -> new CompositeAnimationController(cap, name, 0.0F, (animation == null ? stop : new NamedAnimationPredicate<>(animation))));
         registerController("vehicle", (name, cap) -> new CompositeAnimationController(cap, name, 0.1F, new LivingMovementAnimationPredicate()));

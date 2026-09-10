@@ -2,12 +2,14 @@ package cc.thonly.reverie_dreams.fabric.integration.sparkle;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import com.micaftic.morpher.capability.VehicleModelCapability;
+import com.micaftic.morpher.client.model.ModelAssembly;
 import com.micaftic.morpher.geckolib3.resource.GeckoLibCache;
 import com.micaftic.morpher.molang.parser.ParseException;
 import com.micaftic.morpher.molang.runtime.Int2FloatOpenHashMapStruct;
 import com.micaftic.morpher.molang.runtime.Struct;
 import it.unimi.dsi.fastutil.ints.Int2FloatOpenHashMap;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
@@ -24,10 +26,39 @@ public class NPCCapability extends NPCAnimatable {
     private @Nullable Struct serverVars;
     @Getter
     private String rouletteAnimation = "";
+    @Getter
+    @Setter
+    Consumer<NPCCapability> capabilityConsumer = null;
 
     public NPCCapability(BaseNPCLikeEntity entity) {
         super(entity);
     }
+
+    /**
+     * Sparkle 的动画控制器默认必须由 AnimatableEntity 子类注册。
+     * <p>
+     * NPC 当前首先使用 Sparkle 的：
+     * - movement
+     * - head tracking
+     * - Molang
+     * - YSM animation
+     * pipeline。
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @Override
+    public void registerAnimationControllers() {
+        ModelAssembly assembly = getModelAssembly();
+
+        if (assembly == null) {
+            return;
+        }
+
+        NPCPlayerAnimationController.register(this);
+        if (this.capabilityConsumer instanceof Consumer consumer) {
+            consumer.accept(this);
+        }
+    }
+
 
     public static Optional<NPCCapability> get(Entity entity) {
         if (entity instanceof BaseNPCLikeEntity npcLikeEntity) {

@@ -21,6 +21,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Items;
 
+import java.lang.reflect.Field;
+
 @SuppressWarnings({"SameParameterValue"})
 @Slf4j
 public class SparkleMorpherCompatImpl {
@@ -74,6 +76,68 @@ public class SparkleMorpherCompatImpl {
     public static void openScreen(int entityId) {
         Minecraft instance = Minecraft.getInstance();
         Screen parent = instance.screen;
-        instance.setScreen(new ModernPlayerModelScreen(parent, (modelId, texture) -> NetworkHandler.sendToServer(new C2SSetNPCModelPacket(entityId, modelId, texture))));
+        resetMorpherModelScreenState();
+        ModernPlayerModelScreen screen = new ModernPlayerModelScreen(parent, (modelId, texture) -> NetworkHandler.sendToServer(new C2SSetNPCModelPacket(entityId, modelId, texture)));
+        instance.setScreen(screen);
+    }
+
+    private static void resetMorpherModelScreenState() {
+        try {
+            Field stateField = ModernPlayerModelScreen.class.getDeclaredField("STATE");
+            stateField.setAccessible(true);
+
+            Object state = stateField.get(null);
+            if (state == null) {
+                return;
+            }
+
+            clearField(state, "selectedModelId", "");
+            clearField(state, "selectedTextureId", "");
+
+            clearField(state, "currentPath", "");
+            clearField(state, "selectedResourceUrl", "");
+            clearField(state, "selectedTaskId", "");
+
+            clearField(state, "modelSearchText", "");
+            clearField(state, "resourceSearchText", "");
+            clearField(state, "siteEditText", "");
+            clearField(state, "categoryEditText", "");
+
+            clearField(state, "multiSelectMode", false);
+            clearField(state, "resourceMultiSelectMode", false);
+            clearField(state, "compactPreviewExpanded", false);
+
+            clearField(state, "modelScroll", 0);
+            clearField(state, "resourceScroll", 0);
+            clearField(state, "settingsScroll", 0);
+            clearField(state, "sitesScroll", 0);
+            clearField(state, "categoryScroll", 0);
+
+            clearField(state, "resourceLoaded", false);
+            clearField(state, "resourceLoading", false);
+            clearField(state, "resourceRequestId", 0);
+
+            clearField(state, "status", "");
+
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(
+                    "Failed to reset Morpher ModernPlayerModelScreen STATE", e
+            );
+        }
+    }
+
+    private static void clearField(Object target, String fieldName, Object value)
+            throws ReflectiveOperationException {
+
+        Field field = target.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+
+        if (field.getType() == boolean.class) {
+            field.setBoolean(target, (Boolean) value);
+        } else if (field.getType() == int.class) {
+            field.setInt(target, (Integer) value);
+        } else {
+            field.set(target, value);
+        }
     }
 }

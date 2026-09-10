@@ -47,15 +47,8 @@ public class SparkleRenderer extends GeoReplacedEntityRenderer<BaseNPCLikeEntity
     }
 
     @Override
-    public boolean shouldShowName(
-            BaseNPCLikeEntity entity
-    ) {
-        Minecraft minecraft = Minecraft.getInstance();
-
-        return entity.hasCustomName()
-                && entity == minecraft
-                .getEntityRenderDispatcher()
-                .crosshairPickEntity;
+    public boolean shouldShowName(BaseNPCLikeEntity entity) {
+        return entity.hasCustomName() && entity == this.entityRenderDispatcher.crosshairPickEntity;
     }
 
     @Override

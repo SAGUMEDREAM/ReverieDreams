@@ -13,10 +13,8 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.ArmorModelSet;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -39,8 +37,11 @@ import net.minecraft.world.phys.Vec3;
 @SuppressWarnings("resource")
 public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> extends LivingEntityRenderer<NPCEntity, AvatarRenderState, PlayerModel> {
 
+    private final EntityRenderDispatcher entityRenderDispatcher;
+
     public BaseNPCLikeEntityRenderer(EntityRendererProvider.Context context, boolean slim) {
         super(context, new PlayerModel(context.bakeLayer(slim ? ModelLayers.PLAYER_SLIM : ModelLayers.PLAYER), slim), 0.5F);
+        this.entityRenderDispatcher = context.getEntityRenderDispatcher();
         this.addLayer(
                 new HumanoidArmorLayer<>(
                         this,
@@ -66,6 +67,14 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
     @Override
     protected boolean shouldRenderLayers(AvatarRenderState state) {
         return !state.isSpectator;
+    }
+
+    @Override
+    public boolean shouldRender(NPCEntity entity, Frustum culler, double camX, double camY, double camZ) {
+        if (entity.reverie_dreams$hasModel()) {
+            return true;
+        }
+        return super.shouldRender(entity, culler, camX, camY, camZ);
     }
 
     public Vec3 getRenderOffset(AvatarRenderState state) {
@@ -189,6 +198,7 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         return new NPCAvatarRenderState();
     }
 
+    @Override
     public void extractRenderState(NPCEntity entity, AvatarRenderState state, float partialTick) {
         super.extractRenderState(entity, state, partialTick);
         HumanoidMobRenderer.extractHumanoidRenderState(entity, state, partialTick, this.itemModelResolver);
@@ -236,6 +246,7 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
             }
         }
         if (state instanceof NPCAvatarRenderState npcAvatarRenderState) {
+            npcAvatarRenderState.partialTick = partialTick;
             npcAvatarRenderState.dimension = entity.level().dimension();
             npcAvatarRenderState.modelId = entity.reverie_dreams$getModelId();
             npcAvatarRenderState.modelTexture = entity.reverie_dreams$getTexture();

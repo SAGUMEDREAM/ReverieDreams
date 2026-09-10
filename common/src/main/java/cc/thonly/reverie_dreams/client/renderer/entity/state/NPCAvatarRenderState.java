@@ -9,6 +9,8 @@ public class NPCAvatarRenderState extends AvatarRenderState {
     public ItemStackRenderState wingHolderRenderState = new ItemStackRenderState();
     public ResourceKey<Level> dimension = null;
 
+    public float partialTick;
+
     public String modelId;
     public String modelTexture;
 

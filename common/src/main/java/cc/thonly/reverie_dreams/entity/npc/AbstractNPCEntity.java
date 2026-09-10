@@ -88,7 +88,7 @@ public abstract class AbstractNPCEntity extends TamableAnimal implements ClientN
     }
 
     @Override
-    public void reverie_dreams$setModelId(String modelId) {
+    public synchronized void reverie_dreams$setModelId(String modelId) {
         this.entityData.set(YSM_MODEL_ID, modelId == null ? "" : modelId);
     }
 
@@ -98,7 +98,7 @@ public abstract class AbstractNPCEntity extends TamableAnimal implements ClientN
     }
 
     @Override
-    public void reverie_dreams$setTexture(String texture) {
+    public synchronized void reverie_dreams$setTexture(String texture) {
         this.entityData.set(YSM_TEXTURE, texture == null ? "" : texture);
     }
 

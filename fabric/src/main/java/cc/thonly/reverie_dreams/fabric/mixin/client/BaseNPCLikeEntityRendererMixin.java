@@ -12,24 +12,29 @@ import com.micaftic.morpher.capability.VehicleCapability;
 import com.micaftic.morpher.client.renderer.ModelPreviewRenderer;
 import com.micaftic.morpher.mixin.client.MinecraftAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
+import lombok.extern.slf4j.Slf4j;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.entity.Entity;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Slf4j
 @Pseudo
 @Mixin(BaseNPCLikeEntityRenderer.class)
-public class BaseNPCLikeEntityRendererMixin {
-    @Unique
-    private static final ThreadLocal<CapturedNPC> REVERIE_CAPTURE = new ThreadLocal<>();
+public abstract class BaseNPCLikeEntityRendererMixin<NPCEntity extends BaseNPCLikeEntity> extends LivingEntityRenderer<NPCEntity, AvatarRenderState, PlayerModel> {
+    public BaseNPCLikeEntityRendererMixin(EntityRendererProvider.Context context, PlayerModel model, float shadow) {
+        super(context, model, shadow);
+    }
 
     /**
      * 你的 renderer 的 extractRenderState() 有真正的 Entity，
@@ -42,12 +47,7 @@ public class BaseNPCLikeEntityRendererMixin {
             at = @At("TAIL")
     )
     private void reverie_dreams$captureEntity(BaseNPCLikeEntity entity, AvatarRenderState state, float partialTick, CallbackInfo ci) {
-        REVERIE_CAPTURE.set(
-                new CapturedNPC(
-                        entity,
-                        partialTick
-                )
-        );
+
     }
 
     @Inject(
@@ -62,52 +62,26 @@ public class BaseNPCLikeEntityRendererMixin {
             CameraRenderState camera,
             CallbackInfo ci
     ) {
-        CapturedNPC captured = REVERIE_CAPTURE.get();
-
-        if (captured == null) {
+        if (!(state instanceof NPCAvatarRenderState renderState)) {
             return;
         }
-
         try {
-            BaseNPCLikeEntity entity = captured.entity();
-
-            if (entity.isRemoved()) {
+            if (!renderState.reverie_dreams$hasModel()) {
                 return;
             }
 
-            /*
-             * 防止 Renderer 被错误地复用到另一个 state。
-             */
-            if (state.id != entity.getId()) {
-                return;
-            }
-
-            /*
-             * 没有 YSM 模型 → 完全保持你原来的 PlayerModel renderer。
-             */
-            if (!entity.reverie_dreams$hasModel()) {
-                return;
-            }
-
-            boolean rendered = SparkleClient.render(entity,
-                    entity.getYRot(),
-                    captured.partialTick(),
-                    poseStack, collector,
-                    Minecraft.getInstance()
-                            .getEntityRenderDispatcher()
-                            .getPackedLightCoords(entity, captured.partialTick())
+            boolean rendered = SparkleClient.render(renderState,
+                    renderState.yRot,
+                    renderState.partialTick,
+                    poseStack, collector
             );
 
-            /*
-             * Sparkle 成功渲染以后，
-             * 阻止 BaseNPCLikeEntityRenderer 的 PlayerModel。
-             */
             if (rendered) {
                 ci.cancel();
             }
 
-        } finally {
-            REVERIE_CAPTURE.remove();
+        } catch (Exception e) {
+            log.error("Renderer Error: ", e);
         }
     }
 
