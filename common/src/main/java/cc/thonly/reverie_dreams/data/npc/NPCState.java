@@ -8,13 +8,17 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
+@SuppressWarnings("deprecation")
 @Setter
 @Getter
 public class NPCState implements SerializableProvider<NPCState>, RegistryEntryOwnerBindable<NPCState>, BuiltinObject, RegistryEntryTranslatable {
@@ -26,6 +30,7 @@ public class NPCState implements SerializableProvider<NPCState>, RegistryEntryOw
     );
 
     private final String type;
+    private Holder<Item> itemDisplay = Items.DIAMOND.builtInRegistryHolder();
     private RegistryProvider<NPCState> owner;
     private BiConsumer<BaseNPCLikeEntity, NPCState> onStarted = (npc, state) -> {
 
@@ -52,6 +57,16 @@ public class NPCState implements SerializableProvider<NPCState>, RegistryEntryOw
         return this;
     }
 
+    public NPCState withIcon(Item icon) {
+        this.itemDisplay = icon.builtInRegistryHolder();
+        return this;
+    }
+
+    public NPCState withIcon(Holder<Item> icon) {
+        this.itemDisplay = icon;
+        return this;
+    }
+
     public void onStarted(BaseNPCLikeEntity npc) {
         this.onStarted.accept(npc, this);
     }
@@ -65,8 +80,12 @@ public class NPCState implements SerializableProvider<NPCState>, RegistryEntryOw
         return "gui.npc.mode." + this.type;
     }
 
+    public MutableComponent translationKey() {
+        return Component.translatable(this.translateKey());
+    }
+
     public MutableComponent getTranslateText() {
-        return Component.translatable(translateKey());
+        return Component.translatable(this.translateKey());
     }
 
     @Override

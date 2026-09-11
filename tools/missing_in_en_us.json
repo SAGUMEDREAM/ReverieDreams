@@ -1,7 +1,3 @@
 {
-  "jukebox_song.reverie_dreams.records.a_melody_blooming_on_the_earth": "幽閉サテライト - 大地に咲く旋律 / 星空下的旋律 - AcAciaZizzo",
-  "jukebox_song.reverie_dreams.records.sprawling_earth": "ごんばこんなか - 欢迎来到月面购物中心　～ Sprawling Earth",
-  "reverie_dreams.recipe/brewing": "酒水酿造",
-  "sound.reverie_dreams.records/a_melody_blooming_on_the_earth": "幽閉サテライト - 大地に咲く旋律 / 星空下的旋律 - AcAciaZizzo",
-  "sound.reverie_dreams.records/sprawling_earth": "ごんばこんなか - 欢迎来到月面购物中心　～ Sprawling Earth"
+  "gui.npc.work.mode.honeycomb_harvesting": "§6采集蜂蜜"
 }

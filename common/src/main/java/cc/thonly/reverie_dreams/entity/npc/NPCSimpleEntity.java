@@ -108,6 +108,7 @@ public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, Cha
         this.goalSelector.addGoal(1, new NPCFishingGoal(this));
 //        this.goalSelector.addGoal(1, new NPCAutoPickItemGoal(this));
         this.goalSelector.addGoal(2, new NPCCloseToCropGoal(this, 1));
+        this.goalSelector.addGoal(1, new NPCHoneycombHarvestingGoal(this));
 
         if (this.isEnableTamableFeature()) {
             hurtByTargetGoal.setAlertOthers();

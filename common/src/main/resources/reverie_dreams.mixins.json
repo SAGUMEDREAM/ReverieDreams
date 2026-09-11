@@ -59,6 +59,7 @@
     "authlib.MinecraftProfileTexturesMixin",
     "block.BedBlockEntityMixin",
     "block.BedBlockMixin",
+    "block.BeehiveBlockMixin",
     "block.ChestBlockMixin",
     "block.CropBlockMixin",
     "block.DispenserBlockMixin",

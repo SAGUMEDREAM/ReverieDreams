@@ -50,6 +50,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -325,15 +326,19 @@ public class BuiltInRegistryProviders {
         });
     }
 
-    public static <T> WritableRegistry<T> ofEntries(Identifier identifier, Registry... registries) {
+    public static @NotNull <T> WritableRegistry<T> ofEntries(Identifier identifier, Registry... registries) {
         return ofEntries(ResourceKey.createRegistryKey(identifier), registries);
     }
 
-    public static <T> WritableRegistry<T> ofEntries(ResourceKey<? extends Registry<T>> key, Registry... registries) {
+    @SuppressWarnings("ConstantValue")
+    public static @NotNull <T> WritableRegistry<T> ofEntries(ResourceKey<? extends Registry<T>> key, Registry... registries) {
         Optional<MergeRegistryProviderFactory> mergeRegistryProviderFactoryOptional = PlatformProxies.MERGE_REGISTRY_PROVIDER_FACTORY;
         if (mergeRegistryProviderFactoryOptional.isPresent()) {
             MergeRegistryProviderFactory mergeRegistryProviderFactory = mergeRegistryProviderFactoryOptional.get();
             return (MergeRegistry<T>) mergeRegistryProviderFactory.apply(key, new ArrayList<>(Arrays.stream(registries).toList()));
+        }
+        if (true) {
+            throw new RuntimeException("The runtime environment could not find the registry factory implementation.");
         }
         return null;
     }

@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.ReverieDreamsConfiguration;
 import cc.thonly.reverie_dreams.api.dialog.DialogAPI;
 import cc.thonly.reverie_dreams.api.registry.BookPageManager;
+import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.data.craftengine.BlockDefinitionList;
@@ -15,6 +16,7 @@ import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.dialog.DialogFiles;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
+import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
 import cc.thonly.reverie_dreams.mixin.accessor.ItemCooldownsAccessor;
 import cc.thonly.reverie_dreams.recipe.BaseRecipe;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
@@ -27,6 +29,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.server.PlayerSettings;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
+import cc.thonly.reverie_dreams.util.entity.PlayerHelper;
 import cc.thonly.reverie_dreams.util.nbs.Midi2Nbs;
 import cc.thonly.reverie_dreams.util.test.ModTest;
 import cc.thonly.reverie_dreams.util.PlatformContext;
@@ -50,6 +53,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.commands.arguments.ResourceOrIdArgument;
 import net.minecraft.commands.synchronization.SuggestionProviders;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -60,6 +64,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
@@ -69,7 +74,12 @@ import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.SeededContainerLoot;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -80,17 +90,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Stream;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
-import java.util.Locale;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
+@SuppressWarnings({"unchecked", "rawtypes", "resource"})
 @Slf4j
 public class THCommand {
     public static final SuggestionProvider<CommandSourceStack> settingNameSuggestions =
@@ -110,22 +116,51 @@ public class THCommand {
                 }
 
                 try (Stream<Path> files = Files.list(dir)) {
-                    files
-                            .filter(Files::isRegularFile)
+                    files.filter(Files::isRegularFile)
                             .filter(path -> {
                                 String name = path.getFileName().toString().toLowerCase(Locale.ROOT);
-                                return name.endsWith(".mid") || name.endsWith(".midi");
+                                return name.endsWith(".nbs");
                             })
                             .map(path -> path.getFileName().toString())
                             .filter(name -> name.toLowerCase(Locale.ROOT)
                                     .startsWith(builder.getRemaining().toLowerCase(Locale.ROOT)))
                             .sorted(String.CASE_INSENSITIVE_ORDER)
+                            .map(value -> "\"" + value)
+                            .map(value -> value + "\"")
                             .forEach(builder::suggest);
 
                 } catch (IOException e) {
                     log.error("Error: ", e);
                 }
                 builder.suggest("*");
+
+                return builder.buildFuture();
+            };
+    public static final SuggestionProvider<CommandSourceStack> nbsNameSuggestions =
+            (context, builder) -> {
+                Path dir = Path.of("./config/reverie_dreams/nota");
+
+                if (!Files.exists(dir) || !Files.isDirectory(dir)) {
+                    return builder.buildFuture();
+                }
+
+                try (Stream<Path> files = Files.list(dir)) {
+                    files.filter(Files::isRegularFile)
+                            .filter(path -> {
+                                String name = path.getFileName().toString().toLowerCase(Locale.ROOT);
+                                return name.endsWith(".nbs");
+                            })
+                            .map(path -> path.getFileName().toString())
+                            .filter(name -> name.toLowerCase(Locale.ROOT)
+                                    .startsWith(builder.getRemaining().toLowerCase(Locale.ROOT)))
+                            .sorted(String.CASE_INSENSITIVE_ORDER)
+                            .map(value -> "\"" + value)
+                            .map(value -> value + "\"")
+                            .forEach(builder::suggest);
+
+                } catch (IOException e) {
+                    log.error("Error: ", e);
+                }
 
                 return builder.buildFuture();
             };
@@ -157,16 +192,19 @@ public class THCommand {
                 .then(
                         BuiltInRegistryProviders.getSuggestProvider(this::withDrinkProperties, ResourceKey.createRegistryKey(ReverieDreams.id("beverage_property")))
                 );
-        var cachedAllSkins = Commands.literal("start-cached-skins")
+        var cachedAllSkins = Commands.literal("start_cached_skins")
                 .requires(PermissionPredicates.isGameMasters())
                 .executes(this::cachedAllSkins);
         var parseMidi2Nbt = Commands.literal("parse_nbs_midi")
-                .then(Commands.argument(
-                                "file_name",
-                                StringArgumentType.string()
-                        ).suggests(midiNameSuggestions)
+                .then(Commands.argument("file_name", StringArgumentType.string())
+                        .suggests(midiNameSuggestions)
                         .requires(PermissionPredicates.isGameMasters())
                         .executes(this::parseMidi2Nbd)
+                );
+        var setNbsMusicFile = Commands.literal("set_music")
+                .then(Commands.argument("file_name", StringArgumentType.string())
+                        .suggests(nbsNameSuggestions)
+                        .executes(this::setNbsMusicFile)
                 );
         var recipe = Commands.literal("recipe")
                 .executes(this::recipe);
@@ -253,7 +291,9 @@ public class THCommand {
 
         root.executes(this::run);
         root.then(about);
-        root.then(cachedAllSkins);
+        if (PlatformContext.hasPolymer()) {
+            root.then(cachedAllSkins);
+        }
         root.then(get_sc_with_spell_config);
         root.then(help);
         root.then(loadRootPage);
@@ -262,6 +302,7 @@ public class THCommand {
         root.then(registry);
         root.then(registry_tag);
         root.then(reloadConfig);
+        root.then(setNbsMusicFile);
         root.then(settings);
         root.then(video);
         root.then(with_beverage_property);
@@ -288,11 +329,10 @@ public class THCommand {
             }
             root.then(debugGetRecipeWithBlock);
             var debugResetItemCd = Commands.literal("debug_reset_item_using_time")
-                    .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
+                    .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)).executes(this::resetItemCd);
             var debug_generate_craft_engine = Commands.literal("debug_generate_craft_engine")
                     .executes(this::generateCraftEngineConfig);
             root.then(debug_generate_craft_engine);
-            debugResetItemCd.executes(this::resetItemCd);
             root.then(debugResetItemCd);
             if (PlatformContext.isDevModeByIDEA()) {
                 var debugTempTest = Commands.literal("test").executes(this::tempTest);
@@ -318,6 +358,81 @@ public class THCommand {
         return 1;
     }
 
+    private int setNbsMusicFile(CommandContext<CommandSourceStack> context) {
+        String fileName = StringArgumentType.getString(context, "file_name");
+        CommandSourceStack source = context.getSource();
+        ServerPlayer player = source.getPlayer();
+
+        if (player == null) {
+            return 0;
+        }
+
+        ServerLevel level = player.level();
+        Path basePath = Path.of("./config/reverie_dreams/nota");
+
+        if (!Files.exists(basePath.resolve(fileName))) {
+            player.sendSystemMessage(
+                    Component.translatable("command.touhou.set_music.file_not_exists", fileName)
+            );
+            return 0;
+        }
+
+        BlockHitResult hitResult = PlayerHelper.getPlayerLookBlock(player, 64.0);
+
+        if (hitResult.getType() != HitResult.Type.BLOCK) {
+            ItemStack mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
+            ItemStack offHandItem = player.getItemInHand(InteractionHand.OFF_HAND);
+
+            if (mainHandItem.getItem() instanceof MusicalInstrumentItem) {
+                mainHandItem.set(
+                        RDDataComponentTypes.PLAYING_MUSIC.value(),
+                        fileName
+                );
+
+                player.sendSystemMessage(
+                        Component.translatable("command.touhou.set_music.success_item", fileName)
+                );
+                return 1;
+
+            } else if (offHandItem.getItem() instanceof MusicalInstrumentItem) {
+                offHandItem.set(
+                        RDDataComponentTypes.PLAYING_MUSIC.value(),
+                        fileName
+                );
+
+                player.sendSystemMessage(
+                        Component.translatable("command.touhou.set_music.success_item", fileName)
+                );
+                return 1;
+            }
+
+            player.sendSystemMessage(
+                    Component.translatable("command.touhou.set_music.no_target")
+            );
+            return 0;
+        }
+
+        BlockPos pos = hitResult.getBlockPos();
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+
+        if (!(blockEntity instanceof MusicBlockEntity musicBlockEntity)) {
+            player.sendSystemMessage(
+                    Component.translatable("command.touhou.set_music.not_music_block")
+            );
+            return 0;
+        }
+
+        musicBlockEntity.setSelect(fileName);
+        musicBlockEntity.setChanged();
+        musicBlockEntity.play();
+
+        player.sendSystemMessage(
+                Component.translatable("command.touhou.set_music.success_block", fileName)
+        );
+
+        return 1;
+    }
+
     private int parseMidi2Nbd(CommandContext<CommandSourceStack> context) {
         String fileName = StringArgumentType.getString(context, "file_name");
         CommandSourceStack source = context.getSource();
@@ -327,7 +442,7 @@ public class THCommand {
         try {
             Files.createDirectories(basePath);
 
-            // *
+            // 批量转换
             if ("*".equals(fileName)) {
                 int total = 0;
                 int success = 0;
@@ -356,24 +471,24 @@ public class THCommand {
 
                         String outputFileName;
                         if (lowerName.endsWith(".mid")) {
-                            outputFileName =
-                                    inputName.substring(0, inputName.length() - 4) + ".nbs";
+                            outputFileName = inputName.substring(0, inputName.length() - 4) + ".nbs";
                         } else {
-                            outputFileName =
-                                    inputName.substring(0, inputName.length() - 5) + ".nbs";
+                            outputFileName = inputName.substring(0, inputName.length() - 5) + ".nbs";
                         }
 
                         Path outputPath = basePath.resolve(outputFileName);
 
-                        // 已经存在 NBS
+                        // 已存在 NBS
                         if (Files.exists(outputPath)) {
                             skipped++;
+
                             source.sendSystemMessage(
-                                    Component.literal(
-                                            "Skip: %s (NBS already exists)"
-                                                    .formatted(inputName)
+                                    Component.translatable(
+                                            "command.touhou.parse_midi.skip_exists",
+                                            inputName
                                     )
                             );
+
                             continue;
                         }
 
@@ -386,12 +501,14 @@ public class THCommand {
                             try (FileLock lock = channel.tryLock()) {
                                 if (lock == null) {
                                     skipped++;
+
                                     source.sendSystemMessage(
-                                            Component.literal(
-                                                    "Skip: %s (file is in use)"
-                                                            .formatted(inputName)
+                                            Component.translatable(
+                                                    "command.touhou.parse_midi.skip_in_use",
+                                                    inputName
                                             )
                                     );
+
                                     continue;
                                 }
 
@@ -405,42 +522,54 @@ public class THCommand {
                                     success++;
 
                                     source.sendSystemMessage(
-                                            Component.literal(
-                                                    "Success: %s -> %s"
-                                                            .formatted(
-                                                                    inputName,
-                                                                    outputFileName
-                                                            )
+                                            Component.translatable(
+                                                    "command.touhou.parse_midi.success",
+                                                    inputName,
+                                                    outputFileName
                                             )
                                     );
+
                                 } catch (Exception e) {
                                     failed++;
-                                    log.error("Error parsing MIDI {}", inputPath, e);
+
+                                    log.error(
+                                            "Error parsing MIDI {}",
+                                            inputPath,
+                                            e
+                                    );
 
                                     source.sendFailure(
-                                            Component.literal(
-                                                    "Failure parse: %s"
-                                                            .formatted(inputName)
+                                            Component.translatable(
+                                                    "command.touhou.parse_midi.failure",
+                                                    inputName
                                             )
                                     );
                                 }
                             }
+
                         } catch (OverlappingFileLockException e) {
                             skipped++;
+
                             source.sendSystemMessage(
-                                    Component.literal(
-                                            "Skip: %s (file is in use)"
-                                                    .formatted(inputName)
+                                    Component.translatable(
+                                            "command.touhou.parse_midi.skip_in_use",
+                                            inputName
                                     )
                             );
+
                         } catch (IOException e) {
                             skipped++;
-                            log.error("Unable to access MIDI {}", inputPath, e);
+
+                            log.error(
+                                    "Unable to access MIDI {}",
+                                    inputPath,
+                                    e
+                            );
 
                             source.sendFailure(
-                                    Component.literal(
-                                            "Cannot access: %s"
-                                                    .formatted(inputName)
+                                    Component.translatable(
+                                            "command.touhou.parse_midi.cannot_access",
+                                            inputName
                                     )
                             );
                         }
@@ -448,14 +577,12 @@ public class THCommand {
                 }
 
                 source.sendSystemMessage(
-                        Component.literal(
-                                "MIDI conversion finished: total=%d, success=%d, skipped=%d, failed=%d"
-                                        .formatted(
-                                                total,
-                                                success,
-                                                skipped,
-                                                failed
-                                        )
+                        Component.translatable(
+                                "command.touhou.parse_midi.finished",
+                                total,
+                                success,
+                                skipped,
+                                failed
                         )
                 );
 
@@ -467,8 +594,9 @@ public class THCommand {
 
             if (!Files.isRegularFile(inputPath)) {
                 source.sendFailure(
-                        Component.literal(
-                                "MIDI file not found: %s".formatted(fileName)
+                        Component.translatable(
+                                "command.touhou.parse_midi.file_not_found",
+                                fileName
                         )
                 );
                 return 0;
@@ -478,15 +606,15 @@ public class THCommand {
 
             if (!lowerName.endsWith(".mid") && !lowerName.endsWith(".midi")) {
                 source.sendFailure(
-                        Component.literal(
-                                "Not a MIDI file: %s".formatted(fileName)
+                        Component.translatable(
+                                "command.touhou.parse_midi.not_midi",
+                                fileName
                         )
                 );
                 return 0;
             }
 
             String outputFileName;
-
             if (lowerName.endsWith(".mid")) {
                 outputFileName =
                         fileName.substring(0, fileName.length() - 4) + ".nbs";
@@ -497,12 +625,12 @@ public class THCommand {
 
             Path outputPath = basePath.resolve(outputFileName);
 
-            // 对应 NBS 已经存在
+            // 对应 NBS 已存在
             if (Files.exists(outputPath)) {
                 source.sendSystemMessage(
-                        Component.literal(
-                                "Skip: %s already exists"
-                                        .formatted(outputFileName)
+                        Component.translatable(
+                                "command.touhou.parse_midi.skip_output_exists",
+                                outputFileName
                         )
                 );
                 return 1;
@@ -517,9 +645,9 @@ public class THCommand {
                 try (FileLock lock = channel.tryLock()) {
                     if (lock == null) {
                         source.sendFailure(
-                                Component.literal(
-                                        "MIDI file is in use: %s"
-                                                .formatted(fileName)
+                                Component.translatable(
+                                        "command.touhou.parse_midi.file_in_use",
+                                        fileName
                                 )
                         );
                         return 0;
@@ -533,89 +661,86 @@ public class THCommand {
                         );
 
                         source.sendSystemMessage(
-                                Component.literal(
-                                        "Success save to %s"
-                                                .formatted(outputPath)
+                                Component.translatable(
+                                        "command.touhou.parse_midi.saved",
+                                        outputPath
                                 )
                         );
-                    } catch (Exception e) {
-                        log.error("Error parsing MIDI {}", inputPath, e);
 
-                        source.sendFailure(
-                                Component.literal("Failure parse")
+                    } catch (Exception e) {
+                        log.error(
+                                "Error parsing MIDI {}",
+                                inputPath,
+                                e
                         );
 
+                        source.sendFailure(
+                                Component.translatable(
+                                        "command.touhou.parse_midi.failure_generic"
+                                )
+                        );
                         return 0;
                     }
                 }
+
             } catch (OverlappingFileLockException e) {
                 source.sendFailure(
-                        Component.literal(
-                                "MIDI file is in use: %s"
-                                        .formatted(fileName)
+                        Component.translatable(
+                                "command.touhou.parse_midi.file_in_use",
+                                fileName
                         )
                 );
                 return 0;
+
             } catch (IOException e) {
-                log.error("Unable to access MIDI {}", inputPath, e);
+                log.error(
+                        "Unable to access MIDI {}",
+                        inputPath,
+                        e
+                );
 
                 source.sendFailure(
-                        Component.literal(
-                                "Cannot access MIDI file"
+                        Component.translatable(
+                                "command.touhou.parse_midi.cannot_access_generic"
                         )
                 );
                 return 0;
             }
 
             return 1;
+
         } catch (Exception e) {
             log.error("Error: ", e);
         }
+
         return 0;
     }
 
+
     private int setPlayerSettingValue(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-
         if (!source.isPlayer()) {
             return 0;
         }
-
         ServerPlayer player = source.getPlayer();
         PlayerSettings settings = PlayerSettings.get(player);
-
         String name = StringArgumentType.getString(context, "name");
-
         PlayerSettings.KeyValue<?> keyValue = settings.get(name);
-
         if (keyValue == null) {
-            source.sendFailure(
-                    Component.literal("未知设置: " + name)
-            );
+            source.sendFailure(Component.translatable("command.touhou.player_setting.unknown", name));
             return 0;
         }
-
         Object value;
-
         switch (keyValue.type()) {
-            case BOOL -> value =
-                    BoolArgumentType.getBool(context, "value");
-
-            case STRING -> value =
-                    StringArgumentType.getString(context, "value");
-
-            case NUMBER -> value =
-                    DoubleArgumentType.getDouble(context, "value");
-
+            case BOOL -> value = BoolArgumentType.getBool(context, "value");
+            case STRING -> value = StringArgumentType.getString(context, "value");
+            case NUMBER -> value = DoubleArgumentType.getDouble(context, "value");
             default -> {
                 return 0;
             }
         }
-
         settings.set(name, value);
-
-        source.sendSystemMessage(Component.literal("Set %s = %s".formatted(name, value)));
-
+        source.sendSystemMessage(Component.translatable("command.touhou.player_setting.set", name, value));
         return 1;
     }
 
@@ -634,27 +759,31 @@ public class THCommand {
 
     private int reloadConfig(CommandContext<CommandSourceStack> context) {
         ConfigHolder<ReverieDreamsConfiguration> configHolder = AutoConfig.getConfigHolder(ReverieDreamsConfiguration.class);
+
         if (configHolder == null) {
-            return 1;
+            context.getSource().sendFailure(Component.translatable("command.touhou.reload_config.failed"));
+            return 0;
         }
+
         configHolder.load();
-        context.getSource().sendSystemMessage(Component.literal("Reload Success"));
-        return 0;
+        context.getSource().sendSystemMessage(Component.translatable("command.touhou.reload_config.success"));
+
+        return 1;
     }
 
+
+    @ApiStatus.Experimental
     private int generateCraftEngineConfig(CommandContext<CommandSourceStack> context) {
         CraftEngineDefinition craftEngineDefinition =
                 CraftEngineProvider.fromNamespace(ReverieDreams.MOD_ID);
 
         if (craftEngineDefinition == null) {
-            return 1;
+            context.getSource().sendFailure(Component.translatable("command.touhou.craft_engine.generate.failed"));
+            return 0;
         }
 
-        List<BlockDefinitionList> blockDefinitions =
-                craftEngineDefinition.getBlockDefinitions();
-
-        List<ItemDefinitionList> itemDefinitions =
-                craftEngineDefinition.getItemDefinitions();
+        List<BlockDefinitionList> blockDefinitions = craftEngineDefinition.getBlockDefinitions();
+        List<ItemDefinitionList> itemDefinitions = craftEngineDefinition.getItemDefinitions();
 
         Path path = Path.of("./config/reverie_dreams/craft_engine/");
 
@@ -662,7 +791,9 @@ public class THCommand {
             Files.createDirectories(path);
         } catch (Exception e) {
             log.error("Failed to create CraftEngine config directory", e);
-            return 1;
+
+            context.getSource().sendFailure(Component.translatable("command.touhou.craft_engine.generate.directory_failed"));
+            return 0;
         }
 
         // Items 分片生成
@@ -678,11 +809,14 @@ public class THCommand {
         );
 
         context.getSource().sendSystemMessage(
-                Component.literal("Success")
+                Component.translatable(
+                        "command.touhou.craft_engine.generate.success"
+                )
         );
 
-        return 0;
+        return 1;
     }
+
 
     private int loadRootPage(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
@@ -867,32 +1001,32 @@ public class THCommand {
         Identifier registryKeyId = IdentifierArgument.getId(context, "registry_key");
         Identifier id = IdentifierArgument.getId(context, "id");
 
-        ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
+        ResourceKey<Registry<Object>> registryKey =
+                ResourceKey.createRegistryKey(registryKeyId);
+
         RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
+
         if (registry == null) {
-            source.sendFailure(Component.literal("Registry not found: ").append(Component.literal(registryKey.toString())));
+            source.sendFailure(Component.translatable("command.touhou.registry.not_found", registryKey));
             return 0;
         }
 
         Object value = registry.getValue(id);
-        MutableComponent msg = Component.literal("")
-                .append(Component.literal("=== ").withStyle(ChatFormatting.GOLD))
-                .append(Component.literal(ResourceKey.create(registryKey, id).toString()).withStyle(ChatFormatting.YELLOW))
-                .append(Component.literal(" ===\n").withStyle(ChatFormatting.GOLD));
 
+        MutableComponent msg = Component.translatable("command.touhou.registry.header", ResourceKey.create(registryKey, id));
         if (value == null) {
-            msg.append(Component.literal("No entry found for this ID.").withStyle(ChatFormatting.RED));
+            msg.append(Component.translatable("command.touhou.registry.entry_not_found").withStyle(ChatFormatting.RED));
             source.sendSystemMessage(msg);
             return 0;
         }
 
         if (value instanceof RegistryEntryTranslatable translatable) {
-            msg.append(Component.literal("Translation: ").withStyle(ChatFormatting.GRAY))
+            msg.append(Component.translatable("command.touhou.registry.translation").withStyle(ChatFormatting.GRAY))
                     .append(Component.translatable(translatable.translateKey()).withStyle(ChatFormatting.WHITE))
                     .append(Component.literal("\n"));
         }
 
-        msg.append(Component.literal("Object: ").withStyle(ChatFormatting.GRAY))
+        msg.append(Component.translatable("command.touhou.registry.object").withStyle(ChatFormatting.GRAY))
                 .append(Component.literal(value.toString()).withStyle(ChatFormatting.AQUA));
 
         source.sendSystemMessage(msg);
@@ -907,22 +1041,33 @@ public class THCommand {
 
         ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryKeyId);
         RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
+
         if (registry == null) {
-            source.sendFailure(Component.literal("Registry not found: ").append(Component.literal(registryKey.toString())));
+            source.sendFailure(Component.translatable("command.touhou.registry_tag.not_found", registryKey));
             return 0;
         }
+
         TagKey<?> tagKey = TagKey.create(registry.key(), id);
-        List<Holder> list = ModMth.toList(registry.getTagOrEmpty((TagKey) tagKey));
-        source.sendSystemMessage(Component.literal("Registry Tag Name: %s".formatted(id)));
+
+        List<Holder> list = ModMth.toList(
+                registry.getTagOrEmpty((TagKey) tagKey)
+        );
+
+        source.sendSystemMessage(Component.translatable("command.touhou.registry_tag.name", id));
         List<Identifier> ids = new ArrayList<>();
+
         for (Holder holder : list) {
-            holder.unwrapKey().ifPresent((key) -> {
+            holder.unwrapKey().ifPresent(key -> {
                 if (key instanceof ResourceKey resourceKey) {
                     ids.add(resourceKey.identifier());
                 }
             });
         }
-        source.sendSystemMessage(Component.literal("%s".formatted(ids)));
+
+        source.sendSystemMessage(
+                Component.translatable("command.touhou.registry_tag.entries", ids)
+        );
+
         return 1;
     }
 
@@ -955,17 +1100,43 @@ public class THCommand {
     }
 
     private int help(CommandContext<CommandSourceStack> context) {
-        List<String> keys = List.of(
-                "command.touhou.help.title",
+        CommandSourceStack source = context.getSource();
+
+        String[] keys = {
+                "command.touhou.help.header",
+
+                "command.touhou.help.common",
                 "command.touhou.help.help",
-                "command.touhou.help.recipe",
                 "command.touhou.help.about",
-                "command.touhou.help.empty"
-        );
+                "command.touhou.help.recipe",
+                "command.touhou.help.set_music",
+
+                "command.touhou.help.settings",
+                "command.touhou.help.settings_get",
+                "command.touhou.help.settings_set",
+
+                "command.touhou.help.resources",
+                "command.touhou.help.parse_midi",
+                "command.touhou.help.reload_config",
+
+                "command.touhou.help.registry",
+                "command.touhou.help.registry_tag",
+
+                "command.touhou.help.video",
+                "command.touhou.help.video_play",
+                "command.touhou.help.video_reload",
+
+                "command.touhou.help.footer"
+        };
 
         for (String key : keys) {
-            context.getSource().sendSuccess(() -> Component.translatable(key).setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)), false);
+            source.sendSuccess(
+                    () -> Component.translatable(key)
+                            .withStyle(ChatFormatting.WHITE),
+                    false
+            );
         }
+
         return 1;
     }
 

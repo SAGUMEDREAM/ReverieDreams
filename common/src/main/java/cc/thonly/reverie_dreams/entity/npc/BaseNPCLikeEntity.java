@@ -43,6 +43,7 @@ import net.minecraft.network.protocol.game.ClientboundEntityPositionSyncPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerEntity;
@@ -828,12 +829,12 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
         if (this.npcState == NPCStates.SEATED) {
             if (this.seat == null) {
                 List<ArmorStand> list = world.getEntitiesOfClass(
-                                                     ArmorStand.class,
-                                                     new AABB(this.getX() + 1, this.getY() + 1, this.getZ() + 1, this.getX() - 1, this.getY() - 1, this.getZ() - 1),
-                                                     entity -> true)
-                                             .stream()
-                                             .filter(entity -> entity.getUUID().toString().equalsIgnoreCase(this.seatUUID))
-                                             .toList();
+                                ArmorStand.class,
+                                new AABB(this.getX() + 1, this.getY() + 1, this.getZ() + 1, this.getX() - 1, this.getY() - 1, this.getZ() - 1),
+                                entity -> true)
+                        .stream()
+                        .filter(entity -> entity.getUUID().toString().equalsIgnoreCase(this.seatUUID))
+                        .toList();
                 if (!list.isEmpty()) {
                     this.seat = list.getFirst();
                 } else {
@@ -1069,13 +1070,13 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
 
     public static AttributeSupplier.Builder createLivingAttributes() {
         return LivingEntity.createLivingAttributes()
-                           .add(Attributes.MAX_HEALTH, 20.0)
-                           .add(Attributes.MOVEMENT_SPEED, 0.25)
-                           .add(Attributes.ATTACK_DAMAGE, 1.0)
-                           .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                           .add(Attributes.FOLLOW_RANGE, 32.0)
-                           .add(Attributes.TEMPT_RANGE, 10.0)
-                           .add(Attributes.ENTITY_INTERACTION_RANGE, 3);
+                .add(Attributes.MAX_HEALTH, 20.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.ATTACK_DAMAGE, 1.0)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
+                .add(Attributes.FOLLOW_RANGE, 32.0)
+                .add(Attributes.TEMPT_RANGE, 10.0)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 3);
     }
 
     public boolean isOwner(Entity player) {
@@ -1126,6 +1127,16 @@ public abstract class BaseNPCLikeEntity extends AbstractNPCEntity implements Ran
     @Override
     public boolean isTame() {
         return this.getOwnerUuid() != null;
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        super.remove(reason);
+    }
+
+    @Override
+    public void onClientRemoval() {
+        super.onClientRemoval();
     }
 
     @Override

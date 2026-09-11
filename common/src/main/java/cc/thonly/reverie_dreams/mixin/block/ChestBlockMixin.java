@@ -17,10 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChestBlock.class)
 public class ChestBlockMixin {
+    @SuppressWarnings("resource")
     @Inject(method = "useWithoutItem", at = @At("RETURN"))
     public void reverie_dreams$callTriggerKey(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
         if (cir.getReturnValue() != InteractionResult.FAIL && player instanceof ServerPlayer serverPlayer) {
             SimpleTrigger.trigger(serverPlayer, SimpleTriggerKeys.OPEN_CHEST);
+            SimpleTrigger.trigger(serverPlayer, SimpleTriggerKeys.openChestOn(player.level().dimension()));
+
         }
     }
 }

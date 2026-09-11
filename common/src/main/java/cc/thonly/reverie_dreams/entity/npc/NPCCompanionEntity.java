@@ -3,12 +3,14 @@ package cc.thonly.reverie_dreams.entity.npc;
 import cc.thonly.reverie_dreams.api.entity.ExperienceOrbEntityDataModifier;
 import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.entity.ai.goal.NPCTemptGoal;
+import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
@@ -33,6 +35,18 @@ public class NPCCompanionEntity extends NPCSimpleEntity {
     public void tick() {
         this.attractNearbyExperienceOrbs();
         super.tick();
+    }
+
+    @Override
+    public void setOwner(LivingEntity player) {
+        super.setOwner(player);
+        this.npcState = NPCStates.FOLLOW;
+    }
+
+    @Override
+    public void setNpcOwner(String npcOwner) {
+        super.setNpcOwner(npcOwner);
+        this.npcState = NPCStates.FOLLOW;
     }
 
     public void attractNearbyExperienceOrbs() {

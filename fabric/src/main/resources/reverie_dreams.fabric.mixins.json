@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "cc.thonly.reverie_dreams.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "cc.thonly.reverie_dreams.fabric.mixin.ReverieDreamsMixinPlugin",
+  "plugin": "cc.thonly.reverie_dreams.fabric.mixin.RDFabricMixinPlugin",
   "mixins": [
     "FabricDataGenHelperMixin",
     "FakePlayerNetworkHandlerMixin",
@@ -27,12 +27,13 @@
     "patches.YsmComponentsMixin"
   ],
   "client": [
-    "client.ModernPlayerModelScreenMixin",
     "accessor.ModernPlayerModelScreenAccessor",
+    "client.BaseNPCLikeEntityMixin",
     "client.BaseNPCLikeEntityRendererMixin",
     "client.EntityRenderDispatcherMixin",
     "client.ModelBakeryMixin",
     "client.ModelManagerMixin",
+    "client.ModernPlayerModelScreenMixin",
     "client.TextureSlotsMixin"
   ],
   "injectors": {

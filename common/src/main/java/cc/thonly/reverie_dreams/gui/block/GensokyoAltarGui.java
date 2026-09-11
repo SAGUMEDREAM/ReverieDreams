@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.gui.block;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.entity.GensokyoAltarBlockEntity;
+import cc.thonly.reverie_dreams.gui.GuiCommon;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import eu.pb4.sgui.api.ClickType;
 import eu.pb4.sgui.api.gui.SimpleGui;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class GensokyoAltarGui extends SimpleGui {
+public class GensokyoAltarGui extends SimpleGui implements GuiCommon {
     public static final String[][] GRID = {
             {"X", "X", "I", "X", "I", "X", "I", "X", "X"},
             {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
@@ -43,12 +44,12 @@ public class GensokyoAltarGui extends SimpleGui {
     public void init() {
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub002")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(Component.translatable(RDBlocks.GENSOKYO_ALTAR.asBlock().getDescriptionId()))
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub002")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(Component.translatable(RDBlocks.GENSOKYO_ALTAR.asBlock().getDescriptionId()))
         );
         int invSlot = 0;
         for (int row = 0; row < GRID.length; row++) {
@@ -73,7 +74,8 @@ public class GensokyoAltarGui extends SimpleGui {
     @Override
     public void onTick() {
         super.onTick();
-        if (blockEntity == null) return;
+        if (blockEntity == null)
+            return;
         if (blockEntity.getLevel() != null && blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock() != RDBlocks.GENSOKYO_ALTAR.asBlock()) {
             this.close();
             return;

@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.util.advancements;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 
 public class SimpleTriggerKeys {
     public static final Identifier EAT_PEACH = createKey("eat_peach");
@@ -20,6 +22,13 @@ public class SimpleTriggerKeys {
     public static final Identifier WAITER = createKey("waiter");
     public static final Identifier OPEN_CHEST = createKey("open_chest");
     public static final Identifier ASKING_FOR_MONEY = createKey("asking_for_money");
+
+    public static Identifier openChestOn(ResourceKey<Level> levelKey) {
+        Identifier identifier = levelKey.identifier();
+        String p = identifier.getNamespace() + "_" + identifier.getPath();
+        String s = p + OPEN_CHEST.getPath();
+        return ReverieDreams.id(s);
+    }
 
     public static Identifier createKey(String name) {
         return ReverieDreams.id(name);

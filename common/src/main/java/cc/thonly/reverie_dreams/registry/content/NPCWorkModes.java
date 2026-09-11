@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
+import org.jspecify.annotations.Nullable;
 
 public class NPCWorkModes {
     public static final NPCWorkMode COMBAT = register(ReverieDreams.id("combat"),
@@ -29,6 +30,9 @@ public class NPCWorkModes {
     public static final NPCWorkMode PLAYING_MUSIC = register(ReverieDreams.id("playing_music"),
             new NPCWorkMode("playing_music", Items.NOTE_BLOCK)
     );
+    public static final NPCWorkMode HONEYCOMB_HARVESTING = register(ReverieDreams.id("honeycomb_harvesting"),
+            new NPCWorkMode("honeycomb_harvesting", Items.HONEYCOMB)
+    );
     public static final NPCWorkMode FISHING = register(ReverieDreams.id("fishing"),
             new NPCWorkMode("fishing", Items.FISHING_ROD)
     );
@@ -38,7 +42,9 @@ public class NPCWorkModes {
                         npc.stopRiding();
                     })
     );
+    @Nullable
     public static NPCWorkMode CREATE_FLY_HAND_CRANK;
+    @Nullable
     public static NPCWorkMode POLYFACTORY_HAND_CRANK;
 
     public static NPCWorkMode fromInt(Integer rawId) {

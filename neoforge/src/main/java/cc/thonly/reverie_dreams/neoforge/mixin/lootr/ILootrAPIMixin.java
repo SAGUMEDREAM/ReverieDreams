@@ -18,5 +18,6 @@ public interface ILootrAPIMixin {
     @Inject(method = "handleInstanceOpen(Lnoobanidus/mods/lootr/common/api/data/ILootrContainerInstance;Lnet/minecraft/server/level/ServerPlayer;)V", at=@At("TAIL"), cancellable = true)
     default void reverie_dreams$handleInstanceOpen(ILootrContainerInstance instance, ServerPlayer player, CallbackInfo ci) {
         SimpleTrigger.trigger(player, SimpleTriggerKeys.OPEN_CHEST);
+        SimpleTrigger.trigger(player, SimpleTriggerKeys.openChestOn(player.level().dimension()));
     }
 }

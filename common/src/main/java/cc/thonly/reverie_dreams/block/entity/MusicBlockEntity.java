@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes
 import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @Getter
 public class MusicBlockEntity extends BlockEntity {
+    @Setter
     private String select = null;
     public boolean isFirst = true;
 

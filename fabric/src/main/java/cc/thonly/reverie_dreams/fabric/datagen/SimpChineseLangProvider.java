@@ -112,6 +112,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         this.generateAdvancementsTranslations(wrapperLookup, translationBuilder);
 
         translationBuilder.add("gui.npc.info", "§d");
+        translationBuilder.add("gui.npc.info.base_info", "§f基本信息");
         translationBuilder.add("gui.npc.info.name", "§d名字: %s");
         translationBuilder.add("gui.npc.info.food", "§d食物信息: ");
         translationBuilder.add("gui.npc.info.food.nutrition", "§6饥饿度: %s");
@@ -129,15 +130,16 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("gui.npc.page.previous", "§c上一页");
         translationBuilder.add("gui.npc.page.next.disabled", "§0下一页");
         translationBuilder.add("gui.npc.page.previous.disabled", "§0上一页");
-        translationBuilder.add("gui.npc.mode.null", "§b当前模式为: §c序列化错误");
-        translationBuilder.add(NPCStates.FOLLOW.translateKey(), "§b当前模式为: §a跟随");
-        translationBuilder.add(NPCStates.NORMAL.translateKey(), "§b当前模式为: §a正常");
-        translationBuilder.add(NPCStates.NO_WALK.translateKey(), "§b当前模式为: §a禁止移动");
-        translationBuilder.add(NPCStates.SNAKING.translateKey(), "§b当前模式为: §a潜行");
-        translationBuilder.add(NPCStates.SEATED.translateKey(), "§b当前模式为: §a坐下");
-        translationBuilder.add(NPCStates.WORKING.translateKey(), "§b当前模式为: §a工作中");
+        translationBuilder.add("gui.npc.mode.null", "§c序列化错误");
+        translationBuilder.add(NPCStates.FOLLOW.translateKey(), "§a跟随");
+        translationBuilder.add(NPCStates.NORMAL.translateKey(), "§a正常");
+        translationBuilder.add(NPCStates.NO_WALK.translateKey(), "§a禁止移动");
+        translationBuilder.add(NPCStates.SNAKING.translateKey(), " §a潜行");
+        translationBuilder.add(NPCStates.SEATED.translateKey(), "§a坐下");
+        translationBuilder.add(NPCStates.WORKING.translateKey(), "§a工作中");
         translationBuilder.add("gui.npc.mode.work.originpos", "工作原点位置");
-        translationBuilder.add("gui.npc.work.button", "模式开关");
+        translationBuilder.add("gui.npc.state.name", "运行模式");
+        translationBuilder.add("gui.npc.state.button", "运行模式：%s");
         translationBuilder.add("gui.npc.work.mode", "工作模式切换");
         translationBuilder.add(NPCWorkModes.COMBAT.translateKey(), "§a清理怪物");
         translationBuilder.add(NPCWorkModes.FARM.translateKey(), "§b种植作物");
@@ -146,6 +148,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(NPCWorkModes.CHEST_CLASSIFICATION.translateKey(), "§e箱子分类");
         translationBuilder.add(NPCWorkModes.SHEEP_SHEARING.translateKey(), "§f剪羊毛");
         translationBuilder.add(NPCWorkModes.PLAYING_MUSIC.translateKey(), "§6演奏音乐");
+        translationBuilder.add(NPCWorkModes.HONEYCOMB_HARVESTING.translateKey(), "§6采集蜂蜜");
         translationBuilder.add(NPCWorkModes.CUSTOMER.translateKey(), "§9顾客");
         translationBuilder.add(NPCWorkModes.FISHING.translateKey(), "§6钓鱼");
         translationBuilder.add("gui.npc.work.mode.create-fly/hand_crank", "§d摇曲柄");
@@ -2483,12 +2486,30 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
     }
 
     public void generateCommandTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder builder) {
-        builder.add("command.touhou.suggest_help", "Use /touhou help for more information");
-        builder.add("command.touhou.help.title", "Help Menu:");
-        builder.add("command.touhou.help.help", " - Help Menu: /touhou help");
-        builder.add("command.touhou.help.recipe", " - Recipe Manager: /touhou recipe");
-        builder.add("command.touhou.help.about", " - About this mod: /touhou about");
-        builder.add("command.touhou.help.empty", "");
+        builder.add("command.touhou.help.header", "§6【夢見る幻想郷】命令帮助");
+        builder.add("command.touhou.help.common", "§e常用命令");
+        builder.add("command.touhou.help.help", "§f/touhou help §7- 显示此帮助菜单");
+        builder.add("command.touhou.help.about", "§f/touhou about §7- 查看模组信息");
+        builder.add("command.touhou.help.recipe", "§f/touhou recipe §7- 打开配方管理器");
+        builder.add("command.touhou.help.set_music", "§f/touhou set_music <file_name> §7- 设置音乐方块或手持乐器播放的音乐");
+
+        builder.add("command.touhou.help.settings", "§e玩家设置");
+        builder.add("command.touhou.help.settings_get", "§f/touhou settings get <name> §7- 查看玩家设置");
+        builder.add("command.touhou.help.settings_set", "§f/touhou settings set <name> <value> §7- 修改玩家设置");
+
+        builder.add("command.touhou.help.resources", "§e资源与模型");
+        builder.add("command.touhou.help.parse_midi", "§f/touhou parse_nbs_midi <file_name> §7- 将 MIDI 文件转换为 NBS");
+        builder.add("command.touhou.help.reload_config", "§f/touhou reload_config §7- 重载模组配置");
+
+        builder.add("command.touhou.help.registry", "§f/touhou registry <registry_key> <id> §7- 查询注册表条目");
+        builder.add("command.touhou.help.registry_tag", "§f/touhou registry_tag <registry_key> <id> §7- 查询注册表标签");
+
+        builder.add("command.touhou.help.video", "§e视频");
+        builder.add("command.touhou.help.video_play", "§f/touhou video play <target> <file> [sound] §7- 播放视频");
+        builder.add("command.touhou.help.video_reload", "§f/touhou video reload §7- 重载视频资源");
+
+        builder.add("command.touhou.help.footer", "§8使用 /touhou help 查看帮助");
+
 
         builder.add("command.touhou.about.line1", "");
         builder.add("command.touhou.about.line2", "");
@@ -2506,6 +2527,42 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         builder.add("command.touhou.video.load", "视频加载中...");
         builder.add("command.touhou.video.load.done", "视频加载完成");
 
+        builder.add("command.touhou.set_music.file_not_exists", "音乐文件不存在：%s");
+        builder.add("command.touhou.set_music.success_item", "成功将乐器设置为播放音乐：%s");
+        builder.add("command.touhou.set_music.no_target", "你没有指向音乐方块，也没有手持乐器！");
+        builder.add("command.touhou.set_music.not_music_block", "你指向的方块不是音乐方块！");
+        builder.add("command.touhou.set_music.success_block", "成功设置音乐方块播放音乐：%s");
+
+        builder.add("command.touhou.parse_midi.skip_exists", "跳过：%s（NBS 文件已存在）");
+        builder.add("command.touhou.parse_midi.skip_in_use", "跳过：%s（文件正在使用中）");
+        builder.add("command.touhou.parse_midi.success", "转换成功：%s → %s");
+        builder.add("command.touhou.parse_midi.failure", "转换失败：%s");
+        builder.add("command.touhou.parse_midi.cannot_access", "无法访问文件：%s");
+        builder.add("command.touhou.parse_midi.finished", "MIDI 转换完成：总计 %d，成功 %d，跳过 %d，失败 %d");
+        builder.add("command.touhou.parse_midi.file_not_found", "找不到 MIDI 文件：%s");
+        builder.add("command.touhou.parse_midi.not_midi", "不是 MIDI 文件：%s");
+        builder.add("command.touhou.parse_midi.skip_output_exists", "跳过：%s 已存在");
+        builder.add("command.touhou.parse_midi.file_in_use", "MIDI 文件正在使用中：%s");
+        builder.add("command.touhou.parse_midi.saved", "转换成功，已保存至：%s");
+        builder.add("command.touhou.parse_midi.failure_generic", "MIDI 转换失败");
+        builder.add("command.touhou.parse_midi.cannot_access_generic", "无法访问 MIDI 文件");
+
+
+        builder.add("command.touhou.player_setting.unknown", "未知设置：%s");
+        builder.add("command.touhou.player_setting.set", "设置已修改：%s = %s");
+
+        builder.add("command.touhou.reload_config.success", "配置重载成功！");
+        builder.add("command.touhou.reload_config.failed", "配置重载失败：无法获取配置对象。");
+
+        builder.add("command.touhou.craft_engine.generate.success", "CraftEngine 配置生成成功！");
+        builder.add("command.touhou.craft_engine.generate.failed", "生成失败：无法获取 CraftEngine 定义。");
+        builder.add("command.touhou.craft_engine.generate.directory_failed", "生成失败：无法创建 CraftEngine 配置目录。");
+
+        builder.add("command.touhou.registry.not_found", "找不到注册表：%s");
+        builder.add("command.touhou.registry.header", "=== %s ===\n");
+        builder.add("command.touhou.registry.entry_not_found", "未找到该 ID 对应的条目。");
+        builder.add("command.touhou.registry.translation", "翻译：");
+        builder.add("command.touhou.registry.object", "对象：");
 
     }
 

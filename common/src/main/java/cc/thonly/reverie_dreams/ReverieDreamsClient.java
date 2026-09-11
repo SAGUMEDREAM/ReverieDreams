@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.client.SafeClientAccessImpl;
 import cc.thonly.reverie_dreams.client.component.ClientPlayerComponentManager;
 import cc.thonly.reverie_dreams.client.registry.RDBlockEntityRenderers;
 import cc.thonly.reverie_dreams.client.registry.RDEntityRenderers;
+import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.event.events.client.ClientPlayerEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.platform.Platform;

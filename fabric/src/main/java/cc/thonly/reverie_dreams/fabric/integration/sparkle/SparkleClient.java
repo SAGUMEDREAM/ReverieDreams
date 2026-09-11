@@ -3,7 +3,6 @@ package cc.thonly.reverie_dreams.fabric.integration.sparkle;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCMorphData;
 import com.micaftic.morpher.client.ClientModelManager;
 import com.micaftic.morpher.client.renderer.SubmitRenderContext;
 import com.micaftic.morpher.mixin.client.EntityRenderDispatcherAccessor;
@@ -17,14 +16,17 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
 @Slf4j
 public class SparkleClient {
-    private static final Map<BaseNPCLikeEntity, NPCAnimatable> ANIMATABLES = new WeakHashMap<>();
+    public static final Map<ResourceKey<Level>, Map<Integer, NPCAnimatable>> ANIMATABLES = new WeakHashMap<>();
 
     private static SparkleRenderer renderer;
 
@@ -49,21 +51,44 @@ public class SparkleClient {
 
     private static SparkleRenderer renderer() {
         if (renderer == null) {
-            renderer = new SparkleRenderer(
-                    createContext()
-            );
+            renderer = new SparkleRenderer(createContext());
         }
 
         return renderer;
     }
 
-    private static NPCAnimatable animatable(
-            BaseNPCLikeEntity entity
-    ) {
-        return ANIMATABLES.computeIfAbsent(
-                entity,
-                NPCCapability::new
+    private static NPCAnimatable animatable(BaseNPCLikeEntity entity) {
+        ResourceKey<Level> dimension = entity.level().dimension();
+        int entityId = entity.getId();
+
+        Map<Integer, NPCAnimatable> entities = ANIMATABLES.computeIfAbsent(
+                dimension,
+                key -> new HashMap<>()
         );
+
+        NPCAnimatable current = entities.get(entityId);
+
+        if (current == null || current.getEntity() != entity) {
+            current = new NPCCapability(entity);
+            entities.put(entityId, current);
+        }
+
+        return current;
+    }
+
+    public static void remove(BaseNPCLikeEntity entity) {
+        ResourceKey<Level> dimension = entity.level().dimension();
+
+        Map<Integer, NPCAnimatable> entities = ANIMATABLES.get(dimension);
+        if (entities == null) {
+            return;
+        }
+
+        entities.remove(entity.getId());
+
+        if (entities.isEmpty()) {
+            ANIMATABLES.remove(dimension);
+        }
     }
 
     public static boolean render(

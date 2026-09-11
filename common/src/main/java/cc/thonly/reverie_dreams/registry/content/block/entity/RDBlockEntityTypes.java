@@ -11,6 +11,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +52,11 @@ public class RDBlockEntityTypes {
             IceMakingMachineBlockEntity::new,
             RDBlocks.ICE_MAKING_MACHINE
     );
-
+    @ApiStatus.Experimental
+    public static final RegistrySupplier<BlockEntityType<GomokuBlockEntity>> GOMOKU = registerBlockEntity(
+            "gomoku",
+            GomokuBlockEntity::new
+    );
     public static final RegistrySupplier<BlockEntityType<SignalRailBlockEntity>> SIGNAL_RAIL_BLOCK_ENTITY = registerBlockEntity(
             "signal_rails",
             SignalRailBlockEntity::new,

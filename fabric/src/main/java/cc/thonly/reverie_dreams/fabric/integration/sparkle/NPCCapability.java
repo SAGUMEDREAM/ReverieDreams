@@ -28,7 +28,7 @@ public class NPCCapability extends NPCAnimatable {
     private String rouletteAnimation = "";
     @Getter
     @Setter
-    Consumer<NPCCapability> capabilityConsumer = null;
+    static Consumer<NPCCapability> capabilityConsumer = null;
 
     public NPCCapability(BaseNPCLikeEntity entity) {
         super(entity);
@@ -54,7 +54,7 @@ public class NPCCapability extends NPCAnimatable {
         }
 
         NPCPlayerAnimationController.register(this);
-        if (this.capabilityConsumer instanceof Consumer consumer) {
+        if (capabilityConsumer instanceof Consumer consumer) {
             consumer.accept(this);
         }
     }

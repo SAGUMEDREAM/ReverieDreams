@@ -106,7 +106,6 @@ public class PlatformContext {
         return Platform.isModLoaded(id);
     }
 
-
     public static boolean isDevMode() {
         return DEV_MODE.get()
                 || ReverieDreams.config().debugMode;

@@ -23,7 +23,7 @@ public final class NPCPlayerAnimationController {
         PlayerModelBundle animationBundle = assembly.getAnimationBundle();
         ModelResourceBundle expressionCache = assembly.getExpressionCache();
         Consumer<NPCCapability> npcCapabilityConsumer = NPCPlayerAnimationControllers.buildControllers(animationBundle, expressionCache);
-        animatable.setCapabilityConsumer(npcCapabilityConsumer);
+        NPCCapability.setCapabilityConsumer(npcCapabilityConsumer);
     }
 
 }

@@ -1,5 +1,13 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.6.4+26.1.2
+* Added full integration and compatibility support for Sparkle-Morpher
+* Merged additional UI information for NPC-type entities
+* Added a button in the NPC menu to open the YSM model selection UI
+* Merged the state mode selection into a dedicated submenu
+* Tamed NPCs now default to Follow Player mode
+* Added a Beehive Harvesting work mode
+
 # 0.6.3+26.1.2
 * Fixed a crash caused by lakes accessing unavailable chunks during world generation.
 * Fixed missing translation keys.

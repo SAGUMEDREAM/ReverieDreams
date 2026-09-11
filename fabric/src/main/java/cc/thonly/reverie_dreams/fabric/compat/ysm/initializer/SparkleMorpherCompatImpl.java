@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.compat.ysm.initializer;
 
+import cc.thonly.reverie_dreams.client.NPCScreen;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
 import cc.thonly.reverie_dreams.data.npc.NPCMenuType;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
@@ -41,7 +42,7 @@ public class SparkleMorpherCompatImpl {
                                 NPCSimpleEntity simple = (NPCSimpleEntity) npc;
 
                                 GuiElementBuilder builder = new GuiElementBuilder();
-                                builder.setItem(Items.LEATHER_CHESTPLATE);
+                                builder.setItem(Items.PLAYER_HEAD);
                                 builder.setItemName(Component.translatable("gui.npc.info.model"));
                                 builder.setCallback((i, clickType, containerInput, slotBasedGui) -> {
                                     SoundEventPlayUtils.playUISound(
@@ -73,11 +74,20 @@ public class SparkleMorpherCompatImpl {
         return i;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public static void openScreen(int entityId) {
         Minecraft instance = Minecraft.getInstance();
         Screen parent = instance.screen;
-        resetMorpherModelScreenState();
-        ModernPlayerModelScreen screen = new ModernPlayerModelScreen(parent, (modelId, texture) -> NetworkHandler.sendToServer(new C2SSetNPCModelPacket(entityId, modelId, texture)));
+//        resetMorpherModelScreenState();
+        ModernPlayerModelScreen screen = new ModernPlayerModelScreen(parent, (modelId, texture) -> NetworkHandler.sendToServer(new C2SSetNPCModelPacket(entityId, modelId, texture))) {
+            @Override
+            public void onClose() {
+                super.onClose();
+//                resetMorpherModelScreenState();
+            }
+        };
+        NPCScreen npcScreen = (NPCScreen) screen;
+        npcScreen.reverie_dreams$setApplyForNPC(true);
         instance.setScreen(screen);
     }
 

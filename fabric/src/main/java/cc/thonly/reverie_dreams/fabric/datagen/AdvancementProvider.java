@@ -257,8 +257,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
                 .parent(welcomeToTheMoonTour)
                 .requirements(AdvancementRequirements.Strategy.AND)
                 .display(makeDisplayInfo(Items.CHEST, RDBuiltInAdvancements.TREASURES_BENEATH_THE_MOON, AdvancementType.TASK))
-                .addCriterion("open_chest", SimpleTriggerFactory.create(SimpleTriggerKeys.OPEN_CHEST).createCriterion())
-                .addCriterion("in_the_moon", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.location().setDimension(RDBuiltinLevels.getMoon())))
+                .addCriterion("open_chest_on_moon", SimpleTriggerFactory.create(SimpleTriggerKeys.openChestOn(RDBuiltinLevels.getMoon())).createCriterion())
         );
 
         AdvancementHolder waiter = registerAdvancement(context, RDBuiltInAdvancements.WAITER, Advancement.Builder.advancement()

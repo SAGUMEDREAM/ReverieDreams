@@ -15,5 +15,6 @@ public class ReverieDreamsNeoForgeCompats extends ReverieDreamsCompats {
                 load("roughlyenoughitems", "cc.thonly.reverie_dreams.compat.rei.loader.IClientReiCompatLoader");
             }
         }
+        load("sparkle_morpher", "cc.thonly.reverie_dreams.neoforge.compat.ysm.initializer.SparkleMorpherCompatImpl");
     }
 }

@@ -7,17 +7,14 @@ import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.gui.entity.NPCSkinGui;
+import cc.thonly.reverie_dreams.gui.entity.NPCStateGui;
 import cc.thonly.reverie_dreams.gui.entity.NPCWorkGui;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import cc.thonly.reverie_dreams.world.RDBuiltInGameRules;
-import dev.architectury.networking.NetworkManager;
-import eu.pb4.sgui.api.ClickType;
-import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
-import eu.pb4.sgui.api.gui.SlotBasedGui;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -27,18 +24,20 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.gamerules.GameRules;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"resource", "unused"})
 public class NPCMenuTypes {
-    public static final NPCMenuType NAME = registerMenuType(
-            "name",
+    public static final NPCMenuType BASE_INFO = registerMenuType(
+            "base_info",
             new NPCMenuType()
                     .factory((player, npc, currentGui) -> new GuiElementBuilder()
                             .setItem(Items.NAME_TAG)
-                            .setItemName(Component.translatable("gui.npc.info.name", npc.getName().getString()))
+                            .setItemName(Component.translatable("gui.npc.info.base_info", npc.getName().getString()))
+                            .setLore(NPCMenuTypes.createBaseInfo(player, npc))
                             .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
                             .setCallback((index, type, action, basedGui) -> {
                                 SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
@@ -46,74 +45,73 @@ public class NPCMenuTypes {
                     )
                     .predicate(ofSimple()));
 
-    public static final NPCMenuType FOOD = registerMenuType(
-            "food",
-            new NPCMenuType()
-                    .factory((player, npc, currentGui) -> {
-                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+//    public static final NPCMenuType FOOD = registerMenuType(
+//            "food",
+//            new NPCMenuType()
+//                    .factory((player, npc, currentGui) -> {
+//                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+//
+//                        return new GuiElementBuilder()
+//                                .setItem(Items.COOKED_CHICKEN)
+//                                .setItemName(Component.translatable("gui.npc.info.food"))
+//                                .setLore(List.of(
+//                                        Component.translatable("gui.npc.info.food.nutrition", simple.getFoodData().getNutrition() + " / 20.0"),
+//                                        Component.translatable("gui.npc.info.food.saturation", simple.getFoodData().getSaturation() + " / 20.0")
+//                                ))
+//                                .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
+//                                .setCallback((index, type, action, basedGui) -> {
+//                                    SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+//                                });
+//                    })
+//                    .predicate(ofSimple())
+//    );
 
-                        return new GuiElementBuilder()
-                                .setItem(Items.COOKED_CHICKEN)
-                                .setItemName(Component.translatable("gui.npc.info.food"))
-                                .setLore(List.of(
-                                        Component.translatable("gui.npc.info.food.nutrition", simple.getFoodData().getNutrition() + " / 20.0"),
-                                        Component.translatable("gui.npc.info.food.saturation", simple.getFoodData().getSaturation() + " / 20.0")
-                                ))
-                                .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
-                                .setCallback((index, type, action, basedGui) -> {
-                                    SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                                });
-                    })
-                    .predicate(ofSimple())
-    );
+//    public static final NPCMenuType HEALTH = registerMenuType(
+//            "health",
+//            new NPCMenuType()
+//                    .factory((player, npc, currentGui) -> {
+//                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+//
+//                        return new GuiElementBuilder()
+//                                .setItem(Items.GOLDEN_APPLE)
+//                                .setItemName(Component.translatable("gui.npc.info.health", simple.getHealth(), simple.getMaxHealth()))
+//                                .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
+//                                .setCallback((index, type, action, basedGui) -> {
+//                                    SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+//                                });
+//                    })
+//                    .predicate(ofSimple())
+//    );
 
-    public static final NPCMenuType HEALTH = registerMenuType(
-            "health",
-            new NPCMenuType()
-                    .factory((player, npc, currentGui) -> {
-                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+//    public static final NPCMenuType ARMOR = registerMenuType(
+//            "armor",
+//            new NPCMenuType()
+//                    .factory((player, npc, currentGui) -> {
+//                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+//
+//                        return new GuiElementBuilder()
+//                                .setItem(Items.IRON_HELMET)
+//                                .setItemName(Component.translatable("gui.npc.info.armor", simple.getArmorValue()))
+//                                .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
+//                                .setCallback((index, type, action, basedGui) -> {
+//                                    SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+//                                });
+//
+//                    })
+//                    .predicate(ofSimple())
+//    );
 
-                        return new GuiElementBuilder()
-                                .setItem(Items.GOLDEN_APPLE)
-                                .setItemName(Component.translatable("gui.npc.info.health", simple.getHealth(), simple.getMaxHealth()))
-                                .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
-                                .setCallback((index, type, action, basedGui) -> {
-                                    SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                                });
-                    })
-                    .predicate(ofSimple())
-    );
-
-    public static final NPCMenuType ARMOR = registerMenuType(
-            "armor",
-            new NPCMenuType()
-                    .factory((player, npc, currentGui) -> {
-                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
-
-                        return new GuiElementBuilder()
-                                .setItem(Items.IRON_HELMET)
-                                .setItemName(Component.translatable("gui.npc.info.armor", simple.getArmorValue()))
-                                .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
-                                .setCallback((index, type, action, basedGui) -> {
-                                    SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
-                                });
-
-                    })
-                    .predicate(ofSimple())
-    );
-
-    public static final NPCMenuType WORK = registerMenuType(
-            "work",
+    public static final NPCMenuType STATE = registerMenuType(
+            "state",
             new NPCMenuType()
                     .factory((player, npc, currentGui) -> {
                         NPCSimpleEntity simple = (NPCSimpleEntity) npc;
                         var workingPos = simple.getWorkingPos();
 
                         return new GuiElementBuilder()
-                                .setItem(Items.DIAMOND)
-                                .setItemName(Component.translatable("gui.npc.work.button"))
+                                .setItem(npc.getNpcState().getItemDisplay().value())
+                                .setItemName(Component.translatable("gui.npc.state.button", npc.getNpcState().translationKey()))
                                 .setLore(List.of(
-                                        simple.getNpcState().getTranslateText(),
                                         simple.getNpcState() == NPCStates.WORKING
                                                 ? Component.translatable("gui.npc.mode.work.originpos")
                                                 .append(" : (" + workingPos.getX() + " "
@@ -123,8 +121,8 @@ public class NPCMenuTypes {
                                 ))
                                 .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
                                 .setCallback((index, type, action, basedGui) -> {
-                                    simple.setNpcState(type.isRight ? simple.getPreviousState() : simple.getNextState());
                                     SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    new NPCStateGui(player, simple).open();
                                 });
                     })
                     .predicate(ofSimple())
@@ -198,41 +196,41 @@ public class NPCMenuTypes {
                     .predicate(ofSimple())
     );
 
-    public static final NPCMenuType FAVORABILITY = registerMenuType(
-            "favorability",
-            new NPCMenuType()
-                    .factory((player, npc, currentGui) -> {
-                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
-
-                        return new GuiElementBuilder()
-                                .setItem(Items.APPLE)
-                                .setName(Component.translatable(
-                                        "gui.npc.info.favorability",
-                                        simple.getFavorabilityContainer().get(
-                                                player.getUUID()
-                                        )
-                                ))
-                                .setComponent(
-                                        RDDataComponentTypes.SHOW_ONLY.value(),
-                                        Unit.INSTANCE
-                                )
-                                .setCallback((index, type, action, basedGui) ->
-                                        SoundEventPlayUtils.playUISound(
-                                                player,
-                                                SoundEvents.UI_BUTTON_CLICK.value(),
-                                                1.0f,
-                                                1.0f
-                                        ));
-                    })
-                    .predicate(ofSimple())
-    );
+//    public static final NPCMenuType FAVORABILITY = registerMenuType(
+//            "favorability",
+//            new NPCMenuType()
+//                    .factory((player, npc, currentGui) -> {
+//                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+//
+//                        return new GuiElementBuilder()
+//                                .setItem(Items.APPLE)
+//                                .setName(Component.translatable(
+//                                        "gui.npc.info.favorability",
+//                                        simple.getFavorabilityContainer().get(
+//                                                player.getUUID()
+//                                        )
+//                                ))
+//                                .setComponent(
+//                                        RDDataComponentTypes.SHOW_ONLY.value(),
+//                                        Unit.INSTANCE
+//                                )
+//                                .setCallback((index, type, action, basedGui) ->
+//                                        SoundEventPlayUtils.playUISound(
+//                                                player,
+//                                                SoundEvents.UI_BUTTON_CLICK.value(),
+//                                                1.0f,
+//                                                1.0f
+//                                        ));
+//                    })
+//                    .predicate(ofSimple())
+//    );
     public static final NPCMenuType MODIFY_SKIN = registerMenuType("modify_skin",
             new NPCMenuType()
                     .factory((player, npc, currentGui) -> {
                         NPCSimpleEntity simple = (NPCSimpleEntity) npc;
 
                         GuiElementBuilder builder = new GuiElementBuilder();
-                        builder.setItem(Items.LEATHER_CHESTPLATE);
+                        builder.setItem(Items.RED_DYE);
                         builder.setItemName(Component.translatable("gui.npc.info.skin"));
                         builder.setCallback((i, clickType, containerInput, slotBasedGui) -> {
                             SoundEventPlayUtils.playUISound(
@@ -254,7 +252,24 @@ public class NPCMenuTypes {
                         return gameRules.get(RDBuiltInGameRules.FREE_CHOICE_OF_ROLE.value());
                     })
     );
+    @Nullable
     public static NPCMenuType MODIFY_MODEL;
+
+    public static List<Component> createBaseInfo(ServerPlayer player, BaseNPCLikeEntity entity) {
+        List<Component> components = new ArrayList<>();
+        if (!(entity instanceof NPCSimpleEntity npc)) {
+            return components;
+        }
+        components.add(Component.translatable("gui.npc.info.name", npc.getName().getString()));
+        components.add(Component.translatable("gui.npc.info.favorability", npc.getFavorabilityContainer().get(player.getUUID())));
+        components.add(Component.translatable("gui.npc.info.health", npc.getHealth(), npc.getMaxHealth()));
+        components.add(Component.translatable("gui.npc.info.armor", npc.getArmorValue()));
+        components.add(Component.translatable("gui.npc.info.food"));
+        components.add(Component.empty().append("- ").append(Component.translatable("gui.npc.info.food.nutrition", npc.getFoodData().getNutrition() + " / 20.0")));
+        components.add(Component.empty().append("- ").append(Component.translatable("gui.npc.info.food.saturation", npc.getFoodData().getSaturation() + " / 20.0")));
+
+        return components;
+    }
 
     public static NPCMenuType registerMenuType(String name, NPCMenuType menuType) {
         return registerMenuType(ReverieDreams.id(name), menuType);

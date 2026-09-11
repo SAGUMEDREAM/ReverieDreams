@@ -5,17 +5,27 @@ import cc.thonly.reverie_dreams.data.npc.NPCState;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Items;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class NPCStates {
-    public static final NPCState FOLLOW = register(ReverieDreams.id("follow"), new NPCState("follow"));
-    public static final NPCState NORMAL = register(ReverieDreams.id("normal"), new NPCState("normal"));
-    public static final NPCState NO_WALK = register(ReverieDreams.id("no_walk"), new NPCState("no_walk"));
+    public static final NPCState FOLLOW = register(ReverieDreams.id("follow"), new NPCState("follow")
+            .withIcon(Items.IRON_BOOTS)
+    );
+    public static final NPCState NORMAL = register(ReverieDreams.id("normal"), new NPCState("normal")
+            .withIcon(Items.DIAMOND)
+    );
+    public static final NPCState NO_WALK = register(ReverieDreams.id("no_walk"), new NPCState("no_walk")
+            .withIcon(Items.CHEST)
+    );
     public static final NPCState SNAKING = register(ReverieDreams.id("sneaking"), new NPCState("sneaking")
+            .withIcon(Items.OAK_FENCE)
             .withStarted((npc, state) -> {
                 if (!npc.getNpcState().equals(NPCStates.SNAKING)) {
                     return;
@@ -29,12 +39,16 @@ public class NPCStates {
                 npc.setShiftKeyDown(false);
             })
     );
-    public static final NPCState SEATED = register(ReverieDreams.id("seated"), new NPCState("seated"));
-    public static final NPCState WORKING = register(ReverieDreams.id("working"), new NPCState("working").withStop((npc, state) -> {
-        if (npc.isPassenger() && npc.getNpcState().equals(NPCStates.WORKING)) {
-            npc.stopRiding();
-        }
-    }));
+    public static final NPCState SEATED = register(ReverieDreams.id("seated"), new NPCState("seated")
+            .withIcon(Items.OAK_STAIRS)
+    );
+    public static final NPCState WORKING = register(ReverieDreams.id("working"), new NPCState("working")
+            .withIcon(Items.IRON_PICKAXE)
+            .withStop((npc, state) -> {
+                if (npc.isPassenger() && npc.getNpcState().equals(NPCStates.WORKING)) {
+                    npc.stopRiding();
+                }
+            }));
     public static final Map<Integer, NPCState> DEFAULT_RAW_ID2STATE = new HashMap<>(
             Map.of(
                     0, FOLLOW,

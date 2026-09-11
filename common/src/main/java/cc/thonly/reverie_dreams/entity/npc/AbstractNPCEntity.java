@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractNPCEntity extends TamableAnimal implements ClientNPCSimulator, NPCMorphData {
+public abstract class AbstractNPCEntity extends TamableAnimal implements ClientNPCSimulator, NPCSparkMorphEntity {
     public static final EntityDataAccessor<String> YSM_MODEL_ID =
             SynchedEntityData.defineId(
                     AbstractNPCEntity.class,

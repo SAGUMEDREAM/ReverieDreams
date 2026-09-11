@@ -30,7 +30,6 @@ public record C2SSetNPCModelPacket(int npcId, String modelId, String textureId) 
         return new C2SSetNPCModelPacket(buf.readVarInt(), buf.readUtf(), buf.readUtf());
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     public static void handle(C2SSetNPCModelPacket message, PacketContext ctx) {
         if (ctx.isServerSide()) {
             ctx.enqueueWork(() -> {
