@@ -54,7 +54,7 @@ dependencies {
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
 //    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${rrv_version}+${minecraft_version}")
     // YSM
-    compileOnly "maven.modrinth:jQtfvgHC:WnFrie20"
+    compileOnly("maven.modrinth:jQtfvgHC:FhwRwwMJ")
     compileOnly(project(":neoforge").files("/libs/Placebo-26.1.2-10.0.2.jar"))
     // Lootr
     compileOnly "maven.modrinth:EltpO5cN:yUf7Q96A"

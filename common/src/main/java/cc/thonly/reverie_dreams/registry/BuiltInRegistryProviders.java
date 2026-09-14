@@ -320,7 +320,11 @@ public class BuiltInRegistryProviders {
             Optional<RegistryProviderFactory> registryProviderFactoryOptional = PlatformProxies.REGISTRY_PROVIDER_FACTORY;
             if (registryProviderFactoryOptional.isPresent()) {
                 RegistryProviderFactory registryProviderFactory = registryProviderFactoryOptional.get();
-                return registryProviderFactory.apply(key);
+                RegistryProvider<?> provider = registryProviderFactory.apply(key);
+                MCBuiltInRegistries.REGISTRY_BUILDER.ifPresent(builder -> {
+                    builder.addBuilder(key.identifier(), () -> provider);
+                });
+                return provider;
             }
             return null;
         });

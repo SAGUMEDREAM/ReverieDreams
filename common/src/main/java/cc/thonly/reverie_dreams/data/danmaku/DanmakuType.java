@@ -104,7 +104,7 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
                     DanmakuItem item = new DanmakuItem(new Item.Properties()
                             .setId(RDItems.keyOf(this.getItemId().getPath()))
                             .component(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())
-                            .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
+                            .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.2f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
                             .durability(120)
                             .repairable(RDItemTags.POWER_BLOCK)
                             .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))

@@ -34,6 +34,7 @@ public class DanmakuTypes {
     public static final DanmakuType BIG_LASER = registerType(ReverieDreams.id("big_laser"), RDDamageTypes.DANMAKU_GENERIC, 4f, 1.5f, 1.2f, false, false).unlist();
 
     public static DanmakuType registerType(Identifier key, ResourceKey<DamageType> damageTypeKey, float damage, float scale, float speed, boolean tile, boolean infinite) {
+        speed = speed * 2;
         return BuiltInRegistryProviders.registerForBuiltin(BuiltInRegistryProviders.DANMAKU_TYPE, key, new DanmakuType(key, damageTypeKey, damage, scale, speed, tile, infinite));
     }
 

@@ -24,7 +24,6 @@ public class NPCCompanionEntity extends NPCSimpleEntity {
         super(entityType, world);
     }
 
-
     @Override
     protected void registerGoals() {
         super.registerGoals();

@@ -120,24 +120,21 @@ public class NPCHoneycombHarvestingGoal extends Goal {
 
         ServerLevel serverLevel = getServerLevel(this.roleEntity);
 
-        Map<Long, BaseNPCLikeEntity> map =
-                EXCLUSIONS.computeIfAbsent(
-                        serverLevel,
-                        x -> new HashMap<>()
-                );
+        Map<Long, BaseNPCLikeEntity> map = EXCLUSIONS.computeIfAbsent(
+                serverLevel,
+                x -> new HashMap<>()
+        );
 
         for (BlockPos blockPos : blockPoses) {
             BlockState blockState = serverLevel.getBlockState(blockPos);
 
             if (!(blockState.getBlock() instanceof BeehiveBlock)
-                    || blockState.getValue(BeehiveBlock.HONEY_LEVEL)
-                    < BeehiveBlock.MAX_HONEY_LEVELS) {
+                    || blockState.getValue(BeehiveBlock.HONEY_LEVEL) < BeehiveBlock.MAX_HONEY_LEVELS) {
                 continue;
             }
 
             if (this.exclusive && map.containsKey(blockPos.asLong())) {
-                BaseNPCLikeEntity owner =
-                        map.get(blockPos.asLong());
+                BaseNPCLikeEntity owner = map.get(blockPos.asLong());
 
                 if (owner != this.roleEntity) {
                     continue;
@@ -165,28 +162,25 @@ public class NPCHoneycombHarvestingGoal extends Goal {
                 this.roleEntity,
                 this.workMode
         )) {
-            releaseCurrentTarget(serverLevel);
+            this.releaseCurrentTarget(serverLevel);
             return;
         }
 
         BlockPos nextTarget = this.findNextTarget();
-
         if (nextTarget != null
                 && this.currentTarget != null
                 && !this.currentTarget.equals(nextTarget)) {
 
-            releaseCurrentTarget(serverLevel);
+            this.releaseCurrentTarget(serverLevel);
         }
 
         this.currentTarget = nextTarget;
-
         if (this.currentTarget == null) {
             return;
         }
 
         BlockPos target = this.currentTarget;
-
-        if (!isReached(target)) {
+        if (!this.isReached(target)) {
             this.roleEntity.getNavigation().moveTo(
                     target.getX() + 0.5D,
                     target.getY() + 0.5D,
@@ -207,15 +201,7 @@ public class NPCHoneycombHarvestingGoal extends Goal {
             return;
         }
 
-        /*
-         * 到达蜂巢后确保手里有可用工具：
-         *
-         * 1. 优先使用主手
-         * 2. 其次使用副手
-         * 3. 如果双手都没有，则从背包寻找
-         */
         InteractionHand hand = findOrTakeHarvestTool();
-
         if (hand == null) {
             return;
         }
@@ -227,9 +213,7 @@ public class NPCHoneycombHarvestingGoal extends Goal {
         );
 
         try {
-            BeehiveBlockProxy proxy =
-                    (BeehiveBlockProxy) block;
-
+            BeehiveBlockProxy proxy = (BeehiveBlockProxy) block;
             proxy.reverie_dreams$onInteractUse(
                     this.roleEntity,
                     serverLevel,
@@ -258,7 +242,7 @@ public class NPCHoneycombHarvestingGoal extends Goal {
 
     /**
      * 查找 NPC 当前可用的采集工具。
-     *
+     * <p>
      * 优先级：
      * 主手剪刀
      * 主手玻璃瓶
@@ -326,7 +310,7 @@ public class NPCHoneycombHarvestingGoal extends Goal {
 
     /**
      * 把背包中的物品移动到主手。
-     *
+     * <p>
      * 如果主手为空，直接交换。
      * 如果主手有其它物品，则将主手物品放回原背包槽位，
      * 再将目标物品拿到主手。

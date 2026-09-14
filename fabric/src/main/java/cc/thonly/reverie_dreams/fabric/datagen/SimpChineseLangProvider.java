@@ -98,6 +98,8 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("item_view.information.desc.fishing", "获取方式：通过钓鱼获得");
         translationBuilder.add("item_view.information.desc.truffle", "获取方式：破坏橡木/白桦/深色橡木/云杉原木获得");
 
+        translationBuilder.add("reverie_dreams.key.stg_camera", "STG射击视角模式");
+
         this.generateItemTranslations(wrapperLookup, translationBuilder);
         this.generateBlockTranslations(wrapperLookup, translationBuilder);
         this.generateFumoTranslations(wrapperLookup, translationBuilder);
@@ -2410,6 +2412,32 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
                 
                 玩家可以手持木桶对村民右键，将其转职为酒馆老板。
                 """);
+        translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.BASIC_BEVERAGE), "酒水酿造");
+        translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.BASIC_BEVERAGE), """
+                §a酿酒系统§r是本 Mod 中用于制作酒水与其他饮品的加工系统，主要通过§e酿酒桶§r完成。玩家可以将不同的原材料按照配方投入酿酒桶中，并经过一定时间的酿造后获得对应的成品。
+                大部分饮品都拥有不同的§e酒水属性§r，属性包括§e无酒精§r、§e低度酒§r、§e中度酒§r、§e高度酒§r、§e鸡尾酒§r、§e西洋酒§r、§e果味§r、§e甜味§r、§e苦味§r、§e烧酒§r、§e日本酒§r、§e辛辣§r、§e气泡§r、§e啤酒§r、§e直接饮用§r、§e利口酒§r、§e清爽§r、§e古典§r以及§e现代§r等。部分酒水还具有§e可加冰§r或§e可加热§r等特性，不同属性可用于区分饮品的类型以及后续的玩法效果。
+                
+                -- 酿酒 --
+                
+                §e酿酒桶§r拥有九个材料槽位。玩家可以按照对应配方放入材料，当输入内容符合配方要求后即可开始酿造。
+                不同配方拥有不同的酿造时间。酿造过程中，材料会被消耗，并由酿酒桶持续记录当前的酿造进度。完成后，酿酒桶会储存对应数量的成品，玩家可以使用§e玻璃瓶§r将饮品逐份取出。
+                部分配方支持由其他模组提供的兼容材料进行等效替代，具体可用材料取决于配方本身。
+                
+                -- 效果合并 --
+                
+                酿酒桶在制作成品时，会对输入材料中携带的§e药水效果§r进行整合。
+                当不同材料拥有相同类型的药水效果时，系统会保留较高的效果等级，并在重复出现相同效果时进一步提高其等级；效果持续时间则根据输入材料中的较高值进行计算。
+                部分输入材料还可能携带§e食用效果§r。酿酒桶会将这些效果统一合并至最终饮品，使由多种材料制作的饮品能够继承其对应的效果。
+                最终成品原有的食用方式与效果不会被完全覆盖，原本存在的效果会与材料带来的效果共同加入成品。
+                
+                -- 成品 --
+                
+                酿造完成后，酿酒桶会生成对应的§e饮品成品§r，并暂存在输出槽中。
+                玩家手持§e玻璃瓶§r与酿酒桶交互即可取出一份饮品。若背包空间不足，成品会掉落在玩家附近。
+                §e非玩家生物§r同样可以从酿酒桶中取出成品，并将获得的饮品加入自身物品栏；当物品栏无法容纳时，成品会以掉落物的形式生成。
+                当酿酒桶中的所有成品均被取出后，输出状态会自动清空，并可继续投入新的材料进行酿造。
+                
+                """);
         translationBuilder.add(BookPageManagerImpl.titleLangKey(DefaultBookPages.OTHER_COMPAT), "Mod 兼容");
         translationBuilder.add(BookPageManagerImpl.contentLangKey(DefaultBookPages.OTHER_COMPAT), """
                 §f本页面用于列出与本模组相关的其他模组兼容情况及推荐搭配。
@@ -2423,6 +2451,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
                 - JEI ：提供配方与物品列表查询功能
                 - REI ：提供配方与物品列表查询功能
                 - RRV ：提供配方与物品列表查询功能
+                - Jade ：提供方块/实体状态显示
                 
                 -- 兼容 --
                 
@@ -2430,6 +2459,7 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
                 
                 - Create Fly ：为角色伙伴添加摇曲柄相关功能
                 - PolyFactory ：为角色伙伴添加摇曲柄相关功能
+                - Sparkle's Morpher ：为角色伙伴添加 YSM 模型替换功能
                 - Polymer Patch For Gensokyo: Reverie of Lost Dreams ：为仅服务端运行环境添加了支持
                 
                 以下模组可为烹饪系统提供额外兼容食材或配方支持：

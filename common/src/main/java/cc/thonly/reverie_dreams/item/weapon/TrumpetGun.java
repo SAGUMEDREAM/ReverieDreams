@@ -36,7 +36,7 @@ public class TrumpetGun extends Item implements IDanmakuItem {
                 world.playSound(null, user.getOnPos(), RDSoundEvents.FIRE.value(), SoundSource.HOSTILE, 1.0f, 1.0f);
             });
             ItemCooldowns itemCooldownManager = player.getCooldowns();
-            itemCooldownManager.addCooldown(stack, 35);
+            itemCooldownManager.addCooldown(stack, 10);
             if (!player.hasInfiniteMaterials()) {
                 stack.hurtWithoutBreaking(1, player);
             }

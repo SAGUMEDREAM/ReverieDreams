@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.client.NPCScreen;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
 import cc.thonly.reverie_dreams.data.npc.NPCMenuType;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
+import cc.thonly.reverie_dreams.neoforge.compat.ysm.ClientInvoker;
 import cc.thonly.reverie_dreams.neoforge.compat.ysm.network.C2SSetNPCModelPacket;
 import cc.thonly.reverie_dreams.neoforge.compat.ysm.network.C2SYsmScreenPacket;
 import cc.thonly.reverie_dreams.registry.content.NPCMenuTypes;
@@ -33,7 +34,7 @@ public class SparkleMorpherCompatImpl {
         try {
             YsmHolder.setInitialized();
             NetworkManager.registerReceiver(NetworkManager.Side.S2C, C2SYsmScreenPacket.PACKET_ID, C2SYsmScreenPacket.CODEC, (packet, context) -> {
-                ClientNetworkingHandlers.safeHandleClient(() -> openScreen(packet.entityId()));
+                ClientNetworkingHandlers.safeHandleClient(() -> ClientInvoker.openScreen(packet.entityId()));
             });
             YSMChannel.register(getPacket_offset(24), C2SSetNPCModelPacket.class, C2SSetNPCModelPacket::encode, C2SSetNPCModelPacket::decode, C2SSetNPCModelPacket::handle, PacketDirection.PLAY_TO_SERVER);
             NPCMenuTypes.MODIFY_MODEL = NPCMenuTypes.registerMenuType("modify_model",
@@ -72,22 +73,6 @@ public class SparkleMorpherCompatImpl {
             throw new IllegalArgumentException("%s > 256".formatted(i));
         }
         return i;
-    }
-
-    public static void openScreen(int entityId) {
-        Minecraft instance = Minecraft.getInstance();
-        Screen parent = instance.screen;
-//        resetMorpherModelScreenState();
-        ModernPlayerModelScreen screen = new ModernPlayerModelScreen(parent, (modelId, texture) -> NetworkHandler.sendToServer(new C2SSetNPCModelPacket(entityId, modelId, texture))) {
-            @Override
-            public void onClose() {
-                super.onClose();
-//                resetMorpherModelScreenState();
-            }
-        };
-        NPCScreen npcScreen = (NPCScreen) screen;
-        npcScreen.reverie_dreams$setApplyForNPC(true);
-        instance.setScreen(screen);
     }
 
     private static void resetMorpherModelScreenState() {

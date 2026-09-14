@@ -48,7 +48,7 @@ dependencies {
     compileOnly("de.tomalbrc:blockbench-import-library:${bil_version}")
     compileOnly("eu.pb4:booklet:${booklet_version}")
     // YSM
-    compileOnly("maven.modrinth:jQtfvgHC:bwYqQRng")
+    compileOnly("maven.modrinth:jQtfvgHC:FJTjrHQu")
     compileOnly files('libs/camera-obscura-1.2.3+26.1.jar')
     implementation include("eu.pb4:sgui:[${sgui_fabric_version}]")
 //    implementation files('libs/camera-obscura-2.0.0-beta.1+26.1-release.jar')

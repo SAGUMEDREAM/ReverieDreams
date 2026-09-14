@@ -20,6 +20,7 @@ public class DefaultBookPages {
     public static final Identifier BASIC_FUMO_TUTORIAL = key("basic/fumo_tutorial");
     public static final Identifier BASIC_ROLE_AND_PARTNER = key("basic/role_and_partner");
     public static final Identifier BASIC_TOUHOU_MYSTIA = key("basic/touhou_mystia");
+    public static final Identifier BASIC_BEVERAGE = key("basic/beverage");
     public static final Identifier OTHER_COMPAT = key("other/compat");
 
     public static synchronized void initialize() {
@@ -92,6 +93,16 @@ public class DefaultBookPages {
             builder.prev(rootId);
             return builder;
         });
+        manager.register(BASIC_BEVERAGE, registryAccess -> {
+            BookPageBuilder builder = BookPage.builder(registryAccess);
+            builder.key(BASIC_BEVERAGE);
+            builder.common(common -> {
+                common.title(builder.getTitleKey(BASIC_BEVERAGE));
+                common.addTextBody(builder.getContentKey(BASIC_BEVERAGE));
+            });
+            builder.prev(rootId);
+            return builder;
+        });
         manager.register(OTHER_COMPAT, registryAccess -> {
             BookPageBuilder builder = BookPage.builder(registryAccess);
             builder.key(OTHER_COMPAT);
@@ -109,6 +120,7 @@ public class DefaultBookPages {
         manager.bindItem(BASIC_FUMO_TUTORIAL, new ItemStackTemplate(RDItems.FUMO_ICON.asItem()));
         manager.bindItem(BASIC_ROLE_AND_PARTNER, RoleCards.KOUMAKYOU.getTemplate());
         manager.bindItem(BASIC_TOUHOU_MYSTIA, new ItemStackTemplate(RDItems.MYSTIA_ICON.asItem()));
+        manager.bindItem(BASIC_BEVERAGE, new ItemStackTemplate(RDBlocks.BREWING_BARREL.asItem()));
         manager.bindItem(OTHER_COMPAT, new ItemStackTemplate(Items.COMMAND_BLOCK));
     }
 

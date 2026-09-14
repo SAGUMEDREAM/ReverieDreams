@@ -83,7 +83,7 @@ public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, Cha
         //        this.goalSelector.add(4, this.bowAttackGoal);
         //        this.goalSelector.add(4, this.meleeAttackGoal);
 
-        this.goalSelector.addGoal(6, new NPCFollowOwnerGoal(this, 1.0, 2.0f, 10.0f));
+        this.goalSelector.addGoal(6, new NPCFollowOwnerGoal(this, 1.4, 2.0f, 16.0f));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(8, new NPCWanderAroundFarGoal(this, 1.0));
 

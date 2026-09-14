@@ -390,7 +390,7 @@ public class CommonEventHandlers {
             drinkProperties.forEach(property -> {
                 property.use((ServerLevel) level, livingEntity, itemStack);
             });
-            if (livingEntity instanceof ServerPlayer serverPlayer) {
+            if (livingEntity instanceof ServerPlayer serverPlayer && !drinkProperties.contains(BeverageProperties.ALCOHOL_FREE)) {
                 SimpleTriggerFactory.create(SimpleTriggerKeys.HAVING_DRINK).trigger(serverPlayer);
             }
         }

@@ -1,6 +1,6 @@
-* Added full integration and compatibility support for Sparkle-Morpher
-* Merged additional UI information for NPC-type entities
-* Added a button in the NPC menu to open the YSM model selection UI
-* Merged the state mode selection into a dedicated submenu
-* Tamed NPCs now default to Follow Player mode
-* Added a Beehive Harvesting work mode
+* Fixed a server crash caused by OpenYSM compatibility.
+* Fixed a missing translation key for the Guidebook's Back button.
+* Added a Beverage Brewing page to the Guidebook.
+* Increased the speed of danmaku projectiles.
+* Most weapons have now been buffed.
+* Added a keybind for toggling STG Shooting Mode.

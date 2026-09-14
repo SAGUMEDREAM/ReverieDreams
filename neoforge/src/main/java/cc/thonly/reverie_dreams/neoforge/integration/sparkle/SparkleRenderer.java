@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.neoforge.integration.sparkle;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import com.micaftic.morpher.geckolib3.geo.GeoReplacedEntityRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
@@ -41,7 +42,7 @@ public class SparkleRenderer extends GeoReplacedEntityRenderer<BaseNPCLikeEntity
 
     @Override
     public boolean shouldShowName(BaseNPCLikeEntity entity) {
-        return entity.hasCustomName() && entity == this.entityRenderDispatcher.crosshairPickEntity;
+        return entity.hasCustomName() && entity == Minecraft.getInstance().crosshairPickEntity;
     }
 
     @Override

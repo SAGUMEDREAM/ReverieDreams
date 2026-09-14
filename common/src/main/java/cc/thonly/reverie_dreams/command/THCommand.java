@@ -1111,18 +1111,18 @@ public class THCommand {
                 "command.touhou.help.recipe",
                 "command.touhou.help.set_music",
 
-                "command.touhou.help.settings",
+//                "command.touhou.help.settings",
                 "command.touhou.help.settings_get",
                 "command.touhou.help.settings_set",
 
-                "command.touhou.help.resources",
+//                "command.touhou.help.resources",
                 "command.touhou.help.parse_midi",
                 "command.touhou.help.reload_config",
 
-                "command.touhou.help.registry",
+//                "command.touhou.help.registry",
                 "command.touhou.help.registry_tag",
 
-                "command.touhou.help.video",
+//                "command.touhou.help.video",
                 "command.touhou.help.video_play",
                 "command.touhou.help.video_reload",
 

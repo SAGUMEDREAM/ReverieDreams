@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
+import cc.thonly.reverie_dreams.server.DelayedTask;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import net.minecraft.server.level.ServerLevel;
@@ -20,6 +21,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.function.Supplier;
 
 public class HakureiCane extends SwordItem {
     public static final ToolMaterial HAKUREI_CANE = new ToolMaterial(RDBlockTags.EMPTY, 250, 4.0f, 3.5f, 5, ItemTags.IRON_TOOL_MATERIALS);
@@ -39,14 +42,21 @@ public class HakureiCane extends SwordItem {
             Vec3 look = user.getLookAngle();
             Vec3 right = look.cross(new Vec3(0, 1, 0)).normalize();
 
-            double offset = 0.5;
-            spawnDanmaku(serverWorld, user, 0, look, pitch, yaw);
-            spawnDanmaku(serverWorld, user, -offset, right, pitch, yaw);
-            spawnDanmaku(serverWorld, user, offset, right, pitch, yaw);
+            double offset = 1;
+            Runnable factory = () -> {
+                spawnDanmaku(serverWorld, user, 0, look, pitch, yaw);
+                spawnDanmaku(serverWorld, user, -offset, right, pitch, yaw + 1);
+                spawnDanmaku(serverWorld, user, offset, right, pitch, yaw - 1);
+                SoundEventPlayUtils.playSound(user, RDSoundEvents.FIRE.value(), SoundSource.NEUTRAL, 1.0f, 1.0f);
+            };
+            factory.run();
+            DelayedTask.createFromSecond(serverWorld.getServer(), 0.2f, ()->{
+                factory.run();
+                DelayedTask.createFromSecond(serverWorld.getServer(), 0.3f, factory);
+            });
 
-            SoundEventPlayUtils.playSound(user, RDSoundEvents.FIRE.value(), SoundSource.NEUTRAL, 1.0f, 1.0f);
             ItemCooldowns itemCooldownManager = player.getCooldowns();
-            itemCooldownManager.addCooldown(stack, 10);
+            itemCooldownManager.addCooldown(stack, 5);
             if (!player.hasInfiniteMaterials()) {
                 stack.hurtWithoutBreaking(1, player);
             }
@@ -56,7 +66,6 @@ public class HakureiCane extends SwordItem {
     }
 
     private void spawnDanmaku(ServerLevel world, Player user, double sideOffset, Vec3 right, float pitch, float yaw) {
-
         Vec3 pos = user.position().add(right.scale(sideOffset));
 
         DanmakuEntity danmaku = DanmakuTrajectory.spawnByItemStack(

@@ -91,7 +91,7 @@ public class Knife extends SwordItem implements IDanmakuItem {
         float pitch = user.getXRot();
         float yaw = user.getYRot();
         DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
-        properties = properties.withDamage(4.5f).withSpeed(1.5f);
+        properties = properties.withDamage(4.5f).withSpeed(3f);
 
         List<DanmakuEntity> list = new ArrayList<>();
         DanmakuEntity danmakuEntity = DanmakuEntity.create(

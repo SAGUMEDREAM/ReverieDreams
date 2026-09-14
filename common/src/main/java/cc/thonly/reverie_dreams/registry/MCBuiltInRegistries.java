@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.registry;
 
 import cc.thonly.keine.api.KeineAPI;
 import cc.thonly.keine.api.KeineRegistries;
+import cc.thonly.keine.api.proxy.PlatformProxy;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import com.google.common.base.Suppliers;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -27,12 +28,17 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "OptionalUsedAsFieldOrParameterType"})
 public class MCBuiltInRegistries {
     public static final List<DeferredRegister> REGISTERS = new ArrayList<>();
     public static final KeineRegistries KEINE_REGISTRIES = KeineAPI.getApi().getRegistries(ReverieDreams.MOD_ID);
+    public static final Optional<RegistryBuilderFactory> REGISTRY_BUILDER = PlatformProxy.<RegistryBuilderFactory>builder()
+            .withFabric("cc.thonly.reverie_dreams.fabric.impl.RegistryBuilderFactoryImpl")
+            .withNeoForge("cc.thonly.reverie_dreams.neoforge.impl.RegistryBuilderFactoryImpl")
+            .buildOrNull();
     public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(ReverieDreams.MOD_ID));
     public static final DeferredRegister<SoundEvent> SOUND_EVENT = get(Registries.SOUND_EVENT);
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPE = get(Registries.DATA_COMPONENT_TYPE);

@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
+import cc.thonly.reverie_dreams.api.creative_tab.CreativeModeTabOutputExtension;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.mixin.accessor.CreativeModeTabsAccessor;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -17,7 +18,7 @@ public class BaseCreativeTab implements ItemGroupContentHelper {
 
     }
 
-    public static void busInvoker(CreativeModeTab tab, CreativeModeTab.Output output) {
+    public static void busInvoker(CreativeModeTab tab, CreativeModeTabOutputExtension output) {
         final var tabId = BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab);
         if (CreativeModeTabsAccessor.getOpBlocks().identifier().equals(tabId)) {
             output.accept(RDItems.BATTLE_STICK.createStack());

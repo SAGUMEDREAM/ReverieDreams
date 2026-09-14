@@ -321,6 +321,10 @@ public abstract class RegistryProvider<T> implements WritableRegistry<T>, Regist
         });
     }
 
+    public TagKey<T> createTagKey(Identifier location) {
+        return TagKey.create(this.key, location);
+    }
+
     @Override
     public void bindTags(Map<TagKey<T>, List<Holder<T>>> pendingTags) {
         pendingTags.forEach((tag, registryEntries) -> {

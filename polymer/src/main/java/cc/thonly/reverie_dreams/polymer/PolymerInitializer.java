@@ -27,6 +27,7 @@ import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
 import com.geckolib.GeckoLibConstants;
 import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
@@ -42,6 +43,7 @@ import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -59,9 +61,10 @@ import org.jspecify.annotations.NonNull;
 import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.Iterator;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "unchecked"})
 @Slf4j
 public class PolymerInitializer {
     public static final String POLYMER_MOD_ID = "reverie_dreams_polymerify";
@@ -123,6 +126,9 @@ public class PolymerInitializer {
             Function<CreativeModeTab.Builder, CreativeModeTab.Builder> builderFunction = tuple.getB();
             PolymerCreativeModeTabUtils.registerPolymerCreativeModeTab(key, builderFunction.apply(ItemGroupContentHelper.builder()).build());
         }
+        BuiltInRegistryProviders.ROOT.forEach((key, registryProvider) -> {
+            RegistrySyncUtils.setServerEntry((Registry) BuiltInRegistries.REGISTRY, (Registry) registryProvider);
+        });
         PolymerComponent.registerDataComponent(GeckoLibConstants.STACK_ANIMATABLE_ID_COMPONENT.get());
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), DanmakuProperties.SERIALIZER);
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), SkinType.SERIALIZER);

@@ -116,7 +116,7 @@ public class BookPageManagerImpl implements BookPageManager {
             });
             builder.actions(action -> {
                 ActionBuilder actionBuilder = action.actionBuilder();
-                action.addButton(Component.literal("gui.reverie_dreams.close"), Optional.empty(), 180, Optional.empty());
+                action.addButton(Component.translatable("gui.reverie_dreams.close"), Optional.empty(), 180, Optional.empty());
             });
         });
         DialogBuilder dialogBuilder = dialogBuilderLazy.get();

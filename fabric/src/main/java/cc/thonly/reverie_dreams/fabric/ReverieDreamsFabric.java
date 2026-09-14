@@ -4,6 +4,7 @@ import cc.thonly.keine.fabric.FabricKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
+import cc.thonly.reverie_dreams.api.creative_tab.CreativeModeTabOutputExtension;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.api.registry.AliasManager;
 import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
@@ -20,6 +21,7 @@ import eu.pb4.placeholders.api.Placeholders;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
@@ -27,7 +29,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 import java.util.List;
@@ -53,7 +57,24 @@ public class ReverieDreamsFabric implements ModInitializer {
             ReverieDreams.BUS_LATE_INIT.clear();
             ReverieDreamsPolymerBridge.tryPolymerify();
             ReverieDreamsPluginLoader.run();
-            CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register(BaseCreativeTab::busInvoker);
+            CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register((tab, output) -> {
+                BaseCreativeTab.busInvoker(tab, new CreativeModeTabOutputExtension() {
+                    @Override
+                    public void insertAfter(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
+                        output.insertAfter(existingEntry, newEntry);
+                    }
+
+                    @Override
+                    public void insertBefore(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
+                        output.insertBefore(existingEntry, newEntry);
+                    }
+
+                    @Override
+                    public void accept(ItemStack stack, CreativeModeTab.TabVisibility tabVisibility) {
+                        output.accept(stack);
+                    }
+                });
+            });
             AliasManager.execute(Registries.ITEM, map -> map.forEach(BuiltInRegistries.ITEM::addAlias));
             AliasManager.execute(Registries.BLOCK, map -> map.forEach(BuiltInRegistries.BLOCK::addAlias));
             AliasManager.execute(Registries.ENTITY_TYPE, map -> map.forEach(BuiltInRegistries.ENTITY_TYPE::addAlias));

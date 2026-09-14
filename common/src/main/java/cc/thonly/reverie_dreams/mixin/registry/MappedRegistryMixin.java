@@ -35,5 +35,9 @@ public abstract class MappedRegistryMixin<T> implements SimpleRegistryFrozenModi
         this.frozen = value;
     }
 
+    @Override
+    public boolean reverie_dreams$isFrozen() {
+        return this.frozen;
+    }
 
 }
