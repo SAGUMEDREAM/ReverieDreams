@@ -29,13 +29,13 @@ public class VanillaCompat {
         FoodPropertiesLoaderCallback.EVENT.register(ctx -> {
             FoodProperty property = ctx.getProperty();
             Set<Item> items = ctx.getItems();
-            if (property.equals(FoodProperties.TOXIC)) {
+            if (property.is(FoodProperties.TOXIC)) {
                 items.add(Items.POISONOUS_POTATO);
             }
-            if (property.equals(FoodProperties.BIZARRE)) {
+            if (property.is(FoodProperties.BIZARRE)) {
                 items.add(Items.ROTTEN_FLESH);
             }
-            if (property.equals(FoodProperties.RAW)) {
+            if (property.is(FoodProperties.RAW)) {
                 items.add(Items.BROWN_EGG);
                 items.add(Items.BLUE_EGG);
                 items.add(Items.TURTLE_EGG);
@@ -49,19 +49,19 @@ public class VanillaCompat {
                 items.add(Items.TURTLE_EGG);
                 items.add(Items.SNIFFER_EGG);
             }
-            if (property.equals(FoodProperties.VEGETARIAN)) {
+            if (property.is(FoodProperties.VEGETARIAN)) {
                 items.add(Items.CARROT);
                 items.add(Items.BEETROOT);
                 items.add(Items.GOLDEN_DANDELION);
                 items.add(Items.DRIED_KELP);
             }
-            if (property.equals(FoodProperties.UNBELIEVABLE)) {
+            if (property.is(FoodProperties.UNBELIEVABLE)) {
                 items.add(Items.GOLDEN_DANDELION);
             }
-            if (property.equals(FoodProperties.SALTY)) {
+            if (property.is(FoodProperties.SALTY)) {
                 items.add(Items.SEA_PICKLE);
             }
-            if (property.equals(FoodProperties.MEAT)) {
+            if (property.is(FoodProperties.MEAT)) {
                 items.add(Items.CHICKEN);
                 items.add(Items.COOKED_CHICKEN);
                 items.add(Items.RABBIT);
@@ -70,7 +70,7 @@ public class VanillaCompat {
                 items.add(Items.COOKED_MUTTON);
                 items.add(Items.COOKED_PORKCHOP);
             }
-            if (property.equals(FoodProperties.FRUITY)) {
+            if (property.is(FoodProperties.FRUITY)) {
                 items.add(Items.APPLE);
                 items.add(Items.GOLDEN_APPLE);
                 items.add(Items.ENCHANTED_GOLDEN_APPLE);
@@ -79,7 +79,7 @@ public class VanillaCompat {
                 items.add(Items.GLOW_BERRIES);
                 items.add(Items.CHORUS_FRUIT);
             }
-            if (property.equals(FoodProperties.SWEET)) {
+            if (property.is(FoodProperties.SWEET)) {
                 items.add(Items.SWEET_BERRIES);
                 items.add(Items.GLOW_BERRIES);
                 items.add(Items.CAKE);
@@ -87,12 +87,12 @@ public class VanillaCompat {
                 items.add(Items.SUGAR);
                 items.add(Items.SUGAR_CANE);
             }
-            if (property.equals(FoodProperties.DREAMLIKE)) {
+            if (property.is(FoodProperties.DREAMLIKE)) {
                 items.add(Items.GLOW_BERRIES);
                 items.add(Items.GOLDEN_APPLE);
                 items.add(Items.ENCHANTED_GOLDEN_APPLE);
             }
-            if (property.equals(FoodProperties.AQUATIC_PRODUCTS)) {
+            if (property.is(FoodProperties.AQUATIC_PRODUCTS)) {
                 items.add(Items.COD);
                 items.add(Items.SALMON);
                 items.add(Items.TROPICAL_FISH);

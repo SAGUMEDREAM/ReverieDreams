@@ -63,7 +63,7 @@ public class GapGui extends SimpleGui {
                     case "I" -> {
                         if (index < MIN_INDEX || index > MAX_INDEX) break;
                         GapRecorder recorder = this.gapRecorders.get(index);
-                        setSlot(slot, new GuiElementBuilder(recorder.isEnable() ? Items.BARRIER : Items.ENDER_EYE)
+                        setSlot(slot, new GuiElementBuilder(recorder.enable() ? Items.BARRIER : Items.ENDER_EYE)
                                 .setName(Component.literal("传送" + index))
                                 .setCallback(click -> teleport(index)));
                     }
@@ -105,14 +105,14 @@ public class GapGui extends SimpleGui {
             if (recorder == null) {
                 return;
             }
-            boolean hasTarget = recorder.isEnable();
+            boolean hasTarget = recorder.enable();
             Item item = hasTarget ? Items.ENDER_EYE : Items.BARRIER;
 
             this.setSlot(slot, new GuiElementBuilder(item)
-                    .setName(Component.literal("传送 " + index + (hasTarget ? (" - " + recorder.getName()) : "（未记录）")))
+                    .setName(Component.literal("传送 " + index + (hasTarget ? (" - " + recorder.name()) : "（未记录）")))
                     .setLore(List.of(
-                            Component.literal("世界：" + recorder.getWorld()),
-                            Component.literal("世界：" + recorder.getValue().getX() + " " + recorder.getValue().getY() + " " + recorder.getValue().getZ())
+                            Component.literal("世界：" + recorder.world()),
+                            Component.literal("世界：" + recorder.value().getX() + " " + recorder.value().getY() + " " + recorder.value().getZ())
                     ))
                     .setCallback(click -> teleport(index)));
         }
@@ -121,10 +121,10 @@ public class GapGui extends SimpleGui {
     public void teleport(int index) {
         GapRecorder recorder = this.gapRecorders.get(index);
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-        if (recorder != null && recorder.isEnable()) {
-            BlockPos pos = recorder.getValue();
+        if (recorder != null && recorder.enable()) {
+            BlockPos pos = recorder.value();
             MinecraftServer server = this.player.level().getServer();
-            Identifier id = Identifier.parse(recorder.getWorld());
+            Identifier id = Identifier.parse(recorder.world());
             ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, id);
             ServerLevel targetWorld = server.getLevel(worldKey);
             if (targetWorld == null) {
@@ -139,7 +139,7 @@ public class GapGui extends SimpleGui {
                     this.player.getYRot(),
                     this.player.getXRot(),
                     true);
-            this.player.sendSystemMessage(Component.literal("已传送至：" + recorder.getName()), false);
+            this.player.sendSystemMessage(Component.literal("已传送至：" + recorder.name()), false);
             SoundEventPlayUtils.playSound(player, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 1.0f, 1.0f);
             SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
             this.player.getCooldowns().addCooldown(this.stack, 3 * 20);
@@ -165,7 +165,9 @@ public class GapGui extends SimpleGui {
         GapRecorder recorder = this.gapRecorders.get(index);
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (recorder != null) {
-            recorder.setEnable(false);
+            GapRecorder.GapRecorderBuilder builder = recorder.toBuilder();
+            builder.enable(false);
+            this.gapRecorders.set(index, builder.build());
             this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
             this.player.sendSystemMessage(Component.literal("已清除槽位 " + index), false);
             this.init();

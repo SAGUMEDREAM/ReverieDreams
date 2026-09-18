@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 @Setter
 @Getter
@@ -38,20 +39,24 @@ public class FoodProperty implements SerializableProvider<FoodProperty>, Registr
     public static final Codec<List<FoodProperty>> BY_REGISTRY_LIST_CODEC = Codec.lazyInitialized(BY_REGISTRY_CODEC::listOf);
 
     private Identifier id;
-    private final MobEffectInstance effectInstance;
+    private final Supplier<MobEffectInstance> effectInstanceFactory;
 
     private RegistryProvider<FoodProperty> owner;
 
     public FoodProperty() {
-        this.effectInstance = new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1));
+        this.effectInstanceFactory = () -> new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1));
     }
 
-    public FoodProperty(MobEffectInstance effectInstance) {
-        this.effectInstance = effectInstance;
+    public FoodProperty(MobEffectInstance mobEffectInstance) {
+        this.effectInstanceFactory = () -> new MobEffectInstance(mobEffectInstance);
+    }
+
+    public FoodProperty(Supplier<MobEffectInstance> effectInstanceFactory) {
+        this.effectInstanceFactory = effectInstanceFactory;
     }
 
     public final void use(ServerLevel world, LivingEntity user, ItemStack itemStack) {
-        MobEffectInstance effectInstance = new MobEffectInstance(this.effectInstance);
+        MobEffectInstance effectInstance = this.effectInstanceFactory.get();
         user.addEffect(effectInstance);
         FoodPropertyItemUseCallback.EVENT.invoker().onUse(world, user, itemStack, this);
         this.onUse(world, user);
@@ -86,7 +91,7 @@ public class FoodProperty implements SerializableProvider<FoodProperty>, Registr
     public String toString() {
         return "FoodProperty{" +
                 "id=" + id +
-                ", effectInstance=" + effectInstance +
+                ", effectInstance=" + effectInstanceFactory +
                 '}';
     }
 

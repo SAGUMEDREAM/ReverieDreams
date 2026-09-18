@@ -29,18 +29,18 @@ public class BattleStickItem extends Item {
         if (!(user instanceof ServerPlayer serverPlayer)) return InteractionResult.SUCCESS;
 
         BattleStickRecorder recorder = stack.getOrDefault(RDDataComponentTypes.BATTLE_STICK_RECORDER.value(), new BattleStickRecorder("", ""));
-
+        BattleStickRecorder.BattleStickRecorderBuilder builder = recorder.toBuilder();
         String uuid = entity.getUUID().toString();
-        if (recorder.getTarget_0().isEmpty()) {
-            recorder.setTarget_0(uuid);
+        if (recorder.target_0().isEmpty()) {
+            builder.target_0(uuid);
             serverPlayer.sendSystemMessage(Component.literal("已记录第一个目标：" + entity.getName().getString()), false);
-        } else if (recorder.getTarget_1().isEmpty()) {
-            recorder.setTarget_1(uuid);
+        } else if (recorder.target_1().isEmpty()) {
+            builder.target_1(uuid);
             serverPlayer.sendSystemMessage(Component.literal("已记录第二个目标：" + entity.getName().getString()), false);
-            this.apply(recorder.getTarget_0(), recorder.getTarget_1(), (ServerLevel) world);
+            this.apply(recorder.target_0(), recorder.target_1(), (ServerLevel) world);
 
-            recorder.setTarget_0("");
-            recorder.setTarget_1("");
+            builder.target_0("");
+            builder.target_1("");
         }
 
         stack.set(RDDataComponentTypes.BATTLE_STICK_RECORDER.value(), recorder);

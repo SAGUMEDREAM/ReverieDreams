@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Setter
 @Getter
@@ -39,19 +40,23 @@ public class BeverageProperty implements SerializableProvider<BeverageProperty>,
     public static final Codec<List<BeverageProperty>> BY_REGISTRY_LIST_CODEC = Codec.lazyInitialized(COMPONENT_CODEC::listOf);
 
     private Identifier id;
-    private final MobEffectInstance effectInstance;
+    private final Supplier<MobEffectInstance> effectInstanceFactory;
     private RegistryProvider<BeverageProperty> owner;
 
     public BeverageProperty() {
-        this(new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1)));
+        this(() -> new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1)));
     }
 
-    public BeverageProperty(MobEffectInstance effectInstance) {
-        this.effectInstance = effectInstance;
+    public BeverageProperty(MobEffectInstance mobEffectInstance) {
+        this.effectInstanceFactory = () -> new MobEffectInstance(mobEffectInstance);
+    }
+
+    public BeverageProperty(Supplier<MobEffectInstance> mobEffectInstanceFactory) {
+        this.effectInstanceFactory = mobEffectInstanceFactory;
     }
 
     public final void use(ServerLevel world, LivingEntity user, ItemStack itemStack) {
-        MobEffectInstance effectInstance = new MobEffectInstance(this.effectInstance);
+        MobEffectInstance effectInstance = this.effectInstanceFactory.get();
         user.addEffect(effectInstance);
         List<MobEffectInstance> effectInstances = new ArrayList<>();
         List<MobEffectInstance> negativeEffectInstances = new ArrayList<>();
@@ -83,7 +88,7 @@ public class BeverageProperty implements SerializableProvider<BeverageProperty>,
     @Override
     public String toString() {
         return "BeverageProperty{" +
-                "effectInstance=" + effectInstance +
+                "effectInstance=" + effectInstanceFactory +
                 ", id=" + id +
                 '}';
     }
