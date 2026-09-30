@@ -5,21 +5,16 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
 import cc.thonly.reverie_dreams.api.ReverieDreamsExtension;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
-import cc.thonly.reverie_dreams.api.creative_tab.CreativeModeTabOutputExtension;
+import cc.thonly.reverie_dreams.api.creative_tab.ICreativeModeTabOutputExtension;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.api.registry.AliasManager;
 import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
-import cc.thonly.reverie_dreams.neoforge.impl.NeoMergeRegistry;
-import cc.thonly.reverie_dreams.neoforge.impl.NeoRegistryProvider;
 import cc.thonly.reverie_dreams.neoforge.impl.RegistryBuilderFactoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
@@ -38,8 +33,6 @@ import net.neoforged.neoforgespi.language.ModFileScanData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 
 @Slf4j
 @Mod(ReverieDreams.MOD_ID)
@@ -99,7 +92,7 @@ public class ReverieDreamsNeoForge {
     @SubscribeEvent
     public static void onCreativeTabEvent(BuildCreativeModeTabContentsEvent event) {
         CreativeModeTab tab = event.getTab();
-        BaseCreativeTab.busInvoker(tab, new CreativeModeTabOutputExtension() {
+        BaseCreativeTab.busInvoker(tab, new ICreativeModeTabOutputExtension() {
             @Override
             public void insertAfter(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
                 event.insertAfter(existingEntry, newEntry, visibility);

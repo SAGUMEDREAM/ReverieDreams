@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.dialog;
+package cc.thonly.reverie_dreams.server.dialog.video;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

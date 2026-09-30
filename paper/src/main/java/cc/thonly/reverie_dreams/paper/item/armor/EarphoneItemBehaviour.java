@@ -8,13 +8,13 @@ import net.momirealms.craftengine.core.util.Key;
 
 import java.nio.file.Path;
 
-public class CrownOfTheUnderworldItem extends ItemBehavior {
-    public static final ItemBehaviorFactory<CrownOfTheUnderworldItem> FACTORY = new Factory();
+public class EarphoneItemBehaviour extends ItemBehavior {
+    public static final ItemBehaviorFactory<EarphoneItemBehaviour> FACTORY = new Factory();
 
-    public static class Factory implements ItemBehaviorFactory<CrownOfTheUnderworldItem> {
+    public static class Factory implements ItemBehaviorFactory<EarphoneItemBehaviour> {
         @Override
-        public CrownOfTheUnderworldItem create(Pack pack, Path path, Key key, ConfigSection configSection) {
-            return new CrownOfTheUnderworldItem();
+        public EarphoneItemBehaviour create(Pack pack, Path path, Key key, ConfigSection configSection) {
+            return new EarphoneItemBehaviour();
         }
     }
 }

@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.paper.registry;
 
-import cc.thonly.reverie_dreams.paper.registry.content.RDBlockBehaviours;
-import cc.thonly.reverie_dreams.paper.registry.content.RDItemBehaviours;
+import cc.thonly.reverie_dreams.paper.registry.content.BlockBehaviours;
+import cc.thonly.reverie_dreams.paper.registry.content.ItemBehaviours;
 
 public class InitHolder {
     private static boolean initialized = false;
@@ -10,8 +10,8 @@ public class InitHolder {
         if (initialized) {
             return;
         }
-        RDBlockBehaviours.initialize();
-        RDItemBehaviours.initialize();
+        BlockBehaviours.initialize();
+        ItemBehaviours.initialize();
         initialized = true;
     }
 }

@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.api.dialog;
 
-import cc.thonly.reverie_dreams.dialog.DialogFiles;
-import cc.thonly.reverie_dreams.dialog.DialogPlayer;
-import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
+import cc.thonly.reverie_dreams.server.dialog.video.DialogFiles;
+import cc.thonly.reverie_dreams.server.dialog.video.DialogPlayer;
+import cc.thonly.reverie_dreams.server.dialog.video.DialogPlayerManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;

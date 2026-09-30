@@ -8,13 +8,13 @@ import net.momirealms.craftengine.core.util.Key;
 
 import java.nio.file.Path;
 
-public class LowGravityBootItem extends ItemBehavior {
-    public static final ItemBehaviorFactory<LowGravityBootItem> FACTORY = new Factory();
+public class LowGravityBootItemBehaviour extends ItemBehavior {
+    public static final ItemBehaviorFactory<LowGravityBootItemBehaviour> FACTORY = new Factory();
 
-    public static class Factory implements ItemBehaviorFactory<LowGravityBootItem> {
+    public static class Factory implements ItemBehaviorFactory<LowGravityBootItemBehaviour> {
         @Override
-        public LowGravityBootItem create(Pack pack, Path path, Key key, ConfigSection configSection) {
-            return new LowGravityBootItem();
+        public LowGravityBootItemBehaviour create(Pack pack, Path path, Key key, ConfigSection configSection) {
+            return new LowGravityBootItemBehaviour();
         }
     }
 }

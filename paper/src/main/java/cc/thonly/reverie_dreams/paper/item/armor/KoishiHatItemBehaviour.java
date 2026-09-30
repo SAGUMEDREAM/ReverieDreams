@@ -8,13 +8,13 @@ import net.momirealms.craftengine.core.util.Key;
 
 import java.nio.file.Path;
 
-public class KoishiHatItem extends ItemBehavior {
-    public static final ItemBehaviorFactory<KoishiHatItem> FACTORY = new Factory();
+public class KoishiHatItemBehaviour extends ItemBehavior {
+    public static final ItemBehaviorFactory<KoishiHatItemBehaviour> FACTORY = new Factory();
 
-    public static class Factory implements ItemBehaviorFactory<KoishiHatItem> {
+    public static class Factory implements ItemBehaviorFactory<KoishiHatItemBehaviour> {
         @Override
-        public KoishiHatItem create(Pack pack, Path path, Key key, ConfigSection configSection) {
-            return new KoishiHatItem();
+        public KoishiHatItemBehaviour create(Pack pack, Path path, Key key, ConfigSection configSection) {
+            return new KoishiHatItemBehaviour();
         }
     }
 }

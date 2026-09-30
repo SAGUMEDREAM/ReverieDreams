@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.creative_tab.content;
 
-import cc.thonly.reverie_dreams.api.creative_tab.CreativeModeTabOutputExtension;
+import cc.thonly.reverie_dreams.api.creative_tab.ICreativeModeTabOutputExtension;
 import cc.thonly.reverie_dreams.item.base.AlbumItem;
 import cc.thonly.reverie_dreams.mixin.accessor.CreativeModeTabsAccessor;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -8,7 +8,6 @@ import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class BaseCreativeTab implements ItemGroupContentHelper {
 
     }
 
-    public static void busInvoker(CreativeModeTab tab, CreativeModeTabOutputExtension output) {
+    public static void busInvoker(CreativeModeTab tab, ICreativeModeTabOutputExtension output) {
         final var tabId = BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab);
         if (CreativeModeTabsAccessor.getOpBlocks().identifier().equals(tabId)) {
             output.accept(RDItems.BATTLE_STICK.createStack());

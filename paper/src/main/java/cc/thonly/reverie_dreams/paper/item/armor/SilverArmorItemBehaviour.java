@@ -8,13 +8,13 @@ import net.momirealms.craftengine.core.util.Key;
 
 import java.nio.file.Path;
 
-public class EarphoneItem extends ItemBehavior {
-    public static final ItemBehaviorFactory<EarphoneItem> FACTORY = new Factory();
+public class SilverArmorItemBehaviour extends ItemBehavior {
+    public static final ItemBehaviorFactory<SilverArmorItemBehaviour> FACTORY = new Factory();
 
-    public static class Factory implements ItemBehaviorFactory<EarphoneItem> {
+    public static class Factory implements ItemBehaviorFactory<SilverArmorItemBehaviour> {
         @Override
-        public EarphoneItem create(Pack pack, Path path, Key key, ConfigSection configSection) {
-            return new EarphoneItem();
+        public SilverArmorItemBehaviour create(Pack pack, Path path, Key key, ConfigSection configSection) {
+            return new SilverArmorItemBehaviour();
         }
     }
 }

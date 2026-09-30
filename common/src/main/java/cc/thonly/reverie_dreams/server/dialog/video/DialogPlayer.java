@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.dialog;
+package cc.thonly.reverie_dreams.server.dialog.video;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;

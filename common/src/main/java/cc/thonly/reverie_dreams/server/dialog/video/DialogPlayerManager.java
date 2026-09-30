@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.dialog;
+package cc.thonly.reverie_dreams.server.dialog.video;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.CompoundTag;

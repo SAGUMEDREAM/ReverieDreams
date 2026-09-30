@@ -8,13 +8,13 @@ import net.momirealms.craftengine.core.util.Key;
 
 import java.nio.file.Path;
 
-public class SilverArmor extends ItemBehavior {
-    public static final ItemBehaviorFactory<SilverArmor> FACTORY = new Factory();
+public class DreamArmorItemBehaviour extends ItemBehavior {
+    public static final ItemBehaviorFactory<DreamArmorItemBehaviour> FACTORY = new Factory();
 
-    public static class Factory implements ItemBehaviorFactory<SilverArmor> {
+    public static class Factory implements ItemBehaviorFactory<DreamArmorItemBehaviour> {
         @Override
-        public SilverArmor create(Pack pack, Path path, Key key, ConfigSection configSection) {
-            return new SilverArmor();
+        public DreamArmorItemBehaviour create(Pack pack, Path path, Key key, ConfigSection configSection) {
+            return new DreamArmorItemBehaviour();
         }
     }
 }

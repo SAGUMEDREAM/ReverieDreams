@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.server;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.dialog.DialogPlayerManager;
+import cc.thonly.reverie_dreams.server.dialog.video.DialogPlayerManager;
 import cc.thonly.reverie_dreams.gui.entity.NPCSkinGui;
 import cc.thonly.reverie_dreams.registry.content.RoleCards;
 import com.mojang.authlib.GameProfile;

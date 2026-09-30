@@ -13,16 +13,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class RegistryImpl<T> extends AbstractMappedRegistry<T> {
+public class RegistryProvider<T> extends AbstractMappedRegistry<T> {
     private ResourceKey<T> defaultKey = null;
     private final Map<Key, T> byKey;
 
-    public RegistryImpl(ResourceKey<? extends Registry<T>> key) {
+    public RegistryProvider(ResourceKey<? extends Registry<T>> key) {
         super(key, 128, true);
         this.byKey = new ConcurrentHashMap<>(128);
     }
 
-    public RegistryImpl<T> defaultKey(ResourceKey<T> defaultKey) {
+    public RegistryProvider<T> defaultKey(ResourceKey<T> defaultKey) {
         this.defaultKey = defaultKey;
         return this;
     }

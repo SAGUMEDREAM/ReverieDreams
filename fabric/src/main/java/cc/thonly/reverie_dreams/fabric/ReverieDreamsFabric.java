@@ -4,38 +4,28 @@ import cc.thonly.keine.fabric.FabricKeine;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPluginLoader;
 import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
-import cc.thonly.reverie_dreams.api.creative_tab.CreativeModeTabOutputExtension;
+import cc.thonly.reverie_dreams.api.creative_tab.ICreativeModeTabOutputExtension;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.api.registry.AliasManager;
 import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.fabric.api.ReverieDreamsPolymerBridge;
 import cc.thonly.reverie_dreams.fabric.compat.ReverieDreamsFabricCompats;
-import cc.thonly.reverie_dreams.fabric.impl.FabricRegistryProvider;
-import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import com.mojang.serialization.Lifecycle;
 import eu.pb4.placeholders.api.PlaceholderResult;
 import eu.pb4.placeholders.api.Placeholders;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 @Slf4j
 public class ReverieDreamsFabric implements ModInitializer {
@@ -58,7 +48,7 @@ public class ReverieDreamsFabric implements ModInitializer {
             ReverieDreamsPolymerBridge.tryPolymerify();
             ReverieDreamsPluginLoader.run();
             CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register((tab, output) -> {
-                BaseCreativeTab.busInvoker(tab, new CreativeModeTabOutputExtension() {
+                BaseCreativeTab.busInvoker(tab, new ICreativeModeTabOutputExtension() {
                     @Override
                     public void insertAfter(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
                         output.insertAfter(existingEntry, newEntry);
