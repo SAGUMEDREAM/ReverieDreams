@@ -14,6 +14,7 @@ import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.gui.entity.NPCGui;
 import cc.thonly.reverie_dreams.item.base.CustomSkinSelectorItem;
 import cc.thonly.reverie_dreams.item.prop.SoulCardItem;
+import cc.thonly.reverie_dreams.openai.ProviderRegistry;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
@@ -319,6 +320,9 @@ public class NPCLikeInteractionEvents {
             return NPCInteractResult.PASS;
         }
         if (ReverieDreams.config().apiKey.isEmpty() || ReverieDreams.config().apiUrl.isEmpty()) {
+            return handleGenericChat(world, player, stack, hand, entity);
+        }
+        if (ProviderRegistry.get(ReverieDreams.config().chatType) == null) {
             return handleGenericChat(world, player, stack, hand, entity);
         }
         if (entity instanceof ChatAIEntity chatAIEntity) {

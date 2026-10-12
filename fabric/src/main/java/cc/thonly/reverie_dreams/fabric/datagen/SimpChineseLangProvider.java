@@ -160,6 +160,9 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("gui.reverie_dreams.close", "关闭");
         translationBuilder.add("gui.reverie_dreams.input_request", "请输入内容：");
         translationBuilder.add("gui.reverie_dreams.send", "发送");
+        translationBuilder.add("gui.reverie_dreams.ai_thinking", "§e%s 正在思考…");
+        translationBuilder.add("gui.reverie_dreams.ai_busy", "还在思考中，请稍候…");
+        translationBuilder.add("gui.reverie_dreams.ai_error", "AI 没有回应，请稍后再试。");
         translationBuilder.add("gui.reverie_dreams.custom_skin_selector.title", "第三方皮肤选择");
 //        translationBuilder.add("gui.npc.woke.mode.disable", "工作原点位置");
 
@@ -2303,6 +2306,12 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add("text.autoconfig.reverie_dreams.option.model.@Tooltip", "Set Chat API Model");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.chatType", "Set Chat API Type: openai/deepseek/gemini/claude");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.chatType.@Tooltip", "AI Chat Type");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxChatHistory", "对话历史上限");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxChatHistory.@Tooltip", "每位玩家与每个 NPC 保留的对话消息数量（含系统提示）");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxTokens", "回复长度上限（Token）");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.maxTokens.@Tooltip", "单次 AI 回复的最大长度（0 = 使用供应商默认值）");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.temperature", "AI 温度");
+        translationBuilder.add("text.autoconfig.reverie_dreams.option.temperature.@Tooltip", "AI 回复的采样温度");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.autoUpdateItemTag", "Enable Auto Refresh Item Tag");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.autoUpdateItemTag.@Tooltip", "Toggle to Enable Auto Refresh Item Tag");
         translationBuilder.add("text.autoconfig.reverie_dreams.option.reportResourceReloadError", "Enable Set Report");
@@ -3747,6 +3756,15 @@ public class SimpChineseLangProvider extends FabricLanguageProvider implements I
         translationBuilder.add(DanmakuTypes.NOTE.getItemHolder().asItem(), "音符");
         translationBuilder.add(DanmakuTypes.LASER.getItemHolder().asItem(), "激光");
         translationBuilder.add(DanmakuTypes.BIG_LASER.getItemHolder().asItem(), "大激光");
+
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.aimed_fan", "瞄准扇形弹幕");
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.fan", "扇形弹幕");
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.circle", "圆形弹幕");
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.star_matrix", "星形矩阵弹幕");
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.spiral", "螺旋弹幕");
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.accelerating_rotation", "变速旋转弹幕");
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.wave_particle", "波与粒子的境界");
+        translationBuilder.add("danmaku_pattern.reverie_dreams.stg.flower", "花型弹幕");
 
 //        for (IDanmakuItem itemEntry : ModItems.DANMAKU_ITEMS) {
 //            List<BasicDanmakuItemTypeItem> values = itemEntry.getValues();

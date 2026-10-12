@@ -29,58 +29,63 @@ import java.util.UUID;
 
 @SuppressWarnings("unchecked")
 public class ChatAIManager {
+    /** Server side cap for a single player input (the dialog limits to 256, but packets can be forged). */
+    private static final int MAX_USER_INPUT_LENGTH = 1024;
+    /** Modified clients must not be able to talk to NPCs from across the world. */
+    private static final double MAX_CHAT_DISTANCE = 32.0;
 
     @SuppressWarnings("rawtypes")
     public static void handleChat(ServerPlayer player, ServerboundCustomClickActionPacket packet) {
         MinecraftServer server = ReverieDreams.getServer();
-        if (server == null) {
-//            System.out.println(0);
+        if (server == null || player == null || player.hasDisconnected()) {
             return;
         }
         Optional<Tag> payload = packet.payload();
-        if (payload.isEmpty()) {
-//            System.out.println(1);
+        if (payload.isEmpty() || !(payload.get() instanceof CompoundTag compound)) {
             return;
         }
-        Tag element = payload.get();
-        if (!(element instanceof CompoundTag compound)) {
-//            System.out.println(2);
+        UUID playerId = parseUuid(compound.getStringOr("player_uuid", ""));
+        UUID entityId = parseUuid(compound.getStringOr("entity_uuid", ""));
+        String userInput = compound.getStringOr("user_input", "").trim();
+        if (playerId == null || entityId == null || userInput.isEmpty()) {
             return;
         }
-        String player_uuid = compound.getStringOr("player_uuid", "");
-        String entity_uuid = compound.getStringOr("entity_uuid", "");
-        String userInput = compound.getStringOr("user_input", "");
-        if (userInput.isEmpty() || player_uuid.isEmpty() || entity_uuid.isEmpty()) {
-//            System.out.println(3);
+        if (!player.getUUID().equals(playerId)) {
             return;
         }
-        ServerPlayer serverPlayer = server.getPlayerList().getPlayer(UUID.fromString(player_uuid));
-        if (player == null || player.hasDisconnected()) {
-//            System.out.println(4);
-            return;
+        if (userInput.length() > MAX_USER_INPUT_LENGTH) {
+            userInput = userInput.substring(0, MAX_USER_INPUT_LENGTH);
         }
-        if (serverPlayer==null) {
-            return;
-        }
-        if (!serverPlayer.equals(player) || serverPlayer.hasDisconnected()) {
-            return;
-        }
-        ChatAIEntity chatAIEntity = null;
-        for (ServerLevel level : server.getAllLevels()) {
-            Entity entity = level.getEntity(UUID.fromString(entity_uuid));
-            if (!(entity instanceof ChatAIEntity aiEntity)) {
-                continue;
+
+        Entity target = player.level().getEntity(entityId);
+        if (!(target instanceof ChatAIEntity)) {
+            target = null;
+            for (ServerLevel level : server.getAllLevels()) {
+                Entity entity = level.getEntity(entityId);
+                if (entity instanceof ChatAIEntity) {
+                    target = entity;
+                    break;
+                }
             }
-//            System.out.println(5);
-            chatAIEntity = aiEntity;
-            break;
         }
-        if (chatAIEntity == null) {
-//            System.out.println(6);
+        if (!(target instanceof ChatAIEntity chatAIEntity) || target.isRemoved()) {
             return;
         }
-//        System.out.println(7);
+        if (target.level() != player.level() || target.distanceToSqr(player) > MAX_CHAT_DISTANCE * MAX_CHAT_DISTANCE) {
+            return;
+        }
         chatAIEntity.send(player, chatAIEntity.encapsulateUserInputContent(player, userInput));
+    }
+
+    private static UUID parseUuid(String raw) {
+        if (raw == null || raw.isEmpty()) {
+            return null;
+        }
+        try {
+            return UUID.fromString(raw);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     public static <T extends Entity> ChatAIEntity<T> of(T entity) {
@@ -217,7 +222,7 @@ public class ChatAIManager {
         return ReverieDreams.config().chatType;
     }
 
-    public static Object model() {
+    public static String model() {
         return ReverieDreams.config().model;
     }
 }

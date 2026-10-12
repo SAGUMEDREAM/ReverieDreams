@@ -61,6 +61,15 @@ public class ReverieDreamsConfiguration implements ConfigData {
             "deepseek";
 
     @ConfigEntry.Gui.Tooltip
+    public int maxChatHistory = 40;
+
+    @ConfigEntry.Gui.Tooltip
+    public int maxTokens = 512;
+
+    @ConfigEntry.Gui.Tooltip
+    public double temperature = 0.7;
+
+    @ConfigEntry.Gui.Tooltip
     public Boolean autoUpdateItemTag = true;
 
     @ConfigEntry.Gui.Tooltip

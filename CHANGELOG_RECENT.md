@@ -1,6 +1,4 @@
-* Fixed a server crash caused by OpenYSM compatibility.
-* Fixed a missing translation key for the Guidebook's Back button.
-* Added a Beverage Brewing page to the Guidebook.
-* Increased the speed of danmaku projectiles.
-* Most weapons have now been buffed.
-* Added a keybind for toggling STG Shooting Mode.
+* Fixed a bug causing fall damage on the Moon
+* Fixed a bug preventing crafting at the Enhancement Station
+* Slightly refactored the projectile system
+* Fixed a bug preventing connection to the Gemini API

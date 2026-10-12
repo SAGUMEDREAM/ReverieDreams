@@ -13,6 +13,8 @@ import cc.thonly.reverie_dreams.creative_tab.RDCreativeTabs;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
+import cc.thonly.reverie_dreams.data.danmaku.stg.motion.DanmakuMotion;
+import cc.thonly.reverie_dreams.data.danmaku.stg.runtime.DanmakuDirector;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
@@ -195,6 +197,7 @@ public class ReverieDreams {
         providers.add(id("role_type"), RoleType.SERIALIZER);
         providers.add(id("ingredient_stack"), IngredientStack.SERIALIZER);
         providers.add(id("ingredient_stacks"), IngredientStack.LIST_SERIALIZER);
+        providers.add(id("danmaku_motion"), DanmakuMotion.SERIALIZER);
     }
 
     private static void registerContentEvent() {
@@ -318,6 +321,7 @@ public class ReverieDreams {
         TickEvent.SERVER_POST.register(DanmakuScriptManager::onTick);
         TickEvent.SERVER_POST.register(DialogPlayerManager::tick);
         TickEvent.SERVER_POST.register(SpellcardRenderer::tick);
+        TickEvent.SERVER_POST.register(DanmakuDirector::tick);
     }
 
     private static void loadCompletableEvent() {

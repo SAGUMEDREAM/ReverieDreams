@@ -13,6 +13,9 @@ import cc.thonly.reverie_dreams.data.craftengine.CraftEngineProvider;
 import cc.thonly.reverie_dreams.data.craftengine.ItemDefinitionList;
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
+import cc.thonly.reverie_dreams.data.danmaku.stg.DanmakuDefaults;
+import cc.thonly.reverie_dreams.data.danmaku.stg.DanmakuPattern;
+import cc.thonly.reverie_dreams.data.danmaku.stg.runtime.DanmakuPatternRuntime;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.server.dialog.video.DialogFiles;
 import cc.thonly.reverie_dreams.gui.recipe.RecipeTypeCategoryGui;
@@ -73,6 +76,7 @@ import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.component.SeededContainerLoot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -194,6 +198,16 @@ public class THCommand {
         var cachedAllSkins = Commands.literal("start_cached_skins")
                 .requires(PermissionPredicates.isGameMasters())
                 .executes(this::cachedAllSkins);
+        var getPatternCard = Commands.literal("get_pattern_card")
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        BuiltInRegistryProviders.getSuggestProvider(this::getPatternCard, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_pattern")))
+                );
+        var castPattern = Commands.literal("cast_pattern")
+                .requires(PermissionPredicates.isGameMasters())
+                .then(
+                        BuiltInRegistryProviders.getSuggestProvider(this::castPattern, ResourceKey.createRegistryKey(ReverieDreams.id("danmaku_pattern")))
+                );
         var parseMidi2Nbt = Commands.literal("parse_nbs_midi")
                 .then(Commands.argument("file_name", StringArgumentType.string())
                         .suggests(midiNameSuggestions)
@@ -294,6 +308,8 @@ public class THCommand {
             root.then(cachedAllSkins);
         }
         root.then(get_sc_with_spell_config);
+        root.then(getPatternCard);
+        root.then(castPattern);
         root.then(help);
         root.then(loadRootPage);
         root.then(parseMidi2Nbt);
@@ -974,6 +990,45 @@ public class THCommand {
         ItemStack itemStack = RDItems.SPELLCARD.createStack();
         itemStack.set(RDDataComponentTypes.SPELL_CARD_COMPONENT.value(), new SpellcardRenderer(List.of(List.of(config))));
         player.addItem(itemStack);
+        return 1;
+    }
+
+    private int getPatternCard(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        assert player != null;
+        Identifier id = IdentifierArgument.getId(context, "id");
+        DanmakuPattern pattern = BuiltInRegistryProviders.DANMAKU_PATTERN.getValue(id);
+        if (pattern == null) {
+            source.sendFailure(Component.literal("Invalid danmaku pattern id."));
+            return 0;
+        }
+        ItemStack itemStack = RDItems.SPELLCARD.createStack();
+        itemStack.set(RDDataComponentTypes.DANMAKU_PATTERN.value(), id);
+        itemStack.set(DataComponents.LORE, new ItemLore(List.of(
+                Component.literal("§bPattern: ").append(DanmakuDefaults.displayName(id)))));
+        player.addItem(itemStack);
+        source.sendSuccess(() -> Component.literal("§aGiven pattern card ").append(DanmakuDefaults.displayName(id)), false);
+        return 1;
+    }
+
+    private int castPattern(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+        if (!source.isPlayer()) {
+            return 0;
+        }
+        ServerPlayer player = source.getPlayer();
+        assert player != null;
+        Identifier id = IdentifierArgument.getId(context, "id");
+        DanmakuPattern pattern = BuiltInRegistryProviders.DANMAKU_PATTERN.getValue(id);
+        if (pattern == null) {
+            source.sendFailure(Component.literal("Invalid danmaku pattern id."));
+            return 0;
+        }
+        DanmakuPatternRuntime.start((ServerLevel) player.level(), player, player.getEyePosition(), pattern);
         return 1;
     }
 

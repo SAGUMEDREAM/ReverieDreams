@@ -44,17 +44,35 @@ public class ChatAIContainer {
     }
 
     public void addMessage(UUID player, AIMessage message) {
-        this.histories.computeIfAbsent(player, k -> new ArrayList<>()).add(message);
+        this.getOrCreateHistory(player).add(message);
+        this.trim(player, ReverieDreams.config().maxChatHistory);
+    }
 
-        List<AIMessage> list = histories.get(player);
-
-        if (list.size() > 40) {
-            list.remove(1);
-        }
+    public List<AIMessage> getOrCreateHistory(UUID player) {
+        return this.histories.computeIfAbsent(player, k -> new ArrayList<>());
     }
 
     public List<AIMessage> getHistory(UUID player) {
         return this.histories.getOrDefault(player, new ArrayList<>());
+    }
+
+    /**
+     * Trims the conversation history down to {@code maxSize} messages.
+     * The leading system prompt (index 0) is kept whenever possible.
+     */
+    public void trim(UUID player, int maxSize) {
+        List<AIMessage> list = this.histories.get(player);
+        if (list == null) {
+            return;
+        }
+        int limit = Math.max(maxSize, 2);
+        while (list.size() > limit) {
+            if (list.size() > 1 && AIMessage.SYSTEM.equals(list.getFirst().getRole())) {
+                list.remove(1);
+            } else {
+                list.removeFirst();
+            }
+        }
     }
 
     public void clear(UUID player) {

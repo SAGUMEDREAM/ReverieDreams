@@ -1,5 +1,11 @@
 # 🌙 Gensokyo: Reverie of Lost Dreams - Changelog
 
+# 0.6.7+26.1.2
+* Fixed a bug causing fall damage on the Moon
+* Fixed a bug preventing crafting at the Enhancement Station
+* Slightly refactored the projectile system
+* Fixed a bug preventing connection to the Gemini API
+
 # 0.6.5+26.1.2
 * Fixed a server crash caused by OpenYSM compatibility.
 * Fixed a missing translation key for the Guidebook's Back button.

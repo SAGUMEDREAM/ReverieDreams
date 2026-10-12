@@ -23,6 +23,8 @@ public class KeyframeFunctions {
     public static final ResourceKey<KeyframeFunction> TRIANGLE = key("triangle");
     // 锯齿波
     public static final ResourceKey<KeyframeFunction> SAW = key("saw");
+    // 二次曲线（匀加速）
+    public static final ResourceKey<KeyframeFunction> QUADRATIC = key("quadratic");
 
     public static void bootstrap() {
         KeyframeFunctions.register(LINEAR, params ->
@@ -59,6 +61,12 @@ public class KeyframeFunctions {
                         getFloat(params, "start", 0f),
                         getFloat(params, "end", 1f),
                         getFloat(params, "frequency", 1f)
+                )
+        );
+        KeyframeFunctions.register(QUADRATIC, params ->
+                new QuadraticKeyframe(
+                        getFloat(params, "start", 0f),
+                        getFloat(params, "end", 1f)
                 )
         );
     }

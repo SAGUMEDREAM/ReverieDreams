@@ -21,6 +21,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -54,33 +55,37 @@ public class StrengthTableGui extends SimpleGui implements GuiCommon {
         );
         this.setSlot(2, new Slot(this.blockEntity.getInventory(), 0, 0, 0));
         this.setSlot(3, new Slot(this.blockEntity.getInventory(), 1, 0, 0));
-        this.output = new GuiElementBuilder()
-                .setItem(Items.AIR)
-                .setCallback((index, type, action, basedGui) -> click());
+        this.output = new GuiElementBuilder().setItem(Items.AIR).setCallback((index, type, action, basedGui) -> clickOutput());
         this.setSlot(6, this.output);
     }
 
     @Override
     public void onTick() {
         super.onTick();
-        if (this.blockEntity == null) return;
+        if (this.blockEntity == null)
+            return;
         if (this.blockEntity.getLevel() != null && this.blockEntity.getLevel().getBlockState(this.blockEntity.getBlockPos()).getBlock() != RDBlocks.STRENGTH_TABLE.asBlock()) {
             this.close();
         }
 //        this.inputText = this.getInput();
         ItemStack mainStack = this.blockEntity.getInventory().getItem(0).copy();
         ItemStack offStack = this.blockEntity.getInventory().getItem(1).copy();
+        if (mainStack.isEmpty()) {
+            this.output = new GuiElementBuilder().setItem(Items.AIR);
+            this.setSlot(6, this.output);
+            return;
+        }
         IngredientStack mainSlot = new IngredientStack(mainStack);
         IngredientStack offSlot = new IngredientStack(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
         if (entries.isEmpty()) {
+            this.setSlot(6, this.output);
             return;
         }
         StrengthTableRecipe entry = entries.getFirst();
         if (entry != null) {
             IngredientStack outputItemWrapper = entry.getOutput();
-            this.output = new GuiElementBuilder()
-                    .setCallback((index, type, action, basedGui) -> click());
+            this.output = new GuiElementBuilder().setCallback((index, type, action, basedGui) -> clickOutput());
             GuiElementBuilderSetter.setter(this.output, outputItemWrapper.getLazyStack().copy());
         } else {
             this.output = new GuiElementBuilder().setItem(Items.AIR);
@@ -88,10 +93,13 @@ public class StrengthTableGui extends SimpleGui implements GuiCommon {
         this.setSlot(6, this.output);
     }
 
-    public void click() {
-        if (this.blockEntity == null) return;
-        ItemStack mainStack = this.blockEntity.getInventory().getItem(2);
-        ItemStack offStack = this.blockEntity.getInventory().getItem(3);
+    public void clickOutput() {
+        if (this.blockEntity == null) {
+            return;
+        }
+        SimpleContainer inventory = this.blockEntity.getInventory();
+        ItemStack mainStack = inventory.getItem(0);
+        ItemStack offStack = inventory.getItem(1);
         IngredientStack mainSlot = new IngredientStack(mainStack);
         IngredientStack offSlot = new IngredientStack(offStack);
         List<StrengthTableRecipe> entries = RecipeManager.STRENGTH_TABLE.getMatches(List.of(mainSlot, offSlot));
@@ -100,13 +108,13 @@ public class StrengthTableGui extends SimpleGui implements GuiCommon {
         }
         StrengthTableRecipe entry = entries.getFirst();
         if (entry != null) {
-            IngredientStack mainItem = entry.getMainItem();
-            IngredientStack offItem = entry.getOffItem();
             IngredientStack resultItem = entry.getOutput();
 
-            this.blockEntity.getInventory().removeItem(2, mainItem.getCount());
-            this.blockEntity.getInventory().removeItem(3, offItem.getCount());
-            ItemStack itemStack = resultItem.getLazyStack().copy();
+            for (int i = 0; i < inventory.getContainerSize(); i++) {
+                ItemStack itemStack = inventory.getItem(i);
+                itemStack.shrink(1);
+            }
+            ItemStack itemStack = resultItem.build().copy();
 //            itemStack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(this.inputText));
             this.player.addItem(itemStack);
             SimpleTriggerFactory.create(SimpleTriggerKeys.DANMAKU_UPGRADE).trigger(this.player);

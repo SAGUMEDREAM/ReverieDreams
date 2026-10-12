@@ -47,6 +47,9 @@ public class RDDataComponentTypes {
     public static final RegistrySupplier<DataComponentType<SpellcardRenderer>> SPELL_CARD_COMPONENT =
             registerDataComponentType("spell_card_component", SpellcardRenderer.CODEC);
 
+    public static final RegistrySupplier<DataComponentType<Identifier>> DANMAKU_PATTERN =
+            registerDataComponentType("danmaku_pattern", Identifier.CODEC);
+
     public static final RegistrySupplier<DataComponentType<IngredientStack>> DANMAKU_SHAPE =
             registerDataComponentType("shape", IngredientStack.CODEC);
 

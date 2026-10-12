@@ -1,0 +1,39 @@
+{
+  "emitters": [
+    {
+      "delay": 0,
+      "duration": 120,
+      "interval": 4,
+      "aim": "outward",
+      "attached": true,
+      "offset": [0.9, 0.0, 0.0],
+      "rotation": {
+        "key": "reverie_dreams:quadratic",
+        "params": {
+          "start": 0.0,
+          "end": 1080.0
+        }
+      },
+      "shape": {
+        "type": "aim"
+      },
+      "bullet": {
+        "type": "reverie_dreams:rice",
+        "random_color": true,
+        "speed": 1.0,
+        "lifetime": 160,
+        "motion": {
+          "spin": 4.0,
+          "segments": [
+            {
+              "at": 60,
+              "type": "rotate",
+              "value": 4.0,
+              "axis": [0.0, 1.0, 0.0]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

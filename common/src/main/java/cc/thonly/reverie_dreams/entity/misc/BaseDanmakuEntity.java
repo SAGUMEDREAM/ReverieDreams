@@ -2,6 +2,8 @@ package cc.thonly.reverie_dreams.entity.misc;
 
 import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
+import cc.thonly.reverie_dreams.data.danmaku.stg.motion.DanmakuMotion;
+import cc.thonly.reverie_dreams.data.danmaku.stg.motion.DanmakuMotionState;
 import cc.thonly.reverie_dreams.mixin.accessor.ProjectileAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.ThrowableProjectileAccessor;
 import cc.thonly.reverie_dreams.registry.content.RDDamageTypes;
@@ -9,6 +11,7 @@ import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.Direction;
@@ -49,9 +52,12 @@ import org.jetbrains.annotations.Nullable;
 public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
     public static final EntityDataAccessor<DanmakuProperties> DANMAKU_PROPERTIES = SynchedEntityData.defineId(BaseDanmakuEntity.class, DanmakuProperties.SERIALIZER);
     public static final EntityDataAccessor<Float> ROLL = SynchedEntityData.defineId(BaseDanmakuEntity.class, EntityDataSerializers.FLOAT);
+    public static final EntityDataAccessor<DanmakuMotion> DANMAKU_MOTION = SynchedEntityData.defineId(BaseDanmakuEntity.class, DanmakuMotion.SERIALIZER);
+    private final DanmakuMotionState motionState = new DanmakuMotionState();
     private float _initXRot = 0f;
     private float _initYRot = 0f;
     private float _initZRot = 0f;
+    private int duration = 200;
     @Setter
     @Getter
     private int ejections = 0;
@@ -113,12 +119,16 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
 
     @Override
     public void tick() {
+        this.applyDanmakuMotion();
         if (!PlatformContext.hasPolymer()) {
             super.tick();
         }
         this.b$polymer_tick();
         if (!this.level().isClientSide()) {
-            if (!this.onGround()) {
+            float spin = this.getDanmakuMotion().spin();
+            if (spin != 0f) {
+                this.entityData.set(ROLL, (float) ((this.entityData.get(ROLL) + Math.toRadians(spin)) % Mth.TWO_PI));
+            } else if (!this.onGround()) {
                 this.entityData.set(ROLL, (float) (this.entityData.get(ROLL) - Mth.DEG_TO_RAD * this.getDeltaMovement().lengthSqr() * 15) % Mth.TWO_PI);
             }
             if (this.tickCount >= this.getDuration()) {
@@ -129,6 +139,13 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
             }
         }
         frozenParticles(this, this.level());
+    }
+
+    /**
+     * STG 引擎：用 {@link DanmakuMotion} 驱动运动，取代原版投掷物物理惯性。
+     */
+    private void applyDanmakuMotion() {
+        this.motionState.tick(this, this.getDanmakuMotion());
     }
 
     public void b$polymer_tick() {
@@ -340,12 +357,15 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
         super.defineSynchedData(builder);
         builder.define(ROLL, 0f);
         builder.define(DANMAKU_PROPERTIES, DanmakuProperties.ofDefault());
+        builder.define(DANMAKU_MOTION, DanmakuMotion.STRAIGHT);
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput view) {
         super.addAdditionalSaveData(view);
         view.storeNullable("DanmakuProperties", DanmakuProperties.CODEC, DanmakuProperties.ofDefault());
+        view.storeNullable("DanmakuMotion", DanmakuMotion.CODEC, this.getDanmakuMotion());
+        view.storeNullable("DanmakuDuration", Codec.INT, this.duration);
     }
 
     @Override
@@ -353,10 +373,20 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
         super.readAdditionalSaveData(view);
         SynchedEntityData entityData = this.getEntityData();
         view.read("DanmakuProperties", DanmakuProperties.CODEC).ifPresent(value -> entityData.set(DANMAKU_PROPERTIES, value));
+        view.read("DanmakuMotion", DanmakuMotion.CODEC).ifPresent(value -> entityData.set(DANMAKU_MOTION, value));
+        view.read("DanmakuDuration", Codec.INT).ifPresent(value -> this.duration = value);
     }
 
     public DanmakuProperties getDanmakuProperties() {
         return this.getEntityData().get(DANMAKU_PROPERTIES);
+    }
+
+    public DanmakuMotion getDanmakuMotion() {
+        return this.getEntityData().get(DANMAKU_MOTION);
+    }
+
+    public void setDanmakuMotion(DanmakuMotion motion) {
+        this.getEntityData().set(DANMAKU_MOTION, motion);
     }
 
     public static float getSoundPitch(RandomSource random) {
@@ -394,7 +424,11 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
     }
 
     protected int getDuration() {
-        return 200;
+        return this.duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     @Override

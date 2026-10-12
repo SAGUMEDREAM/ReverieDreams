@@ -33,6 +33,7 @@ public class DanmakuEntity extends BaseDanmakuEntity {
 
     public DanmakuEntity(@NotNull LivingEntity owner, double x, double y, double z, Level level, ItemStack item) {
         super(RDEntityTypes.DANMAKU.value(), x, y, z, level, item);
+        this.setOwner(owner);
     }
 
     public static DanmakuEntity create(LivingEntity owner, ItemStack itemStack, float inaccuracy) {

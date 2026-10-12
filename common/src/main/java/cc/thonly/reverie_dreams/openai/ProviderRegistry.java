@@ -5,6 +5,7 @@ import cc.thonly.reverie_dreams.openai.impl.GeminiProvider;
 import cc.thonly.reverie_dreams.openai.impl.OpenAIProvider;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ProviderRegistry {
@@ -22,8 +23,10 @@ public class ProviderRegistry {
     }
 
     public static ChatProvider get(String name) {
-        name = name.toLowerCase();
-        return PROVIDERS.get(name);
+        if (name == null) {
+            return null;
+        }
+        return PROVIDERS.get(name.trim().toLowerCase(Locale.ROOT));
     }
 
     public static Map<String, ChatProvider> getProviders() {

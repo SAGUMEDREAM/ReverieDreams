@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.api.entity.type;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.openai.AIMessage;
 import cc.thonly.reverie_dreams.openai.ChatProvider;
 import cc.thonly.reverie_dreams.openai.ProviderRegistry;
@@ -64,22 +65,26 @@ public interface ChatAIEntity<T extends Entity> {
                 - 不要隐瞒或回避自己的状态
                 
                 语言规则：
-                - 默认使用英文
                 - 始终使用“玩家当前输入的语言”回复
                 - 如果玩家使用中文，就只用中文回复
                 - 如果玩家使用英文，就只用英文回复
                 - 不要混用多种语言
                 - 除非玩家切换语言，否则保持当前语言一致
                 
+                回复长度：
+                - 保持简短自然，通常 1~3 句话
+                - 不要输出长篇大论或列表格式
+                
                 """.formatted(entity.getDisplayName().getString(), player.getDisplayName().getString());
     }
 
-    default AIMessage callChatAI(List<AIMessage> history, ServerPlayer player, String msg) {
+    default AIMessage callChatAI(List<AIMessage> history, ServerPlayer player, String npcState) {
         ChatProvider chatProvider = ProviderRegistry.get(ChatAIManager.chatType());
         if (chatProvider == null) {
+            ReverieDreams.LOGGER.warn("Unknown AI chat provider type: {}", ChatAIManager.chatType());
             return null;
         }
-        return chatProvider.chat(history, this, player, msg);
+        return chatProvider.chat(history, this, player, npcState);
     }
 
     default Entity getEntity() {

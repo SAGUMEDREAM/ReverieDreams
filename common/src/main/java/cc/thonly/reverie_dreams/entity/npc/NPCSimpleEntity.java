@@ -13,6 +13,7 @@ import cc.thonly.reverie_dreams.entity.npc.container.FavorabilityContainer;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCCustomerContainer;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.openai.AIMessage;
+import cc.thonly.reverie_dreams.openai.ChatProvider;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.ChatAIManager;
@@ -20,6 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -45,6 +47,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @SuppressWarnings({"resource", "SpellCheckingInspection"})
@@ -53,10 +56,21 @@ import java.util.concurrent.CompletableFuture;
 public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, ChatAIEntity<NPCSimpleEntity>, TamableNPC {
     public static final EntityDataAccessor<RoleType> ROLE_TYPE = SynchedEntityData.defineId(NPCSimpleEntity.class, RoleType.SERIALIZER);
 
+    /** Above-the-hotbar "thinking" hint is refreshed at this interval while a request is running. */
+    private static final int THINKING_NOTIFY_INTERVAL_TICKS = 20;
+    /** Minimum delay between two chat requests from the same player. */
+    private static final int CHAT_REQUEST_COOLDOWN_TICKS = 20;
+
     private final NPCCustomerContainer customerContainer;
     private final FavorabilityContainer favorabilityContainer;
     //    private final FishingContainer fishingContainer;
     private final ChatAIContainer chatAIContainer;
+
+    /** Players with an AI request currently in flight (server thread only). */
+    private final Set<UUID> pendingChatRequests = ConcurrentHashMap.newKeySet();
+    /** Last request tick per player, used to rate limit retries (server thread only). */
+    private final Map<UUID, Long> lastChatRequestTicks = new HashMap<>();
+    private int thinkingNotifyTimer = 0;
 
     public NPCSimpleEntity(EntityType<? extends NPCSimpleEntity> entityType, Level world) {
         super(entityType, world);
@@ -131,6 +145,7 @@ public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, Cha
         }
         this.customerContainer.tick();
         this.favorabilityContainer.tick();
+        this.tickChatRequests(world);
         super.tick();
     }
 
@@ -187,60 +202,200 @@ public class NPCSimpleEntity extends BaseNPCLikeEntity implements Leashable, Cha
     public CompletableFuture<Void> send(ServerPlayer player, String msg) {
         UUID uid = player.getUUID();
 
-        List<AIMessage> history = this.chatAIContainer.getHistories()
-                                                      .computeIfAbsent(uid, _ -> new ArrayList<>());
-
-        if (history.isEmpty()) {
-            history.add(new AIMessage(
-                    "system",
-                    getStartPrompt(this, player)
-            ));
+        if (player.hasDisconnected() || this.level().isClientSide()) {
+            return CompletableFuture.completedFuture(null);
         }
 
-        AIMessage userMsg = new AIMessage("user", msg);
-        history.add(userMsg);
+        // One request per player per NPC at a time: keeps the history
+        // consistent and prevents spamming the API.
+        if (this.pendingChatRequests.contains(uid)) {
+            player.sendSystemMessage(Component.translatable("gui.reverie_dreams.ai_busy"), true);
+            return CompletableFuture.completedFuture(null);
+        }
+
+        long now = this.level().getGameTime();
+        Long lastRequest = this.lastChatRequestTicks.get(uid);
+        if (lastRequest != null && now - lastRequest < CHAT_REQUEST_COOLDOWN_TICKS) {
+            player.sendSystemMessage(Component.translatable("gui.reverie_dreams.ai_busy"), true);
+            return CompletableFuture.completedFuture(null);
+        }
 
         MinecraftServer server = ReverieDreams.getServer();
-        if (server == null)
+        if (server == null) {
             return CompletableFuture.completedFuture(null);
+        }
 
-        return CompletableFuture.supplyAsync(() -> {
-            return this.callChatAI(history, player, msg);
+        int maxHistory = Math.max(ReverieDreams.config().maxChatHistory, 2);
+        List<AIMessage> history = this.chatAIContainer.getOrCreateHistory(uid);
 
-        }).thenAccept(reply -> {
-            if (reply != null) {
-                server.execute(() -> {
-                    player.sendSystemMessage(
-                            Component.empty()
-                                     .append("<")
-                                     .append(this.getDisplayName())
-                                     .append("> ")
-                                     .append(reply.getContent())
-                    );
+        if (history.isEmpty()) {
+            history.add(new AIMessage(AIMessage.SYSTEM, getStartPrompt(this, player)));
+        }
 
-                    history.add(reply);
-                    if (history.size() > 40) {
-                        history.remove(1);
-                    }
+        history.add(new AIMessage(AIMessage.USER, msg));
+        this.chatAIContainer.trim(uid, maxHistory);
+
+        // Everything the background task needs is computed on the server thread.
+        String npcState = this.submitData(player, this);
+        List<AIMessage> snapshot = AIMessage.copy(history);
+
+        this.lastChatRequestTicks.put(uid, now);
+        this.pendingChatRequests.add(uid);
+        player.sendSystemMessage(this.thinkingMessage(), true);
+
+        return CompletableFuture
+                .supplyAsync(() -> this.callChatAI(snapshot, player, npcState), ChatProvider.EXECUTOR)
+                .thenAcceptAsync(reply -> this.finishChatRequest(player, uid, msg, reply, maxHistory), server)
+                .exceptionally(throwable -> {
+                    log.warn("ChatAI request for {} failed", this.getDisplayName().getString(), throwable);
+                    // Never leave the "thinking" lock stuck if a stage fails.
+                    server.execute(() -> this.failChatRequest(player, uid, msg));
+                    return null;
                 });
+    }
+
+    private void failChatRequest(ServerPlayer player, UUID uid, String userInput) {
+        this.pendingChatRequests.remove(uid);
+        if (player.hasDisconnected()) {
+            return;
+        }
+        this.rollbackUserMessage(uid, userInput);
+        player.sendSystemMessage(Component.empty(), true);
+        player.sendSystemMessage(
+                Component.translatable("gui.reverie_dreams.ai_error")
+                         .withStyle(ChatFormatting.RED)
+        );
+    }
+
+    private void finishChatRequest(ServerPlayer player, UUID uid, String userInput, AIMessage reply, int maxHistory) {
+        this.pendingChatRequests.remove(uid);
+        if (player.hasDisconnected()) {
+            return;
+        }
+        // Clear the "thinking" hint above the hotbar.
+        player.sendSystemMessage(Component.empty(), true);
+
+        if (reply == null) {
+            this.rollbackUserMessage(uid, userInput);
+            player.sendSystemMessage(
+                    Component.translatable("gui.reverie_dreams.ai_error")
+                             .withStyle(ChatFormatting.RED)
+            );
+            return;
+        }
+
+        List<AIMessage> history = this.chatAIContainer.getOrCreateHistory(uid);
+        history.add(reply);
+        this.chatAIContainer.trim(uid, maxHistory);
+
+        player.sendSystemMessage(
+                Component.empty()
+                         .append("<")
+                         .append(this.getDisplayName())
+                         .append("> ")
+                         .append(reply.getContent())
+        );
+    }
+
+    /**
+     * Removes the unanswered user message after a failed request so the next
+     * request does not carry a dangling turn.
+     */
+    private void rollbackUserMessage(UUID uid, String expectedContent) {
+        List<AIMessage> history = this.chatAIContainer.getHistory(uid);
+        if (history.isEmpty()) {
+            return;
+        }
+        AIMessage last = history.getLast();
+        if (AIMessage.USER.equals(last.getRole()) && Objects.equals(last.getContent(), expectedContent)) {
+            history.removeLast();
+        }
+    }
+
+    private Component thinkingMessage() {
+        return Component.translatable("gui.reverie_dreams.ai_thinking", this.getDisplayName());
+    }
+
+    private void tickChatRequests(Level world) {
+        if (world.isClientSide() || this.pendingChatRequests.isEmpty()) {
+            this.thinkingNotifyTimer = 0;
+            return;
+        }
+        if (++this.thinkingNotifyTimer < THINKING_NOTIFY_INTERVAL_TICKS) {
+            return;
+        }
+        this.thinkingNotifyTimer = 0;
+        MinecraftServer server = ReverieDreams.getServer();
+        if (server == null) {
+            return;
+        }
+        for (UUID uid : this.pendingChatRequests) {
+            ServerPlayer target = server.getPlayerList().getPlayer(uid);
+            if (target != null && !target.hasDisconnected()) {
+                target.sendSystemMessage(this.thinkingMessage(), true);
             }
-        });
+        }
     }
 
     @Override
     public String submitData(ServerPlayer player, NPCSimpleEntity entity) {
         NPCFoodDataContainer foodData = this.getFoodData();
         Map<String, String> kw = new LinkedHashMap<>();
-        kw.put("Health", "%s/%s".formatted(this.getHealth(), this.getMaxHealth()));
-        kw.put("Nutrition", "%s/20".formatted(foodData.getNutrition()));
-        kw.put("Saturation", "%s/20".formatted(foodData.getSaturation()));
-        kw.put("StoredExperience", "%s".formatted(this.getStoredExperience()));
-        kw.put("Favorability", "%s".formatted(this.getFavorabilityContainer().get(player.getUUID())));
+        kw.put("physical_condition", describeHealth());
+        kw.put("appetite", describeAppetite(foodData.getNutrition()));
+        kw.put("attitude_towards_player", describeFavorability(this.getFavorabilityContainer().get(player.getUUID())));
         LivingEntity owner = this.getOwner();
         if (owner != null) {
-            kw.put("Owner", "%s".formatted(owner.getPlainTextName()));
+            kw.put("owner", owner.getPlainTextName());
         }
         return ChatAIEntity.GSON.toJson(kw);
+    }
+
+    private String describeHealth() {
+        float maxHealth = this.getMaxHealth();
+        if (maxHealth <= 0.0f) {
+            return "healthy";
+        }
+        float ratio = this.getHealth() / maxHealth;
+        if (ratio > 0.75f) {
+            return "healthy";
+        }
+        if (ratio > 0.5f) {
+            return "slightly wounded";
+        }
+        if (ratio > 0.25f) {
+            return "badly wounded";
+        }
+        return "on the verge of collapse";
+    }
+
+    private static String describeAppetite(int nutrition) {
+        if (nutrition >= 16) {
+            return "full";
+        }
+        if (nutrition >= 10) {
+            return "satisfied";
+        }
+        if (nutrition >= 4) {
+            return "hungry";
+        }
+        return "starving";
+    }
+
+    private static String describeFavorability(double favorability) {
+        if (favorability >= 150.0) {
+            return "very close";
+        }
+        if (favorability >= 100.0) {
+            return "friendly";
+        }
+        if (favorability >= 60.0) {
+            return "neutral";
+        }
+        if (favorability >= 30.0) {
+            return "wary";
+        }
+        return "hostile";
     }
 
     @Override

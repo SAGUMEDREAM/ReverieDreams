@@ -6,6 +6,7 @@ import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
+import cc.thonly.reverie_dreams.data.danmaku.stg.DanmakuPattern;
 import cc.thonly.reverie_dreams.data.npc.*;
 import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
@@ -29,6 +30,7 @@ public class BuiltInRegistryProviderKeys {
     public static final ResourceKey<Registry<DanmakuShape>> DANMAKU_SHAPE = create("danmaku_shape");
     public static final ResourceKey<Registry<DanmakuTrajectory>> DANMAKU_TRAJECTORY = create("danmaku_trajectory");
     public static final ResourceKey<Registry<SpellCardFrameConfig>> DANMAKU_CONFIG = create("danmaku_config");
+    public static final ResourceKey<Registry<DanmakuPattern>> DANMAKU_PATTERN = create("danmaku_pattern");
     public static final ResourceKey<Registry<JavaScriptElement>> JAVASCRIPT_ELEMENT = create("javascript_element");
     public static final ResourceKey<Registry<SkinType>> SKIN_TYPE = create("skin_type");
     public static final ResourceKey<Registry<SkinConfig>> SKIN_CONFIG = create("skin_config");

@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfigs;
+import cc.thonly.reverie_dreams.data.danmaku.stg.DanmakuPattern;
 import cc.thonly.reverie_dreams.data.npc.*;
 import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
@@ -27,6 +28,7 @@ import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuShapes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTrajectories;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuPatterns;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.SkinConfigs;
@@ -84,6 +86,12 @@ public class BuiltInRegistryProviders {
                     .codec(SpellCardFrameConfig.COMPONENT_CODEC)
                     .reloadBuilder(SpellCardFrameConfigs::reload)
                     .builder(SpellCardFrameConfigs::bootstrap);
+
+    public static final RegistryProvider<DanmakuPattern> DANMAKU_PATTERN =
+            BuiltInRegistryProviders.<DanmakuPattern>ofEntry(BuiltInRegistryProviderKeys.DANMAKU_PATTERN)
+                    .codec(DanmakuPattern.CODEC)
+                    .reloadBuilder(DanmakuPatterns::reload)
+                    .builder(DanmakuPatterns::bootstrap);
 
     public static final RegistryProvider<JavaScriptElement> JAVASCRIPT_ELEMENT =
             BuiltInRegistryProviders.<JavaScriptElement>ofEntry(BuiltInRegistryProviderKeys.JAVASCRIPT_ELEMENT)

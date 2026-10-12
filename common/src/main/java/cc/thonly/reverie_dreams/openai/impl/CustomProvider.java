@@ -11,7 +11,7 @@ import java.util.List;
 public class CustomProvider implements ChatProvider {
 
     @Override
-    public <T extends Entity> AIMessage chat(List<AIMessage> history, ChatAIEntity<T> entity, ServerPlayer player, String msg) {
+    public <T extends Entity> AIMessage chat(List<AIMessage> history, ChatAIEntity<T> entity, ServerPlayer player, String npcState) {
         return null;
     }
 }

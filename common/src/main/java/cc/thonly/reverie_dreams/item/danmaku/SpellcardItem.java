@@ -1,8 +1,12 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
 import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
+import cc.thonly.reverie_dreams.data.danmaku.stg.DanmakuPattern;
+import cc.thonly.reverie_dreams.data.danmaku.stg.runtime.DanmakuPatternRuntime;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,6 +30,21 @@ public class SpellcardItem extends Item {
         ItemCooldowns cooldowns = player.getCooldowns();
         if (level instanceof ServerLevel world) {
             ItemStack itemStack = player.getItemInHand(hand);
+
+            // 新 STG 引擎：danmaku_pattern 组件指向图案注册表
+            Identifier patternId = itemStack.get(RDDataComponentTypes.DANMAKU_PATTERN.value());
+            if (patternId != null) {
+                DanmakuPattern pattern = BuiltInRegistryProviders.DANMAKU_PATTERN.getValue(patternId);
+                if (pattern == null) {
+                    return InteractionResult.FAIL;
+                }
+                DanmakuPatternRuntime.start(world, player, player.getEyePosition(), pattern);
+                cooldowns.addCooldown(itemStack, 20);
+                world.playSound(null, player.getX(), player.getEyeY(), player.getZ(), RDSoundEvents.SPELL_CARD, player.getSoundSource(), 1.0f, 1.0f);
+                return InteractionResult.SUCCESS_SERVER;
+            }
+
+            // 旧版符卡：保留兼容
             SpellcardRenderer renderer = itemStack.get(RDDataComponentTypes.SPELL_CARD_COMPONENT.value());
             if (renderer == null) {
                 return InteractionResult.PASS;

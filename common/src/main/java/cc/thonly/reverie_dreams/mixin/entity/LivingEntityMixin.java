@@ -275,7 +275,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
                             this.teleportTo(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
                     } else if (registryKey.equals(moonKey) || registryKey.equals(dreamKey)) {
-                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1, 0, false, false));
+                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 0, false, false));
                         if (mobY >= moonWorld.getHeight()) {
                             this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0, false, false));
                             this.teleportTo(endWorld, this.getX(), endWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
@@ -287,17 +287,17 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
-    public void damage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    public void damage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         MinecraftServer server = this.level().getServer();
         if (server == null) {
             return;
         }
         boolean isPlayer = ((LivingEntity) (Object) this) instanceof Player;
-        boolean deathInElixir = this.triggerDeathInElixir(world, source, amount, cir);
-        boolean deathInKanju = this.triggerDeathInKanju(world, source, amount, cir);
+        boolean deathInElixir = this.triggerDeathInElixir(level, source, damage, cir);
+        boolean deathInKanju = this.triggerDeathInKanju(level, source, damage, cir);
         if (!deathInElixir && !deathInKanju) {
-            if ((this.getHealth() - amount <= 0f)) {
-                IWorld iWorld = (IWorld) world;
+            if ((this.getHealth() - damage <= 0f)) {
+                IWorld iWorld = (IWorld) level;
                 ResourceKey<Level> dreamWorldKey = iWorld.reverie_dreams$getDreamWorldKey();
                 ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
                 if (this.level().equals(dreamWorld) && isPlayer) {
