@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.api.level;
 
+import cc.thonly.reverie_dreams.world.dimension.RDBuiltinLevels;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -10,12 +11,21 @@ import net.minecraft.world.level.Level;
 import java.util.Objects;
 import java.util.Optional;
 
-public interface IWorld {
-    public ResourceKey<Level> reverie_dreams$getDreamWorldKey();
+public interface IWorldExtension {
 
-    public ResourceKey<Level> reverie_dreams$getMoonKey();
+    static IWorldExtension get(Level level) {
+        return (IWorldExtension) level;
+    }
 
-    public static boolean reverie_dreams$isInWorld(Entity entity, ResourceKey<Level> registryKey) {
+    static ResourceKey<Level> reverie_dreams$getDreamWorldKey() {
+        return RDBuiltinLevels.getDreamWorld();
+    }
+
+    static ResourceKey<Level> reverie_dreams$getMoonKey() {
+        return RDBuiltinLevels.getMoon();
+    }
+
+    static boolean reverie_dreams$isInWorld(Entity entity, ResourceKey<Level> registryKey) {
         RegistryAccess registryManager = entity.registryAccess();
         Optional<Registry<Level>> lookupOptional = registryManager.lookup(Registries.DIMENSION);
         if (lookupOptional.isEmpty()) {
@@ -26,7 +36,7 @@ public interface IWorld {
         return reverie_dreams$isInWorld(entity, world);
     }
 
-    public static boolean reverie_dreams$isInWorld(Entity entity, Level world) {
+    static boolean reverie_dreams$isInWorld(Entity entity, Level world) {
         if (world == null) {
             return false;
         }

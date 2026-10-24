@@ -1,10 +1,11 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
-import cc.thonly.keine.api.KeineRegistries;
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
+import cc.thonly.reverie_dreams.api.registry.FlammableBlockRegistry;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
+import dev.architectury.hooks.item.tool.AxeItemHooks;
+import dev.architectury.registry.fuel.FuelRegistry;
 import lombok.Getter;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.*;
@@ -93,32 +94,43 @@ public class WoodBundle extends AbstractBlockBundle {
         this.button = RDBlocks.registerSimpleBlock(suffix("button"),
                 (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON));
 
-        KeineRegistries registries = MCBuiltInRegistries.KEINE_REGISTRIES;
-        registries.strippableBlockRegistry().register(context -> {
-            context.add(this.log(), this.strippedLog());
-        });
-        registries.flammableBlockRegistry().register(context -> {
-            context.addBlock(this.log(), 5, 20);
-            context.addBlock(this.strippedLog(), 5, 20);
-            context.addBlock(this.wood(), 5, 20);
-            context.addBlock(this.strippedWood(), 5, 20);
-            context.addBlock(this.planks(), 5, 20);
-            context.addBlock(this.stairs(), 5, 20);
-            context.addBlock(this.slab(), 5, 20);
-            context.addBlock(this.fence(), 5, 20);
-            context.addBlock(this.fenceGate(), 5, 20);
-        });
-        registries.fuelRegistry().register(context -> {
-            context.addBlock(this.log(), 300);
-            context.addBlock(this.strippedLog(), 300);
-            context.addBlock(this.wood(), 300);
-            context.addBlock(this.strippedWood(), 300);
-            context.addBlock(this.planks(), 300);
-            context.addBlock(this.stairs(), 300);
-            context.addBlock(this.slab(), 300);
-            context.addBlock(this.fence(), 300);
-            context.addBlock(this.fenceGate(), 300);
-            context.addBlock(this.fence(), 300);
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+            // 剥皮：log -> stripped log，wood -> stripped wood
+            AxeItemHooks.addStrippable(this.log().get(), this.strippedLog().get());
+            AxeItemHooks.addStrippable(this.wood().get(), this.strippedWood().get());
+
+            // 燃料
+            FuelRegistry.register(300, this.log());
+            FuelRegistry.register(300, this.strippedLog());
+            FuelRegistry.register(300, this.wood());
+            FuelRegistry.register(300, this.strippedWood());
+            FuelRegistry.register(300, this.planks());
+            FuelRegistry.register(300, this.stairs());
+            FuelRegistry.register(300, this.slab());
+            FuelRegistry.register(300, this.fence());
+            FuelRegistry.register(300, this.fenceGate());
+            FuelRegistry.register(200, this.door());
+            FuelRegistry.register(300, this.trapdoor());
+            FuelRegistry.register(100, this.button());
+            FuelRegistry.register(100, this.sapling());
+
+            // 可燃：igniteOdds, burnOdds
+            FlammableBlockRegistry.register(this.log(), 5, 20);
+            FlammableBlockRegistry.register(this.strippedLog(), 5, 20);
+            FlammableBlockRegistry.register(this.wood(), 5, 20);
+            FlammableBlockRegistry.register(this.strippedWood(), 5, 20);
+            FlammableBlockRegistry.register(this.planks(), 5, 20);
+            FlammableBlockRegistry.register(this.stairs(), 5, 20);
+            FlammableBlockRegistry.register(this.slab(), 5, 20);
+            FlammableBlockRegistry.register(this.fence(), 5, 20);
+            FlammableBlockRegistry.register(this.fenceGate(), 5, 20);
+            FlammableBlockRegistry.register(this.door(), 5, 20);
+            FlammableBlockRegistry.register(this.trapdoor(), 5, 20);
+            FlammableBlockRegistry.register(this.button(), 5, 20);
+            FlammableBlockRegistry.register(this.leaves(), 30, 60);
+            if (this.fruitLeaves != null) {
+                FlammableBlockRegistry.register(this.fruitLeaves(), 30, 60);
+            }
         });
 
         return this;

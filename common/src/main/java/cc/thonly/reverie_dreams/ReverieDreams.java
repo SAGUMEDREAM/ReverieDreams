@@ -1,10 +1,8 @@
 package cc.thonly.reverie_dreams;
 
-import cc.thonly.keine.api.callback.AttackBlockCallback;
-import cc.thonly.keine.api.callback.ItemAttackHitCallback;
-import cc.thonly.keine.api.callback.ServerCallback;
-import cc.thonly.keine.api.callback.ServerSavingCallback;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
+import cc.thonly.reverie_dreams.api.server.ServerEvents;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
 import cc.thonly.reverie_dreams.command.CommandInit;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
@@ -204,12 +202,12 @@ public class ReverieDreams {
         EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByDanmaku);
 //        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
         EntityEvent.LIVING_HURT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
-        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitBySilverWeapon);
-        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByFrozenEnchantment);
-        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostByChargeEnchantment);
-        ItemAttackHitCallback.EVENT.register(CommonEventHandlers::onPostHitByInstantKillGhost);
-        AttackBlockCallback.EVENT.register(CommonEventHandlers::onAttackingBlockChangeCameraFov);
-        AttackBlockCallback.EVENT.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
+        ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostHitBySilverWeapon);
+        ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostByFrozenEnchantment);
+        ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostByChargeEnchantment);
+        ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostHitByInstantKillGhost);
+        ItemEvent.ITEM_HIT_BLOCK.register(CommonEventHandlers::onAttackingBlockChangeCameraFov);
+        ItemEvent.ITEM_HIT_BLOCK.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
         PlayerEvent.ATTACK_ENTITY.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
         TickEvent.PLAYER_POST.register(CommonEventHandlers::onUseYukaFlowerUmbrella);
     }
@@ -311,9 +309,11 @@ public class ReverieDreams {
         PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
         PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
         LifecycleEvent.SERVER_STARTED.register(ServerEventHandlers::onServerStarted);
-        ServerSavingCallback.AFTER.register(ServerEventHandlers::onServerSavingAfter);
-        ServerCallback.RELOADING.register(ServerEventHandlers::onServerReloading);
-        ServerCallback.RELOADED.register(ServerEventHandlers::onServerReloaded);
+        LifecycleEvent.SERVER_STOPPING.register(ServerEventHandlers::onServerStopping);
+        ServerEvents.SAVING_AFTER.register(ServerEventHandlers::onServerSavingAfter);
+        ServerEvents.RELOADING.register(ServerEventHandlers::onServerReloading);
+        ServerEvents.RELOADED.register(ServerEventHandlers::onServerReloaded);
+
         TickEvent.SERVER_POST.register(DelayedTask::tick);
         TickEvent.SERVER_POST.register(ServerPlayerComponentManager::tickByServer);
         TickEvent.SERVER_POST.register(ParticleTickerManager::tick);

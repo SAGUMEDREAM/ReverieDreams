@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.registry.content.entity;
 
-import cc.thonly.keine.api.KeineAPI;
-import cc.thonly.keine.api.callback.DynamicRegistrySetupCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.*;
 import cc.thonly.reverie_dreams.entity.elemental.FireElementalEntity;
@@ -276,20 +274,6 @@ public class RDEntityTypes {
     );
 
     public static void initialize() {
-        DynamicRegistrySetupCallback.EVENT.register(dynamicRegistryView -> {
-            Optional<Registry<PigVariant>> pigVariantRegistry = dynamicRegistryView.getOptional(Registries.PIG_VARIANT);
-            if (pigVariantRegistry.isEmpty()) {
-                return;
-            }
-            Registry<PigVariant> pigVariants = pigVariantRegistry.get();
-            if (PlatformContext.isForgeLike()) {
-                KeineAPI.getApi().unfreeze(pigVariants);
-            }
-            Registry.register(pigVariants, ReverieDreams.id("wild_pig"), PigVariantAccessor.invokeStaticInit(
-                    new ModelAndTexture<>(PigVariant.ModelType.NORMAL, ReverieDreams.id("entity/pig/wild_pig")),
-                    new ClientAsset.ResourceTexture(ReverieDreams.id("entity/pig/wild_pig"), ReverieDreams.id("entity/pig/wild_pig")))
-            );
-        });
     }
 
     public static ResourceKey<EntityType<?>> of(String name) {

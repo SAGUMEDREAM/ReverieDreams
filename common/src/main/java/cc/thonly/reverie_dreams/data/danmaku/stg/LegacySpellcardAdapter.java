@@ -46,7 +46,7 @@ public final class LegacySpellcardAdapter {
         int perVolley = Math.max(1, config.getDensity() / interval);
         EmitShape shape = perVolley <= 1 ? EmitShape.aim() : EmitShape.fan(perVolley, 12f);
 
-        DanmakuBulletSpec bullet = DanmakuBulletSpec.of(typeId, config.getSpeed());
+        DanmakuBulletSpec bullet = DanmakuBulletSpec.of(typeId, config.getSpeed() * 0.5f);
         if (config.isRandomColor()) {
             bullet = bullet.withRandomColor();
         } else if (config.getColor() >= 0) {

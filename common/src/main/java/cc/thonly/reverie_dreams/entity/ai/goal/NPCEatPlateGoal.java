@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.api.item.IItemStack;
+import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
 import cc.thonly.reverie_dreams.block.entity.PlateBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
@@ -39,7 +39,7 @@ public class NPCEatPlateGoal extends MoveToBlockGoal {
     private boolean isFoodDisplay(LevelReader world, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof PlateBlockEntity isdBlockEntity) {
             IngredientStack item = isdBlockEntity.getItem();
-            return ((IItemStack) (Object) item.build()).reverie_dreams$isFood();
+            return ((IItemStackExtension) (Object) item.build()).reverie_dreams$isFood();
         }
         return false;
     }

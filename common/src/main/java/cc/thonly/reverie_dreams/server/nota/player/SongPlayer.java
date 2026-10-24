@@ -1,9 +1,7 @@
 package cc.thonly.reverie_dreams.server.nota.player;
 
 import cc.thonly.reverie_dreams.api.nota.NotaAPI;
-import cc.thonly.reverie_dreams.api.nota.callback.SongEndCallback;
-import cc.thonly.reverie_dreams.api.nota.callback.SongStartCallback;
-import cc.thonly.reverie_dreams.api.nota.callback.SongTickCallback;
+import cc.thonly.reverie_dreams.api.nota.callback.SongEvents;
 import cc.thonly.reverie_dreams.server.nota.model.Playlist;
 import cc.thonly.reverie_dreams.server.nota.model.RepeatMode;
 import cc.thonly.reverie_dreams.server.nota.model.Song;
@@ -99,10 +97,10 @@ public abstract class SongPlayer {
 		if(playing) {
 			tick++;
 			if(tick == 0) {
-				SongStartCallback.EVENT.invoker().onSongStart(this);
+				SongEvents.START.invoker().onSongStart(this);
 			}
 			if(tick > song.getLength()) {
-				SongEndCallback.EVENT.invoker().onSongEnd(this);
+				SongEvents.END.invoker().onSongEnd(this);
 				tick = -1;
 
 				if(playlist.hasNext(currentSongIndex)) {
@@ -134,7 +132,7 @@ public abstract class SongPlayer {
 				}
 				return;
 			}
-			SongTickCallback.EVENT.invoker().onSongTick(this);
+			SongEvents.TICK.invoker().onSongTick(this);
 			for(UUID uuid : playerList.keySet()) {
                 MinecraftServer server = NotaAPI.getAPI().getServer();
                 if (server != null) {

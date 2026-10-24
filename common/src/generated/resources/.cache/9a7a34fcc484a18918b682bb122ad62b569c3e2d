@@ -1,0 +1,5 @@
+// 26.1.2	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Tags for minecraft:entity_type
+f4354e65d03efadbb6bdf62a34513f7f4d87f6d6 data/minecraft/tags/entity_type/undead.json
+ee44c3320fbc8853f827f9a8c56859fb5d844963 data/reverie_dreams/tags/entity_type/role.json
+b2f877bdeca75137ab8b66613bf491272118221c data/reverie_dreams/tags/entity_type/yokai.json
+d1aab9c0f1db2a16375afc695e3869d651db1dac data/reverie_dreams/tags/entity_type/yousei.json

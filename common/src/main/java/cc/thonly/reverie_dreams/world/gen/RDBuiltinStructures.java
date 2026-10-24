@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen;
 
-import cc.thonly.keine.tag.ConventionalBiomeTags;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.registry.tag.ConventionalBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;

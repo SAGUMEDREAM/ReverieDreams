@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.mixin.entity;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.BedBlockEntityDreamPillow;
 import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
-import cc.thonly.reverie_dreams.api.level.IWorld;
+import cc.thonly.reverie_dreams.api.level.IWorldExtension;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
@@ -152,8 +152,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
-        IWorld iWorld = (IWorld) world;
-        ResourceKey<Level> dreamWorldKey = iWorld.reverie_dreams$getDreamWorldKey();
+        ResourceKey<Level> dreamWorldKey = IWorldExtension.reverie_dreams$getDreamWorldKey();
         ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
         if (dreamWorld == null) {
             return;
@@ -262,8 +261,8 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
             MinecraftServer server = this.level().getServer();
             Level world = this.level();
             double mobY = this.getY();
-            ResourceKey<Level> moonKey = ((IWorld) world).reverie_dreams$getMoonKey();
-            ResourceKey<Level> dreamKey = ((IWorld) world).reverie_dreams$getDreamWorldKey();
+            ResourceKey<Level> moonKey = IWorldExtension.reverie_dreams$getMoonKey();
+            ResourceKey<Level> dreamKey = IWorldExtension.reverie_dreams$getDreamWorldKey();
             ResourceKey<Level> registryKey = world.dimension();
             if (server != null) {
                 ServerLevel moonWorld = server.getLevel(moonKey);
@@ -297,8 +296,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         boolean deathInKanju = this.triggerDeathInKanju(level, source, damage, cir);
         if (!deathInElixir && !deathInKanju) {
             if ((this.getHealth() - damage <= 0f)) {
-                IWorld iWorld = (IWorld) level;
-                ResourceKey<Level> dreamWorldKey = iWorld.reverie_dreams$getDreamWorldKey();
+                ResourceKey<Level> dreamWorldKey = IWorldExtension.reverie_dreams$getDreamWorldKey();
                 ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
                 if (this.level().equals(dreamWorld) && isPlayer) {
                     this.setHealth(this.getMaxHealth());

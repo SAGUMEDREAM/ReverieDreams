@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.util.skin;
 
-import cc.thonly.keine.api.resource.AssetContainer;
-import cc.thonly.keine.api.resource.ResourceLocatorApi;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.resource.AssetContainer;
+import cc.thonly.reverie_dreams.api.resource.ResourceLocatorApi;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.google.gson.JsonObject;

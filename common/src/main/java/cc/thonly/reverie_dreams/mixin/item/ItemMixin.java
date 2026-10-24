@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.mixin.item;
 
 import cc.thonly.reverie_dreams.CommonEventHandlers;
 import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
@@ -66,6 +67,14 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
     @Inject(method = "<init>", at = @At("RETURN"))
     public void reverie_dreams$onInit(Item.Properties properties, CallbackInfo ci) {
 
+    }
+
+    @Inject(
+            method = {"hurtEnemy"},
+            at = {@At("TAIL")}
+    )
+    public void reverie_dreams$postHitCallback(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfo ci) {
+        ItemEvent.ITEM_ATTACK_HIT.invoker().postHit(stack, target, attacker);
     }
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)

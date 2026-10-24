@@ -30,7 +30,8 @@ public class WeaponOfTheMoon extends Item {
             6f,
             0.1f,
             true,
-            true
+            true,
+            DanmakuProperties.CURRENT_SPEED_VERSION
     );
 
     public WeaponOfTheMoon(Properties properties) {

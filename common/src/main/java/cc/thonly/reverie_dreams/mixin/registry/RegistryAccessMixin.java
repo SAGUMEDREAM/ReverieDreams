@@ -15,28 +15,28 @@ import java.util.stream.Stream;
 
 @Mixin(RegistryAccess.class)
 public interface RegistryAccessMixin {
-    @Inject(method = "fromRegistryOfRegistries", at = @At("RETURN"), cancellable = true)
-    private static void reverie_dreams$fromRegistryOfRegistries(Registry<? extends Registry<?>> registries, CallbackInfoReturnable<RegistryAccess.Frozen> cir) {
-        RegistryAccess.Frozen frozen = cir.getReturnValue();
-        RegistryAccess.Frozen delegate = new RegistryAccess.Frozen() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public <E> Optional<Registry<E>> lookup(ResourceKey<? extends Registry<? extends E>> registryKey) {
-                Optional<Registry<E>> lookup = frozen.lookup(registryKey);
-                if (lookup.isPresent()) {
-                    return lookup;
-                } else {
-                    RegistryProvider<?> register = BuiltInRegistryProviders.ROOT.get(registryKey);
-                    Registry<E> registry = (Registry<E>) register;
-                    return Optional.ofNullable(registry);
-                }
-            }
-
-            @Override
-            public Stream<RegistryEntry<?>> registries() {
-                return frozen.registries();
-            }
-        };
-        cir.setReturnValue(delegate);
-    }
+//    @Inject(method = "fromRegistryOfRegistries", at = @At("RETURN"), cancellable = true)
+//    private static void reverie_dreams$fromRegistryOfRegistries(Registry<? extends Registry<?>> registries, CallbackInfoReturnable<RegistryAccess.Frozen> cir) {
+//        RegistryAccess.Frozen frozen = cir.getReturnValue();
+//        RegistryAccess.Frozen delegate = new RegistryAccess.Frozen() {
+//            @SuppressWarnings("unchecked")
+//            @Override
+//            public <E> Optional<Registry<E>> lookup(ResourceKey<? extends Registry<? extends E>> registryKey) {
+//                Optional<Registry<E>> lookup = frozen.lookup(registryKey);
+//                if (lookup.isPresent()) {
+//                    return lookup;
+//                } else {
+//                    RegistryProvider<?> register = BuiltInRegistryProviders.ROOT.get(registryKey);
+//                    Registry<E> registry = (Registry<E>) register;
+//                    return Optional.ofNullable(registry);
+//                }
+//            }
+//
+//            @Override
+//            public Stream<RegistryEntry<?>> registries() {
+//                return frozen.registries();
+//            }
+//        };
+//        cir.setReturnValue(delegate);
+//    }
 }

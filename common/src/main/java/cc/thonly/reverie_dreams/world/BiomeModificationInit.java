@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.world;
 
-import cc.thonly.keine.tag.ConventionalBiomeTags;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.registry.tag.ConventionalBiomeTags;
 import cc.thonly.reverie_dreams.entity.UFO;
 import cc.thonly.reverie_dreams.entity.elemental.IceElementalEntity;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;

@@ -82,6 +82,19 @@ public class SpellcardRenderer {
         return renderer;
     }
 
+    /**
+     * 取消并清空所有旧版符卡渲染器。
+     *
+     * <p>用于服务器停止/启动时清理静态状态，避免残留 renderer 持有旧 {@code ServerLevel}
+     * 或跨存档继续 tick。
+     */
+    public static void cancelAll() {
+        for (SpellcardRenderer renderer : TICKER) {
+            renderer.cancel();
+        }
+        TICKER.clear();
+    }
+
     public static void tick(MinecraftServer server) {
         Iterator<SpellcardRenderer> iterator = TICKER.iterator();
         while (iterator.hasNext()) {
@@ -223,7 +236,8 @@ public class SpellcardRenderer {
         if (properties == null) {
             return;
         }
-        properties = properties.withSpeed(speed);
+        // 旧符卡的 speed 是“组件语义”（实际速度 = speed / 2）；显式标记为 0 以保持旧行为
+        properties = properties.withSpeed(speed).withSpeedVersion(0);
         if (this.source != null) {
             this.position = new Vec3(this.source.getX(), this.source.getEyeY(), this.source.getZ());
         }

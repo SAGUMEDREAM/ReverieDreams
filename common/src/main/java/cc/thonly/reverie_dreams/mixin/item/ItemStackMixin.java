@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.api.item.IItemStack;
+import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -29,14 +32,16 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 @SuppressWarnings("unchecked")
 @Mixin(ItemStack.class)
-public abstract class ItemStackMixin<T> implements IItemStack,
+public abstract class ItemStackMixin<T> implements IItemStackExtension,
         DataComponentHolder {
     @Shadow
     public abstract Item getItem();
@@ -150,8 +155,23 @@ public abstract class ItemStackMixin<T> implements IItemStack,
         this.reverie_dreams$values[idx] = data;
     }
 
+    @Inject(
+            method = {"addDetailsToTooltip"},
+            at = {@At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/item/ItemStack;getItem()Lnet/minecraft/world/item/Item;",
+                    ordinal = 0
+            )}
+    )
+    public void reverie_dreams$appendTooltipCallback(
+            Item.TooltipContext context, TooltipDisplay displayComponent, Player player, TooltipFlag type, Consumer<Component> textConsumer, CallbackInfo ci
+    ) {
+        ItemStack itemStack = (ItemStack)(Object)this;
+        ItemEvent.ITEM_TOOLTIP.invoker().appendTooltip(itemStack, context, displayComponent, player, textConsumer, type);
+    }
+
     @Inject(method = "interactLivingEntity", at = @At("HEAD"), cancellable = true)
-    public void useOnVillager(Player user, LivingEntity entity, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+    public void reverie_dreams$useOnVillager(Player user, LivingEntity entity, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         if (entity instanceof Villager villager && this.getItem() == Items.BARREL) {
             if (user.level() instanceof ServerLevel world) {
                 BlockPos blockPos = entity.blockPosition();
@@ -188,4 +208,5 @@ public abstract class ItemStackMixin<T> implements IItemStack,
     public boolean reverie_dreams$isBeverage() {
         return this.components.has(RDDataComponentTypes.DRINK_ITEM_TYPE.value());
     }
+
 }

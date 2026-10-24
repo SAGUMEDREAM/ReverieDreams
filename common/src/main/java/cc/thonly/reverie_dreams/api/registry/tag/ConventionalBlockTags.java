@@ -1,0 +1,143 @@
+package cc.thonly.reverie_dreams.api.registry.tag;
+
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+
+public final class ConventionalBlockTags {
+   public static final TagKey<Block> STONES = register("stones");
+   public static final TagKey<Block> COBBLESTONES = register("cobblestones");
+   public static final TagKey<Block> DEEPSLATE_COBBLESTONES = register("cobblestones/deepslate");
+   public static final TagKey<Block> INFESTED_COBBLESTONES = register("cobblestones/infested");
+   public static final TagKey<Block> MOSSY_COBBLESTONES = register("cobblestones/mossy");
+   public static final TagKey<Block> NORMAL_COBBLESTONES = register("cobblestones/normal");
+   public static final TagKey<Block> NETHERRACKS = register("netherracks");
+   public static final TagKey<Block> END_STONES = register("end_stones");
+   public static final TagKey<Block> GRAVELS = register("gravels");
+   public static final TagKey<Block> OBSIDIANS = register("obsidians");
+   public static final TagKey<Block> NORMAL_OBSIDIANS = register("obsidians/normal");
+   public static final TagKey<Block> CRYING_OBSIDIANS = register("obsidians/crying");
+   public static final TagKey<Block> ORES = register("ores");
+   public static final TagKey<Block> COAL_ORES = register("ores/coal");
+   public static final TagKey<Block> COPPER_ORES = register("ores/copper");
+   public static final TagKey<Block> DIAMOND_ORES = register("ores/diamond");
+   public static final TagKey<Block> EMERALD_ORES = register("ores/emerald");
+   public static final TagKey<Block> GOLD_ORES = register("ores/gold");
+   public static final TagKey<Block> IRON_ORES = register("ores/iron");
+   public static final TagKey<Block> LAPIS_ORES = register("ores/lapis");
+   public static final TagKey<Block> NETHERITE_SCRAP_ORES = register("ores/netherite_scrap");
+   public static final TagKey<Block> QUARTZ_ORES = register("ores/quartz");
+   public static final TagKey<Block> REDSTONE_ORES = register("ores/redstone");
+   public static final TagKey<Block> BARRELS = register("barrels");
+   public static final TagKey<Block> WOODEN_BARRELS = register("barrels/wooden");
+   public static final TagKey<Block> BOOKSHELVES = register("bookshelves");
+   public static final TagKey<Block> CHESTS = register("chests");
+   public static final TagKey<Block> WOODEN_CHESTS = register("chests/wooden");
+   public static final TagKey<Block> TRAPPED_CHESTS = register("chests/trapped");
+   public static final TagKey<Block> ENDER_CHESTS = register("chests/ender");
+   public static final TagKey<Block> GLASS_BLOCKS = register("glass_blocks");
+   public static final TagKey<Block> GLASS_BLOCKS_COLORLESS = register("glass_blocks/colorless");
+   public static final TagKey<Block> GLASS_BLOCKS_CHEAP = register("glass_blocks/cheap");
+   public static final TagKey<Block> GLASS_BLOCKS_TINTED = register("glass_blocks/tinted");
+   public static final TagKey<Block> GLASS_PANES = register("glass_panes");
+   public static final TagKey<Block> GLASS_PANES_COLORLESS = register("glass_panes/colorless");
+   public static final TagKey<Block> GLAZED_TERRACOTTAS = register("glazed_terracottas");
+   public static final TagKey<Block> CONCRETES = register("concretes");
+   public static final TagKey<Block> BUDDING_BLOCKS = register("budding_blocks");
+   public static final TagKey<Block> BUDS = register("buds");
+   public static final TagKey<Block> CLUSTERS = register("clusters");
+   public static final TagKey<Block> VILLAGER_JOB_SITES = register("villager_job_sites");
+   public static final TagKey<Block> SANDS = register("sands");
+   public static final TagKey<Block> RED_SANDS = register("sands/red");
+   public static final TagKey<Block> COLORLESS_SANDS = register("sands/colorless");
+   public static final TagKey<Block> SMALL_FLOWERS = register("flowers/small");
+   public static final TagKey<Block> TALL_FLOWERS = register("flowers/tall");
+   public static final TagKey<Block> FLOWERS = register("flowers");
+   public static final TagKey<Block> SANDSTONE_BLOCKS = register("sandstone/blocks");
+   public static final TagKey<Block> SANDSTONE_SLABS = register("sandstone/slabs");
+   public static final TagKey<Block> SANDSTONE_STAIRS = register("sandstone/stairs");
+   public static final TagKey<Block> RED_SANDSTONE_BLOCKS = register("sandstone/red_blocks");
+   public static final TagKey<Block> RED_SANDSTONE_SLABS = register("sandstone/red_slabs");
+   public static final TagKey<Block> RED_SANDSTONE_STAIRS = register("sandstone/red_stairs");
+   public static final TagKey<Block> UNCOLORED_SANDSTONE_BLOCKS = register("sandstone/uncolored_blocks");
+   public static final TagKey<Block> UNCOLORED_SANDSTONE_SLABS = register("sandstone/uncolored_slabs");
+   public static final TagKey<Block> UNCOLORED_SANDSTONE_STAIRS = register("sandstone/uncolored_stairs");
+   public static final TagKey<Block> FENCES = register("fences");
+   public static final TagKey<Block> WOODEN_FENCES = register("fences/wooden");
+   public static final TagKey<Block> NETHER_BRICK_FENCES = register("fences/nether_brick");
+   public static final TagKey<Block> FENCE_GATES = register("fence_gates");
+   public static final TagKey<Block> WOODEN_FENCE_GATES = register("fence_gates/wooden");
+   public static final TagKey<Block> PUMPKINS = register("pumpkins");
+   public static final TagKey<Block> NORMAL_PUMPKINS = register("pumpkins/normal");
+   public static final TagKey<Block> CARVED_PUMPKINS = register("pumpkins/carved");
+   public static final TagKey<Block> JACK_O_LANTERNS_PUMPKINS = register("pumpkins/jack_o_lanterns");
+   public static final TagKey<Block> DYED = register("dyed");
+   public static final TagKey<Block> BLACK_DYED = register("dyed/black");
+   public static final TagKey<Block> BLUE_DYED = register("dyed/blue");
+   public static final TagKey<Block> BROWN_DYED = register("dyed/brown");
+   public static final TagKey<Block> CYAN_DYED = register("dyed/cyan");
+   public static final TagKey<Block> GRAY_DYED = register("dyed/gray");
+   public static final TagKey<Block> GREEN_DYED = register("dyed/green");
+   public static final TagKey<Block> LIGHT_BLUE_DYED = register("dyed/light_blue");
+   public static final TagKey<Block> LIGHT_GRAY_DYED = register("dyed/light_gray");
+   public static final TagKey<Block> LIME_DYED = register("dyed/lime");
+   public static final TagKey<Block> MAGENTA_DYED = register("dyed/magenta");
+   public static final TagKey<Block> ORANGE_DYED = register("dyed/orange");
+   public static final TagKey<Block> PINK_DYED = register("dyed/pink");
+   public static final TagKey<Block> PURPLE_DYED = register("dyed/purple");
+   public static final TagKey<Block> RED_DYED = register("dyed/red");
+   public static final TagKey<Block> WHITE_DYED = register("dyed/white");
+   public static final TagKey<Block> YELLOW_DYED = register("dyed/yellow");
+   public static final TagKey<Block> STORAGE_BLOCKS = register("storage_blocks");
+   public static final TagKey<Block> STORAGE_BLOCKS_BONE_MEAL = register("storage_blocks/bone_meal");
+   public static final TagKey<Block> STORAGE_BLOCKS_COAL = register("storage_blocks/coal");
+   public static final TagKey<Block> STORAGE_BLOCKS_COPPER = register("storage_blocks/copper");
+   public static final TagKey<Block> STORAGE_BLOCKS_DIAMOND = register("storage_blocks/diamond");
+   public static final TagKey<Block> STORAGE_BLOCKS_DRIED_KELP = register("storage_blocks/dried_kelp");
+   public static final TagKey<Block> STORAGE_BLOCKS_EMERALD = register("storage_blocks/emerald");
+   public static final TagKey<Block> STORAGE_BLOCKS_GOLD = register("storage_blocks/gold");
+   public static final TagKey<Block> STORAGE_BLOCKS_IRON = register("storage_blocks/iron");
+   public static final TagKey<Block> STORAGE_BLOCKS_LAPIS = register("storage_blocks/lapis");
+   public static final TagKey<Block> STORAGE_BLOCKS_NETHERITE = register("storage_blocks/netherite");
+   public static final TagKey<Block> STORAGE_BLOCKS_RAW_COPPER = register("storage_blocks/raw_copper");
+   public static final TagKey<Block> STORAGE_BLOCKS_RAW_GOLD = register("storage_blocks/raw_gold");
+   public static final TagKey<Block> STORAGE_BLOCKS_RAW_IRON = register("storage_blocks/raw_iron");
+   public static final TagKey<Block> STORAGE_BLOCKS_REDSTONE = register("storage_blocks/redstone");
+   public static final TagKey<Block> STORAGE_BLOCKS_RESIN = register("storage_blocks/resin");
+   public static final TagKey<Block> STORAGE_BLOCKS_SLIME = register("storage_blocks/slime");
+   public static final TagKey<Block> STORAGE_BLOCKS_WHEAT = register("storage_blocks/wheat");
+   public static final TagKey<Block> OVERWORLD_NATURAL_LOGS = register("natural_logs/overworld");
+   public static final TagKey<Block> NETHER_NATURAL_LOGS = register("natural_logs/nether");
+   public static final TagKey<Block> NATURAL_LOGS = register("natural_logs");
+   public static final TagKey<Block> NATURAL_WOODS = register("natural_woods");
+   public static final TagKey<Block> STRIPPED_LOGS = register("stripped_logs");
+   public static final TagKey<Block> STRIPPED_WOODS = register("stripped_woods");
+   public static final TagKey<Block> PLAYER_WORKSTATIONS_CRAFTING_TABLES = register("player_workstations/crafting_tables");
+   public static final TagKey<Block> PLAYER_WORKSTATIONS_FURNACES = register("player_workstations/furnaces");
+   public static final TagKey<Block> RELOCATION_NOT_SUPPORTED = register("relocation_not_supported");
+   public static final TagKey<Block> SKULLS = register("skulls");
+   public static final TagKey<Block> ROPES = register("ropes");
+   public static final TagKey<Block> CHAINS = register("chains");
+   public static final TagKey<Block> HIDDEN_FROM_RECIPE_VIEWERS = register("hidden_from_recipe_viewers");
+   public static final TagKey<Block> ORE_BEARING_GROUND_DEEPSLATE = register("ore_bearing_ground/deepslate");
+   public static final TagKey<Block> ORE_BEARING_GROUND_NETHERRACK = register("ore_bearing_ground/netherrack");
+   public static final TagKey<Block> ORE_BEARING_GROUND_STONE = register("ore_bearing_ground/stone");
+   public static final TagKey<Block> ORE_RATES_DENSE = register("ore_rates/dense");
+   public static final TagKey<Block> ORE_RATES_SINGULAR = register("ore_rates/singular");
+   public static final TagKey<Block> ORE_RATES_SPARSE = register("ore_rates/sparse");
+   public static final TagKey<Block> ORES_IN_GROUND_DEEPSLATE = register("ores_in_ground/deepslate");
+   public static final TagKey<Block> ORES_IN_GROUND_NETHERRACK = register("ores_in_ground/netherrack");
+   public static final TagKey<Block> ORES_IN_GROUND_STONE = register("ores_in_ground/stone");
+   @Deprecated
+   public static final TagKey<Block> SHULKER_BOXES = register("shulker_boxes");
+   @Deprecated
+   public static final TagKey<Block> GLAZED_TERRACOTTA = register("glazed_terracotta");
+   @Deprecated
+   public static final TagKey<Block> CONCRETE = register("concrete");
+
+   private ConventionalBlockTags() {
+   }
+
+   private static TagKey<Block> register(String tagId) {
+      return TagRegistration.BLOCK_TAG.registerC(tagId);
+   }
+}

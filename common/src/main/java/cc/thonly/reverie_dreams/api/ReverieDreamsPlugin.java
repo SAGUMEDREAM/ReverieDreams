@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.api;
 
-import cc.thonly.keine.api.loot.LootTableSource;
-import cc.thonly.keine.api.registry.DynamicRegistryView;
 import cc.thonly.reverie_dreams.api.entity.entry.RoleGoalEntry;
 import cc.thonly.reverie_dreams.api.player.PlayerComponentContextRegistry;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatContext;
@@ -14,19 +12,11 @@ import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.util.PlatformContext;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -96,31 +86,6 @@ public interface ReverieDreamsPlugin {
 
     // 注册自定义皮肤旁加载 Jar 包
     default void registerSkinClasses(Consumer<Class<?>> ctx) {
-
-    }
-
-    // 注册动态数据包注册表（用于运行时注入动态内容）
-    default void registerDynamicRegistries(DynamicRegistryView view) {
-
-    }
-
-    // 当战利品表加载完成后调用（可用于缓存或预处理）
-    default void onLootTablesLoaded(ResourceManager resourceManager, Registry<LootTable> registry) {
-
-    }
-
-    // 替换指定战利品表（返回新表，返回 null 表示不替换）
-    default @Nullable LootTable replaceLootTable(ResourceKey<LootTable> key, LootTable builder, LootTableSource source, HolderLookup.Provider provider) {
-        return null;
-    }
-
-    // 修改战利品表构建器（在生成前对表内容进行调整）
-    default void modifyLootTable(ResourceKey<LootTable> key, LootTable.Builder builder, LootTableSource source, HolderLookup.Provider provider) {
-
-    }
-
-    // 修改最终掉落物（在生成掉落后对结果列表进行编辑）
-    default void modifyLootTableDrops(Holder<LootTable> key, LootContext context, List<ItemStack> drops) {
 
     }
 

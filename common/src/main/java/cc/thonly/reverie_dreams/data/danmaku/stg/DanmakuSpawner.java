@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.data.danmaku.stg;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.danmaku.stg.motion.DanmakuMotion;
+import cc.thonly.reverie_dreams.data.danmaku.stg.runtime.DanmakuDirector;
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
@@ -28,6 +29,9 @@ public final class DanmakuSpawner {
     @Nullable
     public static DanmakuEntity spawn(ServerLevel world, @Nullable Entity owner, Vec3 position,
                                       float pitch, float yaw, DanmakuBulletSpec spec, float speedScale) {
+        if (!DanmakuDirector.consumeSpawnBudget()) {
+            return null;
+        }
         DanmakuType type = BuiltInRegistryProviders.DANMAKU_TYPE.getValue(spec.type());
         if (type == null) {
             type = DanmakuTypes.AMULET;
@@ -42,7 +46,7 @@ public final class DanmakuSpawner {
             stack.set(DataComponents.DYED_COLOR, new DyedItemColor(color));
         }
 
-        float speed = (spec.speed() > 0f ? spec.speed() : type.getSpeed() / 2.0f) * speedScale;
+        float speed = (spec.speed() > 0f ? spec.speed() : type.actualSpeed()) * speedScale;
         float scale = type.getScale() * (spec.scale() > 0f ? spec.scale() : 1f);
         DanmakuProperties properties = type.createDanmakuProperties()
                 .withSpeed(speed)
@@ -77,9 +81,12 @@ public final class DanmakuSpawner {
     @Nullable
     public static DanmakuEntity spawnFromStack(ServerLevel world, @Nullable Entity owner, Vec3 position,
                                                float pitch, float yaw, ItemStack stack) {
+        if (!DanmakuDirector.consumeSpawnBudget()) {
+            return null;
+        }
         DanmakuProperties properties = stack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
-        // 旧数据中 speed 为“组件语义”（实际速度的两倍），这里换算成真实速度
-        float speed = properties.speed() / 2.0f;
+        // 旧组件没有 speed_version，actualSpeed() 会自动换算为旧版实际速度
+        float speed = properties.actualSpeed();
         ItemStack copy = stack.copy();
         DanmakuEntity entity = DanmakuEntity.create(world, copy, position.x, position.y, position.z, pitch, yaw, 0f);
         if (entity == null) {

@@ -2,9 +2,8 @@ package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
-import cc.thonly.reverie_dreams.api.item.IItemStack;
+import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
 import cc.thonly.reverie_dreams.data.Customer;
-import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.data.npc.NPCLikeInteractionEvent;
 import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
@@ -58,9 +57,7 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.UseRemainder;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -122,21 +119,49 @@ public class NPCLikeInteractionEvents {
         if (!entity.isOwnedBy(player)) {
             return NPCInteractResult.PASS;
         }
-        if (stack.getItem() == RDItems.UPGRADED_HEALTH.asItem()) {
-            AttributeMap attributes = entity.getAttributes();
-            AttributeInstance max_health = attributes.getInstance(Attributes.MAX_HEALTH);
-            float health = entity.getHealth();
-            float maxHealth = entity.getMaxHealth();
-            if (max_health != null) {
-                max_health.setBaseValue(maxHealth + 2);
-                entity.setHealth(health + 2);
-            }
-            player.swing(hand);
-            SoundEventPlayUtils.playSound(player, RDSoundEvents.UP.value(), SoundSource.NEUTRAL, 1.0f, 1.0f);
-            stack.consume(1, player);
-            return NPCInteractResult.SUCCESS;
+
+        if (stack.getItem() != RDItems.UPGRADED_HEALTH.asItem()) {
+            return NPCInteractResult.PASS;
         }
-        return NPCInteractResult.PASS;
+
+        AttributeMap attributes = entity.getAttributes();
+        AttributeInstance maxHealthAttr = attributes.getInstance(Attributes.MAX_HEALTH);
+        if (maxHealthAttr == null) {
+            return NPCInteractResult.PASS;
+        }
+
+        double currentMaxHealth = maxHealthAttr.getBaseValue();
+        double maxHealthLimit = ReverieDreams.config().maxUpgradedHealthValue;
+
+        if (currentMaxHealth >= maxHealthLimit) {
+            return NPCInteractResult.FAIL;
+        }
+
+        double newMaxHealth =
+                Math.min(currentMaxHealth + 2.0, maxHealthLimit);
+
+        maxHealthAttr.setBaseValue(newMaxHealth);
+
+        float currentHealth = entity.getHealth();
+        float newHealth = Math.min(
+                currentHealth + 2.0f,
+                entity.getMaxHealth()
+        );
+        entity.setHealth(newHealth);
+
+        player.swing(hand);
+
+        SoundEventPlayUtils.playSound(
+                player,
+                RDSoundEvents.UP.value(),
+                SoundSource.NEUTRAL,
+                1.0f,
+                1.0f
+        );
+
+        stack.consume(1, player);
+
+        return NPCInteractResult.SUCCESS;
     });
     public static final NPCLikeInteractionEvent ON_TAME = registerCompanionEvent("on_tame", (world, player, stack, hand, entity) -> {
         if (entity.npcOwner.isEmpty() && stack.is(RDItemTags.ROLE_TAME_FOOD)) {
@@ -191,7 +216,7 @@ public class NPCLikeInteractionEvents {
         if (!(entity instanceof NPCSimpleEntity npc)) {
             return NPCInteractResult.PASS;
         }
-        if ((((IItemStack) (Object) stack).reverie_dreams$isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
+        if ((((IItemStackExtension) (Object) stack).reverie_dreams$isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
             SoundEventPlayUtils.playSound(player, SoundEvents.GENERIC_EAT.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             FoodProperties food = stack.get(DataComponents.FOOD);
             NPCFoodDataContainer foodData = npc.getFoodData();
@@ -237,9 +262,9 @@ public class NPCLikeInteractionEvents {
                     tag.putInt("target_id", npc.getId());
                     component.append(
                             Component.translatable(npc.getRoleType().translateKey())
-                                     .withStyle(
-                                             Style.EMPTY.withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.MODIFY_CUSTOM_SKIN_KEY, Optional.of(tag)))
-                                     )
+                                    .withStyle(
+                                            Style.EMPTY.withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.MODIFY_CUSTOM_SKIN_KEY, Optional.of(tag)))
+                                    )
                     );
                     commons.addItemBody(new ItemStackTemplate(icon), Optional.of(
                             new PlainMessage(component, 200))
@@ -255,9 +280,9 @@ public class NPCLikeInteractionEvents {
                     tag.putInt("target_id", npc.getId());
                     component.append(
                             Component.translatable(customType.getDescriptionId())
-                                     .withStyle(
-                                             Style.EMPTY.withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.MODIFY_CUSTOM_SKIN_KEY, Optional.of(tag)))
-                                     )
+                                    .withStyle(
+                                            Style.EMPTY.withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.MODIFY_CUSTOM_SKIN_KEY, Optional.of(tag)))
+                                    )
                     );
                     commons.addItemBody(new ItemStackTemplate(icon), Optional.of(
                             new PlainMessage(component, 200))

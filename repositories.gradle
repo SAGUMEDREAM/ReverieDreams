@@ -6,6 +6,9 @@ repositories {
 //            includeGroup 'net.blay09.mods'
 //        }
 //    }
+//    maven {
+//        url = "https://crystal.app.lss233.com/repositories/minecraft"
+//    }
     maven {
         url = "https://maven.architectury.dev/"
     }
@@ -50,6 +53,10 @@ repositories {
             includeGroup 'net.blay09.mods'
         }
     }
+//    maven {
+//        name = "NeoForged"
+//        url = uri("http://127.0.0.1:8810/maven2/releases/")
+//    }
     maven {
         name = "NeoForged"
         url = "https://maven.neoforged.net/releases"

@@ -49,7 +49,8 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
                     Codec.FLOAT.fieldOf("scale").forGetter(DanmakuType::getScale),
                     Codec.FLOAT.fieldOf("speed").forGetter(DanmakuType::getSpeed),
                     Codec.BOOL.fieldOf("tile").forGetter(DanmakuType::isTile),
-                    Codec.BOOL.fieldOf("infinite").forGetter(DanmakuType::isInfinite)
+                    Codec.BOOL.fieldOf("infinite").forGetter(DanmakuType::isInfinite),
+                    Codec.INT.optionalFieldOf("speed_version", 0).forGetter(DanmakuType::getSpeedVersion)
             ).apply(instance, DanmakuType::getOrCreate)
     ));
 
@@ -60,12 +61,17 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
     private final float speed;
     private final boolean tile;
     private final boolean infinite;
+    /**
+     * 0 = 旧数据（实际速度 = speed / 2），1 = 新数据（speed 即实际速度）。
+     */
+    private final int speedVersion;
     private ItemDelegate itemHolder;
     private BaseDanmakuEntity.HitCallback hitFactory;
     private RegistryProvider<DanmakuType> owner;
     private boolean deleteFromList = false;
 
-    public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed,
+                       boolean tile, boolean infinite, int speedVersion) {
         this.id = id;
         this.damageType = damageType;
         this.damage = damage;
@@ -73,15 +79,24 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
         this.speed = speed;
         this.tile = tile;
         this.infinite = infinite;
+        this.speedVersion = speedVersion;
         this.createItemEntry();
     }
 
-    public static DanmakuType getOrCreate(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed, boolean tile, boolean infinite) {
+    public static DanmakuType getOrCreate(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale,
+                                          float speed, boolean tile, boolean infinite, int speedVersion) {
         DanmakuType type = BuiltInRegistryProviders.DANMAKU_TYPE.getValue(id);
         if (type == null) {
-            return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite);
+            return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite, speedVersion);
         }
         return type;
+    }
+
+    /**
+     * 实际飞行速度（格/tick），自动兼容旧数据包/旧物品。
+     */
+    public float actualSpeed() {
+        return this.speedVersion >= DanmakuProperties.CURRENT_SPEED_VERSION ? this.speed : this.speed * 0.5f;
     }
 
     @Override
@@ -169,10 +184,11 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
                 this.damage,
                 this.damageType,
                 this.scale,
-                this.speed,
+                this.actualSpeed(),
                 0,
                 this.tile,
-                this.infinite
+                this.infinite,
+                DanmakuProperties.CURRENT_SPEED_VERSION
         );
     }
 

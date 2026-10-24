@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content.danmaku;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
@@ -34,8 +35,12 @@ public class DanmakuTypes {
     public static final DanmakuType BIG_LASER = registerType(ReverieDreams.id("big_laser"), RDDamageTypes.DANMAKU_GENERIC, 4f, 1.5f, 1.2f, false, false).unlist();
 
     public static DanmakuType registerType(Identifier key, ResourceKey<DamageType> damageTypeKey, float damage, float scale, float speed, boolean tile, boolean infinite) {
-        speed = speed * 2;
-        return BuiltInRegistryProviders.registerForBuiltin(BuiltInRegistryProviders.DANMAKU_TYPE, key, new DanmakuType(key, damageTypeKey, damage, scale, speed, tile, infinite));
+        // speed 统一为实际格/tick；新内置类型直接标记为新语义
+        return BuiltInRegistryProviders.registerForBuiltin(
+                BuiltInRegistryProviders.DANMAKU_TYPE,
+                key,
+                new DanmakuType(key, damageTypeKey, damage, scale, speed, tile, infinite, DanmakuProperties.CURRENT_SPEED_VERSION)
+        );
     }
 
     public static DanmakuType fromItem(ItemStack itemStack) {

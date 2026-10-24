@@ -1,14 +1,13 @@
 package cc.thonly.reverie_dreams.registry.content.block;
 
-import cc.thonly.keine.api.KeineRegistries;
-import cc.thonly.keine.api.registry.impl.StrippableBlockRegistry;
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.base.FertilizableFlowerBlock;
 import cc.thonly.reverie_dreams.block.base.FruitLeavesBlock;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
-import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import cc.thonly.reverie_dreams.world.sapling.SaplingGeneratorInit;
+import dev.architectury.hooks.item.tool.AxeItemHooks;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -34,10 +33,8 @@ public class RDWoodBlocks {
     }
 
     public static void initialize() {
-        KeineRegistries registries = MCBuiltInRegistries.KEINE_REGISTRIES;
-        StrippableBlockRegistry strippableBlockRegistry = registries.strippableBlockRegistry();
-        strippableBlockRegistry.register(context -> {
-            context.add(RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asHolder(), RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().asHolder());
+        ReverieDreams.COMMON_LATE_INIT.add(() -> {
+            AxeItemHooks.addStrippable(RDWoodBlocks.BLESSED_SPIRITUAL_LOG.get(), RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().get());
         });
     }
 }

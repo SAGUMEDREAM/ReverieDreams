@@ -55,7 +55,7 @@ public class DanmakuEntity extends BaseDanmakuEntity {
         entity.setPos(x, y, z);
         entity.setItem(itemStack);
         entity.setDanmakuProperties(properties);
-        entity.shootFromRotation(owner, xRot, yRot, 0.0f, properties.speed() / 2, inaccuracy);
+        entity.shootFromRotation(owner, xRot, yRot, 0.0f, properties.actualSpeed(), inaccuracy);
         return entity;
     }
 
@@ -79,7 +79,7 @@ public class DanmakuEntity extends BaseDanmakuEntity {
         DanmakuEntity entity = new DanmakuEntity(x, y, z, level, itemStack);
         entity.setItem(itemStack);
         entity.setDanmakuProperties(properties);
-        entity.shootFromRotation(xRot, yRot, 0f, properties.speed() / 2, inaccuracy);
+        entity.shootFromRotation(xRot, yRot, 0f, properties.actualSpeed(), inaccuracy);
         return entity;
     }
 
@@ -98,7 +98,7 @@ public class DanmakuEntity extends BaseDanmakuEntity {
         DanmakuEntity entity = new DanmakuEntity(owner.getX(), owner.getEyeY(), owner.getZ(), level, itemStack);
         entity.setOwner(owner);
         entity.setDanmakuProperties(properties);
-        entity.shootFromRotation(owner, xRot, yRot, 0, properties.speed() / 2, inaccuracy);
+        entity.shootFromRotation(owner, xRot, yRot, 0, properties.actualSpeed(), inaccuracy);
         return entity;
     }
 }

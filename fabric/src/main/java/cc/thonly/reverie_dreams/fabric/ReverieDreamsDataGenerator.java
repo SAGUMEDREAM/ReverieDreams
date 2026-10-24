@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.fabric.datagen.*;
 import cc.thonly.reverie_dreams.fabric.datagen.tag.*;
 import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.painting.RDPaintingVariants;
+import cc.thonly.reverie_dreams.registry.content.varient.RDPigVariants;
 import cc.thonly.reverie_dreams.registry.content.villager.RDTradeSets;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.world.dimension.*;
@@ -30,9 +31,9 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
             log.info("Data-driven generation items have been disabled.");
             return;
         }
-        if (!DynamicRegistriesImpl.DYNAMIC_REGISTRY_KEYS.contains(Registries.LEVEL_STEM)) {
-            DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
-        }
+//        if (!DynamicRegistriesImpl.VANILLA_DYNAMIC_REGISTRY_KEYS.contains(Registries.LEVEL_STEM)) {
+//            DynamicRegistries.register(Registries.LEVEL_STEM, LevelStem.CODEC);
+//        }
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(SimpChineseLangProvider::new);
@@ -76,6 +77,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.TRADE_SET, RDTradeSets::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
         builder.add(Registries.PAINTING_VARIANT, RDPaintingVariants::bootstrap);
+        builder.add(Registries.PIG_VARIANT, RDPigVariants::bootstrap);
 
         builder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, RDBuiltinConfigurationFeatures::bootstrap);

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.proxy;
 
-import cc.thonly.keine.api.proxy.PlatformProxy;
+import cc.thonly.reverie_dreams.api.proxy.PlatformProxy;
 
 import java.util.Optional;
 import java.util.function.Function;

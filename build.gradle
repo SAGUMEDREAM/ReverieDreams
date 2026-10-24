@@ -107,3 +107,18 @@ subprojects {
         options.compilerArgs += ["-parameters", "-Xlint:-removal", "-Xlint:-dep-ann"]
     }
 }
+
+// 把各加载器的 jar 统一同步到根工程 build/dist（Sync 会清掉 dist 内的旧产物）
+tasks.register("distJars", Sync) {
+    group = "dev"
+    description = "Sync Fabric + NeoForge + Polymer jars into build/dist"
+    dependsOn(":fabric:jar", ":neoforge:jar", ":polymer:jar")
+    from(project(":fabric").tasks.named("jar", Jar).flatMap { it.archiveFile })
+    from(project(":neoforge").tasks.named("jar", Jar).flatMap { it.archiveFile })
+    from(project(":polymer").tasks.named("jar", Jar).flatMap { it.archiveFile })
+    into(layout.buildDirectory.dir("dist"))
+}
+
+tasks.named("jarAll") {
+    dependsOn("distJars")
+}

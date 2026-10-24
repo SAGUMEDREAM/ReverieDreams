@@ -1,9 +1,8 @@
 package cc.thonly.reverie_dreams.loot;
 
-import cc.thonly.keine.api.callback.LootTableCallback;
-import cc.thonly.keine.api.loot.KeineLootTableBuilder;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
+import cc.thonly.reverie_dreams.api.loot.ILootTableModificationContextExtension;
 import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.Goblin;
@@ -17,9 +16,12 @@ import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
+import dev.architectury.event.CompoundEventResult;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.EntityEvent;
+import dev.architectury.event.events.common.LootEvent;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -52,7 +54,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-@SuppressWarnings("resource")
+@SuppressWarnings({"resource", "removal"})
 public class RDLootModifies {
     public static final ResourceKey<LootTable> VILLAGE_WEAPONSMITH_CHEST = BuiltInLootTables.VILLAGE_WEAPONSMITH;
     public static final ResourceKey<LootTable> END_CITY_TREASURE_CHEST = BuiltInLootTables.END_CITY_TREASURE;
@@ -61,7 +63,7 @@ public class RDLootModifies {
     public static final ResourceKey<LootTable> VILLAGE_PLAINS_CHEST = BuiltInLootTables.VILLAGE_PLAINS_HOUSE;
     public static final ResourceKey<LootTable> VILLAGE_SAVANNA_HOUSE_CHEST = BuiltInLootTables.VILLAGE_SAVANNA_HOUSE;
     public static final ResourceKey<LootTable> PILLAGER_OUTPOST_CHEST = BuiltInLootTables.PILLAGER_OUTPOST;
-    public static final ResourceKey<LootTable> SIMPLE_DUNGEON_CHEST = BuiltInLootTables.PILLAGER_OUTPOST;
+    public static final ResourceKey<LootTable> SIMPLE_DUNGEON_CHEST = BuiltInLootTables.SIMPLE_DUNGEON;
     public static final ResourceKey<LootTable> SHIPWRECK_TREASURE_CHEST = BuiltInLootTables.SHIPWRECK_TREASURE;
     public static final ResourceKey<LootTable> SHIPWRECK_SUPPLY_CHEST = BuiltInLootTables.SHIPWRECK_SUPPLY;
     public static final ResourceKey<LootTable> DESERT_PYRAMID_CHEST = BuiltInLootTables.DESERT_PYRAMID;
@@ -86,131 +88,160 @@ public class RDLootModifies {
     public static final ResourceKey<LootTable> FISHING = BuiltInLootTables.FISHING_FISH;
 
     public static void register() {
-        LootTableCallback.MODIFY.register((key, lootTableBuilder, source, registries) -> {
-            // 钓鱼修改
-            if (key.equals(FISHING)) {
-                KeineLootTableBuilder keineLootTableBuilder = (KeineLootTableBuilder) lootTableBuilder;
-                keineLootTableBuilder.modifyPools(tb -> {
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(8));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(8));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SALMON).setWeight(8));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(8));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(8));
-                    tb.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA).setWeight(8));
-                });
-            }
-
-            // 松露掉落
-            if (TRUFFLE_DROPS.contains(key)) {
-                LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.07f));
-
-                poolBuilder.add(LootItem.lootTableItem(RDIngredientItems.TRUFFLE).setWeight(10));
-                lootTableBuilder.withPool(poolBuilder);
-            }
-            // 魔法冰块
-            Optional<ResourceKey<LootTable>> lootTableKey = Blocks.ICE.getLootTable();
-            if (lootTableKey.isPresent() && lootTableKey.get().equals(key)) {
-                LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.1f));
-
-                poolBuilder.add(LootItem.lootTableItem(RDBlocks.MAGIC_ICE_BLOCK).setWeight(10));
-                lootTableBuilder.withPool(poolBuilder);
-            }
-            // 奖励箱掉落
-            if (
-                    COMMON_CHESTS.contains(key)
-            ) {
-                // disc pool
-                LootPool.Builder discPool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.2f));
-                for (var item : AlbumItem.ITEMS) {
-                    discPool.add(LootItem.lootTableItem(item).setWeight(8));
+        LootEvent.MODIFY_LOOT_TABLE.register(new LootEvent.ModifyLootTable() {
+            @Override
+            public void modifyLootTable(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+                // 钓鱼
+                if (key.equals(FISHING)) {
+                    ILootTableModificationContextExtension contextExtension = ILootTableModificationContextExtension.get(context);
+                    contextExtension.modifyPool(pool -> {
+                        pool.add(LootItem.lootTableItem(RDIngredientItems.SHRIMP).setWeight(8));
+                        pool.add(LootItem.lootTableItem(RDIngredientItems.CRAB).setWeight(8));
+                        pool.add(LootItem.lootTableItem(RDIngredientItems.SALMON).setWeight(8));
+                        pool.add(LootItem.lootTableItem(RDIngredientItems.TROUT).setWeight(8));
+                        pool.add(LootItem.lootTableItem(RDIngredientItems.TUNA).setWeight(8));
+                        pool.add(LootItem.lootTableItem(RDIngredientItems.SUPREME_TUNA).setWeight(8));
+                    });
                 }
-                lootTableBuilder.withPool(discPool);
-
-                LootPool.Builder fragmentPool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.3f));
-                fragmentPool.add(
-                        LootItem.lootTableItem(RDItems.UPGRADED_HEALTH_FRAGMENT)
-                                .setWeight(10)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f)))
-                );
-                fragmentPool.add(
-                        LootItem.lootTableItem(RDItems.BOMB_FRAGMENT)
-                                .setWeight(10)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f)))
-                );
-                lootTableBuilder.withPool(fragmentPool);
-
-                LootPool.Builder rarePool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.2f));
-                rarePool.add(LootItem.lootTableItem(RDItems.UPGRADED_HEALTH).setWeight(10));
-                rarePool.add(LootItem.lootTableItem(RDItems.BOMB).setWeight(10));
-                lootTableBuilder.withPool(rarePool);
-            }
-            // 种子掉落 I
-            if (key.equals(BLOCKS_SHORT_GRASS)) {
-                LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.05f));
-
-                for (CropBlockBundle.Entry instance : RDCropBlocks.GRASS_DROPS) {
-                    poolBuilder = poolBuilder.add(LootItem.lootTableItem(instance.getSeed()).setWeight(10));
+                // 松露掉落
+                if (TRUFFLE_DROPS.contains(key)) {
+                    registerTruffleDrops(key, context, builtin);
                 }
-
-                lootTableBuilder.withPool(poolBuilder);
-            }
-            // 种子掉落 II
-            if (RDLootModifies.COMMON_CHESTS.contains(key)) {
-                List<CropBlockBundle.Entry> chestDrops = RDCropBlocks.CHEST_DROPS;
-                LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(UniformGenerator.between(1, 2))
-                        .when(LootItemRandomChanceCondition.randomChance(0.24f));
-                for (CropBlockBundle.Entry instance : chestDrops) {
-                    Item seed = instance.getSeed().asItem();
-                    poolBuilder.add(LootItem.lootTableItem(seed).setWeight(8));
+                // 魔法冰块
+                Optional<ResourceKey<LootTable>> lootTableKey = Blocks.ICE.getLootTable();
+                if (lootTableKey.isPresent() && lootTableKey.get().equals(key)) {
+                    registerMagicIceDrops(key, context, builtin);
                 }
-                lootTableBuilder.withPool(poolBuilder);
-            }
-            if (key.equals(OPEN_MINESHAFT_CHEST) || key.equals(VILLAGE_WEAPONSMITH_CHEST) || key.equals(END_CITY_TREASURE_CHEST)) {
-                LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(0.4f));
-                for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
-                    ItemStackTemplate template = entry.getValue();
-                    DanmakuProperties properties = ItemStackTemplateHelper.get(template, RDDataComponentTypes.DANMAKU_PROPERTIES.value());
-                    if (properties==null) continue;
-                    poolBuilder.add(LootItem.lootTableItem(template.item().value()).setWeight(6))
-                            .apply(
-                                    SetComponentsFunction.setComponent(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.clone())
-                            );
+                // 通用奖励箱掉落
+                if (COMMON_CHESTS.contains(key)) {
+                    registerDiscChestDrops(key, context, builtin);
+                    registerCommonChestDrops(key, context, builtin);
                 }
-                lootTableBuilder.withPool(poolBuilder);
+                // 种子掉落 I
+                if (key.equals(BLOCKS_SHORT_GRASS)) {
+                    registerSeedDrops_1(key, context, builtin);
+                }
+                // 种子掉落 II
+                if (RDLootModifies.COMMON_CHESTS.contains(key)) {
+                    registerSeedDrops_2(key, context, builtin);
+                }
+                // 地牢/探险箱子掉落
+                if (key.equals(OPEN_MINESHAFT_CHEST) || key.equals(VILLAGE_WEAPONSMITH_CHEST) || key.equals(END_CITY_TREASURE_CHEST)) {
+                    registerSeedDrops_3(key, context, builtin);
+                }
             }
         });
-        LootTableCallback.REPLACE.register((key, table, source, registries) -> {
-            // 竹笋掉落
-            if (source.isBuiltin() && key.equals(BAMBOO_SAPLING)) {
-                LootTable.Builder builder = new LootTable.Builder();
-                LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .when(LootItemRandomChanceCondition.randomChance(1f))
-                        .add(LootItem.lootTableItem(RDIngredientItems.BAMBOO_SHOOTS).setWeight(10));
-                builder.withPool(poolBuilder);
-                return builder.build();
+        LootEvent.REPLACE_LOOT_TABLE.register((registries, key, original) -> {
+            if (key.equals(BAMBOO_SAPLING)) {
+                return CompoundEventResult.interruptTrue(registerReplaceBambooSapling(registries, key, original));
             }
-            return table;
+            return CompoundEventResult.pass();
         });
         EntityEvent.LIVING_DEATH.register((entity, damageSource) -> {
             RDLootModifies.modifyDrops(entity, damageSource);
             return EventResult.pass();
         });
+    }
+
+    public static LootTable registerReplaceBambooSapling(HolderLookup.Provider registries, ResourceKey<LootTable> key, LootTable original) {
+        LootTable.Builder builder = new LootTable.Builder();
+        LootPool.Builder poolBuilder = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(1f))
+                .add(LootItem.lootTableItem(RDIngredientItems.BAMBOO_SHOOTS).setWeight(10));
+        builder.withPool(poolBuilder);
+        return builder.build();
+    }
+
+    public static void registerTruffleDrops(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+        LootPool.Builder pool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.07f));
+
+        pool.add(LootItem.lootTableItem(RDIngredientItems.TRUFFLE).setWeight(10));
+        context.addPool(pool);
+    }
+
+    public static void registerMagicIceDrops(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+        LootPool.Builder poolBuilder = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.1f));
+
+        poolBuilder.add(LootItem.lootTableItem(RDBlocks.MAGIC_ICE_BLOCK).setWeight(10));
+        context.addPool(poolBuilder);
+    }
+
+    public static void registerDiscChestDrops(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+        LootPool.Builder discPool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.2f));
+        for (var item : AlbumItem.ITEMS) {
+            discPool.add(LootItem.lootTableItem(item).setWeight(8));
+        }
+        context.addPool(discPool);
+    }
+
+    public static void registerCommonChestDrops(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+        LootPool.Builder fragmentPool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.3f));
+        fragmentPool.add(
+                LootItem.lootTableItem(RDItems.UPGRADED_HEALTH_FRAGMENT)
+                        .setWeight(10)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f)))
+        );
+        fragmentPool.add(
+                LootItem.lootTableItem(RDItems.BOMB_FRAGMENT)
+                        .setWeight(10)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f)))
+        );
+        context.addPool(fragmentPool);
+
+        LootPool.Builder rarePool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.2f));
+        rarePool.add(LootItem.lootTableItem(RDItems.UPGRADED_HEALTH).setWeight(10));
+        rarePool.add(LootItem.lootTableItem(RDItems.BOMB).setWeight(10));
+        context.addPool(rarePool);
+    }
+
+    public static void registerSeedDrops_1(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+        LootPool.Builder poolBuilder = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.05f));
+
+        for (CropBlockBundle.Entry instance : RDCropBlocks.GRASS_DROPS) {
+            poolBuilder = poolBuilder.add(LootItem.lootTableItem(instance.getSeed()).setWeight(10));
+        }
+
+        context.addPool(poolBuilder);
+    }
+
+    public static void registerSeedDrops_2(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+        List<CropBlockBundle.Entry> chestDrops = RDCropBlocks.CHEST_DROPS;
+        LootPool.Builder poolBuilder = LootPool.lootPool()
+                .setRolls(UniformGenerator.between(1, 2))
+                .when(LootItemRandomChanceCondition.randomChance(0.24f));
+        for (CropBlockBundle.Entry instance : chestDrops) {
+            Item seed = instance.getSeed().asItem();
+            poolBuilder.add(LootItem.lootTableItem(seed).setWeight(8));
+        }
+        context.addPool(poolBuilder);
+    }
+
+    public static void registerSeedDrops_3(ResourceKey<LootTable> key, LootEvent.LootTableModificationContext context, boolean builtin) {
+        LootPool.Builder poolBuilder = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.4f));
+        for (var entry : DanmakuTemplates.getRegistryItemStackView().entrySet()) {
+            ItemStackTemplate template = entry.getValue();
+            DanmakuProperties properties = ItemStackTemplateHelper.get(template, RDDataComponentTypes.DANMAKU_PROPERTIES.value());
+            if (properties == null)
+                continue;
+            poolBuilder.add(LootItem.lootTableItem(template.item().value()).setWeight(6))
+                    .apply(SetComponentsFunction.setComponent(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), properties.clone()));
+        }
+        context.addPool(poolBuilder);
     }
 
     public static List<ResourceKey<LootTable>> createTruffleDrops() {

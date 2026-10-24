@@ -1,0 +1,12 @@
+// 26.1.2	-999999999-01-01T00:00:00	Gensokyo: Reverie of Lost Dreams/Tags for minecraft:villager_trade
+8c02a4918f2effb19d0ae4ec99b4de91e780260c data/minecraft/tags/villager_trade/butcher/level_2.json
+d57867035408418d7fe7ce4f638382ff978cae8e data/minecraft/tags/villager_trade/butcher/level_3.json
+536a5cf7813c16f4340c3336ae2f5532145b42ca data/reverie_dreams/tags/villager_trade/hawkers/level_1.json
+6222b7a06e4fb6737bcea6dc81fa50f1dee9c253 data/reverie_dreams/tags/villager_trade/hawkers/level_2.json
+6fc1ab8e078a4b718f9f46f0a6281524a8d8a95c data/reverie_dreams/tags/villager_trade/hawkers/level_3.json
+9e0b880c11474999c0a77033e7cc02b4537ee644 data/reverie_dreams/tags/villager_trade/hawkers/level_4.json
+e62f8d11eafd75f4a3d8ba9a414c76ab6d216aee data/reverie_dreams/tags/villager_trade/hawkers/level_5.json
+9b0d4dfe5ab06368e2151cce021fdece89d3fbce data/reverie_dreams/tags/villager_trade/money_shop_clerk/level_1.json
+4d433a94a020d8abae3f76cf658c061552194ecb data/reverie_dreams/tags/villager_trade/money_shop_clerk/level_2.json
+e7a86fde5789a15085e2a2c79af681f148e8eb12 data/reverie_dreams/tags/villager_trade/priest/level_1.json
+88334cb6ee82ece469a443ef768592d50aad5de4 data/reverie_dreams/tags/villager_trade/priest/level_2.json

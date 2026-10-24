@@ -4,6 +4,7 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.dialog.DialogAPI;
 import cc.thonly.reverie_dreams.api.player.PlayerComponentManager;
 import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
+import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
 import cc.thonly.reverie_dreams.data.danmaku.stg.runtime.DanmakuDirector;
 import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCFindBlockGoal;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
@@ -71,6 +72,7 @@ public class ServerEventHandlers {
 
     public static void onServerStarted(MinecraftServer server) {
         DanmakuDirector.cancelAll();
+        SpellcardRenderer.cancelAll();
         PlayerInputManagerAccess polymerAccess = PlayerInputManagerAccess.polymerAccess();
         polymerAccess.reload();
         PlayerInputManagerAccess inputManager = PlayerInputManagerAccess.access();
@@ -79,6 +81,14 @@ public class ServerEventHandlers {
         DialogAPI.reload();
         SessionManager.clear();
         RemoteSignalManager.access().reloadAll(server);
+    }
+
+    /**
+     * 服务器停止时清空静态弹幕调度状态，避免跨存档/跨服务器实例持有旧 ServerLevel。
+     */
+    public static void onServerStopping(MinecraftServer server) {
+        SpellcardRenderer.cancelAll();
+        DanmakuDirector.cancelAll();
     }
 
     public static void onServerSavingAfter(MinecraftServer server, boolean flush, boolean force) {

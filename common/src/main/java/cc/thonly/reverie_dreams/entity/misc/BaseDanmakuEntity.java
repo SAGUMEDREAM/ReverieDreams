@@ -53,6 +53,12 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
     public static final EntityDataAccessor<DanmakuProperties> DANMAKU_PROPERTIES = SynchedEntityData.defineId(BaseDanmakuEntity.class, DanmakuProperties.SERIALIZER);
     public static final EntityDataAccessor<Float> ROLL = SynchedEntityData.defineId(BaseDanmakuEntity.class, EntityDataSerializers.FLOAT);
     public static final EntityDataAccessor<DanmakuMotion> DANMAKU_MOTION = SynchedEntityData.defineId(BaseDanmakuEntity.class, DanmakuMotion.SERIALIZER);
+    /**
+     * 新引擎子弹离出膛点的最远存活距离（格）。超出后直接销毁，避免子弹飞出战场后
+     * 继续占用实体/tick 资源（旧路径没有 origin，不受此限制）。
+     */
+    public static final double MAX_DISTANCE_FROM_ORIGIN = 96.0D;
+    private static final double MAX_DISTANCE_FROM_ORIGIN_SQR = MAX_DISTANCE_FROM_ORIGIN * MAX_DISTANCE_FROM_ORIGIN;
     private final DanmakuMotionState motionState = new DanmakuMotionState();
     private float _initXRot = 0f;
     private float _initYRot = 0f;
@@ -133,12 +139,19 @@ public abstract class BaseDanmakuEntity extends ThrowableItemProjectile {
             }
             if (this.tickCount >= this.getDuration()) {
                 this.discardBullet();
-            }
-            if (this.getOwner() instanceof LivingEntity livingEntity && livingEntity.deathTime > 19) {
+            } else if (this.getOwner() instanceof LivingEntity livingEntity && livingEntity.deathTime > 19) {
+                this.discardBullet();
+            } else if (this.isOutsideMaxRadius()) {
                 this.discardBullet();
             }
         }
         frozenParticles(this, this.level());
+    }
+
+    private boolean isOutsideMaxRadius() {
+        Vec3 origin = this.getDanmakuMotion().origin();
+        return origin.lengthSqr() > 1.0E-6D
+                && this.position().distanceToSqr(origin) > MAX_DISTANCE_FROM_ORIGIN_SQR;
     }
 
     /**

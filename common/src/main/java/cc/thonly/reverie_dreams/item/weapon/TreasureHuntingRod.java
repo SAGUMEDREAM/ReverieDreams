@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.keine.tag.ConventionalBlockTags;
+import cc.thonly.reverie_dreams.api.registry.tag.ConventionalBlockTags;
 import cc.thonly.reverie_dreams.entity.misc.OreEspEntity;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.mixin.accessor.BlockDisplayAccessor;

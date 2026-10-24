@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.neoforge.util.biome;
 
-import cc.thonly.keine.api.callback.DynamicRegistrySetupCallback;
-import cc.thonly.keine.api.registry.DynamicRegistryView;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;

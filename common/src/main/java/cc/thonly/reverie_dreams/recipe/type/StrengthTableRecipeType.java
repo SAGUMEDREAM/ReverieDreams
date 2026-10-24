@@ -182,10 +182,13 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
         }
         if (isDanmakuItem && isSpeedItem) {
             DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
-            float speed = component.speed();
+            // 统一到“实际速度”，避免旧物品（speed_version=0）每次强化都残留旧语义
+            float speed = component.actualSpeed();
             float sum = speed + 0.25f;
             if (sum <= MAX_SPEED) {
-                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withSpeed(sum));
+                mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component
+                        .withSpeed(sum)
+                        .withSpeedVersion(DanmakuProperties.CURRENT_SPEED_VERSION));
                 return new IngredientStack(mainStack);
             }
         }

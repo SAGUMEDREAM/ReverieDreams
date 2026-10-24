@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.util.item;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.IItemStack;
+import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
@@ -209,7 +209,7 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
             return;
         }
         try {
-            IItemStack mixinImpl = IItemStack.getMixinImpl(itemStack);
+            IItemStackExtension mixinImpl = IItemStackExtension.getMixinImpl(itemStack);
             Byte foodTagBuild = mixinImpl.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.FOOD_TAG_FIELD_KEY, Byte.class);
             if (foodTagBuild == null) {
                 FoodProperties.get(itemStack);

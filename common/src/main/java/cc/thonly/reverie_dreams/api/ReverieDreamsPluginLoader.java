@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.api;
 
-import cc.thonly.keine.api.callback.DynamicRegistrySetupCallback;
-import cc.thonly.keine.api.callback.LootTableCallback;
 import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.api.entity.entry.RoleGoalEntry;
 import cc.thonly.reverie_dreams.api.item.callback.BeveragePropertyItemUseCallback;
@@ -149,19 +147,5 @@ public class ReverieDreamsPluginLoader {
         register(PluginHook.SKIN_CLASSES_REGISTER,
                 () -> plugin.registerSkinClasses(SkinFetcher::registerScanClasses));
 
-        register(PluginHook.DYNAMIC_REGISTRY_IMPL_REGISTER,
-                () -> DynamicRegistrySetupCallback.EVENT.register(plugin::registerDynamicRegistries));
-
-        register(PluginHook.LOOT_TABLES_LOADED,
-                () -> LootTableCallback.ALL_LOADED.register(plugin::onLootTablesLoaded));
-
-        register(PluginHook.LOOT_TABLE_REPLACE,
-                () -> LootTableCallback.REPLACE.register(plugin::replaceLootTable));
-
-        register(PluginHook.LOOT_TABLE_MODIFY,
-                () -> LootTableCallback.MODIFY.register(plugin::modifyLootTable));
-
-        register(PluginHook.LOOT_TABLE_DROPS_MODIFY,
-                () -> LootTableCallback.MODIFY_DROPS.register(plugin::modifyLootTableDrops));
     }
 }

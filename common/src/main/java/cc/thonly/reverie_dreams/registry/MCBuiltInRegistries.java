@@ -1,9 +1,7 @@
 package cc.thonly.reverie_dreams.registry;
 
-import cc.thonly.keine.api.KeineAPI;
-import cc.thonly.keine.api.KeineRegistries;
-import cc.thonly.keine.api.proxy.PlatformProxy;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.proxy.PlatformProxy;
 import com.google.common.base.Suppliers;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrarManager;
@@ -34,7 +32,6 @@ import java.util.function.Supplier;
 @SuppressWarnings({"rawtypes", "OptionalUsedAsFieldOrParameterType"})
 public class MCBuiltInRegistries {
     public static final List<DeferredRegister> REGISTERS = new ArrayList<>();
-    public static final KeineRegistries KEINE_REGISTRIES = KeineAPI.getApi().getRegistries(ReverieDreams.MOD_ID);
     public static final Optional<RegistryBuilderFactory> REGISTRY_BUILDER = PlatformProxy.<RegistryBuilderFactory>builder()
             .withFabric("cc.thonly.reverie_dreams.fabric.impl.RegistryBuilderFactoryImpl")
             .withNeoForge("cc.thonly.reverie_dreams.neoforge.impl.RegistryBuilderFactoryImpl")

@@ -6,11 +6,13 @@
   "plugin": "cc.thonly.reverie_dreams.neoforge.mixin.RDFabricMixinPlugin",
   "mixins": [
     "CommonHooksMixin",
+    "ComposterBlockMixin",
     "EventHooksMixin",
     "FakePlayerMixin",
     "RegistryDataLoaderMixin",
     "RegistryHandlerMixin",
     "accessor.CreativeModeTabAccessor",
+    "accessor.LootPoolAccessor",
     "client.AnimationRouletteKeyMixin",
     "event.ServerPlayerGameModeMixin",
     "lootr.ILootrAPIMixin"

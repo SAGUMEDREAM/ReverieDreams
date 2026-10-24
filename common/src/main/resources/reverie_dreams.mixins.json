@@ -95,6 +95,7 @@
     "item.ShearsItemMixin",
     "loot.LootContextMixin",
     "loot.LootTableIdSetterMixin",
+    "loot.LootTableModificationContextMixin",
     "registry.BuiltInRegistriesMixin",
     "registry.HolderLookupProviderMixin",
     "registry.ImmutableRegistryAccessMixin",

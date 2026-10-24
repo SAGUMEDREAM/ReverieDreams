@@ -1,4 +1,4 @@
-package cc.thonly.reverie_dreams.api.registry;
+package cc.thonly.reverie_dreams.api.registry.tag;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;

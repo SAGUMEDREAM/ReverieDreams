@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
-import cc.thonly.keine.api.registry.impl.CompostingChanceRegistry;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.registry.CompostingChanceRegistry;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.HashSet;
@@ -83,16 +84,12 @@ public final class CropBlockBundle {
                 ),
                 new Item.Properties()
         );
-        CompostingChanceRegistry compostingChanceRegistry = MCBuiltInRegistries.KEINE_REGISTRIES.compostingChanceRegistry();
-        compostingChanceRegistry.register(context -> {
-            context.addItem(seedItem, getSeedCompostingLevel());
-        });
+
+        CompostingChanceRegistry.registerItem(seedItem, getSeedCompostingLevel());
         if (this.selfSeed) {
             this.gain = seedItem;
         } else {
-            compostingChanceRegistry.register(context -> {
-                context.addItem(this.gain, getCropCompostingLevel());
-            });
+            CompostingChanceRegistry.registerItem(this.gain, getCropCompostingLevel());
         }
 
 

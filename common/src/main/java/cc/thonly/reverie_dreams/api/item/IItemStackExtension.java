@@ -5,10 +5,10 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unchecked")
-public interface IItemStack extends NonPersistentAdditionalData{
+public interface IItemStackExtension extends NonPersistentAdditionalData {
 
-    public static IItemStack getMixinImpl(ItemStack itemStack) {
-        return (IItemStack) (Object) itemStack;
+    public static IItemStackExtension getMixinImpl(ItemStack itemStack) {
+        return (IItemStackExtension) (Object) itemStack;
     }
 
     public static <T> void modifyComponentSafe(@NotNull ItemStack stack, DataComponentType<T> key, Object value) {

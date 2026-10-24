@@ -44,7 +44,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 apply from: rootProject.file('repositories.gradle')
 dependencies {
     implementation("dev.architectury:architectury-neoforge:${architectury_api_version}")
-    compileOnly("cc.thonly:keine-common:${keine_version}")
+//    compileOnly("cc.thonly:keine-common:${keine_version}")
     compileOnly("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
@@ -65,7 +65,7 @@ dependencies {
     implementation("squeek.appleskin:appleskin-neoforge:${appleskin_version}:api")
 
     jarJar(implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"))
-    jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))
+//    jarJar(implementation("cc.thonly:keine-neoforge:${keine_version}"))
     jarJar(implementation("cc.thonly:sgui-neoforge:${sgui_forgelike_version}"))
     jarJar(implementation("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"))
 

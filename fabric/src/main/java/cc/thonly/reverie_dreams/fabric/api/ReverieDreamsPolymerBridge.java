@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.fabric.api;
 
-import cc.thonly.keine.fabric.FabricKeine;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +22,6 @@ public class ReverieDreamsPolymerBridge {
             Class<?> clazz = Class.forName("cc.thonly.reverie_dreams.polymer.PolymerInitializer");
             Method method = clazz.getDeclaredMethod("bootstrap");
             method.invoke(null);
-            FabricKeine.serverSideOnly();
         } catch (Exception e) {
             log.error("Can't load polymer patch", e);
             String text = "An error occurred during Polymerify that failed to load.\n Please try checking that the versions of the base mod and the polymer patch are the same, and report the error.";

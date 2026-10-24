@@ -24,7 +24,7 @@ dependencies {
     compileOnly("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}") { transitive = false }
 
     api("cc.thonly:sgui-common:${sgui_forgelike_version}")
-    api("cc.thonly:keine-common:${keine_version}")
+//    api("cc.thonly:keine-common:${keine_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-common:${jei_version}")
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}+${minecraft_version}")

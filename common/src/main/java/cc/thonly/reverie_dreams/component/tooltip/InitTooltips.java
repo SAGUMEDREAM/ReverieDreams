@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.component.tooltip;
 
-import cc.thonly.keine.api.callback.ItemStackTooltipCallback;
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
@@ -109,7 +109,7 @@ public class InitTooltips {
         DanmakuProperties properties = itemStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
         if (properties != null) {
             consumer.accept(Component.empty().append(Component.translatable("item.tooltip.damage")).append(String.valueOf(properties.damage())));
-            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(properties.speed())));
+            consumer.accept(Component.empty().append(Component.translatable("item.tooltip.speed")).append(String.valueOf(properties.actualSpeed())));
             consumer.accept(Component.empty().append(Component.translatable("item.tooltip.count")).append(String.valueOf(properties.count())));
             consumer.accept(Component.empty().append(Component.translatable("item.tooltip.base_type")).append(Component.translatable(properties.templateId().toLanguageKey())));
         }
@@ -212,8 +212,8 @@ public class InitTooltips {
         });
     }
 
-    public static void registerTooltip(ItemStackTooltipCallback callback) {
-        Event<ItemStackTooltipCallback> event = getTooltipEventBus();
+    public static void registerTooltip(ItemEvent.ItemTooltip callback) {
+        Event<ItemEvent.ItemTooltip> event = getTooltipEventBus();
         event.register((itemStack, tooltipContext, tooltipDisplay, player, consumer, tooltipFlag) -> {
             if (player == null) {
                 return;
@@ -226,15 +226,15 @@ public class InitTooltips {
         return itemStack.has(RDDataComponentTypes.SHOW_ONLY.value());
     }
 
-    private static void invokeBypassShowOnly(ItemStackTooltipCallback callback, ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
+    private static void invokeBypassShowOnly(ItemEvent.ItemTooltip callback, ItemStack itemStack, Item.TooltipContext context, TooltipDisplay display, Player player, Consumer<Component> consumer, TooltipFlag flag) {
         if (isShowOnly(itemStack)) {
             return;
         }
         callback.appendTooltip(itemStack, context, display, player, consumer, flag);
     }
 
-    public static Event<ItemStackTooltipCallback> getTooltipEventBus() {
-        return ItemStackTooltipCallback.EVENT;
+    public static Event<ItemEvent.ItemTooltip> getTooltipEventBus() {
+        return ItemEvent.ITEM_TOOLTIP;
     }
 
     static {
